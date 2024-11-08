@@ -1,0 +1,120 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Global context -->
+    <ContinuousIntegrationBuild Condition=" '$(ContinuousIntegrationBuild)' == '' ">false</ContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild Condition=" '$(GITHUB_ACTIONS)' == 'true' ">true</ContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild Condition=" '$(TF_BUILD)' == 'true' ">true</ContinuousIntegrationBuild>
+
+    <!-- WARNING: keep "ZorglubDefaultFramework" in sync with "global.json" -->
+    <ZorglubDefaultFramework>net8.0</ZorglubDefaultFramework>
+    <ZorglubLibraryFrameworks>$(ZorglubDefaultFramework)</ZorglubLibraryFrameworks>
+    <ZorglubTestFrameworks>$(ZorglubDefaultFramework)</ZorglubTestFrameworks>
+
+    <ZorglubT4Directory>$(MSBuildThisFileDirectory)src\CodeTemplates\</ZorglubT4Directory>
+    <ZorglubT4Assembly>$(MSBuildThisFileDirectory)eng\blib\Zorglub.TextTemplating.$(VisualStudioVersion).dll</ZorglubT4Assembly>
+
+    <!--
+      Lang Version:
+        "latest" or "preview"
+      Preview Features:
+        When we enable Preview Features we do it at the assembly level via
+        "GenerateRequiresPreviewFeaturesAttribute" (this is the default behaviour,
+        but I prefer to be explicit about this), and for all projects.
+    -->
+    <LangVersion>latest</LangVersion>
+    <EnablePreviewFeatures>false</EnablePreviewFeatures>
+    <GenerateRequiresPreviewFeaturesAttribute>false</GenerateRequiresPreviewFeaturesAttribute>
+  </PropertyGroup>
+
+  <!-- Common properties -->
+  <PropertyGroup>
+    <RootNamespace>Zorglub</RootNamespace>
+
+    <Nullable>enable</Nullable>
+    <Deterministic>true</Deterministic>
+
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)eng\Zorglub.snk</AssemblyOriginatorKeyFile>
+
+    <Authors>Tran Ngoc Bich</Authors>
+    <!--<Company>Narvalo.Org</Company>-->
+    <Product>Zorglub</Product>
+    <Copyright>Copyright (c) 2020 Tran Ngoc Bich</Copyright>
+
+    <!-- Fake version -->
+    <VersionPrefix>0.0.0</VersionPrefix>
+    <VersionSuffix>DUMMY</VersionSuffix>
+
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/chtoucas/Zorglub.Time/</RepositoryUrl>
+
+    <IsPackable>false</IsPackable>
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+
+    <!-- Code/Style Analysis
+      If we need a more recent version of Microsoft.CodeAnalysis.NetAnalyzers,
+      add a package reference in D.B.targets.
+      https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
+      https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismode
+    -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- Reproducible Build
+      RestoreLockedMode:
+        For CI builds, do not update the lock file.
+      DisableImplicitNuGetFallbackFolder:
+        Fix error NU1403, and not just for CI builds... It seems that dotnet
+        tweaks the packages before putting them within the fallback folder.
+        > dotnet nuget locals all -c
+    -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition=" '$(ContinuousIntegrationBuild)' == 'true' ">true</RestoreLockedMode>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+  </PropertyGroup>
+
+  <!-- Release vs Debug -->
+  <Choose>
+    <When Condition=" '$(Configuration)' == 'Release' ">
+      <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+        <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <!--
+          CS1030  Compiler Warning (level 1) #warning
+          CS1591  Missing XML comment for publicly visible type or member 'Type_or_Member'
+          IDE0049 Use language keywords instead of framework type names for type references
+                  No warning or error should appear when
+                    dotnet_style_predefined_type_for_locals_parameters_members = true
+                  For instance, we write "GetXXX(int)" in an XML doc.
+                  Adding IDE0049 to WarningsNotAsErrors fixes this in the sense
+                  that VS no longer displays an error (normal) but also discards
+                  the warning (weird)!
+                  https://github.com/dotnet/roslyn/issues/57764
+                  Update: we now use dotnet_diagnostic.IDE0049.severity = suggestion
+          IDE0290 Use primary constructor
+        -->
+        <WarningsNotAsErrors>CS1030;CS1591;IDE0049;IDE0290</WarningsNotAsErrors>
+        <NoWarn />
+      </PropertyGroup>
+    </When>
+
+    <Otherwise>
+      <PropertyGroup>
+        <SignAssembly>false</SignAssembly>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+        <WarningsAsErrors />
+        <NoWarn />
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+</Project>

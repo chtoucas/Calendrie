@@ -1,0 +1,37 @@
+<Project>
+
+  <PropertyGroup>
+    <AssemblyTitle>$(AssemblyName) [$(TargetFramework)]</AssemblyTitle>
+
+    <DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);CONTRACTS_FULL</DefineConstants>
+    <DefineConstants Condition=" '$(DefineConstants)' == '' ">CONTRACTS_FULL</DefineConstants>
+
+    <DefineConstants Condition=" '$(SignAssembly)' == 'true' ">$(DefineConstants);__SIGN_ASSEMBLY__</DefineConstants>
+    <DefineConstants Condition=" '$(HideInternals)' == 'true' ">$(DefineConstants);__HIDE_INTERNALS__</DefineConstants>
+    <DefineConstants Condition=" '$(EnablePreviewFeatures)' == 'true' ">$(DefineConstants);__ENABLE_PREVIEW_FEATURES__</DefineConstants>
+
+    <DefineConstants>$(DefineConstants);__PATCH_DIVREM__</DefineConstants>
+  </PropertyGroup>
+
+  <Target Name="PrintSettingsBeforeCompile" BeforeTargets="Compile"
+          Condition=" '$(PrintSettings)' == 'true' and '$(TargetFramework)' != '' ">
+    <PropertyGroup>
+      <MyMessage>| %24(SignAssembly)               = "$(SignAssembly)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(HideInternals)              = "$(HideInternals)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(LangVersion)                = "$(LangVersion)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(EnablePreviewFeatures)      = "$(EnablePreviewFeatures)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(ContinuousIntegrationBuild) = "$(ContinuousIntegrationBuild)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(EnableSourceLink)           = "$(EnableSourceLink)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(Deterministic)              = "$(Deterministic)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(DeterministicSourcePaths)   = "$(DeterministicSourcePaths)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(CheckForOverflowUnderflow)  = "$(CheckForOverflowUnderflow)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(GenerateDocumentationFile)  = "$(GenerateDocumentationFile)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(DebugType)                  = "$(DebugType)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(NoWarn)                     = "$(NoWarn)"</MyMessage>
+      <MyMessage>$(MyMessage)%0A| %24(DefineConstants) = "$(DefineConstants)"</MyMessage>
+    </PropertyGroup>
+
+    <Message Text="+ $(AssemblyName) for $(TargetFramework)%0A$(MyMessage)" Importance="high" />
+  </Target>
+
+</Project>
