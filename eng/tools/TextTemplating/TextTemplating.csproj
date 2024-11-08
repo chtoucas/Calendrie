@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <RootNamespace>Zorglub.TextTemplating</RootNamespace>
-    <AssemblyName>Zorglub.TextTemplating.$(VisualStudioVersion)</AssemblyName>
+    <RootNamespace>Calendrie.TextTemplating</RootNamespace>
+    <AssemblyName>Calendrie.TextTemplating.$(VisualStudioVersion)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Release' ">
-    <Message Text="Copying Zorglub.TextTemplating.$(VisualStudioVersion).dll to blib..." Importance="high" />
+    <Message Text="Copying Calendrie.TextTemplating.$(VisualStudioVersion).dll to blib..." Importance="high" />
     <Exec Command="xcopy /Y &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(MSBuildThisFileDirectory)..\..\blib&quot;" />
   </Target>
 

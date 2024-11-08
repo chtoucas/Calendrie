@@ -6,13 +6,13 @@
     <ContinuousIntegrationBuild Condition=" '$(GITHUB_ACTIONS)' == 'true' ">true</ContinuousIntegrationBuild>
     <ContinuousIntegrationBuild Condition=" '$(TF_BUILD)' == 'true' ">true</ContinuousIntegrationBuild>
 
-    <!-- WARNING: keep "ZorglubDefaultFramework" in sync with "global.json" -->
-    <ZorglubDefaultFramework>net8.0</ZorglubDefaultFramework>
-    <ZorglubLibraryFrameworks>$(ZorglubDefaultFramework)</ZorglubLibraryFrameworks>
-    <ZorglubTestFrameworks>$(ZorglubDefaultFramework)</ZorglubTestFrameworks>
+    <!-- WARNING: keep "CalendrieDefaultFramework" in sync with "global.json" -->
+    <CalendrieDefaultFramework>net8.0</CalendrieDefaultFramework>
+    <CalendrieLibraryFrameworks>$(CalendrieDefaultFramework)</CalendrieLibraryFrameworks>
+    <CalendrieTestFrameworks>$(CalendrieDefaultFramework)</CalendrieTestFrameworks>
 
-    <ZorglubT4Directory>$(MSBuildThisFileDirectory)src\CodeTemplates\</ZorglubT4Directory>
-    <ZorglubT4Assembly>$(MSBuildThisFileDirectory)eng\blib\Zorglub.TextTemplating.$(VisualStudioVersion).dll</ZorglubT4Assembly>
+    <CalendrieT4Directory>$(MSBuildThisFileDirectory)src\CodeTemplates\</CalendrieT4Directory>
+    <CalendrieT4Assembly>$(MSBuildThisFileDirectory)eng\blib\Calendrie.TextTemplating.$(VisualStudioVersion).dll</CalendrieT4Assembly>
 
     <!--
       Lang Version:
@@ -29,16 +29,16 @@
 
   <!-- Common properties -->
   <PropertyGroup>
-    <RootNamespace>Zorglub</RootNamespace>
+    <RootNamespace>Calendrie</RootNamespace>
 
     <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
 
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)eng\Zorglub.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)eng\Calendrie.snk</AssemblyOriginatorKeyFile>
 
     <Authors>Tran Ngoc Bich</Authors>
     <!--<Company>Narvalo.Org</Company>-->
-    <Product>Zorglub</Product>
+    <Product>Calendrie</Product>
     <Copyright>Copyright (c) 2020 Tran Ngoc Bich</Copyright>
 
     <!-- Fake version -->
@@ -46,7 +46,7 @@
     <VersionSuffix>DUMMY</VersionSuffix>
 
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/chtoucas/Zorglub.Time/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/chtoucas/Calendrie/</RepositoryUrl>
 
     <IsPackable>false</IsPackable>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>

@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Zorglub.TextTemplating;
+namespace Calendrie.TextTemplating;
 
 using System;
 using System.IO;
