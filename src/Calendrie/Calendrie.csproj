@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(CalendrieLibraryFrameworks)</TargetFrameworks>
+    <AssemblyName>Calendrie</AssemblyName>
+
+    <IsPackable>true</IsPackable>
+    <Title></Title>
+    <Description></Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Calendar;Date;Gregorian;Julian</PackageTags>
+    <!--<PackageDescription><![CDATA[
+
+    ]]></PackageDescription>
+    <PackageReleaseNotes><![CDATA[
+
+    ]]></PackageReleaseNotes>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <!-- T4 templates -->
+    <None Update="**\*.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>%(Filename).g.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Specialized\Armenian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Armenian.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Armenian13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Armenian13.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Coptic.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Coptic.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Coptic13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Coptic13.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Ethiopic.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Ethiopic.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Ethiopic13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Ethiopic13.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Gregorian.g.cs">
+      <DependentUpon>Gregorian.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Specialized\Civil.g.cs">
+      <DependentUpon>Civil.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Specialized\Julian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Julian.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\TabularIslamic.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TabularIslamic.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\World.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>World.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Zoroastrian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Zoroastrian.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Specialized\Zoroastrian13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Zoroastrian13.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- T4 service -->
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <ProjectReference Include="..\Generators\Generators.csproj">
+      <OutputItemType>Analyzer</OutputItemType>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>-->
+
+</Project>

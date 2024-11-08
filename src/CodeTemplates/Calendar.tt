@@ -1,0 +1,114 @@
+﻿<#@ assembly name="$(CalendrieT4Assembly)" #>
+<#@ include file="Calendar.EmitAdjuster.tt" #>
+<#@ include file="Calendar.EmitClock.tt" #>
+<#@ include file="Calendar.EmitDate.tt" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ import namespace="Calendrie.TextTemplating" #><#+
+
+public partial class CalendarTemplate : CSharpTemplate
+{
+    public CalendarTemplate(TextTransformation parent, string schemaClass) : base(parent)
+    {
+        if (String.IsNullOrWhiteSpace(schemaClass))
+            throw new ArgumentException("The schema can not be null or blank.", nameof(schemaClass));
+
+        SchemaClass = schemaClass;
+        DisplayName = Name;
+        Prefix = Name;
+    }
+
+    public string SchemaClass { get; }
+
+    // NB: we don't check the setter because these are design time templates:
+    // if "value" is null or invalid, then the T4 transformation will fail right
+    // away.
+
+    public string DisplayName { get; set; }
+    public string Prefix { get; set; }
+
+    public string DaysSinceEpochField { get; set; } = "_daysSinceEpoch";
+
+    // Temporary property until we decide what to do with clocks.
+    public bool EnableClock { get; set; }
+
+    protected sealed override void WriteContent()
+    {
+        WriteLine();
+        EmitPragmas();
+
+        WriteLine();
+        EmitNamespace();
+
+        WriteLine();
+        EmitUsings();
+
+        WriteLine();
+        EmitCalendar();
+
+        WriteLine();
+        EmitAdjuster();
+
+        if (EnableClock)
+        {
+            WriteLine();
+            EmitClock();
+        }
+
+        WriteLine();
+        EmitDate();
+    } // T4: End of WriteContent()
+
+    protected void EmitPragmas()
+    {
+#>
+#nullable enable
+<#+
+    } // T4: End of EmitPragmas()
+
+    protected void EmitNamespace()
+    {
+#>
+namespace <#= Namespace #>;
+<#+
+    } // T4: End of EmitNamespace()
+
+    protected virtual void EmitUsings()
+    {
+#>
+using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
+using Calendrie.Core.Validation;
+using Calendrie.Hemerology;
+using Calendrie.Hemerology.Scopes;
+<#+ if (EnableClock) { #>
+using Calendrie.Horology;
+<#+ } #>
+<#+
+    } // T4: End of EmitUsings()
+
+    protected void EmitCalendar()
+    {
+#>
+/// <summary>Represents the <#= DisplayName #> calendar.
+/// <para>This class cannot be inherited.</para></summary>
+public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
+{
+    /// <summary>Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.</summary>
+    public <#= Prefix #>Calendar() : this(new <#= SchemaClass #>()) { }
+
+    internal <#= Prefix #>Calendar(<#= SchemaClass #> schema) : base("<#= DisplayName #>", GetScope(schema))
+    {
+        OnInitializing(schema);
+    }
+
+    private static partial MinMaxYearScope GetScope(<#= SchemaClass #> schema);
+
+    partial void OnInitializing(<#= SchemaClass #> schema);
+
+    private protected sealed override <#= Prefix #>Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+}
+<#+
+    } // T4: End of EmitCalendar()
+} // T4: End of CalendarTemplate
+
+#>

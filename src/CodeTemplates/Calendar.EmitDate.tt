@@ -1,0 +1,417 @@
+﻿<#+
+
+public partial class CalendarTemplate
+{
+    protected void EmitDate()
+    {
+        EmitDateDecl();
+
+        WriteLine();
+        EmitDateCounting();
+
+        WriteLine();
+        EmitDateAdjustment();
+
+        WriteLine();
+        EmitDateEquatable();
+
+        WriteLine();
+        EmitDateComparable();
+
+        WriteLine();
+        EmitDateMath();
+    }
+
+    protected virtual void EmitDateDecl()
+    {
+#>
+/// <summary>Represents the <#= DisplayName #> date.
+/// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para></summary>
+public readonly partial struct <#= Prefix #>Date :
+    IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
+    IAdjustable<<#= Prefix #>Date>
+{
+    // WARNING: the order in which the static fields are written is __important__.
+
+    private static readonly <#= SchemaClass #> s_Schema = new();
+    private static readonly <#= Prefix #>Calendar s_Calendar = new(s_Schema);
+    private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
+    private static readonly DayNumber s_Epoch = s_Calendar.Epoch;
+    private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
+    private static readonly <#= Prefix #>Adjuster s_Adjuster = new(s_Scope);
+    private static readonly <#= Prefix #>Date s_MinValue = new(s_Domain.Min - s_Epoch);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Domain.Max - s_Epoch);
+
+    private readonly int <#= DaysSinceEpochField #>;
+
+    /// <summary>Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct to the specified date parts.</summary>
+    /// <exception cref="AoorException">The specified components do not form a valid date or
+    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    public <#= Prefix #>Date(int year, int month, int day)
+    {
+        s_Scope.ValidateYearMonthDay(year, month, day);
+
+        <#= DaysSinceEpochField #> = s_Schema.CountDaysSinceEpoch(year, month, day);
+    }
+
+    /// <summary>Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct to the specified ordinal date parts.</summary>
+    /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
+    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    public <#= Prefix #>Date(int year, int dayOfYear)
+    {
+        s_Scope.ValidateOrdinal(year, dayOfYear);
+
+        <#= DaysSinceEpochField #> = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
+    }
+
+    /// <summary>This constructor does NOT validate its parameter.</summary>
+    internal <#= Prefix #>Date(int daysSinceEpoch)
+    {
+        <#= DaysSinceEpochField #> = daysSinceEpoch;
+    }
+
+    /// <inheritdoc />
+    /// <remarks>This static property is thread-safe.</remarks>
+    public static <#= Prefix #>Date MinValue => s_MinValue;
+
+    /// <inheritdoc />
+    /// <remarks>This static property is thread-safe.</remarks>
+    public static <#= Prefix #>Date MaxValue => s_MaxValue;
+
+    /// <summary>Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para></summary>
+    public static <#= Prefix #>Adjuster Adjuster => s_Adjuster;
+
+    /// <inheritdoc />
+    public static <#= Prefix #>Calendar Calendar => s_Calendar;
+
+    /// <inheritdoc />
+    public DayNumber DayNumber => s_Epoch + <#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    public int DaysSinceEpoch => <#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <inheritdoc />
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <inheritdoc />
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <inheritdoc />
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <inheritdoc />
+    public int Year => s_Schema.GetYear(<#= DaysSinceEpochField #>);
+
+    /// <inheritdoc />
+    public int Month
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out int m, out _);
+            return m;
+        }
+    }
+
+    /// <inheritdoc />
+    public int DayOfYear
+    {
+        get
+        {
+            _ = s_Schema.GetYear(<#= DaysSinceEpochField #>, out int doy);
+            return doy;
+        }
+    }
+
+    /// <inheritdoc />
+    public int Day
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out _, out int d);
+            return d;
+        }
+    }
+
+    /// <inheritdoc />
+    public DayOfWeek DayOfWeek => DayNumber.DayOfWeek;
+
+    /// <inheritdoc />
+    public bool IsIntercalary
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            return s_Schema.IsIntercalaryDay(y, m, d);
+        }
+    }
+
+    /// <inheritdoc />
+    public bool IsSupplementary
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            return s_Schema.IsSupplementaryDay(y, m, d);
+        }
+    }
+
+    /// <summary>Returns a culture-independent string representation of the current instance.</summary>
+    [Pure]
+    public override string ToString()
+    {
+        s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({s_Calendar})");
+    }
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int month, out int day) =>
+        s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out year, out month, out day);
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int dayOfYear) =>
+        year = s_Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
+}
+
+public partial struct <#= Prefix #>Date // Factories
+{
+    /// <summary>Creates a new instance of the <see cref="<#= Prefix #>Date"/> struct from the
+    /// specified day number.</summary>
+    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
+    /// supported values.</exception>
+    public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
+    {
+        s_Domain.Validate(dayNumber);
+
+        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+    }
+}
+<#+
+    } // T4: End of EmitDateDecl()
+
+    protected void EmitDateCounting()
+    {
+#>
+public partial struct <#= Prefix #>Date // Counting
+{
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedDaysInYear() => s_Schema.CountDaysInYearBefore(<#= DaysSinceEpochField #>);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingDaysInYear() => s_Schema.CountDaysInYearAfter(<#= DaysSinceEpochField #>);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedDaysInMonth() => s_Schema.CountDaysInMonthBefore(<#= DaysSinceEpochField #>);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingDaysInMonth() => s_Schema.CountDaysInMonthAfter(<#= DaysSinceEpochField #>);
+}
+<#+
+    } // T4: End of EmitDateCounting()
+
+    protected virtual void EmitDateAdjustment()
+    {
+#>
+public partial struct <#= Prefix #>Date // Adjustments
+{
+    /// <inheritdoc />
+    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
+    [Pure]
+    public <#= Prefix #>Date Adjust(Func<<#= Prefix #>Date, <#= Prefix #>Date> adjuster)
+    {
+        Requires.NotNull(adjuster);
+
+        return adjuster.Invoke(this);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Previous(dayOfWeek);
+        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
+        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Nearest(dayOfWeek);
+        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
+        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Next(dayOfWeek);
+        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+    }
+}
+<#+
+    } // T4: End of EmitDateAdjustment()
+
+    protected void EmitDateEquatable()
+    {
+#>
+public partial struct <#= Prefix #>Date // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
+        left.<#= DaysSinceEpochField #> == right.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    public static bool operator !=(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
+        left.<#= DaysSinceEpochField #> != right.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(<#= Prefix #>Date other) => <#= DaysSinceEpochField #> == other.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is <#= Prefix #>Date date && Equals(date);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => <#= DaysSinceEpochField #>;
+}
+<#+
+    } // T4: End of EmitDateEquatable()
+
+    protected void EmitDateComparable()
+    {
+#>
+public partial struct <#= Prefix #>Date // IComparable
+{
+    /// <inheritdoc />
+    public static bool operator <(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
+        left.<#= DaysSinceEpochField #> < right.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    public static bool operator <=(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
+        left.<#= DaysSinceEpochField #> <= right.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    public static bool operator >(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
+        left.<#= DaysSinceEpochField #> > right.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    public static bool operator >=(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
+        left.<#= DaysSinceEpochField #> >= right.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    [Pure]
+    public static <#= Prefix #>Date Min(<#= Prefix #>Date x, <#= Prefix #>Date y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static <#= Prefix #>Date Max(<#= Prefix #>Date x, <#= Prefix #>Date y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(<#= Prefix #>Date other) => <#= DaysSinceEpochField #>.CompareTo(other.<#= DaysSinceEpochField #>);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is <#= Prefix #>Date date ? CompareTo(date)
+        : Throw.NonComparable(typeof(<#= Prefix #>Date), obj);
+}
+<#+
+    } // T4: End of EmitDateComparable()
+
+    protected void EmitDateMath()
+    {
+#>
+public partial struct <#= Prefix #>Date // Math
+{
+#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
+    // Friendly alternates do exist but use domain-specific names.
+
+    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    public static int operator -(<#= Prefix #>Date left, <#= Prefix #>Date right) => left.CountDaysSince(right);
+
+    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <exception cref="OverflowException">The operation would overflow either the capacity of
+    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    public static <#= Prefix #>Date operator +(<#= Prefix #>Date value, int days) => value.PlusDays(days);
+
+    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <exception cref="OverflowException">The operation would overflow either the capacity of
+    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    public static <#= Prefix #>Date operator -(<#= Prefix #>Date value, int days) => value.PlusDays(-days);
+
+    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
+    public static <#= Prefix #>Date operator ++(<#= Prefix #>Date value) => value.NextDay();
+
+    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
+    public static <#= Prefix #>Date operator --(<#= Prefix #>Date value) => value.PreviousDay();
+
+#pragma warning restore CA2225
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysSince(<#= Prefix #>Date other) =>
+        // No need to use a checked context here.
+        <#= DaysSinceEpochField #> - other.<#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date PlusDays(int days)
+    {
+        int daysSinceEpoch = checked(<#= DaysSinceEpochField #> + days);
+        // Don't write (the addition may also overflow...):
+        // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
+        s_Scope.DaysValidator.CheckOverflow(daysSinceEpoch);
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date NextDay() =>
+        this == s_MaxValue ? Throw.DateOverflow<<#= Prefix #>Date>()
+        : new <#= Prefix #>Date(<#= DaysSinceEpochField #> + 1);
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date PreviousDay() =>
+        this == s_MinValue ? Throw.DateOverflow<<#= Prefix #>Date>()
+        : new <#= Prefix #>Date(<#= DaysSinceEpochField #> - 1);
+}
+<#+
+    } // T4: End of EmitDateMath()
+} // T4: End of CalendarTemplate
+
+#>

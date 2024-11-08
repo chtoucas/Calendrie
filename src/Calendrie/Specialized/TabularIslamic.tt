@@ -1,0 +1,16 @@
+﻿<#@ template hostspecific="true" #>
+<#@ output extension=".g.cs" #>
+<#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
+// SPDX-License-Identifier: BSD-3-Clause
+// Copyright (c) Tran Ngoc Bich. All rights reserved.
+
+<#= new TabularIslamicTemplate(this).Execute() #><#+
+
+public sealed class TabularIslamicTemplate : CalendarTemplate
+{
+    public TabularIslamicTemplate(TextTransformation parent) : base(parent, "TabularIslamicSchema") { }
+
+    public override void Initialize() { DisplayName = "Tabular Islamic"; }
+}
+
+#>

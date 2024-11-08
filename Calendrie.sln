@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendrie", "src\Calendrie\Calendrie.csproj", "{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84246E77-9B04-4280-B84B-32C8772009ED}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeTemplates", "CodeTemplates", "{E7581A9C-D825-468D-92D8-5E120FA815EA}"
+	ProjectSection(SolutionItems) = preProject
+		src\CodeTemplates\Calendar.EmitAdjuster.tt = src\CodeTemplates\Calendar.EmitAdjuster.tt
+		src\CodeTemplates\Calendar.EmitClock.tt = src\CodeTemplates\Calendar.EmitClock.tt
+		src\CodeTemplates\Calendar.EmitDate.tt = src\CodeTemplates\Calendar.EmitDate.tt
+		src\CodeTemplates\Calendar.tt = src\CodeTemplates\Calendar.tt
+		src\CodeTemplates\GCalendar.tt = src\CodeTemplates\GCalendar.tt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
+		{E7581A9C-D825-468D-92D8-5E120FA815EA} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED8B0D74-DB69-46D4-AADE-91101FF165C2}
+	EndGlobalSection
+EndGlobal
