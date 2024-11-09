@@ -308,8 +308,7 @@ public partial struct Yemo // IComparable
     /// Compares the two specified instances to see if the left one is strictly earlier than the
     /// right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, Month).</para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, Month).
     /// </remarks>
     public static bool operator <(Yemo left, Yemo right) => left._bin < right._bin;
 
@@ -317,8 +316,7 @@ public partial struct Yemo // IComparable
     /// Compares the two specified instances to see if the left one is earlier than or equal to
     /// the right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, Month).</para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, Month).
     /// </remarks>
     public static bool operator <=(Yemo left, Yemo right) => left._bin <= right._bin;
 
@@ -326,8 +324,7 @@ public partial struct Yemo // IComparable
     /// Compares the two specified instances to see if the left one is strictly later than the
     /// right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, Month).</para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, Month).
     /// </remarks>
     public static bool operator >(Yemo left, Yemo right) => left._bin > right._bin;
 
@@ -335,14 +332,12 @@ public partial struct Yemo // IComparable
     /// Compares the two specified instances to see if the left one is later than or equal to
     /// the right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, Month).</para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, Month).
     /// </remarks>
     public static bool operator >=(Yemo left, Yemo right) => left._bin >= right._bin;
 
     /// <inheritdoc />
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, Month).</para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, Month).
     /// </remarks>
     [Pure]
     public int CompareTo(Yemo other) => _bin.CompareTo(other._bin);

@@ -20,8 +20,7 @@ namespace Calendrie.Core.Schemas;
 /// following December (the thirteenth month).</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-/// <remarks>
-/// <para>For technical reasons, the blank-days are attached to the month preceding them.</para>
+/// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
 /// </remarks>
 public sealed partial class InternationalFixedSchema :
     SystemSchema,
@@ -40,9 +39,7 @@ public sealed partial class InternationalFixedSchema :
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
     /// </summary>
-    /// <remarks>
-    /// <para>On average, a year is 365.2425 days long.</para>
-    /// </remarks>
+    /// <remarks>On average, a year is 365.2425 days long.</remarks>
     public const int DaysPer400YearCycle = GregorianSchema.DaysPer400YearCycle;
 
     /// <summary>

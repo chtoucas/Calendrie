@@ -19,18 +19,14 @@ public abstract partial class TropicalistaSchema : SystemSchema, IRegularFeature
     /// Represents the number of days per 128-year cycle.
     /// <para>This field is a constant equal to 46_751.</para>
     /// </summary>
-    /// <remarks>
-    /// On average, a year is 365.2421875 days long.
-    /// </remarks>
+    /// <remarks>On average, a year is 365.2421875 days long.</remarks>
     public const int DaysPer128YearCycle = 128 * DaysInCommonYear + 31;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 4-year subcycle.
     /// <para>This field is a constant equal to 1461.</para>
     /// </summary>
-    /// <remarks>
-    /// On average, a year is 365.25 days long.
-    /// </remarks>
+    /// <remarks>On average, a year is 365.25 days long.</remarks>
     public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPer4JulianYearCycle;
 
     /// <summary>

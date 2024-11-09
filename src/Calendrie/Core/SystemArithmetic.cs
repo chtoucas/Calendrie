@@ -49,11 +49,9 @@ using Calendrie.Core.Validation;
 /// Defines the core mathematical operations on dates and months, and provides a base for derived
 /// classes.
 /// </summary>
-/// <remarks>
-/// <para>Operations are <i>lenient</i>, they assume that their parameters are valid from a
-/// calendrical point of view. They MUST ensure that all returned values are valid when the
-/// previous condition is met.</para>
-/// </remarks>
+/// <remarks>Operations are <i>lenient</i>, they assume that their parameters are valid from a
+/// calendrical point of view. They MUST ensure that all returned values are valid when the previous
+/// condition is met.</remarks>
 public abstract partial class SystemArithmetic
 {
     /// <summary>

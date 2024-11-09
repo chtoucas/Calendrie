@@ -26,9 +26,7 @@ public sealed partial class GregorianSchema : GJSchema, IBoxable<GregorianSchema
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
     /// </summary>
-    /// <remarks>
-    /// <para>On average, a year is 365.2425 days long.</para>
-    /// </remarks>
+    /// <remarks>On average, a year is 365.2425 days long.</remarks>
     public const int DaysPer400YearCycle = 400 * DaysInCommonYear + 97;
 
     /// <summary>
@@ -41,9 +39,7 @@ public sealed partial class GregorianSchema : GJSchema, IBoxable<GregorianSchema
     /// Represents the <i>average</i> number of days per 4-year subcycle.
     /// <para>This field is a constant equal to 1461.</para>
     /// </summary>
-    /// <remarks>
-    /// <para>On average, a year is 365.25 days long.</para>
-    /// </remarks>
+    /// <remarks>On average, a year is 365.25 days long.</remarks>
     public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPer4JulianYearCycle;
 
     /// <summary>

@@ -274,9 +274,7 @@ public partial struct Yedoy // IComparable
     /// Compares the two specified instances to see if the left one is strictly earlier than the
     /// right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
-    /// </para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
     /// </remarks>
     public static bool operator <(Yedoy left, Yedoy right) => left._bin < right._bin;
 
@@ -284,9 +282,7 @@ public partial struct Yedoy // IComparable
     /// Compares the two specified instances to see if the left one is earlier than or equal to
     /// the right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
-    /// </para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
     /// </remarks>
     public static bool operator <=(Yedoy left, Yedoy right) => left._bin <= right._bin;
 
@@ -294,9 +290,7 @@ public partial struct Yedoy // IComparable
     /// Compares the two specified instances to see if the left one is strictly later than the
     /// right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
-    /// </para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
     /// </remarks>
     public static bool operator >(Yedoy left, Yedoy right) => left._bin > right._bin;
 
@@ -304,16 +298,12 @@ public partial struct Yedoy // IComparable
     /// Compares the two specified instances to see if the left one is later than or equal to
     /// the right one.
     /// </summary>
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
-    /// </para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
     /// </remarks>
     public static bool operator >=(Yedoy left, Yedoy right) => left._bin >= right._bin;
 
     /// <inheritdoc />
-    /// <remarks>
-    /// <para>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
-    /// </para>
+    /// <remarks>The comparison is done using the lexicographic order on pairs (Year, DayOfYear).
     /// </remarks>
     [Pure]
     public int CompareTo(Yedoy other) => _bin.CompareTo(other._bin);

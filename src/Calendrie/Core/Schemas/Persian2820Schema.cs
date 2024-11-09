@@ -34,12 +34,9 @@ using Calendrie.Core.Intervals;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-/// <remarks>
-/// This is not the calendar currently in use in Iran. Furthermore, it has
-/// "been criticized by calendar researchers, among them the Iranian
-/// astronomers Malakpour (2004) and Sayyâd (2000)";
-/// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.
-/// </remarks>
+/// <remarks>This is not the calendar currently in use in Iran. Furthermore, it has "been criticized
+/// by calendar researchers, among them the Iranian astronomers Malakpour (2004) and Sayyâd (2000)";
+/// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</remarks>
 public sealed partial class Persian2820Schema :
     SystemSchema,
     IRegularFeaturette,
@@ -56,9 +53,7 @@ public sealed partial class Persian2820Schema :
     /// Represents the number of days per 2820-year cycle.
     /// <para>This field is a constant equal to 1_029_983.</para>
     /// </summary>
-    /// <remarks>
-    /// On average, a year is approximately 365.242196... days long.
-    /// </remarks>
+    /// <remarks>On average, a year is approximately 365.242196... days long.</remarks>
     public const int DaysPer2820YearCycle = 2820 * DaysInCommonYear + 683;
 
     /// <summary>
@@ -89,10 +84,8 @@ public sealed partial class Persian2820Schema :
     /// <summary>
     /// Represents the year "zero" of the first whole 2820-year cycle.
     /// </summary>
-    /// <remarks>
-    /// The first 2820-year cycle is the range 475-3295. Before that we have
-    /// 86 years followed by two 128-year cycles and one 132-year cycle.
-    /// </remarks>
+    /// <remarks>The first 2820-year cycle is the range 475-3295. Before that we have 86 years
+    /// followed by two 128-year cycles and one 132-year cycle.</remarks>
     public const int Year0 = 474;
 
     /// <summary>

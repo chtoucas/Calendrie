@@ -47,7 +47,7 @@ internal partial class TemporalArithmetic // TicksPerDay
     private const long TicksPerDayOddPart = TicksPerDay >> TicksPerDayTwoAdicOrder;
 
     /// <summary><c>daysSinceZero = ticksSinceZero / TicksPerDay</c></summary>
-    /// <remarks><para><paramref name="ticksSinceZero"/> MUST be &gt;= 0.</para></remarks>
+    /// <remarks><paramref name="ticksSinceZero"/> MUST be &gt;= 0.</remarks>
     [Pure]
     // CIL code size = 12 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -99,7 +99,7 @@ internal partial class TemporalArithmetic // NanosecondsPerHour
         NanosecondsPerHour >> NanosecondsPerHourTwoAdicOrder;
 
     /// <summary><c>hourOfDay = nanosecondOfDay / NanosecondsPerHour</c></summary>
-    /// <remarks><para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para></remarks>
+    /// <remarks><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</remarks>
     [Pure]
     // CIL code size = 13 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -142,7 +142,7 @@ internal partial class TemporalArithmetic // NanosecondsPerMinute
         NanosecondsPerMinute >> NanosecondsPerMinuteTwoAdicOrder;
 
     /// <summary><c>minuteOfDay = nanosecondOfDay / NanosecondsPerMinute</c></summary>
-    /// <remarks><para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para></remarks>
+    /// <remarks><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</remarks>
     [Pure]
     // CIL code size = 13 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

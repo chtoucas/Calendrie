@@ -11,7 +11,9 @@ namespace Calendrie;
 // pour être bien sûr qu'il n'y ait pas de risque de confusion entre DayOfWeek
 // et IsoWeekday.
 
-/// <summary>Specifies the ISO weekday.</summary>
+/// <summary>
+/// Specifies the ISO weekday.
+/// </summary>
 public enum IsoWeekday
 {
     /// <summary>

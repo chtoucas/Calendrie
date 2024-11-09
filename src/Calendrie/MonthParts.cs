@@ -3,18 +3,22 @@
 
 namespace Calendrie;
 
-/// <summary>Represents a pair of a year and a month.
+/// <summary>
+/// Represents a pair of a year and a month.
 /// <para>This type uses the lexicographic order on pairs (Year, Month).</para>
 /// <para><see cref="MonthParts"/> does NOT represent a month, its default value is not even a
 /// valid month.</para>
-/// <para><see cref="MonthParts"/> is an immutable struct.</para></summary>
+/// <para><see cref="MonthParts"/> is an immutable struct.</para>
+/// </summary>
 /// <param name="Year">Algebraic year number.</param>
 /// <param name="Month">Month of the year.</param>
 public readonly record struct MonthParts(int Year, int Month) :
     IComparisonOperators<MonthParts, MonthParts>
 {
-    /// <summary>Creates a new instance of the <see cref="MonthParts"/> struct representing the
-    /// first month of the specified year.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="MonthParts"/> struct representing the first month
+    /// of the specified year.
+    /// </summary>
     [Pure]
     public static MonthParts AtStartOfYear(int y) => new(y, 1);
 

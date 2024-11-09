@@ -3,18 +3,22 @@
 
 namespace Calendrie;
 
-/// <summary>Represents a pair of a year and a day of the year.
+/// <summary>
+/// Represents a pair of a year and a day of the year.
 /// <para>This type uses the lexicographic order on pairs (Year, DayOfYear).</para>
 /// <para><see cref="OrdinalParts"/> does NOT represent an ordinal date, its default value is
 /// not even a valid ordinal date.</para>
-/// <para><see cref="OrdinalParts"/> is an immutable struct.</para></summary>
+/// <para><see cref="OrdinalParts"/> is an immutable struct.</para>
+/// </summary>
 /// <param name="Year">Algebraic year number.</param>
 /// <param name="DayOfYear">Day of the year.</param>
 public readonly record struct OrdinalParts(int Year, int DayOfYear) :
     IComparisonOperators<OrdinalParts, OrdinalParts>
 {
-    /// <summary>Creates a new instance of the <see cref="OrdinalParts"/> struct representing the
-    /// first day of the specified year.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="OrdinalParts"/> struct representing the first day
+    /// of the specified year.
+    /// </summary>
     [Pure]
     public static OrdinalParts AtStartOfYear(int y) => new(y, 1);
 

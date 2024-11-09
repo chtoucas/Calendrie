@@ -11,9 +11,7 @@ using Calendrie.Hemerology.Scopes;
 // TODO(api): clocks, non-standard math.
 // Date.CountDaysSince(other) checked context or not? ensure that we test that?
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class CivilCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(CivilSchema schema) =>
@@ -23,10 +21,8 @@ public partial class CivilCalendar : IRegularFeaturette
     public int MonthsInYear => GJSchema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar is <i>proleptic</i>. It supports <i>all</i> dates within the range
-/// [-999_998..999_999] of years.
-/// </remarks>
+/// <remarks>This calendar is <i>proleptic</i>. It supports <i>all</i> dates within the range
+/// [-999_998..999_999] of years.</remarks>
 public partial class GregorianCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(GregorianSchema schema) =>
@@ -36,10 +32,8 @@ public partial class GregorianCalendar : IRegularFeaturette
     public int MonthsInYear => GJSchema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar is <i>proleptic</i>. It supports <i>all</i> dates within the range
-/// [-999_998..999_999] of years.
-/// </remarks>
+/// <remarks>This calendar is <i>proleptic</i>. It supports <i>all</i> dates within the range
+/// [-999_998..999_999] of years.</remarks>
 public partial class JulianCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(JulianSchema schema) =>
@@ -49,9 +43,7 @@ public partial class JulianCalendar : IRegularFeaturette
     public int MonthsInYear => GJSchema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class ArmenianCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(Egyptian12Schema schema) =>
@@ -61,9 +53,7 @@ public partial class ArmenianCalendar : IRegularFeaturette
     public int MonthsInYear => Egyptian12Schema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class Armenian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
     private static partial MinMaxYearScope GetScope(Egyptian13Schema schema) =>
@@ -78,9 +68,7 @@ public partial class Armenian13Calendar : IRegularFeaturette, IVirtualMonthFeatu
     public int VirtualMonth { get; private set; }
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class CopticCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(Coptic12Schema schema) =>
@@ -90,9 +78,7 @@ public partial class CopticCalendar : IRegularFeaturette
     public int MonthsInYear => Coptic12Schema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class Coptic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
     private static partial MinMaxYearScope GetScope(Coptic13Schema schema) =>
@@ -107,9 +93,7 @@ public partial class Coptic13Calendar : IRegularFeaturette, IVirtualMonthFeature
     public int VirtualMonth { get; private set; }
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class EthiopicCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(Coptic12Schema schema) =>
@@ -119,9 +103,7 @@ public partial class EthiopicCalendar : IRegularFeaturette
     public int MonthsInYear => Coptic12Schema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class Ethiopic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
     private static partial MinMaxYearScope GetScope(Coptic13Schema schema) =>
@@ -136,9 +118,7 @@ public partial class Ethiopic13Calendar : IRegularFeaturette, IVirtualMonthFeatu
     public int VirtualMonth { get; private set; }
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class TabularIslamicCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(TabularIslamicSchema schema) =>
@@ -148,9 +128,7 @@ public partial class TabularIslamicCalendar : IRegularFeaturette
     public int MonthsInYear => TabularIslamicSchema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class WorldCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(WorldSchema schema) =>
@@ -172,9 +150,7 @@ public partial class WorldCalendar : IRegularFeaturette
     }
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class ZoroastrianCalendar : IRegularFeaturette
 {
     private static partial MinMaxYearScope GetScope(Egyptian12Schema schema) =>
@@ -184,9 +160,7 @@ public partial class ZoroastrianCalendar : IRegularFeaturette
     public int MonthsInYear => Egyptian12Schema.MonthsPerYear;
 }
 
-/// <remarks>
-/// This calendar supports <i>all</i> dates within the range [1..9999] of years.
-/// </remarks>
+/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999] of years.</remarks>
 public partial class Zoroastrian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
     private static partial MinMaxYearScope GetScope(Egyptian13Schema schema) =>
