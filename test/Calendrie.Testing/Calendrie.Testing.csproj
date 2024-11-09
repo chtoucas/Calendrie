@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(CalendrieLibraryFrameworks)</TargetFrameworks>
+
+    <!--
+      CA1000  Do not declare static members on generic types (Design)
+      CA1707  Identifiers should not contain underscores (Naming)
+    -->
+    <NoWarn>$(NoWarn);CA1000;CA1707</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.assert" />
+    <PackageReference Include="xunit.extensibility.core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
+  </ItemGroup>
+
+</Project>
