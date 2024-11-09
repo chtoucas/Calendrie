@@ -17,11 +17,15 @@ using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 using Calendrie.Horology;
 
-/// <summary>Represents the Civil calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the Civil calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="CivilCalendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
+    /// </summary>
     public CivilCalendar() : this(new CivilSchema()) { }
 
     internal CivilCalendar(CivilSchema schema) : base("Civil", GetScope(schema))
@@ -36,11 +40,15 @@ public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
     private protected sealed override CivilDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Provides common adjusters for <see cref="CivilDate"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides common adjusters for <see cref="CivilDate"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="CivilAdjuster"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilAdjuster"/> class.
+    /// </summary>
     public CivilAdjuster() : base(CivilDate.Calendar.Scope) { }
 
     internal CivilAdjuster(MinMaxYearScope scope) : base(scope) { }
@@ -48,39 +56,53 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     private protected sealed override CivilDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Represents a clock for the Civil calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents a clock for the Civil calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class CivilClock
 {
     private readonly IClock _clock;
 
-    /// <summary>Initializes a new instance of the <see cref="CivilClock"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilClock"/> class.
+    /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.</exception>
     public CivilClock(IClock clock)
     {
         _clock = clock ?? throw new ArgumentNullException(nameof(clock));
     }
 
-    /// <summary>Gets an instance of the <see cref="CivilClock"/> class for the system clock
-    /// using the current time zone setting on this machine.</summary>
+    /// <summary>
+    /// Gets an instance of the <see cref="CivilClock"/> class for the system clock
+    /// using the current time zone setting on this machine.
+    /// </summary>
     public static CivilClock Local { get; } = new(SystemClocks.Local);
 
-    /// <summary>Gets an instance of the <see cref="CivilClock"/> class for the system clock
-    /// using the Coordinated Universal Time (UTC).</summary>
+    /// <summary>
+    /// Gets an instance of the <see cref="CivilClock"/> class for the system clock
+    /// using the Coordinated Universal Time (UTC).
+    /// </summary>
     public static CivilClock Utc { get; } = new(SystemClocks.Utc);
 
-    /// <summary>Obtains an instance of the <see cref="CivilClock"/> class for the specified clock.</summary>
+    /// <summary>
+    /// Obtains an instance of the <see cref="CivilClock"/> class for the specified clock.
+    /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.</exception>
     [Pure]
     public static CivilClock GetClock(IClock clock) => new(clock);
 
-    /// <summary>Obtains a <see cref="CivilDate"/> value representing the current date.</summary>
+    /// <summary>
+    /// Obtains a <see cref="CivilDate"/> value representing the current date.
+    /// </summary>
     [Pure]
     public CivilDate GetCurrentDate() => new(_clock.Today().DaysSinceZero);
 }
 
-/// <summary>Represents the Civil date.
-/// <para><see cref="CivilDate"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents the Civil date.
+/// <para><see cref="CivilDate"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct CivilDate :
     IDate<CivilDate, CivilCalendar>,
     IAdjustable<CivilDate>
@@ -229,24 +251,34 @@ public partial struct CivilDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
     // Friendly alternates do exist but use domain-specific names.
 
-    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between them.
+    /// </summary>
     public static int operator -(CivilDate left, CivilDate right) => left.CountDaysSince(right);
 
-    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static CivilDate operator +(CivilDate value, int days) => value.PlusDays(days);
 
-    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static CivilDate operator -(CivilDate value, int days) => value.PlusDays(-days);
 
-    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
     public static CivilDate operator ++(CivilDate value) => value.NextDay();
 
-    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
     public static CivilDate operator --(CivilDate value) => value.PreviousDay();
 

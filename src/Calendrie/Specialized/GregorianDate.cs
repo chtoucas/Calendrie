@@ -23,8 +23,10 @@ public partial struct GregorianDate
 
     private readonly int _daysSinceZero;
 
-    /// <summary>Initializes a new instance of the <see cref="GregorianDate"/> struct to the
-    /// specified date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianDate"/> struct to the specified date
+    /// parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public GregorianDate(int year, int month, int day)
@@ -34,8 +36,10 @@ public partial struct GregorianDate
         _daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, month, day);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="GregorianDate"/> struct to the
-    /// specified ordinal date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianDate"/> struct to the specified
+    /// ordinal date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public GregorianDate(int year, int dayOfYear)
@@ -45,8 +49,10 @@ public partial struct GregorianDate
         _daysSinceZero = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="GregorianDate"/> struct.
-    /// <para>This method does NOT validate its parameter.</para></summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianDate"/> struct.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
     internal GregorianDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
@@ -60,8 +66,10 @@ public partial struct GregorianDate
     /// <remarks>This static property is thread-safe.</remarks>
     public static GregorianDate MaxValue => s_MaxValue;
 
-    /// <summary>Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static GregorianAdjuster Adjuster => s_Adjuster;
 
     /// <inheritdoc />
@@ -136,7 +144,8 @@ public partial struct GregorianDate
     /// <inheritdoc />
     public bool IsSupplementary => false;
 
-    /// <summary>Returns a culture-independent string representation of the current instance.
+    /// <summary>
+    /// Returns a culture-independent string representation of the current instance.
     /// </summary>
     [Pure]
     public override string ToString()
@@ -156,8 +165,10 @@ public partial struct GregorianDate
 
 public partial struct GregorianDate // Factories
 {
-    /// <summary>Creates a new instance of the <see cref="GregorianDate"/> struct from the specified
-    /// day number.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from the specified day
+    /// number.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
     /// supported values.</exception>
     public static GregorianDate FromDayNumber(DayNumber dayNumber)

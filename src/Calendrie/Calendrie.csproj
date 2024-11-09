@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>$(CalendrieLibraryFrameworks)</TargetFrameworks>
-    <AssemblyName>Calendrie</AssemblyName>
 
     <IsPackable>true</IsPackable>
     <Title></Title>

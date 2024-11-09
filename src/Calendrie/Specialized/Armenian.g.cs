@@ -18,11 +18,15 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents the Armenian calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the Armenian calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="ArmenianCalendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ArmenianCalendar"/> class.
+    /// </summary>
     public ArmenianCalendar() : this(new Egyptian12Schema()) { }
 
     internal ArmenianCalendar(Egyptian12Schema schema) : base("Armenian", GetScope(schema))
@@ -37,11 +41,15 @@ public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
     private protected sealed override ArmenianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Provides common adjusters for <see cref="ArmenianDate"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides common adjusters for <see cref="ArmenianDate"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class ArmenianAdjuster : SpecialAdjuster<ArmenianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="ArmenianAdjuster"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ArmenianAdjuster"/> class.
+    /// </summary>
     public ArmenianAdjuster() : base(ArmenianDate.Calendar.Scope) { }
 
     internal ArmenianAdjuster(MinMaxYearScope scope) : base(scope) { }
@@ -49,8 +57,10 @@ public sealed partial class ArmenianAdjuster : SpecialAdjuster<ArmenianDate>
     private protected sealed override ArmenianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Represents the Armenian date.
-/// <para><see cref="ArmenianDate"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents the Armenian date.
+/// <para><see cref="ArmenianDate"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct ArmenianDate :
     IDate<ArmenianDate, ArmenianCalendar>,
     IAdjustable<ArmenianDate>
@@ -68,7 +78,9 @@ public readonly partial struct ArmenianDate :
 
     private readonly int _daysSinceEpoch;
 
-    /// <summary>Initializes a new instance of the <see cref="ArmenianDate"/> struct to the specified date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ArmenianDate"/> struct to the specified date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public ArmenianDate(int year, int month, int day)
@@ -78,7 +90,9 @@ public readonly partial struct ArmenianDate :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, month, day);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="ArmenianDate"/> struct to the specified ordinal date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ArmenianDate"/> struct to the specified ordinal date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public ArmenianDate(int year, int dayOfYear)
@@ -88,7 +102,9 @@ public readonly partial struct ArmenianDate :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    /// <summary>This constructor does NOT validate its parameter.</summary>
+    /// <summary>
+    /// This constructor does NOT validate its parameter.
+    /// </summary>
     internal ArmenianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
@@ -102,8 +118,10 @@ public readonly partial struct ArmenianDate :
     /// <remarks>This static property is thread-safe.</remarks>
     public static ArmenianDate MaxValue => s_MaxValue;
 
-    /// <summary>Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static ArmenianAdjuster Adjuster => s_Adjuster;
 
     /// <inheritdoc />
@@ -183,7 +201,9 @@ public readonly partial struct ArmenianDate :
         }
     }
 
-    /// <summary>Returns a culture-independent string representation of the current instance.</summary>
+    /// <summary>
+    /// Returns a culture-independent string representation of the current instance.
+    /// </summary>
     [Pure]
     public override string ToString()
     {
@@ -202,8 +222,10 @@ public readonly partial struct ArmenianDate :
 
 public partial struct ArmenianDate // Factories
 {
-    /// <summary>Creates a new instance of the <see cref="ArmenianDate"/> struct from the
-    /// specified day number.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="ArmenianDate"/> struct from the
+    /// specified day number.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
     /// supported values.</exception>
     public static ArmenianDate FromDayNumber(DayNumber dayNumber)
@@ -357,24 +379,34 @@ public partial struct ArmenianDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
     // Friendly alternates do exist but use domain-specific names.
 
-    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between them.
+    /// </summary>
     public static int operator -(ArmenianDate left, ArmenianDate right) => left.CountDaysSince(right);
 
-    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static ArmenianDate operator +(ArmenianDate value, int days) => value.PlusDays(days);
 
-    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static ArmenianDate operator -(ArmenianDate value, int days) => value.PlusDays(-days);
 
-    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
     public static ArmenianDate operator ++(ArmenianDate value) => value.NextDay();
 
-    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
     public static ArmenianDate operator --(ArmenianDate value) => value.PreviousDay();
 

@@ -24,8 +24,10 @@ public partial struct JulianDate
 
     private readonly int _daysSinceEpoch;
 
-    /// <summary>Initializes a new instance of the <see cref="JulianDate"/> struct to the specified
-    /// date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JulianDate"/> struct to the specified date
+    /// parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public JulianDate(int year, int month, int day)
@@ -35,8 +37,10 @@ public partial struct JulianDate
         _daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, month, day);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="JulianDate"/> struct to the specified
-    /// ordinal date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JulianDate"/> struct to the specified ordinal
+    /// date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public JulianDate(int year, int dayOfYear)
@@ -60,8 +64,10 @@ public partial struct JulianDate
     /// <remarks>This static property is thread-safe.</remarks>
     public static JulianDate MaxValue => s_MaxValue;
 
-    /// <summary>Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static JulianAdjuster Adjuster => s_Adjuster;
 
     /// <inheritdoc />
@@ -134,7 +140,8 @@ public partial struct JulianDate
     /// <inheritdoc />
     public bool IsSupplementary => false;
 
-    /// <summary>Returns a culture-independent string representation of the current instance.
+    /// <summary>
+    /// Returns a culture-independent string representation of the current instance.
     /// </summary>
     [Pure]
     public override string ToString()
@@ -154,8 +161,9 @@ public partial struct JulianDate
 
 public partial struct JulianDate // Factories
 {
-    /// <summary>Creates a new instance of the <see cref="JulianDate"/> struct from the specified
-    /// day number.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the specified day number.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
     /// supported values.</exception>
     public static JulianDate FromDayNumber(DayNumber dayNumber)

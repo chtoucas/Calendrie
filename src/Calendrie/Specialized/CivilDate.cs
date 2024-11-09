@@ -27,8 +27,9 @@ public partial struct CivilDate
 
     private readonly int _daysSinceZero;
 
-    /// <summary>Initializes a new instance of the <see cref="CivilDate"/> struct to the specified
-    /// date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilDate"/> struct to the specified date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public CivilDate(int year, int month, int day)
@@ -38,8 +39,10 @@ public partial struct CivilDate
         _daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, month, day);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="CivilDate"/> struct to the specified
-    /// ordinal date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilDate"/> struct to the specified ordinal
+    /// date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public CivilDate(int year, int dayOfYear)
@@ -49,8 +52,10 @@ public partial struct CivilDate
         _daysSinceZero = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="CivilDate"/> struct.
-    /// <para>This method does NOT validate its parameter.</para></summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilDate"/> struct.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
     internal CivilDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
@@ -64,8 +69,10 @@ public partial struct CivilDate
     /// <remarks>This static property is thread-safe.</remarks>
     public static CivilDate MaxValue => s_MaxValue;
 
-    /// <summary>Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static CivilAdjuster Adjuster => s_Adjuster;
 
     /// <inheritdoc />
@@ -74,7 +81,9 @@ public partial struct CivilDate
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 
-    /// <summary>Gets the count of days since the Gregorian epoch.</summary>
+    /// <summary>
+    /// Gets the count of days since the Gregorian epoch.
+    /// </summary>
     public int DaysSinceZero => _daysSinceZero;
 
     int IFixedDate.DaysSinceEpoch => _daysSinceZero;
@@ -140,7 +149,8 @@ public partial struct CivilDate
     /// <inheritdoc />
     public bool IsSupplementary => false;
 
-    /// <summary>Returns a culture-independent string representation of the current instance.
+    /// <summary>
+    /// Returns a culture-independent string representation of the current instance.
     /// </summary>
     [Pure]
     public override string ToString()
@@ -160,8 +170,9 @@ public partial struct CivilDate
 
 public partial struct CivilDate // Factories
 {
-    /// <summary>Creates a new instance of the <see cref="CivilDate"/> struct from the specified
-    /// day number.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct from the specified day number.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
     /// supported values.</exception>
     public static CivilDate FromDayNumber(DayNumber dayNumber)

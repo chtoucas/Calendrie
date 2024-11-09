@@ -89,11 +89,15 @@ using Calendrie.Horology;
     protected void EmitCalendar()
     {
 #>
-/// <summary>Represents the <#= DisplayName #> calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the <#= DisplayName #> calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
-    /// <summary>Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
+    /// </summary>
     public <#= Prefix #>Calendar() : this(new <#= SchemaClass #>()) { }
 
     internal <#= Prefix #>Calendar(<#= SchemaClass #> schema) : base("<#= DisplayName #>", GetScope(schema))

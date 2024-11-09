@@ -16,11 +16,15 @@ using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents the Julian calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the Julian calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class JulianCalendar : SpecialCalendar<JulianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="JulianCalendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JulianCalendar"/> class.
+    /// </summary>
     public JulianCalendar() : this(new JulianSchema()) { }
 
     internal JulianCalendar(JulianSchema schema) : base("Julian", GetScope(schema))
@@ -35,11 +39,15 @@ public sealed partial class JulianCalendar : SpecialCalendar<JulianDate>
     private protected sealed override JulianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Provides common adjusters for <see cref="JulianDate"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides common adjusters for <see cref="JulianDate"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="JulianAdjuster"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JulianAdjuster"/> class.
+    /// </summary>
     public JulianAdjuster() : base(JulianDate.Calendar.Scope) { }
 
     internal JulianAdjuster(MinMaxYearScope scope) : base(scope) { }
@@ -197,24 +205,34 @@ public partial struct JulianDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
     // Friendly alternates do exist but use domain-specific names.
 
-    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between them.
+    /// </summary>
     public static int operator -(JulianDate left, JulianDate right) => left.CountDaysSince(right);
 
-    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static JulianDate operator +(JulianDate value, int days) => value.PlusDays(days);
 
-    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static JulianDate operator -(JulianDate value, int days) => value.PlusDays(-days);
 
-    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
     public static JulianDate operator ++(JulianDate value) => value.NextDay();
 
-    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
     public static JulianDate operator --(JulianDate value) => value.PreviousDay();
 

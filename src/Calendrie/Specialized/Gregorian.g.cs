@@ -16,11 +16,15 @@ using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents the Gregorian calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the Gregorian calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class GregorianCalendar : SpecialCalendar<GregorianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="GregorianCalendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
+    /// </summary>
     public GregorianCalendar() : this(new GregorianSchema()) { }
 
     internal GregorianCalendar(GregorianSchema schema) : base("Gregorian", GetScope(schema))
@@ -35,11 +39,15 @@ public sealed partial class GregorianCalendar : SpecialCalendar<GregorianDate>
     private protected sealed override GregorianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Provides common adjusters for <see cref="GregorianDate"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides common adjusters for <see cref="GregorianDate"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="GregorianAdjuster"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianAdjuster"/> class.
+    /// </summary>
     public GregorianAdjuster() : base(GregorianDate.Calendar.Scope) { }
 
     internal GregorianAdjuster(MinMaxYearScope scope) : base(scope) { }
@@ -47,8 +55,10 @@ public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
     private protected sealed override GregorianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Represents the Gregorian date.
-/// <para><see cref="GregorianDate"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents the Gregorian date.
+/// <para><see cref="GregorianDate"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct GregorianDate :
     IDate<GregorianDate, GregorianCalendar>,
     IAdjustable<GregorianDate>
@@ -197,24 +207,34 @@ public partial struct GregorianDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
     // Friendly alternates do exist but use domain-specific names.
 
-    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between them.
+    /// </summary>
     public static int operator -(GregorianDate left, GregorianDate right) => left.CountDaysSince(right);
 
-    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static GregorianDate operator +(GregorianDate value, int days) => value.PlusDays(days);
 
-    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static GregorianDate operator -(GregorianDate value, int days) => value.PlusDays(-days);
 
-    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
     public static GregorianDate operator ++(GregorianDate value) => value.NextDay();
 
-    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
     public static GregorianDate operator --(GregorianDate value) => value.PreviousDay();
 

@@ -18,11 +18,15 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents the Tabular Islamic calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the Tabular Islamic calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
+    /// </summary>
     public TabularIslamicCalendar() : this(new TabularIslamicSchema()) { }
 
     internal TabularIslamicCalendar(TabularIslamicSchema schema) : base("Tabular Islamic", GetScope(schema))
@@ -37,11 +41,15 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     private protected sealed override TabularIslamicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Provides common adjusters for <see cref="TabularIslamicDate"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides common adjusters for <see cref="TabularIslamicDate"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIslamicDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="TabularIslamicAdjuster"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicAdjuster"/> class.
+    /// </summary>
     public TabularIslamicAdjuster() : base(TabularIslamicDate.Calendar.Scope) { }
 
     internal TabularIslamicAdjuster(MinMaxYearScope scope) : base(scope) { }
@@ -49,8 +57,10 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
     private protected sealed override TabularIslamicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Represents the Tabular Islamic date.
-/// <para><see cref="TabularIslamicDate"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents the Tabular Islamic date.
+/// <para><see cref="TabularIslamicDate"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate, TabularIslamicCalendar>,
     IAdjustable<TabularIslamicDate>
@@ -68,7 +78,9 @@ public readonly partial struct TabularIslamicDate :
 
     private readonly int _daysSinceEpoch;
 
-    /// <summary>Initializes a new instance of the <see cref="TabularIslamicDate"/> struct to the specified date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicDate"/> struct to the specified date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public TabularIslamicDate(int year, int month, int day)
@@ -78,7 +90,9 @@ public readonly partial struct TabularIslamicDate :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, month, day);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="TabularIslamicDate"/> struct to the specified ordinal date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicDate"/> struct to the specified ordinal date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public TabularIslamicDate(int year, int dayOfYear)
@@ -88,7 +102,9 @@ public readonly partial struct TabularIslamicDate :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    /// <summary>This constructor does NOT validate its parameter.</summary>
+    /// <summary>
+    /// This constructor does NOT validate its parameter.
+    /// </summary>
     internal TabularIslamicDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
@@ -102,8 +118,10 @@ public readonly partial struct TabularIslamicDate :
     /// <remarks>This static property is thread-safe.</remarks>
     public static TabularIslamicDate MaxValue => s_MaxValue;
 
-    /// <summary>Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static TabularIslamicAdjuster Adjuster => s_Adjuster;
 
     /// <inheritdoc />
@@ -183,7 +201,9 @@ public readonly partial struct TabularIslamicDate :
         }
     }
 
-    /// <summary>Returns a culture-independent string representation of the current instance.</summary>
+    /// <summary>
+    /// Returns a culture-independent string representation of the current instance.
+    /// </summary>
     [Pure]
     public override string ToString()
     {
@@ -202,8 +222,10 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Factories
 {
-    /// <summary>Creates a new instance of the <see cref="TabularIslamicDate"/> struct from the
-    /// specified day number.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicDate"/> struct from the
+    /// specified day number.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
     /// supported values.</exception>
     public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
@@ -357,24 +379,34 @@ public partial struct TabularIslamicDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
     // Friendly alternates do exist but use domain-specific names.
 
-    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between them.
+    /// </summary>
     public static int operator -(TabularIslamicDate left, TabularIslamicDate right) => left.CountDaysSince(right);
 
-    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static TabularIslamicDate operator +(TabularIslamicDate value, int days) => value.PlusDays(days);
 
-    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static TabularIslamicDate operator -(TabularIslamicDate value, int days) => value.PlusDays(-days);
 
-    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
     public static TabularIslamicDate operator ++(TabularIslamicDate value) => value.NextDay();
 
-    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
     public static TabularIslamicDate operator --(TabularIslamicDate value) => value.PreviousDay();
 

@@ -33,12 +33,12 @@ public partial class LowerRay // LowerRay<int>
     /// Obtains the set complement of this ray.
     /// </summary>
     /// <exception cref="InvalidOperationException">The ray represents the whole
-    /// <see cref="Int32"/> range.</exception>
+    /// <see cref="int"/> range.</exception>
     [Pure]
     public static UpperRay<int> Complement(this LowerRay<int> ray)
     {
         int max = ray.Max;
-        return max == Int32.MaxValue ? throw new InvalidOperationException() : new(max + 1);
+        return max == int.MaxValue ? throw new InvalidOperationException() : new(max + 1);
     }
 }
 

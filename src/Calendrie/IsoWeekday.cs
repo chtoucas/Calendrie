@@ -14,39 +14,59 @@ namespace Calendrie;
 /// <summary>Specifies the ISO weekday.</summary>
 public enum IsoWeekday
 {
-    /// <summary>Indicates an unknown ISO weekday.
+    /// <summary>
+    /// Indicates an unknown ISO weekday.
     /// <para>This value is considered to be <i>invalid</i>. We never use it, and neither should
-    /// you.</para></summary>
+    /// you.</para>
+    /// </summary>
     None = 0,
 
-    /// <summary>Indicates Monday.</summary>
+    /// <summary>
+    /// Indicates Monday.
+    /// </summary>
     Monday = 1,
 
-    /// <summary>Indicates Tuesday.</summary>
+    /// <summary>
+    /// Indicates Tuesday.
+    /// </summary>
     Tuesday = 2,
 
-    /// <summary>Indicates Wednesday.</summary>
+    /// <summary>
+    /// Indicates Wednesday.
+    /// </summary>
     Wednesday = 3,
 
-    /// <summary>Indicates Thursday.</summary>
+    /// <summary>
+    /// Indicates Thursday.
+    /// </summary>
     Thursday = 4,
 
-    /// <summary>Indicates Friday.</summary>
+    /// <summary>
+    /// Indicates Friday.
+    /// </summary>
     Friday = 5,
 
-    /// <summary>Indicates Saturday.</summary>
+    /// <summary>
+    /// Indicates Saturday.
+    /// </summary>
     Saturday = 6,
 
-    /// <summary>Indicates Sunday.</summary>
+    /// <summary>
+    /// Indicates Sunday.
+    /// </summary>
     Sunday = 7
 }
 
-/// <summary>Provides extension methods for <see cref="IsoWeekday"/> and <see cref="DayOfWeek"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides extension methods for <see cref="IsoWeekday"/> and <see cref="DayOfWeek"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public static class IsoWeekdayExtensions
 {
-    /// <summary>Converts the specified <see cref="DayOfWeek"/> value to the equivalent
-    /// <see cref="IsoWeekday"/>.</summary>
+    /// <summary>
+    /// Converts the specified <see cref="DayOfWeek"/> value to the equivalent
+    /// <see cref="IsoWeekday"/>.
+    /// </summary>
     [Pure]
     public static IsoWeekday ToIsoWeekday(this DayOfWeek dayOfWeek)
     {
@@ -55,8 +75,10 @@ public static class IsoWeekdayExtensions
         return dayOfWeek == DayOfWeek.Sunday ? IsoWeekday.Sunday : (IsoWeekday)dayOfWeek;
     }
 
-    /// <summary>Converts the specified <see cref="IsoWeekday"/> value to the equivalent
-    /// <see cref="DayOfWeek"/>.</summary>
+    /// <summary>
+    /// Converts the specified <see cref="IsoWeekday"/> value to the equivalent
+    /// <see cref="DayOfWeek"/>.
+    /// </summary>
     [Pure]
     public static DayOfWeek ToDayOfWeek(this IsoWeekday isoWeekday)
     {

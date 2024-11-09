@@ -18,11 +18,15 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents the Zoroastrian calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the Zoroastrian calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
+    /// </summary>
     public ZoroastrianCalendar() : this(new Egyptian12Schema()) { }
 
     internal ZoroastrianCalendar(Egyptian12Schema schema) : base("Zoroastrian", GetScope(schema))
@@ -37,11 +41,15 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
     private protected sealed override ZoroastrianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Provides common adjusters for <see cref="ZoroastrianDate"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides common adjusters for <see cref="ZoroastrianDate"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDate>
 {
-    /// <summary>Initializes a new instance of the <see cref="ZoroastrianAdjuster"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianAdjuster"/> class.
+    /// </summary>
     public ZoroastrianAdjuster() : base(ZoroastrianDate.Calendar.Scope) { }
 
     internal ZoroastrianAdjuster(MinMaxYearScope scope) : base(scope) { }
@@ -49,8 +57,10 @@ public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDat
     private protected sealed override ZoroastrianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Represents the Zoroastrian date.
-/// <para><see cref="ZoroastrianDate"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents the Zoroastrian date.
+/// <para><see cref="ZoroastrianDate"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
     IAdjustable<ZoroastrianDate>
@@ -68,7 +78,9 @@ public readonly partial struct ZoroastrianDate :
 
     private readonly int _daysSinceEpoch;
 
-    /// <summary>Initializes a new instance of the <see cref="ZoroastrianDate"/> struct to the specified date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianDate"/> struct to the specified date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public ZoroastrianDate(int year, int month, int day)
@@ -78,7 +90,9 @@ public readonly partial struct ZoroastrianDate :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, month, day);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="ZoroastrianDate"/> struct to the specified ordinal date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianDate"/> struct to the specified ordinal date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public ZoroastrianDate(int year, int dayOfYear)
@@ -88,7 +102,9 @@ public readonly partial struct ZoroastrianDate :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    /// <summary>This constructor does NOT validate its parameter.</summary>
+    /// <summary>
+    /// This constructor does NOT validate its parameter.
+    /// </summary>
     internal ZoroastrianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
@@ -102,8 +118,10 @@ public readonly partial struct ZoroastrianDate :
     /// <remarks>This static property is thread-safe.</remarks>
     public static ZoroastrianDate MaxValue => s_MaxValue;
 
-    /// <summary>Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static ZoroastrianAdjuster Adjuster => s_Adjuster;
 
     /// <inheritdoc />
@@ -183,7 +201,9 @@ public readonly partial struct ZoroastrianDate :
         }
     }
 
-    /// <summary>Returns a culture-independent string representation of the current instance.</summary>
+    /// <summary>
+    /// Returns a culture-independent string representation of the current instance.
+    /// </summary>
     [Pure]
     public override string ToString()
     {
@@ -202,8 +222,10 @@ public readonly partial struct ZoroastrianDate :
 
 public partial struct ZoroastrianDate // Factories
 {
-    /// <summary>Creates a new instance of the <see cref="ZoroastrianDate"/> struct from the
-    /// specified day number.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="ZoroastrianDate"/> struct from the
+    /// specified day number.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
     /// supported values.</exception>
     public static ZoroastrianDate FromDayNumber(DayNumber dayNumber)
@@ -357,24 +379,34 @@ public partial struct ZoroastrianDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
     // Friendly alternates do exist but use domain-specific names.
 
-    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between them.
+    /// </summary>
     public static int operator -(ZoroastrianDate left, ZoroastrianDate right) => left.CountDaysSince(right);
 
-    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static ZoroastrianDate operator +(ZoroastrianDate value, int days) => value.PlusDays(days);
 
-    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static ZoroastrianDate operator -(ZoroastrianDate value, int days) => value.PlusDays(-days);
 
-    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
     public static ZoroastrianDate operator ++(ZoroastrianDate value) => value.NextDay();
 
-    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
     public static ZoroastrianDate operator --(ZoroastrianDate value) => value.PreviousDay();
 

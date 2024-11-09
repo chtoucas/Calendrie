@@ -18,11 +18,15 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents the Coptic calendar.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents the Coptic calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
 {
-    /// <summary>Initializes a new instance of the <see cref="Coptic13Calendar"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Coptic13Calendar"/> class.
+    /// </summary>
     public Coptic13Calendar() : this(new Coptic13Schema()) { }
 
     internal Coptic13Calendar(Coptic13Schema schema) : base("Coptic", GetScope(schema))
@@ -37,11 +41,15 @@ public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
     private protected sealed override Coptic13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Provides common adjusters for <see cref="Coptic13Date"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides common adjusters for <see cref="Coptic13Date"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class Coptic13Adjuster : SpecialAdjuster<Coptic13Date>
 {
-    /// <summary>Initializes a new instance of the <see cref="Coptic13Adjuster"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Coptic13Adjuster"/> class.
+    /// </summary>
     public Coptic13Adjuster() : base(Coptic13Date.Calendar.Scope) { }
 
     internal Coptic13Adjuster(MinMaxYearScope scope) : base(scope) { }
@@ -49,8 +57,10 @@ public sealed partial class Coptic13Adjuster : SpecialAdjuster<Coptic13Date>
     private protected sealed override Coptic13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Represents the Coptic date.
-/// <para><see cref="Coptic13Date"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents the Coptic date.
+/// <para><see cref="Coptic13Date"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct Coptic13Date :
     IDate<Coptic13Date, Coptic13Calendar>,
     IAdjustable<Coptic13Date>
@@ -68,7 +78,9 @@ public readonly partial struct Coptic13Date :
 
     private readonly int _daysSinceEpoch;
 
-    /// <summary>Initializes a new instance of the <see cref="Coptic13Date"/> struct to the specified date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Coptic13Date"/> struct to the specified date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public Coptic13Date(int year, int month, int day)
@@ -78,7 +90,9 @@ public readonly partial struct Coptic13Date :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, month, day);
     }
 
-    /// <summary>Initializes a new instance of the <see cref="Coptic13Date"/> struct to the specified ordinal date parts.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Coptic13Date"/> struct to the specified ordinal date parts.
+    /// </summary>
     /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
     /// <paramref name="year"/> is outside the range of supported years.</exception>
     public Coptic13Date(int year, int dayOfYear)
@@ -88,7 +102,9 @@ public readonly partial struct Coptic13Date :
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    /// <summary>This constructor does NOT validate its parameter.</summary>
+    /// <summary>
+    /// This constructor does NOT validate its parameter.
+    /// </summary>
     internal Coptic13Date(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
@@ -102,8 +118,10 @@ public readonly partial struct Coptic13Date :
     /// <remarks>This static property is thread-safe.</remarks>
     public static Coptic13Date MaxValue => s_MaxValue;
 
-    /// <summary>Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Coptic13Adjuster Adjuster => s_Adjuster;
 
     /// <inheritdoc />
@@ -183,7 +201,9 @@ public readonly partial struct Coptic13Date :
         }
     }
 
-    /// <summary>Returns a culture-independent string representation of the current instance.</summary>
+    /// <summary>
+    /// Returns a culture-independent string representation of the current instance.
+    /// </summary>
     [Pure]
     public override string ToString()
     {
@@ -202,8 +222,10 @@ public readonly partial struct Coptic13Date :
 
 public partial struct Coptic13Date // Factories
 {
-    /// <summary>Creates a new instance of the <see cref="Coptic13Date"/> struct from the
-    /// specified day number.</summary>
+    /// <summary>
+    /// Creates a new instance of the <see cref="Coptic13Date"/> struct from the
+    /// specified day number.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
     /// supported values.</exception>
     public static Coptic13Date FromDayNumber(DayNumber dayNumber)
@@ -357,24 +379,34 @@ public partial struct Coptic13Date // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
     // Friendly alternates do exist but use domain-specific names.
 
-    /// <summary>Subtracts the two specified dates and returns the number of days between them.</summary>
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between them.
+    /// </summary>
     public static int operator -(Coptic13Date left, Coptic13Date right) => left.CountDaysSince(right);
 
-    /// <summary>Adds a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static Coptic13Date operator +(Coptic13Date value, int days) => value.PlusDays(days);
 
-    /// <summary>Subtracts a number of days to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="Int32"/> or the range of supported dates.</exception>
+    /// <see cref="int"/> or the range of supported dates.</exception>
     public static Coptic13Date operator -(Coptic13Date value, int days) => value.PlusDays(-days);
 
-    /// <summary>Adds one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
     public static Coptic13Date operator ++(Coptic13Date value) => value.NextDay();
 
-    /// <summary>Subtracts one day to the specified date, yielding a new date.</summary>
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
     public static Coptic13Date operator --(Coptic13Date value) => value.PreviousDay();
 
