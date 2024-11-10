@@ -4,16 +4,16 @@
 namespace Calendrie;
 
 /// <summary>
-/// Specifies the kind of adjustments the calendar may perform to synchronize itself with the lunar
-/// and solar cycles.
+/// Specifies the kind of adjustments the calendar may perform to synchronize
+/// itself with the lunar and solar cycles.
 /// </summary>
 [Flags]
 public enum CalendricalAdjustments
 {
     /// <summary>
-    /// The calendar does not employ any mechanism in order to achieve any kind of luni-solar
-    /// synchronicity. We also use this value for calendars that do periodic adjustments not related
-    /// to the lunar and solar cycles.
+    /// The calendar does not employ any mechanism in order to achieve any kind
+    /// of luni-solar synchronicity. We also use this value for calendars that
+    /// do periodic adjustments not related to the lunar and solar cycles.
     /// </summary>
     None = 0,
 
