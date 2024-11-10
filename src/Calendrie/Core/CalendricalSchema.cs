@@ -130,8 +130,8 @@ public abstract partial class CalendricalSchema : ICalendricalSchemaPlus
     /// <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     protected CalendricalSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
     {
-        if (minDaysInYear <= 0) Throw.ArgumentOutOfRange(nameof(minDaysInYear));
-        if (minDaysInMonth <= 0) Throw.ArgumentOutOfRange(nameof(minDaysInMonth));
+        AoorException.ThrowIfLessThanOrEqual(minDaysInYear, 0);
+        AoorException.ThrowIfLessThanOrEqual(minDaysInMonth, 0);
 
         SupportedYears = supportedYears;
         MinDaysInYear = minDaysInYear;

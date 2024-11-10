@@ -110,19 +110,26 @@ public partial struct Ord // Factories, conversions
     /// rank.</summary>
     /// <exception cref="AoorException"><paramref name="rank"/> is equal to zero or
     /// <see cref="int.MinValue"/>.</exception>
-    public static Ord FromRank(int rank) =>
-        rank == 0 || rank == int.MinValue ? Throw.ArgumentOutOfRange<Ord>(nameof(rank))
+    public static Ord FromRank(int rank)
+    {
+        AoorException.ThrowIfEqual(rank, 0);
+        AoorException.ThrowIfEqual(rank, int.MinValue);
+
         // The next operation never overflows. It is equivalent to:
         //   rank > 0 ? Zeroth + rank : First + rank;
-        : new Ord(rank > 0 ? rank : 1 + rank);
+        return new Ord(rank > 0 ? rank : 1 + rank);
+    }
 
     /// <summary>Creates a new instance of the <see cref="Ord"/> struct from the specified algebraic
     /// value.</summary>
     /// <exception cref="AoorException"><paramref name="value"/> is lower than
     /// <see cref="MinAlgebraicValue"/>.</exception>
-    public static Ord FromInt32(int value) =>
-        value < MinAlgebraicValue ? Throw.ArgumentOutOfRange<Ord>(nameof(value))
-        : new Ord(value);
+    public static Ord FromInt32(int value)
+    {
+        AoorException.ThrowIfLessThan(value, MinAlgebraicValue);
+
+        return new Ord(value);
+    }
 
     /// <summary>Converts the current instance to its equivalent algebraic value, a 32-bit signed
     /// integer.

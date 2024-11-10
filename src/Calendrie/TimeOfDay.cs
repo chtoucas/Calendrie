@@ -268,7 +268,8 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromHour(int hour)
     {
-        if (hour < 0 || hour >= HoursPerDay) Throw.ArgumentOutOfRange(nameof(hour));
+        AoorException.ThrowIfLessThan(hour, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(hour, HoursPerDay);
 
         return new TimeOfDay(Pack(hour, 0, 0));
     }
@@ -279,8 +280,10 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromHourMinute(int hour, int minute)
     {
-        if (hour < 0 || hour >= HoursPerDay) Throw.ArgumentOutOfRange(nameof(hour));
-        if (minute < 0 || minute >= MinutesPerHour) Throw.ArgumentOutOfRange(nameof(minute));
+        AoorException.ThrowIfLessThan(hour, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(hour, HoursPerDay);
+        AoorException.ThrowIfLessThan(minute, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(minute, MinutesPerHour);
 
         int bin = Pack(hour, minute, 0);
         return new TimeOfDay(bin);
@@ -292,9 +295,12 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromHourMinuteSecond(int hour, int minute, int second)
     {
-        if (hour < 0 || hour >= HoursPerDay) Throw.ArgumentOutOfRange(nameof(hour));
-        if (minute < 0 || minute >= MinutesPerHour) Throw.ArgumentOutOfRange(nameof(minute));
-        if (second < 0 || second >= SecondsPerMinute) Throw.ArgumentOutOfRange(nameof(second));
+        AoorException.ThrowIfLessThan(hour, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(hour, HoursPerDay);
+        AoorException.ThrowIfLessThan(minute, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(minute, MinutesPerHour);
+        AoorException.ThrowIfLessThan(second, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(second, SecondsPerMinute);
 
         int bin = Pack(hour, minute, second);
         return new TimeOfDay(bin);
@@ -307,11 +313,14 @@ public partial struct TimeOfDay // Factories, conversions...
     public static TimeOfDay FromHourMinuteSecondMillisecond(
         int hour, int minute, int second, int millisecond)
     {
-        if (hour < 0 || hour >= HoursPerDay) Throw.ArgumentOutOfRange(nameof(hour));
-        if (minute < 0 || minute >= MinutesPerHour) Throw.ArgumentOutOfRange(nameof(minute));
-        if (second < 0 || second >= SecondsPerMinute) Throw.ArgumentOutOfRange(nameof(second));
-        if (millisecond < 0 || millisecond >= MillisecondsPerSecond)
-            Throw.ArgumentOutOfRange(nameof(second));
+        AoorException.ThrowIfLessThan(hour, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(hour, HoursPerDay);
+        AoorException.ThrowIfLessThan(minute, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(minute, MinutesPerHour);
+        AoorException.ThrowIfLessThan(second, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(second, SecondsPerMinute);
+        AoorException.ThrowIfLessThan(millisecond, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(millisecond, MillisecondsPerSecond);
 
         int bin = Pack(hour, minute, second, millisecond);
         return new TimeOfDay(bin);
@@ -328,8 +337,8 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromMinuteOfDay(int minuteOfDay)
     {
-        if (minuteOfDay < 0 || minuteOfDay >= MinutesPerDay)
-            Throw.ArgumentOutOfRange(nameof(minuteOfDay));
+        AoorException.ThrowIfLessThan(minuteOfDay, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(minuteOfDay, MinutesPerDay);
 
         int h = minuteOfDay / MinutesPerHour;
         int m = minuteOfDay % MinutesPerHour;
@@ -343,8 +352,8 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromSecondOfDay(int secondOfDay)
     {
-        if (secondOfDay < 0 || secondOfDay >= SecondsPerDay)
-            Throw.ArgumentOutOfRange(nameof(secondOfDay));
+        AoorException.ThrowIfLessThan(secondOfDay, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(secondOfDay, SecondsPerDay);
 
         int h = secondOfDay / SecondsPerHour;
         int m = secondOfDay / SecondsPerMinute % MinutesPerHour;
@@ -360,8 +369,8 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromMillisecondOfDay(int millisecondOfDay)
     {
-        if (millisecondOfDay < 0 || millisecondOfDay >= MillisecondsPerDay)
-            Throw.ArgumentOutOfRange(nameof(millisecondOfDay));
+        AoorException.ThrowIfLessThan(millisecondOfDay, 0);
+        AoorException.ThrowIfGreaterThanOrEqual(millisecondOfDay, MillisecondsPerDay);
 
         return FromMillisecondOfDayCore(millisecondOfDay);
     }
@@ -386,8 +395,8 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromFractionOfDay(double fractionOfDay)
     {
-        if (fractionOfDay < 0d || fractionOfDay >= 1d)
-            Throw.ArgumentOutOfRange(nameof(fractionOfDay));
+        AoorException.ThrowIfLessThan(fractionOfDay, 0d);
+        AoorException.ThrowIfGreaterThanOrEqual(fractionOfDay, 1d);
 
         int millisecondOfDay = (int)(fractionOfDay * MillisecondsPerDay);
 
@@ -400,8 +409,8 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     internal static TimeOfDay FromFractionOfDay(decimal fractionOfDay)
     {
-        if (fractionOfDay < 0m || fractionOfDay >= 1m)
-            Throw.ArgumentOutOfRange(nameof(fractionOfDay));
+        AoorException.ThrowIfLessThan(fractionOfDay, 0m);
+        AoorException.ThrowIfGreaterThanOrEqual(fractionOfDay, 1m);
 
         int millisecondOfDay = (int)(fractionOfDay * MillisecondsPerDay);
 
