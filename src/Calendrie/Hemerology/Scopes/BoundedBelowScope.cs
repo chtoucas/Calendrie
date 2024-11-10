@@ -98,7 +98,7 @@ public sealed class BoundedBelowScope : CalendarScope
     [Pure]
     public static BoundedBelowScope Create(CalendarScope scope)
     {
-        Requires.NotNull(scope);
+        ArgumentNullException.ThrowIfNull(scope);
 
         return scope is BoundedBelowScope scope_ ? scope_
             : new BoundedBelowScope(scope.Epoch, scope.Segment);

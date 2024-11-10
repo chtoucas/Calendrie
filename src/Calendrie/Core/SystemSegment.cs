@@ -101,7 +101,7 @@ public sealed class SystemSegment : ISchemaBound
     [Pure]
     public static SystemSegment Create(SystemSchema schema, Range<int> supportedYears)
     {
-        Requires.NotNull(schema);
+        ArgumentNullException.ThrowIfNull(schema);
         if (supportedYears.IsSubsetOf(schema.SupportedYears) == false)
         {
             Throw.Argument(nameof(supportedYears));
@@ -140,7 +140,7 @@ public sealed class SystemSegment : ISchemaBound
     /// <exception cref="ArgumentException">The underlying schema is NOT a system schema.</exception>
     public static SystemSegment FromCalendricalSegment(CalendricalSegment segment)
     {
-        Requires.NotNull(segment);
+        ArgumentNullException.ThrowIfNull(segment);
 
         var sch = segment.Schema as SystemSchema;
         if (sch is null) Throw.Argument(nameof(segment));

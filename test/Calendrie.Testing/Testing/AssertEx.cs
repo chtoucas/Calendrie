@@ -40,7 +40,7 @@ public partial class AssertEx // Arg exceptions
     /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.</exception>
     public static void CheckException(Type expectedExceptionType, Exception exn)
     {
-        Requires.NotNull(exn);
+        ArgumentNullException.ThrowIfNull(exn);
 
         IsType(expectedExceptionType, exn);
         NotNull(exn.Message);
@@ -53,7 +53,7 @@ public partial class AssertEx // Arg exceptions
     /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.</exception>
     public static void CheckArgumentException(string expectedParamName, ArgumentException exn)
     {
-        Requires.NotNull(exn);
+        ArgumentNullException.ThrowIfNull(exn);
 
         NotNull(exn.Message);
         Equal(expectedParamName, exn.ParamName);
@@ -98,7 +98,7 @@ public partial class AssertEx // Box<T>
     /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
     public static void Empty<T>(Box<T> box) where T : class
     {
-        Requires.NotNull(box);
+        ArgumentNullException.ThrowIfNull(box);
 
         True(box.IsEmpty, "The box should be empty.");
     }
@@ -109,7 +109,7 @@ public partial class AssertEx // Box<T>
     /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
     public static void Some<T>(Box<T> box) where T : class
     {
-        Requires.NotNull(box);
+        ArgumentNullException.ThrowIfNull(box);
 
         False(box.IsEmpty, "The box should not be empty.");
     }
@@ -121,7 +121,7 @@ public partial class AssertEx // Box<T>
     /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
     public static void Some<T>([DisallowNull] T expected, Box<T> box) where T : class
     {
-        Requires.NotNull(box);
+        ArgumentNullException.ThrowIfNull(box);
 
         False(box.IsEmpty, "The box should not be empty.");
         Equal(expected, box.Content);

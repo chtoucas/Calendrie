@@ -262,7 +262,7 @@ public partial struct Ethiopic13Date // Adjustments
     [Pure]
     public Ethiopic13Date Adjust(Func<Ethiopic13Date, Ethiopic13Date> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

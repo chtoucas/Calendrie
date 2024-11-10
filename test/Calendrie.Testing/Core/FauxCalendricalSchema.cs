@@ -54,7 +54,7 @@ public partial class FauxCalendricalSchema : CalendricalSchema
         public FauxRegularSchema(Func<CalendricalSchema, ICalendricalPreValidator> preValidator)
             : this(12)
         {
-            Requires.NotNull(preValidator);
+            ArgumentNullException.ThrowIfNull(preValidator);
 
             // NB: it will only works with Solar12PreValidator...
             PreValidator = preValidator.Invoke(this);
@@ -113,30 +113,30 @@ public partial class FauxCalendricalSchema // Props & methods
 
 public partial class FauxCalendricalSchema // Profiles
 {
-    public static readonly TheoryData<FauxCalendricalSchema> NotLunar = new()
-    {
+    public static readonly TheoryData<FauxCalendricalSchema> NotLunar =
+    [
         new FauxRegularSchema(Lunar.MonthsInYear + 1, Lunar.MinDaysInYear, Lunar.MinDaysInMonth),
         new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear - 1, Lunar.MinDaysInMonth),
         new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear, Lunar.MinDaysInMonth - 1),
-    };
+    ];
 
-    public static readonly TheoryData<FauxCalendricalSchema> NotLunisolar = new()
-    {
+    public static readonly TheoryData<FauxCalendricalSchema> NotLunisolar =
+    [
         new FauxCalendricalSchema(Lunisolar.MinDaysInYear - 1, Lunisolar.MinDaysInMonth),
         new FauxCalendricalSchema(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth - 1),
-    };
+    ];
 
-    public static readonly TheoryData<FauxCalendricalSchema> NotSolar12 = new()
-    {
+    public static readonly TheoryData<FauxCalendricalSchema> NotSolar12 =
+    [
         new FauxRegularSchema(Solar12.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
-    };
+    ];
 
-    public static readonly TheoryData<FauxCalendricalSchema> NotSolar13 = new()
-    {
+    public static readonly TheoryData<FauxCalendricalSchema> NotSolar13 =
+    [
         new FauxRegularSchema(Solar13.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
-    };
+    ];
 }

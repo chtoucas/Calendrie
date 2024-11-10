@@ -141,7 +141,7 @@ public sealed class ExcludeFromTraitDiscoverer : ITraitDiscoverer
 {
     public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
     {
-        Requires.NotNull(traitAttribute);
+        ArgumentNullException.ThrowIfNull(traitAttribute);
 
         var value = traitAttribute.GetNamedArgument<TestExcludeFrom>(XunitTraits.ExcludeFrom);
 
@@ -169,7 +169,7 @@ public sealed class PerformanceTraitDiscoverer : ITraitDiscoverer
 {
     public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
     {
-        Requires.NotNull(traitAttribute);
+        ArgumentNullException.ThrowIfNull(traitAttribute);
 
         var value = traitAttribute.GetNamedArgument<TestPerformance>(XunitTraits.Performance);
         yield return new KeyValuePair<string, string>(XunitTraits.Performance, value.ToString());
@@ -180,7 +180,7 @@ public sealed class RedundantTraitDiscoverer : ITraitDiscoverer
 {
     public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
     {
-        Requires.NotNull(traitAttribute);
+        ArgumentNullException.ThrowIfNull(traitAttribute);
 
         yield return new KeyValuePair<string, string>(XunitTraits.Redundant, "true");
         // We automatically exclude the test(s) from the following plans.
@@ -194,7 +194,7 @@ public sealed class ExtrasAssemblyTraitDiscoverer : ITraitDiscoverer
 {
     public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
     {
-        Requires.NotNull(traitAttribute);
+        ArgumentNullException.ThrowIfNull(traitAttribute);
 
         yield return new KeyValuePair<string, string>(XunitTraits.ExtrasAssembly, "true");
         // We automatically exclude the test(s) from the following plans.

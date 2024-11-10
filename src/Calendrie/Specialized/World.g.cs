@@ -262,7 +262,7 @@ public partial struct WorldDate // Adjustments
     [Pure]
     public WorldDate Adjust(Func<WorldDate, WorldDate> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

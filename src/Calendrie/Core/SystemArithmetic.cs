@@ -148,7 +148,7 @@ public abstract partial class SystemArithmetic
     [Pure]
     public static SystemArithmetic CreateDefault(SystemSegment segment)
     {
-        Requires.NotNull(segment);
+        ArgumentNullException.ThrowIfNull(segment);
 
         var sch = segment.Schema;
 

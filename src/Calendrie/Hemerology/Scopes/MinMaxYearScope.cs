@@ -108,7 +108,7 @@ public sealed class MinMaxYearScope : CalendarScope
     [Pure]
     public static MinMaxYearScope Create(CalendarScope scope)
     {
-        Requires.NotNull(scope);
+        ArgumentNullException.ThrowIfNull(scope);
 
         return scope is MinMaxYearScope scope_ ? scope_
             : scope.Segment.IsComplete == false ? Throw.Argument<MinMaxYearScope>(nameof(scope))

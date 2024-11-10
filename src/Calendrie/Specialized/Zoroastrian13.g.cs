@@ -262,7 +262,7 @@ public partial struct Zoroastrian13Date // Adjustments
     [Pure]
     public Zoroastrian13Date Adjust(Func<Zoroastrian13Date, Zoroastrian13Date> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

@@ -230,7 +230,7 @@ public partial class CalendricalSchema // Properties
         get => _validator ??= ICalendricalPreValidator.CreateDefault(this);
         protected init
         {
-            Requires.NotNull(value);
+            ArgumentNullException.ThrowIfNull(value);
             _validator = value;
         }
     }

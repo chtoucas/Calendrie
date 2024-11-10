@@ -61,7 +61,7 @@ public interface ICalendricalPreValidator
     [Pure]
     public static ICalendricalPreValidator CreateDefault(CalendricalSchema schema)
     {
-        Requires.NotNull(schema);
+        ArgumentNullException.ThrowIfNull(schema);
 
         return schema.Profile switch
         {

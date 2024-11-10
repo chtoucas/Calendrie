@@ -20,7 +20,7 @@ internal abstract class MonthsCalculator : ISchemaBound
 
     public static MonthsCalculator Create(ICalendricalSchema schema)
     {
-        Requires.NotNull(schema);
+        ArgumentNullException.ThrowIfNull(schema);
 
         _ = schema.IsRegular(out int monthsInYear);
 

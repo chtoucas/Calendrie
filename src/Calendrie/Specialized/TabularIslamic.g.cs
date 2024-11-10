@@ -262,7 +262,7 @@ public partial struct TabularIslamicDate // Adjustments
     [Pure]
     public TabularIslamicDate Adjust(Func<TabularIslamicDate, TabularIslamicDate> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

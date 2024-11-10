@@ -262,7 +262,7 @@ public partial struct CopticDate // Adjustments
     [Pure]
     public CopticDate Adjust(Func<CopticDate, CopticDate> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

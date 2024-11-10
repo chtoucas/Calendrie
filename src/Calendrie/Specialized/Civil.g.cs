@@ -134,7 +134,7 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate Adjust(Func<CivilDate, CivilDate> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

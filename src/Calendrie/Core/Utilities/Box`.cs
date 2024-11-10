@@ -78,7 +78,7 @@ public static class Box
     /// <exception cref="ArgumentNullException"><paramref name="square"/> is null.</exception>
     public static Box<T> Flatten<T>(this Box<Box<T>> square) where T : class
     {
-        Requires.NotNull(square);
+        ArgumentNullException.ThrowIfNull(square);
 
         return square.IsEmpty ? Box<T>.Empty : square.Content;
     }
@@ -131,7 +131,7 @@ public sealed class Box<T> where T : class
     [Pure]
     public Box<TResult> Select<TResult>(Func<T, TResult?> selector) where TResult : class
     {
-        Requires.NotNull(selector);
+        ArgumentNullException.ThrowIfNull(selector);
 
         return IsEmpty ? Box<TResult>.Empty : Box.Create(selector(Content));
     }

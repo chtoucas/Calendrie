@@ -262,7 +262,7 @@ public partial struct ArmenianDate // Adjustments
     [Pure]
     public ArmenianDate Adjust(Func<ArmenianDate, ArmenianDate> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

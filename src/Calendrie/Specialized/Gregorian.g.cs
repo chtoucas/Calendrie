@@ -90,7 +90,7 @@ public partial struct GregorianDate // Adjustments
     [Pure]
     public GregorianDate Adjust(Func<GregorianDate, GregorianDate> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

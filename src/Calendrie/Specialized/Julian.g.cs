@@ -88,7 +88,7 @@ public partial struct JulianDate // Adjustments
     [Pure]
     public JulianDate Adjust(Func<JulianDate, JulianDate> adjuster)
     {
-        Requires.NotNull(adjuster);
+        ArgumentNullException.ThrowIfNull(adjuster);
 
         return adjuster.Invoke(this);
     }

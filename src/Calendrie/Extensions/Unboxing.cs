@@ -24,7 +24,7 @@ public static class Unboxing
     public static T Unbox<T>(this Box<T> box)
         where T : class
     {
-        Requires.NotNull(box);
+        ArgumentNullException.ThrowIfNull(box);
 
         return box.IsEmpty ? Throw.EmptyBox<T>() : box.Content;
     }
@@ -35,7 +35,7 @@ public static class Unboxing
     public static bool TryUnbox<T>(this Box<T> box, [NotNullWhen(true)] out T? obj)
         where T : class
     {
-        Requires.NotNull(box);
+        ArgumentNullException.ThrowIfNull(box);
 
         if (box.IsEmpty)
         {

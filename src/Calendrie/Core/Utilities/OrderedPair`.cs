@@ -120,7 +120,7 @@ public partial struct OrderedPair<T> // QEP
     public OrderedPair<TResult> Select<TResult>(Func<T, TResult> selector)
         where TResult : struct, IEquatable<TResult>, IComparable<TResult>
     {
-        Requires.NotNull(selector);
+        ArgumentNullException.ThrowIfNull(selector);
 
         return new OrderedPair<TResult>(selector(LowerValue), selector(UpperValue));
     }
@@ -138,8 +138,8 @@ public partial struct OrderedPair<T> // QEP
         Func<T, TResult> lowerValueSelector, Func<T, TResult> upperValueSelector)
         where TResult : struct, IEquatable<TResult>, IComparable<TResult>
     {
-        Requires.NotNull(lowerValueSelector);
-        Requires.NotNull(upperValueSelector);
+        ArgumentNullException.ThrowIfNull(lowerValueSelector);
+        ArgumentNullException.ThrowIfNull(upperValueSelector);
 
         return new OrderedPair<TResult>(lowerValueSelector(LowerValue), upperValueSelector(UpperValue));
     }

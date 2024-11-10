@@ -17,7 +17,9 @@ internal static class Requires
     /// <summary>Validates that the specified value is not null.</summary>
     /// <typeparam name="T">The type of reference value type being tested.</typeparam>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="obj"/> is null.</exception>
+    //
     // CIL code size = 16 bytes <= 32 bytes.
+    [Obsolete("Use ArgumentNullException.ThrowIfNull() instead")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void NotNull<T>(
         [NotNull] T? obj,
@@ -34,6 +36,7 @@ internal static class Requires
     /// </summary>
     /// <exception cref="AoorException">Thrown if <paramref name="dayOfWeek"/> was not a known
     /// member of the enum <see cref="DayOfWeek"/>.</exception>
+    //
     // CIL code size = 16 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Defined(
@@ -49,6 +52,7 @@ internal static class Requires
     /// </summary>
     /// <exception cref="AoorException">Thrown if <paramref name="weekday"/> was not a known member
     /// of the enum <see cref="IsoWeekday"/>.</exception>
+    //
     // CIL code size = XXX bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Defined(
@@ -64,6 +68,7 @@ internal static class Requires
     /// <see cref="AdditionRule"/>.</summary>
     /// <exception cref="AoorException">Thrown if <paramref name="rule"/> was not a known member of
     /// the enum <see cref="AdditionRule"/>.</exception>
+    //
     // CIL code size = XXX bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Defined(
