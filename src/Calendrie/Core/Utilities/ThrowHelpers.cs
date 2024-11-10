@@ -77,7 +77,9 @@ namespace Calendrie.Core.Utilities;
 
 #endregion
 
-/// <summary>Provides static helpers to throw exceptions.</summary>
+/// <summary>
+/// Provides static helpers to throw exceptions.
+/// </summary>
 /// <remarks>This class cannot be inherited.</remarks>
 [StackTraceHidden]
 internal static partial class ThrowHelpers { }
@@ -93,14 +95,17 @@ internal partial class ThrowHelpers // Plain
     public static T Argument<T>(string paramName) => throw GetArgumentExn(paramName);
 
     /// <exception cref="ArgumentNullException"/>
+    [Obsolete]
     [DoesNotReturn]
     public static void ArgumentNull(string paramName) => throw GetArgumentNullExn(paramName);
 
     /// <exception cref="AoorException"/>
+    [Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
     [DoesNotReturn]
     public static void ArgumentOutOfRange(string paramName) => throw GetArgumentOutOfRangeExn(paramName);
 
     /// <exception cref="AoorException"/>
+    [Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
     [DoesNotReturn, Pure]
     public static T ArgumentOutOfRange<T>(string paramName) => throw GetArgumentOutOfRangeExn(paramName);
 
@@ -138,28 +143,38 @@ internal partial class ThrowHelpers // Plain
 
 internal partial class ThrowHelpers
 {
-    /// <summary>The box is empty.</summary>
+    /// <summary>
+    /// The box is empty.
+    /// </summary>
     /// <exception cref="InvalidOperationException"/>
     [DoesNotReturn, Pure]
     public static T EmptyBox<T>() => throw GetEmptyBoxExn();
 
-    /// <summary>The control flow path reached a section of the code that should have been
-    /// unreachable under any circumstances.</summary>
+    /// <summary>
+    /// The control flow path reached a section of the code that should have
+    /// been unreachable under any circumstances.
+    /// </summary>
     /// <exception cref="InvalidOperationException"/>
     [DoesNotReturn, Pure]
     public static T Unreachable<T>() => throw GetUnreachableExn();
 
-    /// <summary>The collection is read-only.</summary>
+    /// <summary>
+    /// The collection is read-only.
+    /// </summary>
     /// <exception cref="NotSupportedException"/>
     [DoesNotReturn]
     public static void ReadOnlyCollection() => throw GetReadOnlyCollectionExn();
 
-    /// <summary>The collection is read-only.</summary>
+    /// <summary>
+    /// The collection is read-only.
+    /// </summary>
     /// <exception cref="NotSupportedException"/>
     [DoesNotReturn, Pure]
     public static T ReadOnlyCollection<T>() => throw GetReadOnlyCollectionExn();
 
-    /// <summary>An item with the specified key could not be found.</summary>
+    /// <summary>
+    /// An item with the specified key could not be found.
+    /// </summary>
     /// <exception cref="KeyNotFoundException"/>
     [DoesNotReturn, Pure]
     public static T KeyNotFound<T>(string key) => throw GetKeyNotFoundExn(key);
@@ -187,66 +202,90 @@ internal partial class ThrowHelpers
 
 internal partial class ThrowHelpers // ArgumentOutOfRangeException
 {
-    /// <summary>The value of the year was out of range.</summary>
+    /// <summary>
+    /// The value of the year was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void YearOutOfRange(long year) => throw GetYearOutOfRangeExn(null, year);
 
-    /// <summary>The value of the year was out of range.</summary>
+    /// <summary>
+    /// The value of the year was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void YearOutOfRange(int year) => throw GetYearOutOfRangeExn(null, year);
 
-    /// <summary>The value of the year was out of range.</summary>
+    /// <summary>
+    /// The value of the year was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void YearOutOfRange(int year, string? paramName) => throw GetYearOutOfRangeExn(paramName, year);
 
-    /// <summary>The value of the month of the year was out of range.</summary>
+    /// <summary>
+    /// The value of the month of the year was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void MonthOutOfRange(int month) => throw GetMonthOutOfRangeExn(null, month);
 
-    /// <summary>The value of the month of the year was out of range.</summary>
+    /// <summary>
+    /// The value of the month of the year was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void MonthOutOfRange(int month, string? paramName) =>
         throw GetMonthOutOfRangeExn(paramName, month);
 
-    /// <summary>The value of the day of the month was out of range.</summary>
+    /// <summary>
+    /// The value of the day of the month was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void DayOutOfRange(int day) => throw GetDayOutOfRangeExn(null, day);
 
-    /// <summary>The value of the day of the month was out of range.</summary>
+    /// <summary>
+    /// The value of the day of the month was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void DayOutOfRange(int day, string? paramName) => throw GetDayOutOfRangeExn(paramName, day);
 
-    /// <summary>The value of the day of the year was out of range.</summary>
+    /// <summary>
+    /// The value of the day of the year was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void DayOfYearOutOfRange(int dayOfYear) => throw GetDayOfYearOutOfRangeExn(null, dayOfYear);
 
-    /// <summary>The value of the day of the year was out of range.</summary>
+    /// <summary>
+    /// The value of the day of the year was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void DayOfYearOutOfRange(int dayOfYear, string? paramName) =>
         throw GetDayOfYearOutOfRangeExn(paramName, dayOfYear);
 
-    /// <summary>The value of the day of the week was out of range.</summary>
+    /// <summary>
+    /// The value of the day of the week was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void DayOfWeekOutOfRange(DayOfWeek dayOfWeek, string? paramName) =>
         throw GetDayOfWeekOutOfRangeExn(paramName, dayOfWeek);
 
-    /// <summary>The value of the ISO weekday was out of range.</summary>
+    /// <summary>
+    /// The value of the ISO weekday was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void IsoWeekdayOutOfRange(IsoWeekday weekday, string? paramName) =>
         throw GetIsoWeekdayOutOfRangeExn(paramName, weekday);
 
-    /// <summary>The value of the ISO weekday was out of range.</summary>
+    /// <summary>
+    /// The value of the ISO weekday was out of range.
+    /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
     public static void AdditionRuleOutOfRange(AdditionRule rule, string? paramName) =>
@@ -307,7 +346,9 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
 
 internal partial class ThrowHelpers // ArgumentException
 {
-    /// <summary>The binary data is not well-formed.</summary>
+    /// <summary>
+    /// The binary data is not well-formed.
+    /// </summary>
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
     public static void BadBinaryInput() => throw GetBadBinaryInputExn();
@@ -316,7 +357,9 @@ internal partial class ThrowHelpers // ArgumentException
     [DoesNotReturn]
     public static int NonComparable(Type expected, object obj) => throw GetNonComparableExn(expected, obj);
 
-    /// <summary>The box is empty.</summary>
+    /// <summary>
+    /// The box is empty.
+    /// </summary>
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn, Pure]
     public static T BadBox<T>(string paramName) => throw GetBadBoxExn(paramName);
@@ -331,7 +374,9 @@ internal partial class ThrowHelpers // ArgumentException
     public static void BadCuid(string paramName, int expected, int actual) =>
         throw GetBadCuidExn(paramName, expected, actual);
 
-    /// <summary>An item with the specified key already exists.</summary>
+    /// <summary>
+    /// An item with the specified key already exists.
+    /// </summary>
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
     public static void KeyAlreadyExists(string paramName, string key) =>
@@ -372,43 +417,58 @@ internal partial class ThrowHelpers // ArgumentException
 
 internal partial class ThrowHelpers // OverflowException
 {
-    /// <summary>The operation would overflow the range of supported months.</summary>
+    /// <summary>
+    /// The operation would overflow the range of supported months.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
     public static void MonthOverflow() => throw GetMonthOverflowExn();
 
-    /// <summary>The operation would overflow the range of supported months.</summary>
+    /// <summary>
+    /// The operation would overflow the range of supported months.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
     public static T MonthOverflow<T>() => throw GetMonthOverflowExn();
 
-    /// <summary>The operation would overflow the range of supported dates.</summary>
+    /// <summary>
+    /// The operation would overflow the range of supported dates.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
     public static void DateOverflow() => throw GetDateOverflowExn();
 
-    /// <summary>The operation would overflow the range of supported dates.</summary>
+    /// <summary>
+    /// The operation would overflow the range of supported dates.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
     public static T DateOverflow<T>() => throw GetDateOverflowExn();
 
-    /// <summary>The operation would overflow the range of supported day numbers.</summary>
+    /// <summary>
+    /// The operation would overflow the range of supported day numbers.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
     public static void DayNumberOverflow() => throw GetDayNumberOverflowExn();
 
-    /// <summary>The operation would overflow the range of supported day numbers.</summary>
+    /// <summary>
+    /// The operation would overflow the range of supported day numbers.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
     public static T DayNumberOverflow<T>() => throw GetDayNumberOverflowExn();
 
-    /// <summary>The operation would overflow the range of supported ordinal numerals.</summary>
+    /// <summary>
+    /// The operation would overflow the range of supported ordinal numerals.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
     public static T OrdOverflow<T>() => throw GetOrdOverflowExn();
 
-    /// <summary>The operation would overflow the maximum number of calendars supported by the
-    /// system.</summary>
+    /// <summary>
+    /// The operation would overflow the maximum number of calendars supported by the system.
+    /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
     public static void CatalogOverflow() => throw GetCatalogOverflowExn();
