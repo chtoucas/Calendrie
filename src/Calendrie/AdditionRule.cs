@@ -45,33 +45,34 @@ namespace Calendrie;
 #endregion
 
 /// <summary>
-/// Specifies the strategy to resolve ambiguities when adding a number of months or years to a date,
-/// or a number of years to a month.
+/// Specifies the strategy to resolve ambiguities when adding a number of months
+/// or years to a date, or a number of years to a month.
 /// </summary>
 public enum AdditionRule
 {
     /// <summary>
-    /// When the result is not a valid day (resp. month), return the end of the target month (resp.
-    /// year).
+    /// When the result is not a valid day (resp. month), return the end of the
+    /// target month (resp. year).
     /// <para>This is the <i>default</i> strategy.</para>
     /// </summary>
     Truncate = 0,
 
     /// <summary>
-    /// When the result is not a valid day (resp. month), return the start of the next month (resp.
-    /// year).
+    /// When the result is not a valid day (resp. month), return the start of
+    /// the next month (resp. year).
     /// </summary>
     Overspill,
 
     /// <summary>
-    /// When the result is not a valid day (resp. month), return the day (resp. month) obtained by
-    /// adding "roundoff" days (resp. months) to the end of the target month (resp. year).
+    /// When the result is not a valid day (resp. month), return the day (resp.
+    /// month) obtained by adding "roundoff" days (resp. months) to the end of
+    /// the target month (resp. year).
     /// </summary>
     Exact,
 
     /// <summary>
-    /// When the result is not a valid day (resp. month), throw an exception of type
-    /// <see cref="OverflowException"/>.
+    /// When the result is not a valid day (resp. month), throw an exception of
+    /// type <see cref="OverflowException"/>.
     /// </summary>
     Overflow,
 }
