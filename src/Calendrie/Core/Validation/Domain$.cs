@@ -17,10 +17,8 @@ public static class DomainExtensions
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void Validate(this Range<DayNumber> domain, DayNumber dayNumber, string? paramName = null)
     {
-        if (dayNumber < domain.Min || dayNumber > domain.Max)
-        {
-            Throw.ArgumentOutOfRange(paramName ?? nameof(dayNumber));
-        }
+        AoorException.ThrowIfLessThan(dayNumber, domain.Min, paramName ?? nameof(dayNumber));
+        AoorException.ThrowIfGreaterThan(dayNumber, domain.Max, paramName ?? nameof(dayNumber));
     }
 
     /// <summary>

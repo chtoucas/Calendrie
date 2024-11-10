@@ -36,10 +36,8 @@ public sealed class MonthsValidator : IRangeValidator<int>
     /// <exception cref="AoorException">The validation failed.</exception>
     public void Validate(int monthsSinceEpoch, string? paramName = null)
     {
-        if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-        {
-            Throw.ArgumentOutOfRange(paramName ?? nameof(monthsSinceEpoch));
-        }
+        AoorException.ThrowIfLessThan(monthsSinceEpoch, MinMonthsSinceEpoch, paramName ?? nameof(monthsSinceEpoch));
+        AoorException.ThrowIfGreaterThan(monthsSinceEpoch, MaxMonthsSinceEpoch, paramName ?? nameof(monthsSinceEpoch));
     }
 
     /// <summary>Checks whether the specified number of consecutive months from the epoch is outside

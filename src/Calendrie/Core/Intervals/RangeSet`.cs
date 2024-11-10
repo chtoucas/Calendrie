@@ -108,7 +108,7 @@ public readonly partial struct RangeSet<T> :
     /// <paramref name="min"/>.</exception>
     public RangeSet(T min, T max)
     {
-        if (max.CompareTo(min) < 0) Throw.ArgumentOutOfRange(nameof(max));
+        AoorException.ThrowIfLessThan(max, min);
 
         _endpoints = OrderedPair.FromOrderedValues(min, max);
         _isInhabited = true;
