@@ -19,23 +19,20 @@ public enum CalendricalFamily
     /// integer truncation of the tropical year.</para>
     /// <para>At first sight, we might think that this type of calendar uses the
     /// tropical year, but it is not the case since the cycles are out of sync
-    /// with the seasons, therefore we keep it separated from the solar family.
-    /// </para>
+    /// with the seasons, therefore we keep it separated from the solar family.</para>
     /// </summary>
     AnnusVagus,
 
     /// <summary>
     /// The calendar cycle is based upon the position of Earth on its revolution
     /// around the Sun.
-    /// <para>A common year is 365 days long and a leap year is 366 days long.
-    /// </para>
+    /// <para>A common year is 365 days long and a leap year is 366 days long.</para>
     /// </summary>
     Solar,
 
     /// <summary>
     /// The calendar cycle is based upon the phases of the Moon.
-    /// <para>A common year is 354 days long and a leap year is 355 days long.
-    /// </para>
+    /// <para>A common year is 354 days long and a leap year is 355 days long.</para>
     /// </summary>
     Lunar,
 
