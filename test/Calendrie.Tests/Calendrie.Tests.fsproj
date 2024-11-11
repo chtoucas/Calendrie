@@ -24,6 +24,8 @@
     <Compile Include="Testing\XunitModule.fs" />
     <Compile Include="Testing\FsCheckModule.fs" />
     <Compile Include="Testing\TestHelpers.fs" />
+    <Compile Include="Tests\DayZeroTests.fs" />
+    <Compile Include="Tests\IsoWeekdayTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

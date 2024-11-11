@@ -34,10 +34,11 @@ public partial class AssertEx
 public partial class AssertEx // Arg exceptions
 {
     /// <summary>
-    /// Verifies that an exception is exactly the given exception type (and not a derived one),
-    /// then that its message is not null.
+    /// Verifies that an exception is exactly the given exception type (and not
+    /// a derived one), then that its message is not null.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.
+    /// </exception>
     public static void CheckException(Type expectedExceptionType, Exception exn)
     {
         ArgumentNullException.ThrowIfNull(exn);
@@ -47,10 +48,11 @@ public partial class AssertEx // Arg exceptions
     }
 
     /// <summary>
-    /// Verifies that an exception message is not null, then that the name of the parameter that
-    /// causes the exception is equal to <paramref name="expectedParamName"/>.
+    /// Verifies that an exception message is not null, then that the name of the
+    /// parameter that causes the exception is equal to <paramref name="expectedParamName"/>.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.
+    /// </exception>
     public static void CheckArgumentException(string expectedParamName, ArgumentException exn)
     {
         ArgumentNullException.ThrowIfNull(exn);
@@ -59,7 +61,8 @@ public partial class AssertEx // Arg exceptions
         Equal(expectedParamName, exn.ParamName);
     }
 
-    // Below, use "argName" instead of "paramName" to avoid an error CA1507 in the caller code.
+    // Below, use "argName" instead of "paramName" to avoid an error CA1507 in
+    // the caller code.
 
     /// <summary>
     /// Verifies that the specified delegate throws an exception of type
@@ -77,14 +80,16 @@ public partial class AssertEx // Arg exceptions
 
     /// <summary>
     /// Verifies that the specified delegate throws an exception of type
-    /// <see cref="ArgumentOutOfRangeException"/> (and not a derived exception type).
+    /// <see cref="ArgumentOutOfRangeException"/> (and not a derived exception
+    /// type).
     /// </summary>
     public static void ThrowsAoorexn(string argName, Action testCode) =>
         Throws<ArgumentOutOfRangeException>(argName, testCode);
 
     /// <summary>
     /// Verifies that the specified delegate throws an exception of type
-    /// <see cref="ArgumentOutOfRangeException"/> (and not a derived exception type).
+    /// <see cref="ArgumentOutOfRangeException"/> (and not a derived exception
+    /// type).
     /// </summary>
     public static void ThrowsAoorexn(string argName, Func<object?> testCode) =>
         Throws<ArgumentOutOfRangeException>(argName, testCode);
@@ -95,7 +100,8 @@ public partial class AssertEx // Box<T>
     /// <summary>
     /// Verifies that <paramref name="box"/> is empty.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
+    /// </exception>
     public static void Empty<T>(Box<T> box) where T : class
     {
         ArgumentNullException.ThrowIfNull(box);
@@ -106,7 +112,8 @@ public partial class AssertEx // Box<T>
     /// <summary>
     /// Verifies that <paramref name="box"/> is NOT empty.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
+    /// </exception>
     public static void Some<T>(Box<T> box) where T : class
     {
         ArgumentNullException.ThrowIfNull(box);
@@ -118,7 +125,8 @@ public partial class AssertEx // Box<T>
     /// Verifies that <paramref name="box"/> is NOT empty and contains
     /// <paramref name="expected"/>.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
+    /// </exception>
     public static void Some<T>([DisallowNull] T expected, Box<T> box) where T : class
     {
         ArgumentNullException.ThrowIfNull(box);

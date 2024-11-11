@@ -58,25 +58,27 @@ public enum TestExcludeFrom
 {
     /// <summary>
     /// Exclude from smoke testing.
-    /// <para>We use this value to exclude all classes in a test suite but the first one.</para>
+    /// <para>We use this value to exclude all classes in a test suite but the
+    /// first one.</para>
     /// </summary>
     Smoke,
 
     /// <summary>
     /// Exclude from code coverage.
     /// <para>For instance, we exclude deeply recursive functions.</para>
-    /// <para>A test marked with this value will also be excluded from smoke testing.</para>
+    /// <para>A test marked with this value will also be excluded from smoke
+    /// testing.</para>
     /// </summary>
     CodeCoverage,
 
     /// <summary>
     /// Exclude from the "regular" test plan.
-    /// <para>We use this value to exclude tests of very low importance and not needed to achieve
-    /// full code coverage.</para>
-    /// <para>This value only exists to reduce the time needed to complete the "regular" test.
-    /// </para>
-    /// <para>A test marked with this value will also be excluded from smoke testing and code
-    /// coverage.</para>
+    /// <para>We use this value to exclude tests of very low importance and not
+    /// needed to achieve full code coverage.</para>
+    /// <para>This value only exists to reduce the time needed to complete the
+    /// "regular" test.</para>
+    /// <para>A test marked with this value will also be excluded from smoke
+    /// testing and code coverage.</para>
     /// </summary>
     Regular
 }
