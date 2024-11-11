@@ -3,6 +3,7 @@
 
 #if !__HIDE_INTERNALS__
 [assembly: InternalsVisibleTo("Calendrie.Testing" + Calendrie.AssemblyInfo.PublicKeySuffix)]
+[assembly: InternalsVisibleTo("Calendrie.Tests" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 #endif
 
 namespace Calendrie;

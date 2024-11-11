@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
+
+    <WarningLevel>5</WarningLevel>
+    <!--
+      FS0052  Implicit copies of structs (warning level 5)
+      We enable most opt-in warnings; see
+      https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/compiler-options
+    -->
+    <NoWarn>$(NoWarn);FS0052</NoWarn>
+    <WarnOn>$(WarnOn);FS1182;FS3366;FS3517;FS3389;FS3390</WarnOn>
+
+    <!-- Silent a warning from Microsoft.NET.Test.Sdk -->
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Calendrie.Tests.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Testing\XunitModule.fs" />
+    <Compile Include="Testing\FsCheckModule.fs" />
+    <Compile Include="Testing\TestHelpers.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Do not remove, this ensures that we always use the latest F# version -->
+    <PackageReference Include="FSharp.Core" />
+    <PackageReference Include="FsCheck.Xunit" />
+    <PackageReference Include="Unquote" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
+    <ProjectReference Include="..\Calendrie.Testing\Calendrie.Testing.csproj" />
+  </ItemGroup>
+
+</Project>
