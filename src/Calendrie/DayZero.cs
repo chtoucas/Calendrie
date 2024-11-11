@@ -8,22 +8,23 @@ using Calendrie.Core.Schemas;
 // https://en.wikipedia.org/wiki/Calendar_era
 
 /// <summary>
-/// Defines the (origin for) different styles of day numbering and common calendar epochs.
+/// Defines the (origin for) different styles of day numbering and common
+/// calendar epochs.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public static partial class DayZero
 {
     /// <summary>
-    /// Creates an epoch number from the specified (signed) year of the era, month and day within
-    /// the Gregorian calendar.
+    /// Creates an epoch number from the specified (signed) year of the era,
+    /// month and day within the Gregorian calendar.
     /// </summary>
     [Pure]
     private static DayNumber FromGregorian(Ord yearOfEra, int m, int d) =>
         NewStyle + GregorianFormulae.CountDaysSinceEpoch((int)yearOfEra, m, d);
 
     /// <summary>
-    /// Creates an epoch number from the specified (signed) year of the era, month and day within
-    /// the Julian calendar.
+    /// Creates an epoch number from the specified (signed) year of the era,
+    /// month and day within the Julian calendar.
     /// </summary>
     [Pure]
     private static DayNumber FromJulian(Ord yearOfEra, int m, int d) =>
@@ -33,24 +34,25 @@ public static partial class DayZero
 public partial class DayZero // Core epochs
 {
     /// <summary>
-    /// Gets the Saturday 1st of January, 1 CE within the Julian calendar, i.e. the epoch of the
-    /// Julian calendar.
+    /// Gets the Saturday 1st of January, 1 CE within the Julian calendar, i.e.
+    /// the epoch of the Julian calendar.
     /// <para>Two days before <see cref="NewStyle"/>, the Gregorian epoch.</para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static DayNumber OldStyle { get; } = DayNumber.Zero - 2;
 
     /// <summary>
-    /// Gets the day before the Gregorian epoch, i.e. the Sunday 31th of December, 1 BC within the
-    /// Gregorian calendar.
+    /// Gets the day before the Gregorian epoch, i.e. the Sunday 31th of
+    /// December, 1 BC within the Gregorian calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static DayNumber RataDie { get; } = DayNumber.Zero - 1;
 
     /// <summary>
-    /// Gets the Monday 1st of January, 1 CE within the Gregorian calendar, i.e. the epoch of the
-    /// Gregorian calendar.
-    /// <para>Matches the epoch of the Common Era, Current Era or Vulgar Era.</para>
+    /// Gets the Monday 1st of January, 1 CE within the Gregorian calendar, i.e.
+    /// the epoch of the Gregorian calendar.
+    /// <para>Matches the epoch of the Common Era, Current Era or Vulgar Era.
+    /// </para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static DayNumber NewStyle { get; } = DayNumber.Zero;
@@ -71,7 +73,8 @@ public partial class DayZero // Core epochs
     /// We use this epoch for the Pax and the World calendars.
     /// <list type="bullet">
     /// <item>The Pax epoch must be a Sunday (first day of a Pax week).</item>
-    /// <item>The definition of the World calendar requires that a year starts on a Sunday.</item>
+    /// <item>The definition of the World calendar requires that a year starts on
+    /// a Sunday.</item>
     /// </list>
     /// </summary>
     public static DayNumber SundayBeforeGregorian => RataDie;
@@ -80,8 +83,8 @@ public partial class DayZero // Core epochs
     /// Gets the epoch of the Gregorian calendar.
     /// <para>Monday 1st of January, 1 CE within the Gregorian calendar.</para>
     /// <para>This property is an alias for <see cref="NewStyle"/>.</para>
-    /// <para>This property matches also the epoch of the Common Era, aka Current Era or Vulgar Era.
-    /// </para>
+    /// <para>This property matches also the epoch of the Common Era, aka Current
+    /// Era or Vulgar Era. </para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static DayNumber Gregorian => NewStyle;
@@ -92,8 +95,8 @@ public partial class DayZero //
     /// <summary>
     /// Gets the epoch of the Holocene calendar.
     /// <para>The 1st of January, 10,000 BC within the Gregorian calendar.</para>
-    /// <para>This property matches also the epoch of the Holocene Era (HE) and the one of the Jōmon
-    /// Era (JE).</para>
+    /// <para>This property matches also the epoch of the Holocene Era (HE) and
+    /// the one of the Jōmon Era (JE).</para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -103,7 +106,8 @@ public partial class DayZero //
     /// <summary>
     /// Gets the epoch of the Egyptian calendar.
     /// <para>The 26th of February, 747 BC within the Julian calendar.</para>
-    /// <para>This property matches also the epoch of the Era of Nabonassar.</para>
+    /// <para>This property matches also the epoch of the Era of Nabonassar.
+    /// </para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static DayNumber Egyptian => FromJulian(Ord.First - 747, 2, 26);
@@ -111,7 +115,8 @@ public partial class DayZero //
     /// <summary>
     /// Gets the epoch of the Ethiopic calendar.
     /// <para>The 29th of August, 8 CE within the Julian calendar.</para>
-    /// <para>This property matches also the epoch of the Era of the Incarnation of Jesus.</para>
+    /// <para>This property matches also the epoch of the Era of the Incarnation
+    /// of Jesus.</para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static DayNumber Ethiopic => FromJulian(Ord.Zeroth + 8, 8, 29);
@@ -119,8 +124,8 @@ public partial class DayZero //
     /// <summary>
     /// Gets the epoch of the Coptic calendar.
     /// <para>The 29th of August, 284 CE within the Julian calendar.</para>
-    /// <para>This property matches also the epoch of the Era of the Martyrs (Anno Martyrum), aka
-    /// the Diocletian Era (Anno Diocletiani).</para>
+    /// <para>This property matches also the epoch of the Era of the Martyrs
+    /// (Anno Martyrum), aka the Diocletian Era (Anno Diocletiani).</para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static DayNumber Coptic => FromJulian(Ord.Zeroth + 284, 8, 29);

@@ -5,9 +5,10 @@ namespace Calendrie;
 
 /// <summary>
 /// Represents a triple of a year, a month and a day.
-/// <para>This type uses the lexicographic order on triples (Year, Month, Day).</para>
-/// <para><see cref="DateParts"/> does NOT represent a date. Its default value is not even a valid
-/// date.</para>
+/// <para>This type uses the lexicographic order on triples (Year, Month, Day).
+/// </para>
+/// <para><see cref="DateParts"/> does NOT represent a date. Its default value
+/// is not even a valid date.</para>
 /// <para><see cref="DateParts"/> is an immutable struct.</para>
 /// </summary>
 /// <param name="Year">Algebraic year number.</param>
@@ -22,15 +23,15 @@ public readonly record struct DateParts(int Year, int Month, int Day) :
     public MonthParts MonthParts => new(Year, Month);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="DateParts"/> struct representing the first day of
-    /// the specified year.
+    /// Creates a new instance of the <see cref="DateParts"/> struct representing
+    /// the first day of the specified year.
     /// </summary>
     [Pure]
     public static DateParts AtStartOfYear(int y) => new(y, 1, 1);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="DateParts"/> struct representing the first day of
-    /// the specified month.
+    /// Creates a new instance of the <see cref="DateParts"/> struct representing
+    /// the first day of the specified month.
     /// </summary>
     [Pure]
     public static DateParts AtStartOfMonth(int y, int m) => new(y, m, 1);

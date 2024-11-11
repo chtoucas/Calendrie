@@ -18,8 +18,8 @@ public enum IsoWeekday
 {
     /// <summary>
     /// Indicates an unknown ISO weekday.
-    /// <para>This value is considered to be <i>invalid</i>. We never use it, and neither should
-    /// you.</para>
+    /// <para>This value is considered to be <i>invalid</i>. We never use it, and
+    /// neither should you.</para>
     /// </summary>
     None = 0,
 

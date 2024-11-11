@@ -9,61 +9,88 @@ using static Calendrie.Core.TemporalConstants;
 
 // REVIEW(api): implement IFixedDate? Math ops? etc.
 
-/// <summary>Represents a moment with millisecond precision.
-/// <para><see cref="Moment"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents a moment with millisecond precision.
+/// <para><see cref="Moment"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct Moment :
     // Comparison
     IComparisonOperators<Moment, Moment>,
     IMinMaxValue<Moment>
 {
-    /// <summary>Represents the day number.</summary>
+    /// <summary>
+    /// Represents the day number.
+    /// </summary>
     private readonly DayNumber _dayNumber;
-    /// <summary>Represents the time of the day with millisecond precision.</summary>
+    /// <summary>
+    /// Represents the time of the day with millisecond precision.
+    /// </summary>
     private readonly TimeOfDay _timeOfDay;
 
-    /// <summary>Initializes a new instance of the <see cref="Moment"/> struct from the specified
-    /// day number and time of the day.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Moment"/> struct from the
+    /// specified day number and time of the day.
+    /// </summary>
     public Moment(DayNumber dayNumber, TimeOfDay timeOfDay)
     {
         _dayNumber = dayNumber;
         _timeOfDay = timeOfDay;
     }
 
-    /// <summary>Gets the origin.
-    /// <para>The Monday 1st of January, 1 CE within the Gregorian calendar at midnight (0h).</para>
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the origin.
+    /// <para>The Monday 1st of January, 1 CE within the Gregorian calendar at
+    /// midnight (0h).</para>
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Moment Zero { get; }
 
-    /// <summary>Gets the smallest possible value of a <see cref="Moment"/>.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the smallest possible value of a <see cref="Moment"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Moment MinValue { get; } = new(DayNumber.MinValue, TimeOfDay.MinValue);
 
-    /// <summary>Gets the largest possible value of a <see cref="Moment"/>.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the largest possible value of a <see cref="Moment"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Moment MaxValue { get; } = new(DayNumber.MaxValue, TimeOfDay.MaxValue);
 
-    /// <summary>Gets the day number.</summary>
+    /// <summary>
+    /// Gets the day number.
+    /// </summary>
     public DayNumber DayNumber => _dayNumber;
 
-    /// <summary>Gets the time of the day with millisecond precision.</summary>
+    /// <summary>
+    /// Gets the time of the day with millisecond precision.
+    /// </summary>
     public TimeOfDay TimeOfDay => _timeOfDay;
 
-    /// <summary>Gets the number of elapsed seconds since <see cref="Zero"/>.</summary>
+    /// <summary>
+    /// Gets the number of elapsed seconds since <see cref="Zero"/>.
+    /// </summary>
     public long SecondsSinceZero =>
         _dayNumber.DaysSinceZero * (long)SecondsPerDay
         + _timeOfDay.MillisecondOfDay / MillisecondsPerSecond;
 
-    /// <summary>Gets the number of elapsed milliseconds since <see cref="Zero"/>.</summary>
+    /// <summary>
+    /// Gets the number of elapsed milliseconds since <see cref="Zero"/>.
+    /// </summary>
     public long MillisecondsSinceZero =>
         _dayNumber.DaysSinceZero * (long)MillisecondsPerDay
         + _timeOfDay.MillisecondOfDay;
 
-    /// <summary>Returns a culture-independent string representation of this instance.</summary>
+    /// <summary>
+    /// Returns a culture-independent string representation of this instance.
+    /// </summary>
     [Pure]
     public override string ToString() =>
         FormattableString.Invariant($"{DayNumber}+{TimeOfDay}");
 
-    /// <summary>Deconstructs this instance into its components.</summary>
+    /// <summary>
+    /// Deconstructs this instance into its components.
+    /// </summary>
     public void Deconstruct(out DayNumber dayNumber, out TimeOfDay timeOfDay) =>
         (dayNumber, timeOfDay) = (DayNumber, TimeOfDay);
 }
