@@ -25,11 +25,12 @@ public partial struct JulianDate
     private readonly int _daysSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JulianDate"/> struct to the specified date
-    /// parts.
+    /// Initializes a new instance of the <see cref="JulianDate"/> struct to the
+    /// specified date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a valid date or
-    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid date or <paramref name="year"/> is outside the range of supported
+    /// years.</exception>
     public JulianDate(int year, int month, int day)
     {
         s_Scope.ValidateYearMonthDay(year, month, day);
@@ -38,11 +39,12 @@ public partial struct JulianDate
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JulianDate"/> struct to the specified ordinal
-    /// date parts.
+    /// Initializes a new instance of the <see cref="JulianDate"/> struct to the
+    /// specified ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
-    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid ordinal date or <paramref name="year"/> is outside the range of
+    /// supported years.</exception>
     public JulianDate(int year, int dayOfYear)
     {
         s_Scope.ValidateOrdinal(year, dayOfYear);
@@ -50,7 +52,10 @@ public partial struct JulianDate
         _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    /// <summary>This constructor does NOT validate its parameter.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JulianDate"/> struct.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
     internal JulianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
@@ -141,7 +146,8 @@ public partial struct JulianDate
     public bool IsSupplementary => false;
 
     /// <summary>
-    /// Returns a culture-independent string representation of the current instance.
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString()
@@ -162,10 +168,11 @@ public partial struct JulianDate
 public partial struct JulianDate // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="JulianDate"/> struct from the specified day number.
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified day number.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
-    /// supported values.</exception>
+    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
+    /// the range of supported values.</exception>
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

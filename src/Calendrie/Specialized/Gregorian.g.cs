@@ -23,7 +23,8 @@ using Calendrie.Hemerology.Scopes;
 public sealed partial class GregorianCalendar : SpecialCalendar<GregorianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
+    /// Initializes a new instance of the <see cref="GregorianCalendar"/>
+    /// class.
     /// </summary>
     public GregorianCalendar() : this(new GregorianSchema()) { }
 
@@ -46,7 +47,8 @@ public sealed partial class GregorianCalendar : SpecialCalendar<GregorianDate>
 public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianAdjuster"/> class.
+    /// Initializes a new instance of the <see cref="GregorianAdjuster"/>
+    /// class.
     /// </summary>
     public GregorianAdjuster() : base(GregorianDate.Calendar.Scope) { }
 
@@ -208,34 +210,39 @@ public partial struct GregorianDate // Math
     // Friendly alternates do exist but use domain-specific names.
 
     /// <summary>
-    /// Subtracts the two specified dates and returns the number of days between them.
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
     /// </summary>
     public static int operator -(GregorianDate left, GregorianDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static GregorianDate operator +(GregorianDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static GregorianDate operator -(GregorianDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     public static GregorianDate operator ++(GregorianDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     public static GregorianDate operator --(GregorianDate value) => value.PreviousDay();
 
 #pragma warning restore CA2225

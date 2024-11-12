@@ -25,7 +25,8 @@ using Calendrie.Hemerology.Scopes;
 public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
+    /// Initializes a new instance of the <see cref="WorldCalendar"/>
+    /// class.
     /// </summary>
     public WorldCalendar() : this(new WorldSchema()) { }
 
@@ -48,7 +49,8 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="WorldAdjuster"/> class.
+    /// Initializes a new instance of the <see cref="WorldAdjuster"/>
+    /// class.
     /// </summary>
     public WorldAdjuster() : base(WorldDate.Calendar.Scope) { }
 
@@ -79,10 +81,12 @@ public readonly partial struct WorldDate :
     private readonly int _daysSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="WorldDate"/> struct to the specified date parts.
+    /// Initializes a new instance of the <see cref="WorldDate"/> struct
+    /// to the specified date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a valid date or
-    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid date or <paramref name="year"/> is outside the range of supported
+    /// years.</exception>
     public WorldDate(int year, int month, int day)
     {
         s_Scope.ValidateYearMonthDay(year, month, day);
@@ -91,10 +95,12 @@ public readonly partial struct WorldDate :
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="WorldDate"/> struct to the specified ordinal date parts.
+    /// Initializes a new instance of the <see cref="WorldDate"/> struct
+    /// to the specified ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
-    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid ordinal date or <paramref name="year"/> is outside the range of
+    /// supported years.</exception>
     public WorldDate(int year, int dayOfYear)
     {
         s_Scope.ValidateOrdinal(year, dayOfYear);
@@ -202,7 +208,8 @@ public readonly partial struct WorldDate :
     }
 
     /// <summary>
-    /// Returns a culture-independent string representation of the current instance.
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString()
@@ -223,11 +230,11 @@ public readonly partial struct WorldDate :
 public partial struct WorldDate // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="WorldDate"/> struct from the
-    /// specified day number.
+    /// Creates a new instance of the <see cref="WorldDate"/> struct from
+    /// the specified day number.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
-    /// supported values.</exception>
+    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
+    /// the range of supported values.</exception>
     public static WorldDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);
@@ -380,34 +387,39 @@ public partial struct WorldDate // Math
     // Friendly alternates do exist but use domain-specific names.
 
     /// <summary>
-    /// Subtracts the two specified dates and returns the number of days between them.
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
     /// </summary>
     public static int operator -(WorldDate left, WorldDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static WorldDate operator +(WorldDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static WorldDate operator -(WorldDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     public static WorldDate operator ++(WorldDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     public static WorldDate operator --(WorldDate value) => value.PreviousDay();
 
 #pragma warning restore CA2225

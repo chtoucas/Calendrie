@@ -24,11 +24,12 @@ public partial struct GregorianDate
     private readonly int _daysSinceZero;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianDate"/> struct to the specified date
-    /// parts.
+    /// Initializes a new instance of the <see cref="GregorianDate"/> struct to
+    /// the specified date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a valid date or
-    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid date or <paramref name="year"/> is outside the range of supported
+    /// years.</exception>
     public GregorianDate(int year, int month, int day)
     {
         s_Scope.ValidateYearMonthDay(year, month, day);
@@ -37,11 +38,12 @@ public partial struct GregorianDate
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianDate"/> struct to the specified
-    /// ordinal date parts.
+    /// Initializes a new instance of the <see cref="GregorianDate"/> struct to
+    /// the specified ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a valid ordinal date or
-    /// <paramref name="year"/> is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid ordinal date or <paramref name="year"/> is outside the range of
+    /// supported years.</exception>
     public GregorianDate(int year, int dayOfYear)
     {
         s_Scope.ValidateOrdinal(year, dayOfYear);
@@ -145,7 +147,8 @@ public partial struct GregorianDate
     public bool IsSupplementary => false;
 
     /// <summary>
-    /// Returns a culture-independent string representation of the current instance.
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString()
@@ -166,11 +169,11 @@ public partial struct GregorianDate
 public partial struct GregorianDate // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="GregorianDate"/> struct from the specified day
-    /// number.
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
+    /// the specified day number.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside the range of
-    /// supported values.</exception>
+    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
+    /// the range of supported values.</exception>
     public static GregorianDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

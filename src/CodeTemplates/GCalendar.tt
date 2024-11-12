@@ -36,33 +36,37 @@ public sealed partial class <#= Prefix #>Clock
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Clock"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
+    /// </exception>
     public <#= Prefix #>Clock(IClock clock)
     {
         _clock = clock ?? throw new ArgumentNullException(nameof(clock));
     }
 
     /// <summary>
-    /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the system clock
-    /// using the current time zone setting on this machine.
+    /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the
+    /// system clock using the current time zone setting on this machine.
     /// </summary>
     public static <#= Prefix #>Clock Local { get; } = new(SystemClocks.Local);
 
     /// <summary>
-    /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the system clock
-    /// using the Coordinated Universal Time (UTC).
+    /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
     /// </summary>
     public static <#= Prefix #>Clock Utc { get; } = new(SystemClocks.Utc);
 
     /// <summary>
-    /// Obtains an instance of the <see cref="<#= Prefix #>Clock"/> class for the specified clock.
+    /// Obtains an instance of the <see cref="<#= Prefix #>Clock"/> class for the
+    /// specified clock.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
+    /// </exception>
     [Pure]
     public static <#= Prefix #>Clock GetClock(IClock clock) => new(clock);
 
     /// <summary>
-    /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current date.
+    /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current
+    /// date.
     /// </summary>
     [Pure]
     public <#= Prefix #>Date GetCurrentDate() => new(_clock.Today().DaysSinceZero);

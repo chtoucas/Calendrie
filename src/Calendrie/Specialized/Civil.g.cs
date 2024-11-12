@@ -24,7 +24,8 @@ using Calendrie.Horology;
 public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
+    /// Initializes a new instance of the <see cref="CivilCalendar"/>
+    /// class.
     /// </summary>
     public CivilCalendar() : this(new CivilSchema()) { }
 
@@ -47,7 +48,8 @@ public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
 public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CivilAdjuster"/> class.
+    /// Initializes a new instance of the <see cref="CivilAdjuster"/>
+    /// class.
     /// </summary>
     public CivilAdjuster() : base(CivilDate.Calendar.Scope) { }
 
@@ -67,33 +69,37 @@ public sealed partial class CivilClock
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilClock"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
+    /// </exception>
     public CivilClock(IClock clock)
     {
         _clock = clock ?? throw new ArgumentNullException(nameof(clock));
     }
 
     /// <summary>
-    /// Gets an instance of the <see cref="CivilClock"/> class for the system clock
-    /// using the current time zone setting on this machine.
+    /// Gets an instance of the <see cref="CivilClock"/> class for the
+    /// system clock using the current time zone setting on this machine.
     /// </summary>
     public static CivilClock Local { get; } = new(SystemClocks.Local);
 
     /// <summary>
-    /// Gets an instance of the <see cref="CivilClock"/> class for the system clock
-    /// using the Coordinated Universal Time (UTC).
+    /// Gets an instance of the <see cref="CivilClock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
     /// </summary>
     public static CivilClock Utc { get; } = new(SystemClocks.Utc);
 
     /// <summary>
-    /// Obtains an instance of the <see cref="CivilClock"/> class for the specified clock.
+    /// Obtains an instance of the <see cref="CivilClock"/> class for the
+    /// specified clock.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
+    /// </exception>
     [Pure]
     public static CivilClock GetClock(IClock clock) => new(clock);
 
     /// <summary>
-    /// Obtains a <see cref="CivilDate"/> value representing the current date.
+    /// Obtains a <see cref="CivilDate"/> value representing the current
+    /// date.
     /// </summary>
     [Pure]
     public CivilDate GetCurrentDate() => new(_clock.Today().DaysSinceZero);
@@ -252,34 +258,39 @@ public partial struct CivilDate // Math
     // Friendly alternates do exist but use domain-specific names.
 
     /// <summary>
-    /// Subtracts the two specified dates and returns the number of days between them.
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
     /// </summary>
     public static int operator -(CivilDate left, CivilDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static CivilDate operator +(CivilDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static CivilDate operator -(CivilDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     public static CivilDate operator ++(CivilDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     public static CivilDate operator --(CivilDate value) => value.PreviousDay();
 
 #pragma warning restore CA2225

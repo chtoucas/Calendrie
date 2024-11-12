@@ -12,7 +12,8 @@ public partial class CalendarTemplate
 public sealed partial class <#= Prefix #>Adjuster : SpecialAdjuster<<#= Prefix #>Date>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="<#= Prefix #>Adjuster"/> class.
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Adjuster"/>
+    /// class.
     /// </summary>
     public <#= Prefix #>Adjuster() : base(<#= Prefix #>Date.Calendar.Scope) { }
 

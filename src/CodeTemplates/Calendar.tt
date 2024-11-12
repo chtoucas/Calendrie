@@ -96,7 +96,8 @@ using Calendrie.Horology;
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/>
+    /// class.
     /// </summary>
     public <#= Prefix #>Calendar() : this(new <#= SchemaClass #>()) { }
 

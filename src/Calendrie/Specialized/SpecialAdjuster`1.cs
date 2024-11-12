@@ -24,7 +24,8 @@ using Calendrie.Hemerology.Scopes;
 // date parts (y, m, d, doy) by other means, e.g. using the underlying schema.
 
 /// <summary>
-/// Defines an adjuster for <typeparamref name="TDate"/> and provides a base for derived classes.
+/// Defines an adjuster for <typeparamref name="TDate"/> and provides a base for
+/// derived classes.
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
@@ -35,7 +36,8 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="SpecialAdjuster{TDate}"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
+    /// null.</exception>
     private protected SpecialAdjuster(MinMaxYearScope scope)
     {
         Scope = scope ?? throw new ArgumentNullException(nameof(scope));
@@ -50,11 +52,12 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     protected ICalendricalSchema Schema => Scope.Schema;
 
     /// <summary>
-    /// Creates a new instance of <typeparamref name="TDate"/> from the specified count of
-    /// consecutive days since the epoch.
+    /// Creates a new instance of <typeparamref name="TDate"/> from the specified
+    /// count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    [Pure] private protected abstract TDate GetDate(int daysSinceEpoch);
+    [Pure]
+    private protected abstract TDate GetDate(int daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]

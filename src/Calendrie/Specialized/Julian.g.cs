@@ -23,7 +23,8 @@ using Calendrie.Hemerology.Scopes;
 public sealed partial class JulianCalendar : SpecialCalendar<JulianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JulianCalendar"/> class.
+    /// Initializes a new instance of the <see cref="JulianCalendar"/>
+    /// class.
     /// </summary>
     public JulianCalendar() : this(new JulianSchema()) { }
 
@@ -46,7 +47,8 @@ public sealed partial class JulianCalendar : SpecialCalendar<JulianDate>
 public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JulianAdjuster"/> class.
+    /// Initializes a new instance of the <see cref="JulianAdjuster"/>
+    /// class.
     /// </summary>
     public JulianAdjuster() : base(JulianDate.Calendar.Scope) { }
 
@@ -206,34 +208,39 @@ public partial struct JulianDate // Math
     // Friendly alternates do exist but use domain-specific names.
 
     /// <summary>
-    /// Subtracts the two specified dates and returns the number of days between them.
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
     /// </summary>
     public static int operator -(JulianDate left, JulianDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static JulianDate operator +(JulianDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow either the capacity of
-    /// <see cref="int"/> or the range of supported dates.</exception>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     public static JulianDate operator -(JulianDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the latest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     public static JulianDate operator ++(JulianDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the earliest supported date.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     public static JulianDate operator --(JulianDate value) => value.PreviousDay();
 
 #pragma warning restore CA2225
