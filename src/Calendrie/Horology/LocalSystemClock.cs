@@ -9,17 +9,18 @@ using static Calendrie.Core.TemporalConstants;
 
 // See the comments in UtcSystemClock.
 
-/// <summary>Represents the system clock using the current time zone setting on this machine.
-/// </summary>
-/// <remarks>
+/// <summary>
+/// Represents the system clock using the current time zone setting on this machine.
 /// <para>See <see cref="SystemClocks.Local"/>.</para>
 /// <para>This class cannot be inherited.</para>
-/// </remarks>
+/// </summary>
 public sealed class LocalSystemClock : IClock
 {
-    /// <summary>Represents a singleton instance of the <see cref="LocalSystemClock"/> class.
+    /// <summary>
+    /// Represents a singleton instance of the <see cref="LocalSystemClock"/>
+    /// class.
+    /// <para>This field is read-only.</para>
     /// </summary>
-    /// <remarks>This field is read-only.</remarks>
     internal static readonly LocalSystemClock Instance = new();
 
     private LocalSystemClock() { }

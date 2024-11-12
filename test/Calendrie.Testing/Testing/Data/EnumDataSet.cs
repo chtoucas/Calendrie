@@ -3,16 +3,20 @@
 
 namespace Calendrie.Testing.Data;
 
-//using Calendrie.Simple;
-
 public static class EnumDataSet
 {
+    /// <summary>
+    /// Gets invalid values for <see cref="DayOfWeek"/>.
+    /// </summary>
     public static TheoryData<DayOfWeek> InvalidDayOfWeekData { get; } =
     [
         (DayOfWeek)(-1),
         (DayOfWeek)7,
     ];
 
+    /// <summary>
+    /// Gets all legit values of <see cref="DayOfWeek"/>.
+    /// </summary>
     public static TheoryData<DayOfWeek> DayOfWeekData { get; } =
     [
         DayOfWeek.Monday,
@@ -24,12 +28,22 @@ public static class EnumDataSet
         DayOfWeek.Sunday,
     ];
 
+    //
+    // Calendrie
+    //
+
+    /// <summary>
+    /// Gets invalid values for <see cref="IsoWeekday"/>.
+    /// </summary>
     public static TheoryData<IsoWeekday> InvalidIsoWeekdayData { get; } =
     [
         0,
         (IsoWeekday)8
     ];
 
+    /// <summary>
+    /// Gets all legit values of <see cref="IsoWeekday"/>.
+    /// </summary>
     public static TheoryData<IsoWeekday> IsoWeekdayData { get; } =
     [
         IsoWeekday.Monday,
@@ -41,16 +55,18 @@ public static class EnumDataSet
         IsoWeekday.Sunday,
     ];
 
-    //
-    // Calendrie
-    //
-
+    /// <summary>
+    /// Gets invalid values for <see cref="AdditionRule"/>.
+    /// </summary>
     public static TheoryData<AdditionRule> InvalidAdditionRuleData { get; } =
     [
         (AdditionRule)(-1),
         AdditionRule.Overflow + 1,
     ];
 
+    /// <summary>
+    /// Gets all legit values of <see cref="AdditionRule"/>.
+    /// </summary>
     public static TheoryData<AdditionRule> AdditionRuleData { get; } =
     [
         AdditionRule.Truncate,
@@ -59,12 +75,18 @@ public static class EnumDataSet
         AdditionRule.Overflow,
     ];
 
+    /// <summary>
+    /// Gets invalid values for <see cref="CalendricalAlgorithm"/>.
+    /// </summary>
     public static TheoryData<CalendricalAlgorithm> InvalidCalendricalAlgorithmData { get; } =
     [
         (CalendricalAlgorithm)(-1),
         CalendricalAlgorithm.Observational + 1,
     ];
 
+    /// <summary>
+    /// Gets all legit values of <see cref="CalendricalAlgorithm"/>.
+    /// </summary>
     public static TheoryData<CalendricalAlgorithm> CalendricalAlgorithmData { get; } =
     [
         CalendricalAlgorithm.Arithmetical,
@@ -73,12 +95,18 @@ public static class EnumDataSet
         CalendricalAlgorithm.Unknown,
     ];
 
+    /// <summary>
+    /// Gets invalid values for <see cref="CalendricalFamily"/>.
+    /// </summary>
     public static TheoryData<CalendricalFamily> InvalidCalendricalFamilyData { get; } =
     [
         (CalendricalFamily)(-1),
         CalendricalFamily.Lunisolar + 1,
     ];
 
+    /// <summary>
+    /// Gets all legit values of <see cref="CalendricalFamily"/>.
+    /// </summary>
     public static TheoryData<CalendricalFamily> CalendricalFamilyData { get; } =
     [
         CalendricalFamily.AnnusVagus,
@@ -88,6 +116,10 @@ public static class EnumDataSet
         CalendricalFamily.Solar,
     ];
 
+    /// <summary>
+    /// Gets the pre-defined values of <see cref="CalendricalAdjustments"/>.
+    /// </summary>
+    //
     // All pre-defined values. Being a flag enum, other combinations are legit.
     public static TheoryData<CalendricalAdjustments> CalendricalAdjustmentsData { get; } =
     [
@@ -97,46 +129,4 @@ public static class EnumDataSet
         CalendricalAdjustments.None,
         CalendricalAdjustments.Weeks,
     ];
-
-    //public static TheoryData<CalendarId> InvalidCalendarIdData { get; } = new()
-    //{
-    //    (CalendarId)(-1),
-    //    (CalendarId)(int)(1 + Cuid.MaxSystem)
-    //};
-
-    //public static TheoryData<CalendarId> CalendarIdData { get; } = new()
-    //{
-    //    CalendarId.Armenian,
-    //    CalendarId.Civil,
-    //    CalendarId.Coptic,
-    //    CalendarId.Ethiopic,
-    //    CalendarId.Gregorian,
-    //    CalendarId.Julian,
-    //    CalendarId.TabularIslamic,
-    //    CalendarId.Zoroastrian,
-    //};
-
-    ////
-    //// Calendrie.Simple
-    ////
-
-    //internal static TheoryData<Cuid> UnfixedCuidData { get; } = new()
-    //{
-    //    Cuid.MaxSystem + 1,
-    //    Cuid.MinUser,
-    //    Cuid.Max,
-    //    Cuid.Invalid,
-    //};
-
-    //internal static TheoryData<Cuid> FixedCuidData { get; } = new()
-    //{
-    //    Cuid.Armenian,
-    //    Cuid.Civil,
-    //    Cuid.Coptic,
-    //    Cuid.Ethiopic,
-    //    Cuid.Gregorian,
-    //    Cuid.Julian,
-    //    Cuid.TabularIslamic,
-    //    Cuid.Zoroastrian,
-    //};
 }

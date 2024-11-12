@@ -26,15 +26,18 @@ using static Calendrie.Core.TemporalConstants;
 // - https://github.com/dotnet/runtime/issues/15207
 // - https://github.com/dotnet/runtime/issues/5883
 
-/// <summary>Represents the system clock using the Coordinated Universal Time (UTC).</summary>
-/// <remarks>
+/// <summary>
+/// Represents the system clock using the Coordinated Universal Time (UTC).
 /// <para>See <see cref="SystemClocks.Utc"/>.</para>
 /// <para>This class cannot be inherited.</para>
-/// </remarks>
+/// </summary>
 public sealed class UtcSystemClock : IClock
 {
-    /// <summary>Represents a singleton instance of the <see cref="UtcSystemClock"/> class.</summary>
-    /// <remarks>This field is read-only.</remarks>
+    /// <summary>
+    /// Represents a singleton instance of the <see cref="UtcSystemClock"/>
+    /// class.
+    /// <para>This field is read-only.</para>
+    /// </summary>
     internal static readonly UtcSystemClock Instance = new();
 
     private UtcSystemClock() { }

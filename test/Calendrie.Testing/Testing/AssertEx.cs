@@ -140,6 +140,6 @@ public partial class AssertEx // ISetEquatable
 {
     public static void SetEqual<T, TOther>(TOther expected, T actual) where T : ISetEquatable<TOther>
     {
-        Assert.True(actual.SetEquals(expected));
+        True(actual.SetEquals(expected));
     }
 }

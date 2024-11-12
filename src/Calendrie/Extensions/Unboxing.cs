@@ -13,13 +13,19 @@ namespace Calendrie.Extensions;
 //
 // For better alternatives, see BoxExtensions in Simple.
 
-/// <summary>Provides extension methods for <see cref="Box{T}"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Provides extension methods for <see cref="Box{T}"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public static class Unboxing
 {
-    /// <summary>Obtains the enclosed object.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
-    /// <exception cref="InvalidOperationException"><paramref name="box"/> is an empty box.</exception>
+    /// <summary>
+    /// Obtains the enclosed object.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
+    /// </exception>
+    /// <exception cref="InvalidOperationException"><paramref name="box"/> is an
+    /// empty box.</exception>
     [Pure]
     public static T Unbox<T>(this Box<T> box)
         where T : class
@@ -29,8 +35,11 @@ public static class Unboxing
         return box.IsEmpty ? Throw.EmptyBox<T>() : box.Content;
     }
 
-    /// <summary>Attempts to obtain the enclosed object.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.</exception>
+    /// <summary>
+    /// Attempts to obtain the enclosed object.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
+    /// </exception>
     [Pure]
     public static bool TryUnbox<T>(this Box<T> box, [NotNullWhen(true)] out T? obj)
         where T : class
