@@ -16,14 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84246E77-9B04-4280-B84B-32C8772009ED}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		eng\common.ps1 = eng\common.ps1
-		eng\cover.ps1 = eng\cover.ps1
-		Directory.Build.props = Directory.Build.props
-		Directory.Build.targets = Directory.Build.targets
-		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
 		LICENSE = LICENSE
-		eng\test.ps1 = eng\test.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeTemplates", "CodeTemplates", "{E7581A9C-D825-468D-92D8-5E120FA815EA}"
@@ -45,6 +39,25 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendrie.Testing", "test\Calendrie.Testing\Calendrie.Testing.csproj", "{8798985D-A04A-4DAC-9D41-035DC2117EDA}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Calendrie.Tests", "test\Calendrie.Tests\Calendrie.Tests.fsproj", "{B09CCEBE-D16A-4155-94A3-BE04D627E234}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5}"
+	ProjectSection(SolutionItems) = preProject
+		eng\asm.ps1 = eng\asm.ps1
+		eng\bench.ps1 = eng\bench.ps1
+		eng\common.ps1 = eng\common.ps1
+		eng\cover.ps1 = eng\cover.ps1
+		eng\freeze-api.ps1 = eng\freeze-api.ps1
+		eng\pack.ps1 = eng\pack.ps1
+		eng\reset.ps1 = eng\reset.ps1
+		eng\test.ps1 = eng\test.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B5DAB6F6-0274-49E4-B984-E97765E7B6D3}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +86,8 @@ Global
 		{E7581A9C-D825-468D-92D8-5E120FA815EA} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
 		{8798985D-A04A-4DAC-9D41-035DC2117EDA} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
+		{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5} = {84246E77-9B04-4280-B84B-32C8772009ED}
+		{B5DAB6F6-0274-49E4-B984-E97765E7B6D3} = {84246E77-9B04-4280-B84B-32C8772009ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED8B0D74-DB69-46D4-AADE-91101FF165C2}
