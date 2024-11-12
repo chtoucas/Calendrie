@@ -86,11 +86,12 @@
 
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <!--
+          CS0618  Compiler Warning (level 2) 'member' is obsolete: 'text'
           CS1030  Compiler Warning (level 1) #warning
           CS1591  Missing XML comment for publicly visible type or member 'Type_or_Member'
           IDE0290 Use primary constructor
         -->
-        <WarningsNotAsErrors>CS1030;CS1591;IDE0290</WarningsNotAsErrors>
+        <WarningsNotAsErrors>CS0618;CS1030;CS1591;IDE0290</WarningsNotAsErrors>
         <NoWarn />
       </PropertyGroup>
     </When>
