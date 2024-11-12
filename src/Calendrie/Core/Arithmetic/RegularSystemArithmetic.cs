@@ -15,7 +15,7 @@ internal sealed partial class RegularSystemArithmetic : SystemArithmetic
     /// <summary>
     /// Initializes a new instance of the <see cref="RegularSystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The underlying schema contains at least one
     /// month whose length is strictly less than <see cref="SystemArithmetic.MinMinDaysInMonth"/>.
     /// </exception>

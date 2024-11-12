@@ -20,7 +20,7 @@ internal static class Requires
     /// Validates that the specified value is not null.
     /// </summary>
     /// <typeparam name="T">The type of reference value type being tested.</typeparam>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="obj"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="obj"/> is <see langword="null"/>.</exception>
     //
     // CIL code size = 16 bytes <= 32 bytes.
     [Obsolete("Use ArgumentNullException.ThrowIfNull() instead.")]

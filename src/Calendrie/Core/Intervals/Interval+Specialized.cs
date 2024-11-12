@@ -13,9 +13,11 @@ public partial class Interval // Coalesce
 
     /// <summary>
     /// Attempts to obtain the set union of the two specified intervals.
-    /// <para>See also <seealso cref="Connected(Range{int}, Range{int})"/>.</para>
+    /// <para>See also <seealso cref="Connected(Range{int}, Range{int})"/>.
+    /// </para>
     /// </summary>
-    /// <returns><see langword="null"/> if the set union is not an interval.</returns>
+    /// <returns><see langword="null"/> if the set union is not an interval.
+    /// </returns>
     [Pure]
     public static Range<int>? Coalesce(Range<int> x, Range<int> y)
     {
@@ -25,18 +27,22 @@ public partial class Interval // Coalesce
 
     /// <summary>
     /// Attempts to obtain the set union of the two specified intervals.
-    /// <para>See also <seealso cref="Connected(Range{int}, LowerRay{int})"/>.</para>
+    /// <para>See also <seealso cref="Connected(Range{int}, LowerRay{int})"/>.
+    /// </para>
     /// </summary>
-    /// <returns><see langword="null"/> if the set union is not an interval.</returns>
+    /// <returns><see langword="null"/> if the set union is not an interval.
+    /// </returns>
     [Pure]
     public static LowerRay<int>? Coalesce(Range<int> x, LowerRay<int> y) =>
         Connected(x, y) ? Span(x, y) : null;
 
     /// <summary>
     /// Attempts to obtain the set union of the two specified intervals.
-    /// <para>See also <seealso cref="Connected(Range{int}, UpperRay{int})"/>.</para>
+    /// <para>See also <seealso cref="Connected(Range{int}, UpperRay{int})"/>.
+    /// </para>
     /// </summary>
-    /// <returns><see langword="null"/> if the set union is not an interval.</returns>
+    /// <returns><see langword="null"/> if the set union is not an interval.
+    /// </returns>
     [Pure]
     public static UpperRay<int>? Coalesce(Range<int> x, UpperRay<int> y) =>
         Connected(x, y) ? Span(x, y) : null;
@@ -46,9 +52,11 @@ public partial class Interval // Coalesce
 
     /// <summary>
     /// Attempts to obtain the set union of the two specified intervals.
-    /// <para>See also <seealso cref="Connected(Range{DayNumber}, Range{DayNumber})"/>.</para>
+    /// <para>See also <seealso cref="Connected(Range{DayNumber}, Range{DayNumber})"/>.
+    /// </para>
     /// </summary>
-    /// <returns><see langword="null"/> if the set union is not an interval.</returns>
+    /// <returns><see langword="null"/> if the set union is not an interval.
+    /// </returns>
     [Pure]
     public static Range<DayNumber>? Coalesce(Range<DayNumber> x, Range<DayNumber> y)
     {
@@ -58,18 +66,22 @@ public partial class Interval // Coalesce
 
     /// <summary>
     /// Attempts to obtain the set union of the two specified intervals.
-    /// <para>See also <seealso cref="Connected(Range{DayNumber}, LowerRay{DayNumber})"/>.</para>
+    /// <para>See also <seealso cref="Connected(Range{DayNumber}, LowerRay{DayNumber})"/>.
+    /// </para>
     /// </summary>
-    /// <returns><see langword="null"/> if the set union is not an interval.</returns>
+    /// <returns><see langword="null"/> if the set union is not an interval.
+    /// </returns>
     [Pure]
     public static LowerRay<DayNumber>? Coalesce(Range<DayNumber> x, LowerRay<DayNumber> y) =>
         Connected(x, y) ? Span(x, y) : null;
 
     /// <summary>
     /// Attempts to obtain the set union of the two specified intervals.
-    /// <para>See also <seealso cref="Connected(Range{DayNumber}, UpperRay{DayNumber})"/>.</para>
+    /// <para>See also <seealso cref="Connected(Range{DayNumber}, UpperRay{DayNumber})"/>.
+    /// </para>
     /// </summary>
-    /// <returns><see langword="null"/> if the set union is not an interval.</returns>
+    /// <returns><see langword="null"/> if the set union is not an interval.
+    /// </returns>
     [Pure]
     public static UpperRay<DayNumber>? Coalesce(Range<DayNumber> x, UpperRay<DayNumber> y) =>
         Connected(x, y) ? Span(x, y) : null;
@@ -92,7 +104,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<int> Gap(Range<int> x, Range<int> y) =>
         x.Max < y.Min ? GapCore(x.Max, y.Min)
@@ -102,7 +115,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<int> Gap(Range<int> x, LowerRay<int> y) =>
         y.Max < x.Min ? GapCore(y.Max, x.Min) : RangeSet<int>.Empty;
@@ -110,7 +124,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<int> Gap(Range<int> x, UpperRay<int> y) =>
         x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<int>.Empty;
@@ -118,7 +133,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<int> Gap(LowerRay<int> x, UpperRay<int> y) =>
         x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<int>.Empty;
@@ -138,7 +154,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<DayNumber> Gap(Range<DayNumber> x, Range<DayNumber> y) =>
          x.Max < y.Min ? GapCore(x.Max, y.Min)
@@ -148,7 +165,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<DayNumber> Gap(Range<DayNumber> x, LowerRay<DayNumber> y) =>
         y.Max < x.Min ? GapCore(y.Max, x.Min) : RangeSet<DayNumber>.Empty;
@@ -156,7 +174,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<DayNumber> Gap(Range<DayNumber> x, UpperRay<DayNumber> y) =>
          x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<DayNumber>.Empty;
@@ -164,7 +183,8 @@ public partial class Interval // Gap
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
-    /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
+    /// <returns>The empty interval if the two intervals overlap or are adjacent.
+    /// </returns>
     [Pure]
     public static RangeSet<DayNumber> Gap(LowerRay<DayNumber> x, UpperRay<DayNumber> y) =>
          x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<DayNumber>.Empty;
@@ -190,8 +210,8 @@ public partial class Interval // Adjacency
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(Range<int> x, Range<int> y) =>
@@ -199,24 +219,24 @@ public partial class Interval // Adjacency
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(Range<int> x, LowerRay<int> y) => (long)y.Max + 1 == x.Min;
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(Range<int> x, UpperRay<int> y) => (long)x.Max + 1 == y.Min;
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(LowerRay<int> x, UpperRay<int> y) => (long)x.Max + 1 == y.Min;
@@ -226,8 +246,8 @@ public partial class Interval // Adjacency
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(Range<DayNumber> x, Range<DayNumber> y) =>
@@ -236,8 +256,8 @@ public partial class Interval // Adjacency
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(Range<DayNumber> x, LowerRay<DayNumber> y) =>
@@ -245,8 +265,8 @@ public partial class Interval // Adjacency
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(Range<DayNumber> x, UpperRay<DayNumber> y) =>
@@ -254,8 +274,8 @@ public partial class Interval // Adjacency
 
     /// <summary>
     /// Determines whether the two specified intervals are adjacent or not.
-    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint and there is an
-    /// empty gap between them.</para>
+    /// <para>Two intervals are said to be <i>adjacent</i> if they are disjoint
+    /// and there is an empty gap between them.</para>
     /// </summary>
     [Pure]
     public static bool Adjacent(LowerRay<DayNumber> x, UpperRay<DayNumber> y) =>
@@ -282,8 +302,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(Range<int> x, Range<int> y) =>
@@ -291,8 +311,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(Range<int> x, LowerRay<int> y) =>
@@ -300,8 +320,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(Range<int> x, UpperRay<int> y) =>
@@ -309,8 +329,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(LowerRay<int> x, UpperRay<int> y) =>
@@ -321,8 +341,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(Range<DayNumber> x, Range<DayNumber> y) =>
@@ -330,8 +350,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(Range<DayNumber> x, LowerRay<DayNumber> y) =>
@@ -339,8 +359,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(Range<DayNumber> x, UpperRay<DayNumber> y) =>
@@ -348,8 +368,8 @@ public partial class Interval // Connectedness
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
-    /// <para>Two intervals are said to be <i>connected</i> if their set union is an interval
-    /// too.</para>
+    /// <para>Two intervals are said to be <i>connected</i> if their set union is
+    /// an interval too.</para>
     /// </summary>
     [Pure]
     public static bool Connected(LowerRay<DayNumber> x, UpperRay<DayNumber> y) =>

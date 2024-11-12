@@ -29,7 +29,7 @@ public abstract partial class CalendarScope : ICalendricalValidator, ISchemaBoun
     /// Called from constructors in derived classes to initialize the <see cref="CalendarScope"/>
     /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     protected CalendarScope(DayNumber epoch, CalendricalSegment segment)
     {
         Segment = segment ?? throw new ArgumentNullException(nameof(segment));

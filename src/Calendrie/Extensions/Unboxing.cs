@@ -22,8 +22,8 @@ public static class Unboxing
     /// <summary>
     /// Obtains the enclosed object.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
+    /// <see langword="null"/>.</exception>
     /// <exception cref="InvalidOperationException"><paramref name="box"/> is an
     /// empty box.</exception>
     [Pure]
@@ -38,8 +38,8 @@ public static class Unboxing
     /// <summary>
     /// Attempts to obtain the enclosed object.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
+    /// <see langword="null"/>.</exception>
     [Pure]
     public static bool TryUnbox<T>(this Box<T> box, [NotNullWhen(true)] out T? obj)
         where T : class

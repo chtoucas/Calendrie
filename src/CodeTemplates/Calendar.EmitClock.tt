@@ -17,8 +17,8 @@ public sealed partial class <#= Prefix #>Clock
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Clock"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
     public <#= Prefix #>Clock(IClock clock) : this(<#= Prefix #>Date.Calendar.Epoch, clock) { }
 
     private <#= Prefix #>Clock(DayNumber epoch, IClock clock)
@@ -43,8 +43,8 @@ public sealed partial class <#= Prefix #>Clock
     /// Obtains an instance of the <see cref="<#= Prefix #>Clock"/> class for
     /// the specified clock.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
     [Pure]
     public static <#= Prefix #>Clock GetClock(IClock clock) => new(clock);
 

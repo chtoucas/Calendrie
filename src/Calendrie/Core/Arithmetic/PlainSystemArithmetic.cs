@@ -14,7 +14,7 @@ internal sealed partial class PlainSystemArithmetic : SystemArithmetic
     /// Called from constructors in derived classes to initialize the
     /// <see cref="PlainSystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     public PlainSystemArithmetic(SystemSegment segment) : base(segment) { }
 }
 

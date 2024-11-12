@@ -22,7 +22,7 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
     /// <summary>
     /// Initializes a new instance of the <see cref="Solar12PreValidator"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public Solar12PreValidator(CalendricalSchema schema)
     {
         _schema = schema ?? throw new ArgumentNullException(nameof(schema));

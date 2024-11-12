@@ -16,7 +16,7 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     private readonly CalendricalSchema _schema;
 
     /// <summary>Initializes a new instance of the <see cref="LunarPreValidator"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public LunarPreValidator(CalendricalSchema schema)
     {
         _schema = schema ?? throw new ArgumentNullException(nameof(schema));

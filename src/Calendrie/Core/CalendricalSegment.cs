@@ -81,7 +81,7 @@ public sealed class CalendricalSegment : ISchemaBound
     public sealed override string ToString() => MinMaxDateParts.ToString();
 
     /// <summary>Creates a new instance of the <see cref="CalendricalSegment"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is NOT a subinterval
     /// of the range of supported years by <paramref name="schema"/>.</exception>
     [Pure]
@@ -93,7 +93,7 @@ public sealed class CalendricalSegment : ISchemaBound
     }
 
     /// <summary>Creates the maximal segment for <paramref name="schema"/>.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     [Pure]
     public static CalendricalSegment CreateMaximal(ICalendricalSchema schema)
     {
@@ -104,7 +104,7 @@ public sealed class CalendricalSegment : ISchemaBound
     }
 
     /// <summary>Creates the maximal segment for <paramref name="schema"/>.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The range of supported years by <paramref name="schema"/>
     /// does not contain the year 1.</exception>
     [Pure]

@@ -18,7 +18,7 @@ internal sealed class Solar12SystemArithmetic : SolarSystemArithmetic
     /// Initializes a new instance of the <see cref="Solar12SystemArithmetic"/> class with the
     /// specified schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The underlying schema does not have the expected
     /// profile <see cref="CalendricalProfile.Solar12"/>.</exception>
     public Solar12SystemArithmetic(SystemSegment segment) : base(segment)

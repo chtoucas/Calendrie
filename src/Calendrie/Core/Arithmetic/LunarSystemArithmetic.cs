@@ -22,7 +22,7 @@ internal sealed partial class LunarSystemArithmetic : SystemArithmetic
     /// Initializes a new instance of the <see cref="LunarSystemArithmetic"/> class with the specified
     /// schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The underlying schema does not have the expected
     /// profile <see cref="CalendricalProfile.Lunar"/>.</exception>
     public LunarSystemArithmetic(SystemSegment segment) : base(segment)

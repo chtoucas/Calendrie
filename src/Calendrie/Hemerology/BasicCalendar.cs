@@ -15,7 +15,7 @@ public abstract partial class BasicCalendar<TScope> : ICalendar
 {
     /// <summary>Called from constructors in derived classes to initialize the
     /// <see cref="BasicCalendar{TScope}"/> class.</summary>
-    /// <exception cref="ArgumentNullException">One of the parameters is null.</exception>
+    /// <exception cref="ArgumentNullException">One of the parameters is <see langword="null"/>.</exception>
     protected BasicCalendar(string name, TScope scope)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));

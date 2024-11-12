@@ -39,7 +39,7 @@ public static class StandardScope
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with the
     /// specified schema and epoch.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The range of supported years by
     /// <paramref name="schema"/> does not contain the interval [1..9999].</exception>
     public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch) =>

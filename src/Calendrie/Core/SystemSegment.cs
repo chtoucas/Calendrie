@@ -95,7 +95,7 @@ public sealed class SystemSegment : ISchemaBound
     /// Creates a new instance of the <see cref="SystemSegment"/> class from the specified range
     /// of supported years.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is NOT a
     /// subinterval of the range of supported years by <paramref name="schema"/>.</exception>
     [Pure]
@@ -136,7 +136,7 @@ public sealed class SystemSegment : ISchemaBound
     /// Converts the specified <see cref="CalendricalSegment"/> instance to
     /// <see cref="SystemSegment"/>.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The underlying schema is NOT a system schema.</exception>
     public static SystemSegment FromCalendricalSegment(CalendricalSegment segment)
     {

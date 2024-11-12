@@ -57,7 +57,7 @@ public interface ICalendricalPreValidator
 
     /// <summary>Creates the default <see cref="ICalendricalPreValidator"/> for the specified schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     [Pure]
     public static ICalendricalPreValidator CreateDefault(CalendricalSchema schema)
     {

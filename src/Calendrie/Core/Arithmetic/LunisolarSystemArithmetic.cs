@@ -21,7 +21,7 @@ internal sealed partial class LunisolarSystemArithmetic : SystemArithmetic
     /// Initializes a new instance of the <see cref="LunisolarSystemArithmetic"/> class with the
     /// specified schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The underlying schema does not have the expected
     /// profile <see cref="CalendricalProfile.Lunisolar"/>.
     /// </exception>

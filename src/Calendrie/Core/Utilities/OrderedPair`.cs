@@ -115,7 +115,7 @@ public partial struct OrderedPair<T> // QEP
 {
     /// <summary>Maps both enclosed elements with the specified selector.</summary>
     /// <remarks>The order of the pair's elements may not be preserved.</remarks>
-    /// <exception cref="ArgumentNullException"><paramref name="selector"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="selector"/> is <see langword="null"/>.</exception>
     [Pure]
     public OrderedPair<TResult> Select<TResult>(Func<T, TResult> selector)
         where TResult : struct, IEquatable<TResult>, IComparable<TResult>
@@ -131,8 +131,8 @@ public partial struct OrderedPair<T> // QEP
     /// <para>Despite its name, this method cannot appear within a Query Expression Pattern.
     /// </para>
     /// </remarks>
-    /// <exception cref="ArgumentNullException"><paramref name="lowerValueSelector"/> is null.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="upperValueSelector"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="lowerValueSelector"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="upperValueSelector"/> is <see langword="null"/>.</exception>
     [Pure]
     public OrderedPair<TResult> Select<TResult>(
         Func<T, TResult> lowerValueSelector, Func<T, TResult> upperValueSelector)

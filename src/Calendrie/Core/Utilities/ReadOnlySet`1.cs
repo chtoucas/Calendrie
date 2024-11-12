@@ -15,14 +15,14 @@ public sealed partial class ReadOnlySet<T> : IReadOnlyCollection<T>, IReadOnlySe
     private readonly HashSet<T> _set;
 
     /// <summary>Initializes a new instance of the <see cref="ReadOnlySet{T}"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="set"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="set"/> is <see langword="null"/>.</exception>
     public ReadOnlySet(HashSet<T> set)
     {
         _set = set ?? throw new ArgumentNullException(nameof(set));
     }
 
     /// <summary>Initializes a new instance of the <see cref="ReadOnlySet{T}"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="collection"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="collection"/> is <see langword="null"/>.</exception>
     public ReadOnlySet(IEnumerable<T> collection)
     {
         // NB: we do not offer the ability to choose a comparer.

@@ -18,37 +18,34 @@ using Calendrie.Hemerology;
 
 #region Developer Notes
 
-// Since DaysSinceZero is public, Min/MaxDaysSinceZero are public too.
-// Another reason: constructing a day number requires a "daysSinceEpoch"
-// and I like the fact that we can validate its value before.
+// Since DaysSinceZero is public, Min/MaxDaysSinceZero are public too. Another
+// reason: constructing a day number requires a "daysSinceEpoch" and I like the
+// fact that we can validate its value before.
 //
 // Min/MaxGregorianDaysSinceZero
-// This time, the following two constants are private. Rationale: we
-// construct a day number from a "daysSinceEpoch" and only after do we
-// check that the result is within the Gregorian domain, using the prop
-// GregorianDomain.
+// This time, the following two constants are private. Rationale: we construct a
+// day number from a "daysSinceEpoch" and only after do we check that the result
+// is within the Gregorian domain, using the prop GregorianDomain.
 //
 // Min/MaxSupportedYear
-// We can go a bit further than JulianSchema.SupportedYears.
-// The current estimation for the age of the universe is ~14 billion
-// Julian years. Unfortunately, the matching day number largely exceeds
-// the capacity of Int32. To go that far back in time, see DayNumber64.
-// To simplify we use the same values for the min and max years in both
-// Gregorian and Julian cases.
+// We can go a bit further than JulianSchema.SupportedYears. The current
+// estimation for the age of the universe is ~14 billion Julian years.
+// Unfortunately, the matching day number largely exceeds the capacity of Int32.
+// To go that far back in time, see DayNumber64. To simplify we use the same
+// values for the min and max years in both Gregorian and Julian cases.
 //
 // Min/MaxValue
-// The minimum value has been chosen such that its properties do not
-// overflow, e.g. DayNumber.MinValue.Ordinal = Ord.MinValue.
-// The maximum value has been chosen such that its properties do not
-// overflow, e.g. DayNumber.MaxValue.Ordinal = Ord.MaxValue.
+// The minimum value has been chosen such that its properties do not overflow,
+// e.g. DayNumber.MinValue.Ordinal = Ord.MinValue. The maximum value has been
+// chosen such that its properties do not overflow, e.g.
+// DayNumber.MaxValue.Ordinal = Ord.MaxValue.
 //
-// Notice that the type definition of GregorianDomain is recursive.
-// Even if it is perfectly legal, GregorianDomain cannot be part of the
-// type initialization of DayNumber (e.g. it cannot be a field);
-// otherwise the CoreCLR will throw a TypeLoadException. It seems to be
-// a known limitation in some CLR implementations.
-// NB: it would work fine if either Range<T> or DayNumber was not a
-// struct.
+// Notice that the type definition of GregorianDomain is recursive. Even if it is
+// perfectly legal, GregorianDomain cannot be part of the type initialization of
+// DayNumber (e.g. it cannot be a field); otherwise the CoreCLR will throw a
+// TypeLoadException. It seems to be a known limitation in some CLR
+// implementations.
+// NB: it would work fine if either Range<T> or DayNumber was not a struct.
 // https://github.com/dotnet/runtime/issues/5479
 // https://github.com/dotnet/runtime/issues/11179
 // https://github.com/dotnet/roslyn/issues/10126#issuecomment-204471882

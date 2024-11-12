@@ -69,8 +69,8 @@ public sealed partial class CivilClock
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilClock"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
     public CivilClock(IClock clock)
     {
         _clock = clock ?? throw new ArgumentNullException(nameof(clock));
@@ -92,8 +92,8 @@ public sealed partial class CivilClock
     /// Obtains an instance of the <see cref="CivilClock"/> class for the
     /// specified clock.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
     [Pure]
     public static CivilClock GetClock(IClock clock) => new(clock);
 

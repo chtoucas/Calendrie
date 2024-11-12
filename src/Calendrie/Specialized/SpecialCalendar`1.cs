@@ -24,10 +24,10 @@ public abstract class SpecialCalendar<TDate> : MinMaxYearBasicCalendar, ICalenda
     /// Called from constructors in derived classes to initialize the
     /// <see cref="SpecialCalendar{TDate}"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.
-    /// </exception>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="name"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
+    /// <see langword="null"/>.</exception>
     private protected SpecialCalendar(string name, MinMaxYearScope scope) : base(name, scope) { }
 
     /// <summary>

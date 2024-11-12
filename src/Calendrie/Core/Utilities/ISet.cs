@@ -31,7 +31,7 @@ public interface ISetEquatable<in TOther>
 {
     /// <summary>Determines whether this set and <paramref name="other"/> contains the same elements.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="other"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="other"/> is <see langword="null"/>.</exception>
     [Pure] bool SetEquals(TOther other);
 }
 
@@ -41,11 +41,11 @@ public interface ISetEquatable<in TOther>
 public interface ISetIncludible<in TOther>
 {
     /// <summary>Determines whether this set is a subset of <paramref name="other"/>.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="other"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="other"/> is <see langword="null"/>.</exception>
     [Pure] bool IsSubsetOf(TOther other);
 
     /// <summary>Determines whether this set is a superset of <paramref name="other"/>.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="other"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="other"/> is <see langword="null"/>.</exception>
     [Pure] bool IsSupersetOf(TOther other);
 }
 
@@ -56,11 +56,11 @@ public interface ISetComparable<in TOther> : ISetEquatable<TOther>, ISetIncludib
 {
     /// <summary>Determines whether this set is a proper (strict) subset of <paramref name="other"/>.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="other"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="other"/> is <see langword="null"/>.</exception>
     [Pure] bool IsProperSubsetOf(TOther other);
 
     /// <summary>Determines whether this set is a proper (strict) superset of
     /// <paramref name="other"/>.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="other"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="other"/> is <see langword="null"/>.</exception>
     [Pure] bool IsProperSupersetOf(TOther other);
 }

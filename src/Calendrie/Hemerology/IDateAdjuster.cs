@@ -51,28 +51,28 @@ public interface IDateAdjuster<TDate>
     CalendarScope Scope { get; }
 
     /// <summary>Obtains the first day of the year to which belongs the specified date.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of supported dates.
     /// </exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
     [Pure] TDate GetStartOfYear(TDate date);
 
     /// <summary>Obtains the last day of the year to which belongs the specified date.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of supported dates.
     /// </exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
     [Pure] TDate GetEndOfYear(TDate date);
 
     /// <summary>Obtains the first day of the month to which belongs the specified date.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of supported dates.
     /// </exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
     [Pure] TDate GetStartOfMonth(TDate date);
 
     /// <summary>Obtains the last day of the month to which belongs the specified date.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of supported dates.
     /// </exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]

@@ -37,8 +37,8 @@ public partial class AssertEx // Arg exceptions
     /// Verifies that an exception is exactly the given exception type (and not
     /// a derived one), then that its message is not null.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is
+    /// <see langword="null"/>.</exception>
     public static void CheckException(Type expectedExceptionType, Exception exn)
     {
         ArgumentNullException.ThrowIfNull(exn);
@@ -51,8 +51,8 @@ public partial class AssertEx // Arg exceptions
     /// Verifies that an exception message is not null, then that the name of the
     /// parameter that causes the exception is equal to <paramref name="expectedParamName"/>.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="exn"/> is
+    /// <see langword="null"/>.</exception>
     public static void CheckArgumentException(string expectedParamName, ArgumentException exn)
     {
         ArgumentNullException.ThrowIfNull(exn);
@@ -100,8 +100,8 @@ public partial class AssertEx // Box<T>
     /// <summary>
     /// Verifies that <paramref name="box"/> is empty.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
+    /// <see langword="null"/>.</exception>
     public static void Empty<T>(Box<T> box) where T : class
     {
         ArgumentNullException.ThrowIfNull(box);
@@ -112,8 +112,8 @@ public partial class AssertEx // Box<T>
     /// <summary>
     /// Verifies that <paramref name="box"/> is NOT empty.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
+    /// <see langword="null"/>.</exception>
     public static void Some<T>(Box<T> box) where T : class
     {
         ArgumentNullException.ThrowIfNull(box);
@@ -125,8 +125,8 @@ public partial class AssertEx // Box<T>
     /// Verifies that <paramref name="box"/> is NOT empty and contains
     /// <paramref name="expected"/>.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
+    /// <see langword="null"/>.</exception>
     public static void Some<T>([DisallowNull] T expected, Box<T> box) where T : class
     {
         ArgumentNullException.ThrowIfNull(box);

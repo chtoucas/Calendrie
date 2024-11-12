@@ -11,7 +11,7 @@ public class BoundedBelowBasicCalendar : BasicCalendar<BoundedBelowScope>
 {
     /// <summary>Initializes a new instance of the <see cref="BoundedBelowBasicCalendar"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException">One of the parameters is null.</exception>
+    /// <exception cref="ArgumentNullException">One of the parameters is <see langword="null"/>.</exception>
     public BoundedBelowBasicCalendar(string name, BoundedBelowScope scope) : base(name, scope)
     {
         Debug.Assert(scope != null);

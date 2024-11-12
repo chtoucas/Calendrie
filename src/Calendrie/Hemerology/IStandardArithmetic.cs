@@ -10,7 +10,7 @@ public interface IStandardArithmetic<TSelf>
     where TSelf : IStandardArithmetic<TSelf>
 {
     /// <summary>Counts the number of days elapsed since the specified date.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="other"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="other"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="other"/> does not belong to the calendar
     /// of the current instance.</exception>
     [Pure] int CountDaysSince(TSelf other);

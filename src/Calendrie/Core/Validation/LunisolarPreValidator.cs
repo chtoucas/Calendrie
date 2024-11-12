@@ -22,7 +22,7 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     /// <summary>
     /// Initializes a new instance of the <see cref="LunisolarPreValidator"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public LunisolarPreValidator(CalendricalSchema schema)
     {
         _schema = schema ?? throw new ArgumentNullException(nameof(schema));

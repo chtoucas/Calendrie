@@ -24,7 +24,7 @@ internal sealed partial class GregorianSystemArithmetic : SystemArithmetic
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianSystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException"><paramref name="supportedYears"/> is NOT a subinterval
     /// of the range of supported years by <paramref name="schema"/>.</exception>
     public GregorianSystemArithmetic(GregorianSchema schema, Range<int> supportedYears)
@@ -33,7 +33,7 @@ internal sealed partial class GregorianSystemArithmetic : SystemArithmetic
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianSystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     internal GregorianSystemArithmetic(SystemSegment segment) : base(segment)
     {
         Debug.Assert(MaxDaysViaDayOfMonth_ >= MinMinDaysInMonth);

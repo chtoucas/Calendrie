@@ -12,7 +12,7 @@ public sealed partial class PartsAdapter
     private readonly ICalendricalSchema _schema;
 
     /// <summary>Initializes a new instance of the <see cref="PartsAdapter"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public PartsAdapter(ICalendricalSchema schema)
     {
         _schema = schema ?? throw new ArgumentNullException(nameof(schema));

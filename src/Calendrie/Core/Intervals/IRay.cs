@@ -3,11 +3,15 @@
 
 namespace Calendrie.Core.Intervals;
 
-/// <summary>Defines a half-bounded interval, also known as a ray or a half-line.</summary>
+/// <summary>
+/// Defines a half-bounded interval, also known as a ray or a half-line.
+/// </summary>
 /// <typeparam name="T">The type of the ray's elements.</typeparam>
 public interface IRay<T> : IInterval<T>
     where T : struct, IEquatable<T>, IComparable<T>
 {
-    /// <summary>Gets the endpoint.</summary>
+    /// <summary>
+    /// Gets the endpoint.
+    /// </summary>
     T Endpoint { get; }
 }

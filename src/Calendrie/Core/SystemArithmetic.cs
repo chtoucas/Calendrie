@@ -67,7 +67,7 @@ public abstract partial class SystemArithmetic
     /// Called from constructors in derived classes to initialize the
     /// <see cref="SystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     protected SystemArithmetic(SystemSegment segment)
     {
         Segment = segment ?? throw new ArgumentNullException(nameof(segment));
@@ -134,7 +134,7 @@ public abstract partial class SystemArithmetic
     ///// Creates the default arithmetic object for the specified schema and range of supported
     ///// years.
     ///// </summary>
-    ///// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    ///// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     ///// <exception cref="AoorException"><paramref name="supportedYears"/> is NOT a subinterval
     ///// of the range of supported years by <paramref name="schema"/>.</exception>
     //[Pure]
@@ -144,7 +144,7 @@ public abstract partial class SystemArithmetic
     /// <summary>
     /// Creates the default arithmetic object for the specified segment.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     [Pure]
     public static SystemArithmetic CreateDefault(SystemSegment segment)
     {

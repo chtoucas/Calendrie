@@ -16,7 +16,7 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <summary>
     /// Initializes a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The start of <paramref name="segment"/> is the first
     /// day of a year -or- the end of <paramref name="segment"/> is not the end of a year.
     /// </exception>
@@ -51,7 +51,7 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException"><paramref name="minDateParts"/> is invalid or outside
     /// the range of dates supported by <paramref name="schema"/>.</exception>
     /// <exception cref="AoorException"><paramref name="maxYear"/> is outside the range of years
@@ -72,7 +72,7 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     /// <exception cref="AoorException"><paramref name="parts"/> is invalid or outside the range
     /// of dates supported by <paramref name="schema"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="parts"/> is the first day of a year.
@@ -91,7 +91,7 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The minimum date of <paramref name="scope"/> is the
     /// start of the minimal year -or- the maximum date of <paramref name="scope"/> is not the
     /// end of the maximal year.</exception>

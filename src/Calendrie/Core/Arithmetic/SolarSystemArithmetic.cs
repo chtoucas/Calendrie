@@ -21,7 +21,7 @@ internal abstract partial class SolarSystemArithmetic : SystemArithmetic
     /// Called from constructors in derived classes to initialize the
     /// <see cref="SolarSystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
     protected SolarSystemArithmetic(SystemSegment segment) : base(segment)
     {
         // Disabled, otherwise we cannot test the derived constructors.

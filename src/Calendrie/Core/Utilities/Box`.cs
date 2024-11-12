@@ -55,11 +55,15 @@ namespace Calendrie.Core.Utilities;
 
 #endregion
 
-/// <summary>Provides static helpers and extension methods for <see cref="Box{T}"/>.</summary>
-/// <remarks>This class cannot be inherited.</remarks>
+/// <summary>
+/// Provides static helpers and extension methods for <see cref="Box{T}"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public static class Box
 {
-    /// <summary>Creates a new instance of the <see cref="Box{T}"/> class from the specified object.
+    /// <summary>
+    /// Creates a new instance of the <see cref="Box{T}"/> class from the
+    /// specified object.
     /// </summary>
     [Pure]
     public static Box<T> Create<T>(T? obj) where T : class
@@ -67,15 +71,20 @@ public static class Box
         return obj is null ? Box<T>.Empty : new Box<T>(obj);
     }
 
-    /// <summary>Obtains the unique empty instance of <see cref="Box{T}" />.</summary>
+    /// <summary>
+    /// Obtains the unique empty instance of <see cref="Box{T}" />.
+    /// </summary>
     [Pure]
     public static Box<T> Empty<T>() where T : class
     {
         return Box<T>.Empty;
     }
 
-    /// <summary>Removes one level of boxes, projecting the content into the outer box.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="square"/> is null.</exception>
+    /// <summary>
+    /// Removes one level of boxes, projecting the content into the outer box.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="square"/> is
+    /// <see langword="null"/>.</exception>
     public static Box<T> Flatten<T>(this Box<Box<T>> square) where T : class
     {
         ArgumentNullException.ThrowIfNull(square);
@@ -84,16 +93,22 @@ public static class Box
     }
 }
 
-/// <summary>Represents a "boxed" object.</summary>
-/// <remarks>This class cannot be inherited.</remarks>
+/// <summary>
+/// Represents a "boxed" object.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 /// <typeparam name="T">The type of the "boxed" object.</typeparam>
 public sealed class Box<T> where T : class
 {
-    /// <summary>Represents the empty <see cref="Box{T}" />, it does not enclose anything.</summary>
-    /// <remarks>This field is read-only.</remarks>
+    /// <summary>
+    /// Represents the empty <see cref="Box{T}" />, it does not enclose anything.
+    /// <para>This field is read-only.</para>
+    /// </summary>
     internal static readonly Box<T> Empty = new();
 
-    /// <summary>Initializes a new instance of the <see cref="Box{T}"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Box{T}"/> class.
+    /// </summary>
     private Box()
     {
         IsEmpty = true;
@@ -101,8 +116,10 @@ public sealed class Box<T> where T : class
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Box{T}"/> class from the specified object.
+    /// Initializes a new instance of the <see cref="Box{T}"/> class from the
+    /// specified object.
     /// </summary>
+    //
     // Always use Box.Create() instead of this constructor.
     internal Box(T content)
     {
@@ -112,14 +129,20 @@ public sealed class Box<T> where T : class
         Content = content;
     }
 
-    /// <summary>Determines whether this box is empty or not.</summary>
+    /// <summary>
+    /// Determines whether this box is empty or not.
+    /// </summary>
     [MemberNotNullWhen(returnValue: false, member: nameof(Content))]
     internal bool IsEmpty { get; }
 
-    /// <summary>Gets the enclosed object.</summary>
+    /// <summary>
+    /// Gets the enclosed object.
+    /// </summary>
     internal T? Content { get; }
 
-    /// <summary>Unbox then apply a selector, and eventually box the result.</summary>
+    /// <summary>
+    /// Unbox then apply a selector, and eventually box the result.
+    /// </summary>
     /// <remarks>
     /// <example>Query expression syntax:
     /// <code><![CDATA[
@@ -127,7 +150,8 @@ public sealed class Box<T> where T : class
     /// ]]></code>
     /// </example>
     /// </remarks>
-    /// <exception cref="ArgumentNullException"><paramref name="selector"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="selector"/> is
+    /// <see langword="null"/>.</exception>
     [Pure]
     public Box<TResult> Select<TResult>(Func<T, TResult?> selector) where TResult : class
     {

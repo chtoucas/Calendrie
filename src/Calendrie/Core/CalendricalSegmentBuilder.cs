@@ -31,7 +31,7 @@ public sealed partial class CalendricalSegmentBuilder
 
     /// <summary>Initializes a new instance of the <see cref="CalendricalSegmentBuilder"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public CalendricalSegmentBuilder(ICalendricalSchema schema)
     {
         _schema = schema ?? throw new ArgumentNullException(nameof(schema));
