@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+## WARNING: for the project-specific settings see the end of this file.
+
 # User-specific files
 *.rsuser
 *.suo
@@ -396,3 +398,13 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+## Modifications locales #######################################################
+
+nuget.exe
+*.trx
+
+__/**
+
+!Directory.Build.rsp
