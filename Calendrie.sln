@@ -58,13 +58,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7ED7
 		eng\test.ps1 = eng\test.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B5DAB6F6-0274-49E4-B984-E97765E7B6D3}"
-	ProjectSection(SolutionItems) = preProject
-		eng\tools\Directory.Build.props = eng\tools\Directory.Build.props
-		eng\tools\Directory.Build.targets = eng\tools\Directory.Build.targets
-		eng\tools\Directory.Packages.props = eng\tools\Directory.Packages.props
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,7 +86,6 @@ Global
 		{8798985D-A04A-4DAC-9D41-035DC2117EDA} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 		{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5} = {84246E77-9B04-4280-B84B-32C8772009ED}
-		{B5DAB6F6-0274-49E4-B984-E97765E7B6D3} = {84246E77-9B04-4280-B84B-32C8772009ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED8B0D74-DB69-46D4-AADE-91101FF165C2}
