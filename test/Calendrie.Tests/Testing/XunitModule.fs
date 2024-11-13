@@ -67,13 +67,8 @@ let inline overflows (testCode: unit -> ^a) =
 module BoxAssertions =
     /// Verifies that a box is empty.
     let isempty<'a when 'a: not struct and 'a: not null> (box: Box<'a>) =
-        box.IsEmpty |> ok
-        // FIXME(code): F# nullable
-        //box.Content |> isnull
+        AssertEx.Empty(box)
 
-    /// Verifies that a box is not empty and contains "expected".
-    let issome<'a when 'a: not struct and 'a: not null> box expected =
-        AssertEx.Some<'a>(expected, box)
-        // Not necessary, but we want to ensure that Content returns the genuine object.
-        // FIXME(code): F# nullable
-        //box.Content ==& expected
+    /// Verifies that a box is not empty and contains "content".
+    let issome<'a when 'a: not struct and 'a: not null> box content =
+        AssertEx.Some<'a>(box, content)

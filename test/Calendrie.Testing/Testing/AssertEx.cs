@@ -107,6 +107,7 @@ public partial class AssertEx // Box<T>
         ArgumentNullException.ThrowIfNull(box);
 
         True(box.IsEmpty, "The box should be empty.");
+        Null(box.Content);
     }
 
     /// <summary>
@@ -123,16 +124,16 @@ public partial class AssertEx // Box<T>
 
     /// <summary>
     /// Verifies that <paramref name="box"/> is NOT empty and contains
-    /// <paramref name="expected"/>.
+    /// <paramref name="content"/>.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="box"/> is
     /// <see langword="null"/>.</exception>
-    public static void Some<T>([DisallowNull] T expected, Box<T> box) where T : class
+    public static void Some<T>(Box<T> box, [DisallowNull] T content) where T : class
     {
         ArgumentNullException.ThrowIfNull(box);
 
         False(box.IsEmpty, "The box should not be empty.");
-        Equal(expected, box.Content);
+        Equal(content, box.Content);
     }
 }
 
