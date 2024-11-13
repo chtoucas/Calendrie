@@ -29,6 +29,7 @@
     <Compile Include="Tests\IsoWeekdayTests.fs" />
     <Compile Include="Tests\MomentTests.fs" />
     <Compile Include="Tests\PartsTests.fs" />
+    <Compile Include="Tests\ValueTypeTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
