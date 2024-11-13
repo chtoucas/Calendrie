@@ -5,28 +5,32 @@ namespace Calendrie.Core.Schemas;
 
 /// <summary>
 /// Represents the Coptic schema.
-/// </summary>
-/// <remarks>
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
-/// </remarks>
+/// </summary>
 public sealed partial class Coptic12Schema :
     CopticSchema,
     IEpagomenalDayFeaturette,
     IDaysInMonthDistribution,
     IBoxable<Coptic12Schema>
 {
-    /// <summary>Represents the number of months in a year.</summary>
-    /// <remarks>This field is a constant equal to 12.</remarks>
+    /// <summary>
+    /// Represents the number of months in a year.
+    /// <para>This field is a constant equal to 12.</para>
+    /// </summary>
     internal const int MonthsPerYear = 12;
 
-    /// <summary>Initializes a new instance of the <see cref="Coptic12Schema"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Coptic12Schema"/> class.
+    /// </summary>
     internal Coptic12Schema() : base(30) { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
 
-    /// <summary>Creates a new (boxed) instance of the <see cref="Coptic12Schema"/> class.</summary>
+    /// <summary>
+    /// Creates a new (boxed) instance of the <see cref="Coptic12Schema"/> class.
+    /// </summary>
     [Pure]
     public static Box<Coptic12Schema> GetInstance() => Box.Create(new Coptic12Schema());
 

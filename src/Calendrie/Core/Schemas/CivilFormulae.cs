@@ -3,20 +3,21 @@
 
 namespace Calendrie.Core.Schemas;
 
-// REVIEW(perf): seems to be a bit slower than GregorianSchema when using a
-// y/m/d repr.
+// REVIEW(perf): seems to be a bit slower than GregorianSchema when using the y/m/d repr.
 
 // In fact, the formulae should work with year >= 0, nevertheless since
 // daysSinceEpoch < 0 when year = 0, it's better to ignore that.
 
-/// <summary>Provides static formulae for the Gregorian schema (year > 0).</summary>
-/// <remarks>
+/// <summary>
+/// Provides static formulae for the Gregorian schema (year > 0).
 /// <para>See also <seealso cref="GregorianFormulae"/>.</para>
 /// <para>This class cannot be inherited.</para>
-/// </remarks>
+/// </summary>
 internal static class CivilFormulae
 {
-    /// <summary>Counts the number of consecutive days from the epoch to the specified date.
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the specified
+    /// date.
     /// </summary>
     [Pure]
     public static int CountDaysSinceEpoch(int y, int m, int d)
@@ -41,8 +42,11 @@ internal static class CivilFormulae
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
     }
 
-    /// <summary>Obtains the date parts for the specified day count (the number of consecutive days
-    /// from the epoch to a date); the results are given in output parameters.</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified day count (the number of
+    /// consecutive days from the epoch to a date); the results are given in
+    /// output parameters.
+    /// </summary>
     public static void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
         Debug.Assert(daysSinceEpoch >= 0);
@@ -96,8 +100,10 @@ internal static class CivilFormulae
 #endif
     }
 
-    /// <summary>Obtains the ordinal date parts for the specified day count (the number of
-    /// consecutive days from the epoch to a date); the results are given in output parameters.
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified day count (the number of
+    /// consecutive days from the epoch to a date); the results are given in
+    /// output parameters.
     /// </summary>
     [Pure]
     public static int GetYear(int daysSinceEpoch, out int doy)
@@ -107,8 +113,10 @@ internal static class CivilFormulae
         return y;
     }
 
-    /// <summary>Obtains the year from the specified day count (the number of consecutive days from
-    /// the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the year from the specified day count (the number of consecutive
+    /// days from the epoch to a date).
+    /// </summary>
     [Pure]
     public static int GetYear(int daysSinceEpoch)
     {
@@ -122,8 +130,10 @@ internal static class CivilFormulae
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
 
-    /// <summary>Counts the number of consecutive days from the epoch to the first day of the
-    /// specified year.</summary>
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the first day of
+    /// the specified year.
+    /// </summary>
     [Pure]
     public static int GetStartOfYear(int y)
     {

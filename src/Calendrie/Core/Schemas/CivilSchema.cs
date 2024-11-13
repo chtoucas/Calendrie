@@ -5,17 +5,22 @@ namespace Calendrie.Core.Schemas;
 
 // year > 0 but SupportedYearsCore is still equal to Maximal32.
 
-/// <summary>Represents the Gregorian schema (year > 0).</summary>
-/// <remarks>
+/// <summary>
+/// Represents the Gregorian schema (year > 0).
 /// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.</para>
+/// <para>This class can ONLY be initialized from within friend assemblies.
+/// </para>
 /// </remarks>
 public sealed partial class CivilSchema : GJSchema, IBoxable<CivilSchema>
 {
-    /// <summary>Initializes a new instance of the <see cref="CivilSchema"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilSchema"/> class.
+    /// </summary>
     internal CivilSchema() : base(DefaultSupportedYears.WithMin(1)) { }
 
-    /// <summary>Creates a new (boxed) instance of the <see cref="CivilSchema"/> class.</summary>
+    /// <summary>
+    /// Creates a new (boxed) instance of the <see cref="CivilSchema"/> class.
+    /// </summary>
     [Pure]
     public static Box<CivilSchema> GetInstance() => Box.Create(new CivilSchema());
 }
