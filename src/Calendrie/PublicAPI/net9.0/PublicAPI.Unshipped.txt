@@ -1,4 +1,5 @@
-﻿abstract Calendrie.Core.CalendricalSchema.CountDaysInMonth(int y, int m) -> int
+﻿#nullable enable
+abstract Calendrie.Core.CalendricalSchema.CountDaysInMonth(int y, int m) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInYear(int y) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 abstract Calendrie.Core.CalendricalSchema.CountMonthsInYear(int y) -> int
