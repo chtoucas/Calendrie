@@ -18,7 +18,7 @@ open FsCheck
 open FsCheck.Xunit
 
 // Custom operators.
-// Adapted from https://github.com/fscheck/FsCheck/blob/master/src/FsCheck/Prop.fs
+// Adapted from https://github.com/fscheck/FsCheck/blob/master/src/FsCheck/FSharp.Prop.fs
 
 /// Conditional property combinator.
 /// Resulting property holds if the property after &&& holds whenever the condition does.
