@@ -21,10 +21,13 @@ namespace Calendrie.Core.Utilities;
 // IDifferenceOperators<TSelf, TResult> is just
 // ISubtractionOperators<TSelf, TSelf, TResult>.
 
-/// <summary>Defines a mechanism for computing the difference of two values of the same type.
+/// <summary>
+/// Defines a mechanism for computing the difference of two values of the same
+/// type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-/// <typeparam name="TResult">The type that contains the difference of two values.</typeparam>
+/// <typeparam name="TResult">The type that contains the difference of two values.
+/// </typeparam>
 public interface IDifferenceOperators<TSelf, out TResult>
     where TSelf : IDifferenceOperators<TSelf, TResult>
 {

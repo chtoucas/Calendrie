@@ -5,7 +5,9 @@
 
 namespace Calendrie.Core.Utilities;
 
-/// <summary>Defines the functions Min and Max.</summary>
+/// <summary>
+/// Defines the functions Min and Max.
+/// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IMinMaxFunction<TSelf> : IComparable<TSelf>
     where TSelf : IMinMaxFunction<TSelf>

@@ -5,8 +5,10 @@ namespace Calendrie.Core.Utilities;
 
 using System.Collections;
 
-/// <summary>Represents a read-only set of values.</summary>
-/// <remarks>This class cannot be inherited.</remarks>
+/// <summary>
+/// Represents a read-only set of values.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 /// <typeparam name="T">The type of the set's elements.</typeparam>
 [DebuggerDisplay("Count = {Count}")]
 [DebuggerTypeProxy(typeof(ReadOnlySet<>.DebugView))]
@@ -14,15 +16,21 @@ public sealed partial class ReadOnlySet<T> : IReadOnlyCollection<T>, IReadOnlySe
 {
     private readonly HashSet<T> _set;
 
-    /// <summary>Initializes a new instance of the <see cref="ReadOnlySet{T}"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="set"/> is <see langword="null"/>.</exception>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReadOnlySet{T}"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="set"/> is
+    /// <see langword="null"/>.</exception>
     public ReadOnlySet(HashSet<T> set)
     {
         _set = set ?? throw new ArgumentNullException(nameof(set));
     }
 
-    /// <summary>Initializes a new instance of the <see cref="ReadOnlySet{T}"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="collection"/> is <see langword="null"/>.</exception>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReadOnlySet{T}"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="collection"/> is
+    /// <see langword="null"/>.</exception>
     public ReadOnlySet(IEnumerable<T> collection)
     {
         // NB: we do not offer the ability to choose a comparer.
@@ -30,7 +38,9 @@ public sealed partial class ReadOnlySet<T> : IReadOnlyCollection<T>, IReadOnlySe
         _set = new HashSet<T>(collection);
     }
 
-    /// <summary>Represents a debugger type proxy for <see cref="ReadOnlySet{T}"/>.</summary>
+    /// <summary>
+    /// Represents a debugger type proxy for <see cref="ReadOnlySet{T}"/>.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     private sealed class DebugView
     {
