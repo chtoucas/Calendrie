@@ -100,7 +100,8 @@ internal partial class ThrowHelpers // Plain
     public static void ArgumentNull(string paramName) => throw GetArgumentNullExn(paramName);
 
     /// <exception cref="AoorException"/>
-    [Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
+    // TODO(code): obsolete or not?
+    //[Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
     [DoesNotReturn]
     public static void ArgumentOutOfRange(string paramName) => throw GetArgumentOutOfRangeExn(paramName);
 
