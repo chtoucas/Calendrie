@@ -101,17 +101,17 @@ module DateParts =
             .&. (x >= x)
             .&. (x <= x)
 
-        //[<Property>]
-        //let ``Comparisons when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    not (x > y)
-        //    .&. not (x >= y)
-        //    .&. (x < y)
-        //    .&. (x <= y)
-        //    // Flipped
-        //    .&. (y > x)
-        //    .&. (y >= x)
-        //    .&. not (y < x)
-        //    .&. not (y <= x)
+        [<Property>]
+        let ``Comparisons when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            not (x > y)
+            .&. not (x >= y)
+            .&. (x < y)
+            .&. (x <= y)
+            // Flipped
+            .&. (y > x)
+            .&. (y >= x)
+            .&. not (y < x)
+            .&. not (y <= x)
 
         //
         // CompareTo()
@@ -122,13 +122,13 @@ module DateParts =
             (x.CompareTo(x) = 0)
             .&. ((x :> IComparable).CompareTo(x) = 0)
 
-        //[<Property>]
-        //let ``CompareTo() when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    (x.CompareTo(y) <= 0)
-        //    .&. ((x :> IComparable).CompareTo(y) <= 0)
-        //    // Flipped
-        //    .&. (y.CompareTo(x) >= 0)
-        //    .&. ((y :> IComparable).CompareTo(x) >= 0)
+        [<Property>]
+        let ``CompareTo() when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            (x.CompareTo(y) <= 0)
+            .&. ((x :> IComparable).CompareTo(y) <= 0)
+            // Flipped
+            .&. (y.CompareTo(x) >= 0)
+            .&. ((y :> IComparable).CompareTo(x) >= 0)
 
         [<Property>]
         let ``CompareTo(obj) returns 1 when "obj" is null`` (x: DateParts) =
@@ -184,17 +184,17 @@ module MonthParts =
             .&. x.Equals(x)
             .&. x.Equals(x :> obj)
 
-        //[<Property>]
-        //let ``Equality when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    not (x = y)
-        //    .&. (x <> y)
-        //    .&. not (x.Equals(y))
-        //    .&. not (x.Equals(y :> obj))
-        //    // Flipped
-        //    .&. not (y = x)
-        //    .&. (y <> x)
-        //    .&. not (y.Equals(x))
-        //    .&. not (y.Equals(x :> obj))
+        [<Property>]
+        let ``Equality when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            not (x = y)
+            .&. (x <> y)
+            .&. not (x.Equals(y))
+            .&. not (x.Equals(y :> obj))
+            // Flipped
+            .&. not (y = x)
+            .&. (y <> x)
+            .&. not (y.Equals(x))
+            .&. not (y.Equals(x :> obj))
 
         [<Property>]
         let ``Equals(obj) returns false when "obj" is null or is a plain object`` (x: MonthParts) =
@@ -215,17 +215,17 @@ module MonthParts =
             .&. (x >= x)
             .&. (x <= x)
 
-        //[<Property>]
-        //let ``Comparisons when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    not (x > y)
-        //    .&. not (x >= y)
-        //    .&. (x < y)
-        //    .&. (x <= y)
-        //    // Flipped
-        //    .&. (y > x)
-        //    .&. (y >= x)
-        //    .&. not (y < x)
-        //    .&. not (y <= x)
+        [<Property>]
+        let ``Comparisons when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            not (x > y)
+            .&. not (x >= y)
+            .&. (x < y)
+            .&. (x <= y)
+            // Flipped
+            .&. (y > x)
+            .&. (y >= x)
+            .&. not (y < x)
+            .&. not (y <= x)
 
         //
         // CompareTo()
@@ -236,13 +236,13 @@ module MonthParts =
             (x.CompareTo(x) = 0)
             .&. ((x :> IComparable).CompareTo(x) = 0)
 
-        //[<Property>]
-        //let ``CompareTo() when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    (x.CompareTo(y) <= 0)
-        //    .&. ((x :> IComparable).CompareTo(y) <= 0)
-        //    // Flipped
-        //    .&. (y.CompareTo(x) >= 0)
-        //    .&. ((y :> IComparable).CompareTo(x) >= 0)
+        [<Property>]
+        let ``CompareTo() when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            (x.CompareTo(y) <= 0)
+            .&. ((x :> IComparable).CompareTo(y) <= 0)
+            // Flipped
+            .&. (y.CompareTo(x) >= 0)
+            .&. ((y :> IComparable).CompareTo(x) >= 0)
 
         [<Property>]
         let ``CompareTo(obj) returns 1 when "obj" is null`` (x: MonthParts) =
@@ -298,17 +298,17 @@ module OrdinalParts =
             .&. x.Equals(x)
             .&. x.Equals(x :> obj)
 
-        //[<Property>]
-        //let ``Equality when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    not (x = y)
-        //    .&. (x <> y)
-        //    .&. not (x.Equals(y))
-        //    .&. not (x.Equals(y :> obj))
-        //    // Flipped
-        //    .&. not (y = x)
-        //    .&. (y <> x)
-        //    .&. not (y.Equals(x))
-        //    .&. not (y.Equals(x :> obj))
+        [<Property>]
+        let ``Equality when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            not (x = y)
+            .&. (x <> y)
+            .&. not (x.Equals(y))
+            .&. not (x.Equals(y :> obj))
+            // Flipped
+            .&. not (y = x)
+            .&. (y <> x)
+            .&. not (y.Equals(x))
+            .&. not (y.Equals(x :> obj))
 
         [<Property>]
         let ``Equals(obj) returns false when "obj" is null or is a plain object`` (x: OrdinalParts) =
@@ -329,17 +329,17 @@ module OrdinalParts =
             .&. (x >= x)
             .&. (x <= x)
 
-        //[<Property>]
-        //let ``Comparisons when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    not (x > y)
-        //    .&. not (x >= y)
-        //    .&. (x < y)
-        //    .&. (x <= y)
-        //    // Flipped
-        //    .&. (y > x)
-        //    .&. (y >= x)
-        //    .&. not (y < x)
-        //    .&. not (y <= x)
+        [<Property>]
+        let ``Comparisons when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            not (x > y)
+            .&. not (x >= y)
+            .&. (x < y)
+            .&. (x <= y)
+            // Flipped
+            .&. (y > x)
+            .&. (y >= x)
+            .&. not (y < x)
+            .&. not (y <= x)
 
         //
         // CompareTo()
@@ -350,13 +350,13 @@ module OrdinalParts =
             (x.CompareTo(x) = 0)
             .&. ((x :> IComparable).CompareTo(x) = 0)
 
-        //[<Property>]
-        //let ``CompareTo() when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
-        //    (x.CompareTo(y) <= 0)
-        //    .&. ((x :> IComparable).CompareTo(y) <= 0)
-        //    // Flipped
-        //    .&. (y.CompareTo(x) >= 0)
-        //    .&. ((y :> IComparable).CompareTo(x) >= 0)
+        [<Property>]
+        let ``CompareTo() when both operands are distinct`` () = xyArbitrary @@@@ fun (x, y) ->
+            (x.CompareTo(y) <= 0)
+            .&. ((x :> IComparable).CompareTo(y) <= 0)
+            // Flipped
+            .&. (y.CompareTo(x) >= 0)
+            .&. ((y :> IComparable).CompareTo(x) >= 0)
 
         [<Property>]
         let ``CompareTo(obj) returns 1 when "obj" is null`` (x: OrdinalParts) =
