@@ -7,7 +7,7 @@
     <ContinuousIntegrationBuild Condition=" '$(TF_BUILD)' == 'true' ">true</ContinuousIntegrationBuild>
 
     <!-- WARNING: keep "CalendrieDefaultFramework" in sync with "global.json" -->
-    <CalendrieDefaultFramework>net8.0</CalendrieDefaultFramework>
+    <CalendrieDefaultFramework>net9.0</CalendrieDefaultFramework>
     <CalendrieLibraryFrameworks>$(CalendrieDefaultFramework)</CalendrieLibraryFrameworks>
     <CalendrieTestFrameworks>$(CalendrieDefaultFramework)</CalendrieTestFrameworks>
 
