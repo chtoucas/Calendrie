@@ -10,7 +10,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
-/// </remarks>
+/// </summary>
 public sealed partial class CivilSchema : GJSchema, IBoxable<CivilSchema>
 {
     /// <summary>
