@@ -40,8 +40,6 @@ namespace Calendrie.Testing.Data;
 
 #endregion
 
-#region YearDayXXX
-
 public readonly record struct YearMonthsSinceEpoch(int Year, int MonthsSinceEpoch);
 
 public readonly record struct YearDaysSinceEpoch(int Year, int DaysSinceEpoch)
@@ -52,8 +50,9 @@ public readonly record struct YearDaysSinceEpoch(int Year, int DaysSinceEpoch)
 
 public readonly record struct YearDayNumber(int Year, DayNumber DayNumber);
 
-#endregion
-#region MonthsSinceEpochInfo, DaySinceXXXInfo and DayNumberInfo
+//
+//
+//
 
 public readonly record struct MonthsSinceEpochInfo(int MonthsSinceEpoch, Yemo Yemo)
 {
@@ -130,11 +129,8 @@ public readonly record struct DayNumberInfo(DayNumber DayNumber, Yemoda Yemoda)
     public static DaysSinceEpochInfo operator -(DayNumberInfo x, DayNumber epoch) => new(x.DayNumber - epoch, x.Yemoda);
 }
 
-#endregion
-#region DateInfo, MonthInfo, etc
-
-// It would have been nice to include DaysInYearAfterDate and DaysInMonthAfterDate
-// but then the type would have been too big to be a struct.
+// It would have been nice to include DaysInYearAfterDate and
+// DaysInMonthAfterDate but then the type would have been too big to be a struct.
 public readonly record struct DateInfo
 {
     public DateInfo(int y, int m, int d, ushort doy, bool isIntercalary, bool isSupplementary)
@@ -186,8 +182,9 @@ public readonly record struct MillenniumInfo(int Year, int Millennium, ushort Ye
 
 public readonly record struct DecadeOfCenturyInfo(int Year, int Century, byte DecadeOfCentury, byte YearOfDecade);
 
-#endregion
-#region YemodaAnd<T>, YemoAnd<T>, etc
+//
+// Core parts
+//
 
 public readonly record struct YemodaAnd<T>(Yemoda Yemoda, T Value) where T : struct
 {
@@ -200,6 +197,7 @@ public readonly record struct YemodaAnd<T>(Yemoda Yemoda, T Value) where T : str
     }
 }
 
+[Obsolete("Unused")]
 public readonly record struct YemoAnd<T>(Yemo Yemo, T Value) where T : struct
 {
     public YemoAnd(int y, int m, T value) : this(new Yemo(y, m), value) { }
@@ -211,6 +209,7 @@ public readonly record struct YemoAnd<T>(Yemo Yemo, T Value) where T : struct
     }
 }
 
+[Obsolete("Unused")]
 public readonly record struct YemoAnd<T1, T2>(Yemo Yemo, T1 Value1, T2 Value2)
     where T1 : struct
     where T2 : struct
@@ -225,6 +224,7 @@ public readonly record struct YemoAnd<T1, T2>(Yemo Yemo, T1 Value1, T2 Value2)
     }
 }
 
+[Obsolete("Unused")]
 public readonly record struct YearAnd<T>(int Year, T Value) where T : struct
 {
     public void Deconstruct(out int y, out T value)
@@ -243,8 +243,9 @@ public readonly record struct YedoyPairAnd<T>(Yedoy First, Yedoy Second, T Value
 public readonly record struct YemoPair(Yemo First, Yemo Second);
 public readonly record struct YemoPairAnd<T>(Yemo First, Yemo Second, T Value) where T : struct;
 
-#endregion
-#region Parts
+//
+// Parts
+//
 
 // Too big to be a struct (24 bytes).
 public sealed record DatePartsPair(DateParts First, DateParts Second)
@@ -319,10 +320,9 @@ public sealed record MonthPartsPairAnd<T>(MonthParts First, MonthParts Second, T
     }
 }
 
-#endregion
-#region Math models
+//
+// Math models
+//
 
 // Too big to be a struct (20 bytes).
 public sealed record DateDiff(Yemoda Start, Yemoda End, int Years, int Months, int Days);
-
-#endregion

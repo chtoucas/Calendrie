@@ -3,6 +3,7 @@
 
 module Calendrie.Tests.ValueTypeTests
 
+open System
 open System.Runtime.InteropServices
 
 open Calendrie
@@ -11,6 +12,7 @@ open Calendrie.Core.Intervals
 open Calendrie.Core.Utilities
 open Calendrie.Specialized
 open Calendrie.Testing
+open Calendrie.Testing.Data
 
 open Xunit
 
@@ -95,6 +97,41 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<WorldDate>) === 4
         Marshal.SizeOf(typedefof<Zoroastrian13Date>) === 4
         Marshal.SizeOf(typedefof<ZoroastrianDate>) === 4
+
+    // TODO(code): add tests for the data types defined within THIS project.
+    [<Fact>]
+    let ``Types in Calendrie.Testing.Data`` () =
+        Marshal.SizeOf(typedefof<YearMonthsSinceEpoch>) === 8
+        Marshal.SizeOf(typedefof<YearDaysSinceEpoch>) === 8
+        Marshal.SizeOf(typedefof<YearDayNumber>) === 8
+        //
+        Marshal.SizeOf(typedefof<MonthsSinceEpochInfo>) === 8
+        Marshal.SizeOf(typedefof<DaysSinceEpochInfo>) === 8
+        Marshal.SizeOf(typedefof<DaysSinceZeroInfo>) === 8
+        Marshal.SizeOf(typedefof<DaysSinceRataDieInfo>) === 8
+        Marshal.SizeOf(typedefof<DayNumberInfo>) === 8
+        //
+        Marshal.SizeOf(typedefof<DateInfo>) === 16
+        Marshal.SizeOf(typedefof<MonthInfo>) === 16
+        Marshal.SizeOf(typedefof<YearInfo>) === 12
+        Marshal.SizeOf(typedefof<DecadeInfo>) === 12
+        Marshal.SizeOf(typedefof<CenturyInfo>) === 12
+        Marshal.SizeOf(typedefof<MillenniumInfo>) === 12
+        Marshal.SizeOf(typedefof<DecadeOfCenturyInfo>) === 12
+        //
+        Marshal.SizeOf(typedefof<YemodaPair>) === 8
+        Marshal.SizeOf(typedefof<YedoyPair>) === 8
+        Marshal.SizeOf(typedefof<YemoPair>) === 8
+        //
+        sizeof<YemodaAnd<int>>() === 8
+        sizeof<YemodaAnd<DayOfWeek>>() === 8
+        sizeof<YemodaPairAnd<int>>() === 12
+        sizeof<YemodaPairAnd<DayOfWeek>>() === 12
+        sizeof<YedoyPairAnd<int>>() === 12
+        sizeof<YemoPairAnd<int>>() === 12
+        //
+        Marshal.SizeOf(typedefof<OrdinalPartsPair>) === 16
+        Marshal.SizeOf(typedefof<MonthPartsPair>) === 16
 
 module DefaultValues =
     // Date types built upon DayNumber or Yemoda: 01/01/0001 (year 1)
