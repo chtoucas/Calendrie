@@ -44,7 +44,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendrie.Testing", "test\C
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Calendrie.Tests", "test\Calendrie.Tests\Calendrie.Tests.fsproj", "{B09CCEBE-D16A-4155-94A3-BE04D627E234}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5}"
 	ProjectSection(SolutionItems) = preProject
 		eng\asm.ps1 = eng\asm.ps1
 		eng\bench.ps1 = eng\bench.ps1
