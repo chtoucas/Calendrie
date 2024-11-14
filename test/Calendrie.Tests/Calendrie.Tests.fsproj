@@ -24,6 +24,9 @@
     <Compile Include="Testing\XunitModule.fs" />
     <Compile Include="Testing\FsCheckModule.fs" />
     <Compile Include="Testing\TestHelpers.fs" />
+    <Compile Include="Tests\Testing\EnumDataSetTests.fs" />
+    <Compile Include="Tests\Specialized\GregorianTests.fs" />
+    <Compile Include="Tests\Specialized\JulianTests.fs" />
     <Compile Include="Tests\AdditionRulesetTests.fs" />
     <Compile Include="Tests\DayNumberTests.fs" />
     <Compile Include="Tests\DayZeroTests.fs" />
