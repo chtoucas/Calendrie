@@ -1,8 +1,6 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-#pragma warning disable CA1000 // Do not declare static members on generic types (Design)
-
 namespace Calendrie.Core.Utilities;
 
 /// <summary>
