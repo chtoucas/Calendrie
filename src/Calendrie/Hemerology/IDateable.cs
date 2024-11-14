@@ -4,12 +4,14 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Defines a date within a calendar system using the year/month/day subdivision of time.
+/// Defines a date within a calendar system using the year/month/day subdivision
+/// of time.
 /// </summary>
 public interface IDateable
 {
     /// <summary>
-    /// Gets the century of the era.</summary>
+    /// Gets the century of the era.
+    /// </summary>
     /// <remarks>
     /// <para>
     /// A default implementation should look like:
@@ -80,12 +82,14 @@ public interface IDateable
     int DayOfYear { get; }
 
     /// <summary>
-    /// Returns true if the current instance is an intercalary day; otherwise returns false.
+    /// Returns <see langword="true"/> if the current instance is an intercalary
+    /// day; otherwise returns <see langword="false"/>.
     /// </summary>
     bool IsIntercalary { get; }
 
     /// <summary>
-    /// Returns true if the current instance is a supplementary day; otherwise returns false.
+    /// Returns <see langword="true"/> if the current instance is a supplementary
+    /// day; otherwise returns <see langword="false"/>.
     /// </summary>
     bool IsSupplementary { get; }
 
@@ -100,9 +104,10 @@ public interface IDateable
     void Deconstruct(out int year, out int dayOfYear);
 
     /// <summary>
-    /// Obtains the number of whole days in the year elapsed since the start of the year and before
-    /// this date instance.
+    /// Obtains the number of whole days in the year elapsed since the start of
+    /// the year and before this date instance.
     /// </summary>
+    //
     // Trivial (= DayOfYear - 1), only added for completeness.
     [Pure] int CountElapsedDaysInYear();
 
@@ -112,8 +117,8 @@ public interface IDateable
     [Pure] int CountRemainingDaysInYear();
 
     /// <summary>
-    /// Obtains the number of whole days in the year elapsed since the start of the month and before
-    /// this date instance.
+    /// Obtains the number of whole days in the year elapsed since the start of
+    /// the month and before this date instance.
     /// </summary>
     //
     // Trivial (= Day - 1), only added for completeness.

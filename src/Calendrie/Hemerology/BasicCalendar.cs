@@ -8,14 +8,19 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents a basic calendar and provides a base for derived classes.</summary>
+/// <summary>
+/// Represents a basic calendar and provides a base for derived classes.
+/// </summary>
 /// <typeparam name="TScope">The type of the underlying scope.</typeparam>
 public abstract partial class BasicCalendar<TScope> : ICalendar
     where TScope : CalendarScope
 {
-    /// <summary>Called from constructors in derived classes to initialize the
-    /// <see cref="BasicCalendar{TScope}"/> class.</summary>
-    /// <exception cref="ArgumentNullException">One of the parameters is <see langword="null"/>.</exception>
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="BasicCalendar{TScope}"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException">One of the parameters is
+    /// <see langword="null"/>.</exception>
     protected BasicCalendar(string name, TScope scope)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -25,7 +30,9 @@ public abstract partial class BasicCalendar<TScope> : ICalendar
         YearsValidator = scope.YearsValidator;
     }
 
-    /// <summary>Gets the culture-independent name of the calendar.</summary>
+    /// <summary>
+    /// Gets the culture-independent name of the calendar.
+    /// </summary>
     public string Name { get; }
 
     /// <inheritdoc />
@@ -48,13 +55,19 @@ public abstract partial class BasicCalendar<TScope> : ICalendar
 
     CalendarScope ICalendar.Scope => Scope;
 
-    /// <summary>Gets a validator for the range of supported years.</summary>
+    /// <summary>
+    /// Gets a validator for the range of supported years.
+    /// </summary>
     protected internal IYearsValidator YearsValidator { get; }
 
-    /// <summary>Gets the underlying schema.</summary>
+    /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
     protected internal ICalendricalSchema Schema { get; }
 
-    /// <summary>Returns a culture-independent string representation of the current instance.
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString() => Name;
@@ -69,8 +82,8 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
 #pragma warning disable CA1725 // Parameter names should match base declaration (Naming)
 
     /// <inheritdoc />
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the range of supported
-    /// years.</exception>
+    /// <exception cref="AoorException"><paramref name="year"/> is outside the
+    /// range of supported years.</exception>
     [Pure]
     public bool IsLeapYear(int year)
     {
@@ -79,8 +92,8 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The month is either invalid or outside the range of
-    /// supported months.</exception>
+    /// <exception cref="AoorException">The month is either invalid or outside
+    /// the range of supported months.</exception>
     [Pure]
     public bool IsIntercalaryMonth(int year, int month)
     {
@@ -89,8 +102,8 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The date is either invalid or outside the range of supported
-    /// dates.</exception>
+    /// <exception cref="AoorException">The date is either invalid or outside the
+    /// range of supported dates.</exception>
     [Pure]
     public bool IsIntercalaryDay(int year, int month, int day)
     {
@@ -99,8 +112,8 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The date is either invalid or outside the range of supported
-    /// dates.</exception>
+    /// <exception cref="AoorException">The date is either invalid or outside the
+    /// range of supported dates.</exception>
     [Pure]
     public bool IsSupplementaryDay(int year, int month, int day)
     {
@@ -109,16 +122,18 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The year is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The year is outside the range of
+    /// supported years.</exception>
     [Pure] public abstract int CountMonthsInYear(int year);
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The year is outside the range of supported years.</exception>
+    /// <exception cref="AoorException">The year is outside the range of
+    /// supported years.</exception>
     [Pure] public abstract int CountDaysInYear(int year);
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The month is either invalid or outside the range of
-    /// supported months.</exception>
+    /// <exception cref="AoorException">The month is either invalid or outside
+    /// the range of supported months.</exception>
     [Pure] public abstract int CountDaysInMonth(int year, int month);
 
 #pragma warning restore CA1725

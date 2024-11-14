@@ -5,13 +5,18 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Hemerology.Scopes;
 
-/// <summary>Represents a basic calendar with dates on or after a given date.</summary>
-/// <remarks>The aforementioned date can NOT be the start of a year.</remarks>
+/// <summary>
+/// Represents a basic calendar with dates on or after a given date.
+/// <para>The aforementioned date can NOT be the start of a year.</para>
+/// </summary>
 public class BoundedBelowBasicCalendar : BasicCalendar<BoundedBelowScope>
 {
-    /// <summary>Initializes a new instance of the <see cref="BoundedBelowBasicCalendar"/> class.
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BoundedBelowBasicCalendar"/>
+    /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException">One of the parameters is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">One of the parameters is
+    /// <see langword="null"/>.</exception>
     public BoundedBelowBasicCalendar(string name, BoundedBelowScope scope) : base(name, scope)
     {
         Debug.Assert(scope != null);
@@ -22,16 +27,24 @@ public class BoundedBelowBasicCalendar : BasicCalendar<BoundedBelowScope>
         MinMonthParts = scope.MinMonthParts;
     }
 
-    /// <summary>Gets the earliest supported year.</summary>
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
     public int MinYear { get; }
 
-    /// <summary>Gets the earliest supported month parts.</summary>
+    /// <summary>
+    /// Gets the earliest supported month parts.
+    /// </summary>
     public MonthParts MinMonthParts { get; }
 
-    /// <summary>Gets the earliest supported date parts.</summary>
+    /// <summary>
+    /// Gets the earliest supported date parts.
+    /// </summary>
     public DateParts MinDateParts { get; }
 
-    /// <summary>Gets the earliest supported ordinal date parts.</summary>
+    /// <summary>
+    /// Gets the earliest supported ordinal date parts.
+    /// </summary>
     public OrdinalParts MinOrdinalParts { get; }
 
     // NB : pour optimiser les choses on pourrait traiter d'abord le cas
@@ -72,17 +85,23 @@ public class BoundedBelowBasicCalendar : BasicCalendar<BoundedBelowScope>
             : Schema.CountDaysInMonth(year, month);
     }
 
-    /// <summary>Obtains the number of months in the first supported year.</summary>
+    /// <summary>
+    /// Obtains the number of months in the first supported year.
+    /// </summary>
     [Pure]
     public int CountMonthsInFirstYear() =>
         Schema.CountMonthsInYear(MinYear) - MinDateParts.Month + 1;
 
-    /// <summary>Obtains the number of days in the first supported year.</summary>
+    /// <summary>
+    /// Obtains the number of days in the first supported year.
+    /// </summary>
     [Pure]
     public int CountDaysInFirstYear() =>
         Schema.CountDaysInYear(MinYear) - MinOrdinalParts.DayOfYear + 1;
 
-    /// <summary>Obtains the number of days in the first supported month.</summary>
+    /// <summary>
+    /// Obtains the number of days in the first supported month.
+    /// </summary>
     [Pure]
     public int CountDaysInFirstMonth()
     {

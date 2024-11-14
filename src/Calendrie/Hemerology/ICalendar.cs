@@ -187,29 +187,45 @@ using Calendrie.Hemerology.Scopes;
 
 #endregion
 
-/// <summary>Defines a calendar.</summary>
-/// <remarks>We do NOT assume the existence of a custom type for representing dates.</remarks>
+/// <summary>
+/// Defines a calendar.
+/// <para>We do NOT assume the existence of a custom type for representing dates.
+/// </para>
+/// </summary>
 public interface ICalendar : ICalendricalKernel
 {
-    /// <summary>Gets the epoch of the calendar.</summary>
+    /// <summary>
+    /// Gets the epoch of the calendar.
+    /// </summary>
     DayNumber Epoch { get; }
 
-    /// <summary>Gets the range of supported values for a <see cref="DayNumber"/>.</summary>
+    /// <summary>
+    /// Gets the range of supported values for a <see cref="DayNumber"/>.
+    /// </summary>
     Range<DayNumber> Domain { get; }
 
-    /// <summary>Gets the calendar scope.</summary>
+    /// <summary>
+    /// Gets the calendar scope.
+    /// </summary>
     CalendarScope Scope { get; }
 
-    /// <summary>Obtains the day number on the specified date.</summary>
-    /// <exception cref="AoorException">The date is not within the calendar boundaries.</exception>
+    /// <summary>
+    /// Obtains the day number on the specified date.
+    /// </summary>
+    /// <exception cref="AoorException">The date is not within the calendar
+    /// boundaries.</exception>
     [Pure] DayNumber GetDayNumber(int year, int month, int day);
 
-    /// <summary>Obtains the day number on the specified ordinal date.</summary>
-    /// <exception cref="AoorException">The ordinal date is not within the calendar boundaries.
-    /// </exception>
+    /// <summary>
+    /// Obtains the day number on the specified ordinal date.
+    /// </summary>
+    /// <exception cref="AoorException">The ordinal date is not within the
+    /// calendar boundaries.</exception>
     [Pure] DayNumber GetDayNumber(int year, int dayOfYear);
 }
 
-/// <summary>Defines a calendar with a companion date type.</summary>
+/// <summary>
+/// Defines a calendar with a companion date type.
+/// </summary>
 /// <typeparam name="TDate">The type of date object to return.</typeparam>
 public interface ICalendar<out TDate> : ICalendar, IDateProvider<TDate> { }

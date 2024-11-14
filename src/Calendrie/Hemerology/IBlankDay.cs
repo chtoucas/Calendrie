@@ -3,11 +3,16 @@
 
 namespace Calendrie.Hemerology;
 
-/// <summary>Defines methods specific to calendars featuring blank days.</summary>
-/// <remarks>A blank day does not belong to any month and is kept outside the weekday cycle.</remarks>
+/// <summary>
+/// Defines methods specific to calendars featuring blank days.
+/// <para>A blank day does not belong to any month and is kept outside the
+/// weekday cycle.</para>
+/// </summary>
 public interface IBlankDay : IDateable
 {
-    /// <summary>Returns true if the current instance is a blank day; otherwise returns false.
+    /// <summary>
+    /// Returns <see langword="true"/> if the current instance is a blank day;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     bool IsBlank { get; }
 }

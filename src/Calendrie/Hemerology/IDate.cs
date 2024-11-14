@@ -21,10 +21,14 @@ using System.Numerics;
 // - (y, doy)
 // - (dayNumber)
 
-/// <summary>Defines a date.</summary>
+/// <summary>
+/// Defines a date.
+/// </summary>
 public interface IDate : IFixedDate, IDateable { }
 
-/// <summary>Defines a date type.</summary>
+/// <summary>
+/// Defines a date type.
+/// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IDate<TSelf> :
     IDate,
@@ -55,9 +59,11 @@ public interface IDate<TSelf> :
 // XXXClock in Specialized.
 // Debug.Assert(daysSinceEpoch).
 
-/// <summary>Defines a date type with a companion calendar.</summary>
-/// <remarks>This interface SHOULD NOT be implemented by date types participating in a poly-calendar
-/// system.</remarks>
+/// <summary>
+/// Defines a date type with a companion calendar.
+/// <para>This interface SHOULD NOT be implemented by date types participating in
+/// a poly-calendar system.</para>
+/// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 /// <typeparam name="TCalendar">The companion calendar type.</typeparam>
 public interface IDate<TSelf, out TCalendar> :
@@ -66,7 +72,9 @@ public interface IDate<TSelf, out TCalendar> :
     where TCalendar : ICalendar<TSelf>
     where TSelf : IDate<TSelf, TCalendar>
 {
-    /// <summary>Gets the calendar to which belongs the current type.
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the calendar to which belongs the current type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     static abstract TCalendar Calendar { get; }
 }
