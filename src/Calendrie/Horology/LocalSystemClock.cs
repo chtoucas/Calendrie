@@ -10,7 +10,8 @@ using static Calendrie.Core.TemporalConstants;
 // See the comments in UtcSystemClock.
 
 /// <summary>
-/// Represents the system clock using the current time zone setting on this machine.
+/// Represents the system clock using the current time zone setting on this
+/// machine.
 /// <para>See <see cref="SystemClocks.Local"/>.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
