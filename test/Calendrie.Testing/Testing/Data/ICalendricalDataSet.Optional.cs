@@ -4,15 +4,13 @@
 namespace Calendrie.Testing.Data;
 
 // TODO(data): one interface per rule? Separate data for subtraction?
-// To avoid having to create a dataset per rule, we could chnage the format and
+// To avoid having to create a dataset per rule, we could change the format and
 // add roundoff.
 
 // To be used as a provider for -ambiguous- data.
 public interface IAdvancedMathDataSet
 {
-    /// <summary>
-    /// Gets the rules employed to resolve ambiguities.
-    /// </summary>
+    /// <summary>Gets the rules employed to resolve ambiguities.</summary>
     AdditionRuleset AdditionRuleset { get; }
 
     /// <summary>Date, expected result, years to be added.</summary>

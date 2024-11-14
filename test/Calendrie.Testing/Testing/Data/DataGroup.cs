@@ -42,13 +42,14 @@ using System.Linq;
 public static class DataGroup
 {
     /// <summary>
-    /// Creates a <i>read-only</i> instance of the <see cref="DataGroup{T}"/> class.
+    /// Creates a <i>read-only</i> instance of the <see cref="DataGroup{T}"/>
+    /// class.
     /// </summary>
     [Pure]
     public static DataGroup<T> Create<T>(IEnumerable<T> source) => new(source);
 
     //
-    // CreateDaysSinceEpochInfoData()
+    // Utilities to create a DataGroup<DaysSinceEpochInfo>.
     //
 
     [Pure]
@@ -61,7 +62,7 @@ public static class DataGroup
     }
 
     //
-    // CreateDayNumberInfoData()
+    // Utilities to create a DataGroup<DayNumberInfo>.
     //
 
     [Pure]
@@ -95,7 +96,7 @@ public static class DataGroup
 /// <summary>
 /// Represents a group of data for a theory.
 /// </summary>
-[SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "<Pending>")]
+[SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix")]
 public sealed class DataGroup<T> : IReadOnlyCollection<object?[]>
 {
     /// <summary>
@@ -105,7 +106,8 @@ public sealed class DataGroup<T> : IReadOnlyCollection<object?[]>
     private readonly IContainer _container;
 
     /// <summary>
-    /// Initializes a new <i>read-write</i> instance of the <see cref="DataGroup{T}"/> class.
+    /// Initializes a new <i>read-write</i> instance of the <see cref="DataGroup{T}"/>
+    /// class.
     /// </summary>
     public DataGroup()
     {
@@ -113,7 +115,8 @@ public sealed class DataGroup<T> : IReadOnlyCollection<object?[]>
     }
 
     /// <summary>
-    /// Initializes a new <i>read-only</i> instance of the <see cref="DataGroup{T}"/> class.
+    /// Initializes a new <i>read-only</i> instance of the <see cref="DataGroup{T}"/>
+    /// class.
     /// </summary>
     public DataGroup(IEnumerable<T> values)
     {
@@ -163,9 +166,11 @@ public sealed class DataGroup<T> : IReadOnlyCollection<object?[]>
         return DataGroup.Create(q);
     }
 
-    public DataGroup<T> AsReadOnly() => IsReadOnly ? this : new(new ReadOnlyContainer(_container.Values));
+    public DataGroup<T> AsReadOnly() =>
+        IsReadOnly ? this : new(new ReadOnlyContainer(_container.Values));
 
-    public DataGroup<T> AsReadWrite() => IsReadOnly ? new(new Container(_container.Values)) : this;
+    public DataGroup<T> AsReadWrite() =>
+        IsReadOnly ? new(new Container(_container.Values)) : this;
 
     public XunitData<T> ToXunitData()
     {

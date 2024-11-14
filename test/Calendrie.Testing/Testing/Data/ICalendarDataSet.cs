@@ -4,9 +4,8 @@
 namespace Calendrie.Testing.Data;
 
 // What's in ICalendarDataSet? Everything related to DayNumber, including the
-// Epoch and DayOfWeek.
-// We have three properties in ICalendricalDataSet that can be translated in
-// terms of DayNumber's.
+// Epoch and DayOfWeek. We have three properties in ICalendricalDataSet that can
+// be translated in terms of DayNumber's.
 
 public interface ICalendarDataSet : ICalendricalDataSet
 {

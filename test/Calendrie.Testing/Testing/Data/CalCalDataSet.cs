@@ -40,7 +40,7 @@ public partial class CalCalDataSet // Interconversion
 
 public partial class CalCalDataSet // Day of the week
 {
-    [SuppressMessage("Naming", "CA1721:Property names should not match get methods", Justification = "<Pending>")]
+    [SuppressMessage("Naming", "CA1721:Property names should not match get methods")]
     public static TheoryData<DayNumber, DayOfWeek> DayNumberToDayOfWeekData { get; } =
         InitDayNumberToDayOfWeekData();
 

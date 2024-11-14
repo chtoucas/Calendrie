@@ -39,9 +39,8 @@ public abstract partial class SchemaDataSet : ICalendricalDataSet
     public abstract DataGroup<MonthInfo> MonthInfoData { get; }
     public abstract DataGroup<YearInfo> YearInfoData { get; }
     /// <inheritdoc/>
-    /// <remarks>
-    /// Override this property if the schema does not support all years in the default list.
-    /// </remarks>
+    /// <remarks>Override this property if the schema does not support all years
+    /// in the default list.</remarks>
     public virtual DataGroup<CenturyInfo> CenturyInfoData => YearNumberingDataSet.CenturyInfoData;
 
     public virtual DataGroup<YemodaAnd<int>> DaysInYearAfterDateData => MapToDaysInYearAfterDateData(DateInfoData);
