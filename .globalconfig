@@ -1,104 +1,81 @@
 # https://learn.microsoft.com/en-gb/dotnet/fundamentals/code-analysis/configuration-files#global-analyzerconfig
 
-is_global = true
-
-###############################
-# Severity                    #
-###############################
-
-dotnet_analyzer_diagnostic.severity = warning
-
-#dotnet_analyzer_diagnostic.category-Design.severity = none
-#dotnet_analyzer_diagnostic.category-Documentation.severity = none
-#dotnet_analyzer_diagnostic.category-Globalization.severity = none
-#dotnet_analyzer_diagnostic.category-Interoperability.severity = none
-#dotnet_analyzer_diagnostic.category-Maintainability.severity = none
-#dotnet_analyzer_diagnostic.category-Performance.severity = none
-#dotnet_analyzer_diagnostic.category-SingleFile.severity = none
-#dotnet_analyzer_diagnostic.category-Reliability.severity = none
-#dotnet_analyzer_diagnostic.category-Security.severity = none
-#dotnet_analyzer_diagnostic.category-Style.severity = suggestion
-#dotnet_analyzer_diagnostic.category-Usage.severity = none
-
-# TODO(code): for instance, setting globally
-#   dotnet_analyzer_diagnostic.category-Style.severity = suggestion
-# or locally
+# REVIEW(code): for instance, setting
 #   csharp_style_expression_bodied_methods = when_on_single_line:suggestion
 # does not seem to work for me
 
+is_global = true
+
+dotnet_analyzer_diagnostic.severity = warning
+
 ###############################
-# Code-Style Rules            #
+# Severity = warning          #
 ###############################
 
-# Warning
-###############################
-
-#### Language and unnecessary code rules ####
-
-# using directive placement (IDE0065)
+# IDE0065: using directive placement
 csharp_using_directive_placement = inside_namespace
 
-# Require file header (IDE0073)
+# IDE0073: Require file header
 file_header_template = SPDX-License-Identifier: BSD-3-Clause\nCopyright (c) Tran Ngoc Bich. All rights reserved.
 
-# Use block-scoped namespace (IDE0160)
-# Use file-scoped namespace (IDE0161)
+# IDE0160: Use block-scoped namespace
+# IDE0161: Use file-scoped namespace
 csharp_style_namespace_declarations = file_scoped
 
-# Use primary constructor (IDE0290)
+# IDE0290: Use primary constructor
 csharp_style_prefer_primary_constructors = false
 
-# Suggestion
+###############################
+# Severity = suggestion       #
 ###############################
 
-#### Language and unnecessary code rules ####
-
-# Use var instead of explicit type (IDE0007)
-# Use explicit type instead of var (IDE0008)
 csharp_style_var_for_built_in_types = false
 csharp_style_var_when_type_is_apparent = true
 csharp_style_var_elsewhere = false
+# IDE0007: Use var instead of explicit type (severity UNCHANGED)
+#dotnet_diagnostic.IDE0007.severity = suggestion
+# IDE0008: Use explicit type instead of var
 dotnet_diagnostic.IDE0008.severity = suggestion
 
-# Add braces (IDE0011)
 csharp_prefer_braces = when_multiline
+# IDE0011: Add braces
 dotnet_diagnostic.IDE0011.severity = suggestion
 
-# Use expression body for methods (IDE0022)
 csharp_style_expression_bodied_methods = when_on_single_line
+# IDE0022: Use expression body for methods
 dotnet_diagnostic.IDE0022.severity = suggestion
 
-# Use expression body for conversion operators (IDE0023)
-# Use expression body for operators (IDE0024)
 csharp_style_expression_bodied_operators = when_on_single_line
+# IDE0023: Use expression body for conversion operators
 dotnet_diagnostic.IDE0023.severity = suggestion
+# IDE0024: Use expression body for operators
 dotnet_diagnostic.IDE0024.severity = suggestion
 
-# Use auto-implemented property (IDE0032)
 dotnet_style_prefer_auto_properties = true
+# IDE0032: Use auto-implemented property
 dotnet_diagnostic.IDE0032.severity = suggestion
 
-# Remove unnecessary parentheses (IDE0047)
-# Add parentheses for clarity (IDE0048)
 dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary
 dotnet_style_parentheses_in_other_binary_operators = always_for_clarity
 dotnet_style_parentheses_in_other_operators = never_if_unnecessary
+# IDE0047: Remove unnecessary parentheses
 dotnet_diagnostic.IDE0047.severity = suggestion
+# IDE0048: Add parentheses for clarity
 dotnet_diagnostic.IDE0048.severity = suggestion
 
-# Use expression body for local functions (IDE0061)
 csharp_style_expression_bodied_local_functions = when_on_single_line
+# IDE0061: Use expression body for local functions
 dotnet_diagnostic.IDE0061.severity = suggestion
 
-# Use pattern matching (IDE0078)
 csharp_style_prefer_pattern_matching = false
+# IDE0078: Use pattern matching
 dotnet_diagnostic.IDE0078.severity = suggestion
 
-# Remove unnecessary equality operator (IDE0100)
-# No matching rule
+# No rule
+# IDE0100: Remove unnecessary equality operator
 dotnet_diagnostic.IDE0100.severity = suggestion
 
-#### Naming rules ####
-
+# No rule
+# IDE1006: Naming rules
 dotnet_diagnostic.IDE1006.severity = suggestion

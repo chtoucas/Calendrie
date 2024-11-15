@@ -3,13 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>$(CalendrieLibraryFrameworks)</TargetFrameworks>
 
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-
     <!--
       CA1000  Do not declare static members on generic types (Design)
       CA1707  Identifiers should not contain underscores (Naming)
+      CS1591  Missing XML comment for publicly visible type or member 'Type_or_Member'
     -->
-    <NoWarn>$(NoWarn);CA1000;CA1707</NoWarn>
+    <NoWarn>$(NoWarn);CA1000;CA1707;CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

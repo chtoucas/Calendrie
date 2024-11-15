@@ -52,6 +52,9 @@
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 
+    <!-- To see C# documentation from F#, we always build it -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
     <!-- Code/Style Analysis
       https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
       https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismode
@@ -80,7 +83,6 @@
       <PropertyGroup>
         <SignAssembly>true</SignAssembly>
         <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <!--
@@ -97,7 +99,6 @@
       <PropertyGroup>
         <SignAssembly>false</SignAssembly>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <GenerateDocumentationFile>false</GenerateDocumentationFile>
 
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <WarningsAsErrors />
