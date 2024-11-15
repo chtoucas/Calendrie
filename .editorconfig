@@ -27,12 +27,8 @@ indent_size = 2
 [*.{props,targets,config,nuspec,resx}]
 indent_size = 2
 
-################################################################################
-# CSharp Settings                                                              #
-################################################################################
-
+# C#
 [*.cs]
-
 indent_size = 4
 indent_style = space
 tab_width = 4
@@ -40,10 +36,3 @@ tab_width = 4
 charset = utf-8-bom
 end_of_line = crlf
 insert_final_newline = true
-
-###############################
-# Custom Rules                #
-###############################
-
-#### File header preferences ####
-file_header_template = SPDX-License-Identifier: BSD-3-Clause\nCopyright (c) Tran Ngoc Bich. All rights reserved.

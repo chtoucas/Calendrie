@@ -53,24 +53,12 @@
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 
     <!-- Code/Style Analysis
-      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/
+      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
       https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismode
     -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>All</AnalysisMode>
-    <AnalysisModeDesign>warning</AnalysisModeDesign>
-    <AnalysisModeDocumentation>warning</AnalysisModeDocumentation>
-    <AnalysisModeGlobalization>suggestion</AnalysisModeGlobalization>
-    <AnalysisModeInteroperability>warning</AnalysisModeInteroperability>
-    <AnalysisModeMaintainability>warning</AnalysisModeMaintainability>
-    <AnalysisModePerformance>warning</AnalysisModePerformance>
-    <AnalysisModeSingleFile>warning</AnalysisModeSingleFile>
-    <AnalysisModeReliability>warning</AnalysisModeReliability>
-    <AnalysisModeSecurity>warning</AnalysisModeSecurity>
-    <AnalysisModeStyle>suggestion</AnalysisModeStyle>
-    <AnalysisModeUsage>warning</AnalysisModeUsage>
-
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
     <!-- Reproducible Build
