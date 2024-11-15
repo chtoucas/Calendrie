@@ -3,8 +3,8 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie.Testing.Data;
 using Calendrie.Hemerology;
+using Calendrie.Testing.Data;
 
 /// <summary>
 /// Provides more facts about <see cref="IDate{TSelf}"/>.

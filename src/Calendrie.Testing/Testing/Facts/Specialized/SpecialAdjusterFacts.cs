@@ -3,10 +3,10 @@
 
 namespace Calendrie.Testing.Facts.Specialized;
 
-using Calendrie.Testing.Data;
-using Calendrie.Testing.Facts.Hemerology;
 using Calendrie.Hemerology;
 using Calendrie.Specialized;
+using Calendrie.Testing.Data;
+using Calendrie.Testing.Facts.Hemerology;
 
 public abstract partial class SpecialAdjusterFacts<TDate, TDataSet> :
     IDateAdjusterFacts<SpecialAdjuster<TDate>, TDate, TDataSet>

@@ -3,9 +3,9 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie.Testing.Data;
 using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
+using Calendrie.Testing.Data;
 
 // Hypothesis:
 // - TDate is a value type.

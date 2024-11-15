@@ -5,8 +5,8 @@ namespace Calendrie.Testing.Facts.Hemerology;
 
 // Hypothesis: first year is valid and complete.
 
-using Calendrie.Testing.Data;
 using Calendrie.Hemerology;
+using Calendrie.Testing.Data;
 
 /// <summary>
 /// Provides facts about <see cref="IDateable"/>.

@@ -3,8 +3,8 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie.Testing.Data;
 using Calendrie.Hemerology;
+using Calendrie.Testing.Data;
 
 // In addition, one should test WithYear() with valid and invalid results.
 
