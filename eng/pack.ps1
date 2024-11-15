@@ -34,8 +34,7 @@ try {
 
     $args = "-c:Release",
         "/p:ContinuousIntegrationBuild=true",
-        # FIXME(code): CS0649 -> RangeSet<T>.Empty
-        #"/p:HideInternals=true",
+        "/p:HideInternals=true",
         "/p:PrintSettings=true"
 
     $Calendrie       = Join-Path $SrcDir 'Calendrie' -Resolve
