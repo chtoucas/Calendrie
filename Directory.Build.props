@@ -56,12 +56,26 @@
       If we need a more recent version of Microsoft.CodeAnalysis.NetAnalyzers,
       add a package reference in D.B.targets.
       https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
+      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/categories
+      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-options
       https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismode
     -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>All</AnalysisMode>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisModeDesign>warning</AnalysisModeDesign>
+    <AnalysisModeDocumentation>warning</AnalysisModeDocumentation>
+    <AnalysisModeGlobalization>suggestion</AnalysisModeGlobalization>
+    <AnalysisModeInteroperability>warning</AnalysisModeInteroperability>
+    <AnalysisModeMaintainability>warning</AnalysisModeMaintainability>
+    <AnalysisModePerformance>warning</AnalysisModePerformance>
+    <AnalysisModeSingleFile>warning</AnalysisModeSingleFile>
+    <AnalysisModeReliability>warning</AnalysisModeReliability>
+    <AnalysisModeSecurity>warning</AnalysisModeSecurity>
+    <AnalysisModeStyle>suggestion</AnalysisModeStyle>
+    <AnalysisModeUsage>warning</AnalysisModeUsage>
+
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
 
     <!-- Reproducible Build
       RestoreLockedMode:
@@ -89,9 +103,8 @@
           CS0618  Compiler Warning (level 2) 'member' is obsolete: 'text'
           CS1030  Compiler Warning (level 1) #warning
           CS1591  Missing XML comment for publicly visible type or member 'Type_or_Member'
-          IDE0290 Use primary constructor
         -->
-        <WarningsNotAsErrors>CS0618;CS1030;CS1591;IDE0290</WarningsNotAsErrors>
+        <WarningsNotAsErrors>CS0618;CS1030;CS1591</WarningsNotAsErrors>
         <NoWarn />
       </PropertyGroup>
     </When>
