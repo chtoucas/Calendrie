@@ -4,7 +4,10 @@ root = true
 
 ################################################################################
 
+[*]
+insert_final_newline = true
 indent_style = space
+tab_width = 4
 trim_trailing_whitespace = true
 
 # Powershell files
@@ -30,9 +33,6 @@ indent_size = 2
 # C#
 [*.cs]
 indent_size = 4
-indent_style = space
-tab_width = 4
 
 charset = utf-8-bom
 end_of_line = crlf
-insert_final_newline = true
