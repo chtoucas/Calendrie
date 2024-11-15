@@ -37,7 +37,7 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)eng\Calendrie.snk</AssemblyOriginatorKeyFile>
 
     <Authors>Tran Ngoc Bich</Authors>
-    <!--<Company>Narvalo.Org</Company>-->
+    <!--<Company></Company>-->
     <Product>Calendrie</Product>
     <Copyright>Copyright (c) 2020 Tran Ngoc Bich</Copyright>
 
@@ -53,12 +53,8 @@
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 
     <!-- Code/Style Analysis
-      If we need a more recent version of Microsoft.CodeAnalysis.NetAnalyzers,
-      add a package reference in D.B.targets.
-      https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
-      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/categories
-      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-options
-      https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismode
+      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/
+      https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismode
     -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -75,7 +71,7 @@
     <AnalysisModeStyle>suggestion</AnalysisModeStyle>
     <AnalysisModeUsage>warning</AnalysisModeUsage>
 
-    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
     <!-- Reproducible Build
       RestoreLockedMode:

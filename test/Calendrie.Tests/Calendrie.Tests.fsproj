@@ -21,6 +21,9 @@
     <None Include="Calendrie.Tests.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Testing\XunitModule.fs" />
     <Compile Include="Testing\FsCheckModule.fs" />
     <Compile Include="Testing\TestHelpers.fs" />
@@ -39,15 +42,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="coverlet.msbuild">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <!-- Do not remove, this ensures that we always use the latest F# version -->
     <PackageReference Include="FSharp.Core" />
     <PackageReference Include="FsCheck.Xunit" />
     <PackageReference Include="Unquote" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
-    <ProjectReference Include="..\Calendrie.Testing\Calendrie.Testing.csproj" />
+    <ProjectReference Include="..\..\src\Calendrie.Testing\Calendrie.Testing.csproj" />
   </ItemGroup>
 
 </Project>

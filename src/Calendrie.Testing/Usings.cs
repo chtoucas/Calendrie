@@ -7,7 +7,6 @@ global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Diagnostics.Contracts;
 
-global using Calendrie;
 global using Calendrie.Core;
 global using Calendrie.Core.Schemas;
 global using Calendrie.Core.Utilities;

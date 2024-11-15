@@ -25,8 +25,6 @@ public sealed partial class DayOfWeekAdjusterTester<T> where T : IFixedDate<T>
 {
     private readonly bool _testNext;
 
-#pragma warning disable IDE1006 // Naming Styles
-
     private readonly T day;
     private readonly T day1;
     private readonly T day2;
@@ -45,8 +43,6 @@ public sealed partial class DayOfWeekAdjusterTester<T> where T : IFixedDate<T>
     private readonly DayOfWeek dow4;
     private readonly DayOfWeek dow5;
     private readonly DayOfWeek dow6;
-
-#pragma warning restore IDE1006
 
     public DayOfWeekAdjusterTester(T day, bool testNext, Func<T, int, T> add)
     {

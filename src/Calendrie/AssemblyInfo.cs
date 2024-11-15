@@ -1,6 +1,11 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+using System.Runtime.InteropServices;
+
+[assembly: CLSCompliant(true)]
+[assembly: ComVisible(false)]
+
 #if !__HIDE_INTERNALS__
 [assembly: InternalsVisibleTo("Calendrie.Testing" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 [assembly: InternalsVisibleTo("Calendrie.Tests" + Calendrie.AssemblyInfo.PublicKeySuffix)]

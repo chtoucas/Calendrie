@@ -7,10 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendrie", "src\Calendrie\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}"
 	ProjectSection(SolutionItems) = preProject
-		src\AssemblyInfo.Common.cs = src\AssemblyInfo.Common.cs
-		src\Directory.Build.targets = src\Directory.Build.targets
 		src\Packable.targets = src\Packable.targets
-		src\Usings.cs = src\Usings.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84246E77-9B04-4280-B84B-32C8772009ED}"
@@ -34,13 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeTemplates", "CodeTempla
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CA7F8640-CFEA-4F44-9121-671A8CF57413}"
-	ProjectSection(SolutionItems) = preProject
-		test\Directory.Build.props = test\Directory.Build.props
-		test\Directory.Build.targets = test\Directory.Build.targets
-		test\xunit.runner.json = test\xunit.runner.json
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendrie.Testing", "test\Calendrie.Testing\Calendrie.Testing.csproj", "{8798985D-A04A-4DAC-9D41-035DC2117EDA}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Calendrie.Tests", "test\Calendrie.Tests\Calendrie.Tests.fsproj", "{B09CCEBE-D16A-4155-94A3-BE04D627E234}"
 EndProject
@@ -58,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{7ED71EAD-F19
 		eng\test.ps1 = eng\test.ps1
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendrie.Testing", "src\Calendrie.Testing\Calendrie.Testing.csproj", "{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,14 +60,14 @@ Global
 		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8798985D-A04A-4DAC-9D41-035DC2117EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8798985D-A04A-4DAC-9D41-035DC2117EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8798985D-A04A-4DAC-9D41-035DC2117EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8798985D-A04A-4DAC-9D41-035DC2117EDA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,9 +75,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7BC0D3C0-93B0-4458-AFCC-874C6C54E0F1} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
 		{E7581A9C-D825-468D-92D8-5E120FA815EA} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
-		{8798985D-A04A-4DAC-9D41-035DC2117EDA} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 		{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5} = {84246E77-9B04-4280-B84B-32C8772009ED}
+		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED8B0D74-DB69-46D4-AADE-91101FF165C2}

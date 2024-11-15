@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>$(CalendrieLibraryFrameworks)</TargetFrameworks>
 
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
     <!--
       CA1000  Do not declare static members on generic types (Design)
       CA1707  Identifiers should not contain underscores (Naming)
@@ -16,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
+    <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
   </ItemGroup>
 
 </Project>
