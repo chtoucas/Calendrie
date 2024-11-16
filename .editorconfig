@@ -2,8 +2,6 @@
 
 root = true
 
-################################################################################
-
 [*]
 insert_final_newline = true
 indent_style = space
@@ -11,10 +9,6 @@ indent_size = 4
 tab_width = 4
 trim_trailing_whitespace = true
 end_of_line = crlf
-
-# Powershell files
-[*.ps1]
-indent_size = 4
 
 # JSON files
 [*.json]
@@ -32,8 +26,6 @@ indent_size = 2
 [*.{props,targets,config,nuspec,resx}]
 indent_size = 2
 
-# C#
+# C# files
 [*.cs]
-indent_size = 4
-
 charset = utf-8-bom
