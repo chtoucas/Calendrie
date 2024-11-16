@@ -52,7 +52,7 @@
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 
-    <!-- In order for C# documentation to be available to F#, we always build it -->
+    <!-- In order for C# documentation to be available to F#, we must first build it -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <!-- Code/Style Analysis

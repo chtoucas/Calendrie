@@ -7,9 +7,12 @@
 #
 # WARNINGs
 # - Release builds turn warnings into errors.
-# - When changing a severity, some things work as documented, other do not,
-#   but what follows does work so far. For instance, setting the severity
-#   directly via a code-style option does nothing for me.
+# - When changing a severity, some things work as documented, other do not...
+#   For instance,
+#   - Setting the severity directly via a code-style option does nothing for me.
+#   - Setting dotnet_diagnostic.IDE1006.severity causes all
+#     dotnet_naming_rule.XXX.severity to be ignored. In fact, it only happens on
+#     one of my two computers.
 #
 # See also
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
@@ -49,6 +52,9 @@ dotnet_diagnostic.IDE0078.severity = suggestion
 
 # Rules with no associated code-style options
 # See https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/
+# We most certainly do not need to set the options for which we keep the default
+# severity value.
+#
 # Simplify name
 # WARNING: VS-only setting
 dotnet_diagnostic.IDE0001.severity = warning
@@ -112,7 +118,6 @@ dotnet_diagnostic.IDE0055.severity = warning
 #### Naming rules
 
 # All naming options have rule ID IDE1006 and title "Naming rule violation"
-# See also below
 dotnet_diagnostic.IDE1006.severity = suggestion
 
 # Language and unnecessary code rules ##########################################
@@ -171,7 +176,7 @@ csharp_style_prefer_pattern_matching = false
 # Naming rules #################################################################
 
 # Adapted from https://github.com/dotnet/roslyn/blob/main/.editorconfig
-# I changed the severities and local functions are camelCase not PascalCase
+# I only changed the severity values.
 
 # Non-private static fields are PascalCase
 dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.severity = warning
@@ -206,7 +211,7 @@ dotnet_naming_symbols.constants.required_modifiers = const
 dotnet_naming_style.constant_style.capitalization = pascal_case
 
 # Static fields are camelCase and start with s_
-dotnet_naming_rule.static_fields_should_be_camel_case.severity = warning
+dotnet_naming_rule.static_fields_should_be_camel_case.severity = suggestion
 dotnet_naming_rule.static_fields_should_be_camel_case.symbols = static_fields
 dotnet_naming_rule.static_fields_should_be_camel_case.style = static_field_style
 
@@ -235,14 +240,14 @@ dotnet_naming_symbols.locals_and_parameters.applicable_kinds = parameter, local
 
 dotnet_naming_style.camel_case_style.capitalization = camel_case
 
-# Local functions are camelCase
+# Local functions are PascalCase
 dotnet_naming_rule.local_functions_should_be_pascal_case.severity = warning
 dotnet_naming_rule.local_functions_should_be_pascal_case.symbols = local_functions
 dotnet_naming_rule.local_functions_should_be_pascal_case.style = local_function_style
 
 dotnet_naming_symbols.local_functions.applicable_kinds = local_function
 
-dotnet_naming_style.local_function_style.capitalization = camel_case
+dotnet_naming_style.local_function_style.capitalization = pascal_case
 
 # By default, name items with PascalCase
 dotnet_naming_rule.members_should_be_pascal_case.severity = suggestion

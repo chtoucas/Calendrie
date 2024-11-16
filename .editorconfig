@@ -2,6 +2,8 @@
 
 root = true
 
+#### Core EditorConfig Options ####
+
 [*]
 insert_final_newline = true
 indent_style = space
@@ -30,10 +32,13 @@ indent_size = 2
 [*.cs]
 charset = utf-8-bom
 
-# Special CSharp settings ######################################################
+#### Diagnostic configuration ####
 
-[src/Calendrie/**/*.g.cs]
+# Here, we are only interested by the special cases.
+# The global configuration is done within .globalconfig.
+
 # To enable Code Analysis on generated files, we pretend that they are not...
+[src/Calendrie/**/*.g.cs]
 generated_code = false
 # Remove redundant nullable directive
 dotnet_diagnostic.IDE0240.severity = none

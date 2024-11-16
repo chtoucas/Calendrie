@@ -91,25 +91,25 @@ public sealed partial class CalendricalSegmentBuilder
     [Pure]
     public CalendricalSegment BuildSegment()
     {
-        var min = fixEndpoint(Min);
-        var max = fixEndpoint(Max);
+        var min = FixEndpoint(Min);
+        var max = FixEndpoint(Max);
 
         return new CalendricalSegment(_schema, min, max)
         {
-            MinIsStartOfYear = isStartOfYear(min),
-            MaxIsEndOfYear = isEndOfYear(max)
+            MinIsStartOfYear = IsStartOfYear(min),
+            MaxIsEndOfYear = IsEndOfYear(max)
         };
 
         [Pure]
-        bool isStartOfYear(Endpoint ep) =>
+        bool IsStartOfYear(Endpoint ep) =>
             ep.OrdinalParts == OrdinalParts.AtStartOfYear(ep.Year);
 
         [Pure]
-        bool isEndOfYear(Endpoint ep) =>
+        bool IsEndOfYear(Endpoint ep) =>
             ep.OrdinalParts == _partsAdapter.GetOrdinalPartsAtEndOfYear(ep.Year);
 
         [Pure]
-        Endpoint fixEndpoint(Endpoint ep)
+        Endpoint FixEndpoint(Endpoint ep)
         {
             var (y, m) = ep.MonthParts;
             ep.MonthsSinceEpoch = _schema.CountMonthsSinceEpoch(y, m);
