@@ -52,12 +52,11 @@
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 
-    <!-- To see C# documentation from F#, we always build it -->
+    <!-- In order for C# documentation to be available to F#, we always build it -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <!-- Code/Style Analysis
-      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
-      https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#analysismode
+      https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#code-analysis-properties
     -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>

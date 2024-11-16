@@ -1,15 +1,42 @@
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
 # https://learn.microsoft.com/en-gb/dotnet/fundamentals/code-analysis/configuration-files#global-analyzerconfig
-
-# REVIEW(code): for instance, setting
-#   csharp_style_expression_bodied_methods = when_on_single_line:suggestion
-# does not seem to work for me
 
 is_global = true
 
+# Severity:
+# - error
+# - warning
+# - suggestion
+# - silent (refactoring only in VS)
+# - none
+# - default
 dotnet_analyzer_diagnostic.severity = warning
 
+# REVIEW(code): setting the severity via a configuration option
+#   csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+# does not seem to work for me
+
+#### Language and unnecessary code rules
+dotnet_diagnostic.IDE0008.severity = suggestion
+dotnet_diagnostic.IDE0011.severity = suggestion
+dotnet_diagnostic.IDE0022.severity = suggestion
+dotnet_diagnostic.IDE0023.severity = suggestion
+dotnet_diagnostic.IDE0024.severity = suggestion
+dotnet_diagnostic.IDE0032.severity = suggestion
+dotnet_diagnostic.IDE0047.severity = suggestion
+dotnet_diagnostic.IDE0048.severity = suggestion
+dotnet_diagnostic.IDE0061.severity = suggestion
+dotnet_diagnostic.IDE0078.severity = suggestion
+# Rules without a matching configuration option
+# IDE0100: Remove unnecessary equality operator
+dotnet_diagnostic.IDE0100.severity = suggestion
+
+#### Naming rules
+# All naming options have rule ID IDE1006 and title "Naming rule violation".
+dotnet_diagnostic.IDE1006.severity = suggestion
+
 ###############################
-# Severity = warning          #
+# Warnings                    #
 ###############################
 
 # IDE0065: using directive placement
@@ -26,56 +53,37 @@ csharp_style_namespace_declarations = file_scoped
 csharp_style_prefer_primary_constructors = false
 
 ###############################
-# Severity = suggestion       #
+# Suggestions                 #
 ###############################
 
+# IDE0007: Use var instead of explicit type
+# IDE0008: Use explicit type instead of var
 csharp_style_var_for_built_in_types = false
 csharp_style_var_when_type_is_apparent = true
 csharp_style_var_elsewhere = false
-# IDE0007: Use var instead of explicit type (severity UNCHANGED)
-#dotnet_diagnostic.IDE0007.severity = suggestion
-# IDE0008: Use explicit type instead of var
-dotnet_diagnostic.IDE0008.severity = suggestion
 
-csharp_prefer_braces = when_multiline
 # IDE0011: Add braces
-dotnet_diagnostic.IDE0011.severity = suggestion
+csharp_prefer_braces = when_multiline
 
-csharp_style_expression_bodied_methods = when_on_single_line
 # IDE0022: Use expression body for methods
-dotnet_diagnostic.IDE0022.severity = suggestion
+csharp_style_expression_bodied_methods = when_on_single_line
 
-csharp_style_expression_bodied_operators = when_on_single_line
 # IDE0023: Use expression body for conversion operators
-dotnet_diagnostic.IDE0023.severity = suggestion
 # IDE0024: Use expression body for operators
-dotnet_diagnostic.IDE0024.severity = suggestion
+csharp_style_expression_bodied_operators = when_on_single_line
 
-dotnet_style_prefer_auto_properties = true
 # IDE0032: Use auto-implemented property
-dotnet_diagnostic.IDE0032.severity = suggestion
+dotnet_style_prefer_auto_properties = true
 
+# IDE0047: Remove unnecessary parentheses
+# IDE0048: Add parentheses for clarity
 dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary
 dotnet_style_parentheses_in_other_binary_operators = always_for_clarity
 dotnet_style_parentheses_in_other_operators = never_if_unnecessary
-# IDE0047: Remove unnecessary parentheses
-dotnet_diagnostic.IDE0047.severity = suggestion
-# IDE0048: Add parentheses for clarity
-dotnet_diagnostic.IDE0048.severity = suggestion
 
-csharp_style_expression_bodied_local_functions = when_on_single_line
 # IDE0061: Use expression body for local functions
-dotnet_diagnostic.IDE0061.severity = suggestion
+csharp_style_expression_bodied_local_functions = when_on_single_line
 
-csharp_style_prefer_pattern_matching = false
 # IDE0078: Use pattern matching
-dotnet_diagnostic.IDE0078.severity = suggestion
-
-# No rule
-# IDE0100: Remove unnecessary equality operator
-dotnet_diagnostic.IDE0100.severity = suggestion
-
-# No rule
-# IDE1006: Naming rules
-dotnet_diagnostic.IDE1006.severity = suggestion
+csharp_style_prefer_pattern_matching = false
