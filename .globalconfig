@@ -1,10 +1,19 @@
 # Global editor config
-# WARNING: when changing a severity, some things work as documented, other do not,
-# but what follows does work so far. For instance, setting the severity directly
-# via a code-style option does nothing for me.
+#
+# "Unlike EditorConfig files, global configuration files can't be used to
+# configure editor style settings for IDEs, such as indent size or whether to
+# trim trailing whitespace. Instead, they're designed purely for specifying
+# project-level analyzer configuration options."
+#
+# WARNINGs
+# - Release builds turn warnings into errors.
+# - When changing a severity, some things work as documented, other do not,
+#   but what follows does work so far. For instance, setting the severity
+#   directly via a code-style option does nothing for me.
+#
+# See also
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
 # https://learn.microsoft.com/en-gb/dotnet/fundamentals/code-analysis/configuration-files#global-analyzerconfig
-# See also
 # https://github.com/dotnet/roslyn/blob/main/.editorconfig
 # https://github.com/dotnet/runtime/blob/main/.editorconfig
 
@@ -21,10 +30,11 @@ is_global = true
 # - default
 
 # Default value
-#dotnet_analyzer_diagnostic.category-Style.severity = warning
 dotnet_analyzer_diagnostic.severity = warning
+dotnet_analyzer_diagnostic.category-Style.severity = warning
 
 #### Language and unnecessary code rules
+
 dotnet_diagnostic.IDE0008.severity = suggestion
 dotnet_diagnostic.IDE0011.severity = suggestion
 dotnet_diagnostic.IDE0022.severity = suggestion
@@ -38,19 +48,23 @@ dotnet_diagnostic.IDE0078.severity = suggestion
 
 # Rules with no associated code-style options
 # See https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/
-# Simplify name (__VS-only setting__)
+# Simplify name
+# WARNING: VS-only setting
 dotnet_diagnostic.IDE0001.severity = warning
-# Simplify member access (__VS-only setting__)
+# Simplify member access
+# WARNING: VS-only setting
 dotnet_diagnostic.IDE0002.severity = suggestion
 # Remove unnecessary cast
 dotnet_diagnostic.IDE0004.severity = warning
-# Remove unnecessary using directives (__only enabled when GenerateDocumentationFile = true__)
+# Remove unnecessary using directives
+# WARNING: Only enabled when GenerateDocumentationFile = true
 dotnet_diagnostic.IDE0005.severity = warning
 # Add missing cases to switch statement
 dotnet_diagnostic.IDE0010.severity = warning
-# Remove unreachable code (__VS-only setting__)
+# Remove unreachable code
+# WARNING: VS-only setting
 dotnet_diagnostic.IDE0035.severity = warning
-# Convert anonymous type to tuple (__obsolete__)
+# Convert anonymous type to tuple (obsolete)
 #dotnet_diagnostic.IDE0050.severity = warning
 # Remove unused private member
 dotnet_diagnostic.IDE0051.severity = warning
@@ -69,6 +83,7 @@ dotnet_diagnostic.IDE0081.severity = warning
 # Convert typeof to nameof
 dotnet_diagnostic.IDE0082.severity = warning
 # Remove unnecessary equality operator
+# NB: I prefer == false to the logical negation operator (!)
 dotnet_diagnostic.IDE0100.severity = suggestion
 # Remove unnecessary discard
 dotnet_diagnostic.IDE0110.severity = warning
@@ -82,18 +97,21 @@ dotnet_diagnostic.IDE0241.severity = warning
 dotnet_diagnostic.IDE0280.severity = warning
 
 #### Miscellaneous rules
+
 # Remove invalid global 'SuppressMessageAttribute'
 dotnet_diagnostic.IDE0076.severity = warning
 # Avoid legacy format target in global 'SuppressMessageAttribute'
 dotnet_diagnostic.IDE0077.severity = warning
 
 #### Formatting rules
+
 # All formatting options have rule ID IDE0055 and title Fix formatting
 dotnet_diagnostic.IDE0055.severity = warning
 
 #### Naming rules
+
 # All naming options have rule ID IDE1006 and title "Naming rule violation"
-# We all set the severity on an individual basis
+# See also below
 dotnet_diagnostic.IDE1006.severity = suggestion
 
 # Language and unnecessary code rules ##########################################
