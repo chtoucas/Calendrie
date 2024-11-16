@@ -1,4 +1,7 @@
 # Global editor config
+# WARNING: when changing a severity, some things work as documented, other do not,
+# but what follows does work so far. For instance, setting the severity directly
+# via a code-style option does nothing for me.
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
 # https://learn.microsoft.com/en-gb/dotnet/fundamentals/code-analysis/configuration-files#global-analyzerconfig
 # See also
@@ -9,10 +12,6 @@ is_global = true
 
 # Severity #####################################################################
 
-# REVIEW(code): setting the severity via a configuration option
-#   csharp_style_expression_bodied_methods = when_on_single_line:suggestion
-# does not seem to work for me
-
 # Legit values:
 # - error
 # - warning
@@ -21,7 +20,9 @@ is_global = true
 # - none
 # - default
 
-#dotnet_analyzer_diagnostic.severity = warning
+# Default value
+#dotnet_analyzer_diagnostic.category-Style.severity = warning
+dotnet_analyzer_diagnostic.severity = warning
 
 #### Language and unnecessary code rules
 dotnet_diagnostic.IDE0008.severity = suggestion
@@ -34,15 +35,57 @@ dotnet_diagnostic.IDE0047.severity = suggestion
 dotnet_diagnostic.IDE0048.severity = suggestion
 dotnet_diagnostic.IDE0061.severity = suggestion
 dotnet_diagnostic.IDE0078.severity = suggestion
-# Rules without an associated code-style option
-# IDE0100: Remove unnecessary equality operator
+
+# Rules with no associated code-style options
+# See https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/
+# Simplify name (__VS-only setting__)
+dotnet_diagnostic.IDE0001.severity = warning
+# Simplify member access (__VS-only setting__)
+dotnet_diagnostic.IDE0002.severity = suggestion
+# Remove unnecessary cast
+dotnet_diagnostic.IDE0004.severity = warning
+# Remove unnecessary using directives (__only enabled when GenerateDocumentationFile = true__)
+dotnet_diagnostic.IDE0005.severity = warning
+# Add missing cases to switch statement
+dotnet_diagnostic.IDE0010.severity = warning
+# Remove unreachable code (__VS-only setting__)
+dotnet_diagnostic.IDE0035.severity = warning
+# Convert anonymous type to tuple (__obsolete__)
+#dotnet_diagnostic.IDE0050.severity = warning
+# Remove unused private member
+dotnet_diagnostic.IDE0051.severity = warning
+# Remove unread private member
+dotnet_diagnostic.IDE0052.severity = warning
+# ake struct fields writable
+dotnet_diagnostic.IDE0064.severity = warning
+# Use 'System.HashCode.Combine'
+dotnet_diagnostic.IDE0070.severity = warning
+# Add missing cases to switch expression
+dotnet_diagnostic.IDE0072.severity = warning
+# Remove unnecessary suppression operator
+dotnet_diagnostic.IDE0080.severity = warning
+# Remove ByVal (VB-only rule)
+dotnet_diagnostic.IDE0081.severity = warning
+# Convert typeof to nameof
+dotnet_diagnostic.IDE0082.severity = warning
+# Remove unnecessary equality operator
 dotnet_diagnostic.IDE0100.severity = suggestion
+# Remove unnecessary discard
+dotnet_diagnostic.IDE0110.severity = warning
+# Simplify LINQ expression
+dotnet_diagnostic.IDE0120.severity = warning
+# Nullable directive is redundant
+dotnet_diagnostic.IDE0240.severity = warning
+# Nullable directive is unnecessary
+dotnet_diagnostic.IDE0241.severity = warning
+# Use 'nameof'
+dotnet_diagnostic.IDE0280.severity = warning
 
 #### Miscellaneous rules
 # Remove invalid global 'SuppressMessageAttribute'
-dotnet_diagnostic.IDE0076.severity = error
+dotnet_diagnostic.IDE0076.severity = warning
 # Avoid legacy format target in global 'SuppressMessageAttribute'
-dotnet_diagnostic.IDE0077.severity = error
+dotnet_diagnostic.IDE0077.severity = warning
 
 #### Formatting rules
 # All formatting options have rule ID IDE0055 and title Fix formatting
@@ -50,6 +93,7 @@ dotnet_diagnostic.IDE0055.severity = warning
 
 #### Naming rules
 # All naming options have rule ID IDE1006 and title "Naming rule violation"
+# We all set the severity on an individual basis
 dotnet_diagnostic.IDE1006.severity = suggestion
 
 # Language and unnecessary code rules ##########################################
@@ -163,7 +207,7 @@ dotnet_naming_style.instance_field_style.capitalization = camel_case
 dotnet_naming_style.instance_field_style.required_prefix = _
 
 # Locals and parameters are camelCase
-#dotnet_naming_rule.locals_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.locals_should_be_camel_case.severity = suggestion
 dotnet_naming_rule.locals_should_be_camel_case.symbols = locals_and_parameters
 dotnet_naming_rule.locals_should_be_camel_case.style = camel_case_style
 
@@ -181,7 +225,7 @@ dotnet_naming_symbols.local_functions.applicable_kinds = local_function
 dotnet_naming_style.local_function_style.capitalization = camel_case
 
 # By default, name items with PascalCase
-#dotnet_naming_rule.members_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.members_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.members_should_be_pascal_case.symbols = all_members
 dotnet_naming_rule.members_should_be_pascal_case.style = pascal_case_style
 

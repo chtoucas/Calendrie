@@ -29,3 +29,11 @@ indent_size = 2
 # C# files
 [*.cs]
 charset = utf-8-bom
+
+# Special CSharp settings ######################################################
+
+[src/Calendrie/**/*.g.cs]
+# To enable Code Analysis on generated files, we pretend that they are not...
+generated_code = false
+# Remove redundant nullable directive
+dotnet_diagnostic.IDE0240.severity = none
