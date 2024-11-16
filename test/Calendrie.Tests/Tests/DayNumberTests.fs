@@ -590,7 +590,6 @@ module Equality =
     open NonStructuralComparison
     open TestCommon
 
-    // fsharplint:disable Hints
     [<Property>]
     let ``Equality when both operands are identical`` (x: DayNumber) =
         x = x
@@ -609,7 +608,6 @@ module Equality =
         .&. (y <> x)
         .&. not (y.Equals(x))
         .&. not (y.Equals(x :> obj))
-    // fsharplint:enable
 
     [<Property>]
     let ``Equals(obj) returns false when "obj" is null or is a plain object`` (x: DayNumber) =
@@ -635,7 +633,6 @@ module Comparison =
     open NonStructuralComparison
     open TestCommon
 
-    // fsharplint:disable Hints
     [<Property>]
     let ``Comparisons when both operands are identical`` (x: DayNumber) =
         not (x > x)
@@ -654,7 +651,6 @@ module Comparison =
         .&. (y >= x)
         .&. not (y < x)
         .&. not (y <= x)
-    // fsharplint:enable
 
     //
     // CompareTo()
@@ -786,13 +782,11 @@ module Math =
     // Operations
     //
 
-    // fsharplint:disable Hints
     [<Property>]
     let ``0 is a neutral element (operators)`` (x: DayNumber) =
         (x + 0 = x)
         .&. (x - 0 = x)
         .&. (x - x = 0)
-    // fsharplint:enable
 
     [<Property>]
     let ``0 is a neutral element (methods)`` (x: DayNumber) =

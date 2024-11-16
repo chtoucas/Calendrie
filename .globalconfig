@@ -176,7 +176,7 @@ csharp_style_prefer_pattern_matching = false
 # Naming rules #################################################################
 
 # Adapted from https://github.com/dotnet/roslyn/blob/main/.editorconfig
-# I only changed the severity values.
+# I only changed the severity values and the rule for local functions.
 
 # Non-private static fields are PascalCase
 dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.severity = warning
@@ -240,14 +240,14 @@ dotnet_naming_symbols.locals_and_parameters.applicable_kinds = parameter, local
 
 dotnet_naming_style.camel_case_style.capitalization = camel_case
 
-# Local functions are PascalCase
+# Local functions are camelCase
 dotnet_naming_rule.local_functions_should_be_pascal_case.severity = warning
 dotnet_naming_rule.local_functions_should_be_pascal_case.symbols = local_functions
 dotnet_naming_rule.local_functions_should_be_pascal_case.style = local_function_style
 
 dotnet_naming_symbols.local_functions.applicable_kinds = local_function
 
-dotnet_naming_style.local_function_style.capitalization = pascal_case
+dotnet_naming_style.local_function_style.capitalization = camel_case
 
 # By default, name items with PascalCase
 dotnet_naming_rule.members_should_be_pascal_case.severity = suggestion
