@@ -39,7 +39,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public static DayNumber Before(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
