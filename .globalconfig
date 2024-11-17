@@ -1,18 +1,13 @@
 # Global editor config
 #
 # "Unlike EditorConfig files, global configuration files can't be used to
-# configure editor style settings for IDEs, such as indent size or whether to
-# trim trailing whitespace. Instead, they're designed purely for specifying
-# project-level analyzer configuration options."
+#  configure editor style settings for IDEs, such as indent size or whether to
+#  trim trailing whitespace. Instead, they're designed purely for specifying
+#  project-level analyzer configuration options."
 #
 # WARNINGs
 # - Release builds turn warnings into errors.
-# - When changing a severity, some things work as documented, other do not...
-#   For instance,
-#   - Setting the severity directly via a code-style option does nothing for me.
-#   - Setting dotnet_diagnostic.IDE1006.severity causes all
-#     dotnet_naming_rule.XXX.severity to be ignored. In fact, it only happens on
-#     one of my two computers.
+# - Setting the severity directly via a code-style option does nothing for me.
 #
 # See also
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
@@ -34,7 +29,7 @@ is_global = true
 
 # Default value
 dotnet_analyzer_diagnostic.severity = warning
-dotnet_analyzer_diagnostic.category-Style.severity = warning
+#dotnet_analyzer_diagnostic.category-Style.severity = warning
 
 #### Language and unnecessary code rules
 
@@ -118,6 +113,7 @@ dotnet_diagnostic.IDE0055.severity = warning
 #### Naming rules
 
 # All naming options have rule ID IDE1006 and title "Naming rule violation"
+# The severity value must be warning or error to be enforced on build.
 dotnet_diagnostic.IDE1006.severity = suggestion
 
 # Language and unnecessary code rules ##########################################
@@ -177,6 +173,10 @@ csharp_style_prefer_pattern_matching = false
 
 # Adapted from https://github.com/dotnet/roslyn/blob/main/.editorconfig
 # I only changed the severity values and the rule for local functions.
+#
+# "Severity specification within a naming rule is only respected inside
+#  development IDEs, such as Visual Studio. This setting is not understood by the
+#  C# or VB compilers, hence not respected during build."
 
 # Non-private static fields are PascalCase
 dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.severity = warning
