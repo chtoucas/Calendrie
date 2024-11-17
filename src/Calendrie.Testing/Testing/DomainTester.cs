@@ -34,7 +34,7 @@ public sealed class DomainTester
     {
         foreach (var dayNumber in InvalidDayNumbers)
         {
-            Assert.ThrowsAoorexn(argName, () => fun.Invoke(dayNumber));
+            AssertEx.ThrowsAoorexn(argName, () => fun.Invoke(dayNumber));
         }
     }
 
@@ -42,7 +42,7 @@ public sealed class DomainTester
     {
         foreach (var dayNumber in InvalidDayNumbers)
         {
-            Assert.ThrowsAoorexn(argName, () => fun.Invoke(dayNumber));
+            AssertEx.ThrowsAoorexn(argName, () => fun.Invoke(dayNumber));
         }
     }
 }

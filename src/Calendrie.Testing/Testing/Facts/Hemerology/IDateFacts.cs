@@ -95,7 +95,7 @@ public partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("dayOfWeek", () => date.Previous(dayOfWeek));
+        AssertEx.ThrowsAoorexn("dayOfWeek", () => date.Previous(dayOfWeek));
     }
 
     [Theory, MemberData(nameof(EnumDataSet.InvalidDayOfWeekData), MemberType = typeof(EnumDataSet))]
@@ -103,7 +103,7 @@ public partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("dayOfWeek", () => date.PreviousOrSame(dayOfWeek));
+        AssertEx.ThrowsAoorexn("dayOfWeek", () => date.PreviousOrSame(dayOfWeek));
     }
 
     [Theory, MemberData(nameof(EnumDataSet.InvalidDayOfWeekData), MemberType = typeof(EnumDataSet))]
@@ -111,7 +111,7 @@ public partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("dayOfWeek", () => date.Nearest(dayOfWeek));
+        AssertEx.ThrowsAoorexn("dayOfWeek", () => date.Nearest(dayOfWeek));
     }
 
     [Theory, MemberData(nameof(EnumDataSet.InvalidDayOfWeekData), MemberType = typeof(EnumDataSet))]
@@ -119,7 +119,7 @@ public partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("dayOfWeek", () => date.NextOrSame(dayOfWeek));
+        AssertEx.ThrowsAoorexn("dayOfWeek", () => date.NextOrSame(dayOfWeek));
     }
 
     [Theory, MemberData(nameof(EnumDataSet.InvalidDayOfWeekData), MemberType = typeof(EnumDataSet))]
@@ -127,7 +127,7 @@ public partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("dayOfWeek", () => date.Next(dayOfWeek));
+        AssertEx.ThrowsAoorexn("dayOfWeek", () => date.Next(dayOfWeek));
     }
 
     #endregion
@@ -166,8 +166,8 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     {
         var copy = MaxDate;
         // Act & Assert
-        Assert.Overflows(() => copy++);
-        Assert.Overflows(() => MaxDate.NextDay());
+        AssertEx.Overflows(() => copy++);
+        AssertEx.Overflows(() => MaxDate.NextDay());
     }
 
     [Theory, MemberData(nameof(ConsecutiveDaysData))]
@@ -189,8 +189,8 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     {
         var copy = MinDate;
         // Act & Assert
-        Assert.Overflows(() => copy--);
-        Assert.Overflows(() => MinDate.PreviousDay());
+        AssertEx.Overflows(() => copy--);
+        AssertEx.Overflows(() => MinDate.PreviousDay());
     }
 
     [Theory, MemberData(nameof(ConsecutiveDaysData))]
@@ -212,11 +212,11 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        Assert.Overflows(() => date + int.MinValue);
-        Assert.Overflows(() => date + int.MaxValue);
+        AssertEx.Overflows(() => date + int.MinValue);
+        AssertEx.Overflows(() => date + int.MaxValue);
 
-        Assert.Overflows(() => date.PlusDays(int.MinValue));
-        Assert.Overflows(() => date.PlusDays(int.MaxValue));
+        AssertEx.Overflows(() => date.PlusDays(int.MinValue));
+        AssertEx.Overflows(() => date.PlusDays(int.MaxValue));
     }
 
     [Fact]
@@ -230,15 +230,15 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         int minDays = minDayNumber - dayNumber;
         int maxDays = maxDayNumber - dayNumber;
         // Act & Assert
-        Assert.Overflows(() => date + (minDays - 1));
+        AssertEx.Overflows(() => date + (minDays - 1));
         Assert.Equal(MinDate, date + minDays);
         Assert.Equal(MaxDate, date + maxDays);
-        Assert.Overflows(() => date + (maxDays + 1));
+        AssertEx.Overflows(() => date + (maxDays + 1));
 
-        Assert.Overflows(() => date.PlusDays(minDays - 1));
+        AssertEx.Overflows(() => date.PlusDays(minDays - 1));
         Assert.Equal(MinDate, date.PlusDays(minDays));
         Assert.Equal(MaxDate, date.PlusDays(maxDays));
-        Assert.Overflows(() => date.PlusDays(maxDays + 1));
+        AssertEx.Overflows(() => date.PlusDays(maxDays + 1));
 
         Assert.Equal(minDays, MinDate - date);
         Assert.Equal(-minDays, date - MinDate);
@@ -268,16 +268,16 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     {
         int days = Domain.Count() - 1;
         // Act & Assert
-        Assert.Overflows(() => MinDate - 1);
+        AssertEx.Overflows(() => MinDate - 1);
         Assert.Equal(MinDate, MinDate - 0);
         Assert.Equal(MinDate, MinDate + 0);
         Assert.Equal(MaxDate, MinDate + days);
-        Assert.Overflows(() => MinDate + (days + 1));
+        AssertEx.Overflows(() => MinDate + (days + 1));
 
-        Assert.Overflows(() => MinDate.PlusDays(-1));
+        AssertEx.Overflows(() => MinDate.PlusDays(-1));
         Assert.Equal(MinDate, MinDate.PlusDays(0));
         Assert.Equal(MaxDate, MinDate.PlusDays(days));
-        Assert.Overflows(() => MinDate.PlusDays(days + 1));
+        AssertEx.Overflows(() => MinDate.PlusDays(days + 1));
     }
 
     [Fact]
@@ -285,16 +285,16 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     {
         int days = Domain.Count() - 1;
         // Act & Assert
-        Assert.Overflows(() => MaxDate - (days + 1));
+        AssertEx.Overflows(() => MaxDate - (days + 1));
         Assert.Equal(MinDate, MaxDate - days);
         Assert.Equal(MaxDate, MaxDate - 0);
         Assert.Equal(MaxDate, MaxDate + 0);
-        Assert.Overflows(() => MaxDate + 1);
+        AssertEx.Overflows(() => MaxDate + 1);
 
-        Assert.Overflows(() => MaxDate.PlusDays(-days - 1));
+        AssertEx.Overflows(() => MaxDate.PlusDays(-days - 1));
         Assert.Equal(MinDate, MaxDate.PlusDays(-days));
         Assert.Equal(MaxDate, MaxDate.PlusDays(0));
-        Assert.Overflows(() => MaxDate.PlusDays(1));
+        AssertEx.Overflows(() => MaxDate.PlusDays(1));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]

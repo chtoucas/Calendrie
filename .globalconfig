@@ -47,7 +47,7 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 #dotnet_diagnostic.IDE0001.severity = warning
 # Simplify member access
 # WARNING: VS-only setting
-dotnet_diagnostic.IDE0002.severity = suggestion
+#dotnet_diagnostic.IDE0002.severity = warning
 # Remove unnecessary cast
 #dotnet_diagnostic.IDE0004.severity = warning
 # Remove unnecessary using directives

@@ -8,7 +8,7 @@ namespace Calendrie.Testing;
 /// <summary>
 /// Xunit Assert extended.
 /// </summary>
-public sealed partial class AssertEx : Xunit.Assert
+public sealed partial class AssertEx : Assert
 {
     private AssertEx() { }
 }

@@ -37,11 +37,11 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void Factory_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => GetDate(y, m, 1));
+        AssertEx.ThrowsAoorexn("month", () => GetDate(y, m, 1));
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public void Factory_InvalidDay(int y, int m, int d) =>
-        Assert.ThrowsAoorexn("day", () => GetDate(y, m, d));
+        AssertEx.ThrowsAoorexn("day", () => GetDate(y, m, d));
 
     [Theory, MemberData(nameof(DateInfoData))]
     public void Factory(DateInfo info)
@@ -77,7 +77,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void Factory﹍Ordinal_InvalidDayOfYear(int y, int doy) =>
-        Assert.ThrowsAoorexn("dayOfYear", () => GetDate(y, doy));
+        AssertEx.ThrowsAoorexn("dayOfYear", () => GetDate(y, doy));
 
     [Theory, MemberData(nameof(DateInfoData))]
     public void Factory﹍Ordinal(DateInfo info)
@@ -150,7 +150,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void GetDaysInMonth_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.GetDaysInMonth(y, m));
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.GetDaysInMonth(y, m));
 
     [Theory, MemberData(nameof(MonthInfoData))]
     public void GetDaysInMonth(MonthInfo info)
@@ -213,7 +213,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void GetStartOfMonth_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.GetStartOfMonth(y, m)!);
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.GetStartOfMonth(y, m)!);
 
     [Theory, MemberData(nameof(MonthInfoData))]
     public void GetStartOfMonth(MonthInfo info)
@@ -233,7 +233,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void GetEndOfMonth_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.GetEndOfMonth(y, m)!);
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.GetEndOfMonth(y, m)!);
 
     [Theory, MemberData(nameof(MonthInfoData))]
     public void GetEndOfMonth(MonthInfo info)

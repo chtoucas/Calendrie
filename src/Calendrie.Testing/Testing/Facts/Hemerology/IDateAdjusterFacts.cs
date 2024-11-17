@@ -129,7 +129,7 @@ public partial class IDateAdjusterFacts<TAdjuster, TDate, TDataSet> // AdjustMon
     {
         var date = GetDate(y, 1, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("newMonth", () => AdjusterUT.AdjustMonth(date, newMonth));
+        AssertEx.ThrowsAoorexn("newMonth", () => AdjusterUT.AdjustMonth(date, newMonth));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -159,7 +159,7 @@ public partial class IDateAdjusterFacts<TAdjuster, TDate, TDataSet> // AdjustDay
     {
         var date = GetDate(y, m, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("newDay", () => AdjusterUT.AdjustDay(date, newDay));
+        AssertEx.ThrowsAoorexn("newDay", () => AdjusterUT.AdjustDay(date, newDay));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -189,7 +189,7 @@ public partial class IDateAdjusterFacts<TAdjuster, TDate, TDataSet> // AdjustDay
     {
         var date = GetDate(y, 1);
         // Act & Assert
-        Assert.ThrowsAoorexn("newDayOfYear", () => AdjusterUT.AdjustDayOfYear(date, newDayOfYear));
+        AssertEx.ThrowsAoorexn("newDayOfYear", () => AdjusterUT.AdjustDayOfYear(date, newDayOfYear));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]

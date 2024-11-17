@@ -23,7 +23,7 @@ public partial class SpecialAdjusterFacts<TDate, TDataSet> // Adjust()
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        Assert.ThrowsAnexn("adjuster", () => date.Adjust(null!));
+        AssertEx.ThrowsAnexn("adjuster", () => date.Adjust(null!));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -35,7 +35,7 @@ public partial class SpecialAdjusterFacts<TDate, TDataSet> // Adjust()
         {
             var adjuster = AdjusterUT.WithYear(invalidYear);
             // Act & Assert
-            Assert.ThrowsAoorexn("newYear", () => date.Adjust(adjuster));
+            AssertEx.ThrowsAoorexn("newYear", () => date.Adjust(adjuster));
         }
     }
 
@@ -45,7 +45,7 @@ public partial class SpecialAdjusterFacts<TDate, TDataSet> // Adjust()
         var date = GetDate(y, 1, 1);
         var adjuster = AdjusterUT.WithMonth(newMonth);
         // Act & Assert
-        Assert.ThrowsAoorexn("newMonth", () => date.Adjust(adjuster));
+        AssertEx.ThrowsAoorexn("newMonth", () => date.Adjust(adjuster));
     }
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
@@ -54,7 +54,7 @@ public partial class SpecialAdjusterFacts<TDate, TDataSet> // Adjust()
         var date = GetDate(y, m, 1);
         var adjuster = AdjusterUT.WithDay(newDay);
         // Act & Assert
-        Assert.ThrowsAoorexn("newDay", () => date.Adjust(adjuster));
+        AssertEx.ThrowsAoorexn("newDay", () => date.Adjust(adjuster));
     }
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
@@ -63,7 +63,7 @@ public partial class SpecialAdjusterFacts<TDate, TDataSet> // Adjust()
         var date = GetDate(y, 1);
         var adjuster = AdjusterUT.WithDayOfYear(newDayOfYear);
         // Act & Assert
-        Assert.ThrowsAoorexn("newDayOfYear", () => date.Adjust(adjuster));
+        AssertEx.ThrowsAoorexn("newDayOfYear", () => date.Adjust(adjuster));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]

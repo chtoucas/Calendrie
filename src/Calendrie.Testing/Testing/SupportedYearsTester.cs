@@ -34,7 +34,7 @@ public sealed class SupportedYearsTester
     {
         foreach (int y in InvalidYears)
         {
-            Assert.ThrowsAoorexn(argName, () => fun.Invoke(y));
+            AssertEx.ThrowsAoorexn(argName, () => fun.Invoke(y));
         }
     }
 
@@ -42,7 +42,7 @@ public sealed class SupportedYearsTester
     {
         foreach (int y in InvalidYears)
         {
-            Assert.ThrowsAoorexn(argName, () => fun.Invoke(y));
+            AssertEx.ThrowsAoorexn(argName, () => fun.Invoke(y));
         }
     }
 }

@@ -12,5 +12,3 @@ global using Calendrie.Core.Schemas;
 global using Calendrie.Core.Utilities;
 
 global using Xunit;
-
-global using Assert = Calendrie.Testing.AssertEx;

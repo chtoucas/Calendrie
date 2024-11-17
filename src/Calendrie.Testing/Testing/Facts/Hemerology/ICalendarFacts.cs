@@ -86,7 +86,7 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void IsIntercalaryMonth_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.IsIntercalaryMonth(y, m));
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.IsIntercalaryMonth(y, m));
 
     [Theory, MemberData(nameof(MonthInfoData))]
     public void IsIntercalaryMonth(MonthInfo info)
@@ -107,11 +107,11 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void IsIntercalaryDay_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.IsIntercalaryDay(y, m, 1));
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.IsIntercalaryDay(y, m, 1));
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public void IsIntercalaryDay_InvalidDay(int y, int m, int d) =>
-        Assert.ThrowsAoorexn("day", () => CalendarUT.IsIntercalaryDay(y, m, d));
+        AssertEx.ThrowsAoorexn("day", () => CalendarUT.IsIntercalaryDay(y, m, d));
 
     [Theory, MemberData(nameof(DateInfoData))]
     public void IsIntercalaryDay(DateInfo info)
@@ -132,11 +132,11 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void IsSupplementaryDay_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.IsSupplementaryDay(y, m, 1));
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.IsSupplementaryDay(y, m, 1));
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public void IsSupplementaryDay_InvalidDay(int y, int m, int d) =>
-        Assert.ThrowsAoorexn("day", () => CalendarUT.IsSupplementaryDay(y, m, d));
+        AssertEx.ThrowsAoorexn("day", () => CalendarUT.IsSupplementaryDay(y, m, d));
 
     [Theory, MemberData(nameof(DateInfoData))]
     public void IsSupplementaryDay(DateInfo info)
@@ -194,7 +194,7 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void CountDaysInMonth_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.CountDaysInMonth(y, m));
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.CountDaysInMonth(y, m));
 
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonth(MonthInfo info)
@@ -222,11 +222,11 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendar
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void GetDayNumber﹍DateParts_InvalidMonth(int y, int m) =>
-        Assert.ThrowsAoorexn("month", () => CalendarUT.GetDayNumber(y, m, 1));
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.GetDayNumber(y, m, 1));
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public void GetDayNumber﹍DateParts_InvalidDay(int y, int m, int d) =>
-        Assert.ThrowsAoorexn("day", () => CalendarUT.GetDayNumber(y, m, d));
+        AssertEx.ThrowsAoorexn("day", () => CalendarUT.GetDayNumber(y, m, d));
 
     [Theory, MemberData(nameof(DayNumberInfoData))]
     public void GetDayNumber﹍DateParts(DayNumberInfo info)
@@ -247,7 +247,7 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendar
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void GetDayNumber﹍OrdinalParts_InvalidDayOfYear(int y, int doy) =>
-        Assert.ThrowsAoorexn("dayOfYear", () => CalendarUT.GetDayNumber(y, doy));
+        AssertEx.ThrowsAoorexn("dayOfYear", () => CalendarUT.GetDayNumber(y, doy));
 
     [Theory, MemberData(nameof(DateInfoData))]
     public void GetDayNumber﹍OrdinalParts(DateInfo info)

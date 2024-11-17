@@ -48,7 +48,7 @@ public sealed partial class DayOfWeekAdjusterTester<T> where T : IFixedDate<T>
     {
         ArgumentNullException.ThrowIfNull(add);
 
-        this._day = day;
+        _day = day;
         _dow = day.DayOfWeek;
         _testNext = testNext;
 
@@ -105,53 +105,53 @@ public partial class DayOfWeekAdjusterTester<T> // Previous() & PreviousOrSame()
     {
         if (_testNext) { throw new InvalidOperationException(); }
 
-        Assert.Overflows(() => _day.Previous(_dow));
-        Assert.Overflows(() => _day.Previous(_dow1));
-        Assert.Overflows(() => _day.Previous(_dow2));
-        Assert.Overflows(() => _day.Previous(_dow3));
-        Assert.Overflows(() => _day.Previous(_dow4));
-        Assert.Overflows(() => _day.Previous(_dow5));
-        Assert.Overflows(() => _day.Previous(_dow6));
+        AssertEx.Overflows(() => _day.Previous(_dow));
+        AssertEx.Overflows(() => _day.Previous(_dow1));
+        AssertEx.Overflows(() => _day.Previous(_dow2));
+        AssertEx.Overflows(() => _day.Previous(_dow3));
+        AssertEx.Overflows(() => _day.Previous(_dow4));
+        AssertEx.Overflows(() => _day.Previous(_dow5));
+        AssertEx.Overflows(() => _day.Previous(_dow6));
 
         Assert.Equal(_day, _day1.Previous(_dow));
-        Assert.Overflows(() => _day1.Previous(_dow1));
-        Assert.Overflows(() => _day1.Previous(_dow2));
-        Assert.Overflows(() => _day1.Previous(_dow3));
-        Assert.Overflows(() => _day1.Previous(_dow4));
-        Assert.Overflows(() => _day1.Previous(_dow5));
-        Assert.Overflows(() => _day1.Previous(_dow6));
+        AssertEx.Overflows(() => _day1.Previous(_dow1));
+        AssertEx.Overflows(() => _day1.Previous(_dow2));
+        AssertEx.Overflows(() => _day1.Previous(_dow3));
+        AssertEx.Overflows(() => _day1.Previous(_dow4));
+        AssertEx.Overflows(() => _day1.Previous(_dow5));
+        AssertEx.Overflows(() => _day1.Previous(_dow6));
 
         Assert.Equal(_day, _day2.Previous(_dow));
         Assert.Equal(_day1, _day2.Previous(_dow1));
-        Assert.Overflows(() => _day2.Previous(_dow2));
-        Assert.Overflows(() => _day2.Previous(_dow3));
-        Assert.Overflows(() => _day2.Previous(_dow4));
-        Assert.Overflows(() => _day2.Previous(_dow5));
-        Assert.Overflows(() => _day2.Previous(_dow6));
+        AssertEx.Overflows(() => _day2.Previous(_dow2));
+        AssertEx.Overflows(() => _day2.Previous(_dow3));
+        AssertEx.Overflows(() => _day2.Previous(_dow4));
+        AssertEx.Overflows(() => _day2.Previous(_dow5));
+        AssertEx.Overflows(() => _day2.Previous(_dow6));
 
         Assert.Equal(_day, _day3.Previous(_dow));
         Assert.Equal(_day1, _day3.Previous(_dow1));
         Assert.Equal(_day2, _day3.Previous(_dow2));
-        Assert.Overflows(() => _day3.Previous(_dow3));
-        Assert.Overflows(() => _day3.Previous(_dow4));
-        Assert.Overflows(() => _day3.Previous(_dow5));
-        Assert.Overflows(() => _day3.Previous(_dow6));
+        AssertEx.Overflows(() => _day3.Previous(_dow3));
+        AssertEx.Overflows(() => _day3.Previous(_dow4));
+        AssertEx.Overflows(() => _day3.Previous(_dow5));
+        AssertEx.Overflows(() => _day3.Previous(_dow6));
 
         Assert.Equal(_day, _day4.Previous(_dow));
         Assert.Equal(_day1, _day4.Previous(_dow1));
         Assert.Equal(_day2, _day4.Previous(_dow2));
         Assert.Equal(_day3, _day4.Previous(_dow3));
-        Assert.Overflows(() => _day4.Previous(_dow4));
-        Assert.Overflows(() => _day4.Previous(_dow5));
-        Assert.Overflows(() => _day4.Previous(_dow6));
+        AssertEx.Overflows(() => _day4.Previous(_dow4));
+        AssertEx.Overflows(() => _day4.Previous(_dow5));
+        AssertEx.Overflows(() => _day4.Previous(_dow6));
 
         Assert.Equal(_day, _day5.Previous(_dow));
         Assert.Equal(_day1, _day5.Previous(_dow1));
         Assert.Equal(_day2, _day5.Previous(_dow2));
         Assert.Equal(_day3, _day5.Previous(_dow3));
         Assert.Equal(_day4, _day5.Previous(_dow4));
-        Assert.Overflows(() => _day5.Previous(_dow5));
-        Assert.Overflows(() => _day5.Previous(_dow6));
+        AssertEx.Overflows(() => _day5.Previous(_dow5));
+        AssertEx.Overflows(() => _day5.Previous(_dow6));
 
         Assert.Equal(_day, _day6.Previous(_dow));
         Assert.Equal(_day1, _day6.Previous(_dow1));
@@ -159,7 +159,7 @@ public partial class DayOfWeekAdjusterTester<T> // Previous() & PreviousOrSame()
         Assert.Equal(_day3, _day6.Previous(_dow3));
         Assert.Equal(_day4, _day6.Previous(_dow4));
         Assert.Equal(_day5, _day6.Previous(_dow5));
-        Assert.Overflows(() => _day6.Previous(_dow6));
+        AssertEx.Overflows(() => _day6.Previous(_dow6));
 
         Assert.Equal(_day, _day7.Previous(_dow));
         Assert.Equal(_day1, _day7.Previous(_dow1));
@@ -175,44 +175,44 @@ public partial class DayOfWeekAdjusterTester<T> // Previous() & PreviousOrSame()
         if (_testNext) { throw new InvalidOperationException(); }
 
         Assert.Equal(_day, _day.PreviousOrSame(_dow));
-        Assert.Overflows(() => _day.PreviousOrSame(_dow1));
-        Assert.Overflows(() => _day.PreviousOrSame(_dow2));
-        Assert.Overflows(() => _day.PreviousOrSame(_dow3));
-        Assert.Overflows(() => _day.PreviousOrSame(_dow4));
-        Assert.Overflows(() => _day.PreviousOrSame(_dow5));
-        Assert.Overflows(() => _day.PreviousOrSame(_dow6));
+        AssertEx.Overflows(() => _day.PreviousOrSame(_dow1));
+        AssertEx.Overflows(() => _day.PreviousOrSame(_dow2));
+        AssertEx.Overflows(() => _day.PreviousOrSame(_dow3));
+        AssertEx.Overflows(() => _day.PreviousOrSame(_dow4));
+        AssertEx.Overflows(() => _day.PreviousOrSame(_dow5));
+        AssertEx.Overflows(() => _day.PreviousOrSame(_dow6));
 
         Assert.Equal(_day, _day1.PreviousOrSame(_dow));
         Assert.Equal(_day1, _day1.PreviousOrSame(_dow1));
-        Assert.Overflows(() => _day1.PreviousOrSame(_dow2));
-        Assert.Overflows(() => _day1.PreviousOrSame(_dow3));
-        Assert.Overflows(() => _day1.PreviousOrSame(_dow4));
-        Assert.Overflows(() => _day1.PreviousOrSame(_dow5));
-        Assert.Overflows(() => _day1.PreviousOrSame(_dow6));
+        AssertEx.Overflows(() => _day1.PreviousOrSame(_dow2));
+        AssertEx.Overflows(() => _day1.PreviousOrSame(_dow3));
+        AssertEx.Overflows(() => _day1.PreviousOrSame(_dow4));
+        AssertEx.Overflows(() => _day1.PreviousOrSame(_dow5));
+        AssertEx.Overflows(() => _day1.PreviousOrSame(_dow6));
 
         Assert.Equal(_day, _day2.PreviousOrSame(_dow));
         Assert.Equal(_day1, _day2.PreviousOrSame(_dow1));
         Assert.Equal(_day2, _day2.PreviousOrSame(_dow2));
-        Assert.Overflows(() => _day2.PreviousOrSame(_dow3));
-        Assert.Overflows(() => _day2.PreviousOrSame(_dow4));
-        Assert.Overflows(() => _day2.PreviousOrSame(_dow5));
-        Assert.Overflows(() => _day2.PreviousOrSame(_dow6));
+        AssertEx.Overflows(() => _day2.PreviousOrSame(_dow3));
+        AssertEx.Overflows(() => _day2.PreviousOrSame(_dow4));
+        AssertEx.Overflows(() => _day2.PreviousOrSame(_dow5));
+        AssertEx.Overflows(() => _day2.PreviousOrSame(_dow6));
 
         Assert.Equal(_day, _day3.PreviousOrSame(_dow));
         Assert.Equal(_day1, _day3.PreviousOrSame(_dow1));
         Assert.Equal(_day2, _day3.PreviousOrSame(_dow2));
         Assert.Equal(_day3, _day3.PreviousOrSame(_dow3));
-        Assert.Overflows(() => _day3.PreviousOrSame(_dow4));
-        Assert.Overflows(() => _day3.PreviousOrSame(_dow5));
-        Assert.Overflows(() => _day3.PreviousOrSame(_dow6));
+        AssertEx.Overflows(() => _day3.PreviousOrSame(_dow4));
+        AssertEx.Overflows(() => _day3.PreviousOrSame(_dow5));
+        AssertEx.Overflows(() => _day3.PreviousOrSame(_dow6));
 
         Assert.Equal(_day, _day4.PreviousOrSame(_dow));
         Assert.Equal(_day1, _day4.PreviousOrSame(_dow1));
         Assert.Equal(_day2, _day4.PreviousOrSame(_dow2));
         Assert.Equal(_day3, _day4.PreviousOrSame(_dow3));
         Assert.Equal(_day4, _day4.PreviousOrSame(_dow4));
-        Assert.Overflows(() => _day4.PreviousOrSame(_dow5));
-        Assert.Overflows(() => _day4.PreviousOrSame(_dow6));
+        AssertEx.Overflows(() => _day4.PreviousOrSame(_dow5));
+        AssertEx.Overflows(() => _day4.PreviousOrSame(_dow6));
 
         Assert.Equal(_day, _day5.PreviousOrSame(_dow));
         Assert.Equal(_day1, _day5.PreviousOrSame(_dow1));
@@ -220,7 +220,7 @@ public partial class DayOfWeekAdjusterTester<T> // Previous() & PreviousOrSame()
         Assert.Equal(_day3, _day5.PreviousOrSame(_dow3));
         Assert.Equal(_day4, _day5.PreviousOrSame(_dow4));
         Assert.Equal(_day5, _day5.PreviousOrSame(_dow5));
-        Assert.Overflows(() => _day5.PreviousOrSame(_dow6));
+        AssertEx.Overflows(() => _day5.PreviousOrSame(_dow6));
 
         Assert.Equal(_day, _day6.PreviousOrSame(_dow));
         Assert.Equal(_day1, _day6.PreviousOrSame(_dow1));
@@ -242,9 +242,9 @@ public partial class DayOfWeekAdjusterTester<T> // Nearest()
         Assert.Equal(_day1, _day.Nearest(_dow1));
         Assert.Equal(_day2, _day.Nearest(_dow2));
         Assert.Equal(_day3, _day.Nearest(_dow3));
-        Assert.Overflows(() => _day.Nearest(_dow4));  // day - 3
-        Assert.Overflows(() => _day.Nearest(_dow5));  // day - 2
-        Assert.Overflows(() => _day.Nearest(_dow6));  // day - 1
+        AssertEx.Overflows(() => _day.Nearest(_dow4));  // day - 3
+        AssertEx.Overflows(() => _day.Nearest(_dow5));  // day - 2
+        AssertEx.Overflows(() => _day.Nearest(_dow6));  // day - 1
 
         // MinValue + 1.
         Assert.Equal(_day, _day1.Nearest(_dow));
@@ -252,8 +252,8 @@ public partial class DayOfWeekAdjusterTester<T> // Nearest()
         Assert.Equal(_day2, _day1.Nearest(_dow2));
         Assert.Equal(_day3, _day1.Nearest(_dow3));
         Assert.Equal(_day4, _day1.Nearest(_dow4));
-        Assert.Overflows(() => _day1.Nearest(_dow5)); // day - 2
-        Assert.Overflows(() => _day1.Nearest(_dow6)); // day - 1
+        AssertEx.Overflows(() => _day1.Nearest(_dow5)); // day - 2
+        AssertEx.Overflows(() => _day1.Nearest(_dow6)); // day - 1
 
         // MinValue + 2.
         Assert.Equal(_day, _day2.Nearest(_dow));
@@ -262,7 +262,7 @@ public partial class DayOfWeekAdjusterTester<T> // Nearest()
         Assert.Equal(_day3, _day2.Nearest(_dow3));
         Assert.Equal(_day4, _day2.Nearest(_dow4));
         Assert.Equal(_day5, _day2.Nearest(_dow5));
-        Assert.Overflows(() => _day2.Nearest(_dow6)); // day - 1
+        AssertEx.Overflows(() => _day2.Nearest(_dow6)); // day - 1
 
         // MinValue + 3.
         Assert.Equal(_day, _day3.Nearest(_dow));
@@ -309,44 +309,44 @@ public partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
         if (_testNext == false) { throw new InvalidOperationException(); }
 
         Assert.Equal(_day, _day.NextOrSame(_dow));
-        Assert.Overflows(() => _day.NextOrSame(_dow1));
-        Assert.Overflows(() => _day.NextOrSame(_dow2));
-        Assert.Overflows(() => _day.NextOrSame(_dow3));
-        Assert.Overflows(() => _day.NextOrSame(_dow4));
-        Assert.Overflows(() => _day.NextOrSame(_dow5));
-        Assert.Overflows(() => _day.NextOrSame(_dow6));
+        AssertEx.Overflows(() => _day.NextOrSame(_dow1));
+        AssertEx.Overflows(() => _day.NextOrSame(_dow2));
+        AssertEx.Overflows(() => _day.NextOrSame(_dow3));
+        AssertEx.Overflows(() => _day.NextOrSame(_dow4));
+        AssertEx.Overflows(() => _day.NextOrSame(_dow5));
+        AssertEx.Overflows(() => _day.NextOrSame(_dow6));
 
         Assert.Equal(_day, _day1.NextOrSame(_dow));
         Assert.Equal(_day1, _day1.NextOrSame(_dow1));
-        Assert.Overflows(() => _day1.NextOrSame(_dow2));
-        Assert.Overflows(() => _day1.NextOrSame(_dow3));
-        Assert.Overflows(() => _day1.NextOrSame(_dow4));
-        Assert.Overflows(() => _day1.NextOrSame(_dow5));
-        Assert.Overflows(() => _day1.NextOrSame(_dow6));
+        AssertEx.Overflows(() => _day1.NextOrSame(_dow2));
+        AssertEx.Overflows(() => _day1.NextOrSame(_dow3));
+        AssertEx.Overflows(() => _day1.NextOrSame(_dow4));
+        AssertEx.Overflows(() => _day1.NextOrSame(_dow5));
+        AssertEx.Overflows(() => _day1.NextOrSame(_dow6));
 
         Assert.Equal(_day, _day2.NextOrSame(_dow));
         Assert.Equal(_day1, _day2.NextOrSame(_dow1));
         Assert.Equal(_day2, _day2.NextOrSame(_dow2));
-        Assert.Overflows(() => _day2.NextOrSame(_dow3));
-        Assert.Overflows(() => _day2.NextOrSame(_dow4));
-        Assert.Overflows(() => _day2.NextOrSame(_dow5));
-        Assert.Overflows(() => _day2.NextOrSame(_dow6));
+        AssertEx.Overflows(() => _day2.NextOrSame(_dow3));
+        AssertEx.Overflows(() => _day2.NextOrSame(_dow4));
+        AssertEx.Overflows(() => _day2.NextOrSame(_dow5));
+        AssertEx.Overflows(() => _day2.NextOrSame(_dow6));
 
         Assert.Equal(_day, _day3.NextOrSame(_dow));
         Assert.Equal(_day1, _day3.NextOrSame(_dow1));
         Assert.Equal(_day2, _day3.NextOrSame(_dow2));
         Assert.Equal(_day3, _day3.NextOrSame(_dow3));
-        Assert.Overflows(() => _day3.NextOrSame(_dow4));
-        Assert.Overflows(() => _day3.NextOrSame(_dow5));
-        Assert.Overflows(() => _day3.NextOrSame(_dow6));
+        AssertEx.Overflows(() => _day3.NextOrSame(_dow4));
+        AssertEx.Overflows(() => _day3.NextOrSame(_dow5));
+        AssertEx.Overflows(() => _day3.NextOrSame(_dow6));
 
         Assert.Equal(_day, _day4.NextOrSame(_dow));
         Assert.Equal(_day1, _day4.NextOrSame(_dow1));
         Assert.Equal(_day2, _day4.NextOrSame(_dow2));
         Assert.Equal(_day3, _day4.NextOrSame(_dow3));
         Assert.Equal(_day4, _day4.NextOrSame(_dow4));
-        Assert.Overflows(() => _day4.NextOrSame(_dow5));
-        Assert.Overflows(() => _day4.NextOrSame(_dow6));
+        AssertEx.Overflows(() => _day4.NextOrSame(_dow5));
+        AssertEx.Overflows(() => _day4.NextOrSame(_dow6));
 
         Assert.Equal(_day, _day5.NextOrSame(_dow));
         Assert.Equal(_day1, _day5.NextOrSame(_dow1));
@@ -354,7 +354,7 @@ public partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
         Assert.Equal(_day3, _day5.NextOrSame(_dow3));
         Assert.Equal(_day4, _day5.NextOrSame(_dow4));
         Assert.Equal(_day5, _day5.NextOrSame(_dow5));
-        Assert.Overflows(() => _day5.NextOrSame(_dow6));
+        AssertEx.Overflows(() => _day5.NextOrSame(_dow6));
 
         Assert.Equal(_day, _day6.NextOrSame(_dow));
         Assert.Equal(_day1, _day6.NextOrSame(_dow1));
@@ -369,53 +369,53 @@ public partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
     {
         if (_testNext == false) { throw new InvalidOperationException(); }
 
-        Assert.Overflows(() => _day.Next(_dow));
-        Assert.Overflows(() => _day.Next(_dow1));
-        Assert.Overflows(() => _day.Next(_dow2));
-        Assert.Overflows(() => _day.Next(_dow3));
-        Assert.Overflows(() => _day.Next(_dow4));
-        Assert.Overflows(() => _day.Next(_dow5));
-        Assert.Overflows(() => _day.Next(_dow6));
+        AssertEx.Overflows(() => _day.Next(_dow));
+        AssertEx.Overflows(() => _day.Next(_dow1));
+        AssertEx.Overflows(() => _day.Next(_dow2));
+        AssertEx.Overflows(() => _day.Next(_dow3));
+        AssertEx.Overflows(() => _day.Next(_dow4));
+        AssertEx.Overflows(() => _day.Next(_dow5));
+        AssertEx.Overflows(() => _day.Next(_dow6));
 
         Assert.Equal(_day, _day1.Next(_dow));
-        Assert.Overflows(() => _day1.Next(_dow1));
-        Assert.Overflows(() => _day1.Next(_dow2));
-        Assert.Overflows(() => _day1.Next(_dow3));
-        Assert.Overflows(() => _day1.Next(_dow4));
-        Assert.Overflows(() => _day1.Next(_dow5));
-        Assert.Overflows(() => _day1.Next(_dow6));
+        AssertEx.Overflows(() => _day1.Next(_dow1));
+        AssertEx.Overflows(() => _day1.Next(_dow2));
+        AssertEx.Overflows(() => _day1.Next(_dow3));
+        AssertEx.Overflows(() => _day1.Next(_dow4));
+        AssertEx.Overflows(() => _day1.Next(_dow5));
+        AssertEx.Overflows(() => _day1.Next(_dow6));
 
         Assert.Equal(_day, _day2.Next(_dow));
         Assert.Equal(_day1, _day2.Next(_dow1));
-        Assert.Overflows(() => _day2.Next(_dow2));
-        Assert.Overflows(() => _day2.Next(_dow3));
-        Assert.Overflows(() => _day2.Next(_dow4));
-        Assert.Overflows(() => _day2.Next(_dow5));
-        Assert.Overflows(() => _day2.Next(_dow6));
+        AssertEx.Overflows(() => _day2.Next(_dow2));
+        AssertEx.Overflows(() => _day2.Next(_dow3));
+        AssertEx.Overflows(() => _day2.Next(_dow4));
+        AssertEx.Overflows(() => _day2.Next(_dow5));
+        AssertEx.Overflows(() => _day2.Next(_dow6));
 
         Assert.Equal(_day, _day3.Next(_dow));
         Assert.Equal(_day1, _day3.Next(_dow1));
         Assert.Equal(_day2, _day3.Next(_dow2));
-        Assert.Overflows(() => _day3.Next(_dow3));
-        Assert.Overflows(() => _day3.Next(_dow4));
-        Assert.Overflows(() => _day3.Next(_dow5));
-        Assert.Overflows(() => _day3.Next(_dow6));
+        AssertEx.Overflows(() => _day3.Next(_dow3));
+        AssertEx.Overflows(() => _day3.Next(_dow4));
+        AssertEx.Overflows(() => _day3.Next(_dow5));
+        AssertEx.Overflows(() => _day3.Next(_dow6));
 
         Assert.Equal(_day, _day4.Next(_dow));
         Assert.Equal(_day1, _day4.Next(_dow1));
         Assert.Equal(_day2, _day4.Next(_dow2));
         Assert.Equal(_day3, _day4.Next(_dow3));
-        Assert.Overflows(() => _day4.Next(_dow4));
-        Assert.Overflows(() => _day4.Next(_dow5));
-        Assert.Overflows(() => _day4.Next(_dow6));
+        AssertEx.Overflows(() => _day4.Next(_dow4));
+        AssertEx.Overflows(() => _day4.Next(_dow5));
+        AssertEx.Overflows(() => _day4.Next(_dow6));
 
         Assert.Equal(_day, _day5.Next(_dow));
         Assert.Equal(_day1, _day5.Next(_dow1));
         Assert.Equal(_day2, _day5.Next(_dow2));
         Assert.Equal(_day3, _day5.Next(_dow3));
         Assert.Equal(_day4, _day5.Next(_dow4));
-        Assert.Overflows(() => _day5.Next(_dow5));
-        Assert.Overflows(() => _day5.Next(_dow6));
+        AssertEx.Overflows(() => _day5.Next(_dow5));
+        AssertEx.Overflows(() => _day5.Next(_dow6));
 
         Assert.Equal(_day, _day6.Next(_dow));
         Assert.Equal(_day1, _day6.Next(_dow1));
@@ -423,7 +423,7 @@ public partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
         Assert.Equal(_day3, _day6.Next(_dow3));
         Assert.Equal(_day4, _day6.Next(_dow4));
         Assert.Equal(_day5, _day6.Next(_dow5));
-        Assert.Overflows(() => _day6.Next(_dow6));
+        AssertEx.Overflows(() => _day6.Next(_dow6));
 
         Assert.Equal(_day, _day7.Next(_dow));
         Assert.Equal(_day1, _day7.Next(_dow1));
