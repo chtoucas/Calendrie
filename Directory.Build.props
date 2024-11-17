@@ -57,11 +57,14 @@
 
     <!-- Code/Style Analysis
       https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#code-analysis-properties
+      https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview?tabs=net-9#enable-on-build
     -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>All</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- See .globaconfig for comments -->
+    <EnableCodeStyleSeverity>true</EnableCodeStyleSeverity>
 
     <!-- Reproducible Build
       RestoreLockedMode:

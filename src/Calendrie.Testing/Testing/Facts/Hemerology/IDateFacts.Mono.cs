@@ -23,7 +23,7 @@ public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     public void ToString_InvariantCulture()
     {
         var date = GetDate(1, 1, 1);
-        var str = FormattableString.Invariant($"01/01/0001 ({TDate.Calendar})");
+        string str = FormattableString.Invariant($"01/01/0001 ({TDate.Calendar})");
         // Act & Assert
         Assert.Equal(str, date.ToString());
     }

@@ -406,7 +406,7 @@ public partial class IDateFacts<TDate, TDataSet> // IEquatable
     {
         var (y, m, d) = info.Yemoda;
         var date = GetDate(y, m, d);
-        var obj = (object)date;
+        object obj = date;
         // Act & Assert
         Assert.Equal(date.GetHashCode(), date.GetHashCode());
         Assert.Equal(date.GetHashCode(), obj.GetHashCode());
