@@ -12,46 +12,46 @@ public interface IDateable
     /// <summary>
     /// Gets the century of the era.
     /// </summary>
-    /// <example>
+    /// <remarks>
     /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   Ord CenturyOfEra => Ord.FromInt32(Century);
     /// ]]></code>
-    /// </example>
+    /// </remarks>
     Ord CenturyOfEra { get; }
 
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    /// <example>
+    /// <remarks>
     /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   int Century => YearNumbering.GetCentury(Year);
     /// ]]></code>
-    /// </example>
+    /// </remarks>
     int Century { get; }
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    /// <example>
+    /// <remarks>
     /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   Ord YearOfEra => Ord.FromInt32(Year);
     /// ]]></code>
-    /// </example>
+    /// </remarks>
     Ord YearOfEra { get; }
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    /// <example>
+    /// <remarks>
     /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
     /// ]]></code>
-    /// </example>
+    /// </remarks>
     int YearOfCentury { get; }
 
     /// <summary>

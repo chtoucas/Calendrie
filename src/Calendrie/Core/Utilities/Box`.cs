@@ -144,11 +144,10 @@ public sealed class Box<T> where T : class
     /// Unbox then apply a selector, and eventually box the result.
     /// </summary>
     /// <remarks>
-    /// <example>Query expression syntax:
+    /// Query expression syntax:
     /// <code><![CDATA[
     ///   from x in box select selector(x)
     /// ]]></code>
-    /// </example>
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="selector"/> is
     /// <see langword="null"/>.</exception>
