@@ -5,37 +5,33 @@ root = true
 #### Core EditorConfig Options ####
 
 [*]
-insert_final_newline = true
-indent_style = space
+# Indentation and spacing
 indent_size = 4
+indent_style = space
 tab_width = 4
-trim_trailing_whitespace = true
+# New line preferences
 end_of_line = crlf
+trim_trailing_whitespace = true
+insert_final_newline = true
 
-# JSON files
 [*.json]
 indent_size = 2
 
-# XML files
 [*.xml]
 indent_size = 2
 
-# XML project files
 [*.{csproj,fsproj,proj,projitems,shproj}]
 indent_size = 2
 
-# XML config files
 [*.{props,targets,config,nuspec,resx}]
 indent_size = 2
 
-# C# files
 [*.cs]
 charset = utf-8-bom
 
-#### Diagnostic configuration ####
+#### Coding Conventions ####
 
-# Here, we are only interested by the special cases.
-# The global configuration is done within .globalconfig.
+# The global configuration is done within .globalconfig
 
 # To enable Code Analysis on generated files, we pretend that they are not...
 [src/Calendrie/**/*.g.cs]
