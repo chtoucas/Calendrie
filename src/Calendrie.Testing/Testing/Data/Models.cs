@@ -208,7 +208,6 @@ public readonly record struct YemoAnd<T>(Yemo Yemo, T Value) where T : struct
     }
 }
 
-[Obsolete("Unused")]
 public readonly record struct YemoAnd<T1, T2>(Yemo Yemo, T1 Value1, T2 Value2)
     where T1 : struct
     where T2 : struct
@@ -223,7 +222,6 @@ public readonly record struct YemoAnd<T1, T2>(Yemo Yemo, T1 Value1, T2 Value2)
     }
 }
 
-[Obsolete("Unused")]
 public readonly record struct YearAnd<T>(int Year, T Value) where T : struct
 {
     public void Deconstruct(out int y, out T value)
