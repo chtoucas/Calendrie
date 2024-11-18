@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Zorglub.Tests.Specialized.WorldTests
+module Calendrie.Tests.Specialized.WorldTests
 
 open Calendrie.Testing
 open Calendrie.Testing.Data
