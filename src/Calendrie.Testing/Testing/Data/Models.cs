@@ -197,7 +197,6 @@ public readonly record struct YemodaAnd<T>(Yemoda Yemoda, T Value) where T : str
     }
 }
 
-[Obsolete("Unused")]
 public readonly record struct YemoAnd<T>(Yemo Yemo, T Value) where T : struct
 {
     public YemoAnd(int y, int m, T value) : this(new Yemo(y, m), value) { }
