@@ -3,6 +3,8 @@
 
 namespace Calendrie.Extensions;
 
+// TODO(code): remove these extensions.
+
 // We provide two methods to <i>explicitely</i> unbox a boxed object.
 // Explicitely because one can do it indirectly, e.g. via Select().
 // Unboxing should only be done by developers of new core types, this is
@@ -17,7 +19,7 @@ namespace Calendrie.Extensions;
 /// Provides extension methods for <see cref="Box{T}"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public static class Unboxing
+internal static class Unboxing
 {
     /// <summary>
     /// Obtains the enclosed object.

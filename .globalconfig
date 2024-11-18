@@ -82,7 +82,7 @@ dotnet_diagnostic.IDE1006.severity = warning
 
 #### Language and unnecessary code rules #######################################
 
-#### .NET Coding Conventions ####
+#### .NET coding conventions ####
 
 # IDE0047: Remove unnecessary parentheses
 # IDE0048: Add parentheses for clarity
@@ -94,7 +94,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
 # IDE0073: Require file header
 file_header_template = SPDX-License-Identifier: BSD-3-Clause\nCopyright (c) Tran Ngoc Bich. All rights reserved.
 
-#### C# Coding Conventions ####
+#### C# coding conventions ####
 
 # IDE0007: Use var instead of explicit type
 # IDE0008: Use explicit type instead of var
@@ -131,7 +131,13 @@ csharp_style_namespace_declarations = file_scoped:warning
 # IDE0290: Use primary constructor
 csharp_style_prefer_primary_constructors = false:warning
 
-#### Naming rules ##############################################################
+#### Formatting rules (IDE0055) ################################################
+
+#### .NET formatting options ####
+
+#### C# formatting options ####
+
+#### Naming rules (IDE1006) ####################################################
 
 # "Severity specification within a naming rule is only respected inside
 #  development IDEs, such as Visual Studio. This setting is not understood by
