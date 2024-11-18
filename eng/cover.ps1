@@ -10,8 +10,6 @@ param(
 
                  [switch] $Smoke,
 
-                 # Do NOT include Calendrie.Extras in the reports?
-                 #[switch] $NoExtras,
                  [switch] $NoBuild,
                  [switch] $NoTest,
                  [switch] $NoReport,
@@ -56,11 +54,9 @@ try {
     pushd $RootDir
 
     $assemblyName = 'Calendrie'
-    #$extrasAssemblyName = 'Calendrie.Extras'
     $format   = 'opencover'
 
     $outName  = "cover-Calendrie"
-    #if (-not $NoExtras) { $outName += "-extras" }
     if ($Smoke) { $outName += "-smoke" }
     $outName += "-$configuration"
     $outDir   = Join-Path $ArtifactsDir $outName.ToLowerInvariant()
@@ -71,10 +67,6 @@ try {
     # Filters: https://github.com/Microsoft/vstest-docs/blob/main/docs/filter.md
     $includes = @("[$assemblyName]*")
     $excludes = @("[$assemblyName]System.*")
-    #if (-not $NoExtras) {
-    #    $includes += "[$extrasAssemblyName]*"
-    #    $excludes += "[$extrasAssemblyName]System.*"
-    #}
     $include  = '"' + ($includes -join '%2c') + '"'
     $exclude  = '"' + ($excludes -join '%2c') + '"'
 

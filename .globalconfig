@@ -131,12 +131,6 @@ csharp_style_namespace_declarations = file_scoped:warning
 # IDE0290: Use primary constructor
 csharp_style_prefer_primary_constructors = false:warning
 
-#### Formatting rules (IDE0055) ################################################
-
-#### .NET formatting options ####
-
-#### C# formatting options ####
-
 #### Naming rules (IDE1006) ####################################################
 
 # "Severity specification within a naming rule is only respected inside
