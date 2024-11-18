@@ -9,7 +9,7 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology.Scopes;
 
 /// <summary>
-/// Represents a basic calendar and provides a base for derived classes.
+/// Represents a calendar and provides a base for derived classes.
 /// </summary>
 /// <typeparam name="TScope">The type of the underlying scope.</typeparam>
 public abstract partial class BasicCalendar<TScope> : ICalendar

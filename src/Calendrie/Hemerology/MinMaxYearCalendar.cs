@@ -6,17 +6,17 @@ namespace Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
 /// <summary>
-/// Represents a basic calendar with dates within a range of years.
+/// Represents a calendar with dates within a range of years.
 /// </summary>
-public class MinMaxYearBasicCalendar : BasicCalendar<MinMaxYearScope>
+public class MinMaxYearCalendar : BasicCalendar<MinMaxYearScope>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MinMaxYearBasicCalendar"/>
+    /// Initializes a new instance of the <see cref="MinMaxYearCalendar"/>
     /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    public MinMaxYearBasicCalendar(string name, MinMaxYearScope scope) : base(name, scope) { }
+    public MinMaxYearCalendar(string name, MinMaxYearScope scope) : base(name, scope) { }
 
     /// <inheritdoc/>
     [Pure]

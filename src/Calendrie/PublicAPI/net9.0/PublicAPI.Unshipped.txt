@@ -550,7 +550,6 @@ Calendrie.DayNumber.PreviousDay() -> Calendrie.DayNumber
 Calendrie.DayNumber.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayZero
 Calendrie.Extensions.DayNumberExtensions
-Calendrie.Extensions.Unboxing
 Calendrie.Hemerology.BasicCalendar<TScope>
 Calendrie.Hemerology.BasicCalendar<TScope>.Algorithm.get -> Calendrie.CalendricalAlgorithm
 Calendrie.Hemerology.BasicCalendar<TScope>.BasicCalendar(string! name, TScope! scope) -> void
@@ -569,15 +568,15 @@ Calendrie.Hemerology.BasicCalendar<TScope>.PeriodicAdjustments.get -> Calendrie.
 Calendrie.Hemerology.BasicCalendar<TScope>.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Hemerology.BasicCalendar<TScope>.Scope.get -> TScope!
 Calendrie.Hemerology.BasicCalendar<TScope>.YearsValidator.get -> Calendrie.Core.Validation.IYearsValidator!
-Calendrie.Hemerology.BoundedBelowBasicCalendar
-Calendrie.Hemerology.BoundedBelowBasicCalendar.BoundedBelowBasicCalendar(string! name, Calendrie.Hemerology.Scopes.BoundedBelowScope! scope) -> void
-Calendrie.Hemerology.BoundedBelowBasicCalendar.CountDaysInFirstMonth() -> int
-Calendrie.Hemerology.BoundedBelowBasicCalendar.CountDaysInFirstYear() -> int
-Calendrie.Hemerology.BoundedBelowBasicCalendar.CountMonthsInFirstYear() -> int
-Calendrie.Hemerology.BoundedBelowBasicCalendar.MinDateParts.get -> Calendrie.DateParts
-Calendrie.Hemerology.BoundedBelowBasicCalendar.MinMonthParts.get -> Calendrie.MonthParts
-Calendrie.Hemerology.BoundedBelowBasicCalendar.MinOrdinalParts.get -> Calendrie.OrdinalParts
-Calendrie.Hemerology.BoundedBelowBasicCalendar.MinYear.get -> int
+Calendrie.Hemerology.BoundedBelowCalendar
+Calendrie.Hemerology.BoundedBelowCalendar.BoundedBelowCalendar(string! name, Calendrie.Hemerology.Scopes.BoundedBelowScope! scope) -> void
+Calendrie.Hemerology.BoundedBelowCalendar.CountDaysInFirstMonth() -> int
+Calendrie.Hemerology.BoundedBelowCalendar.CountDaysInFirstYear() -> int
+Calendrie.Hemerology.BoundedBelowCalendar.CountMonthsInFirstYear() -> int
+Calendrie.Hemerology.BoundedBelowCalendar.MinDateParts.get -> Calendrie.DateParts
+Calendrie.Hemerology.BoundedBelowCalendar.MinMonthParts.get -> Calendrie.MonthParts
+Calendrie.Hemerology.BoundedBelowCalendar.MinOrdinalParts.get -> Calendrie.OrdinalParts
+Calendrie.Hemerology.BoundedBelowCalendar.MinYear.get -> int
 Calendrie.Hemerology.IAffineDate
 Calendrie.Hemerology.IAffineDate.DaysSinceEpoch.get -> int
 Calendrie.Hemerology.IAffineDate<TSelf>
@@ -646,8 +645,8 @@ Calendrie.Hemerology.IStandardArithmetic<TSelf>.CountDaysSince(TSelf other) -> i
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.NextDay() -> TSelf
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.PlusDays(int days) -> TSelf
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.PreviousDay() -> TSelf
-Calendrie.Hemerology.MinMaxYearBasicCalendar
-Calendrie.Hemerology.MinMaxYearBasicCalendar.MinMaxYearBasicCalendar(string! name, Calendrie.Hemerology.Scopes.MinMaxYearScope! scope) -> void
+Calendrie.Hemerology.MinMaxYearCalendar
+Calendrie.Hemerology.MinMaxYearCalendar.MinMaxYearCalendar(string! name, Calendrie.Hemerology.Scopes.MinMaxYearScope! scope) -> void
 Calendrie.Hemerology.Scopes.BoundedBelowScope
 Calendrie.Hemerology.Scopes.BoundedBelowScope.MinDateParts.get -> Calendrie.DateParts
 Calendrie.Hemerology.Scopes.BoundedBelowScope.MinMonthParts.get -> Calendrie.MonthParts
@@ -1727,12 +1726,12 @@ override sealed Calendrie.Core.SystemSegment.ToString() -> string!
 override sealed Calendrie.Core.Validation.DaysValidator.ToString() -> string!
 override sealed Calendrie.Core.Validation.MonthsValidator.ToString() -> string!
 override sealed Calendrie.Core.Validation.YearsValidator.ToString() -> string!
-override sealed Calendrie.Hemerology.BoundedBelowBasicCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Hemerology.BoundedBelowBasicCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Hemerology.BoundedBelowBasicCalendar.CountMonthsInYear(int year) -> int
-override sealed Calendrie.Hemerology.MinMaxYearBasicCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Hemerology.MinMaxYearBasicCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Hemerology.MinMaxYearBasicCalendar.CountMonthsInYear(int year) -> int
+override sealed Calendrie.Hemerology.BoundedBelowCalendar.CountDaysInMonth(int year, int month) -> int
+override sealed Calendrie.Hemerology.BoundedBelowCalendar.CountDaysInYear(int year) -> int
+override sealed Calendrie.Hemerology.BoundedBelowCalendar.CountMonthsInYear(int year) -> int
+override sealed Calendrie.Hemerology.MinMaxYearCalendar.CountDaysInMonth(int year, int month) -> int
+override sealed Calendrie.Hemerology.MinMaxYearCalendar.CountDaysInYear(int year) -> int
+override sealed Calendrie.Hemerology.MinMaxYearCalendar.CountMonthsInYear(int year) -> int
 override sealed Calendrie.Hemerology.Scopes.BoundedBelowScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
 override sealed Calendrie.Hemerology.Scopes.BoundedBelowScope.ValidateYearMonth(int year, int month, string? paramName = null) -> void
 override sealed Calendrie.Hemerology.Scopes.BoundedBelowScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
@@ -1953,8 +1952,6 @@ static Calendrie.Extensions.DayNumberExtensions.OnOrAfter(this Calendrie.DayNumb
 static Calendrie.Extensions.DayNumberExtensions.OnOrAfter(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek, int num) -> Calendrie.DayNumber
 static Calendrie.Extensions.DayNumberExtensions.OnOrBefore(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 static Calendrie.Extensions.DayNumberExtensions.OnOrBefore(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek, int num) -> Calendrie.DayNumber
-static Calendrie.Extensions.Unboxing.TryUnbox<T>(this Calendrie.Core.Utilities.Box<T!>! box, out T? obj) -> bool
-static Calendrie.Extensions.Unboxing.Unbox<T>(this Calendrie.Core.Utilities.Box<T!>! box) -> T!
 static Calendrie.Hemerology.Scopes.BoundedBelowScope.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch, Calendrie.DateParts minDateParts, int maxYear) -> Calendrie.Hemerology.Scopes.BoundedBelowScope!
 static Calendrie.Hemerology.Scopes.BoundedBelowScope.Create(Calendrie.Hemerology.Scopes.CalendarScope! scope) -> Calendrie.Hemerology.Scopes.BoundedBelowScope!
 static Calendrie.Hemerology.Scopes.BoundedBelowScope.StartingAt(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch, Calendrie.DateParts parts) -> Calendrie.Hemerology.Scopes.BoundedBelowScope!

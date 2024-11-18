@@ -6,18 +6,18 @@ namespace Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
 /// <summary>
-/// Represents a basic calendar with dates on or after a given date.
+/// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>
 /// </summary>
-public class BoundedBelowBasicCalendar : BasicCalendar<BoundedBelowScope>
+public class BoundedBelowCalendar : BasicCalendar<BoundedBelowScope>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="BoundedBelowBasicCalendar"/>
+    /// Initializes a new instance of the <see cref="BoundedBelowCalendar"/>
     /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    public BoundedBelowBasicCalendar(string name, BoundedBelowScope scope) : base(name, scope)
+    public BoundedBelowCalendar(string name, BoundedBelowScope scope) : base(name, scope)
     {
         Debug.Assert(scope != null);
 
