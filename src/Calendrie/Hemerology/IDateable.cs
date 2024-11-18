@@ -12,53 +12,46 @@ public interface IDateable
     /// <summary>
     /// Gets the century of the era.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// A default implementation should look like:
+    /// <example>
+    /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   Ord CenturyOfEra => Ord.FromInt32(Century);
     /// ]]></code>
-    /// </para>
-    /// </remarks>
+    /// </example>
     Ord CenturyOfEra { get; }
 
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// A default implementation looks like:
+    /// <example>
+    /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   int Century => YearNumbering.GetCentury(Year);
     /// ]]></code>
-    /// </para>
-    /// </remarks>
+    /// </example>
     int Century { get; }
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// A default implementation looks like:
+    /// <example>
+    /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   Ord YearOfEra => Ord.FromInt32(Year);
     /// ]]></code>
-    /// </para>
-    /// </remarks>
+    /// </example>
     Ord YearOfEra { get; }
 
     /// <summary>
     /// Gets the year of the century.
-    /// </summary>
-    /// <remarks>
     /// <para>The result is in the range from 1 to 100.</para>
-    /// <para>A default implementation looks like:
+    /// </summary>
+    /// <example>
+    /// A default implementation should look like this:
     /// <code><![CDATA[
     ///   int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
     /// ]]></code>
-    /// </para>
-    /// </remarks>
+    /// </example>
     int YearOfCentury { get; }
 
     /// <summary>
@@ -107,8 +100,8 @@ public interface IDateable
     /// Obtains the number of whole days in the year elapsed since the start of
     /// the year and before this date instance.
     /// </summary>
-    //
-    // Trivial (= DayOfYear - 1), only added for completeness.
+    /// <remarks>Trivial (= DayOfYear - 1), only added for completeness.
+    /// </remarks>
     [Pure] int CountElapsedDaysInYear();
 
     /// <summary>
@@ -120,8 +113,7 @@ public interface IDateable
     /// Obtains the number of whole days in the year elapsed since the start of
     /// the month and before this date instance.
     /// </summary>
-    //
-    // Trivial (= Day - 1), only added for completeness.
+    /// <remarks>Trivial (= Day - 1), only added for completeness.</remarks>
     [Pure] int CountElapsedDaysInMonth();
 
     /// <summary>

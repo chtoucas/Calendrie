@@ -12,26 +12,39 @@ using Endpoint = CalendricalSegment.Endpoint;
 // - before, to respect the schema layout (_supportedYears)
 // - after, to stay within the limits of Yemoda/Yedoy (_partsFactory)
 
-/// <summary>Represents a builder for <see cref="CalendricalSegment"/>.
-/// <para>This class cannot be inherited.</para></summary>
+/// <summary>
+/// Represents a builder for <see cref="CalendricalSegment"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public sealed partial class CalendricalSegmentBuilder
 {
-    /// <summary>Represents the schema.</summary>
+    /// <summary>
+    /// Represents the schema.
+    /// </summary>
     private readonly ICalendricalSchema _schema;
 
-    /// <summary>Represents the adapter for calendrical parts.</summary>
+    /// <summary>
+    /// Represents the adapter for calendrical parts.
+    /// </summary>
     private readonly PartsAdapter _partsAdapter;
 
-    /// <summary>Represents the validator for the range of supported years.</summary>
+    /// <summary>
+    /// Represents the validator for the range of supported years.
+    /// </summary>
     private readonly YearsValidator _yearsValidator;
 
-    /// <summary>Represents the validator for the range of supported values for the number of
-    /// consecutive days from the epoch.</summary>
+    /// <summary>
+    /// Represents the validator for the range of supported values for the number
+    /// of consecutive days from the epoch.
+    /// </summary>
     private readonly DaysValidator _daysValidator;
 
-    /// <summary>Initializes a new instance of the <see cref="CalendricalSegmentBuilder"/> class.
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CalendricalSegmentBuilder"/>
+    /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     public CalendricalSegmentBuilder(ICalendricalSchema schema)
     {
         _schema = schema ?? throw new ArgumentNullException(nameof(schema));
@@ -41,19 +54,30 @@ public sealed partial class CalendricalSegmentBuilder
         _daysValidator = new DaysValidator(schema.SupportedDays);
     }
 
-    /// <summary>Returns true if the minimum has been set; otherwise returns false.</summary>
+    /// <summary>
+    /// Returns <see langword="true"/> if the minimum has been set; otherwise
+    /// returns <see langword="false"/>.
+    /// </summary>
     public bool HasMin => _min != null;
 
-    /// <summary>Returns true if the maximum has been set; otherwise returns false.</summary>
+    /// <summary>
+    /// Returns <see langword="true"/> if the maximum has been set; otherwise
+    /// returns <see langword="false"/>.
+    /// </summary>
     public bool HasMax => _max != null;
 
-    /// <summary>Returns true if both minimum and maximum have been set; otherwise returns false.
+    /// <summary>
+    /// Returns <see langword="true"/> if both minimum and maximum have been set;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool IsBuildable => HasMin && HasMax;
 
     private Endpoint? _min;
-    /// <summary>Gets the minimum of the segment.</summary>
-    /// <exception cref="InvalidOperationException">The minimum was not set.</exception>
+    /// <summary>
+    /// Gets the minimum of the segment.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">The minimum was not set.
+    /// </exception>
     private Endpoint Min
     {
         get => _min ?? Throw.InvalidOperation<Endpoint>();
@@ -68,8 +92,11 @@ public sealed partial class CalendricalSegmentBuilder
     }
 
     private Endpoint? _max;
-    /// <summary>Gets the maximum of the segment.</summary>
-    /// <exception cref="InvalidOperationException">The maximum was not set.</exception>
+    /// <summary>
+    /// Gets the maximum of the segment.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">The maximum was not set.
+    /// </exception>
     private Endpoint Max
     {
         get => _max ?? Throw.InvalidOperation<Endpoint>();
@@ -83,11 +110,16 @@ public sealed partial class CalendricalSegmentBuilder
         }
     }
 
-    /// <summary>Gets the pre-validator for this schema.</summary>
+    /// <summary>
+    /// Gets the pre-validator for this schema.
+    /// </summary>
     private ICalendricalPreValidator PreValidator => _schema.PreValidator;
 
-    /// <summary>Builds the segment.</summary>
-    /// <exception cref="InvalidOperationException">The segment was not buildable.</exception>
+    /// <summary>
+    /// Builds the segment.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">The segment was not buildable.
+    /// </exception>
     [Pure]
     public CalendricalSegment BuildSegment()
     {
@@ -120,86 +152,112 @@ public sealed partial class CalendricalSegmentBuilder
 
 public partial class CalendricalSegmentBuilder // Builder methods
 {
-    /// <summary>Gets or sets the minimum.
+    /// <summary>
+    /// Gets or sets the minimum.
     /// <para>The setter automatically update <see cref="MinDateParts"/> and
-    /// <see cref="MinOrdinalParts"/>.</para></summary>
-    /// <value>The number of consecutive days from the epoch.</value>
-    /// <exception cref="InvalidOperationException">(Getter) The minimum is not set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified number of consecutive days from the
-    /// epoch is outside the range of supported values by the schema.</exception>
+    /// <see cref="MinOrdinalParts"/>.</para>
+    /// </summary>
+    /// <value>The minimal number of consecutive days from the epoch.</value>
+    /// <exception cref="InvalidOperationException">(Getter) The minimum is not
+    /// set.</exception>
+    /// <exception cref="AoorException">(Setter) The specified number of
+    /// consecutive days from the epoch is outside the range of supported values
+    /// by the schema.</exception>
     public int MinDaysSinceEpoch
     {
         get => Min.DaysSinceEpoch;
         set => Min = GetEndpointFromDaysSinceEpoch(value);
     }
 
-    /// <summary>Gets or sets the maximum.
+    /// <summary>
+    /// Gets or sets the maximum.
     /// <para>The setter automatically update <see cref="MaxDateParts"/> and
-    /// <see cref="MaxOrdinalParts"/>.</para></summary>
-    /// <value>The number of consecutive days from the epoch.</value>
-    /// <exception cref="InvalidOperationException">(Getter) The maximum is not set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified number of consecutive days from the
-    /// epoch is outside the range of supported values by the schema.</exception>
+    /// <see cref="MaxOrdinalParts"/>.</para>
+    /// </summary>
+    /// <value>The maximal number of consecutive days from the epoch.</value>
+    /// <exception cref="InvalidOperationException">(Getter) The maximum is not
+    /// set.</exception>
+    /// <exception cref="AoorException">(Setter) The specified number of
+    /// consecutive days from the epoch is outside the range of supported values
+    /// by the schema.</exception>
     public int MaxDaysSinceEpoch
     {
         get => Max.DaysSinceEpoch;
         set => Max = GetEndpointFromDaysSinceEpoch(value);
     }
 
-    /// <summary>Gets or sets the minimum.
-    /// <para>The setter automatically update <see cref="MinDaysSinceEpoch"/> and
-    /// <see cref="MinOrdinalParts"/>.</para></summary>
-    /// <value>The date parts.</value>
-    /// <exception cref="InvalidOperationException">(Getter) The minimum is not set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified date parts are invalid or outside the
-    /// range of supported values by the schema.</exception>
+    /// <summary>
+    /// Gets or sets the minimum.
+    /// <para>The setter automatically update <see cref="MinDaysSinceEpoch"/>
+    /// and <see cref="MinOrdinalParts"/>.</para>
+    /// </summary>
+    /// <value>The minimal value of a <see cref="DateParts"/>.</value>
+    /// <exception cref="InvalidOperationException">(Getter) The minimum is not
+    /// set.</exception>
+    /// <exception cref="AoorException">(Setter) The specified date parts are
+    /// invalid or outside the range of supported values by the schema.
+    /// </exception>
     public DateParts MinDateParts
     {
         get => Min.DateParts;
         set => Min = GetEndpoint(value);
     }
 
-    /// <summary>Gets or sets the maximum.
-    /// <para>The setter automatically update <see cref="MaxDaysSinceEpoch"/> and
-    /// <see cref="MaxOrdinalParts"/>.</para></summary>
-    /// <value>The date parts.</value>
-    /// <exception cref="InvalidOperationException">(Getter) The maximum is not set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified date parts are invalid or outside the
-    /// range of supported values by the schema.</exception>
+    /// <summary>
+    /// Gets or sets the maximum.
+    /// <para>The setter automatically update <see cref="MaxDaysSinceEpoch"/>
+    /// and <see cref="MaxOrdinalParts"/>.</para>
+    /// </summary>
+    /// <value>The maximal value of a <see cref="DateParts"/>.</value>
+    /// <exception cref="InvalidOperationException">(Getter) The maximum is not
+    /// set.</exception>
+    /// <exception cref="AoorException">(Setter) The specified date parts are
+    /// invalid or outside the range of supported values by the schema.
+    /// </exception>
     public DateParts MaxDateParts
     {
         get => Max.DateParts;
         set => Max = GetEndpoint(value);
     }
 
-    /// <summary>Gets or sets the minimum.
-    /// <para>The setter automatically update <see cref="MinDaysSinceEpoch"/> and
-    /// <see cref="MinDateParts"/>.</para></summary>
-    /// <value>The ordinal date parts.</value>
-    /// <exception cref="InvalidOperationException">(Getter) The minimum is not set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified ordinal date parts are invalid or
-    /// outside the range of supported values by the schema.</exception>
+    /// <summary>
+    /// Gets or sets the minimum.
+    /// <para>The setter automatically update <see cref="MinDaysSinceEpoch"/>
+    /// and <see cref="MinDateParts"/>.</para>
+    /// </summary>
+    /// <value>The minimal value of an <see cref="OrdinalParts"/>.</value>
+    /// <exception cref="InvalidOperationException">(Getter) The minimum is not
+    /// set.</exception>
+    /// <exception cref="AoorException">(Setter) The specified ordinal date parts
+    /// are invalid or outside the range of supported values by the schema.
+    /// </exception>
     public OrdinalParts MinOrdinalParts
     {
         get => Min.OrdinalParts;
         set => Min = GetEndpoint(value);
     }
 
-    /// <summary>Gets or sets the maximum.
-    /// <para>The setter automatically update <see cref="MaxDaysSinceEpoch"/> and
-    /// <see cref="MaxDateParts"/>.</para></summary>
-    /// <value>The ordinal date parts.</value>
-    /// <exception cref="InvalidOperationException">(Getter) The maximum is not set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified ordinal date parts are invalid or
-    /// outside the range of supported values by the schema.</exception>
+    /// <summary>
+    /// Gets or sets the maximum.
+    /// <para>The setter automatically update <see cref="MaxDaysSinceEpoch"/>
+    /// and <see cref="MaxDateParts"/>.</para></summary>
+    /// <value>The maximal value of an <see cref="OrdinalParts"/>.</value>
+    /// <exception cref="InvalidOperationException">(Getter) The maximum is not
+    /// set.</exception>
+    /// <exception cref="AoorException">(Setter) The specified ordinal date parts
+    /// are invalid or outside the range of supported values by the schema.
+    /// </exception>
     public OrdinalParts MaxOrdinalParts
     {
         get => Max.OrdinalParts;
         set => Max = GetEndpoint(value);
     }
 
-    /// <summary>Sets the minimum to the start of the specified year.</summary>
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the range of supported
+    /// <summary>
+    /// Sets the minimum to the start of the specified year.
+    /// </summary>
+    /// <exception cref="AoorException"><paramref name="year"/> is outside the
+    /// range of supported
     /// values by the schema.</exception>
     public void SetMinToStartOfYear(int year)
     {
@@ -208,11 +266,15 @@ public partial class CalendricalSegmentBuilder // Builder methods
         Min = GetEndpointAtStartOfYear(year);
     }
 
-    /// <summary>Sets the minimum to the start of the earliest supported year.</summary>
+    /// <summary>
+    /// Sets the minimum to the start of the earliest supported year.
+    /// </summary>
     public void SetMinToStartOfMinSupportedYear() =>
         Min = GetEndpointAtStartOfYear(_yearsValidator.MinYear);
 
-    /// <summary>Attempts to set the minimum to the start of the earliest supported year &gt;= 1.
+    /// <summary>
+    /// Attempts to set the minimum to the start of the earliest supported year
+    /// &gt;= 1.
     /// </summary>
     [Pure]
     public bool TrySetMinToStartOfMinSupportedYearOnOrAfterYear1()
@@ -224,9 +286,11 @@ public partial class CalendricalSegmentBuilder // Builder methods
         return true;
     }
 
-    /// <summary>Sets the maximum to the end of the specified year.</summary>
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the range of supported
-    /// values by the schema.</exception>
+    /// <summary>
+    /// Sets the maximum to the end of the specified year.
+    /// </summary>
+    /// <exception cref="AoorException"><paramref name="year"/> is outside the
+    /// range of supported values by the schema.</exception>
     public void SetMaxToEndOfYear(int year)
     {
         _yearsValidator.Validate(year);
@@ -234,7 +298,9 @@ public partial class CalendricalSegmentBuilder // Builder methods
         Max = GetEndpointAtEndOfYear(year);
     }
 
-    /// <summary>Sets the maximum to the end of the latest supported year.</summary>
+    /// <summary>
+    /// Sets the maximum to the end of the latest supported year.
+    /// </summary>
     public void SetMaxToEndOfMaxSupportedYear() =>
         Max = GetEndpointAtEndOfYear(_yearsValidator.MaxYear);
 

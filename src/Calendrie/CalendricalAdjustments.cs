@@ -37,8 +37,8 @@ public enum CalendricalAdjustments
 
     /// <summary>
     /// The calendar may add one or more months or days.
+    /// <para>For instance, the buddhist calendar uses this kind of adjustment.
+    /// </para>
     /// </summary>
-    //
-    // Example: buddhist calendar.
     DaysAndMonths = Days | Months,
 }

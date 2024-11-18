@@ -7,8 +7,8 @@ namespace Calendrie.Core.Intervals;
 /// Defines an interval.
 /// </summary>
 /// <remarks>Discrete intervals SHOULD always be represented using their normal
-/// (closed) form. Roughly speaking, an interval is said to be discrete if all of
-/// its members are isolated which, being a topological property, is hard to
+/// (closed) form. Roughly speaking, an interval is said to be discrete if all
+/// of its members are isolated which, being a topological property, is hard to
 /// define in computer words. Anyway, for our purposes, we only need to know that
 /// intervals of integers or date-like types are discrete, while intervals of
 /// time-like types are not.</remarks>
@@ -28,8 +28,8 @@ public interface IInterval<in T> : ISetMembership<T>
     /// Returns true if this interval is right-open; otherwise returns false.
     /// </summary>
     /// <remarks>A right-bounded interval is said to be right-open if its right
-    /// endpoint is not an element of the interval. A right-unbounded interval is
-    /// right-open.</remarks>
+    /// endpoint is not an element of the interval. A right-unbounded interval
+    /// is right-open.</remarks>
     bool IsRightOpen { get; }
 
     /// <summary>
