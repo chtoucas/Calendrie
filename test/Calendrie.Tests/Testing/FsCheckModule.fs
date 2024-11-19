@@ -7,12 +7,10 @@ module Calendrie.Testing.FsCheckModule
 open System
 open System.Runtime.CompilerServices
 
-//open Calendrie.Bulgroz.Obsolete
 open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Utilities
-//open Calendrie.Horology.Ntp
 
 open FsCheck
 open FsCheck.Xunit

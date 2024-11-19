@@ -3,14 +3,13 @@
 
 module Calendrie.Tests.Specialized.GregorianTests
 
+open Calendrie
+open Calendrie.Specialized
 open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Specialized
-
-open Calendrie
-open Calendrie.Specialized
 
 open Xunit
 

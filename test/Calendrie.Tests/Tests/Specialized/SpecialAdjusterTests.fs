@@ -3,13 +3,12 @@
 
 module Calendrie.Tests.Specialized.SpecialAdjusterTests
 
-open Calendrie.Testing
-
 open Calendrie
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology.Scopes
 open Calendrie.Specialized
+open Calendrie.Testing
 
 open Xunit
 
