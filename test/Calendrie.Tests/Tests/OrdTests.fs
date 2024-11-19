@@ -237,9 +237,9 @@ module Equality =
 
     [<Property>]
     let ``GetHashCode() returns the hashcode of its algebraic value`` (x: Ord) =
-        let hash = int(x).GetHashCode()
+        let hash = int(x)
 
-        x.GetHashCode() = hash
+        x.GetHashCode() = hash.GetHashCode()
 
 module Comparison =
     open NonStructuralComparison

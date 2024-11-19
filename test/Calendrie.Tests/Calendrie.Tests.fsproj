@@ -8,12 +8,13 @@
 
     <WarningLevel>5</WarningLevel>
     <!--
-      FS0052  Implicit copies of structs (warning level 5)
-      We enable most opt-in warnings; see
-      https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/compiler-options
+      We enable most opt-in warnings. Missing warnings:
+      FS3180  Warn when a mutable local is implicitly allocated as a reference
+              cell because it has been captured by a closure.
+      FS3388  Warn when an additional upcast is implicitly used, added in F# 6.
+      See https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/compiler-options
     -->
-    <!--<NoWarn>$(NoWarn);FS0052</NoWarn>-->
-    <!--<WarnOn>$(WarnOn);FS1182;FS3366;FS3517;FS3389;FS3390</WarnOn>-->
+    <WarnOn>$(WarnOn);FS1182;FS3366;FS3387;FS3389;FS3390;FS3517</WarnOn>
 
     <!-- Silent a warning from Microsoft.NET.Test.Sdk -->
     <GenerateProgramFile>false</GenerateProgramFile>

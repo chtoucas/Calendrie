@@ -95,7 +95,9 @@ module TestCommon =
         /// Represents the field Year.
         YearField of int with
         member x.Value = match x with YearField i -> i
-        override x.ToString() = x.Value.ToString()
+        override x.ToString() =
+            let s = x.Value
+            s.ToString()
         static member op_Explicit(YearField i) = i
 
     /// Single-case DU for the field Year (short version).
@@ -104,7 +106,9 @@ module TestCommon =
         /// Represents the field Year (short version).
         ShortYearField of int with
         member x.Value = match x with ShortYearField i -> i
-        override x.ToString() = x.Value.ToString()
+        override x.ToString() =
+            let s = x.Value
+            s.ToString()
         static member op_Explicit(ShortYearField i) = i
 
     /// Single-case DU for the field Month.
@@ -113,7 +117,9 @@ module TestCommon =
         /// Represents the field Month.
         MonthField of int with
         member x.Value = match x with MonthField i -> i
-        override x.ToString() = x.Value.ToString()
+        override x.ToString() =
+            let s = x.Value
+            s.ToString()
         static member op_Explicit(MonthField i) = i
 
     /// Single-case DU for the field Day.
@@ -122,7 +128,9 @@ module TestCommon =
         /// Represents the field Day.
         DayField of int with
         member x.Value = match x with DayField i -> i
-        override x.ToString() = x.Value.ToString()
+        override x.ToString() =
+            let s = x.Value
+            s.ToString()
         static member op_Explicit(DayField i) = i
 
     /// Single-case DU for the field DayOfYear.
@@ -131,7 +139,9 @@ module TestCommon =
         /// Represents the field DayOfYear.
         DayOfYearField of int with
         member x.Value = match x with DayOfYearField i -> i
-        override x.ToString() = x.Value.ToString()
+        override x.ToString() =
+            let s = x.Value
+            s.ToString()
         static member op_Explicit(DayOfYearField i) = i
 
     /// Single-case DU for the field Extra.
@@ -140,7 +150,9 @@ module TestCommon =
         /// Represents the field Extra.
         ExtraField of int with
         member x.Value = match x with ExtraField i -> i
-        override x.ToString() = x.Value.ToString()
+        override x.ToString() =
+            let s = x.Value
+            s.ToString()
         static member op_Explicit(ExtraField i) = i
 
     [<Sealed>]

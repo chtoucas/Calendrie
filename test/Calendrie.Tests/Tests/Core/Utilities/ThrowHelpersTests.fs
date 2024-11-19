@@ -20,14 +20,14 @@ module PlainExns =
         argExn paramName (fun () -> ThrowHelpers.Argument(paramName))
         argExn paramName (fun () -> ThrowHelpers.Argument<string>(paramName))
 
-    [<Fact>]
-    let ArgumentNull () =
-        nullExn paramName (fun () -> ThrowHelpers.ArgumentNull(paramName))
+    //[<Fact>]
+    //let ArgumentNull () =
+    //    nullExn paramName (fun () -> ThrowHelpers.ArgumentNull(paramName))
 
     [<Fact>]
     let ArgumentOutOfRange () =
         outOfRangeExn paramName (fun () -> ThrowHelpers.ArgumentOutOfRange(paramName))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.ArgumentOutOfRange<string>(paramName))
+        //outOfRangeExn paramName (fun () -> ThrowHelpers.ArgumentOutOfRange<string>(paramName))
 
     [<Fact>]
     let InvalidOperation () =

@@ -625,9 +625,9 @@ module Equality =
 
     [<Property>]
     let ``GetHashCode() returns the hashcode of DaysSinceZero`` (x: DayNumber) =
-        let hash = x.DaysSinceZero.GetHashCode()
+        let hash = x.DaysSinceZero
 
-        x.GetHashCode() = hash
+        x.GetHashCode() = hash.GetHashCode()
 
 module Comparison =
     open NonStructuralComparison
