@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
+    <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
   </ItemGroup>
 
 </Project>

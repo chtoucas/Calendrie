@@ -47,12 +47,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{7ED71EAD-F19
 		eng\test.ps1 = eng\test.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendrie.Testing", "src\Calendrie.Testing\Calendrie.Testing.csproj", "{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{15555E95-5E58-41F5-8F84-EB5E7D66C8F6}"
 	ProjectSection(SolutionItems) = preProject
 		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendrie.Testing", "test\Calendrie.Testing\Calendrie.Testing.csproj", "{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +68,10 @@ Global
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,8 +81,8 @@ Global
 		{E7581A9C-D825-468D-92D8-5E120FA815EA} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
 		{B09CCEBE-D16A-4155-94A3-BE04D627E234} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 		{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5} = {84246E77-9B04-4280-B84B-32C8772009ED}
-		{8023DF32-D7D9-4247-94E6-EDEA26F0B6AE} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
 		{15555E95-5E58-41F5-8F84-EB5E7D66C8F6} = {84246E77-9B04-4280-B84B-32C8772009ED}
+		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED8B0D74-DB69-46D4-AADE-91101FF165C2}

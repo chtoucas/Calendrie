@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
 
+    <!--<Nullable>disable</Nullable>-->
+
     <WarningLevel>5</WarningLevel>
     <!--
       FS0052  Implicit copies of structs (warning level 5)
@@ -103,7 +105,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
-    <ProjectReference Include="..\..\src\Calendrie.Testing\Calendrie.Testing.csproj" />
+    <ProjectReference Include="..\Calendrie.Testing\Calendrie.Testing.csproj" />
   </ItemGroup>
 
 </Project>
