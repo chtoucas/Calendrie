@@ -33,7 +33,6 @@ module Bundles =
         member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 12
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DateFacts() =
         inherit IDateFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>(chr)
 
@@ -49,7 +48,6 @@ module Bundles =
         static member Adjuster_Prop() = JulianDate.Adjuster |> isnotnull
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DateAdjusterFacts() =
         inherit SpecialAdjusterFacts<JulianDate, UnboundedJulianDataSet>(new JulianAdjuster())
 

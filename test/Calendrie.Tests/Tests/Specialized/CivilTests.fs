@@ -46,7 +46,6 @@ module Bundles =
         member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 12
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DateFacts() =
         inherit IDateFacts<CivilDate, CivilCalendar, StandardGregorianDataSet>(chr)
 
@@ -62,7 +61,6 @@ module Bundles =
         static member Adjuster_Prop() = CivilDate.Adjuster |> isnotnull
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DateAdjusterFacts() =
         inherit SpecialAdjusterFacts<CivilDate, StandardGregorianDataSet>(new CivilAdjuster())
 
@@ -70,7 +68,6 @@ module Bundles =
         override __.GetDate(y, doy) = new CivilDate(y, doy)
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DayOfWeekFacts() =
         inherit IDateDayOfWeekFacts<CivilDate, StandardGregorianDataSet>()
 

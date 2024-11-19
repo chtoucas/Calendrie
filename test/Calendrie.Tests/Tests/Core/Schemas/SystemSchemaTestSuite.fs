@@ -39,7 +39,6 @@ type CivilTests() =
         x.SchemaUT.SupportedYears === range
 
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type Coptic12Tests() =
     inherit SystemSchemaFacts<Coptic12DataSet>(syschemaOf<Coptic12Schema>())
 
@@ -78,7 +77,6 @@ type Coptic13Tests() =
             (fun () -> sch.CountDaysInMonth(Int32.MaxValue, m)) |> overflows
 
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type Egyptian12Tests() =
     inherit SystemSchemaFacts<Egyptian12DataSet>(syschemaOf<Egyptian12Schema>())
 
@@ -119,7 +117,6 @@ type FrenchRepublican13Tests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
 
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type GregorianTests() =
     inherit SystemSchemaFacts<GregorianDataSet>(syschemaOf<GregorianSchema>())
 
@@ -140,7 +137,6 @@ type InternationalFixedTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
 
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type JulianTests() =
     inherit SystemSchemaFacts<JulianDataSet>(syschemaOf<JulianSchema>())
 
@@ -151,7 +147,6 @@ type JulianTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type LunisolarTests() =
     inherit SystemSchemaFacts<LunisolarDataSet>(syschemaOf<LunisolarSchema>())
 
@@ -199,7 +194,6 @@ type PositivistTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
 
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type TabularIslamicTests() =
     inherit SystemSchemaFacts<TabularIslamicDataSet>(syschemaOf<TabularIslamicSchema>()) with
 

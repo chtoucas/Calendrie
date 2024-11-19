@@ -8,8 +8,6 @@ param(
     [ValidateSet('Debug', 'Release')]
     [Alias('c')] [string] $Configuration = 'Debug',
 
-                 [switch] $Smoke,
-
                  [switch] $NoBuild,
                  [switch] $NoTest,
                  [switch] $NoReport,
@@ -29,7 +27,6 @@ Code coverage script.
 
 Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
-     -Smoke          use the test plan "smoke"
      -NoBuild        do NOT build the test suite?
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?
@@ -57,7 +54,6 @@ try {
     $format   = 'opencover'
 
     $outName  = "cover-Calendrie"
-    if ($Smoke) { $outName += "-smoke" }
     $outName += "-$configuration"
     $outDir   = Join-Path $ArtifactsDir $outName.ToLowerInvariant()
     $output   = Join-Path $outDir "$format.xml"
@@ -84,7 +80,6 @@ try {
     if (-not $NoTest) {
         # If you change the filter, don't forget to update the plan "cover" in test.ps1.
         $filter = 'ExcludeFrom!=CodeCoverage&Performance!~Slow'
-        if ($Smoke) { $filter = "ExcludeFrom!=Smoke&$filter" }
         $args += "--filter:$filter"
 
         & dotnet test $testProject $args `
@@ -104,7 +99,7 @@ try {
             Remove-Item $rgOutput -Force -Recurse
         }
 
-        $publish = $Badges -and -not $Smoke -and $Configuration -eq 'Debug'
+        $publish = $Badges -and $Configuration -eq 'Debug'
         $reporttypes = $publish ? 'Html;Badges;TextSummary;MarkdownSummary' : 'Html'
 
         say 'Creating the reports...'

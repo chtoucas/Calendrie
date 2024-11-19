@@ -23,7 +23,6 @@ type Coptic12Tests() =
 
 // PlainPreValidator
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type Coptic13Tests() =
     inherit ICalendricalPreValidatorFacts<Coptic13DataSet>(schemaOf<Coptic13Schema>())
 
@@ -57,7 +56,6 @@ type FrenchRepublican13Tests() =
 
 // GregorianPreValidator
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type GregorianTests() =
     inherit ICalendricalPreValidatorFacts<GregorianDataSet>(schemaOf<GregorianSchema>())
 
@@ -65,7 +63,6 @@ type GregorianTests() =
 
 // Solar13PreValidator
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type InternationalFixedTests() =
     inherit ICalendricalPreValidatorFacts<InternationalFixedDataSet>(schemaOf<InternationalFixedSchema>())
 
@@ -73,7 +70,6 @@ type InternationalFixedTests() =
 
 // JulianPreValidator
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type JulianTests() =
     inherit ICalendricalPreValidatorFacts<JulianDataSet>(schemaOf<JulianSchema>())
 
@@ -81,7 +77,6 @@ type JulianTests() =
 
 // LunisolarPreValidator
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type LunisolarTests() =
     inherit ICalendricalPreValidatorFacts<LunisolarDataSet>(schemaOf<LunisolarSchema>())
 
@@ -99,7 +94,6 @@ type PositivistTests() =
 
 // LunarPreValidator
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type TabularIslamicTests() =
     inherit ICalendricalPreValidatorFacts<TabularIslamicDataSet>(schemaOf<TabularIslamicSchema>())
 

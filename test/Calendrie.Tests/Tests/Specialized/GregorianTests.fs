@@ -46,7 +46,6 @@ module Bundles =
         member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 12
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DateFacts() =
         inherit IDateFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)
 
@@ -62,7 +61,6 @@ module Bundles =
         static member Adjuster_Prop() = GregorianDate.Adjuster |> isnotnull
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DateAdjusterFacts() =
         inherit SpecialAdjusterFacts<GregorianDate, UnboundedGregorianDataSet>(new GregorianAdjuster())
 
@@ -70,7 +68,6 @@ module Bundles =
         override __.GetDate(y, doy) = new GregorianDate(y, doy)
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Smoke)>]
     type DayOfWeekFacts() =
         inherit IDateDayOfWeekFacts<GregorianDate, UnboundedGregorianDataSet>()
 

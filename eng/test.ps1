@@ -6,9 +6,8 @@
 param(
     [Parameter(Mandatory = $false, Position = 0)]
     [ValidateSet(
-        'smoke', 'cover', 'regular', 'more', 'most',
-        'redundant', 'redundant-slow', 'redundant-not-slow')]
-                 [string] $Plan = 'smoke',
+        'regular', 'cover', 'more', 'most', 'redundant')]
+                 [string] $Plan = 'regular',
 
     [Parameter(Mandatory = $false)]
     [ValidateSet('Debug', 'Release')]
@@ -29,24 +28,21 @@ function Print-Help {
 Run the test suite.
 
 Usage: test.ps1 [arguments]
-    |-Plan           specify the test plan. Default = "smoke"
+    |-Plan           specify the test plan. Default = "regular"
   -c|-Configuration  configuration to test the solution for. Default = "Debug"
     |-NoBuild        do NOT build the test suite?
   -h|-Help           print this help then exit
 
-The default behaviour is to run the smoke tests using the configuration Debug.
+The default behaviour is to run the regular test plan using the configuration Debug.
 
 Test plans
 ----------
-- "smoke"     = smoke testing
 - "regular"   = exclude redundant tests, slow-running tests
 - "more"      = exclude redundant tests
 - "most"      = the whole test suite
 
 The extra test plans are
 - "redundant" = complement of "more" in "most", ie "redundant" = "most" - "more".
-- "redundant-slow" = slow-running redundant tests.
-- "redundant-not-slow" = complement of "redundant-slow" in "redundant".
 
 We have also a plan named "cover". It mimics the default test plan used by the
 code coverage tool. The difference between "cover" and "regular" is really tiny.
@@ -58,8 +54,8 @@ custom filters.
 
 Examples
 --------
-> test.ps1 -NoBuild             # Smoke testing (Debug)
-> test.ps1 regular -c Release   # Regular test suite (Release)
+> test.ps1 -NoBuild             # Regular test plan (Debug)
+> test.ps1 regular -c Release   # Regular test plan (Release)
 > test.ps1 more                 # Comprehensive test suite (Debug)
 
 "@
@@ -76,30 +72,11 @@ try {
     if ($NoBuild) { $args += '--no-build' }
 
     switch ($Plan) {
-        'smoke' {
-            # Smoke testing, exclude
-            # - tests explicitely excluded from this plan
-            # - slow tests
-            # - redundant tests (implicit)
-            # - tests excluded from code coverage (implicit)
-            # - tests excluded from the "regular" plan (implicit)
-            #
-            # If you change the filter, don't forget to update the github action.
-            $filter = 'ExcludeFrom!=Smoke&Performance!~Slow'
-        }
-        'cover' {
-            # Mimic the default test plan used by cover.ps1, exclude
-            # - tests explicitely excluded from this plan
-            # - slow tests
-            # - redundant tests (implicit)
-            # - tests excluded from the "regular" plan (implicit)
-            $filter = 'ExcludeFrom!=CodeCoverage&Performance!~Slow'
-        }
         'regular' {
-            # Regular test suite, exclude
+            # Regular test suite, excludes
             # - tests explicitely excluded from this plan
             # - slow tests
-            # - redundant tests (implicit)
+            # - redundant tests (implicit via RedundantTraitDiscoverer)
             $filter = 'ExcludeFrom!=Regular&Performance!~Slow'
         }
         'more' {
@@ -110,15 +87,16 @@ try {
             # Only include redundant tests.
             $filter = 'Redundant=true'
         }
-        # "redundant" being pretty slow, we partition it into two subplans.
-        'redundant-slow' {
-            $filter = 'Redundant=true&Performance~Slow'
-        }
-        'redundant-not-slow' {
-            $filter = 'Redundant=true&Performance!~Slow'
-        }
         'most' {
             $filter = ''
+        }
+        'cover' {
+            # Mimic the default test plan used by cover.ps1, excludes
+            # - tests explicitely excluded from this plan
+            # - slow tests
+            # - redundant tests (implicit via RedundantTraitDiscoverer)
+            # - tests excluded from the "regular" plan (implicit via ExcludeFromTraitDiscoverer)
+            $filter = 'ExcludeFrom!=CodeCoverage&Performance!~Slow'
         }
     }
 

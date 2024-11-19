@@ -21,12 +21,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Calendrie.Tests.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="$(MSBuildThisFileDirectory)xunit.runner.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Compile Include="Testing\XunitModule.fs" />
     <Compile Include="Testing\FsCheckModule.fs" />
     <Compile Include="Testing\TestHelpers.fs" />
@@ -85,6 +79,12 @@
     <Compile Include="Tests\PartsTests.fs" />
     <Compile Include="Tests\ValueTypeTests.fs" />
     <Compile Include="Program.fs" />
+    <None Include="Calendrie.Tests.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

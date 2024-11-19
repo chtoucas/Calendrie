@@ -20,58 +20,58 @@ let private test = DaysInMonthDistributionFacts.Test
 let Coptic12Tests () =
     test(schemaOf<Coptic12Schema>(), Coptic12DataSet.CommonYear, Coptic12DataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let Coptic13Tests () =
     test(schemaOf<Coptic13Schema>(), Coptic13DataSet.CommonYear, Coptic13DataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let Egyptian12Tests () =
     test(schemaOf<Egyptian12Schema>(), Egyptian12DataSet.SampleYear, Egyptian12DataSet.SampleYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let Egyptian13Tests () =
     test(schemaOf<Egyptian13Schema>(), Egyptian13DataSet.SampleYear, Egyptian13DataSet.SampleYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let FrenchRepublican12Tests () =
     test(schemaOf<FrenchRepublican12Schema>(), FrenchRepublican12DataSet.CommonYear, FrenchRepublican12DataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let FrenchRepublican13Tests () =
     test(schemaOf<FrenchRepublican13Schema>(), FrenchRepublican13DataSet.CommonYear, FrenchRepublican13DataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let GregorianTests () =
     test(schemaOf<GregorianSchema>(), GregorianDataSet.CommonYear, GregorianDataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let InternationalFixedTests () =
     test(schemaOf<InternationalFixedSchema>(), InternationalFixedDataSet.CommonYear, InternationalFixedDataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let JulianTests () =
     test(schemaOf<JulianSchema>(), JulianDataSet.CommonYear, JulianDataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let LunisolarTests () =
     test(schemaOf<LunisolarSchema>(), LunisolarDataSet.CommonYear, LunisolarDataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let Persian2820Tests () =
     test(schemaOf<Persian2820Schema>(), Persian2820DataSet.CommonYear, Persian2820DataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let TabularIslamicTests () =
     test(schemaOf<TabularIslamicSchema>(), TabularIslamicDataSet.CommonYear, TabularIslamicDataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let TropicaliaTests () =
     test(schemaOf<TropicaliaSchema>(), TropicaliaDataSet.CommonYear, TropicaliaDataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let Tropicalia3031Tests () =
     test(schemaOf<Tropicalia3031Schema>(), Tropicalia3031DataSet.CommonYear, Tropicalia3031DataSet.LeapYear)
 
-[<Fact; TestExcludeFrom(TestExcludeFrom.Smoke)>]
+[<Fact>]
 let Tropicalia3130Tests () =
     test(schemaOf<Tropicalia3130Schema>(), Tropicalia3130DataSet.CommonYear, Tropicalia3130DataSet.LeapYear)

@@ -42,7 +42,6 @@ type Coptic12Tests() =
 
 // PlainSystemArithmetic
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type Coptic13Tests() =
     inherit SystemArithmeticFacts<Coptic13DataSet>(ariOf<Coptic13Schema>())
 
@@ -70,7 +69,6 @@ type FrenchRepublican13Tests() =
 
 // GregorianSystemArithmetic
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type GregorianTests() =
     inherit SystemArithmeticFacts<GregorianDataSet>(ariOf<GregorianSchema>())
 
@@ -88,7 +86,6 @@ type JulianTests() =
 
 // LunisolarSystemArithmetic
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type LunisolarTests() =
     inherit SystemArithmeticFacts<LunisolarDataSet>(ariOf<LunisolarSchema>())
 
@@ -106,7 +103,6 @@ type Persian2820Tests() =
 
 // Solar13SystemArithmetic
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type PositivistTests() =
     inherit SystemArithmeticFacts<PositivistDataSet>(ariOf<PositivistSchema>())
 
@@ -114,7 +110,6 @@ type PositivistTests() =
 
 // LunarSystemArithmetic
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Smoke)>]
 type TabularIslamicTests() =
     inherit SystemArithmeticFacts<TabularIslamicDataSet>(ariOf<TabularIslamicSchema>())
 
