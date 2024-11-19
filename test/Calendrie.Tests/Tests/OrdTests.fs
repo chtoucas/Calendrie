@@ -52,7 +52,7 @@ module Prelude =
     open TestCommon
 
     [<Fact>]
-    let ``Default value of Ord is Ord.Zeroth`` () =
+    let ``Default value of Ord is Ord:Zeroth`` () =
         Unchecked.defaultof<Ord> === Ord.Zeroth
 
     // NB: the constructor is private.
@@ -141,13 +141,13 @@ module Factories =
         outOfRangeExn "rank" (fun () -> Ord.FromRank(0))
 
     [<Property>]
-    let ``FromRank(-Int32.MaxValue) = Ord.MinValue`` () =
+    let ``FromRank(-Int32:MaxValue) = Ord:MinValue`` () =
         let ord = Ord.FromRank(-Int32.MaxValue)
 
         ord = Ord.MinValue
 
     [<Property>]
-    let ``FromRank(Int32.MaxValue) = Ord.MaxValue`` () =
+    let ``FromRank(Int32:MaxValue) = Ord:MaxValue`` () =
         let ord = Ord.FromRank(Int32.MaxValue)
 
         ord = Ord.MaxValue
@@ -320,7 +320,7 @@ module Math =
     //
 
     [<Fact>]
-    let ``Ord.MinValue - 1 overflows`` () =
+    let ``Ord:MinValue - 1 overflows`` () =
         (fun () -> Ord.MinValue - 1)               |> overflows
         (fun () -> Ord.MinValue + (-1))            |> overflows
         (fun () -> Ord.MinValue.Add(-1))           |> overflows
@@ -328,12 +328,12 @@ module Math =
         (fun () -> Ord.op_Decrement(Ord.MinValue)) |> overflows
 
     [<Fact>]
-    let ``Ord.MinValue + Int32.MaxValue does not overflow`` () =
+    let ``Ord:MinValue + Int32:MaxValue does not overflow`` () =
         Ord.MinValue + Int32.MaxValue    === Ord.Zeroth + 1
         Ord.MinValue.Add(Int32.MaxValue) === Ord.Zeroth + 1
 
     [<Fact>]
-    let ``-Ord.MinValue = Ord.MaxValue`` () =
+    let ``-Ord:MinValue = Ord:MaxValue`` () =
         -Ord.MinValue === Ord.MaxValue
         Ord.MinValue.Negate() === Ord.MaxValue
 
@@ -342,7 +342,7 @@ module Math =
     //
 
     [<Fact>]
-    let ``Ord.MaxValue + 1 overflows`` () =
+    let ``Ord:MaxValue + 1 overflows`` () =
         (fun () -> Ord.MaxValue + 1)               |> overflows
         (fun () -> Ord.MaxValue - (-1))            |> overflows
         (fun () -> Ord.MaxValue.Add(1))            |> overflows
@@ -350,12 +350,12 @@ module Math =
         (fun () -> Ord.op_Increment(Ord.MaxValue)) |> overflows
 
     [<Fact>]
-    let ``Ord.MaxValue - Int32.MaxValue does not overflow`` () =
+    let ``Ord:MaxValue - Int32:MaxValue does not overflow`` () =
         Ord.MaxValue - Int32.MaxValue     === Ord.Zeroth
         Ord.MaxValue.Add(-Int32.MaxValue) === Ord.Zeroth
 
     [<Fact>]
-    let ``-Ord.MaxValue = Ord.MinValue`` () =
+    let ``-Ord:MaxValue = Ord:MinValue`` () =
         -Ord.MaxValue === Ord.MinValue
         Ord.MaxValue.Negate() === Ord.MinValue
 
@@ -366,22 +366,22 @@ module Math =
     // algebraic value of the result. Addition to Ord.First has no such meaning.
 
     [<Fact>]
-    let ``Ord.Zeroth + Int32.MaxValue does not overflow`` () =
+    let ``Ord:Zeroth + Int32:MaxValue does not overflow`` () =
         Ord.Zeroth + Int32.MaxValue    |> ignore
         Ord.Zeroth.Add(Int32.MaxValue) |> ignore
 
     [<Fact>]
-    let ``Ord.Zeroth + Int32.MinValue overflows`` () =
+    let ``Ord:Zeroth + Int32:MinValue overflows`` () =
         (fun () -> Ord.Zeroth + Int32.MinValue)    |> overflows
         (fun () -> Ord.Zeroth.Add(Int32.MinValue)) |> overflows
 
     [<Fact>]
-    let ``Ord.Zeroth + (Int32.MinValue + 1) overflows`` () =
+    let ``Ord:Zeroth + (Int32:MinValue + 1) overflows`` () =
         (fun () -> Ord.Zeroth + (Int32.MinValue + 1))  |> overflows
         (fun () -> Ord.Zeroth.Add(Int32.MinValue + 1)) |> overflows
 
     [<Fact>]
-    let ``Ord.Zeroth + (Int32.MinValue + 2) does not overflow`` () =
+    let ``Ord:Zeroth + (Int32:MinValue + 2) does not overflow`` () =
         Ord.Zeroth + (Int32.MinValue + 2)  |> ignore
         Ord.Zeroth.Add(Int32.MinValue + 2) |> ignore
 
@@ -390,7 +390,7 @@ module Math =
     //
 
     [<Fact>]
-    let ``Ord.MaxValue - Ord.MinValue overflows`` () =
+    let ``Ord:MaxValue - Ord:MinValue overflows`` () =
         (fun () -> Ord.MaxValue - Ord.MinValue) |> overflows
 
     //

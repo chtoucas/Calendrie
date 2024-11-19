@@ -62,7 +62,7 @@ module Prelude =
     let dayNumberToDayOfWeekData = CalCalDataSet.DayNumberToDayOfWeekData
 
     [<Fact>]
-    let ``Default value of DayNumber is DayNumber.Zero`` () =
+    let ``Default value of DayNumber is DayNumber:Zero`` () =
         Unchecked.defaultof<DayNumber> === DayNumber.Zero
 
     // NB: the constructor is private.
@@ -180,21 +180,21 @@ module GregorianConversion =
     //
 
     [<Fact>]
-    let ``Date parts for DayNumber.Zero`` () =
+    let ``Date parts for DayNumber:Zero`` () =
         let dayNumber = DayNumber.Zero
 
         let ymd = dayNumber.GetGregorianParts()
         ymd.Deconstruct() === (1, 1, 1)
 
     [<Fact>]
-    let ``Ordinal parts for DayNumber.Zero`` () =
+    let ``Ordinal parts for DayNumber:Zero`` () =
         let dayNumber = DayNumber.Zero
 
         let ymd = dayNumber.GetGregorianOrdinalParts()
         ymd.Deconstruct() === (1, 1)
 
     [<Fact>]
-    let ``Date parts for DayNumber.MinSupportedYear`` () =
+    let ``Date parts for DayNumber:MinSupportedYear`` () =
         let dayNumber = DayNumber.FromGregorianParts(DayNumber.MinSupportedYear, 1, 1)
         dayNumber === DayNumber.GregorianDomain.Min
 
@@ -204,7 +204,7 @@ module GregorianConversion =
         dayNumber.GetGregorianYear() === DayNumber.MinSupportedYear
 
     [<Fact>]
-    let ``Ordinal parts for DayNumber.MinSupportedYear`` () =
+    let ``Ordinal parts for DayNumber:MinSupportedYear`` () =
         let dayNumber = DayNumber.FromGregorianOrdinalParts(DayNumber.MinSupportedYear, 1)
         dayNumber === DayNumber.GregorianDomain.Min
 
@@ -214,7 +214,7 @@ module GregorianConversion =
         dayNumber.GetGregorianYear() === DayNumber.MinSupportedYear
 
     [<Fact>]
-    let ``Date parts for DayNumber.MaxSupportedYear`` () =
+    let ``Date parts for DayNumber:MaxSupportedYear`` () =
         let dayNumber = DayNumber.FromGregorianParts(DayNumber.MaxSupportedYear, 12, 31)
         dayNumber === DayNumber.GregorianDomain.Max
 
@@ -224,7 +224,7 @@ module GregorianConversion =
         dayNumber.GetGregorianYear() === DayNumber.MaxSupportedYear
 
     [<Fact>]
-    let ``Ordinal parts for DayNumber.MaxSupportedYear`` () =
+    let ``Ordinal parts for DayNumber:MaxSupportedYear`` () =
         GregorianFormulae.IsLeapYear(DayNumber.MaxSupportedYear) |> ok
 
         let dayNumber = DayNumber.FromGregorianOrdinalParts(DayNumber.MaxSupportedYear, GJSchema.DaysInLeapYear)
@@ -323,21 +323,21 @@ module JulianConversion =
     //
 
     [<Fact>]
-    let ``Date parts for DayNumber.Zero - 2`` () =
+    let ``Date parts for DayNumber:Zero - 2`` () =
         let dayNumber = DayNumber.Zero - 2
 
         let ymd = dayNumber.GetJulianParts()
         ymd.Deconstruct() === (1, 1, 1)
 
     [<Fact>]
-    let ``Ordinal parts for DayNumber.Zero - 2`` () =
+    let ``Ordinal parts for DayNumber:Zero - 2`` () =
         let dayNumber = DayNumber.Zero - 2
 
         let ymd = dayNumber.GetJulianOrdinalParts()
         ymd.Deconstruct() === (1, 1)
 
     [<Fact>]
-    let ``Date parts for DayNumber.MinSupportedYear`` () =
+    let ``Date parts for DayNumber:MinSupportedYear`` () =
         let dayNumber = DayNumber.FromJulianParts(DayNumber.MinSupportedYear, 1, 1)
         dayNumber === DayNumber.JulianDomain.Min
 
@@ -347,7 +347,7 @@ module JulianConversion =
         dayNumber.GetJulianYear() === DayNumber.MinSupportedYear
 
     [<Fact>]
-    let ``Ordinal parts for DayNumber.MinSupportedYear`` () =
+    let ``Ordinal parts for DayNumber:MinSupportedYear`` () =
         let dayNumber = DayNumber.FromJulianOrdinalParts(DayNumber.MinSupportedYear, 1)
         dayNumber === DayNumber.JulianDomain.Min
 
@@ -357,7 +357,7 @@ module JulianConversion =
         dayNumber.GetJulianYear() === DayNumber.MinSupportedYear
 
     [<Fact>]
-    let ``Date parts for DayNumber.MaxSupportedYear`` () =
+    let ``Date parts for DayNumber:MaxSupportedYear`` () =
         let dayNumber = DayNumber.FromJulianParts(DayNumber.MaxSupportedYear, 12, 31)
         dayNumber === DayNumber.JulianDomain.Max
 
@@ -367,7 +367,7 @@ module JulianConversion =
         dayNumber.GetJulianYear() === DayNumber.MaxSupportedYear
 
     [<Fact>]
-    let ``Ordinal parts for DayNumber.MaxSupportedYear`` () =
+    let ``Ordinal parts for DayNumber:MaxSupportedYear`` () =
         JulianFormulae.IsLeapYear(DayNumber.MaxSupportedYear) |> ok
 
         let dayNumber = DayNumber.FromJulianOrdinalParts(DayNumber.MaxSupportedYear, GJSchema.DaysInLeapYear)
@@ -450,27 +450,27 @@ module DayOfWeekAdjustment =
     //
 
     [<Fact>]
-    let ``Previous() near DayNumber.MinValue`` () =
+    let ``Previous() near DayNumber:MinValue`` () =
         DayOfWeekAdjusterTester.NearMinValue(DayNumber.MinValue).TestPrevious()
 
     [<Fact>]
-    let ``PreviousOrSame() near DayNumber.MinValue`` () =
+    let ``PreviousOrSame() near DayNumber:MinValue`` () =
         DayOfWeekAdjusterTester.NearMinValue(DayNumber.MinValue).TestPreviousOrSame()
 
     [<Fact>]
-    let ``Nearest() near DayNumber.MinValue`` () =
+    let ``Nearest() near DayNumber:MinValue`` () =
         DayOfWeekAdjusterTester.NearMinValue(DayNumber.MinValue).TestNearest()
 
     [<Fact>]
-    let ``Nearest() near DayNumber.MaxValue`` () =
+    let ``Nearest() near DayNumber:MaxValue`` () =
         DayOfWeekAdjusterTester.NearMaxValue(DayNumber.MaxValue).TestNearest()
 
     [<Fact>]
-    let ``NextOrSame() near DayNumber.MaxValue`` () =
+    let ``NextOrSame() near DayNumber:MaxValue`` () =
         DayOfWeekAdjusterTester.NearMaxValue(DayNumber.MaxValue).TestNextOrSame()
 
     [<Fact>]
-    let ``Next() near DayNumber.MaxValue`` () =
+    let ``Next() near DayNumber:MaxValue`` () =
         DayOfWeekAdjusterTester.NearMaxValue(DayNumber.MaxValue).TestNext()
 
     //
@@ -700,33 +700,33 @@ module Math =
 
     // NB: DayNumber.MaxDaysSinceZero = Int32.MaxValue - 1
     [<Fact>]
-    let ``DayNumber.Zero + Int32.MaxValue overflows`` () =
+    let ``DayNumber:Zero + Int32:MaxValue overflows`` () =
         (fun () -> DayNumber.Zero + Int32.MaxValue)         |> overflows
         (fun () -> DayNumber.Zero.PlusDays(Int32.MaxValue)) |> overflows
 
     [<Fact>]
-    let ``DayNumber.Zero + (Int32.MaxValue - 1) = DayNumber.MaxValue`` () =
+    let ``DayNumber:Zero + (Int32:MaxValue - 1) = DayNumber:MaxValue`` () =
         DayNumber.Zero + (Int32.MaxValue - 1)       === DayNumber.MaxValue
         DayNumber.Zero.PlusDays(Int32.MaxValue - 1) === DayNumber.MaxValue
 
     [<Fact>]
-    let ``DayNumber.MaxValue - (Int32.MaxValue - 1) = DayNumber.Zero`` () =
+    let ``DayNumber:MaxValue - (Int32:MaxValue - 1) = DayNumber:Zero`` () =
         DayNumber.MaxValue - (Int32.MaxValue - 1)          === DayNumber.Zero
         DayNumber.MaxValue.PlusDays(-(Int32.MaxValue - 1)) === DayNumber.Zero
 
     // NB: DayNumber.MinDaysSinceZero = Int32.MinValue + 1
     [<Fact>]
-    let ``DayNumber.Zero + Int32.MinValue overflows`` () =
+    let ``DayNumber:Zero + Int32:MinValue overflows`` () =
         (fun () -> DayNumber.Zero + Int32.MinValue)         |> overflows
         (fun () -> DayNumber.Zero.PlusDays(Int32.MinValue)) |> overflows
 
     [<Fact>]
-    let ``DayNumber.Zero + (Int32.MinValue + 1) = DayNumber.MinValue`` () =
+    let ``DayNumber:Zero + (Int32:MinValue + 1) = DayNumber:MinValue`` () =
         DayNumber.Zero + (Int32.MinValue + 1)       === DayNumber.MinValue
         DayNumber.Zero.PlusDays(Int32.MinValue + 1) === DayNumber.MinValue
 
     [<Fact>]
-    let ``DayNumber.MinValue - (Int32.MinValue + 1) = DayNumber.MinValue`` () =
+    let ``DayNumber:MinValue - (Int32:MinValue + 1) = DayNumber:MinValue`` () =
         DayNumber.MinValue - (Int32.MinValue + 1)          === DayNumber.Zero
         DayNumber.MinValue.PlusDays(-(Int32.MinValue + 1)) === DayNumber.Zero
 
@@ -735,14 +735,14 @@ module Math =
     //
 
     [<Fact>]
-    let ``DayNumber.MinValue - 1 overflows`` () =
+    let ``DayNumber:MinValue - 1 overflows`` () =
         (fun () -> DayNumber.MinValue - 1)           |> overflows
         (fun () -> DayNumber.MinValue + (-1))        |> overflows
         (fun () -> DayNumber.MinValue.PlusDays(-1))  |> overflows
         (fun () -> DayNumber.MinValue.PreviousDay()) |> overflows
 
     [<Fact>]
-    let ``DayNumber.MinValue + Int32.MaxValue does not overflow`` () =
+    let ``DayNumber:MinValue + Int32:MaxValue does not overflow`` () =
         DayNumber.MinValue + Int32.MaxValue         === DayNumber.Zero
         DayNumber.MinValue.PlusDays(Int32.MaxValue) === DayNumber.Zero
 
@@ -751,14 +751,14 @@ module Math =
     //
 
     [<Fact>]
-    let ``DayNumber.MaxValue + 1 overflows`` () =
+    let ``DayNumber:MaxValue + 1 overflows`` () =
         (fun () -> DayNumber.MaxValue + 1)         |> overflows
         (fun () -> DayNumber.MaxValue - (-1))      |> overflows
         (fun () -> DayNumber.MaxValue.PlusDays(1)) |> overflows
         (fun () -> DayNumber.MaxValue.NextDay())   |> overflows
 
     [<Fact>]
-    let ``DayNumber.MaxValue - Int32.MaxValue does not overflow`` () =
+    let ``DayNumber:MaxValue - Int32:MaxValue does not overflow`` () =
         DayNumber.MaxValue - Int32.MaxValue          === DayNumber.Zero - 1
         DayNumber.MaxValue.PlusDays(-Int32.MaxValue) === DayNumber.Zero - 1
 
@@ -767,7 +767,7 @@ module Math =
     //
 
     [<Fact>]
-    let ``DayNumber.MaxValue - DayNumber.MinValue overflows`` () =
+    let ``DayNumber:MaxValue - DayNumber:MinValue overflows`` () =
         (fun () -> DayNumber.MaxValue - DayNumber.MinValue) |> overflows
 
     //

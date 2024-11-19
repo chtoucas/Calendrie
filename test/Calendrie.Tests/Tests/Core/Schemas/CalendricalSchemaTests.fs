@@ -72,14 +72,14 @@ module Prelude =
 
 module SystemSchemaPrelude =
     [<Fact>]
-    let ``Constructor expects supportedYears.Min to be >= MaxSupportedYears.Min`` () =
+    let ``Constructor expects supportedYears:Min to be >= MaxSupportedYears:Min`` () =
         let maxrange = SystemSchema.MaxSupportedYears
         let range = maxrange.WithMin(maxrange.Min - 1)
 
         outOfRangeExn "supportedYears" (fun () -> new FauxSystemSchema(range))
 
     [<Fact>]
-    let ``Constructor expects supportedYears.Max to be <= MaxSupportedYears.Max`` () =
+    let ``Constructor expects supportedYears:Max to be <= MaxSupportedYears:Max`` () =
         let maxrange = SystemSchema.MaxSupportedYears
         let range = maxrange.WithMax(maxrange.Max + 1)
 

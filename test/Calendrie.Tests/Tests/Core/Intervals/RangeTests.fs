@@ -24,7 +24,7 @@ module Prelude =
         Unchecked.defaultof<Range<int>> === v
 
     [<Fact>]
-    let ``Static property Range.Maximal32`` () =
+    let ``Static property Range:Maximal32`` () =
         let v = Range.Maximal32
         let endpoints = OrderedPair.Create(Int32.MinValue, Int32.MaxValue)
 
@@ -49,11 +49,11 @@ module Prelude =
 
 module Factories =
     [<Property>]
-    let ``Range.Create() throws when max < min`` (x: Pair<int>) =
+    let ``Range:Create() throws when max < min`` (x: Pair<int>) =
         outOfRangeExn "max" (fun () -> Range.Create(x.Max, x.Min))
 
     [<Property>]
-    let ``Range.Create()`` (x: Pair<int>) =
+    let ``Range:Create()`` (x: Pair<int>) =
         let v = Range.Create(x.Min, x.Max)
         let endpoints = OrderedPair.Create(x.Min, x.Max)
 
@@ -77,7 +77,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.Create() when singleton`` (i: int) =
+    let ``Range:Create() when singleton`` (i: int) =
         let v = Range.Create(i, i)
         let endpoints = OrderedPair.Create(i, i)
 
@@ -101,7 +101,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.Singleton()`` (i: int) =
+    let ``Range:Singleton()`` (i: int) =
         let v = Range.Singleton(i)
         let endpoints = OrderedPair.Create(i, i)
 
@@ -125,7 +125,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.Maximal()`` () =
+    let ``Range:Maximal()`` () =
         // We test this method w/ int16. For int, see Maximal32 below.
         let v = Range.Maximal<int16>()
         let endpoints = OrderedPair.Create(Int16.MinValue, Int16.MaxValue)
@@ -150,7 +150,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.StartingAt()`` (i: int) =
+    let ``Range:StartingAt()`` (i: int) =
         let v = Range.StartingAt(i)
         let endpoints = OrderedPair.Create(i, Int32.MaxValue)
 
@@ -174,7 +174,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.StartingAt(length)`` (i: int) =
+    let ``Range:StartingAt(length)`` (i: int) =
         let len = 10
         let v = Range.StartingAt(i, len)
         let j = i + len - 1
@@ -200,7 +200,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.EndingAt()`` (i: int) =
+    let ``Range:EndingAt()`` (i: int) =
         let v = Range.EndingAt(i)
         let endpoints = OrderedPair.Create(Int32.MinValue, i)
 
@@ -224,7 +224,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.EndingAt(length)`` (i: int) =
+    let ``Range:EndingAt(length)`` (i: int) =
         let len = 10
         let v = Range.EndingAt(i, len)
         let j = i - (len - 1)
@@ -250,7 +250,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range.FromEndpoints()`` (x: OrderedPair<int>) =
+    let ``Range:FromEndpoints()`` (x: OrderedPair<int>) =
         let v = Range.FromEndpoints(x)
         let isSingleton = x.LowerValue = x.UpperValue
 
@@ -279,7 +279,7 @@ module Factories =
 
 module Adjustments =
     [<Fact>]
-    let ``WithMin() throws when min > range.Max`` () =
+    let ``WithMin() throws when min > range:Max`` () =
         let v = Range.Create(1, 4)
 
         outOfRangeExn "min" (fun () -> v.WithMin(5))
@@ -296,7 +296,7 @@ module Adjustments =
         v.WithMin(i) === range
 
     [<Fact>]
-    let ``WithMax() throws when max < range.Min`` () =
+    let ``WithMax() throws when max < range:Min`` () =
         let v = Range.Create(1, 4)
 
         outOfRangeExn "max" (fun () -> v.WithMax(0))
@@ -318,14 +318,14 @@ module SetOperations =
     //
 
     [<Fact>]
-    let ``Range.Maximal32.Contains(Int32.Min/MaxValue)`` () =
+    let ``Range:Maximal32:Contains(Int32:Min/MaxValue)`` () =
         let v = Range.Maximal32
 
         v.Contains(Int32.MinValue) |> ok
         v.Contains(Int32.MaxValue) |> ok
 
     [<Property>]
-    let ``Range.Maximal32.Contains() always returns true`` (i: int) =
+    let ``Range:Maximal32:Contains() always returns true`` (i: int) =
         let v = Range.Maximal32
 
         v.Contains(i)
@@ -532,47 +532,47 @@ module Extensions =
     //
 
     [<Fact>]
-    let ``Range<int>.Count() and LongCount()`` () =
+    let ``Range<int>:Count() and LongCount()`` () =
         let v = Range.Create(1, 4)
 
         v.Count() === 4
         v.LongCount() === 4L
 
     [<Fact>]
-    let ``Range<int>.Count() and LongCount() for a singleton`` () =
+    let ``Range<int>:Count() and LongCount() for a singleton`` () =
         let v = Range.Singleton(1)
 
         v.Count() === 1
         v.LongCount() === 1L
 
     [<Fact>]
-    let ``Range.Maximal32.Count() overflows`` () =
+    let ``Range:Maximal32:Count() overflows`` () =
         let v = Range.Maximal32
 
         (fun () -> v.Count()) |> overflows
 
     [<Fact>]
-    let ``Range.Maximal32.LongCount()`` () =
+    let ``Range:Maximal32:LongCount()`` () =
         let v = Range.Maximal32
         let count = (int64)Int32.MaxValue - (int64)Int32.MinValue + 1L
 
         v.LongCount() === count
 
     [<Fact>]
-    let ``Range.Maximal32.ToEnumerable() overflows`` () =
+    let ``Range:Maximal32:ToEnumerable() overflows`` () =
         let v = Range.Maximal32
 
         (fun () -> v.ToEnumerable()) |> overflows
 
     [<Fact>]
-    let ``Range<int>.ToEnumerable() singleton case`` () =
+    let ``Range<int>:ToEnumerable() singleton case`` () =
         let v = Range.Singleton(4)
         let q = Enumerable.Range(4, 1)
 
         v.ToEnumerable() === q
 
     [<Fact>]
-    let ``Range<int>.ToEnumerable()`` () =
+    let ``Range<int>:ToEnumerable()`` () =
         let v = Range.Create(1, 4)
         let q = Enumerable.Range(1, 4)
 
@@ -583,41 +583,41 @@ module Extensions =
     //
 
     [<Fact>]
-    let ``Range<DayNumber>.Count() and LongCount()`` () =
+    let ``Range<DayNumber>:Count() and LongCount()`` () =
         let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
 
         v.Count() === 4
         v.LongCount() === 4L
 
     [<Fact>]
-    let ``Range<DayNumber>.Count() and LongCount() for a singleton`` () =
+    let ``Range<DayNumber>:Count() and LongCount() for a singleton`` () =
         let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle)
 
         v.Count() === 1
         v.LongCount() === 1L
 
     [<Fact>]
-    let ``Range.Maximum<DayNumber>().Count() overflows`` () =
+    let ``Range:Maximum<DayNumber>():Count() overflows`` () =
         let v = Range.Maximal<DayNumber>()
 
         (fun () -> v.Count()) |> overflows
 
     [<Fact>]
-    let ``Range.Maximum<DayNumber>().LongCount()`` () =
+    let ``Range:Maximum<DayNumber>():LongCount()`` () =
         let v = Range.Maximal<DayNumber>()
         let count = (int64)DayNumber.MaxDaysSinceZero - (int64)DayNumber.MinDaysSinceZero + 1L
 
         v.LongCount() === count
 
     [<Fact>]
-    let ``Range<DayNumber>.ToEnumerable() singleton case`` () =
+    let ``Range<DayNumber>:ToEnumerable() singleton case`` () =
         let v = Range.Singleton(DayZero.OldStyle)
         let q = seq { yield DayZero.OldStyle }
 
         v.ToEnumerable() === q
 
     [<Fact>]
-    let ``Range<DayNumber>.ToEnumerable()`` () =
+    let ``Range<DayNumber>:ToEnumerable()`` () =
         let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
         let q = seq {
             yield DayZero.OldStyle

@@ -74,7 +74,7 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<TimeOfDay>) === 4
 
     [<Fact>]
-    let ``Types in Calendrie.Core`` () =
+    let ``Types in Calendrie:Core`` () =
         Marshal.SizeOf(typedefof<Yedoy>) === 4
         Marshal.SizeOf(typedefof<Yedoyx>) === 4
         Marshal.SizeOf(typedefof<Yemo>) === 4
@@ -83,7 +83,7 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<Yemox>) === 4
 
     [<Fact>]
-    let ``Types in Calendrie.Specialized`` () =
+    let ``Types in Calendrie:Specialized`` () =
         Marshal.SizeOf(typedefof<Armenian13Date>) === 4
         Marshal.SizeOf(typedefof<ArmenianDate>) === 4
         Marshal.SizeOf(typedefof<CivilDate>) === 4
@@ -101,7 +101,7 @@ module RuntimeSizes =
     // TODO(code): test all models.
     // TODO(code): add tests for the data types defined within THIS project.
     [<Fact>]
-    let ``Types in Calendrie.Testing.Data`` () =
+    let ``Types in Calendrie:Testing:Data`` () =
         Marshal.SizeOf(typedefof<YearMonthsSinceEpoch>) === 8
         Marshal.SizeOf(typedefof<YearDaysSinceEpoch>) === 8
         Marshal.SizeOf(typedefof<YearDayNumber>) === 8

@@ -80,7 +80,7 @@ module Prelude =
 
 module Factories =
     [<Fact>]
-    let ``SystemArithmetic.CreateDefault()`` () =
+    let ``SystemArithmetic:CreateDefault()`` () =
         SystemArithmetic.CreateDefault(sysegmentOf<Coptic12Schema>())           |> is<Solar12SystemArithmetic>
         SystemArithmetic.CreateDefault(sysegmentOf<Coptic13Schema>())           |> is<PlainSystemArithmetic>
         SystemArithmetic.CreateDefault(sysegmentOf<Egyptian12Schema>())         |> is<Solar12SystemArithmetic>

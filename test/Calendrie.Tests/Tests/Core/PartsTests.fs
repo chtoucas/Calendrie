@@ -374,14 +374,14 @@ module Yemoda =
         //
 
         [<Fact>]
-        let ``Int32.MinValue -> 01/01/-2_097_151`` () =
+        let ``Int32:MinValue -> 01/01/-2_097_151`` () =
             let ymd = Yemoda.FromBinary(Int32.MinValue)
 
             ymd.ToBinary() === Int32.MinValue
             ymd === Yemoda.MinValue
 
         [<Fact>]
-        let ``Int32.MaxValue -> 64/16/2_097_152`` () =
+        let ``Int32:MaxValue -> 64/16/2_097_152`` () =
             let ymd = Yemoda.FromBinary(Int32.MaxValue)
 
             ymd.ToBinary() === Int32.MaxValue
@@ -689,7 +689,7 @@ module Yemo =
         //
 
         [<Fact>]
-        let ``Int32.MinValue -> 01/-2_097_151`` () =
+        let ``Int32:MinValue -> 01/-2_097_151`` () =
             let ym = Yemo.FromBinary(Int32.MinValue)
 
             ym.ToBinary() === Int32.MinValue
@@ -904,14 +904,14 @@ module Yedoy =
         //
 
         [<Fact>]
-        let ``Int32.MinValue -> 001/-2_097_151`` () =
+        let ``Int32:MinValue -> 001/-2_097_151`` () =
             let ydoy = Yedoy.FromBinary(Int32.MinValue)
 
             ydoy.ToBinary() === Int32.MinValue
             ydoy === Yedoy.MinValue
 
         [<Fact>]
-        let ``Int32.MaxValue -> 1024/2_097_152`` () =
+        let ``Int32:MaxValue -> 1024/2_097_152`` () =
             let ydoy = Yedoy.FromBinary(Int32.MaxValue)
 
             ydoy.ToBinary() === Int32.MaxValue
@@ -1157,14 +1157,14 @@ module Yemodax =
         //
 
         [<Fact>]
-        let ``Int32.MinValue -> 01/01/-16_383 + 0`` () =
+        let ``Int32:MinValue -> 01/01/-16_383 + 0`` () =
             let ymdx = Yemodax.FromBinary(Int32.MinValue)
 
             ymdx.ToBinary() === Int32.MinValue
             ymdx === Yemodax.MinValue
 
         [<Fact>]
-        let ``Int32.MaxValue -> 64/16/16_384 + 127`` () =
+        let ``Int32:MaxValue -> 64/16/16_384 + 127`` () =
             let ymdx = Yemodax.FromBinary(Int32.MaxValue)
 
             ymdx.ToBinary() === Int32.MaxValue
@@ -1380,7 +1380,7 @@ module Yemox =
         //
 
         [<Fact>]
-        let ``Int32.MinValue -> 01/-16_383 + 0`` () =
+        let ``Int32:MinValue -> 01/-16_383 + 0`` () =
             let ymx = Yemox.FromBinary(Int32.MinValue)
 
             ymx.ToBinary() === Int32.MinValue
@@ -1583,14 +1583,14 @@ module Yedoyx =
         //
 
         [<Fact>]
-        let ``Int32.MinValue -> 001/-16_383 + 0`` () =
+        let ``Int32:MinValue -> 001/-16_383 + 0`` () =
             let ydoyx = Yedoyx.FromBinary(Int32.MinValue)
 
             ydoyx.ToBinary() === Int32.MinValue
             ydoyx === Yedoyx.MinValue
 
         [<Fact>]
-        let ``Int32.MaxValue -> 1024/16_384 + 127`` () =
+        let ``Int32:MaxValue -> 1024/16_384 + 127`` () =
             let ydoyx = Yedoyx.FromBinary(Int32.MaxValue)
 
             ydoyx.ToBinary() === Int32.MaxValue

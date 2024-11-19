@@ -29,7 +29,7 @@ module Prelude =
 
 module Factories =
     [<Fact>]
-    let ``RangeSet.Empty()`` () =
+    let ``RangeSet:Empty()`` () =
         let v = RangeSet.Empty<int>()
 
         v.IsEmpty |> ok
@@ -37,11 +37,11 @@ module Factories =
         v.ToString() === "[]"
 
     [<Property>]
-    let ``RangeSet.Create() throws when max < min`` (x: Pair<int>) =
+    let ``RangeSet:Create() throws when max < min`` (x: Pair<int>) =
         outOfRangeExn "max" (fun () -> RangeSet.Create(x.Max, x.Min))
 
     [<Property>]
-    let ``RangeSet.Create()`` (x: Pair<int>) =
+    let ``RangeSet:Create()`` (x: Pair<int>) =
         let v = RangeSet.Create(x.Min, x.Max)
         let range = Range.Create(x.Min, x.Max)
 
@@ -54,7 +54,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``RangeSet.Create() when singleton`` (i: int) =
+    let ``RangeSet:Create() when singleton`` (i: int) =
         let v = RangeSet.Create(i, i)
         let range = Range.Singleton(i)
 
@@ -67,7 +67,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``RangeSet.FromEndpoints()`` (x: OrderedPair<int>) =
+    let ``RangeSet:FromEndpoints()`` (x: OrderedPair<int>) =
         let v = RangeSet.FromEndpoints(x)
         let range = new Range<int>(x.LowerValue, x.UpperValue)
 

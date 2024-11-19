@@ -23,7 +23,7 @@ module Prelude =
 
 module Factories =
     [<Property>]
-    let ``LowerRay.EndingAt()`` (i: int) =
+    let ``LowerRay:EndingAt()`` (i: int) =
         let v = LowerRay.EndingAt(i)
 
         v.Max === i
@@ -42,7 +42,7 @@ module Factories =
         v === other
 
     [<Fact>]
-    let ``LowerRay.EndingAt(Int32.MinValue) is a singleton`` () =
+    let ``LowerRay:EndingAt(Int32:MinValue) is a singleton`` () =
         let v = LowerRay.EndingAt(Int32.MinValue)
 
         v.Max === Int32.MinValue
@@ -61,7 +61,7 @@ module Factories =
         v === other
 
     [<Fact>]
-    let ``LowerRay.EndingAt(Int32.MaxValue)`` () =
+    let ``LowerRay:EndingAt(Int32:MaxValue)`` () =
         let v = LowerRay.EndingAt(Int32.MaxValue)
 
         v.Max === Int32.MaxValue
@@ -85,27 +85,27 @@ module SetOperations =
     //
 
     [<Fact>]
-    let ``LowerRay.EndingAt(Int32.MinValue).Contains(Int32.MinValue)`` () =
+    let ``LowerRay:EndingAt(Int32:MinValue):Contains(Int32:MinValue)`` () =
         let v = LowerRay.EndingAt(Int32.MinValue)
 
         v.Contains(Int32.MinValue) |> ok
 
     [<Property>]
-    let ``LowerRay.EndingAt(Int32.MinValue).Contains() (almost) always returns false`` (i: int) = i <> Int32.MinValue &&&& (
+    let ``LowerRay:EndingAt(Int32:MinValue):Contains() (almost) always returns false`` (i: int) = i <> Int32.MinValue &&&& (
         let v = LowerRay.EndingAt(Int32.MinValue)
 
         not (v.Contains(i))
     )
 
     [<Fact>]
-    let ``LowerRay.EndingAt(Int32.MaxValue).Contains(Int32.Min/MaxValue)`` () =
+    let ``LowerRay:EndingAt(Int32:MaxValue):Contains(Int32:Min/MaxValue)`` () =
         let v = LowerRay.EndingAt(Int32.MaxValue)
 
         v.Contains(Int32.MinValue) |> ok
         v.Contains(Int32.MaxValue) |> ok
 
     [<Property>]
-    let ``LowerRay.EndingAt(Int32.MaxValue).Contains() always returns true`` (i: int) =
+    let ``LowerRay:EndingAt(Int32:MaxValue):Contains() always returns true`` (i: int) =
         let v = LowerRay.EndingAt(Int32.MaxValue)
 
         v.Contains(i)
@@ -171,13 +171,13 @@ module Extensions =
     //
 
     [<Fact>]
-    let ``LowerRay.EndingAt(Int32.MaxValue).Complement() throws`` () =
+    let ``LowerRay:EndingAt(Int32.MaxValue):Complement() throws`` () =
         let v = LowerRay.EndingAt(Int32.MaxValue)
 
         throws<InvalidOperationException> (fun () -> v.Complement())
 
     [<Property>]
-    let ``LowerRay<int>.Complement()`` (x: LowerRay<int>) = x.Max <> Int32.MaxValue &&&& lazy (
+    let ``LowerRay<int>:Complement()`` (x: LowerRay<int>) = x.Max <> Int32.MaxValue &&&& lazy (
         let complement = UpperRay.StartingAt(x.Max + 1)
 
         x.Complement() = complement
@@ -188,13 +188,13 @@ module Extensions =
     //
 
     [<Fact>]
-    let ``LowerRay.EndingAt(DayNumber.MaxValue).Complement() throws`` () =
+    let ``LowerRay:EndingAt(DayNumber:MaxValue):Complement() throws`` () =
         let v = LowerRay.EndingAt(DayNumber.MaxValue)
 
         throws<InvalidOperationException> (fun () -> v.Complement())
 
     [<Property>]
-    let ``LowerRay<DayNumber>.Complement()`` (n: DayNumber) = n <> DayNumber.MaxValue &&&& lazy (
+    let ``LowerRay<DayNumber>:Complement()`` (n: DayNumber) = n <> DayNumber.MaxValue &&&& lazy (
         let w = LowerRay.EndingAt(n)
         let complement = UpperRay.StartingAt(n + 1)
 

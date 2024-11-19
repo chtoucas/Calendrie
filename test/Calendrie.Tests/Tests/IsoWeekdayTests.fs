@@ -27,7 +27,7 @@ let badDayOfWeekData = EnumDataSet.InvalidDayOfWeekData
 let badIsoWeekdayData = EnumDataSet.InvalidIsoWeekdayData
 
 [<Fact>]
-let ``Default value of IsoWeekday is IsoWeekday.None`` () =
+let ``Default value of IsoWeekday is IsoWeekday:None`` () =
     Unchecked.defaultof<IsoWeekday> === IsoWeekday.None
 
 //

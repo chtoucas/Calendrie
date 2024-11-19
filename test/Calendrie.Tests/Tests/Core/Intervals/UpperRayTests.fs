@@ -23,7 +23,7 @@ module Prelude =
 
 module Factories =
     [<Property>]
-    let ``UpperRay.StartingAt()`` (i: int) =
+    let ``UpperRay:StartingAt()`` (i: int) =
         let v = UpperRay.StartingAt(i)
 
         v.Min === i
@@ -42,7 +42,7 @@ module Factories =
         v === other
 
     [<Fact>]
-    let ``UpperRay.StartingAt(Int32.MinValue)`` () =
+    let ``UpperRay:StartingAt(Int32:MinValue)`` () =
         let v = UpperRay.StartingAt(Int32.MinValue)
 
         v.Min === Int32.MinValue
@@ -61,7 +61,7 @@ module Factories =
         v === other
 
     [<Fact>]
-    let ``UpperRay.StartingAt(Int32.MaxValue) is a singleton`` () =
+    let ``UpperRay:StartingAt(Int32:MaxValue) is a singleton`` () =
         let v = UpperRay.StartingAt(Int32.MaxValue)
 
         v.Min === Int32.MaxValue
@@ -85,27 +85,27 @@ module SetOperations =
     //
 
     [<Fact>]
-    let ``UpperRay.StartingAt(Int32.MaxValue).Contains(Int32.MaxValue)`` () =
+    let ``UpperRay:StartingAt(Int32:MaxValue):Contains(Int32:MaxValue)`` () =
         let v = UpperRay.StartingAt(Int32.MaxValue)
 
         v.Contains(Int32.MaxValue) |> ok
 
     [<Property>]
-    let ``UpperRay.StartingAt(Int32.MaxValue).Contains() almost always returns false`` (i: int) = i <> Int32.MaxValue &&&& (
+    let ``UpperRay:StartingAt(Int32:MaxValue):Contains() almost always returns false`` (i: int) = i <> Int32.MaxValue &&&& (
         let v = UpperRay.StartingAt(Int32.MaxValue)
 
         not (v.Contains(i))
     )
 
     [<Fact>]
-    let ``UpperRay.StartingAt(Int32.MinValue).Contains(Int32.Min/MaxValue)`` () =
+    let ``UpperRay:StartingAt(Int32:MinValue):Contains(Int32:Min/MaxValue)`` () =
         let v = UpperRay.StartingAt(Int32.MinValue)
 
         v.Contains(Int32.MinValue) |> ok
         v.Contains(Int32.MaxValue) |> ok
 
     [<Property>]
-    let ``UpperRay.StartingAt(Int32.MinValue).Contains() always returns true`` (i: int) =
+    let ``UpperRay:StartingAt(Int32:MinValue):Contains() always returns true`` (i: int) =
         let v = UpperRay.StartingAt(Int32.MinValue)
 
         v.Contains(i)
@@ -171,13 +171,13 @@ module Extensions =
     //
 
     [<Fact>]
-    let ``UpperRay.StartingAt(Int32.MinValue).Complement() throws`` () =
+    let ``UpperRay:StartingAt(Int32:MinValue):Complement() throws`` () =
         let v = UpperRay.StartingAt(Int32.MinValue)
 
         throws<InvalidOperationException> (fun () -> v.Complement())
 
     [<Property>]
-    let ``UpperRay<int>.Complement()`` (x: UpperRay<int>) = x.Min <> Int32.MinValue &&&& lazy (
+    let ``UpperRay<int>:Complement()`` (x: UpperRay<int>) = x.Min <> Int32.MinValue &&&& lazy (
         let complement = LowerRay.EndingAt(x.Min - 1)
 
         x.Complement() = complement
@@ -188,13 +188,13 @@ module Extensions =
     //
 
     [<Fact>]
-    let ``UpperRay.StartingAt(DayNumber.MinValue).Complement() throws`` () =
+    let ``UpperRay:StartingAt(DayNumber:MinValue):Complement() throws`` () =
         let v = UpperRay.StartingAt(DayNumber.MinValue)
 
         throws<InvalidOperationException> (fun () -> v.Complement())
 
     [<Property>]
-    let ``UpperRay<DayNumber>.Complement()`` (n: DayNumber) = n <> DayNumber.MinValue &&&& lazy (
+    let ``UpperRay<DayNumber>:Complement()`` (n: DayNumber) = n <> DayNumber.MinValue &&&& lazy (
         let v = UpperRay.StartingAt(n)
         let complement = LowerRay.EndingAt(n - 1)
 
