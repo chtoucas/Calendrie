@@ -5,12 +5,11 @@ module Calendrie.Tests.Core.PlainPreValidatorTestSuite
 
 open System
 
+open Calendrie.Core.Schemas
+open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
-
-open Calendrie.Core.Schemas
-open Calendrie.Core.Validation
 
 // PlainPreValidator being quite simple, we do no test it with all types of
 // schemas. We use the Copic13 schema because it may overflow when calling

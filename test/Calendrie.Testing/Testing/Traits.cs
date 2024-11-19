@@ -53,7 +53,7 @@ public enum TestExcludeFrom
     /// <para>We use this value to exclude tests of very low importance and not
     /// needed to achieve full code coverage.</para>
     /// <para>This value only exists to reduce the time needed to complete the
-    /// "regular" test.</para>
+    /// test plan "Regular".</para>
     /// <para>A test marked with this value will also be excluded from code
     /// coverage.</para>
     /// </summary>
@@ -64,22 +64,6 @@ public static class TestExcludeFromValues
 {
     public static readonly string CodeCoverage = TestExcludeFrom.CodeCoverage.ToString();
     public static readonly string Regular = TestExcludeFrom.Regular.ToString();
-}
-
-// We use this trait to identify redundant test units.
-[TraitDiscoverer(XunitTraitAssembly.TypePrefix + nameof(RedundantTraitDiscoverer), XunitTraitAssembly.Name)]
-[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-public sealed class RedundantTestAttribute : Attribute, ITraitAttribute
-{
-    public RedundantTestAttribute() { }
-}
-
-// We use this trait to identify redundant test bundles, that is classes in a test suite.
-[TraitDiscoverer(XunitTraitAssembly.TypePrefix + nameof(RedundantTraitDiscoverer), XunitTraitAssembly.Name)]
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class RedundantTestBundleAttribute : Attribute, ITraitAttribute
-{
-    public RedundantTestBundleAttribute() { }
 }
 
 // One SHOULD NOT use this attribute in a test bundle ie facts class: one should
@@ -122,7 +106,7 @@ public sealed class ExcludeFromTraitDiscoverer : ITraitDiscoverer
                 break;
             case TestExcludeFrom.Regular:
                 yield return new KeyValuePair<string, string>(XunitTraits.ExcludeFrom, TestExcludeFromValues.Regular);
-                // Automatically exclude test(s) from the plan CodeCoverage.
+                // Automatically exclude test(s) from CodeCoverage.
                 yield return new KeyValuePair<string, string>(XunitTraits.ExcludeFrom, TestExcludeFromValues.CodeCoverage);
                 break;
             default:
@@ -139,19 +123,6 @@ public sealed class PerformanceTraitDiscoverer : ITraitDiscoverer
 
         var value = traitAttribute.GetNamedArgument<TestPerformance>(XunitTraits.Performance);
         yield return new KeyValuePair<string, string>(XunitTraits.Performance, value.ToString());
-    }
-}
-
-public sealed class RedundantTraitDiscoverer : ITraitDiscoverer
-{
-    public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
-    {
-        ArgumentNullException.ThrowIfNull(traitAttribute);
-
-        yield return new KeyValuePair<string, string>(XunitTraits.Redundant, "true");
-        // Automatically exclude test(s) from the plans CodeCoverage and Regular.
-        yield return new KeyValuePair<string, string>(XunitTraits.ExcludeFrom, TestExcludeFromValues.CodeCoverage);
-        yield return new KeyValuePair<string, string>(XunitTraits.ExcludeFrom, TestExcludeFromValues.Regular);
     }
 }
 

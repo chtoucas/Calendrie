@@ -3,11 +3,10 @@
 
 module Calendrie.Tests.Core.Validation.DomainExtensionsTests
 
-open Calendrie.Testing
-
 open Calendrie
 open Calendrie.Core.Intervals
 open Calendrie.Core.Validation
+open Calendrie.Testing
 
 open Xunit
 

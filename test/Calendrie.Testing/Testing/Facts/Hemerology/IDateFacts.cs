@@ -333,7 +333,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         Assert.Equal(-days, date.CountDaysSince(other));
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(ConsecutiveDaysData))]
     public void PlusDays_ViaConsecutiveDays(YemodaPair pair)
     {

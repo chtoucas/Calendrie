@@ -5,12 +5,11 @@ module Calendrie.Tests.Core.Schemas.PreValidatorTestSuite
 
 open System
 
+open Calendrie.Core.Schemas
+open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
-
-open Calendrie.Core.Schemas
-open Calendrie.Core.Validation
 
 // TODO(code): Hebrew (unfinished, no data) and lunisolar (fake) schema.
 
@@ -35,22 +34,22 @@ type Coptic13Tests() =
         (fun () -> validator.ValidateMonthDay(Int32.MaxValue, 1, 1)) |> overflows
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Egyptian12Tests() =
     inherit ICalendricalPreValidatorFacts<Egyptian12DataSet>(schemaOf<Egyptian12Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Egyptian13Tests() =
     inherit ICalendricalPreValidatorFacts<Egyptian13DataSet>(schemaOf<Egyptian13Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type FrenchRepublican12Tests() =
     inherit ICalendricalPreValidatorFacts<FrenchRepublican12DataSet>(schemaOf<FrenchRepublican12Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type FrenchRepublican13Tests() =
     inherit ICalendricalPreValidatorFacts<FrenchRepublican13DataSet>(schemaOf<FrenchRepublican13Schema>())
 
@@ -83,12 +82,12 @@ type LunisolarTests() =
     member x.PreValidator() = x.PreValidatorUT |> is<LunisolarPreValidator>
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Persian2820Tests() =
     inherit ICalendricalPreValidatorFacts<Persian2820DataSet>(schemaOf<Persian2820Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type PositivistTests() =
     inherit ICalendricalPreValidatorFacts<PositivistDataSet>(schemaOf<PositivistSchema>())
 
@@ -100,21 +99,21 @@ type TabularIslamicTests() =
     member x.PreValidator() = x.PreValidatorUT |> is<LunarPreValidator>
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type TropicaliaTests() =
     inherit ICalendricalPreValidatorFacts<TropicaliaDataSet>(schemaOf<TropicaliaSchema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Tropicalia3031Tests() =
     inherit ICalendricalPreValidatorFacts<Tropicalia3031DataSet>(schemaOf<Tropicalia3031Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Tropicalia3130Tests() =
     inherit ICalendricalPreValidatorFacts<Tropicalia3130DataSet>(schemaOf<Tropicalia3130Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type WorldTests() =
     inherit ICalendricalPreValidatorFacts<WorldDataSet>(schemaOf<WorldSchema>())

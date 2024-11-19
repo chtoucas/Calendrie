@@ -85,7 +85,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
 {
     #region CountDaysInYearBeforeMonth()
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearBeforeMonth_AtStartOfYear(YearInfo info)
     {
@@ -205,7 +205,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     #endregion
     #region GetYear()
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(DateInfoData))]
     public void GetYear(DateInfo info)
     {
@@ -244,7 +244,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     #endregion
     #region GetDayOfYear()
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void GetDayOfYear_AtStartOfYear(YearInfo info)
     {
@@ -334,7 +334,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     // When we don't have any test data, we check that the method returns a
     // result in agreement with what we know.
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(EndOfYearPartsData))]
     public void GetEndOfYear_CountDaysSinceEpoch(Yemoda ymd)
     {
@@ -346,7 +346,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
         Assert.Equal(endOfYear, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void GetEndOfYear_EndOfYear_Equals_StartOfNextYearMinusOne(YearInfo info)
     {
@@ -396,7 +396,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
         Assert.Equal(endOfMonth, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void GetEndOfMonth_EndOfMonth_Equals_StartOfNextMonthMinusOne(YearInfo info)
     {

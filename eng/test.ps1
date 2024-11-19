@@ -6,8 +6,8 @@
 param(
     [Parameter(Mandatory = $false, Position = 0)]
     [ValidateSet(
-        'regular', 'cover', 'more', 'most', 'redundant')]
-                 [string] $Plan = 'regular',
+        'default', 'regular', 'more', 'most', 'cover')]
+                 [string] $Plan = 'default',
 
     [Parameter(Mandatory = $false)]
     [ValidateSet('Debug', 'Release')]
@@ -37,12 +37,10 @@ The default behaviour is to run the regular test plan using the configuration De
 
 Test plans
 ----------
-- "regular"   = exclude redundant tests, slow-running tests
-- "more"      = exclude redundant tests
+- "default"   = excludes "extra" tests and slow-running tests
+- "regular"   = excludes "extra" tests
 - "most"      = the whole test suite
-
-The extra test plans are
-- "redundant" = complement of "more" in "most", ie "redundant" = "most" - "more".
+- "more"      = complement of "regular" in "most", ie "more" = "most" - "regular"
 
 We have also a plan named "cover". It mimics the default test plan used by the
 code coverage tool. The difference between "cover" and "regular" is really tiny.
@@ -54,9 +52,8 @@ custom filters.
 
 Examples
 --------
-> test.ps1 -NoBuild             # Regular test plan (Debug)
-> test.ps1 regular -c Release   # Regular test plan (Release)
-> test.ps1 more                 # Comprehensive test suite (Debug)
+> test.ps1 -NoBuild             # Default test plan (Debug), no build
+> test.ps1 regular -c Release   # Comprehensive test suite (Release)
 
 "@
 }
@@ -72,20 +69,20 @@ try {
     if ($NoBuild) { $args += '--no-build' }
 
     switch ($Plan) {
+        'default' {
+            # Default test suite, excludes
+            # - tests explicitely excluded from the plan Regular
+            # - slow tests
+            $filter = 'ExcludeFrom!=Regular&Performance!~Slow'
+        }
         'regular' {
             # Regular test suite, excludes
             # - tests explicitely excluded from this plan
-            # - slow tests
-            # - redundant tests (implicit via RedundantTraitDiscoverer)
-            $filter = 'ExcludeFrom!=Regular&Performance!~Slow'
+            $filter = 'ExcludeFrom!=Regular'
         }
         'more' {
-            # Only exclude redundant tests.
-            $filter = 'Redundant!=true'
-        }
-        'redundant' {
-            # Only include redundant tests.
-            $filter = 'Redundant=true'
+            # Only include tests excluded from the plan Regular.
+            $filter = 'ExcludeFrom=Regular'
         }
         'most' {
             $filter = ''
@@ -93,10 +90,8 @@ try {
         'cover' {
             # Mimic the default test plan used by cover.ps1, excludes
             # - tests explicitely excluded from this plan
-            # - slow tests
-            # - redundant tests (implicit via RedundantTraitDiscoverer)
-            # - tests excluded from the "regular" plan (implicit via ExcludeFromTraitDiscoverer)
-            $filter = 'ExcludeFrom!=CodeCoverage&Performance!~Slow'
+            # - tests excluded from the plan Regular (via ExcludeFromTraitDiscoverer)
+            $filter = 'ExcludeFrom!=CodeCoverage'
         }
     }
 

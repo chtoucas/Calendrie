@@ -3,16 +3,15 @@
 
 module Calendrie.Tests.Core.Arithmetic.ArithmeticTestSuite
 
-open Calendrie.Testing
-open Calendrie.Testing.Data.Schemas
-open Calendrie.Testing.Facts.Core
-
 open Calendrie.Core
 open Calendrie.Core.Arithmetic
 open Calendrie.Core.Schemas
 open Calendrie.Core.Utilities
+open Calendrie.Testing
+open Calendrie.Testing.Data.Schemas
+open Calendrie.Testing.Facts.Core
 
-// TODO(code): Hebrew (unfinished, no data), Pax (unfinished) and lunisolar (fake) schema.
+// TODO(code): lunisolar (fake) schema.
 
 let private ariOf<'a when 'a :> SystemSchema and 'a :> IBoxable<'a>> () =
     let sch = syschemaOf<'a>()
@@ -36,7 +35,7 @@ type Solar12Tests() =
 //
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Coptic12Tests() =
     inherit SystemArithmeticFacts<Coptic12DataSet>(ariOf<Coptic12Schema>())
 
@@ -48,22 +47,22 @@ type Coptic13Tests() =
     member x.Arithmetic() = x.Arithmetic |> is<PlainSystemArithmetic>
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Egyptian12Tests() =
     inherit SystemArithmeticFacts<Egyptian12DataSet>(ariOf<Egyptian12Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Egyptian13Tests() =
     inherit SystemArithmeticFacts<Egyptian13DataSet>(ariOf<Egyptian13Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type FrenchRepublican12Tests() =
     inherit SystemArithmeticFacts<FrenchRepublican12DataSet>(ariOf<FrenchRepublican12Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type FrenchRepublican13Tests() =
     inherit SystemArithmeticFacts<FrenchRepublican13DataSet>(ariOf<FrenchRepublican13Schema>())
 
@@ -75,12 +74,12 @@ type GregorianTests() =
     member x.Arithmetic() = x.Arithmetic |> is<GregorianSystemArithmetic>
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type InternationalFixedTests() =
     inherit SystemArithmeticFacts<InternationalFixedDataSet>(ariOf<InternationalFixedSchema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type JulianTests() =
     inherit SystemArithmeticFacts<JulianDataSet>(ariOf<JulianSchema>())
 
@@ -91,13 +90,8 @@ type LunisolarTests() =
 
     member x.Arithmetic() = x.Arithmetic |> is<LunisolarSystemArithmetic>
 
-//[<Sealed>]
-//[<RedundantTestBundle>]
-//type PaxTests() =
-//    inherit SystemArithmeticFacts<PaxDataSet>(ariOf<PaxSchema>())
-
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Persian2820Tests() =
     inherit SystemArithmeticFacts<Persian2820DataSet>(ariOf<Persian2820Schema>())
 
@@ -116,21 +110,21 @@ type TabularIslamicTests() =
     member x.Arithmetic() = x.Arithmetic |> is<LunarSystemArithmetic>
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type TropicaliaTests() =
     inherit SystemArithmeticFacts<TropicaliaDataSet>(ariOf<TropicaliaSchema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Tropicalia3031Tests() =
     inherit SystemArithmeticFacts<Tropicalia3031DataSet>(ariOf<Tropicalia3031Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Tropicalia3130Tests() =
     inherit SystemArithmeticFacts<Tropicalia3130DataSet>(ariOf<Tropicalia3130Schema>())
 
 [<Sealed>]
-[<RedundantTestBundle>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type WorldTests() =
     inherit SystemArithmeticFacts<WorldDataSet>(ariOf<WorldSchema>())

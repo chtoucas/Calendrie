@@ -74,7 +74,7 @@ public partial class SystemArithmeticFacts<TDataSet> // Yemoda
         Assert.Equal(-days, ArithmeticUT.CountDaysBetween(other, date));
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(ConsecutiveDaysData))]
     public void CountDaysBetween﹍Yemoda_ViaConsecutiveDays(YemodaPair pair)
     {
@@ -99,7 +99,7 @@ public partial class SystemArithmeticFacts<TDataSet> // Yedoy
         Assert.Equal(date, ArithmeticUT.AddDays(other, -days));
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(ConsecutiveDaysOrdinalData))]
     public void AddDays﹍Yedoy_ViaConsecutiveDays(YedoyPair pair)
     {
@@ -144,7 +144,7 @@ public partial class SystemArithmeticFacts<TDataSet> // Yedoy
     // - LunarSystemArithmetic
     // - LunisolarSystemArithmetic
     // See also AddDays﹍Yemoda_ViaConsecutiveDays().
-    //[RedundantTest]
+    //[TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(ConsecutiveDaysOrdinalData))]
     public void CountDaysBetween﹍Yedoy_ViaConsecutiveDays(YedoyPair pair)
     {
@@ -169,7 +169,7 @@ public partial class SystemArithmeticFacts<TDataSet> // Yemo
         Assert.Equal(month, ArithmeticUT.AddMonths(other, -ms));
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(ConsecutiveMonthsData))]
     public void AddMonths﹍Yemo_ViaConsecutiveMonths(YemoPair pair)
     {
@@ -209,7 +209,7 @@ public partial class SystemArithmeticFacts<TDataSet> // Yemo
         Assert.Equal(-ms, ArithmeticUT.CountMonthsBetween(other, month));
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(ConsecutiveMonthsData))]
     public void CountMonthsBetween﹍Yemo_ViaConsecutiveMonths(YemoPair pair)
     {

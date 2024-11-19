@@ -78,8 +78,7 @@ try {
     }
 
     if (-not $NoTest) {
-        # If you change the filter, don't forget to update the plan "cover" in test.ps1.
-        $filter = 'ExcludeFrom!=CodeCoverage&Performance!~Slow'
+        $filter = 'ExcludeFrom!=CodeCoverage'
         $args += "--filter:$filter"
 
         & dotnet test $testProject $args `

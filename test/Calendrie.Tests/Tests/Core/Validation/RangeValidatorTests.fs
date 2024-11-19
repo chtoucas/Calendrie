@@ -3,11 +3,10 @@
 
 module Calendrie.Tests.Core.Validation.RangeValidatorTests
 
-open Calendrie.Testing
-
 open Calendrie.Core.Intervals
 open Calendrie.Core.Utilities
 open Calendrie.Core.Validation
+open Calendrie.Testing
 
 open Xunit
 open FsCheck.Xunit

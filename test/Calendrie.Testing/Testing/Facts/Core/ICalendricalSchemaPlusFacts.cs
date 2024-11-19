@@ -34,7 +34,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
 
     #region CountDaysInYearBefore()
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearBefore﹍DateParts_AtStartOfYear(YearInfo info)
     {
@@ -44,7 +44,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(0, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearBefore﹍OrdinalParts_AtStartOfYear(YearInfo info)
     {
@@ -54,7 +54,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(0, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearBefore﹍DaysSinceEpoch_AtStartOfYear(YearInfo info)
     {
@@ -65,7 +65,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(0, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearBefore﹍OrdinalParts_AtEndOfYear(YearInfo info)
     {
@@ -77,7 +77,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearBefore, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearBefore﹍DaysSinceEpoch_AtEndOfYear(YearInfo info)
     {
@@ -89,7 +89,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearBefore, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInYearBefore﹍DateParts_AtStartOfMonth(MonthInfo info)
     {
@@ -101,7 +101,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearBefore, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInYearBefore﹍DaysSinceEpoch_AtStartOfMonth(MonthInfo info)
     {
@@ -114,7 +114,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearBefore, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInYearBefore﹍DateParts_AtEndOfMonth(MonthInfo info)
     {
@@ -127,7 +127,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearBefore, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInYearBefore﹍DaysSinceEpoch_AtEndOfMonth(MonthInfo info)
     {
@@ -176,7 +176,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
     #endregion
     #region CountDaysInYearAfter()
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearAfter﹍DateParts_AtStartOfYear(YearInfo info)
     {
@@ -187,7 +187,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearAfter, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearAfter﹍OrdinalParts_AtStartOfYear(YearInfo info)
     {
@@ -198,7 +198,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearAfter, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearAfter﹍DaysSinceEpoch_AtStartOfYear(YearInfo info)
     {
@@ -210,7 +210,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInYearAfter, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearAfter﹍OrdinalParts_AtEndOfYear(YearInfo info)
     {
@@ -220,7 +220,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(0, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDaysInYearAfter﹍DaysSinceEpoch_AtEndOfYear(YearInfo info)
     {
@@ -266,7 +266,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
     #endregion
     #region CountDaysInMonthBefore()
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthBefore﹍DateParts_AtStartOfMonth(MonthInfo info)
     {
@@ -277,7 +277,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(0, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthBefore﹍DaysSinceEpoch_AtStartOfMonth(MonthInfo info)
     {
@@ -289,7 +289,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(0, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthBefore﹍DateParts_AtEndOfMonth(MonthInfo info)
     {
@@ -302,7 +302,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInMonthBefore, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthBefore﹍DaysSinceEpoch_AtEndOfMonth(MonthInfo info)
     {
@@ -351,7 +351,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
     #endregion
     #region CountDaysInMonthAfter()
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthAfter﹍DateParts_AtStartOfMonth(MonthInfo info)
     {
@@ -363,7 +363,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInMonthAfter, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthAfter﹍DaysSinceEpoch_AtStartOfMonth(MonthInfo info)
     {
@@ -376,7 +376,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(daysInMonthAfter, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthAfter﹍DateParts_AtEndOfMonth(MonthInfo info)
     {
@@ -388,7 +388,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
         Assert.Equal(0, actual);
     }
 
-    [RedundantTest]
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
     [Theory, MemberData(nameof(MonthInfoData))]
     public void CountDaysInMonthAfter﹍DaysSinceEpoch_AtEndOfMonth(MonthInfo info)
     {
