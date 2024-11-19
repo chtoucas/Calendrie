@@ -77,13 +77,13 @@ public readonly partial struct DayNumber :
     /// since <see cref="Zero"/>.
     /// <para>This field is a constant equal to -2_147_483_647.</para>
     /// </summary>
-    public const int MinDaysSinceZero = int.MinValue + 1;
+    public const int MinDaysSinceZero = Int32.MinValue + 1;
     /// <summary>
     /// Represents the largest possible value of the count of consecutive days
     /// since <see cref="Zero"/>.
     /// <para>This field is a constant equal to 2_147_483_646.</para>
     /// </summary>
-    public const int MaxDaysSinceZero = int.MaxValue - 1;
+    public const int MaxDaysSinceZero = Int32.MaxValue - 1;
 
     /// <summary>
     /// Represents the earliest supported <i>Gregorian</i> or <i>Julian</i> year.
@@ -593,7 +593,7 @@ public partial struct DayNumber // Math ops
     /// between them.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     public static int operator -(DayNumber left, DayNumber right) =>
         checked(left._daysSinceZero - right._daysSinceZero);
 
@@ -650,7 +650,7 @@ public partial struct DayNumber // Math ops
     /// number of days between them.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     [Pure]
     public int CountDaysSince(DayNumber other) => this - other;
 

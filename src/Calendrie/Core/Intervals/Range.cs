@@ -116,14 +116,14 @@ public partial class Range // Range<int>
 {
     // A range of int's is finite and enumerable.
 
-    /// <summary>Gets the range [<see cref="int.MinValue"/>..<see cref="int.MaxValue"/>].
+    /// <summary>Gets the range [<see cref="Int32.MinValue"/>..<see cref="Int32.MaxValue"/>].
     /// <para>This is the largest range of 32-bit signed integers representable by the system.</para>
     /// <para>This static property is thread-safe.</para></summary>
-    internal static Range<int> Maximal32 { get; } = Create(int.MinValue, int.MaxValue);
+    internal static Range<int> Maximal32 { get; } = Create(Int32.MinValue, Int32.MaxValue);
 
     /// <summary>Obtains the number of elements in the specified range.</summary>
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <see cref="Int32"/>.</exception>
     [Pure]
     public static int Count(this Range<int> range) => checked(range.Max - range.Min + 1);
 
@@ -133,7 +133,7 @@ public partial class Range // Range<int>
 
     /// <summary>Obtains an <see cref="IEnumerable{T}"/> view of the specified range.</summary>
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <see cref="Int32"/>.</exception>
     [Pure]
     public static IEnumerable<int> ToEnumerable(this Range<int> range) =>
         // TODO(code): overflow... don't bother? This differs from the
@@ -147,7 +147,7 @@ public partial class Range // Range<DayNumber>
 
     /// <summary>Obtains the number of elements in the specified range.</summary>
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <see cref="Int32"/>.</exception>
     [Pure]
     public static int Count(this Range<DayNumber> range) => range.Max - range.Min + 1;
 

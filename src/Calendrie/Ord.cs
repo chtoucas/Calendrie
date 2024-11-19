@@ -33,13 +33,13 @@ public readonly partial struct Ord :
     /// Represents the smallest possible algebraic value.
     /// <para>This field is a constant equal to -2_147_483_646.</para>
     /// </summary>
-    public const int MinAlgebraicValue = int.MinValue + 2;
+    public const int MinAlgebraicValue = Int32.MinValue + 2;
 
     /// <summary>
     /// Represents the largest possible algebraic value.
     /// <para>This field is a constant equal to 2_147_483_647.</para>
     /// </summary>
-    public const int MaxAlgebraicValue = int.MaxValue;
+    public const int MaxAlgebraicValue = Int32.MaxValue;
 
     /// <summary>
     /// Represents the algebraic value of the current instance.
@@ -83,7 +83,7 @@ public readonly partial struct Ord :
     /// <summary>
     /// Gets the (signed) rank of the current instance.
     /// <para>The result is never equal to zero and is in the range from
-    /// -<see cref="int.MaxValue"/> to <see cref="int.MaxValue"/>.</para>
+    /// -<see cref="Int32.MaxValue"/> to <see cref="Int32.MaxValue"/>.</para>
     /// </summary>
     public int Rank => _value > 0 ? _value : _value - 1;
 
@@ -134,11 +134,11 @@ public partial struct Ord // Factories, conversions
     /// signed rank.
     /// </summary>
     /// <exception cref="AoorException"><paramref name="rank"/> is equal to zero
-    /// or <see cref="int.MinValue"/>.</exception>
+    /// or <see cref="Int32.MinValue"/>.</exception>
     public static Ord FromRank(int rank)
     {
         AoorException.ThrowIfEqual(rank, 0);
-        AoorException.ThrowIfEqual(rank, int.MinValue);
+        AoorException.ThrowIfEqual(rank, Int32.MinValue);
 
         // The next operation never overflows. It is equivalent to:
         //   rank > 0 ? Zeroth + rank : First + rank;
@@ -227,7 +227,7 @@ public partial struct Ord // Math ops
     /// Subtracts the two specified ordinal numerals.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     public static int operator -(Ord left, Ord right) => checked(left._value - right._value);
 
     /// <summary>
@@ -235,7 +235,7 @@ public partial struct Ord // Math ops
     /// numeral.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     public static Ord operator +(Ord ord, int num)
     {
         int newVal = checked(ord._value + num);
@@ -248,7 +248,7 @@ public partial struct Ord // Math ops
     /// ordinal numeral.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     public static Ord operator -(Ord ord, int num)
     {
         int newVal = checked(ord._value - num);
@@ -260,14 +260,14 @@ public partial struct Ord // Math ops
     /// Increments by 1 the value of the specified ordinal numeral.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     public static Ord operator ++(Ord ord) => ord.Increment();
 
     /// <summary>
     /// Decrements by 1 the value of the specified ordinal numeral.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     public static Ord operator --(Ord ord) => ord.Decrement();
 
     /// <summary>
@@ -279,7 +279,7 @@ public partial struct Ord // Math ops
     /// Subtracts the specified ordinal numeral from the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     [Pure]
     public int Subtract(Ord other) => this - other;
 
@@ -288,7 +288,7 @@ public partial struct Ord // Math ops
     /// ordinal numeral.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     [Pure]
     public Ord Add(int num) => this + num;
 
@@ -296,7 +296,7 @@ public partial struct Ord // Math ops
     /// Increments the value of the current instance by 1.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     [Pure]
     public Ord Increment() => this == MaxValue ? Throw.OrdOverflow<Ord>() : new Ord(_value + 1);
 
@@ -304,7 +304,7 @@ public partial struct Ord // Math ops
     /// Decrements the value of the current instance by 1.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
+    /// capacity of <see cref="Int32"/>.</exception>
     [Pure]
     public Ord Decrement() => this == MinValue ? Throw.OrdOverflow<Ord>() : new Ord(_value - 1);
 

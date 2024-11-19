@@ -217,7 +217,7 @@ public partial struct JulianDate // Math
     /// Adds a number of days to the specified date, yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
-    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// the capacity of <see cref="Int32"/> or the range of supported dates.
     /// </exception>
     public static JulianDate operator +(JulianDate value, int days) => value.PlusDays(days);
 
@@ -225,7 +225,7 @@ public partial struct JulianDate // Math
     /// Subtracts a number of days to the specified date, yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
-    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// the capacity of <see cref="Int32"/> or the range of supported dates.
     /// </exception>
     public static JulianDate operator -(JulianDate value, int days) => value.PlusDays(-days);
 

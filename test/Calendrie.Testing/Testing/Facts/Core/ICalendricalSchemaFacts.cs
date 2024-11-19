@@ -281,7 +281,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     public void GetStartOfYearInMonths(YearMonthsSinceEpoch info)
     {
         // Act
-        var actual = SchemaUT.GetStartOfYearInMonths(info.Year);
+        int actual = SchemaUT.GetStartOfYearInMonths(info.Year);
         // Assert
         Assert.Equal(info.MonthsSinceEpoch, actual);
     }
@@ -293,7 +293,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     public void GetEndOfYearInMonths(YearMonthsSinceEpoch info)
     {
         // Act
-        var actual = SchemaUT.GetEndOfYearInMonths(info.Year);
+        int actual = SchemaUT.GetEndOfYearInMonths(info.Year);
         // Assert
         Assert.Equal(info.MonthsSinceEpoch, actual);
     }
@@ -314,7 +314,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     public void GetStartOfYear(YearDaysSinceEpoch info)
     {
         // Act
-        var actual = SchemaUT.GetStartOfYear(info.Year);
+        int actual = SchemaUT.GetStartOfYear(info.Year);
         // Assert
         Assert.Equal(info.DaysSinceEpoch, actual);
     }
@@ -326,7 +326,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     public void GetEndOfYear(YearDaysSinceEpoch info)
     {
         // Act
-        var actual = SchemaUT.GetEndOfYear(info.Year);
+        int actual = SchemaUT.GetEndOfYear(info.Year);
         // Assert
         Assert.Equal(info.DaysSinceEpoch, actual);
     }
@@ -420,30 +420,30 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Overflows (Ke
     [Fact]
     public virtual void KernelDoesNotOverflow()
     {
-        _ = SchemaUT.IsLeapYear(int.MinValue);
-        _ = SchemaUT.IsLeapYear(int.MaxValue);
+        _ = SchemaUT.IsLeapYear(Int32.MinValue);
+        _ = SchemaUT.IsLeapYear(Int32.MaxValue);
 
-        _ = SchemaUT.CountMonthsInYear(int.MinValue);
-        _ = SchemaUT.CountMonthsInYear(int.MaxValue);
+        _ = SchemaUT.CountMonthsInYear(Int32.MinValue);
+        _ = SchemaUT.CountMonthsInYear(Int32.MaxValue);
 
-        _ = SchemaUT.CountDaysInYear(int.MinValue);
-        _ = SchemaUT.CountDaysInYear(int.MaxValue);
+        _ = SchemaUT.CountDaysInYear(Int32.MinValue);
+        _ = SchemaUT.CountDaysInYear(Int32.MaxValue);
 
         for (int m = 1; m <= MaxMonth; m++)
         {
-            _ = SchemaUT.IsIntercalaryMonth(int.MinValue, m);
-            _ = SchemaUT.IsIntercalaryMonth(int.MaxValue, m);
+            _ = SchemaUT.IsIntercalaryMonth(Int32.MinValue, m);
+            _ = SchemaUT.IsIntercalaryMonth(Int32.MaxValue, m);
 
-            _ = SchemaUT.CountDaysInMonth(int.MinValue, m);
-            _ = SchemaUT.CountDaysInMonth(int.MaxValue, m);
+            _ = SchemaUT.CountDaysInMonth(Int32.MinValue, m);
+            _ = SchemaUT.CountDaysInMonth(Int32.MaxValue, m);
 
             for (int d = 1; d <= MaxDay; d++)
             {
-                _ = SchemaUT.IsIntercalaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsIntercalaryDay(int.MaxValue, m, d);
+                _ = SchemaUT.IsIntercalaryDay(Int32.MinValue, m, d);
+                _ = SchemaUT.IsIntercalaryDay(Int32.MaxValue, m, d);
 
-                _ = SchemaUT.IsSupplementaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsSupplementaryDay(int.MaxValue, m, d);
+                _ = SchemaUT.IsSupplementaryDay(Int32.MinValue, m, d);
+                _ = SchemaUT.IsSupplementaryDay(Int32.MaxValue, m, d);
             }
         }
     }

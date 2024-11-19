@@ -24,7 +24,7 @@ public interface IStandardArithmetic<TSelf>
     /// Adds a number of days to this date instance, yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
-    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// the capacity of <see cref="Int32"/> or the range of supported dates.
     /// </exception>
     [Pure] TSelf PlusDays(int days);
 

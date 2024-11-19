@@ -37,21 +37,21 @@ public interface ICalendricalPreValidator
     /// <summary>Validates the well-formedness of the specified month of the year.
     /// <para>This method does NOT validate <paramref name="y"/>.</para></summary>
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <see cref="Int32"/>.</exception>
     /// <exception cref="AoorException">The validation failed.</exception>
     void ValidateMonth(int y, int month, string? paramName = null);
 
     /// <summary>Validates the well-formedness of the specified month of the year and day of the
     /// month.</summary>
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <see cref="Int32"/>.</exception>
     /// <exception cref="AoorException">The validation failed.</exception>
     void ValidateMonthDay(int y, int month, int day, string? paramName = null);
 
     /// <summary>Validates the well-formedness of the specified day of the year.
     /// <para>This method does NOT validate <paramref name="y"/>.</para></summary>
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <see cref="Int32"/>.</exception>
     /// <exception cref="AoorException">The validation failed.</exception>
     void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null);
 

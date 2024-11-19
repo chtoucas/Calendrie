@@ -91,7 +91,7 @@ public abstract class ICalendricalSchemaBasicFacts<TSchema, TDataSet> :
     public void GetStartOfYear(YearDaysSinceEpoch info)
     {
         // Act
-        var actual = SchemaUT.GetStartOfYear(info.Year);
+        int actual = SchemaUT.GetStartOfYear(info.Year);
         // Assert
         Assert.Equal(info.DaysSinceEpoch, actual);
     }

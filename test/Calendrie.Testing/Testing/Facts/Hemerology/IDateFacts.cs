@@ -212,11 +212,11 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        AssertEx.Overflows(() => date + int.MinValue);
-        AssertEx.Overflows(() => date + int.MaxValue);
+        AssertEx.Overflows(() => date + Int32.MinValue);
+        AssertEx.Overflows(() => date + Int32.MaxValue);
 
-        AssertEx.Overflows(() => date.PlusDays(int.MinValue));
-        AssertEx.Overflows(() => date.PlusDays(int.MaxValue));
+        AssertEx.Overflows(() => date.PlusDays(Int32.MinValue));
+        AssertEx.Overflows(() => date.PlusDays(Int32.MaxValue));
     }
 
     [Fact]

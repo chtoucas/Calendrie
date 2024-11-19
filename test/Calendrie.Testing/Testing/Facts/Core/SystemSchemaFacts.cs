@@ -341,39 +341,39 @@ public partial class SystemSchemaFacts<TDataSet> // Overflows
 
         // NB: right now, it works w/ Int32.Min(Max)Year but it might change
         // in the future with new lunisolar schemas.
-        _ = SchemaUT.CountMonthsInYear(int.MinValue);
-        _ = SchemaUT.CountMonthsInYear(int.MaxValue);
+        _ = SchemaUT.CountMonthsInYear(Int32.MinValue);
+        _ = SchemaUT.CountMonthsInYear(Int32.MaxValue);
 
         _ = SchemaUT.CountDaysInYear(minYearCore);
         _ = SchemaUT.CountDaysInYear(maxYearCore);
 
         for (int m = 1; m <= MaxMonth; m++)
         {
-            _ = SchemaUT.IsIntercalaryMonth(int.MinValue, m);
-            _ = SchemaUT.IsIntercalaryMonth(int.MaxValue, m);
+            _ = SchemaUT.IsIntercalaryMonth(Int32.MinValue, m);
+            _ = SchemaUT.IsIntercalaryMonth(Int32.MaxValue, m);
 
             _ = SchemaUT.CountDaysInMonth(minYearCore, m);
             _ = SchemaUT.CountDaysInMonth(maxYearCore, m);
 
             for (int d = 1; d <= MaxDay; d++)
             {
-                _ = SchemaUT.IsIntercalaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsIntercalaryDay(int.MaxValue, m, d);
+                _ = SchemaUT.IsIntercalaryDay(Int32.MinValue, m, d);
+                _ = SchemaUT.IsIntercalaryDay(Int32.MaxValue, m, d);
 
-                _ = SchemaUT.IsSupplementaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsSupplementaryDay(int.MaxValue, m, d);
+                _ = SchemaUT.IsSupplementaryDay(Int32.MinValue, m, d);
+                _ = SchemaUT.IsSupplementaryDay(Int32.MaxValue, m, d);
             }
         }
 
-        if (minYearCore != int.MinValue)
+        if (minYearCore != Int32.MinValue)
         {
-            AssertEx.Overflows(() => SchemaUT.IsLeapYear(int.MinValue));
-            AssertEx.Overflows(() => SchemaUT.CountDaysInYear(int.MinValue));
+            AssertEx.Overflows(() => SchemaUT.IsLeapYear(Int32.MinValue));
+            AssertEx.Overflows(() => SchemaUT.CountDaysInYear(Int32.MinValue));
         }
-        if (maxYearCore != int.MaxValue)
+        if (maxYearCore != Int32.MaxValue)
         {
-            AssertEx.Overflows(() => SchemaUT.IsLeapYear(int.MaxValue));
-            AssertEx.Overflows(() => SchemaUT.CountDaysInYear(int.MaxValue));
+            AssertEx.Overflows(() => SchemaUT.IsLeapYear(Int32.MaxValue));
+            AssertEx.Overflows(() => SchemaUT.CountDaysInYear(Int32.MaxValue));
         }
     }
 
