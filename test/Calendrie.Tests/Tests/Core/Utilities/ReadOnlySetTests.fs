@@ -5,11 +5,9 @@ module Calendrie.Tests.Core.Utilities.ReadOnlySetTests
 
 open System.Collections
 open System.Collections.Generic
-open System.Linq
-
-open Calendrie.Testing
 
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 open FsCheck.Xunit

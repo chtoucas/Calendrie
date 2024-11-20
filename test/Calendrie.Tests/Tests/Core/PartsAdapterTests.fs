@@ -3,12 +3,11 @@
 
 module Calendrie.Tests.Core.PartsAdapterTests
 
+open Calendrie.Core
+open Calendrie.Core.Schemas
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
-
-open Calendrie.Core
-open Calendrie.Core.Schemas
 
 open Xunit
 

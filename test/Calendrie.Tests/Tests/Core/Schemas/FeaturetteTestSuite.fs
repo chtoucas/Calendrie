@@ -3,11 +3,10 @@
 
 module Calendrie.Tests.Core.Schemas.FeaturetteTestSuite
 
+open Calendrie.Core.Schemas
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
-
-open Calendrie.Core.Schemas
 
 module BlankDay =
     [<Sealed>]

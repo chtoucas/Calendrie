@@ -6,11 +6,10 @@ module Calendrie.Tests.Core.Intervals.RangeTests
 open System
 open System.Linq
 
-open Calendrie.Testing
-
 open Calendrie
 open Calendrie.Core.Intervals
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 open FsCheck

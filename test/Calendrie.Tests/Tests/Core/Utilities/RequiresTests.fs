@@ -5,11 +5,10 @@ module Calendrie.Tests.Core.Utilities.RequiresTests
 
 open System
 
-open Calendrie.Testing
-open Calendrie.Testing.Data
-
 open Calendrie
 open Calendrie.Core.Utilities
+open Calendrie.Testing
+open Calendrie.Testing.Data
 
 open Xunit
 

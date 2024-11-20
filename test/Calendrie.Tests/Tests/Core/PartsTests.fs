@@ -5,9 +5,8 @@ module Calendrie.Tests.Core.PartsTests
 
 open System
 
-open Calendrie.Testing
-
 open Calendrie.Core
+open Calendrie.Testing
 
 open Xunit
 open FsCheck

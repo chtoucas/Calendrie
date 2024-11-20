@@ -5,13 +5,12 @@ module Calendrie.Tests.Core.CalendricalSegmentBuilderTests
 
 open System
 
-open Calendrie.Testing
-
 open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 

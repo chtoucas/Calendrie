@@ -5,12 +5,11 @@ module Calendrie.Tests.Core.Schemas.GregorianFormulaeTests
 
 open System
 
+open Calendrie.Core
+open Calendrie.Core.Schemas
 open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Schemas
-
-open Calendrie.Core
-open Calendrie.Core.Schemas
 
 open Xunit
 

@@ -3,9 +3,8 @@
 
 module Calendrie.Tests.Core.Utilities.OrderedPairTests
 
-open Calendrie.Testing
-
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 open FsCheck

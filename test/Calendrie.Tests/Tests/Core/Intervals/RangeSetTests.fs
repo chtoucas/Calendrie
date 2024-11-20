@@ -5,10 +5,9 @@ module Calendrie.Tests.Core.Intervals.RangeSetTests
 
 open System
 
-open Calendrie.Testing
-
 open Calendrie.Core.Intervals
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 open FsCheck

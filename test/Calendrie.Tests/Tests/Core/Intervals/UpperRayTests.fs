@@ -5,10 +5,9 @@ module Calendrie.Tests.Core.Intervals.UpperRayTests
 
 open System
 
-open Calendrie.Testing
-
 open Calendrie
 open Calendrie.Core.Intervals
+open Calendrie.Testing
 
 open Xunit
 open FsCheck

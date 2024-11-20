@@ -5,9 +5,8 @@ module Calendrie.Tests.Core.Utilities.BoxTests
 
 open System
 
-open Calendrie.Testing
-
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 open FsCheck

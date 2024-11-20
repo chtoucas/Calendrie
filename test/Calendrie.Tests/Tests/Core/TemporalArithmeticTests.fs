@@ -8,9 +8,8 @@ open Checked
 open System
 open System.Security.Cryptography
 
-open Calendrie.Testing
-
 open Calendrie.Core
+open Calendrie.Testing
 
 open Xunit
 

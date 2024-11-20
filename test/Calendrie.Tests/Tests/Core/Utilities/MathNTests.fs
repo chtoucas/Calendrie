@@ -3,9 +3,8 @@
 
 module Calendrie.Tests.Core.Utilities.MathNTests
 
-open Calendrie.Testing
-
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 
