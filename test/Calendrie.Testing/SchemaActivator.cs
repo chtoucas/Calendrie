@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing;
 
-using static Calendrie.Extensions.Unboxing;
+using static Calendrie.Sketches.Extensions.Unboxing;
 
 public static class SchemaActivator
 {

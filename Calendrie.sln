@@ -54,6 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{1555
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendrie.Testing", "test\Calendrie.Testing\Calendrie.Testing.csproj", "{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendrie.Sketches", "src\Calendrie.Sketches\Calendrie.Sketches.csproj", "{81CC5143-CB11-4815-B26D-1E327C23E1DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81CC5143-CB11-4815-B26D-1E327C23E1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81CC5143-CB11-4815-B26D-1E327C23E1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81CC5143-CB11-4815-B26D-1E327C23E1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81CC5143-CB11-4815-B26D-1E327C23E1DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{7ED71EAD-F19A-4BC3-96E6-7D7644DF8CA5} = {84246E77-9B04-4280-B84B-32C8772009ED}
 		{15555E95-5E58-41F5-8F84-EB5E7D66C8F6} = {84246E77-9B04-4280-B84B-32C8772009ED}
 		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
+		{81CC5143-CB11-4815-B26D-1E327C23E1DE} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED8B0D74-DB69-46D4-AADE-91101FF165C2}

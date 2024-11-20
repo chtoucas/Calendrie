@@ -30,6 +30,12 @@
       },
       "calendrie": {
         "type": "Project"
+      },
+      "calendrie.sketches": {
+        "type": "Project",
+        "dependencies": {
+          "Calendrie": "[0.0.0-DUMMY, )"
+        }
       }
     }
   }

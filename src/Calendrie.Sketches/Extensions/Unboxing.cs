@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Extensions;
+namespace Calendrie.Sketches.Extensions;
 
 // TODO(code): remove these extensions.
 
@@ -19,7 +19,7 @@ namespace Calendrie.Extensions;
 /// Provides extension methods for <see cref="Box{T}"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal static class Unboxing
+public static class Unboxing
 {
     /// <summary>
     /// Obtains the enclosed object.

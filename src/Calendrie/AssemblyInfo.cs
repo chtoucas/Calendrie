@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 #if !__HIDE_INTERNALS__
+[assembly: InternalsVisibleTo("Calendrie.Sketches" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 [assembly: InternalsVisibleTo("Calendrie.Testing" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 [assembly: InternalsVisibleTo("Calendrie.Tests" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 #endif

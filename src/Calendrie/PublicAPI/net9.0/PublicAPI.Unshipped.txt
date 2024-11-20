@@ -549,7 +549,6 @@ Calendrie.DayNumber.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayNumber.PreviousDay() -> Calendrie.DayNumber
 Calendrie.DayNumber.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayZero
-Calendrie.Extensions.DayNumberExtensions
 Calendrie.Hemerology.BasicCalendar<TScope>
 Calendrie.Hemerology.BasicCalendar<TScope>.Algorithm.get -> Calendrie.CalendricalAlgorithm
 Calendrie.Hemerology.BasicCalendar<TScope>.BasicCalendar(string! name, TScope! scope) -> void
@@ -1944,14 +1943,6 @@ static Calendrie.DayZero.SundayBeforeGregorian.get -> Calendrie.DayNumber
 static Calendrie.DayZero.TabularIslamic.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Tropicalia.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Zoroastrian.get -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.After(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.After(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek, int num) -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.Before(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.Before(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek, int num) -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.OnOrAfter(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.OnOrAfter(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek, int num) -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.OnOrBefore(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
-static Calendrie.Extensions.DayNumberExtensions.OnOrBefore(this Calendrie.DayNumber dayNumber, System.DayOfWeek dayOfWeek, int num) -> Calendrie.DayNumber
 static Calendrie.Hemerology.Scopes.BoundedBelowScope.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch, Calendrie.DateParts minDateParts, int maxYear) -> Calendrie.Hemerology.Scopes.BoundedBelowScope!
 static Calendrie.Hemerology.Scopes.BoundedBelowScope.Create(Calendrie.Hemerology.Scopes.CalendarScope! scope) -> Calendrie.Hemerology.Scopes.BoundedBelowScope!
 static Calendrie.Hemerology.Scopes.BoundedBelowScope.StartingAt(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch, Calendrie.DateParts parts) -> Calendrie.Hemerology.Scopes.BoundedBelowScope!
