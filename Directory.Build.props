@@ -89,8 +89,17 @@
           CS0618  Compiler Warning (level 2) 'member' is obsolete: 'text'
           CS1030  Compiler Warning (level 1) #warning
           CS1591  Missing XML comment for publicly visible type or member 'Type_or_Member'
+          IDE0049 Use language keywords instead of framework type names for type references
+                  No warning or error should appear when
+                    dotnet_style_predefined_type_for_member_access = false
+                  and we write <see cref="GetXXX(int)"> in an XML comment.
+                  Adding IDE0049 to WarningsNotAsErrors fixes this in the sense
+                  that VS no longer displays an error. We still get a warning
+                  though.
+                  NB: this is a VS-only problem, it does not affect a build.
+                  See also https://github.com/dotnet/roslyn/issues/57764
         -->
-        <WarningsNotAsErrors>CS0618;CS1030;CS1591</WarningsNotAsErrors>
+        <WarningsNotAsErrors>CS0618;CS1030;CS1591;IDE0049</WarningsNotAsErrors>
         <NoWarn />
       </PropertyGroup>
     </When>

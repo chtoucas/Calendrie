@@ -100,6 +100,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
 # IDE0049: Use language keywords instead of framework type names for type references (VS-only setting)
 # Default values are: true / true
 dotnet_style_predefined_type_for_locals_parameters_members = true:warning
+# Also raises a warning when we use a predefined type in an XML comment :-(
 dotnet_style_predefined_type_for_member_access = false:warning
 
 # IDE0073: Require file header
