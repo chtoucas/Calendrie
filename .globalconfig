@@ -10,12 +10,14 @@
 # - Setting the severity:
 #   Use code-style severity or IDExxxx severity, but NOT both
 #   https://github.com/dotnet/roslyn/issues/52991#issuecomment-1960692440
-#   The magic property seems to be EnableCodeStyleSeverity
+#   The magic property to make this works seems to be the MSBuild property
+#   EnableCodeStyleSeverity
 #   https://github.com/dotnet/roslyn/pull/73843
 #
-# See also
+# See
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
 # https://learn.microsoft.com/en-gb/dotnet/fundamentals/code-analysis/configuration-files#global-analyzerconfig
+# Examples
 # https://github.com/dotnet/roslyn/blob/main/.editorconfig
 # https://github.com/dotnet/runtime/blob/main/.editorconfig
 
@@ -107,7 +109,7 @@ csharp_style_var_when_type_is_apparent = true:suggestion
 csharp_style_var_elsewhere = true:suggestion
 
 # IDE0011: Add braces
-csharp_prefer_braces = when_multiline
+csharp_prefer_braces = when_multiline:warning
 
 # IDE0022: Use expression body for methods
 csharp_style_expression_bodied_methods = when_on_single_line:suggestion

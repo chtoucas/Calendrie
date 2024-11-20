@@ -28,7 +28,7 @@ function Print-Help {
 Run the test suite.
 
 Usage: test.ps1 [arguments]
-    |-Plan           specify the test plan. Default = "regular"
+    |-Plan           specify the test plan. Default = "default"
   -c|-Configuration  configuration to test the solution for. Default = "Debug"
     |-NoBuild        do NOT build the test suite?
   -h|-Help           print this help then exit
@@ -37,15 +37,14 @@ The default behaviour is to run the regular test plan using the configuration De
 
 Test plans
 ----------
-- "default"   = excludes "extra" tests and slow-running tests
-- "regular"   = excludes "extra" tests
+- "default"   = excludes "redundant" tests and slow-running tests
+- "regular"   = excludes "redundant" tests
 - "most"      = the whole test suite
-- "more"      = complement of "regular" in "most", ie "more" = "most" - "regular"
+- "more"      = includes all tests ignored by "regular"
 
-We have also a plan named "cover". It mimics the default test plan used by the
-code coverage tool. The difference between "cover" and "regular" is really tiny.
-For a test to be in "regular" but not in "cover", it must be known to be slow
-and not being explicitely excluded from code coverage, right now there is none.
+We have also a plan named "cover". It mimics the test plan used by the code
+coverage tool. The difference between "cover" and "default" is really tiny;
+right now there is none.
 
 Of course, one can use "dotnet test" to run the whole test suite or to apply
 custom filters.

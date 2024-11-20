@@ -22,7 +22,6 @@ internal static class XunitTraits
     // and value of a trait.
     public const string ExcludeFrom = "ExcludeFrom";
     public const string Performance = "Performance";
-    public const string Redundant = "Redundant";
 }
 
 // Be careful if you change the values, the scripts rely on the fact that
