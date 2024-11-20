@@ -10,6 +10,8 @@ namespace Calendrie.Core;
 
 public interface ISchemaBound
 {
-    /// <summary>Gets the underlying schema.</summary>
+    /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
     ICalendricalSchema Schema { get; }
 }

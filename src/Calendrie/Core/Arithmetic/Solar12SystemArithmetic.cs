@@ -15,12 +15,13 @@ internal sealed class Solar12SystemArithmetic : SolarSystemArithmetic
     private const int MonthsInYear = __Solar12.MonthsInYear;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Solar12SystemArithmetic"/> class with the
-    /// specified schema.
+    /// Initializes a new instance of the <see cref="Solar12SystemArithmetic"/>
+    /// class with the specified schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">The underlying schema does not have the expected
-    /// profile <see cref="CalendricalProfile.Solar12"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">The underlying schema does not have
+    /// the expected profile <see cref="CalendricalProfile.Solar12"/>.</exception>
     public Solar12SystemArithmetic(SystemSegment segment) : base(segment)
     {
         Requires.Profile(Schema, CalendricalProfile.Solar12, nameof(segment));

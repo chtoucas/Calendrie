@@ -10,7 +10,8 @@ using __Solar = CalendricalConstants.Solar;
 using __Solar12 = CalendricalConstants.Solar12;
 
 /// <summary>
-/// Provides the core mathematical operations on dates within the Gregorian calendar.
+/// Provides the core mathematical operations on dates within the Gregorian
+/// calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 internal sealed partial class GregorianSystemArithmetic : SystemArithmetic
@@ -22,18 +23,23 @@ internal sealed partial class GregorianSystemArithmetic : SystemArithmetic
     private const int MaxDaysViaDayOfMonth_ = MinDaysInMonth;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianSystemArithmetic"/> class.
+    /// Initializes a new instance of the <see cref="GregorianSystemArithmetic"/>
+    /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
-    /// <exception cref="AoorException"><paramref name="supportedYears"/> is NOT a subinterval
-    /// of the range of supported years by <paramref name="schema"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="AoorException"><paramref name="supportedYears"/> is NOT
+    /// a subinterval of the range of supported years by <paramref name="schema"/>.
+    /// </exception>
     public GregorianSystemArithmetic(GregorianSchema schema, Range<int> supportedYears)
         : this(SystemSegment.Create(schema, supportedYears)) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianSystemArithmetic"/> class.
+    /// Initializes a new instance of the <see cref="GregorianSystemArithmetic"/>
+    /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
     internal GregorianSystemArithmetic(SystemSegment segment) : base(segment)
     {
         Debug.Assert(MaxDaysViaDayOfMonth_ >= MinMinDaysInMonth);

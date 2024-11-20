@@ -4,8 +4,8 @@
 namespace Calendrie.Core.Arithmetic;
 
 /// <summary>
-/// Provides a generic implementation for <see cref="SystemArithmetic"/> for when the schema is
-/// regular.
+/// Provides a generic implementation for <see cref="SystemArithmetic"/> for when
+/// the schema is regular.
 /// <para>The length of a month must be greater than or equal to
 /// <see cref="SystemArithmetic.MinMinDaysInMonth"/>.</para>
 /// <para>This class cannot be inherited.</para>
@@ -13,13 +13,16 @@ namespace Calendrie.Core.Arithmetic;
 internal sealed partial class RegularSystemArithmetic : SystemArithmetic
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RegularSystemArithmetic"/> class.
+    /// Initializes a new instance of the <see cref="RegularSystemArithmetic"/>
+    /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">The underlying schema contains at least one
-    /// month whose length is strictly less than <see cref="SystemArithmetic.MinMinDaysInMonth"/>.
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">The underlying schema contains at
+    /// least one month whose length is strictly less than
+    /// <see cref="SystemArithmetic.MinMinDaysInMonth"/>.</exception>
+    /// <exception cref="ArgumentException">The underlying schema is not regular.
     /// </exception>
-    /// <exception cref="ArgumentException">The underlying schema is not regular.</exception>
     public RegularSystemArithmetic(SystemSegment segment) : base(segment)
     {
         if (Schema.MinDaysInMonth < MinMinDaysInMonth) Throw.Argument(nameof(segment));

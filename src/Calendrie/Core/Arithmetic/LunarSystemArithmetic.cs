@@ -19,12 +19,13 @@ internal sealed partial class LunarSystemArithmetic : SystemArithmetic
     private const int MaxDaysViaDayOfMonth_ = MinDaysInMonth;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LunarSystemArithmetic"/> class with the specified
-    /// schema.
+    /// Initializes a new instance of the <see cref="LunarSystemArithmetic"/>
+    /// class with the specified schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">The underlying schema does not have the expected
-    /// profile <see cref="CalendricalProfile.Lunar"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">The underlying schema does not have
+    /// the expected profile <see cref="CalendricalProfile.Lunar"/>.</exception>
     public LunarSystemArithmetic(SystemSegment segment) : base(segment)
     {
         Debug.Assert(MaxDaysViaDayOfMonth_ >= MinMinDaysInMonth);

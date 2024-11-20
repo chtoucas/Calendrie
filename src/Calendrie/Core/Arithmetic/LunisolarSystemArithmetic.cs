@@ -18,12 +18,13 @@ internal sealed partial class LunisolarSystemArithmetic : SystemArithmetic
     private const int MaxDaysViaDayOfMonth_ = MinDaysInMonth;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LunisolarSystemArithmetic"/> class with the
-    /// specified schema.
+    /// Initializes a new instance of the <see cref="LunisolarSystemArithmetic"/>
+    /// class with the specified schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">The underlying schema does not have the expected
-    /// profile <see cref="CalendricalProfile.Lunisolar"/>.
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">The underlying schema does not have
+    /// the expected profile <see cref="CalendricalProfile.Lunisolar"/>.
     /// </exception>
     public LunisolarSystemArithmetic(SystemSegment segment) : base(segment)
     {

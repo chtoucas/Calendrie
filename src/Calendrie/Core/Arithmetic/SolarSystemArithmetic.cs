@@ -7,8 +7,8 @@ using __Solar = CalendricalConstants.Solar;
 
 /// <summary>
 /// Defines the core mathematical operations on dates for schemas with profile
-/// <see cref="CalendricalProfile.Solar12"/> or <see cref="CalendricalProfile.Solar13"/>, and
-/// provides a base for derived classes.
+/// <see cref="CalendricalProfile.Solar12"/> or <see cref="CalendricalProfile.Solar13"/>,
+/// and provides a base for derived classes.
 /// </summary>
 internal abstract partial class SolarSystemArithmetic : SystemArithmetic
 {
@@ -21,7 +21,8 @@ internal abstract partial class SolarSystemArithmetic : SystemArithmetic
     /// Called from constructors in derived classes to initialize the
     /// <see cref="SolarSystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
     protected SolarSystemArithmetic(SystemSegment segment) : base(segment)
     {
         // Disabled, otherwise we cannot test the derived constructors.
