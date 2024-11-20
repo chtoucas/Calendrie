@@ -29,8 +29,6 @@
 
   <!-- Common properties -->
   <PropertyGroup>
-    <RootNamespace>Calendrie</RootNamespace>
-
     <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
 
