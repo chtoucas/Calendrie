@@ -4,8 +4,7 @@
 namespace Calendrie.Core.Arithmetic;
 
 /// <summary>
-/// Defines a plain implementation for <see cref="SystemArithmetic"/> and provides a base for
-/// derived classes.
+/// Defines a plain implementation for <see cref="SystemArithmetic"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 internal sealed partial class PlainSystemArithmetic : SystemArithmetic
@@ -14,7 +13,8 @@ internal sealed partial class PlainSystemArithmetic : SystemArithmetic
     /// Called from constructors in derived classes to initialize the
     /// <see cref="PlainSystemArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
     public PlainSystemArithmetic(SystemSegment segment) : base(segment) { }
 }
 
