@@ -76,8 +76,8 @@ type JulianTests() =
 
 // LunisolarPreValidator
 [<Sealed>]
-type LunisolarTests() =
-    inherit ICalendricalPreValidatorFacts<LunisolarDataSet>(schemaOf<LunisolarSchema>())
+type FauxLunisolarTests() =
+    inherit ICalendricalPreValidatorFacts<FauxLunisolarDataSet>(schemaOf<FauxLunisolarSchema>())
 
     member x.PreValidator() = x.PreValidatorUT |> is<LunisolarPreValidator>
 

@@ -53,8 +53,8 @@ let JulianTests () =
     test(schemaOf<JulianSchema>(), JulianDataSet.CommonYear, JulianDataSet.LeapYear)
 
 [<Fact>]
-let LunisolarTests () =
-    test(schemaOf<LunisolarSchema>(), LunisolarDataSet.CommonYear, LunisolarDataSet.LeapYear)
+let FauxLunisolarTests () =
+    test(schemaOf<FauxLunisolarSchema>(), FauxLunisolarDataSet.CommonYear, FauxLunisolarDataSet.LeapYear)
 
 [<Fact>]
 let Persian2820Tests () =

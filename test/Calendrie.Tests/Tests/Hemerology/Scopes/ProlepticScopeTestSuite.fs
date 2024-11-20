@@ -65,8 +65,8 @@ type JulianTests() =
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-type LunisolarTests() =
-    inherit ProlepticScopeFacts<LunisolarDataSet>(scopeOf<LunisolarSchema>())
+type FauxLunisolarTests() =
+    inherit ProlepticScopeFacts<FauxLunisolarDataSet>(scopeOf<FauxLunisolarSchema>())
 
 //[<Sealed>]
 //[<TestExcludeFrom(TestExcludeFrom.Regular)>]

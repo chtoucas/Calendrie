@@ -48,7 +48,7 @@ module Prelude =
     [<Fact>]
     let ``IsRegular() when the calendar is not regular`` () =
         let name = "My Name"
-        let scope = StandardScope.Create(new LunisolarSchema(), DayZero.NewStyle)
+        let scope = StandardScope.Create(new FauxLunisolarSchema(), DayZero.NewStyle)
         let chr = new FauxBasicCalendar(name, scope)
 
         let (regular, monthsInYear) = chr.IsRegular()

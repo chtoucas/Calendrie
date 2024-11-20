@@ -4,25 +4,25 @@
 namespace Calendrie.Testing.Data.Schemas;
 
 /// <summary>
-/// Provides test data for <see cref="LunisolarSchema"/>.
+/// Provides test data for <see cref="FauxLunisolarSchema"/>.
 /// </summary>
-public sealed partial class LunisolarDataSet : SchemaDataSet, ISingleton<LunisolarDataSet>
+public sealed partial class FauxLunisolarDataSet : SchemaDataSet, ISingleton<FauxLunisolarDataSet>
 {
     public const int CommonYear = 1;
     public const int LeapYear = 4;
 
-    private LunisolarDataSet() : base(new LunisolarSchema(), CommonYear, LeapYear) { }
+    private FauxLunisolarDataSet() : base(new FauxLunisolarSchema(), CommonYear, LeapYear) { }
 
-    public static LunisolarDataSet Instance => Singleton.Instance;
+    public static FauxLunisolarDataSet Instance => Singleton.Instance;
 
     private static class Singleton
     {
-        internal static readonly LunisolarDataSet Instance = new();
+        internal static readonly FauxLunisolarDataSet Instance = new();
         static Singleton() { }
     }
 }
 
-public partial class LunisolarDataSet // Infos
+public partial class FauxLunisolarDataSet // Infos
 {
     public override DataGroup<MonthsSinceEpochInfo> MonthsSinceEpochInfoData { get; } =
     [
@@ -194,7 +194,7 @@ public partial class LunisolarDataSet // Infos
     }
 }
 
-public partial class LunisolarDataSet // Start and end of year
+public partial class FauxLunisolarDataSet // Start and end of year
 {
     public override DataGroup<Yemoda> EndOfYearPartsData { get; } =
     [
@@ -238,7 +238,7 @@ public partial class LunisolarDataSet // Start and end of year
     ];
 }
 
-public partial class LunisolarDataSet // Invalid date parts
+public partial class FauxLunisolarDataSet // Invalid date parts
 {
     public override TheoryData<int, int> InvalidMonthFieldData { get; } = new()
     {
@@ -313,7 +313,7 @@ public partial class LunisolarDataSet // Invalid date parts
     };
 }
 
-public partial class LunisolarDataSet // Math data
+public partial class FauxLunisolarDataSet // Math data
 {
     //
     // Data for Next() and Previous()

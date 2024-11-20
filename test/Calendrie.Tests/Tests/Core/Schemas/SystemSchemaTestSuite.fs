@@ -147,8 +147,8 @@ type JulianTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
 [<Sealed>]
-type LunisolarTests() =
-    inherit SystemSchemaFacts<LunisolarDataSet>(syschemaOf<LunisolarSchema>())
+type FauxLunisolarTests() =
+    inherit SystemSchemaFacts<FauxLunisolarDataSet>(syschemaOf<FauxLunisolarSchema>())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Lunisolar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Months

@@ -58,8 +58,8 @@ type JulianTests() =
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-type LunisolarTests() =
-    inherit SystemArithmeticFacts<LunisolarDataSet>(ariOf<LunisolarSchema>())
+type FauxLunisolarTests() =
+    inherit SystemArithmeticFacts<FauxLunisolarDataSet>(ariOf<FauxLunisolarSchema>())
 
 // PaxSchema -> already tested in ArithmeticTestSuite.
 

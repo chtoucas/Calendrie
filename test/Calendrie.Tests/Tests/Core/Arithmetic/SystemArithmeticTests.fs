@@ -182,7 +182,7 @@ module LunarCase =
         ari.MaxDaysViaDayOfMonth === CalendricalConstants.Lunar.MinDaysInMonth
 
 module LunisolarCase =
-    let private seg = sysegmentOf<LunisolarSchema>()
+    let private seg = sysegmentOf<FauxLunisolarSchema>()
     let private ari = new LunisolarSystemArithmetic(seg)
 
     [<Fact>]

@@ -85,8 +85,8 @@ type JulianTests() =
 
 // LunisolarSystemArithmetic
 [<Sealed>]
-type LunisolarTests() =
-    inherit SystemArithmeticFacts<LunisolarDataSet>(ariOf<LunisolarSchema>())
+type FauxLunisolarTests() =
+    inherit SystemArithmeticFacts<FauxLunisolarDataSet>(ariOf<FauxLunisolarSchema>())
 
     member x.Arithmetic() = x.Arithmetic |> is<LunisolarSystemArithmetic>
 
