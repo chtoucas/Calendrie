@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Facts.Core;
 
+using Calendrie.Sketches.Core;
 using Calendrie.Testing.Data;
 
 // Sync with PartsArithmeticFacts.

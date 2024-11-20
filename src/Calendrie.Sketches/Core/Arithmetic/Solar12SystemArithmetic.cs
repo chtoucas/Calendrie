@@ -1,31 +1,32 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Arithmetic;
+namespace Calendrie.Sketches.Core.Arithmetic;
 
-using __Solar13 = CalendricalConstants.Solar13;
+using Calendrie.Core;
+
+using __Solar12 = Calendrie.Core.CalendricalConstants.Solar12;
 
 /// <summary>
 /// Provides the core mathematical operations on dates for schemas with profile
-/// <see cref="CalendricalProfile.Solar13"/>.
+/// <see cref="CalendricalProfile.Solar12"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal sealed class Solar13SystemArithmetic : SolarSystemArithmetic
+internal sealed class Solar12SystemArithmetic : SolarSystemArithmetic
 {
-    private const int MonthsInYear = __Solar13.MonthsInYear;
+    private const int MonthsInYear = __Solar12.MonthsInYear;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Solar13SystemArithmetic"/>
+    /// Initializes a new instance of the <see cref="Solar12SystemArithmetic"/>
     /// class with the specified schema.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
     /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The underlying schema does not have
-    /// the expected profile <see cref="CalendricalProfile.Solar13"/>.
-    /// </exception>
-    public Solar13SystemArithmetic(SystemSegment segment) : base(segment)
+    /// the expected profile <see cref="CalendricalProfile.Solar12"/>.</exception>
+    public Solar12SystemArithmetic(SystemSegment segment) : base(segment)
     {
-        Requires.Profile(Schema, CalendricalProfile.Solar13, nameof(segment));
+        Requires.Profile(Schema, CalendricalProfile.Solar12, nameof(segment));
     }
 
     //

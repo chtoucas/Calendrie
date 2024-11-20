@@ -1,63 +1,58 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Arithmetic;
+namespace Calendrie.Sketches.Core.Arithmetic;
+
+using Calendrie.Core;
+
+using __Lunar = Calendrie.Core.CalendricalConstants.Lunar;
 
 /// <summary>
-/// Provides a generic implementation for <see cref="SystemArithmetic"/> for when
-/// the schema is regular.
-/// <para>The length of a month must be greater than or equal to
-/// <see cref="SystemArithmetic.MinMinDaysInMonth"/>.</para>
+/// Provides the core mathematical operations on dates for schemas with profile
+/// <see cref="CalendricalProfile.Lunar"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal sealed partial class RegularSystemArithmetic : SystemArithmetic
+internal sealed partial class LunarSystemArithmetic : SystemArithmetic
 {
+    private const int MonthsInYear = __Lunar.MonthsInYear;
+    private const int MinDaysInYear = __Lunar.MinDaysInYear;
+    private const int MinDaysInMonth = __Lunar.MinDaysInMonth;
+    private const int MaxDaysViaDayOfYear_ = MinDaysInYear;
+    private const int MaxDaysViaDayOfMonth_ = MinDaysInMonth;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="RegularSystemArithmetic"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="LunarSystemArithmetic"/>
+    /// class with the specified schema.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
     /// <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">The underlying schema contains at
-    /// least one month whose length is strictly less than
-    /// <see cref="SystemArithmetic.MinMinDaysInMonth"/>.</exception>
-    /// <exception cref="ArgumentException">The underlying schema is not regular.
-    /// </exception>
-    public RegularSystemArithmetic(SystemSegment segment) : base(segment)
+    /// <exception cref="ArgumentException">The underlying schema does not have
+    /// the expected profile <see cref="CalendricalProfile.Lunar"/>.</exception>
+    public LunarSystemArithmetic(SystemSegment segment) : base(segment)
     {
-        if (Schema.MinDaysInMonth < MinMinDaysInMonth) Throw.Argument(nameof(segment));
-        if (Schema.IsRegular(out int monthsInYear) == false) Throw.Argument(nameof(segment));
+        Debug.Assert(MaxDaysViaDayOfMonth_ >= MinMinDaysInMonth);
 
-        MonthsInYear = monthsInYear;
+        Requires.Profile(Schema, CalendricalProfile.Lunar, nameof(segment));
+
+        MaxDaysViaDayOfYear = MaxDaysViaDayOfYear_;
+        MaxDaysViaDayOfMonth = MaxDaysViaDayOfMonth_;
     }
-
-    public int MonthsInYear { get; }
 }
 
-internal partial class RegularSystemArithmetic // Operations on Yemoda
+internal partial class LunarSystemArithmetic // Operations on Yemoda
 {
     /// <inheritdoc />
     [Pure]
     public override Yemoda AddDays(Yemoda ymd, int days)
     {
         // Fast tracks.
-        ymd.Unpack(out int y, out int m, out int d);
-
-        // No change of month.
-        // In theory, the only thing we know at this point is that
-        // MaxDaysViaDayOfMonth >= 7 (= MinMinDaysInMonth), but in fact we
-        // know a bit more. Indeed, we know that the schema does not fit one
-        // of the standard profiles (see Create()) which most certainly
-        // means that there is at least one very short month, therefore I
-        // don't think that AddDaysViaDayOfMonth() is that interesting here.
-        // Notice the use of checked arithmetic here.
-        int dom = checked(d + days);
-        if (1 <= dom && (dom <= MaxDaysViaDayOfMonth || dom <= Schema.CountDaysInMonth(y, m)))
+        if (-MaxDaysViaDayOfMonth_ <= days && days <= MaxDaysViaDayOfMonth_)
         {
-            return new Yemoda(y, m, dom);
+            return AddDaysViaDayOfMonth(ymd, days);
         }
 
-        if (-MaxDaysViaDayOfYear <= days && days <= MaxDaysViaDayOfYear)
+        ymd.Unpack(out int y, out int m, out int d);
+        if (-MaxDaysViaDayOfYear_ <= days && days <= MaxDaysViaDayOfYear_)
         {
             int doy = Schema.GetDayOfYear(y, m, d);
             var (newY, newDoy) = AddDaysViaDayOfYear(new Yedoy(y, doy), days);
@@ -75,19 +70,16 @@ internal partial class RegularSystemArithmetic // Operations on Yemoda
     [Pure]
     protected internal override Yemoda AddDaysViaDayOfMonth(Yemoda ymd, int days)
     {
-        Debug.Assert(-MaxDaysViaDayOfMonth <= days);
-        Debug.Assert(days <= MaxDaysViaDayOfMonth);
+        Debug.Assert(-MaxDaysViaDayOfMonth_ <= days);
+        Debug.Assert(days <= MaxDaysViaDayOfMonth_);
 
         ymd.Unpack(out int y, out int m, out int d);
 
-        // No need to use checked arithmetic here.
         int dom = d + days;
         if (dom < 1)
         {
-            // Previous month.
             if (m == 1)
             {
-                // Last month of previous year.
                 if (y == MinYear) Throw.DateOverflow();
                 y--;
                 (_, m, int d0) = Schema.GetDatePartsAtEndOfYear(y);
@@ -99,22 +91,22 @@ internal partial class RegularSystemArithmetic // Operations on Yemoda
                 dom += Schema.CountDaysInMonth(y, m);
             }
         }
-
-        int daysInMonth = Schema.CountDaysInMonth(y, m);
-        if (dom > daysInMonth)
+        else if (dom > MinDaysInMonth)
         {
-            // Next month.
-            dom -= daysInMonth;
-            if (m == MonthsInYear)
+            int daysInMonth = Schema.CountDaysInMonth(y, m);
+            if (dom > daysInMonth)
             {
-                // First month of next year.
-                if (y == MaxYear) Throw.DateOverflow();
-                y++;
-                m = 1;
-            }
-            else
-            {
-                m++;
+                dom -= daysInMonth;
+                if (m == MonthsInYear)
+                {
+                    if (y == MaxYear) Throw.DateOverflow();
+                    y++;
+                    m = 1;
+                }
+                else
+                {
+                    m++;
+                }
             }
         }
 
@@ -128,13 +120,10 @@ internal partial class RegularSystemArithmetic // Operations on Yemoda
         ymd.Unpack(out int y, out int m, out int d);
 
         return
-            // Same month, the day after.
-            d < MaxDaysViaDayOfMonth || d < Schema.CountDaysInMonth(y, m) ? new Yemoda(y, m, d + 1)
-            // Same year, start of next month.
+            d < MinDaysInMonth || d < Schema.CountDaysInMonth(y, m)
+                ? new Yemoda(y, m, d + 1)
             : m < MonthsInYear ? Yemoda.AtStartOfMonth(y, m + 1)
-            // Start of next year...
             : y < MaxYear ? Yemoda.AtStartOfYear(y + 1)
-            // ... or overflow.
             : Throw.DateOverflow<Yemoda>();
     }
 
@@ -145,25 +134,21 @@ internal partial class RegularSystemArithmetic // Operations on Yemoda
         ymd.Unpack(out int y, out int m, out int d);
 
         return
-            // Same month, the day before.
             d > 1 ? new Yemoda(y, m, d - 1)
-            // Same year, end of previous month.
             : m > 1 ? Schema.GetDatePartsAtEndOfMonth(y, m - 1)
-            // End of previous year...
             : y > MinYear ? Schema.GetDatePartsAtEndOfYear(y - 1)
-            // ... or overflow.
             : Throw.DateOverflow<Yemoda>();
     }
 }
 
-internal partial class RegularSystemArithmetic // Operations on Yedoy
+internal partial class LunarSystemArithmetic // Operations on Yedoy
 {
     /// <inheritdoc />
     [Pure]
     public override Yedoy AddDays(Yedoy ydoy, int days)
     {
         // Fast track.
-        if (-MaxDaysViaDayOfYear <= days && days <= MaxDaysViaDayOfYear)
+        if (-MaxDaysViaDayOfYear_ <= days && days <= MaxDaysViaDayOfYear_)
         {
             return AddDaysViaDayOfYear(ydoy, days);
         }
@@ -181,12 +166,11 @@ internal partial class RegularSystemArithmetic // Operations on Yedoy
     [Pure]
     protected internal override Yedoy AddDaysViaDayOfYear(Yedoy ydoy, int days)
     {
-        Debug.Assert(-MaxDaysViaDayOfYear <= days);
-        Debug.Assert(days <= MaxDaysViaDayOfYear);
+        Debug.Assert(-MaxDaysViaDayOfYear_ <= days);
+        Debug.Assert(days <= MaxDaysViaDayOfYear_);
 
         ydoy.Unpack(out int y, out int doy);
 
-        // No need to use checked arithmetic here.
         doy += days;
         if (doy < 1)
         {
@@ -215,7 +199,8 @@ internal partial class RegularSystemArithmetic // Operations on Yedoy
         ydoy.Unpack(out int y, out int doy);
 
         return
-            doy < MaxDaysViaDayOfYear || doy < Schema.CountDaysInYear(y) ? new Yedoy(y, doy + 1)
+            doy < MinDaysInYear || doy < Schema.CountDaysInYear(y)
+                ? new Yedoy(y, doy + 1)
             : y < MaxYear ? Yedoy.AtStartOfYear(y + 1)
             : Throw.DateOverflow<Yedoy>();
     }
@@ -232,7 +217,7 @@ internal partial class RegularSystemArithmetic // Operations on Yedoy
     }
 }
 
-internal partial class RegularSystemArithmetic // Operations on Yemo
+internal partial class LunarSystemArithmetic // Operations on Yemo
 {
     /// <inheritdoc />
     [Pure]
@@ -258,7 +243,7 @@ internal partial class RegularSystemArithmetic // Operations on Yemo
     }
 }
 
-internal partial class RegularSystemArithmetic // Non-standard operations
+internal partial class LunarSystemArithmetic // Non-standard operations
 {
     /// <inheritdoc />
     [Pure]

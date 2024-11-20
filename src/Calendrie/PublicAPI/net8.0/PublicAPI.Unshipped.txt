@@ -17,20 +17,6 @@ abstract Calendrie.Core.CalendricalSchema.IsSupplementaryDay(int y, int m, int d
 abstract Calendrie.Core.CalendricalSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 abstract Calendrie.Core.Schemas.EgyptianSchema.MonthsInYear.get -> int
 abstract Calendrie.Core.Schemas.PtolemaicSchema.MonthsInYear.get -> int
-abstract Calendrie.Core.SystemArithmetic.AddDays(Calendrie.Core.Yedoy ydoy, int days) -> Calendrie.Core.Yedoy
-abstract Calendrie.Core.SystemArithmetic.AddDays(Calendrie.Core.Yemoda ymd, int days) -> Calendrie.Core.Yemoda
-abstract Calendrie.Core.SystemArithmetic.AddDaysViaDayOfMonth(Calendrie.Core.Yemoda ymd, int days) -> Calendrie.Core.Yemoda
-abstract Calendrie.Core.SystemArithmetic.AddDaysViaDayOfYear(Calendrie.Core.Yedoy ydoy, int days) -> Calendrie.Core.Yedoy
-abstract Calendrie.Core.SystemArithmetic.AddMonths(Calendrie.Core.Yemo ym, int months) -> Calendrie.Core.Yemo
-abstract Calendrie.Core.SystemArithmetic.AddMonths(Calendrie.Core.Yemoda ymd, int months, out int roundoff) -> Calendrie.Core.Yemoda
-abstract Calendrie.Core.SystemArithmetic.AddYears(Calendrie.Core.Yedoy ydoy, int years, out int roundoff) -> Calendrie.Core.Yedoy
-abstract Calendrie.Core.SystemArithmetic.AddYears(Calendrie.Core.Yemo ym, int years, out int roundoff) -> Calendrie.Core.Yemo
-abstract Calendrie.Core.SystemArithmetic.AddYears(Calendrie.Core.Yemoda ymd, int years, out int roundoff) -> Calendrie.Core.Yemoda
-abstract Calendrie.Core.SystemArithmetic.CountMonthsBetween(Calendrie.Core.Yemo start, Calendrie.Core.Yemo end) -> int
-abstract Calendrie.Core.SystemArithmetic.NextDay(Calendrie.Core.Yedoy ydoy) -> Calendrie.Core.Yedoy
-abstract Calendrie.Core.SystemArithmetic.NextDay(Calendrie.Core.Yemoda ymd) -> Calendrie.Core.Yemoda
-abstract Calendrie.Core.SystemArithmetic.PreviousDay(Calendrie.Core.Yedoy ydoy) -> Calendrie.Core.Yedoy
-abstract Calendrie.Core.SystemArithmetic.PreviousDay(Calendrie.Core.Yemoda ymd) -> Calendrie.Core.Yemoda
 abstract Calendrie.Core.SystemSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
 abstract Calendrie.Hemerology.BasicCalendar<TScope>.CountDaysInMonth(int year, int month) -> int
 abstract Calendrie.Hemerology.BasicCalendar<TScope>.CountDaysInYear(int year) -> int
@@ -326,23 +312,6 @@ Calendrie.Core.Schemas.TropicalistaSchema.MonthsInYear.get -> int
 Calendrie.Core.Schemas.WorldSchema
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
 Calendrie.Core.Schemas.WorldSchema.MonthsInYear.get -> int
-Calendrie.Core.SystemArithmetic
-Calendrie.Core.SystemArithmetic.CountDaysBetween(Calendrie.Core.Yedoy start, Calendrie.Core.Yedoy end) -> int
-Calendrie.Core.SystemArithmetic.CountDaysBetween(Calendrie.Core.Yemoda start, Calendrie.Core.Yemoda end) -> int
-Calendrie.Core.SystemArithmetic.DaysValidator.get -> Calendrie.Core.Validation.DaysValidator!
-Calendrie.Core.SystemArithmetic.MaxDaysViaDayOfMonth.get -> int
-Calendrie.Core.SystemArithmetic.MaxDaysViaDayOfMonth.init -> void
-Calendrie.Core.SystemArithmetic.MaxDaysViaDayOfYear.get -> int
-Calendrie.Core.SystemArithmetic.MaxDaysViaDayOfYear.init -> void
-Calendrie.Core.SystemArithmetic.MaxYear.get -> int
-Calendrie.Core.SystemArithmetic.MinYear.get -> int
-Calendrie.Core.SystemArithmetic.MonthsValidator.get -> Calendrie.Core.Validation.MonthsValidator!
-Calendrie.Core.SystemArithmetic.NextMonth(Calendrie.Core.Yemo ym) -> Calendrie.Core.Yemo
-Calendrie.Core.SystemArithmetic.PreviousMonth(Calendrie.Core.Yemo ym) -> Calendrie.Core.Yemo
-Calendrie.Core.SystemArithmetic.Schema.get -> Calendrie.Core.SystemSchema!
-Calendrie.Core.SystemArithmetic.Segment.get -> Calendrie.Core.SystemSegment!
-Calendrie.Core.SystemArithmetic.SystemArithmetic(Calendrie.Core.SystemSegment! segment) -> void
-Calendrie.Core.SystemArithmetic.YearsValidator.get -> Calendrie.Core.Validation.YearsValidator!
 Calendrie.Core.SystemSchema
 Calendrie.Core.SystemSchema.GetDateParts(int daysSinceEpoch) -> Calendrie.Core.Yemoda
 Calendrie.Core.SystemSchema.GetDateParts(int y, int doy) -> Calendrie.Core.Yemoda
@@ -1833,7 +1802,6 @@ static Calendrie.Core.Schemas.Tropicalia3031Schema.GetInstance() -> Calendrie.Co
 static Calendrie.Core.Schemas.Tropicalia3130Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Tropicalia3130Schema!>!
 static Calendrie.Core.Schemas.TropicaliaSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.TropicaliaSchema!>!
 static Calendrie.Core.Schemas.WorldSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.WorldSchema!>!
-static Calendrie.Core.SystemArithmetic.CreateDefault(Calendrie.Core.SystemSegment! segment) -> Calendrie.Core.SystemArithmetic!
 static Calendrie.Core.SystemSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.SystemSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.SystemSegment.Create(Calendrie.Core.SystemSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.SystemSegment!

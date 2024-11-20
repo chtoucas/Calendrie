@@ -4,9 +4,9 @@
 module Calendrie.Tests.Core.Arithmetic.RegularSystemArithmeticTestSuite
 
 open Calendrie.Core
-open Calendrie.Core.Arithmetic
 open Calendrie.Core.Schemas
 open Calendrie.Core.Utilities
+open Calendrie.Sketches.Core.Arithmetic
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core

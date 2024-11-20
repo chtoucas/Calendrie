@@ -1,11 +1,12 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core;
+namespace Calendrie.Sketches.Core;
 
-using Calendrie.Core.Arithmetic;
+using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
+using Calendrie.Sketches.Core.Arithmetic;
 
 // TODO(doc): better explanation for the meaning of MinMinDaysInMonth and
 // MaxDaysViaDayOfMonth.

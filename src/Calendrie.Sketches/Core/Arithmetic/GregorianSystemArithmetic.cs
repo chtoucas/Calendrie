@@ -1,13 +1,14 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Arithmetic;
+namespace Calendrie.Sketches.Core.Arithmetic;
 
+using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 
-using __Solar = CalendricalConstants.Solar;
-using __Solar12 = CalendricalConstants.Solar12;
+using __Solar = Calendrie.Core.CalendricalConstants.Solar;
+using __Solar12 = Calendrie.Core.CalendricalConstants.Solar12;
 
 /// <summary>
 /// Provides the core mathematical operations on dates within the Gregorian

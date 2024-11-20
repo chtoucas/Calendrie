@@ -1,9 +1,11 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Arithmetic;
+namespace Calendrie.Sketches.Core.Arithmetic;
 
-using __Solar = CalendricalConstants.Solar;
+using Calendrie.Core;
+
+using __Solar = Calendrie.Core.CalendricalConstants.Solar;
 
 /// <summary>
 /// Defines the core mathematical operations on dates for schemas with profile
