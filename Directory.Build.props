@@ -8,8 +8,8 @@
 
     <!-- WARNING: keep "CalendrieDefaultFramework" in sync with "global.json" -->
     <CalendrieDefaultFramework>net9.0</CalendrieDefaultFramework>
-    <CalendrieLibraryFrameworks>$(CalendrieDefaultFramework)</CalendrieLibraryFrameworks>
-    <CalendrieTestFrameworks>$(CalendrieDefaultFramework)</CalendrieTestFrameworks>
+    <!-- Only used by the main library: the default framework and the LTS framework -->
+    <CalendrieLibraryFrameworks>$(CalendrieDefaultFramework);net8.0</CalendrieLibraryFrameworks>
 
     <CalendrieT4Directory>$(MSBuildThisFileDirectory)src\CodeTemplates\</CalendrieT4Directory>
     <CalendrieT4Assembly>$(MSBuildThisFileDirectory)eng\blib\Calendrie.TextTemplating.$(VisualStudioVersion).dll</CalendrieT4Assembly>

@@ -100,6 +100,6 @@
 
   <!-- SourceLink + PublicApiAnalyzers -->
   <Import Project="$(MSBuildThisFileDirectory)..\Packable.targets"
-          Condition=" '$(IsPackable)' == 'true' "/>
+          Condition=" '$(IsPackable)' == 'true' " />
 
 </Project>
