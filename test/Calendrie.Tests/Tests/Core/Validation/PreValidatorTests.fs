@@ -5,12 +5,12 @@ module Calendrie.Tests.Core.Schemas.PreValidatorTests
 
 open System
 
-open Calendrie.Core
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Schemas
+open Calendrie.Testing.Faux
 
 open Xunit
 

@@ -5,14 +5,14 @@ module Calendrie.Tests.Core.Schemas.CalendricalSchemaTests
 
 open System
 
-open Calendrie.Testing
-open Calendrie.Testing.Data
-open Calendrie.Testing.Data.Schemas
-
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
+open Calendrie.Testing
+open Calendrie.Testing.Data
+open Calendrie.Testing.Data.Schemas
+open Calendrie.Testing.Faux
 
 open Xunit
 

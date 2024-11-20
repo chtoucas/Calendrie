@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core;
+namespace Calendrie.Testing.Faux;
 
 // GetStartOfYear() must be implemented for calendars, arithmetic & scope to work.
 // We must also implement IsRegular(), otherwise CalendricalSchema.Profile will fail.

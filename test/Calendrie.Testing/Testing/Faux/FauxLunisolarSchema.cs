@@ -1,7 +1,11 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Schemas;
+namespace Calendrie.Testing.Faux;
+
+using Calendrie;
+using Calendrie.Core;
+using Calendrie.Core.Schemas;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -58,7 +62,7 @@ public sealed class FauxLunisolarSchema :
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         y = MathZ.Divide((monthsSinceEpoch << 2) + 52, 49);
-        m = 1 + monthsSinceEpoch - ((49 * y - 49) >> 2);
+        m = 1 + monthsSinceEpoch - (49 * y - 49 >> 2);
     }
 
     [Pure]

@@ -11,8 +11,7 @@ open Calendrie.Hemerology.Scopes
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
-
-// TODO(code): lunisolar (fake) schemas.
+open Calendrie.Testing.Faux
 
 // Returns a StandardScope.
 let private scopeOf<'a when 'a :> CalendricalSchema and 'a :> IBoxable<'a>> () =

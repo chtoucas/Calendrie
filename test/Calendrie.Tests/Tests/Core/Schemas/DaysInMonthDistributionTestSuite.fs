@@ -3,11 +3,11 @@
 
 module Calendrie.Tests.Core.Schemas.DaysInMonthDistributionTestSuite
 
+open Calendrie.Core.Schemas
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
-
-open Calendrie.Core.Schemas
+open Calendrie.Testing.Faux
 
 open Xunit
 

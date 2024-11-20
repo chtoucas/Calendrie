@@ -10,6 +10,7 @@ open Calendrie.Core.Utilities
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
+open Calendrie.Testing.Faux
 
 // TODO(code): lunisolar (fake) schema.
 

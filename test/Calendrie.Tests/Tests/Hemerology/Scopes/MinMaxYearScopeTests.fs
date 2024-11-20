@@ -9,6 +9,7 @@ open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology.Scopes
 open Calendrie.Testing
+open Calendrie.Testing.Faux
 
 open Xunit
 

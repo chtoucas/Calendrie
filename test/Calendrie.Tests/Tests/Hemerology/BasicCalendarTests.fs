@@ -5,9 +5,9 @@ module Calendrie.Tests.Hemerology.BasicCalendarTests
 
 open Calendrie
 open Calendrie.Core.Schemas
-open Calendrie.Hemerology
 open Calendrie.Hemerology.Scopes
 open Calendrie.Testing
+open Calendrie.Testing.Faux
 
 open Xunit
 

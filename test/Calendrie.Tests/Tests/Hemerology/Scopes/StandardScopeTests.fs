@@ -6,7 +6,6 @@ module Calendrie.Tests.Hemerology.Scopes.StandardScopeTests
 open System
 
 open Calendrie
-open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology.Scopes
@@ -14,6 +13,7 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Faux
 
 open Xunit
 

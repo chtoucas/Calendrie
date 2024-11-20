@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data.Schemas;
 
+using Calendrie.Testing.Faux;
+
 /// <summary>
 /// Provides test data for <see cref="FauxLunisolarSchema"/>.
 /// </summary>

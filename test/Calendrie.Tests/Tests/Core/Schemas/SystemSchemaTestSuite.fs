@@ -5,17 +5,16 @@ module Calendrie.Tests.Core.Schemas.SystemSchemaTestSuite
 
 open System
 
-open Calendrie.Testing
-open Calendrie.Testing.Data.Bounded
-open Calendrie.Testing.Data.Schemas
-open Calendrie.Testing.Facts
-open Calendrie.Testing.Facts.Core
-
 open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
+open Calendrie.Testing
+open Calendrie.Testing.Data.Bounded
+open Calendrie.Testing.Data.Schemas
+open Calendrie.Testing.Facts.Core
+open Calendrie.Testing.Faux
 
 open Xunit
 

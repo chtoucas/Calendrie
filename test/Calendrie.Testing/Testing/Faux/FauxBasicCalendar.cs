@@ -1,8 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology;
+namespace Calendrie.Testing.Faux;
 
+using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
 public sealed class FauxBasicCalendar : BasicCalendar<CalendarScope>

@@ -11,6 +11,7 @@ open Calendrie.Hemerology.Scopes
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Faux
 
 // TODO(code): Hebrew (unfinished, no data), Pax (not proleptic) and lunisolar (fake) schema.
 
