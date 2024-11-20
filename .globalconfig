@@ -84,58 +84,78 @@ dotnet_diagnostic.IDE1006.severity = warning
 
 #### Language and unnecessary code rules #######################################
 
+# We override a code-style option to specify a non-default value -or- severity.
+
 #### .NET coding conventions ####
 
 # IDE0047: Remove unnecessary parentheses
 # IDE0048: Add parentheses for clarity
+# Default values are:
+# always_for_clarity / always_for_clarity / always_for_clarity / never_if_unnecessary
 dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:suggestion
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:suggestion
 dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
 dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
 
 # IDE0049: Use language keywords instead of framework type names for type references (VS-only setting)
+# Default values are: true / true
 dotnet_style_predefined_type_for_locals_parameters_members = true:warning
 dotnet_style_predefined_type_for_member_access = false:warning
 
 # IDE0073: Require file header
+# Default values is: unset
 file_header_template = SPDX-License-Identifier: BSD-3-Clause\nCopyright (c) Tran Ngoc Bich. All rights reserved.
 
 #### C# coding conventions ####
 
 # IDE0007: Use var instead of explicit type
 # IDE0008: Use explicit type instead of var
-csharp_style_var_for_built_in_types = false:warning
+# Default values are: false / false / false
+csharp_style_var_for_built_in_types = false:suggestion
 csharp_style_var_when_type_is_apparent = true:suggestion
 csharp_style_var_elsewhere = true:suggestion
 
 # IDE0011: Add braces
+# Default values is: true
 csharp_prefer_braces = when_multiline:warning
 
 # IDE0022: Use expression body for methods
+# Default values is: false
 csharp_style_expression_bodied_methods = when_on_single_line:suggestion
 
 # IDE0023: Use expression body for conversion operators
 # IDE0024: Use expression body for operators
+# Default values is: false
 csharp_style_expression_bodied_operators = when_on_single_line:suggestion
 
 # IDE0032: Use auto-implemented property
+# Default values is: true
 dotnet_style_prefer_auto_properties = true:suggestion
 
 # IDE0061: Use expression body for local functions
+# Default values is: false
 csharp_style_expression_bodied_local_functions = when_on_single_line:suggestion
 
 # IDE0065: using directive placement
+# Default values is: outside_namespace
 csharp_using_directive_placement = inside_namespace:warning
 
 # IDE0078: Use pattern matching
+# Default values is: true
 csharp_style_prefer_pattern_matching = false:suggestion
 
 # IDE0160: Use block-scoped namespace
 # IDE0161: Use file-scoped namespace
+# Default values is: block_scoped
 csharp_style_namespace_declarations = file_scoped:warning
 
 # IDE0290: Use primary constructor
+# Default values is: true
 csharp_style_prefer_primary_constructors = false:warning
+
+# IDE0305: Use collection expression for fluent
+# Default values is: true (.NET 8.0) or when_types_loosely_match (.NET 9.0+)
+dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
 
 #### Naming rules (IDE1006) ####################################################
 
