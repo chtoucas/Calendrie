@@ -17,26 +17,6 @@ namespace Calendrie.Core.Utilities;
 internal static class Requires
 {
     /// <summary>
-    /// Validates that the specified value is not null.
-    /// </summary>
-    /// <typeparam name="T">The type of reference value type being tested.</typeparam>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="obj"/> is <see langword="null"/>.</exception>
-    //
-    // CIL code size = 16 bytes <= 32 bytes.
-    [Obsolete("Use ArgumentNullException.ThrowIfNull() instead.")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void NotNull<T>(
-        [NotNull] T? obj,
-        [CallerArgumentExpression(nameof(obj))] string paramName = "")
-        where T : notnull
-    {
-        // NB: there is also ArgumentNullException.ThrowIfNull().
-        if (obj is not null) return;
-
-        Throw.ArgumentNull(paramName);
-    }
-
-    /// <summary>
     /// Validates that the specified value is a member of the enum <see cref="DayOfWeek"/>.
     /// </summary>
     /// <exception cref="AoorException">Thrown if <paramref name="dayOfWeek"/> was not a known

@@ -375,18 +375,6 @@ Calendrie.Core.Utilities.OrderedPair<T>.OrderedPair(T x, T y) -> void
 Calendrie.Core.Utilities.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! lowerValueSelector, System.Func<T, TResult>! upperValueSelector) -> Calendrie.Core.Utilities.OrderedPair<TResult>
 Calendrie.Core.Utilities.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! selector) -> Calendrie.Core.Utilities.OrderedPair<TResult>
 Calendrie.Core.Utilities.OrderedPair<T>.UpperValue.get -> T
-Calendrie.Core.Utilities.ReadOnlySet<T>
-Calendrie.Core.Utilities.ReadOnlySet<T>.Contains(T item) -> bool
-Calendrie.Core.Utilities.ReadOnlySet<T>.Count.get -> int
-Calendrie.Core.Utilities.ReadOnlySet<T>.GetEnumerator() -> System.Collections.Generic.IEnumerator<T>!
-Calendrie.Core.Utilities.ReadOnlySet<T>.IsProperSubsetOf(System.Collections.Generic.IEnumerable<T>! other) -> bool
-Calendrie.Core.Utilities.ReadOnlySet<T>.IsProperSupersetOf(System.Collections.Generic.IEnumerable<T>! other) -> bool
-Calendrie.Core.Utilities.ReadOnlySet<T>.IsSubsetOf(System.Collections.Generic.IEnumerable<T>! other) -> bool
-Calendrie.Core.Utilities.ReadOnlySet<T>.IsSupersetOf(System.Collections.Generic.IEnumerable<T>! other) -> bool
-Calendrie.Core.Utilities.ReadOnlySet<T>.Overlaps(System.Collections.Generic.IEnumerable<T>! other) -> bool
-Calendrie.Core.Utilities.ReadOnlySet<T>.ReadOnlySet(System.Collections.Generic.HashSet<T>! set) -> void
-Calendrie.Core.Utilities.ReadOnlySet<T>.ReadOnlySet(System.Collections.Generic.IEnumerable<T>! collection) -> void
-Calendrie.Core.Utilities.ReadOnlySet<T>.SetEquals(System.Collections.Generic.IEnumerable<T>! other) -> bool
 Calendrie.Core.Validation.DaysValidator
 Calendrie.Core.Validation.DaysValidator.CheckLowerBound(int daysSinceEpoch) -> void
 Calendrie.Core.Validation.DaysValidator.CheckOverflow(int daysSinceEpoch) -> void

@@ -94,11 +94,6 @@ internal partial class ThrowHelpers // Plain
     [DoesNotReturn, Pure]
     public static T Argument<T>(string paramName) => throw GetArgumentExn(paramName);
 
-    /// <exception cref="ArgumentNullException"/>
-    [Obsolete]
-    [DoesNotReturn]
-    public static void ArgumentNull(string paramName) => throw GetArgumentNullExn(paramName);
-
     /// <exception cref="AoorException"/>
     // TODO(code): obsolete or not?
     //[Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
@@ -126,9 +121,6 @@ internal partial class ThrowHelpers // Plain
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     private static ArgumentException GetArgumentExn(string paramName) => new(null, paramName);
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentNullException GetArgumentNullExn(string paramName) => new(paramName);
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     private static AoorException GetArgumentOutOfRangeExn(string paramName) => new(paramName);
