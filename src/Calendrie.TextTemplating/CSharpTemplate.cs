@@ -10,7 +10,8 @@ using System.Runtime.Remoting.Messaging;
 using Microsoft.VisualStudio.TextTemplating;
 
 /// <summary>
-/// Provides a base class for generated C# transformations hosted inside Visual Studio.
+/// Provides a base class for generated C# transformations hosted inside Visual
+/// Studio.
 /// </summary>
 [CLSCompliant(false)]
 public abstract class CSharpTemplate : TextTransformation
@@ -39,7 +40,8 @@ public abstract class CSharpTemplate : TextTransformation
     private string? _name;
     /// <summary>
     /// Gets or sets the template name.
-    /// <para>If none was specified, the name is inferred from the template filename.</para>
+    /// <para>If none was specified, the name is inferred from the template
+    /// filename.</para>
     /// </summary>
     public string Name
     {
@@ -57,7 +59,8 @@ public abstract class CSharpTemplate : TextTransformation
     private string? _namespace;
     /// <summary>
     /// Gets or sets the template namespace.
-    /// <para>If none was specified, the namespace inferred from the template location.</para>
+    /// <para>If none was specified, the namespace inferred from the template
+    /// location.</para>
     /// </summary>
     public string Namespace
     {
@@ -78,7 +81,8 @@ public abstract class CSharpTemplate : TextTransformation
     protected ITextTemplatingEngineHost VSHost => _host.Value;
 
     /// <summary>
-    /// Initializes the templating class then generates the output text of the transformation.
+    /// Initializes the templating class then generates the output text of the
+    /// transformation.
     /// </summary>
     /// <returns>The output text of the transformation.</returns>
     public string Execute()
@@ -120,7 +124,7 @@ public abstract class CSharpTemplate : TextTransformation
     protected void PushIndent() => PushIndent("    ");
 
     /// <summary>Writes a new (empty) line directly into the generated output.</summary>
-    protected void WriteLine() => WriteLine(String.Empty);
+    protected void WriteLine() => WriteLine(string.Empty);
 
     //
     // Private Helpers
