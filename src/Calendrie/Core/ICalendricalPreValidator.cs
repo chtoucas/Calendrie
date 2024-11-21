@@ -31,33 +31,44 @@ using Calendrie.Core.Validation;
 
 #endregion
 
-/// <summary>Provides methods to check the well-formedness of calendrical data.</summary>
+/// <summary>
+/// Provides methods to check the well-formedness of calendrical data.
+/// </summary>
 public interface ICalendricalPreValidator
 {
-    /// <summary>Validates the well-formedness of the specified month of the year.
-    /// <para>This method does NOT validate <paramref name="y"/>.</para></summary>
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <summary>
+    /// Validates the well-formedness of the specified month of the year.
+    /// <para>This method does NOT validate <paramref name="y"/>.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     /// <exception cref="AoorException">The validation failed.</exception>
     void ValidateMonth(int y, int month, string? paramName = null);
 
-    /// <summary>Validates the well-formedness of the specified month of the year and day of the
-    /// month.</summary>
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <summary>
+    /// Validates the well-formedness of the specified month of the year and day
+    /// of the month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     /// <exception cref="AoorException">The validation failed.</exception>
     void ValidateMonthDay(int y, int month, int day, string? paramName = null);
 
-    /// <summary>Validates the well-formedness of the specified day of the year.
-    /// <para>This method does NOT validate <paramref name="y"/>.</para></summary>
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <summary>
+    /// Validates the well-formedness of the specified day of the year.
+    /// <para>This method does NOT validate <paramref name="y"/>.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     /// <exception cref="AoorException">The validation failed.</exception>
     void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null);
 
-    /// <summary>Creates the default <see cref="ICalendricalPreValidator"/> for the specified schema.
+    /// <summary>
+    /// Creates the default <see cref="ICalendricalPreValidator"/> for the
+    /// specified schema.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     [Pure]
     public static ICalendricalPreValidator CreateDefault(CalendricalSchema schema)
     {
@@ -72,8 +83,10 @@ public interface ICalendricalPreValidator
             CalendricalProfile.Solar13 => new Solar13PreValidator(schema),
             CalendricalProfile.Lunar => new LunarPreValidator(schema),
             CalendricalProfile.Lunisolar => new LunisolarPreValidator(schema),
-            CalendricalProfile.Other => new PlainPreValidator(schema),
-            _ => throw new InvalidOperationException(ThrowHelpers.UnreachableMessage)
+            // The default case should be unreachable.
+            // Anyway, even if the profile is not valid, the validator will still
+            // work.
+            CalendricalProfile.Other or _ => new PlainPreValidator(schema)
         };
     }
 }

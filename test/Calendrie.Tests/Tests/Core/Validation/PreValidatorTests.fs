@@ -5,6 +5,7 @@ module Calendrie.Tests.Core.Schemas.PreValidatorTests
 
 open System
 
+open Calendrie.Core
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing
@@ -19,6 +20,12 @@ module Prelude =
     let badLunisolarProfile = FauxCalendricalSchema.NotLunisolar
     let badSolar12Profile = FauxCalendricalSchema.NotSolar12
     let badSolar13Profile = FauxCalendricalSchema.NotSolar13
+
+    [<Fact>]
+    let ``ICalendricalPreValidator.CreateDefault() "unreachable" case`` () =
+        let sch = FauxSystemSchema.WithBadProfile
+
+        ICalendricalPreValidator.CreateDefault(sch) |> is<PlainPreValidator>
 
     [<Fact>]
     let ``Constructor throws for null schema`` () =

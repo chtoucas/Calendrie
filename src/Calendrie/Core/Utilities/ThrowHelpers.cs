@@ -83,16 +83,6 @@ namespace Calendrie.Core.Utilities;
 [StackTraceHidden]
 internal static partial class ThrowHelpers { }
 
-internal partial class ThrowHelpers
-{
-    /// <summary>
-    /// The control flow path reached a section of the code that should have
-    /// been unreachable under any circumstances.
-    /// </summary>
-    public const string UnreachableMessage =
-        "The control flow path reached a section of the code that should have been unreachable under any circumstances.";
-}
-
 internal partial class ThrowHelpers // ArgumentOutOfRangeException
 {
     /// <summary>
