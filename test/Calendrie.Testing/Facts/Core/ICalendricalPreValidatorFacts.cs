@@ -137,12 +137,12 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Overflows
     // Outside the range of supported years, we don't know for sure, but one can
     // override the tests if necessary.
 
-    [Fact] public virtual void ValidateMonth_AtAbsoluteMinYear() => PreValidatorUT.ValidateMonth(Int32.MinValue, 1);
-    [Fact] public virtual void ValidateMonth_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonth(Int32.MaxValue, 1);
+    [Fact] public virtual void ValidateMonth_AtAbsoluteMinYear() => PreValidatorUT.ValidateMonth(int.MinValue, 1);
+    [Fact] public virtual void ValidateMonth_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonth(int.MaxValue, 1);
 
-    [Fact] public virtual void ValidateMonthDay_AtAbsoluteMinYear() => PreValidatorUT.ValidateMonthDay(Int32.MinValue, 1, 1);
-    [Fact] public virtual void ValidateMonthDay_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonthDay(Int32.MaxValue, 1, 1);
+    [Fact] public virtual void ValidateMonthDay_AtAbsoluteMinYear() => PreValidatorUT.ValidateMonthDay(int.MinValue, 1, 1);
+    [Fact] public virtual void ValidateMonthDay_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonthDay(int.MaxValue, 1, 1);
 
-    [Fact] public virtual void ValidateDayOfYear_AtAbsoluteMinYear() => PreValidatorUT.ValidateDayOfYear(Int32.MinValue, 1);
-    [Fact] public virtual void ValidateDayOfYear_AtAbsoluteMaxYear() => PreValidatorUT.ValidateDayOfYear(Int32.MaxValue, 1);
+    [Fact] public virtual void ValidateDayOfYear_AtAbsoluteMinYear() => PreValidatorUT.ValidateDayOfYear(int.MinValue, 1);
+    [Fact] public virtual void ValidateDayOfYear_AtAbsoluteMaxYear() => PreValidatorUT.ValidateDayOfYear(int.MaxValue, 1);
 }

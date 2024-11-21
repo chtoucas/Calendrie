@@ -420,30 +420,30 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Overflows (Ke
     [Fact]
     public virtual void KernelDoesNotOverflow()
     {
-        _ = SchemaUT.IsLeapYear(Int32.MinValue);
-        _ = SchemaUT.IsLeapYear(Int32.MaxValue);
+        _ = SchemaUT.IsLeapYear(int.MinValue);
+        _ = SchemaUT.IsLeapYear(int.MaxValue);
 
-        _ = SchemaUT.CountMonthsInYear(Int32.MinValue);
-        _ = SchemaUT.CountMonthsInYear(Int32.MaxValue);
+        _ = SchemaUT.CountMonthsInYear(int.MinValue);
+        _ = SchemaUT.CountMonthsInYear(int.MaxValue);
 
-        _ = SchemaUT.CountDaysInYear(Int32.MinValue);
-        _ = SchemaUT.CountDaysInYear(Int32.MaxValue);
+        _ = SchemaUT.CountDaysInYear(int.MinValue);
+        _ = SchemaUT.CountDaysInYear(int.MaxValue);
 
         for (int m = 1; m <= MaxMonth; m++)
         {
-            _ = SchemaUT.IsIntercalaryMonth(Int32.MinValue, m);
-            _ = SchemaUT.IsIntercalaryMonth(Int32.MaxValue, m);
+            _ = SchemaUT.IsIntercalaryMonth(int.MinValue, m);
+            _ = SchemaUT.IsIntercalaryMonth(int.MaxValue, m);
 
-            _ = SchemaUT.CountDaysInMonth(Int32.MinValue, m);
-            _ = SchemaUT.CountDaysInMonth(Int32.MaxValue, m);
+            _ = SchemaUT.CountDaysInMonth(int.MinValue, m);
+            _ = SchemaUT.CountDaysInMonth(int.MaxValue, m);
 
             for (int d = 1; d <= MaxDay; d++)
             {
-                _ = SchemaUT.IsIntercalaryDay(Int32.MinValue, m, d);
-                _ = SchemaUT.IsIntercalaryDay(Int32.MaxValue, m, d);
+                _ = SchemaUT.IsIntercalaryDay(int.MinValue, m, d);
+                _ = SchemaUT.IsIntercalaryDay(int.MaxValue, m, d);
 
-                _ = SchemaUT.IsSupplementaryDay(Int32.MinValue, m, d);
-                _ = SchemaUT.IsSupplementaryDay(Int32.MaxValue, m, d);
+                _ = SchemaUT.IsSupplementaryDay(int.MinValue, m, d);
+                _ = SchemaUT.IsSupplementaryDay(int.MaxValue, m, d);
             }
         }
     }

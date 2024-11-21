@@ -240,22 +240,22 @@ public partial class CalendricalSchema // Year, month or day infos
 {
     /// <inheritdoc />
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="Int32"/>.</exception>
+    /// <see cref="int"/>.</exception>
     [Pure] public abstract bool IsLeapYear(int y);
 
     /// <inheritdoc />
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="Int32"/>.</exception>
+    /// <see cref="int"/>.</exception>
     [Pure] public abstract bool IsIntercalaryMonth(int y, int m);
 
     /// <inheritdoc />
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="Int32"/>.</exception>
+    /// <see cref="int"/>.</exception>
     [Pure] public abstract bool IsIntercalaryDay(int y, int m, int d);
 
     /// <inheritdoc />
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="Int32"/>.</exception>
+    /// <see cref="int"/>.</exception>
     [Pure] public abstract bool IsSupplementaryDay(int y, int m, int d);
 }
 
@@ -263,17 +263,17 @@ public partial class CalendricalSchema // Counting months and days within a year
 {
     /// <inheritdoc />
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="Int32"/>.</exception>
+    /// <see cref="int"/>.</exception>
     [Pure] public abstract int CountMonthsInYear(int y);
 
     /// <inheritdoc />
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="Int32"/>.</exception>
+    /// <see cref="int"/>.</exception>
     [Pure] public abstract int CountDaysInYear(int y);
 
     /// <inheritdoc />
     /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="Int32"/>.</exception>
+    /// <see cref="int"/>.</exception>
     [Pure] public abstract int CountDaysInMonth(int y, int m);
 
     /// <inheritdoc />

@@ -33,11 +33,14 @@ is_global = true
 # Default severity for analyzer diagnostics with category 'Style'
 dotnet_analyzer_diagnostic.category-Style.severity = warning
 
-#### Language and unnecessary code rules ####
+#### Language and unnecessary code rules #######################################
 
-# Rules with no associated code-style options
+# We override a code-style option to specify a non-default value -or- severity.
+
+#### Rules with no associated code-style options ####
+
 # See https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/
-#
+
 # IDE0001: Simplify name (VS-only setting)
 # IDE0002: Simplify member access (VS-only setting)
 # IDE0004: Remove unnecessary cast
@@ -54,37 +57,11 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 # IDE0081: Remove ByVal (Visual Basic)
 # IDE0082: Convert typeof to nameof
 # IDE0100: Remove unnecessary equality operator
-# NB: I prefer "== false" to the logical negation operator (!)
-dotnet_diagnostic.IDE0100.severity = suggestion
 # IDE0110: Remove unnecessary discard
 # IDE0120: Simplify LINQ expression
 # IDE0240: Nullable directive is redundant
 # IDE0241: Nullable directive is unnecessary
 # IDE0280: Use 'nameof'
-
-#### Miscellaneous rules ####
-
-# All miscellaneous rules have no associated code-style options
-#
-# IDE0076: Remove invalid global 'SuppressMessageAttribute'
-dotnet_diagnostic.IDE0076.severity = warning
-# IDE0077: Avoid legacy format target in global 'SuppressMessageAttribute'
-dotnet_diagnostic.IDE0077.severity = warning
-
-#### Formatting rules ####
-
-# All formatting options have rule ID IDE0055 and title "Fix formatting"
-dotnet_diagnostic.IDE0055.severity = warning
-
-#### Naming rules ####
-
-# All naming options have rule ID IDE1006 and title "Naming rule violation"
-# The severity value must be warning or error to be enforced on build.
-dotnet_diagnostic.IDE1006.severity = warning
-
-#### Language and unnecessary code rules #######################################
-
-# We override a code-style option to specify a non-default value -or- severity.
 
 #### .NET coding conventions ####
 
@@ -100,8 +77,9 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
 # IDE0049: Use language keywords instead of framework type names for type references (VS-only setting)
 # Default values are: true / true
 dotnet_style_predefined_type_for_locals_parameters_members = true:warning
-# Also raises a warning when we use a predefined type in an XML comment :-(
-dotnet_style_predefined_type_for_member_access = false:warning
+# I prefer Int32.MaxValue but using false below causes VS to raise a warning
+# when we use a predefined type in an XML comment :-(
+dotnet_style_predefined_type_for_member_access = true:warning
 
 # IDE0073: Require file header
 # Default values is: unset
@@ -158,6 +136,20 @@ csharp_style_prefer_primary_constructors = false:warning
 # Default values is: true (.NET 8.0) or when_types_loosely_match (.NET 9.0+)
 dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
 
+#### Miscellaneous rules #######################################################
+
+# Only two rules; no associated code-style options
+
+# IDE0076: Remove invalid global 'SuppressMessageAttribute'
+dotnet_diagnostic.IDE0076.severity = warning
+# IDE0077: Avoid legacy format target in global 'SuppressMessageAttribute'
+dotnet_diagnostic.IDE0077.severity = warning
+
+#### Formatting rules (IDE0055) ################################################
+
+# All formatting options have rule ID IDE0055 and title "Fix formatting"
+dotnet_diagnostic.IDE0055.severity = warning
+
 #### Naming rules (IDE1006) ####################################################
 
 # "Severity specification within a naming rule is only respected inside
@@ -165,6 +157,10 @@ dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
 #  the C# or VB compilers, hence not respected during build."
 #
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/naming-rules
+
+# All naming options have rule ID IDE1006 and title "Naming rule violation"
+# The severity value must be warning or error to be enforced on build.
+dotnet_diagnostic.IDE1006.severity = warning
 
 dotnet_naming_style.Pascal_Case_Style.capitalization = pascal_case
 dotnet_naming_style.Camel_Case_Style.capitalization = camel_case

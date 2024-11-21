@@ -396,7 +396,7 @@ public partial struct Zoroastrian13Date // Math
     /// Adds a number of days to the specified date, yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
-    /// the capacity of <see cref="Int32"/> or the range of supported dates.
+    /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     public static Zoroastrian13Date operator +(Zoroastrian13Date value, int days) => value.PlusDays(days);
 
@@ -404,7 +404,7 @@ public partial struct Zoroastrian13Date // Math
     /// Subtracts a number of days to the specified date, yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
-    /// the capacity of <see cref="Int32"/> or the range of supported dates.
+    /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     public static Zoroastrian13Date operator -(Zoroastrian13Date value, int days) => value.PlusDays(-days);
 

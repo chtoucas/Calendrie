@@ -23,13 +23,13 @@ public partial class UpperRay // Factories
 public partial class UpperRay // UpperRay<int>
 {
     /// <summary>Obtains the set complement of this ray.</summary>
-    /// <exception cref="InvalidOperationException">The ray represents the whole <see cref="Int32"/>
+    /// <exception cref="InvalidOperationException">The ray represents the whole <see cref="int"/>
     /// range.</exception>
     [Pure]
     public static LowerRay<int> Complement(this UpperRay<int> ray)
     {
         int min = ray.Min;
-        return min == Int32.MinValue ? throw new InvalidOperationException() : new(min - 1);
+        return min == int.MinValue ? throw new InvalidOperationException() : new(min - 1);
     }
 }
 

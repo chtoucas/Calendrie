@@ -20,7 +20,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     //
     // Plus proche jour de la semaine avant dayNumber et qui n'est pas égal
     // à ce dernier.
@@ -39,7 +39,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public static DayNumber Before(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
@@ -62,7 +62,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public static DayNumber OnOrBefore(this DayNumber dayNumber, DayOfWeek dayOfWeek) =>
         // We don't use
@@ -81,7 +81,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     //
     // n-ième jour (n >= 1) avant dayNumber (inclue) portant le libellé dayOfWeek.
     [Pure]
@@ -105,7 +105,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public static DayNumber OnOrAfter(this DayNumber dayNumber, DayOfWeek dayOfWeek) =>
         // We don't use
@@ -123,7 +123,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     //
     // n-ième jour (n >= 1) après dayNumber (inclue) portant le libellé dayOfWeek.
     [Pure]
@@ -145,7 +145,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     //
     // Plus proche jour de la semaine après dayNumber et qui n'est pas égal
     // à ce dernier.
@@ -164,7 +164,7 @@ public partial class DayNumberExtensions
     /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="Int32"/>.</exception>
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public static DayNumber After(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {

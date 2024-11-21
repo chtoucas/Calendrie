@@ -14,10 +14,10 @@ public static class StandardScopeFacts
 {
     public static readonly TheoryData<int> InvalidYearData =
     [
-        Int32.MinValue,
+        int.MinValue,
         StandardScope.MinYear - 1,
         StandardScope.MaxYear + 1,
-        Int32.MaxValue,
+        int.MaxValue,
     ];
 
     public static readonly TheoryData<int> ValidYearData =

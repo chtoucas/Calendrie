@@ -20,10 +20,10 @@ public sealed class SupportedYearsTester
         ];
         InvalidYears =
         [
-            Int32.MinValue,
+            int.MinValue,
             minYear - 1,
             maxYear + 1,
-            Int32.MaxValue,
+            int.MaxValue,
         ];
     }
 
