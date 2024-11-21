@@ -84,13 +84,6 @@ namespace Calendrie.Core.Utilities;
 [StackTraceHidden]
 internal static partial class ThrowHelpers { }
 
-internal partial class ThrowHelpers // Plain
-{
-    /// <exception cref="ArgumentException"/>
-    [DoesNotReturn]
-    public static void Argument(string paramName) => throw new ArgumentException(null, paramName);
-}
-
 internal partial class ThrowHelpers
 {
     /// <summary>
@@ -102,22 +95,6 @@ internal partial class ThrowHelpers
     public static T Unreachable<T>() =>
         throw new InvalidOperationException(
             "The control flow path reached a section of the code that should have been unreachable under any circumstances.");
-
-    /// <summary>
-    /// The collection is read-only.
-    /// </summary>
-    /// <exception cref="NotSupportedException"/>
-    [DoesNotReturn]
-    public static void ReadOnlyCollection() =>
-        throw new NotSupportedException("The collection is read-only.");
-
-    /// <summary>
-    /// An item with the specified key could not be found.
-    /// </summary>
-    /// <exception cref="KeyNotFoundException"/>
-    [DoesNotReturn, Pure]
-    public static T KeyNotFound<T>(string key) =>
-        throw new KeyNotFoundException($"An item with the key \"{key}\" could not be found.");
 }
 
 internal partial class ThrowHelpers // ArgumentOutOfRangeException
@@ -271,68 +248,22 @@ internal partial class ThrowHelpers // ArgumentException
     /// </summary>
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
-    public static void BadBinaryInput() => throw GetBadBinaryInputExn();
+    public static void BadBinaryInput() =>
+        throw new ArgumentException("The binary data is not well-formed.", "data");
 
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
-    public static int NonComparable(Type expected, object obj) => throw GetNonComparableExn(expected, obj);
-
-    /// <summary>
-    /// The box is empty.
-    /// </summary>
-    /// <exception cref="ArgumentException"/>
-    [DoesNotReturn, Pure]
-    public static T BadBox<T>(string paramName) => throw GetBadBoxExn(paramName);
+    public static int NonComparable(Type expected, object obj) =>
+        throw new ArgumentException(
+            $"The object should be of type {expected} but it is of type {obj.GetType()}.",
+            nameof(obj));
 
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
     public static void BadSchemaProfile(string paramName, CalendricalProfile expected, CalendricalProfile actual) =>
-        throw GetBadSchemaProfileExn(paramName, expected, actual);
-
-    /// <exception cref="ArgumentException"/>
-    [DoesNotReturn]
-    public static void BadCuid(string paramName, int expected, int actual) =>
-        throw GetBadCuidExn(paramName, expected, actual);
-
-    /// <summary>
-    /// An item with the specified key already exists.
-    /// </summary>
-    /// <exception cref="ArgumentException"/>
-    [DoesNotReturn]
-    public static void KeyAlreadyExists(string paramName, string key) =>
-        throw GetKeyAlreadyExistsExn(paramName, key);
-
-    #region Factories
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentException GetBadBinaryInputExn() =>
-        new("The binary data is not well-formed.", "data");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentException GetNonComparableExn(Type expected, object obj) =>
-        new($"The object should be of type {expected} but it is of type {obj.GetType()}.",
-            nameof(obj));
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentException GetBadBoxExn(string paramName) =>
-        new("The box is empty.", paramName);
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentException GetBadSchemaProfileExn(string paramName, CalendricalProfile expected, CalendricalProfile actual) =>
-        new($"The schema profile should be equal to \"{expected}\" but it is equal to \"{actual}\".",
+        throw new ArgumentException(
+            $"The schema profile should be equal to \"{expected}\" but it is equal to \"{actual}\".",
             paramName);
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentException GetBadCuidExn(string paramName, int expected, int actual) =>
-        new($"The calendar ID should be equal to \"{expected}\" but it is equal to \"{actual}\".",
-            paramName);
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentException GetKeyAlreadyExistsExn(string paramName, string key) =>
-        new($"An item with the key \"{key}\" already exists.",
-            paramName);
-
-    #endregion
 }
 
 internal partial class ThrowHelpers // OverflowException
@@ -342,78 +273,46 @@ internal partial class ThrowHelpers // OverflowException
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
-    public static void MonthOverflow() => throw GetMonthOverflowExn();
-
-    /// <summary>
-    /// The operation would overflow the range of supported months.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn, Pure]
-    public static T MonthOverflow<T>() => throw GetMonthOverflowExn();
+    public static void MonthOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported months.");
 
     /// <summary>
     /// The operation would overflow the range of supported dates.
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
-    public static void DateOverflow() => throw GetDateOverflowExn();
+    public static void DateOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported dates.");
 
     /// <summary>
     /// The operation would overflow the range of supported dates.
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
-    public static T DateOverflow<T>() => throw GetDateOverflowExn();
+    public static T DateOverflow<T>() =>
+        throw new OverflowException("The computation would overflow the range of supported dates.");
 
     /// <summary>
     /// The operation would overflow the range of supported day numbers.
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
-    public static void DayNumberOverflow() => throw GetDayNumberOverflowExn();
+    public static void DayNumberOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported day numbers.");
 
     /// <summary>
     /// The operation would overflow the range of supported day numbers.
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
-    public static T DayNumberOverflow<T>() => throw GetDayNumberOverflowExn();
+    public static T DayNumberOverflow<T>() =>
+        throw new OverflowException("The computation would overflow the range of supported day numbers.");
 
     /// <summary>
     /// The operation would overflow the range of supported ordinal numerals.
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
-    public static T OrdOverflow<T>() => throw GetOrdOverflowExn();
-
-    /// <summary>
-    /// The operation would overflow the maximum number of calendars supported by the system.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn, Pure]
-    public static void CatalogOverflow() => throw GetCatalogOverflowExn();
-
-    #region Factories
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static OverflowException GetMonthOverflowExn() =>
-        new("The computation would overflow the range of supported months.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static OverflowException GetDateOverflowExn() =>
-        new("The computation would overflow the range of supported dates.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static OverflowException GetDayNumberOverflowExn() =>
-        new("The computation would overflow the range of supported day numbers.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static OverflowException GetOrdOverflowExn() =>
-        new("The computation would overflow the range of supported ordinal numerals.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static OverflowException GetCatalogOverflowExn() =>
-        new("The operation would overflow the maximum number of calendars supported by the system.");
-
-    #endregion
+    public static T OrdOverflow<T>() =>
+        throw new OverflowException("The computation would overflow the range of supported ordinal numerals.");
 }

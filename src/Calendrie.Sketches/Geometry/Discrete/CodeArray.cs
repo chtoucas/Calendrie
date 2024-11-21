@@ -46,7 +46,7 @@ public sealed partial class CodeArray : IReadOnlyList<int>
 
         if (codes.Length == 0 || !Array.TrueForAll(codes, n => n >= 0))
         {
-            Throw.Argument(nameof(codes));
+            throw new ArgumentException(null, nameof(codes));
         }
 
         _codes = codes;

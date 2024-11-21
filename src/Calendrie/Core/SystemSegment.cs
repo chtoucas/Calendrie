@@ -104,7 +104,7 @@ public sealed class SystemSegment : ISchemaBound
         ArgumentNullException.ThrowIfNull(schema);
         if (!supportedYears.IsSubsetOf(schema.SupportedYears))
         {
-            Throw.Argument(nameof(supportedYears));
+            throw new ArgumentException(null, nameof(supportedYears));
         }
 
         var (minYear, maxYear) = supportedYears.Endpoints;
@@ -142,8 +142,8 @@ public sealed class SystemSegment : ISchemaBound
     {
         ArgumentNullException.ThrowIfNull(segment);
 
-        var sch = segment.Schema as SystemSchema;
-        if (sch is null) Throw.Argument(nameof(segment));
+        if (segment.Schema is not SystemSchema sch)
+            throw new ArgumentException(null, nameof(segment));
 
         var dateParts = segment.MinMaxDateParts.Select(x => new Yemoda(x.Year, x.Month, x.Day));
         var ordinalParts = segment.MinMaxOrdinalParts.Select(x => new Yedoy(x.Year, x.DayOfYear));

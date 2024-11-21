@@ -32,7 +32,7 @@ public sealed partial class BoolArray : IReadOnlyList<bool>
     {
         ArgumentNullException.ThrowIfNull(arr);
 
-        if (arr.Length == 0) Throw.Argument(nameof(arr));
+        if (arr.Length == 0) throw new ArgumentException(null, nameof(arr));
 
         _arr = arr;
     }

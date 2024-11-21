@@ -56,7 +56,7 @@ public sealed partial class SliceArray : IReadOnlyList<int>, IEquatable<SliceArr
             // No empty slice: all elements must be > 0.
             || !Array.TrueForAll(slices, n => n > 0))
         {
-            Throw.Argument(nameof(slices));
+            throw new ArgumentException(null, nameof(slices));
         }
 
         _slices = slices;

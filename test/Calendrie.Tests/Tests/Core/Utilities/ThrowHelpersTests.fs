@@ -4,7 +4,6 @@
 module Calendrie.Tests.Core.Utilities.ThrowHelpersTests
 
 open System
-open System.Collections.Generic
 
 open Calendrie.Testing
 open Calendrie
@@ -14,23 +13,10 @@ open Xunit
 
 let private paramName = "paramName"
 
-module PlainExns =
-    [<Fact>]
-    let Argument () =
-        argExn paramName (fun () -> ThrowHelpers.Argument(paramName))
-
 module MiscExns =
     [<Fact>]
     let Unreachable () =
         throws<InvalidOperationException> (fun () -> ThrowHelpers.Unreachable<string>())
-
-    [<Fact>]
-    let ReadOnlyCollection () =
-        throws<NotSupportedException> (fun () -> ThrowHelpers.ReadOnlyCollection())
-
-    [<Fact>]
-    let KeyNotFound () =
-        throws<KeyNotFoundException> (fun () -> ThrowHelpers.KeyNotFound<string>("key"))
 
 module ArgumentOutOfRangeExns =
     [<Fact>]
@@ -82,18 +68,6 @@ module ArgumentExns =
     let NonComparable () =
         argExn "obj" (fun () -> ThrowHelpers.NonComparable(typeof<string>, 1))
 
-    [<Fact>]
-    let BadBox () =
-        argExn paramName (fun () -> ThrowHelpers.BadBox<string>(paramName))
-
-    [<Fact>]
-    let BadCuid () =
-        argExn paramName (fun () -> ThrowHelpers.BadCuid(paramName, 1, 2))
-
-    [<Fact>]
-    let KeyAlreadyExists () =
-        argExn paramName (fun () -> ThrowHelpers.KeyAlreadyExists(paramName, "key"))
-
 module OverflowExns =
     [<Fact>]
     let DateOverflow () =
@@ -103,7 +77,6 @@ module OverflowExns =
     [<Fact>]
     let MonthOverflow () =
         (fun () -> ThrowHelpers.MonthOverflow()) |> overflows
-        (fun () -> ThrowHelpers.MonthOverflow<string>()) |> overflows
 
     [<Fact>]
     let DayNumberOverflow () =
@@ -113,7 +86,3 @@ module OverflowExns =
     [<Fact>]
     let OrdOverflow () =
         (fun () -> ThrowHelpers.OrdOverflow<string>()) |> overflows
-
-    [<Fact>]
-    let CatalogOverflow () =
-        (fun () -> ThrowHelpers.CatalogOverflow()) |> overflows

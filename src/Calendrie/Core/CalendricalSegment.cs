@@ -120,7 +120,7 @@ public sealed class CalendricalSegment : ISchemaBound
         var builder = new CalendricalSegmentBuilder(schema);
         if (!builder.TrySetMinToStartOfMinSupportedYearOnOrAfterYear1())
         {
-            Throw.Argument(nameof(schema));
+            throw new ArgumentException(null, nameof(schema));
         }
         builder.SetMaxToEndOfMaxSupportedYear();
         return builder.BuildSegment();

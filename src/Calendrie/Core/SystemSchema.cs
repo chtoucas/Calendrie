@@ -104,7 +104,7 @@ public partial class SystemSchema // Properties
         {
             if (!value.IsSupersetOf(SupportedYears))
             {
-                Throw.Argument(nameof(value));
+                throw new ArgumentException(null, nameof(value));
             }
             _supportedYearsCore = value;
         }

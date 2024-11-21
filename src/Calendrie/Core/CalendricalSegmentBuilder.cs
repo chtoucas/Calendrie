@@ -311,7 +311,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     {
         if (!supportedYears.IsSubsetOf(_schema.SupportedYears))
         {
-            Throw.Argument(nameof(supportedYears));
+            throw new ArgumentException(null, nameof(supportedYears));
         }
 
         Min = GetEndpointAtStartOfYear(supportedYears.Min);
