@@ -28,18 +28,21 @@ internal static class GregorianProlepticScope
     public const int MaxYear = ProlepticScope.MaxYear;
 
     /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days from the epoch.
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
     /// </summary>
     private static readonly int s_MinDaysSinceEpoch = GregorianFormulae.GetStartOfYear(MinYear);
 
     /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days from the epoch.
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
     /// </summary>
     private static readonly int s_MaxDaysSinceEpoch = GregorianFormulae.GetEndOfYear(MaxYear);
 
     /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values by the <i>Gregorian</i>
-    /// calendar, the one using the default epoch i.e. <see cref="DayZero.NewStyle"/> .
+    /// Gets the range of supported <see cref="DayNumber"/> values by the
+    /// <i>Gregorian</i> calendar, the one using the default epoch i.e.
+    /// <see cref="DayZero.NewStyle"/> .
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
     public static Range<DayNumber> DefaultDomain { get; } =

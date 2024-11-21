@@ -11,8 +11,8 @@ using Calendrie.Core.Validation;
 // cases.
 
 /// <summary>
-/// Defines a scope for a calendar supporting <i>all</i> dates within the range [1..9999] of
-/// years.
+/// Defines a scope for a calendar supporting <i>all</i> dates within the range
+/// [1..9999] of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public static class StandardScope
@@ -36,12 +36,14 @@ public static class StandardScope
         Range.Create(MinYear, MaxYear);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with the
-    /// specified schema and epoch.
+    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
+    /// the specified schema and epoch.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The range of supported years by
-    /// <paramref name="schema"/> does not contain the interval [1..9999].</exception>
+    /// <paramref name="schema"/> does not contain the interval [1..9999].
+    /// </exception>
     public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch) =>
         new(epoch, CalendricalSegment.Create(schema, s_SupportedYears))
         {

@@ -523,10 +523,6 @@ Calendrie.Hemerology.BasicCalendar<TScope>.PeriodicAdjustments.get -> Calendrie.
 Calendrie.Hemerology.BasicCalendar<TScope>.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Hemerology.BasicCalendar<TScope>.Scope.get -> TScope!
 Calendrie.Hemerology.BasicCalendar<TScope>.YearsValidator.get -> Calendrie.Core.Validation.IYearsValidator!
-Calendrie.Hemerology.IAffineDate
-Calendrie.Hemerology.IAffineDate.DaysSinceEpoch.get -> int
-Calendrie.Hemerology.IAffineDate<TSelf>
-Calendrie.Hemerology.IAffineDate<TSelf>.FromDaysSinceEpoch(int daysSinceEpoch) -> TSelf
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
 Calendrie.Hemerology.ICalendar
@@ -607,7 +603,6 @@ Calendrie.Hemerology.Scopes.CalendarScope.Segment.get -> Calendrie.Core.Calendri
 Calendrie.Hemerology.Scopes.CalendarScope.YearsValidator.get -> Calendrie.Core.Validation.IYearsValidator!
 Calendrie.Hemerology.Scopes.MinMaxYearScope
 Calendrie.Hemerology.Scopes.MinMaxYearScope.MinMaxYearScope(Calendrie.DayNumber epoch, Calendrie.Core.CalendricalSegment! segment) -> void
-Calendrie.Hemerology.Scopes.ProlepticScope
 Calendrie.Hemerology.Scopes.StandardScope
 Calendrie.Hemerology.YearNumbering
 Calendrie.IsoWeekday
@@ -1284,8 +1279,6 @@ const Calendrie.DayNumber.MaxDaysSinceZero = 2147483646 -> int
 const Calendrie.DayNumber.MaxSupportedYear = 5000000 -> int
 const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
 const Calendrie.DayNumber.MinSupportedYear = -4999999 -> int
-const Calendrie.Hemerology.Scopes.ProlepticScope.MaxYear = 9999 -> int
-const Calendrie.Hemerology.Scopes.ProlepticScope.MinYear = -9998 -> int
 const Calendrie.Hemerology.Scopes.StandardScope.MaxYear = 9999 -> int
 const Calendrie.Hemerology.Scopes.StandardScope.MinYear = 1 -> int
 const Calendrie.Ord.MaxAlgebraicValue = 2147483647 -> int
@@ -1818,7 +1811,6 @@ static Calendrie.Hemerology.Scopes.MinMaxYearScope.CreateMaximal(Calendrie.Core.
 static Calendrie.Hemerology.Scopes.MinMaxYearScope.CreateMaximalOnOrAfterYear1(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch) -> Calendrie.Hemerology.Scopes.MinMaxYearScope!
 static Calendrie.Hemerology.Scopes.MinMaxYearScope.EndingAt(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch, int year) -> Calendrie.Hemerology.Scopes.MinMaxYearScope!
 static Calendrie.Hemerology.Scopes.MinMaxYearScope.StartingAt(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch, int year) -> Calendrie.Hemerology.Scopes.MinMaxYearScope!
-static Calendrie.Hemerology.Scopes.ProlepticScope.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch) -> Calendrie.Hemerology.Scopes.MinMaxYearScope!
 static Calendrie.Hemerology.Scopes.StandardScope.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.DayNumber epoch) -> Calendrie.Hemerology.Scopes.MinMaxYearScope!
 static Calendrie.Hemerology.YearNumbering.GetCentury(int year) -> int
 static Calendrie.Hemerology.YearNumbering.GetCentury(int year, out int yearOfCentury) -> int

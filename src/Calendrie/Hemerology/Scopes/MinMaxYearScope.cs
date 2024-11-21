@@ -8,7 +8,8 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 
 /// <summary>
-/// Represents a scope for a calendar supporting <i>all</i> dates within a range of years.
+/// Represents a scope for a calendar supporting <i>all</i> dates within a range
+/// of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed class MinMaxYearScope : CalendarScope
@@ -16,7 +17,8 @@ public sealed class MinMaxYearScope : CalendarScope
     /// <summary>
     /// Initializes a new instance of the <see cref="MinMaxYearScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
     public MinMaxYearScope(DayNumber epoch, CalendricalSegment segment)
         : base(epoch, segment)
     {
@@ -29,9 +31,11 @@ public sealed class MinMaxYearScope : CalendarScope
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is NOT a
-    /// subinterval of the range of supported years by <paramref name="schema"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
+    /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
+    /// </exception>
     [Pure]
     public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch, Range<int> supportedYears)
     {
@@ -43,7 +47,8 @@ public sealed class MinMaxYearScope : CalendarScope
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     [Pure]
     public static MinMaxYearScope CreateMaximal(ICalendricalSchema schema, DayNumber epoch)
     {
@@ -55,7 +60,8 @@ public sealed class MinMaxYearScope : CalendarScope
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The range of supported years by
     /// <paramref name="schema"/> does not contain the year 1.</exception>
     [Pure]
@@ -67,11 +73,11 @@ public sealed class MinMaxYearScope : CalendarScope
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with dates on or after
-    /// the specified year.
+    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
+    /// dates on or after the specified year.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the range of
-    /// supported values by the schema.</exception>
+    /// <exception cref="AoorException"><paramref name="year"/> is outside the
+    /// range of supported values by the schema.</exception>
     [Pure]
     public static MinMaxYearScope StartingAt(ICalendricalSchema schema, DayNumber epoch, int year)
     {
@@ -84,11 +90,11 @@ public sealed class MinMaxYearScope : CalendarScope
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with dates on or
-    /// before the specified year.
+    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
+    /// dates on or before the specified year.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the range of
-    /// supported values by the schema.</exception>
+    /// <exception cref="AoorException"><paramref name="year"/> is outside the
+    /// range of supported values by the schema.</exception>
     [Pure]
     public static MinMaxYearScope EndingAt(ICalendricalSchema schema, DayNumber epoch, int year)
     {
@@ -103,8 +109,10 @@ public sealed class MinMaxYearScope : CalendarScope
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="scope"/> is NOT complete.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException"><paramref name="scope"/> is NOT
+    /// complete.</exception>
     [Pure]
     public static MinMaxYearScope Create(CalendarScope scope)
     {

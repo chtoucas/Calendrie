@@ -15,8 +15,8 @@ using Calendrie.Core.Validation;
 // - BoundedBelowScope  [minDate.Year..maxYear], the first year is not complete
 
 /// <summary>
-/// Defines the scope of application of a calendar, an interval of days, and provides a base for
-/// derived classes.
+/// Defines the scope of application of a calendar, an interval of days, and
+/// provides a base for derived classes.
 /// </summary>
 public abstract partial class CalendarScope : ICalendricalValidator, ISchemaBound
 {
@@ -26,10 +26,11 @@ public abstract partial class CalendarScope : ICalendricalValidator, ISchemaBoun
     private readonly ICalendricalSchema _schema;
 
     /// <summary>
-    /// Called from constructors in derived classes to initialize the <see cref="CalendarScope"/>
-    /// class.
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="CalendarScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
     protected CalendarScope(DayNumber epoch, CalendricalSegment segment)
     {
         Segment = segment ?? throw new ArgumentNullException(nameof(segment));
