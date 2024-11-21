@@ -25,10 +25,6 @@
     <Compile Include="Testing\FsCheckModule.fs" />
     <Compile Include="Testing\TestHelpers.fs" />
     <Compile Include="Tests\Testing\EnumDataSetTests.fs" />
-    <Compile Include="Tests\Core\Arithmetic\ArithmeticTestSuite.fs" />
-    <Compile Include="Tests\Core\Arithmetic\PlainSystemArithmeticTestSuite.fs" />
-    <Compile Include="Tests\Core\Arithmetic\RegularSystemArithmeticTestSuite.fs" />
-    <Compile Include="Tests\Core\Arithmetic\SystemArithmeticTests.fs" />
     <Compile Include="Tests\Core\Intervals\LowerRayTests.fs" />
     <Compile Include="Tests\Core\Intervals\RangeSetTests.fs" />
     <Compile Include="Tests\Core\Intervals\RangeTests.fs" />
