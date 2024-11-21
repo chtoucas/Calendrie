@@ -32,13 +32,13 @@ public sealed class YearsValidator : IYearsValidator
     /// <inheritdoc/>
     public void Validate(int year, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) Throw.YearOutOfRange(year, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year, paramName);
     }
 
     /// <inheritdoc/>
     public void CheckOverflow(int year)
     {
-        if (year < MinYear || year > MaxYear) Throw.DateOverflow();
+        if (year < MinYear || year > MaxYear) ThrowHelpers.DateOverflow();
     }
 
     ///// <summary>Checks whether the specified year is outside the range of supported values or not.
@@ -47,18 +47,18 @@ public sealed class YearsValidator : IYearsValidator
     ///// values.</exception>
     //internal void CheckForMonth(int year)
     //{
-    //    if (year < MinYear || year > MaxYear) Throw.MonthOverflow();
+    //    if (year < MinYear || year > MaxYear) ThrowHelpers.MonthOverflow();
     //}
 
     /// <inheritdoc/>
     public void CheckUpperBound(int year)
     {
-        if (year > MaxYear) Throw.DateOverflow();
+        if (year > MaxYear) ThrowHelpers.DateOverflow();
     }
 
     /// <inheritdoc/>
     public void CheckLowerBound(int year)
     {
-        if (year < MinYear) Throw.DateOverflow();
+        if (year < MinYear) ThrowHelpers.DateOverflow();
     }
 }

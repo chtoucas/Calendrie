@@ -46,5 +46,5 @@ public readonly record struct MonthParts(int Year, int Month) :
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is MonthParts parts ? CompareTo(parts)
-        : Throw.NonComparable(typeof(MonthParts), obj);
+        : ThrowHelpers.NonComparable(typeof(MonthParts), obj);
 }

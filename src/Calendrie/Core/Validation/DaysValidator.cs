@@ -45,7 +45,7 @@ public sealed class DaysValidator : IRangeValidator<int>
     public void CheckOverflow(int daysSinceEpoch)
     {
         if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
-            Throw.DateOverflow();
+            ThrowHelpers.DateOverflow();
     }
 
     /// <summary>Checks whether the specified number of consecutive days from the epoch is greater
@@ -54,7 +54,7 @@ public sealed class DaysValidator : IRangeValidator<int>
     /// upper bound of the range of supported values.</exception>
     public void CheckUpperBound(int daysSinceEpoch)
     {
-        if (daysSinceEpoch > MaxDaysSinceEpoch) Throw.DateOverflow();
+        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.DateOverflow();
     }
 
     /// <summary>Checks whether the specified number of consecutive days from the epoch is less than
@@ -63,6 +63,6 @@ public sealed class DaysValidator : IRangeValidator<int>
     /// bound of the range of supported values.</exception>
     public void CheckLowerBound(int daysSinceEpoch)
     {
-        if (daysSinceEpoch < MinDaysSinceEpoch) Throw.DateOverflow();
+        if (daysSinceEpoch < MinDaysSinceEpoch) ThrowHelpers.DateOverflow();
     }
 }

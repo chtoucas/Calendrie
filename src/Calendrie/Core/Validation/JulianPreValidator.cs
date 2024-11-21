@@ -35,13 +35,13 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > Solar12.MonthsInYear)
         {
-            Throw.MonthOutOfRange(month, paramName);
+            ThrowHelpers.MonthOutOfRange(month, paramName);
         }
         if (day < 1
             || (day > Solar.MinDaysInMonth
                 && day > JulianFormulae.CountDaysInMonth(y, month)))
         {
-            Throw.DayOutOfRange(day, paramName);
+            ThrowHelpers.DayOutOfRange(day, paramName);
         }
     }
 
@@ -56,7 +56,7 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
             || (dayOfYear > Solar.MinDaysInYear
                 && dayOfYear > JulianFormulae.CountDaysInYear(y)))
         {
-            Throw.DayOfYearOutOfRange(dayOfYear, paramName);
+            ThrowHelpers.DayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
 
@@ -67,7 +67,7 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > Solar12.MonthsInYear)
         {
-            Throw.MonthOutOfRange(month, paramName);
+            ThrowHelpers.MonthOutOfRange(month, paramName);
         }
     }
 
@@ -76,13 +76,13 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > Solar12.MonthsInYear)
         {
-            Throw.MonthOutOfRange(month, paramName);
+            ThrowHelpers.MonthOutOfRange(month, paramName);
         }
         if (day < 1
             || (day > Solar.MinDaysInMonth
                 && day > JulianFormulae.CountDaysInMonth(y, month)))
         {
-            Throw.DayOutOfRange(day, paramName);
+            ThrowHelpers.DayOutOfRange(day, paramName);
         }
     }
 
@@ -93,7 +93,7 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
             || (dayOfYear > Solar.MinDaysInYear
                 && dayOfYear > JulianFormulae.CountDaysInYear(y)))
         {
-            Throw.DayOfYearOutOfRange(dayOfYear, paramName);
+            ThrowHelpers.DayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
 }

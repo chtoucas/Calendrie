@@ -169,11 +169,11 @@ public readonly partial struct Yedoy :
     {
         if (year < MinYear || year > MaxYear)
         {
-            Throw.YearOutOfRange(year);
+            ThrowHelpers.YearOutOfRange(year);
         }
         if (dayOfYear < MinDayOfYear || dayOfYear > MaxDayOfYear)
         {
-            Throw.DayOfYearOutOfRange(dayOfYear);
+            ThrowHelpers.DayOfYearOutOfRange(dayOfYear);
         }
 
         return new Yedoy(Pack(year, dayOfYear));
@@ -312,5 +312,5 @@ public partial struct Yedoy // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Yedoy ydoy ? CompareTo(ydoy)
-        : Throw.NonComparable(typeof(Yedoy), obj);
+        : ThrowHelpers.NonComparable(typeof(Yedoy), obj);
 }

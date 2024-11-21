@@ -36,7 +36,7 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > _schema.CountMonthsInYear(y))
         {
-            Throw.MonthOutOfRange(month, paramName);
+            ThrowHelpers.MonthOutOfRange(month, paramName);
         }
     }
 
@@ -45,11 +45,11 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > _schema.CountMonthsInYear(y))
         {
-            Throw.MonthOutOfRange(month, paramName);
+            ThrowHelpers.MonthOutOfRange(month, paramName);
         }
         if (day < 1 || day > _schema.CountDaysInMonth(y, month))
         {
-            Throw.DayOutOfRange(day, paramName);
+            ThrowHelpers.DayOutOfRange(day, paramName);
         }
     }
 
@@ -59,7 +59,7 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
         if (dayOfYear < 1
             || (dayOfYear > _minDaysInYear && dayOfYear > _schema.CountDaysInYear(y)))
         {
-            Throw.DayOfYearOutOfRange(dayOfYear, paramName);
+            ThrowHelpers.DayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
 }

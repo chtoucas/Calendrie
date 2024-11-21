@@ -142,5 +142,5 @@ public partial struct Moment // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Moment moment ? CompareTo(moment)
-        : Throw.NonComparable(typeof(Moment), obj);
+        : ThrowHelpers.NonComparable(typeof(Moment), obj);
 }

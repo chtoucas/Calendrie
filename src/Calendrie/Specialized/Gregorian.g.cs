@@ -102,7 +102,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -111,7 +111,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -120,7 +120,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -129,7 +129,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -138,7 +138,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 }
@@ -201,7 +201,7 @@ public partial struct GregorianDate // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is GregorianDate date ? CompareTo(date)
-        : Throw.NonComparable(typeof(GregorianDate), obj);
+        : ThrowHelpers.NonComparable(typeof(GregorianDate), obj);
 }
 
 public partial struct GregorianDate // Math
@@ -267,12 +267,12 @@ public partial struct GregorianDate // Math
     /// <inheritdoc />
     [Pure]
     public GregorianDate NextDay() =>
-        this == s_MaxValue ? Throw.DateOverflow<GregorianDate>()
+        this == s_MaxValue ? ThrowHelpers.DateOverflow<GregorianDate>()
         : new GregorianDate(_daysSinceZero + 1);
 
     /// <inheritdoc />
     [Pure]
     public GregorianDate PreviousDay() =>
-        this == s_MinValue ? Throw.DateOverflow<GregorianDate>()
+        this == s_MinValue ? ThrowHelpers.DateOverflow<GregorianDate>()
         : new GregorianDate(_daysSinceZero - 1);
 }

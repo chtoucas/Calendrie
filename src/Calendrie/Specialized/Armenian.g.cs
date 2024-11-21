@@ -279,7 +279,7 @@ public partial struct ArmenianDate // Adjustments
     public ArmenianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new ArmenianDate(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct ArmenianDate // Adjustments
     public ArmenianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new ArmenianDate(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct ArmenianDate // Adjustments
     public ArmenianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new ArmenianDate(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct ArmenianDate // Adjustments
     public ArmenianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new ArmenianDate(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct ArmenianDate // Adjustments
     public ArmenianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new ArmenianDate(dayNumber - s_Epoch);
     }
 }
@@ -378,7 +378,7 @@ public partial struct ArmenianDate // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is ArmenianDate date ? CompareTo(date)
-        : Throw.NonComparable(typeof(ArmenianDate), obj);
+        : ThrowHelpers.NonComparable(typeof(ArmenianDate), obj);
 }
 
 public partial struct ArmenianDate // Math
@@ -444,12 +444,12 @@ public partial struct ArmenianDate // Math
     /// <inheritdoc />
     [Pure]
     public ArmenianDate NextDay() =>
-        this == s_MaxValue ? Throw.DateOverflow<ArmenianDate>()
+        this == s_MaxValue ? ThrowHelpers.DateOverflow<ArmenianDate>()
         : new ArmenianDate(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public ArmenianDate PreviousDay() =>
-        this == s_MinValue ? Throw.DateOverflow<ArmenianDate>()
+        this == s_MinValue ? ThrowHelpers.DateOverflow<ArmenianDate>()
         : new ArmenianDate(_daysSinceEpoch - 1);
 }

@@ -29,7 +29,7 @@ public static class DomainExtensions
     /// range of supported values.</exception>
     public static void CheckOverflow(this Range<DayNumber> domain, DayNumber dayNumber)
     {
-        if (dayNumber < domain.Min || dayNumber > domain.Max) Throw.DateOverflow();
+        if (dayNumber < domain.Min || dayNumber > domain.Max) ThrowHelpers.DateOverflow();
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public static class DomainExtensions
     /// range of supported values.</exception>
     public static void CheckUpperBound(this Range<DayNumber> domain, DayNumber dayNumber)
     {
-        if (dayNumber > domain.Max) Throw.DateOverflow();
+        if (dayNumber > domain.Max) ThrowHelpers.DateOverflow();
     }
 
     /// <summary>
@@ -51,6 +51,6 @@ public static class DomainExtensions
     /// of supported values.</exception>
     public static void CheckLowerBound(this Range<DayNumber> domain, DayNumber dayNumber)
     {
-        if (dayNumber < domain.Min) Throw.DateOverflow();
+        if (dayNumber < domain.Min) ThrowHelpers.DateOverflow();
     }
 }

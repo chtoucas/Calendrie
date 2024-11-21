@@ -279,7 +279,7 @@ public partial struct Zoroastrian13Date // Adjustments
     public Zoroastrian13Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new Zoroastrian13Date(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct Zoroastrian13Date // Adjustments
     public Zoroastrian13Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new Zoroastrian13Date(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct Zoroastrian13Date // Adjustments
     public Zoroastrian13Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new Zoroastrian13Date(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct Zoroastrian13Date // Adjustments
     public Zoroastrian13Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new Zoroastrian13Date(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct Zoroastrian13Date // Adjustments
     public Zoroastrian13Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new Zoroastrian13Date(dayNumber - s_Epoch);
     }
 }
@@ -378,7 +378,7 @@ public partial struct Zoroastrian13Date // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Zoroastrian13Date date ? CompareTo(date)
-        : Throw.NonComparable(typeof(Zoroastrian13Date), obj);
+        : ThrowHelpers.NonComparable(typeof(Zoroastrian13Date), obj);
 }
 
 public partial struct Zoroastrian13Date // Math
@@ -444,12 +444,12 @@ public partial struct Zoroastrian13Date // Math
     /// <inheritdoc />
     [Pure]
     public Zoroastrian13Date NextDay() =>
-        this == s_MaxValue ? Throw.DateOverflow<Zoroastrian13Date>()
+        this == s_MaxValue ? ThrowHelpers.DateOverflow<Zoroastrian13Date>()
         : new Zoroastrian13Date(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public Zoroastrian13Date PreviousDay() =>
-        this == s_MinValue ? Throw.DateOverflow<Zoroastrian13Date>()
+        this == s_MinValue ? ThrowHelpers.DateOverflow<Zoroastrian13Date>()
         : new Zoroastrian13Date(_daysSinceEpoch - 1);
 }

@@ -379,7 +379,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// <exception cref="AoorException" />
     private static void ValidateYear(int year)
     {
-        if (year < MinSupportedYear || year > MaxSupportedYear) { Throw.YearOutOfRange(year); }
+        if (year < MinSupportedYear || year > MaxSupportedYear) { ThrowHelpers.YearOutOfRange(year); }
     }
 
     /// <summary>
@@ -391,7 +391,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     {
         if (_daysSinceZero < MinGregorianDaysSinceZero || _daysSinceZero > MaxGregorianDaysSinceZero)
         {
-            Throw.DateOverflow();
+            ThrowHelpers.DateOverflow();
         }
     }
 
@@ -404,7 +404,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     {
         if (_daysSinceZero < MinJulianDaysSinceZero || _daysSinceZero > MaxJulianDaysSinceZero)
         {
-            Throw.DateOverflow();
+            ThrowHelpers.DateOverflow();
         }
     }
 
@@ -580,7 +580,7 @@ public partial struct DayNumber // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is DayNumber dayNumber ? CompareTo(dayNumber)
-        : Throw.NonComparable(typeof(DayNumber), obj);
+        : ThrowHelpers.NonComparable(typeof(DayNumber), obj);
 }
 
 public partial struct DayNumber // Math ops
@@ -608,7 +608,7 @@ public partial struct DayNumber // Math ops
         int newDays = checked(value._daysSinceZero + days);
         if (newDays == MinDaysSinceZero - 1 || newDays == MaxDaysSinceZero + 1)
         {
-            Throw.DayNumberOverflow();
+            ThrowHelpers.DayNumberOverflow();
         }
         return new DayNumber(newDays);
     }
@@ -624,7 +624,7 @@ public partial struct DayNumber // Math ops
         int newDays = checked(value._daysSinceZero - days);
         if (newDays == MinDaysSinceZero - 1 || newDays == MaxDaysSinceZero + 1)
         {
-            Throw.DayNumberOverflow();
+            ThrowHelpers.DayNumberOverflow();
         }
         return new DayNumber(newDays);
     }
@@ -669,7 +669,7 @@ public partial struct DayNumber // Math ops
     /// latest supported day number.</exception>
     [Pure]
     public DayNumber NextDay() =>
-        this == MaxValue ? Throw.DayNumberOverflow<DayNumber>() : new DayNumber(_daysSinceZero + 1);
+        this == MaxValue ? ThrowHelpers.DayNumberOverflow<DayNumber>() : new DayNumber(_daysSinceZero + 1);
 
     /// <summary>
     /// Obtains the day number preceding this instance.
@@ -678,5 +678,5 @@ public partial struct DayNumber // Math ops
     /// earliest supported day number.</exception>
     [Pure]
     public DayNumber PreviousDay() =>
-        this == MinValue ? Throw.DayNumberOverflow<DayNumber>() : new DayNumber(_daysSinceZero - 1);
+        this == MinValue ? ThrowHelpers.DayNumberOverflow<DayNumber>() : new DayNumber(_daysSinceZero - 1);
 }

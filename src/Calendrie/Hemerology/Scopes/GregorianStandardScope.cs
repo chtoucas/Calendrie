@@ -69,8 +69,8 @@ internal static class GregorianStandardScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonth(int year, int month, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) Throw.YearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear) Throw.MonthOutOfRange(month, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear) ThrowHelpers.MonthOutOfRange(month, paramName);
     }
 
     /// <summary>
@@ -79,13 +79,13 @@ internal static class GregorianStandardScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) Throw.YearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear) Throw.MonthOutOfRange(month, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear) ThrowHelpers.MonthOutOfRange(month, paramName);
         if (day < 1
             || (day > Solar.MinDaysInMonth
                 && day > GregorianFormulae.CountDaysInMonth(year, month)))
         {
-            Throw.DayOutOfRange(day, paramName);
+            ThrowHelpers.DayOutOfRange(day, paramName);
         }
     }
 
@@ -95,12 +95,12 @@ internal static class GregorianStandardScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateOrdinal(int year, int dayOfYear, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) Throw.YearOutOfRange(year, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year, paramName);
         if (dayOfYear < 1
             || (dayOfYear > Solar.MinDaysInYear
                 && dayOfYear > GregorianFormulae.CountDaysInYear(year)))
         {
-            Throw.DayOfYearOutOfRange(dayOfYear, paramName);
+            ThrowHelpers.DayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
 }

@@ -62,22 +62,22 @@ public static class StandardScope
 
         public void Validate(int year, string? paramName = null)
         {
-            if (year < MinYear || year > MaxYear) Throw.YearOutOfRange(year, paramName);
+            if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year, paramName);
         }
 
         public void CheckOverflow(int year)
         {
-            if (year < MinYear || year > MaxYear) Throw.DateOverflow();
+            if (year < MinYear || year > MaxYear) ThrowHelpers.DateOverflow();
         }
 
         public void CheckUpperBound(int year)
         {
-            if (year > MaxYear) Throw.DateOverflow();
+            if (year > MaxYear) ThrowHelpers.DateOverflow();
         }
 
         public void CheckLowerBound(int year)
         {
-            if (year < MinYear) Throw.DateOverflow();
+            if (year < MinYear) ThrowHelpers.DateOverflow();
         }
     }
 }

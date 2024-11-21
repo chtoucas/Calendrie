@@ -183,11 +183,11 @@ public readonly partial struct Yedoyx :
     {
         if (year < MinYear || year > MaxYear)
         {
-            Throw.YearOutOfRange(year);
+            ThrowHelpers.YearOutOfRange(year);
         }
         if (dayOfYear < MinDayOfYear || dayOfYear > MaxDayOfYear)
         {
-            Throw.DayOfYearOutOfRange(dayOfYear);
+            ThrowHelpers.DayOfYearOutOfRange(dayOfYear);
         }
         if (extra < MinExtra || extra > MaxExtra)
         {
@@ -207,7 +207,7 @@ public readonly partial struct Yedoyx :
     {
         if (ydoy.Year < MinYear || ydoy.Year > MaxYear)
         {
-            Throw.YearOutOfRange(ydoy.Year, nameof(ydoy));
+            ThrowHelpers.YearOutOfRange(ydoy.Year, nameof(ydoy));
         }
         if (extra < MinExtra || extra > MaxExtra)
         {

@@ -30,7 +30,7 @@ internal static class Requires
     {
         if (DayOfWeek.Sunday <= dayOfWeek && dayOfWeek <= DayOfWeek.Saturday) return;
 
-        Throw.DayOfWeekOutOfRange(dayOfWeek, paramName);
+        ThrowHelpers.DayOfWeekOutOfRange(dayOfWeek, paramName);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ internal static class Requires
     {
         if (IsoWeekday.Monday <= weekday && weekday <= IsoWeekday.Sunday) return;
 
-        Throw.IsoWeekdayOutOfRange(weekday, paramName);
+        ThrowHelpers.IsoWeekdayOutOfRange(weekday, paramName);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ internal static class Requires
     {
         if (AdditionRule.Truncate <= rule && rule <= AdditionRule.Overflow) return;
 
-        Throw.AdditionRuleOutOfRange(rule, paramName);
+        ThrowHelpers.AdditionRuleOutOfRange(rule, paramName);
     }
 
     /// <summary>
@@ -82,6 +82,6 @@ internal static class Requires
 
         if (schema.Profile == expected) return;
 
-        Throw.BadSchemaProfile(paramName, expected, schema.Profile);
+        ThrowHelpers.BadSchemaProfile(paramName, expected, schema.Profile);
     }
 }

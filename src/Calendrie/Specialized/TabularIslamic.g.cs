@@ -279,7 +279,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 }
@@ -378,7 +378,7 @@ public partial struct TabularIslamicDate // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is TabularIslamicDate date ? CompareTo(date)
-        : Throw.NonComparable(typeof(TabularIslamicDate), obj);
+        : ThrowHelpers.NonComparable(typeof(TabularIslamicDate), obj);
 }
 
 public partial struct TabularIslamicDate // Math
@@ -444,12 +444,12 @@ public partial struct TabularIslamicDate // Math
     /// <inheritdoc />
     [Pure]
     public TabularIslamicDate NextDay() =>
-        this == s_MaxValue ? Throw.DateOverflow<TabularIslamicDate>()
+        this == s_MaxValue ? ThrowHelpers.DateOverflow<TabularIslamicDate>()
         : new TabularIslamicDate(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public TabularIslamicDate PreviousDay() =>
-        this == s_MinValue ? Throw.DateOverflow<TabularIslamicDate>()
+        this == s_MinValue ? ThrowHelpers.DateOverflow<TabularIslamicDate>()
         : new TabularIslamicDate(_daysSinceEpoch - 1);
 }

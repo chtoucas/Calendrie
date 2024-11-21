@@ -11,4 +11,3 @@ global using System.Runtime.CompilerServices;
 global using Calendrie.Core.Utilities;
 
 global using AoorException = System.ArgumentOutOfRangeException;
-global using Throw = Calendrie.Core.Utilities.ThrowHelpers;
