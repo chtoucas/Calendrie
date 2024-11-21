@@ -11,11 +11,9 @@
     <PackageReference Include="Microsoft.VisualStudio.TextTemplating" />
   </ItemGroup>
 
-  <!--
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Release' ">
+  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Release' ">
     <Message Text="Copying Calendrie.TextTemplating.$(VisualStudioVersion).dll to blib..." Importance="high" />
     <Exec Command="xcopy /Y &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(MSBuildThisFileDirectory)..\..\eng\blib&quot;" />
-  </Target>
-  -->
+  </Target>-->
 
 </Project>
