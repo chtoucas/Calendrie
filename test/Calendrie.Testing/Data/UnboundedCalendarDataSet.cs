@@ -45,7 +45,9 @@ public abstract class UnboundedCalendarDataSet : ICalendarDataSet
 
     protected UnboundedCalendarDataSet(SchemaDataSet dataSet, DayNumber epoch)
     {
-        _dataSet = dataSet ?? throw new ArgumentNullException(nameof(dataSet));
+        ArgumentNullException.ThrowIfNull(dataSet);
+
+        _dataSet = dataSet;
         Epoch = epoch;
     }
 

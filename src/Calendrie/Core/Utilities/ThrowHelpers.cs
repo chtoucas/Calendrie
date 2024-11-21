@@ -3,7 +3,7 @@
 
 namespace Calendrie.Core.Utilities;
 
-// TODO(code): do not use plain exn. Add localized messages (french)?
+// TODO(code): do not use factories.
 
 #region Developer Notes
 
@@ -88,50 +88,32 @@ internal partial class ThrowHelpers // Plain
 {
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
-    public static void Argument(string paramName) => throw GetArgumentExn(paramName);
+    public static void Argument(string paramName) => throw new ArgumentException(null, paramName);
 
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn, Pure]
-    public static T Argument<T>(string paramName) => throw GetArgumentExn(paramName);
+    public static T Argument<T>(string paramName) => throw new ArgumentException(null, paramName);
 
     /// <exception cref="AoorException"/>
-    // TODO(code): obsolete or not?
+    [DoesNotReturn]
+    public static void ArgumentOutOfRange(string paramName) => throw new AoorException(paramName);
+
+    /// <exception cref="AoorException"/>
     //[Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
-    [DoesNotReturn]
-    public static void ArgumentOutOfRange(string paramName) => throw GetArgumentOutOfRangeExn(paramName);
-
-    /// <exception cref="AoorException"/>
-    [Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
     [DoesNotReturn, Pure]
-    public static T ArgumentOutOfRange<T>(string paramName) => throw GetArgumentOutOfRangeExn(paramName);
+    public static T ArgumentOutOfRange<T>(string paramName) => throw new AoorException(paramName);
 
     /// <exception cref="InvalidOperationException"/>
     [DoesNotReturn]
-    public static void InvalidOperation() => throw GetInvalidOperationExn();
+    public static void InvalidOperation() => throw new InvalidOperationException();
 
     /// <exception cref="InvalidOperationException"/>
     [DoesNotReturn, Pure]
-    public static T InvalidOperation<T>() => throw GetInvalidOperationExn();
+    public static T InvalidOperation<T>() => throw new InvalidOperationException();
 
     /// <exception cref="NotSupportedException"/>
     [DoesNotReturn, Pure]
-    public static T NotSupported<T>() => throw GetNotSupportedExn();
-
-    #region Factories
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static ArgumentException GetArgumentExn(string paramName) => new(null, paramName);
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetArgumentOutOfRangeExn(string paramName) => new(paramName);
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static InvalidOperationException GetInvalidOperationExn() => new();
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static NotSupportedException GetNotSupportedExn() => new();
-
-    #endregion
+    public static T NotSupported<T>() => throw new NotSupportedException();
 }
 
 internal partial class ThrowHelpers

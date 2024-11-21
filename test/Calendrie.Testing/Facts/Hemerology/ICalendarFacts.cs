@@ -27,8 +27,9 @@ public abstract partial class ICalendarFacts<TCalendar, TDataSet> :
 {
     protected ICalendarFacts(TCalendar calendar)
     {
-        CalendarUT = calendar ?? throw new ArgumentNullException(nameof(calendar));
+        ArgumentNullException.ThrowIfNull(calendar);
 
+        CalendarUT = calendar;
         Domain = calendar.Domain;
 
         var supportedYears = calendar.Scope.Segment.SupportedYears;

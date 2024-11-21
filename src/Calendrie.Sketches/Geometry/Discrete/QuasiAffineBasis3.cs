@@ -14,10 +14,15 @@ public class QuasiAffineBasis3
         QuasiAffineForm form1,
         QuasiAffineForm form0)
     {
-        Form3 = form3 ?? throw new ArgumentNullException(nameof(form3));
-        Form2 = form2 ?? throw new ArgumentNullException(nameof(form2));
-        Form1 = form1 ?? throw new ArgumentNullException(nameof(form1));
-        Form0 = form0 ?? throw new ArgumentNullException(nameof(form0));
+        ArgumentNullException.ThrowIfNull(form3);
+        ArgumentNullException.ThrowIfNull(form2);
+        ArgumentNullException.ThrowIfNull(form1);
+        ArgumentNullException.ThrowIfNull(form0);
+
+        Form3 = form3;
+        Form2 = form2;
+        Form1 = form1;
+        Form0 = form0;
     }
 
     public QuasiAffineForm Form3 { get; }

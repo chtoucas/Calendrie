@@ -18,7 +18,9 @@ public sealed partial class TroeschAnalyzer
     /// <exception cref="ArgumentNullException"><paramref name="input"/> is null.</exception>
     public TroeschAnalyzer(CodeArray input)
     {
-        Input = input ?? throw new ArgumentNullException(nameof(input));
+        ArgumentNullException.ThrowIfNull(input);
+
+        Input = input;
     }
 
     public CodeArray Input { get; }

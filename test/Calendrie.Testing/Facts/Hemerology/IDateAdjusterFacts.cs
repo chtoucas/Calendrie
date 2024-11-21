@@ -16,7 +16,9 @@ public abstract partial class IDateAdjusterFacts<TAdjuster, TDate, TDataSet> :
 {
     protected IDateAdjusterFacts(TAdjuster adjuster)
     {
-        AdjusterUT = adjuster ?? throw new ArgumentNullException(nameof(adjuster));
+        ArgumentNullException.ThrowIfNull(adjuster);
+
+        AdjusterUT = adjuster;
         SupportedYearsTester = new SupportedYearsTester(adjuster.Scope.Segment.SupportedYears);
     }
 

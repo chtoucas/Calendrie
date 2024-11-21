@@ -34,8 +34,8 @@ public sealed class MonthsValidator : IRangeValidator<int>
     /// <exception cref="AoorException">The validation failed.</exception>
     public void Validate(int monthsSinceEpoch, string? paramName = null)
     {
-        AoorException.ThrowIfLessThan(monthsSinceEpoch, MinMonthsSinceEpoch, paramName ?? nameof(monthsSinceEpoch));
-        AoorException.ThrowIfGreaterThan(monthsSinceEpoch, MaxMonthsSinceEpoch, paramName ?? nameof(monthsSinceEpoch));
+        if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
+            Throw.ArgumentOutOfRange(paramName ?? nameof(monthsSinceEpoch));
     }
 
     /// <summary>Checks whether the specified number of consecutive months from the epoch is outside
@@ -45,9 +45,7 @@ public sealed class MonthsValidator : IRangeValidator<int>
     public void CheckOverflow(int monthsSinceEpoch)
     {
         if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-        {
             Throw.MonthOverflow();
-        }
     }
 
     /// <summary>Checks whether the specified number of consecutive months from the epoch is greater

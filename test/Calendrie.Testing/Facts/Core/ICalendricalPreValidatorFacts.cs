@@ -25,7 +25,9 @@ public abstract partial class ICalendricalPreValidatorFacts<TDataSet> :
         int minYear,
         int maxYear)
     {
-        PreValidatorUT = validator ?? throw new ArgumentNullException(nameof(validator));
+        ArgumentNullException.ThrowIfNull(validator);
+
+        PreValidatorUT = validator;
         MinYear = minYear;
         MaxYear = maxYear;
     }

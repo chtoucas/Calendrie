@@ -16,7 +16,9 @@ public partial class PartsAdapterFacts<TDataSet> :
 {
     protected PartsAdapterFacts(PartsAdapter adapter)
     {
-        AdapterUT = adapter ?? throw new ArgumentNullException(nameof(adapter));
+        ArgumentNullException.ThrowIfNull(adapter);
+
+        AdapterUT = adapter;
     }
 
     /// <summary>

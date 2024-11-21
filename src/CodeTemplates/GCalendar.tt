@@ -40,7 +40,9 @@ public sealed partial class <#= Prefix #>Clock
     /// <see langword="null"/>.</exception>
     public <#= Prefix #>Clock(IClock clock)
     {
-        _clock = clock ?? throw new ArgumentNullException(nameof(clock));
+        ArgumentNullException.ThrowIfNull(clock);
+
+        _clock = clock;
     }
 
     /// <summary>

@@ -34,8 +34,8 @@ public sealed class DaysValidator : IRangeValidator<int>
     /// <exception cref="AoorException">The validation failed.</exception>
     public void Validate(int daysSinceEpoch, string? paramName = null)
     {
-        AoorException.ThrowIfLessThan(daysSinceEpoch, MinDaysSinceEpoch, paramName ?? nameof(daysSinceEpoch));
-        AoorException.ThrowIfGreaterThan(daysSinceEpoch, MaxDaysSinceEpoch, paramName ?? nameof(daysSinceEpoch));
+        if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
+            Throw.ArgumentOutOfRange(paramName ?? nameof(daysSinceEpoch));
     }
 
     /// <summary>Checks whether the specified number of consecutive days from the epoch is outside
@@ -45,9 +45,7 @@ public sealed class DaysValidator : IRangeValidator<int>
     public void CheckOverflow(int daysSinceEpoch)
     {
         if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
-        {
             Throw.DateOverflow();
-        }
     }
 
     /// <summary>Checks whether the specified number of consecutive days from the epoch is greater

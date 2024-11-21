@@ -23,9 +23,11 @@ public abstract partial class BasicCalendar<TScope> : ICalendar
     /// <see langword="null"/>.</exception>
     protected BasicCalendar(string name, TScope scope)
     {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
-        Scope = scope ?? throw new ArgumentNullException(nameof(scope));
+        ArgumentNullException.ThrowIfNull(name);
+        ArgumentNullException.ThrowIfNull(scope);
 
+        Name = name;
+        Scope = scope;
         Schema = scope.Schema;
         YearsValidator = scope.YearsValidator;
     }

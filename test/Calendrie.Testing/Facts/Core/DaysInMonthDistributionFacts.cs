@@ -50,7 +50,9 @@ internal abstract class DaysInMonthDistributionFacts<TSchema, TDataSet> :
 {
     protected DaysInMonthDistributionFacts(TSchema schema)
     {
-        SchemaUT = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
+
+        SchemaUT = schema;
     }
 
     protected TSchema SchemaUT { get; }

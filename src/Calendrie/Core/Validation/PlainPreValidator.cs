@@ -25,7 +25,9 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public PlainPreValidator(ICalendricalSchema schema)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
+
+        _schema = schema;
         _minDaysInYear = schema.MinDaysInYear;
     }
 

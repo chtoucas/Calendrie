@@ -44,7 +44,9 @@ public abstract partial class ICalendricalKernelFacts<TKernel, TDataSet> :
 {
     protected ICalendricalKernelFacts(TKernel schema)
     {
-        SchemaUT = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
+
+        SchemaUT = schema;
     }
 
     /// <summary>

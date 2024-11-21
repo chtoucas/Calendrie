@@ -25,9 +25,10 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public LunisolarPreValidator(CalendricalSchema schema)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
-
+        ArgumentNullException.ThrowIfNull(schema);
         Requires.Profile(schema, CalendricalProfile.Lunisolar);
+
+        _schema = schema;
     }
 
     /// <inheritdoc />

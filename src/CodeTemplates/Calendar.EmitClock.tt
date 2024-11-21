@@ -23,7 +23,9 @@ public sealed partial class <#= Prefix #>Clock
 
     private <#= Prefix #>Clock(DayNumber epoch, IClock clock)
     {
-        _clock = clock ?? throw new ArgumentNullException(nameof(clock));
+        ArgumentNullException.ThrowIfNull(clock);
+
+        _clock = clock;
         _epoch = epoch;
     }
 

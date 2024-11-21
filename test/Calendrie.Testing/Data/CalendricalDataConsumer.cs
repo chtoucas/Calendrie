@@ -67,7 +67,9 @@ public abstract class CalendricalDataConsumer<TDataSet>
 
         public DataSetAdapter(TDataSet dataSet)
         {
-            _dataSet = dataSet ?? throw new ArgumentNullException(nameof(dataSet));
+            ArgumentNullException.ThrowIfNull(dataSet);
+
+            _dataSet = dataSet;
         }
 
         private XunitData<MonthsSinceEpochInfo>? _monthsSinceEpochInfoData;

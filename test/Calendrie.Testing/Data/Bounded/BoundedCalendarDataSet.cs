@@ -18,8 +18,11 @@ public class BoundedCalendarDataSet<TDataSet> : ICalendarDataSet
 {
     public BoundedCalendarDataSet(TDataSet unbounded, IDataFilter dataFilter)
     {
-        Unbounded = unbounded ?? throw new ArgumentNullException(nameof(unbounded));
-        DataFilter = dataFilter ?? throw new ArgumentNullException(nameof(dataFilter));
+        ArgumentNullException.ThrowIfNull(unbounded);
+        ArgumentNullException.ThrowIfNull(dataFilter);
+
+        Unbounded = unbounded;
+        DataFilter = dataFilter;
 
         Epoch = unbounded.Epoch;
         SampleCommonYear = unbounded.SampleCommonYear;

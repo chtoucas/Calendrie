@@ -26,7 +26,9 @@ public abstract class CalendarDataConsumer<TDataSet> : CalendricalDataConsumer<T
 
         public DataSetAdapter(TDataSet dataSet)
         {
-            _dataSet = dataSet ?? throw new ArgumentNullException(nameof(dataSet));
+            ArgumentNullException.ThrowIfNull(dataSet);
+
+            _dataSet = dataSet;
         }
 
         private XunitData<DayNumberInfo>? _dayNumberInfoData;

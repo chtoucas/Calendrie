@@ -18,7 +18,9 @@ public abstract partial class SchemaDataSet : ICalendricalDataSet
 
     protected SchemaDataSet(ICalendricalSchema schema, int commonYear, int leapYear)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
+
+        _schema = schema;
 
         SampleCommonYear = commonYear;
         SampleLeapYear = leapYear;

@@ -25,9 +25,10 @@ internal sealed class Solar13PreValidator : ICalendricalPreValidator
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
     public Solar13PreValidator(CalendricalSchema schema)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
-
+        ArgumentNullException.ThrowIfNull(schema);
         Requires.Profile(schema, CalendricalProfile.Solar13);
+
+        _schema = schema;
     }
 
     /// <inheritdoc />

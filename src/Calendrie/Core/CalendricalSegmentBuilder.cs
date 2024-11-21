@@ -47,8 +47,9 @@ public sealed partial class CalendricalSegmentBuilder
     /// <see langword="null"/>.</exception>
     public CalendricalSegmentBuilder(ICalendricalSchema schema)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
 
+        _schema = schema;
         _partsAdapter = new PartsAdapter(schema);
         _yearsValidator = new YearsValidator(schema.SupportedYears);
         _daysValidator = new DaysValidator(schema.SupportedDays);

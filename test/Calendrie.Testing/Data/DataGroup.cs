@@ -240,7 +240,9 @@ public sealed class DataGroup<T> : IReadOnlyCollection<object?[]>
     {
         public ReadOnlyContainer(IEnumerable<T> values)
         {
-            Values = values ?? throw new ArgumentNullException(nameof(values));
+            ArgumentNullException.ThrowIfNull(values);
+
+            Values = values;
         }
 
         public bool IsReadOnly => true;

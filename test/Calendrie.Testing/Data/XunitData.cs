@@ -13,7 +13,9 @@ public sealed class XunitData<T> : IReadOnlyCollection<object?[]>
 
     public XunitData(IEnumerable<object?[]> values)
     {
-        _values = values ?? throw new ArgumentNullException(nameof(values));
+        ArgumentNullException.ThrowIfNull(values);
+
+        _values = values;
     }
 
     public int Count => _values.Count();

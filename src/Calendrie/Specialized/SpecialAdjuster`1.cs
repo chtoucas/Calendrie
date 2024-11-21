@@ -40,7 +40,9 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// null.</exception>
     private protected SpecialAdjuster(MinMaxYearScope scope)
     {
-        Scope = scope ?? throw new ArgumentNullException(nameof(scope));
+        ArgumentNullException.ThrowIfNull(scope);
+
+        Scope = scope;
     }
 
     /// <inheritdoc/>

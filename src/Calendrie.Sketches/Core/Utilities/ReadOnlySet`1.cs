@@ -23,7 +23,9 @@ public sealed partial class ReadOnlySet<T> : IReadOnlyCollection<T>, IReadOnlySe
     /// <see langword="null"/>.</exception>
     public ReadOnlySet(HashSet<T> set)
     {
-        _set = set ?? throw new ArgumentNullException(nameof(set));
+        ArgumentNullException.ThrowIfNull(set);
+
+        _set = set;
     }
 
     /// <summary>
@@ -48,7 +50,9 @@ public sealed partial class ReadOnlySet<T> : IReadOnlyCollection<T>, IReadOnlySe
 
         public DebugView(ReadOnlySet<T> obj)
         {
-            _obj = obj ?? throw new ArgumentNullException(nameof(obj));
+            ArgumentNullException.ThrowIfNull(obj);
+
+            _obj = obj;
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]

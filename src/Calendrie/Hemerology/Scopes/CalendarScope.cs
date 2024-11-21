@@ -33,8 +33,9 @@ public abstract partial class CalendarScope : ICalendricalValidator, ISchemaBoun
     /// <see langword="null"/>.</exception>
     protected CalendarScope(DayNumber epoch, CalendricalSegment segment)
     {
-        Segment = segment ?? throw new ArgumentNullException(nameof(segment));
+        ArgumentNullException.ThrowIfNull(segment);
 
+        Segment = segment;
         _schema = segment.Schema;
 
         Epoch = epoch;
