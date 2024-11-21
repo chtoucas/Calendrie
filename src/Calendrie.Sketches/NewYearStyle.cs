@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Sketches;
+namespace Calendrie;
 
 // Dans les calendriers julien et grégorien, le jour de l'an est
 // fixé au 1er janvier (circoncision de J.-C.), cependant l'année pouvait

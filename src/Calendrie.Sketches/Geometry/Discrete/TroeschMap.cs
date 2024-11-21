@@ -3,7 +3,7 @@
 
 //#define TROESCH_MAP_SYMMETRY_THEN_TRANSLATION
 
-namespace Calendrie.Sketches.Geometry.Discrete;
+namespace Calendrie.Geometry.Discrete;
 
 // TODO: Shear, Translate > 0. Inverse Translate params.
 // Complement could be optional and only depend on the form.

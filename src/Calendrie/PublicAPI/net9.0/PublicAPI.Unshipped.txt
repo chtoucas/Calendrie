@@ -636,16 +636,6 @@ Calendrie.Hemerology.Scopes.MinMaxYearScope.MinMaxYearScope(Calendrie.DayNumber 
 Calendrie.Hemerology.Scopes.ProlepticScope
 Calendrie.Hemerology.Scopes.StandardScope
 Calendrie.Hemerology.YearNumbering
-Calendrie.Horology.IClock
-Calendrie.Horology.IClock.Now() -> Calendrie.Moment
-Calendrie.Horology.IClock.Today() -> Calendrie.DayNumber
-Calendrie.Horology.LocalSystemClock
-Calendrie.Horology.LocalSystemClock.Now() -> Calendrie.Moment
-Calendrie.Horology.LocalSystemClock.Today() -> Calendrie.DayNumber
-Calendrie.Horology.SystemClocks
-Calendrie.Horology.UtcSystemClock
-Calendrie.Horology.UtcSystemClock.Now() -> Calendrie.Moment
-Calendrie.Horology.UtcSystemClock.Today() -> Calendrie.DayNumber
 Calendrie.IsoWeekday
 Calendrie.IsoWeekday.Friday = 5 -> Calendrie.IsoWeekday
 Calendrie.IsoWeekday.Monday = 1 -> Calendrie.IsoWeekday
@@ -782,9 +772,6 @@ Calendrie.Specialized.CivilAdjuster.CivilAdjuster() -> void
 Calendrie.Specialized.CivilCalendar
 Calendrie.Specialized.CivilCalendar.CivilCalendar() -> void
 Calendrie.Specialized.CivilCalendar.MonthsInYear.get -> int
-Calendrie.Specialized.CivilClock
-Calendrie.Specialized.CivilClock.CivilClock(Calendrie.Horology.IClock! clock) -> void
-Calendrie.Specialized.CivilClock.GetCurrentDate() -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.Adjust(System.Func<Calendrie.Specialized.CivilDate, Calendrie.Specialized.CivilDate>! adjuster) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.Century.get -> int
@@ -1938,8 +1925,6 @@ static Calendrie.Hemerology.YearNumbering.GetYearFromIsoDecade(int decade, int y
 static Calendrie.Hemerology.YearNumbering.GetYearFromIsoMillennium(int millennium, int yearOfMillennium) -> int
 static Calendrie.Hemerology.YearNumbering.GetYearFromMillennium(int millennium, int yearOfMillennium) -> int
 static Calendrie.Hemerology.YearNumbering.GetYearOfCentury(int year) -> int
-static Calendrie.Horology.SystemClocks.Local.get -> Calendrie.Horology.LocalSystemClock!
-static Calendrie.Horology.SystemClocks.Utc.get -> Calendrie.Horology.UtcSystemClock!
 static Calendrie.IsoWeekdayExtensions.ToDayOfWeek(this Calendrie.IsoWeekday isoWeekday) -> System.DayOfWeek
 static Calendrie.IsoWeekdayExtensions.ToIsoWeekday(this System.DayOfWeek dayOfWeek) -> Calendrie.IsoWeekday
 static Calendrie.Moment.MaxValue.get -> Calendrie.Moment
@@ -2018,9 +2003,6 @@ static Calendrie.Specialized.ArmenianDate.operator <=(Calendrie.Specialized.Arme
 static Calendrie.Specialized.ArmenianDate.operator ==(Calendrie.Specialized.ArmenianDate left, Calendrie.Specialized.ArmenianDate right) -> bool
 static Calendrie.Specialized.ArmenianDate.operator >(Calendrie.Specialized.ArmenianDate left, Calendrie.Specialized.ArmenianDate right) -> bool
 static Calendrie.Specialized.ArmenianDate.operator >=(Calendrie.Specialized.ArmenianDate left, Calendrie.Specialized.ArmenianDate right) -> bool
-static Calendrie.Specialized.CivilClock.GetClock(Calendrie.Horology.IClock! clock) -> Calendrie.Specialized.CivilClock!
-static Calendrie.Specialized.CivilClock.Local.get -> Calendrie.Specialized.CivilClock!
-static Calendrie.Specialized.CivilClock.Utc.get -> Calendrie.Specialized.CivilClock!
 static Calendrie.Specialized.CivilDate.Adjuster.get -> Calendrie.Specialized.CivilAdjuster!
 static Calendrie.Specialized.CivilDate.Calendar.get -> Calendrie.Specialized.CivilCalendar!
 static Calendrie.Specialized.CivilDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.CivilDate

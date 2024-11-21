@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Sketches.Geometry.Discrete;
+namespace Calendrie.Geometry.Discrete;
 
 /// <summary>
 /// Formules pour une base de numération quasi-affine d'ordre 2.

@@ -20,7 +20,7 @@ open Xunit
 open FsCheck
 open FsCheck.Xunit
 
-open type Calendrie.Sketches.Extensions.DayNumberExtensions
+open type Calendrie.Extensions.DayNumberExtensions
 
 // SYNC WITH DayNumber64Tests.
 

@@ -9,7 +9,6 @@ global using System.Diagnostics.Contracts;
 global using System.Runtime.CompilerServices;
 
 global using Calendrie.Core.Utilities;
-global using Calendrie.Sketches.Core.Utilities;
 
 global using AoorException = System.ArgumentOutOfRangeException;
 global using Throw = Calendrie.Core.Utilities.ThrowHelpers;

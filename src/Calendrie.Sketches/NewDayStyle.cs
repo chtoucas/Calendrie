@@ -4,7 +4,7 @@
 // REVIEW: add this and NewYearStyle to Calendar? use a record to hold both?
 // Only informational? since a date object does not contain a time part...
 
-namespace Calendrie.Sketches;
+namespace Calendrie;
 
 // Suivant le calendrier, le jour peut commencer à un instant différent :
 // minuit, midi, lever ou coucher du soleil (Sunrise ou Sunset).

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
+    <RootNamespace>Calendrie</RootNamespace>
 
     <!--
       CS1591  Missing XML comment for publicly visible type or member 'Type_or_Member'

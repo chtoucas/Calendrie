@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Sketches;
+namespace Calendrie;
 
 // Jours d'un décan égyptien, un cycle de 10 jours.
 //
