@@ -13,11 +13,6 @@ open Xunit
 
 let private paramName = "paramName"
 
-module MiscExns =
-    [<Fact>]
-    let Unreachable () =
-        throws<InvalidOperationException> (fun () -> ThrowHelpers.Unreachable<string>())
-
 module ArgumentOutOfRangeExns =
     [<Fact>]
     let YearOutOfRange () =

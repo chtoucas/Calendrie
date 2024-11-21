@@ -3,7 +3,7 @@
 
 namespace Calendrie.Core.Utilities;
 
-// TODO(code): do not use factories. Exception messages: remove ThrowHelpers.Argument.
+// TODO(code): do not use factories. Localized messages?
 
 #region Developer Notes
 
@@ -72,8 +72,7 @@ namespace Calendrie.Core.Utilities;
 // -----------------------------
 //
 // https://docs.microsoft.com/en-us/windows/communitytoolkit/developer-tools/throwhelper
-// https://github.com/CommunityToolkit/dotnet/blob/main/CommunityToolkit.Diagnostics/ThrowHelper.cs
-// https://github.com/CommunityToolkit/dotnet/blob/main/CommunityToolkit.Diagnostics/ThrowHelper.Generic.cs
+// https://github.com/CommunityToolkit/dotnet/blob/main/src/CommunityToolkit.Diagnostics/ThrowHelper.cs
 
 #endregion
 
@@ -90,11 +89,8 @@ internal partial class ThrowHelpers
     /// The control flow path reached a section of the code that should have
     /// been unreachable under any circumstances.
     /// </summary>
-    /// <exception cref="InvalidOperationException"/>
-    [DoesNotReturn, Pure]
-    public static T Unreachable<T>() =>
-        throw new InvalidOperationException(
-            "The control flow path reached a section of the code that should have been unreachable under any circumstances.");
+    public const string UnreachableMessage =
+        "The control flow path reached a section of the code that should have been unreachable under any circumstances.";
 }
 
 internal partial class ThrowHelpers // ArgumentOutOfRangeException
