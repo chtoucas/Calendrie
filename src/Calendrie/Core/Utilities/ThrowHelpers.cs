@@ -3,7 +3,7 @@
 
 namespace Calendrie.Core.Utilities;
 
-// TODO(code): do not use factories.
+// TODO(code): do not use factories. Exception messages: remove ThrowHelpers.Argument.
 
 #region Developer Notes
 
@@ -89,90 +89,35 @@ internal partial class ThrowHelpers // Plain
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
     public static void Argument(string paramName) => throw new ArgumentException(null, paramName);
-
-    /// <exception cref="ArgumentException"/>
-    [DoesNotReturn, Pure]
-    public static T Argument<T>(string paramName) => throw new ArgumentException(null, paramName);
-
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void ArgumentOutOfRange(string paramName) => throw new AoorException(paramName);
-
-    /// <exception cref="AoorException"/>
-    //[Obsolete("Use ArgumentOutOfRangeException.ThrowIf...() instead.")]
-    [DoesNotReturn, Pure]
-    public static T ArgumentOutOfRange<T>(string paramName) => throw new AoorException(paramName);
-
-    /// <exception cref="InvalidOperationException"/>
-    [DoesNotReturn]
-    public static void InvalidOperation() => throw new InvalidOperationException();
-
-    /// <exception cref="InvalidOperationException"/>
-    [DoesNotReturn, Pure]
-    public static T InvalidOperation<T>() => throw new InvalidOperationException();
-
-    /// <exception cref="NotSupportedException"/>
-    [DoesNotReturn, Pure]
-    public static T NotSupported<T>() => throw new NotSupportedException();
 }
 
 internal partial class ThrowHelpers
 {
-    /// <summary>
-    /// The box is empty.
-    /// </summary>
-    /// <exception cref="InvalidOperationException"/>
-    [DoesNotReturn, Pure]
-    public static T EmptyBox<T>() => throw GetEmptyBoxExn();
-
     /// <summary>
     /// The control flow path reached a section of the code that should have
     /// been unreachable under any circumstances.
     /// </summary>
     /// <exception cref="InvalidOperationException"/>
     [DoesNotReturn, Pure]
-    public static T Unreachable<T>() => throw GetUnreachableExn();
+    public static T Unreachable<T>() =>
+        throw new InvalidOperationException(
+            "The control flow path reached a section of the code that should have been unreachable under any circumstances.");
 
     /// <summary>
     /// The collection is read-only.
     /// </summary>
     /// <exception cref="NotSupportedException"/>
     [DoesNotReturn]
-    public static void ReadOnlyCollection() => throw GetReadOnlyCollectionExn();
-
-    /// <summary>
-    /// The collection is read-only.
-    /// </summary>
-    /// <exception cref="NotSupportedException"/>
-    [DoesNotReturn, Pure]
-    public static T ReadOnlyCollection<T>() => throw GetReadOnlyCollectionExn();
+    public static void ReadOnlyCollection() =>
+        throw new NotSupportedException("The collection is read-only.");
 
     /// <summary>
     /// An item with the specified key could not be found.
     /// </summary>
     /// <exception cref="KeyNotFoundException"/>
     [DoesNotReturn, Pure]
-    public static T KeyNotFound<T>(string key) => throw GetKeyNotFoundExn(key);
-
-    #region Factories
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static InvalidOperationException GetEmptyBoxExn() =>
-        new("The box is empty.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static InvalidOperationException GetUnreachableExn() =>
-        new("The control flow path reached a section of the code that should have been unreachable under any circumstances.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static NotSupportedException GetReadOnlyCollectionExn() =>
-        new("The collection is read-only.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static KeyNotFoundException GetKeyNotFoundExn(string key) =>
-        new($"An item with the key \"{key}\" could not be found.");
-
-    #endregion
+    public static T KeyNotFound<T>(string key) =>
+        throw new KeyNotFoundException($"An item with the key \"{key}\" could not be found.");
 }
 
 internal partial class ThrowHelpers // ArgumentOutOfRangeException

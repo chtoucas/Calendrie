@@ -35,7 +35,7 @@ public sealed class DaysValidator : IRangeValidator<int>
     public void Validate(int daysSinceEpoch, string? paramName = null)
     {
         if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
-            Throw.ArgumentOutOfRange(paramName ?? nameof(daysSinceEpoch));
+            throw new AoorException(paramName ?? nameof(daysSinceEpoch));
     }
 
     /// <summary>Checks whether the specified number of consecutive days from the epoch is outside

@@ -191,7 +191,7 @@ public readonly partial struct Yedoyx :
         }
         if (extra < MinExtra || extra > MaxExtra)
         {
-            Throw.ArgumentOutOfRange(nameof(extra));
+            throw new AoorException(nameof(extra));
         }
 
         return new Yedoyx(Pack(year, dayOfYear, extra));
@@ -211,7 +211,7 @@ public readonly partial struct Yedoyx :
         }
         if (extra < MinExtra || extra > MaxExtra)
         {
-            Throw.ArgumentOutOfRange(nameof(extra));
+            throw new AoorException(nameof(extra));
         }
 
         return new Yedoyx(ydoy, extra);

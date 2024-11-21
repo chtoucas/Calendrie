@@ -18,31 +18,8 @@ module PlainExns =
     [<Fact>]
     let Argument () =
         argExn paramName (fun () -> ThrowHelpers.Argument(paramName))
-        argExn paramName (fun () -> ThrowHelpers.Argument<string>(paramName))
-
-    //[<Fact>]
-    //let ArgumentNull () =
-    //    nullExn paramName (fun () -> ThrowHelpers.ArgumentNull(paramName))
-
-    [<Fact>]
-    let ArgumentOutOfRange () =
-        outOfRangeExn paramName (fun () -> ThrowHelpers.ArgumentOutOfRange(paramName))
-        //outOfRangeExn paramName (fun () -> ThrowHelpers.ArgumentOutOfRange<string>(paramName))
-
-    [<Fact>]
-    let InvalidOperation () =
-        throws<InvalidOperationException> (fun () -> ThrowHelpers.InvalidOperation())
-        throws<InvalidOperationException> (fun () -> ThrowHelpers.InvalidOperation<string>())
-
-    [<Fact>]
-    let NotSupported () =
-        throws<NotSupportedException> (fun () -> ThrowHelpers.NotSupported<string>())
 
 module MiscExns =
-    [<Fact>]
-    let EmptyBox () =
-        throws<InvalidOperationException> (fun () -> ThrowHelpers.EmptyBox<string>())
-
     [<Fact>]
     let Unreachable () =
         throws<InvalidOperationException> (fun () -> ThrowHelpers.Unreachable<string>())
@@ -50,7 +27,6 @@ module MiscExns =
     [<Fact>]
     let ReadOnlyCollection () =
         throws<NotSupportedException> (fun () -> ThrowHelpers.ReadOnlyCollection())
-        throws<NotSupportedException> (fun () -> ThrowHelpers.ReadOnlyCollection<string>())
 
     [<Fact>]
     let KeyNotFound () =

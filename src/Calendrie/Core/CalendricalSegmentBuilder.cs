@@ -81,12 +81,12 @@ public sealed partial class CalendricalSegmentBuilder
     /// </exception>
     private Endpoint Min
     {
-        get => _min ?? Throw.InvalidOperation<Endpoint>();
+        get => _min ?? throw new InvalidOperationException();
         set
         {
             if (Endpoint.IsGreaterThan(value, _max))
             {
-                Throw.ArgumentOutOfRange(nameof(value));
+                throw new AoorException(nameof(value));
             }
             _min = value;
         }
@@ -100,12 +100,12 @@ public sealed partial class CalendricalSegmentBuilder
     /// </exception>
     private Endpoint Max
     {
-        get => _max ?? Throw.InvalidOperation<Endpoint>();
+        get => _max ?? throw new InvalidOperationException();
         set
         {
             if (Endpoint.IsGreaterThan(_min, value))
             {
-                Throw.ArgumentOutOfRange(nameof(value));
+                throw new AoorException(nameof(value));
             }
             _max = value;
         }

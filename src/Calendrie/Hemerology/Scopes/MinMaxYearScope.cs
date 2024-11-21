@@ -119,7 +119,7 @@ public sealed class MinMaxYearScope : CalendarScope
         ArgumentNullException.ThrowIfNull(scope);
 
         return scope is MinMaxYearScope scope_ ? scope_
-            : !scope.Segment.IsComplete ? Throw.Argument<MinMaxYearScope>(nameof(scope))
+            : !scope.Segment.IsComplete ? throw new ArgumentException(null, nameof(scope))
             : new MinMaxYearScope(scope.Epoch, scope.Segment);
     }
 

@@ -392,7 +392,7 @@ public partial struct Yemoda // Binary data helpers
     [CLSCompliant(false)]
     public long ToBinary(uint extraData)
     {
-        if (extraData > int.MaxValue) Throw.ArgumentOutOfRange(nameof(extraData));
+        AoorException.ThrowIfGreaterThan(extraData, (uint)int.MaxValue);
 
         return ((long)ToBinary() << 32) | extraData;
     }

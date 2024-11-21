@@ -23,7 +23,7 @@ public sealed partial class BoolArray : IReadOnlyList<bool>
 
     public BoolArray(bool b, int count)
     {
-        if (count < 1) Throw.ArgumentOutOfRange(nameof(count));
+        AoorException.ThrowIfLessThan(count, 1);
 
         _arr = ArrayHelpers.Repeat(b, count);
     }

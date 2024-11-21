@@ -250,7 +250,7 @@ public readonly partial struct Yemodax :
         if (year < MinYear || year > MaxYear) Throw.YearOutOfRange(year);
         if (month < MinMonth || month > MaxMonth) Throw.MonthOutOfRange(month);
         if (day < MinDay || day > MaxDay) Throw.DayOutOfRange(day);
-        if (extra < MinExtra || extra > MaxExtra) Throw.ArgumentOutOfRange(nameof(extra));
+        if (extra < MinExtra || extra > MaxExtra) throw new AoorException(nameof(extra));
 
         return new Yemodax(Pack(year, month, day, extra));
     }
@@ -264,7 +264,7 @@ public readonly partial struct Yemodax :
     public static Yemodax Create(Yemoda ymd, int extra)
     {
         if (ymd.Year < MinYear || ymd.Year > MaxYear) Throw.YearOutOfRange(ymd.Year, nameof(ymd));
-        if (extra < MinExtra || extra > MaxExtra) Throw.ArgumentOutOfRange(nameof(extra));
+        if (extra < MinExtra || extra > MaxExtra) throw new AoorException(nameof(extra));
 
         return new Yemodax(ymd, extra);
     }

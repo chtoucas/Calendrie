@@ -34,7 +34,7 @@ public sealed partial class TroeschAnalyzer
     internal TroeschTransformer Transformer => new(Result);
 
     // InvalidOperationException
-    private AnalyzeResult Result => _result ?? Throw.InvalidOperation<AnalyzeResult>();
+    private AnalyzeResult Result => _result ?? throw new InvalidOperationException();
 
     /// <summary>
     /// Returns <see langword="true"/> if <paramref name="input"/> is the code
@@ -148,7 +148,7 @@ public partial class TroeschAnalyzer // Reversed analysis
     public IReadOnlyList<QuasiAffineForm> ReverseAnalysis()
     {
         var output = Result.Output;
-        if (!output.Constant) Throw.InvalidOperation();
+        if (!output.Constant) throw new InvalidOperationException();
 
         return Transformer.TransformBackWalkthru(output.ToQuasiAffineForm()).AsReadOnly();
     }
@@ -158,7 +158,7 @@ public partial class TroeschAnalyzer // Reversed analysis
     public QuasiAffineForm MakeForm()
     {
         var output = Result.Output;
-        if (!output.Constant) Throw.InvalidOperation();
+        if (!output.Constant) throw new InvalidOperationException();
 
         return Transformer.ApplyBack(output.ToQuasiAffineForm());
     }

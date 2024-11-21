@@ -65,6 +65,10 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 
 #### .NET coding conventions ####
 
+# IDE0046: Use conditional expression for return
+# Default values is: true
+dotnet_style_prefer_conditional_expression_over_return = true:suggestion
+
 # IDE0047: Remove unnecessary parentheses
 # IDE0048: Add parentheses for clarity
 # Default values are:

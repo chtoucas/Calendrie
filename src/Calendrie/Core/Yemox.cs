@@ -172,7 +172,7 @@ public readonly partial struct Yemox : IEqualityOperators<Yemox, Yemox>
     {
         if (year < MinYear || year > MaxYear) Throw.YearOutOfRange(year);
         if (month < MinMonth || month > MaxMonth) Throw.MonthOutOfRange(month);
-        if (extra < MinExtra || extra > MaxExtra) Throw.ArgumentOutOfRange(nameof(extra));
+        if (extra < MinExtra || extra > MaxExtra) throw new AoorException(nameof(extra));
 
         return new Yemox(Pack(year, month, extra));
     }
@@ -186,7 +186,7 @@ public readonly partial struct Yemox : IEqualityOperators<Yemox, Yemox>
     public static Yemox Create(Yemo ym, int extra)
     {
         if (ym.Year < MinYear || ym.Year > MaxYear) Throw.YearOutOfRange(ym.Year, nameof(ym));
-        if (extra < MinExtra || extra > MaxExtra) Throw.ArgumentOutOfRange(nameof(extra));
+        if (extra < MinExtra || extra > MaxExtra) throw new AoorException(nameof(extra));
 
         return new Yemox(ym, extra);
     }

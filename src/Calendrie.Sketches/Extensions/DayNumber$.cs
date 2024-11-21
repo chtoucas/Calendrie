@@ -43,7 +43,7 @@ public partial class DayNumberExtensions
     [Pure]
     public static DayNumber Before(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        if (num < 1) Throw.ArgumentOutOfRange(nameof(num));
+        AoorException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > PreviousOrSameCore(dayNumber, dayOfWeek, -1, 1 - num);
@@ -87,7 +87,7 @@ public partial class DayNumberExtensions
     [Pure]
     public static DayNumber OnOrBefore(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        if (num < 1) Throw.ArgumentOutOfRange(nameof(num));
+        AoorException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > PreviousOrSameCore(dayNumber, dayOfWeek, 0, 1 - num);
@@ -129,7 +129,7 @@ public partial class DayNumberExtensions
     [Pure]
     public static DayNumber OnOrAfter(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        if (num < 1) Throw.ArgumentOutOfRange(nameof(num));
+        AoorException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > NextOrSameCore(dayNumber, dayOfWeek, 0, 1 - num);
@@ -168,7 +168,7 @@ public partial class DayNumberExtensions
     [Pure]
     public static DayNumber After(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        if (num < 1) Throw.ArgumentOutOfRange(nameof(num));
+        AoorException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > NextOrSameCore(dayNumber, dayOfWeek, 1, 1 - num);

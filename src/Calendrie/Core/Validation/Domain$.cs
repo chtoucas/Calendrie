@@ -18,7 +18,7 @@ public static class DomainExtensions
     public static void Validate(this Range<DayNumber> domain, DayNumber dayNumber, string? paramName = null)
     {
         if (dayNumber < domain.Min || dayNumber > domain.Max)
-            Throw.ArgumentOutOfRange(paramName ?? nameof(dayNumber));
+            throw new AoorException(paramName ?? nameof(dayNumber));
     }
 
     /// <summary>

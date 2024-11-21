@@ -21,8 +21,10 @@ public partial record QuasiAffineForm
 #pragma warning disable IDE1006 // Naming Styles
     public QuasiAffineForm(int A, int B, int Remainder)
     {
-        _a = A != 0 ? A : Throw.ArgumentOutOfRange<int>(nameof(A));
-        _b = B != 0 ? B : Throw.ArgumentOutOfRange<int>(nameof(B));
+        AoorException.ThrowIfEqual(A, 0);
+        AoorException.ThrowIfEqual(B, 0);
+        _a = A;
+        _b = B;
         R = Remainder;
     }
 #pragma warning restore IDE1006
@@ -31,14 +33,24 @@ public partial record QuasiAffineForm
     public int A
     {
         get => _a;
-        init => _a = value != 0 ? value : Throw.ArgumentOutOfRange<int>(nameof(value));
+        init
+        {
+            AoorException.ThrowIfEqual(value, 0);
+
+            _a = value;
+        }
     }
 
     // B != 0 means that we can always compute the value of the form.
     public int B
     {
         get => _b;
-        init => _b = value != 0 ? value : Throw.ArgumentOutOfRange<int>(nameof(value));
+        init
+        {
+            AoorException.ThrowIfEqual(value, 0);
+
+            _b = value;
+        }
     }
 
     /// <summary>

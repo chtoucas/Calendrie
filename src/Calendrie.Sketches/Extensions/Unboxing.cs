@@ -34,7 +34,7 @@ public static class Unboxing
     {
         ArgumentNullException.ThrowIfNull(box);
 
-        return box.IsEmpty ? Throw.EmptyBox<T>() : box.Content;
+        return box.IsEmpty ? throw new InvalidOperationException("The box is empty.") : box.Content;
     }
 
     /// <summary>

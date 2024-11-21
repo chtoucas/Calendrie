@@ -20,7 +20,7 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     // Singleton {n}.
     public CodeArray(int n)
     {
-        if (n < 0) Throw.ArgumentOutOfRange(nameof(n));
+        AoorException.ThrowIfNegative(n);
 
         Min = Max = n;
         _codes = [n];
@@ -29,8 +29,8 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     // Constant {n, n, ...}.
     public CodeArray(int n, int count)
     {
-        if (n < 0) Throw.ArgumentOutOfRange(nameof(n));
-        if (count < 1) Throw.ArgumentOutOfRange(nameof(count));
+        AoorException.ThrowIfNegative(n);
+        AoorException.ThrowIfLessThan(count, 1);
 
         Min = Max = n;
         _codes = ArrayHelpers.Repeat(n, count);
@@ -331,7 +331,7 @@ public partial class CodeArray // Conversions, manips
     [Pure]
     public BoolArray ToBoolArray()
     {
-        if (!Reducible) Throw.InvalidOperation();
+        if (!Reducible) throw new InvalidOperationException();
 
         int min = Min;
         var arr = new bool[_codes.Length];
@@ -351,12 +351,12 @@ public partial class CodeArray // Conversions, manips
     // InvalidOperationException
     [Pure]
     internal QuasiAffineForm ToQuasiAffineForm() =>
-        Constant ? new QuasiAffineForm(Min, 1, 0) : Throw.InvalidOperation<QuasiAffineForm>();
+        Constant ? new QuasiAffineForm(Min, 1, 0) : throw new InvalidOperationException();
 
     [Pure]
     public CodeArray Rotate(int start)
     {
-        if (start <= 0 || Count <= start) Throw.ArgumentOutOfRange(nameof(start));
+        if (start <= 0 || Count <= start) throw new AoorException(nameof(start));
 
         return new(ArrayHelpers.Rotate(_codes, start));
     }
@@ -364,7 +364,7 @@ public partial class CodeArray // Conversions, manips
     [Pure]
     public CodeArray Append(int value)
     {
-        if (value < 0) Throw.ArgumentOutOfRange(nameof(value));
+        AoorException.ThrowIfNegative(value);
 
         var arr = new int[Count + 1];
         Array.Copy(_codes, arr, Count);

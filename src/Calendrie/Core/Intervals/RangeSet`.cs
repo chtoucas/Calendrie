@@ -139,7 +139,7 @@ public readonly partial struct RangeSet<T> :
     /// </summary>
     /// <exception cref="InvalidOperationException">The set is empty.</exception>
     public Range<T> Range => _isInhabited ? new Range<T>(_endpoints)
-        : Throw.InvalidOperation<Range<T>>();
+        : throw new InvalidOperationException();
 
     /// <summary>
     /// Returns a culture-independent string representation of this range.

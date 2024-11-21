@@ -133,7 +133,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
             || (newDay > Schema.MinDaysInMonth
                 && newDay > Schema.CountDaysInMonth(y, m)))
         {
-            Throw.ArgumentOutOfRange(nameof(newDay));
+            throw new AoorException(nameof(newDay));
         }
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);

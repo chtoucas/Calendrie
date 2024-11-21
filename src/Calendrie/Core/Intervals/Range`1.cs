@@ -27,7 +27,7 @@ public readonly partial struct Range<T> :
     /// <paramref name="min"/>.</exception>
     public Range(T min, T max)
     {
-        if (max.CompareTo(min) < 0) Throw.ArgumentOutOfRange(nameof(max));
+        if (max.CompareTo(min) < 0) throw new AoorException(nameof(max));
 
         Endpoints = OrderedPair.FromOrderedValues(min, max);
     }
@@ -102,7 +102,7 @@ public partial struct Range<T> // Adjustments
         // We don't write
         // > new(min, Max)
         // to obtain the correct parameter name in the exception.
-        if (min.CompareTo(Max) > 0) Throw.ArgumentOutOfRange(nameof(min));
+        if (min.CompareTo(Max) > 0) throw new AoorException(nameof(min));
 
         var endpoints = OrderedPair.FromOrderedValues(min, Max);
         return new(endpoints);
