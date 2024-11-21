@@ -19,7 +19,7 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
         ArgumentNullException.ThrowIfNull(scope);
 
         // Right now, datasets only work for a range of years.
-        if (scope.Segment.IsComplete == false) throw new ArgumentException("", nameof(scope));
+        if (!scope.Segment.IsComplete) throw new ArgumentException("", nameof(scope));
 
         ScopeUT = scope;
     }

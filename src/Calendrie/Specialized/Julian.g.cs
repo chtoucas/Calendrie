@@ -100,7 +100,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -109,7 +109,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -118,7 +118,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -127,7 +127,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -136,7 +136,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 }

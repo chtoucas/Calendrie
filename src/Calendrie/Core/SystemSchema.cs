@@ -68,7 +68,7 @@ public abstract partial class SystemSchema : CalendricalSchema
     private protected SystemSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
-        if (supportedYears.IsSubsetOf(Yemoda.SupportedYears) == false)
+        if (!supportedYears.IsSubsetOf(Yemoda.SupportedYears))
         {
             Throw.ArgumentOutOfRange(nameof(supportedYears));
         }
@@ -102,7 +102,7 @@ public partial class SystemSchema // Properties
         get => _supportedYearsCore;
         protected init
         {
-            if (value.IsSupersetOf(SupportedYears) == false)
+            if (!value.IsSupersetOf(SupportedYears))
             {
                 Throw.Argument(nameof(value));
             }

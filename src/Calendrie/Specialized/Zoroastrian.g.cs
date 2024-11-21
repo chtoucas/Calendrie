@@ -279,7 +279,7 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new ZoroastrianDate(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new ZoroastrianDate(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new ZoroastrianDate(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new ZoroastrianDate(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new ZoroastrianDate(dayNumber - s_Epoch);
     }
 }

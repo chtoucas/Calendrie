@@ -102,7 +102,7 @@ public sealed class SystemSegment : ISchemaBound
     public static SystemSegment Create(SystemSchema schema, Range<int> supportedYears)
     {
         ArgumentNullException.ThrowIfNull(schema);
-        if (supportedYears.IsSubsetOf(schema.SupportedYears) == false)
+        if (!supportedYears.IsSubsetOf(schema.SupportedYears))
         {
             Throw.Argument(nameof(supportedYears));
         }

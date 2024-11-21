@@ -71,7 +71,7 @@ public partial class TroeschAnalyzer // Analysis
         [Pure]
         static AnalyzeResult analyzeRecursively(CodeArray code, AnalyzeResult result)
         {
-            if (code.StrictlyReducible == false) { return result; }
+            if (!code.StrictlyReducible) { return result; }
 
             // Shear mapping.
             // NB: boolArr.Count < code.Count, this is not a never ending loop!
@@ -145,7 +145,7 @@ public partial class TroeschAnalyzer // Reversed analysis
     public IReadOnlyList<QuasiAffineForm> ReverseAnalysis()
     {
         var output = Result.Output;
-        if (output.Constant == false) Throw.InvalidOperation();
+        if (!output.Constant) Throw.InvalidOperation();
 
         return Transformer.TransformBackWalkthru(output.ToQuasiAffineForm()).AsReadOnly();
     }
@@ -155,7 +155,7 @@ public partial class TroeschAnalyzer // Reversed analysis
     public QuasiAffineForm MakeForm()
     {
         var output = Result.Output;
-        if (output.Constant == false) Throw.InvalidOperation();
+        if (!output.Constant) Throw.InvalidOperation();
 
         return Transformer.ApplyBack(output.ToQuasiAffineForm());
     }

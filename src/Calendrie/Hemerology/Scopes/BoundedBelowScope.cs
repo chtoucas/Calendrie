@@ -24,7 +24,7 @@ public sealed class BoundedBelowScope : CalendarScope
         : base(epoch, segment)
     {
         var seg = Segment;
-        if (seg.MinIsStartOfYear || seg.MaxIsEndOfYear == false) Throw.Argument(nameof(segment));
+        if (seg.MinIsStartOfYear || !seg.MaxIsEndOfYear) Throw.Argument(nameof(segment));
 
         MinDateParts = seg.MinMaxDateParts.LowerValue;
         MinOrdinalParts = seg.MinMaxOrdinalParts.LowerValue;

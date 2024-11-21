@@ -306,7 +306,7 @@ public partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
 {
     public void TestNextOrSame()
     {
-        if (_testNext == false) { throw new InvalidOperationException(); }
+        if (!_testNext) { throw new InvalidOperationException(); }
 
         Assert.Equal(_day, _day.NextOrSame(_dow));
         AssertEx.Overflows(() => _day.NextOrSame(_dow1));
@@ -367,7 +367,7 @@ public partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
 
     public void TestNext()
     {
-        if (_testNext == false) { throw new InvalidOperationException(); }
+        if (!_testNext) { throw new InvalidOperationException(); }
 
         AssertEx.Overflows(() => _day.Next(_dow));
         AssertEx.Overflows(() => _day.Next(_dow1));

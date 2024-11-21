@@ -308,7 +308,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     // it's not equivalent to set Min and Max separately.
     internal void SetSupportedYears(Range<int> supportedYears)
     {
-        if (supportedYears.IsSubsetOf(_schema.SupportedYears) == false)
+        if (!supportedYears.IsSubsetOf(_schema.SupportedYears))
         {
             Throw.Argument(nameof(supportedYears));
         }

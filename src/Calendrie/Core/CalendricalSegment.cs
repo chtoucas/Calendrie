@@ -111,7 +111,7 @@ public sealed class CalendricalSegment : ISchemaBound
     public static CalendricalSegment CreateMaximalOnOrAfterYear1(ICalendricalSchema schema)
     {
         var builder = new CalendricalSegmentBuilder(schema);
-        if (builder.TrySetMinToStartOfMinSupportedYearOnOrAfterYear1() == false)
+        if (!builder.TrySetMinToStartOfMinSupportedYearOnOrAfterYear1())
         {
             Throw.Argument(nameof(schema));
         }

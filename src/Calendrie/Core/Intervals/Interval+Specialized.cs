@@ -307,7 +307,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(Range<int> x, Range<int> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
@@ -316,7 +316,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(Range<int> x, LowerRay<int> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
@@ -325,7 +325,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(Range<int> x, UpperRay<int> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
@@ -334,7 +334,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(LowerRay<int> x, UpperRay<int> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     #endregion
     #region DayNumber
@@ -346,7 +346,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(Range<DayNumber> x, Range<DayNumber> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
@@ -355,7 +355,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(Range<DayNumber> x, LowerRay<DayNumber> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
@@ -364,7 +364,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(Range<DayNumber> x, UpperRay<DayNumber> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     /// <summary>
     /// Determines whether the two specified intervals are connected or not.
@@ -373,7 +373,7 @@ public partial class Interval // Connectedness
     /// </summary>
     [Pure]
     public static bool Connected(LowerRay<DayNumber> x, UpperRay<DayNumber> y) =>
-        Disjoint(x, y) == false || Adjacent(x, y);
+        !Disjoint(x, y) || Adjacent(x, y);
 
     #endregion
 }

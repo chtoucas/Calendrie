@@ -52,7 +52,7 @@ public partial class CalCalDataSet // Day of the week
         foreach (var (daysSinceRataDie, dayOfWeek) in source)
         {
             var dayNumber = DayZero.RataDie + daysSinceRataDie;
-            if (domain.Contains(dayNumber) == false) { continue; }
+            if (!domain.Contains(dayNumber)) { continue; }
             data.Add(dayNumber, dayOfWeek);
         }
         return data;

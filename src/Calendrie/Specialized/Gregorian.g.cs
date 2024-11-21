@@ -102,7 +102,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -111,7 +111,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -120,7 +120,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -129,7 +129,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 
@@ -138,7 +138,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (s_Domain.Contains(dayNumber) == false) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
         return new GregorianDate(dayNumber.DaysSinceZero);
     }
 }

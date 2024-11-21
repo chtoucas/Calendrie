@@ -205,7 +205,7 @@ public partial class CodeArray // Conversions, manips
             {
                 int c = _codes[i];
 
-                if (koMax == false && c > maxThreshold)
+                if (!koMax && c > maxThreshold)
                 {
                     if (c == max && indexOfMax == -1)
                     {
@@ -217,7 +217,7 @@ public partial class CodeArray // Conversions, manips
                     }
                 }
 
-                if (koMin == false && c < minThreshold)
+                if (!koMin && c < minThreshold)
                 {
                     if (c == min && indexOfMin == -1)
                     {
@@ -329,7 +329,7 @@ public partial class CodeArray // Conversions, manips
     [Pure]
     public BoolArray ToBoolArray()
     {
-        if (Reducible == false) Throw.InvalidOperation();
+        if (!Reducible) Throw.InvalidOperation();
 
         int min = Min;
         var arr = new bool[_codes.Length];
