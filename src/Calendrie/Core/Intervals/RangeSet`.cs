@@ -129,7 +129,8 @@ public readonly partial struct RangeSet<T> :
     }
 
     /// <summary>
-    /// Returns true if this range is empty; otherwise returns false.
+    /// Returns <see langword="true"/> if this range is empty; otherwise returns
+    /// <see langword="false"/>.
     /// </summary>
     public bool IsEmpty => !_isInhabited;
 

@@ -35,8 +35,9 @@ public sealed partial class TroeschAnalyzer
     private AnalyzeResult Result => _result ?? Throw.InvalidOperation<AnalyzeResult>();
 
     /// <summary>
-    /// Returns true if <paramref name="input"/> is the code of a segment of a discrete straight
-    /// line; otherwise returns false.
+    /// Returns <see langword="true"/> if <paramref name="input"/> is the code
+    /// of a segment of a discrete straight line; otherwise returns
+    /// <see langword="false"/>.
     /// </summary>
     [Pure]
     public static bool TryConvertCodeToForm(

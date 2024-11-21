@@ -66,13 +66,14 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     public int Max { get; }
 
     /// <summary>
-    /// Returns true if the current sequence is constant; otherwise returns false.
+    /// Returns <see langword="true"/> if the current sequence is constant;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool Constant => Height == 0;
 
     /// <summary>
-    /// Returns true if the current instance is convertible to a <see cref="BoolArray"/>;
-    /// otherwise returns false.
+    /// Returns <see langword="true"/> if the current instance is convertible to
+    /// a <see cref="BoolArray"/>; otherwise returns <see langword="false"/>.
     /// </summary>
     /// <remarks>
     /// <para>It simply means that <see cref="Height"/> is equal to 0 or 1.</para>
@@ -80,8 +81,9 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     public bool Reducible => Height < 2;
 
     /// <summary>
-    /// Returns true if the current instance is a <i>non-constant</i> sequence convertible to a
-    /// <see cref="BoolArray"/>; otherwise returns false.
+    /// Returns <see langword="true"/> if the current instance is a
+    /// <i>non-constant</i> sequence convertible to a <see cref="BoolArray"/>;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool StrictlyReducible => Height == 1;
 

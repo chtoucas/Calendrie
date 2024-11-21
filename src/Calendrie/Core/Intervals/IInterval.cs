@@ -17,7 +17,8 @@ public interface IInterval<in T> : ISetMembership<T>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>
-    /// Returns true if this interval is left-open; otherwise returns false.
+    /// Returns <see langword="true"/> if this interval is left-open; otherwise
+    /// returns <see langword="false"/>.
     /// </summary>
     /// <remarks>A left-bounded interval is said to be left-open if its left
     /// endpoint is not an element of the interval. A left-unbounded interval is
@@ -25,7 +26,8 @@ public interface IInterval<in T> : ISetMembership<T>
     bool IsLeftOpen { get; }
 
     /// <summary>
-    /// Returns true if this interval is right-open; otherwise returns false.
+    /// Returns <see langword="true"/> if this interval is right-open; otherwise
+    /// returns <see langword="false"/>.
     /// </summary>
     /// <remarks>A right-bounded interval is said to be right-open if its right
     /// endpoint is not an element of the interval. A right-unbounded interval
@@ -33,14 +35,16 @@ public interface IInterval<in T> : ISetMembership<T>
     bool IsRightOpen { get; }
 
     /// <summary>
-    /// Returns true if this interval is left-bounded; otherwise returns false.
+    /// Returns <see langword="true"/> if this interval is left-bounded;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     /// <remarks>An interval is said to be left-bounded if it has at least one
     /// lower bound.</remarks>
     bool IsLeftBounded { get; }
 
     /// <summary>
-    /// Returns true if this interval is right-bounded; otherwise returns false.
+    /// Returns <see langword="true"/> if this interval is right-bounded;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     /// <remarks>An interval is said to be right-bounded if it has at least one
     /// upper bound.</remarks>

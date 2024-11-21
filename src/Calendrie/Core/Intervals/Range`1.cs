@@ -71,7 +71,8 @@ public readonly partial struct Range<T> :
     public bool IsRightBounded => true;
 
     /// <summary>
-    /// Returns true if this interval consists of a single value; otherwise returns false.
+    /// Returns <see langword="true"/> if this interval consists of a single
+    /// value; otherwise returns <see langword="false"/>.
     /// <para>A singleton interval is also said to be <i>degenerate</i>.</para>
     /// </summary>
     public bool IsSingleton => Max.Equals(Min);

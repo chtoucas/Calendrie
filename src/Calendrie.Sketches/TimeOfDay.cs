@@ -144,8 +144,8 @@ public readonly partial struct TimeOfDay :
     }
 
     /// <summary>
-    /// Returns true if the current instance is before midday; otherwise returns
-    /// false.
+    /// Returns <see langword="true"/> if the current instance is before midday;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool IsAnteMeridiem => Hour < 12;
 

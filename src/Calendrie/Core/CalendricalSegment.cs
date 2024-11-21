@@ -27,17 +27,24 @@ public sealed class CalendricalSegment : ISchemaBound
         MinMaxMonthParts = OrderedPair.FromOrderedValues(min.MonthParts, max.MonthParts);
     }
 
-    /// <summary>Returns true if the minimum is the start of the minimal year; otherwise returns
-    /// false.</summary>
+    /// <summary>
+    /// Returns <see langword="true"/> if the minimum is the start of the minimal
+    /// year; otherwise returns <see langword="false"/>.
+    /// </summary>
     public bool MinIsStartOfYear { get; internal init; }
 
-    /// <summary>Returns true if the maximum is the start of the maximal year; otherwise returns
-    /// false.</summary>
+    /// <summary>
+    /// Returns <see langword="true"/> if the maximum is the start of the maximal
+    /// year; otherwise returns <see langword="false"/>
+    /// .</summary>
     public bool MaxIsEndOfYear { get; internal init; }
 
-    /// <summary>Returns true if this segment is complete; otherwise returns false.
-    /// <para>A segment is said to be <i>complete</i> if it spans all days of a range of years.
-    /// </para></summary>
+    /// <summary>
+    /// Returns <see langword="true"/> if this segment is complete; otherwise
+    /// returns <see langword="false"/>.
+    /// <para>A segment is said to be <i>complete</i> if it spans all days of a
+    /// range of years.</para>
+    /// </summary>
     public bool IsComplete => MinIsStartOfYear && MaxIsEndOfYear;
 
     /// <summary>Gets the range of supported days, that is the range of supported numbers of

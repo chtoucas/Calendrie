@@ -23,8 +23,8 @@ namespace Calendrie.Core.Utilities;
 public interface ISetMembership<in T>
 {
     /// <summary>
-    /// Returns true if this set contains the specified value; otherwise returns
-    /// false.
+    /// Returns <see langword="true"/> if this set contains the specified value;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     [Pure] bool Contains(T value);
 }

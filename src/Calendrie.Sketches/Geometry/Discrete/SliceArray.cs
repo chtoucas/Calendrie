@@ -64,13 +64,15 @@ public sealed partial class SliceArray : IReadOnlyList<int>, IEquatable<SliceArr
     }
 
     /// <summary>
-    /// Returns true if the last slice is complete; otherwise returns false.
+    /// Returns <see langword="true"/> if the last slice is complete; otherwise
+    /// returns <see langword="false"/>.
     /// <para>The last slice is NOT terminal.</para>
     /// </summary>
     public bool Complete { get; }
 
     /// <summary>
-    /// Returns true if the last slice is truncated; otherwise returns false.
+    /// Returns <see langword="true"/> if the last slice is truncated; otherwise
+    /// returns <see langword="false"/>.
     /// <para>The last slice is terminal.</para>
     /// </summary>
     private bool Truncated => !Complete;

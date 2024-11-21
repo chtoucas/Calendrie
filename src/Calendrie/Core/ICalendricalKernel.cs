@@ -29,9 +29,11 @@ public interface ICalendricalKernel
     CalendricalAdjustments PeriodicAdjustments { get; }
 
     /// <summary>
-    /// Returns true if this schema is regular; otherwise returns false.
+    /// Returns <see langword="true"/> if this schema is regular; otherwise
+    /// returns <see langword="false"/>.
     /// <para>The number of months is given in an output parameter; if this
-    /// schema is not regular <paramref name="monthsInYear"/> is set to 0.</para>
+    /// schema is not regular <paramref name="monthsInYear"/> is set to 0.
+    /// </para>
     /// </summary>
     [Pure] bool IsRegular(out int monthsInYear);
 
