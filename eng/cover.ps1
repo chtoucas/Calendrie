@@ -50,10 +50,9 @@ if ($Help) { Print-Help ; exit }
 try {
     pushd $RootDir
 
-    $assemblyName = 'Calendrie'
     $format   = 'opencover'
 
-    $outName  = "cover-Calendrie"
+    $outName  = "coverage"
     $outName += "-$configuration"
     $outDir   = Join-Path $ArtifactsDir $outName.ToLowerInvariant()
     $output   = Join-Path $outDir "$format.xml"
@@ -61,8 +60,8 @@ try {
     $rgOutput = Join-Path $outDir 'html'
 
     # Filters: https://github.com/Microsoft/vstest-docs/blob/main/docs/filter.md
-    $includes = @("[$assemblyName]*")
-    $excludes = @("[$assemblyName]System.*")
+    $includes = @('[Calendrie]*', '[Calendrie.Sketches]*')
+    $excludes = @('[Calendrie]System.*', '[Calendrie.Sketches]System.*')
     $include  = '"' + ($includes -join '%2c') + '"'
     $exclude  = '"' + ($excludes -join '%2c') + '"'
 
