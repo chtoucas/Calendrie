@@ -337,7 +337,6 @@ Calendrie.Core.SystemSegment.SupportedDays.get -> Calendrie.Core.Intervals.Range
 Calendrie.Core.SystemSegment.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.SystemSegment.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.SystemSegment.ToCalendricalSegment() -> Calendrie.Core.CalendricalSegment!
-Calendrie.Core.TemporalConstants
 Calendrie.Core.Utilities.Box
 Calendrie.Core.Utilities.Box<T>
 Calendrie.Core.Utilities.Box<T>.Select<TResult>(System.Func<T!, TResult?>! selector) -> Calendrie.Core.Utilities.Box<TResult!>!
@@ -646,16 +645,6 @@ Calendrie.IsoWeekday.Thursday = 4 -> Calendrie.IsoWeekday
 Calendrie.IsoWeekday.Tuesday = 2 -> Calendrie.IsoWeekday
 Calendrie.IsoWeekday.Wednesday = 3 -> Calendrie.IsoWeekday
 Calendrie.IsoWeekdayExtensions
-Calendrie.Moment
-Calendrie.Moment.CompareTo(Calendrie.Moment other) -> int
-Calendrie.Moment.DayNumber.get -> Calendrie.DayNumber
-Calendrie.Moment.Deconstruct(out Calendrie.DayNumber dayNumber, out Calendrie.TimeOfDay timeOfDay) -> void
-Calendrie.Moment.Equals(Calendrie.Moment other) -> bool
-Calendrie.Moment.MillisecondsSinceZero.get -> long
-Calendrie.Moment.Moment() -> void
-Calendrie.Moment.Moment(Calendrie.DayNumber dayNumber, Calendrie.TimeOfDay timeOfDay) -> void
-Calendrie.Moment.SecondsSinceZero.get -> long
-Calendrie.Moment.TimeOfDay.get -> Calendrie.TimeOfDay
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
@@ -1239,22 +1228,6 @@ Calendrie.Specialized.ZoroastrianDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.ZoroastrianDate.ZoroastrianDate() -> void
 Calendrie.Specialized.ZoroastrianDate.ZoroastrianDate(int year, int dayOfYear) -> void
 Calendrie.Specialized.ZoroastrianDate.ZoroastrianDate(int year, int month, int day) -> void
-Calendrie.TimeOfDay
-Calendrie.TimeOfDay.CompareTo(Calendrie.TimeOfDay other) -> int
-Calendrie.TimeOfDay.Deconstruct(out int hour, out int minute, out int second) -> void
-Calendrie.TimeOfDay.Deconstruct(out int hour, out int minute, out int second, out int millisecond) -> void
-Calendrie.TimeOfDay.Equals(Calendrie.TimeOfDay other) -> bool
-Calendrie.TimeOfDay.Hour.get -> int
-Calendrie.TimeOfDay.HourOfHalfDay.get -> int
-Calendrie.TimeOfDay.IsAnteMeridiem.get -> bool
-Calendrie.TimeOfDay.Millisecond.get -> int
-Calendrie.TimeOfDay.MillisecondOfDay.get -> int
-Calendrie.TimeOfDay.Minute.get -> int
-Calendrie.TimeOfDay.Second.get -> int
-Calendrie.TimeOfDay.SecondOfDay.get -> int
-Calendrie.TimeOfDay.TimeOfDay() -> void
-Calendrie.TimeOfDay.ToBinary() -> int
-Calendrie.TimeOfDay.ToFractionOfDay() -> double
 const Calendrie.Core.CalendricalConstants.DaysInWanderingYear = 365 -> int
 const Calendrie.Core.CalendricalConstants.DaysInWeek = 7 -> int
 const Calendrie.Core.CalendricalConstants.DaysPer4JulianYearCycle = 1461 -> int
@@ -1298,28 +1271,6 @@ const Calendrie.Core.Schemas.TropicalistaSchema.DaysPer4YearSubcycle = 1461 -> i
 const Calendrie.Core.Schemas.WorldSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysPer400YearCycle = 146097 -> int
-const Calendrie.Core.TemporalConstants.HoursPerDay = 24 -> int
-const Calendrie.Core.TemporalConstants.MicrosecondsPerDay = 86400000000 -> long
-const Calendrie.Core.TemporalConstants.MicrosecondsPerHour = 3600000000 -> long
-const Calendrie.Core.TemporalConstants.MicrosecondsPerMinute = 60000000 -> int
-const Calendrie.Core.TemporalConstants.MicrosecondsPerSecond = 1000000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerDay = 86400000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerHour = 3600000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerMinute = 60000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerSecond = 1000 -> int
-const Calendrie.Core.TemporalConstants.MinutesPerDay = 1440 -> int
-const Calendrie.Core.TemporalConstants.MinutesPerHour = 60 -> int
-const Calendrie.Core.TemporalConstants.NanosecondsPerDay = 86400000000000 -> long
-const Calendrie.Core.TemporalConstants.NanosecondsPerHour = 3600000000000 -> long
-const Calendrie.Core.TemporalConstants.NanosecondsPerMinute = 60000000000 -> long
-const Calendrie.Core.TemporalConstants.NanosecondsPerSecond = 1000000000 -> int
-const Calendrie.Core.TemporalConstants.SecondsPerDay = 86400 -> int
-const Calendrie.Core.TemporalConstants.SecondsPerHour = 3600 -> int
-const Calendrie.Core.TemporalConstants.SecondsPerMinute = 60 -> int
-const Calendrie.Core.TemporalConstants.TicksPerDay = 864000000000 -> long
-const Calendrie.Core.TemporalConstants.TicksPerHour = 36000000000 -> long
-const Calendrie.Core.TemporalConstants.TicksPerMinute = 600000000 -> int
-const Calendrie.Core.TemporalConstants.TicksPerSecond = 10000000 -> int
 const Calendrie.Core.Yedoy.MaxDayOfYear = 1024 -> int
 const Calendrie.Core.Yedoy.MaxYear = 2097152 -> int
 const Calendrie.Core.Yedoy.MinDayOfYear = 1 -> int
@@ -1401,9 +1352,6 @@ override Calendrie.DayNumber.Equals(object? obj) -> bool
 override Calendrie.DayNumber.GetHashCode() -> int
 override Calendrie.DayNumber.ToString() -> string!
 override Calendrie.Hemerology.BasicCalendar<TScope>.ToString() -> string!
-override Calendrie.Moment.Equals(object? obj) -> bool
-override Calendrie.Moment.GetHashCode() -> int
-override Calendrie.Moment.ToString() -> string!
 override Calendrie.Ord.Equals(object? obj) -> bool
 override Calendrie.Ord.GetHashCode() -> int
 override Calendrie.Ord.ToString() -> string!
@@ -1446,9 +1394,6 @@ override Calendrie.Specialized.Zoroastrian13Date.ToString() -> string!
 override Calendrie.Specialized.ZoroastrianDate.Equals(object? obj) -> bool
 override Calendrie.Specialized.ZoroastrianDate.GetHashCode() -> int
 override Calendrie.Specialized.ZoroastrianDate.ToString() -> string!
-override Calendrie.TimeOfDay.Equals(object? obj) -> bool
-override Calendrie.TimeOfDay.GetHashCode() -> int
-override Calendrie.TimeOfDay.ToString() -> string!
 override sealed Calendrie.Core.CalendricalSegment.ToString() -> string!
 override sealed Calendrie.Core.Schemas.CivilSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
 override sealed Calendrie.Core.Schemas.CivilSchema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
@@ -1927,15 +1872,6 @@ static Calendrie.Hemerology.YearNumbering.GetYearFromMillennium(int millennium, 
 static Calendrie.Hemerology.YearNumbering.GetYearOfCentury(int year) -> int
 static Calendrie.IsoWeekdayExtensions.ToDayOfWeek(this Calendrie.IsoWeekday isoWeekday) -> System.DayOfWeek
 static Calendrie.IsoWeekdayExtensions.ToIsoWeekday(this System.DayOfWeek dayOfWeek) -> Calendrie.IsoWeekday
-static Calendrie.Moment.MaxValue.get -> Calendrie.Moment
-static Calendrie.Moment.MinValue.get -> Calendrie.Moment
-static Calendrie.Moment.operator !=(Calendrie.Moment left, Calendrie.Moment right) -> bool
-static Calendrie.Moment.operator <(Calendrie.Moment left, Calendrie.Moment right) -> bool
-static Calendrie.Moment.operator <=(Calendrie.Moment left, Calendrie.Moment right) -> bool
-static Calendrie.Moment.operator ==(Calendrie.Moment left, Calendrie.Moment right) -> bool
-static Calendrie.Moment.operator >(Calendrie.Moment left, Calendrie.Moment right) -> bool
-static Calendrie.Moment.operator >=(Calendrie.Moment left, Calendrie.Moment right) -> bool
-static Calendrie.Moment.Zero.get -> Calendrie.Moment
 static Calendrie.MonthParts.AtStartOfYear(int y) -> Calendrie.MonthParts
 static Calendrie.MonthParts.operator <(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
@@ -2201,27 +2137,6 @@ static Calendrie.Specialized.ZoroastrianDate.operator <=(Calendrie.Specialized.Z
 static Calendrie.Specialized.ZoroastrianDate.operator ==(Calendrie.Specialized.ZoroastrianDate left, Calendrie.Specialized.ZoroastrianDate right) -> bool
 static Calendrie.Specialized.ZoroastrianDate.operator >(Calendrie.Specialized.ZoroastrianDate left, Calendrie.Specialized.ZoroastrianDate right) -> bool
 static Calendrie.Specialized.ZoroastrianDate.operator >=(Calendrie.Specialized.ZoroastrianDate left, Calendrie.Specialized.ZoroastrianDate right) -> bool
-static Calendrie.TimeOfDay.FromBinary(int data) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromFractionOfDay(double fractionOfDay) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromHour(int hour) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromHourMinute(int hour, int minute) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromHourMinuteSecond(int hour, int minute, int second) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromHourMinuteSecondMillisecond(int hour, int minute, int second, int millisecond) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromMillisecondOfDay(int millisecondOfDay) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromMinuteOfDay(int minuteOfDay) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.FromSecondOfDay(int secondOfDay) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.Max(Calendrie.TimeOfDay x, Calendrie.TimeOfDay y) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.MaxValue.get -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.Midnight.get -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.Min(Calendrie.TimeOfDay x, Calendrie.TimeOfDay y) -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.MinValue.get -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.Noon.get -> Calendrie.TimeOfDay
-static Calendrie.TimeOfDay.operator !=(Calendrie.TimeOfDay left, Calendrie.TimeOfDay right) -> bool
-static Calendrie.TimeOfDay.operator <(Calendrie.TimeOfDay left, Calendrie.TimeOfDay right) -> bool
-static Calendrie.TimeOfDay.operator <=(Calendrie.TimeOfDay left, Calendrie.TimeOfDay right) -> bool
-static Calendrie.TimeOfDay.operator ==(Calendrie.TimeOfDay left, Calendrie.TimeOfDay right) -> bool
-static Calendrie.TimeOfDay.operator >(Calendrie.TimeOfDay left, Calendrie.TimeOfDay right) -> bool
-static Calendrie.TimeOfDay.operator >=(Calendrie.TimeOfDay left, Calendrie.TimeOfDay right) -> bool
 virtual Calendrie.Core.CalendricalSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
 virtual Calendrie.Core.CalendricalSchema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 virtual Calendrie.Core.CalendricalSchema.GetYear(int daysSinceEpoch, out int doy) -> int
