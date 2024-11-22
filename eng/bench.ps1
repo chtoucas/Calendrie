@@ -32,7 +32,7 @@ try {
     $benchmarkProject = Join-Path $TestDir 'Calendrie.Benchmarks' -Resolve
 
     & dotnet run -c Release --project $benchmarkProject `
-        -f net9.0 --runtimes net9.0
+        -f net9.0 --runtimes net9.0 `
         --filter "*" `
         -p:AnalysisMode=AllDisabledByDefault
 }
