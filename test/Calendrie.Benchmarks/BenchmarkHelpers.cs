@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 using NodaTime;
 
-public static class BenchmarkHelpers
+internal static class BenchmarkHelpers
 {
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void Consume(in bool _) { }

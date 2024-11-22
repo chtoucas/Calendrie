@@ -8,19 +8,24 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
 
     <ServerGarbageCollection>true</ServerGarbageCollection>
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
 
-    <!--
+    <!-- Recommended settings
       https://github.com/dotnet/performance/blob/main/docs/profiling-workflow-dotnet-runtime.md#project-settings
     -->
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
 
     <!--
+      Benchmark methods MUST NOT be static
+      Benchmark types MUST NOT be sealed
+
       CA1303  Do not pass literals as localized parameters (Globalization)
+      CA1515  Consider making public types internal (Maintainability)
       CA1707  Identifiers should not contain underscores (Naming)
       CA1822  Mark members as static (Performance)
     -->
-    <NoWarn>$(NoWarn);CA1303;CA1707;CA1515;CA1822</NoWarn>
+    <NoWarn>$(NoWarn);CA1303;CA1515;CA1707;CA1822</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

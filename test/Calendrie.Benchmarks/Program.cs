@@ -9,8 +9,6 @@ using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Validators;
 
-// dotnet run -c Release -f net9.0 --filter "*" --runtimes net9.0
-
 [DisassemblyDiagnoser(maxDepth: 0)]
 //[MemoryDiagnoser(displayGenColumns: false)]
 internal static class Program
@@ -32,6 +30,7 @@ internal static class Program
             .AddValidator(ExecutionValidator.FailOnError)
             .AddColumn(RankColumn.Roman)
             .AddColumn(BaselineRatioColumn.RatioMean)
+            //.WithArtifactsPath(@"XXX")
             .WithOrderer(orderer);
     }
 }
