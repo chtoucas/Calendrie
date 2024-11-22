@@ -443,13 +443,17 @@ public partial struct WorldDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public WorldDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<WorldDate>()
-        : new WorldDate(_daysSinceEpoch + 1);
+    public WorldDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new WorldDate(_daysSinceEpoch + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public WorldDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<WorldDate>()
-        : new WorldDate(_daysSinceEpoch - 1);
+    public WorldDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new WorldDate(_daysSinceEpoch - 1);
+    }
 }

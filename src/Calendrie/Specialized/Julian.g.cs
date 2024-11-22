@@ -264,13 +264,17 @@ public partial struct JulianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<JulianDate>()
-        : new JulianDate(_daysSinceEpoch + 1);
+    public JulianDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new JulianDate(_daysSinceEpoch + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<JulianDate>()
-        : new JulianDate(_daysSinceEpoch - 1);
+    public JulianDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new JulianDate(_daysSinceEpoch - 1);
+    }
 }

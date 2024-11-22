@@ -46,7 +46,6 @@ module OverflowExns =
     [<Fact>]
     let ThrowDateOverflow () =
         (fun () -> ThrowHelpers.ThrowDateOverflow()) |> overflows
-        (fun () -> ThrowHelpers.ThrowDateOverflow<string>()) |> overflows
 
     [<Fact>]
     let ThrowMonthOverflow () =
@@ -55,8 +54,7 @@ module OverflowExns =
     [<Fact>]
     let ThrowDayNumberOverflow () =
         (fun () -> ThrowHelpers.ThrowDayNumberOverflow()) |> overflows
-        (fun () -> ThrowHelpers.ThrowDayNumberOverflow<string>()) |> overflows
 
     [<Fact>]
     let ThrowOrdOverflow () =
-        (fun () -> ThrowHelpers.ThrowOrdOverflow<string>()) |> overflows
+        (fun () -> ThrowHelpers.ThrowOrdOverflow()) |> overflows

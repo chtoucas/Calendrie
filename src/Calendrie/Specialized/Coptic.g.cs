@@ -443,13 +443,18 @@ public partial struct CopticDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<CopticDate>()
-        : new CopticDate(_daysSinceEpoch + 1);
+    public CopticDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new CopticDate(_daysSinceEpoch + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<CopticDate>()
-        : new CopticDate(_daysSinceEpoch - 1);
+    public CopticDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new CopticDate(_daysSinceEpoch - 1);
+    }
 }
+

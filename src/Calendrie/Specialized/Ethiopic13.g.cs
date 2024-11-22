@@ -443,13 +443,17 @@ public partial struct Ethiopic13Date // Math
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<Ethiopic13Date>()
-        : new Ethiopic13Date(_daysSinceEpoch + 1);
+    public Ethiopic13Date NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new Ethiopic13Date(_daysSinceEpoch + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<Ethiopic13Date>()
-        : new Ethiopic13Date(_daysSinceEpoch - 1);
+    public Ethiopic13Date PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new Ethiopic13Date(_daysSinceEpoch - 1);
+    }
 }

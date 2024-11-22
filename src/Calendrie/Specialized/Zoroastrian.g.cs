@@ -443,13 +443,17 @@ public partial struct ZoroastrianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public ZoroastrianDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<ZoroastrianDate>()
-        : new ZoroastrianDate(_daysSinceEpoch + 1);
+    public ZoroastrianDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new ZoroastrianDate(_daysSinceEpoch + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public ZoroastrianDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<ZoroastrianDate>()
-        : new ZoroastrianDate(_daysSinceEpoch - 1);
+    public ZoroastrianDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new ZoroastrianDate(_daysSinceEpoch - 1);
+    }
 }

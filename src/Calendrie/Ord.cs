@@ -239,8 +239,8 @@ public partial struct Ord // Math ops
     public static Ord operator +(Ord ord, int num)
     {
         int newVal = checked(ord._value + num);
-
-        return newVal < MinAlgebraicValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(newVal);
+        if (newVal < MinAlgebraicValue) ThrowHelpers.ThrowOrdOverflow();
+        return new Ord(newVal);
     }
 
     /// <summary>
@@ -252,8 +252,8 @@ public partial struct Ord // Math ops
     public static Ord operator -(Ord ord, int num)
     {
         int newVal = checked(ord._value - num);
-
-        return newVal < MinAlgebraicValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(newVal);
+        if (newVal < MinAlgebraicValue) ThrowHelpers.ThrowOrdOverflow();
+        return new Ord(newVal);
     }
 
     /// <summary>
@@ -298,7 +298,11 @@ public partial struct Ord // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public Ord Increment() => this == MaxValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(_value + 1);
+    public Ord Increment()
+    {
+        if (this == MaxValue) ThrowHelpers.ThrowOrdOverflow();
+        return new Ord(_value + 1);
+    }
 
     /// <summary>
     /// Decrements the value of the current instance by 1.
@@ -306,7 +310,11 @@ public partial struct Ord // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public Ord Decrement() => this == MinValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(_value - 1);
+    public Ord Decrement()
+    {
+        if (this == MinValue) ThrowHelpers.ThrowOrdOverflow();
+        return new Ord(_value - 1);
+    }
 
     /// <summary>
     /// Negates the current instance.

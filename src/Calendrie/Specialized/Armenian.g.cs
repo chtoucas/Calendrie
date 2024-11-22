@@ -443,13 +443,17 @@ public partial struct ArmenianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<ArmenianDate>()
-        : new ArmenianDate(_daysSinceEpoch + 1);
+    public ArmenianDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new ArmenianDate(_daysSinceEpoch + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<ArmenianDate>()
-        : new ArmenianDate(_daysSinceEpoch - 1);
+    public ArmenianDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new ArmenianDate(_daysSinceEpoch - 1);
+    }
 }

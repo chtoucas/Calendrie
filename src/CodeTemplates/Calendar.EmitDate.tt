@@ -434,15 +434,19 @@ public partial struct <#= Prefix #>Date // Math
 
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<<#= Prefix #>Date>()
-        : new <#= Prefix #>Date(<#= DaysSinceEpochField #> + 1);
+    public <#= Prefix #>Date NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new <#= Prefix #>Date(<#= DaysSinceEpochField #> + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<<#= Prefix #>Date>()
-        : new <#= Prefix #>Date(<#= DaysSinceEpochField #> - 1);
+    public <#= Prefix #>Date PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new <#= Prefix #>Date(<#= DaysSinceEpochField #> - 1);
+    }
 }
 <#+
     } // T4: End of EmitDateMath()

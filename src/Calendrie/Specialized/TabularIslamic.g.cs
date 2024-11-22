@@ -443,13 +443,17 @@ public partial struct TabularIslamicDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<TabularIslamicDate>()
-        : new TabularIslamicDate(_daysSinceEpoch + 1);
+    public TabularIslamicDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new TabularIslamicDate(_daysSinceEpoch + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<TabularIslamicDate>()
-        : new TabularIslamicDate(_daysSinceEpoch - 1);
+    public TabularIslamicDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new TabularIslamicDate(_daysSinceEpoch - 1);
+    }
 }

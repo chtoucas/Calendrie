@@ -266,13 +266,17 @@ public partial struct GregorianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<GregorianDate>()
-        : new GregorianDate(_daysSinceZero + 1);
+    public GregorianDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new GregorianDate(_daysSinceZero + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<GregorianDate>()
-        : new GregorianDate(_daysSinceZero - 1);
+    public GregorianDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new GregorianDate(_daysSinceZero - 1);
+    }
 }

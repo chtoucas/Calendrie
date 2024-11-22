@@ -268,14 +268,18 @@ public partial struct CivilDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<CivilDate>()
-        : new CivilDate(_daysSinceZero + 1);
+    public CivilDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new CivilDate(_daysSinceZero + 1);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<CivilDate>()
-        : new CivilDate(_daysSinceZero - 1);
+    public CivilDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new CivilDate(_daysSinceZero - 1);
+    }
 }
 

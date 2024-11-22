@@ -173,14 +173,6 @@ internal partial class ThrowHelpers // OverflowException
         throw new OverflowException("The computation would overflow the range of supported dates.");
 
     /// <summary>
-    /// The operation would overflow the range of supported dates.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn, Pure]
-    public static T ThrowDateOverflow<T>() =>
-        throw new OverflowException("The computation would overflow the range of supported dates.");
-
-    /// <summary>
     /// The operation would overflow the range of supported day numbers.
     /// </summary>
     /// <exception cref="OverflowException"/>
@@ -189,18 +181,10 @@ internal partial class ThrowHelpers // OverflowException
         throw new OverflowException("The computation would overflow the range of supported day numbers.");
 
     /// <summary>
-    /// The operation would overflow the range of supported day numbers.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn, Pure]
-    public static T ThrowDayNumberOverflow<T>() =>
-        throw new OverflowException("The computation would overflow the range of supported day numbers.");
-
-    /// <summary>
     /// The operation would overflow the range of supported ordinal numerals.
     /// </summary>
     /// <exception cref="OverflowException"/>
-    [DoesNotReturn, Pure]
-    public static T ThrowOrdOverflow<T>() =>
+    [DoesNotReturn]
+    public static void ThrowOrdOverflow() =>
         throw new OverflowException("The computation would overflow the range of supported ordinal numerals.");
 }

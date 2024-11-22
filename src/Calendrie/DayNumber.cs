@@ -668,8 +668,11 @@ public partial struct DayNumber // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported day number.</exception>
     [Pure]
-    public DayNumber NextDay() =>
-        this == MaxValue ? ThrowHelpers.ThrowDayNumberOverflow<DayNumber>() : new DayNumber(_daysSinceZero + 1);
+    public DayNumber NextDay()
+    {
+        if (this == MaxValue) ThrowHelpers.ThrowDayNumberOverflow();
+        return new DayNumber(_daysSinceZero + 1);
+    }
 
     /// <summary>
     /// Obtains the day number preceding this instance.
@@ -677,6 +680,9 @@ public partial struct DayNumber // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported day number.</exception>
     [Pure]
-    public DayNumber PreviousDay() =>
-        this == MinValue ? ThrowHelpers.ThrowDayNumberOverflow<DayNumber>() : new DayNumber(_daysSinceZero - 1);
+    public DayNumber PreviousDay()
+    {
+        if (this == MinValue) ThrowHelpers.ThrowDayNumberOverflow();
+        return new DayNumber(_daysSinceZero - 1);
+    }
 }
