@@ -36,7 +36,7 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > Solar12.MonthsInYear)
         {
-            ThrowHelpers.MonthOutOfRange(month, paramName);
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         }
     }
 
@@ -45,13 +45,13 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > Solar12.MonthsInYear)
         {
-            ThrowHelpers.MonthOutOfRange(month, paramName);
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         }
         if (day < 1
             || (day > Solar.MinDaysInMonth
                 && day > _schema.CountDaysInMonth(y, month)))
         {
-            ThrowHelpers.DayOutOfRange(day, paramName);
+            ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }
     }
 
@@ -62,7 +62,7 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
             || (dayOfYear > Solar.MinDaysInYear
                 && dayOfYear > _schema.CountDaysInYear(y)))
         {
-            ThrowHelpers.DayOfYearOutOfRange(dayOfYear, paramName);
+            ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
 }

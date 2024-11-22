@@ -68,5 +68,5 @@ public readonly record struct DateParts(int Year, int Month, int Day) :
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is DateParts parts ? CompareTo(parts)
-        : ThrowHelpers.NonComparable(typeof(DateParts), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(DateParts), obj);
 }

@@ -100,7 +100,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -109,7 +109,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -118,7 +118,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -127,7 +127,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -136,7 +136,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(dayNumber - s_Epoch);
     }
 }
@@ -199,7 +199,7 @@ public partial struct JulianDate // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is JulianDate date ? CompareTo(date)
-        : ThrowHelpers.NonComparable(typeof(JulianDate), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(JulianDate), obj);
 }
 
 public partial struct JulianDate // Math
@@ -265,12 +265,12 @@ public partial struct JulianDate // Math
     /// <inheritdoc />
     [Pure]
     public JulianDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.DateOverflow<JulianDate>()
+        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<JulianDate>()
         : new JulianDate(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public JulianDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.DateOverflow<JulianDate>()
+        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<JulianDate>()
         : new JulianDate(_daysSinceEpoch - 1);
 }

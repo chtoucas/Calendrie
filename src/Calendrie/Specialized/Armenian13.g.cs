@@ -279,7 +279,7 @@ public partial struct Armenian13Date // Adjustments
     public Armenian13Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Armenian13Date(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct Armenian13Date // Adjustments
     public Armenian13Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Armenian13Date(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct Armenian13Date // Adjustments
     public Armenian13Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Armenian13Date(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct Armenian13Date // Adjustments
     public Armenian13Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Armenian13Date(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct Armenian13Date // Adjustments
     public Armenian13Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Armenian13Date(dayNumber - s_Epoch);
     }
 }
@@ -378,7 +378,7 @@ public partial struct Armenian13Date // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Armenian13Date date ? CompareTo(date)
-        : ThrowHelpers.NonComparable(typeof(Armenian13Date), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(Armenian13Date), obj);
 }
 
 public partial struct Armenian13Date // Math
@@ -444,12 +444,12 @@ public partial struct Armenian13Date // Math
     /// <inheritdoc />
     [Pure]
     public Armenian13Date NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.DateOverflow<Armenian13Date>()
+        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<Armenian13Date>()
         : new Armenian13Date(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public Armenian13Date PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.DateOverflow<Armenian13Date>()
+        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<Armenian13Date>()
         : new Armenian13Date(_daysSinceEpoch - 1);
 }

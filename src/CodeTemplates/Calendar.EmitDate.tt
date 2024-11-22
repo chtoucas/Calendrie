@@ -255,7 +255,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new <#= Prefix #>Date(dayNumber - s_Epoch);
     }
 
@@ -264,7 +264,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new <#= Prefix #>Date(dayNumber - s_Epoch);
     }
 
@@ -273,7 +273,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new <#= Prefix #>Date(dayNumber - s_Epoch);
     }
 
@@ -282,7 +282,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new <#= Prefix #>Date(dayNumber - s_Epoch);
     }
 
@@ -291,7 +291,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) Throw.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new <#= Prefix #>Date(dayNumber - s_Epoch);
     }
 }
@@ -364,7 +364,7 @@ public partial struct <#= Prefix #>Date // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is <#= Prefix #>Date date ? CompareTo(date)
-        : Throw.NonComparable(typeof(<#= Prefix #>Date), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(<#= Prefix #>Date), obj);
 }
 <#+
     } // T4: End of EmitDateComparable()
@@ -435,13 +435,13 @@ public partial struct <#= Prefix #>Date // Math
     /// <inheritdoc />
     [Pure]
     public <#= Prefix #>Date NextDay() =>
-        this == s_MaxValue ? Throw.DateOverflow<<#= Prefix #>Date>()
+        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<<#= Prefix #>Date>()
         : new <#= Prefix #>Date(<#= DaysSinceEpochField #> + 1);
 
     /// <inheritdoc />
     [Pure]
     public <#= Prefix #>Date PreviousDay() =>
-        this == s_MinValue ? Throw.DateOverflow<<#= Prefix #>Date>()
+        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<<#= Prefix #>Date>()
         : new <#= Prefix #>Date(<#= DaysSinceEpochField #> - 1);
 }
 <#+

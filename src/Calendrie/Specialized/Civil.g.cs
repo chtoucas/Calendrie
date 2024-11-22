@@ -104,7 +104,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CivilDate(dayNumber.DaysSinceZero);
     }
 
@@ -113,7 +113,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CivilDate(dayNumber.DaysSinceZero);
     }
 
@@ -122,7 +122,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CivilDate(dayNumber.DaysSinceZero);
     }
 
@@ -131,7 +131,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CivilDate(dayNumber.DaysSinceZero);
     }
 
@@ -140,7 +140,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CivilDate(dayNumber.DaysSinceZero);
     }
 }
@@ -203,7 +203,7 @@ public partial struct CivilDate // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is CivilDate date ? CompareTo(date)
-        : ThrowHelpers.NonComparable(typeof(CivilDate), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(CivilDate), obj);
 }
 
 public partial struct CivilDate // Math
@@ -269,13 +269,13 @@ public partial struct CivilDate // Math
     /// <inheritdoc />
     [Pure]
     public CivilDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.DateOverflow<CivilDate>()
+        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<CivilDate>()
         : new CivilDate(_daysSinceZero + 1);
 
     /// <inheritdoc />
     [Pure]
     public CivilDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.DateOverflow<CivilDate>()
+        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<CivilDate>()
         : new CivilDate(_daysSinceZero - 1);
 }
 

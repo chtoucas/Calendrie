@@ -116,7 +116,7 @@ public sealed class BoundedBelowScope : CalendarScope
         // Tiny optimization: we first check "year".
         if (year == MinYear && new MonthParts(year, month) < MinMonthParts)
         {
-            ThrowHelpers.MonthOutOfRange(month, paramName);
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         }
     }
 
@@ -134,11 +134,11 @@ public sealed class BoundedBelowScope : CalendarScope
             var parts = new DateParts(year, month, day);
             if (parts.MonthParts < MinMonthParts)
             {
-                ThrowHelpers.MonthOutOfRange(month, paramName);
+                ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
             }
             else if (parts < MinDateParts)
             {
-                ThrowHelpers.DayOutOfRange(day, paramName);
+                ThrowHelpers.ThrowDayOutOfRange(day, paramName);
             }
         }
     }
@@ -152,7 +152,7 @@ public sealed class BoundedBelowScope : CalendarScope
         // Tiny optimization: we first check "year".
         if (year == MinYear && new OrdinalParts(year, dayOfYear) < MinOrdinalParts)
         {
-            ThrowHelpers.DayOfYearOutOfRange(dayOfYear, paramName);
+            ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
 }

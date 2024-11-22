@@ -3,8 +3,6 @@
 
 namespace Calendrie.Core.Utilities;
 
-// TODO(code): localized messages?
-
 #region Developer Notes
 
 // The main problem with ThrowHelper is that the code coverage can't see if
@@ -90,7 +88,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void YearOutOfRange(int year, string? paramName = null) =>
+    public static void ThrowYearOutOfRange(int year, string? paramName = null) =>
         throw new AoorException(
             paramName ?? nameof(year),
             year,
@@ -101,7 +99,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void MonthOutOfRange(int month, string? paramName = null) =>
+    public static void ThrowMonthOutOfRange(int month, string? paramName = null) =>
         throw new AoorException(
             paramName ?? nameof(month),
             month,
@@ -112,7 +110,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void DayOutOfRange(int day, string? paramName = null) =>
+    public static void ThrowDayOutOfRange(int day, string? paramName = null) =>
         throw new AoorException(
             paramName ?? nameof(day),
             day,
@@ -123,7 +121,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void DayOfYearOutOfRange(int dayOfYear, string? paramName = null) =>
+    public static void ThrowDayOfYearOutOfRange(int dayOfYear, string? paramName = null) =>
         throw new AoorException(
             paramName ?? nameof(dayOfYear),
             dayOfYear,
@@ -137,19 +135,20 @@ internal partial class ThrowHelpers // ArgumentException
     /// </summary>
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
-    public static void BadBinaryInput() =>
+    public static void ThrowBadBinaryInput() =>
         throw new ArgumentException("The binary data is not well-formed.", "data");
 
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn, Pure]
-    public static int NonComparable(Type expected, object obj) =>
+    public static int ThrowNonComparable(Type expected, object obj) =>
         throw new ArgumentException(
             $"The object should be of type {expected} but it is of type {obj.GetType()}.",
             nameof(obj));
 
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
-    public static void BadSchemaProfile(string paramName, CalendricalProfile expected, CalendricalProfile actual) =>
+    public static void ThrowBadSchemaProfile(
+        string paramName, CalendricalProfile expected, CalendricalProfile actual) =>
         throw new ArgumentException(
             $"The schema profile should be equal to \"{expected}\" but it is equal to \"{actual}\".",
             paramName);
@@ -162,7 +161,7 @@ internal partial class ThrowHelpers // OverflowException
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
-    public static void MonthOverflow() =>
+    public static void ThrowMonthOverflow() =>
         throw new OverflowException("The computation would overflow the range of supported months.");
 
     /// <summary>
@@ -170,7 +169,7 @@ internal partial class ThrowHelpers // OverflowException
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
-    public static void DateOverflow() =>
+    public static void ThrowDateOverflow() =>
         throw new OverflowException("The computation would overflow the range of supported dates.");
 
     /// <summary>
@@ -178,7 +177,7 @@ internal partial class ThrowHelpers // OverflowException
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
-    public static T DateOverflow<T>() =>
+    public static T ThrowDateOverflow<T>() =>
         throw new OverflowException("The computation would overflow the range of supported dates.");
 
     /// <summary>
@@ -186,7 +185,7 @@ internal partial class ThrowHelpers // OverflowException
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
-    public static void DayNumberOverflow() =>
+    public static void ThrowDayNumberOverflow() =>
         throw new OverflowException("The computation would overflow the range of supported day numbers.");
 
     /// <summary>
@@ -194,7 +193,7 @@ internal partial class ThrowHelpers // OverflowException
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
-    public static T DayNumberOverflow<T>() =>
+    public static T ThrowDayNumberOverflow<T>() =>
         throw new OverflowException("The computation would overflow the range of supported day numbers.");
 
     /// <summary>
@@ -202,6 +201,6 @@ internal partial class ThrowHelpers // OverflowException
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn, Pure]
-    public static T OrdOverflow<T>() =>
+    public static T ThrowOrdOverflow<T>() =>
         throw new OverflowException("The computation would overflow the range of supported ordinal numerals.");
 }

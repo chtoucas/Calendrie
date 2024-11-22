@@ -298,19 +298,19 @@ public partial struct TimeOfDay // Binary data helpers
     private static void ValidateBinaryData(int data)
     {
         // The 5 high bits are always equal to zero.
-        if (data >> HighestBit != 0) ThrowHelpers.BadBinaryInput();
+        if (data >> HighestBit != 0) ThrowHelpers.ThrowBadBinaryInput();
 
         int h = data >> HourShift;
-        if (h < 0 || h >= HoursPerDay) ThrowHelpers.BadBinaryInput();
+        if (h < 0 || h >= HoursPerDay) ThrowHelpers.ThrowBadBinaryInput();
 
         int m = (data >> MinuteShift) & MinuteMask;
-        if (m < 0 || m >= MinutesPerHour) ThrowHelpers.BadBinaryInput();
+        if (m < 0 || m >= MinutesPerHour) ThrowHelpers.ThrowBadBinaryInput();
 
         int s = (data >> SecondShift) & SecondMask;
-        if (s < 0 || s >= SecondsPerMinute) ThrowHelpers.BadBinaryInput();
+        if (s < 0 || s >= SecondsPerMinute) ThrowHelpers.ThrowBadBinaryInput();
 
         int ms = data & MillisecondMask;
-        if (ms < 0 || ms >= MillisecondsPerSecond) ThrowHelpers.BadBinaryInput();
+        if (ms < 0 || ms >= MillisecondsPerSecond) ThrowHelpers.ThrowBadBinaryInput();
     }
 
     [Conditional("DEBUG")]
@@ -573,5 +573,5 @@ public partial struct TimeOfDay // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is TimeOfDay hmss ? CompareTo(hmss)
-        : ThrowHelpers.NonComparable(typeof(TimeOfDay), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(TimeOfDay), obj);
 }

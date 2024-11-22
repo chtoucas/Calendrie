@@ -29,7 +29,7 @@ internal static class Requires
     {
         if (DayOfWeek.Sunday <= dayOfWeek && dayOfWeek <= DayOfWeek.Saturday) return;
 
-        DayOfWeekOutOfRange(dayOfWeek, paramName);
+        ThrowDayOfWeekOutOfRange(dayOfWeek, paramName);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ internal static class Requires
     {
         if (IsoWeekday.Monday <= weekday && weekday <= IsoWeekday.Sunday) return;
 
-        IsoWeekdayOutOfRange(weekday, paramName);
+        ThrowIsoWeekdayOutOfRange(weekday, paramName);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ internal static class Requires
     {
         if (AdditionRule.Truncate <= rule && rule <= AdditionRule.Overflow) return;
 
-        AdditionRuleOutOfRange(rule, paramName);
+        ThrowAdditionRuleOutOfRange(rule, paramName);
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ internal static class Requires
 
         if (schema.Profile == expected) return;
 
-        ThrowHelpers.BadSchemaProfile(paramName, expected, schema.Profile);
+        ThrowHelpers.ThrowBadSchemaProfile(paramName, expected, schema.Profile);
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ internal static class Requires
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    private static void DayOfWeekOutOfRange(DayOfWeek dayOfWeek, string paramName) =>
+    private static void ThrowDayOfWeekOutOfRange(DayOfWeek dayOfWeek, string paramName) =>
         throw new AoorException(
             paramName,
             dayOfWeek,
@@ -102,7 +102,7 @@ internal static class Requires
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    private static void IsoWeekdayOutOfRange(IsoWeekday weekday, string paramName) =>
+    private static void ThrowIsoWeekdayOutOfRange(IsoWeekday weekday, string paramName) =>
         throw new AoorException(
             paramName,
             weekday,
@@ -113,7 +113,7 @@ internal static class Requires
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    private static void AdditionRuleOutOfRange(AdditionRule rule, string paramName) =>
+    private static void ThrowAdditionRuleOutOfRange(AdditionRule rule, string paramName) =>
         throw new AoorException(
             paramName,
             rule,

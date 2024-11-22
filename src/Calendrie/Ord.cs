@@ -218,7 +218,7 @@ public partial struct Ord // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Ord ord ? CompareTo(ord)
-        : ThrowHelpers.NonComparable(typeof(Ord), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(Ord), obj);
 }
 
 public partial struct Ord // Math ops
@@ -240,7 +240,7 @@ public partial struct Ord // Math ops
     {
         int newVal = checked(ord._value + num);
 
-        return newVal < MinAlgebraicValue ? ThrowHelpers.OrdOverflow<Ord>() : new Ord(newVal);
+        return newVal < MinAlgebraicValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(newVal);
     }
 
     /// <summary>
@@ -253,7 +253,7 @@ public partial struct Ord // Math ops
     {
         int newVal = checked(ord._value - num);
 
-        return newVal < MinAlgebraicValue ? ThrowHelpers.OrdOverflow<Ord>() : new Ord(newVal);
+        return newVal < MinAlgebraicValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(newVal);
     }
 
     /// <summary>
@@ -298,7 +298,7 @@ public partial struct Ord // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public Ord Increment() => this == MaxValue ? ThrowHelpers.OrdOverflow<Ord>() : new Ord(_value + 1);
+    public Ord Increment() => this == MaxValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(_value + 1);
 
     /// <summary>
     /// Decrements the value of the current instance by 1.
@@ -306,7 +306,7 @@ public partial struct Ord // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public Ord Decrement() => this == MinValue ? ThrowHelpers.OrdOverflow<Ord>() : new Ord(_value - 1);
+    public Ord Decrement() => this == MinValue ? ThrowHelpers.ThrowOrdOverflow<Ord>() : new Ord(_value - 1);
 
     /// <summary>
     /// Negates the current instance.

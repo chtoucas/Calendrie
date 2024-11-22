@@ -8,57 +8,55 @@ open Calendrie.Core.Utilities
 
 open Xunit
 
-let private paramName = "paramName"
-
 module ArgumentOutOfRangeExns =
     [<Fact>]
-    let YearOutOfRange () =
-        outOfRangeExn "year" (fun () -> ThrowHelpers.YearOutOfRange(1))
-        outOfRangeExn "year" (fun () -> ThrowHelpers.YearOutOfRange(1, null))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.YearOutOfRange(1, paramName))
+    let ThrowYearOutOfRange () =
+        outOfRangeExn "year" (fun () -> ThrowHelpers.ThrowYearOutOfRange(1))
+        outOfRangeExn "year" (fun () -> ThrowHelpers.ThrowYearOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowYearOutOfRange(1, "paramName"))
 
     [<Fact>]
-    let MonthOutOfRange () =
-        outOfRangeExn "month" (fun () -> ThrowHelpers.MonthOutOfRange(1))
-        outOfRangeExn "month" (fun () -> ThrowHelpers.MonthOutOfRange(1, null))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.MonthOutOfRange(1, paramName))
+    let ThrowMonthOutOfRange () =
+        outOfRangeExn "month" (fun () -> ThrowHelpers.ThrowMonthOutOfRange(1))
+        outOfRangeExn "month" (fun () -> ThrowHelpers.ThrowMonthOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowMonthOutOfRange(1, "paramName"))
 
     [<Fact>]
-    let DayOutOfRange () =
-        outOfRangeExn "day" (fun () -> ThrowHelpers.DayOutOfRange(1))
-        outOfRangeExn "day" (fun () -> ThrowHelpers.DayOutOfRange(1, null))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.DayOutOfRange(1, paramName))
+    let ThrowDayOutOfRange () =
+        outOfRangeExn "day" (fun () -> ThrowHelpers.ThrowDayOutOfRange(1))
+        outOfRangeExn "day" (fun () -> ThrowHelpers.ThrowDayOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowDayOutOfRange(1, "paramName"))
 
     [<Fact>]
-    let DayOfYearOutOfRange () =
-        outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.DayOfYearOutOfRange(1))
-        outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.DayOfYearOutOfRange(1, null))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.DayOfYearOutOfRange(1, paramName))
+    let ThrowDayOfYearOutOfRange () =
+        outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.ThrowDayOfYearOutOfRange(1))
+        outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.ThrowDayOfYearOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowDayOfYearOutOfRange(1, "paramName"))
 
 module ArgumentExns =
     [<Fact>]
-    let BadBinaryInput () =
-        argExn "data" (fun () -> ThrowHelpers.BadBinaryInput())
+    let ThrowBadBinaryInput () =
+        argExn "data" (fun () -> ThrowHelpers.ThrowBadBinaryInput())
 
     [<Fact>]
-    let NonComparable () =
-        argExn "obj" (fun () -> ThrowHelpers.NonComparable(typeof<string>, 1))
+    let ThrowNonComparable () =
+        argExn "obj" (fun () -> ThrowHelpers.ThrowNonComparable(typeof<string>, 1))
 
 module OverflowExns =
     [<Fact>]
-    let DateOverflow () =
-        (fun () -> ThrowHelpers.DateOverflow()) |> overflows
-        (fun () -> ThrowHelpers.DateOverflow<string>()) |> overflows
+    let ThrowDateOverflow () =
+        (fun () -> ThrowHelpers.ThrowDateOverflow()) |> overflows
+        (fun () -> ThrowHelpers.ThrowDateOverflow<string>()) |> overflows
 
     [<Fact>]
-    let MonthOverflow () =
-        (fun () -> ThrowHelpers.MonthOverflow()) |> overflows
+    let ThrowMonthOverflow () =
+        (fun () -> ThrowHelpers.ThrowMonthOverflow()) |> overflows
 
     [<Fact>]
-    let DayNumberOverflow () =
-        (fun () -> ThrowHelpers.DayNumberOverflow()) |> overflows
-        (fun () -> ThrowHelpers.DayNumberOverflow<string>()) |> overflows
+    let ThrowDayNumberOverflow () =
+        (fun () -> ThrowHelpers.ThrowDayNumberOverflow()) |> overflows
+        (fun () -> ThrowHelpers.ThrowDayNumberOverflow<string>()) |> overflows
 
     [<Fact>]
-    let OrdOverflow () =
-        (fun () -> ThrowHelpers.OrdOverflow<string>()) |> overflows
+    let ThrowOrdOverflow () =
+        (fun () -> ThrowHelpers.ThrowOrdOverflow<string>()) |> overflows

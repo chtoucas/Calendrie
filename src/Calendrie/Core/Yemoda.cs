@@ -307,9 +307,9 @@ public readonly partial struct Yemoda :
     [Pure]
     public static Yemoda Create(int year, int month, int day)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year);
-        if (month < MinMonth || month > MaxMonth) ThrowHelpers.MonthOutOfRange(month);
-        if (day < MinDay || day > MaxDay) ThrowHelpers.DayOutOfRange(day);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < MinMonth || month > MaxMonth) ThrowHelpers.ThrowMonthOutOfRange(month);
+        if (day < MinDay || day > MaxDay) ThrowHelpers.ThrowDayOutOfRange(day);
 
         return new Yemoda(Pack(year, month, day));
     }
@@ -517,5 +517,5 @@ public partial struct Yemoda // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Yemoda ymd ? CompareTo(ymd)
-        : ThrowHelpers.NonComparable(typeof(Yemoda), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(Yemoda), obj);
 }

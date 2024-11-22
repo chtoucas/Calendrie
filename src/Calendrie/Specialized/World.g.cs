@@ -279,7 +279,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new WorldDate(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new WorldDate(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new WorldDate(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new WorldDate(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new WorldDate(dayNumber - s_Epoch);
     }
 }
@@ -378,7 +378,7 @@ public partial struct WorldDate // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is WorldDate date ? CompareTo(date)
-        : ThrowHelpers.NonComparable(typeof(WorldDate), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(WorldDate), obj);
 }
 
 public partial struct WorldDate // Math
@@ -444,12 +444,12 @@ public partial struct WorldDate // Math
     /// <inheritdoc />
     [Pure]
     public WorldDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.DateOverflow<WorldDate>()
+        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<WorldDate>()
         : new WorldDate(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public WorldDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.DateOverflow<WorldDate>()
+        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<WorldDate>()
         : new WorldDate(_daysSinceEpoch - 1);
 }

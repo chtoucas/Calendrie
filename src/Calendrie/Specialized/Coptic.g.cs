@@ -279,7 +279,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new CopticDate(dayNumber - s_Epoch);
     }
 }
@@ -378,7 +378,7 @@ public partial struct CopticDate // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is CopticDate date ? CompareTo(date)
-        : ThrowHelpers.NonComparable(typeof(CopticDate), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(CopticDate), obj);
 }
 
 public partial struct CopticDate // Math
@@ -444,12 +444,12 @@ public partial struct CopticDate // Math
     /// <inheritdoc />
     [Pure]
     public CopticDate NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.DateOverflow<CopticDate>()
+        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<CopticDate>()
         : new CopticDate(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public CopticDate PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.DateOverflow<CopticDate>()
+        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<CopticDate>()
         : new CopticDate(_daysSinceEpoch - 1);
 }

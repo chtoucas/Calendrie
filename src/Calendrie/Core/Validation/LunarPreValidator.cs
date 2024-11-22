@@ -30,7 +30,7 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > Lunar.MonthsInYear)
         {
-            ThrowHelpers.MonthOutOfRange(month, paramName);
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         }
     }
 
@@ -39,12 +39,12 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > Lunar.MonthsInYear)
         {
-            ThrowHelpers.MonthOutOfRange(month, paramName);
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         }
         if (day < 1
             || (day > Lunar.MinDaysInMonth && day > _schema.CountDaysInMonth(y, month)))
         {
-            ThrowHelpers.DayOutOfRange(day, paramName);
+            ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }
     }
 
@@ -54,7 +54,7 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
         if (dayOfYear < 1
             || (dayOfYear > Lunar.MinDaysInYear && dayOfYear > _schema.CountDaysInYear(y)))
         {
-            ThrowHelpers.DayOfYearOutOfRange(dayOfYear, paramName);
+            ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
 }

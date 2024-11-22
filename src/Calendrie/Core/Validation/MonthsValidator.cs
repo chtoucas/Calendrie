@@ -45,7 +45,7 @@ public sealed class MonthsValidator : IRangeValidator<int>
     public void CheckOverflow(int monthsSinceEpoch)
     {
         if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-            ThrowHelpers.MonthOverflow();
+            ThrowHelpers.ThrowMonthOverflow();
     }
 
     /// <summary>Checks whether the specified number of consecutive months from the epoch is greater
@@ -54,7 +54,7 @@ public sealed class MonthsValidator : IRangeValidator<int>
     /// upper bound of the range of supported values.</exception>
     public void CheckUpperBound(int monthsSinceEpoch)
     {
-        if (monthsSinceEpoch > MaxMonthsSinceEpoch) ThrowHelpers.MonthOverflow();
+        if (monthsSinceEpoch > MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
     }
 
     /// <summary>Checks whether the specified number of consecutive months from the epoch is less
@@ -63,6 +63,6 @@ public sealed class MonthsValidator : IRangeValidator<int>
     /// lower bound of the range of supported values.</exception>
     public void CheckLowerBound(int monthsSinceEpoch)
     {
-        if (monthsSinceEpoch < MinMonthsSinceEpoch) ThrowHelpers.MonthOverflow();
+        if (monthsSinceEpoch < MinMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
     }
 }

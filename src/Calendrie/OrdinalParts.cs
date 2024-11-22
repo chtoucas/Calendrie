@@ -51,5 +51,5 @@ public readonly record struct OrdinalParts(int Year, int DayOfYear) :
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is OrdinalParts parts ? CompareTo(parts)
-        : ThrowHelpers.NonComparable(typeof(OrdinalParts), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(OrdinalParts), obj);
 }

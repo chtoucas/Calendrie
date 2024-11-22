@@ -157,8 +157,8 @@ public readonly partial struct Yemo :
     [Pure]
     public static Yemo Create(int year, int month)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year);
-        if (month < MinMonth || month > MaxMonth) ThrowHelpers.MonthOutOfRange(month);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < MinMonth || month > MaxMonth) ThrowHelpers.ThrowMonthOutOfRange(month);
 
         return new Yemo(Pack(year, month));
     }
@@ -186,7 +186,7 @@ public readonly partial struct Yemo :
     [Pure]
     public Yemoda GetDayOfMonth(int day)
     {
-        if (day < Yemoda.MinDay || day > Yemoda.MaxDay) ThrowHelpers.DayOutOfRange(day);
+        if (day < Yemoda.MinDay || day > Yemoda.MaxDay) ThrowHelpers.ThrowDayOutOfRange(day);
 
         return new Yemoda(unchecked(_bin | (day - 1)));
     }
@@ -267,7 +267,7 @@ public partial struct Yemo // Binary data helpers
         int d0 = data & Yemoda.DayMask;
         if (d0 != 0)
         {
-            ThrowHelpers.BadBinaryInput();
+            ThrowHelpers.ThrowBadBinaryInput();
         }
     }
 
@@ -346,5 +346,5 @@ public partial struct Yemo // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Yemo ym ? CompareTo(ym)
-        : ThrowHelpers.NonComparable(typeof(Yemo), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(Yemo), obj);
 }

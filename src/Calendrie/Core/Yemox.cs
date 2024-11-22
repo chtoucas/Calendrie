@@ -170,8 +170,8 @@ public readonly partial struct Yemox : IEqualityOperators<Yemox, Yemox>
     [Pure]
     public static Yemox Create(int year, int month, int extra)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.YearOutOfRange(year);
-        if (month < MinMonth || month > MaxMonth) ThrowHelpers.MonthOutOfRange(month);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < MinMonth || month > MaxMonth) ThrowHelpers.ThrowMonthOutOfRange(month);
         if (extra < MinExtra || extra > MaxExtra) throw new AoorException(nameof(extra));
 
         return new Yemox(Pack(year, month, extra));
@@ -185,7 +185,7 @@ public readonly partial struct Yemox : IEqualityOperators<Yemox, Yemox>
     [Pure]
     public static Yemox Create(Yemo ym, int extra)
     {
-        if (ym.Year < MinYear || ym.Year > MaxYear) ThrowHelpers.YearOutOfRange(ym.Year, nameof(ym));
+        if (ym.Year < MinYear || ym.Year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(ym.Year, nameof(ym));
         if (extra < MinExtra || extra > MaxExtra) throw new AoorException(nameof(extra));
 
         return new Yemox(ym, extra);
@@ -254,7 +254,7 @@ public partial struct Yemox // Binary data helpers
         int d0 = (data >> Yemodax.DayShift) & Yemodax.DayMask;
         if (d0 != 0)
         {
-            ThrowHelpers.BadBinaryInput();
+            ThrowHelpers.ThrowBadBinaryInput();
         }
     }
 

@@ -279,7 +279,7 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Ethiopic13Date(dayNumber - s_Epoch);
     }
 
@@ -288,7 +288,7 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Ethiopic13Date(dayNumber - s_Epoch);
     }
 
@@ -297,7 +297,7 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Ethiopic13Date(dayNumber - s_Epoch);
     }
 
@@ -306,7 +306,7 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Ethiopic13Date(dayNumber - s_Epoch);
     }
 
@@ -315,7 +315,7 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.DateOverflow();
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
         return new Ethiopic13Date(dayNumber - s_Epoch);
     }
 }
@@ -378,7 +378,7 @@ public partial struct Ethiopic13Date // IComparable
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
         : obj is Ethiopic13Date date ? CompareTo(date)
-        : ThrowHelpers.NonComparable(typeof(Ethiopic13Date), obj);
+        : ThrowHelpers.ThrowNonComparable(typeof(Ethiopic13Date), obj);
 }
 
 public partial struct Ethiopic13Date // Math
@@ -444,12 +444,12 @@ public partial struct Ethiopic13Date // Math
     /// <inheritdoc />
     [Pure]
     public Ethiopic13Date NextDay() =>
-        this == s_MaxValue ? ThrowHelpers.DateOverflow<Ethiopic13Date>()
+        this == s_MaxValue ? ThrowHelpers.ThrowDateOverflow<Ethiopic13Date>()
         : new Ethiopic13Date(_daysSinceEpoch + 1);
 
     /// <inheritdoc />
     [Pure]
     public Ethiopic13Date PreviousDay() =>
-        this == s_MinValue ? ThrowHelpers.DateOverflow<Ethiopic13Date>()
+        this == s_MinValue ? ThrowHelpers.ThrowDateOverflow<Ethiopic13Date>()
         : new Ethiopic13Date(_daysSinceEpoch - 1);
 }
