@@ -4,6 +4,9 @@
 
 [CmdletBinding()]
 param(
+    [Parameter(Mandatory = $false, Position = 0)]
+    [Alias('f')] [string] $Filter = '*',
+
     [Alias('h')] [switch] $Help
 )
 
@@ -32,8 +35,8 @@ try {
     $benchmarkProject = Join-Path $TestDir 'Calendrie.Benchmarks' -Resolve
 
     & dotnet run -c Release --project $benchmarkProject `
+        --filter $Filter `
         -f net9.0 --runtimes net9.0 `
-        --filter "*" `
         -p:AnalysisMode=AllDisabledByDefault
 }
 finally {
