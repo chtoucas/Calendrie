@@ -23,25 +23,6 @@ let invalidDayOfWeekData  = EnumDataSet.InvalidDayOfWeekData
 let invalidIsoWeekdayData  = EnumDataSet.InvalidIsoWeekdayData
 let invalidAdditionRuleData = EnumDataSet.InvalidAdditionRuleData
 
-//[<Fact>]
-//let ``NotNull(obj) does not throw when "obj" is not null`` () =
-//    Requires.NotNull(new obj())
-//    Requires.NotNull(new obj(), paramName)
-
-//[<Fact>]
-//let ``NotNull(obj) throws when "obj" is null (without paramName)`` () =
-//    //let v = null
-
-//    //nullExn "obj" (fun () -> Requires.NotNull(v))
-//    nullExn "" (fun () -> Requires.NotNull(null))
-
-//[<Fact>]
-//let ``NotNull(obj) throws when "obj" is null (with paramName)`` () =
-//    let v = null
-
-//    nullExn paramName (fun () -> Requires.NotNull(v, paramName))
-//    nullExn paramName (fun () -> Requires.NotNull(null, paramName))
-
 //
 // DayOfWeek
 //

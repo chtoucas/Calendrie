@@ -3,7 +3,7 @@
 
 namespace Calendrie.Core.Utilities;
 
-// TODO(code): do not use factories. Localized messages?
+// TODO(code): localized messages?
 
 #region Developer Notes
 
@@ -78,8 +78,8 @@ namespace Calendrie.Core.Utilities;
 
 /// <summary>
 /// Provides static helpers to throw exceptions.
+/// <para>This class cannot be inherited.</para>
 /// </summary>
-/// <remarks>This class cannot be inherited.</remarks>
 [StackTraceHidden]
 internal static partial class ThrowHelpers { }
 
@@ -90,141 +90,44 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void YearOutOfRange(long year) => throw GetYearOutOfRangeExn(null, year);
-
-    /// <summary>
-    /// The value of the year was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void YearOutOfRange(int year) => throw GetYearOutOfRangeExn(null, year);
-
-    /// <summary>
-    /// The value of the year was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void YearOutOfRange(int year, string? paramName) => throw GetYearOutOfRangeExn(paramName, year);
+    public static void YearOutOfRange(int year, string? paramName = null) =>
+        throw new AoorException(
+            paramName ?? nameof(year),
+            year,
+            $"The value of the year was out of range; value = {year}.");
 
     /// <summary>
     /// The value of the month of the year was out of range.
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void MonthOutOfRange(int month) => throw GetMonthOutOfRangeExn(null, month);
-
-    /// <summary>
-    /// The value of the month of the year was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void MonthOutOfRange(int month, string? paramName) =>
-        throw GetMonthOutOfRangeExn(paramName, month);
+    public static void MonthOutOfRange(int month, string? paramName = null) =>
+        throw new AoorException(
+            paramName ?? nameof(month),
+            month,
+            $"The value of the month of the year was out of range; value = {month}.");
 
     /// <summary>
     /// The value of the day of the month was out of range.
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void DayOutOfRange(int day) => throw GetDayOutOfRangeExn(null, day);
-
-    /// <summary>
-    /// The value of the day of the month was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void DayOutOfRange(int day, string? paramName) => throw GetDayOutOfRangeExn(paramName, day);
+    public static void DayOutOfRange(int day, string? paramName = null) =>
+        throw new AoorException(
+            paramName ?? nameof(day),
+            day,
+            $"The value of the day of the month was out of range; value = {day}.");
 
     /// <summary>
     /// The value of the day of the year was out of range.
     /// </summary>
     /// <exception cref="AoorException"/>
     [DoesNotReturn]
-    public static void DayOfYearOutOfRange(int dayOfYear) => throw GetDayOfYearOutOfRangeExn(null, dayOfYear);
-
-    /// <summary>
-    /// The value of the day of the year was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void DayOfYearOutOfRange(int dayOfYear, string? paramName) =>
-        throw GetDayOfYearOutOfRangeExn(paramName, dayOfYear);
-
-    /// <summary>
-    /// The value of the day of the week was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void DayOfWeekOutOfRange(DayOfWeek dayOfWeek, string? paramName) =>
-        throw GetDayOfWeekOutOfRangeExn(paramName, dayOfWeek);
-
-    /// <summary>
-    /// The value of the ISO weekday was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void IsoWeekdayOutOfRange(IsoWeekday weekday, string? paramName) =>
-        throw GetIsoWeekdayOutOfRangeExn(paramName, weekday);
-
-    /// <summary>
-    /// The value of the ISO weekday was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    public static void AdditionRuleOutOfRange(AdditionRule rule, string? paramName) =>
-        throw GetAdditionRuleOutOfRangeExn(paramName, rule);
-
-    #region Factories
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetYearOutOfRangeExn(string? paramName, long year) =>
-         new(paramName ?? nameof(year),
-             year,
-             $"The value of the year was out of range; value = {year}.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetYearOutOfRangeExn(string? paramName, int year) =>
-         new(paramName ?? nameof(year),
-             year,
-             $"The value of the year was out of range; value = {year}.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetMonthOutOfRangeExn(string? paramName, int month) =>
-         new(paramName ?? nameof(month),
-             month,
-             $"The value of the month of the year was out of range; value = {month}.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetDayOutOfRangeExn(string? paramName, int day) =>
-         new(paramName ?? nameof(day),
-             day,
-             $"The value of the day of the month was out of range; value = {day}.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetDayOfYearOutOfRangeExn(string? paramName, int dayOfYear) =>
-         new(paramName ?? nameof(dayOfYear),
-             dayOfYear,
-             $"The value of the day of the year was out of range; value = {dayOfYear}.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetDayOfWeekOutOfRangeExn(string? paramName, DayOfWeek dayOfWeek) =>
-         new(paramName ?? nameof(dayOfWeek),
-             dayOfWeek,
-             $"The value of the day of the week must be in the range 0 through 6; value = {dayOfWeek}.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetIsoWeekdayOutOfRangeExn(string? paramName, IsoWeekday weekday) =>
-         new(paramName ?? nameof(weekday),
-             weekday,
-             $"The value of the ISO weekday must be in the range 0 through 6; value = {weekday}.");
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static AoorException GetAdditionRuleOutOfRangeExn(string? paramName, AdditionRule rule) =>
-         new(paramName ?? nameof(rule),
-             rule,
-             $"The value of the addition rule must be in the range 0 through 3; value = {rule}.");
-
-    #endregion
+    public static void DayOfYearOutOfRange(int dayOfYear, string? paramName = null) =>
+        throw new AoorException(
+            paramName ?? nameof(dayOfYear),
+            dayOfYear,
+            $"The value of the day of the year was out of range; value = {dayOfYear}.");
 }
 
 internal partial class ThrowHelpers // ArgumentException
@@ -238,7 +141,7 @@ internal partial class ThrowHelpers // ArgumentException
         throw new ArgumentException("The binary data is not well-formed.", "data");
 
     /// <exception cref="ArgumentException"/>
-    [DoesNotReturn]
+    [DoesNotReturn, Pure]
     public static int NonComparable(Type expected, object obj) =>
         throw new ArgumentException(
             $"The object should be of type {expected} but it is of type {obj.GetType()}.",

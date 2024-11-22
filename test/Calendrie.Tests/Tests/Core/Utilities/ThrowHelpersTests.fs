@@ -3,10 +3,7 @@
 
 module Calendrie.Tests.Core.Utilities.ThrowHelpersTests
 
-open System
-
 open Calendrie.Testing
-open Calendrie
 open Calendrie.Core.Utilities
 
 open Xunit
@@ -16,7 +13,6 @@ let private paramName = "paramName"
 module ArgumentOutOfRangeExns =
     [<Fact>]
     let YearOutOfRange () =
-        outOfRangeExn "year" (fun () -> ThrowHelpers.YearOutOfRange(1L))
         outOfRangeExn "year" (fun () -> ThrowHelpers.YearOutOfRange(1))
         outOfRangeExn "year" (fun () -> ThrowHelpers.YearOutOfRange(1, null))
         outOfRangeExn paramName (fun () -> ThrowHelpers.YearOutOfRange(1, paramName))
@@ -38,21 +34,6 @@ module ArgumentOutOfRangeExns =
         outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.DayOfYearOutOfRange(1))
         outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.DayOfYearOutOfRange(1, null))
         outOfRangeExn paramName (fun () -> ThrowHelpers.DayOfYearOutOfRange(1, paramName))
-
-    [<Fact>]
-    let DayOfWeekOutOfRange () =
-        outOfRangeExn "dayOfWeek" (fun () -> ThrowHelpers.DayOfWeekOutOfRange(DayOfWeek.Monday, null))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.DayOfWeekOutOfRange(DayOfWeek.Monday, paramName))
-
-    [<Fact>]
-    let IsoWeekdayOutOfRange () =
-        outOfRangeExn "weekday" (fun () -> ThrowHelpers.IsoWeekdayOutOfRange(IsoWeekday.Monday, null))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.IsoWeekdayOutOfRange(IsoWeekday.Monday, paramName))
-
-    [<Fact>]
-    let AdditionRuleOutOfRange () =
-        outOfRangeExn "rule" (fun () -> ThrowHelpers.AdditionRuleOutOfRange(AdditionRule.Truncate, null))
-        outOfRangeExn paramName (fun () -> ThrowHelpers.AdditionRuleOutOfRange(AdditionRule.Truncate, paramName))
 
 module ArgumentExns =
     [<Fact>]
