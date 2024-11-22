@@ -5,7 +5,9 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $false, Position = 0)]
-    [Alias('f')] [string] $Filter = '*',
+                 [string] $Filter,
+
+                 [switch] $NoBuild,
 
     [Alias('h')] [switch] $Help
 )
@@ -19,9 +21,15 @@ function Print-Help {
 
 Benchmark script.
 
-Usage: benchmark.ps1 [arguments]
+Usage: bench.ps1 [arguments]
+     -Filter
+     -NoBuild        do NOT build the benchmark project?
+
   -h|-Help           print this help then exit
 
+Examples.
+> bench.ps1 *       # Run all tests
+> bench.ps1 *XXX*   # Run tests whose name contain XXX
 "@
 }
 
@@ -34,10 +42,11 @@ try {
 
     $benchmarkProject = Join-Path $TestDir 'Calendrie.Benchmarks' -Resolve
 
-    & dotnet run -c Release --project $benchmarkProject `
-        --filter $Filter `
-        -f net9.0 --runtimes net9.0 `
-        -p:AnalysisMode=AllDisabledByDefault
+    $args = @("-c:Release")
+    if ($NoBuild) { $args += '--no-build' }
+
+    & dotnet run --project $benchmarkProject $args `
+        --filter $Filter
 }
 finally {
     popd

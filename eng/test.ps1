@@ -28,9 +28,9 @@ function Print-Help {
 Run the test suite.
 
 Usage: test.ps1 [arguments]
-    |-Plan           specify the test plan. Default = "default"
+     -Plan           specify the test plan. Default = "default"
   -c|-Configuration  configuration to test the solution for. Default = "Debug"
-    |-NoBuild        do NOT build the test suite?
+     -NoBuild        do NOT build the test suite?
   -h|-Help           print this help then exit
 
 The default behaviour is to run the regular test plan using the configuration Debug.

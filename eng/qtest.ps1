@@ -29,14 +29,13 @@ function Print-Help {
 Run selected tests.
 
 Usage: qtest.ps1 [arguments]
-    |-Name
-    |-Namespace
+     -Name
+     -Namespace
   -c|-Configuration  configuration to test the solution for. Default = "Debug"
-    |-NoBuild        do NOT build the test suite?
+     -NoBuild        do NOT build the test suite?
   -h|-Help           print this help then exit
 
-Examples
---------
+Examples.
 > qtest.ps1 XXX        # Run tests whose name contain XXX
 > qtest.ps1 -ns YYY    # Run tests whose name contain Calendrie.Tests.YYY
 
