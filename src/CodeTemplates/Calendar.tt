@@ -61,7 +61,7 @@ public partial class CalendarTemplate : CSharpTemplate
     protected void EmitPragmas()
     {
 #>
-#nullable enable
+//#nullable enable
 <#+
     } // T4: End of EmitPragmas()
 

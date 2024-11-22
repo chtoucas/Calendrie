@@ -39,4 +39,4 @@ charset = utf-8-bom
 [src/Calendrie/**/*.g.cs]
 generated_code = false
 # Remove redundant nullable directive
-dotnet_diagnostic.IDE0240.severity = none
+#dotnet_diagnostic.IDE0240.severity = none

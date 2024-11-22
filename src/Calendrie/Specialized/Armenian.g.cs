@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-#nullable enable
+//#nullable enable
 
 namespace Calendrie.Specialized;
 
@@ -457,3 +457,4 @@ public partial struct ArmenianDate // Math
         return new ArmenianDate(_daysSinceEpoch - 1);
     }
 }
+

@@ -10,7 +10,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-#nullable enable
+//#nullable enable
 
 namespace Calendrie.Specialized;
 
