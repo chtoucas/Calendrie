@@ -75,15 +75,15 @@ dotnet_style_prefer_conditional_expression_over_return = true:suggestion
 # always_for_clarity / always_for_clarity / always_for_clarity / never_if_unnecessary
 dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:suggestion
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:suggestion
-dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
-dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
+dotnet_style_parentheses_in_other_binary_operators      = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators             = never_if_unnecessary:suggestion
 
-# IDE0049: Use language keywords instead of framework type names for type references (VS-only setting)
-# Default values are: true / true
-dotnet_style_predefined_type_for_locals_parameters_members = true:warning
-# I prefer Int32.MaxValue but using false below causes VS to raise a warning
-# when we use a predefined type in an XML comment :-(
-dotnet_style_predefined_type_for_member_access = true:warning
+## IDE0049: Use language keywords instead of framework type names for type references (VS-only setting)
+## Default values are: true / true
+#dotnet_style_predefined_type_for_locals_parameters_members = true:warning
+## I prefer Int32.MaxValue but using false below causes VS to raise a warning
+## when we use a predefined type in an XML comment :-(
+#dotnet_style_predefined_type_for_member_access = true:warning
 
 # IDE0073: Require file header
 # Default values is: unset
@@ -94,9 +94,9 @@ file_header_template = SPDX-License-Identifier: BSD-3-Clause\nCopyright (c) Tran
 # IDE0007: Use var instead of explicit type
 # IDE0008: Use explicit type instead of var
 # Default values are: false / false / false
-csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_for_built_in_types    = false:suggestion
 csharp_style_var_when_type_is_apparent = true:suggestion
-csharp_style_var_elsewhere = true:suggestion
+csharp_style_var_elsewhere             = true:suggestion
 
 # IDE0011: Add braces
 # Default values is: true
@@ -173,18 +173,18 @@ dotnet_naming_style.Camel_Case_Style.capitalization = camel_case
 
 # Interfaces are PascalCase and start with I
 dotnet_naming_rule.Interface.severity = warning
-dotnet_naming_rule.Interface.symbols = Interface_Symbol
-dotnet_naming_rule.Interface.style = Interface_Style
+dotnet_naming_rule.Interface.symbols  = Interface_Symbol
+dotnet_naming_rule.Interface.style    = Interface_Style
 
 dotnet_naming_symbols.Interface_Symbol.applicable_kinds = interface
 
 dotnet_naming_style.Interface_Style.required_prefix = I
-dotnet_naming_style.Interface_Style.capitalization = pascal_case
+dotnet_naming_style.Interface_Style.capitalization  = pascal_case
 
 # Types are PascalCase
 dotnet_naming_rule.Type.severity = warning
-dotnet_naming_rule.Type.symbols = Type_Symbol
-dotnet_naming_rule.Type.style = Pascal_Case_Style
+dotnet_naming_rule.Type.symbols  = Type_Symbol
+dotnet_naming_rule.Type.style    = Pascal_Case_Style
 
 dotnet_naming_symbols.Type_Symbol.applicable_kinds = class, struct, enum
 
@@ -192,73 +192,73 @@ dotnet_naming_symbols.Type_Symbol.applicable_kinds = class, struct, enum
 
 # Non-private static fields are PascalCase
 dotnet_naming_rule.NonPrivateStaticField.severity = warning
-dotnet_naming_rule.NonPrivateStaticField.symbols = NonPrivateStaticField_Symbols
-dotnet_naming_rule.NonPrivateStaticField.style = Pascal_Case_Style
+dotnet_naming_rule.NonPrivateStaticField.symbols  = NonPrivateStaticField_Symbols
+dotnet_naming_rule.NonPrivateStaticField.style   = Pascal_Case_Style
 
-dotnet_naming_symbols.NonPrivateStaticField_Symbols.applicable_kinds = field
+dotnet_naming_symbols.NonPrivateStaticField_Symbols.applicable_kinds           = field
 dotnet_naming_symbols.NonPrivateStaticField_Symbols.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
-dotnet_naming_symbols.NonPrivateStaticField_Symbols.required_modifiers = static
+dotnet_naming_symbols.NonPrivateStaticField_Symbols.required_modifiers         = static
 
 # Non-private readonly fields are PascalCase
 dotnet_naming_rule.NonPrivateReadOnlyField.severity = warning
-dotnet_naming_rule.NonPrivateReadOnlyField.symbols = NonPrivateReadOnlyField_Symbols
-dotnet_naming_rule.NonPrivateReadOnlyField.style = Pascal_Case_Style
+dotnet_naming_rule.NonPrivateReadOnlyField.symbols  = NonPrivateReadOnlyField_Symbols
+dotnet_naming_rule.NonPrivateReadOnlyField.style    = Pascal_Case_Style
 
-dotnet_naming_symbols.NonPrivateReadOnlyField_Symbols.applicable_kinds = field
+dotnet_naming_symbols.NonPrivateReadOnlyField_Symbols.applicable_kinds           = field
 dotnet_naming_symbols.NonPrivateReadOnlyField_Symbols.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
-dotnet_naming_symbols.NonPrivateReadOnlyField_Symbols.required_modifiers = readonly
+dotnet_naming_symbols.NonPrivateReadOnlyField_Symbols.required_modifiers         = readonly
 
 # Private static fields are camelCase and start with s_
 dotnet_naming_rule.PrivateStaticField.severity = warning
-dotnet_naming_rule.PrivateStaticField.symbols = PrivateStaticField_Symbols
-dotnet_naming_rule.PrivateStaticField.style = PrivateStaticField_Style
+dotnet_naming_rule.PrivateStaticField.symbols  = PrivateStaticField_Symbols
+dotnet_naming_rule.PrivateStaticField.style    = PrivateStaticField_Style
 
-dotnet_naming_symbols.PrivateStaticField_Symbols.applicable_kinds = field
+dotnet_naming_symbols.PrivateStaticField_Symbols.applicable_kinds           = field
 dotnet_naming_symbols.PrivateStaticField_Symbols.applicable_accessibilities = private
-dotnet_naming_symbols.PrivateStaticField_Symbols.required_modifiers = static
+dotnet_naming_symbols.PrivateStaticField_Symbols.required_modifiers         = static
 
-dotnet_naming_style.PrivateStaticField_Style.capitalization = pascal_case
+dotnet_naming_style.PrivateStaticField_Style.capitalization  = pascal_case
 dotnet_naming_style.PrivateStaticField_Style.required_prefix = s_
 
 # Private instance fields are camelCase and start with _
 dotnet_naming_rule.PrivateInstanceField.severity = warning
-dotnet_naming_rule.PrivateInstanceField.symbols = PrivateInstanceField_Symbols
-dotnet_naming_rule.PrivateInstanceField.style = PrivateInstanceField_Style
+dotnet_naming_rule.PrivateInstanceField.symbols  = PrivateInstanceField_Symbols
+dotnet_naming_rule.PrivateInstanceField.style    = PrivateInstanceField_Style
 
-dotnet_naming_symbols.PrivateInstanceField_Symbols.applicable_kinds = field
+dotnet_naming_symbols.PrivateInstanceField_Symbols.applicable_kinds           = field
 dotnet_naming_symbols.PrivateInstanceField_Symbols.applicable_accessibilities = private
 
-dotnet_naming_style.PrivateInstanceField_Style.capitalization = camel_case
+dotnet_naming_style.PrivateInstanceField_Style.capitalization  = camel_case
 dotnet_naming_style.PrivateInstanceField_Style.required_prefix = _
 
 #### Other kinds ####
 
 # Constants are PascalCase
 dotnet_naming_rule.Constant.severity = warning
-dotnet_naming_rule.Constant.symbols = Constant_Symbols
-dotnet_naming_rule.Constant.style = Pascal_Case_Style
+dotnet_naming_rule.Constant.symbols  = Constant_Symbols
+dotnet_naming_rule.Constant.style    = Pascal_Case_Style
 
-dotnet_naming_symbols.Constant_Symbols.applicable_kinds = field, local
+dotnet_naming_symbols.Constant_Symbols.applicable_kinds   = field, local
 dotnet_naming_symbols.Constant_Symbols.required_modifiers = const
 
 # Non-private non-field members are PascalCase
 dotnet_naming_rule.NonPrivateNonFieldMember.severity = warning
-dotnet_naming_rule.NonPrivateNonFieldMember.symbols = NonPrivateNonFieldMember_Symbols
-dotnet_naming_rule.NonPrivateNonFieldMember.style = Pascal_Case_Style
+dotnet_naming_rule.NonPrivateNonFieldMember.symbols  = NonPrivateNonFieldMember_Symbols
+dotnet_naming_rule.NonPrivateNonFieldMember.style    = Pascal_Case_Style
 
-dotnet_naming_symbols.NonPrivateNonFieldMember_Symbols.applicable_kinds = property, event, method
+dotnet_naming_symbols.NonPrivateNonFieldMember_Symbols.applicable_kinds           = property, event, method
 dotnet_naming_symbols.NonPrivateNonFieldMember_Symbols.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
 
 # Parameters are camelCase
 dotnet_naming_rule.Parameter.severity = warning
-dotnet_naming_rule.Parameter.symbols = Parameter_Symbols
-dotnet_naming_rule.Parameter.style = Camel_Case_Style
+dotnet_naming_rule.Parameter.symbols  = Parameter_Symbols
+dotnet_naming_rule.Parameter.style    = Camel_Case_Style
 
 dotnet_naming_symbols.Parameter_Symbols.applicable_kinds = parameter
 
 # Local functions are camelCase
 dotnet_naming_rule.LocalFunction.severity = warning
-dotnet_naming_rule.LocalFunction.symbols = LocalFunction_Symbols
-dotnet_naming_rule.LocalFunction.style = Camel_Case_Style
+dotnet_naming_rule.LocalFunction.symbols  = LocalFunction_Symbols
+dotnet_naming_rule.LocalFunction.style    = Camel_Case_Style
 
 dotnet_naming_symbols.LocalFunction_Symbols.applicable_kinds = local_function

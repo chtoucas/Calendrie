@@ -5,10 +5,12 @@ root = true
 #### Core EditorConfig Options ####
 
 [*]
+
 # Indentation and spacing
 indent_size = 4
 indent_style = space
 tab_width = 4
+
 # New line preferences
 end_of_line = crlf
 trim_trailing_whitespace = true
