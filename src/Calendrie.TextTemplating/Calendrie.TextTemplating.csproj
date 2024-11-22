@@ -13,7 +13,7 @@
 
   <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Release' ">
     <Message Text="Copying Calendrie.TextTemplating.$(VisualStudioVersion).dll to blib..." Importance="high" />
-    <Exec Command="xcopy /Y &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(MSBuildThisFileDirectory)..\..\eng\blib&quot;" />
+    <Exec Command="xcopy /Y &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(MSBuildThisFileDirectory)..\CodeTemplates\&quot;" />
   </Target>-->
 
 </Project>

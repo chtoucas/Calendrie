@@ -12,7 +12,7 @@
     <CalendrieLibraryFrameworks>$(CalendrieDefaultFramework);net8.0</CalendrieLibraryFrameworks>
 
     <CalendrieT4Directory>$(MSBuildThisFileDirectory)src\CodeTemplates\</CalendrieT4Directory>
-    <CalendrieT4Assembly>$(MSBuildThisFileDirectory)eng\blib\Calendrie.TextTemplating.$(VisualStudioVersion).dll</CalendrieT4Assembly>
+    <CalendrieT4Assembly>$(MSBuildThisFileDirectory)src\CodeTemplates\Calendrie.TextTemplating.$(VisualStudioVersion).dll</CalendrieT4Assembly>
 
     <!--
       Lang Version:
