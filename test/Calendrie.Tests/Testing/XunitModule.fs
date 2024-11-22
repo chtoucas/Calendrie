@@ -2,7 +2,7 @@
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
 [<AutoOpen>]
-module Calendrie.Testing.XunitModule
+module internal Calendrie.Testing.XunitModule
 
 open System
 open System.Collections.Generic

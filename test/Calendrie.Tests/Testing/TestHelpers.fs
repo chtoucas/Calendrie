@@ -2,7 +2,7 @@
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
 [<AutoOpen>]
-module Calendrie.Testing.TestHelpers
+module internal Calendrie.Testing.TestHelpers
 
 open Calendrie.Core
 open Calendrie.Core.Utilities
