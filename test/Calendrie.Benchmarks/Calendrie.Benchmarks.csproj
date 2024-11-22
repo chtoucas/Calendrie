@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>$(CalendrieLibraryFrameworks)</TargetFrameworks>
+    <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
 
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Calendrie.Sketches\Calendrie.Sketches.csproj" />
     <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
   </ItemGroup>
 
