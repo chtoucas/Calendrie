@@ -5,6 +5,7 @@
     <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
 
     <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
 
     <WarningLevel>5</WarningLevel>
     <!--
