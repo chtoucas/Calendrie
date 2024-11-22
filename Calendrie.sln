@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendrie.TextTemplating", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{07A8FCFE-DD91-4CD7-B156-5237A8D84957}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendrie.Benchmarks", "test\Calendrie.Benchmarks\Calendrie.Benchmarks.csproj", "{471EEBC8-9588-46B0-9A64-B851E99A11FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{530345D9-5172-4E97-8A67-5DEBA2D84179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{530345D9-5172-4E97-8A67-5DEBA2D84179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{530345D9-5172-4E97-8A67-5DEBA2D84179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{471EEBC8-9588-46B0-9A64-B851E99A11FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{471EEBC8-9588-46B0-9A64-B851E99A11FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{471EEBC8-9588-46B0-9A64-B851E99A11FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{471EEBC8-9588-46B0-9A64-B851E99A11FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +106,7 @@ Global
 		{ABB2BD03-A397-4D75-BBBB-7FD8949CEB3D} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 		{81CC5143-CB11-4815-B26D-1E327C23E1DE} = {47C8A5F0-0FB3-4BAB-9179-A72D0E74D371}
 		{530345D9-5172-4E97-8A67-5DEBA2D84179} = {07A8FCFE-DD91-4CD7-B156-5237A8D84957}
+		{471EEBC8-9588-46B0-9A64-B851E99A11FA} = {CA7F8640-CFEA-4F44-9121-671A8CF57413}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED8B0D74-DB69-46D4-AADE-91101FF165C2}
