@@ -2,7 +2,7 @@
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
 [<AutoOpen>]
-module internal Calendrie.Testing.FsCheckModule
+module Calendrie.Testing.FsCheckModule
 
 open System
 open System.Runtime.CompilerServices

@@ -41,8 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Calendrie.Sketches\Calendrie.Sketches.csproj" />
-    <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
+    <ProjectReference Include="..\Calendrie.Sketches\Calendrie.Sketches.csproj" />
+    <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
   </ItemGroup>
 
 </Project>

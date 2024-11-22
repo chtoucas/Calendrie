@@ -61,7 +61,7 @@ try {
     }
     $args += "--filter:$filter"
 
-    $testProject = Join-Path $TestDir 'Calendrie.Tests' -Resolve
+    $testProject = Join-Path $SrcDir 'Calendrie.Tests' -Resolve
 
     & dotnet test $testProject $args
         || die 'Failed to run the test suite.'

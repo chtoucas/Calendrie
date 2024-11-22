@@ -40,7 +40,7 @@ if ($Help) { Print-Help ; exit }
 try {
     pushd $RootDir
 
-    $benchmarkProject = Join-Path $TestDir 'Calendrie.Benchmarks' -Resolve
+    $benchmarkProject = Join-Path $SrcDir 'Calendrie.Benchmarks' -Resolve
 
     $args = @("-c:Release")
     if ($NoBuild) { $args += '--no-build' }

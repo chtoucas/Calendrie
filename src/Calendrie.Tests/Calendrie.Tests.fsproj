@@ -113,7 +113,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Calendrie\Calendrie.csproj" />
+    <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
     <ProjectReference Include="..\Calendrie.Testing\Calendrie.Testing.csproj" />
   </ItemGroup>
 

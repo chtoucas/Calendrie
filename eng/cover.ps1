@@ -67,7 +67,7 @@ try {
 
     $args = @("-c:$Configuration")
 
-    $testProject = Join-Path $TestDir 'Calendrie.Tests' -Resolve
+    $testProject = Join-Path $SrcDir 'Calendrie.Tests' -Resolve
 
     if ($NoTest) { $NoBuild = $true }
 
@@ -115,12 +115,12 @@ try {
 
                 say 'Publishing the reports...'
 
-                cp -Force 'badge_branchcoverage.svg' (Join-Path $TestDir 'coverage_branch.svg')
-                cp -Force 'badge_linecoverage.svg'   (Join-Path $TestDir 'coverage_line.svg')
-                cp -Force 'badge_methodcoverage.svg' (Join-Path $TestDir 'coverage_method.svg')
-                cp -Force 'badge_combined.svg' (Join-Path $TestDir 'coverage.svg')
-                cp -Force 'Summary.txt' (Join-Path $TestDir 'coverage.txt')
-                cp -Force 'Summary.md' (Join-Path $TestDir 'coverage.md')
+                cp -Force 'badge_branchcoverage.svg' (Join-Path $SrcDir 'coverage_branch.svg')
+                cp -Force 'badge_linecoverage.svg'   (Join-Path $SrcDir 'coverage_line.svg')
+                cp -Force 'badge_methodcoverage.svg' (Join-Path $SrcDir 'coverage_method.svg')
+                cp -Force 'badge_combined.svg' (Join-Path $SrcDir 'coverage.svg')
+                cp -Force 'Summary.txt' (Join-Path $SrcDir 'coverage.txt')
+                cp -Force 'Summary.md' (Join-Path $SrcDir 'coverage.md')
             }
             catch {
                 say $_ -Foreground Red
