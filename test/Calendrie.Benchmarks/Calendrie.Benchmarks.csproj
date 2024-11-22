@@ -5,10 +5,11 @@
     <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
 
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <AnalysisMode>AllDisabledByDefault</AnalysisMode>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
 
     <ServerGarbageCollection>true</ServerGarbageCollection>
-    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
 
     <!-- Recommended settings
       https://github.com/dotnet/performance/blob/main/docs/profiling-workflow-dotnet-runtime.md#project-settings

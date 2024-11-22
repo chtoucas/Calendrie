@@ -9,9 +9,9 @@ using System.Security.Cryptography;
 using Calendrie;
 using Calendrie.Core;
 
-public abstract class GJBenchmarkTests
+public abstract class GJTests
 {
-    protected GJBenchmarkTests() { }
+    protected GJTests() { }
 
     protected BenchmarkOption Option { get; init; }
 
