@@ -3,6 +3,7 @@
 
 global using BenchmarkDotNet.Attributes;
 
+global using Calendrie;
 global using Calendrie.Core;
 
-global using static Calendrie.Benchmarks.BenchmarkHelpers;
+global using static Benchmarks.BenchmarkHelpers;

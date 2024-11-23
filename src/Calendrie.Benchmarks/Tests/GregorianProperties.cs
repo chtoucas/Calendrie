@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Benchmarks.Tests;
+namespace Benchmarks.Tests;
 
 using NodaTime;
 
@@ -10,9 +10,9 @@ using Calendrie.Specialized;
 
 // Benchmarks for the core properties.
 
-public class GregorianPropertiesTests : GJTestData
+public class GregorianProperties : GJTestData
 {
-    public GregorianPropertiesTests() { Option = BenchmarkOption.Fixed; }
+    public GregorianProperties() { Option = BenchmarkOption.Fixed; }
 
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()

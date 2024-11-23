@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Benchmarks.Tests;
+namespace Benchmarks.Tests;
 
 using NodaTime;
 
@@ -10,9 +10,9 @@ using Calendrie.Specialized;
 
 // Benchmarks for the ctor.
 
-public class GregorianCtorTests : GJTestData
+public class GregorianCtor : GJTestData
 {
-    public GregorianCtorTests() { Option = BenchmarkOption.Fixed; }
+    public GregorianCtor() { Option = BenchmarkOption.Fixed; }
 
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => DayNumber.FromGregorianParts(Year, Month, Day);

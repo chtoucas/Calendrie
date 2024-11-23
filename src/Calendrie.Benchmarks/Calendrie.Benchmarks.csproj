@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
 
+    <RootNamespace>Benchmarks</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
 
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
