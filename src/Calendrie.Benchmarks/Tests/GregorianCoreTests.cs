@@ -8,9 +8,11 @@ using NodaTime;
 using Calendrie;
 using Calendrie.Specialized;
 
-public class GregorianTests : GJTestData
+// Benchmarks for the ctor and the core properties.
+
+public class GregorianCoreTests : GJTestData
 {
-    public GregorianTests() { Option = BenchmarkOption.Fixed; }
+    public GregorianCoreTests() { Option = BenchmarkOption.Fixed; }
 
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()
@@ -66,7 +68,7 @@ public class GregorianTests : GJTestData
     // External date types
     //
 
-    [Benchmark(Description = "LocalDate")]
+    [Benchmark(Description = "LocalDate (NodaTime)")]
     public void WithLocalDate()
     {
         LocalDate date = new(Year, Month, Day);
@@ -82,7 +84,7 @@ public class GregorianTests : GJTestData
         Consume(in dayOfYear);
     }
 
-    [Benchmark(Description = "DateOnly")]
+    [Benchmark(Description = "DateOnly (BCL)")]
     public void WithDateOnly()
     {
         DateOnly date = new(Year, Month, Day);
@@ -100,7 +102,7 @@ public class GregorianTests : GJTestData
         Consume(in dayOfYear);
     }
 
-    [Benchmark(Description = "DateTime")]
+    [Benchmark(Description = "DateTime (BCL)")]
     public void WithDateTime()
     {
         DateTime date = new(Year, Month, Day);

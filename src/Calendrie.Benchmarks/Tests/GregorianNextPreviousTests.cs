@@ -8,57 +8,55 @@ using NodaTime;
 using Calendrie;
 using Calendrie.Specialized;
 
-public class GregorianArithmeticTests : GJTestData
-{
-    private const int D7 = 7;        // No change of month.
-    private const int D30 = 30;      // Change of month.
-    private const int D401 = 401;    // "Slow-track".
+// Benchmarks for yesterday and tomorrow.
 
-    public GregorianArithmeticTests() { Option = BenchmarkOption.Fixed; }
+public class GregorianNextPreviousTests : GJTestData
+{
+    public GregorianNextPreviousTests() { Option = BenchmarkOption.Fixed; }
 
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber()
     {
         var start = DayNumber.FromGregorianParts(Year, Month, Day);
-        return start.NextDay().PlusDays(D7).PlusDays(D30).PlusDays(D401);
+        return start.NextDay().PreviousDay();
     }
 
     [Benchmark(Description = "CivilDate", Baseline = true)]
     public CivilDate WithCivilDate()
     {
         CivilDate start = new(Year, Month, Day);
-        return start.NextDay().PlusDays(D7).PlusDays(D30).PlusDays(D401);
+        return start.NextDay().PreviousDay();
     }
 
     [Benchmark(Description = "GregorianDate")]
     public GregorianDate WithGregorianDate()
     {
         GregorianDate start = new(Year, Month, Day);
-        return start.NextDay().PlusDays(D7).PlusDays(D30).PlusDays(D401);
+        return start.NextDay().PreviousDay();
     }
 
     //
     // External date types
     //
 
-    [Benchmark(Description = "LocalDate")]
+    [Benchmark(Description = "LocalDate (NodaTime)")]
     public LocalDate WithLocalDate()
     {
         LocalDate start = new(Year, Month, Day);
-        return start.PlusDays(1).PlusDays(D7).PlusDays(D30).PlusDays(D401);
+        return start.PlusDays(1).PlusDays(-1);
     }
 
-    [Benchmark(Description = "DateOnly")]
+    [Benchmark(Description = "DateOnly (BCL)")]
     public DateOnly WithDateOnly()
     {
         DateOnly start = new(Year, Month, Day);
-        return start.AddDays(1).AddDays(D7).AddDays(D30).AddDays(D401);
+        return start.AddDays(1).AddDays(-1);
     }
 
-    [Benchmark(Description = "DateTime")]
+    [Benchmark(Description = "DateTime (BCL)")]
     public DateTime WithDateTime()
     {
         DateTime start = new(Year, Month, Day);
-        return start.AddDays(1).AddDays(D7).AddDays(D30).AddDays(D401);
+        return start.AddDays(1).AddDays(-1);
     }
 }
