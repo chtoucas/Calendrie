@@ -8,7 +8,7 @@ using NodaTime;
 using Calendrie;
 using Calendrie.Specialized;
 
-public class GregorianTests : GJTests
+public class GregorianTests : GJTestData
 {
     private const int D7 = 7;        // No change of month.
     private const int D30 = 30;      // Change of month.
