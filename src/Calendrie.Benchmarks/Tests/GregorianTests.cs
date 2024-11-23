@@ -10,22 +10,17 @@ using Calendrie.Specialized;
 
 public class GregorianTests : GJTestData
 {
-    private const int D7 = 7;        // No change of month.
-    private const int D30 = 30;      // Change of month.
-    private const int D401 = 401;    // "Slow-track".
-
     public GregorianTests() { Option = BenchmarkOption.Fixed; }
 
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()
     {
-        var start = DayNumber.FromGregorianParts(Year, Month, Day);
-        var end = start.NextDay().PlusDays(D7).PlusDays(D30).PlusDays(D401);
-        var parts = end.GetGregorianParts();
-        var oparts = end.GetGregorianOrdinalParts();
+        var date = DayNumber.FromGregorianParts(Year, Month, Day);
+        var parts = date.GetGregorianParts();
+        var oparts = date.GetGregorianOrdinalParts();
 
         var (y, m, d) = parts;
-        var dayOfWeek = end.DayOfWeek;
+        var dayOfWeek = date.DayOfWeek;
         int dayOfYear = oparts.DayOfYear;
 
         Consume(in y);
@@ -38,12 +33,11 @@ public class GregorianTests : GJTestData
     [Benchmark(Description = "CivilDate", Baseline = true)]
     public void WithCivilDate()
     {
-        CivilDate start = new(Year, Month, Day);
-        var end = start.NextDay().PlusDays(D7).PlusDays(D30).PlusDays(D401);
+        CivilDate date = new(Year, Month, Day);
 
-        var (y, m, d) = end;
-        var dayOfWeek = end.DayOfWeek;
-        int dayOfYear = end.DayOfYear;
+        var (y, m, d) = date;
+        var dayOfWeek = date.DayOfWeek;
+        int dayOfYear = date.DayOfYear;
 
         Consume(in y);
         Consume(in m);
@@ -55,12 +49,11 @@ public class GregorianTests : GJTestData
     [Benchmark(Description = "GregorianDate")]
     public void WithGregorianDate()
     {
-        GregorianDate start = new(Year, Month, Day);
-        var end = start.NextDay().PlusDays(D7).PlusDays(D30).PlusDays(D401);
+        GregorianDate date = new(Year, Month, Day);
 
-        var (y, m, d) = end;
-        var dayOfWeek = end.DayOfWeek;
-        int dayOfYear = end.DayOfYear;
+        var (y, m, d) = date;
+        var dayOfWeek = date.DayOfWeek;
+        int dayOfYear = date.DayOfYear;
 
         Consume(in y);
         Consume(in m);
@@ -76,12 +69,11 @@ public class GregorianTests : GJTestData
     [Benchmark(Description = "LocalDate")]
     public void WithLocalDate()
     {
-        LocalDate start = new(Year, Month, Day);
-        var end = start.PlusDays(1).PlusDays(D7).PlusDays(D30).PlusDays(D401);
+        LocalDate date = new(Year, Month, Day);
 
-        var (y, m, d) = end;
-        var dayOfWeek = end.DayOfWeek;
-        int dayOfYear = end.DayOfYear;
+        var (y, m, d) = date;
+        var dayOfWeek = date.DayOfWeek;
+        int dayOfYear = date.DayOfYear;
 
         Consume(in y);
         Consume(in m);
@@ -93,14 +85,13 @@ public class GregorianTests : GJTestData
     [Benchmark(Description = "DateOnly")]
     public void WithDateOnly()
     {
-        DateOnly start = new(Year, Month, Day);
-        var end = start.AddDays(1).AddDays(D7).AddDays(D30).AddDays(D401);
+        DateOnly date = new(Year, Month, Day);
 
-        int y = end.Year;
-        int m = end.Month;
-        int d = end.Day;
-        var dayOfWeek = end.DayOfWeek;
-        int dayOfYear = end.DayOfYear;
+        int y = date.Year;
+        int m = date.Month;
+        int d = date.Day;
+        var dayOfWeek = date.DayOfWeek;
+        int dayOfYear = date.DayOfYear;
 
         Consume(in y);
         Consume(in m);
@@ -112,14 +103,13 @@ public class GregorianTests : GJTestData
     [Benchmark(Description = "DateTime")]
     public void WithDateTime()
     {
-        DateTime start = new(Year, Month, Day);
-        var end = start.AddDays(1).AddDays(D7).AddDays(D30).AddDays(D401);
+        DateTime date = new(Year, Month, Day);
 
-        int y = end.Year;
-        int m = end.Month;
-        int d = end.Day;
-        var dayOfWeek = end.DayOfWeek;
-        int dayOfYear = end.DayOfYear;
+        int y = date.Year;
+        int m = date.Month;
+        int d = date.Day;
+        var dayOfWeek = date.DayOfWeek;
+        int dayOfYear = date.DayOfYear;
 
         Consume(in y);
         Consume(in m);

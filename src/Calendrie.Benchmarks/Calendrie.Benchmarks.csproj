@@ -10,6 +10,7 @@
 
     <ServerGarbageCollection>true</ServerGarbageCollection>
 
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <!--
       Benchmark methods MUST NOT be static
       Benchmark types MUST NOT be sealed
