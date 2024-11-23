@@ -14,12 +14,14 @@ using static Calendrie.Core.CalendricalConstants;
 internal sealed class GregorianPreValidator : ICalendricalPreValidator
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianPreValidator"/> class.
+    /// Initializes a new instance of the <see cref="GregorianPreValidator"/>
+    /// class.
     /// </summary>
     private GregorianPreValidator() { }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="GregorianPreValidator"/> class.
+    /// Gets a singleton instance of the <see cref="GregorianPreValidator"/>
+    /// class.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static GregorianPreValidator Instance { get; } = new();
@@ -27,7 +29,8 @@ internal sealed class GregorianPreValidator : ICalendricalPreValidator
     #region 64-bit versions
 
     /// <summary>
-    /// Validates the well-formedness of the specified month of the year and day of the month.
+    /// Validates the well-formedness of the specified month of the year and day
+    /// of the month.
     /// <para>This method does NOT validate <paramref name="y"/>.</para>
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>

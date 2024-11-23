@@ -9,31 +9,43 @@ using Calendrie.Core.Intervals;
 // of supported numbers of consecutive years from the epoch, indeed
 // YearsSinceEpoch = Year - 1.
 
-/// <summary>Defines a validator for a range of years. </summary>
+/// <summary>
+/// Defines a validator for a range of years.
+/// </summary>
 public interface IYearsValidator
 {
-    /// <summary>Gets the raw range of values.</summary>
+    /// <summary>
+    /// Gets the raw range of values.
+    /// </summary>
     Range<int> Range { get; }
 
-    /// <summary>Validates the specified year.</summary>
+    /// <summary>
+    /// Validates the specified year.
+    /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>
     void Validate(int year, string? paramName = null);
 
-    /// <summary>Checks whether the specified year is outside the range of supported values or not.
+    /// <summary>
+    /// Checks whether the specified year is outside the range of supported
+    /// values or not.
     /// </summary>
-    /// <exception cref="OverflowException"><paramref name="year"/> is outside the range of
-    /// supported values.</exception>
+    /// <exception cref="OverflowException"><paramref name="year"/> is outside
+    /// the range of supported values.</exception>
     void CheckOverflow(int year);
 
-    /// <summary>Checks whether the specified year is greater than the upper bound of the range of
-    /// supported values or not.</summary>
-    /// <exception cref="OverflowException"><paramref name="year"/> is greater than the upper bound
-    /// of the range of supported values.</exception>
+    /// <summary>
+    /// Checks whether the specified year is greater than the upper bound of the
+    /// range of supported values or not.
+    /// </summary>
+    /// <exception cref="OverflowException"><paramref name="year"/> is greater
+    /// than the upper bound of the range of supported values.</exception>
     void CheckUpperBound(int year);
 
-    /// <summary>Checks whether the specified year is less than the lower bound of the range of
-    /// supported values or not.</summary>
-    /// <exception cref="OverflowException"><paramref name="year"/> is less than the lower bound of
-    /// the range of supported values.</exception>
+    /// <summary>
+    /// Checks whether the specified year is less than the lower bound of the
+    /// range of supported values or not.
+    /// </summary>
+    /// <exception cref="OverflowException"><paramref name="year"/> is less than
+    /// the lower bound of the range of supported values.</exception>
     void CheckLowerBound(int year);
 }

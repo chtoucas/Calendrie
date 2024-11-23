@@ -379,7 +379,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// <exception cref="AoorException" />
     private static void ValidateYear(int year)
     {
-        if (year < MinSupportedYear || year > MaxSupportedYear) { ThrowHelpers.ThrowYearOutOfRange(year); }
+        if (year < MinSupportedYear || year > MaxSupportedYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
     }
 
     /// <summary>
@@ -390,9 +391,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     private void CheckGregorianOverflow()
     {
         if (_daysSinceZero < MinGregorianDaysSinceZero || _daysSinceZero > MaxGregorianDaysSinceZero)
-        {
             ThrowHelpers.ThrowDateOverflow();
-        }
     }
 
     /// <summary>
@@ -403,9 +402,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     private void CheckJulianOverflow()
     {
         if (_daysSinceZero < MinJulianDaysSinceZero || _daysSinceZero > MaxJulianDaysSinceZero)
-        {
             ThrowHelpers.ThrowDateOverflow();
-        }
     }
 
     #endregion

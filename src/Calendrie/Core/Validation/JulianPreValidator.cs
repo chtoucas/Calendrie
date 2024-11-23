@@ -27,7 +27,8 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     #region 64-bit versions
 
     /// <summary>
-    /// Validates the well-formedness of the specified month of the year and day of the month.
+    /// Validates the well-formedness of the specified month of the year and day
+    /// of the month.
     /// <para>This method does NOT validate <paramref name="y"/>.</para>
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>

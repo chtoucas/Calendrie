@@ -5,18 +5,24 @@ namespace Calendrie.Core.Validation;
 
 using static Calendrie.Core.CalendricalConstants;
 
-/// <summary>Provides methods to check the well-formedness of data according to a schema with
-/// profile <see cref="CalendricalProfile.Lunar"/>.
-/// <para>For such schemas, we can mostly avoid to compute the number of days in a year or in a
-/// month.</para>
+/// <summary>
+/// Provides methods to check the well-formedness of data according to a schema
+/// with profile <see cref="CalendricalProfile.Lunar"/>.
+/// <para>For such schemas, we can mostly avoid to compute the number of days in
+/// a year or in a month.</para>
 /// <para>This class cannot be inherited.</para></summary>
 internal sealed class LunarPreValidator : ICalendricalPreValidator
 {
-    /// <summary>Represents the schema.</summary>
+    /// <summary>
+    /// Represents the schema.
+    /// </summary>
     private readonly CalendricalSchema _schema;
 
-    /// <summary>Initializes a new instance of the <see cref="LunarPreValidator"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LunarPreValidator"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     public LunarPreValidator(CalendricalSchema schema)
     {
         ArgumentNullException.ThrowIfNull(schema);
