@@ -2,16 +2,19 @@
 
 #Requires -Version 7
 
-[CmdletBinding()]
+[CmdletBinding(DefaultParameterSetName = 'Benchmark')]
 param(
-    [Parameter(Mandatory = $false, Position = 0)]
+    [Parameter(Mandatory = $true, ParameterSetName = 'Benchmark', Position = 0)]
+    [ValidateNotNullOrWhiteSpace()]
                  [string] $Filter,
 
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $false, ParameterSetName = 'Benchmark')]
     [ValidateSet('Default', 'Dry', 'Short', 'Medium', 'Long')]
-    [Alias('j')] [string] $Job = 'Short',
+    [Alias('j')] [string] $Job = 'Default',
 
+    [Parameter(Mandatory = $true, ParameterSetName = 'List')]
     [Alias('l')] [switch] $List,
+
     [Alias('q')] [switch] $Quiet,
                  [switch] $NoBuild,
 
@@ -50,32 +53,28 @@ if ($Help) { Print-Help ; exit }
 try {
     pushd $RootDir
 
-    $outDir = Join-Path $ArtifactsDir "benchmarks"
-
     $benchmarkProject = Join-Path $SrcDir 'Calendrie.Benchmarks' -Resolve
 
-    $args = @()
+    # Common options:
+    # - Release build.
+    # - Disable all analyzers here NOT within the project.
+    # - Stop after the first error (by default it's not).
+    $args = '-c:Release', '--stopOnFirstError', '-p:AnalysisMode=AllDisabledByDefault'
+    # Disable the log file written on disk?
     if ($Quiet)   { $args += '--disableLogFile' }
     if ($NoBuild) { $args += '--no-build' }
 
     if ($List) {
-        & dotnet run --project $benchmarkProject $args `
-            --list tree `
-            -c Release `
-            -p:AnalysisMode=AllDisabledByDefault
+        & dotnet run --project $benchmarkProject $args --list tree
+    } else {
+        $outDir = Join-Path $ArtifactsDir "benchmarks"
 
-        exit
+        & dotnet run --project $benchmarkProject $args `
+            --artifacts $outDir `
+            --filter $Filter `
+            --job $Job
     }
 
-    # Disable the log file written on disk.
-    # Stop after the first error (by default it's not).
-    & dotnet run --project $benchmarkProject $args `
-        -c Release `
-        --artifacts $outDir `
-        --filter $Filter `
-        --job $Job `
-        --stopOnFirstError `
-        -p:AnalysisMode=AllDisabledByDefault
 }
 finally {
     popd
