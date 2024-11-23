@@ -8,11 +8,11 @@ using NodaTime;
 using Calendrie;
 using Calendrie.Specialized;
 
-// Benchmarks for the ctor and the core properties.
+// Benchmarks for the core properties.
 
-public class GregorianCoreTests : GJTestData
+public class GregorianPropertiesTests : GJTestData
 {
-    public GregorianCoreTests() { Option = BenchmarkOption.Fixed; }
+    public GregorianPropertiesTests() { Option = BenchmarkOption.Fixed; }
 
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()
