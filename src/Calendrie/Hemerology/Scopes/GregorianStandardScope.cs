@@ -10,7 +10,9 @@ using Calendrie.Core.Validation;
 using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
-/// Represents the standard short scope of the Gregorian schema.
+/// Provides static methods related to the standard scope of the Gregorian
+/// calendar.
+/// <para>Supported dates are within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 internal static class GregorianStandardScope
@@ -69,8 +71,10 @@ internal static class GregorianStandardScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonth(int year, int month, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear) ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
     }
 
     /// <summary>
@@ -79,8 +83,10 @@ internal static class GregorianStandardScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear) ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
             || (day > Solar.MinDaysInMonth
                 && day > GregorianFormulae.CountDaysInMonth(year, month)))
@@ -95,7 +101,8 @@ internal static class GregorianStandardScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateOrdinal(int year, int dayOfYear, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (dayOfYear < 1
             || (dayOfYear > Solar.MinDaysInYear
                 && dayOfYear > GregorianFormulae.CountDaysInYear(year)))

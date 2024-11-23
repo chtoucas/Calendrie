@@ -7,12 +7,9 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
-// This is the scope used by SimpleCalendar, except in the Gregorian and Julian
-// cases.
-
 /// <summary>
-/// Defines a scope for a calendar supporting <i>all</i> dates within the range
-/// [1..9999] of years.
+/// Provides static methods related to the standard scope of a calendar.
+/// <para>Supported dates are within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public static class StandardScope
@@ -32,8 +29,7 @@ public static class StandardScope
     /// <summary>
     /// Represents the range of supported years.
     /// </summary>
-    private static readonly Range<int> s_SupportedYears =
-        Range.Create(MinYear, MaxYear);
+    private static readonly Range<int> s_SupportedYears = Range.Create(MinYear, MaxYear);
 
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
