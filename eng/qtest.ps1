@@ -36,8 +36,8 @@ Usage: qtest.ps1 [arguments]
   -h|-Help           print this help then exit
 
 Examples.
-> qtest.ps1 XXX        # Run tests whose name contain XXX
-> qtest.ps1 -ns YYY    # Run tests whose name contain Calendrie.Tests.YYY
+> qtest.ps1 XXX        # Run tests whose names contain XXX
+> qtest.ps1 -ns YYY    # Run tests whose names contain Calendrie.Tests.YYY
 
 "@
 }

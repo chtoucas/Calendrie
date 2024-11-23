@@ -7,6 +7,10 @@ using System.Runtime.CompilerServices;
 
 using NodaTime;
 
+/// <summary>
+/// Provides static helpers to prevent from dead code elimination.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 internal static class BenchmarkHelpers
 {
     [MethodImpl(MethodImplOptions.NoInlining)]

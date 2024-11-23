@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Benchmarks.Calendars;
+namespace Calendrie.Benchmarks.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
