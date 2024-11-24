@@ -4,7 +4,7 @@
 
 [CmdletBinding(DefaultParameterSetName = 'Benchmark')]
 param(
-    [Parameter(Mandatory = $true, ParameterSetName = 'List')]
+    [Parameter(Mandatory = $false, ParameterSetName = 'List')]
     [ValidateSet('flat', 'tree')]
     [Alias('l')] [string] $List = 'flat',
 
@@ -68,18 +68,24 @@ try {
     # Disable the log file written on disk?
     if ($Quiet) { $args += '--disableLogFile' }
 
-    if ($List) {
-        & dotnet run --project $benchmarkProject $args --list $List
-    } else {
+    switch ($PSCmdlet.ParameterSetName) {
+        'List' {
+            & dotnet run --project $benchmarkProject $args --list $List
 
-        $outDir = Join-Path $ArtifactsDir "benchmarks"
+            break
+        }
 
-        & dotnet run --project $benchmarkProject $args `
-            --artifacts $outDir `
-            --filter $Filter `
-            --job $Job
+        'Benchmark' {
+            $outDir = Join-Path $ArtifactsDir "benchmarks"
+
+            & dotnet run --project $benchmarkProject $args `
+                --artifacts $outDir `
+                --filter $Filter `
+                --job $Job
+
+            break
+        }
     }
-
 }
 finally {
     popd
