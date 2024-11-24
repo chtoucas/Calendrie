@@ -4,20 +4,22 @@
 
 [CmdletBinding(DefaultParameterSetName = 'Benchmark')]
 param(
+    [Parameter(Mandatory = $true, ParameterSetName = 'List')]
+    [ValidateSet('flat', 'tree')]
+    [Alias('l')] [string] $List = 'flat',
+
     [Parameter(Mandatory = $true, ParameterSetName = 'Benchmark', Position = 0)]
     [ValidateNotNullOrWhiteSpace()]
-                 [string] $Filter,
+    [Alias('f')] [string] $Filter,
 
     [Parameter(Mandatory = $false, ParameterSetName = 'Benchmark')]
     [ValidateSet('Default', 'Dry', 'Short', 'Medium', 'Long')]
     [Alias('j')] [string] $Job = 'Default',
 
-    [Parameter(Mandatory = $true, ParameterSetName = 'List')]
-    [Alias('l')] [switch] $List,
-
     [Alias('q')] [switch] $Quiet,
                  [switch] $NoBuild,
 
+    [Parameter(Mandatory = $false, ParameterSetName = 'Help')]
     [Alias('h')] [switch] $Help
 )
 
@@ -31,9 +33,10 @@ function Print-Help {
 Benchmark script.
 
 Usage: bench.ps1 [arguments]
-     -Filter
-  -j|-Job
   -l|-List
+
+  -f|-Filter
+  -j|-Job
 
   -q|-Quiet
      -NoBuild        do NOT build the benchmark project?
@@ -41,6 +44,7 @@ Usage: bench.ps1 [arguments]
   -h|-Help           print this help then exit
 
 Examples.
+> bench.ps1 -l
 > bench.ps1 *       # Run all tests (most certainly a bad idea)
 > bench.ps1 *XXX    # Run tests whose names end with XXX
 "@
@@ -60,13 +64,14 @@ try {
     # - Disable all analyzers here NOT within the project.
     # - Stop after the first error (by default it's not).
     $args = '-c:Release', '--stopOnFirstError', '-p:AnalysisMode=AllDisabledByDefault'
-    # Disable the log file written on disk?
-    if ($Quiet)   { $args += '--disableLogFile' }
     if ($NoBuild) { $args += '--no-build' }
+    # Disable the log file written on disk?
+    if ($Quiet) { $args += '--disableLogFile' }
 
     if ($List) {
-        & dotnet run --project $benchmarkProject $args --list tree
+        & dotnet run --project $benchmarkProject $args --list $List
     } else {
+
         $outDir = Join-Path $ArtifactsDir "benchmarks"
 
         & dotnet run --project $benchmarkProject $args `
