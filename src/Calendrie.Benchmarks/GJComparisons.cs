@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Gregorian;
+namespace Benchmarks;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
@@ -53,13 +53,6 @@ public abstract class GJComparisons
     protected GJComparisons() { }
 
     protected GJSampleKind SampleKind { get; init; }
-
-    protected DayNumber SampleDayNumber => DayNumber.FromGregorianParts(Year, Month, Day);
-    protected CivilDate SampleCivilDate => new(Year, Month, Day);
-    protected GregorianDate SampleGregorianDate => new(Year, Month, Day);
-    protected LocalDate SampleLocalDate => new(Year, Month, Day);
-    protected DateOnly SampleDateOnly => new(Year, Month, Day);
-    protected DateTime SampleDateTime => new(Year, Month, Day);
 
     /// <summary>Gets the Gregorian/Julian year.</summary>
     protected int Year => SampleKind switch

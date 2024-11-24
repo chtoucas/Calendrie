@@ -3,12 +3,9 @@
 
 namespace Benchmarks.Gregorian;
 
-using Calendrie;
 using Calendrie.Specialized;
 
 using NodaTime;
-
-// Benchmarks for the addition.
 
 public class Addition : GJComparisons
 {

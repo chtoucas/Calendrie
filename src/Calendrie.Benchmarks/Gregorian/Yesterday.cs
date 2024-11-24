@@ -3,12 +3,9 @@
 
 namespace Benchmarks.Gregorian;
 
-using Calendrie;
 using Calendrie.Specialized;
 
 using NodaTime;
-
-// Benchmarks for yesterday.
 
 public class Yesterday : GJComparisons
 {

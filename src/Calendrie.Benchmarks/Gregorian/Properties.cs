@@ -2,7 +2,6 @@
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
 namespace Benchmarks.Gregorian;
-// Benchmarks for the core properties.
 
 public class Properties : GJComparisons
 {
