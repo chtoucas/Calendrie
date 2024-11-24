@@ -43,6 +43,7 @@ internal static class Program
             .AddAnalyser(defaultConfig.GetAnalysers().ToArray())
             .AddColumnProvider(defaultConfig.GetColumnProviders().ToArray())
             .AddDiagnoser(defaultConfig.GetDiagnosers().ToArray())
+            // Markdown, et basta !
             .AddExporter(MarkdownExporter.Default)
             .AddFilter(defaultConfig.GetFilters().ToArray())
             .AddHardwareCounters(defaultConfig.GetHardwareCounters().ToArray())

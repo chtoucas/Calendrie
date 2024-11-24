@@ -1,23 +1,18 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Tests;
-
-using NodaTime;
-
-using Calendrie;
-using Calendrie.Specialized;
+namespace Benchmarks.Gregorian;
 
 // Benchmarks for the core properties.
 
-public class GregorianProperties : GJTestData
+public class Properties : GJSampleData
 {
-    public GregorianProperties() { Option = BenchmarkOption.Fixed; }
+    public Properties() { Option = BenchmarkOption.Fixed; }
 
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()
     {
-        var date = DayNumber.FromGregorianParts(Year, Month, Day);
+        var date = SampleDayNumber;
         var parts = date.GetGregorianParts();
         var oparts = date.GetGregorianOrdinalParts();
 
@@ -35,7 +30,7 @@ public class GregorianProperties : GJTestData
     [Benchmark(Description = "CivilDate", Baseline = true)]
     public void WithCivilDate()
     {
-        CivilDate date = new(Year, Month, Day);
+        var date = SampleCivilDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -51,7 +46,7 @@ public class GregorianProperties : GJTestData
     [Benchmark(Description = "GregorianDate")]
     public void WithGregorianDate()
     {
-        GregorianDate date = new(Year, Month, Day);
+        var date = SampleGregorianDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -71,7 +66,7 @@ public class GregorianProperties : GJTestData
     [Benchmark(Description = "LocalDate (NodaTime)")]
     public void WithLocalDate()
     {
-        LocalDate date = new(Year, Month, Day);
+        var date = SampleLocalDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -87,7 +82,7 @@ public class GregorianProperties : GJTestData
     [Benchmark(Description = "DateOnly (BCL)")]
     public void WithDateOnly()
     {
-        DateOnly date = new(Year, Month, Day);
+        var date = SampleDateOnly;
 
         int y = date.Year;
         int m = date.Month;
@@ -105,7 +100,7 @@ public class GregorianProperties : GJTestData
     [Benchmark(Description = "DateTime (BCL)")]
     public void WithDateTime()
     {
-        DateTime date = new(Year, Month, Day);
+        var date = SampleDateTime;
 
         int y = date.Year;
         int m = date.Month;

@@ -1,0 +1,40 @@
+﻿// SPDX-License-Identifier: BSD-3-Clause
+// Copyright (c) Tran Ngoc Bich. All rights reserved.
+
+namespace Benchmarks.Gregorian;
+
+using Calendrie;
+using Calendrie.Specialized;
+
+using NodaTime;
+
+// Benchmarks for yesterday.
+
+public class Yesterday : GJSampleData
+{
+    private readonly GJSample _sample;
+
+    public Yesterday()
+    {
+        Option = BenchmarkOption.Slow;
+        _sample = new GJSample(Year, Month, Day);
+    }
+
+    [Benchmark(Description = "DayNumber")]
+    public DayNumber WithDayNumber() => _sample.DayNumber.PreviousDay();
+
+    [Benchmark(Description = "CivilDate", Baseline = true)]
+    public CivilDate WithCivilDate() => _sample.CivilDate.PreviousDay();
+
+    [Benchmark(Description = "GregorianDate")]
+    public GregorianDate WithGregorianDate() => _sample.GregorianDate.PreviousDay();
+
+    [Benchmark(Description = "LocalDate (NodaTime)")]
+    public LocalDate WithLocalDate() => _sample.LocalDate.PlusDays(-1);
+
+    [Benchmark(Description = "DateOnly (BCL)")]
+    public DateOnly WithDateOnly() => _sample.DateOnly.AddDays(-1);
+
+    [Benchmark(Description = "DateTime (BCL)")]
+    public DateTime WithDateTime() => _sample.DateTime.AddDays(-1);
+}

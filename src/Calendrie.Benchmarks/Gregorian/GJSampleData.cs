@@ -1,19 +1,57 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Tests;
+namespace Benchmarks.Gregorian;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
 using Calendrie;
 using Calendrie.Core;
+using Calendrie.Specialized;
 
-public abstract class GJTestData
+using NodaTime;
+
+public sealed record GJSample
 {
-    protected GJTestData() { }
+    public GJSample(int year, int month, int day)
+    {
+        Year = year;
+        Month = month;
+        Day = day;
+
+        DayNumber = DayNumber.FromGregorianParts(Year, Month, Day);
+        CivilDate = new(Year, Month, Day);
+        GregorianDate = new(Year, Month, Day);
+        LocalDate = new(Year, Month, Day);
+        DateOnly = new(Year, Month, Day);
+        DateTime = new(Year, Month, Day);
+    }
+
+    public int Year { get; init; }
+    public int Month { get; init; }
+    public int Day { get; init; }
+
+    public DayNumber DayNumber { get; }
+    public CivilDate CivilDate { get; }
+    public GregorianDate GregorianDate { get; }
+    public LocalDate LocalDate { get; }
+    public DateOnly DateOnly { get; }
+    public DateTime DateTime { get; }
+}
+
+public abstract class GJSampleData
+{
+    protected GJSampleData() { }
 
     protected BenchmarkOption Option { get; init; }
+
+    protected DayNumber SampleDayNumber => DayNumber.FromGregorianParts(Year, Month, Day);
+    protected CivilDate SampleCivilDate => new(Year, Month, Day);
+    protected GregorianDate SampleGregorianDate => new(Year, Month, Day);
+    protected LocalDate SampleLocalDate => new(Year, Month, Day);
+    protected DateOnly SampleDateOnly => new(Year, Month, Day);
+    protected DateTime SampleDateTime => new(Year, Month, Day);
 
     /// <summary>Gets the Gregorian/Julian year.</summary>
     protected int Year => Option switch
