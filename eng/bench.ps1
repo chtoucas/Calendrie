@@ -16,6 +16,10 @@ param(
     [ValidateSet('Default', 'Dry', 'Short', 'Medium', 'Long')]
     [Alias('j')] [string] $Job = 'Default',
 
+    [Parameter(Mandatory = $false, ParameterSetName = 'Benchmark')]
+    [ValidateSet('0', '1')]
+    [Alias('d')] [string] $Disassemble = '',
+
     [Alias('q')] [switch] $Quiet,
                  [switch] $NoBuild,
 
@@ -37,6 +41,7 @@ Usage: bench.ps1 [arguments]
 
   -f|-Filter
   -j|-Job
+  -d|-Disassamble
 
   -q|-Quiet
      -NoBuild        do NOT build the benchmark project?
@@ -77,6 +82,11 @@ try {
 
         'Benchmark' {
             $outDir = Join-Path $ArtifactsDir "benchmarks"
+
+            if ($Disassemble) {
+                $args += '--disasm'
+                $args += "--disasmDepth=$Disassemble"
+            }
 
             & dotnet run --project $benchmarkProject $args `
                 --artifacts $outDir `
