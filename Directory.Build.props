@@ -32,7 +32,7 @@
     <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
 
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)eng\Calendrie.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Calendrie.snk</AssemblyOriginatorKeyFile>
 
     <Authors>Tran Ngoc Bich</Authors>
     <!--<Company></Company>-->
