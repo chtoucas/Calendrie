@@ -10,9 +10,9 @@ using NodaTime;
 
 // Benchmarks for the ctor.
 
-public class Ctor : GJSampleData
+public class Ctor : GJComparisons
 {
-    public Ctor() { Option = BenchmarkOption.Fixed; }
+    public Ctor() { SampleKind = GJSampleKind.Slow; }
 
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => DayNumber.FromGregorianParts(Year, Month, Day);

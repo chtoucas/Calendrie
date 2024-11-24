@@ -10,13 +10,13 @@ using NodaTime;
 
 // Benchmarks for yesterday.
 
-public class Yesterday : GJSampleData
+public class Yesterday : GJComparisons
 {
     private readonly GJSample _sample;
 
     public Yesterday()
     {
-        Option = BenchmarkOption.Slow;
+        SampleKind = GJSampleKind.Fixed;
         _sample = new GJSample(Year, Month, Day);
     }
 

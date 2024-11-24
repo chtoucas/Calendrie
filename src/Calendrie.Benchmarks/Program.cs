@@ -10,7 +10,6 @@ using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Validators;
 
-[DisassemblyDiagnoser(maxDepth: 0)]
 internal static class Program
 {
     public static void Main(string[] args)

@@ -40,11 +40,19 @@ public sealed record GJSample
     public DateTime DateTime { get; }
 }
 
-public abstract class GJSampleData
+public enum GJSampleKind
 {
-    protected GJSampleData() { }
+    Now = 0,
+    Fixed,
+    Slow,
+    Random,
+}
 
-    protected BenchmarkOption Option { get; init; }
+public abstract class GJComparisons
+{
+    protected GJComparisons() { }
+
+    protected GJSampleKind SampleKind { get; init; }
 
     protected DayNumber SampleDayNumber => DayNumber.FromGregorianParts(Year, Month, Day);
     protected CivilDate SampleCivilDate => new(Year, Month, Day);
@@ -54,52 +62,52 @@ public abstract class GJSampleData
     protected DateTime SampleDateTime => new(Year, Month, Day);
 
     /// <summary>Gets the Gregorian/Julian year.</summary>
-    protected int Year => Option switch
+    protected int Year => SampleKind switch
     {
-        BenchmarkOption.Now => Now.Year,
-        BenchmarkOption.Fixed => Fixed.Year,
-        BenchmarkOption.Slow => Slow.Year,
-        BenchmarkOption.Random => Random.Year,
+        GJSampleKind.Now => Now.Year,
+        GJSampleKind.Fixed => Fixed.Year,
+        GJSampleKind.Slow => Slow.Year,
+        GJSampleKind.Random => Random.Year,
         _ => Now.Year,
     };
 
     /// <summary>Gets the Gregorian/Julian month.</summary>
-    protected int Month => Option switch
+    protected int Month => SampleKind switch
     {
-        BenchmarkOption.Now => Now.Month,
-        BenchmarkOption.Fixed => Fixed.Month,
-        BenchmarkOption.Slow => Slow.Month,
-        BenchmarkOption.Random => Random.Month,
+        GJSampleKind.Now => Now.Month,
+        GJSampleKind.Fixed => Fixed.Month,
+        GJSampleKind.Slow => Slow.Month,
+        GJSampleKind.Random => Random.Month,
         _ => Now.Month,
     };
 
     /// <summary>Gets the Gregorian/Julian day.</summary>
-    protected int Day => Option switch
+    protected int Day => SampleKind switch
     {
-        BenchmarkOption.Now => Now.Day,
-        BenchmarkOption.Fixed => Fixed.Day,
-        BenchmarkOption.Slow => Slow.Day,
-        BenchmarkOption.Random => Random.Day,
+        GJSampleKind.Now => Now.Day,
+        GJSampleKind.Fixed => Fixed.Day,
+        GJSampleKind.Slow => Slow.Day,
+        GJSampleKind.Random => Random.Day,
         _ => Now.Day,
     };
 
     /// <summary>Gets the Gregorian day of the year.</summary>
-    protected int DayOfYear => Option switch
+    protected int DayOfYear => SampleKind switch
     {
-        BenchmarkOption.Now => Now.DayOfYear,
-        BenchmarkOption.Fixed => Fixed.DayOfYear,
-        BenchmarkOption.Slow => Slow.DayOfYear,
-        BenchmarkOption.Random => Random.DayOfYear,
+        GJSampleKind.Now => Now.DayOfYear,
+        GJSampleKind.Fixed => Fixed.DayOfYear,
+        GJSampleKind.Slow => Slow.DayOfYear,
+        GJSampleKind.Random => Random.DayOfYear,
         _ => Now.DayOfYear,
     };
 
     /// <summary>Gets the Gregorian value for daysSinceEpoch.</summary>
-    protected int DaysSinceEpoch => Option switch
+    protected int DaysSinceEpoch => SampleKind switch
     {
-        BenchmarkOption.Now => Now.DaysSinceEpoch,
-        BenchmarkOption.Fixed => Fixed.DaysSinceEpoch,
-        BenchmarkOption.Slow => Slow.DaysSinceEpoch,
-        BenchmarkOption.Random => Random.DaysSinceEpoch,
+        GJSampleKind.Now => Now.DaysSinceEpoch,
+        GJSampleKind.Fixed => Fixed.DaysSinceEpoch,
+        GJSampleKind.Slow => Slow.DaysSinceEpoch,
+        GJSampleKind.Random => Random.DaysSinceEpoch,
         _ => Now.DaysSinceEpoch,
     };
 

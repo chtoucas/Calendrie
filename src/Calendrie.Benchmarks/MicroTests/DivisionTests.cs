@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 
 using Calendrie.Core.Utilities;
 
-[DisassemblyDiagnoser]
 public class DivisionTests
 {
     private const int Dividor = 31;
