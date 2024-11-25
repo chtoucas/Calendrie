@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Gregorian;
+namespace Benchmarks.Julian;
 
 using Calendrie.Specialized;
 
@@ -28,12 +28,8 @@ public class PlusDays : GJComparisons
     public DayNumber WithDayNumber7() => _sample.DayNumber.PlusDays(7);
 
     [BenchmarkCategory("+7")]
-    [Benchmark(Description = "CivilDate")]
-    public CivilDate WithCivilDate7() => _sample.CivilDate.PlusDays(7);
-
-    [BenchmarkCategory("+7")]
-    [Benchmark(Description = "GregorianDate")]
-    public GregorianDate WithGregorianDate7() => _sample.GregorianDate.PlusDays(7);
+    [Benchmark(Description = "JulianDate")]
+    public JulianDate WithJulianDate7() => _sample.JulianDate.PlusDays(7);
 
     [BenchmarkCategory("+7")]
     [Benchmark(Description = "LocalDate (NodaTime)")]
@@ -56,12 +52,8 @@ public class PlusDays : GJComparisons
     public DayNumber WithDayNumber31() => _sample.DayNumber.PlusDays(31);
 
     [BenchmarkCategory("+31")]
-    [Benchmark(Description = "CivilDate")]
-    public CivilDate WithCivilDate31() => _sample.CivilDate.PlusDays(31);
-
-    [BenchmarkCategory("+31")]
-    [Benchmark(Description = "GregorianDate")]
-    public GregorianDate WithGregorianDate31() => _sample.GregorianDate.PlusDays(31);
+    [Benchmark(Description = "JulianDate")]
+    public JulianDate WithJulianDate31() => _sample.JulianDate.PlusDays(31);
 
     [BenchmarkCategory("+31")]
     [Benchmark(Description = "LocalDate (NodaTime)")]
@@ -84,12 +76,8 @@ public class PlusDays : GJComparisons
     public DayNumber WithDayNumber401() => _sample.DayNumber.PlusDays(401);
 
     [BenchmarkCategory("+401")]
-    [Benchmark(Description = "CivilDate")]
-    public CivilDate WithCivilDate401() => _sample.CivilDate.PlusDays(401);
-
-    [BenchmarkCategory("+401")]
-    [Benchmark(Description = "GregorianDate")]
-    public GregorianDate WithGregorianDate401() => _sample.GregorianDate.PlusDays(401);
+    [Benchmark(Description = "JulianDate")]
+    public JulianDate WithJulianDate401() => _sample.JulianDate.PlusDays(401);
 
     [BenchmarkCategory("+401")]
     [Benchmark(Description = "LocalDate (NodaTime)")]

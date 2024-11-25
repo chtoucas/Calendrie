@@ -23,6 +23,7 @@ public sealed record GJSample
         DayNumber = DayNumber.FromGregorianParts(Year, Month, Day);
         CivilDate = new(Year, Month, Day);
         GregorianDate = new(Year, Month, Day);
+        JulianDate = new(Year, Month, Day);
         LocalDate = new(Year, Month, Day);
         DateOnly = new(Year, Month, Day);
         DateTime = new(Year, Month, Day);
@@ -35,6 +36,7 @@ public sealed record GJSample
     public DayNumber DayNumber { get; }
     public CivilDate CivilDate { get; }
     public GregorianDate GregorianDate { get; }
+    public JulianDate JulianDate { get; }
     public LocalDate LocalDate { get; }
     public DateOnly DateOnly { get; }
     public DateTime DateTime { get; }

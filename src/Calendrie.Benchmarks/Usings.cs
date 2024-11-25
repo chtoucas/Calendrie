@@ -2,6 +2,7 @@
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
 global using BenchmarkDotNet.Attributes;
+global using BenchmarkDotNet.Configs;
 
 global using Calendrie;
 global using Calendrie.Core;

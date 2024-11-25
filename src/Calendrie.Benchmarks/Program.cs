@@ -4,7 +4,6 @@
 namespace Benchmarks;
 
 using BenchmarkDotNet.Columns;
-using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Running;
