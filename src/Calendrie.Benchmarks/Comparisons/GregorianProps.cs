@@ -1,22 +1,40 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Gregorian;
+namespace Benchmarks.Comparisons;
 
-public class Props : GJComparisons
+using Benchmarks;
+
+using Calendrie.Specialized;
+
+using NodaTime;
+
+public class GregorianProps
 {
-    private readonly GJSample _sample;
+    private DayNumber _dayNumber;
+    private CivilDate _civilDate;
+    private DateOnly _dateOnly;
+    private DateTime _dateTime;
+    private GregorianDate _gregorianDate;
+    private LocalDate _localDate;
 
-    public Props()
+    [GlobalSetup]
+    public void GlobalSetup()
     {
-        SampleKind = GJSampleKind.Fixed;
-        _sample = new GJSample(Year, Month, Day);
+        var sample = new GJSample { SampleKind = GJSampleKind.Fixed };
+
+        _dayNumber = sample.DayNumber;
+        _civilDate = sample.CivilDate;
+        _dateTime = sample.DateTime;
+        _dateOnly = sample.DateOnly;
+        _gregorianDate = sample.GregorianDate;
+        _localDate = sample.LocalDate;
     }
 
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()
     {
-        var date = _sample.DayNumber;
+        var date = _dayNumber;
         var parts = date.GetGregorianParts();
         var oparts = date.GetGregorianOrdinalParts();
 
@@ -34,7 +52,7 @@ public class Props : GJComparisons
     [Benchmark(Description = "CivilDate")]
     public void WithCivilDate()
     {
-        var date = _sample.CivilDate;
+        var date = _civilDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -50,7 +68,7 @@ public class Props : GJComparisons
     [Benchmark(Description = "GregorianDate")]
     public void WithGregorianDate()
     {
-        var date = _sample.GregorianDate;
+        var date = _gregorianDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -70,7 +88,7 @@ public class Props : GJComparisons
     [Benchmark(Description = "LocalDate (NodaTime)")]
     public void WithLocalDate()
     {
-        var date = _sample.LocalDate;
+        var date = _localDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -86,7 +104,7 @@ public class Props : GJComparisons
     [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
     public void WithDateOnly()
     {
-        var date = _sample.DateOnly;
+        var date = _dateOnly;
 
         int y = date.Year;
         int m = date.Month;
@@ -104,7 +122,7 @@ public class Props : GJComparisons
     [Benchmark(Description = "DateTime (BCL)")]
     public void WithDateTime()
     {
-        var date = _sample.DateTime;
+        var date = _dateTime;
 
         int y = date.Year;
         int m = date.Month;

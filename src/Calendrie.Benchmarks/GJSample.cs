@@ -12,52 +12,31 @@ using Calendrie.Specialized;
 
 using NodaTime;
 
-public sealed record GJSample
-{
-    public GJSample(int year, int month, int day)
-    {
-        Year = year;
-        Month = month;
-        Day = day;
-
-        DayNumber = DayNumber.FromGregorianParts(Year, Month, Day);
-        CivilDate = new(Year, Month, Day);
-        GregorianDate = new(Year, Month, Day);
-        JulianDate = new(Year, Month, Day);
-        LocalDate = new(Year, Month, Day);
-        DateOnly = new(Year, Month, Day);
-        DateTime = new(Year, Month, Day);
-    }
-
-    public int Year { get; init; }
-    public int Month { get; init; }
-    public int Day { get; init; }
-
-    public DayNumber DayNumber { get; }
-    public CivilDate CivilDate { get; }
-    public GregorianDate GregorianDate { get; }
-    public JulianDate JulianDate { get; }
-    public LocalDate LocalDate { get; }
-    public DateOnly DateOnly { get; }
-    public DateTime DateTime { get; }
-}
-
 public enum GJSampleKind
 {
-    Now = 0,
-    Fixed,
+    Fixed = 0,
     Slow,
+    Now,
     Random,
 }
 
-public abstract class GJComparisons
+public sealed class GJSample
 {
-    protected GJComparisons() { }
+    public GJSampleKind SampleKind { get; init; }
 
-    protected GJSampleKind SampleKind { get; init; }
+    /// <summary>Gets the Gregorian date.</summary>
+    public CivilDate CivilDate => new(Year, Month, Day);
+    /// <summary>Gets the Gregorian date.</summary>
+    public GregorianDate GregorianDate => new(Year, Month, Day);
+    /// <summary>Gets the Gregorian date.</summary>
+    public LocalDate LocalDate => new(Year, Month, Day);
+    /// <summary>Gets the Gregorian date.</summary>
+    public DateOnly DateOnly => new(Year, Month, Day);
+    /// <summary>Gets the Gregorian date-time.</summary>
+    public DateTime DateTime => new(Year, Month, Day);
 
     /// <summary>Gets the Gregorian/Julian year.</summary>
-    protected int Year => SampleKind switch
+    public int Year => SampleKind switch
     {
         GJSampleKind.Now => Now.Year,
         GJSampleKind.Fixed => Fixed.Year,
@@ -67,7 +46,7 @@ public abstract class GJComparisons
     };
 
     /// <summary>Gets the Gregorian/Julian month.</summary>
-    protected int Month => SampleKind switch
+    public int Month => SampleKind switch
     {
         GJSampleKind.Now => Now.Month,
         GJSampleKind.Fixed => Fixed.Month,
@@ -77,7 +56,7 @@ public abstract class GJComparisons
     };
 
     /// <summary>Gets the Gregorian/Julian day.</summary>
-    protected int Day => SampleKind switch
+    public int Day => SampleKind switch
     {
         GJSampleKind.Now => Now.Day,
         GJSampleKind.Fixed => Fixed.Day,
@@ -87,7 +66,7 @@ public abstract class GJComparisons
     };
 
     /// <summary>Gets the Gregorian day of the year.</summary>
-    protected int DayOfYear => SampleKind switch
+    public int DayOfYear => SampleKind switch
     {
         GJSampleKind.Now => Now.DayOfYear,
         GJSampleKind.Fixed => Fixed.DayOfYear,
@@ -97,7 +76,7 @@ public abstract class GJComparisons
     };
 
     /// <summary>Gets the Gregorian value for daysSinceEpoch.</summary>
-    protected int DaysSinceEpoch => SampleKind switch
+    public int DaysSinceEpoch => SampleKind switch
     {
         GJSampleKind.Now => Now.DaysSinceEpoch,
         GJSampleKind.Fixed => Fixed.DaysSinceEpoch,
@@ -107,10 +86,13 @@ public abstract class GJComparisons
     };
 
     /// <summary>Gets the Gregorian day number.</summary>
-    protected DayNumber DayNumber => DayZero.NewStyle + DaysSinceEpoch;
+    public DayNumber DayNumber => DayZero.NewStyle + DaysSinceEpoch;
 
-    protected Yemoda Ymd => new(Year, Month, Day);
-    protected Yemo Ym => new(Year, Month);
+    public Yemoda Ymd => new(Year, Month, Day);
+    public Yemo Ym => new(Year, Month);
+
+    public void Deconstruct(out int year, out int month, out int day) =>
+        (year, month, day) = (Year, Month, Day);
 
     private static class Now
     {
