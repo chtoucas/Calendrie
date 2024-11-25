@@ -4,13 +4,14 @@
 
 [CmdletBinding(DefaultParameterSetName = 'Benchmark')]
 param(
-    [Parameter(Mandatory = $false, ParameterSetName = 'List')]
-    [ValidateSet('flat', 'tree')]
-    [Alias('l')] [string] $List = 'flat',
-
+    [Parameter(Mandatory = $false, ParameterSetName = 'List', Position = 0)]
     [Parameter(Mandatory = $true, ParameterSetName = 'Benchmark', Position = 0)]
     [ValidateNotNullOrWhiteSpace()]
     [Alias('f')] [string] $Filter,
+
+    [Parameter(Mandatory = $false, ParameterSetName = 'List')]
+    [ValidateSet('flat', 'tree')]
+    [Alias('l')] [string] $List = 'flat',
 
     [Parameter(Mandatory = $false, ParameterSetName = 'Benchmark')]
     [ValidateSet('Default', 'Dry', 'Short', 'Medium', 'Long')]
@@ -50,7 +51,7 @@ Usage: bench.ps1 [arguments]
 
 Examples.
 > bench.ps1 -l
-> bench.ps1 *       # Run all tests (most certainly a bad idea)
+> bench.ps1 *       # Run all tests
 > bench.ps1 *XXX    # Run tests whose names end with XXX
 "@
 }
@@ -75,6 +76,10 @@ try {
 
     switch ($PSCmdlet.ParameterSetName) {
         'List' {
+            if ($Filter) {
+                $args += "--filter=$Filter"
+            }
+
             & dotnet run --project $benchmarkProject $args --list $List
 
             break
