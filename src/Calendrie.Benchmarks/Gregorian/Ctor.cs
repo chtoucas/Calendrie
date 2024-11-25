@@ -14,7 +14,7 @@ public class Ctor : GJComparisons
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => DayNumber.FromGregorianParts(Year, Month, Day);
 
-    [Benchmark(Description = "CivilDate", Baseline = true)]
+    [Benchmark(Description = "CivilDate")]
     public CivilDate WithCivilDate() => new(Year, Month, Day);
 
     [Benchmark(Description = "GregorianDate")]
@@ -23,7 +23,7 @@ public class Ctor : GJComparisons
     [Benchmark(Description = "LocalDate (NodaTime)")]
     public LocalDate WithLocalDate() => new(Year, Month, Day);
 
-    [Benchmark(Description = "DateOnly (BCL)")]
+    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
     public DateOnly WithDateOnly() => new(Year, Month, Day);
 
     [Benchmark(Description = "DateTime (BCL)")]

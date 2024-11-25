@@ -3,11 +3,11 @@
 
 namespace Benchmarks.Gregorian;
 
-public class Properties : GJComparisons
+public class Props : GJComparisons
 {
     private readonly GJSample _sample;
 
-    public Properties()
+    public Props()
     {
         SampleKind = GJSampleKind.Fixed;
         _sample = new GJSample(Year, Month, Day);
@@ -31,7 +31,7 @@ public class Properties : GJComparisons
         Consume(in dayOfYear);
     }
 
-    [Benchmark(Description = "CivilDate", Baseline = true)]
+    [Benchmark(Description = "CivilDate")]
     public void WithCivilDate()
     {
         var date = _sample.CivilDate;
@@ -83,7 +83,7 @@ public class Properties : GJComparisons
         Consume(in dayOfYear);
     }
 
-    [Benchmark(Description = "DateOnly (BCL)")]
+    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
     public void WithDateOnly()
     {
         var date = _sample.DateOnly;

@@ -20,7 +20,7 @@ public class Yesterday : GJComparisons
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => _sample.DayNumber.PreviousDay();
 
-    [Benchmark(Description = "CivilDate", Baseline = true)]
+    [Benchmark(Description = "CivilDate")]
     public CivilDate WithCivilDate() => _sample.CivilDate.PreviousDay();
 
     [Benchmark(Description = "GregorianDate")]
@@ -29,7 +29,7 @@ public class Yesterday : GJComparisons
     [Benchmark(Description = "LocalDate (NodaTime)")]
     public LocalDate WithLocalDate() => _sample.LocalDate.PlusDays(-1);
 
-    [Benchmark(Description = "DateOnly (BCL)")]
+    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
     public DateOnly WithDateOnly() => _sample.DateOnly.AddDays(-1);
 
     [Benchmark(Description = "DateTime (BCL)")]
