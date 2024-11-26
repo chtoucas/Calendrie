@@ -3,8 +3,6 @@
 
 namespace Benchmarks;
 
-using System.Runtime.CompilerServices;
-
 using NodaTime;
 
 /// <summary>

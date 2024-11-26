@@ -1,13 +1,11 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Misc;
-
-using System.Runtime.CompilerServices;
+namespace Benchmarks.Comparisons;
 
 using Calendrie.Core.Utilities;
 
-public class DivisionTests
+public class Division
 {
     private const int Dividor = 31;
     private const int Dividend = 5_484_955;
