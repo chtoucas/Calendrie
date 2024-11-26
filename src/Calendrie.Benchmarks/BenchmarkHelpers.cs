@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 using NodaTime;
 
-internal enum GJDateKind
+internal enum GJDateType
 {
     FixedFast = 0,
     FixedSlow,
@@ -53,33 +53,29 @@ internal partial class BenchmarkHelpers // Consume
 
 internal partial class BenchmarkHelpers // Gregorian/Julian
 {
-    public static DateParts CreateGregorianParts() => CreateGregorianParts(GJDateKind.FixedFast);
+    public static DateParts CreateGregorianParts() => CreateGregorianParts(GJDateType.FixedFast);
 
-    public static DateParts CreateGregorianParts(GJDateKind kind)
+    public static DateParts CreateGregorianParts(GJDateType type)
     {
-        return kind switch
+        return type switch
         {
-            GJDateKind.FixedFast => new(FixedFast.Year, FixedFast.Month, FixedFast.Day),
-            GJDateKind.FixedSlow => new(FixedSlow.Year, FixedSlow.Month, FixedSlow.Day),
-            GJDateKind.Random => new(Random.Year, Random.Month, Random.Day),
-            _ => throw new ArgumentException(
-                $"The value is not valid; value = {kind}.",
-                nameof(kind))
+            GJDateType.FixedFast => new(FixedFast.Year, FixedFast.Month, FixedFast.Day),
+            GJDateType.FixedSlow => new(FixedSlow.Year, FixedSlow.Month, FixedSlow.Day),
+            GJDateType.Random => new(Random.Year, Random.Month, Random.Day),
+            _ => throw new ArgumentException($"The value is not valid; value = {type}.", nameof(type))
         };
     }
 
-    public static DateParts CreateJulianParts() => CreateJulianParts(GJDateKind.FixedFast);
+    public static DateParts CreateJulianParts() => CreateJulianParts(GJDateType.FixedFast);
 
-    public static DateParts CreateJulianParts(GJDateKind kind = GJDateKind.FixedFast)
+    public static DateParts CreateJulianParts(GJDateType type = GJDateType.FixedFast)
     {
-        return kind switch
+        return type switch
         {
-            GJDateKind.FixedFast => new(FixedFast.Year, FixedFast.Month, FixedFast.Day),
-            GJDateKind.FixedSlow => new(FixedSlow.Year, FixedSlow.Month, FixedSlow.Day),
-            GJDateKind.Random => new(Random.Year, Random.Month, Random.Day),
-            _ => throw new ArgumentException(
-                $"The value is not valid or not supported; value = {kind}.",
-                nameof(kind))
+            GJDateType.FixedFast => new(FixedFast.Year, FixedFast.Month, FixedFast.Day),
+            GJDateType.FixedSlow => new(FixedSlow.Year, FixedSlow.Month, FixedSlow.Day),
+            GJDateType.Random => new(Random.Year, Random.Month, Random.Day),
+            _ => throw new ArgumentException($"The value is not valid; value = {type}.", nameof(type))
         };
     }
 

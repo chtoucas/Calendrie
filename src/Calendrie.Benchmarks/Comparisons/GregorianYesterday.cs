@@ -9,7 +9,7 @@ using NodaTime;
 
 public class GregorianYesterday : GregorianComparisons
 {
-    public GregorianYesterday() : base(GJDateKind.FixedFast) { }
+    public GregorianYesterday() : base(GJDateType.FixedFast) { }
 
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => dayNumber.PreviousDay();

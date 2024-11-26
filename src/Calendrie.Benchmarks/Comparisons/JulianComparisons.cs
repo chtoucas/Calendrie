@@ -15,9 +15,9 @@ public abstract class JulianComparisons
     private protected DateTime dateTime;
     private protected LocalDate localDate;
 
-    private protected JulianComparisons(GJDateKind kind = GJDateKind.FixedFast)
+    private protected JulianComparisons(GJDateType type = GJDateType.FixedFast)
     {
-        Parts = BenchmarkHelpers.CreateJulianParts(kind);
+        Parts = BenchmarkHelpers.CreateJulianParts(type);
     }
 
     protected DateParts Parts { get; }

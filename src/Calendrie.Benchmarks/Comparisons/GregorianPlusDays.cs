@@ -7,8 +7,8 @@ using Calendrie.Specialized;
 
 using NodaTime;
 
-[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 public class GregorianPlusDays : GregorianComparisons
 {
     //
