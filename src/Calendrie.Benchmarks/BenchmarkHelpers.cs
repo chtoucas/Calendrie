@@ -12,8 +12,8 @@ internal enum GJSampleKind
 {
     Fixed = 0,
     Slow,
-    Now,
     Random,
+    Now,
 }
 
 /// <summary>
@@ -56,10 +56,10 @@ internal partial class BenchmarkHelpers
     {
         return kind switch
         {
-            GJSampleKind.Now => new(Now.Year, Now.Month, Now.Day),
+            GJSampleKind.Fixed => new(Fixed.Year, Fixed.Month, Fixed.Day),
             GJSampleKind.Slow => new(Slow.Year, Slow.Month, Slow.Day),
             GJSampleKind.Random => new(Random.Year, Random.Month, Random.Day),
-            GJSampleKind.Fixed => new(Now.Year, Now.Month, Now.Day),
+            GJSampleKind.Now => new(Now.Year, Now.Month, Now.Day),
             _ => throw new ArgumentException(
                 $"The value is not valid; value = {kind}.",
                 nameof(kind))
@@ -70,9 +70,9 @@ internal partial class BenchmarkHelpers
     {
         return kind switch
         {
+            GJSampleKind.Fixed => new(Fixed.Year, Fixed.Month, Fixed.Day),
             GJSampleKind.Slow => new(Slow.Year, Slow.Month, Slow.Day),
             GJSampleKind.Random => new(Random.Year, Random.Month, Random.Day),
-            GJSampleKind.Fixed => new(Now.Year, Now.Month, Now.Day),
             GJSampleKind.Now or _ => throw new ArgumentException(
                 $"The value is not valid or not supported; value = {kind}.",
                 nameof(kind))
@@ -98,7 +98,7 @@ internal partial class BenchmarkHelpers
     /// <summary>Provides fixed Gregorian/Julian data (fast track).</summary>
     private static class Fixed
     {
-        // NB : NodaTime utilise un cache pour les dates de 1900 à 2100 dans
+        // NodaTime utilise un cache pour les dates allant de 1900 à 2100 dans
         // le calendrier grégorien.
 
         internal const int Year = 2017;
