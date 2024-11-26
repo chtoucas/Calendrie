@@ -39,9 +39,9 @@
     <Product>Calendrie</Product>
     <Copyright>Copyright (c) 2020 Tran Ngoc Bich</Copyright>
 
-    <!-- Fake version -->
-    <VersionPrefix>0.0.0</VersionPrefix>
-    <VersionSuffix>DUMMY</VersionSuffix>
+    <!-- Version -->
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <!--<VersionSuffix>DUMMY</VersionSuffix>-->
 
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/chtoucas/Calendrie/</RepositoryUrl>
