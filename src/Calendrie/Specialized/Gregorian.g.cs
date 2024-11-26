@@ -221,7 +221,7 @@ public partial struct GregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static GregorianDate operator +(GregorianDate value, int days) => value.PlusDays(days);
+    public static GregorianDate operator +(GregorianDate value, int days) => value.AddDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -229,7 +229,7 @@ public partial struct GregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static GregorianDate operator -(GregorianDate value, int days) => value.PlusDays(-days);
+    public static GregorianDate operator -(GregorianDate value, int days) => value.AddDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -255,7 +255,7 @@ public partial struct GregorianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate PlusDays(int days)
+    public GregorianDate AddDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceZero + days);
         // Don't write (the addition may also overflow...):

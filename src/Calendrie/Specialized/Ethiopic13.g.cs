@@ -398,7 +398,7 @@ public partial struct Ethiopic13Date // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static Ethiopic13Date operator +(Ethiopic13Date value, int days) => value.PlusDays(days);
+    public static Ethiopic13Date operator +(Ethiopic13Date value, int days) => value.AddDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -406,7 +406,7 @@ public partial struct Ethiopic13Date // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static Ethiopic13Date operator -(Ethiopic13Date value, int days) => value.PlusDays(-days);
+    public static Ethiopic13Date operator -(Ethiopic13Date value, int days) => value.AddDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -432,7 +432,7 @@ public partial struct Ethiopic13Date // Math
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date PlusDays(int days)
+    public Ethiopic13Date AddDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         // Don't write (the addition may also overflow...):

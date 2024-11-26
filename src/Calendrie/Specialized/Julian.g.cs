@@ -219,7 +219,7 @@ public partial struct JulianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static JulianDate operator +(JulianDate value, int days) => value.PlusDays(days);
+    public static JulianDate operator +(JulianDate value, int days) => value.AddDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -227,7 +227,7 @@ public partial struct JulianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static JulianDate operator -(JulianDate value, int days) => value.PlusDays(-days);
+    public static JulianDate operator -(JulianDate value, int days) => value.AddDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -253,7 +253,7 @@ public partial struct JulianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate PlusDays(int days)
+    public JulianDate AddDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         // Don't write (the addition may also overflow...):

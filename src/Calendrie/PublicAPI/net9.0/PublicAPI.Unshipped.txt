@@ -483,6 +483,7 @@ Calendrie.DateParts.MonthParts.get -> Calendrie.MonthParts
 Calendrie.DateParts.Year.get -> int
 Calendrie.DateParts.Year.init -> void
 Calendrie.DayNumber
+Calendrie.DayNumber.AddDays(int days) -> Calendrie.DayNumber
 Calendrie.DayNumber.CompareTo(Calendrie.DayNumber other) -> int
 Calendrie.DayNumber.CountDaysSince(Calendrie.DayNumber other) -> int
 Calendrie.DayNumber.DayNumber() -> void
@@ -500,7 +501,6 @@ Calendrie.DayNumber.Next(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayNumber.NextDay() -> Calendrie.DayNumber
 Calendrie.DayNumber.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayNumber.Ordinal.get -> Calendrie.Ord
-Calendrie.DayNumber.PlusDays(int days) -> Calendrie.DayNumber
 Calendrie.DayNumber.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayNumber.PreviousDay() -> Calendrie.DayNumber
 Calendrie.DayNumber.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
@@ -583,9 +583,9 @@ Calendrie.Hemerology.IFixedDate<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) ->
 Calendrie.Hemerology.IFixedDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IStandardArithmetic<TSelf>
+Calendrie.Hemerology.IStandardArithmetic<TSelf>.AddDays(int days) -> TSelf
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.CountDaysSince(TSelf other) -> int
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.NextDay() -> TSelf
-Calendrie.Hemerology.IStandardArithmetic<TSelf>.PlusDays(int days) -> TSelf
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.PreviousDay() -> TSelf
 Calendrie.Hemerology.MinMaxYearCalendar
 Calendrie.Hemerology.MinMaxYearCalendar.MinMaxYearCalendar(string! name, Calendrie.Hemerology.Scopes.MinMaxYearScope! scope) -> void
@@ -650,6 +650,7 @@ Calendrie.Specialized.Armenian13Calendar.Armenian13Calendar() -> void
 Calendrie.Specialized.Armenian13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Armenian13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Armenian13Date
+Calendrie.Specialized.Armenian13Date.AddDays(int days) -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.Adjust(System.Func<Calendrie.Specialized.Armenian13Date, Calendrie.Specialized.Armenian13Date>! adjuster) -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.Armenian13Date() -> void
 Calendrie.Specialized.Armenian13Date.Armenian13Date(int year, int dayOfYear) -> void
@@ -678,7 +679,6 @@ Calendrie.Specialized.Armenian13Date.Nearest(System.DayOfWeek dayOfWeek) -> Cale
 Calendrie.Specialized.Armenian13Date.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.NextDay() -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Armenian13Date
-Calendrie.Specialized.Armenian13Date.PlusDays(int days) -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.PreviousDay() -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Armenian13Date
@@ -691,6 +691,7 @@ Calendrie.Specialized.ArmenianCalendar
 Calendrie.Specialized.ArmenianCalendar.ArmenianCalendar() -> void
 Calendrie.Specialized.ArmenianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.ArmenianDate
+Calendrie.Specialized.ArmenianDate.AddDays(int days) -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.Adjust(System.Func<Calendrie.Specialized.ArmenianDate, Calendrie.Specialized.ArmenianDate>! adjuster) -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.ArmenianDate() -> void
 Calendrie.Specialized.ArmenianDate.ArmenianDate(int year, int dayOfYear) -> void
@@ -719,7 +720,6 @@ Calendrie.Specialized.ArmenianDate.Nearest(System.DayOfWeek dayOfWeek) -> Calend
 Calendrie.Specialized.ArmenianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.NextDay() -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ArmenianDate
-Calendrie.Specialized.ArmenianDate.PlusDays(int days) -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.PreviousDay() -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ArmenianDate
@@ -732,6 +732,7 @@ Calendrie.Specialized.CivilCalendar
 Calendrie.Specialized.CivilCalendar.CivilCalendar() -> void
 Calendrie.Specialized.CivilCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.CivilDate
+Calendrie.Specialized.CivilDate.AddDays(int days) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.Adjust(System.Func<Calendrie.Specialized.CivilDate, Calendrie.Specialized.CivilDate>! adjuster) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.Century.get -> int
 Calendrie.Specialized.CivilDate.CenturyOfEra.get -> Calendrie.Ord
@@ -759,7 +760,6 @@ Calendrie.Specialized.CivilDate.Nearest(System.DayOfWeek dayOfWeek) -> Calendrie
 Calendrie.Specialized.CivilDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.NextDay() -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CivilDate
-Calendrie.Specialized.CivilDate.PlusDays(int days) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.PreviousDay() -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CivilDate
@@ -773,6 +773,7 @@ Calendrie.Specialized.Coptic13Calendar.Coptic13Calendar() -> void
 Calendrie.Specialized.Coptic13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Coptic13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Coptic13Date
+Calendrie.Specialized.Coptic13Date.AddDays(int days) -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.Adjust(System.Func<Calendrie.Specialized.Coptic13Date, Calendrie.Specialized.Coptic13Date>! adjuster) -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.Century.get -> int
 Calendrie.Specialized.Coptic13Date.CenturyOfEra.get -> Calendrie.Ord
@@ -801,7 +802,6 @@ Calendrie.Specialized.Coptic13Date.Nearest(System.DayOfWeek dayOfWeek) -> Calend
 Calendrie.Specialized.Coptic13Date.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.NextDay() -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Coptic13Date
-Calendrie.Specialized.Coptic13Date.PlusDays(int days) -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.PreviousDay() -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Coptic13Date
@@ -814,6 +814,7 @@ Calendrie.Specialized.CopticCalendar
 Calendrie.Specialized.CopticCalendar.CopticCalendar() -> void
 Calendrie.Specialized.CopticCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.CopticDate
+Calendrie.Specialized.CopticDate.AddDays(int days) -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.Adjust(System.Func<Calendrie.Specialized.CopticDate, Calendrie.Specialized.CopticDate>! adjuster) -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.Century.get -> int
 Calendrie.Specialized.CopticDate.CenturyOfEra.get -> Calendrie.Ord
@@ -842,7 +843,6 @@ Calendrie.Specialized.CopticDate.Nearest(System.DayOfWeek dayOfWeek) -> Calendri
 Calendrie.Specialized.CopticDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.NextDay() -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CopticDate
-Calendrie.Specialized.CopticDate.PlusDays(int days) -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.PreviousDay() -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CopticDate
@@ -856,6 +856,7 @@ Calendrie.Specialized.Ethiopic13Calendar.Ethiopic13Calendar() -> void
 Calendrie.Specialized.Ethiopic13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Ethiopic13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Ethiopic13Date
+Calendrie.Specialized.Ethiopic13Date.AddDays(int days) -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.Adjust(System.Func<Calendrie.Specialized.Ethiopic13Date, Calendrie.Specialized.Ethiopic13Date>! adjuster) -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.Century.get -> int
 Calendrie.Specialized.Ethiopic13Date.CenturyOfEra.get -> Calendrie.Ord
@@ -884,7 +885,6 @@ Calendrie.Specialized.Ethiopic13Date.Nearest(System.DayOfWeek dayOfWeek) -> Cale
 Calendrie.Specialized.Ethiopic13Date.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.NextDay() -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Ethiopic13Date
-Calendrie.Specialized.Ethiopic13Date.PlusDays(int days) -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.PreviousDay() -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Ethiopic13Date
@@ -897,6 +897,7 @@ Calendrie.Specialized.EthiopicCalendar
 Calendrie.Specialized.EthiopicCalendar.EthiopicCalendar() -> void
 Calendrie.Specialized.EthiopicCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.EthiopicDate
+Calendrie.Specialized.EthiopicDate.AddDays(int days) -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.Adjust(System.Func<Calendrie.Specialized.EthiopicDate, Calendrie.Specialized.EthiopicDate>! adjuster) -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.Century.get -> int
 Calendrie.Specialized.EthiopicDate.CenturyOfEra.get -> Calendrie.Ord
@@ -925,7 +926,6 @@ Calendrie.Specialized.EthiopicDate.Nearest(System.DayOfWeek dayOfWeek) -> Calend
 Calendrie.Specialized.EthiopicDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.NextDay() -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.EthiopicDate
-Calendrie.Specialized.EthiopicDate.PlusDays(int days) -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.PreviousDay() -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.EthiopicDate
@@ -938,6 +938,7 @@ Calendrie.Specialized.GregorianCalendar
 Calendrie.Specialized.GregorianCalendar.GregorianCalendar() -> void
 Calendrie.Specialized.GregorianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.GregorianDate
+Calendrie.Specialized.GregorianDate.AddDays(int days) -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.Adjust(System.Func<Calendrie.Specialized.GregorianDate, Calendrie.Specialized.GregorianDate>! adjuster) -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.Century.get -> int
 Calendrie.Specialized.GregorianDate.CenturyOfEra.get -> Calendrie.Ord
@@ -965,7 +966,6 @@ Calendrie.Specialized.GregorianDate.Nearest(System.DayOfWeek dayOfWeek) -> Calen
 Calendrie.Specialized.GregorianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.NextDay() -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.GregorianDate
-Calendrie.Specialized.GregorianDate.PlusDays(int days) -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.PreviousDay() -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.GregorianDate
@@ -978,6 +978,7 @@ Calendrie.Specialized.JulianCalendar
 Calendrie.Specialized.JulianCalendar.JulianCalendar() -> void
 Calendrie.Specialized.JulianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.JulianDate
+Calendrie.Specialized.JulianDate.AddDays(int days) -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.Adjust(System.Func<Calendrie.Specialized.JulianDate, Calendrie.Specialized.JulianDate>! adjuster) -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.Century.get -> int
 Calendrie.Specialized.JulianDate.CenturyOfEra.get -> Calendrie.Ord
@@ -1005,7 +1006,6 @@ Calendrie.Specialized.JulianDate.Nearest(System.DayOfWeek dayOfWeek) -> Calendri
 Calendrie.Specialized.JulianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.NextDay() -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.JulianDate
-Calendrie.Specialized.JulianDate.PlusDays(int days) -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.PreviousDay() -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.JulianDate
@@ -1039,6 +1039,7 @@ Calendrie.Specialized.TabularIslamicCalendar
 Calendrie.Specialized.TabularIslamicCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.TabularIslamicCalendar.TabularIslamicCalendar() -> void
 Calendrie.Specialized.TabularIslamicDate
+Calendrie.Specialized.TabularIslamicDate.AddDays(int days) -> Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.Adjust(System.Func<Calendrie.Specialized.TabularIslamicDate, Calendrie.Specialized.TabularIslamicDate>! adjuster) -> Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.Century.get -> int
 Calendrie.Specialized.TabularIslamicDate.CenturyOfEra.get -> Calendrie.Ord
@@ -1063,7 +1064,6 @@ Calendrie.Specialized.TabularIslamicDate.Nearest(System.DayOfWeek dayOfWeek) -> 
 Calendrie.Specialized.TabularIslamicDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.NextDay() -> Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.TabularIslamicDate
-Calendrie.Specialized.TabularIslamicDate.PlusDays(int days) -> Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.PreviousDay() -> Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.TabularIslamicDate
@@ -1080,6 +1080,7 @@ Calendrie.Specialized.WorldCalendar.CountDaysInWorldMonth(int year, int month) -
 Calendrie.Specialized.WorldCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.WorldCalendar.WorldCalendar() -> void
 Calendrie.Specialized.WorldDate
+Calendrie.Specialized.WorldDate.AddDays(int days) -> Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.Adjust(System.Func<Calendrie.Specialized.WorldDate, Calendrie.Specialized.WorldDate>! adjuster) -> Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.Century.get -> int
 Calendrie.Specialized.WorldDate.CenturyOfEra.get -> Calendrie.Ord
@@ -1105,7 +1106,6 @@ Calendrie.Specialized.WorldDate.Nearest(System.DayOfWeek dayOfWeek) -> Calendrie
 Calendrie.Specialized.WorldDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.NextDay() -> Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.WorldDate
-Calendrie.Specialized.WorldDate.PlusDays(int days) -> Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.PreviousDay() -> Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.WorldDate
@@ -1122,6 +1122,7 @@ Calendrie.Specialized.Zoroastrian13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Zoroastrian13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Zoroastrian13Calendar.Zoroastrian13Calendar() -> void
 Calendrie.Specialized.Zoroastrian13Date
+Calendrie.Specialized.Zoroastrian13Date.AddDays(int days) -> Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.Adjust(System.Func<Calendrie.Specialized.Zoroastrian13Date, Calendrie.Specialized.Zoroastrian13Date>! adjuster) -> Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.Century.get -> int
 Calendrie.Specialized.Zoroastrian13Date.CenturyOfEra.get -> Calendrie.Ord
@@ -1147,7 +1148,6 @@ Calendrie.Specialized.Zoroastrian13Date.Nearest(System.DayOfWeek dayOfWeek) -> C
 Calendrie.Specialized.Zoroastrian13Date.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.NextDay() -> Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Zoroastrian13Date
-Calendrie.Specialized.Zoroastrian13Date.PlusDays(int days) -> Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.PreviousDay() -> Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.Zoroastrian13Date
@@ -1163,6 +1163,7 @@ Calendrie.Specialized.ZoroastrianCalendar
 Calendrie.Specialized.ZoroastrianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.ZoroastrianCalendar.ZoroastrianCalendar() -> void
 Calendrie.Specialized.ZoroastrianDate
+Calendrie.Specialized.ZoroastrianDate.AddDays(int days) -> Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.Adjust(System.Func<Calendrie.Specialized.ZoroastrianDate, Calendrie.Specialized.ZoroastrianDate>! adjuster) -> Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.Century.get -> int
 Calendrie.Specialized.ZoroastrianDate.CenturyOfEra.get -> Calendrie.Ord
@@ -1188,7 +1189,6 @@ Calendrie.Specialized.ZoroastrianDate.Nearest(System.DayOfWeek dayOfWeek) -> Cal
 Calendrie.Specialized.ZoroastrianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.NextDay() -> Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ZoroastrianDate
-Calendrie.Specialized.ZoroastrianDate.PlusDays(int days) -> Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.PreviousDay() -> Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.ZoroastrianDate

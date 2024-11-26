@@ -26,7 +26,7 @@ public interface IStandardArithmetic<TSelf>
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [Pure] TSelf PlusDays(int days);
+    [Pure] TSelf AddDays(int days);
 
     /// <summary>
     /// Obtains the day after this date instance.

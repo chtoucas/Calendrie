@@ -702,33 +702,33 @@ module Math =
     [<Fact>]
     let ``DayNumber:Zero + Int32:MaxValue overflows`` () =
         (fun () -> DayNumber.Zero + Int32.MaxValue)         |> overflows
-        (fun () -> DayNumber.Zero.PlusDays(Int32.MaxValue)) |> overflows
+        (fun () -> DayNumber.Zero.AddDays(Int32.MaxValue)) |> overflows
 
     [<Fact>]
     let ``DayNumber:Zero + (Int32:MaxValue - 1) = DayNumber:MaxValue`` () =
         DayNumber.Zero + (Int32.MaxValue - 1)       === DayNumber.MaxValue
-        DayNumber.Zero.PlusDays(Int32.MaxValue - 1) === DayNumber.MaxValue
+        DayNumber.Zero.AddDays(Int32.MaxValue - 1) === DayNumber.MaxValue
 
     [<Fact>]
     let ``DayNumber:MaxValue - (Int32:MaxValue - 1) = DayNumber:Zero`` () =
         DayNumber.MaxValue - (Int32.MaxValue - 1)          === DayNumber.Zero
-        DayNumber.MaxValue.PlusDays(-(Int32.MaxValue - 1)) === DayNumber.Zero
+        DayNumber.MaxValue.AddDays(-(Int32.MaxValue - 1)) === DayNumber.Zero
 
     // NB: DayNumber.MinDaysSinceZero = Int32.MinValue + 1
     [<Fact>]
     let ``DayNumber:Zero + Int32:MinValue overflows`` () =
         (fun () -> DayNumber.Zero + Int32.MinValue)         |> overflows
-        (fun () -> DayNumber.Zero.PlusDays(Int32.MinValue)) |> overflows
+        (fun () -> DayNumber.Zero.AddDays(Int32.MinValue)) |> overflows
 
     [<Fact>]
     let ``DayNumber:Zero + (Int32:MinValue + 1) = DayNumber:MinValue`` () =
         DayNumber.Zero + (Int32.MinValue + 1)       === DayNumber.MinValue
-        DayNumber.Zero.PlusDays(Int32.MinValue + 1) === DayNumber.MinValue
+        DayNumber.Zero.AddDays(Int32.MinValue + 1) === DayNumber.MinValue
 
     [<Fact>]
     let ``DayNumber:MinValue - (Int32:MinValue + 1) = DayNumber:MinValue`` () =
         DayNumber.MinValue - (Int32.MinValue + 1)          === DayNumber.Zero
-        DayNumber.MinValue.PlusDays(-(Int32.MinValue + 1)) === DayNumber.Zero
+        DayNumber.MinValue.AddDays(-(Int32.MinValue + 1)) === DayNumber.Zero
 
     //
     // DayNumber.MinValue
@@ -738,13 +738,13 @@ module Math =
     let ``DayNumber:MinValue - 1 overflows`` () =
         (fun () -> DayNumber.MinValue - 1)           |> overflows
         (fun () -> DayNumber.MinValue + (-1))        |> overflows
-        (fun () -> DayNumber.MinValue.PlusDays(-1))  |> overflows
+        (fun () -> DayNumber.MinValue.AddDays(-1))  |> overflows
         (fun () -> DayNumber.MinValue.PreviousDay()) |> overflows
 
     [<Fact>]
     let ``DayNumber:MinValue + Int32:MaxValue does not overflow`` () =
         DayNumber.MinValue + Int32.MaxValue         === DayNumber.Zero
-        DayNumber.MinValue.PlusDays(Int32.MaxValue) === DayNumber.Zero
+        DayNumber.MinValue.AddDays(Int32.MaxValue) === DayNumber.Zero
 
     //
     // DayNumber.MaxValue
@@ -754,13 +754,13 @@ module Math =
     let ``DayNumber:MaxValue + 1 overflows`` () =
         (fun () -> DayNumber.MaxValue + 1)         |> overflows
         (fun () -> DayNumber.MaxValue - (-1))      |> overflows
-        (fun () -> DayNumber.MaxValue.PlusDays(1)) |> overflows
+        (fun () -> DayNumber.MaxValue.AddDays(1)) |> overflows
         (fun () -> DayNumber.MaxValue.NextDay())   |> overflows
 
     [<Fact>]
     let ``DayNumber:MaxValue - Int32:MaxValue does not overflow`` () =
         DayNumber.MaxValue - Int32.MaxValue          === DayNumber.Zero - 1
-        DayNumber.MaxValue.PlusDays(-Int32.MaxValue) === DayNumber.Zero - 1
+        DayNumber.MaxValue.AddDays(-Int32.MaxValue) === DayNumber.Zero - 1
 
     //
     // Difference
@@ -782,7 +782,7 @@ module Math =
 
     [<Property>]
     let ``0 is a neutral element (methods)`` (x: DayNumber) =
-        (x.PlusDays(0) = x)
+        (x.AddDays(0) = x)
         .&. (x.CountDaysSince(x) = 0)
 
     [<Property>]
@@ -816,9 +816,9 @@ module Math =
     )
 
     [<Property>]
-    let ``PlusDays()`` () = xynArbitrary @@@@ fun (x, y, n) ->
-        (x.PlusDays(n) = y)
-        .&. (y.PlusDays(-n) = x)
+    let ``AddDays()`` () = xynArbitrary @@@@ fun (x, y, n) ->
+        (x.AddDays(n) = y)
+        .&. (y.AddDays(-n) = x)
 
     [<Property>]
     let ``CountDaysSince()`` () = xynArbitrary @@@@ fun (x, y, n) ->

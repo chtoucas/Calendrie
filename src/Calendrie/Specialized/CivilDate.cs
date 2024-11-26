@@ -10,7 +10,7 @@ using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
 // We use GregorianStandardScope instead of s_Calendar.Scope because they
-// are strictly equivalent. We could optimize PlusDays() by using
+// are strictly equivalent. We could optimize AddDays() by using
 // GregorianStandardScope.DaysValidator instead of s_Scope.DaysValidator.
 
 public partial struct CivilDate

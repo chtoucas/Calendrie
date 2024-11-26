@@ -657,7 +657,7 @@ public partial struct DayNumber // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest or the latest supported day numbers.</exception>
     [Pure]
-    public DayNumber PlusDays(int days) => this + days;
+    public DayNumber AddDays(int days) => this + days;
 
     /// <summary>
     /// Obtains the day number following this instance.

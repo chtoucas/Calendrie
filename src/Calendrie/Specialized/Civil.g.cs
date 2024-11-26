@@ -223,7 +223,7 @@ public partial struct CivilDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static CivilDate operator +(CivilDate value, int days) => value.PlusDays(days);
+    public static CivilDate operator +(CivilDate value, int days) => value.AddDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -231,7 +231,7 @@ public partial struct CivilDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    public static CivilDate operator -(CivilDate value, int days) => value.PlusDays(-days);
+    public static CivilDate operator -(CivilDate value, int days) => value.AddDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -257,7 +257,7 @@ public partial struct CivilDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate PlusDays(int days)
+    public CivilDate AddDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceZero + days);
         // Don't write (the addition may also overflow...):
