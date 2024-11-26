@@ -17,7 +17,7 @@ public abstract class JulianComparisons
 
     private protected JulianComparisons(GJSampleKind kind)
     {
-        Parts = CreateGregorianParts(kind);
+        Parts = CreateJulianParts(kind);
     }
 
     protected DateParts Parts { get; }

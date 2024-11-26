@@ -13,8 +13,8 @@ public class JulianProps : JulianComparisons
     public void WithDayNumber()
     {
         var date = dayNumber;
-        var parts = date.GetGregorianParts();
-        var oparts = date.GetGregorianOrdinalParts();
+        var parts = date.GetJulianParts();
+        var oparts = date.GetJulianOrdinalParts();
 
         var (y, m, d) = parts;
         var dayOfWeek = date.DayOfWeek;
@@ -28,7 +28,7 @@ public class JulianProps : JulianComparisons
     }
 
     [Benchmark(Description = "JulianDate")]
-    public void WithGregorianDate()
+    public void WithJulianDate()
     {
         var date = julianDate;
 
