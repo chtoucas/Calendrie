@@ -19,7 +19,7 @@ param(
 
     [Parameter(Mandatory = $false, ParameterSetName = 'Benchmark')]
     [ValidateSet('0', '1')]
-    [Alias('d')] [string] $Disassemble = '',
+    [Alias('d')] [string] $Disassemble = '1',
 
     [Alias('q')] [switch] $Quiet,
                  [switch] $NoBuild,
@@ -89,10 +89,8 @@ try {
         'Benchmark' {
             $outDir = Join-Path $ArtifactsDir "benchmarks"
 
-            if ($Disassemble) {
-                $args += '--disasm'
-                $args += "--disasmDepth=$Disassemble"
-            }
+            $args += '--disasm'
+            $args += "--disasmDepth=$Disassemble"
 
             & dotnet run --project $benchmarkProject $args `
                 --artifacts $outDir `
