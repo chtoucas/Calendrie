@@ -50,9 +50,10 @@ Usage: bench.ps1 [arguments]
   -h|-Help           print this help then exit
 
 Examples.
-> bench.ps1 -l
-> bench.ps1 *       # Run all tests
-> bench.ps1 *XXX    # Run tests whose names end with XXX
+> bench.ps1 -l tree         #
+> bench.ps1 * -d 1 -j Dry   #
+> bench.ps1 *               # Run all tests
+> bench.ps1 *XXX            # Run tests whose names end with XXX
 "@
 }
 
@@ -67,8 +68,8 @@ try {
 
     # Common options:
     # - Release build.
-    # - Disable all analyzers here NOT within the project.
-    # - Stop after the first error (by default it's not).
+    # - Disable all analyzers, here NOT within the project.
+    # - Stop after the first error (by default it doesn't').
     $args = '-c:Release', '--stopOnFirstError', '-p:AnalysisMode=AllDisabledByDefault'
     if ($NoBuild) { $args += '--no-build' }
     # Disable the log file written on disk?
