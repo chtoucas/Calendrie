@@ -7,16 +7,15 @@ using Calendrie.Specialized;
 
 using NodaTime;
 
-public abstract class GregorianComparisons
+public abstract class JulianComparisons
 {
     private protected DayNumber dayNumber;
-    private protected CivilDate civilDate;
-    private protected GregorianDate gregorianDate;
+    private protected JulianDate julianDate;
     private protected DateOnly dateOnly;
     private protected DateTime dateTime;
     private protected LocalDate localDate;
 
-    private protected GregorianComparisons(GJSampleKind kind)
+    private protected JulianComparisons(GJSampleKind kind)
     {
         Parts = CreateGregorianParts(kind);
     }
@@ -28,12 +27,11 @@ public abstract class GregorianComparisons
     {
         var (y, m, d) = Parts;
 
-        civilDate = new(y, m, d);
-        gregorianDate = new(y, m, d);
-        dayNumber = civilDate.DayNumber;
+        julianDate = new(y, m, d);
+        dayNumber = julianDate.DayNumber;
 
-        dateTime = new(y, m, d);
-        dateOnly = new(y, m, d);
-        localDate = new(y, m, d);
+        dateTime = new(y, m, d, new System.Globalization.JulianCalendar());
+        dateOnly = new(y, m, d, new System.Globalization.JulianCalendar());
+        localDate = new(y, m, d, CalendarSystem.Julian);
     }
 }
