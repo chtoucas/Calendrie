@@ -42,7 +42,7 @@ internal static class Program
             .AddColumnProvider(defaultConfig.GetColumnProviders().ToArray())
             .AddDiagnoser(defaultConfig.GetDiagnosers().ToArray())
             // Markdown, et basta !
-            .AddExporter(MarkdownExporter.Default)
+            .AddExporter(MarkdownExporter.GitHub)
             .AddFilter(defaultConfig.GetFilters().ToArray())
             .AddHardwareCounters(defaultConfig.GetHardwareCounters().ToArray())
             //.AddJob(defaultConfig.GetJobs().ToArray())
