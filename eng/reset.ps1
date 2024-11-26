@@ -79,7 +79,6 @@ try {
 
     if ($All -or $BinAndObj) {
         Remove-BinAndObj (Join-Path $RootDir 'src' -Resolve)
-        Remove-BinAndObj (Join-Path $RootDir 'test' -Resolve)
     }
 
     if ($All -or $PackagesLock) {
