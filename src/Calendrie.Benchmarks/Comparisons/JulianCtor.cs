@@ -12,11 +12,8 @@ public class JulianCtor
     private int _year, _month, _day;
 
     [GlobalSetup]
-    public void GlobalSetup()
-    {
-        var sample = new GJSample { SampleKind = GJSampleKind.Slow };
-        (_year, _month, _day) = sample;
-    }
+    public void GlobalSetup() =>
+        (_year, _month, _day) = CreateJulianParts(GJSampleKind.Slow);
 
     [Benchmark(Description = "DayNumber", Baseline = true)]
     public DayNumber WithDayNumber() => DayNumber.FromJulianParts(_year, _month, _day);

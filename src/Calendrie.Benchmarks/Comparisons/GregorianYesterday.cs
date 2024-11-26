@@ -7,43 +7,25 @@ using Calendrie.Specialized;
 
 using NodaTime;
 
-public class GregorianYesterday
+public class GregorianYesterday : GregorianComparisons
 {
-    private DayNumber _dayNumber;
-    private CivilDate _civilDate;
-    private DateOnly _dateOnly;
-    private DateTime _dateTime;
-    private GregorianDate _gregorianDate;
-    private LocalDate _localDate;
-
-    [GlobalSetup]
-    public void GlobalSetup()
-    {
-        var sample = new GJSample { SampleKind = GJSampleKind.Fixed };
-
-        _dayNumber = sample.DayNumber;
-        _civilDate = sample.CivilDate;
-        _dateTime = sample.DateTime;
-        _dateOnly = sample.DateOnly;
-        _gregorianDate = sample.GregorianDate;
-        _localDate = sample.LocalDate;
-    }
+    public GregorianYesterday() : base(GJSampleKind.Fixed) { }
 
     [Benchmark(Description = "DayNumber")]
-    public DayNumber WithDayNumber() => _dayNumber.PreviousDay();
+    public DayNumber WithDayNumber() => dayNumber.PreviousDay();
 
     [Benchmark(Description = "CivilDate")]
-    public CivilDate WithCivilDate() => _civilDate.PreviousDay();
+    public CivilDate WithCivilDate() => civilDate.PreviousDay();
 
     [Benchmark(Description = "GregorianDate")]
-    public GregorianDate WithGregorianDate() => _gregorianDate.PreviousDay();
+    public GregorianDate WithGregorianDate() => gregorianDate.PreviousDay();
 
     [Benchmark(Description = "LocalDate (NodaTime)")]
-    public LocalDate WithLocalDate() => _localDate.PlusDays(-1);
+    public LocalDate WithLocalDate() => localDate.PlusDays(-1);
 
     [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
-    public DateOnly WithDateOnly() => _dateOnly.AddDays(-1);
+    public DateOnly WithDateOnly() => dateOnly.AddDays(-1);
 
     [Benchmark(Description = "DateTime (BCL)")]
-    public DateTime WithDateTime() => _dateTime.AddDays(-1);
+    public DateTime WithDateTime() => dateTime.AddDays(-1);
 }

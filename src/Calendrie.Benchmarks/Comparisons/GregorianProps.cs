@@ -5,36 +5,14 @@ namespace Benchmarks.Comparisons;
 
 using Benchmarks;
 
-using Calendrie.Specialized;
-
-using NodaTime;
-
-public class GregorianProps
+public class GregorianProps : GregorianComparisons
 {
-    private DayNumber _dayNumber;
-    private CivilDate _civilDate;
-    private DateOnly _dateOnly;
-    private DateTime _dateTime;
-    private GregorianDate _gregorianDate;
-    private LocalDate _localDate;
-
-    [GlobalSetup]
-    public void GlobalSetup()
-    {
-        var sample = new GJSample { SampleKind = GJSampleKind.Fixed };
-
-        _dayNumber = sample.DayNumber;
-        _civilDate = sample.CivilDate;
-        _dateTime = sample.DateTime;
-        _dateOnly = sample.DateOnly;
-        _gregorianDate = sample.GregorianDate;
-        _localDate = sample.LocalDate;
-    }
+    public GregorianProps() : base(GJSampleKind.Fixed) { }
 
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()
     {
-        var date = _dayNumber;
+        var date = dayNumber;
         var parts = date.GetGregorianParts();
         var oparts = date.GetGregorianOrdinalParts();
 
@@ -52,7 +30,7 @@ public class GregorianProps
     [Benchmark(Description = "CivilDate")]
     public void WithCivilDate()
     {
-        var date = _civilDate;
+        var date = civilDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -68,7 +46,7 @@ public class GregorianProps
     [Benchmark(Description = "GregorianDate")]
     public void WithGregorianDate()
     {
-        var date = _gregorianDate;
+        var date = gregorianDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -88,7 +66,7 @@ public class GregorianProps
     [Benchmark(Description = "LocalDate (NodaTime)")]
     public void WithLocalDate()
     {
-        var date = _localDate;
+        var date = localDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;
@@ -104,7 +82,7 @@ public class GregorianProps
     [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
     public void WithDateOnly()
     {
-        var date = _dateOnly;
+        var date = dateOnly;
 
         int y = date.Year;
         int m = date.Month;
@@ -122,7 +100,7 @@ public class GregorianProps
     [Benchmark(Description = "DateTime (BCL)")]
     public void WithDateTime()
     {
-        var date = _dateTime;
+        var date = dateTime;
 
         int y = date.Year;
         int m = date.Month;

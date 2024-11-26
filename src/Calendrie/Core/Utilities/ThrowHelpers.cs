@@ -88,14 +88,6 @@ internal partial class ThrowHelpers // ArgumentException
         throw new ArgumentException(
             $"The object should be of type {expected} but it is of type {obj.GetType()}.",
             nameof(obj));
-
-    /// <exception cref="ArgumentException"/>
-    [DoesNotReturn]
-    public static void ThrowBadSchemaProfile(
-        string paramName, CalendricalProfile expected, CalendricalProfile actual) =>
-        throw new ArgumentException(
-            $"The schema profile should be equal to \"{expected}\" but it is equal to \"{actual}\".",
-            paramName);
 }
 
 internal partial class ThrowHelpers // OverflowException
