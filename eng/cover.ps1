@@ -11,7 +11,6 @@ param(
                  [switch] $NoBuild,
                  [switch] $NoTest,
                  [switch] $NoReport,
-                 [switch] $Badges,
 
     [Alias('h')] [switch] $Help
 )
@@ -30,7 +29,6 @@ Usage: cover.ps1 [arguments]
      -NoBuild        do NOT build the test suite?
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?
-     -Badges         create badges?
   -h|-Help           print this help then exit
 
 Be sure to restore the NuGet tools before running this script:
@@ -97,8 +95,7 @@ try {
             Remove-Item $rgOutput -Force -Recurse
         }
 
-        $publish = $Badges -and $Configuration -eq 'Debug'
-        $reporttypes = $publish ? 'Html;Badges;TextSummary;MarkdownSummary' : 'Html'
+        $reporttypes = 'Html;TextSummary;MarkdownSummary'
 
         say 'Creating the reports...'
 
@@ -108,30 +105,6 @@ try {
             -targetdir:$rgOutput `
             -verbosity:Warning
             || die 'Failed to create the reports.'
-
-        if ($publish) {
-            try {
-                pushd $rgOutput
-
-                say 'Publishing the reports...'
-
-                cp -Force 'badge_branchcoverage.svg' (Join-Path $SrcDir 'coverage_branch.svg')
-                cp -Force 'badge_linecoverage.svg'   (Join-Path $SrcDir 'coverage_line.svg')
-                cp -Force 'badge_methodcoverage.svg' (Join-Path $SrcDir 'coverage_method.svg')
-                cp -Force 'badge_combined.svg' (Join-Path $SrcDir 'coverage.svg')
-                cp -Force 'Summary.txt' (Join-Path $SrcDir 'coverage.txt')
-                cp -Force 'Summary.md' (Join-Path $SrcDir 'coverage.md')
-            }
-            catch {
-                say $_ -Foreground Red
-                say $_.Exception
-                say $_.ScriptStackTrace
-                exit 1
-            }
-            finally {
-                popd
-            }
-        }
     }
 
     say "`nCode coverage completed successfully" -Foreground Green
