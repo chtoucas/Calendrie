@@ -3,12 +3,10 @@
 
 namespace Benchmarks.Comparisons;
 
-using Benchmarks;
+using static Benchmarks.BenchmarkHelpers;
 
 public class GregorianProps : GregorianComparisons
 {
-    public GregorianProps() : base(GJSampleKind.Fixed) { }
-
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()
     {

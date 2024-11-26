@@ -13,7 +13,7 @@ public class JulianCtor
 
     [GlobalSetup]
     public void GlobalSetup() =>
-        (_year, _month, _day) = CreateJulianParts(GJSampleKind.Slow);
+        (_year, _month, _day) = BenchmarkHelpers.CreateJulianParts();
 
     [Benchmark(Description = "DayNumber", Baseline = true)]
     public DayNumber WithDayNumber() => DayNumber.FromJulianParts(_year, _month, _day);

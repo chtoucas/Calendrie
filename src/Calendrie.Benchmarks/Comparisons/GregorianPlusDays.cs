@@ -11,8 +11,6 @@ using NodaTime;
 [CategoriesColumn]
 public class GregorianPlusDays : GregorianComparisons
 {
-    public GregorianPlusDays() : base(GJSampleKind.Fixed) { }
-
     //
     // No change of month
     //

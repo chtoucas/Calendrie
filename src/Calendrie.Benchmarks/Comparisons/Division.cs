@@ -5,6 +5,8 @@ namespace Benchmarks.Comparisons;
 
 using Calendrie.Core.Utilities;
 
+using static Benchmarks.BenchmarkHelpers;
+
 public class Division
 {
     private const int Dividor = 31;

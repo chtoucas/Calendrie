@@ -13,7 +13,7 @@ public class GregorianCtor
 
     [GlobalSetup]
     public void GlobalSetup() =>
-        (_year, _month, _day) = CreateGregorianParts(GJSampleKind.Slow);
+        (_year, _month, _day) = BenchmarkHelpers.CreateGregorianParts();
 
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => DayNumber.FromGregorianParts(_year, _month, _day);

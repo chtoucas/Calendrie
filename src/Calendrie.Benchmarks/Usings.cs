@@ -8,5 +8,3 @@ global using BenchmarkDotNet.Configs;
 
 global using Calendrie;
 global using Calendrie.Core;
-
-global using static Benchmarks.BenchmarkHelpers;

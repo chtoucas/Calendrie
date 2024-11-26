@@ -16,9 +16,9 @@ public abstract class GregorianComparisons
     private protected DateTime dateTime;
     private protected LocalDate localDate;
 
-    private protected GregorianComparisons(GJSampleKind kind)
+    private protected GregorianComparisons(GJDateKind kind = GJDateKind.FixedFast)
     {
-        Parts = CreateGregorianParts(kind);
+        Parts = BenchmarkHelpers.CreateGregorianParts(kind);
     }
 
     protected DateParts Parts { get; }
