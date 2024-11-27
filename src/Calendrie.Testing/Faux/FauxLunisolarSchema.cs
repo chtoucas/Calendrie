@@ -14,10 +14,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <summary>
 /// Represents a <b>fake</b> lunisolar schema.
 /// </summary>
-public sealed class FauxLunisolarSchema :
-    SystemSchema,
-    IDaysInMonthDistribution,
-    IBoxable<FauxLunisolarSchema>
+public sealed class FauxLunisolarSchema : SystemSchema, IDaysInMonthDistribution
 {
     public const int MonthsPer4YearCycle = 49;
     public const int DaysPer4YearCycle = 1446;
@@ -29,9 +26,6 @@ public sealed class FauxLunisolarSchema :
     public const int DaysInLeapYear = 384;
 
     public FauxLunisolarSchema() : base(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth) { }
-
-    [Pure]
-    public static Box<FauxLunisolarSchema> GetInstance() => Box.Create(new FauxLunisolarSchema());
 
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>

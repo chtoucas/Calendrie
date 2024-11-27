@@ -4,7 +4,6 @@
 module Calendrie.Tests.Core.Schemas.DaysInMonthDistributionTestSuite
 
 open Calendrie.Core.Schemas
-open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
 open Calendrie.Testing.Faux
@@ -18,60 +17,60 @@ let private test = DaysInMonthDistributionFacts.Test
 
 [<Fact>]
 let Coptic12Tests () =
-    test(schemaOf<Coptic12Schema>(), Coptic12DataSet.CommonYear, Coptic12DataSet.LeapYear)
+    test(new Coptic12Schema(), Coptic12DataSet.CommonYear, Coptic12DataSet.LeapYear)
 
 [<Fact>]
 let Coptic13Tests () =
-    test(schemaOf<Coptic13Schema>(), Coptic13DataSet.CommonYear, Coptic13DataSet.LeapYear)
+    test(new Coptic13Schema(), Coptic13DataSet.CommonYear, Coptic13DataSet.LeapYear)
 
 [<Fact>]
 let Egyptian12Tests () =
-    test(schemaOf<Egyptian12Schema>(), Egyptian12DataSet.SampleYear, Egyptian12DataSet.SampleYear)
+    test(new Egyptian12Schema(), Egyptian12DataSet.SampleYear, Egyptian12DataSet.SampleYear)
 
 [<Fact>]
 let Egyptian13Tests () =
-    test(schemaOf<Egyptian13Schema>(), Egyptian13DataSet.SampleYear, Egyptian13DataSet.SampleYear)
+    test(new Egyptian13Schema(), Egyptian13DataSet.SampleYear, Egyptian13DataSet.SampleYear)
 
 [<Fact>]
 let FrenchRepublican12Tests () =
-    test(schemaOf<FrenchRepublican12Schema>(), FrenchRepublican12DataSet.CommonYear, FrenchRepublican12DataSet.LeapYear)
+    test(new FrenchRepublican12Schema(), FrenchRepublican12DataSet.CommonYear, FrenchRepublican12DataSet.LeapYear)
 
 [<Fact>]
 let FrenchRepublican13Tests () =
-    test(schemaOf<FrenchRepublican13Schema>(), FrenchRepublican13DataSet.CommonYear, FrenchRepublican13DataSet.LeapYear)
+    test(new FrenchRepublican13Schema(), FrenchRepublican13DataSet.CommonYear, FrenchRepublican13DataSet.LeapYear)
 
 [<Fact>]
 let GregorianTests () =
-    test(schemaOf<GregorianSchema>(), GregorianDataSet.CommonYear, GregorianDataSet.LeapYear)
+    test(new GregorianSchema(), GregorianDataSet.CommonYear, GregorianDataSet.LeapYear)
 
 [<Fact>]
 let InternationalFixedTests () =
-    test(schemaOf<InternationalFixedSchema>(), InternationalFixedDataSet.CommonYear, InternationalFixedDataSet.LeapYear)
+    test(new InternationalFixedSchema(), InternationalFixedDataSet.CommonYear, InternationalFixedDataSet.LeapYear)
 
 [<Fact>]
 let JulianTests () =
-    test(schemaOf<JulianSchema>(), JulianDataSet.CommonYear, JulianDataSet.LeapYear)
+    test(new JulianSchema(), JulianDataSet.CommonYear, JulianDataSet.LeapYear)
 
 [<Fact>]
 let FauxLunisolarTests () =
-    test(schemaOf<FauxLunisolarSchema>(), FauxLunisolarDataSet.CommonYear, FauxLunisolarDataSet.LeapYear)
+    test(new FauxLunisolarSchema(), FauxLunisolarDataSet.CommonYear, FauxLunisolarDataSet.LeapYear)
 
 [<Fact>]
 let Persian2820Tests () =
-    test(schemaOf<Persian2820Schema>(), Persian2820DataSet.CommonYear, Persian2820DataSet.LeapYear)
+    test(new Persian2820Schema(), Persian2820DataSet.CommonYear, Persian2820DataSet.LeapYear)
 
 [<Fact>]
 let TabularIslamicTests () =
-    test(schemaOf<TabularIslamicSchema>(), TabularIslamicDataSet.CommonYear, TabularIslamicDataSet.LeapYear)
+    test(new TabularIslamicSchema(), TabularIslamicDataSet.CommonYear, TabularIslamicDataSet.LeapYear)
 
 [<Fact>]
 let TropicaliaTests () =
-    test(schemaOf<TropicaliaSchema>(), TropicaliaDataSet.CommonYear, TropicaliaDataSet.LeapYear)
+    test(new TropicaliaSchema(), TropicaliaDataSet.CommonYear, TropicaliaDataSet.LeapYear)
 
 [<Fact>]
 let Tropicalia3031Tests () =
-    test(schemaOf<Tropicalia3031Schema>(), Tropicalia3031DataSet.CommonYear, Tropicalia3031DataSet.LeapYear)
+    test(new Tropicalia3031Schema(), Tropicalia3031DataSet.CommonYear, Tropicalia3031DataSet.LeapYear)
 
 [<Fact>]
 let Tropicalia3130Tests () =
-    test(schemaOf<Tropicalia3130Schema>(), Tropicalia3130DataSet.CommonYear, Tropicalia3130DataSet.LeapYear)
+    test(new Tropicalia3130Schema(), Tropicalia3130DataSet.CommonYear, Tropicalia3130DataSet.LeapYear)

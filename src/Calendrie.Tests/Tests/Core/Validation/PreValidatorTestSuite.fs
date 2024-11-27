@@ -17,14 +17,14 @@ open Calendrie.Testing.Faux
 // Solar12PreValidator
 [<Sealed>]
 type Coptic12Tests() =
-    inherit ICalendricalPreValidatorFacts<Coptic12DataSet>(schemaOf<Coptic12Schema>())
+    inherit ICalendricalPreValidatorFacts<Coptic12DataSet>(new Coptic12Schema())
 
     member x.PreValidator() = x.PreValidatorUT |> is<Solar12PreValidator>
 
 // PlainPreValidator
 [<Sealed>]
 type Coptic13Tests() =
-    inherit ICalendricalPreValidatorFacts<Coptic13DataSet>(schemaOf<Coptic13Schema>())
+    inherit ICalendricalPreValidatorFacts<Coptic13DataSet>(new Coptic13Schema())
 
     member x.PreValidator() = x.PreValidatorUT |> is<PlainPreValidator>
 
@@ -37,84 +37,84 @@ type Coptic13Tests() =
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Egyptian12Tests() =
-    inherit ICalendricalPreValidatorFacts<Egyptian12DataSet>(schemaOf<Egyptian12Schema>())
+    inherit ICalendricalPreValidatorFacts<Egyptian12DataSet>(new Egyptian12Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Egyptian13Tests() =
-    inherit ICalendricalPreValidatorFacts<Egyptian13DataSet>(schemaOf<Egyptian13Schema>())
+    inherit ICalendricalPreValidatorFacts<Egyptian13DataSet>(new Egyptian13Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type FrenchRepublican12Tests() =
-    inherit ICalendricalPreValidatorFacts<FrenchRepublican12DataSet>(schemaOf<FrenchRepublican12Schema>())
+    inherit ICalendricalPreValidatorFacts<FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type FrenchRepublican13Tests() =
-    inherit ICalendricalPreValidatorFacts<FrenchRepublican13DataSet>(schemaOf<FrenchRepublican13Schema>())
+    inherit ICalendricalPreValidatorFacts<FrenchRepublican13DataSet>(new FrenchRepublican13Schema())
 
 // GregorianPreValidator
 [<Sealed>]
 type GregorianTests() =
-    inherit ICalendricalPreValidatorFacts<GregorianDataSet>(schemaOf<GregorianSchema>())
+    inherit ICalendricalPreValidatorFacts<GregorianDataSet>(new GregorianSchema())
 
     member x.PreValidator() = x.PreValidatorUT |> is<GregorianPreValidator>
 
 // Solar13PreValidator
 [<Sealed>]
 type InternationalFixedTests() =
-    inherit ICalendricalPreValidatorFacts<InternationalFixedDataSet>(schemaOf<InternationalFixedSchema>())
+    inherit ICalendricalPreValidatorFacts<InternationalFixedDataSet>(new InternationalFixedSchema())
 
     member x.PreValidator() = x.PreValidatorUT |> is<Solar13PreValidator>
 
 // JulianPreValidator
 [<Sealed>]
 type JulianTests() =
-    inherit ICalendricalPreValidatorFacts<JulianDataSet>(schemaOf<JulianSchema>())
+    inherit ICalendricalPreValidatorFacts<JulianDataSet>(new JulianSchema())
 
     member x.PreValidator() = x.PreValidatorUT |> is<JulianPreValidator>
 
 // LunisolarPreValidator
 [<Sealed>]
 type FauxLunisolarTests() =
-    inherit ICalendricalPreValidatorFacts<FauxLunisolarDataSet>(schemaOf<FauxLunisolarSchema>())
+    inherit ICalendricalPreValidatorFacts<FauxLunisolarDataSet>(new FauxLunisolarSchema())
 
     member x.PreValidator() = x.PreValidatorUT |> is<LunisolarPreValidator>
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Persian2820Tests() =
-    inherit ICalendricalPreValidatorFacts<Persian2820DataSet>(schemaOf<Persian2820Schema>())
+    inherit ICalendricalPreValidatorFacts<Persian2820DataSet>(new Persian2820Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type PositivistTests() =
-    inherit ICalendricalPreValidatorFacts<PositivistDataSet>(schemaOf<PositivistSchema>())
+    inherit ICalendricalPreValidatorFacts<PositivistDataSet>(new PositivistSchema())
 
 // LunarPreValidator
 [<Sealed>]
 type TabularIslamicTests() =
-    inherit ICalendricalPreValidatorFacts<TabularIslamicDataSet>(schemaOf<TabularIslamicSchema>())
+    inherit ICalendricalPreValidatorFacts<TabularIslamicDataSet>(new TabularIslamicSchema())
 
     member x.PreValidator() = x.PreValidatorUT |> is<LunarPreValidator>
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type TropicaliaTests() =
-    inherit ICalendricalPreValidatorFacts<TropicaliaDataSet>(schemaOf<TropicaliaSchema>())
+    inherit ICalendricalPreValidatorFacts<TropicaliaDataSet>(new TropicaliaSchema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Tropicalia3031Tests() =
-    inherit ICalendricalPreValidatorFacts<Tropicalia3031DataSet>(schemaOf<Tropicalia3031Schema>())
+    inherit ICalendricalPreValidatorFacts<Tropicalia3031DataSet>(new Tropicalia3031Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type Tropicalia3130Tests() =
-    inherit ICalendricalPreValidatorFacts<Tropicalia3130DataSet>(schemaOf<Tropicalia3130Schema>())
+    inherit ICalendricalPreValidatorFacts<Tropicalia3130DataSet>(new Tropicalia3130Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type WorldTests() =
-    inherit ICalendricalPreValidatorFacts<WorldDataSet>(schemaOf<WorldSchema>())
+    inherit ICalendricalPreValidatorFacts<WorldDataSet>(new WorldSchema())

@@ -21,22 +21,22 @@ module Factories =
     let ``Create()`` () =
         MonthsCalculator.Create(FauxCalendricalSchema.Regular14)      |> is<MonthsCalculator.Regular>
 
-        MonthsCalculator.Create(schemaOf<Coptic12Schema>())           |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<Coptic13Schema>())           |> is<MonthsCalculator.Regular13>
-        MonthsCalculator.Create(schemaOf<Egyptian12Schema>())         |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<Egyptian13Schema>())         |> is<MonthsCalculator.Regular13>
-        MonthsCalculator.Create(schemaOf<FrenchRepublican12Schema>()) |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<FrenchRepublican13Schema>()) |> is<MonthsCalculator.Regular13>
-        MonthsCalculator.Create(schemaOf<GregorianSchema>())          |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<InternationalFixedSchema>()) |> is<MonthsCalculator.Regular13>
-        MonthsCalculator.Create(schemaOf<JulianSchema>())             |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<Persian2820Schema>())        |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<PositivistSchema>())         |> is<MonthsCalculator.Regular13>
-        MonthsCalculator.Create(schemaOf<TabularIslamicSchema>())     |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<TropicaliaSchema>())         |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<Tropicalia3031Schema>())     |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<Tropicalia3130Schema>())     |> is<MonthsCalculator.Regular12>
-        MonthsCalculator.Create(schemaOf<WorldSchema>())              |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new Coptic12Schema())           |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new Coptic13Schema())           |> is<MonthsCalculator.Regular13>
+        MonthsCalculator.Create(new Egyptian12Schema())         |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new Egyptian13Schema())         |> is<MonthsCalculator.Regular13>
+        MonthsCalculator.Create(new FrenchRepublican12Schema()) |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new FrenchRepublican13Schema()) |> is<MonthsCalculator.Regular13>
+        MonthsCalculator.Create(new GregorianSchema())          |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new InternationalFixedSchema()) |> is<MonthsCalculator.Regular13>
+        MonthsCalculator.Create(new JulianSchema())             |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new Persian2820Schema())        |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new PositivistSchema())         |> is<MonthsCalculator.Regular13>
+        MonthsCalculator.Create(new TabularIslamicSchema())     |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new TropicaliaSchema())         |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new Tropicalia3031Schema())     |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new Tropicalia3130Schema())     |> is<MonthsCalculator.Regular12>
+        MonthsCalculator.Create(new WorldSchema())              |> is<MonthsCalculator.Regular12>
 
 module PlainCase =
     let private dataSet = GregorianDataSet.Instance
@@ -44,7 +44,7 @@ module PlainCase =
     let startOfYearMonthsSinceEpochData = dataSet.StartOfYearMonthsSinceEpochData
     let endOfYearMonthsSinceEpochData = dataSet.EndOfYearMonthsSinceEpochData
 
-    let private calc = new MonthsCalculator.Plain(schemaOf<GregorianSchema>())
+    let private calc = new MonthsCalculator.Plain(new GregorianSchema())
 
     [<Theory; MemberData(nameof(startOfYearMonthsSinceEpochData))>]
     let ``GetStartOfYear()`` (x: YearMonthsSinceEpoch) =
@@ -60,7 +60,7 @@ module RegularCase =
     let startOfYearMonthsSinceEpochData = dataSet.StartOfYearMonthsSinceEpochData
     let endOfYearMonthsSinceEpochData = dataSet.EndOfYearMonthsSinceEpochData
 
-    let private calc = new MonthsCalculator.Regular(schemaOf<GregorianSchema>(), 12)
+    let private calc = new MonthsCalculator.Regular(new GregorianSchema(), 12)
 
     [<Theory; MemberData(nameof(startOfYearMonthsSinceEpochData))>]
     let ``GetStartOfYear()`` (x: YearMonthsSinceEpoch) =
@@ -76,7 +76,7 @@ module Regular12Case =
     let startOfYearMonthsSinceEpochData = dataSet.StartOfYearMonthsSinceEpochData
     let endOfYearMonthsSinceEpochData = dataSet.EndOfYearMonthsSinceEpochData
 
-    let private calc = new MonthsCalculator.Regular12(schemaOf<GregorianSchema>())
+    let private calc = new MonthsCalculator.Regular12(new GregorianSchema())
 
     [<Theory; MemberData(nameof(startOfYearMonthsSinceEpochData))>]
     let ``GetStartOfYear()`` (x: YearMonthsSinceEpoch) =
@@ -92,7 +92,7 @@ module Regular13Case =
     let startOfYearMonthsSinceEpochData = dataSet.StartOfYearMonthsSinceEpochData
     let endOfYearMonthsSinceEpochData = dataSet.EndOfYearMonthsSinceEpochData
 
-    let private calc = new MonthsCalculator.Regular13(schemaOf<Coptic13Schema>())
+    let private calc = new MonthsCalculator.Regular13(new Coptic13Schema())
 
     [<Theory; MemberData(nameof(startOfYearMonthsSinceEpochData))>]
     let ``GetStartOfYear()`` (x: YearMonthsSinceEpoch) =

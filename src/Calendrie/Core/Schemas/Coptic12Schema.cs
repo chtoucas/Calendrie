@@ -11,8 +11,7 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class Coptic12Schema :
     CopticSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<Coptic12Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -27,12 +26,6 @@ public sealed partial class Coptic12Schema :
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="Coptic12Schema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<Coptic12Schema> GetInstance() => Box.Create(new Coptic12Schema());
 
     /// <inheritdoc />
     [Pure]

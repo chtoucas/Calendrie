@@ -62,13 +62,3 @@ let inline keyNotFoundExn (testCode: unit -> obj) =
 /// Verifies that an OverflowException is thrown.
 let inline overflows (testCode: unit -> ^a) =
     Assert.Throws<OverflowException>(fun () -> testCode() |> ignore) |> ignore
-
-/// Custom assertions related to Box<'a>.
-module BoxAssertions =
-    /// Verifies that a box is empty.
-    let isempty<'a when 'a: not struct and 'a: not null> (box: Box<'a>) =
-        AssertEx.Empty(box)
-
-    /// Verifies that a box is not empty and contains "content".
-    let issome<'a when 'a: not struct and 'a: not null> box content =
-        AssertEx.Some<'a>(box, content)

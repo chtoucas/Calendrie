@@ -10,20 +10,12 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 public sealed partial class Tropicalia3031Schema :
     TropicalistaSchema,
-    IDaysInMonthDistribution,
-    IBoxable<Tropicalia3031Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Tropicalia3031Schema"/> class.
     /// </summary>
     internal Tropicalia3031Schema() : base(30) { }
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="Tropicalia3031Schema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<Tropicalia3031Schema> GetInstance() =>
-        Box.Create(new Tropicalia3031Schema());
 
     /// <inheritdoc />
     [Pure]

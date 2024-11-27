@@ -8,7 +8,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-public sealed partial class GregorianSchema : GJSchema, IBoxable<GregorianSchema>
+public sealed partial class GregorianSchema : GJSchema
 {
     /// <summary>
     /// Represents the earliest supported year.
@@ -46,12 +46,6 @@ public sealed partial class GregorianSchema : GJSchema, IBoxable<GregorianSchema
     /// Initializes a new instance of the <see cref="GregorianSchema"/> class.
     /// </summary>
     internal GregorianSchema() : base(DefaultSupportedYears) { }
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="GregorianSchema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<GregorianSchema> GetInstance() => Box.Create(new GregorianSchema());
 
     /// <summary>
     /// Gets the number of days in each century of the first 4-century cycle, the one starting

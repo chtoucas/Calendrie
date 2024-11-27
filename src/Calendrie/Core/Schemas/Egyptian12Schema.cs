@@ -16,8 +16,7 @@ using Ptolemaic12 = PtolemaicSchema.Twelve;
 public sealed partial class Egyptian12Schema :
     EgyptianSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<Egyptian12Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>Represents the number of months in a year.</summary>
     /// <remarks>This field is a constant equal to 12.</remarks>
@@ -28,11 +27,6 @@ public sealed partial class Egyptian12Schema :
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <summary>Creates a new (boxed) instance of the <see cref="Egyptian12Schema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<Egyptian12Schema> GetInstance() => Box.Create(new Egyptian12Schema());
 
     /// <inheritdoc />
     [Pure]

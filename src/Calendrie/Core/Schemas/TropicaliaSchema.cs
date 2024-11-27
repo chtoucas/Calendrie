@@ -11,8 +11,7 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 public sealed partial class TropicaliaSchema :
     TropicalistaSchema,
-    IDaysInMonthDistribution,
-    IBoxable<TropicaliaSchema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of days from march to december, both
@@ -26,13 +25,6 @@ public sealed partial class TropicaliaSchema :
     /// class.
     /// </summary>
     internal TropicaliaSchema() : base(28) { }
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="TropicaliaSchema"/>
-    /// class.
-    /// </summary>
-    [Pure]
-    public static Box<TropicaliaSchema> GetInstance() => Box.Create(new TropicaliaSchema());
 
     /// <inheritdoc />
     [Pure]

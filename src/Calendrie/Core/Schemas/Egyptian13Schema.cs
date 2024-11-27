@@ -20,8 +20,7 @@ public sealed partial class Egyptian13Schema :
     EgyptianSchema,
     IEpagomenalDayFeaturette,
     IVirtualMonthFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<Egyptian13Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -39,12 +38,6 @@ public sealed partial class Egyptian13Schema :
 
     /// <inheritdoc />
     public int VirtualMonth => 13;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="Egyptian13Schema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<Egyptian13Schema> GetInstance() => Box.Create(new Egyptian13Schema());
 
     /// <inheritdoc />
     [Pure]

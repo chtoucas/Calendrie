@@ -12,8 +12,7 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class FrenchRepublican12Schema :
     FrenchRepublicanSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<FrenchRepublican12Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -29,14 +28,6 @@ public sealed partial class FrenchRepublican12Schema :
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the
-    /// <see cref="FrenchRepublican12Schema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<FrenchRepublican12Schema> GetInstance() =>
-        Box.Create(new FrenchRepublican12Schema());
 
     /// <inheritdoc />
     [Pure]

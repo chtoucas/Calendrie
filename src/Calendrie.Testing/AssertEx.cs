@@ -95,48 +95,6 @@ public partial class AssertEx // Arg exceptions
         Throws<ArgumentOutOfRangeException>(argName, testCode);
 }
 
-public partial class AssertEx // Box<T>
-{
-    /// <summary>
-    /// Verifies that <paramref name="box"/> is empty.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
-    /// <see langword="null"/>.</exception>
-    public static void Empty<T>(Box<T> box) where T : class
-    {
-        ArgumentNullException.ThrowIfNull(box);
-
-        True(box.IsEmpty, "The box should be empty.");
-        Null(box.Content);
-    }
-
-    /// <summary>
-    /// Verifies that <paramref name="box"/> is NOT empty.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
-    /// <see langword="null"/>.</exception>
-    public static void Some<T>(Box<T> box) where T : class
-    {
-        ArgumentNullException.ThrowIfNull(box);
-
-        False(box.IsEmpty, "The box should not be empty.");
-    }
-
-    /// <summary>
-    /// Verifies that <paramref name="box"/> is NOT empty and contains
-    /// <paramref name="content"/>.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="box"/> is
-    /// <see langword="null"/>.</exception>
-    public static void Some<T>(Box<T> box, [DisallowNull] T content) where T : class
-    {
-        ArgumentNullException.ThrowIfNull(box);
-
-        False(box.IsEmpty, "The box should not be empty.");
-        Equal(content, box.Content);
-    }
-}
-
 public partial class AssertEx // ISetEquatable
 {
     public static void SetEqual<T, TOther>(TOther expected, T actual) where T : ISetEquatable<TOther>

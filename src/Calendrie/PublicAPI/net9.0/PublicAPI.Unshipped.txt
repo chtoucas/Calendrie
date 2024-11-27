@@ -335,13 +335,8 @@ Calendrie.Core.SystemSegment.SupportedDays.get -> Calendrie.Core.Intervals.Range
 Calendrie.Core.SystemSegment.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.SystemSegment.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.SystemSegment.ToCalendricalSegment() -> Calendrie.Core.CalendricalSegment!
-Calendrie.Core.Utilities.Box
-Calendrie.Core.Utilities.Box<T>
-Calendrie.Core.Utilities.Box<T>.Select<TResult>(System.Func<T!, TResult?>! selector) -> Calendrie.Core.Utilities.Box<TResult!>!
 Calendrie.Core.Utilities.IAdjustable<TSelf>
 Calendrie.Core.Utilities.IAdjustable<TSelf>.Adjust(System.Func<TSelf, TSelf>! adjuster) -> TSelf
-Calendrie.Core.Utilities.IBoxable<TSelf>
-Calendrie.Core.Utilities.IBoxable<TSelf>.GetInstance() -> Calendrie.Core.Utilities.Box<TSelf!>!
 Calendrie.Core.Utilities.IComparisonOperators<TSelf, TOther>
 Calendrie.Core.Utilities.IDifferenceOperators<TSelf, TResult>
 Calendrie.Core.Utilities.IDifferenceOperators<TSelf, TResult>.operator -(TSelf left, TSelf right) -> TResult
@@ -1678,30 +1673,10 @@ static Calendrie.Core.Intervals.UpperRay.Complement(this Calendrie.Core.Interval
 static Calendrie.Core.Intervals.UpperRay.StartingAt<T>(T min) -> Calendrie.Core.Intervals.UpperRay<T>
 static Calendrie.Core.Intervals.UpperRay<T>.operator !=(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
 static Calendrie.Core.Intervals.UpperRay<T>.operator ==(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
-static Calendrie.Core.Schemas.CivilSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.CivilSchema!>!
-static Calendrie.Core.Schemas.Coptic12Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Coptic12Schema!>!
-static Calendrie.Core.Schemas.Coptic13Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Coptic13Schema!>!
-static Calendrie.Core.Schemas.Egyptian12Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Egyptian12Schema!>!
-static Calendrie.Core.Schemas.Egyptian13Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Egyptian13Schema!>!
-static Calendrie.Core.Schemas.FrenchRepublican12Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.FrenchRepublican12Schema!>!
-static Calendrie.Core.Schemas.FrenchRepublican13Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.FrenchRepublican13Schema!>!
-static Calendrie.Core.Schemas.GregorianSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.GregorianSchema!>!
-static Calendrie.Core.Schemas.InternationalFixedSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.InternationalFixedSchema!>!
-static Calendrie.Core.Schemas.JulianSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.JulianSchema!>!
-static Calendrie.Core.Schemas.Persian2820Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Persian2820Schema!>!
-static Calendrie.Core.Schemas.PositivistSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.PositivistSchema!>!
-static Calendrie.Core.Schemas.TabularIslamicSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.TabularIslamicSchema!>!
-static Calendrie.Core.Schemas.Tropicalia3031Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Tropicalia3031Schema!>!
-static Calendrie.Core.Schemas.Tropicalia3130Schema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.Tropicalia3130Schema!>!
-static Calendrie.Core.Schemas.TropicaliaSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.TropicaliaSchema!>!
-static Calendrie.Core.Schemas.WorldSchema.GetInstance() -> Calendrie.Core.Utilities.Box<Calendrie.Core.Schemas.WorldSchema!>!
 static Calendrie.Core.SystemSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.SystemSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.SystemSegment.Create(Calendrie.Core.SystemSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.SystemSegment!
 static Calendrie.Core.SystemSegment.FromCalendricalSegment(Calendrie.Core.CalendricalSegment! segment) -> Calendrie.Core.SystemSegment!
-static Calendrie.Core.Utilities.Box.Create<T>(T? obj) -> Calendrie.Core.Utilities.Box<T!>!
-static Calendrie.Core.Utilities.Box.Empty<T>() -> Calendrie.Core.Utilities.Box<T!>!
-static Calendrie.Core.Utilities.Box.Flatten<T>(this Calendrie.Core.Utilities.Box<Calendrie.Core.Utilities.Box<T!>!>! square) -> Calendrie.Core.Utilities.Box<T!>!
 static Calendrie.Core.Utilities.OrderedPair.Create<T>(T x, T y) -> Calendrie.Core.Utilities.OrderedPair<T>
 static Calendrie.Core.Utilities.OrderedPair<T>.operator !=(Calendrie.Core.Utilities.OrderedPair<T> left, Calendrie.Core.Utilities.OrderedPair<T> right) -> bool
 static Calendrie.Core.Utilities.OrderedPair<T>.operator ==(Calendrie.Core.Utilities.OrderedPair<T> left, Calendrie.Core.Utilities.OrderedPair<T> right) -> bool

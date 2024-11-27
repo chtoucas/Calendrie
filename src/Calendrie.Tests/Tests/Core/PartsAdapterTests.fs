@@ -15,7 +15,7 @@ module Bundles =
     [<Sealed>]
     type PartsAdapterTests() =
         inherit PartsAdapterFacts<GregorianDataSet>(
-            new PartsAdapter(schemaOf<GregorianSchema>()))
+            new PartsAdapter(new GregorianSchema()))
 
 module Prelude =
     [<Fact>]

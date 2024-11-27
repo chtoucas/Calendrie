@@ -14,8 +14,7 @@ public sealed partial class FrenchRepublican13Schema :
     FrenchRepublicanSchema,
     IEpagomenalDayFeaturette,
     IVirtualMonthFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<FrenchRepublican13Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -34,14 +33,6 @@ public sealed partial class FrenchRepublican13Schema :
 
     /// <inheritdoc />
     public int VirtualMonth => 13;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the
-    /// <see cref="FrenchRepublican13Schema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<FrenchRepublican13Schema> GetInstance() =>
-        Box.Create(new FrenchRepublican13Schema());
 
     /// <inheritdoc />
     [Pure]

@@ -14,8 +14,7 @@ using Calendrie.Core.Intervals;
 public sealed partial class TabularIslamicSchema :
     SystemSchema,
     IRegularFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<TabularIslamicSchema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -65,14 +64,6 @@ public sealed partial class TabularIslamicSchema :
 
     /// <inheritdoc />
     public int MonthsInYear => MonthsPerYear;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the
-    /// <see cref="TabularIslamicSchema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<TabularIslamicSchema> GetInstance() =>
-        Box.Create(new TabularIslamicSchema());
 
     /// <inheritdoc />
     [Pure]

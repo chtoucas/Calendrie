@@ -26,8 +26,7 @@ public sealed partial class InternationalFixedSchema :
     SystemSchema,
     IRegularFeaturette,
     IBlankDayFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<InternationalFixedSchema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -75,13 +74,6 @@ public sealed partial class InternationalFixedSchema :
 
     /// <inheritdoc />
     public int MonthsInYear => MonthsPerYear;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="InternationalFixedSchema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<InternationalFixedSchema> GetInstance() =>
-        Box.Create(new InternationalFixedSchema());
 
     /// <inheritdoc />
     [Pure]

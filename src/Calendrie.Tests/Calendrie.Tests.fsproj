@@ -9,6 +9,10 @@
 
     <WarningLevel>5</WarningLevel>
     <!--
+      FS0044  This construct is deprecated
+    -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);FS0044</WarningsNotAsErrors>
+    <!--
       We enable most opt-in warnings. Missing warnings:
       FS3180  Warn when a mutable local is implicitly allocated as a reference
               cell because it has been captured by a closure.
@@ -24,7 +28,6 @@
   <ItemGroup>
     <Compile Include="Testing\XunitModule.fs" />
     <Compile Include="Testing\FsCheckModule.fs" />
-    <Compile Include="Testing\TestHelpers.fs" />
     <Compile Include="Tests\Core\Intervals\IntervalTests.fs" />
     <Compile Include="Tests\Testing\EnumDataSetTests.fs" />
     <Compile Include="Tests\Core\Intervals\LowerRayTests.fs" />
@@ -37,7 +40,6 @@
     <Compile Include="Tests\Core\Schemas\GregorianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\JulianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\SystemSchemaTestSuite.fs" />
-    <Compile Include="Tests\Core\Utilities\BoxTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathNTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathTTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathUTests.fs" />

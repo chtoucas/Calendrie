@@ -25,8 +25,7 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class PositivistSchema :
     SystemSchema,
     IRegularFeaturette,
-    IBlankDayFeaturette,
-    IBoxable<PositivistSchema>
+    IBlankDayFeaturette
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -74,12 +73,6 @@ public sealed partial class PositivistSchema :
 
     /// <inheritdoc />
     public int MonthsInYear => MonthsPerYear;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="PositivistSchema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<PositivistSchema> GetInstance() => Box.Create(new PositivistSchema());
 }
 
 public partial class PositivistSchema // Year, month or day infos

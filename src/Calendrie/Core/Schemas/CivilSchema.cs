@@ -11,18 +11,12 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-public sealed partial class CivilSchema : GJSchema, IBoxable<CivilSchema>
+public sealed partial class CivilSchema : GJSchema
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilSchema"/> class.
     /// </summary>
     internal CivilSchema() : base(DefaultSupportedYears.WithMin(1)) { }
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="CivilSchema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<CivilSchema> GetInstance() => Box.Create(new CivilSchema());
 }
 
 public partial class CivilSchema // Year, month or day infos

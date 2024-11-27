@@ -146,7 +146,7 @@ module FrenchRepublican13Case =
 
 module GregorianCase =
     let private dataSet = GregorianDataSet.Instance
-    let private sch = schemaOf<GregorianSchema>()
+    let private sch = new GregorianSchema()
 
     let monthInfoData = dataSet.MonthInfoData
     let daysInYearAfterDateData = dataSet.DaysInYearAfterDateData

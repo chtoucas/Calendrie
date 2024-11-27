@@ -40,8 +40,7 @@ using Calendrie.Core.Intervals;
 public sealed partial class Persian2820Schema :
     SystemSchema,
     IRegularFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<Persian2820Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -104,14 +103,6 @@ public sealed partial class Persian2820Schema :
 
     /// <inheritdoc />
     public int MonthsInYear => MonthsPerYear;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="Persian2820Schema"/>
-    /// class.
-    /// </summary>
-    [Pure]
-    public static Box<Persian2820Schema> GetInstance() =>
-        Box.Create(new Persian2820Schema());
 
     /// <inheritdoc />
     [Pure]

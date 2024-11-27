@@ -30,8 +30,7 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class WorldSchema :
     SystemSchema,
     IRegularFeaturette,
-    IBlankDayFeaturette,
-    IBoxable<WorldSchema>
+    IBlankDayFeaturette
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -71,12 +70,6 @@ public sealed partial class WorldSchema :
 
     /// <inheritdoc />
     public int MonthsInYear => MonthsPerYear;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="WorldSchema"/> class.
-    /// </summary>
-    [Pure]
-    public static Box<WorldSchema> GetInstance() => Box.Create(new WorldSchema());
 
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days that are

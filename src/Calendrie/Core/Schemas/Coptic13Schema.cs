@@ -14,8 +14,7 @@ public sealed partial class Coptic13Schema :
     CopticSchema,
     IEpagomenalDayFeaturette,
     IVirtualMonthFeaturette,
-    IDaysInMonthDistribution,
-    IBoxable<Coptic13Schema>
+    IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -33,13 +32,6 @@ public sealed partial class Coptic13Schema :
 
     /// <inheritdoc />
     public int VirtualMonth => 13;
-
-    /// <summary>
-    /// Creates a new (boxed) instance of the <see cref="Coptic13Schema"/>
-    /// class.
-    /// </summary>
-    [Pure]
-    public static Box<Coptic13Schema> GetInstance() => Box.Create(new Coptic13Schema());
 
     /// <inheritdoc />
     [Pure]
