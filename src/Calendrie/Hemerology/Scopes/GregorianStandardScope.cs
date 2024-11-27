@@ -30,12 +30,6 @@ internal static class GregorianStandardScope
     public const int MaxYear = StandardScope.MaxYear;
 
     /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    private static readonly int s_MinDaysSinceEpoch = GregorianFormulae.GetStartOfYear(MinYear);
-
-    /// <summary>
     /// Represents the maximum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
@@ -49,7 +43,7 @@ internal static class GregorianStandardScope
     /// </summary>
     public static Range<DayNumber> DefaultDomain { get; } =
         Range.Create(
-            DayZero.NewStyle + s_MinDaysSinceEpoch,
+            DayZero.NewStyle,
             DayZero.NewStyle + s_MaxDaysSinceEpoch);
 
     /// <summary>
@@ -57,7 +51,7 @@ internal static class GregorianStandardScope
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
     public static DaysValidator DaysValidator { get; } =
-        new(Range.Create(s_MinDaysSinceEpoch, s_MaxDaysSinceEpoch));
+        new(Range.Create(0, s_MaxDaysSinceEpoch));
 
     /// <summary>
     /// Gets the validator for the range of supported years.
