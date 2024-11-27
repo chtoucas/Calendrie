@@ -253,8 +253,6 @@ Calendrie.Core.Intervals.UpperRay<T>.UpperRay() -> void
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay(T min) -> void
 Calendrie.Core.IRegularFeaturette
 Calendrie.Core.IRegularFeaturette.MonthsInYear.get -> int
-Calendrie.Core.ISchemaBound
-Calendrie.Core.ISchemaBound.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Core.IVirtualMonthFeaturette
 Calendrie.Core.IVirtualMonthFeaturette.VirtualMonth.get -> int
 Calendrie.Core.PartsAdapter
