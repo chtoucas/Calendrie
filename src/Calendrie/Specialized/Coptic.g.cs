@@ -229,12 +229,7 @@ public readonly partial struct CopticDate :
 
 public partial struct CopticDate // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="CopticDate"/> struct from
-    /// the specified day number.
-    /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
-    /// the range of supported values.</exception>
+    /// <inheritdoc />
     public static CopticDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

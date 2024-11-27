@@ -229,12 +229,7 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="TabularIslamicDate"/> struct from
-    /// the specified day number.
-    /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
-    /// the range of supported values.</exception>
+    /// <inheritdoc />
     public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

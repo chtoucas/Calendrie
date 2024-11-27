@@ -229,12 +229,7 @@ public readonly partial struct Ethiopic13Date :
 
 public partial struct Ethiopic13Date // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="Ethiopic13Date"/> struct from
-    /// the specified day number.
-    /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
-    /// the range of supported values.</exception>
+    /// <inheritdoc />
     public static Ethiopic13Date FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

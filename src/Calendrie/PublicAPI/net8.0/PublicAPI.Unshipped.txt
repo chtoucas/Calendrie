@@ -535,6 +535,7 @@ Calendrie.Hemerology.ICalendar<TDate>
 Calendrie.Hemerology.IDate
 Calendrie.Hemerology.IDate<TSelf, TCalendar>
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar
+Calendrie.Hemerology.IDate<TSelf, TCalendar>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IDate<TSelf>
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
