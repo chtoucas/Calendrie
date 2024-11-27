@@ -411,15 +411,6 @@ Calendrie.Core.Yedoy.StartOfYear.get -> Calendrie.Core.Yedoy
 Calendrie.Core.Yedoy.ToBinary() -> int
 Calendrie.Core.Yedoy.Year.get -> int
 Calendrie.Core.Yedoy.Yedoy() -> void
-Calendrie.Core.Yedoyx
-Calendrie.Core.Yedoyx.DayOfYear.get -> int
-Calendrie.Core.Yedoyx.Deconstruct(out int year, out int dayOfYear) -> void
-Calendrie.Core.Yedoyx.Equals(Calendrie.Core.Yedoyx other) -> bool
-Calendrie.Core.Yedoyx.Extra.get -> int
-Calendrie.Core.Yedoyx.ToBinary() -> int
-Calendrie.Core.Yedoyx.Year.get -> int
-Calendrie.Core.Yedoyx.Yedoy.get -> Calendrie.Core.Yedoy
-Calendrie.Core.Yedoyx.Yedoyx() -> void
 Calendrie.Core.Yemo
 Calendrie.Core.Yemo.CompareTo(Calendrie.Core.Yemo other) -> int
 Calendrie.Core.Yemo.Deconstruct(out int year, out int month) -> void
@@ -444,26 +435,6 @@ Calendrie.Core.Yemoda.ToBinary(uint extraData) -> long
 Calendrie.Core.Yemoda.Year.get -> int
 Calendrie.Core.Yemoda.Yemo.get -> Calendrie.Core.Yemo
 Calendrie.Core.Yemoda.Yemoda() -> void
-Calendrie.Core.Yemodax
-Calendrie.Core.Yemodax.Day.get -> int
-Calendrie.Core.Yemodax.Deconstruct(out int year, out int month, out int day) -> void
-Calendrie.Core.Yemodax.Equals(Calendrie.Core.Yemodax other) -> bool
-Calendrie.Core.Yemodax.Extra.get -> int
-Calendrie.Core.Yemodax.Month.get -> int
-Calendrie.Core.Yemodax.ToBinary() -> int
-Calendrie.Core.Yemodax.Year.get -> int
-Calendrie.Core.Yemodax.Yemo.get -> Calendrie.Core.Yemo
-Calendrie.Core.Yemodax.Yemoda.get -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemodax.Yemodax() -> void
-Calendrie.Core.Yemox
-Calendrie.Core.Yemox.Deconstruct(out int year, out int month) -> void
-Calendrie.Core.Yemox.Equals(Calendrie.Core.Yemox other) -> bool
-Calendrie.Core.Yemox.Extra.get -> int
-Calendrie.Core.Yemox.Month.get -> int
-Calendrie.Core.Yemox.ToBinary() -> int
-Calendrie.Core.Yemox.Year.get -> int
-Calendrie.Core.Yemox.Yemo.get -> Calendrie.Core.Yemo
-Calendrie.Core.Yemox.Yemox() -> void
 Calendrie.DateParts
 Calendrie.DateParts.CompareTo(Calendrie.DateParts other) -> int
 Calendrie.DateParts.DateParts() -> void
@@ -1239,12 +1210,6 @@ const Calendrie.Core.Yedoy.MaxDayOfYear = 1024 -> int
 const Calendrie.Core.Yedoy.MaxYear = 2097152 -> int
 const Calendrie.Core.Yedoy.MinDayOfYear = 1 -> int
 const Calendrie.Core.Yedoy.MinYear = -2097151 -> int
-const Calendrie.Core.Yedoyx.MaxDayOfYear = 1024 -> int
-const Calendrie.Core.Yedoyx.MaxExtra = 127 -> int
-const Calendrie.Core.Yedoyx.MaxYear = 16384 -> int
-const Calendrie.Core.Yedoyx.MinDayOfYear = 1 -> int
-const Calendrie.Core.Yedoyx.MinExtra = 0 -> int
-const Calendrie.Core.Yedoyx.MinYear = -16383 -> int
 const Calendrie.Core.Yemo.MaxMonth = 16 -> int
 const Calendrie.Core.Yemo.MaxYear = 2097152 -> int
 const Calendrie.Core.Yemo.MinMonth = 1 -> int
@@ -1255,20 +1220,6 @@ const Calendrie.Core.Yemoda.MaxYear = 2097152 -> int
 const Calendrie.Core.Yemoda.MinDay = 1 -> int
 const Calendrie.Core.Yemoda.MinMonth = 1 -> int
 const Calendrie.Core.Yemoda.MinYear = -2097151 -> int
-const Calendrie.Core.Yemodax.MaxDay = 64 -> int
-const Calendrie.Core.Yemodax.MaxExtra = 127 -> int
-const Calendrie.Core.Yemodax.MaxMonth = 16 -> int
-const Calendrie.Core.Yemodax.MaxYear = 16384 -> int
-const Calendrie.Core.Yemodax.MinDay = 1 -> int
-const Calendrie.Core.Yemodax.MinExtra = 0 -> int
-const Calendrie.Core.Yemodax.MinMonth = 1 -> int
-const Calendrie.Core.Yemodax.MinYear = -16383 -> int
-const Calendrie.Core.Yemox.MaxExtra = 127 -> int
-const Calendrie.Core.Yemox.MaxMonth = 16 -> int
-const Calendrie.Core.Yemox.MaxYear = 16384 -> int
-const Calendrie.Core.Yemox.MinExtra = 0 -> int
-const Calendrie.Core.Yemox.MinMonth = 1 -> int
-const Calendrie.Core.Yemox.MinYear = -16383 -> int
 const Calendrie.DayNumber.MaxDaysSinceZero = 2147483646 -> int
 const Calendrie.DayNumber.MaxSupportedYear = 5000000 -> int
 const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
@@ -1295,21 +1246,12 @@ override Calendrie.Core.Utilities.OrderedPair<T>.ToString() -> string!
 override Calendrie.Core.Yedoy.Equals(object? obj) -> bool
 override Calendrie.Core.Yedoy.GetHashCode() -> int
 override Calendrie.Core.Yedoy.ToString() -> string!
-override Calendrie.Core.Yedoyx.Equals(object? obj) -> bool
-override Calendrie.Core.Yedoyx.GetHashCode() -> int
-override Calendrie.Core.Yedoyx.ToString() -> string!
 override Calendrie.Core.Yemo.Equals(object? obj) -> bool
 override Calendrie.Core.Yemo.GetHashCode() -> int
 override Calendrie.Core.Yemo.ToString() -> string!
 override Calendrie.Core.Yemoda.Equals(object? obj) -> bool
 override Calendrie.Core.Yemoda.GetHashCode() -> int
 override Calendrie.Core.Yemoda.ToString() -> string!
-override Calendrie.Core.Yemodax.Equals(object? obj) -> bool
-override Calendrie.Core.Yemodax.GetHashCode() -> int
-override Calendrie.Core.Yemodax.ToString() -> string!
-override Calendrie.Core.Yemox.Equals(object? obj) -> bool
-override Calendrie.Core.Yemox.GetHashCode() -> int
-override Calendrie.Core.Yemox.ToString() -> string!
 override Calendrie.DayNumber.Equals(object? obj) -> bool
 override Calendrie.DayNumber.GetHashCode() -> int
 override Calendrie.DayNumber.ToString() -> string!
@@ -1694,13 +1636,6 @@ static Calendrie.Core.Yedoy.operator <=(Calendrie.Core.Yedoy left, Calendrie.Cor
 static Calendrie.Core.Yedoy.operator ==(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
 static Calendrie.Core.Yedoy.operator >(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
 static Calendrie.Core.Yedoy.operator >=(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
-static Calendrie.Core.Yedoyx.Create(Calendrie.Core.Yedoy ydoy, int extra) -> Calendrie.Core.Yedoyx
-static Calendrie.Core.Yedoyx.Create(int year, int dayOfYear, int extra) -> Calendrie.Core.Yedoyx
-static Calendrie.Core.Yedoyx.FromBinary(int data) -> Calendrie.Core.Yedoyx
-static Calendrie.Core.Yedoyx.MaxValue.get -> Calendrie.Core.Yedoyx
-static Calendrie.Core.Yedoyx.MinValue.get -> Calendrie.Core.Yedoyx
-static Calendrie.Core.Yedoyx.operator !=(Calendrie.Core.Yedoyx left, Calendrie.Core.Yedoyx right) -> bool
-static Calendrie.Core.Yedoyx.operator ==(Calendrie.Core.Yedoyx left, Calendrie.Core.Yedoyx right) -> bool
 static Calendrie.Core.Yemo.Create(int year, int month) -> Calendrie.Core.Yemo
 static Calendrie.Core.Yemo.FromBinary(int data) -> Calendrie.Core.Yemo
 static Calendrie.Core.Yemo.operator !=(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
@@ -1721,18 +1656,6 @@ static Calendrie.Core.Yemoda.operator ==(Calendrie.Core.Yemoda left, Calendrie.C
 static Calendrie.Core.Yemoda.operator >(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
 static Calendrie.Core.Yemoda.operator >=(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
 static Calendrie.Core.Yemoda.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.Yemodax.Create(Calendrie.Core.Yemoda ymd, int extra) -> Calendrie.Core.Yemodax
-static Calendrie.Core.Yemodax.Create(int year, int month, int day, int extra) -> Calendrie.Core.Yemodax
-static Calendrie.Core.Yemodax.FromBinary(int data) -> Calendrie.Core.Yemodax
-static Calendrie.Core.Yemodax.MaxValue.get -> Calendrie.Core.Yemodax
-static Calendrie.Core.Yemodax.MinValue.get -> Calendrie.Core.Yemodax
-static Calendrie.Core.Yemodax.operator !=(Calendrie.Core.Yemodax left, Calendrie.Core.Yemodax right) -> bool
-static Calendrie.Core.Yemodax.operator ==(Calendrie.Core.Yemodax left, Calendrie.Core.Yemodax right) -> bool
-static Calendrie.Core.Yemox.Create(Calendrie.Core.Yemo ym, int extra) -> Calendrie.Core.Yemox
-static Calendrie.Core.Yemox.Create(int year, int month, int extra) -> Calendrie.Core.Yemox
-static Calendrie.Core.Yemox.FromBinary(int data) -> Calendrie.Core.Yemox
-static Calendrie.Core.Yemox.operator !=(Calendrie.Core.Yemox left, Calendrie.Core.Yemox right) -> bool
-static Calendrie.Core.Yemox.operator ==(Calendrie.Core.Yemox left, Calendrie.Core.Yemox right) -> bool
 static Calendrie.DateParts.AtStartOfMonth(int y, int m) -> Calendrie.DateParts
 static Calendrie.DateParts.AtStartOfYear(int y) -> Calendrie.DateParts
 static Calendrie.DateParts.operator <(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
