@@ -4,6 +4,4 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-// TODO(code): enable the civil clock
-
 <#= new GCalendarTemplate(this, "CivilSchema") { EnableClock = false }.Execute() #>
