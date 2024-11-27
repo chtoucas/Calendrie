@@ -95,7 +95,7 @@ try {
             Remove-Item $rgOutput -Force -Recurse
         }
 
-        $reporttypes = 'Html;TextSummary;MarkdownSummary'
+        $reporttypes = 'Html;TextSummary'
 
         say 'Creating the reports...'
 
