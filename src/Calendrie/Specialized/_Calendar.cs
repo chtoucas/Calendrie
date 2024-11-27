@@ -8,8 +8,6 @@ using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-// TODO(api): Date.CountDaysSince(other) checked context or not?
-
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
 public partial class CivilCalendar : IRegularFeaturette

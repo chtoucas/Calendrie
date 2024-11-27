@@ -3,8 +3,6 @@
 
 namespace Calendrie.Core.Schemas;
 
-// REVIEW(perf): seems to be a bit slower than GregorianSchema when using the y/m/d repr.
-
 // In fact, the formulae should work with year >= 0, nevertheless since
 // daysSinceEpoch < 0 when year = 0, it's better to ignore that.
 

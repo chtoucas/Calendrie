@@ -3,7 +3,6 @@
 
 namespace Calendrie.Core.Utilities;
 
-// REVIEW(perf): do we still need to patch div-rem?
 // Only meaningful when we need to calculate both quotient and remainder.
 // Instead of
 // > q = m / n;
