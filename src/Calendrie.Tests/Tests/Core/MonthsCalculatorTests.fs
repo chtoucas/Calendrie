@@ -12,14 +12,6 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
-module Prelude =
-    [<Fact>]
-    let ``Property Schema`` () =
-        let sch = new GregorianSchema()
-        let calc = MonthsCalculator.Create(sch) :> ISchemaBound
-
-        calc.Schema ==& sch
-
 module Factories =
     [<Fact>]
     let ``Create() throws for null schema`` () =

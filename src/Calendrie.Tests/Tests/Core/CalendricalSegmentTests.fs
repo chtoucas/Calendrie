@@ -17,7 +17,7 @@ module Prelude =
     [<Fact>]
     let ``Property Schema`` () =
         let sch = new GregorianSchema()
-        let seg = CalendricalSegment.Create(sch, Range.Create(1, 4)) :> ISchemaBound
+        let seg = CalendricalSegment.Create(sch, Range.Create(1, 4))
 
         seg.Schema ==& sch
 

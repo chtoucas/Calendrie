@@ -50,11 +50,3 @@ module Prelude =
         scope.DaysValidator.Range === seg.SupportedDays
         scope.MonthsValidator.Range === seg.SupportedMonths
         scope.YearsValidator.Range === seg.SupportedYears
-
-    [<Fact>]
-    let ``Property Schema`` () =
-        let sch = new GregorianSchema()
-        let seg = CalendricalSegment.Create(sch, Range.Create(1, 4))
-        let scope = new FauxCalendarScope(seg) :> ISchemaBound
-
-        scope.Schema ==& sch

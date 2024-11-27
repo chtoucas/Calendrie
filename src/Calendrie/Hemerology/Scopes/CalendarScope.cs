@@ -18,7 +18,7 @@ using Calendrie.Core.Validation;
 /// Defines the scope of application of a calendar, an interval of days, and
 /// provides a base for derived classes.
 /// </summary>
-public abstract partial class CalendarScope : ICalendricalValidator, ISchemaBound
+public abstract partial class CalendarScope : ICalendricalValidator
 {
     /// <summary>
     /// Represents the underlying schema.
@@ -99,8 +99,6 @@ public abstract partial class CalendarScope : ICalendricalValidator, ISchemaBoun
     /// Gets the underlying schema.
     /// </summary>
     protected internal ICalendricalSchema Schema => _schema;
-
-    ICalendricalSchema ISchemaBound.Schema => _schema;
 
     /// <inheritdoc />
     public abstract void ValidateYearMonth(int year, int month, string? paramName = null);

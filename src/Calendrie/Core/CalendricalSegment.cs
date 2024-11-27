@@ -7,7 +7,7 @@ using Calendrie.Core.Intervals;
 
 /// <summary>Provides informations on a range of days for a given schema.
 /// <para>This class cannot be inherited.</para></summary>
-public sealed class CalendricalSegment : ISchemaBound
+public sealed class CalendricalSegment
 {
     /// <summary>Represents the underlying schema.</summary>
     private readonly ICalendricalSchema _schema;
@@ -79,8 +79,6 @@ public sealed class CalendricalSegment : ISchemaBound
 
     /// <summary>Gets the underlying schema.</summary>
     internal ICalendricalSchema Schema => _schema;
-
-    ICalendricalSchema ISchemaBound.Schema => _schema;
 
     /// <summary>Returns a culture-independent string representation of the current instance.
     /// </summary>

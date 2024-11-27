@@ -3,7 +3,7 @@
 
 namespace Calendrie.Core;
 
-internal abstract class MonthsCalculator : ISchemaBound
+internal abstract class MonthsCalculator
 {
     private readonly ICalendricalSchema _schema;
 
@@ -15,8 +15,6 @@ internal abstract class MonthsCalculator : ISchemaBound
     }
 
     protected ICalendricalSchema Schema => _schema;
-
-    ICalendricalSchema ISchemaBound.Schema => _schema;
 
     public static MonthsCalculator Create(ICalendricalSchema schema)
     {

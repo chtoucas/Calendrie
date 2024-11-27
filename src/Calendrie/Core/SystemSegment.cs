@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 /// Provides informations on a range of years for a given system schema.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class SystemSegment : ISchemaBound
+public sealed class SystemSegment
 {
     /// <summary>
     /// Represents the underlying schema.
@@ -79,8 +79,6 @@ public sealed class SystemSegment : ISchemaBound
     /// Gets the underlying system schema.
     /// </summary>
     internal SystemSchema Schema => _schema;
-
-    ICalendricalSchema ISchemaBound.Schema => _schema;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current instance.
