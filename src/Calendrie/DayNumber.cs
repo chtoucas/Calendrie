@@ -12,10 +12,6 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
-// TODO(doc): explain why DayNumber does not keep track of the underlying time scale.
-// REVIEW(perf): make _daysSinceZero internal to remove an extra get method call?
-// but it should not be for arithmetic ops, they may overflow.
-
 #region Developer Notes
 
 // Since DaysSinceZero is public, Min/MaxDaysSinceZero are public too. Another

@@ -3,14 +3,20 @@
 
 namespace Calendrie.Core;
 
-// REVIEW(api): if C# supported "static abstract" methods, we could use static
-// properties instead of instance props. Idem with the other featurettes.
+// If C# supported "static abstract" methods in abstract classes (necessary
+// because an abstract could "implement" this interface abstractly), we could use
+// a static property instead of instance prop. Idem with the other featurettes.
 
-/// <summary>Defines a calendrical schema or a calendar with a fixed number of months in a year.
+/// <summary>
+/// Defines a calendrical schema or a calendar with a fixed number of months in
+/// a year.
 /// <para>We say that the schema/calendar is <i>regular</i>.</para>
-/// <para>Most calendars implement this interface.</para></summary>
+/// <para>Most calendars implement this interface.</para>
+/// </summary>
 public interface IRegularFeaturette : ICalendricalKernel
 {
-    /// <summary>Gets the total number of months in a year.</summary>
+    /// <summary>
+    /// Gets the total number of months in a year.
+    /// </summary>
     int MonthsInYear { get; }
 }

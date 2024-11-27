@@ -25,8 +25,8 @@ Features
 - Civil
 - Coptic (*)
 - Ethiopic (*)
-- Gregorian
-- Julian
+- Gregorian (proleptic)
+- Julian (proleptic)
 - Zoroastrian (*)
 
 (*) Calendar available in two forms: 12 months or 12 months plus a virtual

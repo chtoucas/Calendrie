@@ -10,13 +10,17 @@ namespace Calendrie.Core;
 // questions d'ordre technique on le rattache au douzième mois.
 // Ex. : le jour de la révolution du calendrier républicain.
 
-/// <summary>Defines methods specific to calendrical schemas featuring epagomenal days.
-/// <para>The epagomenal days are usually found in descendants of the Egyptian calendar.</para>
+/// <summary>
+/// Defines methods specific to calendrical schemas featuring epagomenal days.
+/// <para>The epagomenal days are usually found in descendants of the Egyptian
+/// calendar.</para>
 /// </summary>
 public interface IEpagomenalDayFeaturette : ICalendricalKernel
 {
-    /// <summary>Determines whether the specified date is an epagomenal day or not, and also returns
-    /// the epagomenal number of the day in an output parameter, zero if the date is not an
-    /// epagomenal day.</summary>
+    /// <summary>
+    /// Determines whether the specified date is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// </summary>
     [Pure] bool IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber);
 }

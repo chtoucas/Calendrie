@@ -3,8 +3,6 @@
 
 namespace Calendrie.Core;
 
-// REVIEW(api): move IsRegular() to ICalendricalSchema? Change calendars too.
-
 /// <summary>
 /// Defines a calendrical schema.
 /// </summary>
