@@ -36,28 +36,6 @@ internal static class Requires
     }
 
     /// <summary>
-    /// Validates that the specified value is a member of the enum
-    /// <see cref="IsoWeekday"/>.
-    /// </summary>
-    /// <exception cref="AoorException">Thrown if <paramref name="weekday"/> was
-    /// not a known member of the enum <see cref="IsoWeekday"/>.</exception>
-    public static void Defined(
-        IsoWeekday weekday,
-        [CallerArgumentExpression(nameof(weekday))] string paramName = "")
-    {
-        if (IsoWeekday.Monday <= weekday && weekday <= IsoWeekday.Sunday) return;
-
-        fail(weekday, paramName);
-
-        static void fail(IsoWeekday weekday, string paramName) =>
-            throw new AoorException(
-                paramName,
-                weekday,
-                $"The value of the ISO weekday must be in the range 0 through 6; value = {weekday}.");
-
-    }
-
-    /// <summary>
     /// Validates that the specified schema has the <paramref name="expected"/>
     /// profile.
     /// </summary>

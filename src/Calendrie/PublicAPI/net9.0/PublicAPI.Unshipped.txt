@@ -555,16 +555,6 @@ Calendrie.Hemerology.Scopes.MinMaxYearScope
 Calendrie.Hemerology.Scopes.MinMaxYearScope.MinMaxYearScope(Calendrie.DayNumber epoch, Calendrie.Core.CalendricalSegment! segment) -> void
 Calendrie.Hemerology.Scopes.StandardScope
 Calendrie.Hemerology.YearNumbering
-Calendrie.IsoWeekday
-Calendrie.IsoWeekday.Friday = 5 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekday.Monday = 1 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekday.None = 0 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekday.Saturday = 6 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekday.Sunday = 7 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekday.Thursday = 4 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekday.Tuesday = 2 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekday.Wednesday = 3 -> Calendrie.IsoWeekday
-Calendrie.IsoWeekdayExtensions
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
@@ -1710,8 +1700,6 @@ static Calendrie.Hemerology.YearNumbering.GetYearFromIsoDecade(int decade, int y
 static Calendrie.Hemerology.YearNumbering.GetYearFromIsoMillennium(int millennium, int yearOfMillennium) -> int
 static Calendrie.Hemerology.YearNumbering.GetYearFromMillennium(int millennium, int yearOfMillennium) -> int
 static Calendrie.Hemerology.YearNumbering.GetYearOfCentury(int year) -> int
-static Calendrie.IsoWeekdayExtensions.ToDayOfWeek(this Calendrie.IsoWeekday isoWeekday) -> System.DayOfWeek
-static Calendrie.IsoWeekdayExtensions.ToIsoWeekday(this System.DayOfWeek dayOfWeek) -> Calendrie.IsoWeekday
 static Calendrie.MonthParts.AtStartOfYear(int y) -> Calendrie.MonthParts
 static Calendrie.MonthParts.operator <(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool

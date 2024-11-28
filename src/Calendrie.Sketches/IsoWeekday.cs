@@ -84,7 +84,7 @@ public static class IsoWeekdayExtensions
     [Pure]
     public static DayOfWeek ToDayOfWeek(this IsoWeekday isoWeekday)
     {
-        Requires.Defined(isoWeekday);
+        RequiresEx.Defined(isoWeekday);
 
         return (DayOfWeek)((int)isoWeekday % 7);
     }
