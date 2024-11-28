@@ -11,8 +11,7 @@ using Calendrie.Hemerology.Scopes;
 public class MinMaxYearCalendar : BasicCalendar<MinMaxYearScope>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MinMaxYearCalendar"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="MinMaxYearCalendar"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>

@@ -81,7 +81,8 @@ public abstract partial class BasicCalendar<TScope> : ICalendar
 
 public partial class BasicCalendar<TScope> // Year, month, day infos
 {
-#pragma warning disable CA1725 // Parameter names should match base declaration (Naming)
+#pragma warning disable CA1725 // Parameter names should match base declaration (Naming) ✓
+    // Base parameter names (y, m, d) are not explicit enough.
 
     /// <inheritdoc />
     /// <exception cref="AoorException"><paramref name="year"/> is outside the
@@ -104,8 +105,8 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The date is either invalid or outside the
-    /// range of supported dates.</exception>
+    /// <exception cref="AoorException">The date is either invalid or outside
+    /// the range of supported dates.</exception>
     [Pure]
     public bool IsIntercalaryDay(int year, int month, int day)
     {
@@ -114,8 +115,8 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The date is either invalid or outside the
-    /// range of supported dates.</exception>
+    /// <exception cref="AoorException">The date is either invalid or outside
+    /// the range of supported dates.</exception>
     [Pure]
     public bool IsSupplementaryDay(int year, int month, int day)
     {

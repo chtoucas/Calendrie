@@ -41,11 +41,10 @@ public interface IDate<TSelf> :
 // __statiques__.
 // Pour des dates fonctionnant avec un calendrier "pluriel", on utilisera
 // plutôt une propriété non-statique Calendar et on ajoutera une méthode
-// WithCalendar(newCalendar) pour l'interconversion; voir p.ex. ZDate et
-// ISimpleDate.
+// WithCalendar(newCalendar) pour l'interconversion.
 
 /// <summary>
-/// Defines a date type with a companion calendar.
+/// Defines a date type with a companion calendar of fixed type.
 /// <para>This interface SHOULD NOT be implemented by date types participating
 /// in a poly-calendar system.</para>
 /// </summary>

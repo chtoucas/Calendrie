@@ -31,6 +31,7 @@ public interface IAffineDate : IDateable
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IAffineDate<TSelf> :
     IAffineDate,
+    IMinMaxValue<TSelf>,
     // Comparison
     IComparisonOperators<TSelf, TSelf>,
     IMinMaxFunction<TSelf>,
