@@ -24,19 +24,6 @@ abstract Calendrie.Hemerology.BasicCalendar<TScope>.CountMonthsInYear(int year) 
 abstract Calendrie.Hemerology.Scopes.CalendarScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
 abstract Calendrie.Hemerology.Scopes.CalendarScope.ValidateYearMonth(int year, int month, string? paramName = null) -> void
 abstract Calendrie.Hemerology.Scopes.CalendarScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
-Calendrie.AdditionRule
-Calendrie.AdditionRule.Exact = 2 -> Calendrie.AdditionRule
-Calendrie.AdditionRule.Overflow = 3 -> Calendrie.AdditionRule
-Calendrie.AdditionRule.Overspill = 1 -> Calendrie.AdditionRule
-Calendrie.AdditionRule.Truncate = 0 -> Calendrie.AdditionRule
-Calendrie.AdditionRuleset
-Calendrie.AdditionRuleset.AdditionRuleset() -> void
-Calendrie.AdditionRuleset.DateRule.get -> Calendrie.AdditionRule
-Calendrie.AdditionRuleset.DateRule.init -> void
-Calendrie.AdditionRuleset.MonthRule.get -> Calendrie.AdditionRule
-Calendrie.AdditionRuleset.MonthRule.init -> void
-Calendrie.AdditionRuleset.OrdinalRule.get -> Calendrie.AdditionRule
-Calendrie.AdditionRuleset.OrdinalRule.init -> void
 Calendrie.CalendricalAdjustments
 Calendrie.CalendricalAdjustments.Days = 1 -> Calendrie.CalendricalAdjustments
 Calendrie.CalendricalAdjustments.DaysAndMonths = Calendrie.CalendricalAdjustments.Days | Calendrie.CalendricalAdjustments.Months -> Calendrie.CalendricalAdjustments
