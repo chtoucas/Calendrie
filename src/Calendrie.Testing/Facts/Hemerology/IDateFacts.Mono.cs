@@ -13,7 +13,7 @@ using Calendrie.Testing.Data;
 /// </summary>
 public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IDateFacts<TDate, TDataSet>
-    where TCalendar : ICalendar<TDate>
+    where TCalendar : ICalendar, IDateProvider<TDate>
     where TDate : struct, IDate<TDate, TCalendar>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {

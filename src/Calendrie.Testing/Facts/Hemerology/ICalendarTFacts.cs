@@ -9,21 +9,32 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="ICalendar{TDate}"/>.
+/// Provides facts about <see cref="ICalendar"/> and <see cref="IDateProvider{TDate}"/>.
 /// </summary>
 public abstract partial class ICalendarTFacts<TDate, TCalendar, TDataSet> :
     ICalendarFacts<TCalendar, TDataSet>
     where TDate : IDateable
-    where TCalendar : ICalendar<TDate>
+    where TCalendar : ICalendar, IDateProvider<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected ICalendarTFacts(TCalendar calendar) : base(calendar) { }
 
-    /// <summary>Creates a new instance of <typeparamref name="TDate"/> from the specified components.</summary>
+    /// <summary>
+    /// Creates a new instance of <typeparamref name="TDate"/> from the specified
+    /// components.
+    /// </summary>
     protected abstract TDate GetDate(int y, int m, int d);
-    /// <summary>Creates a new instance of <typeparamref name="TDate"/> from the specified ordinal components.</summary>
+
+    /// <summary>
+    /// Creates a new instance of <typeparamref name="TDate"/> from the specified
+    /// ordinal components.
+    /// </summary>
     protected abstract TDate GetDate(int y, int doy);
-    /// <summary>Creates a new instance of <typeparamref name="TDate"/> from the specified <see cref="DayNumber"/>.</summary>
+
+    /// <summary>
+    /// Creates a new instance of <typeparamref name="TDate"/> from the specified
+    /// <see cref="DayNumber"/>.
+    /// </summary>
     protected abstract TDate GetDate(DayNumber dayNumber);
 }
 
@@ -48,7 +59,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
     {
         var (y, m, d) = info.Yemoda;
         // Act
-        TDate date = GetDate(y, m, d);
+        var date = GetDate(y, m, d);
         // Assert
         Assert.Equal(y, date.Year);
         Assert.Equal(m, date.Month);
@@ -61,7 +72,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
     {
         var (y, m, d) = info.Yemoda;
         // Act
-        TDate date = GetDate(y, m, d);
+        var date = GetDate(y, m, d);
         // Assert
         Assert.Equal(y, date.Year);
         Assert.Equal(m, date.Month);
@@ -84,7 +95,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
     {
         var (y, m, d, doy) = info;
         // Act
-        TDate date = GetDate(y, doy);
+        var date = GetDate(y, doy);
         // Assert
         Assert.Equal(y, date.Year);
         Assert.Equal(m, date.Month);
@@ -104,7 +115,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
     {
         var (dayNumber, y, m, d) = info;
         // Act
-        TDate date = GetDate(dayNumber);
+        var date = GetDate(dayNumber);
         // Assert
         Assert.Equal(y, date.Year);
         Assert.Equal(m, date.Month);
@@ -126,13 +137,13 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
     public void GetDaysInYear(YearInfo info)
     {
         int y = info.Year;
-        TDate startOfYear = CalendarUT.GetStartOfYear(y);
-        TDate endOfYear = CalendarUT.GetEndOfYear(y);
-        IEnumerable<TDate> exp =
+        var startOfYear = CalendarUT.GetStartOfYear(y);
+        var endOfYear = CalendarUT.GetEndOfYear(y);
+        var exp =
             from i in Enumerable.Range(1, info.DaysInYear)
             select GetDate(y, i);
         // Act
-        IEnumerable<TDate> actual = CalendarUT.GetDaysInYear(y);
+        var actual = CalendarUT.GetDaysInYear(y);
         var arr = actual.ToArray();
         // Assert
         Assert.Equal(exp, actual);
@@ -156,13 +167,13 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
     public void GetDaysInMonth(MonthInfo info)
     {
         var (y, m) = info.Yemo;
-        TDate startofMonth = CalendarUT.GetStartOfMonth(y, m);
-        TDate endOfMonth = CalendarUT.GetEndOfMonth(y, m);
-        IEnumerable<TDate> exp =
+        var startofMonth = CalendarUT.GetStartOfMonth(y, m);
+        var endOfMonth = CalendarUT.GetEndOfMonth(y, m);
+        var exp =
             from i in Enumerable.Range(1, info.DaysInMonth)
             select GetDate(y, m, i);
         // Act
-        IEnumerable<TDate> actual = CalendarUT.GetDaysInMonth(y, m);
+        var actual = CalendarUT.GetDaysInMonth(y, m);
         var arr = actual.ToArray();
         // Assert
         Assert.Equal(exp, actual);
@@ -183,7 +194,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
     public void GetStartOfYear(YearInfo info)
     {
         int y = info.Year;
-        TDate startOfYear = GetDate(y, 1, 1);
+        var startOfYear = GetDate(y, 1, 1);
         // Act & Assert
         Assert.Equal(startOfYear, CalendarUT.GetStartOfYear(y));
     }
@@ -199,7 +210,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
     public void GetEndOfYear(YearInfo info)
     {
         int y = info.Year;
-        TDate endOfYear = GetDate(y, info.DaysInYear);
+        var endOfYear = GetDate(y, info.DaysInYear);
         // Act & Assert
         Assert.Equal(endOfYear, CalendarUT.GetEndOfYear(y));
     }
@@ -219,7 +230,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
     public void GetStartOfMonth(MonthInfo info)
     {
         var (y, m) = info.Yemo;
-        TDate startOfMonth = GetDate(y, m, 1);
+        var startOfMonth = GetDate(y, m, 1);
         // Act & Assert
         Assert.Equal(startOfMonth, CalendarUT.GetStartOfMonth(y, m));
     }
@@ -239,7 +250,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvide
     public void GetEndOfMonth(MonthInfo info)
     {
         var (y, m) = info.Yemo;
-        TDate endOfMonth = GetDate(y, m, info.DaysInMonth);
+        var endOfMonth = GetDate(y, m, info.DaysInMonth);
         // Act & Assert
         Assert.Equal(endOfMonth, CalendarUT.GetEndOfMonth(y, m));
     }

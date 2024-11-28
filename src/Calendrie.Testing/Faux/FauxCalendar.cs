@@ -8,7 +8,16 @@ using System.Collections.Generic;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-public sealed class FauxCalendar<TDate> : BasicCalendar<CalendarScope>, ICalendar<TDate>
+public sealed class FauxCalendar : BasicCalendar<CalendarScope>
+{
+    public FauxCalendar(string name, CalendarScope scope) : base(name, scope) { }
+
+    public override int CountDaysInMonth(int year, int month) => throw new NotSupportedException();
+    public override int CountDaysInYear(int year) => throw new NotSupportedException();
+    public override int CountMonthsInYear(int year) => throw new NotSupportedException();
+}
+
+public sealed class FauxCalendar<TDate> : BasicCalendar<CalendarScope>, IDateProvider<TDate>
 {
     public FauxCalendar(string name, CalendarScope scope) : base(name, scope) { }
 

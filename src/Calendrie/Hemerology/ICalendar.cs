@@ -223,9 +223,3 @@ public interface ICalendar : ICalendricalKernel
     /// calendar boundaries.</exception>
     [Pure] DayNumber GetDayNumber(int year, int dayOfYear);
 }
-
-/// <summary>
-/// Defines a calendar with a companion date type.
-/// </summary>
-/// <typeparam name="TDate">The type of date object to return.</typeparam>
-public interface ICalendar<out TDate> : ICalendar, IDateProvider<TDate> { }
