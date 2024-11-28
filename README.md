@@ -15,25 +15,26 @@ Current status:
 - Results regarding performance are rather promising
 - Targets .NET 8.0+
 
-Features
---------
+Supported Calendars
+-------------------
 
-### Supported Calendars
+### Arithmetical calendars
 
-#### Arithmetical calendars
 - Armenian (*)
 - Civil
 - Coptic (*)
 - Ethiopic (*)
-- Gregorian (proleptic)
-- Julian (proleptic)
 - Zoroastrian (*)
 
 (*) Calendar available in two forms: 12 months or 12 months plus a virtual
 thirteenth month.
 
-#### Arithmetisation of astronomical calendars
+#### Proleptic calendars
+- Gregorian
+- Julian
+
+### Arithmetisation of astronomical calendars
 - Tabular Islamic
 
-#### Perennial blank-day calendars
+### Perennial blank-day calendars
 - World aka Universal
