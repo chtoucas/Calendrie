@@ -124,6 +124,9 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
         return Schema.IsSupplementaryDay(year, month, day);
     }
 
+    // Les méthodes suivantes sont abstraites car une année ou un mois peut être
+    // incomplet.
+
     /// <inheritdoc />
     /// <exception cref="AoorException">The year is outside the range of
     /// supported years.</exception>

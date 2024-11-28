@@ -89,7 +89,7 @@ public readonly partial struct RangeSet<T> :
     /// Represents the empty range.
     /// <para>The empty range is both an intersection absorber and a span identity.</para>
     /// </summary>
-#pragma warning disable CS0649
+#pragma warning disable CS0649 // Field 'field' is never assigned to, and will always have its default value 'value'
     // FIXME(code): CS0649 when /p:HideInternals=true
     internal static readonly RangeSet<T> Empty;
 #pragma warning restore CS0649

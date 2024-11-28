@@ -31,6 +31,21 @@ namespace Calendrie.Core.Utilities;
 public interface IDifferenceOperators<TSelf, out TResult>
     where TSelf : IDifferenceOperators<TSelf, TResult>
 {
-    /// <summary>Subtracts two values to compute their difference.</summary>
+    /// <summary>
+    /// Subtracts two values to compute their difference.
+    /// </summary>
     static abstract TResult operator -(TSelf left, TSelf right);
+
+    ///// <summary>
+    ///// Subtracts two values to compute their difference.
+    ///// </summary>
+    //static virtual TResult Subtract(TSelf left, TSelf right) => left - right;
+
+    ///// <summary>
+    ///// Subtracts two values to compute their difference.
+    ///// </summary>
+    ///// <exception cref="OverflowException">The subtraction of <paramref name="left" />
+    ///// and <paramref name="right" /> is not representable by
+    ///// <typeparamref name="TResult" />.</exception>
+    //static virtual TResult operator checked -(TSelf left, TSelf right) => left - right;
 }

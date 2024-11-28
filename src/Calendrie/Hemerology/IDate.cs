@@ -36,9 +36,13 @@ public interface IDate<TSelf> :
     where TSelf : IDate<TSelf>
 { }
 
-// L'interface suivante est prévue pour les dates ne fonctionnant avec un seul
+// L'interface suivante est prévue pour les dates ne fonctionnant qu'avec un seul
 // type de calendrier, d'où le fait d'avoir choisi des propriétés et méthodes
-// __statiques__.
+// __statiques__ :
+// - IMinMaxValue<T>
+// - Calendar
+// - FromDayNumber()
+//
 // Pour des dates fonctionnant avec un calendrier "pluriel", on utilisera
 // plutôt une propriété non-statique Calendar et on ajoutera une méthode
 // WithCalendar(newCalendar) pour l'interconversion.
