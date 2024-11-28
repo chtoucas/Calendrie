@@ -12,16 +12,11 @@ using System.Numerics;
 // - (dayNumber)
 
 /// <summary>
-/// Defines a date.
-/// </summary>
-public interface IDate : IFixedDate, IDateable { }
-
-/// <summary>
 /// Defines a date type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IDate<TSelf> :
-    IDate,
+    IDateable,
     IFixedDate<TSelf>,
     // Comparison
     IComparisonOperators<TSelf, TSelf>,

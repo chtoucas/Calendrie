@@ -495,8 +495,6 @@ Calendrie.Hemerology.ICalendar.Epoch.get -> Calendrie.DayNumber
 Calendrie.Hemerology.ICalendar.GetDayNumber(int year, int dayOfYear) -> Calendrie.DayNumber
 Calendrie.Hemerology.ICalendar.GetDayNumber(int year, int month, int day) -> Calendrie.DayNumber
 Calendrie.Hemerology.ICalendar.Scope.get -> Calendrie.Hemerology.Scopes.CalendarScope!
-Calendrie.Hemerology.ICalendar<TDate>
-Calendrie.Hemerology.IDate
 Calendrie.Hemerology.IDate<TSelf, TCalendar>
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
