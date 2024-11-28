@@ -20,11 +20,11 @@ using Calendrie.Core.Intervals;
 //       └─ CalendricalSchema [A]
 //          └─ SystemSchema [A]
 //             ├─ HebrewSchema                      DRAFT
-//             ├─ InternationalFixedSchema          DRAFT
+//             ├─ InternationalFixedSchema
 //             ├─ Persian2820Schema
-//             ├─ PositivistSchema                  DRAFT
+//             ├─ PositivistSchema
 //             ├─ TabularIslamicSchema
-//             ├─ WorldSchema                       DRAFT
+//             ├─ WorldSchema
 //             ├─ EgyptianSchema [A]
 //             │  ├─ Egyptian12Schema
 //             │  └─ Egyptian13Schema
@@ -42,8 +42,8 @@ using Calendrie.Core.Intervals;
 //             │     └─ FrenchRepublican13Schema
 //             └─ TropicalistaSchema [A]
 //                ├─ TropicaliaSchema
-//                ├─ Tropicalia3031Schema           DRAFT
-//                └─ Tropicalia3130Schema           DRAFT
+//                ├─ Tropicalia3031Schema
+//                └─ Tropicalia3130Schema
 //
 // Annotation: [A] = abstract
 //
