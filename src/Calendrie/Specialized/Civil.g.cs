@@ -37,7 +37,7 @@ public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
     partial void OnInitializing(CivilSchema schema);
 
     [Pure]
-    private protected sealed override CivilDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override CivilDate GetDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
@@ -55,7 +55,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     internal CivilAdjuster(MinMaxYearScope scope) : base(scope) { }
 
     [Pure]
-    private protected sealed override CivilDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override CivilDate GetDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>

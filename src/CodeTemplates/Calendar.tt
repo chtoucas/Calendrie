@@ -110,7 +110,7 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     partial void OnInitializing(<#= SchemaClass #> schema);
 
     [Pure]
-    private protected sealed override <#= Prefix #>Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override <#= Prefix #>Date GetDate(int <#= DaysSinceEpochVar #>) => new(<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitCalendar()

@@ -38,7 +38,7 @@ public sealed partial class GregorianCalendar : SpecialCalendar<GregorianDate>
     partial void OnInitializing(GregorianSchema schema);
 
     [Pure]
-    private protected sealed override GregorianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override GregorianDate GetDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
@@ -56,7 +56,7 @@ public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
     internal GregorianAdjuster(MinMaxYearScope scope) : base(scope) { }
 
     [Pure]
-    private protected sealed override GregorianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override GregorianDate GetDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
