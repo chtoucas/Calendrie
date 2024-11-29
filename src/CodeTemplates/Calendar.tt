@@ -59,14 +59,14 @@ public partial class CalendarTemplate : CSharpTemplate
         EmitDate();
     } // T4: End of WriteContent()
 
-    protected void EmitPragmas()
+    protected virtual void EmitPragmas()
     {
 #>
 #nullable enable
 <#+
     } // T4: End of EmitPragmas()
 
-    protected void EmitNamespace()
+    protected virtual void EmitNamespace()
     {
 #>
 namespace <#= Namespace #>;
@@ -87,7 +87,7 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
-    protected void EmitCalendar()
+    protected virtual void EmitCalendar()
     {
 #>
 /// <summary>

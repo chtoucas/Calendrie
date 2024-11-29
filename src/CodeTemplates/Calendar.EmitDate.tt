@@ -2,7 +2,7 @@
 
 public partial class CalendarTemplate
 {
-    protected void EmitDate()
+    protected virtual void EmitDate()
     {
         EmitDateDecl();
 
@@ -206,7 +206,7 @@ public partial struct <#= Prefix #>Date // Factories
 <#+
     } // T4: End of EmitDateDecl()
 
-    protected void EmitDateCounting()
+    protected virtual void EmitDateCounting()
     {
 #>
 public partial struct <#= Prefix #>Date // Counting
@@ -293,7 +293,7 @@ public partial struct <#= Prefix #>Date // Adjustments
 <#+
     } // T4: End of EmitDateAdjustment()
 
-    protected void EmitDateEquatable()
+    protected virtual void EmitDateEquatable()
     {
 #>
 public partial struct <#= Prefix #>Date // IEquatable
@@ -322,7 +322,7 @@ public partial struct <#= Prefix #>Date // IEquatable
 <#+
     } // T4: End of EmitDateEquatable()
 
-    protected void EmitDateComparable()
+    protected virtual void EmitDateComparable()
     {
 #>
 public partial struct <#= Prefix #>Date // IComparable
@@ -364,7 +364,7 @@ public partial struct <#= Prefix #>Date // IComparable
 <#+
     } // T4: End of EmitDateComparable()
 
-    protected void EmitDateMath()
+    protected virtual void EmitDateMath()
     {
 #>
 public partial struct <#= Prefix #>Date // Math

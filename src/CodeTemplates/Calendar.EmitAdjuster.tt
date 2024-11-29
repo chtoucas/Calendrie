@@ -2,7 +2,7 @@
 
 public partial class CalendarTemplate
 {
-    protected void EmitAdjuster()
+    protected virtual void EmitAdjuster()
     {
 #>
 /// <summary>
