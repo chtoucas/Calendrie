@@ -10,7 +10,7 @@ public sealed class JulianTemplate : CalendarTemplate
 {
     public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema") { }
 
-    protected override void EmitUsings()
+    protected sealed override void EmitUsings()
     {
 #>
 using Calendrie.Core.Schemas;
@@ -22,7 +22,7 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
-    protected override void EmitDateDecl()
+    protected sealed override void EmitDateDecl()
     {
 #>
 /// <summary>Represents the <#= DisplayName #> date.

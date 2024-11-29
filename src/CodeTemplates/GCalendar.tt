@@ -3,7 +3,7 @@
 
 // Special case: Epoch = Gregorian epoch (DayZero.NewStyle)
 
-public sealed class GCalendarTemplate : CalendarTemplate
+public class GCalendarTemplate : CalendarTemplate
 {
     public GCalendarTemplate(TextTransformation parent, string schema) : base(parent, schema)
     {
