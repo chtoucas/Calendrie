@@ -16,6 +16,7 @@ public class ZeroCalendarTemplate : CalendarTemplate
         WriteLine();
 #>
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 <#+ if (EnableClock) { #>
@@ -265,6 +266,24 @@ public partial struct <#= Prefix #>Date // Factories
 }
 <#+
     } // T4: End of EmitDateDecl()
+
+    protected override void EmitDateFactories()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Date // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
+    {
+        s_Domain.Validate(dayNumber);
+
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+    }
+}
+<#+
+    } // T4: End of EmitDateFactories()
 
     protected override void EmitDateAdjustment()
     {

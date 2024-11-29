@@ -11,6 +11,7 @@
 namespace Calendrie.Specialized;
 
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
@@ -66,6 +67,18 @@ public readonly partial struct JulianDate :
     IDate<JulianDate, JulianCalendar>,
     IAdjustable<JulianDate>
 { }
+
+public partial struct JulianDate // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static JulianDate FromDayNumber(DayNumber dayNumber)
+    {
+        s_Domain.Validate(dayNumber);
+
+        return new JulianDate(dayNumber - s_Epoch);
+    }
+}
 
 public partial struct JulianDate // Counting
 {

@@ -11,6 +11,7 @@
 namespace Calendrie.Specialized;
 
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
@@ -66,6 +67,18 @@ public readonly partial struct GregorianDate :
     IDate<GregorianDate, GregorianCalendar>,
     IAdjustable<GregorianDate>
 { }
+
+public partial struct GregorianDate // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static GregorianDate FromDayNumber(DayNumber dayNumber)
+    {
+        s_Domain.Validate(dayNumber);
+
+        return new GregorianDate(dayNumber.DaysSinceZero);
+    }
+}
 
 public partial struct GregorianDate // Counting
 {

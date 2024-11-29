@@ -5,7 +5,6 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
@@ -163,21 +162,4 @@ public partial struct JulianDate
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
         year = s_Schema.GetYear(_daysSinceEpoch, out dayOfYear);
-}
-
-public partial struct JulianDate // Factories
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
-    /// specified day number.
-    /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
-    /// the range of supported values.</exception>
-    [Pure]
-    public static JulianDate FromDayNumber(DayNumber dayNumber)
-    {
-        s_Domain.Validate(dayNumber);
-
-        return new JulianDate(dayNumber - s_Epoch);
-    }
 }

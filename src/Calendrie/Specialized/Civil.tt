@@ -10,7 +10,22 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
 {
     public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema") { }
 
+    protected sealed override void EmitUsings()
+    {
+        WriteLine();
+#>
+using Calendrie.Core.Schemas;
+using Calendrie.Hemerology;
+using Calendrie.Hemerology.Scopes;
+<#+ if (EnableClock) { #>
+using Calendrie.Horology;
+<#+ } #>
+<#+
+    } // T4: End of EmitUsings()
+
     protected sealed override void EmitDateDecl() => EmitEmptyDateDecl();
+
+    protected sealed override void EmitDateFactories() { }
 
     protected sealed override void EmitDateAdjustment() { }
 

@@ -6,6 +6,8 @@ public partial class CalendarTemplate
     {
         EmitDateDecl();
 
+        EmitDateFactories();
+
         EmitDateCounting();
 
         EmitDateAdjustment();
@@ -203,7 +205,13 @@ public readonly partial struct <#= Prefix #>Date :
     public void Deconstruct(out int year, out int dayOfYear) =>
         year = s_Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
 }
+<#+
+    } // T4: End of EmitDateDecl()
 
+    protected virtual void EmitDateFactories()
+    {
+        WriteLine();
+#>
 public partial struct <#= Prefix #>Date // Factories
 {
     /// <inheritdoc />
@@ -216,7 +224,7 @@ public partial struct <#= Prefix #>Date // Factories
     }
 }
 <#+
-    } // T4: End of EmitDateDecl()
+    } // T4: End of EmitDateFactories()
 
     protected virtual void EmitDateCounting()
     {
