@@ -9,9 +9,8 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-// We use GregorianStandardScope instead of s_Calendar.Scope because they
-// are strictly equivalent. We could optimize AddDays() by using
-// GregorianStandardScope.DaysValidator instead of s_Scope.DaysValidator.
+// We use CivilScope instead of s_Calendar.Scope. We could also optimize
+// AddDays() by using CivilScope.DaysValidator instead of s_Scope.DaysValidator.
 
 public partial struct CivilDate
 {
@@ -36,7 +35,7 @@ public partial struct CivilDate
     /// years.</exception>
     public CivilDate(int year, int month, int day)
     {
-        GregorianStandardScope.ValidateYearMonthDay(year, month, day);
+        CivilScope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, month, day);
     }
@@ -50,7 +49,7 @@ public partial struct CivilDate
     /// supported years.</exception>
     public CivilDate(int year, int dayOfYear)
     {
-        GregorianStandardScope.ValidateOrdinal(year, dayOfYear);
+        CivilScope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceZero = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }

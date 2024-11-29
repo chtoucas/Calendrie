@@ -15,7 +15,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <para>Supported dates are within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal static class GregorianStandardScope
+internal static class CivilScope
 {
     /// <summary>
     /// Represents the earliest supported year.
@@ -28,6 +28,13 @@ internal static class GregorianStandardScope
     /// <para>This field is a constant equal to 9999.</para>
     /// </summary>
     public const int MaxYear = StandardScope.MaxYear;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// <para>This field is a constant equal to 0.</para>
+    /// </summary>
+    private const int MinDaysSinceEpoch = 0;
 
     /// <summary>
     /// Represents the maximum possible value for the number of consecutive days
@@ -43,7 +50,7 @@ internal static class GregorianStandardScope
     /// </summary>
     public static Range<DayNumber> DefaultDomain { get; } =
         Range.Create(
-            DayZero.NewStyle,
+            DayZero.NewStyle + MinDaysSinceEpoch,
             DayZero.NewStyle + s_MaxDaysSinceEpoch);
 
     /// <summary>
@@ -51,7 +58,7 @@ internal static class GregorianStandardScope
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
     public static DaysValidator DaysValidator { get; } =
-        new(Range.Create(0, s_MaxDaysSinceEpoch));
+        new(Range.Create(MinDaysSinceEpoch, s_MaxDaysSinceEpoch));
 
     /// <summary>
     /// Gets the validator for the range of supported years.
