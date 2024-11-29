@@ -9,68 +9,91 @@ namespace Calendrie.Core.Schemas;
 // FIXME(code): checked ops?
 // formulae should use the new signature: GetOrdinalParts() -> GetYear().
 
-/// <summary>Provides static formulae for the Gregorian schema (32-bit and 64-bit versions).
+/// <summary>
+/// Provides static formulae for the Gregorian schema (32-bit and 64-bit
+/// versions).
 /// <para>See also <seealso cref="GregorianSchema"/>.</para>
-/// <para>This class cannot be inherited.</para></summary>
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 internal static class GregorianFormulae
 {
-    /// <summary>Determines whether the specified date is an intercalary day or not.</summary>
+    /// <summary>
+    /// Determines whether the specified date is an intercalary day or not.
+    /// </summary>
     [Pure]
     public static bool IsIntercalaryDay(int m, int d) => m == 2 && d == 29;
 
-    /// <summary>Determines whether the specified year is leap or not.</summary>
+    /// <summary>
+    /// Determines whether the specified year is leap or not.
+    /// </summary>
     [Pure]
     // CIL code size = 30 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(long y) =>
         (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
 
-    /// <summary>Determines whether the specified year is leap or not.</summary>
+    /// <summary>
+    /// Determines whether the specified year is leap or not.
+    /// </summary>
     [Pure]
     // CIL code size = 26 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(int y) =>
         (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
 
-    /// <summary>Obtains the number of days in the specified year.</summary>
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
     [Pure]
     public static int CountDaysInYear(long y) =>
         IsLeapYear(y) ? GJSchema.DaysInLeapYear : GJSchema.DaysInCommonYear;
 
-    /// <summary>Obtains the number of days in the specified year.</summary>
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
     [Pure]
     public static int CountDaysInYear(int y) =>
         IsLeapYear(y) ? GJSchema.DaysInLeapYear : GJSchema.DaysInCommonYear;
 
-    /// <summary>Obtains the number of days before the start of the specified month.</summary>
+    /// <summary>
+    /// Obtains the number of days before the start of the specified month.
+    /// </summary>
     [Pure]
     public static int CountDaysInYearBeforeMonth(long y, int m) =>
         m < 3 ? 31 * (m - 1)
         : IsLeapYear(y) ? (int)((uint)(153 * m - 157) / 5)
         : (int)((uint)(153 * m - 162) / 5);
 
-    /// <summary>Obtains the number of days before the start of the specified month.</summary>
+    /// <summary>
+    /// Obtains the number of days before the start of the specified month.
+    /// </summary>
     [Pure]
     public static int CountDaysInYearBeforeMonth(int y, int m) =>
         m < 3 ? 31 * (m - 1)
         : IsLeapYear(y) ? (int)((uint)(153 * m - 157) / 5)
         : (int)((uint)(153 * m - 162) / 5);
 
-    /// <summary>Obtains the number of days in the specified month.</summary>
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
     [Pure]
     public static int CountDaysInMonth(long y, int m) =>
         m != 2 ? 30 + ((m + (m >> 3)) & 1)
         : IsLeapYear(y) ? 29
         : 28;
 
-    /// <summary>Obtains the number of days in the specified month.</summary>
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
     [Pure]
     public static int CountDaysInMonth(int y, int m) =>
         m != 2 ? 30 + ((m + (m >> 3)) & 1)
         : IsLeapYear(y) ? 29
         : 28;
 
-    /// <summary>Counts the number of consecutive days from the epoch to the specified date.
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the specified
+    /// date.
     /// </summary>
     [Pure]
     public static long CountDaysSinceEpoch(long y, int m, int d)
@@ -93,7 +116,9 @@ internal static class GregorianFormulae
             + (int)((uint)(153 * m + 2) / 5 + d) - 1;
     }
 
-    /// <summary>Counts the number of consecutive days from the epoch to the specified date.
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the specified
+    /// date.
     /// </summary>
     [Pure]
     public static int CountDaysSinceEpoch(int y, int m, int d)
@@ -116,8 +141,11 @@ internal static class GregorianFormulae
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
     }
 
-    /// <summary>Obtains the date parts for the specified day count (the number of consecutive days
-    /// from the epoch to a date); the results are given in output parameters.</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified day count (the number of
+    /// consecutive days from the epoch to a date); the results are given in
+    /// output parameters.
+    /// </summary>
     public static void GetDateParts(long daysSinceEpoch, out long y, out int m, out int d)
     {
         daysSinceEpoch += GJSchema.DaysInYearAfterFebruary;
@@ -144,8 +172,11 @@ internal static class GregorianFormulae
         y = 100 * C + Y;
     }
 
-    /// <summary>Obtains the date parts for the specified day count (the number of consecutive days
-    /// from the epoch to a date); the results are given in output parameters.</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified day count (the number of
+    /// consecutive days from the epoch to a date); the results are given in
+    /// output parameters.
+    /// </summary>
     public static void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
         daysSinceEpoch += GJSchema.DaysInYearAfterFebruary;
@@ -172,8 +203,10 @@ internal static class GregorianFormulae
         y = 100 * C + Y;
     }
 
-    /// <summary>Obtains the date parts for the specified day count (the number of consecutive days
-    /// from the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified day count (the number of
+    /// consecutive days from the epoch to a date).
+    /// </summary>
     [Pure]
     // CIL code size = 21 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -183,8 +216,10 @@ internal static class GregorianFormulae
         return new Yemoda(y, m, d);
     }
 
-    /// <summary>Obtains the ordinal date parts for the specified day count (the number of
-    /// consecutive days from the epoch to a date); the results are given in output parameters.
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified day count (the number
+    /// of consecutive days from the epoch to a date); the results are given in
+    /// output parameters.
     /// </summary>
     [Pure]
     public static int GetYear(int daysSinceEpoch, out int doy)
@@ -194,8 +229,10 @@ internal static class GregorianFormulae
         return y;
     }
 
-    /// <summary>Obtains the ordinal date parts for the specified day count (the number of
-    /// consecutive days from the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified day count (the number
+    /// of consecutive days from the epoch to a date).
+    /// </summary>
     [Pure]
     // CIL code size = 18 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -205,8 +242,10 @@ internal static class GregorianFormulae
         return new Yedoy(y, doy);
     }
 
-    /// <summary>Obtains the year from the specified day count (the number of consecutive days from
-    /// the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the year from the specified day count (the number of consecutive
+    /// days from the epoch to a date).
+    /// </summary>
     [Pure]
     public static long GetYear(long daysSinceEpoch)
     {
@@ -217,8 +256,10 @@ internal static class GregorianFormulae
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
 
-    /// <summary>Obtains the year from the specified day count (the number of consecutive days from
-    /// the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the year from the specified day count (the number of consecutive
+    /// days from the epoch to a date).
+    /// </summary>
     [Pure]
     public static int GetYear(int daysSinceEpoch)
     {
@@ -229,8 +270,10 @@ internal static class GregorianFormulae
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
 
-    /// <summary>Counts the number of consecutive days from the epoch to the first day of the
-    /// specified year.</summary>
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the first day of
+    /// the specified year.
+    /// </summary>
     [Pure]
     public static long GetStartOfYear(long y)
     {
@@ -239,8 +282,10 @@ internal static class GregorianFormulae
         return GJSchema.DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
     }
 
-    /// <summary>Counts the number of consecutive days from the epoch to the first day of the
-    /// specified year.</summary>
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the first day of
+    /// the specified year.
+    /// </summary>
     [Pure]
     public static int GetStartOfYear(int y)
     {
@@ -249,8 +294,10 @@ internal static class GregorianFormulae
         return GJSchema.DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
     }
 
-    /// <summary>Counts the number of consecutive days from the epoch to the last day of the
-    /// specified year.</summary>
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the last day of
+    /// the specified year.
+    /// </summary>
     [Pure]
     public static int GetEndOfYear(int y) => GetStartOfYear(y) + CountDaysInYear(y) - 1;
 }
