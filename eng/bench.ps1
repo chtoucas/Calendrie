@@ -42,7 +42,7 @@ Usage: bench.ps1 [arguments]
 
   -f|-Filter
   -j|-Job
-  -d|-Disassamble
+  -d|-Disassemble
 
   -q|-Quiet
      -NoBuild        do NOT build the benchmark project?
