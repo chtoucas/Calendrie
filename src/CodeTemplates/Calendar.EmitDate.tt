@@ -73,9 +73,9 @@ public readonly partial struct <#= Prefix #>Date :
     /// <summary>
     /// This constructor does NOT validate its parameter.
     /// </summary>
-    internal <#= Prefix #>Date(int daysSinceEpoch)
+    internal <#= Prefix #>Date(int <#= DaysSinceEpochVar #>)
     {
-        <#= DaysSinceEpochField #> = daysSinceEpoch;
+        <#= DaysSinceEpochField #> = <#= DaysSinceEpochVar #>;
     }
 
     /// <inheritdoc />
@@ -421,11 +421,11 @@ public partial struct <#= Prefix #>Date // Math
     [Pure]
     public <#= Prefix #>Date AddDays(int days)
     {
-        int daysSinceEpoch = checked(<#= DaysSinceEpochField #> + days);
+        int <#= DaysSinceEpochVar #> = checked(<#= DaysSinceEpochField #> + days);
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        s_Scope.DaysValidator.CheckOverflow(daysSinceEpoch);
-        return new(daysSinceEpoch);
+        // > s_Domain.CheckOverflow(s_Epoch + <#= DaysSinceEpochVar #>);
+        s_Scope.DaysValidator.CheckOverflow(<#= DaysSinceEpochVar #>);
+        return new(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />

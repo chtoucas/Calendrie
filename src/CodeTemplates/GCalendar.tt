@@ -1,13 +1,14 @@
 ﻿<#@ include file="Calendar.tt" #>
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #><#+
 
-// Special case: Epoch = Gregorian epoch (DayZero.NewStyle)
+// Special case when Epoch = Gregorian epoch (DayZero.NewStyle)
 
 public class GCalendarTemplate : CalendarTemplate
 {
     public GCalendarTemplate(TextTransformation parent, string schema) : base(parent, schema)
     {
         DaysSinceEpochField = "_daysSinceZero";
+        DaysSinceEpochVar = "daysSinceZero";
     }
 
     protected override void EmitUsings()

@@ -255,11 +255,11 @@ public partial struct GregorianDate // Math
     [Pure]
     public GregorianDate AddDays(int days)
     {
-        int daysSinceEpoch = checked(_daysSinceZero + days);
+        int daysSinceZero = checked(_daysSinceZero + days);
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        s_Scope.DaysValidator.CheckOverflow(daysSinceEpoch);
-        return new(daysSinceEpoch);
+        // > s_Domain.CheckOverflow(s_Epoch + daysSinceZero);
+        s_Scope.DaysValidator.CheckOverflow(daysSinceZero);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
