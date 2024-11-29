@@ -10,7 +10,7 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
 {
     public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema") { }
 
-    protected sealed override void EmitDateDecl() => EmitEmptyDateDecl();
+    protected sealed override void EmitDatePreamble() { }
 }
 
 #>

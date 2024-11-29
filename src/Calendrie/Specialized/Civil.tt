@@ -23,7 +23,7 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
-    protected sealed override void EmitDateDecl() => EmitEmptyDateDecl();
+    protected sealed override void EmitDatePreamble() { }
 
     protected sealed override void EmitDateFactories() { }
 

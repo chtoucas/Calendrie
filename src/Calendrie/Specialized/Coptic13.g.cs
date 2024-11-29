@@ -67,6 +67,9 @@ public sealed partial class Coptic13Adjuster : SpecialAdjuster<Coptic13Date>
 public readonly partial struct Coptic13Date :
     IDate<Coptic13Date, Coptic13Calendar>,
     IAdjustable<Coptic13Date>
+{ }
+
+public partial struct Coptic13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 

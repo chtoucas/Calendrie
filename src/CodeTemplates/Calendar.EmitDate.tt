@@ -6,6 +6,8 @@ public partial class CalendarTemplate
     {
         EmitDateDecl();
 
+        EmitDatePreamble();
+
         EmitDateFactories();
 
         EmitDateCounting();
@@ -19,7 +21,7 @@ public partial class CalendarTemplate
         EmitDateMath();
     }
 
-    protected void EmitEmptyDateDecl()
+    protected virtual void EmitDateDecl()
     {
         WriteLine();
 #>
@@ -32,19 +34,13 @@ public readonly partial struct <#= Prefix #>Date :
     IAdjustable<<#= Prefix #>Date>
 { }
 <#+
-    } // T4: End of EmitEmptyDateDecl()
+    } // T4: End of EmitDateDecl()
 
-    protected virtual void EmitDateDecl()
+    protected virtual void EmitDatePreamble()
     {
         WriteLine();
 #>
-/// <summary>
-/// Represents the <#= DisplayName #> date.
-/// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para>
-/// </summary>
-public readonly partial struct <#= Prefix #>Date :
-    IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
-    IAdjustable<<#= Prefix #>Date>
+public partial struct <#= Prefix #>Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
@@ -206,7 +202,7 @@ public readonly partial struct <#= Prefix #>Date :
         year = s_Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
 }
 <#+
-    } // T4: End of EmitDateDecl()
+    } // T4: End of EmitDatePreamble()
 
     protected virtual void EmitDateFactories()
     {

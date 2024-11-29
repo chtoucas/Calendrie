@@ -80,17 +80,11 @@ public sealed partial class <#= Prefix #>Clock
 <#+
     } // T4: End of EmitClock()
 
-    protected override void EmitDateDecl()
+    protected override void EmitDatePreamble()
     {
         WriteLine();
 #>
-/// <summary>
-/// Represents the <#= DisplayName #> date.
-/// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para>
-/// </summary>
-public readonly partial struct <#= Prefix #>Date :
-    IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
-    IAdjustable<<#= Prefix #>Date>
+public partial struct <#= Prefix #>Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 

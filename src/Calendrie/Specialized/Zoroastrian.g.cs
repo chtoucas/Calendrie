@@ -67,6 +67,9 @@ public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDat
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
     IAdjustable<ZoroastrianDate>
+{ }
+
+public partial struct ZoroastrianDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 

@@ -67,6 +67,9 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
     IAdjustable<WorldDate>
+{ }
+
+public partial struct WorldDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 

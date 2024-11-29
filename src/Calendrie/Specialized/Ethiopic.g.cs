@@ -67,6 +67,9 @@ public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
 public readonly partial struct EthiopicDate :
     IDate<EthiopicDate, EthiopicCalendar>,
     IAdjustable<EthiopicDate>
+{ }
+
+public partial struct EthiopicDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 

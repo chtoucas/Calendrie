@@ -67,6 +67,9 @@ public sealed partial class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
 public readonly partial struct Armenian13Date :
     IDate<Armenian13Date, Armenian13Calendar>,
     IAdjustable<Armenian13Date>
+{ }
+
+public partial struct Armenian13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 

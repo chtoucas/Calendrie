@@ -67,6 +67,9 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate, TabularIslamicCalendar>,
     IAdjustable<TabularIslamicDate>
+{ }
+
+public partial struct TabularIslamicDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
