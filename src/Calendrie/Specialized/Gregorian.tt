@@ -1,7 +1,16 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
-<#@ include file="$(CalendrieT4Directory)GCalendar.tt" once="true" #>
+<#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-<#= new GCalendarTemplate(this, "GregorianSchema").Execute() #>
+<#= new GregorianTemplate(this).Execute() #><#+
+
+public sealed class GregorianTemplate : ZeroCalendarTemplate
+{
+    public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema") { }
+
+    protected sealed override void EmitDateDecl() => EmitEmptyDateDecl();
+}
+
+#>

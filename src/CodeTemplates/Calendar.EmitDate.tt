@@ -17,6 +17,21 @@ public partial class CalendarTemplate
         EmitDateMath();
     }
 
+    protected void EmitEmptyDateDecl()
+    {
+        WriteLine();
+#>
+/// <summary>
+/// Represents the <#= DisplayName #> date.
+/// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct <#= Prefix #>Date :
+    IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
+    IAdjustable<<#= Prefix #>Date>
+{ }
+<#+
+    } // T4: End of EmitEmptyDateDecl()
+
     protected virtual void EmitDateDecl()
     {
         WriteLine();

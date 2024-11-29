@@ -58,8 +58,10 @@ public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
     private protected sealed override JulianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
-/// <summary>Represents the Julian date.
-/// <para><see cref="JulianDate"/> is an immutable struct.</para></summary>
+/// <summary>
+/// Represents the Julian date.
+/// <para><see cref="JulianDate"/> is an immutable struct.</para>
+/// </summary>
 public readonly partial struct JulianDate :
     IDate<JulianDate, JulianCalendar>,
     IAdjustable<JulianDate>

@@ -1,0 +1,334 @@
+﻿<#@ include file="Calendar.tt" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #><#+
+
+// Special case when Epoch = DayZero.NewStyle, the Gregorian epoch ie DayNumber.Zero
+
+public class ZeroCalendarTemplate : CalendarTemplate
+{
+    public ZeroCalendarTemplate(TextTransformation parent, string schema) : base(parent, schema)
+    {
+        DaysSinceEpochField = "_daysSinceZero";
+        DaysSinceEpochVar = "daysSinceZero";
+    }
+
+    protected override void EmitUsings()
+    {
+        WriteLine();
+#>
+using Calendrie.Core.Schemas;
+using Calendrie.Hemerology;
+using Calendrie.Hemerology.Scopes;
+<#+ if (EnableClock) { #>
+using Calendrie.Horology;
+<#+ } #>
+<#+
+    } // T4: End of EmitUsings()
+
+    protected override void EmitClock()
+    {
+        WriteLine();
+#>
+/// <summary>
+/// Represents a clock for the <#= DisplayName #> calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed partial class <#= Prefix #>Clock
+{
+    private readonly IClock _clock;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Clock"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    public <#= Prefix #>Clock(IClock clock)
+    {
+        ArgumentNullException.ThrowIfNull(clock);
+
+        _clock = clock;
+    }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the
+    /// system clock using the current time zone setting on this machine.
+    /// </summary>
+    public static <#= Prefix #>Clock Local { get; } = new(SystemClocks.Local);
+
+    /// <summary>
+    /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
+    /// </summary>
+    public static <#= Prefix #>Clock Utc { get; } = new(SystemClocks.Utc);
+
+    /// <summary>
+    /// Obtains an instance of the <see cref="<#= Prefix #>Clock"/> class for the
+    /// specified clock.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    [Pure]
+    public static <#= Prefix #>Clock GetClock(IClock clock) => new(clock);
+
+    /// <summary>
+    /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current
+    /// date.
+    /// </summary>
+    [Pure]
+    public <#= Prefix #>Date GetCurrentDate() => new(_clock.Today().DaysSinceZero);
+}
+<#+
+    } // T4: End of EmitClock()
+
+    protected override void EmitDateDecl()
+    {
+        WriteLine();
+#>
+/// <summary>
+/// Represents the <#= DisplayName #> date.
+/// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct <#= Prefix #>Date :
+    IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
+    IAdjustable<<#= Prefix #>Date>
+{
+    // WARNING: the order in which the static fields are written is __important__.
+
+    private static readonly <#= SchemaClass #> s_Schema = new();
+    private static readonly <#= Prefix #>Calendar s_Calendar = new(s_Schema);
+    private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
+    private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
+    private static readonly <#= Prefix #>Adjuster s_Adjuster = new(s_Scope);
+    private static readonly <#= Prefix #>Date s_MinValue = new(s_Domain.Min.DaysSinceZero);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Domain.Max.DaysSinceZero);
+
+    private readonly int <#= DaysSinceEpochField #>;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct
+    /// to the specified date parts.
+    /// </summary>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid date or <paramref name="year"/> is outside the range of supported
+    /// years.</exception>
+    public <#= Prefix #>Date(int year, int month, int day)
+    {
+        s_Scope.ValidateYearMonthDay(year, month, day);
+
+        <#= DaysSinceEpochField #> = s_Schema.CountDaysSinceEpoch(year, month, day);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct
+    /// to the specified ordinal date parts.
+    /// </summary>
+    /// <exception cref="AoorException">The specified components do not form a
+    /// valid ordinal date or <paramref name="year"/> is outside the range of
+    /// supported years.</exception>
+    public <#= Prefix #>Date(int year, int dayOfYear)
+    {
+        s_Scope.ValidateOrdinal(year, dayOfYear);
+
+        <#= DaysSinceEpochField #> = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
+    }
+
+    /// <summary>
+    /// This constructor does NOT validate its parameter.
+    /// </summary>
+    internal <#= Prefix #>Date(int <#= DaysSinceEpochVar #>)
+    {
+        <#= DaysSinceEpochField #> = <#= DaysSinceEpochVar #>;
+    }
+
+    /// <inheritdoc />
+    /// <remarks>This static property is thread-safe.</remarks>
+    public static <#= Prefix #>Date MinValue => s_MinValue;
+
+    /// <inheritdoc />
+    /// <remarks>This static property is thread-safe.</remarks>
+    public static <#= Prefix #>Date MaxValue => s_MaxValue;
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static <#= Prefix #>Adjuster Adjuster => s_Adjuster;
+
+    /// <inheritdoc />
+    public static <#= Prefix #>Calendar Calendar => s_Calendar;
+
+    /// <inheritdoc />
+    public DayNumber DayNumber => new(<#= DaysSinceEpochField #>);
+
+    /// <summary>Gets the count of days since the Gregorian epoch.</summary>
+    public int DaysSinceZero => <#= DaysSinceEpochField #>;
+
+    int IFixedDate.DaysSinceEpoch => <#= DaysSinceEpochField #>;
+
+    /// <inheritdoc />
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <inheritdoc />
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <inheritdoc />
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <inheritdoc />
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <inheritdoc />
+    public int Year => s_Schema.GetYear(<#= DaysSinceEpochField #>);
+
+    /// <inheritdoc />
+    public int Month
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out int m, out _);
+            return m;
+        }
+    }
+
+    /// <inheritdoc />
+    public int DayOfYear
+    {
+        get
+        {
+            _ = s_Schema.GetYear(<#= DaysSinceEpochField #>, out int doy);
+            return doy;
+        }
+    }
+
+    /// <inheritdoc />
+    public int Day
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out _, out int d);
+            return d;
+        }
+    }
+
+    /// <inheritdoc />
+    public DayOfWeek DayOfWeek => DayNumber.DayOfWeek;
+
+    /// <inheritdoc />
+    public bool IsIntercalary
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            return s_Schema.IsIntercalaryDay(y, m, d);
+        }
+    }
+
+    /// <inheritdoc />
+    public bool IsSupplementary
+    {
+        get
+        {
+            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            return s_Schema.IsSupplementaryDay(y, m, d);
+        }
+    }
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString()
+    {
+        s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({s_Calendar})");
+    }
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int month, out int day) =>
+        s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out year, out month, out day);
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int dayOfYear) =>
+        year = s_Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
+}
+
+public partial struct <#= Prefix #>Date // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
+    {
+        s_Domain.Validate(dayNumber);
+
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+    }
+}
+<#+
+    } // T4: End of EmitDateDecl()
+
+    protected override void EmitDateAdjustment()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Date // Adjustments
+{
+    /// <inheritdoc />
+    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
+    [Pure]
+    public <#= Prefix #>Date Adjust(Func<<#= Prefix #>Date, <#= Prefix #>Date> adjuster)
+    {
+        ArgumentNullException.ThrowIfNull(adjuster);
+
+        return adjuster.Invoke(this);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Previous(dayOfWeek);
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Nearest(dayOfWeek);
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Next(dayOfWeek);
+        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+    }
+}
+<#+
+    } // T4: End of EmitDateAdjustment()
+} // T4: End of SpecializedCalendarTemplate
+
+#>

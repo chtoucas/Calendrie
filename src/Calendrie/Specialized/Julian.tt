@@ -23,19 +23,7 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
-    protected sealed override void EmitDateDecl()
-    {
-        WriteLine();
-#>
-/// <summary>Represents the <#= DisplayName #> date.
-/// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para></summary>
-public readonly partial struct <#= Prefix #>Date :
-    IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
-    IAdjustable<<#= Prefix #>Date>
-{ }
-<#+
-    } // T4: End of EmitDateDecl()
-
+    protected sealed override void EmitDateDecl() => EmitEmptyDateDecl();
 }
 
 #>

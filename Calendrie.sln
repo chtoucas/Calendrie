@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeTemplates", "CodeTempla
 		src\CodeTemplates\Calendar.EmitClock.tt = src\CodeTemplates\Calendar.EmitClock.tt
 		src\CodeTemplates\Calendar.EmitDate.tt = src\CodeTemplates\Calendar.EmitDate.tt
 		src\CodeTemplates\Calendar.tt = src\CodeTemplates\Calendar.tt
-		src\CodeTemplates\GCalendar.tt = src\CodeTemplates\GCalendar.tt
+		src\CodeTemplates\ZeroCalendar.tt = src\CodeTemplates\ZeroCalendar.tt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CA7F8640-CFEA-4F44-9121-671A8CF57413}"
