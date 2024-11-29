@@ -9,8 +9,9 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-// We use CivilScope instead of s_Calendar.Scope. We could also optimize
-// AddDays() by using CivilScope.DaysValidator instead of s_Scope.DaysValidator.
+// FIXME(code): range check and casts (à tester), voir FromDayNumber().
+
+// We use CivilScope instead of s_Calendar.Scope.
 
 public partial struct CivilDate
 {
@@ -18,11 +19,10 @@ public partial struct CivilDate
 
     private static readonly CivilSchema s_Schema = new();
     private static readonly CivilCalendar s_Calendar = new(s_Schema);
-    private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
     private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
-    private static readonly CivilAdjuster s_Adjuster = new(s_Scope);
-    private static readonly CivilDate s_MinValue = new(s_Domain.Min.DaysSinceZero);
-    private static readonly CivilDate s_MaxValue = new(s_Domain.Max.DaysSinceZero);
+    private static readonly CivilAdjuster s_Adjuster = new(s_Calendar.Scope);
+    private static readonly CivilDate s_MinValue = new(CivilScope.MinDaysSinceZero);
+    private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
 
     private readonly int _daysSinceZero;
 
@@ -184,5 +184,158 @@ public partial struct CivilDate // Factories
         s_Domain.Validate(dayNumber);
 
         return new CivilDate(dayNumber.DaysSinceZero);
+    }
+}
+
+public partial struct CivilDate // Adjustments
+{
+    /// <inheritdoc />
+    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
+    [Pure]
+    public CivilDate Adjust(Func<CivilDate, CivilDate> adjuster)
+    {
+        ArgumentNullException.ThrowIfNull(adjuster);
+
+        return adjuster.Invoke(this);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate Previous(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Previous(dayOfWeek);
+
+        if ((uint)dayNumber.DaysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new CivilDate(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
+
+        if ((uint)dayNumber.DaysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new CivilDate(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Nearest(dayOfWeek);
+
+        if ((uint)dayNumber.DaysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new CivilDate(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
+
+        if ((uint)dayNumber.DaysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new CivilDate(dayNumber.DaysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate Next(DayOfWeek dayOfWeek)
+    {
+        var dayNumber = DayNumber.Next(dayOfWeek);
+
+        if ((uint)dayNumber.DaysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new CivilDate(dayNumber.DaysSinceZero);
+    }
+}
+
+public partial struct CivilDate // Math
+{
+#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
+    // Friendly alternates do exist but use domain-specific names.
+
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    public static int operator -(CivilDate left, CivilDate right) => left.CountDaysSince(right);
+
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    public static CivilDate operator +(CivilDate value, int days) => value.AddDays(days);
+
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    public static CivilDate operator -(CivilDate value, int days) => value.AddDays(-days);
+
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
+    public static CivilDate operator ++(CivilDate value) => value.NextDay();
+
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
+    public static CivilDate operator --(CivilDate value) => value.PreviousDay();
+
+#pragma warning restore CA2225
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysSince(CivilDate other) =>
+        // No need to use a checked context here.
+        _daysSinceZero - other._daysSinceZero;
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate AddDays(int days)
+    {
+        int daysSinceZero = checked(_daysSinceZero + days);
+
+        // Don't write (the addition may also overflow...):
+        // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
+        if ((uint)daysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new CivilDate(_daysSinceZero + 1);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new CivilDate(_daysSinceZero - 1);
     }
 }

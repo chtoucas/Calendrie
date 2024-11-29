@@ -34,13 +34,13 @@ internal static class CivilScope
     /// from the epoch.
     /// <para>This field is a constant equal to 0.</para>
     /// </summary>
-    private const int MinDaysSinceEpoch = 0;
+    public const int MinDaysSinceZero = 0;
 
     /// <summary>
     /// Represents the maximum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    private static readonly int s_MaxDaysSinceEpoch = GregorianFormulae.GetEndOfYear(MaxYear);
+    public static readonly int MaxDaysSinceZero = GregorianFormulae.GetEndOfYear(MaxYear);
 
     /// <summary>
     /// Gets the range of supported <see cref="DayNumber"/> values by the
@@ -48,17 +48,19 @@ internal static class CivilScope
     /// <see cref="DayZero.NewStyle"/> .
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
+    [Obsolete("To be removed")]
     public static Range<DayNumber> DefaultDomain { get; } =
         Range.Create(
-            DayZero.NewStyle + MinDaysSinceEpoch,
-            DayZero.NewStyle + s_MaxDaysSinceEpoch);
+            DayZero.NewStyle + MinDaysSinceZero,
+            DayZero.NewStyle + MaxDaysSinceZero);
 
     /// <summary>
     /// Gets the validator for the range of supported days.
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
+    [Obsolete("To be removed")]
     public static DaysValidator DaysValidator { get; } =
-        new(Range.Create(MinDaysSinceEpoch, s_MaxDaysSinceEpoch));
+        new(Range.Create(MinDaysSinceZero, MaxDaysSinceZero));
 
     /// <summary>
     /// Gets the validator for the range of supported years.

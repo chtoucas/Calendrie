@@ -4,4 +4,15 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-<#= new GCalendarTemplate(this, "CivilSchema") { EnableClock = false }.Execute() #>
+<#= new CivilTemplate(this) { EnableClock = false }.Execute() #><#+
+
+public sealed class CivilTemplate : GCalendarTemplate
+{
+    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema") { }
+
+    protected sealed override void EmitDateAdjustment() { }
+
+    protected sealed override void EmitDateMath() { }
+}
+
+#>
