@@ -101,6 +101,41 @@ public class GregorianSchema_GetDateParts : GregorianSchemaTests
     }
 }
 
+public class GregorianSchema_GetYearOrdinal : GregorianSchemaTests
+{
+    [Benchmark]
+    public int Formulae()
+    {
+        int y = GregorianFormulae.GetYear(daysSinceEpoch, out int doy);
+        Consume(in y);
+        return doy;
+    }
+
+    [Benchmark(Baseline = true)]
+    public int Formulae_Civil()
+    {
+        int y = CivilFormulae.GetYear(daysSinceEpoch, out int doy);
+        Consume(in y);
+        return doy;
+    }
+
+    [Benchmark]
+    public int Schema()
+    {
+        int y = schema.GetYear(daysSinceEpoch, out int doy);
+        Consume(in y);
+        return doy;
+    }
+
+    [Benchmark]
+    public int Schema_Civil()
+    {
+        int y = civilSchema.GetYear(daysSinceEpoch, out int doy);
+        Consume(in y);
+        return doy;
+    }
+}
+
 public class GregorianSchema_GetYear : GregorianSchemaTests
 {
     [Benchmark]
