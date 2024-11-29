@@ -33,34 +33,27 @@ public partial class CalendarTemplate : CSharpTemplate
 
     protected sealed override void WriteContent()
     {
-        // It seems that it's no longer necessary.
-        //WriteLine();
+        // Apparently, it's no longer necessary.
         //EmitPragmas();
 
-        WriteLine();
         EmitNamespace();
-
-        WriteLine();
         EmitUsings();
 
-        WriteLine();
         EmitCalendar();
 
-        WriteLine();
         EmitAdjuster();
 
         if (EnableClock)
         {
-            WriteLine();
             EmitClock();
         }
 
-        WriteLine();
         EmitDate();
     } // T4: End of WriteContent()
 
     protected virtual void EmitPragmas()
     {
+        WriteLine();
 #>
 #nullable enable
 <#+
@@ -68,6 +61,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     protected virtual void EmitNamespace()
     {
+        WriteLine();
 #>
 namespace <#= Namespace #>;
 <#+
@@ -75,6 +69,7 @@ namespace <#= Namespace #>;
 
     protected virtual void EmitUsings()
     {
+        WriteLine();
 #>
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
@@ -89,6 +84,7 @@ using Calendrie.Horology;
 
     protected virtual void EmitCalendar()
     {
+        WriteLine();
 #>
 /// <summary>
 /// Represents the <#= DisplayName #> calendar.

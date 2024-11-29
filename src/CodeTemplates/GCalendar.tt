@@ -12,6 +12,7 @@ public class GCalendarTemplate : CalendarTemplate
 
     protected override void EmitUsings()
     {
+        WriteLine();
 #>
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
@@ -24,6 +25,7 @@ using Calendrie.Horology;
 
     protected override void EmitClock()
     {
+        WriteLine();
 #>
 /// <summary>
 /// Represents a clock for the <#= DisplayName #> calendar.
@@ -78,6 +80,7 @@ public sealed partial class <#= Prefix #>Clock
 
     protected override void EmitDateDecl()
     {
+        WriteLine();
 #>
 /// <summary>
 /// Represents the <#= DisplayName #> date.
@@ -92,6 +95,7 @@ public readonly partial struct <#= Prefix #>Date :
 
     protected override void EmitDateAdjustment()
     {
+        WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Adjustments
 {

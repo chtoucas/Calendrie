@@ -4,6 +4,7 @@ public partial class CalendarTemplate
 {
     protected virtual void EmitAdjuster()
     {
+        WriteLine();
 #>
 /// <summary>
 /// Provides common adjusters for <see cref="<#= Prefix #>Date"/>.

@@ -12,6 +12,7 @@ public sealed class JulianTemplate : CalendarTemplate
 
     protected sealed override void EmitUsings()
     {
+        WriteLine();
 #>
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
@@ -24,6 +25,7 @@ using Calendrie.Horology;
 
     protected sealed override void EmitDateDecl()
     {
+        WriteLine();
 #>
 /// <summary>Represents the <#= DisplayName #> date.
 /// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para></summary>

@@ -6,24 +6,20 @@ public partial class CalendarTemplate
     {
         EmitDateDecl();
 
-        WriteLine();
         EmitDateCounting();
 
-        WriteLine();
         EmitDateAdjustment();
 
-        WriteLine();
         EmitDateEquatable();
 
-        WriteLine();
         EmitDateComparable();
 
-        WriteLine();
         EmitDateMath();
     }
 
     protected virtual void EmitDateDecl()
     {
+        WriteLine();
 #>
 /// <summary>
 /// Represents the <#= DisplayName #> date.
@@ -208,6 +204,7 @@ public partial struct <#= Prefix #>Date // Factories
 
     protected virtual void EmitDateCounting()
     {
+        WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Counting
 {
@@ -232,6 +229,7 @@ public partial struct <#= Prefix #>Date // Counting
 
     protected virtual void EmitDateAdjustment()
     {
+        WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Adjustments
 {
@@ -295,6 +293,7 @@ public partial struct <#= Prefix #>Date // Adjustments
 
     protected virtual void EmitDateEquatable()
     {
+        WriteLine();
 #>
 public partial struct <#= Prefix #>Date // IEquatable
 {
@@ -324,6 +323,7 @@ public partial struct <#= Prefix #>Date // IEquatable
 
     protected virtual void EmitDateComparable()
     {
+        WriteLine();
 #>
 public partial struct <#= Prefix #>Date // IComparable
 {
@@ -366,6 +366,7 @@ public partial struct <#= Prefix #>Date // IComparable
 
     protected virtual void EmitDateMath()
     {
+        WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Math
 {

@@ -4,6 +4,7 @@ public partial class CalendarTemplate
 {
     protected virtual void EmitClock()
     {
+        WriteLine();
 #>
 /// <summary>
 /// Represents a clock for the <#= DisplayName #> calendar.
