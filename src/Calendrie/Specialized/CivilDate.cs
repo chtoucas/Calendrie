@@ -7,7 +7,7 @@ using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-// FIXME(code): range check and casts (à tester), voir FromDayNumber().
+// FIXME(code): range check and casts (à tester)
 
 // We use CivilScope instead of s_Calendar.Scope.
 
