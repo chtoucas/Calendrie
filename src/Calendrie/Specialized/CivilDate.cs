@@ -3,9 +3,7 @@
 
 namespace Calendrie.Specialized;
 
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
@@ -19,7 +17,6 @@ public partial struct CivilDate
 
     private static readonly CivilSchema s_Schema = new();
     private static readonly CivilCalendar s_Calendar = new(s_Schema);
-    private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
     private static readonly CivilAdjuster s_Adjuster = new(s_Calendar.Scope);
     private static readonly CivilDate s_MinValue = new(CivilScope.MinDaysSinceZero);
     private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
@@ -173,18 +170,16 @@ public partial struct CivilDate
 
 public partial struct CivilDate // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilDate"/> struct from the
-    /// specified day number.
-    /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
-    /// the range of supported values.</exception>
+    /// <inheritdoc />
     [Pure]
     public static CivilDate FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        int daysSinceZero = dayNumber.DaysSinceZero;
 
-        return new CivilDate(dayNumber.DaysSinceZero);
+        if (unchecked((uint)daysSinceZero) > (uint)CivilScope.MaxDaysSinceZero)
+            throw new AoorException(nameof(dayNumber));
+
+        return new CivilDate(daysSinceZero);
     }
 }
 
