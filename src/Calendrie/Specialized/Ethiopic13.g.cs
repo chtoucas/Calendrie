@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-//#nullable enable
-
 namespace Calendrie.Specialized;
 
 using Calendrie.Core.Intervals;

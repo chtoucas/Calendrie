@@ -33,8 +33,9 @@ public partial class CalendarTemplate : CSharpTemplate
 
     protected sealed override void WriteContent()
     {
-        WriteLine();
-        EmitPragmas();
+        // It seems that it's no longer necessary.
+        //WriteLine();
+        //EmitPragmas();
 
         WriteLine();
         EmitNamespace();
@@ -61,7 +62,7 @@ public partial class CalendarTemplate : CSharpTemplate
     protected void EmitPragmas()
     {
 #>
-//#nullable enable
+#nullable enable
 <#+
     } // T4: End of EmitPragmas()
 
