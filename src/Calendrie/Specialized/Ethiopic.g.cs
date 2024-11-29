@@ -33,10 +33,12 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(Coptic12Schema schema);
 
     partial void OnInitializing(Coptic12Schema schema);
 
+    [Pure]
     private protected sealed override EthiopicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -54,6 +56,7 @@ public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
 
     internal EthiopicAdjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override EthiopicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -228,6 +231,7 @@ public readonly partial struct EthiopicDate :
 public partial struct EthiopicDate // Factories
 {
     /// <inheritdoc />
+    [Pure]
     public static EthiopicDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

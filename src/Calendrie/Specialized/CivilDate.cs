@@ -179,6 +179,7 @@ public partial struct CivilDate // Factories
     /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
     /// the range of supported values.</exception>
+    [Pure]
     public static CivilDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

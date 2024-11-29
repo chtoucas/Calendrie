@@ -31,10 +31,12 @@ public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(CivilSchema schema);
 
     partial void OnInitializing(CivilSchema schema);
 
+    [Pure]
     private protected sealed override CivilDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -52,6 +54,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
 
     internal CivilAdjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override CivilDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -82,7 +85,6 @@ public partial struct CivilDate // Counting
     [Pure]
     public int CountRemainingDaysInMonth() => s_Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
-
 
 public partial struct CivilDate // IEquatable
 {
@@ -144,4 +146,3 @@ public partial struct CivilDate // IComparable
         : obj is CivilDate date ? CompareTo(date)
         : ThrowHelpers.ThrowNonComparable(typeof(CivilDate), obj);
 }
-

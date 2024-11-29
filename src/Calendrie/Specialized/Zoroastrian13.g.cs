@@ -33,10 +33,12 @@ public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian1
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(Egyptian13Schema schema);
 
     partial void OnInitializing(Egyptian13Schema schema);
 
+    [Pure]
     private protected sealed override Zoroastrian13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -54,6 +56,7 @@ public sealed partial class Zoroastrian13Adjuster : SpecialAdjuster<Zoroastrian1
 
     internal Zoroastrian13Adjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override Zoroastrian13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -228,6 +231,7 @@ public readonly partial struct Zoroastrian13Date :
 public partial struct Zoroastrian13Date // Factories
 {
     /// <inheritdoc />
+    [Pure]
     public static Zoroastrian13Date FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

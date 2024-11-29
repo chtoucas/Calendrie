@@ -33,10 +33,12 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(WorldSchema schema);
 
     partial void OnInitializing(WorldSchema schema);
 
+    [Pure]
     private protected sealed override WorldDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -54,6 +56,7 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
 
     internal WorldAdjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override WorldDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -228,6 +231,7 @@ public readonly partial struct WorldDate :
 public partial struct WorldDate // Factories
 {
     /// <inheritdoc />
+    [Pure]
     public static WorldDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

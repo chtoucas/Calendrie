@@ -173,6 +173,7 @@ public partial struct JulianDate // Factories
     /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
     /// the range of supported values.</exception>
+    [Pure]
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

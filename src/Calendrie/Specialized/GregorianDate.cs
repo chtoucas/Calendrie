@@ -174,6 +174,7 @@ public partial struct GregorianDate // Factories
     /// </summary>
     /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
     /// the range of supported values.</exception>
+    [Pure]
     public static GregorianDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

@@ -104,10 +104,12 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(<#= SchemaClass #> schema);
 
     partial void OnInitializing(<#= SchemaClass #> schema);
 
+    [Pure]
     private protected sealed override <#= Prefix #>Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 <#+

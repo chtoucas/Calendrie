@@ -33,10 +33,12 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(TabularIslamicSchema schema);
 
     partial void OnInitializing(TabularIslamicSchema schema);
 
+    [Pure]
     private protected sealed override TabularIslamicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -54,6 +56,7 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
 
     internal TabularIslamicAdjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override TabularIslamicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -228,6 +231,7 @@ public readonly partial struct TabularIslamicDate :
 public partial struct TabularIslamicDate // Factories
 {
     /// <inheritdoc />
+    [Pure]
     public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

@@ -33,10 +33,12 @@ public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(Coptic12Schema schema);
 
     partial void OnInitializing(Coptic12Schema schema);
 
+    [Pure]
     private protected sealed override CopticDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -54,6 +56,7 @@ public sealed partial class CopticAdjuster : SpecialAdjuster<CopticDate>
 
     internal CopticAdjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override CopticDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -228,6 +231,7 @@ public readonly partial struct CopticDate :
 public partial struct CopticDate // Factories
 {
     /// <inheritdoc />
+    [Pure]
     public static CopticDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

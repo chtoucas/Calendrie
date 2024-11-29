@@ -33,10 +33,12 @@ public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
         OnInitializing(schema);
     }
 
+    [Pure]
     private static partial MinMaxYearScope GetScope(Egyptian12Schema schema);
 
     partial void OnInitializing(Egyptian12Schema schema);
 
+    [Pure]
     private protected sealed override ArmenianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -54,6 +56,7 @@ public sealed partial class ArmenianAdjuster : SpecialAdjuster<ArmenianDate>
 
     internal ArmenianAdjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override ArmenianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -228,6 +231,7 @@ public readonly partial struct ArmenianDate :
 public partial struct ArmenianDate // Factories
 {
     /// <inheritdoc />
+    [Pure]
     public static ArmenianDate FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);

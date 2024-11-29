@@ -20,6 +20,7 @@ public sealed partial class <#= Prefix #>Adjuster : SpecialAdjuster<<#= Prefix #
 
     internal <#= Prefix #>Adjuster(MinMaxYearScope scope) : base(scope) { }
 
+    [Pure]
     private protected sealed override <#= Prefix #>Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 <#+

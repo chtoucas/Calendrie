@@ -192,6 +192,7 @@ public readonly partial struct <#= Prefix #>Date :
 public partial struct <#= Prefix #>Date // Factories
 {
     /// <inheritdoc />
+    [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
         s_Domain.Validate(dayNumber);
