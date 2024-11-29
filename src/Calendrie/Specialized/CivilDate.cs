@@ -48,7 +48,7 @@ public partial struct CivilDate
     {
         CivilScope.ValidateOrdinal(year, dayOfYear);
 
-        _daysSinceZero = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
+        _daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>

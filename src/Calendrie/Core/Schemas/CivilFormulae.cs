@@ -42,6 +42,14 @@ internal static class CivilFormulae
     }
 
     /// <summary>
+    /// Counts the number of consecutive days from the epoch to the specified
+    /// ordinal date.
+    /// <para>Conversion year/dayOfYear -&gt; daysSinceEpoch.</para>
+    /// </summary>
+    [Pure]
+    public static int CountDaysSinceEpoch(int y, int doy) => GetStartOfYear(y) + doy - 1;
+
+    /// <summary>
     /// Obtains the date parts for the specified day count (the number of
     /// consecutive days from the epoch to a date); the results are given in
     /// output parameters.
@@ -75,8 +83,8 @@ internal static class CivilFormulae
     }
 
     /// <summary>
-    /// Obtains the ordinal date parts for the specified day count (the number of
-    /// consecutive days from the epoch to a date); the results are given in
+    /// Obtains the ordinal date parts for the specified day count (the number
+    /// of consecutive days from the epoch to a date); the results are given in
     /// output parameters.
     /// </summary>
     [Pure]

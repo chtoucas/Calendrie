@@ -109,6 +109,14 @@ internal static class JulianFormulae
     }
 
     /// <summary>
+    /// Counts the number of consecutive days from the epoch to the specified
+    /// ordinal date.
+    /// <para>Conversion year/dayOfYear -&gt; daysSinceEpoch.</para>
+    /// </summary>
+    [Pure]
+    public static int CountDaysSinceEpoch(int y, int doy) => GetStartOfYear(y) + doy - 1;
+
+    /// <summary>
     /// Obtains the date parts for the specified day count (the number of
     /// consecutive days from the epoch to a date); the results are given in
     /// output parameters.
@@ -158,6 +166,19 @@ internal static class JulianFormulae
         {
             m += 3;
         }
+    }
+
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified day count (the number
+    /// of consecutive days from the epoch to a date); the results are given in
+    /// output parameters.
+    /// </summary>
+    [Pure]
+    public static int GetYear(int daysSinceEpoch, out int doy)
+    {
+        int y = GetYear(daysSinceEpoch);
+        doy = 1 + daysSinceEpoch - GetStartOfYear(y);
+        return y;
     }
 
     /// <summary>

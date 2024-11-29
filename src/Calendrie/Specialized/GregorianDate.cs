@@ -47,7 +47,7 @@ public partial struct GregorianDate
     {
         s_Scope.ValidateOrdinal(year, dayOfYear);
 
-        _daysSinceZero = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
+        _daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>

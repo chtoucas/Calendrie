@@ -48,7 +48,7 @@ public partial struct JulianDate
     {
         s_Scope.ValidateOrdinal(year, dayOfYear);
 
-        _daysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
+        _daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public partial struct JulianDate
     {
         get
         {
-            _ = s_Schema.GetYear(_daysSinceEpoch, out int doy);
+            _ = JulianFormulae.GetYear(_daysSinceEpoch, out int doy);
             return doy;
         }
     }
@@ -161,5 +161,5 @@ public partial struct JulianDate
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = s_Schema.GetYear(_daysSinceEpoch, out dayOfYear);
+        year = JulianFormulae.GetYear(_daysSinceEpoch, out dayOfYear);
 }
