@@ -9,8 +9,9 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology.Scopes;
 
 /// <summary>
-/// Represents a calendar without a dedicated companion date type and provides a
-/// base for derived classes.
+/// Represents a calendar and provides a base for derived classes.
+/// <para>We do NOT assume the existence of a dedicated companion date type.
+/// </para>
 /// </summary>
 /// <typeparam name="TScope">The type of the underlying scope.</typeparam>
 public abstract partial class BasicCalendar<TScope> : ICalendar

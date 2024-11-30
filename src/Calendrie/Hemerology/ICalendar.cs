@@ -7,6 +7,8 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Hemerology.Scopes;
 
+// FIXME(api): remove ICalendar.
+
 #region Developer Notes
 
 // Standard calendar: year/month/day subdivision of time, a single era,
