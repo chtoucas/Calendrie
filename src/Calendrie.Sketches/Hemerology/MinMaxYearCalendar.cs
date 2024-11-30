@@ -8,7 +8,7 @@ using Calendrie.Hemerology.Scopes;
 /// <summary>
 /// Represents a calendar with dates within a range of years.
 /// </summary>
-public class MinMaxYearCalendar : BasicCalendar<MinMaxYearScope>
+public class MinMaxYearCalendar : Calendar<MinMaxYearScope>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MinMaxYearCalendar"/> class.

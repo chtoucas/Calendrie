@@ -34,7 +34,7 @@ using Calendrie.Hemerology.Scopes;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public abstract partial class SpecialCalendar<TDate> :
-    BasicCalendar<CalendarScope>, IDateProvider<TDate>
+    Calendar<CalendarScope>, IDateProvider<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the

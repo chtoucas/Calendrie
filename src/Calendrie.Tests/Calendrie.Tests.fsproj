@@ -67,7 +67,7 @@
     <Compile Include="Tests\Hemerology\Scopes\ProlepticScopeTestSuite.fs" />
     <Compile Include="Tests\Hemerology\Scopes\StandardScopeTests.fs" />
     <Compile Include="Tests\Hemerology\Scopes\StandardScopeTestSuite.fs" />
-    <Compile Include="Tests\Hemerology\BasicCalendarTests.fs" />
+    <Compile Include="Tests\Hemerology\CalendarTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearCalendarTests.fs" />
     <Compile Include="Tests\Hemerology\YearNumberingTests.fs" />
     <Compile Include="Tests\Specialized\ArmenianTests.fs" />

@@ -14,16 +14,16 @@ using Calendrie.Hemerology.Scopes;
 /// </para>
 /// </summary>
 /// <typeparam name="TScope">The type of the underlying scope.</typeparam>
-public abstract partial class BasicCalendar<TScope> : ICalendar
+public abstract partial class Calendar<TScope> : ICalendar
     where TScope : CalendarScope
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="BasicCalendar{TScope}"/> class.
+    /// <see cref="Calendar{TScope}"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    protected BasicCalendar(string name, TScope scope)
+    protected Calendar(string name, TScope scope)
     {
         ArgumentNullException.ThrowIfNull(name);
         ArgumentNullException.ThrowIfNull(scope);
@@ -81,7 +81,7 @@ public abstract partial class BasicCalendar<TScope> : ICalendar
     public bool IsRegular(out int monthsInYear) => Schema.IsRegular(out monthsInYear);
 }
 
-public partial class BasicCalendar<TScope> // Year, month, day infos
+public partial class Calendar<TScope> // Year, month, day infos
 {
 #pragma warning disable CA1725 // Parameter names should match base declaration (Naming) ✓
     // Base parameter names (y, m, d) are not explicit enough.
@@ -147,7 +147,7 @@ public partial class BasicCalendar<TScope> // Year, month, day infos
 #pragma warning restore CA1725
 }
 
-public partial class BasicCalendar<TScope> // Conversions
+public partial class Calendar<TScope> // Conversions
 {
     /// <inheritdoc />
     [Pure]
