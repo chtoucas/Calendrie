@@ -36,33 +36,44 @@ using Calendrie.Core.Intervals;
 
 #endregion
 
-/// <summary>Represents a system schema and provides a base for derived classes.
-/// <para>This class can ONLY be initialized from within friend assemblies.</para>
-/// <para>All results SHOULD be representable by the system; see <see cref="Yemoda"/>,
-/// <see cref="Yemo"/> and <see cref="Yedoy"/>.</para></summary>
+/// <summary>
+/// Represents a system schema and provides a base for derived classes.
+/// <para>This class can ONLY be initialized from within friend assemblies.
+/// </para>
+/// <para>All results SHOULD be representable by the system; see
+/// <see cref="Yemoda"/>, <see cref="Yemo"/> and <see cref="Yedoy"/>.</para>
+/// </summary>
 public abstract partial class SystemSchema : CalendricalSchema
 {
-    /// <summary>Represents the default value for the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para></summary>
+    /// <summary>
+    /// Represents the default value for the earliest supported year.
+    /// <para>This field is a constant equal to -999_998.</para>
+    /// </summary>
     private protected const int DefaultMinYear = -999_998;
 
-    /// <summary>Represents the default value for the latest supported year.
-    /// <para>This field is a constant equal to 999_999.</para></summary>
+    /// <summary>
+    /// Represents the default value for the latest supported year.
+    /// <para>This field is a constant equal to 999_999.</para>
+    /// </summary>
     private protected const int DefaultMaxYear = 999_999;
 
-    /// <summary>Called from constructors in derived classes to initialize the
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
     /// <see cref="SystemSchema"/> class.
-    /// <para>All methods MUST work with years in <see cref="DefaultSupportedYears"/>. In particular,
-    /// methods must work with negative years.</para></summary>
+    /// <para>All methods MUST work with years in <see cref="DefaultSupportedYears"/>.
+    /// In particular, methods must work with negative years.</para>
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="minDaysInYear"/> or
     /// <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     private protected SystemSchema(int minDaysInYear, int minDaysInMonth)
         : this(DefaultSupportedYears, minDaysInYear, minDaysInMonth) { }
 
-    /// <summary>Called from constructors in derived classes to initialize the
-    /// <see cref="SystemSchema"/> class.</summary>
-    /// <exception cref="AoorException"><paramref name="supportedYears"/> is NOT a subinterval
-    /// of <see cref="Yemoda.SupportedYears"/>.</exception>
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="SystemSchema"/> class.
+    /// </summary>
+    /// <exception cref="AoorException"><paramref name="supportedYears"/> is NOT
+    /// a subinterval of <see cref="Yemoda.SupportedYears"/>.</exception>
     /// <exception cref="AoorException"><paramref name="minDaysInYear"/> or
     /// <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     private protected SystemSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
@@ -74,29 +85,38 @@ public abstract partial class SystemSchema : CalendricalSchema
         }
     }
 
-    /// <summary>Gets the default value for <see cref="ICalendricalSchema.SupportedYears"/>, that is
-    /// the interval [-999_998..999_999].
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <summary>
+    /// Gets the default value for <see cref="ICalendricalSchema.SupportedYears"/>,
+    /// that is the interval [-999_998..999_999].
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Range<int> DefaultSupportedYears { get; } = new(DefaultMinYear, DefaultMaxYear);
 
-    /// <summary>Gets the maximum value for <see cref="ICalendricalSchema.SupportedYears"/>, that is
-    /// the interval [<see cref="Yemoda.MinYear"/>..<see cref="Yemoda.MaxYear"/>] i.e.
-    /// [-2_097_151, 2_097_152].
+    /// <summary>
+    /// Gets the maximum value for <see cref="ICalendricalSchema.SupportedYears"/>,
+    /// that is the interval [<see cref="Yemoda.MinYear"/>..<see cref="Yemoda.MaxYear"/>]
+    /// i.e. [-2_097_151, 2_097_152].
     /// <para>It matches the value of <see cref="Yemoda.SupportedYears"/>.</para>
-    /// <para>This static property is thread-safe.</para></summary>
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Range<int> MaxSupportedYears => Yemoda.SupportedYears;
 }
 
 public partial class SystemSchema // Properties
 {
     private Range<int> _supportedYearsCore = Range.Maximal32;
-    /// <summary>Gets the core domain, the interval of years for which the <i>core</i> methods are
-    /// known not to overflow.
-    /// <para>The core methods are those inherited from <see cref="ICalendricalKernel"/>.</para>
-    /// <para>The default value is equal to the whole range of 32-bit signed integers.</para>
-    /// <para>For methods expecting a month or day parameters, we assume that they are within
-    /// the ranges defined by <see cref="Yemoda"/>.</para>
-    /// <para>See also <seealso cref="ICalendricalPreValidator"/>.</para></summary>
+    /// <summary>
+    /// Gets the core domain, the interval of years for which the <i>core</i>
+    /// methods are known not to overflow.
+    /// <para>The core methods are those inherited from <see cref="ICalendricalKernel"/>.
+    /// </para>
+    /// <para>The default value is equal to the whole range of 32-bit signed
+    /// integers.</para>
+    /// <para>For methods expecting a month or day parameters, we assume that
+    /// they are within the ranges defined by <see cref="Yemoda"/>.
+    /// </para>
+    /// <para>See also <seealso cref="ICalendricalPreValidator"/>.</para>
+    /// </summary>
     public Range<int> SupportedYearsCore
     {
         get => _supportedYearsCore;
@@ -129,8 +149,10 @@ public partial class SystemSchema // Properties
 
 public partial class SystemSchema // Conversions
 {
-    /// <summary>Obtains the date parts for the specified month count (the number of consecutive
-    /// months from the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified month count (the number of
+    /// consecutive months from the epoch to a date).
+    /// </summary>
     [Pure]
     // CIL code size = 19 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -140,10 +162,13 @@ public partial class SystemSchema // Conversions
         return new Yemo(y, m);
     }
 
-    /// <summary>Obtains the date parts for the specified day count (the number of consecutive days
-    /// from the epoch to a date).
-    /// <para>See also <seealso cref="ICalendricalSchema.GetDateParts(int, out int, out int, out int)"/>.
-    /// </para></summary>
+    /// <summary>
+    /// Obtains the date parts for the specified day count (the number of
+    /// consecutive days from the epoch to a date).
+    /// <para>See also
+    /// <seealso cref="ICalendricalSchema.GetDateParts(int, out int, out int, out int)"/>.
+    /// </para>
+    /// </summary>
     [Pure]
     // CIL code size = 22 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -153,9 +178,12 @@ public partial class SystemSchema // Conversions
         return new Yemoda(y, m, d);
     }
 
-    /// <summary>Obtains the ordinal date parts for the specified day count (the number of
-    /// consecutive days from the epoch to a date).
-    /// <para>See also <seealso cref="ICalendricalSchema.GetYear(int, out int)"/>.</para></summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified day count (the number
+    /// of consecutive days from the epoch to a date).
+    /// <para>See also <seealso cref="ICalendricalSchema.GetYear(int, out int)"/>.
+    /// </para>
+    /// </summary>
     [Pure]
     // CIL code size = 16 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -165,8 +193,10 @@ public partial class SystemSchema // Conversions
         return new Yedoy(y, doy);
     }
 
-    /// <summary>Obtains the date parts for the specified ordinal date.
-    /// <para>See also <seealso cref="ICalendricalSchema.GetMonth(int, int, out int)"/>.</para>
+    /// <summary>
+    /// Obtains the date parts for the specified ordinal date.
+    /// <para>See also
+    /// <seealso cref="ICalendricalSchema.GetMonth(int, int, out int)"/>.</para>
     /// </summary>
     [Pure]
     // CIL code size = 20 bytes <= 32 bytes.
@@ -177,7 +207,9 @@ public partial class SystemSchema // Conversions
         return new Yemoda(y, m, d);
     }
 
-    /// <summary>Obtains the ordinal date parts for the specified date.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified date.
+    /// </summary>
     // CIL code size = 18 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yedoy GetOrdinalParts(int y, int m, int d)
@@ -193,17 +225,23 @@ public partial class SystemSchema // Dates in a given year or month
     // Start of year
     //
 
-    /// <summary>Obtains the month parts for the first month of the specified year.</summary>
+    /// <summary>
+    /// Obtains the month parts for the first month of the specified year.
+    /// </summary>
     [Pure]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
     public Yemo GetMonthPartsAtStartOfYear(int y) => Yemo.AtStartOfYear(y);
 
-    /// <summary>Obtains the date parts for the first day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the date parts for the first day of the specified year.
+    /// </summary>
     [Pure]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
     public Yemoda GetDatePartsAtStartOfYear(int y) => Yemoda.AtStartOfYear(y);
 
-    /// <summary>Obtains the ordinal date parts for the first day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the first day of the specified year.
+    /// </summary>
     [Pure]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
     public Yedoy GetOrdinalPartsAtStartOfYear(int y) => Yedoy.AtStartOfYear(y);
@@ -212,7 +250,9 @@ public partial class SystemSchema // Dates in a given year or month
     // End of year
     //
 
-    /// <summary>Obtains the date parts for the last month of the specified year.</summary>
+    /// <summary>
+    /// Obtains the date parts for the last month of the specified year.
+    /// </summary>
     [Pure]
     public Yemo GetMonthPartsAtEndOfYear(int y)
     {
@@ -220,7 +260,9 @@ public partial class SystemSchema // Dates in a given year or month
         return new Yemo(y, monthsInYear);
     }
 
-    /// <summary>Obtains the date parts for the last day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the date parts for the last day of the specified year.
+    /// </summary>
     [Pure]
     public Yemoda GetDatePartsAtEndOfYear(int y)
     {
@@ -228,8 +270,11 @@ public partial class SystemSchema // Dates in a given year or month
         return new Yemoda(y, m, d);
     }
 
-    /// <summary>Obtains the month and day of the month for the last day of the specified year; the
-    /// results are given in output parameters.</summary>
+    /// <summary>
+    /// Obtains the month and day of the month for the last day of the specified
+    /// year; the results are given in output parameters.
+    /// </summary>
+    //
     // The default implementation
     // > m = CountMonthsInYear(y);
     // > d = CountDaysInMonth(y, m);
@@ -239,7 +284,9 @@ public partial class SystemSchema // Dates in a given year or month
     // > d = CountDaysInMonth(y, MonthsInYear);
     public abstract void GetDatePartsAtEndOfYear(int y, out int m, out int d);
 
-    /// <summary>Obtains the ordinal date parts for the last day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the last day of the specified year.
+    /// </summary>
     [Pure]
     public Yedoy GetOrdinalPartsAtEndOfYear(int y)
     {
@@ -251,12 +298,16 @@ public partial class SystemSchema // Dates in a given year or month
     // Start of month
     //
 
-    /// <summary>Obtains the date parts for the first day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the date parts for the first day of the specified month.
+    /// </summary>
     [Pure]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
     public Yemoda GetDatePartsAtStartOfMonth(int y, int m) => Yemoda.AtStartOfMonth(y, m);
 
-    /// <summary>Obtains the ordinal date parts for the first day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the first day of the specified month.
+    /// </summary>
     [Pure]
     public Yedoy GetOrdinalPartsAtStartOfMonth(int y, int m)
     {
@@ -270,7 +321,9 @@ public partial class SystemSchema // Dates in a given year or month
     // End of month
     //
 
-    /// <summary>Obtains the date parts for the last day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the date parts for the last day of the specified month.
+    /// </summary>
     [Pure]
     public Yemoda GetDatePartsAtEndOfMonth(int y, int m)
     {
@@ -278,7 +331,9 @@ public partial class SystemSchema // Dates in a given year or month
         return new Yemoda(y, m, d);
     }
 
-    /// <summary>Obtains the ordinal date parts for the last day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the last day of the specified month.
+    /// </summary>
     [Pure]
     public Yedoy GetOrdinalPartsAtEndOfMonth(int y, int m)
     {

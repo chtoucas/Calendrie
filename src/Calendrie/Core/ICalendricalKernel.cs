@@ -21,8 +21,8 @@ public interface ICalendricalKernel
     CalendricalFamily Family { get; }
 
     /// <summary>
-    /// Gets the method employed at regular intervals in order to synchronise the
-    /// two main cycles, lunar and solar.
+    /// Gets the method employed at regular intervals in order to synchronise
+    /// the two main cycles, lunar and solar.
     /// </summary>
     CalendricalAdjustments PeriodicAdjustments { get; }
 

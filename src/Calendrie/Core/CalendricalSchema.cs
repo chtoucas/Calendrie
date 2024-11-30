@@ -119,13 +119,17 @@ using static Calendrie.Core.CalendricalConstants;
 
 #endregion
 
-/// <summary>Represents a calendrical schema and provides a base for derived classes.</summary>
+/// <summary>
+/// Represents a calendrical schema and provides a base for derived classes.
+/// </summary>
 public abstract partial class CalendricalSchema : ICalendricalSchemaPlus
 {
     private readonly MonthsCalculator _monthsCalculator;
 
-    /// <summary>Called from constructors in derived classes to initialize the
-    /// <see cref="CalendricalSchema"/> class.</summary>
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="CalendricalSchema"/> class.
+    /// </summary>
     /// <exception cref="AoorException"><paramref name="minDaysInYear"/> or
     /// <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     protected CalendricalSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
@@ -141,7 +145,9 @@ public abstract partial class CalendricalSchema : ICalendricalSchemaPlus
     }
 
     private CalendricalProfile? _profile;
-    /// <summary>Gets the schema profile.</summary>
+    /// <summary>
+    /// Gets the schema profile.
+    /// </summary>
     internal CalendricalProfile Profile => _profile ??= FindProfile();
 
     [Pure]
@@ -239,44 +245,45 @@ public partial class CalendricalSchema // Properties
 public partial class CalendricalSchema // Year, month or day infos
 {
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] public abstract bool IsLeapYear(int y);
 
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] public abstract bool IsIntercalaryMonth(int y, int m);
 
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] public abstract bool IsIntercalaryDay(int y, int m, int d);
 
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] public abstract bool IsSupplementaryDay(int y, int m, int d);
 }
 
 public partial class CalendricalSchema // Counting months and days within a year or a month
 {
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] public abstract int CountMonthsInYear(int y);
 
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] public abstract int CountDaysInYear(int y);
 
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the capacity of
-    /// <see cref="int"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] public abstract int CountDaysInMonth(int y, int m);
 
     /// <inheritdoc />
+    //
     // Notice that CountDaysInYearBeforeMonth() is entirely determined
     // by CountDaysInMonth(): sum of CountDaysInMonth(y, i) for 0 < i < m.
     // Nevertheless, this method being used by the default implementation of
@@ -447,14 +454,18 @@ public partial class CalendricalSchema // Conversions
         return y;
     }
 
-    /// <summary>Obtains the year from the specified day count (the number of consecutive days from
-    /// the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the year from the specified day count (the number of consecutive
+    /// days from the epoch to a date).
+    /// </summary>
+    //
     // Partial form of the other GetYear(). One can also say that it's a
     // partial form of GetDateParts(), but this method usually delegates
     // part of its work to GetOrdinalParts().
     [Pure] public abstract int GetYear(int daysSinceEpoch);
 
     /// <inheritdoc />
+    //
     // GetMonth() without an out param could be useful for OrdinalDate but,
     // in practice, it seems simpler and better to keep the computations of
     // "d" & "m" together.
@@ -486,6 +497,7 @@ public partial class CalendricalSchema // Counting months and days since the epo
     public int GetEndOfYearInMonths(int y) => _monthsCalculator.GetEndOfYear(y);
 
     /// <inheritdoc />
+    //
     // Even if it is just CountDaysSinceEpoch(y, 1, 1), this method MUST
     // be implemented independently. Indeed, we use it to provide a default
     // impl for CountDaysSinceEpoch(); see also GetYear().
