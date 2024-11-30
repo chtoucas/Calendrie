@@ -11,7 +11,7 @@ using Calendrie.Hemerology.Scopes;
 /// of years.</remarks>
 public partial class ArmenianCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Egyptian12Schema schema) =>
+    private static partial CalendarScope GetScope(Egyptian12Schema schema) =>
         StandardScope.Create(schema, DayZero.Armenian);
 
     /// <inheritdoc />
@@ -22,7 +22,7 @@ public partial class ArmenianCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Armenian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Egyptian13Schema schema) =>
+    private static partial CalendarScope GetScope(Egyptian13Schema schema) =>
         StandardScope.Create(schema, DayZero.Armenian);
 
     partial void OnInitializing(Egyptian13Schema schema) => VirtualMonth = schema.VirtualMonth;
@@ -38,7 +38,7 @@ public partial class Armenian13Calendar : IRegularFeaturette, IVirtualMonthFeatu
 /// of years.</remarks>
 public partial class CopticCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Coptic12Schema schema) =>
+    private static partial CalendarScope GetScope(Coptic12Schema schema) =>
         StandardScope.Create(schema, DayZero.Coptic);
 
     /// <inheritdoc/>
@@ -49,7 +49,7 @@ public partial class CopticCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Coptic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Coptic13Schema schema) =>
+    private static partial CalendarScope GetScope(Coptic13Schema schema) =>
         StandardScope.Create(schema, DayZero.Coptic);
 
     partial void OnInitializing(Coptic13Schema schema) => VirtualMonth = schema.VirtualMonth;
@@ -65,7 +65,7 @@ public partial class Coptic13Calendar : IRegularFeaturette, IVirtualMonthFeature
 /// of years.</remarks>
 public partial class EthiopicCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Coptic12Schema schema) =>
+    private static partial CalendarScope GetScope(Coptic12Schema schema) =>
         StandardScope.Create(schema, DayZero.Ethiopic);
 
     /// <inheritdoc/>
@@ -76,7 +76,7 @@ public partial class EthiopicCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Ethiopic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Coptic13Schema schema) =>
+    private static partial CalendarScope GetScope(Coptic13Schema schema) =>
         StandardScope.Create(schema, DayZero.Ethiopic);
 
     partial void OnInitializing(Coptic13Schema schema) => VirtualMonth = schema.VirtualMonth;
@@ -92,7 +92,7 @@ public partial class Ethiopic13Calendar : IRegularFeaturette, IVirtualMonthFeatu
 /// of years.</remarks>
 public partial class TabularIslamicCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(TabularIslamicSchema schema) =>
+    private static partial CalendarScope GetScope(TabularIslamicSchema schema) =>
         StandardScope.Create(schema, DayZero.TabularIslamic);
 
     /// <inheritdoc/>
@@ -103,7 +103,7 @@ public partial class TabularIslamicCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class WorldCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(WorldSchema schema) =>
+    private static partial CalendarScope GetScope(WorldSchema schema) =>
         StandardScope.Create(schema, DayZero.SundayBeforeGregorian);
 
     /// <inheritdoc/>
@@ -127,7 +127,7 @@ public partial class WorldCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class ZoroastrianCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Egyptian12Schema schema) =>
+    private static partial CalendarScope GetScope(Egyptian12Schema schema) =>
         StandardScope.Create(schema, DayZero.Zoroastrian);
 
     /// <inheritdoc/>
@@ -138,7 +138,7 @@ public partial class ZoroastrianCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Zoroastrian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial MinMaxYearScope GetScope(Egyptian13Schema schema) =>
+    private static partial CalendarScope GetScope(Egyptian13Schema schema) =>
         StandardScope.Create(schema, DayZero.Zoroastrian);
 
     partial void OnInitializing(Egyptian13Schema schema) => VirtualMonth = schema.VirtualMonth;

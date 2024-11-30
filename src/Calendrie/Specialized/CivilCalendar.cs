@@ -11,7 +11,7 @@ using Calendrie.Hemerology.Scopes;
 /// of years.</remarks>
 public partial class CivilCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(CivilSchema schema) =>
+    private static partial CalendarScope GetScope(CivilSchema schema) =>
         StandardScope.Create(schema, DayZero.NewStyle);
 
     /// <inheritdoc />

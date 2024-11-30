@@ -34,7 +34,7 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
     }
 
     [Pure]
-    private static partial MinMaxYearScope GetScope(Egyptian13Schema schema);
+    private static partial CalendarScope GetScope(Egyptian13Schema schema);
 
     partial void OnInitializing(Egyptian13Schema schema);
 
@@ -54,7 +54,7 @@ public sealed partial class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
     /// </summary>
     public Armenian13Adjuster() : base(Armenian13Date.Calendar.Scope) { }
 
-    internal Armenian13Adjuster(MinMaxYearScope scope) : base(scope) { }
+    internal Armenian13Adjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override Armenian13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -75,7 +75,7 @@ public partial struct Armenian13Date // Preamble
 
     private static readonly Egyptian13Schema s_Schema = new();
     private static readonly Armenian13Calendar s_Calendar = new(s_Schema);
-    private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
+    private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Calendar.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
     private static readonly Armenian13Adjuster s_Adjuster = new(s_Scope);

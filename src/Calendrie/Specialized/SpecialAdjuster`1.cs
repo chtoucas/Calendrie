@@ -7,21 +7,7 @@ using Calendrie.Core;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-// Reasons to keep the constructor internal:
-// - we don't validate the input. Only for TDate developed whitin this
-//   project do we know that it's not possible to create an invalid date.
-//   In this project, we don't have an example based on IDateable but on
-//   IFixedDate. Indeed, a DayNumber exists beyond the scope of a calendar
-//   and therefore could be used as a type argument.
-// - This impl is only interesting if GetDate() is non-validating, otherwise
-//   we should simply use the methods provided by a calendar.
-// - this class works best for date types based on the count of days since
-//   the epoch which is the case for all date types in Specialized. For types
-//   using a y/m/d/doy repr. there is a better way of implementing
-//   IDateAdjuster<TDate>; see e.g. MyDate in Samples.
-// We could remove the constraint on TDate but it would make things a
-// bit harder than necessary. Without IDateable, we would have to obtain the
-// date parts (y, m, d, doy) by other means, e.g. using the underlying schema.
+// See comments in SpecialCalendar<>.
 
 /// <summary>
 /// Defines an adjuster for <typeparamref name="TDate"/> and provides a base for
@@ -38,7 +24,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// null.</exception>
-    private protected SpecialAdjuster(MinMaxYearScope scope)
+    private protected SpecialAdjuster(CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(scope);
 

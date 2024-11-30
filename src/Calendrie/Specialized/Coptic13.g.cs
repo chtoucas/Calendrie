@@ -34,7 +34,7 @@ public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
     }
 
     [Pure]
-    private static partial MinMaxYearScope GetScope(Coptic13Schema schema);
+    private static partial CalendarScope GetScope(Coptic13Schema schema);
 
     partial void OnInitializing(Coptic13Schema schema);
 
@@ -54,7 +54,7 @@ public sealed partial class Coptic13Adjuster : SpecialAdjuster<Coptic13Date>
     /// </summary>
     public Coptic13Adjuster() : base(Coptic13Date.Calendar.Scope) { }
 
-    internal Coptic13Adjuster(MinMaxYearScope scope) : base(scope) { }
+    internal Coptic13Adjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override Coptic13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -75,7 +75,7 @@ public partial struct Coptic13Date // Preamble
 
     private static readonly Coptic13Schema s_Schema = new();
     private static readonly Coptic13Calendar s_Calendar = new(s_Schema);
-    private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
+    private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Calendar.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
     private static readonly Coptic13Adjuster s_Adjuster = new(s_Scope);

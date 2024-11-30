@@ -32,7 +32,7 @@ public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
     }
 
     [Pure]
-    private static partial MinMaxYearScope GetScope(CivilSchema schema);
+    private static partial CalendarScope GetScope(CivilSchema schema);
 
     partial void OnInitializing(CivilSchema schema);
 
@@ -52,7 +52,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     /// </summary>
     public CivilAdjuster() : base(CivilDate.Calendar.Scope) { }
 
-    internal CivilAdjuster(MinMaxYearScope scope) : base(scope) { }
+    internal CivilAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override CivilDate GetDate(int daysSinceZero) => new(daysSinceZero);

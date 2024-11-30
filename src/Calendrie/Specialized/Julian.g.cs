@@ -33,7 +33,7 @@ public sealed partial class JulianCalendar : SpecialCalendar<JulianDate>
     }
 
     [Pure]
-    private static partial MinMaxYearScope GetScope(JulianSchema schema);
+    private static partial CalendarScope GetScope(JulianSchema schema);
 
     partial void OnInitializing(JulianSchema schema);
 
@@ -53,7 +53,7 @@ public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
     /// </summary>
     public JulianAdjuster() : base(JulianDate.Calendar.Scope) { }
 
-    internal JulianAdjuster(MinMaxYearScope scope) : base(scope) { }
+    internal JulianAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override JulianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);

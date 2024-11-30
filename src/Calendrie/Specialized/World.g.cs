@@ -34,7 +34,7 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     }
 
     [Pure]
-    private static partial MinMaxYearScope GetScope(WorldSchema schema);
+    private static partial CalendarScope GetScope(WorldSchema schema);
 
     partial void OnInitializing(WorldSchema schema);
 
@@ -54,7 +54,7 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
     /// </summary>
     public WorldAdjuster() : base(WorldDate.Calendar.Scope) { }
 
-    internal WorldAdjuster(MinMaxYearScope scope) : base(scope) { }
+    internal WorldAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override WorldDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -75,7 +75,7 @@ public partial struct WorldDate // Preamble
 
     private static readonly WorldSchema s_Schema = new();
     private static readonly WorldCalendar s_Calendar = new(s_Schema);
-    private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
+    private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Calendar.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
     private static readonly WorldAdjuster s_Adjuster = new(s_Scope);

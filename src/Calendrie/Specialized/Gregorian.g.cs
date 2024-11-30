@@ -33,7 +33,7 @@ public sealed partial class GregorianCalendar : SpecialCalendar<GregorianDate>
     }
 
     [Pure]
-    private static partial MinMaxYearScope GetScope(GregorianSchema schema);
+    private static partial CalendarScope GetScope(GregorianSchema schema);
 
     partial void OnInitializing(GregorianSchema schema);
 
@@ -53,7 +53,7 @@ public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
     /// </summary>
     public GregorianAdjuster() : base(GregorianDate.Calendar.Scope) { }
 
-    internal GregorianAdjuster(MinMaxYearScope scope) : base(scope) { }
+    internal GregorianAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override GregorianDate GetDate(int daysSinceZero) => new(daysSinceZero);

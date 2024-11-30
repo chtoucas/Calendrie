@@ -8,7 +8,22 @@ using System.Linq;
 using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
-// See comments in SpecialAdjuster<>.
+// Reasons to keep the constructor internal (special calendar and adjuster):
+// - the scope must be of type "MinMaxYearScope" but we don't enforce this
+// - we don't validate the input. Only for TDate developed whitin this
+//   project do we know that it's not possible to create an invalid date.
+//   In this project, we don't have an example based on IDateable but on
+//   IFixedDate. Indeed, a DayNumber exists beyond the scope of a calendar
+//   and therefore could be used as a type argument.
+// - This impl is only interesting if GetDate() is non-validating, otherwise
+//   we should simply use the methods provided by a calendar.
+// - this class works best for date types based on the count of days since
+//   the epoch which is the case for all date types in Specialized. For types
+//   using a y/m/d/doy repr. there is a better way of implementing
+//   IDateAdjuster<TDate>; see e.g. MyDate in Samples.
+// We could remove the constraint on TDate but it would make things a
+// bit harder than necessary. Without IDateable, we would have to obtain the
+// date parts (y, m, d, doy) by other means, e.g. using the underlying schema.
 
 /// <summary>
 /// Represents a calendar with dates within a range of years and provides a base
@@ -19,7 +34,7 @@ using Calendrie.Hemerology.Scopes;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public abstract partial class SpecialCalendar<TDate> :
-    BasicCalendar<MinMaxYearScope>, IDateProvider<TDate>
+    BasicCalendar<CalendarScope>, IDateProvider<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -29,7 +44,7 @@ public abstract partial class SpecialCalendar<TDate> :
     /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// <see langword="null"/>.</exception>
-    private protected SpecialCalendar(string name, MinMaxYearScope scope) : base(name, scope) { }
+    private protected SpecialCalendar(string name, CalendarScope scope) : base(name, scope) { }
 
     /// <inheritdoc/>
     [Pure]

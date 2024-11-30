@@ -11,7 +11,7 @@ using Calendrie.Hemerology.Scopes;
 /// within the range [-999_998..999_999] of years.</remarks>
 public partial class GregorianCalendar : IRegularFeaturette
 {
-    private static partial MinMaxYearScope GetScope(GregorianSchema schema) =>
+    private static partial CalendarScope GetScope(GregorianSchema schema) =>
         MinMaxYearScope.CreateMaximal(schema, DayZero.NewStyle);
 
     /// <inheritdoc />

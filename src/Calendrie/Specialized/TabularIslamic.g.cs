@@ -34,7 +34,7 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     }
 
     [Pure]
-    private static partial MinMaxYearScope GetScope(TabularIslamicSchema schema);
+    private static partial CalendarScope GetScope(TabularIslamicSchema schema);
 
     partial void OnInitializing(TabularIslamicSchema schema);
 
@@ -54,7 +54,7 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
     /// </summary>
     public TabularIslamicAdjuster() : base(TabularIslamicDate.Calendar.Scope) { }
 
-    internal TabularIslamicAdjuster(MinMaxYearScope scope) : base(scope) { }
+    internal TabularIslamicAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override TabularIslamicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -75,7 +75,7 @@ public partial struct TabularIslamicDate // Preamble
 
     private static readonly TabularIslamicSchema s_Schema = new();
     private static readonly TabularIslamicCalendar s_Calendar = new(s_Schema);
-    private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
+    private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Calendar.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
     private static readonly TabularIslamicAdjuster s_Adjuster = new(s_Scope);
