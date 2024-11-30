@@ -537,8 +537,6 @@ Calendrie.Hemerology.IStandardArithmetic<TSelf>.AddDays(int days) -> TSelf
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.CountDaysSince(TSelf other) -> int
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.NextDay() -> TSelf
 Calendrie.Hemerology.IStandardArithmetic<TSelf>.PreviousDay() -> TSelf
-Calendrie.Hemerology.MinMaxYearCalendar
-Calendrie.Hemerology.MinMaxYearCalendar.MinMaxYearCalendar(string! name, Calendrie.Hemerology.Scopes.MinMaxYearScope! scope) -> void
 Calendrie.Hemerology.Scopes.CalendarScope
 Calendrie.Hemerology.Scopes.CalendarScope.CalendarScope(Calendrie.DayNumber epoch, Calendrie.Core.CalendricalSegment! segment) -> void
 Calendrie.Hemerology.Scopes.CalendarScope.DaysValidator.get -> Calendrie.Core.Validation.DaysValidator!
@@ -1505,12 +1503,12 @@ override sealed Calendrie.Core.SystemSegment.ToString() -> string!
 override sealed Calendrie.Core.Validation.DaysValidator.ToString() -> string!
 override sealed Calendrie.Core.Validation.MonthsValidator.ToString() -> string!
 override sealed Calendrie.Core.Validation.YearsValidator.ToString() -> string!
-override sealed Calendrie.Hemerology.MinMaxYearCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Hemerology.MinMaxYearCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Hemerology.MinMaxYearCalendar.CountMonthsInYear(int year) -> int
 override sealed Calendrie.Hemerology.Scopes.MinMaxYearScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
 override sealed Calendrie.Hemerology.Scopes.MinMaxYearScope.ValidateYearMonth(int year, int month, string? paramName = null) -> void
 override sealed Calendrie.Hemerology.Scopes.MinMaxYearScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
+override sealed Calendrie.Specialized.SpecialCalendar<TDate>.CountDaysInMonth(int year, int month) -> int
+override sealed Calendrie.Specialized.SpecialCalendar<TDate>.CountDaysInYear(int year) -> int
+override sealed Calendrie.Specialized.SpecialCalendar<TDate>.CountMonthsInYear(int year) -> int
 static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximalOnOrAfterYear1(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!

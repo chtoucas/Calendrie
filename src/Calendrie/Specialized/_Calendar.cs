@@ -5,7 +5,6 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
-using Calendrie.Hemerology;
 using Calendrie.Hemerology.Scopes;
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -113,7 +112,7 @@ public partial class WorldCalendar : IRegularFeaturette
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days
     /// that are formally outside any month).
-    /// <para>See also <seealso cref="MinMaxYearCalendar.CountDaysInMonth(int, int)"/>.
+    /// <para>See also <seealso cref="SpecialCalendar{WorldDate}.CountDaysInMonth(int, int)"/>.
     /// </para>
     /// </summary>
     [Pure]

@@ -18,7 +18,8 @@ using Calendrie.Hemerology.Scopes;
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public abstract class SpecialCalendar<TDate> : MinMaxYearCalendar, IDateProvider<TDate>
+public abstract partial class SpecialCalendar<TDate> :
+    BasicCalendar<MinMaxYearScope>, IDateProvider<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -30,6 +31,33 @@ public abstract class SpecialCalendar<TDate> : MinMaxYearCalendar, IDateProvider
     /// <see langword="null"/>.</exception>
     private protected SpecialCalendar(string name, MinMaxYearScope scope) : base(name, scope) { }
 
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountMonthsInYear(int year)
+    {
+        YearsValidator.Validate(year);
+        return Schema.CountMonthsInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInYear(int year)
+    {
+        YearsValidator.Validate(year);
+        return Schema.CountDaysInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return Schema.CountDaysInMonth(year, month);
+    }
+}
+
+public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
+{
     /// <summary>
     /// Creates a new instance of <typeparamref name="TDate"/> from the specified
     /// count of consecutive days since the epoch.
