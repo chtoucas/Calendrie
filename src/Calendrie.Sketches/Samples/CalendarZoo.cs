@@ -11,10 +11,10 @@ using Calendrie.Hemerology.Scopes;
 
 /// <summary>
 /// Provides a compendium of calendars.
+/// <para>These calendars are pretty <i>useless</i> on their own as they don't
+/// come with a date type.</para>
 /// <para>Unless specified otherwise, the calendars listed here do not allow
 /// dates prior their epochal origin.</para>
-/// <para>These calendars are pretty useless on their own as they don't come
-/// with a date type.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public static partial class CalendarZoo { }
@@ -85,7 +85,7 @@ public partial class CalendarZoo
 public partial class CalendarZoo
 {
     /// <summary>
-    /// Gets the proleptic Tropicália calendar.
+    /// Gets the (long) proleptic Tropicália calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MinMaxYearCalendar Tropicalia => LongCalendars.Tropicalia;
@@ -123,12 +123,7 @@ public partial class CalendarZoo
 // Retropolated calendars:
 // - Egyptian
 // - FrenchRepublican
-// - InternationalFixed
-// - Pax
 // - Persian2820
-// - Positivist
-// - RevisedWorld
-// - World
 public partial class CalendarZoo
 {
     /// <summary>
@@ -144,40 +139,10 @@ public partial class CalendarZoo
     public static MinMaxYearCalendar FrenchRepublican => RetropolatedCalendars.FrenchRepublican;
 
     /// <summary>
-    /// Gets the International Fixed calendar.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static MinMaxYearCalendar InternationalFixed => RetropolatedCalendars.InternationalFixed;
-
-    ///// <summary>
-    ///// Gets the Pax calendar.
-    ///// <para>This static property is thread-safe.</para>
-    ///// </summary>
-    //public static MinMaxYearCalendar Pax => RetropolatedCalendars.Pax;
-
-    /// <summary>
     /// Gets the Persian calendar (proposed arithmetical form).
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MinMaxYearCalendar Persian2820 => RetropolatedCalendars.Persian2820;
-
-    /// <summary>
-    /// Gets the Positivist calendar.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static MinMaxYearCalendar Positivist => RetropolatedCalendars.Positivist;
-
-    /// <summary>
-    /// Gets the revised World calendar.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static MinMaxYearCalendar RevisedWorld => RetropolatedCalendars.RevisedWorld;
-
-    /// <summary>
-    /// Gets the World calendar.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static MinMaxYearCalendar World => RetropolatedCalendars.World;
 
     private static class RetropolatedCalendars
     {
@@ -192,6 +157,55 @@ public partial class CalendarZoo
                 MinMaxYearScope.CreateMaximalOnOrAfterYear1(
                     new FrenchRepublican12Schema(), DayZero.FrenchRepublican));
 
+        internal static readonly MinMaxYearCalendar Persian2820 =
+            new("Tabular Persian",
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
+                    new Persian2820Schema(), DayZero.Persian));
+    }
+}
+
+// Perennial calendars:
+// - InternationalFixed (blank-day)
+// - Pax (leap-week)
+// - Positivist (blank-day)
+// - RevisedWorld (blank-day)
+// - World (blank-day)
+public partial class CalendarZoo
+{
+    /// <summary>
+    /// Gets the International Fixed calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar InternationalFixed => PerennialCalendars.InternationalFixed;
+
+    ///// <summary>
+    ///// Gets the Pax calendar.
+    ///// <para>This static property is thread-safe.</para>
+    ///// </summary>
+    //public static MinMaxYearCalendar Pax => ProposedCalendars.Pax;
+
+    /// <summary>
+    /// Gets the Positivist calendar aka the Georgian calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar Positivist => PerennialCalendars.Positivist;
+
+    /// <summary>
+    /// Gets the revised World calendar aka the Universal calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar RevisedWorld => PerennialCalendars.RevisedWorld;
+
+    /// <summary>
+    /// Gets the World calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar World => PerennialCalendars.World;
+
+    private static class PerennialCalendars
+    {
+        static PerennialCalendars() { }
+
         internal static readonly MinMaxYearCalendar InternationalFixed =
             // The International Fixed calendar re-uses the Gregorian epoch.
             new("International Fixed",
@@ -202,11 +216,6 @@ public partial class CalendarZoo
         //    new("Pax",
         //        MinMaxYearScope.CreateMaximalOnOrAfterYear1(
         //            new PaxSchema(), DayZero.SundayBeforeGregorian));
-
-        internal static readonly MinMaxYearCalendar Persian2820 =
-            new("Tabular Persian",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    new Persian2820Schema(), DayZero.Persian));
 
         internal static readonly MinMaxYearCalendar Positivist =
             new("Positivist",
