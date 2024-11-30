@@ -2,6 +2,7 @@
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #><#+
 
 // Special case when Epoch = DayZero.NewStyle, the Gregorian epoch ie DayNumber.Zero
+// We use "Zero" instead of "Epoch" and we remove s_Epoch.
 
 public class ZeroCalendarTemplate : CalendarTemplate
 {

@@ -10,8 +10,8 @@ using Calendrie.Core.Validation;
 // This is the scope used by SimpleCalendar in the Gregorian and Julian cases.
 
 /// <summary>
-/// Defines a scope for a calendar supporting <i>all</i> dates within the range
-/// [-9998..9999] of years.
+/// Provides static methods related to the (proleptic) scope of a calendar
+/// supporting <i>all</i> dates within the range [-9998..9999] of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public static class ProlepticScope

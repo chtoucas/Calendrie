@@ -9,8 +9,6 @@ using Calendrie.Hemerology.Scopes;
 
 // FIXME(code): range check and casts (à tester)
 
-// We use CivilScope instead of s_Calendar.Scope.
-
 public partial struct CivilDate
 {
     // WARNING: the order in which the static fields are written is __important__.

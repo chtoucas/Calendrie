@@ -45,6 +45,8 @@ internal static class GregorianProlepticScope
     /// <see cref="DayZero.NewStyle"/> .
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
+    //
+    //[Obsolete("To be removed")]
     public static Range<DayNumber> DefaultDomain { get; } =
         Range.Create(
             DayZero.NewStyle + s_MinDaysSinceEpoch,
@@ -54,6 +56,8 @@ internal static class GregorianProlepticScope
     /// Gets the validator for the range of supported days.
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
+    //
+    //[Obsolete("To be removed")]
     public static DaysValidator DaysValidator { get; } =
         new(Range.Create(s_MinDaysSinceEpoch, s_MaxDaysSinceEpoch));
 
@@ -61,6 +65,8 @@ internal static class GregorianProlepticScope
     /// Gets the validator for the range of supported years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    //
+    //[Obsolete("To be removed")]
     public static IYearsValidator YearsValidator => ProlepticScope.YearsValidatorImpl;
 
     /// <summary>
@@ -69,8 +75,10 @@ internal static class GregorianProlepticScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonth(int year, int month, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear) ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
     }
 
     /// <summary>
@@ -79,8 +87,10 @@ internal static class GregorianProlepticScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear) ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
             || (day > Solar.MinDaysInMonth
                 && day > GregorianFormulae.CountDaysInMonth(year, month)))
@@ -95,7 +105,8 @@ internal static class GregorianProlepticScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateOrdinal(int year, int dayOfYear, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (dayOfYear < 1
             || (dayOfYear > Solar.MinDaysInYear
                 && dayOfYear > GregorianFormulae.CountDaysInYear(year)))

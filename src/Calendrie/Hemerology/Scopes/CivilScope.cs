@@ -66,6 +66,7 @@ internal static class CivilScope
     /// Gets the validator for the range of supported years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    [Obsolete("To be removed")]
     public static IYearsValidator YearsValidator => StandardScope.YearsValidatorImpl;
 
     /// <summary>
