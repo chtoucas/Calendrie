@@ -6,11 +6,9 @@ namespace Calendrie.Core.Validation;
 using Calendrie.Core.Intervals;
 
 /// <summary>
-/// Defines a validator for a range of (algebraic) values.
+/// Defines a validator for a range of (algebraic) values of integer type.
 /// </summary>
-/// <typeparam name="T">The type of the range elements.</typeparam>
-public interface IRangeValidator<in T>
-    where T : struct, IEquatable<T>, IComparable<T>
+public interface IRangeValidator
 {
     /// <summary>
     /// Gets the raw range of values.
@@ -21,7 +19,7 @@ public interface IRangeValidator<in T>
     /// Validates the specified value.
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>
-    void Validate(T value, string? paramName = null);
+    void Validate(int value, string? paramName = null);
 
     /// <summary>
     /// Checks whether the specified value is outside the range of supported
@@ -29,7 +27,7 @@ public interface IRangeValidator<in T>
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="value"/> is outside
     /// the range of supported values.</exception>
-    void CheckOverflow(T value);
+    void CheckOverflow(int value);
 
     /// <summary>
     /// Checks whether the specified value is greater than the upper bound of
@@ -37,7 +35,7 @@ public interface IRangeValidator<in T>
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="value"/> is greater
     /// than the upper bound of the range of supported values.</exception>
-    void CheckUpperBound(T value);
+    void CheckUpperBound(int value);
 
     /// <summary>
     /// Checks whether the specified value is less than the lower bound of the
@@ -45,5 +43,5 @@ public interface IRangeValidator<in T>
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="value"/> is less than
     /// the lower bound of the range of supported values.</exception>
-    void CheckLowerBound(T value);
+    void CheckLowerBound(int value);
 }

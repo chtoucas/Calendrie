@@ -1,6 +1,8 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+#pragma warning disable CA1725 // Parameter names should match base declaration
+
 namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
@@ -10,7 +12,7 @@ using Calendrie.Core.Intervals;
 /// numbers of consecutive days from the epoch.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class DaysValidator : IRangeValidator<int>
+public sealed class DaysValidator : IRangeValidator
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DaysValidator"/> class.

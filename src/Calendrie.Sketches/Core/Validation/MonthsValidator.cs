@@ -1,6 +1,8 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+#pragma warning disable CA1725 // Parameter names should match base declaration
+
 namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
@@ -8,8 +10,9 @@ using Calendrie.Core.Intervals;
 /// <summary>
 /// Represents a validator for a range of months, that is the range of supported
 /// numbers of consecutive months from the epoch.
-/// <para>This class cannot be inherited.</para></summary>
-public sealed class MonthsValidator : IRangeValidator<int>
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed class MonthsValidator : IRangeValidator
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MonthsValidator"/> class.

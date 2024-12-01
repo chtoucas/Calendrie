@@ -11,7 +11,7 @@ using Calendrie.Core.Intervals;
 /// Represents a validator for a range of (algebraic) values.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class RangeValidator : IRangeValidator<int>
+public sealed class RangeValidator : IRangeValidator
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="RangeValidator"/> class.
