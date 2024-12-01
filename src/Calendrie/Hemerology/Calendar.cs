@@ -13,17 +13,15 @@ using Calendrie.Hemerology.Scopes;
 /// <para>We do NOT assume the existence of a dedicated companion date type.
 /// </para>
 /// </summary>
-/// <typeparam name="TScope">The type of the underlying scope.</typeparam>
-public abstract partial class Calendar<TScope> : ICalendar
-    where TScope : CalendarScope
+public abstract partial class Calendar : ICalendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="Calendar{TScope}"/> class.
+    /// <see cref="Calendar"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    protected Calendar(string name, TScope scope)
+    protected Calendar(string name, CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(name);
         ArgumentNullException.ThrowIfNull(scope);
@@ -55,9 +53,9 @@ public abstract partial class Calendar<TScope> : ICalendar
     public Range<DayNumber> Domain => Scope.Domain;
 
     /// <inheritdoc />
-    public TScope Scope { get; }
+    public CalendarScope Scope { get; }
 
-    CalendarScope ICalendar.Scope => Scope;
+    //CalendarScope ICalendar.Scope => Scope;
 
     /// <summary>
     /// Gets a validator for the range of supported years.
@@ -81,7 +79,7 @@ public abstract partial class Calendar<TScope> : ICalendar
     public bool IsRegular(out int monthsInYear) => Schema.IsRegular(out monthsInYear);
 }
 
-public partial class Calendar<TScope> // Year, month, day infos
+public partial class Calendar // Year, month, day infos
 {
 #pragma warning disable CA1725 // Parameter names should match base declaration (Naming) ✓
     // Base parameter names (y, m, d) are not explicit enough.
@@ -147,7 +145,7 @@ public partial class Calendar<TScope> // Year, month, day infos
 #pragma warning restore CA1725
 }
 
-public partial class Calendar<TScope> // Conversions
+public partial class Calendar // Conversions
 {
     /// <inheritdoc />
     [Pure]

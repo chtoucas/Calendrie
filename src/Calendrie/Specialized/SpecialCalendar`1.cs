@@ -33,8 +33,7 @@ using Calendrie.Hemerology.Scopes;
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public abstract partial class SpecialCalendar<TDate> :
-    Calendar<CalendarScope>, IDateProvider<TDate>
+public abstract partial class SpecialCalendar<TDate> : Calendar, IDateProvider<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the

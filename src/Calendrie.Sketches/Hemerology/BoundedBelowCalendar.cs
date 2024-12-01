@@ -9,7 +9,7 @@ using Calendrie.Hemerology.Scopes;
 /// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>
 /// </summary>
-public class BoundedBelowCalendar : Calendar<BoundedBelowScope>
+public class BoundedBelowCalendar : Calendar
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="BoundedBelowCalendar"/>

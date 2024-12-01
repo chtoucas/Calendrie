@@ -18,9 +18,9 @@ abstract Calendrie.Core.CalendricalSchema.PeriodicAdjustments.get -> Calendrie.C
 abstract Calendrie.Core.Schemas.EgyptianSchema.MonthsInYear.get -> int
 abstract Calendrie.Core.Schemas.PtolemaicSchema.MonthsInYear.get -> int
 abstract Calendrie.Core.SystemSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-abstract Calendrie.Hemerology.Calendar<TScope>.CountDaysInMonth(int year, int month) -> int
-abstract Calendrie.Hemerology.Calendar<TScope>.CountDaysInYear(int year) -> int
-abstract Calendrie.Hemerology.Calendar<TScope>.CountMonthsInYear(int year) -> int
+abstract Calendrie.Hemerology.Calendar.CountDaysInMonth(int year, int month) -> int
+abstract Calendrie.Hemerology.Calendar.CountDaysInYear(int year) -> int
+abstract Calendrie.Hemerology.Calendar.CountMonthsInYear(int year) -> int
 abstract Calendrie.Hemerology.Scopes.CalendarScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
 abstract Calendrie.Hemerology.Scopes.CalendarScope.ValidateYearMonth(int year, int month, string? paramName = null) -> void
 abstract Calendrie.Hemerology.Scopes.CalendarScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
@@ -456,24 +456,24 @@ Calendrie.DayNumber.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayNumber.PreviousDay() -> Calendrie.DayNumber
 Calendrie.DayNumber.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.DayNumber
 Calendrie.DayZero
-Calendrie.Hemerology.Calendar<TScope>
-Calendrie.Hemerology.Calendar<TScope>.Algorithm.get -> Calendrie.CalendricalAlgorithm
-Calendrie.Hemerology.Calendar<TScope>.Calendar(string! name, TScope! scope) -> void
-Calendrie.Hemerology.Calendar<TScope>.Domain.get -> Calendrie.Core.Intervals.Range<Calendrie.DayNumber>
-Calendrie.Hemerology.Calendar<TScope>.Epoch.get -> Calendrie.DayNumber
-Calendrie.Hemerology.Calendar<TScope>.Family.get -> Calendrie.CalendricalFamily
-Calendrie.Hemerology.Calendar<TScope>.GetDayNumber(int year, int dayOfYear) -> Calendrie.DayNumber
-Calendrie.Hemerology.Calendar<TScope>.GetDayNumber(int year, int month, int day) -> Calendrie.DayNumber
-Calendrie.Hemerology.Calendar<TScope>.IsIntercalaryDay(int year, int month, int day) -> bool
-Calendrie.Hemerology.Calendar<TScope>.IsIntercalaryMonth(int year, int month) -> bool
-Calendrie.Hemerology.Calendar<TScope>.IsLeapYear(int year) -> bool
-Calendrie.Hemerology.Calendar<TScope>.IsRegular(out int monthsInYear) -> bool
-Calendrie.Hemerology.Calendar<TScope>.IsSupplementaryDay(int year, int month, int day) -> bool
-Calendrie.Hemerology.Calendar<TScope>.Name.get -> string!
-Calendrie.Hemerology.Calendar<TScope>.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-Calendrie.Hemerology.Calendar<TScope>.Schema.get -> Calendrie.Core.ICalendricalSchema!
-Calendrie.Hemerology.Calendar<TScope>.Scope.get -> TScope!
-Calendrie.Hemerology.Calendar<TScope>.YearsValidator.get -> Calendrie.Core.Validation.IYearsValidator!
+Calendrie.Hemerology.Calendar
+Calendrie.Hemerology.Calendar.Algorithm.get -> Calendrie.CalendricalAlgorithm
+Calendrie.Hemerology.Calendar.Calendar(string! name, Calendrie.Hemerology.Scopes.CalendarScope! scope) -> void
+Calendrie.Hemerology.Calendar.Domain.get -> Calendrie.Core.Intervals.Range<Calendrie.DayNumber>
+Calendrie.Hemerology.Calendar.Epoch.get -> Calendrie.DayNumber
+Calendrie.Hemerology.Calendar.Family.get -> Calendrie.CalendricalFamily
+Calendrie.Hemerology.Calendar.GetDayNumber(int year, int dayOfYear) -> Calendrie.DayNumber
+Calendrie.Hemerology.Calendar.GetDayNumber(int year, int month, int day) -> Calendrie.DayNumber
+Calendrie.Hemerology.Calendar.IsIntercalaryDay(int year, int month, int day) -> bool
+Calendrie.Hemerology.Calendar.IsIntercalaryMonth(int year, int month) -> bool
+Calendrie.Hemerology.Calendar.IsLeapYear(int year) -> bool
+Calendrie.Hemerology.Calendar.IsRegular(out int monthsInYear) -> bool
+Calendrie.Hemerology.Calendar.IsSupplementaryDay(int year, int month, int day) -> bool
+Calendrie.Hemerology.Calendar.Name.get -> string!
+Calendrie.Hemerology.Calendar.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
+Calendrie.Hemerology.Calendar.Schema.get -> Calendrie.Core.ICalendricalSchema!
+Calendrie.Hemerology.Calendar.Scope.get -> Calendrie.Hemerology.Scopes.CalendarScope!
+Calendrie.Hemerology.Calendar.YearsValidator.get -> Calendrie.Core.Validation.IYearsValidator!
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
 Calendrie.Hemerology.ICalendar
@@ -1228,7 +1228,7 @@ override Calendrie.Core.Yemoda.ToString() -> string!
 override Calendrie.DayNumber.Equals(object? obj) -> bool
 override Calendrie.DayNumber.GetHashCode() -> int
 override Calendrie.DayNumber.ToString() -> string!
-override Calendrie.Hemerology.Calendar<TScope>.ToString() -> string!
+override Calendrie.Hemerology.Calendar.ToString() -> string!
 override Calendrie.Ord.Equals(object? obj) -> bool
 override Calendrie.Ord.GetHashCode() -> int
 override Calendrie.Ord.ToString() -> string!
