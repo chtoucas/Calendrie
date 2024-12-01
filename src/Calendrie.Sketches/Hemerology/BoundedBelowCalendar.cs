@@ -2,9 +2,6 @@
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
 namespace Calendrie.Hemerology;
-
-using Calendrie.Hemerology.Scopes;
-
 /// <summary>
 /// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>

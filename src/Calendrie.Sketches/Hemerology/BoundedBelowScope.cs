@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology.Scopes;
+namespace Calendrie.Hemerology;
 
 using Calendrie;
 using Calendrie.Core;
@@ -115,9 +115,7 @@ public sealed class BoundedBelowScope : CalendarScope
 
         // Tiny optimization: we first check "year".
         if (year == MinYear && new MonthParts(year, month) < MinMonthParts)
-        {
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
-        }
     }
 
     /// <inheritdoc />
@@ -151,8 +149,6 @@ public sealed class BoundedBelowScope : CalendarScope
 
         // Tiny optimization: we first check "year".
         if (year == MinYear && new OrdinalParts(year, dayOfYear) < MinOrdinalParts)
-        {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
-        }
     }
 }

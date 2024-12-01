@@ -3,8 +3,6 @@
 
 namespace Calendrie.Hemerology;
 
-using Calendrie.Hemerology.Scopes;
-
 /// <summary>
 /// Represents a calendar with dates within a range of years.
 /// </summary>

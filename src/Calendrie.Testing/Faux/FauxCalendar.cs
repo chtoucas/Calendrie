@@ -6,7 +6,6 @@ namespace Calendrie.Testing.Faux;
 using System.Collections.Generic;
 
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 public sealed class FauxCalendar : Calendar
 {

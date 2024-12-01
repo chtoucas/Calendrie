@@ -6,7 +6,6 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
-using Calendrie.Hemerology.Scopes;
 
 #region Developer Notes
 

@@ -4,7 +4,7 @@
 namespace Calendrie.Testing.Faux;
 
 using Calendrie.Core.Intervals;
-using Calendrie.Hemerology.Scopes;
+using Calendrie.Hemerology;
 
 public sealed class FauxCalendarScope : CalendarScope
 {

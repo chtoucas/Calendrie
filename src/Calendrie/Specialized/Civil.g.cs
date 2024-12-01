@@ -12,7 +12,6 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 /// <summary>
 /// Represents the Civil calendar.

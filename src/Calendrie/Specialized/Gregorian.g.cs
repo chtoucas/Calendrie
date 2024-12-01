@@ -13,7 +13,6 @@ namespace Calendrie.Specialized;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 /// <summary>
 /// Represents the Gregorian calendar.

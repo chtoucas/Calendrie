@@ -7,7 +7,6 @@ using Calendrie;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 /// <summary>
 /// Provides a compendium of calendars.

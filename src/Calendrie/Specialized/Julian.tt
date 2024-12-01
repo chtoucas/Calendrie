@@ -17,7 +17,6 @@ public sealed class JulianTemplate : CalendarTemplate
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>

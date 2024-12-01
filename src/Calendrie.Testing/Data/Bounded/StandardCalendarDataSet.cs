@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing.Data.Bounded;
 
-using Calendrie.Hemerology.Scopes;
+using Calendrie.Hemerology;
 using Calendrie.Testing.Data.Unbounded;
 
 /// <summary>

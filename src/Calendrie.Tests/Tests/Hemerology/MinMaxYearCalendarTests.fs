@@ -6,7 +6,6 @@ module Calendrie.Tests.Hemerology.MinMaxYearCalendarTests
 open Calendrie
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology
-open Calendrie.Hemerology.Scopes
 open Calendrie.Testing
 
 open Xunit

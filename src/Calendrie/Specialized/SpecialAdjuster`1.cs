@@ -5,7 +5,6 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core;
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 // See comments in SpecialCalendar<>.
 

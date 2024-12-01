@@ -5,7 +5,7 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
-using Calendrie.Hemerology.Scopes;
+using Calendrie.Hemerology;
 
 /// <remarks>This calendar is <i>proleptic</i>. It supports <i>all</i> dates
 /// within the range [-999_998..999_999] of years.</remarks>

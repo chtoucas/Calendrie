@@ -99,7 +99,6 @@
   </ItemGroup>
 
   <!-- SourceLink + PublicApiAnalyzers -->
-  <Import Project="$(MSBuildThisFileDirectory)..\Packable.targets"
-          Condition=" '$(IsPackable)' == 'true' " />
+  <Import Project="$(MSBuildThisFileDirectory)..\Packable.targets" Condition=" '$(IsPackable)' == 'true' " />
 
 </Project>

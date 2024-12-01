@@ -4,7 +4,6 @@
 namespace Calendrie.Testing.Faux;
 
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 using Calendrie.Specialized;
 
 public sealed class FauxSpecialAdjuster<TDate> : SpecialAdjuster<TDate>

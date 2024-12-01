@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie.Hemerology.Scopes;
+using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 // FIXME(fact): skip negative years.

@@ -5,7 +5,6 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 // FIXME(code): range check and casts (à tester)
 

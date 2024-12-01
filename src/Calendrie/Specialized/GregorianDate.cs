@@ -6,7 +6,6 @@ namespace Calendrie.Specialized;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 public partial struct GregorianDate
 {

@@ -6,7 +6,6 @@ namespace Calendrie.Specialized;
 using System.Linq;
 
 using Calendrie.Hemerology;
-using Calendrie.Hemerology.Scopes;
 
 // Reasons to keep the constructor internal (special calendar and adjuster):
 // - the scope must be of type "MinMaxYearScope" but we don't enforce this

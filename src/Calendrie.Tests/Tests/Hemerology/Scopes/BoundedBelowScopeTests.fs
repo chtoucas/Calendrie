@@ -5,7 +5,7 @@ module Calendrie.Tests.Hemerology.Scopes.BoundedBelowScopeTests
 
 open Calendrie
 open Calendrie.Core.Schemas
-open Calendrie.Hemerology.Scopes
+open Calendrie.Hemerology
 open Calendrie.Testing
 
 open Xunit
