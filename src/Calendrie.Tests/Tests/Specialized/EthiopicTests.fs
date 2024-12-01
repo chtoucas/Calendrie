@@ -17,7 +17,7 @@ module Bundles =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit ICalendarTFacts<EthiopicDate, EthiopicCalendar, StandardEthiopic12DataSet>(chr)
+        inherit CalendarFacts<EthiopicDate, EthiopicCalendar, StandardEthiopic12DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
@@ -63,7 +63,7 @@ module Bundles13 =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit ICalendarTFacts<Ethiopic13Date, Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
+        inherit CalendarFacts<Ethiopic13Date, Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

@@ -32,7 +32,7 @@ module Bundles =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit ICalendarTFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)
+        inherit CalendarFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

@@ -11,13 +11,13 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about <see cref="Calendar"/> and <see cref="IDateProvider{TDate}"/>.
 /// </summary>
-public abstract partial class ICalendarTFacts<TDate, TCalendar, TDataSet> :
-    ICalendarFacts<TCalendar, TDataSet>
+public abstract partial class CalendarFacts<TDate, TCalendar, TDataSet> :
+    CalendarFacts<TCalendar, TDataSet>
     where TDate : IDateable
     where TCalendar : Calendar, IDateProvider<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected ICalendarTFacts(TCalendar calendar) : base(calendar) { }
+    protected CalendarFacts(TCalendar calendar) : base(calendar) { }
 
     /// <summary>
     /// Creates a new instance of <typeparamref name="TDate"/> from the specified
@@ -38,7 +38,7 @@ public abstract partial class ICalendarTFacts<TDate, TCalendar, TDataSet> :
     protected abstract TDate GetDate(DayNumber dayNumber);
 }
 
-public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
+public partial class CalendarFacts<TDate, TCalendar, TDataSet> // Factories
 {
     #region Factory(y, m, d)
 
@@ -125,7 +125,7 @@ public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // Factories
     #endregion
 }
 
-public partial class ICalendarTFacts<TDate, TCalendar, TDataSet> // IDateProvider<TDate>
+public partial class CalendarFacts<TDate, TCalendar, TDataSet> // IDateProvider<TDate>
 {
     #region GetDaysInYear(y)
 

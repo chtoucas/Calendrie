@@ -20,12 +20,12 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about <see cref="Calendar"/>.
 /// </summary>
-public abstract partial class ICalendarFacts<TCalendar, TDataSet> :
+public abstract partial class CalendarFacts<TCalendar, TDataSet> :
     CalendarDataConsumer<TDataSet>
     where TCalendar : Calendar
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected ICalendarFacts(TCalendar calendar)
+    protected CalendarFacts(TCalendar calendar)
     {
         ArgumentNullException.ThrowIfNull(calendar);
 
@@ -48,7 +48,7 @@ public abstract partial class ICalendarFacts<TCalendar, TDataSet> :
     protected DomainTester DomainTester { get; }
 }
 
-public partial class ICalendarFacts<TCalendar, TDataSet> // Abstract
+public partial class CalendarFacts<TCalendar, TDataSet> // Abstract
 {
     [Fact] public abstract void Algorithm_Prop();
     [Fact] public abstract void Family_Prop();
@@ -57,7 +57,7 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // Abstract
     //[Fact] public abstract void IsRegular();
 }
 
-public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
+public partial class CalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
 {
     //
     // Characteristics
@@ -210,7 +210,7 @@ public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
     #endregion
 }
 
-public partial class ICalendarFacts<TCalendar, TDataSet> // ICalendar
+public partial class CalendarFacts<TCalendar, TDataSet> // ICalendar
 {
     [Fact]
     public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);

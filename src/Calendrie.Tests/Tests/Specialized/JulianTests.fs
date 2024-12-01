@@ -19,7 +19,7 @@ module Bundles =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit ICalendarTFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>(chr)
+        inherit CalendarFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

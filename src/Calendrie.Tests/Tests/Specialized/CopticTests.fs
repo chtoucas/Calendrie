@@ -17,7 +17,7 @@ module Bundles =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit ICalendarTFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
+        inherit CalendarFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
@@ -63,7 +63,7 @@ module Bundles13 =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit ICalendarTFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>(chr)
+        inherit CalendarFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

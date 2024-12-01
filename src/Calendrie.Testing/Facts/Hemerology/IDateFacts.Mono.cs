@@ -13,11 +13,11 @@ using Calendrie.Testing.Data;
 /// </summary>
 public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IDateFacts<TDate, TDataSet>
-    where TCalendar : Calendar//, IDateProvider<TDate>
+    where TCalendar : Calendar, IDateProvider<TDate>
     where TDate : struct, IDate<TDate, TCalendar>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected IDateFacts(Calendar calendar) : base(GetDomain(calendar)) { }
+    protected IDateFacts(TCalendar calendar) : base(GetDomain(calendar)) { }
 
     [Fact]
     public void ToString_InvariantCulture()
