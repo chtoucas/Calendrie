@@ -21,9 +21,9 @@ public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>, IRegular
 
     internal CivilCalendar(CivilSchema schema) : base("Civil", new CivilScope(schema)) { }
 
-    [Pure]
-    private protected sealed override CivilDate GetDate(int daysSinceZero) => new(daysSinceZero);
-
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
+
+    [Pure]
+    private protected sealed override CivilDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }

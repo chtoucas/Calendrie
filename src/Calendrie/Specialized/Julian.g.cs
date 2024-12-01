@@ -37,7 +37,7 @@ public sealed partial class JulianCalendar : SpecialCalendar<JulianDate>
     partial void OnInitializing(JulianSchema schema);
 
     [Pure]
-    private protected sealed override JulianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override JulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -55,7 +55,7 @@ public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
     internal JulianAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
-    private protected sealed override JulianDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override JulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>

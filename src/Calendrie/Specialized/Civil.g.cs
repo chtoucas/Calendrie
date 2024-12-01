@@ -27,7 +27,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     internal CivilAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
-    private protected sealed override CivilDate GetDate(int daysSinceZero) => new(daysSinceZero);
+    private protected sealed override CivilDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>

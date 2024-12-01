@@ -38,7 +38,7 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     partial void OnInitializing(TabularIslamicSchema schema);
 
     [Pure]
-    private protected sealed override TabularIslamicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -56,7 +56,7 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
     internal TabularIslamicAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
-    private protected sealed override TabularIslamicDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>

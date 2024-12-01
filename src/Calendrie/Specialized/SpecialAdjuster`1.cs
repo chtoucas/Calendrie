@@ -44,14 +44,14 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure]
-    private protected abstract TDate GetDate(int daysSinceEpoch);
+    private protected abstract TDate NewDate(int daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
     public TDate GetStartOfYear(TDate date)
     {
         int daysSinceEpoch = Schema.GetStartOfYear(date.Year);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -59,7 +59,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     public TDate GetEndOfYear(TDate date)
     {
         int daysSinceEpoch = Schema.GetEndOfYear(date.Year);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -68,7 +68,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     {
         var (y, m, _) = date;
         int daysSinceEpoch = Schema.GetStartOfMonth(y, m);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -77,7 +77,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     {
         var (y, m, _) = date;
         int daysSinceEpoch = Schema.GetEndOfMonth(y, m);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     //
@@ -93,7 +93,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
         Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newYear, m, d);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -105,7 +105,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
         Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newMonth, d);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -122,7 +122,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
         }
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -134,7 +134,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
         Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     //

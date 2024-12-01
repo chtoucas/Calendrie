@@ -76,7 +76,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     /// count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    [Pure] private protected abstract TDate GetDate(int daysSinceEpoch);
+    [Pure] private protected abstract TDate NewDate(int daysSinceEpoch);
 
     /// <inheritdoc/>
     [Pure]
@@ -89,7 +89,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select GetDate(daysSinceEpoch);
+               select NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -103,7 +103,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select GetDate(daysSinceEpoch);
+               select NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -112,7 +112,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         YearsValidator.Validate(year);
         int daysSinceEpoch = Schema.GetStartOfYear(year);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -121,7 +121,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         YearsValidator.Validate(year);
         int daysSinceEpoch = Schema.GetEndOfYear(year);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -130,7 +130,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -139,6 +139,6 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
-        return GetDate(daysSinceEpoch);
+        return NewDate(daysSinceEpoch);
     }
 }

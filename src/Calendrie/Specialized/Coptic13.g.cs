@@ -38,7 +38,7 @@ public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
     partial void OnInitializing(Coptic13Schema schema);
 
     [Pure]
-    private protected sealed override Coptic13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override Coptic13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -56,7 +56,7 @@ public sealed partial class Coptic13Adjuster : SpecialAdjuster<Coptic13Date>
     internal Coptic13Adjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
-    private protected sealed override Coptic13Date GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override Coptic13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>

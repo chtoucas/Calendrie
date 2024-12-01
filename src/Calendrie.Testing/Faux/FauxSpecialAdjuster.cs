@@ -11,6 +11,6 @@ public sealed class FauxSpecialAdjuster<TDate> : SpecialAdjuster<TDate>
 {
     public FauxSpecialAdjuster(MinMaxYearScope scope) : base(scope) { }
 
-    private protected override TDate GetDate(int daysSinceEpoch) =>
+    private protected override TDate NewDate(int daysSinceEpoch) =>
         throw new NotSupportedException();
 }

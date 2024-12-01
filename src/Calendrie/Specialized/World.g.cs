@@ -38,7 +38,7 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     partial void OnInitializing(WorldSchema schema);
 
     [Pure]
-    private protected sealed override WorldDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -56,7 +56,7 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
     internal WorldAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
-    private protected sealed override WorldDate GetDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
