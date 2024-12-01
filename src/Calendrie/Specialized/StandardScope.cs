@@ -1,18 +1,19 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology;
+namespace Calendrie.Specialized;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
+using Calendrie.Hemerology;
 
 /// <summary>
 /// Provides static methods related to the standard scope of a calendar.
 /// <para>Supported dates are within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public static class StandardScope
+internal static class StandardScope
 {
     /// <summary>
     /// Represents the earliest supported year.

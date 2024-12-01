@@ -6,7 +6,6 @@ namespace Calendrie.Specialized;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
-using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
 
