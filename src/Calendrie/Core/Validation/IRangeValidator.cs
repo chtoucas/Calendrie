@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 /// Defines a validator for a range of (algebraic) values.
 /// </summary>
 /// <typeparam name="T">The type of the range elements.</typeparam>
-internal interface IRangeValidator<in T>
+public interface IRangeValidator<in T>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>

@@ -58,7 +58,7 @@ internal static class GregorianProlepticScope
     /// </summary>
     //
     //[Obsolete("To be removed")]
-    public static DaysValidator DaysValidator { get; } =
+    public static RangeValidator DaysValidator { get; } =
         new(Range.Create(s_MinDaysSinceEpoch, s_MaxDaysSinceEpoch));
 
     /// <summary>

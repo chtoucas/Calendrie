@@ -87,7 +87,7 @@ internal sealed class CivilScope : CalendarScope
         /// <para>This static propery is thread-safe.</para>
         /// </summary>
         [Obsolete("To be removed")]
-        public static DaysValidator DaysValidator { get; } =
+        public static RangeValidator DaysValidator { get; } =
             new(Range.Create(MinDaysSinceZero, MaxDaysSinceZero));
 
         /// <summary>

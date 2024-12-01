@@ -37,7 +37,7 @@ public sealed partial class CalendricalSegmentBuilder
     /// Represents the validator for the range of supported values for the number
     /// of consecutive days from the epoch.
     /// </summary>
-    private readonly DaysValidator _daysValidator;
+    private readonly RangeValidator _daysValidator;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendricalSegmentBuilder"/>
@@ -52,7 +52,7 @@ public sealed partial class CalendricalSegmentBuilder
         _schema = schema;
         _partsAdapter = new PartsAdapter(schema);
         _yearsValidator = new YearsValidator(schema.SupportedYears);
-        _daysValidator = new DaysValidator(schema.SupportedDays);
+        _daysValidator = new RangeValidator(schema.SupportedDays);
     }
 
     /// <summary>
@@ -354,7 +354,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     [Pure]
     private Endpoint GetEndpointFromDaysSinceEpoch(int daysSinceEpoch)
     {
-        _daysValidator.Validate(daysSinceEpoch);
+        _daysValidator.Validate(daysSinceEpoch, nameof(daysSinceEpoch));
 
         return new Endpoint
         {
