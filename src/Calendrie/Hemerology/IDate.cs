@@ -52,7 +52,7 @@ public interface IDate<TSelf> :
 public interface IDate<TSelf, out TCalendar> :
     IDate<TSelf>,
     IMinMaxValue<TSelf>
-    where TCalendar : ICalendar
+    where TCalendar : Calendar
     where TSelf : IDate<TSelf, TCalendar>
 {
     /// <summary>
