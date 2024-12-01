@@ -30,7 +30,7 @@ internal static class StandardScope
     /// <summary>
     /// Represents the range of supported years.
     /// </summary>
-    private static readonly Range<int> s_SupportedYears = Range.Create(MinYear, MaxYear);
+    public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
@@ -42,7 +42,7 @@ internal static class StandardScope
     /// <paramref name="schema"/> does not contain the interval [1..9999].
     /// </exception>
     public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch) =>
-        new(epoch, CalendricalSegment.Create(schema, s_SupportedYears))
+        new(epoch, CalendricalSegment.Create(schema, SupportedYears))
         {
             YearsValidator = YearsValidatorImpl
         };
@@ -55,7 +55,7 @@ internal static class StandardScope
 
     private sealed class YearsValidator_ : IYearsValidator
     {
-        public Range<int> Range => s_SupportedYears;
+        public Range<int> Range => SupportedYears;
 
         public void Validate(int year, string? paramName = null)
         {

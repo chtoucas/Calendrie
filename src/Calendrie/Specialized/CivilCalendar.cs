@@ -11,8 +11,7 @@ using Calendrie.Hemerology;
 /// of years.</remarks>
 public partial class CivilCalendar : IRegularFeaturette
 {
-    private static partial CalendarScope GetScope(CivilSchema schema) =>
-        StandardScope.Create(schema, DayZero.NewStyle);
+    private static partial CalendarScope GetScope(CivilSchema schema) => new CivilScope(schema);
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;

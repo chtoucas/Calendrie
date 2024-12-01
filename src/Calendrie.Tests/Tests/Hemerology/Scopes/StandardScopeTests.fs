@@ -129,63 +129,63 @@ module CivilCase =
     let ``Static properties`` () =
         let scope = StandardScope.Create(new GregorianSchema(), DayZero.NewStyle)
 
-        CivilScope.DefaultDomain === scope.Domain
-        CivilScope.YearsValidator ==& StandardScope.YearsValidatorImpl
+        CivilScope.Impl.Domain === scope.Domain
+        CivilScope.Impl.YearsValidator ==& StandardScope.YearsValidatorImpl
         // It's enough to check the property Range.
-        CivilScope.DaysValidator.Range === scope.DaysValidator.Range
+        CivilScope.Impl.DaysValidator.Range === scope.DaysValidator.Range
 
     // ValidateYearMonth()
 
     [<Theory; MemberData(nameof(invalidYearData))>]
     let ``ValidateYearMonth() throws when "year" is out of range`` y =
-        outOfRangeExn "year" (fun () -> CivilScope.ValidateYearMonth(y, 1))
-        outOfRangeExn "y" (fun () -> CivilScope.ValidateYearMonth(y, 1, nameof(y)))
+        outOfRangeExn "year" (fun () -> CivilScope.Impl.ValidateYearMonth(y, 1))
+        outOfRangeExn "y" (fun () -> CivilScope.Impl.ValidateYearMonth(y, 1, nameof(y)))
 
     [<Theory; MemberData(nameof(invalidMonthFieldData))>]
     let ``ValidateYearMonth() throws when "month" is out of range`` y m =
-        outOfRangeExn "month" (fun () -> CivilScope.ValidateYearMonth(y, m))
-        outOfRangeExn "m" (fun () -> CivilScope.ValidateYearMonth(y, m, nameof(m)))
+        outOfRangeExn "month" (fun () -> CivilScope.Impl.ValidateYearMonth(y, m))
+        outOfRangeExn "m" (fun () -> CivilScope.Impl.ValidateYearMonth(y, m, nameof(m)))
 
     [<Theory; MemberData(nameof(monthInfoData))>]
     let ``ValidateYearMonth() does not throw when the input is valid`` (x: MonthInfo) =
         let y, m = x.Yemo.Deconstruct()
-        CivilScope.ValidateYearMonth(y, m)
+        CivilScope.Impl.ValidateYearMonth(y, m)
 
     // ValidateYearMonthDay()
 
     [<Theory; MemberData(nameof(invalidYearData))>]
     let ``ValidateYearMonthDay() throws when "year" is out of range`` y =
-        outOfRangeExn "year" (fun () -> CivilScope.ValidateYearMonthDay(y, 1, 1))
-        outOfRangeExn "y" (fun () -> CivilScope.ValidateYearMonthDay(y, 1, 1, nameof(y)))
+        outOfRangeExn "year" (fun () -> CivilScope.Impl.ValidateYearMonthDay(y, 1, 1))
+        outOfRangeExn "y" (fun () -> CivilScope.Impl.ValidateYearMonthDay(y, 1, 1, nameof(y)))
 
     [<Theory; MemberData(nameof(invalidMonthFieldData))>]
     let ``ValidateYearMonthDay() throws when "month" is out of range`` y m =
-        outOfRangeExn "month" (fun () -> CivilScope.ValidateYearMonthDay(y, m, 1))
-        outOfRangeExn "m" (fun () -> CivilScope.ValidateYearMonthDay(y, m, 1, nameof(m)))
+        outOfRangeExn "month" (fun () -> CivilScope.Impl.ValidateYearMonthDay(y, m, 1))
+        outOfRangeExn "m" (fun () -> CivilScope.Impl.ValidateYearMonthDay(y, m, 1, nameof(m)))
 
     [<Theory; MemberData(nameof(invalidDayFieldData))>]
     let ``ValidateYearMonthDay() throws when "day" is out of range`` y m d =
-        outOfRangeExn "day" (fun () -> CivilScope.ValidateYearMonthDay(y, m, d))
-        outOfRangeExn "d" (fun () -> CivilScope.ValidateYearMonthDay(y, m, d, nameof(d)))
+        outOfRangeExn "day" (fun () -> CivilScope.Impl.ValidateYearMonthDay(y, m, d))
+        outOfRangeExn "d" (fun () -> CivilScope.Impl.ValidateYearMonthDay(y, m, d, nameof(d)))
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ValidateYearMonthDay() does not throw when the input is valid`` (x: DateInfo) =
         let y, m, d = x.Yemoda.Deconstruct()
-        CivilScope.ValidateYearMonthDay(y, m, d)
+        CivilScope.Impl.ValidateYearMonthDay(y, m, d)
 
     // ValidateOrdinal()
 
     [<Theory; MemberData(nameof(invalidYearData))>]
     let ``ValidateOrdinal() throws when "year" is out of range`` y =
-        outOfRangeExn "year" (fun () -> CivilScope.ValidateOrdinal(y,  1))
-        outOfRangeExn "y" (fun () -> CivilScope.ValidateOrdinal(y, 1, nameof(y)))
+        outOfRangeExn "year" (fun () -> CivilScope.Impl.ValidateOrdinal(y,  1))
+        outOfRangeExn "y" (fun () -> CivilScope.Impl.ValidateOrdinal(y, 1, nameof(y)))
 
     [<Theory; MemberData(nameof(invalidDayOfYearFieldData))>]
     let ``ValidateOrdinal() throws when "dayOfYear" is out of range`` y doy =
-        outOfRangeExn "dayOfYear" (fun () -> CivilScope.ValidateOrdinal(y, doy))
-        outOfRangeExn "doy" (fun () -> CivilScope.ValidateOrdinal(y, doy, nameof(doy)))
+        outOfRangeExn "dayOfYear" (fun () -> CivilScope.Impl.ValidateOrdinal(y, doy))
+        outOfRangeExn "doy" (fun () -> CivilScope.Impl.ValidateOrdinal(y, doy, nameof(doy)))
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ValidateOrdinal() does not throw when the input is valid`` (x: DateInfo) =
         let y, doy = x.Yedoy.Deconstruct()
-        CivilScope.ValidateOrdinal(y, doy)
+        CivilScope.Impl.ValidateOrdinal(y, doy)
