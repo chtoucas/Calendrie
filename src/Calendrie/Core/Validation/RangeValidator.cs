@@ -5,7 +5,7 @@ namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
 
-// FIXME(code): exceptions.
+// FIXME(code): exceptions, custom validator for int >= 0.
 
 /// <summary>
 /// Represents a validator for a range of (algebraic) values.
@@ -43,26 +43,26 @@ public sealed class RangeValidator : IRangeValidator<int>
     public sealed override string ToString() => Range.ToString();
 
     /// <inheritdoc/>
-    public void Validate(int year, string? paramName = null)
+    public void Validate(int value, string? paramName = null)
     {
-        if (year < MinValue || year > MaxValue) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (value < MinValue || value > MaxValue) ThrowHelpers.ThrowYearOutOfRange(value, paramName);
     }
 
     /// <inheritdoc/>
-    public void CheckOverflow(int year)
+    public void CheckOverflow(int value)
     {
-        if (year < MinValue || year > MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (value < MinValue || value > MaxValue) ThrowHelpers.ThrowDateOverflow();
     }
 
     /// <inheritdoc/>
-    public void CheckUpperBound(int year)
+    public void CheckUpperBound(int value)
     {
-        if (year > MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (value > MaxValue) ThrowHelpers.ThrowDateOverflow();
     }
 
     /// <inheritdoc/>
-    public void CheckLowerBound(int year)
+    public void CheckLowerBound(int value)
     {
-        if (year < MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (value < MinValue) ThrowHelpers.ThrowDateOverflow();
     }
 }
