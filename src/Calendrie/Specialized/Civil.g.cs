@@ -10,34 +10,7 @@
 
 namespace Calendrie.Specialized;
 
-using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-
-/// <summary>
-/// Represents the Civil calendar.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CivilCalendar"/>
-    /// class.
-    /// </summary>
-    public CivilCalendar() : this(new CivilSchema()) { }
-
-    internal CivilCalendar(CivilSchema schema) : base("Civil", GetScope(schema))
-    {
-        OnInitializing(schema);
-    }
-
-    [Pure]
-    private static partial CalendarScope GetScope(CivilSchema schema);
-
-    partial void OnInitializing(CivilSchema schema);
-
-    [Pure]
-    private protected sealed override CivilDate GetDate(int daysSinceZero) => new(daysSinceZero);
-}
 
 /// <summary>
 /// Provides common adjusters for <see cref="CivilDate"/>.
