@@ -37,18 +37,14 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     public void ValidateMonth(int y, int month, string? paramName = null)
     {
         if (month < 1 || month > _schema.CountMonthsInYear(y))
-        {
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
-        }
     }
 
     /// <inheritdoc />
     public void ValidateMonthDay(int y, int month, int day, string? paramName = null)
     {
         if (month < 1 || month > _schema.CountMonthsInYear(y))
-        {
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
-        }
         if (day < 1
             || (day > Lunisolar.MinDaysInMonth
                 && day > _schema.CountDaysInMonth(y, month)))
