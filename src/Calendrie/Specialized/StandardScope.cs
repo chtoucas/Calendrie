@@ -12,11 +12,11 @@ using Calendrie.Hemerology;
 // using YearsValidator? Use it instead of MinMaxYearScope in Specialized.
 
 /// <summary>
-/// Provides static methods related to the standard scope of a calendar.
-/// <para>Supported dates are within the range [1..9999] of years.</para>
+/// Represents a scope for a calendar supporting <i>all</i> dates within the
+/// range [1..9999] of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal static class StandardScope
+internal sealed class StandardScope : CalendarScope
 {
     /// <summary>
     /// Represents the earliest supported year.
@@ -36,19 +36,36 @@ internal static class StandardScope
     public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
-    /// the specified schema and epoch.
+    /// Initializes a new instance of the <see cref="StandardScope"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    /// <exception cref="AoorException">The range of supported years by
-    /// <paramref name="schema"/> does not contain the interval [1..9999].
-    /// </exception>
-    public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch) =>
-        new(epoch, CalendricalSegment.Create(schema, SupportedYears))
-        {
-            YearsValidator = YearsValidatorImpl
-        };
+    public StandardScope(ICalendricalSchema schema, DayNumber epoch)
+        : base(epoch, CalendricalSegment.Create(schema, SupportedYears))
+    {
+        YearsValidator = YearsValidatorImpl;
+    }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
+    {
+        YearsValidatorImpl.Validate(year, paramName);
+        PreValidator.ValidateMonth(year, month, paramName);
+    }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
+    {
+        YearsValidatorImpl.Validate(year, paramName);
+        PreValidator.ValidateMonthDay(year, month, day, paramName);
+    }
+
+    /// <inheritdoc />
+    public sealed override void ValidateOrdinal(int year, int dayOfYear, string? paramName = null)
+    {
+        YearsValidatorImpl.Validate(year, paramName);
+        PreValidator.ValidateDayOfYear(year, dayOfYear, paramName);
+    }
 
     /// <summary>
     /// Gets the validator for the range of supported years.

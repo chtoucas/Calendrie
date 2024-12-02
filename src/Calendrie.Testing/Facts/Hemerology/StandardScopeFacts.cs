@@ -3,7 +3,6 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie.Hemerology;
 using Calendrie.Specialized;
 using Calendrie.Testing.Data;
 
@@ -34,10 +33,10 @@ public static class StandardScopeFacts
 /// Provides data-driven tests for <see cref="StandardScope"/>.
 /// </summary>
 internal abstract class StandardScopeFacts<TDataSet> :
-    CalendarScopeFacts<MinMaxYearScope, TDataSet>
+    CalendarScopeFacts<StandardScope, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected StandardScopeFacts(MinMaxYearScope scope) : base(scope)
+    protected StandardScopeFacts(StandardScope scope) : base(scope)
     {
         Debug.Assert(scope != null);
         Debug.Assert(scope.Segment.SupportedYears.Min == StandardScope.MinYear);

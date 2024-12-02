@@ -104,7 +104,7 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     }
 
     [Pure]
-    private static partial CalendarScope GetScope(<#= SchemaClass #> schema);
+    private static partial StandardScope GetScope(<#= SchemaClass #> schema);
 
     partial void OnInitializing(<#= SchemaClass #> schema);
 

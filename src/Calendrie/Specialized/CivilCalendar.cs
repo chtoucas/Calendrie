@@ -12,7 +12,7 @@ using Calendrie.Core.Schemas;
 /// of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturette
+public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturette
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.

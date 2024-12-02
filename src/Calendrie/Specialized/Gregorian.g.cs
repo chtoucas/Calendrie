@@ -15,32 +15,6 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents the Gregorian calendar.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed partial class GregorianCalendar : SpecialCalendar<GregorianDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianCalendar"/>
-    /// class.
-    /// </summary>
-    public GregorianCalendar() : this(new GregorianSchema()) { }
-
-    internal GregorianCalendar(GregorianSchema schema) : base("Gregorian", GetScope(schema))
-    {
-        OnInitializing(schema);
-    }
-
-    [Pure]
-    private static partial CalendarScope GetScope(GregorianSchema schema);
-
-    partial void OnInitializing(GregorianSchema schema);
-
-    [Pure]
-    private protected sealed override GregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
-}
-
-/// <summary>
 /// Provides common adjusters for <see cref="GregorianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>

@@ -33,7 +33,7 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     }
 
     [Pure]
-    private static partial CalendarScope GetScope(WorldSchema schema);
+    private static partial StandardScope GetScope(WorldSchema schema);
 
     partial void OnInitializing(WorldSchema schema);
 

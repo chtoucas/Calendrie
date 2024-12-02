@@ -33,7 +33,7 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     }
 
     [Pure]
-    private static partial CalendarScope GetScope(TabularIslamicSchema schema);
+    private static partial StandardScope GetScope(TabularIslamicSchema schema);
 
     partial void OnInitializing(TabularIslamicSchema schema);
 

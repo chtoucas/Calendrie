@@ -15,32 +15,6 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents the Julian calendar.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed partial class JulianCalendar : SpecialCalendar<JulianDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="JulianCalendar"/>
-    /// class.
-    /// </summary>
-    public JulianCalendar() : this(new JulianSchema()) { }
-
-    internal JulianCalendar(JulianSchema schema) : base("Julian", GetScope(schema))
-    {
-        OnInitializing(schema);
-    }
-
-    [Pure]
-    private static partial CalendarScope GetScope(JulianSchema schema);
-
-    partial void OnInitializing(JulianSchema schema);
-
-    [Pure]
-    private protected sealed override JulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
-}
-
-/// <summary>
 /// Provides common adjusters for <see cref="JulianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>

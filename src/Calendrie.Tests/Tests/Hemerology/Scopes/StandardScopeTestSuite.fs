@@ -13,7 +13,7 @@ open Calendrie.Testing.Faux
 
 // Returns a StandardScope.
 let private scopeOf(sch) =
-    StandardScope.Create(sch, DayZero.OldStyle)
+    new StandardScope(sch, DayZero.OldStyle)
 
 [<Sealed>]
 type Coptic12Tests() =

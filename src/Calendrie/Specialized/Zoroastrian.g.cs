@@ -33,7 +33,7 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
     }
 
     [Pure]
-    private static partial CalendarScope GetScope(Egyptian12Schema schema);
+    private static partial StandardScope GetScope(Egyptian12Schema schema);
 
     partial void OnInitializing(Egyptian12Schema schema);
 

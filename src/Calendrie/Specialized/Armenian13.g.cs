@@ -33,7 +33,7 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
     }
 
     [Pure]
-    private static partial CalendarScope GetScope(Egyptian13Schema schema);
+    private static partial StandardScope GetScope(Egyptian13Schema schema);
 
     partial void OnInitializing(Egyptian13Schema schema);
 

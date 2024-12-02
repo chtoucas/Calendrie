@@ -10,7 +10,7 @@ using Calendrie.Hemerology;
 using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
-/// Provides static methods related to the standard scope of the Civil calendar.
+/// Represents the standard scope of the Civil calendar.
 /// <para>Supported dates are within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>

@@ -4,9 +4,9 @@
 module Calendrie.Tests.Hemerology.MinMaxYearCalendarTests
 
 open Calendrie
+open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology
-open Calendrie.Specialized
 open Calendrie.Testing
 
 open Xunit
@@ -14,7 +14,7 @@ open Xunit
 module Prelude =
     [<Fact>]
     let ``Constructor throws when "name" is null`` () =
-        let scope = StandardScope.Create(new GregorianSchema(), DayZero.NewStyle)
+        let scope = MinMaxYearScope.Create(new GregorianSchema(), DayZero.NewStyle, Range.Create(1, 4))
 
         nullExn "name" (fun () -> new MinMaxYearCalendar(null, scope))
         nullExn "name" (fun () -> new MinMaxYearCalendar(null, scope))

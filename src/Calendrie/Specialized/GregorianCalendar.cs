@@ -7,13 +7,27 @@ using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
-/// <remarks>This calendar is <i>proleptic</i>. It supports <i>all</i> dates
-/// within the range [-999_998..999_999] of years.</remarks>
-public partial class GregorianCalendar : IRegularFeaturette
+/// <summary>
+/// Represents the Gregorian calendar.
+/// <para>This calendar is <i>proleptic</i>. It supports <i>all</i> dates within
+/// the range [-999_998..999_999] of years.</para>
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegularFeaturette
 {
-    private static partial CalendarScope GetScope(GregorianSchema schema) =>
-        MinMaxYearScope.CreateMaximal(schema, DayZero.NewStyle);
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianCalendar"/>
+    /// class.
+    /// </summary>
+    public GregorianCalendar() : this(new GregorianSchema()) { }
+
+    internal GregorianCalendar(GregorianSchema schema) :
+        base("Gregorian", MinMaxYearScope.CreateMaximal(schema, DayZero.NewStyle))
+    { }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
+
+    [Pure]
+    private protected sealed override GregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }

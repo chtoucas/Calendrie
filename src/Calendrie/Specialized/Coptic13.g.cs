@@ -33,7 +33,7 @@ public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
     }
 
     [Pure]
-    private static partial CalendarScope GetScope(Coptic13Schema schema);
+    private static partial StandardScope GetScope(Coptic13Schema schema);
 
     partial void OnInitializing(Coptic13Schema schema);
 
