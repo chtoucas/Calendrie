@@ -5,13 +5,13 @@ namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
 
-// FIXME(code): exceptions, custom validator for int >= 0.
+// FIXME(code): exceptions.
 
 /// <summary>
 /// Represents a validator for a range of (algebraic) values of type <see cref="int"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class RangeValidator : IRangeValidator
+public sealed class RangeValidator
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="RangeValidator"/> class.

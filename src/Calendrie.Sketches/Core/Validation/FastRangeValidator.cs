@@ -22,6 +22,7 @@ internal sealed class FastRangeValidator : IRangeValidator
     /// </summary>
     public FastRangeValidator(int maxValue)
     {
+        // Le constructeur va valider maxValue >= 0.
         Range = new(0, maxValue);
         MaxValue = maxValue;
     }
@@ -29,7 +30,11 @@ internal sealed class FastRangeValidator : IRangeValidator
     /// <summary>
     /// Initializes a new instance of the <see cref="RangeValidator"/> class.
     /// </summary>
-    public FastRangeValidator(Range<int> range) : this(range.Max) { }
+    public FastRangeValidator(Range<int> range)
+    {
+        Range = range;
+        MaxValue = range.Max;
+    }
 
     /// <inheritdoc/>
     public Range<int> Range { get; }

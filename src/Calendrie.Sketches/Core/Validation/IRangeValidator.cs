@@ -5,6 +5,10 @@ namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
 
+// REVIEW(code): optimisation (FastRangeValidator) mais cela nous obligerait à
+// utiliser une interface (voir p.ex. CA1859 pour une explication sur les
+// conséquences en termes de performance).
+
 /// <summary>
 /// Defines a validator for a range of (algebraic) values of type <see cref="int"/>.
 /// </summary>
