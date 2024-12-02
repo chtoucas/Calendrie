@@ -278,7 +278,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        s_Domain.CheckOverflow(dayNumber);
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -287,7 +287,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        s_Domain.CheckOverflow(dayNumber);
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -296,7 +296,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        s_Domain.CheckOverflow(dayNumber);
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -305,7 +305,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        s_Domain.CheckOverflow(dayNumber);
         return new CopticDate(dayNumber - s_Epoch);
     }
 
@@ -314,7 +314,7 @@ public partial struct CopticDate // Adjustments
     public CopticDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
+        s_Domain.CheckOverflow(dayNumber);
         return new CopticDate(dayNumber - s_Epoch);
     }
 }

@@ -8,6 +8,9 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
+// TODO(code): extend CalendarScope along the line of MinMaxYearScope but without
+// using YearsValidator? Use it instead of MinMaxYearScope in Specialized.
+
 /// <summary>
 /// Provides static methods related to the standard scope of a calendar.
 /// <para>Supported dates are within the range [1..9999] of years.</para>
