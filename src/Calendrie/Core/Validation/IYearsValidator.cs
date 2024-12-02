@@ -5,7 +5,7 @@ namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
 
-// WARNING: compared to IRangeValidator<T>, IYearsValidator is not the range
+// WARNING: compared to IRangeValidator, IYearsValidator is not the range
 // of supported numbers of consecutive years from the epoch, indeed
 // YearsSinceEpoch = Year - 1.
 
