@@ -30,6 +30,8 @@ public sealed class BoundedBelowScope : CalendarScope
         MinDateParts = seg.MinMaxDateParts.LowerValue;
         MinOrdinalParts = seg.MinMaxOrdinalParts.LowerValue;
         MinMonthParts = MinDateParts.MonthParts;
+
+        MinYear = MinDateParts.Year;
     }
 
     /// <summary>
@@ -46,6 +48,11 @@ public sealed class BoundedBelowScope : CalendarScope
     /// Gets the earliest supported ordinal date parts.
     /// </summary>
     public OrdinalParts MinOrdinalParts { get; }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
+    private int MinYear { get; }
 
     #region Factories
 

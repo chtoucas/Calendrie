@@ -125,14 +125,14 @@ module CivilCase =
     let invalidDayOfYearFieldData = dataSet.InvalidDayOfYearFieldData
     let invalidDayFieldData = dataSet.InvalidDayFieldData
 
-    [<Fact>]
-    let ``Static properties`` () =
-        let scope = StandardScope.Create(new GregorianSchema(), DayZero.NewStyle)
+    //[<Fact>]
+    //let ``Static properties`` () =
+    //    let scope = StandardScope.Create(new GregorianSchema(), DayZero.NewStyle)
 
-        CivilScope.Impl.Domain === scope.Domain
-        CivilScope.Impl.YearsValidator ==& StandardScope.YearsValidatorImpl
-        // It's enough to check the property Range.
-        CivilScope.Impl.DaysValidator.Range === scope.DaysValidator.Range
+    //    CivilScope.Impl.Domain === scope.Domain
+    //    CivilScope.Impl.YearsValidator ==& StandardScope.YearsValidatorImpl
+    //    // It's enough to check the property Range.
+    //    CivilScope.Impl.DaysValidator.Range === scope.DaysValidator.Range
 
     // ValidateYearMonth()
 

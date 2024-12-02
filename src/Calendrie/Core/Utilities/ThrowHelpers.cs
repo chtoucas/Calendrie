@@ -93,34 +93,10 @@ internal partial class ThrowHelpers // ArgumentException
 internal partial class ThrowHelpers // OverflowException
 {
     /// <summary>
-    /// The operation would overflow the range of supported months.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn]
-    public static void ThrowMonthOverflow() =>
-        throw new OverflowException("The computation would overflow the range of supported months.");
-
-    /// <summary>
     /// The operation would overflow the range of supported dates.
     /// </summary>
     /// <exception cref="OverflowException"/>
     [DoesNotReturn]
     public static void ThrowDateOverflow() =>
         throw new OverflowException("The computation would overflow the range of supported dates.");
-
-    /// <summary>
-    /// The operation would overflow the range of supported day numbers.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn]
-    public static void ThrowDayNumberOverflow() =>
-        throw new OverflowException("The computation would overflow the range of supported day numbers.");
-
-    /// <summary>
-    /// The operation would overflow the range of supported ordinal numerals.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn]
-    public static void ThrowOrdOverflow() =>
-        throw new OverflowException("The computation would overflow the range of supported ordinal numerals.");
 }

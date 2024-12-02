@@ -75,7 +75,7 @@ public partial struct GregorianDate // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        return new GregorianDate(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 }
 
@@ -116,7 +116,7 @@ public partial struct GregorianDate // Adjustments
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new GregorianDate(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -125,7 +125,7 @@ public partial struct GregorianDate // Adjustments
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new GregorianDate(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -134,7 +134,7 @@ public partial struct GregorianDate // Adjustments
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
         s_Domain.CheckOverflow(dayNumber);
-        return new GregorianDate(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -143,7 +143,7 @@ public partial struct GregorianDate // Adjustments
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new GregorianDate(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -152,7 +152,7 @@ public partial struct GregorianDate // Adjustments
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new GregorianDate(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 }
 
@@ -273,7 +273,7 @@ public partial struct GregorianDate // Math
         int daysSinceZero = checked(_daysSinceZero + days);
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceZero);
-        s_Scope.DaysValidator.CheckOverflow(daysSinceZero);
+        s_Scope.Segment.SupportedDays.CheckOverflow(daysSinceZero);
         return new(daysSinceZero);
     }
 
@@ -282,7 +282,7 @@ public partial struct GregorianDate // Math
     public GregorianDate NextDay()
     {
         if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
-        return new GregorianDate(_daysSinceZero + 1);
+        return new(_daysSinceZero + 1);
     }
 
     /// <inheritdoc />
@@ -290,6 +290,6 @@ public partial struct GregorianDate // Math
     public GregorianDate PreviousDay()
     {
         if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
-        return new GregorianDate(_daysSinceZero - 1);
+        return new(_daysSinceZero - 1);
     }
 }

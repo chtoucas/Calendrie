@@ -64,7 +64,7 @@ public sealed class MonthsValidator : IRangeValidator
     public void CheckOverflow(int monthsSinceEpoch)
     {
         if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthOverflow();
+            ThrowMonthOverflow();
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public sealed class MonthsValidator : IRangeValidator
     /// </exception>
     public void CheckUpperBound(int monthsSinceEpoch)
     {
-        if (monthsSinceEpoch > MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        if (monthsSinceEpoch > MaxMonthsSinceEpoch) ThrowMonthOverflow();
     }
 
     /// <summary>
@@ -88,6 +88,15 @@ public sealed class MonthsValidator : IRangeValidator
     /// </exception>
     public void CheckLowerBound(int monthsSinceEpoch)
     {
-        if (monthsSinceEpoch < MinMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        if (monthsSinceEpoch < MinMonthsSinceEpoch) ThrowMonthOverflow();
     }
+
+    /// <summary>
+    /// The operation would overflow the range of supported months.
+    /// </summary>
+    /// <exception cref="OverflowException"/>
+    [DoesNotReturn]
+    private static void ThrowMonthOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported months.");
+
 }

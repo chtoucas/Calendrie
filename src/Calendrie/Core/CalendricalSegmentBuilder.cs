@@ -29,17 +29,6 @@ public sealed partial class CalendricalSegmentBuilder
     private readonly PartsAdapter _partsAdapter;
 
     /// <summary>
-    /// Represents the validator for the range of supported years.
-    /// </summary>
-    private readonly YearsValidator _yearsValidator;
-
-    /// <summary>
-    /// Represents the validator for the range of supported values for the number
-    /// of consecutive days from the epoch.
-    /// </summary>
-    private readonly RangeValidator _daysValidator;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="CalendricalSegmentBuilder"/>
     /// class.
     /// </summary>
@@ -51,8 +40,6 @@ public sealed partial class CalendricalSegmentBuilder
 
         _schema = schema;
         _partsAdapter = new PartsAdapter(schema);
-        _yearsValidator = new YearsValidator(schema.SupportedYears);
-        _daysValidator = new RangeValidator(schema.SupportedDays);
     }
 
     /// <summary>
@@ -262,7 +249,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// values by the schema.</exception>
     public void SetMinToStartOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _schema.SupportedYears.Validate(year, nameof(year));
 
         Min = GetEndpointAtStartOfYear(year);
     }
@@ -271,7 +258,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// Sets the minimum to the start of the earliest supported year.
     /// </summary>
     public void SetMinToStartOfMinSupportedYear() =>
-        Min = GetEndpointAtStartOfYear(_yearsValidator.MinYear);
+        Min = GetEndpointAtStartOfYear(_schema.SupportedYears.Min);
 
     /// <summary>
     /// Attempts to set the minimum to the start of the earliest supported year
@@ -294,7 +281,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// range of supported values by the schema.</exception>
     public void SetMaxToEndOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _schema.SupportedYears.Validate(year, nameof(year));
 
         Max = GetEndpointAtEndOfYear(year);
     }
@@ -303,7 +290,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// Sets the maximum to the end of the latest supported year.
     /// </summary>
     public void SetMaxToEndOfMaxSupportedYear() =>
-        Max = GetEndpointAtEndOfYear(_yearsValidator.MaxYear);
+        Max = GetEndpointAtEndOfYear(_schema.SupportedYears.Max);
 
     // This method throw an ArgumentException not an AoorException, therefore
     // it's not equivalent to set Min and Max separately.
@@ -323,7 +310,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     //
 
     [Conditional("DEBUG")]
-    private void __ValidateYear(int year) => _yearsValidator.Validate(year);
+    private void __ValidateYear(int year) => _schema.SupportedYears.Validate(year, nameof(year));
 
     [Pure]
     private Endpoint GetEndpointAtStartOfYear(int year)
@@ -354,7 +341,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     [Pure]
     private Endpoint GetEndpointFromDaysSinceEpoch(int daysSinceEpoch)
     {
-        _daysValidator.Validate(daysSinceEpoch, nameof(daysSinceEpoch));
+        _schema.SupportedDays.Validate(daysSinceEpoch, nameof(daysSinceEpoch));
 
         return new Endpoint
         {
@@ -368,7 +355,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     private Endpoint GetEndpoint(DateParts parts)
     {
         var (y, m, d) = parts;
-        _yearsValidator.Validate(y, nameof(parts));
+        _schema.SupportedYears.Validate(y, nameof(parts));
         PreValidator.ValidateMonthDay(y, m, d, nameof(parts));
 
         return new Endpoint
@@ -383,7 +370,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     private Endpoint GetEndpoint(OrdinalParts parts)
     {
         var (y, doy) = parts;
-        _yearsValidator.Validate(y, nameof(parts));
+        _schema.SupportedYears.Validate(y, nameof(parts));
         PreValidator.ValidateDayOfYear(y, doy, nameof(parts));
 
         return new Endpoint

@@ -38,8 +38,8 @@ internal abstract class ProlepticScopeFacts<TDataSet> :
     protected ProlepticScopeFacts(MinMaxYearScope scope) : base(scope)
     {
         Debug.Assert(scope != null);
-        Debug.Assert(scope.MinYear == ProlepticScope.MinYear);
-        Debug.Assert(scope.MaxYear == ProlepticScope.MaxYear);
+        Debug.Assert(scope.Segment.SupportedYears.Min == ProlepticScope.MinYear);
+        Debug.Assert(scope.Segment.SupportedYears.Max == ProlepticScope.MaxYear);
     }
 
     public static TheoryData<int> InvalidYearData => ProlepticScopeFacts.InvalidYearData;

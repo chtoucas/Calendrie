@@ -125,14 +125,14 @@ module GregorianCase =
     let invalidDayOfYearFieldData = dataSet.InvalidDayOfYearFieldData
     let invalidDayFieldData = dataSet.InvalidDayFieldData
 
-    [<Fact>]
-    let ``Static properties`` () =
-        let scope = ProlepticScope.Create(new GregorianSchema(), DayZero.NewStyle)
+    //[<Fact>]
+    //let ``Static properties`` () =
+    //    let scope = ProlepticScope.Create(new GregorianSchema(), DayZero.NewStyle)
 
-        GregorianProlepticScope.DefaultDomain === scope.Domain
-        GregorianProlepticScope.YearsValidator ==& ProlepticScope.YearsValidatorImpl
-        // It's enough to check the property Range.
-        GregorianProlepticScope.DaysValidator.Range === scope.DaysValidator.Range
+    //    GregorianProlepticScope.DefaultDomain === scope.Domain
+    //    GregorianProlepticScope.YearsValidator ==& ProlepticScope.YearsValidatorImpl
+    //    // It's enough to check the property Range.
+    //    GregorianProlepticScope.DaysValidator.Range === scope.DaysValidator.Range
 
     // ValidateYearMonth()
 

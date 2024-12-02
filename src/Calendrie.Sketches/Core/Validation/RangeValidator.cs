@@ -5,12 +5,11 @@ namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
 
-// FIXME(code): exceptions.
-
 /// <summary>
 /// Represents a validator for a range of (algebraic) values of type <see cref="int"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
+[Obsolete("To be removed")]
 public sealed class RangeValidator
 {
     /// <summary>
@@ -51,7 +50,7 @@ public sealed class RangeValidator
     public void Validate(int value, string? paramName = null)
     {
         if (value < MinValue || value > MaxValue)
-            throw new AoorException(paramName ?? nameof(value));
+            ThrowValueOutOfRange(value, paramName ?? nameof(value));
     }
 
     /// <summary>
@@ -62,7 +61,7 @@ public sealed class RangeValidator
     /// the range of supported values.</exception>
     public void CheckOverflow(int value)
     {
-        if (value < MinValue || value > MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (value < MinValue || value > MaxValue) ThrowValueOverflow();
     }
 
     /// <summary>
@@ -71,10 +70,9 @@ public sealed class RangeValidator
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="value"/> is greater
     /// than the upper bound of the range of supported values.</exception>
-    [Obsolete("To be removed")]
     public void CheckUpperBound(int value)
     {
-        if (value > MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (value > MaxValue) ThrowValueOverflow();
     }
 
     /// <summary>
@@ -83,9 +81,28 @@ public sealed class RangeValidator
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="value"/> is less than
     /// the lower bound of the range of supported values.</exception>
-    [Obsolete("To be removed")]
     public void CheckLowerBound(int value)
     {
-        if (value < MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (value < MinValue) ThrowValueOverflow();
     }
+
+    /// <summary>
+    /// The value was out of range.
+    /// </summary>
+    /// <exception cref="AoorException"/>
+    [DoesNotReturn]
+    private static void ThrowValueOutOfRange(int value, string? paramName = null) =>
+        throw new AoorException(
+            paramName ?? nameof(value),
+            value,
+            $"The value was out of range; value = {value}.");
+
+    /// <summary>
+    /// The operation would overflow the range of supported values.
+    /// </summary>
+    /// <exception cref="OverflowException"/>
+    [DoesNotReturn]
+    private static void ThrowValueOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported values.");
+
 }

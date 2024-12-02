@@ -43,24 +43,34 @@ public sealed class YearsValidator : IYearsValidator
     /// <inheritdoc/>
     public void Validate(int year, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName ?? nameof(year));
     }
 
     /// <inheritdoc/>
     public void CheckOverflow(int year)
     {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowDateOverflow();
+        if (year < MinYear || year > MaxYear) ThrowYearOverflow();
     }
 
     /// <inheritdoc/>
     public void CheckUpperBound(int year)
     {
-        if (year > MaxYear) ThrowHelpers.ThrowDateOverflow();
+        if (year > MaxYear) ThrowYearOverflow();
     }
 
     /// <inheritdoc/>
     public void CheckLowerBound(int year)
     {
-        if (year < MinYear) ThrowHelpers.ThrowDateOverflow();
+        if (year < MinYear) ThrowYearOverflow();
     }
+
+    /// <summary>
+    /// The operation would overflow the range of supported years.
+    /// </summary>
+    /// <exception cref="OverflowException"/>
+    [DoesNotReturn]
+    private static void ThrowYearOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported years.");
+
 }

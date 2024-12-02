@@ -41,13 +41,9 @@ public abstract partial class CalendarScope : ICalendricalValidator
         Epoch = epoch;
 
         YearsValidator = new YearsValidator(segment.SupportedYears);
-        MonthsValidator = new RangeValidator(segment.SupportedMonths);
-        DaysValidator = new RangeValidator(segment.SupportedDays);
 
         Domain = Range.FromEndpoints(
             segment.SupportedDays.Endpoints.Select(x => epoch + x));
-
-        (MinYear, MaxYear) = segment.SupportedYears.Endpoints;
     }
 
     /// <summary>
@@ -66,31 +62,9 @@ public abstract partial class CalendarScope : ICalendricalValidator
     public CalendricalSegment Segment { get; }
 
     /// <summary>
-    /// Gets the earliest supported year.
-    /// </summary>
-    public int MinYear { get; }
-
-    /// <summary>
-    /// Gets the latest supported year.
-    /// </summary>
-    public int MaxYear { get; }
-
-    /// <summary>
     /// Gets the validator for the range of supported years.
     /// </summary>
     public IYearsValidator YearsValidator { get; internal init; }
-
-    /// <summary>
-    /// Gets the validator for the range of supported months, that is the range
-    /// of supported numbers of consecutive months from the epoch.
-    /// </summary>
-    public RangeValidator MonthsValidator { get; internal init; }
-
-    /// <summary>
-    /// Gets the validator for the range of supported days, that is the range of
-    /// supported numbers of consecutive days from the epoch.
-    /// </summary>
-    public RangeValidator DaysValidator { get; internal init; }
 
     /// <summary>
     /// Gets the pre-validator.

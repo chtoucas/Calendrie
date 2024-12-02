@@ -40,8 +40,8 @@ internal abstract class StandardScopeFacts<TDataSet> :
     protected StandardScopeFacts(MinMaxYearScope scope) : base(scope)
     {
         Debug.Assert(scope != null);
-        Debug.Assert(scope.MinYear == StandardScope.MinYear);
-        Debug.Assert(scope.MaxYear == StandardScope.MaxYear);
+        Debug.Assert(scope.Segment.SupportedYears.Min == StandardScope.MinYear);
+        Debug.Assert(scope.Segment.SupportedYears.Max == StandardScope.MaxYear);
     }
 
     public static TheoryData<int> InvalidYearData => StandardScopeFacts.InvalidYearData;

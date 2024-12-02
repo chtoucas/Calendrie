@@ -4,9 +4,7 @@
 namespace Calendrie.Specialized;
 
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
@@ -26,7 +24,6 @@ internal sealed class CivilScope : CalendarScope
     public CivilScope(CivilSchema schema) :
         base(DayZero.NewStyle, CalendricalSegment.Create(schema, StandardScope.SupportedYears))
     {
-        // REVIEW(code): one could optimize MonthsValidator and DaysValidator.
         YearsValidator = StandardScope.YearsValidatorImpl;
     }
 
@@ -59,33 +56,6 @@ internal sealed class CivilScope : CalendarScope
         /// </summary>
         public static readonly int MaxDaysSinceZero =
             GregorianFormulae.GetEndOfYear(StandardScope.MaxYear);
-
-        /// <summary>
-        /// Gets the range of supported <see cref="DayNumber"/> values by the
-        /// <i>Civil</i> calendar, the one using the default epoch i.e.
-        /// <see cref="DayZero.NewStyle"/> .
-        /// <para>This static propery is thread-safe.</para>
-        /// </summary>
-        [Obsolete("To be removed")]
-        public static Range<DayNumber> Domain { get; } =
-            Range.Create(
-                DayZero.NewStyle + MinDaysSinceZero,
-                DayZero.NewStyle + MaxDaysSinceZero);
-
-        /// <summary>
-        /// Gets the validator for the range of supported days.
-        /// <para>This static propery is thread-safe.</para>
-        /// </summary>
-        [Obsolete("To be removed")]
-        public static RangeValidator DaysValidator { get; } =
-            new(Range.Create(MinDaysSinceZero, MaxDaysSinceZero));
-
-        /// <summary>
-        /// Gets the validator for the range of supported years.
-        /// <para>This static property is thread-safe.</para>
-        /// </summary>
-        [Obsolete("To be removed")]
-        public static IYearsValidator YearsValidator => StandardScope.YearsValidatorImpl;
 
         /// <summary>
         /// Validates the specified month.

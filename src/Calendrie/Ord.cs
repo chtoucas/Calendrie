@@ -239,7 +239,7 @@ public partial struct Ord // Math ops
     public static Ord operator +(Ord ord, int num)
     {
         int newVal = checked(ord._value + num);
-        if (newVal < MinAlgebraicValue) ThrowHelpers.ThrowOrdOverflow();
+        if (newVal < MinAlgebraicValue) ThrowOrdOverflow();
         return new Ord(newVal);
     }
 
@@ -252,7 +252,7 @@ public partial struct Ord // Math ops
     public static Ord operator -(Ord ord, int num)
     {
         int newVal = checked(ord._value - num);
-        if (newVal < MinAlgebraicValue) ThrowHelpers.ThrowOrdOverflow();
+        if (newVal < MinAlgebraicValue) ThrowOrdOverflow();
         return new Ord(newVal);
     }
 
@@ -300,7 +300,7 @@ public partial struct Ord // Math ops
     [Pure]
     public Ord Increment()
     {
-        if (this == MaxValue) ThrowHelpers.ThrowOrdOverflow();
+        if (this == MaxValue) ThrowOrdOverflow();
         return new Ord(_value + 1);
     }
 
@@ -312,7 +312,7 @@ public partial struct Ord // Math ops
     [Pure]
     public Ord Decrement()
     {
-        if (this == MinValue) ThrowHelpers.ThrowOrdOverflow();
+        if (this == MinValue) ThrowOrdOverflow();
         return new Ord(_value - 1);
     }
 
@@ -322,4 +322,12 @@ public partial struct Ord // Math ops
     [Pure]
     // No need to use checked arithmetic, the op always succeeds.
     public Ord Negate() => new(1 - _value);
+
+    /// <summary>
+    /// The operation would overflow the range of supported ordinal numerals.
+    /// </summary>
+    /// <exception cref="OverflowException"/>
+    [DoesNotReturn]
+    private static void ThrowOrdOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported ordinal numerals.");
 }

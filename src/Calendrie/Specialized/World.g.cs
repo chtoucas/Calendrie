@@ -238,7 +238,7 @@ public partial struct WorldDate // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        return new WorldDate(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 }
 
@@ -279,7 +279,7 @@ public partial struct WorldDate // Adjustments
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new WorldDate(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -288,7 +288,7 @@ public partial struct WorldDate // Adjustments
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new WorldDate(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -297,7 +297,7 @@ public partial struct WorldDate // Adjustments
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
         s_Domain.CheckOverflow(dayNumber);
-        return new WorldDate(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -306,7 +306,7 @@ public partial struct WorldDate // Adjustments
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new WorldDate(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -315,7 +315,7 @@ public partial struct WorldDate // Adjustments
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new WorldDate(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 }
 
@@ -436,7 +436,7 @@ public partial struct WorldDate // Math
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        s_Scope.DaysValidator.CheckOverflow(daysSinceEpoch);
+        s_Scope.Segment.SupportedDays.CheckOverflow(daysSinceEpoch);
         return new(daysSinceEpoch);
     }
 
@@ -445,7 +445,7 @@ public partial struct WorldDate // Math
     public WorldDate NextDay()
     {
         if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
-        return new WorldDate(_daysSinceEpoch + 1);
+        return new(_daysSinceEpoch + 1);
     }
 
     /// <inheritdoc />
@@ -453,6 +453,6 @@ public partial struct WorldDate // Math
     public WorldDate PreviousDay()
     {
         if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
-        return new WorldDate(_daysSinceEpoch - 1);
+        return new(_daysSinceEpoch - 1);
     }
 }

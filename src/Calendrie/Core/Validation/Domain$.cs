@@ -19,7 +19,7 @@ public static class DomainExtensions
         this Range<DayNumber> domain, DayNumber dayNumber, string? paramName = null)
     {
         if (dayNumber < domain.Min || dayNumber > domain.Max)
-            throw new AoorException(paramName ?? nameof(dayNumber));
+            ThrowDateOutOfRange(dayNumber, paramName ?? nameof(dayNumber));
     }
 
     /// <summary>
@@ -54,4 +54,15 @@ public static class DomainExtensions
     {
         if (dayNumber < domain.Min) ThrowHelpers.ThrowDateOverflow();
     }
+
+    /// <summary>
+    /// The value of the day number was out of range.
+    /// </summary>
+    /// <exception cref="AoorException"/>
+    [DoesNotReturn]
+    private static void ThrowDateOutOfRange(DayNumber dayNumber, string? paramName = null) =>
+        throw new AoorException(
+            paramName ?? nameof(dayNumber),
+            dayNumber,
+            $"The value of the day number was out of range; value = {dayNumber}.");
 }

@@ -46,7 +46,7 @@ internal static class GregorianProlepticScope
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
     //
-    //[Obsolete("To be removed")]
+    [Obsolete("To be removed")]
     public static Range<DayNumber> DefaultDomain { get; } =
         Range.Create(
             DayZero.NewStyle + s_MinDaysSinceEpoch,
@@ -57,7 +57,7 @@ internal static class GregorianProlepticScope
     /// <para>This static propery is thread-safe.</para>
     /// </summary>
     //
-    //[Obsolete("To be removed")]
+    [Obsolete("To be removed")]
     public static RangeValidator DaysValidator { get; } =
         new(Range.Create(s_MinDaysSinceEpoch, s_MaxDaysSinceEpoch));
 
@@ -66,7 +66,7 @@ internal static class GregorianProlepticScope
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    //[Obsolete("To be removed")]
+    [Obsolete("To be removed")]
     public static IYearsValidator YearsValidator => ProlepticScope.YearsValidatorImpl;
 
     /// <summary>

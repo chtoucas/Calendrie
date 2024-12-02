@@ -18,16 +18,11 @@ public class BoundedBelowCalendar : Calendar
     {
         Debug.Assert(scope != null);
 
-        MinYear = scope.MinYear;
         MinDateParts = scope.MinDateParts;
         MinOrdinalParts = scope.MinOrdinalParts;
         MinMonthParts = scope.MinMonthParts;
+        MinYear = MinDateParts.Year;
     }
-
-    /// <summary>
-    /// Gets the earliest supported year.
-    /// </summary>
-    public int MinYear { get; }
 
     /// <summary>
     /// Gets the earliest supported month parts.
@@ -43,6 +38,11 @@ public class BoundedBelowCalendar : Calendar
     /// Gets the earliest supported ordinal date parts.
     /// </summary>
     public OrdinalParts MinOrdinalParts { get; }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
+    private int MinYear { get; }
 
     // NB : pour optimiser les choses on pourrait traiter d'abord le cas
     // limite (première année ou premier mois) puis le cas général.
