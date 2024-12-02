@@ -51,7 +51,7 @@ internal static class StandardScope
     /// Gets the validator for the range of supported years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    internal static IYearsValidator YearsValidatorImpl { get; } = new YearsValidator_();
+    public static IYearsValidator YearsValidatorImpl { get; } = new YearsValidator_();
 
     private sealed class YearsValidator_ : IYearsValidator
     {

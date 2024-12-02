@@ -5,30 +5,34 @@ namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
 
-// FIXME(code): exceptions, custom validator for int >= 0.
-
 /// <summary>
 /// Represents a validator for a range of (algebraic) values of type <see cref="int"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class RangeValidator : IRangeValidator
+internal sealed class FastRangeValidator : IRangeValidator
 {
+    /// <summary>
+    /// Represents the minimal supported value.
+    /// <para>This field is a constant equal to 0.</para>
+    /// </summary>
+    public const int MinValue = 0;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="RangeValidator"/> class.
     /// </summary>
-    public RangeValidator(Range<int> range)
+    public FastRangeValidator(int maxValue)
     {
-        Range = range;
-        (MinValue, MaxValue) = range.Endpoints;
+        Range = new(0, maxValue);
+        MaxValue = maxValue;
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RangeValidator"/> class.
+    /// </summary>
+    public FastRangeValidator(Range<int> range) : this(range.Max) { }
 
     /// <inheritdoc/>
     public Range<int> Range { get; }
-
-    /// <summary>
-    /// Gets the minimal supported value.
-    /// </summary>
-    public int MinValue { get; }
 
     /// <summary>
     /// Gets the maximal supported value.
@@ -45,14 +49,13 @@ public sealed class RangeValidator : IRangeValidator
     /// <inheritdoc/>
     public void Validate(int value, string? paramName = null)
     {
-        if (value < MinValue || value > MaxValue)
-            throw new AoorException(paramName ?? nameof(value));
+        if (unchecked((uint)value) > MaxValue) ThrowHelpers.ThrowYearOutOfRange(value, paramName);
     }
 
     /// <inheritdoc/>
     public void CheckOverflow(int value)
     {
-        if (value < MinValue || value > MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if ((uint)value > MaxValue) ThrowHelpers.ThrowDateOverflow();
     }
 
     /// <inheritdoc/>

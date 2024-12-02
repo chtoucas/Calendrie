@@ -6,7 +6,7 @@ namespace Calendrie.Core.Validation;
 using Calendrie.Core.Intervals;
 
 /// <summary>
-/// Defines a validator for a range of (algebraic) values of integer type.
+/// Defines a validator for a range of (algebraic) values of type <see cref="int"/>.
 /// </summary>
 public interface IRangeValidator
 {
