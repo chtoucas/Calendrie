@@ -18,6 +18,7 @@ public partial class CalendarTemplate : CSharpTemplate
     }
 
     public string SchemaClass { get; }
+    public string ScopeClass { get; set; } = "StandardScope";
 
     // NB: we don't check the setter because these are design time templates:
     // if "value" is null or invalid, then the T4 transformation will fail right
@@ -104,7 +105,7 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     }
 
     [Pure]
-    private static partial StandardScope GetScope(<#= SchemaClass #> schema);
+    private static partial <#= ScopeClass #> GetScope(<#= SchemaClass #> schema);
 
     partial void OnInitializing(<#= SchemaClass #> schema);
 
