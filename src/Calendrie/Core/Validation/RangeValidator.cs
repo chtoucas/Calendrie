@@ -22,7 +22,9 @@ public sealed class RangeValidator
         (MinValue, MaxValue) = range.Endpoints;
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Gets the raw range of values.
+    /// </summary>
     public Range<int> Range { get; }
 
     /// <summary>
@@ -42,26 +44,46 @@ public sealed class RangeValidator
     [Pure]
     public sealed override string ToString() => Range.ToString();
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Validates the specified value.
+    /// </summary>
+    /// <exception cref="AoorException">The validation failed.</exception>
     public void Validate(int value, string? paramName = null)
     {
         if (value < MinValue || value > MaxValue)
             throw new AoorException(paramName ?? nameof(value));
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Checks whether the specified value is outside the range of supported
+    /// values or not.
+    /// </summary>
+    /// <exception cref="OverflowException"><paramref name="value"/> is outside
+    /// the range of supported values.</exception>
     public void CheckOverflow(int value)
     {
         if (value < MinValue || value > MaxValue) ThrowHelpers.ThrowDateOverflow();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Checks whether the specified value is greater than the upper bound of
+    /// the range of supported values or not.
+    /// </summary>
+    /// <exception cref="OverflowException"><paramref name="value"/> is greater
+    /// than the upper bound of the range of supported values.</exception>
+    [Obsolete("To be removed")]
     public void CheckUpperBound(int value)
     {
         if (value > MaxValue) ThrowHelpers.ThrowDateOverflow();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Checks whether the specified value is less than the lower bound of the
+    /// range of supported values or not.
+    /// </summary>
+    /// <exception cref="OverflowException"><paramref name="value"/> is less than
+    /// the lower bound of the range of supported values.</exception>
+    [Obsolete("To be removed")]
     public void CheckLowerBound(int value)
     {
         if (value < MinValue) ThrowHelpers.ThrowDateOverflow();
