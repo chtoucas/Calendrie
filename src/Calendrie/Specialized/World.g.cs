@@ -436,6 +436,7 @@ public partial struct WorldDate // Math
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
+        // REVIEW(perf): optimize this?
         s_Scope.Segment.SupportedDays.CheckOverflow(daysSinceEpoch);
         return new(daysSinceEpoch);
     }
