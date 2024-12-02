@@ -40,7 +40,7 @@ public abstract partial class IDateFacts<TDate, TDataSet> :
     {
         ArgumentNullException.ThrowIfNull(calendar);
 
-        return calendar.Domain;
+        return calendar.Scope.Domain;
     }
 
     protected TDate GetDate(Yemoda ymd)

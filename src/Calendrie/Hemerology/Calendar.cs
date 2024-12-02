@@ -4,7 +4,6 @@
 namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
 #region Developer Notes
@@ -216,11 +215,6 @@ public abstract partial class Calendar : ICalendricalKernel
     /// </summary>
     public string Name { get; }
 
-    /// <summary>
-    /// Gets the epoch of the calendar.
-    /// </summary>
-    public DayNumber Epoch => Scope.Epoch;
-
     /// <inheritdoc />
     public CalendricalAlgorithm Algorithm => Schema.Algorithm;
 
@@ -229,11 +223,6 @@ public abstract partial class Calendar : ICalendricalKernel
 
     /// <inheritdoc />
     public CalendricalAdjustments PeriodicAdjustments => Schema.PeriodicAdjustments;
-
-    /// <summary>
-    /// Gets the range of supported values for a <see cref="DayNumber"/>.
-    /// </summary>
-    public Range<DayNumber> Domain => Scope.Domain;
 
     /// <summary>
     /// Gets the calendar scope.
@@ -338,8 +327,9 @@ public partial class Calendar // Conversions
     [Pure]
     public DayNumber GetDayNumber(int year, int month, int day)
     {
-        Scope.ValidateYearMonthDay(year, month, day);
-        return Epoch + Schema.CountDaysSinceEpoch(year, month, day);
+        var scope = Scope;
+        scope.ValidateYearMonthDay(year, month, day);
+        return scope.Epoch + Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -350,7 +340,8 @@ public partial class Calendar // Conversions
     [Pure]
     public DayNumber GetDayNumber(int year, int dayOfYear)
     {
-        Scope.ValidateOrdinal(year, dayOfYear);
-        return Epoch + Schema.CountDaysSinceEpoch(year, dayOfYear);
+        var scope = Scope;
+        scope.ValidateOrdinal(year, dayOfYear);
+        return scope.Epoch + Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 }

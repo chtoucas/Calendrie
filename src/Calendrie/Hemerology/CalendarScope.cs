@@ -56,7 +56,7 @@ public abstract partial class CalendarScope : ICalendricalValidator
     public DayNumber Epoch { get; }
 
     /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values.
+    /// Gets the range of supported values for a <see cref="DayNumber"/>.
     /// </summary>
     public Range<DayNumber> Domain { get; }
 

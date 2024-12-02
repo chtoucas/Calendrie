@@ -30,11 +30,14 @@ public abstract partial class CalendarFacts<TCalendar, TDataSet> :
         ArgumentNullException.ThrowIfNull(calendar);
 
         CalendarUT = calendar;
-        Domain = calendar.Domain;
 
-        var supportedYears = calendar.Scope.Segment.SupportedYears;
+        var scope = calendar.Scope;
+        var supportedYears = scope.Segment.SupportedYears;
         SupportedYearsTester = new SupportedYearsTester(supportedYears);
-        DomainTester = new DomainTester(calendar.Domain);
+
+        var domain = scope.Domain;
+        Domain = domain;
+        DomainTester = new DomainTester(domain);
     }
 
     /// <summary>
@@ -212,8 +215,8 @@ public partial class CalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
 
 public partial class CalendarFacts<TCalendar, TDataSet> // ICalendar
 {
-    [Fact]
-    public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
+    //[Fact]
+    //public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
 
     #region GetDayNumber﹍DateParts()
 
