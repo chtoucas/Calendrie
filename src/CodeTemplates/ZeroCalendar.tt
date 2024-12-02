@@ -91,7 +91,7 @@ public partial struct <#= Prefix #>Date // Preamble
     private static readonly <#= SchemaClass #> s_Schema = new();
     private static readonly <#= Prefix #>Calendar s_Calendar = new(s_Schema);
     private static readonly MinMaxYearScope s_Scope = s_Calendar.Scope;
-    private static readonly Range<DayNumber> s_Domain = s_Calendar.Domain;
+    private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly <#= Prefix #>Adjuster s_Adjuster = new(s_Scope);
     private static readonly <#= Prefix #>Date s_MinValue = new(s_Domain.Min.DaysSinceZero);
     private static readonly <#= Prefix #>Date s_MaxValue = new(s_Domain.Max.DaysSinceZero);
@@ -255,7 +255,7 @@ public partial struct <#= Prefix #>Date // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 }
 <#+
@@ -273,7 +273,7 @@ public partial struct <#= Prefix #>Date // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
 }
 <#+
@@ -300,8 +300,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
-        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -309,8 +309,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
-        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -318,8 +318,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
-        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+        s_Domain.CheckOverflow(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -327,8 +327,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
-        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -336,8 +336,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        if (!s_Domain.Contains(dayNumber)) ThrowHelpers.ThrowDateOverflow();
-        return new <#= Prefix #>Date(dayNumber.DaysSinceZero);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 }
 <#+

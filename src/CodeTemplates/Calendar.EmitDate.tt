@@ -216,7 +216,7 @@ public partial struct <#= Prefix #>Date // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 }
 <#+
@@ -268,8 +268,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
-        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -277,8 +277,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
-        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -287,7 +287,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
         s_Domain.CheckOverflow(dayNumber);
-        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -295,8 +295,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
-        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -304,8 +304,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
-        return new <#= Prefix #>Date(dayNumber - s_Epoch);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 }
 <#+
@@ -453,7 +453,7 @@ public partial struct <#= Prefix #>Date // Math
     public <#= Prefix #>Date NextDay()
     {
         if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
-        return new <#= Prefix #>Date(<#= DaysSinceEpochField #> + 1);
+        return new(<#= DaysSinceEpochField #> + 1);
     }
 
     /// <inheritdoc />
@@ -461,7 +461,7 @@ public partial struct <#= Prefix #>Date // Math
     public <#= Prefix #>Date PreviousDay()
     {
         if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
-        return new <#= Prefix #>Date(<#= DaysSinceEpochField #> - 1);
+        return new(<#= DaysSinceEpochField #> - 1);
     }
 }
 <#+

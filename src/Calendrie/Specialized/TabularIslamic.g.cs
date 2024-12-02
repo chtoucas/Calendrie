@@ -278,7 +278,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 
@@ -287,7 +287,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 
@@ -305,7 +305,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 
@@ -314,7 +314,7 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new TabularIslamicDate(dayNumber - s_Epoch);
     }
 }

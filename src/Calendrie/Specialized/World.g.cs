@@ -278,7 +278,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new WorldDate(dayNumber - s_Epoch);
     }
 
@@ -287,7 +287,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new WorldDate(dayNumber - s_Epoch);
     }
 
@@ -305,7 +305,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new WorldDate(dayNumber - s_Epoch);
     }
 
@@ -314,7 +314,7 @@ public partial struct WorldDate // Adjustments
     public WorldDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new WorldDate(dayNumber - s_Epoch);
     }
 }

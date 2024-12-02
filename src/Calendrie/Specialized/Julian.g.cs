@@ -115,7 +115,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -124,7 +124,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -142,7 +142,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new JulianDate(dayNumber - s_Epoch);
     }
 
@@ -151,7 +151,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new JulianDate(dayNumber - s_Epoch);
     }
 }

@@ -278,7 +278,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new Coptic13Date(dayNumber - s_Epoch);
     }
 
@@ -287,7 +287,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new Coptic13Date(dayNumber - s_Epoch);
     }
 
@@ -305,7 +305,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new Coptic13Date(dayNumber - s_Epoch);
     }
 
@@ -314,7 +314,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new Coptic13Date(dayNumber - s_Epoch);
     }
 }
