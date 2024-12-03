@@ -25,6 +25,8 @@ internal sealed class GregorianScope : CalendarScope
     public GregorianScope(GregorianSchema schema) :
         base(DayZero.NewStyle, CalendricalSegment.Create(schema, ProlepticScope.SupportedYears))
     {
+        Debug.Assert(schema.SupportedYears == ProlepticScope.SupportedYears);
+
         YearsValidator = ProlepticScope.YearsValidatorImpl;
     }
 

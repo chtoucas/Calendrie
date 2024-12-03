@@ -25,6 +25,8 @@ internal sealed class JulianScope : CalendarScope
     public JulianScope(JulianSchema schema) :
         base(DayZero.OldStyle, CalendricalSegment.Create(schema, ProlepticScope.SupportedYears))
     {
+        Debug.Assert(schema.SupportedYears == ProlepticScope.SupportedYears);
+
         YearsValidator = ProlepticScope.YearsValidatorImpl;
     }
 

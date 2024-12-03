@@ -33,6 +33,12 @@ internal sealed class StandardScope : CalendarScope
     public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
     /// <summary>
+    /// Gets the validator for the range [1..9999] of years.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static readonly IYearsValidator YearsValidatorImpl = new YearsValidator_();
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="StandardScope"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
@@ -63,12 +69,6 @@ internal sealed class StandardScope : CalendarScope
         YearsValidatorImpl.Validate(year, paramName);
         PreValidator.ValidateDayOfYear(year, dayOfYear, paramName);
     }
-
-    /// <summary>
-    /// Gets the validator for the range [1..9999] of years.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static IYearsValidator YearsValidatorImpl { get; } = new YearsValidator_();
 
     private sealed class YearsValidator_ : IYearsValidator
     {

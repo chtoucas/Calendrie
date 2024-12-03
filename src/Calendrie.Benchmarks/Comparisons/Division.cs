@@ -48,7 +48,7 @@ public class Division
         return r;
     }
 
-    [Benchmark(Description = "Div Mul")]
+    [Benchmark(Description = "Div_Mul")]
     public int Div_Mul()
     {
         int q = impl(Dividend, Dividor, out int r);
@@ -64,7 +64,7 @@ public class Division
         }
     }
 
-    [Benchmark(Description = "Div Mod")]
+    [Benchmark(Description = "Div_Mod")]
     public int Div_Mod()
     {
         int q = impl(Dividend, Dividor, out int r);

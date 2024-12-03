@@ -15,8 +15,8 @@ public partial struct CivilDate
     private static readonly CivilSchema s_Schema = new();
     private static readonly CivilCalendar s_Calendar = new(s_Schema);
     private static readonly CivilAdjuster s_Adjuster = new(s_Calendar.Scope);
-    private static readonly CivilDate s_MinValue = new(CivilScope.Impl.MinDaysSinceZero);
-    private static readonly CivilDate s_MaxValue = new(CivilScope.Impl.MaxDaysSinceZero);
+    private static readonly CivilDate s_MinValue = new(CivilScope.MinDaysSinceZero);
+    private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
 
     private readonly int _daysSinceZero;
 
@@ -29,7 +29,7 @@ public partial struct CivilDate
     /// years.</exception>
     public CivilDate(int year, int month, int day)
     {
-        CivilScope.Impl.ValidateYearMonthDay(year, month, day);
+        CivilScope.ValidateYearMonthDayImpl(year, month, day);
 
         _daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, month, day);
     }
@@ -43,7 +43,7 @@ public partial struct CivilDate
     /// supported years.</exception>
     public CivilDate(int year, int dayOfYear)
     {
-        CivilScope.Impl.ValidateOrdinal(year, dayOfYear);
+        CivilScope.ValidateOrdinalImpl(year, dayOfYear);
 
         _daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, dayOfYear);
     }
@@ -173,7 +173,7 @@ public partial struct CivilDate // Factories
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
 
-        if (unchecked((uint)daysSinceZero) > (uint)CivilScope.Impl.MaxDaysSinceZero)
+        if (unchecked((uint)daysSinceZero) > (uint)CivilScope.MaxDaysSinceZero)
             throw new AoorException(nameof(dayNumber));
 
         return new(daysSinceZero);
@@ -216,7 +216,7 @@ public partial struct CivilDate // Adjustments
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
 
-        if ((uint)daysSinceZero > (uint)CivilScope.Impl.MaxDaysSinceZero)
+        if ((uint)daysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceZero);
@@ -227,7 +227,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate NextOrSame(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.NextOrSame(dayOfWeek).DaysSinceZero;
-        if (daysSinceZero > CivilScope.Impl.MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceZero > CivilScope.MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -236,7 +236,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate Next(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.Next(dayOfWeek).DaysSinceZero;
-        if (daysSinceZero > CivilScope.Impl.MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceZero > CivilScope.MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 }
@@ -298,7 +298,7 @@ public partial struct CivilDate // Math
 
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        if ((uint)daysSinceZero > (uint)CivilScope.Impl.MaxDaysSinceZero)
+        if ((uint)daysSinceZero > (uint)CivilScope.MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceZero);

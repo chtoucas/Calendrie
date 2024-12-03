@@ -34,7 +34,7 @@ internal static class ProlepticScope
     /// Gets the validator for the range [-999_998..999_999] of years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static IYearsValidator YearsValidatorImpl { get; } = new YearsValidator_();
+    public static readonly IYearsValidator YearsValidatorImpl = new YearsValidator_();
 
     private sealed class YearsValidator_ : IYearsValidator
     {
