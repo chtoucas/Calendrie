@@ -7,6 +7,42 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
 /// <summary>
+/// Represents a validator for the range [-999_998..999_999] of years.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+file sealed class YearsValidator : IYearsValidator
+{
+    /// <inheritdoc />
+    public Range<int> Range => ProlepticScope.SupportedYears;
+
+    /// <inheritdoc />
+    public void Validate(int year, string? paramName = null)
+    {
+        if (year < ProlepticScope.MinYear || year > ProlepticScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+    }
+
+    /// <inheritdoc />
+    public void CheckOverflow(int year)
+    {
+        if (year < ProlepticScope.MinYear || year > ProlepticScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+    }
+
+    /// <inheritdoc />
+    public void CheckUpperBound(int year)
+    {
+        if (year > ProlepticScope.MaxYear) ThrowHelpers.ThrowDateOverflow();
+    }
+
+    /// <inheritdoc />
+    public void CheckLowerBound(int year)
+    {
+        if (year < ProlepticScope.MinYear) ThrowHelpers.ThrowDateOverflow();
+    }
+}
+
+/// <summary>
 /// Provides static methods related to the (proleptic) scope of a calendar
 /// supporting <i>all</i> dates within the range [-999_998..999_999] of years.
 /// <para>This class cannot be inherited.</para>
@@ -34,30 +70,5 @@ internal static class ProlepticScope
     /// Gets the validator for the range [-999_998..999_999] of years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static readonly IYearsValidator YearsValidatorImpl = new YearsValidator_();
-
-    private sealed class YearsValidator_ : IYearsValidator
-    {
-        public Range<int> Range => SupportedYears;
-
-        public void Validate(int year, string? paramName = null)
-        {
-            if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        }
-
-        public void CheckOverflow(int year)
-        {
-            if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowDateOverflow();
-        }
-
-        public void CheckUpperBound(int year)
-        {
-            if (year > MaxYear) ThrowHelpers.ThrowDateOverflow();
-        }
-
-        public void CheckLowerBound(int year)
-        {
-            if (year < MinYear) ThrowHelpers.ThrowDateOverflow();
-        }
-    }
+    public static IYearsValidator YearsValidatorImpl => new YearsValidator();
 }

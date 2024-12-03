@@ -18,6 +18,18 @@ using static Calendrie.Core.CalendricalConstants;
 internal sealed class GregorianScope : CalendarScope
 {
     /// <summary>
+    /// Represents the earliest supported year.
+    /// <para>This field is a constant equal to -999_998.</para>
+    /// </summary>
+    public const int MinYear = ProlepticScope.MinYear;
+
+    /// <summary>
+    /// Represents the latest supported year.
+    /// <para>This field is a constant equal to 999_999.</para>
+    /// </summary>
+    public const int MaxYear = ProlepticScope.MaxYear;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GregorianScope"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
@@ -33,7 +45,7 @@ internal sealed class GregorianScope : CalendarScope
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
     {
-        if (year < ProlepticScope.MinYear || year > ProlepticScope.MaxYear)
+        if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (month < 1 || month > Solar12.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
@@ -42,7 +54,7 @@ internal sealed class GregorianScope : CalendarScope
     /// <inheritdoc />
     public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
     {
-        if (year < ProlepticScope.MinYear || year > ProlepticScope.MaxYear)
+        if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (month < 1 || month > Solar12.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
@@ -57,7 +69,7 @@ internal sealed class GregorianScope : CalendarScope
     /// <inheritdoc />
     public sealed override void ValidateOrdinal(int year, int dayOfYear, string? paramName = null)
     {
-        if (year < ProlepticScope.MinYear || year > ProlepticScope.MaxYear)
+        if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (dayOfYear < 1
             || (dayOfYear > Solar.MinDaysInYear

@@ -17,6 +17,18 @@ using static Calendrie.Core.CalendricalConstants;
 internal sealed class CivilScope : CalendarScope
 {
     /// <summary>
+    /// Represents the earliest supported year.
+    /// <para>This field is a constant equal to 1.</para>
+    /// </summary>
+    public const int MinYear = StandardScope.MinYear;
+
+    /// <summary>
+    /// Represents the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public const int MaxYear = StandardScope.MaxYear;
+
+    /// <summary>
     /// Represents the minimum possible value for the number of consecutive days
     /// from the epoch.
     /// <para>This field is a constant equal to 0.</para>
@@ -27,8 +39,7 @@ internal sealed class CivilScope : CalendarScope
     /// Represents the maximum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    public static readonly int MaxDaysSinceZero =
-        GregorianFormulae.GetEndOfYear(StandardScope.MaxYear);
+    public static readonly int MaxDaysSinceZero = GregorianFormulae.GetEndOfYear(MaxYear);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilScope"/> class.
@@ -47,7 +58,7 @@ internal sealed class CivilScope : CalendarScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonthImpl(int year, int month, string? paramName = null)
     {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+        if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (month < 1 || month > Solar12.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
@@ -59,7 +70,7 @@ internal sealed class CivilScope : CalendarScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateYearMonthDayImpl(int year, int month, int day, string? paramName = null)
     {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+        if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (month < 1 || month > Solar12.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
@@ -77,7 +88,7 @@ internal sealed class CivilScope : CalendarScope
     /// <exception cref="AoorException">The validation failed.</exception>
     public static void ValidateOrdinalImpl(int year, int dayOfYear, string? paramName = null)
     {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+        if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (dayOfYear < 1
             || (dayOfYear > Solar.MinDaysInYear
