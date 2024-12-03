@@ -42,17 +42,11 @@ internal sealed class JulianScope : CalendarScope
         YearsValidator = ProlepticScope.YearsValidatorImpl;
     }
 
-    /// <inheritdoc />
-    public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
-    {
-        if (year < MinYear || year > MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear)
-            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
-    }
-
-    /// <inheritdoc />
-    public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
+    /// <summary>
+    /// Validates the specified date.
+    /// </summary>
+    /// <exception cref="AoorException">The validation failed.</exception>
+    public static void ValidateYearMonthDayImpl(int year, int month, int day, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
@@ -66,8 +60,11 @@ internal sealed class JulianScope : CalendarScope
         }
     }
 
-    /// <inheritdoc />
-    public sealed override void ValidateOrdinal(int year, int dayOfYear, string? paramName = null)
+    /// <summary>
+    /// Validates the specified ordinal date.
+    /// </summary>
+    /// <exception cref="AoorException">The validation failed.</exception>
+    public static void ValidateOrdinalImpl(int year, int dayOfYear, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
@@ -78,4 +75,21 @@ internal sealed class JulianScope : CalendarScope
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
+    {
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+    }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null) =>
+        ValidateYearMonthDayImpl(year, month, day, paramName);
+
+    /// <inheritdoc />
+    public sealed override void ValidateOrdinal(int year, int dayOfYear, string? paramName = null) =>
+        ValidateOrdinalImpl(year, dayOfYear, paramName);
 }

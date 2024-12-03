@@ -31,7 +31,7 @@ public partial struct JulianDate
     /// years.</exception>
     public JulianDate(int year, int month, int day)
     {
-        s_Scope.ValidateYearMonthDay(year, month, day);
+        JulianScope.ValidateYearMonthDayImpl(year, month, day);
 
         _daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, month, day);
     }
@@ -45,7 +45,7 @@ public partial struct JulianDate
     /// supported years.</exception>
     public JulianDate(int year, int dayOfYear)
     {
-        s_Scope.ValidateOrdinal(year, dayOfYear);
+        JulianScope.ValidateOrdinalImpl(year, dayOfYear);
 
         _daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, dayOfYear);
     }

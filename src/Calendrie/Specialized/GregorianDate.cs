@@ -30,7 +30,7 @@ public partial struct GregorianDate
     /// years.</exception>
     public GregorianDate(int year, int month, int day)
     {
-        s_Scope.ValidateYearMonthDay(year, month, day);
+        GregorianScope.ValidateYearMonthDayImpl(year, month, day);
 
         _daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, month, day);
     }
@@ -44,7 +44,7 @@ public partial struct GregorianDate
     /// supported years.</exception>
     public GregorianDate(int year, int dayOfYear)
     {
-        s_Scope.ValidateOrdinal(year, dayOfYear);
+        GregorianScope.ValidateOrdinalImpl(year, dayOfYear);
 
         _daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, dayOfYear);
     }
