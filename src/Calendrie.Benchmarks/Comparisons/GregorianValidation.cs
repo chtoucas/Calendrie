@@ -3,10 +3,13 @@
 
 namespace Benchmarks.Comparisons;
 
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 using Calendrie.Specialized;
 
+[CategoriesColumn]
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 public class GregorianValidation
 {
     // Range [1..9999], optimized
@@ -19,41 +22,89 @@ public class GregorianValidation
     private static readonly StandardScope s_StandardScope =
         new(new GregorianSchema(), DayZero.NewStyle);
 
-    // Range [_999_998..999_999]
+    // Range [1..9999], plain
     private static readonly MinMaxYearScope s_MinMaxYearScope =
-        MinMaxYearScope.CreateMaximal(new GregorianSchema(), DayZero.NewStyle);
+        MinMaxYearScope.Create(new GregorianSchema(), DayZero.NewStyle, Range.Create(1, 9999));
 
-    private int _year, _month, _day;
+    private int _yearFast, _monthFast, _dayFast;
+    private int _yearSlow, _monthSlow, _daySlow;
 
     [GlobalSetup]
-    public void GlobalSetup() =>
-        (_year, _month, _day) = BenchmarkHelpers.CreateGregorianParts();
+    public void GlobalSetup()
+    {
+        (_yearFast, _monthFast, _dayFast) = BenchmarkHelpers.CreateGregorianParts(GJDateType.FixedFast);
+        (_yearSlow, _monthSlow, _daySlow) = BenchmarkHelpers.CreateGregorianParts(GJDateType.FixedSlow);
+    }
 
+    //
+    // Fast track
+    //
+
+    [BenchmarkCategory("Fast")]
     [Benchmark(Description = "CivilScope", Baseline = true)]
-    public Yemoda WithCivilScope()
+    public Yemoda WithCivilScopeFast()
     {
-        s_CivilScope.ValidateYearMonthDay(_year, _month, _day);
-        return new Yemoda(_year, _month, _day);
+        s_CivilScope.ValidateYearMonthDay(_yearFast, _monthFast, _dayFast);
+        return new Yemoda(_yearFast, _monthFast, _dayFast);
     }
 
+    [BenchmarkCategory("Fast")]
     [Benchmark(Description = "GregorianScope")]
-    public Yemoda WithGregorianScope()
+    public Yemoda WithGregorianScopeFast()
     {
-        s_GregorianScope.ValidateYearMonthDay(_year, _month, _day);
-        return new Yemoda(_year, _month, _day);
+        s_GregorianScope.ValidateYearMonthDay(_yearFast, _monthFast, _dayFast);
+        return new Yemoda(_yearFast, _monthFast, _dayFast);
     }
 
+    [BenchmarkCategory("Fast")]
     [Benchmark(Description = "StandardScope")]
-    public Yemoda WithStandardScope()
+    public Yemoda WithStandardScopeFast()
     {
-        s_StandardScope.ValidateYearMonthDay(_year, _month, _day);
-        return new Yemoda(_year, _month, _day);
+        s_StandardScope.ValidateYearMonthDay(_yearFast, _monthFast, _dayFast);
+        return new Yemoda(_yearFast, _monthFast, _dayFast);
     }
 
+    [BenchmarkCategory("Fast")]
     [Benchmark(Description = "MinMaxYearScope")]
-    public Yemoda WithMinMaxYearScope()
+    public Yemoda WithMinMaxYearScopeFast()
     {
-        s_MinMaxYearScope.ValidateYearMonthDay(_year, _month, _day);
-        return new Yemoda(_year, _month, _day);
+        s_MinMaxYearScope.ValidateYearMonthDay(_yearFast, _monthFast, _dayFast);
+        return new Yemoda(_yearFast, _monthFast, _dayFast);
+    }
+
+    //
+    // Slow track
+    //
+
+    [BenchmarkCategory("Slow")]
+    [Benchmark(Description = "CivilScope", Baseline = true)]
+    public Yemoda WithCivilScopeSlow()
+    {
+        s_CivilScope.ValidateYearMonthDay(_yearSlow, _monthSlow, _daySlow);
+        return new Yemoda(_yearSlow, _monthSlow, _daySlow);
+    }
+
+    [BenchmarkCategory("Slow")]
+    [Benchmark(Description = "GregorianScope")]
+    public Yemoda WithGregorianScopeSlow()
+    {
+        s_GregorianScope.ValidateYearMonthDay(_yearSlow, _monthSlow, _daySlow);
+        return new Yemoda(_yearSlow, _monthSlow, _daySlow);
+    }
+
+    [BenchmarkCategory("Slow")]
+    [Benchmark(Description = "StandardScope")]
+    public Yemoda WithStandardScopeSlow()
+    {
+        s_StandardScope.ValidateYearMonthDay(_yearSlow, _monthSlow, _daySlow);
+        return new Yemoda(_yearSlow, _monthSlow, _daySlow);
+    }
+
+    [BenchmarkCategory("Slow")]
+    [Benchmark(Description = "MinMaxYearScope")]
+    public Yemoda WithMinMaxYearScopeSlow()
+    {
+        s_MinMaxYearScope.ValidateYearMonthDay(_yearSlow, _monthSlow, _daySlow);
+        return new Yemoda(_yearSlow, _monthSlow, _daySlow);
     }
 }
