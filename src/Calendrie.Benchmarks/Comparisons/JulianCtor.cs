@@ -21,12 +21,12 @@ public class JulianCtor
     [Benchmark(Description = "JulianDate")]
     public JulianDate WithJulianDate() => new(_year, _month, _day);
 
-    [Benchmark(Description = "LocalDate (NodaTime)")]
+    [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate() => new(_year, _month, _day, CalendarSystem.Julian);
 
-    [Benchmark(Description = "DateOnly (BCL)")]
+    [Benchmark(Description = "DateOnly_BCL")]
     public DateOnly WithDateOnly() => new(_year, _month, _day, new System.Globalization.JulianCalendar());
 
-    [Benchmark(Description = "DateTime (BCL)")]
+    [Benchmark(Description = "DateTime_BCL")]
     public DateTime WithDateTime() => new(_year, _month, _day, new System.Globalization.JulianCalendar());
 }

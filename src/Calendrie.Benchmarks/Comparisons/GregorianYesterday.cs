@@ -18,12 +18,12 @@ public class GregorianYesterday : GregorianComparisons
     [Benchmark(Description = "GregorianDate")]
     public GregorianDate WithGregorianDate() => gregorianDate.PreviousDay();
 
-    [Benchmark(Description = "LocalDate (NodaTime)")]
+    [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate() => localDate.PlusDays(-1);
 
-    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
+    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public DateOnly WithDateOnly() => dateOnly.AddDays(-1);
 
-    [Benchmark(Description = "DateTime (BCL)")]
+    [Benchmark(Description = "DateTime_BCL")]
     public DateTime WithDateTime() => dateTime.AddDays(-1);
 }

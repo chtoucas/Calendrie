@@ -24,12 +24,12 @@ public class GregorianCtor
     [Benchmark(Description = "GregorianDate")]
     public GregorianDate WithGregorianDate() => new(_year, _month, _day);
 
-    [Benchmark(Description = "LocalDate (NodaTime)")]
+    [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate() => new(_year, _month, _day);
 
-    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
+    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public DateOnly WithDateOnly() => new(_year, _month, _day);
 
-    [Benchmark(Description = "DateTime (BCL)")]
+    [Benchmark(Description = "DateTime_BCL")]
     public DateTime WithDateTime() => new(_year, _month, _day);
 }

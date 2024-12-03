@@ -61,7 +61,7 @@ public class GregorianProps : GregorianComparisons
     // External date types
     //
 
-    [Benchmark(Description = "LocalDate (NodaTime)")]
+    [Benchmark(Description = "LocalDate_NodaTime")]
     public void WithLocalDate()
     {
         var date = localDate;
@@ -77,7 +77,7 @@ public class GregorianProps : GregorianComparisons
         Consume(in dayOfYear);
     }
 
-    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
+    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public void WithDateOnly()
     {
         var date = dateOnly;
@@ -95,7 +95,7 @@ public class GregorianProps : GregorianComparisons
         Consume(in dayOfYear);
     }
 
-    [Benchmark(Description = "DateTime (BCL)")]
+    [Benchmark(Description = "DateTime_BCL")]
     public void WithDateTime()
     {
         var date = dateTime;

@@ -28,15 +28,15 @@ public class GregorianAddDays : GregorianComparisons
     public GregorianDate WithGregorianDate7() => gregorianDate.AddDays(7);
 
     [BenchmarkCategory("+7")]
-    [Benchmark(Description = "LocalDate (NodaTime)")]
+    [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate7() => localDate.PlusDays(7);
 
     [BenchmarkCategory("+7")]
-    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
+    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public DateOnly WithDateOnly7() => dateOnly.AddDays(7);
 
     [BenchmarkCategory("+7")]
-    [Benchmark(Description = "DateTime (BCL)")]
+    [Benchmark(Description = "DateTime_BCL")]
     public DateTime WithDateTime7() => dateTime.AddDays(7);
 
     //
@@ -56,15 +56,15 @@ public class GregorianAddDays : GregorianComparisons
     public GregorianDate WithGregorianDate31() => gregorianDate.AddDays(31);
 
     [BenchmarkCategory("+31")]
-    [Benchmark(Description = "LocalDate (NodaTime)")]
+    [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate31() => localDate.PlusDays(31);
 
     [BenchmarkCategory("+31")]
-    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
+    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public DateOnly WithDateOnly31() => dateOnly.AddDays(31);
 
     [BenchmarkCategory("+31")]
-    [Benchmark(Description = "DateTime (BCL)")]
+    [Benchmark(Description = "DateTime_BCL")]
     public DateTime WithDateTime31() => dateTime.AddDays(31);
 
     //
@@ -84,14 +84,14 @@ public class GregorianAddDays : GregorianComparisons
     public GregorianDate WithGregorianDate401() => gregorianDate.AddDays(401);
 
     [BenchmarkCategory("+401")]
-    [Benchmark(Description = "LocalDate (NodaTime)")]
+    [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate401() => localDate.PlusDays(401);
 
     [BenchmarkCategory("+401")]
-    [Benchmark(Description = "DateOnly (BCL)", Baseline = true)]
+    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public DateOnly WithDateOnly401() => dateOnly.AddDays(401);
 
     [BenchmarkCategory("+401")]
-    [Benchmark(Description = "DateTime (BCL)")]
+    [Benchmark(Description = "DateTime_BCL")]
     public DateTime WithDateTime401() => dateTime.AddDays(401);
 }
