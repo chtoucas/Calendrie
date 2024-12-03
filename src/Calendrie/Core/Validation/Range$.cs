@@ -34,28 +34,6 @@ public static partial class RangeExtensions
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="DayNumber"/> is greater than
-    /// the upper bound of the range of supported values or not.
-    /// </summary>
-    /// <exception cref="OverflowException">The value is greater than the upper
-    /// bound of the range of supported values.</exception>
-    public static void CheckUpperBound(this Range<int> range, int value)
-    {
-        if (value > range.Max) ThrowValueOverflow();
-    }
-
-    /// <summary>
-    /// Determines whether the specified <see cref="DayNumber"/> is less than
-    /// the lower bound of the range of supported values or not.
-    /// </summary>
-    /// <exception cref="OverflowException">The value is less than the lower
-    /// bound of the range of supported values.</exception>
-    public static void CheckLowerBound(this Range<int> range, int value)
-    {
-        if (value < range.Min) ThrowValueOverflow();
-    }
-
-    /// <summary>
     /// The value was out of range.
     /// </summary>
     /// <exception cref="AoorException"/>

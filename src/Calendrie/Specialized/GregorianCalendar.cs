@@ -5,7 +5,6 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
-using Calendrie.Hemerology;
 
 /// <summary>
 /// Represents the Gregorian calendar.
@@ -22,7 +21,7 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     public GregorianCalendar() : this(new GregorianSchema()) { }
 
     internal GregorianCalendar(GregorianSchema schema) :
-        base("Gregorian", MinMaxYearScope.CreateMaximal(schema, DayZero.NewStyle))
+        base("Gregorian", new GregorianScope(schema))
     { }
 
     /// <inheritdoc />

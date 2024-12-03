@@ -5,7 +5,6 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
-using Calendrie.Hemerology;
 
 /// <summary>
 /// Represents the Julian calendar.
@@ -21,10 +20,7 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
     /// </summary>
     public JulianCalendar() : this(new JulianSchema()) { }
 
-    // TODO(code): use a custom proleptic scope.
-    internal JulianCalendar(JulianSchema schema) :
-        base("Julian", MinMaxYearScope.CreateMaximal(schema, DayZero.OldStyle))
-    { }
+    internal JulianCalendar(JulianSchema schema) : base("Julian", new JulianScope(schema)) { }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
