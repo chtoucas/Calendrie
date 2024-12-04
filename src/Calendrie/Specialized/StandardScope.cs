@@ -9,42 +9,6 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents a validator for the range [1..9999] of years.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-file sealed class YearsValidator : IYearsValidator
-{
-    /// <inheritdoc />
-    public Range<int> Range => StandardScope.SupportedYears;
-
-    /// <inheritdoc />
-    public void Validate(int year, string? paramName = null)
-    {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-    }
-
-    /// <inheritdoc />
-    public void CheckOverflow(int year)
-    {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
-    }
-
-    /// <inheritdoc />
-    public void CheckUpperBound(int year)
-    {
-        if (year > StandardScope.MaxYear) ThrowHelpers.ThrowDateOverflow();
-    }
-
-    /// <inheritdoc />
-    public void CheckLowerBound(int year)
-    {
-        if (year < StandardScope.MinYear) ThrowHelpers.ThrowDateOverflow();
-    }
-}
-
-/// <summary>
 /// Represents a scope for a calendar supporting <i>all</i> dates within the
 /// range [1..9999] of years.
 /// <para>This class cannot be inherited.</para>
@@ -76,14 +40,14 @@ internal sealed class StandardScope : CalendarScope
     public StandardScope(ICalendricalSchema schema, DayNumber epoch)
         : base(epoch, CalendricalSegment.Create(schema, SupportedYears))
     {
-        YearsValidator = new YearsValidator();
+        YearsValidator = new YearsValidator_();
     }
 
     /// <summary>
     /// Gets the validator for the range [1..9999] of years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static IYearsValidator YearsValidatorImpl => new YearsValidator();
+    public static IYearsValidator YearsValidatorImpl => new YearsValidator_();
 
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
@@ -104,5 +68,41 @@ internal sealed class StandardScope : CalendarScope
     {
         if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         PreValidator.ValidateDayOfYear(year, dayOfYear, paramName);
+    }
+
+    /// <summary>
+    /// Represents a validator for the range [1..9999] of years.
+    /// <para>This class cannot be inherited.</para>
+    /// </summary>
+    private sealed class YearsValidator_ : IYearsValidator
+    {
+        /// <inheritdoc />
+        public Range<int> Range => SupportedYears;
+
+        /// <inheritdoc />
+        public void Validate(int year, string? paramName = null)
+        {
+            if (year < MinYear || year > MaxYear)
+                ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        }
+
+        /// <inheritdoc />
+        public void CheckOverflow(int year)
+        {
+            if (year < MinYear || year > MaxYear)
+                ThrowHelpers.ThrowDateOverflow();
+        }
+
+        /// <inheritdoc />
+        public void CheckUpperBound(int year)
+        {
+            if (year > MaxYear) ThrowHelpers.ThrowDateOverflow();
+        }
+
+        /// <inheritdoc />
+        public void CheckLowerBound(int year)
+        {
+            if (year < MinYear) ThrowHelpers.ThrowDateOverflow();
+        }
     }
 }
