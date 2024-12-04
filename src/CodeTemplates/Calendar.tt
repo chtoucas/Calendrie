@@ -100,11 +100,18 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     /// </summary>
     public <#= Prefix #>Calendar() : this(new <#= SchemaClass #>()) { }
 
-    internal <#= Prefix #>Calendar(<#= SchemaClass #> schema) : base("<#= DisplayName #>", GetScope(schema))
+    internal <#= Prefix #>Calendar(<#= SchemaClass #> schema) : this(GetScope(schema))
     {
-        OnInitializing(schema);
+        Debug.Assert(schema != null);
 
-        Adjuster = new <#= Prefix #>Adjuster(Scope);
+        OnInitializing(schema);
+    }
+
+    private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope)
+    {
+        Debug.Assert(scope != null);
+
+        Adjuster = new <#= Prefix #>Adjuster(scope);
     }
 
     /// <summary>

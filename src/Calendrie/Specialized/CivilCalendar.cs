@@ -20,9 +20,13 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
     /// </summary>
     public CivilCalendar() : this(new CivilSchema()) { }
 
-    internal CivilCalendar(CivilSchema schema) : base("Civil", new CivilScope(schema))
+    internal CivilCalendar(CivilSchema schema) : this(new CivilScope(schema)) { }
+
+    private CivilCalendar(CivilScope scope) : base("Civil", scope)
     {
-        Adjuster = new CivilAdjuster(Scope);
+        Debug.Assert(scope != null);
+
+        Adjuster = new CivilAdjuster(scope);
     }
 
     /// <summary>

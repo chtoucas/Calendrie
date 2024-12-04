@@ -28,11 +28,18 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
     /// </summary>
     public EthiopicCalendar() : this(new Coptic12Schema()) { }
 
-    internal EthiopicCalendar(Coptic12Schema schema) : base("Ethiopic", GetScope(schema))
+    internal EthiopicCalendar(Coptic12Schema schema) : this(GetScope(schema))
     {
-        OnInitializing(schema);
+        Debug.Assert(schema != null);
 
-        Adjuster = new EthiopicAdjuster(Scope);
+        OnInitializing(schema);
+    }
+
+    private EthiopicCalendar(StandardScope scope) : base("Ethiopic", scope)
+    {
+        Debug.Assert(scope != null);
+
+        Adjuster = new EthiopicAdjuster(scope);
     }
 
     /// <summary>
@@ -59,7 +66,7 @@ public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
     /// Initializes a new instance of the <see cref="EthiopicAdjuster"/>
     /// class.
     /// </summary>
-    internal EthiopicAdjuster(CalendarScope scope) : base(scope) { }
+    internal EthiopicAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override EthiopicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);

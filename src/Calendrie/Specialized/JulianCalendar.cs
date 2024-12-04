@@ -21,9 +21,13 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
     /// </summary>
     public JulianCalendar() : this(new JulianSchema()) { }
 
-    internal JulianCalendar(JulianSchema schema) : base("Julian", new JulianScope(schema))
+    internal JulianCalendar(JulianSchema schema) : this(new JulianScope(schema)) { }
+
+    private JulianCalendar(JulianScope scope) : base("Julian", scope)
     {
-        Adjuster = new JulianAdjuster(Scope);
+        Debug.Assert(scope != null);
+
+        Adjuster = new JulianAdjuster(scope);
     }
 
     /// <summary>

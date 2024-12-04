@@ -23,7 +23,7 @@ public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
     /// Initializes a new instance of the <see cref="GregorianAdjuster"/>
     /// class.
     /// </summary>
-    internal GregorianAdjuster(CalendarScope scope) : base(scope) { }
+    internal GregorianAdjuster(GregorianScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override GregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);

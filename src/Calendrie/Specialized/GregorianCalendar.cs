@@ -21,10 +21,13 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     /// </summary>
     public GregorianCalendar() : this(new GregorianSchema()) { }
 
-    internal GregorianCalendar(GregorianSchema schema) :
-        base("Gregorian", new GregorianScope(schema))
+    internal GregorianCalendar(GregorianSchema schema) : this(new GregorianScope(schema)) { }
+
+    private GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
     {
-        Adjuster = new GregorianAdjuster(Scope);
+        Debug.Assert(scope != null);
+
+        Adjuster = new GregorianAdjuster(scope);
     }
 
     /// <summary>

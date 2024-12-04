@@ -22,7 +22,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     /// Initializes a new instance of the <see cref="CivilAdjuster"/>
     /// class.
     /// </summary>
-    internal CivilAdjuster(CalendarScope scope) : base(scope) { }
+    internal CivilAdjuster(CivilScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override CivilDate NewDate(int daysSinceZero) => new(daysSinceZero);

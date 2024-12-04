@@ -23,7 +23,7 @@ public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
     /// Initializes a new instance of the <see cref="JulianAdjuster"/>
     /// class.
     /// </summary>
-    internal JulianAdjuster(CalendarScope scope) : base(scope) { }
+    internal JulianAdjuster(JulianScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override JulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);

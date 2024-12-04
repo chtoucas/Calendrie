@@ -8,7 +8,10 @@
 
 public sealed class GregorianTemplate : ZeroCalendarTemplate
 {
-    public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema") { }
+    public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema")
+    {
+        ScopeClass = "GregorianScope";
+    }
 
     protected sealed override void EmitUsings()
     {

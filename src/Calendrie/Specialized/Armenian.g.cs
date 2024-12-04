@@ -28,11 +28,18 @@ public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
     /// </summary>
     public ArmenianCalendar() : this(new Egyptian12Schema()) { }
 
-    internal ArmenianCalendar(Egyptian12Schema schema) : base("Armenian", GetScope(schema))
+    internal ArmenianCalendar(Egyptian12Schema schema) : this(GetScope(schema))
     {
-        OnInitializing(schema);
+        Debug.Assert(schema != null);
 
-        Adjuster = new ArmenianAdjuster(Scope);
+        OnInitializing(schema);
+    }
+
+    private ArmenianCalendar(StandardScope scope) : base("Armenian", scope)
+    {
+        Debug.Assert(scope != null);
+
+        Adjuster = new ArmenianAdjuster(scope);
     }
 
     /// <summary>
@@ -59,7 +66,7 @@ public sealed partial class ArmenianAdjuster : SpecialAdjuster<ArmenianDate>
     /// Initializes a new instance of the <see cref="ArmenianAdjuster"/>
     /// class.
     /// </summary>
-    internal ArmenianAdjuster(CalendarScope scope) : base(scope) { }
+    internal ArmenianAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override ArmenianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);

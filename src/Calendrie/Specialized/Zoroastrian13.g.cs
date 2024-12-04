@@ -28,11 +28,18 @@ public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian1
     /// </summary>
     public Zoroastrian13Calendar() : this(new Egyptian13Schema()) { }
 
-    internal Zoroastrian13Calendar(Egyptian13Schema schema) : base("Zoroastrian", GetScope(schema))
+    internal Zoroastrian13Calendar(Egyptian13Schema schema) : this(GetScope(schema))
     {
-        OnInitializing(schema);
+        Debug.Assert(schema != null);
 
-        Adjuster = new Zoroastrian13Adjuster(Scope);
+        OnInitializing(schema);
+    }
+
+    private Zoroastrian13Calendar(StandardScope scope) : base("Zoroastrian", scope)
+    {
+        Debug.Assert(scope != null);
+
+        Adjuster = new Zoroastrian13Adjuster(scope);
     }
 
     /// <summary>
@@ -59,7 +66,7 @@ public sealed partial class Zoroastrian13Adjuster : SpecialAdjuster<Zoroastrian1
     /// Initializes a new instance of the <see cref="Zoroastrian13Adjuster"/>
     /// class.
     /// </summary>
-    internal Zoroastrian13Adjuster(CalendarScope scope) : base(scope) { }
+    internal Zoroastrian13Adjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override Zoroastrian13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);

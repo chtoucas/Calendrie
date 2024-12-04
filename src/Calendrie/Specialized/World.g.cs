@@ -28,11 +28,18 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     /// </summary>
     public WorldCalendar() : this(new WorldSchema()) { }
 
-    internal WorldCalendar(WorldSchema schema) : base("World", GetScope(schema))
+    internal WorldCalendar(WorldSchema schema) : this(GetScope(schema))
     {
-        OnInitializing(schema);
+        Debug.Assert(schema != null);
 
-        Adjuster = new WorldAdjuster(Scope);
+        OnInitializing(schema);
+    }
+
+    private WorldCalendar(StandardScope scope) : base("World", scope)
+    {
+        Debug.Assert(scope != null);
+
+        Adjuster = new WorldAdjuster(scope);
     }
 
     /// <summary>
@@ -59,7 +66,7 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
     /// Initializes a new instance of the <see cref="WorldAdjuster"/>
     /// class.
     /// </summary>
-    internal WorldAdjuster(CalendarScope scope) : base(scope) { }
+    internal WorldAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
     private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
