@@ -10,6 +10,18 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
 {
     public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema") { }
 
+    protected sealed override void EmitUsings()
+    {
+        WriteLine();
+#>
+using Calendrie.Core.Validation;
+using Calendrie.Hemerology;
+<#+ if (EnableClock) { #>
+using Calendrie.Horology;
+<#+ } #>
+<#+
+    } // T4: End of EmitUsings()
+
     protected sealed override void EmitCalendar() { }
 
     protected sealed override void EmitDatePreamble() { }
