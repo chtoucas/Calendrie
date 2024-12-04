@@ -26,6 +26,7 @@ public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
     internal JulianAdjuster(JulianScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override JulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 

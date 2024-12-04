@@ -53,6 +53,7 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
     partial void OnInitializing(Egyptian12Schema schema);
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override ZoroastrianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -69,6 +70,7 @@ public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDat
     internal ZoroastrianAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override ZoroastrianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 

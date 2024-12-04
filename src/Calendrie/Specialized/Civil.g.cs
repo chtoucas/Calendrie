@@ -25,6 +25,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     internal CivilAdjuster(CivilScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override CivilDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 

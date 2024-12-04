@@ -19,6 +19,7 @@ public sealed partial class <#= Prefix #>Adjuster : SpecialAdjuster<<#= Prefix #
     internal <#= Prefix #>Adjuster(<#= ScopeClass #> scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override <#= Prefix #>Date NewDate(int <#= DaysSinceEpochVar #>) => new(<#= DaysSinceEpochVar #>);
 }
 <#+

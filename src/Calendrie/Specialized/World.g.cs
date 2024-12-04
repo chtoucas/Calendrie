@@ -53,6 +53,7 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     partial void OnInitializing(WorldSchema schema);
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -69,6 +70,7 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
     internal WorldAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 

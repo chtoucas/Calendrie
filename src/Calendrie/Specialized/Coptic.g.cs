@@ -53,6 +53,7 @@ public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
     partial void OnInitializing(Coptic12Schema schema);
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override CopticDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -69,6 +70,7 @@ public sealed partial class CopticAdjuster : SpecialAdjuster<CopticDate>
     internal CopticAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override CopticDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 

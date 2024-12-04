@@ -53,6 +53,7 @@ public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
     partial void OnInitializing(Egyptian12Schema schema);
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override ArmenianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -69,6 +70,7 @@ public sealed partial class ArmenianAdjuster : SpecialAdjuster<ArmenianDate>
     internal ArmenianAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override ArmenianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 

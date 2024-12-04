@@ -53,6 +53,7 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
     partial void OnInitializing(Coptic12Schema schema);
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override EthiopicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -69,6 +70,7 @@ public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
     internal EthiopicAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override EthiopicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 

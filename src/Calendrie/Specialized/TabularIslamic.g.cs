@@ -53,6 +53,7 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     partial void OnInitializing(TabularIslamicSchema schema);
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -69,6 +70,7 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
     internal TabularIslamicAdjuster(StandardScope scope) : base(scope) { }
 
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
