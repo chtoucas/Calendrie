@@ -244,7 +244,7 @@ public partial struct JulianDate // Math
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        s_Scope.Segment.SupportedDays.CheckOverflow(daysSinceEpoch);
+        s_SupportedDays.CheckOverflow(daysSinceEpoch);
         return new(daysSinceEpoch);
     }
 

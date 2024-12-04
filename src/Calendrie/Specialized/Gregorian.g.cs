@@ -244,7 +244,7 @@ public partial struct GregorianDate // Math
         int daysSinceZero = checked(_daysSinceZero + days);
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceZero);
-        s_Scope.Segment.SupportedDays.CheckOverflow(daysSinceZero);
+        s_SupportedDays.CheckOverflow(daysSinceZero);
         return new(daysSinceZero);
     }
 

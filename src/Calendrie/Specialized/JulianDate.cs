@@ -16,6 +16,7 @@ public partial struct JulianDate
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
+    private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
     private static readonly JulianDate s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly JulianDate s_MaxValue = new(s_Domain.Max - s_Epoch);
 

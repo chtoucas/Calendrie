@@ -90,8 +90,9 @@ public partial struct Coptic13Date // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Coptic13Date s_MinValue = new(s_Domain.Min - s_Epoch);
-    private static readonly Coptic13Date s_MaxValue = new(s_Domain.Max - s_Epoch);
+    private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+    private static readonly Coptic13Date s_MinValue = new(s_SupportedDays.Min);
+    private static readonly Coptic13Date s_MaxValue = new(s_SupportedDays.Max);
 
     private readonly int _daysSinceEpoch;
 
@@ -448,7 +449,7 @@ public partial struct Coptic13Date // Math
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        s_Scope.Segment.SupportedDays.CheckOverflow(daysSinceEpoch);
+        s_SupportedDays.CheckOverflow(daysSinceEpoch);
         return new(daysSinceEpoch);
     }
 
