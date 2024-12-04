@@ -8,6 +8,8 @@ param(
     [ValidateSet('Debug', 'Release')]
     [Alias('c')] [string] $Configuration = 'Debug',
 
+                 # Do NOT include Calendrie.Sketches in the reports?
+                 [switch] $Full,
                  [switch] $NoBuild,
                  [switch] $NoTest,
                  [switch] $NoReport,
@@ -26,6 +28,7 @@ Code coverage script.
 
 Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
+     -Full
      -NoBuild        do NOT build the test suite?
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?
@@ -48,9 +51,12 @@ if ($Help) { Print-Help ; exit }
 try {
     pushd $RootDir
 
-    $format   = 'opencover'
+    $assemblyName = 'Calendrie'
+    $otherAssemblyName = 'Calendrie.Sketches'
+    $format = 'opencover'
 
-    $outName  = "coverage"
+    $outName  = 'coverage'
+    if ($Full) { $outName += "-full" }
     $outName += "-$configuration"
     $outDir   = Join-Path $ArtifactsDir $outName.ToLowerInvariant()
     $output   = Join-Path $outDir "$format.xml"
@@ -58,8 +64,12 @@ try {
     $rgOutput = Join-Path $outDir 'html'
 
     # Filters: https://github.com/Microsoft/vstest-docs/blob/main/docs/filter.md
-    $includes = @('[Calendrie]*', '[Calendrie.Sketches]*')
-    $excludes = @('[Calendrie]System.*', '[Calendrie.Sketches]System.*')
+    $includes = @("[$assemblyName]*")
+    $excludes = @("[$assemblyName]System.*")
+    if ($Full) {
+        $includes += "[$otherAssemblyName]*"
+        $excludes += "[$otherAssemblyName]System.*"
+    }
     $include  = '"' + ($includes -join '%2c') + '"'
     $exclude  = '"' + ($excludes -join '%2c') + '"'
 
@@ -95,11 +105,13 @@ try {
             Remove-Item $rgOutput -Force -Recurse
         }
 
+        $riskhotspotassemblyfilters = "-$otherAssemblyName"
         $reporttypes = 'Html;TextSummary'
 
         say 'Creating the reports...'
 
         & dotnet tool run reportgenerator `
+            -riskhotspotassemblyfilters:$riskhotspotassemblyfilters `
             -reporttypes:$reporttypes `
             -reports:$rgInput `
             -targetdir:$rgOutput `
