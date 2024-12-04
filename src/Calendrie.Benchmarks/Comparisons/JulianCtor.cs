@@ -15,10 +15,10 @@ public class JulianCtor
     public void GlobalSetup() =>
         (_year, _month, _day) = BenchmarkHelpers.CreateJulianParts();
 
-    [Benchmark(Description = "DayNumber", Baseline = true)]
+    [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => DayNumber.FromJulianParts(_year, _month, _day);
 
-    [Benchmark(Description = "JulianDate")]
+    [Benchmark(Description = "JulianDate", Baseline = true)]
     public JulianDate WithJulianDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "LocalDate_NodaTime")]

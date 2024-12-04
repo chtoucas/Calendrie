@@ -43,6 +43,18 @@ internal sealed class GregorianScope : CalendarScope
     }
 
     /// <summary>
+    /// Validates the specified month.
+    /// </summary>
+    /// <exception cref="AoorException">The validation failed.</exception>
+    public static void ValidateYearMonthImpl(int year, int month, string? paramName = null)
+    {
+        if (year < MinYear || year > MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (month < 1 || month > Solar12.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+    }
+
+    /// <summary>
     /// Validates the specified date.
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>
@@ -77,13 +89,8 @@ internal sealed class GregorianScope : CalendarScope
     }
 
     /// <inheritdoc />
-    public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
-    {
-        if (year < MinYear || year > MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear)
-            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
-    }
+    public sealed override void ValidateYearMonth(int year, int month, string? paramName = null) =>
+        ValidateYearMonthImpl(year, month, paramName);
 
     /// <inheritdoc />
     public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null) =>

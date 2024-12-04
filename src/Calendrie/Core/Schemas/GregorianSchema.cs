@@ -52,7 +52,6 @@ public sealed partial class GregorianSchema : GJSchema
     /// at century 0.
     /// <para>The span index matches the century number (0 to 3).</para>
     /// </summary>
-    [Pure]
     internal static ReadOnlySpan<ushort> DaysIn4CenturyCycle => [36_525, 36_524, 36_524, 36_524];
 }
 

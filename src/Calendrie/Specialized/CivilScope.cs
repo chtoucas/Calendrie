@@ -98,12 +98,15 @@ internal sealed class CivilScope : CalendarScope
         }
     }
 
+    /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null) =>
         ValidateYearMonthImpl(year, month, paramName);
 
+    /// <inheritdoc />
     public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null) =>
         ValidateYearMonthDayImpl(year, month, day, paramName);
 
+    /// <inheritdoc />
     public sealed override void ValidateOrdinal(int year, int dayOfYear, string? paramName = null) =>
         ValidateOrdinalImpl(year, dayOfYear, paramName);
 }

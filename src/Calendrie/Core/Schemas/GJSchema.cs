@@ -66,15 +66,26 @@ public abstract partial class GJSchema :
     /// the one starting at year 0.
     /// <para>The span index matches the year number (0 to 3).</para>
     /// </summary>
-    [Pure]
     internal static ReadOnlySpan<ushort> DaysIn4YearCycle => [366, 365, 365, 365];
+
+    /// <summary>
+    /// Gets the number of days in each month of a common year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonth =>
+        [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    /// <summary>
+    /// Gets the number of days in each month of a leap year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+        [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap
-        ? [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        : [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        leap ? DaysInMonthLeapYear : DaysInMonth;
 }
 
 public partial class GJSchema // Year, month or day infos
