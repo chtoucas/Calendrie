@@ -19,11 +19,9 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     /// class.
     /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
-    public GregorianCalendar() : this(new GregorianSchema()) { }
+    public GregorianCalendar() : this(new GregorianScope(new GregorianSchema())) { }
 
-    internal GregorianCalendar(GregorianSchema schema) : this(new GregorianScope(schema)) { }
-
-    private GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
+    internal GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
     {
         Debug.Assert(scope != null);
 

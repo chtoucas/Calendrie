@@ -18,11 +18,9 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
     /// </summary>
-    public CivilCalendar() : this(new CivilSchema()) { }
+    public CivilCalendar() : this(new CivilScope(new CivilSchema())) { }
 
-    internal CivilCalendar(CivilSchema schema) : this(new CivilScope(schema)) { }
-
-    private CivilCalendar(CivilScope scope) : base("Civil", scope)
+    internal CivilCalendar(CivilScope scope) : base("Civil", scope)
     {
         Debug.Assert(scope != null);
 

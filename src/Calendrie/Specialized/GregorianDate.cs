@@ -12,8 +12,8 @@ public partial struct GregorianDate
     // WARNING: the order in which the static fields are written is __important__.
 
     private static readonly GregorianSchema s_Schema = new();
-    private static readonly GregorianCalendar s_Calendar = new(s_Schema);
-    private static readonly CalendarScope s_Scope = s_Calendar.Scope;
+    private static readonly GregorianScope s_Scope = new(s_Schema);
+    private static readonly GregorianCalendar s_Calendar = new(s_Scope);
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
     private static readonly GregorianDate s_MinValue = new(s_Domain.Min.DaysSinceZero);

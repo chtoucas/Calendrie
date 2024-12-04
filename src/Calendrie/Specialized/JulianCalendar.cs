@@ -19,11 +19,9 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
     /// class.
     /// <para>See also <seealso cref="JulianDate.Calendar"/>.</para>
     /// </summary>
-    public JulianCalendar() : this(new JulianSchema()) { }
+    public JulianCalendar() : this(new JulianScope(new JulianSchema())) { }
 
-    internal JulianCalendar(JulianSchema schema) : this(new JulianScope(schema)) { }
-
-    private JulianCalendar(JulianScope scope) : base("Julian", scope)
+    internal JulianCalendar(JulianScope scope) : base("Julian", scope)
     {
         Debug.Assert(scope != null);
 

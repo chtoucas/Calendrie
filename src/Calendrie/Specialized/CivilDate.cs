@@ -13,7 +13,7 @@ public partial struct CivilDate
     // WARNING: the order in which the static fields are written is __important__.
 
     private static readonly CivilSchema s_Schema = new();
-    private static readonly CivilCalendar s_Calendar = new(s_Schema);
+    private static readonly CivilCalendar s_Calendar = new(new CivilScope(s_Schema));
     private static readonly CivilDate s_MinValue = new(CivilScope.MinDaysSinceZero);
     private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
 
