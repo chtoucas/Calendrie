@@ -24,13 +24,21 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/>
     /// class.
+    /// <para>See also <seealso cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
     public ZoroastrianCalendar() : this(new Egyptian12Schema()) { }
 
     internal ZoroastrianCalendar(Egyptian12Schema schema) : base("Zoroastrian", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new ZoroastrianAdjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public ZoroastrianAdjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(Egyptian12Schema schema);
@@ -51,8 +59,6 @@ public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDat
     /// Initializes a new instance of the <see cref="ZoroastrianAdjuster"/>
     /// class.
     /// </summary>
-    public ZoroastrianAdjuster() : base(ZoroastrianDate.Calendar.Scope) { }
-
     internal ZoroastrianAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct ZoroastrianDate // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly ZoroastrianAdjuster s_Adjuster = new(s_Scope);
     private static readonly ZoroastrianDate s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly ZoroastrianDate s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct ZoroastrianDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static ZoroastrianAdjuster Adjuster => s_Adjuster;
+    public static ZoroastrianAdjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static ZoroastrianCalendar Calendar => s_Calendar;

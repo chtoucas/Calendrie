@@ -24,13 +24,21 @@ public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianCalendar"/>
     /// class.
+    /// <para>See also <seealso cref="ArmenianDate.Calendar"/>.</para>
     /// </summary>
     public ArmenianCalendar() : this(new Egyptian12Schema()) { }
 
     internal ArmenianCalendar(Egyptian12Schema schema) : base("Armenian", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new ArmenianAdjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public ArmenianAdjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(Egyptian12Schema schema);
@@ -51,8 +59,6 @@ public sealed partial class ArmenianAdjuster : SpecialAdjuster<ArmenianDate>
     /// Initializes a new instance of the <see cref="ArmenianAdjuster"/>
     /// class.
     /// </summary>
-    public ArmenianAdjuster() : base(ArmenianDate.Calendar.Scope) { }
-
     internal ArmenianAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct ArmenianDate // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly ArmenianAdjuster s_Adjuster = new(s_Scope);
     private static readonly ArmenianDate s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly ArmenianDate s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct ArmenianDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static ArmenianAdjuster Adjuster => s_Adjuster;
+    public static ArmenianAdjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static ArmenianCalendar Calendar => s_Calendar;

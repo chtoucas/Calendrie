@@ -17,10 +17,19 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>
     /// class.
+    /// <para>See also <seealso cref="JulianDate.Calendar"/>.</para>
     /// </summary>
     public JulianCalendar() : this(new JulianSchema()) { }
 
-    internal JulianCalendar(JulianSchema schema) : base("Julian", new JulianScope(schema)) { }
+    internal JulianCalendar(JulianSchema schema) : base("Julian", new JulianScope(schema))
+    {
+        Adjuster = new JulianAdjuster(Scope);
+    }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public JulianAdjuster Adjuster { get; }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;

@@ -24,13 +24,21 @@ public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic13Calendar"/>
     /// class.
+    /// <para>See also <seealso cref="Coptic13Date.Calendar"/>.</para>
     /// </summary>
     public Coptic13Calendar() : this(new Coptic13Schema()) { }
 
     internal Coptic13Calendar(Coptic13Schema schema) : base("Coptic", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new Coptic13Adjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public Coptic13Adjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(Coptic13Schema schema);
@@ -51,8 +59,6 @@ public sealed partial class Coptic13Adjuster : SpecialAdjuster<Coptic13Date>
     /// Initializes a new instance of the <see cref="Coptic13Adjuster"/>
     /// class.
     /// </summary>
-    public Coptic13Adjuster() : base(Coptic13Date.Calendar.Scope) { }
-
     internal Coptic13Adjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct Coptic13Date // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Coptic13Adjuster s_Adjuster = new(s_Scope);
     private static readonly Coptic13Date s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly Coptic13Date s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct Coptic13Date // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Coptic13Adjuster Adjuster => s_Adjuster;
+    public static Coptic13Adjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static Coptic13Calendar Calendar => s_Calendar;

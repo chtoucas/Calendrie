@@ -24,13 +24,21 @@ public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/>
     /// class.
+    /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
     public Ethiopic13Calendar() : this(new Coptic13Schema()) { }
 
     internal Ethiopic13Calendar(Coptic13Schema schema) : base("Ethiopic", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new Ethiopic13Adjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public Ethiopic13Adjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(Coptic13Schema schema);
@@ -51,8 +59,6 @@ public sealed partial class Ethiopic13Adjuster : SpecialAdjuster<Ethiopic13Date>
     /// Initializes a new instance of the <see cref="Ethiopic13Adjuster"/>
     /// class.
     /// </summary>
-    public Ethiopic13Adjuster() : base(Ethiopic13Date.Calendar.Scope) { }
-
     internal Ethiopic13Adjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct Ethiopic13Date // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Ethiopic13Adjuster s_Adjuster = new(s_Scope);
     private static readonly Ethiopic13Date s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly Ethiopic13Date s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct Ethiopic13Date // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Ethiopic13Adjuster Adjuster => s_Adjuster;
+    public static Ethiopic13Adjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static Ethiopic13Calendar Calendar => s_Calendar;

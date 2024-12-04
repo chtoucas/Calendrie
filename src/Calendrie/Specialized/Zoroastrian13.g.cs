@@ -24,13 +24,21 @@ public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian1
     /// <summary>
     /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/>
     /// class.
+    /// <para>See also <seealso cref="Zoroastrian13Date.Calendar"/>.</para>
     /// </summary>
     public Zoroastrian13Calendar() : this(new Egyptian13Schema()) { }
 
     internal Zoroastrian13Calendar(Egyptian13Schema schema) : base("Zoroastrian", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new Zoroastrian13Adjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public Zoroastrian13Adjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(Egyptian13Schema schema);
@@ -51,8 +59,6 @@ public sealed partial class Zoroastrian13Adjuster : SpecialAdjuster<Zoroastrian1
     /// Initializes a new instance of the <see cref="Zoroastrian13Adjuster"/>
     /// class.
     /// </summary>
-    public Zoroastrian13Adjuster() : base(Zoroastrian13Date.Calendar.Scope) { }
-
     internal Zoroastrian13Adjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct Zoroastrian13Date // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Zoroastrian13Adjuster s_Adjuster = new(s_Scope);
     private static readonly Zoroastrian13Date s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly Zoroastrian13Date s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct Zoroastrian13Date // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Zoroastrian13Adjuster Adjuster => s_Adjuster;
+    public static Zoroastrian13Adjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static Zoroastrian13Calendar Calendar => s_Calendar;

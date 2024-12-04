@@ -24,13 +24,21 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
     /// <summary>
     /// Initializes a new instance of the <see cref="Armenian13Calendar"/>
     /// class.
+    /// <para>See also <seealso cref="Armenian13Date.Calendar"/>.</para>
     /// </summary>
     public Armenian13Calendar() : this(new Egyptian13Schema()) { }
 
     internal Armenian13Calendar(Egyptian13Schema schema) : base("Armenian", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new Armenian13Adjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public Armenian13Adjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(Egyptian13Schema schema);
@@ -51,8 +59,6 @@ public sealed partial class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
     /// Initializes a new instance of the <see cref="Armenian13Adjuster"/>
     /// class.
     /// </summary>
-    public Armenian13Adjuster() : base(Armenian13Date.Calendar.Scope) { }
-
     internal Armenian13Adjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct Armenian13Date // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Armenian13Adjuster s_Adjuster = new(s_Scope);
     private static readonly Armenian13Date s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly Armenian13Date s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct Armenian13Date // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Armenian13Adjuster Adjuster => s_Adjuster;
+    public static Armenian13Adjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static Armenian13Calendar Calendar => s_Calendar;

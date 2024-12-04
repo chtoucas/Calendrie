@@ -24,13 +24,21 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/>
     /// class.
+    /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
     public TabularIslamicCalendar() : this(new TabularIslamicSchema()) { }
 
     internal TabularIslamicCalendar(TabularIslamicSchema schema) : base("Tabular Islamic", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new TabularIslamicAdjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public TabularIslamicAdjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(TabularIslamicSchema schema);
@@ -51,8 +59,6 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
     /// Initializes a new instance of the <see cref="TabularIslamicAdjuster"/>
     /// class.
     /// </summary>
-    public TabularIslamicAdjuster() : base(TabularIslamicDate.Calendar.Scope) { }
-
     internal TabularIslamicAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct TabularIslamicDate // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly TabularIslamicAdjuster s_Adjuster = new(s_Scope);
     private static readonly TabularIslamicDate s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly TabularIslamicDate s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct TabularIslamicDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static TabularIslamicAdjuster Adjuster => s_Adjuster;
+    public static TabularIslamicAdjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static TabularIslamicCalendar Calendar => s_Calendar;

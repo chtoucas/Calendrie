@@ -47,7 +47,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<EthiopicDate, StandardEthiopic12DataSet>(new EthiopicAdjuster())
+        inherit SpecialAdjusterFacts<EthiopicDate, StandardEthiopic12DataSet>(EthiopicDate.Adjuster)
 
         override __.GetDate(y, m, d) = new EthiopicDate(y, m, d)
         override __.GetDate(y, doy) = new EthiopicDate(y, doy)
@@ -96,7 +96,7 @@ module Bundles13 =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<Ethiopic13Date, StandardEthiopic13DataSet>(new Ethiopic13Adjuster())
+        inherit SpecialAdjusterFacts<Ethiopic13Date, StandardEthiopic13DataSet>(Ethiopic13Date.Adjuster)
 
         override __.GetDate(y, m, d) = new Ethiopic13Date(y, m, d)
         override __.GetDate(y, doy) = new Ethiopic13Date(y, doy)

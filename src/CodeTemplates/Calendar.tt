@@ -96,13 +96,21 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/>
     /// class.
+    /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
     public <#= Prefix #>Calendar() : this(new <#= SchemaClass #>()) { }
 
     internal <#= Prefix #>Calendar(<#= SchemaClass #> schema) : base("<#= DisplayName #>", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new <#= Prefix #>Adjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public <#= Prefix #>Adjuster Adjuster { get; }
 
     [Pure]
     private static partial <#= ScopeClass #> GetScope(<#= SchemaClass #> schema);

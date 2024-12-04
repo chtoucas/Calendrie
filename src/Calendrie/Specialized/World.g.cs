@@ -24,13 +24,21 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/>
     /// class.
+    /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
     /// </summary>
     public WorldCalendar() : this(new WorldSchema()) { }
 
     internal WorldCalendar(WorldSchema schema) : base("World", GetScope(schema))
     {
         OnInitializing(schema);
+
+        Adjuster = new WorldAdjuster(Scope);
     }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public WorldAdjuster Adjuster { get; }
 
     [Pure]
     private static partial StandardScope GetScope(WorldSchema schema);
@@ -51,8 +59,6 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
     /// Initializes a new instance of the <see cref="WorldAdjuster"/>
     /// class.
     /// </summary>
-    public WorldAdjuster() : base(WorldDate.Calendar.Scope) { }
-
     internal WorldAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]
@@ -77,7 +83,6 @@ public partial struct WorldDate // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly WorldAdjuster s_Adjuster = new(s_Scope);
     private static readonly WorldDate s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly WorldDate s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -131,7 +136,7 @@ public partial struct WorldDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static WorldAdjuster Adjuster => s_Adjuster;
+    public static WorldAdjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static WorldCalendar Calendar => s_Calendar;

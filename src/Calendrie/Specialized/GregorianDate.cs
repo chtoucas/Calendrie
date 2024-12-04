@@ -15,7 +15,6 @@ public partial struct GregorianDate
     private static readonly GregorianCalendar s_Calendar = new(s_Schema);
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly GregorianAdjuster s_Adjuster = new(s_Scope);
     private static readonly GregorianDate s_MinValue = new(s_Domain.Min.DaysSinceZero);
     private static readonly GregorianDate s_MaxValue = new(s_Domain.Max.DaysSinceZero);
 
@@ -70,7 +69,7 @@ public partial struct GregorianDate
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static GregorianAdjuster Adjuster => s_Adjuster;
+    public static GregorianAdjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static GregorianCalendar Calendar => s_Calendar;

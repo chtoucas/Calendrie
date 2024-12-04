@@ -23,8 +23,6 @@ public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
     /// Initializes a new instance of the <see cref="GregorianAdjuster"/>
     /// class.
     /// </summary>
-    public GregorianAdjuster() : base(GregorianDate.Calendar.Scope) { }
-
     internal GregorianAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]

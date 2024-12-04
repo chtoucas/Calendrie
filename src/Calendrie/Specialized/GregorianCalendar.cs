@@ -17,12 +17,20 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/>
     /// class.
+    /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
     public GregorianCalendar() : this(new GregorianSchema()) { }
 
     internal GregorianCalendar(GregorianSchema schema) :
         base("Gregorian", new GregorianScope(schema))
-    { }
+    {
+        Adjuster = new GregorianAdjuster(Scope);
+    }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public GregorianAdjuster Adjuster { get; }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;

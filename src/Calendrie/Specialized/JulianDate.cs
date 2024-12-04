@@ -16,7 +16,6 @@ public partial struct JulianDate
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly JulianAdjuster s_Adjuster = new(s_Scope);
     private static readonly JulianDate s_MinValue = new(s_Domain.Min - s_Epoch);
     private static readonly JulianDate s_MaxValue = new(s_Domain.Max - s_Epoch);
 
@@ -71,7 +70,7 @@ public partial struct JulianDate
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static JulianAdjuster Adjuster => s_Adjuster;
+    public static JulianAdjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static JulianCalendar Calendar => s_Calendar;

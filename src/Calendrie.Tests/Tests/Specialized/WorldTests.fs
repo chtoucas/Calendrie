@@ -71,7 +71,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<WorldDate, StandardWorldDataSet>(new WorldAdjuster())
+        inherit SpecialAdjusterFacts<WorldDate, StandardWorldDataSet>(WorldDate.Adjuster)
 
         override __.GetDate(y, m, d) = new WorldDate(y, m, d)
         override __.GetDate(y, doy) = new WorldDate(y, doy)

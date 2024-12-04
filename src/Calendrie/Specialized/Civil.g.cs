@@ -22,8 +22,6 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     /// Initializes a new instance of the <see cref="CivilAdjuster"/>
     /// class.
     /// </summary>
-    public CivilAdjuster() : base(CivilDate.Calendar.Scope) { }
-
     internal CivilAdjuster(CalendarScope scope) : base(scope) { }
 
     [Pure]

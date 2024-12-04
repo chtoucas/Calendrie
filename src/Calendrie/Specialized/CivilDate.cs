@@ -14,7 +14,6 @@ public partial struct CivilDate
 
     private static readonly CivilSchema s_Schema = new();
     private static readonly CivilCalendar s_Calendar = new(s_Schema);
-    private static readonly CivilAdjuster s_Adjuster = new(s_Calendar.Scope);
     private static readonly CivilDate s_MinValue = new(CivilScope.MinDaysSinceZero);
     private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
 
@@ -69,7 +68,7 @@ public partial struct CivilDate
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CivilAdjuster Adjuster => s_Adjuster;
+    public static CivilAdjuster Adjuster => s_Calendar.Adjuster;
 
     /// <inheritdoc />
     public static CivilCalendar Calendar => s_Calendar;
@@ -183,7 +182,7 @@ public partial struct CivilDate // Factories
 public partial struct CivilDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
+    /// <remarks>See also <seealso cref="CivilCalendar.Adjuster"/>.</remarks>
     [Pure]
     public CivilDate Adjust(Func<CivilDate, CivilDate> adjuster)
     {

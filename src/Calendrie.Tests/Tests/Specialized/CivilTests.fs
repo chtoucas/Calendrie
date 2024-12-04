@@ -62,7 +62,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<CivilDate, StandardGregorianDataSet>(new CivilAdjuster())
+        inherit SpecialAdjusterFacts<CivilDate, StandardGregorianDataSet>(CivilDate.Adjuster)
 
         override __.GetDate(y, m, d) = new CivilDate(y, m, d)
         override __.GetDate(y, doy) = new CivilDate(y, doy)

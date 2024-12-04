@@ -16,10 +16,19 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
+    /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
     /// </summary>
     public CivilCalendar() : this(new CivilSchema()) { }
 
-    internal CivilCalendar(CivilSchema schema) : base("Civil", new CivilScope(schema)) { }
+    internal CivilCalendar(CivilSchema schema) : base("Civil", new CivilScope(schema))
+    {
+        Adjuster = new CivilAdjuster(Scope);
+    }
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// </summary>
+    public CivilAdjuster Adjuster { get; }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
