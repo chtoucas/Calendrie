@@ -145,7 +145,7 @@ public partial struct GregorianDate
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static GregorianSchema Schema => GregorianCalendar.SchemaT;
+    private static GregorianSchema Schema => GregorianScope.SchemaT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

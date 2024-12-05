@@ -22,13 +22,12 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class ArmenianScope
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     public static partial DayNumber Epoch { get; }
-
     public static readonly Egyptian12Schema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
+
+    public static StandardScope Create() => new(new Egyptian12Schema(), Epoch);
 }
 
 /// <summary>
@@ -37,16 +36,14 @@ internal static partial class ArmenianScope
 /// </summary>
 public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
 {
-    internal static readonly ArmenianCalendar Instance = new();
+    internal static readonly ArmenianCalendar Instance = new(ArmenianScope.Instance);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianCalendar"/>
     /// class.
     /// <para>See also <seealso cref="ArmenianDate.Calendar"/>.</para>
     /// </summary>
-    public ArmenianCalendar() :
-        this(new StandardScope(new Egyptian12Schema(), ArmenianScope.Epoch))
-    { }
+    public ArmenianCalendar() : this(ArmenianScope.Create()) { }
 
     private ArmenianCalendar(StandardScope scope) : base("Armenian", scope)
     {

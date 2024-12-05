@@ -22,13 +22,12 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class WorldScope
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     public static partial DayNumber Epoch { get; }
-
     public static readonly WorldSchema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
+
+    public static StandardScope Create() => new(new WorldSchema(), Epoch);
 }
 
 /// <summary>
@@ -37,16 +36,14 @@ internal static partial class WorldScope
 /// </summary>
 public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 {
-    internal static readonly WorldCalendar Instance = new();
+    internal static readonly WorldCalendar Instance = new(WorldScope.Instance);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/>
     /// class.
     /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
     /// </summary>
-    public WorldCalendar() :
-        this(new StandardScope(new WorldSchema(), WorldScope.Epoch))
-    { }
+    public WorldCalendar() : this(WorldScope.Create()) { }
 
     private WorldCalendar(StandardScope scope) : base("World", scope)
     {

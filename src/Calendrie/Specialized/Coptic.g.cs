@@ -22,13 +22,12 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class CopticScope
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     public static partial DayNumber Epoch { get; }
-
     public static readonly Coptic12Schema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
+
+    public static StandardScope Create() => new(new Coptic12Schema(), Epoch);
 }
 
 /// <summary>
@@ -37,16 +36,14 @@ internal static partial class CopticScope
 /// </summary>
 public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
 {
-    internal static readonly CopticCalendar Instance = new();
+    internal static readonly CopticCalendar Instance = new(CopticScope.Instance);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/>
     /// class.
     /// <para>See also <seealso cref="CopticDate.Calendar"/>.</para>
     /// </summary>
-    public CopticCalendar() :
-        this(new StandardScope(new Coptic12Schema(), CopticScope.Epoch))
-    { }
+    public CopticCalendar() : this(CopticScope.Create()) { }
 
     private CopticCalendar(StandardScope scope) : base("Coptic", scope)
     {

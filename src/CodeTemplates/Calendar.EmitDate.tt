@@ -5,19 +5,12 @@ public partial class CalendarTemplate
     protected virtual void EmitDate()
     {
         EmitDateDecl();
-
         EmitDatePreamble();
-
         EmitDateFactories();
-
         EmitDateCounting();
-
         EmitDateAdjustment();
-
         EmitDateEquatable();
-
         EmitDateComparable();
-
         EmitDateMath();
     }
 

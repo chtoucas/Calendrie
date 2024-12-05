@@ -22,13 +22,12 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class TabularIslamicScope
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     public static partial DayNumber Epoch { get; }
-
     public static readonly TabularIslamicSchema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
+
+    public static StandardScope Create() => new(new TabularIslamicSchema(), Epoch);
 }
 
 /// <summary>
@@ -37,16 +36,14 @@ internal static partial class TabularIslamicScope
 /// </summary>
 public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
 {
-    internal static readonly TabularIslamicCalendar Instance = new();
+    internal static readonly TabularIslamicCalendar Instance = new(TabularIslamicScope.Instance);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/>
     /// class.
     /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
-    public TabularIslamicCalendar() :
-        this(new StandardScope(new TabularIslamicSchema(), TabularIslamicScope.Epoch))
-    { }
+    public TabularIslamicCalendar() : this(TabularIslamicScope.Create()) { }
 
     private TabularIslamicCalendar(StandardScope scope) : base("Tabular Islamic", scope)
     {

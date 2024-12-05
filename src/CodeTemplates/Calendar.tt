@@ -42,8 +42,8 @@ public partial class CalendarTemplate : CSharpTemplate
         EmitNamespace();
         EmitUsings();
 
+        EmitScope();
         EmitCalendar();
-
         EmitAdjuster();
 
         if (EnableClock)
@@ -84,7 +84,7 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
-    protected virtual void EmitCalendar()
+    protected virtual void EmitScope()
     {
         // WARNING: the constructors of the schema and the scope MUST have a
         // fixed form as one can see below.
@@ -98,31 +98,37 @@ using Calendrie.Horology;
 /// </summary>
 internal static partial class <#= Prefix #>Scope
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     public static partial DayNumber Epoch { get; }
-
     public static readonly <#= SchemaClass #> Schema = new();
 
     public static readonly <#= ScopeClass #> Instance = new(Schema, Epoch);
-}
 
+    public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), Epoch);
+}
+<#+
+    } // T4: End of EmitScope()
+
+    protected virtual void EmitCalendar()
+    {
+        // WARNING: the constructors of the schema and the scope MUST have a
+        // fixed form as one can see below.
+
+        WriteLine();
+#>
 /// <summary>
 /// Represents the <#= DisplayName #> calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
-    internal static readonly <#= Prefix #>Calendar Instance = new();
+    internal static readonly <#= Prefix #>Calendar Instance = new(<#= Prefix #>Scope.Instance);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/>
     /// class.
     /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
-    public <#= Prefix #>Calendar() :
-        this(new <#= ScopeClass #>(new <#= SchemaClass #>(), <#= Prefix #>Scope.Epoch))
-    { }
+    public <#= Prefix #>Calendar() : this(<#= Prefix #>Scope.Create()) { }
 
     private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope)
     {

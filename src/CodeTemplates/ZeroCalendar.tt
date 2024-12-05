@@ -84,6 +84,8 @@ public sealed partial class <#= Prefix #>Clock
     protected override void EmitDatePreamble()
     {
         WriteLine();
+
+        throw new NotImplementedException("Not yet!");
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {

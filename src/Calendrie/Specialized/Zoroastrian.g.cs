@@ -22,13 +22,12 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class ZoroastrianScope
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     public static partial DayNumber Epoch { get; }
-
     public static readonly Egyptian12Schema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
+
+    public static StandardScope Create() => new(new Egyptian12Schema(), Epoch);
 }
 
 /// <summary>
@@ -37,16 +36,14 @@ internal static partial class ZoroastrianScope
 /// </summary>
 public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDate>
 {
-    internal static readonly ZoroastrianCalendar Instance = new();
+    internal static readonly ZoroastrianCalendar Instance = new(ZoroastrianScope.Instance);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/>
     /// class.
     /// <para>See also <seealso cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
-    public ZoroastrianCalendar() :
-        this(new StandardScope(new Egyptian12Schema(), ZoroastrianScope.Epoch))
-    { }
+    public ZoroastrianCalendar() : this(ZoroastrianScope.Create()) { }
 
     private ZoroastrianCalendar(StandardScope scope) : base("Zoroastrian", scope)
     {

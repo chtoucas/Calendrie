@@ -144,7 +144,7 @@ public partial struct JulianDate
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static JulianSchema Schema => JulianCalendar.SchemaT;
+    private static JulianSchema Schema => JulianScope.SchemaT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

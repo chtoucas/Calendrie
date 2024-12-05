@@ -29,7 +29,8 @@ internal sealed class JulianScope : CalendarScope
     /// </summary>
     public const int MaxYear = ProlepticScope.MaxYear;
 
-    public static readonly JulianScope Instance = new(new JulianSchema());
+    public static readonly JulianSchema SchemaT = new();
+    public static readonly JulianScope Instance = new(SchemaT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianScope"/> class.
