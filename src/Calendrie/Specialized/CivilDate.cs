@@ -10,8 +10,7 @@ public partial struct CivilDate
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly CivilSchema s_Schema = new();
-    private static readonly CivilCalendar s_Calendar = new(new CivilScope(s_Schema));
+    private static readonly CivilSchema s_Schema = (CivilSchema)CivilCalendar.Instance.Schema;
 
     private static readonly CivilDate s_MinValue = new(CivilScope.MinDaysSinceZero);
     private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
@@ -67,10 +66,10 @@ public partial struct CivilDate
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CivilAdjuster Adjuster => s_Calendar.Adjuster;
+    public static CivilAdjuster Adjuster => CivilCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public static CivilCalendar Calendar => s_Calendar;
+    public static CivilCalendar Calendar => CivilCalendar.Instance;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
@@ -151,7 +150,7 @@ public partial struct CivilDate
     public override string ToString()
     {
         CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({s_Calendar})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({CivilCalendar.Instance})");
     }
 
     /// <inheritdoc />

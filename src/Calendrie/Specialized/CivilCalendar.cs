@@ -14,13 +14,15 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturette
 {
+    internal static readonly CivilCalendar Instance = new();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
     /// </summary>
     public CivilCalendar() : this(new CivilScope(new CivilSchema())) { }
 
-    internal CivilCalendar(CivilScope scope) : base("Civil", scope)
+    private CivilCalendar(CivilScope scope) : base("Civil", scope)
     {
         Adjuster = new CivilAdjuster(this);
     }
