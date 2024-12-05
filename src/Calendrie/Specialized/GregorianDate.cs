@@ -14,10 +14,12 @@ public partial struct GregorianDate
     private static readonly GregorianScope s_Scope = GregorianCalendar.ScopeT;
 
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
 
-    private static readonly GregorianDate s_MinValue = new(s_Domain.Min.DaysSinceZero);
-    private static readonly GregorianDate s_MaxValue = new(s_Domain.Max.DaysSinceZero);
+    private static readonly int s_MinDaysSinceZero = s_Scope.Segment.SupportedDays.Min;
+    private static readonly int s_MaxDaysSinceZero = s_Scope.Segment.SupportedDays.Max;
+
+    private static readonly GregorianDate s_MinValue = new(s_MinDaysSinceZero);
+    private static readonly GregorianDate s_MaxValue = new(s_MaxDaysSinceZero);
 
     private readonly int _daysSinceZero;
 

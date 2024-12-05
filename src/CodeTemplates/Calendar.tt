@@ -29,6 +29,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public string DaysSinceEpochField { get; set; } = "_daysSinceEpoch";
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
+    public string DaysSinceEpochStaticSuffix { get; set; } = "DaysSinceEpoch";
 
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }

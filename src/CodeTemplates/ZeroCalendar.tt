@@ -10,6 +10,7 @@ public class ZeroCalendarTemplate : CalendarTemplate
     {
         DaysSinceEpochField = "_daysSinceZero";
         DaysSinceEpochVar = "daysSinceZero";
+        DaysSinceEpochStaticSuffix = "DaysSinceZero";
     }
 
     protected override void EmitUsings()
@@ -93,10 +94,12 @@ public partial struct <#= Prefix #>Date // Preamble
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
 
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
 
-    private static readonly <#= Prefix #>Date s_MinValue = new(s_Domain.Min.DaysSinceZero);
-    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Domain.Max.DaysSinceZero);
+    private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Min;
+    private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Max;
+
+    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochStaticSuffix #>);
 
     private readonly int <#= DaysSinceEpochField #>;
 

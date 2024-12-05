@@ -48,10 +48,12 @@ public partial struct <#= Prefix #>Date // Preamble
 
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-    private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
 
-    private static readonly <#= Prefix #>Date s_MinValue = new(s_SupportedDays.Min);
-    private static readonly <#= Prefix #>Date s_MaxValue = new(s_SupportedDays.Max);
+    private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Min;
+    private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Max;
+
+    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochStaticSuffix #>);
 
     private readonly int <#= DaysSinceEpochField #>;
 
@@ -449,7 +451,8 @@ public partial struct <#= Prefix #>Date // Math
         int <#= DaysSinceEpochVar #> = checked(<#= DaysSinceEpochField #> + days);
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + <#= DaysSinceEpochVar #>);
-        s_SupportedDays.CheckOverflow(<#= DaysSinceEpochVar #>);
+        if (<#= DaysSinceEpochVar #> < s_Min<#= DaysSinceEpochStaticSuffix #> || <#= DaysSinceEpochVar #> > s_Max<#= DaysSinceEpochStaticSuffix #>)
+            ThrowHelpers.ThrowDateOverflow();
         return new(<#= DaysSinceEpochVar #>);
     }
 
