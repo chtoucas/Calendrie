@@ -87,8 +87,8 @@ public sealed partial class <#= Prefix #>Clock
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
-    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Calendar.Min<#= DaysSinceEpochStaticSuffix #>);
-    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Calendar.Max<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>);
 
     private readonly int <#= DaysSinceEpochField #>;
 
@@ -222,19 +222,14 @@ public partial struct <#= Prefix #>Date // Preamble
     }
 
     /// <summary>
-    /// Gets the range of supported values for a <see cref="DayNumber"/>.
-    /// </summary>
-    private static Range<DayNumber> Domain => <#= Prefix #>Calendar.Domain;
-
-    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.SchemaT;
+    private static <#= SchemaClass #> Schema => <#= Prefix #>Scope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
-    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.ScopeT;
+    private static <#= ScopeClass #> Scope => <#= Prefix #>Scope.Instance;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -262,7 +257,7 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        Domain.Validate(dayNumber);
+        s_Domain.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -280,7 +275,7 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        Domain.Validate(dayNumber);
+        s_Domain.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -309,7 +304,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        Domain.CheckLowerBound(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -318,7 +313,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Domain.CheckLowerBound(dayNumber);
+        s_Domain.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -327,7 +322,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Domain.CheckOverflow(dayNumber);
+        s_Domain.CheckOverflow(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -336,7 +331,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Domain.CheckUpperBound(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -345,7 +340,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        Domain.CheckUpperBound(dayNumber);
+        s_Domain.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 }

@@ -10,9 +10,6 @@ using Calendrie.Core.Schemas;
 /// of years.</remarks>
 public partial class ArmenianCalendar : IRegularFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Egyptian12Schema(), DayZero.Armenian);
-
     /// <inheritdoc />
     public int MonthsInYear => Egyptian12Schema.MonthsPerYear;
 }
@@ -21,23 +18,17 @@ public partial class ArmenianCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Armenian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Egyptian13Schema(), DayZero.Armenian);
-
     /// <inheritdoc/>
     public int MonthsInYear => Egyptian13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    public int VirtualMonth => Armenian13Scope.Schema.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
 public partial class CopticCalendar : IRegularFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Coptic12Schema(), DayZero.Coptic);
-
     /// <inheritdoc/>
     public int MonthsInYear => Coptic12Schema.MonthsPerYear;
 }
@@ -46,23 +37,17 @@ public partial class CopticCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Coptic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Coptic13Schema(), DayZero.Coptic);
-
     /// <inheritdoc/>
     public int MonthsInYear => Coptic13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    public int VirtualMonth => Coptic13Scope.Schema.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
 public partial class EthiopicCalendar : IRegularFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Coptic12Schema(), DayZero.Ethiopic);
-
     /// <inheritdoc/>
     public int MonthsInYear => Coptic12Schema.MonthsPerYear;
 }
@@ -71,23 +56,17 @@ public partial class EthiopicCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Ethiopic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Coptic13Schema(), DayZero.Ethiopic);
-
     /// <inheritdoc/>
     public int MonthsInYear => Coptic13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    public int VirtualMonth => Ethiopic13Scope.Schema.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
 public partial class TabularIslamicCalendar : IRegularFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new TabularIslamicSchema(), DayZero.TabularIslamic);
-
     /// <inheritdoc/>
     public int MonthsInYear => TabularIslamicSchema.MonthsPerYear;
 }
@@ -96,9 +75,6 @@ public partial class TabularIslamicCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class WorldCalendar : IRegularFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new WorldSchema(), DayZero.SundayBeforeGregorian);
-
     /// <inheritdoc/>
     public int MonthsInYear => WorldSchema.MonthsPerYear;
 
@@ -120,9 +96,6 @@ public partial class WorldCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class ZoroastrianCalendar : IRegularFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Egyptian12Schema(), DayZero.Zoroastrian);
-
     /// <inheritdoc/>
     public int MonthsInYear => Egyptian12Schema.MonthsPerYear;
 }
@@ -131,12 +104,9 @@ public partial class ZoroastrianCalendar : IRegularFeaturette
 /// of years.</remarks>
 public partial class Zoroastrian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
 {
-    private static partial StandardScope CreateScope() =>
-        new(new Egyptian13Schema(), DayZero.Zoroastrian);
-
     /// <inheritdoc/>
     public int MonthsInYear => Egyptian13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    public int VirtualMonth => Zoroastrian13Scope.Schema.VirtualMonth;
 }

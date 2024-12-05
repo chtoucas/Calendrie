@@ -16,29 +16,37 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
+/// Provides static methods related to the scope of application of
+/// <see cref="ZoroastrianCalendar"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+internal static partial class ZoroastrianScope
+{
+    // WARNING: the order in which the static fields are written is __important__.
+
+    public static partial DayNumber Epoch { get; }
+
+    public static readonly Egyptian12Schema Schema = new();
+
+    public static readonly StandardScope Instance = new(Schema, Epoch);
+}
+
+/// <summary>
 /// Represents the Zoroastrian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDate>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    internal static readonly Egyptian12Schema SchemaT = new();
-    internal static readonly StandardScope ScopeT = CreateScope();
     internal static readonly ZoroastrianCalendar Instance = new();
-
-    internal static readonly DayNumber Epoch = ScopeT.Epoch;
-    internal static readonly Range<DayNumber> Domain = ScopeT.Domain;
-
-    internal static readonly int MinDaysSinceEpoch = ScopeT.Segment.SupportedDays.Min;
-    internal static readonly int MaxDaysSinceEpoch = ScopeT.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/>
     /// class.
     /// <para>See also <seealso cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
-    public ZoroastrianCalendar() : this(CreateScope()) { }
+    public ZoroastrianCalendar() :
+        this(new StandardScope(new Egyptian12Schema(), ZoroastrianScope.Epoch))
+    { }
 
     private ZoroastrianCalendar(StandardScope scope) : base("Zoroastrian", scope)
     {
@@ -49,9 +57,6 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
     /// Gets the date adjuster.
     /// </summary>
     public ZoroastrianAdjuster Adjuster { get; }
-
-    [Pure]
-    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -86,8 +91,16 @@ public readonly partial struct ZoroastrianDate :
 
 public partial struct ZoroastrianDate // Preamble
 {
-    private static readonly ZoroastrianDate s_MinValue = new(ZoroastrianCalendar.MinDaysSinceEpoch);
-    private static readonly ZoroastrianDate s_MaxValue = new(ZoroastrianCalendar.MaxDaysSinceEpoch);
+    // WARNING: the order in which the static fields are written is __important__.
+
+    private static readonly DayNumber s_Epoch = ZoroastrianScope.Instance.Epoch;
+    private static readonly Range<DayNumber> s_Domain = ZoroastrianScope.Instance.Domain;
+
+    private static readonly int s_MinDaysSinceEpoch = ZoroastrianScope.Instance.Segment.SupportedDays.Min;
+    private static readonly int s_MaxDaysSinceEpoch = ZoroastrianScope.Instance.Segment.SupportedDays.Max;
+
+    private static readonly ZoroastrianDate s_MinValue = new(s_MinDaysSinceEpoch);
+    private static readonly ZoroastrianDate s_MaxValue = new(s_MaxDaysSinceEpoch);
 
     private readonly int _daysSinceEpoch;
 
@@ -145,7 +158,7 @@ public partial struct ZoroastrianDate // Preamble
     public static ZoroastrianAdjuster Adjuster => ZoroastrianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => Epoch + _daysSinceEpoch;
+    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -219,24 +232,14 @@ public partial struct ZoroastrianDate // Preamble
     }
 
     /// <summary>
-    /// Gets the calendar epoch.
-    /// </summary>
-    private static DayNumber Epoch => ZoroastrianCalendar.Epoch;
-
-    /// <summary>
-    /// Gets the range of supported values for a <see cref="DayNumber"/>.
-    /// </summary>
-    private static Range<DayNumber> Domain => ZoroastrianCalendar.Domain;
-
-    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static Egyptian12Schema Schema => ZoroastrianCalendar.SchemaT;
+    private static Egyptian12Schema Schema => ZoroastrianScope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
-    private static StandardScope Scope => ZoroastrianCalendar.ScopeT;
+    private static StandardScope Scope => ZoroastrianScope.Instance;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -264,9 +267,9 @@ public partial struct ZoroastrianDate // Factories
     [Pure]
     public static ZoroastrianDate FromDayNumber(DayNumber dayNumber)
     {
-        Domain.Validate(dayNumber);
+        s_Domain.Validate(dayNumber);
 
-        return new(dayNumber - Epoch);
+        return new(dayNumber - s_Epoch);
     }
 }
 
@@ -306,8 +309,8 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -315,8 +318,8 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -324,8 +327,8 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Domain.CheckOverflow(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckOverflow(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -333,8 +336,8 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -342,8 +345,8 @@ public partial struct ZoroastrianDate // Adjustments
     public ZoroastrianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 }
 
@@ -464,12 +467,9 @@ public partial struct ZoroastrianDate // Math
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
 
         // Don't write (the addition may also overflow...):
-        // > Domain.CheckOverflow(Epoch + daysSinceEpoch);
-        if (daysSinceEpoch < ZoroastrianCalendar.MinDaysSinceEpoch
-           || daysSinceEpoch > ZoroastrianCalendar.MaxDaysSinceEpoch)
-        {
+        // > s_Domain.CheckOverflow(Epoch + daysSinceEpoch);
+        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
-        }
 
         return new(daysSinceEpoch);
     }

@@ -9,8 +9,14 @@ using Calendrie.Hemerology;
 
 public partial struct JulianDate
 {
-    private static readonly JulianDate s_MinValue = new(JulianCalendar.MinDaysSinceEpoch);
-    private static readonly JulianDate s_MaxValue = new(JulianCalendar.MaxDaysSinceEpoch);
+    private static readonly DayNumber s_Epoch = JulianScope.Instance.Epoch;
+    private static readonly Range<DayNumber> s_Domain = JulianScope.Instance.Domain;
+
+    private static readonly int s_MinDaysSinceEpoch = JulianScope.Instance.Segment.SupportedDays.Min;
+    private static readonly int s_MaxDaysSinceEpoch = JulianScope.Instance.Segment.SupportedDays.Max;
+
+    private static readonly JulianDate s_MinValue = new(s_MinDaysSinceEpoch);
+    private static readonly JulianDate s_MaxValue = new(s_MaxDaysSinceEpoch);
 
     private readonly int _daysSinceEpoch;
 
@@ -69,7 +75,7 @@ public partial struct JulianDate
     public static JulianAdjuster Adjuster => JulianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => Epoch + _daysSinceEpoch;
+    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -136,24 +142,9 @@ public partial struct JulianDate
     public bool IsSupplementary => false;
 
     /// <summary>
-    /// Gets the calendar epoch.
-    /// </summary>
-    private static DayNumber Epoch => JulianCalendar.Epoch;
-
-    /// <summary>
-    /// Gets the range of supported values for a <see cref="DayNumber"/>.
-    /// </summary>
-    private static Range<DayNumber> Domain => JulianCalendar.Domain;
-
-    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
     private static JulianSchema Schema => JulianCalendar.SchemaT;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// </summary>
-    private static JulianScope Scope => JulianCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -16,29 +16,37 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
+/// Provides static methods related to the scope of application of
+/// <see cref="Ethiopic13Calendar"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+internal static partial class Ethiopic13Scope
+{
+    // WARNING: the order in which the static fields are written is __important__.
+
+    public static partial DayNumber Epoch { get; }
+
+    public static readonly Coptic13Schema Schema = new();
+
+    public static readonly StandardScope Instance = new(Schema, Epoch);
+}
+
+/// <summary>
 /// Represents the Ethiopic calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    internal static readonly Coptic13Schema SchemaT = new();
-    internal static readonly StandardScope ScopeT = CreateScope();
     internal static readonly Ethiopic13Calendar Instance = new();
-
-    internal static readonly DayNumber Epoch = ScopeT.Epoch;
-    internal static readonly Range<DayNumber> Domain = ScopeT.Domain;
-
-    internal static readonly int MinDaysSinceEpoch = ScopeT.Segment.SupportedDays.Min;
-    internal static readonly int MaxDaysSinceEpoch = ScopeT.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/>
     /// class.
     /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
-    public Ethiopic13Calendar() : this(CreateScope()) { }
+    public Ethiopic13Calendar() :
+        this(new StandardScope(new Coptic13Schema(), Ethiopic13Scope.Epoch))
+    { }
 
     private Ethiopic13Calendar(StandardScope scope) : base("Ethiopic", scope)
     {
@@ -49,9 +57,6 @@ public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
     /// Gets the date adjuster.
     /// </summary>
     public Ethiopic13Adjuster Adjuster { get; }
-
-    [Pure]
-    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -86,8 +91,16 @@ public readonly partial struct Ethiopic13Date :
 
 public partial struct Ethiopic13Date // Preamble
 {
-    private static readonly Ethiopic13Date s_MinValue = new(Ethiopic13Calendar.MinDaysSinceEpoch);
-    private static readonly Ethiopic13Date s_MaxValue = new(Ethiopic13Calendar.MaxDaysSinceEpoch);
+    // WARNING: the order in which the static fields are written is __important__.
+
+    private static readonly DayNumber s_Epoch = Ethiopic13Scope.Instance.Epoch;
+    private static readonly Range<DayNumber> s_Domain = Ethiopic13Scope.Instance.Domain;
+
+    private static readonly int s_MinDaysSinceEpoch = Ethiopic13Scope.Instance.Segment.SupportedDays.Min;
+    private static readonly int s_MaxDaysSinceEpoch = Ethiopic13Scope.Instance.Segment.SupportedDays.Max;
+
+    private static readonly Ethiopic13Date s_MinValue = new(s_MinDaysSinceEpoch);
+    private static readonly Ethiopic13Date s_MaxValue = new(s_MaxDaysSinceEpoch);
 
     private readonly int _daysSinceEpoch;
 
@@ -145,7 +158,7 @@ public partial struct Ethiopic13Date // Preamble
     public static Ethiopic13Adjuster Adjuster => Ethiopic13Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => Epoch + _daysSinceEpoch;
+    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -219,24 +232,14 @@ public partial struct Ethiopic13Date // Preamble
     }
 
     /// <summary>
-    /// Gets the calendar epoch.
-    /// </summary>
-    private static DayNumber Epoch => Ethiopic13Calendar.Epoch;
-
-    /// <summary>
-    /// Gets the range of supported values for a <see cref="DayNumber"/>.
-    /// </summary>
-    private static Range<DayNumber> Domain => Ethiopic13Calendar.Domain;
-
-    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static Coptic13Schema Schema => Ethiopic13Calendar.SchemaT;
+    private static Coptic13Schema Schema => Ethiopic13Scope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
-    private static StandardScope Scope => Ethiopic13Calendar.ScopeT;
+    private static StandardScope Scope => Ethiopic13Scope.Instance;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -264,9 +267,9 @@ public partial struct Ethiopic13Date // Factories
     [Pure]
     public static Ethiopic13Date FromDayNumber(DayNumber dayNumber)
     {
-        Domain.Validate(dayNumber);
+        s_Domain.Validate(dayNumber);
 
-        return new(dayNumber - Epoch);
+        return new(dayNumber - s_Epoch);
     }
 }
 
@@ -306,8 +309,8 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -315,8 +318,8 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -324,8 +327,8 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Domain.CheckOverflow(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckOverflow(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -333,8 +336,8 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 
     /// <inheritdoc />
@@ -342,8 +345,8 @@ public partial struct Ethiopic13Date // Adjustments
     public Ethiopic13Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - Epoch);
+        s_Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - s_Epoch);
     }
 }
 
@@ -464,12 +467,9 @@ public partial struct Ethiopic13Date // Math
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
 
         // Don't write (the addition may also overflow...):
-        // > Domain.CheckOverflow(Epoch + daysSinceEpoch);
-        if (daysSinceEpoch < Ethiopic13Calendar.MinDaysSinceEpoch
-           || daysSinceEpoch > Ethiopic13Calendar.MaxDaysSinceEpoch)
-        {
+        // > s_Domain.CheckOverflow(Epoch + daysSinceEpoch);
+        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
-        }
 
         return new(daysSinceEpoch);
     }

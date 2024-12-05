@@ -4,7 +4,6 @@
 namespace Calendrie.Specialized;
 
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 
 /// <summary>
@@ -18,14 +17,7 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
     // WARNING: the order in which the static fields are written is __important__.
 
     internal static readonly JulianSchema SchemaT = new();
-    internal static readonly JulianScope ScopeT = new(SchemaT);
-    internal static readonly JulianCalendar Instance = new(ScopeT);
-
-    internal static readonly DayNumber Epoch = ScopeT.Epoch;
-    internal static readonly Range<DayNumber> Domain = ScopeT.Domain;
-
-    internal static readonly int MinDaysSinceEpoch = ScopeT.Segment.SupportedDays.Min;
-    internal static readonly int MaxDaysSinceEpoch = ScopeT.Segment.SupportedDays.Max;
+    internal static readonly JulianCalendar Instance = new(new(SchemaT));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>

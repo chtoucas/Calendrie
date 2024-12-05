@@ -86,32 +86,43 @@ using Calendrie.Horology;
 
     protected virtual void EmitCalendar()
     {
+        // WARNING: the constructors of the schema and the scope MUST have a
+        // fixed form as one can see below.
+
         WriteLine();
 #>
+/// <summary>
+/// Provides static methods related to the scope of application of
+/// <see cref="<#= Prefix #>Calendar"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+internal static partial class <#= Prefix #>Scope
+{
+    // WARNING: the order in which the static fields are written is __important__.
+
+    public static partial DayNumber Epoch { get; }
+
+    public static readonly <#= SchemaClass #> Schema = new();
+
+    public static readonly <#= ScopeClass #> Instance = new(Schema, Epoch);
+}
+
 /// <summary>
 /// Represents the <#= DisplayName #> calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    internal static readonly <#= SchemaClass #> SchemaT = new();
-    internal static readonly <#= ScopeClass #> ScopeT = CreateScope();
     internal static readonly <#= Prefix #>Calendar Instance = new();
-
-    internal static readonly DayNumber Epoch = ScopeT.Epoch;
-    internal static readonly Range<DayNumber> Domain = ScopeT.Domain;
-
-    internal static readonly int Min<#= DaysSinceEpochStaticSuffix #> = ScopeT.Segment.SupportedDays.Min;
-    internal static readonly int Max<#= DaysSinceEpochStaticSuffix #> = ScopeT.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/>
     /// class.
     /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
-    public <#= Prefix #>Calendar() : this(CreateScope()) { }
+    public <#= Prefix #>Calendar() :
+        this(new <#= ScopeClass #>(new <#= SchemaClass #>(), <#= Prefix #>Scope.Epoch))
+    { }
 
     private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope)
     {
@@ -122,9 +133,6 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     /// Gets the date adjuster.
     /// </summary>
     public <#= Prefix #>Adjuster Adjuster { get; }
-
-    [Pure]
-    private static partial <#= ScopeClass #> CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
