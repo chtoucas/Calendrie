@@ -11,8 +11,8 @@ public partial struct ArmenianDate : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
 
@@ -22,8 +22,8 @@ public partial struct Armenian13Date : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
 
@@ -33,8 +33,8 @@ public partial struct CopticDate : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
 
@@ -44,8 +44,8 @@ public partial struct Coptic13Date : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
 
@@ -55,8 +55,8 @@ public partial struct EthiopicDate : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
 
@@ -66,8 +66,8 @@ public partial struct Ethiopic13Date : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
 
@@ -78,8 +78,8 @@ public partial struct WorldDate : IBlankDay
     {
         get
         {
-            s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return s_Schema.IsBlankDay(y, m, d);
+            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return Schema.IsBlankDay(y, m, d);
         }
     }
 }
@@ -90,8 +90,8 @@ public partial struct ZoroastrianDate : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
 
@@ -101,7 +101,7 @@ public partial struct Zoroastrian13Date : IEpagomenalDay
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        s_Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return s_Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return Schema.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }

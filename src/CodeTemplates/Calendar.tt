@@ -93,6 +93,10 @@ using Calendrie.Horology;
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
+    internal static readonly <#= SchemaClass #> SchemaT = new();
+    internal static readonly <#= ScopeClass #> ScopeT = CreateScope();
+    internal static readonly <#= Prefix #>Calendar Instance = new();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/>
     /// class.

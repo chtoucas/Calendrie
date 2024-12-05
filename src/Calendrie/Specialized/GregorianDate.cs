@@ -11,9 +11,7 @@ public partial struct GregorianDate
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly GregorianSchema s_Schema = new();
-    private static readonly GregorianScope s_Scope = new(s_Schema);
-    private static readonly GregorianCalendar s_Calendar = new(s_Scope);
+    private static readonly GregorianScope s_Scope = GregorianCalendar.ScopeT;
 
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
@@ -68,14 +66,14 @@ public partial struct GregorianDate
     /// <remarks>This static property is thread-safe.</remarks>
     public static GregorianDate MaxValue => s_MaxValue;
 
+    /// <inheritdoc />
+    public static GregorianCalendar Calendar => GregorianCalendar.Instance;
+
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static GregorianAdjuster Adjuster => s_Calendar.Adjuster;
-
-    /// <inheritdoc />
-    public static GregorianCalendar Calendar => s_Calendar;
+    public static GregorianAdjuster Adjuster => GregorianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
@@ -147,6 +145,11 @@ public partial struct GregorianDate
     public bool IsSupplementary => false;
 
     /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
+    private static GregorianSchema Schema => GregorianCalendar.SchemaT;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -154,7 +157,7 @@ public partial struct GregorianDate
     public override string ToString()
     {
         GregorianFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({s_Calendar})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />

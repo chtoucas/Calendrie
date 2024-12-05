@@ -28,7 +28,7 @@ public partial class Armenian13Calendar : IRegularFeaturette, IVirtualMonthFeatu
     public int MonthsInYear => Egyptian13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => ((Egyptian13Schema)Schema).VirtualMonth;
+    public int VirtualMonth => SchemaT.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -53,7 +53,7 @@ public partial class Coptic13Calendar : IRegularFeaturette, IVirtualMonthFeature
     public int MonthsInYear => Coptic13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => ((Coptic13Schema)Schema).VirtualMonth;
+    public int VirtualMonth => SchemaT.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -78,7 +78,7 @@ public partial class Ethiopic13Calendar : IRegularFeaturette, IVirtualMonthFeatu
     public int MonthsInYear => Coptic13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => ((Coptic13Schema)Schema).VirtualMonth;
+    public int VirtualMonth => SchemaT.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -138,5 +138,5 @@ public partial class Zoroastrian13Calendar : IRegularFeaturette, IVirtualMonthFe
     public int MonthsInYear => Egyptian13Schema.MonthsPerYear;
 
     /// <inheritdoc/>
-    public int VirtualMonth => ((Egyptian13Schema)Schema).VirtualMonth;
+    public int VirtualMonth => SchemaT.VirtualMonth;
 }

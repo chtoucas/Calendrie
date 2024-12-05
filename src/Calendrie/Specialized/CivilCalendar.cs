@@ -14,6 +14,7 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturette
 {
+    internal static readonly CivilSchema SchemaT = new();
     internal static readonly CivilCalendar Instance = new();
 
     /// <summary>

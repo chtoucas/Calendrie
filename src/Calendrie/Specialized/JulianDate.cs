@@ -11,9 +11,7 @@ public partial struct JulianDate
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly JulianSchema s_Schema = new();
-    private static readonly JulianScope s_Scope = new(s_Schema);
-    private static readonly JulianCalendar s_Calendar = new(s_Scope);
+    private static readonly JulianScope s_Scope = JulianCalendar.ScopeT;
 
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
@@ -69,14 +67,14 @@ public partial struct JulianDate
     /// <remarks>This static property is thread-safe.</remarks>
     public static JulianDate MaxValue => s_MaxValue;
 
+    /// <inheritdoc />
+    public static JulianCalendar Calendar => JulianCalendar.Instance;
+
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static JulianAdjuster Adjuster => s_Calendar.Adjuster;
-
-    /// <inheritdoc />
-    public static JulianCalendar Calendar => s_Calendar;
+    public static JulianAdjuster Adjuster => JulianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
@@ -146,6 +144,11 @@ public partial struct JulianDate
     public bool IsSupplementary => false;
 
     /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
+    private static JulianSchema Schema => JulianCalendar.SchemaT;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -153,7 +156,7 @@ public partial struct JulianDate
     public override string ToString()
     {
         JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({s_Calendar})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />

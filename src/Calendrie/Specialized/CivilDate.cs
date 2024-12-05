@@ -8,10 +8,6 @@ using Calendrie.Hemerology;
 
 public partial struct CivilDate
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly CivilSchema s_Schema = (CivilSchema)CivilCalendar.Instance.Schema;
-
     private static readonly CivilDate s_MinValue = new(CivilScope.MinDaysSinceZero);
     private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
 
@@ -143,6 +139,11 @@ public partial struct CivilDate
     public bool IsSupplementary => false;
 
     /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
+    private static CivilSchema Schema => CivilCalendar.SchemaT;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -150,7 +151,7 @@ public partial struct CivilDate
     public override string ToString()
     {
         CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({CivilCalendar.Instance})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />
