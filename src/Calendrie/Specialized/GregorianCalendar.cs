@@ -23,9 +23,7 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
 
     internal GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new GregorianAdjuster(scope);
+        Adjuster = new GregorianAdjuster(this);
     }
 
     /// <summary>

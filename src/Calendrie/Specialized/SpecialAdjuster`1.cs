@@ -21,8 +21,22 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="SpecialAdjuster{TDate}"/> class.
     /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
+    /// null.</exception>
+    private protected SpecialAdjuster(SpecialCalendar<TDate> calendar)
+    {
+        ArgumentNullException.ThrowIfNull(calendar);
+
+        Scope = calendar.Scope;
+    }
+
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="SpecialAdjuster{TDate}"/> class.
+    /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// null.</exception>
+    [Obsolete("To be removed")]
     private protected SpecialAdjuster(CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(scope);

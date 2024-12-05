@@ -26,20 +26,11 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     /// class.
     /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
-    public TabularIslamicCalendar() : this(new TabularIslamicSchema()) { }
-
-    internal TabularIslamicCalendar(TabularIslamicSchema schema) : this(GetScope(schema))
-    {
-        Debug.Assert(schema != null);
-
-        OnInitializing(schema);
-    }
+    public TabularIslamicCalendar() : this(CreateScope()) { }
 
     private TabularIslamicCalendar(StandardScope scope) : base("Tabular Islamic", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new TabularIslamicAdjuster(scope);
+        Adjuster = new TabularIslamicAdjuster(this);
     }
 
     /// <summary>
@@ -48,9 +39,7 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     public TabularIslamicAdjuster Adjuster { get; }
 
     [Pure]
-    private static partial StandardScope GetScope(TabularIslamicSchema schema);
-
-    partial void OnInitializing(TabularIslamicSchema schema);
+    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,7 +56,7 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
     /// Initializes a new instance of the <see cref="TabularIslamicAdjuster"/>
     /// class.
     /// </summary>
-    internal TabularIslamicAdjuster(StandardScope scope) : base(scope) { }
+    internal TabularIslamicAdjuster(TabularIslamicCalendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,12 +76,14 @@ public partial struct TabularIslamicDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly TabularIslamicSchema s_Schema = new();
-    private static readonly TabularIslamicCalendar s_Calendar = new(s_Schema);
+    private static readonly TabularIslamicCalendar s_Calendar = new();
+    private static readonly TabularIslamicSchema s_Schema = (TabularIslamicSchema)s_Calendar.Schema;
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
+
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly TabularIslamicDate s_MinValue = new(s_SupportedDays.Min);
     private static readonly TabularIslamicDate s_MaxValue = new(s_SupportedDays.Max);
 

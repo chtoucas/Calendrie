@@ -22,7 +22,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
     /// Initializes a new instance of the <see cref="CivilAdjuster"/>
     /// class.
     /// </summary>
-    internal CivilAdjuster(CivilScope scope) : base(scope) { }
+    internal CivilAdjuster(CivilCalendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

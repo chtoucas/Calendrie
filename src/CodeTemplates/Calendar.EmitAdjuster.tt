@@ -16,7 +16,7 @@ public sealed partial class <#= Prefix #>Adjuster : SpecialAdjuster<<#= Prefix #
     /// Initializes a new instance of the <see cref="<#= Prefix #>Adjuster"/>
     /// class.
     /// </summary>
-    internal <#= Prefix #>Adjuster(<#= ScopeClass #> scope) : base(scope) { }
+    internal <#= Prefix #>Adjuster(<#= Prefix #>Calendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -26,20 +26,11 @@ public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
     /// class.
     /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
-    public Ethiopic13Calendar() : this(new Coptic13Schema()) { }
-
-    internal Ethiopic13Calendar(Coptic13Schema schema) : this(GetScope(schema))
-    {
-        Debug.Assert(schema != null);
-
-        OnInitializing(schema);
-    }
+    public Ethiopic13Calendar() : this(CreateScope()) { }
 
     private Ethiopic13Calendar(StandardScope scope) : base("Ethiopic", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new Ethiopic13Adjuster(scope);
+        Adjuster = new Ethiopic13Adjuster(this);
     }
 
     /// <summary>
@@ -48,9 +39,7 @@ public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
     public Ethiopic13Adjuster Adjuster { get; }
 
     [Pure]
-    private static partial StandardScope GetScope(Coptic13Schema schema);
-
-    partial void OnInitializing(Coptic13Schema schema);
+    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,7 +56,7 @@ public sealed partial class Ethiopic13Adjuster : SpecialAdjuster<Ethiopic13Date>
     /// Initializes a new instance of the <see cref="Ethiopic13Adjuster"/>
     /// class.
     /// </summary>
-    internal Ethiopic13Adjuster(StandardScope scope) : base(scope) { }
+    internal Ethiopic13Adjuster(Ethiopic13Calendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,12 +76,14 @@ public partial struct Ethiopic13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly Coptic13Schema s_Schema = new();
-    private static readonly Ethiopic13Calendar s_Calendar = new(s_Schema);
+    private static readonly Ethiopic13Calendar s_Calendar = new();
+    private static readonly Coptic13Schema s_Schema = (Coptic13Schema)s_Calendar.Schema;
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
+
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly Ethiopic13Date s_MinValue = new(s_SupportedDays.Min);
     private static readonly Ethiopic13Date s_MaxValue = new(s_SupportedDays.Max);
 

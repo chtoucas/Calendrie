@@ -26,20 +26,11 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     /// class.
     /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
     /// </summary>
-    public WorldCalendar() : this(new WorldSchema()) { }
-
-    internal WorldCalendar(WorldSchema schema) : this(GetScope(schema))
-    {
-        Debug.Assert(schema != null);
-
-        OnInitializing(schema);
-    }
+    public WorldCalendar() : this(CreateScope()) { }
 
     private WorldCalendar(StandardScope scope) : base("World", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new WorldAdjuster(scope);
+        Adjuster = new WorldAdjuster(this);
     }
 
     /// <summary>
@@ -48,9 +39,7 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     public WorldAdjuster Adjuster { get; }
 
     [Pure]
-    private static partial StandardScope GetScope(WorldSchema schema);
-
-    partial void OnInitializing(WorldSchema schema);
+    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,7 +56,7 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
     /// Initializes a new instance of the <see cref="WorldAdjuster"/>
     /// class.
     /// </summary>
-    internal WorldAdjuster(StandardScope scope) : base(scope) { }
+    internal WorldAdjuster(WorldCalendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,12 +76,14 @@ public partial struct WorldDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly WorldSchema s_Schema = new();
-    private static readonly WorldCalendar s_Calendar = new(s_Schema);
+    private static readonly WorldCalendar s_Calendar = new();
+    private static readonly WorldSchema s_Schema = (WorldSchema)s_Calendar.Schema;
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
+
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly WorldDate s_MinValue = new(s_SupportedDays.Min);
     private static readonly WorldDate s_MaxValue = new(s_SupportedDays.Max);
 

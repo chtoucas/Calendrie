@@ -23,7 +23,7 @@ public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
     /// Initializes a new instance of the <see cref="JulianAdjuster"/>
     /// class.
     /// </summary>
-    internal JulianAdjuster(JulianScope scope) : base(scope) { }
+    internal JulianAdjuster(JulianCalendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

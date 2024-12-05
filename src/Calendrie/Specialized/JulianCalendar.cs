@@ -23,9 +23,7 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
 
     internal JulianCalendar(JulianScope scope) : base("Julian", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new JulianAdjuster(scope);
+        Adjuster = new JulianAdjuster(this);
     }
 
     /// <summary>

@@ -98,20 +98,11 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     /// class.
     /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
-    public <#= Prefix #>Calendar() : this(new <#= SchemaClass #>()) { }
-
-    internal <#= Prefix #>Calendar(<#= SchemaClass #> schema) : this(GetScope(schema))
-    {
-        Debug.Assert(schema != null);
-
-        OnInitializing(schema);
-    }
+    public <#= Prefix #>Calendar() : this(CreateScope()) { }
 
     private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new <#= Prefix #>Adjuster(scope);
+        Adjuster = new <#= Prefix #>Adjuster(this);
     }
 
     /// <summary>
@@ -120,9 +111,7 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     public <#= Prefix #>Adjuster Adjuster { get; }
 
     [Pure]
-    private static partial <#= ScopeClass #> GetScope(<#= SchemaClass #> schema);
-
-    partial void OnInitializing(<#= SchemaClass #> schema);
+    private static partial <#= ScopeClass #> CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

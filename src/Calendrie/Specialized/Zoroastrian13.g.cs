@@ -26,20 +26,11 @@ public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian1
     /// class.
     /// <para>See also <seealso cref="Zoroastrian13Date.Calendar"/>.</para>
     /// </summary>
-    public Zoroastrian13Calendar() : this(new Egyptian13Schema()) { }
-
-    internal Zoroastrian13Calendar(Egyptian13Schema schema) : this(GetScope(schema))
-    {
-        Debug.Assert(schema != null);
-
-        OnInitializing(schema);
-    }
+    public Zoroastrian13Calendar() : this(CreateScope()) { }
 
     private Zoroastrian13Calendar(StandardScope scope) : base("Zoroastrian", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new Zoroastrian13Adjuster(scope);
+        Adjuster = new Zoroastrian13Adjuster(this);
     }
 
     /// <summary>
@@ -48,9 +39,7 @@ public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian1
     public Zoroastrian13Adjuster Adjuster { get; }
 
     [Pure]
-    private static partial StandardScope GetScope(Egyptian13Schema schema);
-
-    partial void OnInitializing(Egyptian13Schema schema);
+    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,7 +56,7 @@ public sealed partial class Zoroastrian13Adjuster : SpecialAdjuster<Zoroastrian1
     /// Initializes a new instance of the <see cref="Zoroastrian13Adjuster"/>
     /// class.
     /// </summary>
-    internal Zoroastrian13Adjuster(StandardScope scope) : base(scope) { }
+    internal Zoroastrian13Adjuster(Zoroastrian13Calendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,12 +76,14 @@ public partial struct Zoroastrian13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly Egyptian13Schema s_Schema = new();
-    private static readonly Zoroastrian13Calendar s_Calendar = new(s_Schema);
+    private static readonly Zoroastrian13Calendar s_Calendar = new();
+    private static readonly Egyptian13Schema s_Schema = (Egyptian13Schema)s_Calendar.Schema;
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
+
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly Zoroastrian13Date s_MinValue = new(s_SupportedDays.Min);
     private static readonly Zoroastrian13Date s_MaxValue = new(s_SupportedDays.Max);
 

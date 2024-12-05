@@ -26,20 +26,11 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
     /// class.
     /// <para>See also <seealso cref="EthiopicDate.Calendar"/>.</para>
     /// </summary>
-    public EthiopicCalendar() : this(new Coptic12Schema()) { }
-
-    internal EthiopicCalendar(Coptic12Schema schema) : this(GetScope(schema))
-    {
-        Debug.Assert(schema != null);
-
-        OnInitializing(schema);
-    }
+    public EthiopicCalendar() : this(CreateScope()) { }
 
     private EthiopicCalendar(StandardScope scope) : base("Ethiopic", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new EthiopicAdjuster(scope);
+        Adjuster = new EthiopicAdjuster(this);
     }
 
     /// <summary>
@@ -48,9 +39,7 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
     public EthiopicAdjuster Adjuster { get; }
 
     [Pure]
-    private static partial StandardScope GetScope(Coptic12Schema schema);
-
-    partial void OnInitializing(Coptic12Schema schema);
+    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,7 +56,7 @@ public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
     /// Initializes a new instance of the <see cref="EthiopicAdjuster"/>
     /// class.
     /// </summary>
-    internal EthiopicAdjuster(StandardScope scope) : base(scope) { }
+    internal EthiopicAdjuster(EthiopicCalendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,12 +76,14 @@ public partial struct EthiopicDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly Coptic12Schema s_Schema = new();
-    private static readonly EthiopicCalendar s_Calendar = new(s_Schema);
+    private static readonly EthiopicCalendar s_Calendar = new();
+    private static readonly Coptic12Schema s_Schema = (Coptic12Schema)s_Calendar.Schema;
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
+
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly EthiopicDate s_MinValue = new(s_SupportedDays.Min);
     private static readonly EthiopicDate s_MaxValue = new(s_SupportedDays.Max);
 

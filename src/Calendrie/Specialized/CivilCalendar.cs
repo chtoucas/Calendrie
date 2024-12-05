@@ -22,9 +22,7 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
 
     internal CivilCalendar(CivilScope scope) : base("Civil", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new CivilAdjuster(scope);
+        Adjuster = new CivilAdjuster(this);
     }
 
     /// <summary>

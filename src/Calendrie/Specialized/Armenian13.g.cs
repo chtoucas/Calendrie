@@ -26,20 +26,11 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
     /// class.
     /// <para>See also <seealso cref="Armenian13Date.Calendar"/>.</para>
     /// </summary>
-    public Armenian13Calendar() : this(new Egyptian13Schema()) { }
-
-    internal Armenian13Calendar(Egyptian13Schema schema) : this(GetScope(schema))
-    {
-        Debug.Assert(schema != null);
-
-        OnInitializing(schema);
-    }
+    public Armenian13Calendar() : this(CreateScope()) { }
 
     private Armenian13Calendar(StandardScope scope) : base("Armenian", scope)
     {
-        Debug.Assert(scope != null);
-
-        Adjuster = new Armenian13Adjuster(scope);
+        Adjuster = new Armenian13Adjuster(this);
     }
 
     /// <summary>
@@ -48,9 +39,7 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
     public Armenian13Adjuster Adjuster { get; }
 
     [Pure]
-    private static partial StandardScope GetScope(Egyptian13Schema schema);
-
-    partial void OnInitializing(Egyptian13Schema schema);
+    private static partial StandardScope CreateScope();
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,7 +56,7 @@ public sealed partial class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
     /// Initializes a new instance of the <see cref="Armenian13Adjuster"/>
     /// class.
     /// </summary>
-    internal Armenian13Adjuster(StandardScope scope) : base(scope) { }
+    internal Armenian13Adjuster(Armenian13Calendar calendar) : base(calendar) { }
 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,12 +76,14 @@ public partial struct Armenian13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly Egyptian13Schema s_Schema = new();
-    private static readonly Armenian13Calendar s_Calendar = new(s_Schema);
+    private static readonly Armenian13Calendar s_Calendar = new();
+    private static readonly Egyptian13Schema s_Schema = (Egyptian13Schema)s_Calendar.Schema;
     private static readonly CalendarScope s_Scope = s_Calendar.Scope;
+
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly Armenian13Date s_MinValue = new(s_SupportedDays.Min);
     private static readonly Armenian13Date s_MaxValue = new(s_SupportedDays.Max);
 
@@ -471,3 +462,4 @@ public partial struct Armenian13Date // Math
         return new(_daysSinceEpoch - 1);
     }
 }
+
