@@ -94,9 +94,17 @@ using Calendrie.Horology;
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     internal static readonly <#= SchemaClass #> SchemaT = new();
     internal static readonly <#= ScopeClass #> ScopeT = CreateScope();
     internal static readonly <#= Prefix #>Calendar Instance = new();
+
+    internal static readonly DayNumber Epoch = ScopeT.Epoch;
+    internal static readonly Range<DayNumber> Domain = ScopeT.Domain;
+
+    internal static readonly int Min<#= DaysSinceEpochStaticSuffix #> = ScopeT.Segment.SupportedDays.Min;
+    internal static readonly int Max<#= DaysSinceEpochStaticSuffix #> = ScopeT.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/>

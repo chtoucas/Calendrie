@@ -21,9 +21,17 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     internal static readonly TabularIslamicSchema SchemaT = new();
     internal static readonly StandardScope ScopeT = CreateScope();
     internal static readonly TabularIslamicCalendar Instance = new();
+
+    internal static readonly DayNumber Epoch = ScopeT.Epoch;
+    internal static readonly Range<DayNumber> Domain = ScopeT.Domain;
+
+    internal static readonly int MinDaysSinceEpoch = ScopeT.Segment.SupportedDays.Min;
+    internal static readonly int MaxDaysSinceEpoch = ScopeT.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/>
@@ -78,18 +86,8 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly CalendarScope s_Scope = TabularIslamicCalendar.ScopeT;
-
-    private static readonly DayNumber s_Epoch = s_Scope.Epoch;
-    private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-
-    private static readonly int s_MinDaysSinceEpoch = s_Scope.Segment.SupportedDays.Min;
-    private static readonly int s_MaxDaysSinceEpoch = s_Scope.Segment.SupportedDays.Max;
-
-    private static readonly TabularIslamicDate s_MinValue = new(s_MinDaysSinceEpoch);
-    private static readonly TabularIslamicDate s_MaxValue = new(s_MaxDaysSinceEpoch);
+    private static readonly TabularIslamicDate s_MinValue = new(TabularIslamicCalendar.MinDaysSinceEpoch);
+    private static readonly TabularIslamicDate s_MaxValue = new(TabularIslamicCalendar.MaxDaysSinceEpoch);
 
     private readonly int _daysSinceEpoch;
 
@@ -102,7 +100,7 @@ public partial struct TabularIslamicDate // Preamble
     /// years.</exception>
     public TabularIslamicDate(int year, int month, int day)
     {
-        s_Scope.ValidateYearMonthDay(year, month, day);
+        Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, month, day);
     }
@@ -116,7 +114,7 @@ public partial struct TabularIslamicDate // Preamble
     /// supported years.</exception>
     public TabularIslamicDate(int year, int dayOfYear)
     {
-        s_Scope.ValidateOrdinal(year, dayOfYear);
+        Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
@@ -147,7 +145,7 @@ public partial struct TabularIslamicDate // Preamble
     public static TabularIslamicAdjuster Adjuster => TabularIslamicCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    public DayNumber DayNumber => Epoch + _daysSinceEpoch;
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -221,9 +219,24 @@ public partial struct TabularIslamicDate // Preamble
     }
 
     /// <summary>
+    /// Gets the calendar epoch.
+    /// </summary>
+    private static DayNumber Epoch => TabularIslamicCalendar.Epoch;
+
+    /// <summary>
+    /// Gets the range of supported values for a <see cref="DayNumber"/>.
+    /// </summary>
+    private static Range<DayNumber> Domain => TabularIslamicCalendar.Domain;
+
+    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
     private static TabularIslamicSchema Schema => TabularIslamicCalendar.SchemaT;
+
+    /// <summary>
+    /// Gets the calendar scope.
+    /// </summary>
+    private static StandardScope Scope => TabularIslamicCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -251,9 +264,9 @@ public partial struct TabularIslamicDate // Factories
     [Pure]
     public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Domain.Validate(dayNumber);
 
-        return new(dayNumber - s_Epoch);
+        return new(dayNumber - Epoch);
     }
 }
 
@@ -293,8 +306,8 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -302,8 +315,8 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -311,8 +324,8 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckOverflow(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -320,8 +333,8 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -329,8 +342,8 @@ public partial struct TabularIslamicDate // Adjustments
     public TabularIslamicDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 }
 
@@ -449,10 +462,15 @@ public partial struct TabularIslamicDate // Math
     public TabularIslamicDate AddDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
+
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+        // > Domain.CheckOverflow(Epoch + daysSinceEpoch);
+        if (daysSinceEpoch < TabularIslamicCalendar.MinDaysSinceEpoch
+           || daysSinceEpoch > TabularIslamicCalendar.MaxDaysSinceEpoch)
+        {
             ThrowHelpers.ThrowDateOverflow();
+        }
+
         return new(daysSinceEpoch);
     }
 

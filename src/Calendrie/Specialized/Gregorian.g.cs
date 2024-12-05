@@ -45,7 +45,7 @@ public partial struct GregorianDate // Factories
     [Pure]
     public static GregorianDate FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Domain.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -87,7 +87,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Domain.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -96,7 +96,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Domain.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -105,7 +105,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        Domain.CheckOverflow(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -114,7 +114,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Domain.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -123,7 +123,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Domain.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 }
@@ -243,10 +243,15 @@ public partial struct GregorianDate // Math
     public GregorianDate AddDays(int days)
     {
         int daysSinceZero = checked(_daysSinceZero + days);
+
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(s_Epoch + daysSinceZero);
-        if (daysSinceZero < s_MinDaysSinceZero || daysSinceZero > s_MaxDaysSinceZero)
+        // > Domain.CheckOverflow(Epoch + daysSinceZero);
+        if (daysSinceZero < GregorianCalendar.MinDaysSinceZero
+           || daysSinceZero > GregorianCalendar.MaxDaysSinceZero)
+        {
             ThrowHelpers.ThrowDateOverflow();
+        }
+
         return new(daysSinceZero);
     }
 

@@ -45,9 +45,9 @@ public partial struct JulianDate // Factories
     [Pure]
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Domain.Validate(dayNumber);
 
-        return new(dayNumber - s_Epoch);
+        return new(dayNumber - Epoch);
     }
 }
 
@@ -87,8 +87,8 @@ public partial struct JulianDate // Adjustments
     public JulianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -96,8 +96,8 @@ public partial struct JulianDate // Adjustments
     public JulianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -105,8 +105,8 @@ public partial struct JulianDate // Adjustments
     public JulianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckOverflow(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -114,8 +114,8 @@ public partial struct JulianDate // Adjustments
     public JulianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -123,8 +123,8 @@ public partial struct JulianDate // Adjustments
     public JulianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 }
 
@@ -243,10 +243,15 @@ public partial struct JulianDate // Math
     public JulianDate AddDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
+
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+        // > Domain.CheckOverflow(Epoch + daysSinceEpoch);
+        if (daysSinceEpoch < JulianCalendar.MinDaysSinceEpoch
+           || daysSinceEpoch > JulianCalendar.MaxDaysSinceEpoch)
+        {
             ThrowHelpers.ThrowDateOverflow();
+        }
+
         return new(daysSinceEpoch);
     }
 

@@ -87,19 +87,8 @@ public sealed partial class <#= Prefix #>Clock
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly <#= Prefix #>Calendar s_Calendar = new();
-    private static readonly <#= SchemaClass #> s_Schema = (<#= SchemaClass #>)s_Calendar.Schema;
-    private static readonly CalendarScope s_Scope = s_Calendar.Scope;
-
-    private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-
-    private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Min;
-    private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Max;
-
-    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochStaticSuffix #>);
-    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Calendar.Min<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Calendar.Max<#= DaysSinceEpochStaticSuffix #>);
 
     private readonly int <#= DaysSinceEpochField #>;
 
@@ -112,9 +101,9 @@ public partial struct <#= Prefix #>Date // Preamble
     /// years.</exception>
     public <#= Prefix #>Date(int year, int month, int day)
     {
-        s_Scope.ValidateYearMonthDay(year, month, day);
+        Scope.ValidateYearMonthDay(year, month, day);
 
-        <#= DaysSinceEpochField #> = s_Schema.CountDaysSinceEpoch(year, month, day);
+        <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -126,9 +115,9 @@ public partial struct <#= Prefix #>Date // Preamble
     /// supported years.</exception>
     public <#= Prefix #>Date(int year, int dayOfYear)
     {
-        s_Scope.ValidateOrdinal(year, dayOfYear);
+        Scope.ValidateOrdinal(year, dayOfYear);
 
-        <#= DaysSinceEpochField #> = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
+        <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -147,14 +136,14 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static <#= Prefix #>Date MaxValue => s_MaxValue;
 
+    /// <inheritdoc />
+    public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
+
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static <#= Prefix #>Adjuster Adjuster => s_Calendar.Adjuster;
-
-    /// <inheritdoc />
-    public static <#= Prefix #>Calendar Calendar => s_Calendar;
+    public static <#= Prefix #>Adjuster Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(<#= DaysSinceEpochField #>);
@@ -177,14 +166,14 @@ public partial struct <#= Prefix #>Date // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => s_Schema.GetYear(<#= DaysSinceEpochField #>);
+    public int Year => Schema.GetYear(<#= DaysSinceEpochField #>);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out int m, out _);
+            Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out int m, out _);
             return m;
         }
     }
@@ -194,7 +183,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            _ = s_Schema.GetYear(<#= DaysSinceEpochField #>, out int doy);
+            _ = Schema.GetYear(<#= DaysSinceEpochField #>, out int doy);
             return doy;
         }
     }
@@ -204,7 +193,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out _, out int d);
+            Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out _, out int d);
             return d;
         }
     }
@@ -217,8 +206,8 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
-            return s_Schema.IsIntercalaryDay(y, m, d);
+            Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            return Schema.IsIntercalaryDay(y, m, d);
         }
     }
 
@@ -227,10 +216,25 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
-            return s_Schema.IsSupplementaryDay(y, m, d);
+            Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            return Schema.IsSupplementaryDay(y, m, d);
         }
     }
+
+    /// <summary>
+    /// Gets the range of supported values for a <see cref="DayNumber"/>.
+    /// </summary>
+    private static Range<DayNumber> Domain => <#= Prefix #>Calendar.Domain;
+
+    /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
+    private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.SchemaT;
+
+    /// <summary>
+    /// Gets the calendar scope.
+    /// </summary>
+    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -239,17 +243,17 @@ public partial struct <#= Prefix #>Date // Preamble
     [Pure]
     public override string ToString()
     {
-        s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({s_Calendar})");
+        Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        s_Schema.GetDateParts(<#= DaysSinceEpochField #>, out year, out month, out day);
+        Schema.GetDateParts(<#= DaysSinceEpochField #>, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = s_Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
+        year = Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
 }
 
 public partial struct <#= Prefix #>Date // Factories
@@ -258,7 +262,7 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Domain.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -276,7 +280,7 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Domain.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -305,7 +309,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Domain.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -314,7 +318,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Domain.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -323,7 +327,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        Domain.CheckOverflow(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -332,7 +336,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Domain.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -341,7 +345,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Domain.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 }

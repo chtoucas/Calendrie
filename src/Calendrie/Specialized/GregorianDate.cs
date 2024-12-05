@@ -9,17 +9,8 @@ using Calendrie.Hemerology;
 
 public partial struct GregorianDate
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly GregorianScope s_Scope = GregorianCalendar.ScopeT;
-
-    private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-
-    private static readonly int s_MinDaysSinceZero = s_Scope.Segment.SupportedDays.Min;
-    private static readonly int s_MaxDaysSinceZero = s_Scope.Segment.SupportedDays.Max;
-
-    private static readonly GregorianDate s_MinValue = new(s_MinDaysSinceZero);
-    private static readonly GregorianDate s_MaxValue = new(s_MaxDaysSinceZero);
+    private static readonly GregorianDate s_MinValue = new(GregorianCalendar.MinDaysSinceZero);
+    private static readonly GregorianDate s_MaxValue = new(GregorianCalendar.MaxDaysSinceZero);
 
     private readonly int _daysSinceZero;
 
@@ -147,9 +138,24 @@ public partial struct GregorianDate
     public bool IsSupplementary => false;
 
     /// <summary>
+    /// Gets the calendar epoch.
+    /// </summary>
+    private static DayNumber Epoch => GregorianCalendar.Epoch;
+
+    /// <summary>
+    /// Gets the range of supported values for a <see cref="DayNumber"/>.
+    /// </summary>
+    private static Range<DayNumber> Domain => GregorianCalendar.Domain;
+
+    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
     private static GregorianSchema Schema => GregorianCalendar.SchemaT;
+
+    /// <summary>
+    /// Gets the calendar scope.
+    /// </summary>
+    private static GregorianScope Scope => GregorianCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

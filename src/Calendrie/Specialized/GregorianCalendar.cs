@@ -4,6 +4,7 @@
 namespace Calendrie.Specialized;
 
 using Calendrie.Core;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 
 /// <summary>
@@ -19,6 +20,12 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     internal static readonly GregorianSchema SchemaT = new();
     internal static readonly GregorianScope ScopeT = new(SchemaT);
     internal static readonly GregorianCalendar Instance = new(ScopeT);
+
+    internal static readonly DayNumber Epoch = ScopeT.Epoch;
+    internal static readonly Range<DayNumber> Domain = ScopeT.Domain;
+
+    internal static readonly int MinDaysSinceZero = ScopeT.Segment.SupportedDays.Min;
+    internal static readonly int MaxDaysSinceZero = ScopeT.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/>

@@ -42,18 +42,8 @@ public readonly partial struct <#= Prefix #>Date :
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly CalendarScope s_Scope = <#= Prefix #>Calendar.ScopeT;
-
-    private static readonly DayNumber s_Epoch = s_Scope.Epoch;
-    private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
-
-    private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Min;
-    private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = s_Scope.Segment.SupportedDays.Max;
-
-    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochStaticSuffix #>);
-    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Calendar.Min<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Calendar.Max<#= DaysSinceEpochStaticSuffix #>);
 
     private readonly int <#= DaysSinceEpochField #>;
 
@@ -66,7 +56,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// years.</exception>
     public <#= Prefix #>Date(int year, int month, int day)
     {
-        s_Scope.ValidateYearMonthDay(year, month, day);
+        Scope.ValidateYearMonthDay(year, month, day);
 
         <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, month, day);
     }
@@ -80,7 +70,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// supported years.</exception>
     public <#= Prefix #>Date(int year, int dayOfYear)
     {
-        s_Scope.ValidateOrdinal(year, dayOfYear);
+        Scope.ValidateOrdinal(year, dayOfYear);
 
         <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
@@ -111,7 +101,7 @@ public partial struct <#= Prefix #>Date // Preamble
     public static <#= Prefix #>Adjuster Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => s_Epoch + <#= DaysSinceEpochField #>;
+    public DayNumber DayNumber => Epoch + <#= DaysSinceEpochField #>;
 
     /// <inheritdoc />
     public int DaysSinceEpoch => <#= DaysSinceEpochField #>;
@@ -185,9 +175,24 @@ public partial struct <#= Prefix #>Date // Preamble
     }
 
     /// <summary>
+    /// Gets the calendar epoch.
+    /// </summary>
+    private static DayNumber Epoch => <#= Prefix #>Calendar.Epoch;
+
+    /// <summary>
+    /// Gets the range of supported values for a <see cref="DayNumber"/>.
+    /// </summary>
+    private static Range<DayNumber> Domain => <#= Prefix #>Calendar.Domain;
+
+    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
     private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.SchemaT;
+
+    /// <summary>
+    /// Gets the calendar scope.
+    /// </summary>
+    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -221,9 +226,9 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Domain.Validate(dayNumber);
 
-        return new(dayNumber - s_Epoch);
+        return new(dayNumber - Epoch);
     }
 }
 <#+
@@ -275,8 +280,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -284,8 +289,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckLowerBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -293,8 +298,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckOverflow(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -302,8 +307,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 
     /// <inheritdoc />
@@ -311,8 +316,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        Domain.CheckUpperBound(dayNumber);
+        return new(dayNumber - Epoch);
     }
 }
 <#+
@@ -449,10 +454,15 @@ public partial struct <#= Prefix #>Date // Math
     public <#= Prefix #>Date AddDays(int days)
     {
         int <#= DaysSinceEpochVar #> = checked(<#= DaysSinceEpochField #> + days);
+
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(s_Epoch + <#= DaysSinceEpochVar #>);
-        if (<#= DaysSinceEpochVar #> < s_Min<#= DaysSinceEpochStaticSuffix #> || <#= DaysSinceEpochVar #> > s_Max<#= DaysSinceEpochStaticSuffix #>)
+        // > Domain.CheckOverflow(Epoch + <#= DaysSinceEpochVar #>);
+        if (<#= DaysSinceEpochVar #> < <#= Prefix #>Calendar.Min<#= DaysSinceEpochStaticSuffix #>
+           || <#= DaysSinceEpochVar #> > <#= Prefix #>Calendar.Max<#= DaysSinceEpochStaticSuffix #>)
+        {
             ThrowHelpers.ThrowDateOverflow();
+        }
+
         return new(<#= DaysSinceEpochVar #>);
     }
 
