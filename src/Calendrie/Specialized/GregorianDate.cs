@@ -14,8 +14,10 @@ public partial struct GregorianDate
     private static readonly GregorianSchema s_Schema = new();
     private static readonly GregorianScope s_Scope = new(s_Schema);
     private static readonly GregorianCalendar s_Calendar = new(s_Scope);
+
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly GregorianDate s_MinValue = new(s_Domain.Min.DaysSinceZero);
     private static readonly GregorianDate s_MaxValue = new(s_Domain.Max.DaysSinceZero);
 

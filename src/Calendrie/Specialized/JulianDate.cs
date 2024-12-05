@@ -14,9 +14,11 @@ public partial struct JulianDate
     private static readonly JulianSchema s_Schema = new();
     private static readonly JulianScope s_Scope = new(s_Schema);
     private static readonly JulianCalendar s_Calendar = new(s_Scope);
+
     private static readonly DayNumber s_Epoch = s_Scope.Epoch;
     private static readonly Range<DayNumber> s_Domain = s_Scope.Domain;
     private static readonly Range<int> s_SupportedDays = s_Scope.Segment.SupportedDays;
+
     private static readonly JulianDate s_MinValue = new(s_SupportedDays.Min);
     private static readonly JulianDate s_MaxValue = new(s_SupportedDays.Max);
 
