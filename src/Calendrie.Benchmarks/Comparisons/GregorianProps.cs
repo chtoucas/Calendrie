@@ -57,6 +57,22 @@ public class GregorianProps : GregorianComparisons
         Consume(in dayOfYear);
     }
 
+    [Benchmark(Description = "GregorianDate_Plain")]
+    public void WithPlainGregorianDate()
+    {
+        var date = plainGregorianDate;
+
+        var (y, m, d) = date;
+        var dayOfWeek = date.DayOfWeek;
+        int dayOfYear = date.DayOfYear;
+
+        Consume(in y);
+        Consume(in m);
+        Consume(in d);
+        Consume(in dayOfWeek);
+        Consume(in dayOfYear);
+    }
+
     //
     // External date types
     //

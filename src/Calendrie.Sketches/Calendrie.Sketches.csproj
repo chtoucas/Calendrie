@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Specialized\PlainGregorian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PlainGregorian.tt</DependentUpon>
+    </Compile>
     <Compile Update="Specialized\PlainJulian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

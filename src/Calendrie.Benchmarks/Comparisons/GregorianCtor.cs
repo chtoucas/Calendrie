@@ -38,6 +38,10 @@ public class GregorianCtor
     public GregorianDate WithGregorianDateFast() => new(_yearFast, _monthFast, _dayFast);
 
     [BenchmarkCategory("Fast")]
+    [Benchmark(Description = "GregorianDate_Plain")]
+    public PlainGregorianDate WithPlainGregorianDateFast() => new(_yearFast, _monthFast, _dayFast);
+
+    [BenchmarkCategory("Fast")]
     [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDateFast() => new(_yearFast, _monthFast, _dayFast);
 
@@ -64,6 +68,10 @@ public class GregorianCtor
     [BenchmarkCategory("Slow")]
     [Benchmark(Description = "GregorianDate")]
     public GregorianDate WithGregorianDateSlow() => new(_yearSlow, _monthSlow, _daySlow);
+
+    [BenchmarkCategory("Slow")]
+    [Benchmark(Description = "GregorianDate_Plain")]
+    public PlainGregorianDate WithPlainGregorianDateSlow() => new(_yearSlow, _monthSlow, _daySlow);
 
     [BenchmarkCategory("Slow")]
     [Benchmark(Description = "LocalDate_NodaTime")]

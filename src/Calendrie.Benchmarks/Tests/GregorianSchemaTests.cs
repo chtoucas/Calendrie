@@ -76,7 +76,7 @@ public class GregorianSchema_GetDateParts : GregorianSchemaTests
     [Benchmark]
     public int Formulae64()
     {
-        GregorianFormulae.GetDateParts(daysSinceEpoch, out long y, out int m, out int d);
+        GregorianFormulae.GetDateParts(daysSinceEpochL, out long y, out int m, out int d);
         Consume(in y);
         Consume(in m);
         return d;

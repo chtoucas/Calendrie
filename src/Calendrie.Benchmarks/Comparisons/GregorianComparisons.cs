@@ -12,6 +12,7 @@ public abstract class GregorianComparisons
     private protected DayNumber dayNumber;
     private protected CivilDate civilDate;
     private protected GregorianDate gregorianDate;
+    private protected PlainGregorianDate plainGregorianDate;
     private protected DateOnly dateOnly;
     private protected DateTime dateTime;
     private protected LocalDate localDate;
@@ -31,6 +32,8 @@ public abstract class GregorianComparisons
         civilDate = new(y, m, d);
         gregorianDate = new(y, m, d);
         dayNumber = civilDate.DayNumber;
+
+        plainGregorianDate = new(y, m, d);
 
         dateTime = new(y, m, d);
         dateOnly = new(y, m, d);
