@@ -35,15 +35,42 @@ public readonly partial struct <#= Prefix #>Date :
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
+    /// <summary>
+    /// Represents the epoch of the associated calendar.
+    /// </summary>
     private static readonly DayNumber s_Epoch = <#= Prefix #>Scope.Epoch;
+
+    /// <summary>
+    /// Represents the range of supported <see cref="DayNumber"/>'s by the
+    /// associated calendar.
+    /// </summary>
     private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
 
+    /// <summary>
+    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>;
+
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>;
 
+    /// <summary>
+    /// Represents the minimum value of the current type.
+    /// </summary>
     private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>);
+
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochStaticSuffix #>"/> to
+    /// <see cref="s_Max<#= DaysSinceEpochStaticSuffix #>"/>.</para>
+    /// </summary>
     private readonly int <#= DaysSinceEpochField #>;
 
     /// <summary>
@@ -100,6 +127,7 @@ public partial struct <#= Prefix #>Date // Preamble
     public static <#= Prefix #>Adjuster Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
+    //
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + <#= DaysSinceEpochField #>;
     // we can use an unchecked addition
@@ -180,6 +208,9 @@ public partial struct <#= Prefix #>Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    //
+    // Don't use Scope.Schema or <#= Prefix #>Scope.Instance.Schema. Both are of
+    // type ICalendricalSchema, not <#= SchemaClass #>.
     private static <#= SchemaClass #> Schema => <#= Prefix #>Scope.Schema;
 
     /// <summary>

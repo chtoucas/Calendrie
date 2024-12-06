@@ -106,12 +106,24 @@ internal static class <#= Prefix #>Scope
     // WARNING: the order in which the static fields are written is __important__.
 
     public static readonly DayNumber Epoch = <#= Epoch #>;
+
+    // This schema instance is the one used by:
+    // - <#= Prefix #>Scope.Instance
+    // - <#= Prefix #>Calendar.Instance
+    // - All instances of <#= Prefix #>Date
+    // - <#= Prefix #>Calendar custom methods only (see the file _Calendar.cs)
     public static readonly <#= SchemaClass #> Schema = new();
 
+    // This scope instance is the one used by:
+    // - <#= Prefix #>Calendar.Instance
+    // - All instances of <#= Prefix #>Date
     public static readonly <#= ScopeClass #> Instance = new(Schema, Epoch);
 
+    // These properties were only created to ease the initialization of the
+    // static fields of <#= Prefix #>Date. Notice that these properties are
+    // properties (!) of value type without a backing field, therefore they only
+    // exist temporarily.
     public static Range<DayNumber> Domain => Instance.Domain;
-
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
@@ -133,15 +145,20 @@ internal static class <#= Prefix #>Scope
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
+    // This class is not a singleton but we ensure that all date instances are
+    // using the same calendar instance. While not mandatory at all, I like the
+    // idea.
     internal static readonly <#= Prefix #>Calendar Instance = new(<#= Prefix #>Scope.Instance);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
     /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
     public <#= Prefix #>Calendar() : this(<#= Prefix #>Scope.Create()) { }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
+    /// </summary>
     private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope)
     {
         Adjuster = new <#= Prefix #>Adjuster(this);

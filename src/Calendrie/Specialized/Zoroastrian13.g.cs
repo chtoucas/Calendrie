@@ -25,12 +25,24 @@ internal static class Zoroastrian13Scope
     // WARNING: the order in which the static fields are written is __important__.
 
     public static readonly DayNumber Epoch = DayZero.Zoroastrian;
+
+    // This schema instance is the one used by:
+    // - Zoroastrian13Scope.Instance
+    // - Zoroastrian13Calendar.Instance
+    // - All instances of Zoroastrian13Date
+    // - Zoroastrian13Calendar custom methods only (see the file _Calendar.cs)
     public static readonly Egyptian13Schema Schema = new();
 
+    // This scope instance is the one used by:
+    // - Zoroastrian13Calendar.Instance
+    // - All instances of Zoroastrian13Date
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
+    // These properties were only created to ease the initialization of the
+    // static fields of Zoroastrian13Date. Notice that these properties are
+    // properties (!) of value type without a backing field, therefore they only
+    // exist temporarily.
     public static Range<DayNumber> Domain => Instance.Domain;
-
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
@@ -43,15 +55,20 @@ internal static class Zoroastrian13Scope
 /// </summary>
 public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian13Date>
 {
+    // This class is not a singleton but we ensure that all date instances are
+    // using the same calendar instance. While not mandatory at all, I like the
+    // idea.
     internal static readonly Zoroastrian13Calendar Instance = new(Zoroastrian13Scope.Instance);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/> class.
     /// <para>See also <seealso cref="Zoroastrian13Date.Calendar"/>.</para>
     /// </summary>
     public Zoroastrian13Calendar() : this(Zoroastrian13Scope.Create()) { }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/> class.
+    /// </summary>
     private Zoroastrian13Calendar(StandardScope scope) : base("Zoroastrian", scope)
     {
         Adjuster = new Zoroastrian13Adjuster(this);
@@ -93,15 +110,42 @@ public readonly partial struct Zoroastrian13Date :
 
 public partial struct Zoroastrian13Date // Preamble
 {
+    /// <summary>
+    /// Represents the epoch of the associated calendar.
+    /// </summary>
     private static readonly DayNumber s_Epoch = Zoroastrian13Scope.Epoch;
+
+    /// <summary>
+    /// Represents the range of supported <see cref="DayNumber"/>'s by the
+    /// associated calendar.
+    /// </summary>
     private static readonly Range<DayNumber> s_Domain = Zoroastrian13Scope.Domain;
 
+    /// <summary>
+    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MinDaysSinceEpoch = Zoroastrian13Scope.MinDaysSinceEpoch;
+
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MaxDaysSinceEpoch = Zoroastrian13Scope.MaxDaysSinceEpoch;
 
+    /// <summary>
+    /// Represents the minimum value of the current type.
+    /// </summary>
     private static readonly Zoroastrian13Date s_MinValue = new(Zoroastrian13Scope.MinDaysSinceEpoch);
+
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly Zoroastrian13Date s_MaxValue = new(Zoroastrian13Scope.MaxDaysSinceEpoch);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/> to
+    /// <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// </summary>
     private readonly int _daysSinceEpoch;
 
     /// <summary>
@@ -158,6 +202,7 @@ public partial struct Zoroastrian13Date // Preamble
     public static Zoroastrian13Adjuster Adjuster => Zoroastrian13Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
+    //
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
@@ -238,6 +283,9 @@ public partial struct Zoroastrian13Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    //
+    // Don't use Scope.Schema or Zoroastrian13Scope.Instance.Schema. Both are of
+    // type ICalendricalSchema, not Egyptian13Schema.
     private static Egyptian13Schema Schema => Zoroastrian13Scope.Schema;
 
     /// <summary>

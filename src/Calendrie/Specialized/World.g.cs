@@ -25,12 +25,24 @@ internal static class WorldScope
     // WARNING: the order in which the static fields are written is __important__.
 
     public static readonly DayNumber Epoch = DayZero.SundayBeforeGregorian;
+
+    // This schema instance is the one used by:
+    // - WorldScope.Instance
+    // - WorldCalendar.Instance
+    // - All instances of WorldDate
+    // - WorldCalendar custom methods only (see the file _Calendar.cs)
     public static readonly WorldSchema Schema = new();
 
+    // This scope instance is the one used by:
+    // - WorldCalendar.Instance
+    // - All instances of WorldDate
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
+    // These properties were only created to ease the initialization of the
+    // static fields of WorldDate. Notice that these properties are
+    // properties (!) of value type without a backing field, therefore they only
+    // exist temporarily.
     public static Range<DayNumber> Domain => Instance.Domain;
-
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
@@ -43,15 +55,20 @@ internal static class WorldScope
 /// </summary>
 public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 {
+    // This class is not a singleton but we ensure that all date instances are
+    // using the same calendar instance. While not mandatory at all, I like the
+    // idea.
     internal static readonly WorldCalendar Instance = new(WorldScope.Instance);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="WorldCalendar"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
     /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
     /// </summary>
     public WorldCalendar() : this(WorldScope.Create()) { }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
+    /// </summary>
     private WorldCalendar(StandardScope scope) : base("World", scope)
     {
         Adjuster = new WorldAdjuster(this);
@@ -93,15 +110,42 @@ public readonly partial struct WorldDate :
 
 public partial struct WorldDate // Preamble
 {
+    /// <summary>
+    /// Represents the epoch of the associated calendar.
+    /// </summary>
     private static readonly DayNumber s_Epoch = WorldScope.Epoch;
+
+    /// <summary>
+    /// Represents the range of supported <see cref="DayNumber"/>'s by the
+    /// associated calendar.
+    /// </summary>
     private static readonly Range<DayNumber> s_Domain = WorldScope.Domain;
 
+    /// <summary>
+    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MinDaysSinceEpoch = WorldScope.MinDaysSinceEpoch;
+
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MaxDaysSinceEpoch = WorldScope.MaxDaysSinceEpoch;
 
+    /// <summary>
+    /// Represents the minimum value of the current type.
+    /// </summary>
     private static readonly WorldDate s_MinValue = new(WorldScope.MinDaysSinceEpoch);
+
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly WorldDate s_MaxValue = new(WorldScope.MaxDaysSinceEpoch);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/> to
+    /// <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// </summary>
     private readonly int _daysSinceEpoch;
 
     /// <summary>
@@ -158,6 +202,7 @@ public partial struct WorldDate // Preamble
     public static WorldAdjuster Adjuster => WorldCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
+    //
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
@@ -238,6 +283,9 @@ public partial struct WorldDate // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    //
+    // Don't use Scope.Schema or WorldScope.Instance.Schema. Both are of
+    // type ICalendricalSchema, not WorldSchema.
     private static WorldSchema Schema => WorldScope.Schema;
 
     /// <summary>

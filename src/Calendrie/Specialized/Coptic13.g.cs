@@ -25,12 +25,24 @@ internal static class Coptic13Scope
     // WARNING: the order in which the static fields are written is __important__.
 
     public static readonly DayNumber Epoch = DayZero.Coptic;
+
+    // This schema instance is the one used by:
+    // - Coptic13Scope.Instance
+    // - Coptic13Calendar.Instance
+    // - All instances of Coptic13Date
+    // - Coptic13Calendar custom methods only (see the file _Calendar.cs)
     public static readonly Coptic13Schema Schema = new();
 
+    // This scope instance is the one used by:
+    // - Coptic13Calendar.Instance
+    // - All instances of Coptic13Date
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
+    // These properties were only created to ease the initialization of the
+    // static fields of Coptic13Date. Notice that these properties are
+    // properties (!) of value type without a backing field, therefore they only
+    // exist temporarily.
     public static Range<DayNumber> Domain => Instance.Domain;
-
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
@@ -43,15 +55,20 @@ internal static class Coptic13Scope
 /// </summary>
 public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
 {
+    // This class is not a singleton but we ensure that all date instances are
+    // using the same calendar instance. While not mandatory at all, I like the
+    // idea.
     internal static readonly Coptic13Calendar Instance = new(Coptic13Scope.Instance);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Coptic13Calendar"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="Coptic13Calendar"/> class.
     /// <para>See also <seealso cref="Coptic13Date.Calendar"/>.</para>
     /// </summary>
     public Coptic13Calendar() : this(Coptic13Scope.Create()) { }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Coptic13Calendar"/> class.
+    /// </summary>
     private Coptic13Calendar(StandardScope scope) : base("Coptic", scope)
     {
         Adjuster = new Coptic13Adjuster(this);
@@ -93,15 +110,42 @@ public readonly partial struct Coptic13Date :
 
 public partial struct Coptic13Date // Preamble
 {
+    /// <summary>
+    /// Represents the epoch of the associated calendar.
+    /// </summary>
     private static readonly DayNumber s_Epoch = Coptic13Scope.Epoch;
+
+    /// <summary>
+    /// Represents the range of supported <see cref="DayNumber"/>'s by the
+    /// associated calendar.
+    /// </summary>
     private static readonly Range<DayNumber> s_Domain = Coptic13Scope.Domain;
 
+    /// <summary>
+    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MinDaysSinceEpoch = Coptic13Scope.MinDaysSinceEpoch;
+
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MaxDaysSinceEpoch = Coptic13Scope.MaxDaysSinceEpoch;
 
+    /// <summary>
+    /// Represents the minimum value of the current type.
+    /// </summary>
     private static readonly Coptic13Date s_MinValue = new(Coptic13Scope.MinDaysSinceEpoch);
+
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly Coptic13Date s_MaxValue = new(Coptic13Scope.MaxDaysSinceEpoch);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/> to
+    /// <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// </summary>
     private readonly int _daysSinceEpoch;
 
     /// <summary>
@@ -158,6 +202,7 @@ public partial struct Coptic13Date // Preamble
     public static Coptic13Adjuster Adjuster => Coptic13Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
+    //
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
@@ -238,6 +283,9 @@ public partial struct Coptic13Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    //
+    // Don't use Scope.Schema or Coptic13Scope.Instance.Schema. Both are of
+    // type ICalendricalSchema, not Coptic13Schema.
     private static Coptic13Schema Schema => Coptic13Scope.Schema;
 
     /// <summary>

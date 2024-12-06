@@ -25,12 +25,24 @@ internal static class TabularIslamicScope
     // WARNING: the order in which the static fields are written is __important__.
 
     public static readonly DayNumber Epoch = DayZero.TabularIslamic;
+
+    // This schema instance is the one used by:
+    // - TabularIslamicScope.Instance
+    // - TabularIslamicCalendar.Instance
+    // - All instances of TabularIslamicDate
+    // - TabularIslamicCalendar custom methods only (see the file _Calendar.cs)
     public static readonly TabularIslamicSchema Schema = new();
 
+    // This scope instance is the one used by:
+    // - TabularIslamicCalendar.Instance
+    // - All instances of TabularIslamicDate
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
+    // These properties were only created to ease the initialization of the
+    // static fields of TabularIslamicDate. Notice that these properties are
+    // properties (!) of value type without a backing field, therefore they only
+    // exist temporarily.
     public static Range<DayNumber> Domain => Instance.Domain;
-
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
@@ -43,15 +55,20 @@ internal static class TabularIslamicScope
 /// </summary>
 public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
 {
+    // This class is not a singleton but we ensure that all date instances are
+    // using the same calendar instance. While not mandatory at all, I like the
+    // idea.
     internal static readonly TabularIslamicCalendar Instance = new(TabularIslamicScope.Instance);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
     public TabularIslamicCalendar() : this(TabularIslamicScope.Create()) { }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
+    /// </summary>
     private TabularIslamicCalendar(StandardScope scope) : base("Tabular Islamic", scope)
     {
         Adjuster = new TabularIslamicAdjuster(this);
@@ -93,15 +110,42 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Preamble
 {
+    /// <summary>
+    /// Represents the epoch of the associated calendar.
+    /// </summary>
     private static readonly DayNumber s_Epoch = TabularIslamicScope.Epoch;
+
+    /// <summary>
+    /// Represents the range of supported <see cref="DayNumber"/>'s by the
+    /// associated calendar.
+    /// </summary>
     private static readonly Range<DayNumber> s_Domain = TabularIslamicScope.Domain;
 
+    /// <summary>
+    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MinDaysSinceEpoch = TabularIslamicScope.MinDaysSinceEpoch;
+
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MaxDaysSinceEpoch = TabularIslamicScope.MaxDaysSinceEpoch;
 
+    /// <summary>
+    /// Represents the minimum value of the current type.
+    /// </summary>
     private static readonly TabularIslamicDate s_MinValue = new(TabularIslamicScope.MinDaysSinceEpoch);
+
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly TabularIslamicDate s_MaxValue = new(TabularIslamicScope.MaxDaysSinceEpoch);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/> to
+    /// <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// </summary>
     private readonly int _daysSinceEpoch;
 
     /// <summary>
@@ -158,6 +202,7 @@ public partial struct TabularIslamicDate // Preamble
     public static TabularIslamicAdjuster Adjuster => TabularIslamicCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
+    //
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
@@ -238,6 +283,9 @@ public partial struct TabularIslamicDate // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    //
+    // Don't use Scope.Schema or TabularIslamicScope.Instance.Schema. Both are of
+    // type ICalendricalSchema, not TabularIslamicSchema.
     private static TabularIslamicSchema Schema => TabularIslamicScope.Schema;
 
     /// <summary>
