@@ -11,6 +11,7 @@ public abstract class JulianComparisons
 {
     private protected DayNumber dayNumber;
     private protected JulianDate julianDate;
+    private protected PlainJulianDate plainJulianDate;
     private protected DateOnly dateOnly;
     private protected DateTime dateTime;
     private protected LocalDate localDate;
@@ -29,6 +30,8 @@ public abstract class JulianComparisons
 
         julianDate = new(y, m, d);
         dayNumber = julianDate.DayNumber;
+
+        plainJulianDate = new(y, m, d);
 
         dateTime = new(y, m, d, new System.Globalization.JulianCalendar());
         dateOnly = new(y, m, d, new System.Globalization.JulianCalendar());

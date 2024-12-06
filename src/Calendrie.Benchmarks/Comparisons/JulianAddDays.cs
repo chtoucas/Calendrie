@@ -13,7 +13,10 @@ public class JulianAddDays : JulianComparisons
     public DayNumber WithDayNumber31() => dayNumber.AddDays(31);
 
     [Benchmark(Description = "JulianDate")]
-    public JulianDate WithGregorianDate31() => julianDate.AddDays(31);
+    public JulianDate WithJulianDate31() => julianDate.AddDays(31);
+
+    [Benchmark(Description = "JulianDate_Plain")]
+    public PlainJulianDate WithPlainJulianDate31() => plainJulianDate.AddDays(31);
 
     [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate31() => localDate.PlusDays(31);
