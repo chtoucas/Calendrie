@@ -657,6 +657,7 @@ public partial struct DayNumber // Math ops
 
     /// <summary>
     /// Adds a number of days to this instance, yielding a new day number.
+    /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure]
     internal DayNumber AddDaysUnchecked(int days) => new(_daysSinceZero + days);
