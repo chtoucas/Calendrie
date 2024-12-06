@@ -46,8 +46,19 @@ public partial struct JulianDate // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        return new(dayNumber - s_Epoch);
+        // We know that the subtraction won't overflow
+        // > return new(dayNumber - s_Epoch);
+        return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct
+    /// from the specified day number.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static JulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
+        new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
 }
 
 public partial struct JulianDate // Counting
@@ -87,7 +98,7 @@ public partial struct JulianDate // Adjustments
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -96,7 +107,7 @@ public partial struct JulianDate // Adjustments
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -105,7 +116,7 @@ public partial struct JulianDate // Adjustments
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
         s_Domain.CheckOverflow(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -114,7 +125,7 @@ public partial struct JulianDate // Adjustments
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -123,7 +134,7 @@ public partial struct JulianDate // Adjustments
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 }
 

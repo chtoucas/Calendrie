@@ -75,7 +75,7 @@ public partial struct JulianDate
     public static JulianAdjuster Adjuster => JulianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => s_Epoch.AddDaysUnchecked(_daysSinceEpoch);
+    public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;

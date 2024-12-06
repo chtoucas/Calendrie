@@ -101,12 +101,19 @@ using Calendrie.Horology;
 /// <see cref="<#= Prefix #>Calendar"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal static partial class <#= Prefix #>Scope
+internal static class <#= Prefix #>Scope
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     public static readonly DayNumber Epoch = <#= Epoch #>;
     public static readonly <#= SchemaClass #> Schema = new();
 
     public static readonly <#= ScopeClass #> Instance = new(Schema, Epoch);
+
+    public static Range<DayNumber> Domain => Instance.Domain;
+
+    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), Epoch);
 }

@@ -20,12 +20,19 @@ using Calendrie.Hemerology;
 /// <see cref="Coptic13Calendar"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal static partial class Coptic13Scope
+internal static class Coptic13Scope
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     public static readonly DayNumber Epoch = DayZero.Coptic;
     public static readonly Coptic13Schema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
+
+    public static Range<DayNumber> Domain => Instance.Domain;
+
+    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new Coptic13Schema(), Epoch);
 }
@@ -86,16 +93,14 @@ public readonly partial struct Coptic13Date :
 
 public partial struct Coptic13Date // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
+    private static readonly DayNumber s_Epoch = Coptic13Scope.Epoch;
+    private static readonly Range<DayNumber> s_Domain = Coptic13Scope.Domain;
 
-    private static readonly DayNumber s_Epoch = Coptic13Scope.Instance.Epoch;
-    private static readonly Range<DayNumber> s_Domain = Coptic13Scope.Instance.Domain;
+    private static readonly int s_MinDaysSinceEpoch = Coptic13Scope.MinDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = Coptic13Scope.MaxDaysSinceEpoch;
 
-    private static readonly int s_MinDaysSinceEpoch = Coptic13Scope.Instance.Segment.SupportedDays.Min;
-    private static readonly int s_MaxDaysSinceEpoch = Coptic13Scope.Instance.Segment.SupportedDays.Max;
-
-    private static readonly Coptic13Date s_MinValue = new(s_MinDaysSinceEpoch);
-    private static readonly Coptic13Date s_MaxValue = new(s_MaxDaysSinceEpoch);
+    private static readonly Coptic13Date s_MinValue = new(Coptic13Scope.MinDaysSinceEpoch);
+    private static readonly Coptic13Date s_MaxValue = new(Coptic13Scope.MaxDaysSinceEpoch);
 
     private readonly int _daysSinceEpoch;
 
@@ -156,7 +161,7 @@ public partial struct Coptic13Date // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
-    public DayNumber DayNumber => s_Epoch.AddDaysUnchecked(_daysSinceEpoch);
+    public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -269,8 +274,19 @@ public partial struct Coptic13Date // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        return new(dayNumber - s_Epoch);
+        // We know that the subtraction won't overflow
+        // > return new(dayNumber - s_Epoch);
+        return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Coptic13Date"/> struct
+    /// from the specified day number.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static Coptic13Date FromDayNumberUnchecked(DayNumber dayNumber) =>
+        new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
 }
 
 public partial struct Coptic13Date // Counting
@@ -310,7 +326,7 @@ public partial struct Coptic13Date // Adjustments
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -319,7 +335,7 @@ public partial struct Coptic13Date // Adjustments
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -328,7 +344,7 @@ public partial struct Coptic13Date // Adjustments
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
         s_Domain.CheckOverflow(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -337,7 +353,7 @@ public partial struct Coptic13Date // Adjustments
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 
     /// <inheritdoc />
@@ -346,7 +362,7 @@ public partial struct Coptic13Date // Adjustments
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return new(dayNumber - s_Epoch);
+        return FromDayNumberUnchecked(dayNumber);
     }
 }
 
