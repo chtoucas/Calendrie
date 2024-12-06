@@ -27,23 +27,34 @@ internal static class WorldScope
     public static readonly DayNumber Epoch = DayZero.SundayBeforeGregorian;
 
     // This schema instance is the one used by:
-    // - WorldScope.Instance
-    // - WorldCalendar.Instance
-    // - All instances of WorldDate
-    // - WorldCalendar custom methods only (see the file _Calendar.cs)
+    // - WorldScope.Instance (ctor)
+    // - WorldCalendar.Instance via WorldScope.Instance
+    // - All instances of the WorldDate type via its property Schema
+    // - WorldCalendar, custom methods only (see the file _Calendar.cs)
     public static readonly WorldSchema Schema = new();
 
     // This scope instance is the one used by:
-    // - WorldCalendar.Instance
-    // - All instances of WorldDate
+    // - WorldCalendar.Instance (ctor)
+    // - All instances of the WorldDate type via its property Scope
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
-    // These properties were only created to ease the initialization of the
-    // static fields of WorldDate. Notice that these properties are
+    // The next three properties are only created to ease the initialization of
+    // the static fields of WorldDate. Notice that these properties are
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
+
     public static Range<DayNumber> Domain => Instance.Domain;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new WorldSchema(), Epoch);

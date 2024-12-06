@@ -27,23 +27,34 @@ internal static class ArmenianScope
     public static readonly DayNumber Epoch = DayZero.Armenian;
 
     // This schema instance is the one used by:
-    // - ArmenianScope.Instance
-    // - ArmenianCalendar.Instance
-    // - All instances of ArmenianDate
-    // - ArmenianCalendar custom methods only (see the file _Calendar.cs)
+    // - ArmenianScope.Instance (ctor)
+    // - ArmenianCalendar.Instance via ArmenianScope.Instance
+    // - All instances of the ArmenianDate type via its property Schema
+    // - ArmenianCalendar, custom methods only (see the file _Calendar.cs)
     public static readonly Egyptian12Schema Schema = new();
 
     // This scope instance is the one used by:
-    // - ArmenianCalendar.Instance
-    // - All instances of ArmenianDate
+    // - ArmenianCalendar.Instance (ctor)
+    // - All instances of the ArmenianDate type via its property Scope
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
-    // These properties were only created to ease the initialization of the
-    // static fields of ArmenianDate. Notice that these properties are
+    // The next three properties are only created to ease the initialization of
+    // the static fields of ArmenianDate. Notice that these properties are
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
+
     public static Range<DayNumber> Domain => Instance.Domain;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new Egyptian12Schema(), Epoch);

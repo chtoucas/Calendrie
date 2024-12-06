@@ -27,23 +27,34 @@ internal static class CopticScope
     public static readonly DayNumber Epoch = DayZero.Coptic;
 
     // This schema instance is the one used by:
-    // - CopticScope.Instance
-    // - CopticCalendar.Instance
-    // - All instances of CopticDate
-    // - CopticCalendar custom methods only (see the file _Calendar.cs)
+    // - CopticScope.Instance (ctor)
+    // - CopticCalendar.Instance via CopticScope.Instance
+    // - All instances of the CopticDate type via its property Schema
+    // - CopticCalendar, custom methods only (see the file _Calendar.cs)
     public static readonly Coptic12Schema Schema = new();
 
     // This scope instance is the one used by:
-    // - CopticCalendar.Instance
-    // - All instances of CopticDate
+    // - CopticCalendar.Instance (ctor)
+    // - All instances of the CopticDate type via its property Scope
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
-    // These properties were only created to ease the initialization of the
-    // static fields of CopticDate. Notice that these properties are
+    // The next three properties are only created to ease the initialization of
+    // the static fields of CopticDate. Notice that these properties are
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
+
     public static Range<DayNumber> Domain => Instance.Domain;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new Coptic12Schema(), Epoch);

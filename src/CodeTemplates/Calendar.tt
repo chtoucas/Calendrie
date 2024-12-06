@@ -108,23 +108,34 @@ internal static class <#= Prefix #>Scope
     public static readonly DayNumber Epoch = <#= Epoch #>;
 
     // This schema instance is the one used by:
-    // - <#= Prefix #>Scope.Instance
-    // - <#= Prefix #>Calendar.Instance
-    // - All instances of <#= Prefix #>Date
-    // - <#= Prefix #>Calendar custom methods only (see the file _Calendar.cs)
+    // - <#= Prefix #>Scope.Instance (ctor)
+    // - <#= Prefix #>Calendar.Instance via <#= Prefix #>Scope.Instance
+    // - All instances of the <#= Prefix #>Date type via its property Schema
+    // - <#= Prefix #>Calendar, custom methods only (see the file _Calendar.cs)
     public static readonly <#= SchemaClass #> Schema = new();
 
     // This scope instance is the one used by:
-    // - <#= Prefix #>Calendar.Instance
-    // - All instances of <#= Prefix #>Date
+    // - <#= Prefix #>Calendar.Instance (ctor)
+    // - All instances of the <#= Prefix #>Date type via its property Scope
     public static readonly <#= ScopeClass #> Instance = new(Schema, Epoch);
 
-    // These properties were only created to ease the initialization of the
-    // static fields of <#= Prefix #>Date. Notice that these properties are
+    // The next three properties are only created to ease the initialization of
+    // the static fields of <#= Prefix #>Date. Notice that these properties are
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
+
     public static Range<DayNumber> Domain => Instance.Domain;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), Epoch);

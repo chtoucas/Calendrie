@@ -27,23 +27,34 @@ internal static class ZoroastrianScope
     public static readonly DayNumber Epoch = DayZero.Zoroastrian;
 
     // This schema instance is the one used by:
-    // - ZoroastrianScope.Instance
-    // - ZoroastrianCalendar.Instance
-    // - All instances of ZoroastrianDate
-    // - ZoroastrianCalendar custom methods only (see the file _Calendar.cs)
+    // - ZoroastrianScope.Instance (ctor)
+    // - ZoroastrianCalendar.Instance via ZoroastrianScope.Instance
+    // - All instances of the ZoroastrianDate type via its property Schema
+    // - ZoroastrianCalendar, custom methods only (see the file _Calendar.cs)
     public static readonly Egyptian12Schema Schema = new();
 
     // This scope instance is the one used by:
-    // - ZoroastrianCalendar.Instance
-    // - All instances of ZoroastrianDate
+    // - ZoroastrianCalendar.Instance (ctor)
+    // - All instances of the ZoroastrianDate type via its property Scope
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
-    // These properties were only created to ease the initialization of the
-    // static fields of ZoroastrianDate. Notice that these properties are
+    // The next three properties are only created to ease the initialization of
+    // the static fields of ZoroastrianDate. Notice that these properties are
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
+
     public static Range<DayNumber> Domain => Instance.Domain;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new Egyptian12Schema(), Epoch);

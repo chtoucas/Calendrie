@@ -27,23 +27,34 @@ internal static class Zoroastrian13Scope
     public static readonly DayNumber Epoch = DayZero.Zoroastrian;
 
     // This schema instance is the one used by:
-    // - Zoroastrian13Scope.Instance
-    // - Zoroastrian13Calendar.Instance
-    // - All instances of Zoroastrian13Date
-    // - Zoroastrian13Calendar custom methods only (see the file _Calendar.cs)
+    // - Zoroastrian13Scope.Instance (ctor)
+    // - Zoroastrian13Calendar.Instance via Zoroastrian13Scope.Instance
+    // - All instances of the Zoroastrian13Date type via its property Schema
+    // - Zoroastrian13Calendar, custom methods only (see the file _Calendar.cs)
     public static readonly Egyptian13Schema Schema = new();
 
     // This scope instance is the one used by:
-    // - Zoroastrian13Calendar.Instance
-    // - All instances of Zoroastrian13Date
+    // - Zoroastrian13Calendar.Instance (ctor)
+    // - All instances of the Zoroastrian13Date type via its property Scope
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
-    // These properties were only created to ease the initialization of the
-    // static fields of Zoroastrian13Date. Notice that these properties are
+    // The next three properties are only created to ease the initialization of
+    // the static fields of Zoroastrian13Date. Notice that these properties are
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
+
     public static Range<DayNumber> Domain => Instance.Domain;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new Egyptian13Schema(), Epoch);

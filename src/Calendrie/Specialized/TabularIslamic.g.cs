@@ -27,23 +27,34 @@ internal static class TabularIslamicScope
     public static readonly DayNumber Epoch = DayZero.TabularIslamic;
 
     // This schema instance is the one used by:
-    // - TabularIslamicScope.Instance
-    // - TabularIslamicCalendar.Instance
-    // - All instances of TabularIslamicDate
-    // - TabularIslamicCalendar custom methods only (see the file _Calendar.cs)
+    // - TabularIslamicScope.Instance (ctor)
+    // - TabularIslamicCalendar.Instance via TabularIslamicScope.Instance
+    // - All instances of the TabularIslamicDate type via its property Schema
+    // - TabularIslamicCalendar, custom methods only (see the file _Calendar.cs)
     public static readonly TabularIslamicSchema Schema = new();
 
     // This scope instance is the one used by:
-    // - TabularIslamicCalendar.Instance
-    // - All instances of TabularIslamicDate
+    // - TabularIslamicCalendar.Instance (ctor)
+    // - All instances of the TabularIslamicDate type via its property Scope
     public static readonly StandardScope Instance = new(Schema, Epoch);
 
-    // These properties were only created to ease the initialization of the
-    // static fields of TabularIslamicDate. Notice that these properties are
+    // The next three properties are only created to ease the initialization of
+    // the static fields of TabularIslamicDate. Notice that these properties are
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
+
     public static Range<DayNumber> Domain => Instance.Domain;
+
+    /// <summary>
+    /// Represents the minimum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Represents the maximum possible value for the number of consecutive days
+    /// from the epoch.
+    /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new TabularIslamicSchema(), Epoch);
