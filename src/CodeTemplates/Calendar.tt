@@ -7,17 +7,22 @@
 
 public partial class CalendarTemplate : CSharpTemplate
 {
-    public CalendarTemplate(TextTransformation parent, string schemaClass) : base(parent)
+    public CalendarTemplate(TextTransformation parent, string schemaClass, string epoch) : base(parent)
     {
         if (String.IsNullOrWhiteSpace(schemaClass))
             throw new ArgumentException("The schema can not be null or blank.", nameof(schemaClass));
 
+        if (String.IsNullOrWhiteSpace(epoch))
+            throw new ArgumentException("The epoch can not be null or blank.", nameof(epoch));
+
         SchemaClass = schemaClass;
+        Epoch = epoch;
         DisplayName = Name;
         Prefix = Name;
     }
 
     public string SchemaClass { get; }
+    public string Epoch { get; }
     public string ScopeClass { get; set; } = "StandardScope";
 
     // NB: we don't check the setter because these are design time templates:
@@ -98,7 +103,7 @@ using Calendrie.Horology;
 /// </summary>
 internal static partial class <#= Prefix #>Scope
 {
-    public static partial DayNumber Epoch { get; }
+    public static readonly DayNumber Epoch = <#= Epoch #>;
     public static readonly <#= SchemaClass #> Schema = new();
 
     public static readonly <#= ScopeClass #> Instance = new(Schema, Epoch);
@@ -140,8 +145,7 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     /// </summary>
     public <#= Prefix #>Adjuster Adjuster { get; }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override <#= Prefix #>Date NewDate(int <#= DaysSinceEpochVar #>) => new(<#= DaysSinceEpochVar #>);
 }
 <#+

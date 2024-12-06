@@ -22,7 +22,7 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class EthiopicScope
 {
-    public static partial DayNumber Epoch { get; }
+    public static readonly DayNumber Epoch = DayZero.Ethiopic;
     public static readonly Coptic12Schema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
@@ -55,8 +55,7 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
     /// </summary>
     public EthiopicAdjuster Adjuster { get; }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override EthiopicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -72,8 +71,7 @@ public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
     /// </summary>
     internal EthiopicAdjuster(EthiopicCalendar calendar) : base(calendar) { }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override EthiopicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -155,7 +153,10 @@ public partial struct EthiopicDate // Preamble
     public static EthiopicAdjuster Adjuster => EthiopicCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    // We already know that the resulting day number is valid so instead of
+    // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    // we can use an unchecked addition
+    public DayNumber DayNumber => s_Epoch.AddDaysUnchecked(_daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -230,11 +231,13 @@ public partial struct EthiopicDate // Preamble
 
     /// <summary>
     /// Gets the underlying schema.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static Coptic12Schema Schema => EthiopicScope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static StandardScope Scope => EthiopicScope.Instance;
 
@@ -487,3 +490,4 @@ public partial struct EthiopicDate // Math
         return new(_daysSinceEpoch - 1);
     }
 }
+

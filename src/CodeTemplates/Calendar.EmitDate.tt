@@ -102,7 +102,10 @@ public partial struct <#= Prefix #>Date // Preamble
     public static <#= Prefix #>Adjuster Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => s_Epoch + <#= DaysSinceEpochField #>;
+    // We already know that the resulting day number is valid so instead of
+    // > public DayNumber DayNumber => s_Epoch + <#= DaysSinceEpochField #>;
+    // we can use an unchecked addition
+    public DayNumber DayNumber => s_Epoch.AddDaysUnchecked(_daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => <#= DaysSinceEpochField #>;
@@ -177,11 +180,13 @@ public partial struct <#= Prefix #>Date // Preamble
 
     /// <summary>
     /// Gets the underlying schema.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static <#= SchemaClass #> Schema => <#= Prefix #>Scope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static <#= ScopeClass #> Scope => <#= Prefix #>Scope.Instance;
 

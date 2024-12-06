@@ -22,7 +22,7 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class CopticScope
 {
-    public static partial DayNumber Epoch { get; }
+    public static readonly DayNumber Epoch = DayZero.Coptic;
     public static readonly Coptic12Schema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
@@ -55,8 +55,7 @@ public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
     /// </summary>
     public CopticAdjuster Adjuster { get; }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override CopticDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -72,8 +71,7 @@ public sealed partial class CopticAdjuster : SpecialAdjuster<CopticDate>
     /// </summary>
     internal CopticAdjuster(CopticCalendar calendar) : base(calendar) { }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override CopticDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -155,7 +153,10 @@ public partial struct CopticDate // Preamble
     public static CopticAdjuster Adjuster => CopticCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    // We already know that the resulting day number is valid so instead of
+    // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    // we can use an unchecked addition
+    public DayNumber DayNumber => s_Epoch.AddDaysUnchecked(_daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -230,11 +231,13 @@ public partial struct CopticDate // Preamble
 
     /// <summary>
     /// Gets the underlying schema.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static Coptic12Schema Schema => CopticScope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static StandardScope Scope => CopticScope.Instance;
 

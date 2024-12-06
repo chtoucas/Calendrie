@@ -656,6 +656,12 @@ public partial struct DayNumber // Math ops
     public DayNumber AddDays(int days) => this + days;
 
     /// <summary>
+    /// Adds a number of days to this instance, yielding a new day number.
+    /// </summary>
+    [Pure]
+    internal DayNumber AddDaysUnchecked(int days) => new(_daysSinceZero + days);
+
+    /// <summary>
     /// Obtains the day number following this instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the

@@ -22,7 +22,7 @@ using Calendrie.Hemerology;
 /// </summary>
 internal static partial class TabularIslamicScope
 {
-    public static partial DayNumber Epoch { get; }
+    public static readonly DayNumber Epoch = DayZero.TabularIslamic;
     public static readonly TabularIslamicSchema Schema = new();
 
     public static readonly StandardScope Instance = new(Schema, Epoch);
@@ -55,8 +55,7 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     /// </summary>
     public TabularIslamicAdjuster Adjuster { get; }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -72,8 +71,7 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
     /// </summary>
     internal TabularIslamicAdjuster(TabularIslamicCalendar calendar) : base(calendar) { }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
@@ -155,7 +153,10 @@ public partial struct TabularIslamicDate // Preamble
     public static TabularIslamicAdjuster Adjuster => TabularIslamicCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    // We already know that the resulting day number is valid so instead of
+    // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    // we can use an unchecked addition
+    public DayNumber DayNumber => s_Epoch.AddDaysUnchecked(_daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -230,11 +231,13 @@ public partial struct TabularIslamicDate // Preamble
 
     /// <summary>
     /// Gets the underlying schema.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static TabularIslamicSchema Schema => TabularIslamicScope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static StandardScope Scope => TabularIslamicScope.Instance;
 

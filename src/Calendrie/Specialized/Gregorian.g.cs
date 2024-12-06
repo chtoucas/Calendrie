@@ -25,8 +25,7 @@ public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
     /// </summary>
     internal GregorianAdjuster(GregorianCalendar calendar) : base(calendar) { }
 
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override GregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 

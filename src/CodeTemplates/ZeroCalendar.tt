@@ -6,7 +6,8 @@
 
 public class ZeroCalendarTemplate : CalendarTemplate
 {
-    public ZeroCalendarTemplate(TextTransformation parent, string schema) : base(parent, schema)
+    public ZeroCalendarTemplate(TextTransformation parent, string schema, string epoch) :
+        base(parent, schema, epoch)
     {
         DaysSinceEpochField = "_daysSinceZero";
         DaysSinceEpochVar = "daysSinceZero";
@@ -83,9 +84,15 @@ public sealed partial class <#= Prefix #>Clock
 
     protected override void EmitDatePreamble()
     {
-        WriteLine();
+#>
+    // Code C# généré invalide pour que ça ne passe pas inaperçu
+    XXX // FIXME(code): EmitDatePreamble() must be updated
+<#+
+    }
 
-        throw new NotImplementedException("Not yet!");
+    protected void _EmitDatePreamble()
+    {
+        WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
