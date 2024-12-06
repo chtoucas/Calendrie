@@ -21,7 +21,7 @@ public class JulianCtor
     [Benchmark(Description = "JulianDate", Baseline = true)]
     public JulianDate WithJulianDate() => new(_year, _month, _day);
 
-    [Benchmark(Description = "JulianDate_Plain", Baseline = true)]
+    [Benchmark(Description = "JulianDate_Plain")]
     public PlainJulianDate WithPlainJulianDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "LocalDate_NodaTime")]
