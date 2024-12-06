@@ -17,12 +17,14 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     internal static readonly GregorianCalendar Instance = new(GregorianScope.Instance);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianCalendar"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
     /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
     public GregorianCalendar() : this(new GregorianScope(new GregorianSchema())) { }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
+    /// </summary>
     internal GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
     {
         Adjuster = new GregorianAdjuster(this);
@@ -36,6 +38,6 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
 
-    [Pure]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override GregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }

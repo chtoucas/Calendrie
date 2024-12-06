@@ -11,11 +11,11 @@ public partial struct GregorianDate
 {
     private static readonly Range<DayNumber> s_Domain = GregorianScope.Instance.Domain;
 
-    private static readonly int s_MinDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min;
-    private static readonly int s_MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Max;
+    private static readonly int s_MinDaysSinceZero = GregorianScope.MinDaysSinceZero;
+    private static readonly int s_MaxDaysSinceZero = GregorianScope.MaxDaysSinceZero;
 
-    private static readonly GregorianDate s_MinValue = new(s_MinDaysSinceZero);
-    private static readonly GregorianDate s_MaxValue = new(s_MaxDaysSinceZero);
+    private static readonly GregorianDate s_MinValue = new(GregorianScope.MinDaysSinceZero);
+    private static readonly GregorianDate s_MaxValue = new(GregorianScope.MaxDaysSinceZero);
 
     private readonly int _daysSinceZero;
 

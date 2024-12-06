@@ -12,11 +12,11 @@ public partial struct JulianDate
     private static readonly DayNumber s_Epoch = JulianScope.Instance.Epoch;
     private static readonly Range<DayNumber> s_Domain = JulianScope.Instance.Domain;
 
-    private static readonly int s_MinDaysSinceEpoch = JulianScope.Instance.Segment.SupportedDays.Min;
-    private static readonly int s_MaxDaysSinceEpoch = JulianScope.Instance.Segment.SupportedDays.Max;
+    private static readonly int s_MinDaysSinceEpoch = JulianScope.MinDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = JulianScope.MaxDaysSinceEpoch;
 
-    private static readonly JulianDate s_MinValue = new(s_MinDaysSinceEpoch);
-    private static readonly JulianDate s_MaxValue = new(s_MaxDaysSinceEpoch);
+    private static readonly JulianDate s_MinValue = new(JulianScope.MinDaysSinceEpoch);
+    private static readonly JulianDate s_MaxValue = new(JulianScope.MaxDaysSinceEpoch);
 
     private readonly int _daysSinceEpoch;
 

@@ -29,8 +29,11 @@ internal sealed class JulianScope : CalendarScope
     /// </summary>
     public const int MaxYear = ProlepticScope.MaxYear;
 
+    // See comments in Armenian13Scope for instance.
     public static readonly JulianSchema SchemaT = new();
     public static readonly JulianScope Instance = new(SchemaT);
+    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianScope"/> class.

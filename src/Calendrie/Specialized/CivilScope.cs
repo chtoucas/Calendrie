@@ -28,21 +28,11 @@ internal sealed class CivilScope : CalendarScope
     /// </summary>
     public const int MaxYear = StandardScope.MaxYear;
 
-    /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// <para>This field is a constant equal to 0.</para>
-    /// </summary>
-    public const int MinDaysSinceZero = 0;
-
-    /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static readonly int MaxDaysSinceZero = GregorianFormulae.GetEndOfYear(MaxYear);
-
+    // See comments in Armenian13Scope for instance.
     public static readonly CivilSchema SchemaT = new();
     public static readonly CivilScope Instance = new(SchemaT);
+    public const int MinDaysSinceZero = 0;
+    public static int MaxDaysSinceZero => Instance.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilScope"/> class.
