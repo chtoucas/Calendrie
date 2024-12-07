@@ -8,7 +8,7 @@
 
 public sealed class CivilTemplate : ZeroCalendarTemplate
 {
-    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema", "DayZero.NewStyle")
+    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema")
     {
         ScopeClass = "CivilScope";
     }

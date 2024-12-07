@@ -6,26 +6,13 @@
 
 public class ZeroCalendarTemplate : CalendarTemplate
 {
-    public ZeroCalendarTemplate(TextTransformation parent, string schema, string epoch) :
-        base(parent, schema, epoch)
+    public ZeroCalendarTemplate(TextTransformation parent, string schema) :
+        base(parent, schema, "DayZero.NewStyle")
     {
         DaysSinceEpochField = "_daysSinceZero";
         DaysSinceEpochVar = "daysSinceZero";
         DaysSinceEpochStaticSuffix = "DaysSinceZero";
     }
-
-    protected override void EmitUsings()
-    {
-        WriteLine();
-#>
-using Calendrie.Core.Schemas;
-using Calendrie.Core.Validation;
-using Calendrie.Hemerology;
-<#+ if (EnableClock) { #>
-using Calendrie.Horology;
-<#+ } #>
-<#+
-    } // T4: End of EmitUsings()
 
     protected override void EmitClock()
     {
@@ -82,23 +69,40 @@ public sealed partial class <#= Prefix #>Clock
 <#+
     } // T4: End of EmitClock()
 
-    protected override void EmitDatePreamble()
+    protected void _EmitDatePreamble()
     {
+        // À mettre à jour, voir _EmitDatePreamble() ci-dessous.
 #>
     // Code C# généré invalide pour que ça ne passe pas inaperçu
-    XXX // FIXME(code): EmitDatePreamble() must be updated
+    XXX // FIXME(code): EmitDatePreamble() has not yet been updated
 <#+
     }
 
-    protected void _EmitDatePreamble()
+    protected override void EmitDatePreamble()
     {
         WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
+    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
+    /// the associated calendar.</summary>
+    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
+
+    /// <summary>Represents the minimum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
+    private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>;
+    /// <summary>Represents the maximum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
+    private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>;
+
+    /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>);
+    /// <summary>Represents the maximum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
+    /// <para>This field is in the range from 0 to <see cref="s_Max<#= DaysSinceEpochStaticSuffix #>"/>.
+    /// </para>
+    /// </summary>
     private readonly int <#= DaysSinceEpochField #>;
 
     /// <summary>
@@ -258,18 +262,6 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
         year = Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
-}
-
-public partial struct <#= Prefix #>Date // Factories
-{
-    /// <inheritdoc />
-    [Pure]
-    public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
-    {
-        s_Domain.Validate(dayNumber);
-
-        return new(dayNumber.DaysSinceZero);
-    }
 }
 <#+
     } // T4: End of EmitDateDecl()

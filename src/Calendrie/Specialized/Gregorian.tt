@@ -8,8 +8,7 @@
 
 public sealed class GregorianTemplate : ZeroCalendarTemplate
 {
-    public GregorianTemplate(TextTransformation parent) :
-        base(parent, "GregorianSchema", "DayZero.NewStyle")
+    public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema")
     {
         ScopeClass = "GregorianScope";
     }

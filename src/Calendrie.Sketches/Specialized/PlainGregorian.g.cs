@@ -52,13 +52,13 @@ internal static class PlainGregorianScope
     /// Represents the minimum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+    public static int MinDaysSinceZero => Instance.Segment.SupportedDays.Min;
 
     /// <summary>
     /// Represents the maximum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
+    public static int MaxDaysSinceZero => Instance.Segment.SupportedDays.Max;
 
     public static StandardScope Create() => new(new GregorianSchema(), Epoch);
 }
@@ -94,7 +94,7 @@ public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregor
     public PlainGregorianAdjuster Adjuster { get; }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override PlainGregorianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override PlainGregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
@@ -109,7 +109,7 @@ public sealed partial class PlainGregorianAdjuster : SpecialAdjuster<PlainGregor
     internal PlainGregorianAdjuster(PlainGregorianCalendar calendar) : base(calendar) { }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override PlainGregorianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
+    private protected sealed override PlainGregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
@@ -123,43 +123,26 @@ public readonly partial struct PlainGregorianDate :
 
 public partial struct PlainGregorianDate // Preamble
 {
-    /// <summary>
-    /// Represents the epoch of the associated calendar.
-    /// </summary>
-    private static readonly DayNumber s_Epoch = PlainGregorianScope.Epoch;
-
-    /// <summary>
-    /// Represents the range of supported <see cref="DayNumber"/>'s by the
-    /// associated calendar.
-    /// </summary>
+    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
+    /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = PlainGregorianScope.Domain;
 
-    /// <summary>
-    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
-    /// </summary>
-    private static readonly int s_MinDaysSinceEpoch = PlainGregorianScope.MinDaysSinceEpoch;
+    /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
+    private static readonly int s_MinDaysSinceZero = PlainGregorianScope.MinDaysSinceZero;
+    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
+    private static readonly int s_MaxDaysSinceZero = PlainGregorianScope.MaxDaysSinceZero;
+
+    /// <summary>Represents the minimum value of the current type.</summary>
+    private static readonly PlainGregorianDate s_MinValue = new(PlainGregorianScope.MinDaysSinceZero);
+    /// <summary>Represents the maximum value of the current type.</summary>
+    private static readonly PlainGregorianDate s_MaxValue = new(PlainGregorianScope.MaxDaysSinceZero);
 
     /// <summary>
-    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
+    /// <para>This field is in the range from 0 to <see cref="s_MaxDaysSinceZero"/>.
+    /// </para>
     /// </summary>
-    private static readonly int s_MaxDaysSinceEpoch = PlainGregorianScope.MaxDaysSinceEpoch;
-
-    /// <summary>
-    /// Represents the minimum value of the current type.
-    /// </summary>
-    private static readonly PlainGregorianDate s_MinValue = new(PlainGregorianScope.MinDaysSinceEpoch);
-
-    /// <summary>
-    /// Represents the maximum value of the current type.
-    /// </summary>
-    private static readonly PlainGregorianDate s_MaxValue = new(PlainGregorianScope.MaxDaysSinceEpoch);
-
-    /// <summary>
-    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
-    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/> to
-    /// <see cref="s_MaxDaysSinceEpoch"/>.</para>
-    /// </summary>
-    private readonly int _daysSinceEpoch;
+    private readonly int _daysSinceZero;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianDate"/> struct
@@ -172,7 +155,7 @@ public partial struct PlainGregorianDate // Preamble
     {
         Scope.ValidateYearMonthDay(year, month, day);
 
-        _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, month, day);
+        _daysSinceZero = Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -186,15 +169,15 @@ public partial struct PlainGregorianDate // Preamble
     {
         Scope.ValidateOrdinal(year, dayOfYear);
 
-        _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        _daysSinceZero = Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
     /// This constructor does NOT validate its parameter.
     /// </summary>
-    internal PlainGregorianDate(int daysSinceEpoch)
+    internal PlainGregorianDate(int daysSinceZero)
     {
-        _daysSinceEpoch = daysSinceEpoch;
+        _daysSinceZero = daysSinceZero;
     }
 
     /// <inheritdoc />
@@ -215,14 +198,12 @@ public partial struct PlainGregorianDate // Preamble
     public static PlainGregorianAdjuster Adjuster => PlainGregorianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    //
-    // We already know that the resulting day number is valid so instead of
-    // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
-    // we can use an unchecked addition
-    public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(_daysSinceZero);
 
-    /// <inheritdoc />
-    public int DaysSinceEpoch => _daysSinceEpoch;
+    /// <summary>Gets the count of days since the Gregorian epoch.</summary>
+    public int DaysSinceZero => _daysSinceZero;
+
+    int IFixedDate.DaysSinceEpoch => _daysSinceZero;
 
     /// <inheritdoc />
     public Ord CenturyOfEra => Ord.FromInt32(Century);
@@ -237,14 +218,14 @@ public partial struct PlainGregorianDate // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Schema.GetYear(_daysSinceEpoch);
+    public int Year => Schema.GetYear(_daysSinceZero);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out _);
+            Schema.GetDateParts(_daysSinceZero, out _, out int m, out _);
             return m;
         }
     }
@@ -254,7 +235,7 @@ public partial struct PlainGregorianDate // Preamble
     {
         get
         {
-            _ = Schema.GetYear(_daysSinceEpoch, out int doy);
+            _ = Schema.GetYear(_daysSinceZero, out int doy);
             return doy;
         }
     }
@@ -264,7 +245,7 @@ public partial struct PlainGregorianDate // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+            Schema.GetDateParts(_daysSinceZero, out _, out _, out int d);
             return d;
         }
     }
@@ -277,7 +258,7 @@ public partial struct PlainGregorianDate // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
             return Schema.IsIntercalaryDay(y, m, d);
         }
     }
@@ -287,23 +268,18 @@ public partial struct PlainGregorianDate // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
             return Schema.IsSupplementaryDay(y, m, d);
         }
     }
 
     /// <summary>
     /// Gets the underlying schema.
-    /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema or PlainGregorianScope.Instance.Schema. Both are of
-    // type ICalendricalSchema, not GregorianSchema.
     private static GregorianSchema Schema => PlainGregorianScope.Schema;
 
     /// <summary>
     /// Gets the calendar scope.
-    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static StandardScope Scope => PlainGregorianScope.Instance;
 
@@ -314,17 +290,17 @@ public partial struct PlainGregorianDate // Preamble
     [Pure]
     public override string ToString()
     {
-        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
         return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(_daysSinceEpoch, out year, out month, out day);
+        Schema.GetDateParts(_daysSinceZero, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(_daysSinceEpoch, out dayOfYear);
+        year = Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
 public partial struct PlainGregorianDate // Factories
@@ -335,38 +311,27 @@ public partial struct PlainGregorianDate // Factories
     {
         s_Domain.Validate(dayNumber);
 
-        // We know that the subtraction won't overflow
-        // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainGregorianDate"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static PlainGregorianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
 }
 
 public partial struct PlainGregorianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
 public partial struct PlainGregorianDate // Adjustments
@@ -387,7 +352,7 @@ public partial struct PlainGregorianDate // Adjustments
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -396,7 +361,7 @@ public partial struct PlainGregorianDate // Adjustments
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
         s_Domain.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -405,7 +370,7 @@ public partial struct PlainGregorianDate // Adjustments
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
         s_Domain.CheckOverflow(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -414,7 +379,7 @@ public partial struct PlainGregorianDate // Adjustments
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 
     /// <inheritdoc />
@@ -423,7 +388,7 @@ public partial struct PlainGregorianDate // Adjustments
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
         s_Domain.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
+        return new(dayNumber.DaysSinceZero);
     }
 }
 
@@ -431,15 +396,15 @@ public partial struct PlainGregorianDate // IEquatable
 {
     /// <inheritdoc />
     public static bool operator ==(PlainGregorianDate left, PlainGregorianDate right) =>
-        left._daysSinceEpoch == right._daysSinceEpoch;
+        left._daysSinceZero == right._daysSinceZero;
 
     /// <inheritdoc />
     public static bool operator !=(PlainGregorianDate left, PlainGregorianDate right) =>
-        left._daysSinceEpoch != right._daysSinceEpoch;
+        left._daysSinceZero != right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainGregorianDate other) => _daysSinceEpoch == other._daysSinceEpoch;
+    public bool Equals(PlainGregorianDate other) => _daysSinceZero == other._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -448,26 +413,26 @@ public partial struct PlainGregorianDate // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _daysSinceEpoch;
+    public override int GetHashCode() => _daysSinceZero;
 }
 
 public partial struct PlainGregorianDate // IComparable
 {
     /// <inheritdoc />
     public static bool operator <(PlainGregorianDate left, PlainGregorianDate right) =>
-        left._daysSinceEpoch < right._daysSinceEpoch;
+        left._daysSinceZero < right._daysSinceZero;
 
     /// <inheritdoc />
     public static bool operator <=(PlainGregorianDate left, PlainGregorianDate right) =>
-        left._daysSinceEpoch <= right._daysSinceEpoch;
+        left._daysSinceZero <= right._daysSinceZero;
 
     /// <inheritdoc />
     public static bool operator >(PlainGregorianDate left, PlainGregorianDate right) =>
-        left._daysSinceEpoch > right._daysSinceEpoch;
+        left._daysSinceZero > right._daysSinceZero;
 
     /// <inheritdoc />
     public static bool operator >=(PlainGregorianDate left, PlainGregorianDate right) =>
-        left._daysSinceEpoch >= right._daysSinceEpoch;
+        left._daysSinceZero >= right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -479,7 +444,7 @@ public partial struct PlainGregorianDate // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainGregorianDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
+    public int CompareTo(PlainGregorianDate other) => _daysSinceZero.CompareTo(other._daysSinceZero);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -535,20 +500,20 @@ public partial struct PlainGregorianDate // Math
     [Pure]
     public int CountDaysSince(PlainGregorianDate other) =>
         // No need to use a checked context here.
-        _daysSinceEpoch - other._daysSinceEpoch;
+        _daysSinceZero - other._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
     public PlainGregorianDate AddDays(int days)
     {
-        int daysSinceEpoch = checked(_daysSinceEpoch + days);
+        int daysSinceZero = checked(_daysSinceZero + days);
 
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(Epoch + daysSinceEpoch);
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+        // > s_Domain.CheckOverflow(Epoch + daysSinceZero);
+        if (daysSinceZero < s_MinDaysSinceZero || daysSinceZero > s_MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
 
-        return new(daysSinceEpoch);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -556,7 +521,7 @@ public partial struct PlainGregorianDate // Math
     public PlainGregorianDate NextDay()
     {
         if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch + 1);
+        return new(_daysSinceZero + 1);
     }
 
     /// <inheritdoc />
@@ -564,7 +529,7 @@ public partial struct PlainGregorianDate // Math
     public PlainGregorianDate PreviousDay()
     {
         if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch - 1);
+        return new(_daysSinceZero - 1);
     }
 }
 
