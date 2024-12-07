@@ -4,4 +4,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-<#= new CalendarTemplate(this, "Coptic13Schema", "DayZero.Ethiopic") { DisplayName = "Ethiopic" }.Execute() #>
+<#= new CalendarTemplate(this, "Coptic13Schema", "DayZero.Ethiopic")
+    {
+        DisplayName = "Ethiopic"
+    }.Execute() #>

@@ -43,6 +43,10 @@ internal static class TabularIslamicScope
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
 
+    /// <summary>
+    /// Gets the range of supported <see cref="DayNumber"/> values by the
+    /// calendar <see cref="TabularIslamicCalendar"/>.
+    /// </summary>
     public static Range<DayNumber> Domain => Instance.Domain;
 
     /// <summary>
@@ -57,6 +61,10 @@ internal static class TabularIslamicScope
     /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="TabularIslamicCalendar"/>.
+    /// </summary>
     public static StandardScope Create() => new(new TabularIslamicSchema(), Epoch);
 }
 

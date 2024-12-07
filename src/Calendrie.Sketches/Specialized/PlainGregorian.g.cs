@@ -46,6 +46,10 @@ internal static class PlainGregorianScope
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
 
+    /// <summary>
+    /// Gets the range of supported <see cref="DayNumber"/> values by the
+    /// calendar <see cref="PlainGregorianCalendar"/>.
+    /// </summary>
     public static Range<DayNumber> Domain => Instance.Domain;
 
     /// <summary>
@@ -60,6 +64,10 @@ internal static class PlainGregorianScope
     /// </summary>
     public static int MaxDaysSinceZero => Instance.Segment.SupportedDays.Max;
 
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="PlainGregorianCalendar"/>.
+    /// </summary>
     public static StandardScope Create() => new(new GregorianSchema(), Epoch);
 }
 

@@ -43,6 +43,10 @@ internal static class WorldScope
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
 
+    /// <summary>
+    /// Gets the range of supported <see cref="DayNumber"/> values by the
+    /// calendar <see cref="WorldCalendar"/>.
+    /// </summary>
     public static Range<DayNumber> Domain => Instance.Domain;
 
     /// <summary>
@@ -57,6 +61,10 @@ internal static class WorldScope
     /// </summary>
     public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
 
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="WorldCalendar"/>.
+    /// </summary>
     public static StandardScope Create() => new(new WorldSchema(), Epoch);
 }
 

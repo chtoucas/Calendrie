@@ -124,6 +124,10 @@ internal static class <#= Prefix #>Scope
     // properties (!) of value type without a backing field, therefore they only
     // exist temporarily.
 
+    /// <summary>
+    /// Gets the range of supported <see cref="DayNumber"/> values by the
+    /// calendar <see cref="<#= Prefix #>Calendar"/>.
+    /// </summary>
     public static Range<DayNumber> Domain => Instance.Domain;
 
     /// <summary>
@@ -138,6 +142,10 @@ internal static class <#= Prefix #>Scope
     /// </summary>
     public static int Max<#= DaysSinceEpochStaticSuffix #> => Instance.Segment.SupportedDays.Max;
 
+    /// <summary>
+    /// Creates a new instance of the <#= ScopeClass #> class suitable for use
+    /// with <see cref="<#= Prefix #>Calendar"/>.
+    /// </summary>
     public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), Epoch);
 }
 <#+
