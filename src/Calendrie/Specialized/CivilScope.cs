@@ -31,7 +31,7 @@ internal sealed class CivilScope : CalendarScope
     // See comments in Armenian13Scope for instance.
     public static readonly CivilSchema SchemaT = new();
     public static readonly CivilScope Instance = new(SchemaT);
-    public const int MinDaysSinceZero = 0;
+    // NB: MinDaysSinceZero = 0.
     public static int MaxDaysSinceZero => Instance.Segment.SupportedDays.Max;
 
     /// <summary>
