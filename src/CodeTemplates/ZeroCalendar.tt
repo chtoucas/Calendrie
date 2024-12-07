@@ -9,7 +9,6 @@ public class ZeroCalendarTemplate : CalendarTemplate
     public ZeroCalendarTemplate(TextTransformation parent, string schema) :
         base(parent, schema, "DayZero.NewStyle")
     {
-        DaysSinceEpochField = "_daysSinceZero";
         DaysSinceEpochVar = "daysSinceZero";
         DaysSinceEpochStaticSuffix = "DaysSinceZero";
     }
@@ -88,9 +87,9 @@ public partial struct <#= Prefix #>Date // Preamble
     /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
 
-    /// <summary>Represents the minimum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
+    /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
     private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>;
-    /// <summary>Represents the maximum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
+    /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
     private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>;
 
     /// <summary>Represents the minimum value of the current type.</summary>
@@ -103,7 +102,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <para>This field is in the range from 0 to <see cref="s_Max<#= DaysSinceEpochStaticSuffix #>"/>.
     /// </para>
     /// </summary>
-    private readonly int <#= DaysSinceEpochField #>;
+    private readonly int _<#= DaysSinceEpochVar #>;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct
@@ -116,7 +115,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         Scope.ValidateYearMonthDay(year, month, day);
 
-        <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, month, day);
+        _<#= DaysSinceEpochVar #> = Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -130,7 +129,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         Scope.ValidateOrdinal(year, dayOfYear);
 
-        <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        _<#= DaysSinceEpochVar #> = Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -138,7 +137,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// </summary>
     internal <#= Prefix #>Date(int <#= DaysSinceEpochVar #>)
     {
-        <#= DaysSinceEpochField #> = <#= DaysSinceEpochVar #>;
+        _<#= DaysSinceEpochVar #> = <#= DaysSinceEpochVar #>;
     }
 
     /// <inheritdoc />
@@ -159,12 +158,12 @@ public partial struct <#= Prefix #>Date // Preamble
     public static <#= Prefix #>Adjuster Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => new(<#= DaysSinceEpochField #>);
+    public DayNumber DayNumber => new(_<#= DaysSinceEpochVar #>);
 
     /// <summary>Gets the count of days since the Gregorian epoch.</summary>
-    public int DaysSinceZero => <#= DaysSinceEpochField #>;
+    public int DaysSinceZero => _<#= DaysSinceEpochVar #>;
 
-    int IFixedDate.DaysSinceEpoch => <#= DaysSinceEpochField #>;
+    int IFixedDate.DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     public Ord CenturyOfEra => Ord.FromInt32(Century);
@@ -179,14 +178,14 @@ public partial struct <#= Prefix #>Date // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Schema.GetYear(<#= DaysSinceEpochField #>);
+    public int Year => Schema.GetYear(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out int m, out _);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out int m, out _);
             return m;
         }
     }
@@ -196,7 +195,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            _ = Schema.GetYear(<#= DaysSinceEpochField #>, out int doy);
+            _ = Schema.GetYear(_<#= DaysSinceEpochVar #>, out int doy);
             return doy;
         }
     }
@@ -206,7 +205,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out _, out int d);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out _, out int d);
             return d;
         }
     }
@@ -219,7 +218,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
             return Schema.IsIntercalaryDay(y, m, d);
         }
     }
@@ -229,7 +228,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
             return Schema.IsSupplementaryDay(y, m, d);
         }
     }
@@ -251,17 +250,17 @@ public partial struct <#= Prefix #>Date // Preamble
     [Pure]
     public override string ToString()
     {
-        Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+        Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
         return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(<#= DaysSinceEpochField #>, out year, out month, out day);
+        Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
+        year = Schema.GetYear(_<#= DaysSinceEpochVar #>, out dayOfYear);
 }
 <#+
     } // T4: End of EmitDateDecl()

@@ -32,7 +32,6 @@ public partial class CalendarTemplate : CSharpTemplate
     public string DisplayName { get; set; }
     public string Prefix { get; set; }
 
-    public string DaysSinceEpochField { get; set; } = "_daysSinceEpoch";
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
     public string DaysSinceEpochStaticSuffix { get; set; } = "DaysSinceEpoch";
 

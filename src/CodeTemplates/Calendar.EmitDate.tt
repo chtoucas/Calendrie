@@ -42,9 +42,9 @@ public partial struct <#= Prefix #>Date // Preamble
     /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
 
-    /// <summary>Represents the minimum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
+    /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
     private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>;
-    /// <summary>Represents the maximum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
+    /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
     private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>;
 
     /// <summary>Represents the minimum value of the current type.</summary>
@@ -57,7 +57,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochStaticSuffix #>"/>
     /// to <see cref="s_Max<#= DaysSinceEpochStaticSuffix #>"/>.</para>
     /// </summary>
-    private readonly int <#= DaysSinceEpochField #>;
+    private readonly int _<#= DaysSinceEpochVar #>;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct
@@ -70,7 +70,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         Scope.ValidateYearMonthDay(year, month, day);
 
-        <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, month, day);
+        _<#= DaysSinceEpochVar #> = Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         Scope.ValidateOrdinal(year, dayOfYear);
 
-        <#= DaysSinceEpochField #> = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        _<#= DaysSinceEpochVar #> = Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// </summary>
     internal <#= Prefix #>Date(int <#= DaysSinceEpochVar #>)
     {
-        <#= DaysSinceEpochField #> = <#= DaysSinceEpochVar #>;
+        _<#= DaysSinceEpochVar #> = <#= DaysSinceEpochVar #>;
     }
 
     /// <inheritdoc />
@@ -115,12 +115,12 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
-    // > public DayNumber DayNumber => s_Epoch + <#= DaysSinceEpochField #>;
+    // > public DayNumber DayNumber => s_Epoch + _<#= DaysSinceEpochVar #>;
     // we can use an unchecked addition
     public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
-    public int DaysSinceEpoch => <#= DaysSinceEpochField #>;
+    public int DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     public Ord CenturyOfEra => Ord.FromInt32(Century);
@@ -135,14 +135,14 @@ public partial struct <#= Prefix #>Date // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Schema.GetYear(<#= DaysSinceEpochField #>);
+    public int Year => Schema.GetYear(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out int m, out _);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out int m, out _);
             return m;
         }
     }
@@ -152,7 +152,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            _ = Schema.GetYear(<#= DaysSinceEpochField #>, out int doy);
+            _ = Schema.GetYear(_<#= DaysSinceEpochVar #>, out int doy);
             return doy;
         }
     }
@@ -162,7 +162,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out _, out _, out int d);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out _, out int d);
             return d;
         }
     }
@@ -175,7 +175,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
             return Schema.IsIntercalaryDay(y, m, d);
         }
     }
@@ -185,7 +185,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
             return Schema.IsSupplementaryDay(y, m, d);
         }
     }
@@ -212,17 +212,17 @@ public partial struct <#= Prefix #>Date // Preamble
     [Pure]
     public override string ToString()
     {
-        Schema.GetDateParts(<#= DaysSinceEpochField #>, out int y, out int m, out int d);
+        Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
         return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(<#= DaysSinceEpochField #>, out year, out month, out day);
+        Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(<#= DaysSinceEpochField #>, out dayOfYear);
+        year = Schema.GetYear(_<#= DaysSinceEpochVar #>, out dayOfYear);
 }
 <#+
     } // T4: End of EmitDatePreamble()
@@ -264,19 +264,19 @@ public partial struct <#= Prefix #>Date // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(<#= DaysSinceEpochField #>);
+    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(<#= DaysSinceEpochField #>);
+    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(<#= DaysSinceEpochField #>);
+    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(<#= DaysSinceEpochField #>);
+    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitDateCounting()
@@ -353,15 +353,15 @@ public partial struct <#= Prefix #>Date // IEquatable
 {
     /// <inheritdoc />
     public static bool operator ==(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
-        left.<#= DaysSinceEpochField #> == right.<#= DaysSinceEpochField #>;
+        left._<#= DaysSinceEpochVar #> == right._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     public static bool operator !=(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
-        left.<#= DaysSinceEpochField #> != right.<#= DaysSinceEpochField #>;
+        left._<#= DaysSinceEpochVar #> != right._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(<#= Prefix #>Date other) => <#= DaysSinceEpochField #> == other.<#= DaysSinceEpochField #>;
+    public bool Equals(<#= Prefix #>Date other) => _<#= DaysSinceEpochVar #> == other._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     [Pure]
@@ -370,7 +370,7 @@ public partial struct <#= Prefix #>Date // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => <#= DaysSinceEpochField #>;
+    public override int GetHashCode() => _<#= DaysSinceEpochVar #>;
 }
 <#+
     } // T4: End of EmitDateEquatable()
@@ -383,19 +383,19 @@ public partial struct <#= Prefix #>Date // IComparable
 {
     /// <inheritdoc />
     public static bool operator <(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
-        left.<#= DaysSinceEpochField #> < right.<#= DaysSinceEpochField #>;
+        left._<#= DaysSinceEpochVar #> < right._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     public static bool operator <=(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
-        left.<#= DaysSinceEpochField #> <= right.<#= DaysSinceEpochField #>;
+        left._<#= DaysSinceEpochVar #> <= right._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     public static bool operator >(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
-        left.<#= DaysSinceEpochField #> > right.<#= DaysSinceEpochField #>;
+        left._<#= DaysSinceEpochVar #> > right._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     public static bool operator >=(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
-        left.<#= DaysSinceEpochField #> >= right.<#= DaysSinceEpochField #>;
+        left._<#= DaysSinceEpochVar #> >= right._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     [Pure]
@@ -407,7 +407,7 @@ public partial struct <#= Prefix #>Date // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(<#= Prefix #>Date other) => <#= DaysSinceEpochField #>.CompareTo(other.<#= DaysSinceEpochField #>);
+    public int CompareTo(<#= Prefix #>Date other) => _<#= DaysSinceEpochVar #>.CompareTo(other._<#= DaysSinceEpochVar #>);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -469,13 +469,13 @@ public partial struct <#= Prefix #>Date // Math
     [Pure]
     public int CountDaysSince(<#= Prefix #>Date other) =>
         // No need to use a checked context here.
-        <#= DaysSinceEpochField #> - other.<#= DaysSinceEpochField #>;
+        _<#= DaysSinceEpochVar #> - other._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     [Pure]
     public <#= Prefix #>Date AddDays(int days)
     {
-        int <#= DaysSinceEpochVar #> = checked(<#= DaysSinceEpochField #> + days);
+        int <#= DaysSinceEpochVar #> = checked(_<#= DaysSinceEpochVar #> + days);
 
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(Epoch + <#= DaysSinceEpochVar #>);
@@ -490,7 +490,7 @@ public partial struct <#= Prefix #>Date // Math
     public <#= Prefix #>Date NextDay()
     {
         if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochField #> + 1);
+        return new(_<#= DaysSinceEpochVar #> + 1);
     }
 
     /// <inheritdoc />
@@ -498,7 +498,7 @@ public partial struct <#= Prefix #>Date // Math
     public <#= Prefix #>Date PreviousDay()
     {
         if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochField #> - 1);
+        return new(_<#= DaysSinceEpochVar #> - 1);
     }
 }
 <#+
