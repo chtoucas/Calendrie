@@ -68,15 +68,6 @@ public sealed partial class <#= Prefix #>Clock
 <#+
     } // T4: End of EmitClock()
 
-    protected void _EmitDatePreamble()
-    {
-        // À mettre à jour, voir _EmitDatePreamble() ci-dessous.
-#>
-    // Code C# généré invalide pour que ça ne passe pas inaperçu
-    XXX // FIXME(code): EmitDatePreamble() has not yet been updated
-<#+
-    }
-
     protected override void EmitDatePreamble()
     {
         WriteLine();
@@ -263,7 +254,7 @@ public partial struct <#= Prefix #>Date // Preamble
         year = Schema.GetYear(_<#= DaysSinceEpochVar #>, out dayOfYear);
 }
 <#+
-    } // T4: End of EmitDateDecl()
+    } // T4: End of EmitDatePreamble()
 
     protected override void EmitDateFactories()
     {
