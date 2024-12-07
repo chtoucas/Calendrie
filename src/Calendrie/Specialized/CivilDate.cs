@@ -8,14 +8,19 @@ using Calendrie.Hemerology;
 
 public partial struct CivilDate
 {
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceZero"/>.
+    /// </summary>
     private static readonly int s_MaxDaysSinceZero = CivilScope.MaxDaysSinceZero;
 
-#pragma warning disable CS0649 // Field 'field' is never assigned to, and will always have its default value 'value' ✓
-    // s_MinValue = new(0) = new() = default(CivilDate)
-    private static readonly CivilDate s_MinValue;
-#pragma warning restore CS0649
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
+    /// </summary>
     private readonly int _daysSinceZero;
 
     /// <summary>
@@ -57,7 +62,9 @@ public partial struct CivilDate
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static CivilDate MinValue => s_MinValue;
+    //
+    // MinValue = new(0) = new() = default(CivilDate)
+    public static CivilDate MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
@@ -319,7 +326,7 @@ public partial struct CivilDate // Math
     [Pure]
     public CivilDate PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
 }

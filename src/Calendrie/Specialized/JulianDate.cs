@@ -9,15 +9,40 @@ using Calendrie.Hemerology;
 
 public partial struct JulianDate
 {
+    /// <summary>
+    /// Represents the epoch of the associated calendar.
+    /// </summary>
     private static readonly DayNumber s_Epoch = JulianScope.Instance.Epoch;
+
+    /// <summary>
+    /// Represents the range of supported <see cref="DayNumber"/>'s by the
+    /// associated calendar.
+    /// </summary>
     private static readonly Range<DayNumber> s_Domain = JulianScope.Instance.Domain;
 
+    /// <summary>
+    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MinDaysSinceEpoch = JulianScope.MinDaysSinceEpoch;
+
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// </summary>
     private static readonly int s_MaxDaysSinceEpoch = JulianScope.MaxDaysSinceEpoch;
 
+    /// <summary>
+    /// Represents the minimum value of the current type.
+    /// </summary>
     private static readonly JulianDate s_MinValue = new(JulianScope.MinDaysSinceEpoch);
+
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly JulianDate s_MaxValue = new(JulianScope.MaxDaysSinceEpoch);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// </summary>
     private readonly int _daysSinceEpoch;
 
     /// <summary>

@@ -11,12 +11,29 @@ public partial struct GregorianDate
 {
     private static readonly Range<DayNumber> s_Domain = GregorianScope.Instance.Domain;
 
+    /// <summary>
+    /// Represents the minimum value of <see cref="_daysSinceZero"/>.
+    /// </summary>
     private static readonly int s_MinDaysSinceZero = GregorianScope.MinDaysSinceZero;
+
+    /// <summary>
+    /// Represents the maximum value of <see cref="_daysSinceZero"/>.
+    /// </summary>
     private static readonly int s_MaxDaysSinceZero = GregorianScope.MaxDaysSinceZero;
 
+    /// <summary>
+    /// Represents the minimum value of the current type.
+    /// </summary>
     private static readonly GregorianDate s_MinValue = new(GregorianScope.MinDaysSinceZero);
+
+    /// <summary>
+    /// Represents the maximum value of the current type.
+    /// </summary>
     private static readonly GregorianDate s_MaxValue = new(GregorianScope.MaxDaysSinceZero);
 
+    /// <summary>
+    /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
+    /// </summary>
     private readonly int _daysSinceZero;
 
     /// <summary>
