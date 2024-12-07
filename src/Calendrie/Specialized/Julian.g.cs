@@ -20,8 +20,7 @@ using Calendrie.Hemerology;
 public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JulianAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="JulianAdjuster"/> class.
     /// </summary>
     internal JulianAdjuster(JulianCalendar calendar) : base(calendar) { }
 

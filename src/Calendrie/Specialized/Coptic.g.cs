@@ -101,8 +101,7 @@ public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
 public sealed partial class CopticAdjuster : SpecialAdjuster<CopticDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="CopticAdjuster"/> class.
     /// </summary>
     internal CopticAdjuster(CopticCalendar calendar) : base(calendar) { }
 

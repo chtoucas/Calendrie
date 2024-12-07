@@ -104,8 +104,7 @@ public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregor
 public sealed partial class PlainGregorianAdjuster : SpecialAdjuster<PlainGregorianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainGregorianAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="PlainGregorianAdjuster"/> class.
     /// </summary>
     internal PlainGregorianAdjuster(PlainGregorianCalendar calendar) : base(calendar) { }
 

@@ -19,8 +19,7 @@ using Calendrie.Hemerology;
 public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CivilAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="CivilAdjuster"/> class.
     /// </summary>
     internal CivilAdjuster(CivilCalendar calendar) : base(calendar) { }
 

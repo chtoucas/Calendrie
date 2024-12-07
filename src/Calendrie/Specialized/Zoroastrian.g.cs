@@ -101,8 +101,7 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
 public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ZoroastrianAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="ZoroastrianAdjuster"/> class.
     /// </summary>
     internal ZoroastrianAdjuster(ZoroastrianCalendar calendar) : base(calendar) { }
 

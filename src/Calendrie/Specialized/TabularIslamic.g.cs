@@ -101,8 +101,7 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
 public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIslamicDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="TabularIslamicAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="TabularIslamicAdjuster"/> class.
     /// </summary>
     internal TabularIslamicAdjuster(TabularIslamicCalendar calendar) : base(calendar) { }
 

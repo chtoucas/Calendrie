@@ -101,8 +101,7 @@ public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
 public sealed partial class Ethiopic13Adjuster : SpecialAdjuster<Ethiopic13Date>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Ethiopic13Adjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="Ethiopic13Adjuster"/> class.
     /// </summary>
     internal Ethiopic13Adjuster(Ethiopic13Calendar calendar) : base(calendar) { }
 

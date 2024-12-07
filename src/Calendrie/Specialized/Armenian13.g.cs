@@ -101,8 +101,7 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
 public sealed partial class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Armenian13Adjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="Armenian13Adjuster"/> class.
     /// </summary>
     internal Armenian13Adjuster(Armenian13Calendar calendar) : base(calendar) { }
 

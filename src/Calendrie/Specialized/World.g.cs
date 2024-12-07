@@ -101,8 +101,7 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="WorldAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="WorldAdjuster"/> class.
     /// </summary>
     internal WorldAdjuster(WorldCalendar calendar) : base(calendar) { }
 

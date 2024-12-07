@@ -20,8 +20,7 @@ using Calendrie.Hemerology;
 public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="GregorianAdjuster"/> class.
     /// </summary>
     internal GregorianAdjuster(GregorianCalendar calendar) : base(calendar) { }
 

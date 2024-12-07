@@ -104,8 +104,7 @@ public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDat
 public sealed partial class PlainJulianAdjuster : SpecialAdjuster<PlainJulianDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianAdjuster"/>
-    /// class.
+    /// Initializes a new instance of the <see cref="PlainJulianAdjuster"/> class.
     /// </summary>
     internal PlainJulianAdjuster(PlainJulianCalendar calendar) : base(calendar) { }
 
