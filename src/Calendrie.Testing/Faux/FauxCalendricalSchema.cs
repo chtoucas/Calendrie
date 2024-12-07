@@ -9,6 +9,7 @@ namespace Calendrie.Testing.Faux;
 // too for arithmetic.
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Validation;
 
 using static Calendrie.Core.CalendricalConstants;
 

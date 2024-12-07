@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Facts.Core;
 
+using Calendrie.Core.Validation;
 using Calendrie.Testing.Data;
 
 /// <summary>

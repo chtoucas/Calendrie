@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 /// Provides extension methods for <see cref="Range{Int32}"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public static partial class RangeExtensions
+internal static partial class RangeExtensions
 {
     /// <summary>
     /// Validates the specified <see cref="int"/> value.
@@ -23,17 +23,6 @@ public static partial class RangeExtensions
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="int"/> is outside the
-    /// range of supported values or not.
-    /// </summary>
-    /// <exception cref="OverflowException"><paramref name="value"/> would
-    /// overflow the range of supported values.</exception>
-    public static void CheckOverflow(this Range<int> range, int value)
-    {
-        if (value < range.Min || value > range.Max) ThrowValueOverflow();
-    }
-
-    /// <summary>
     /// The value was out of range.
     /// </summary>
     /// <exception cref="AoorException"/>
@@ -43,12 +32,4 @@ public static partial class RangeExtensions
             paramName ?? nameof(value),
             value,
             $"The value was out of range; value = {value}.");
-
-    /// <summary>
-    /// The operation would overflow the range of supported values.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn]
-    private static void ThrowValueOverflow() =>
-        throw new OverflowException("The computation would overflow the range of supported values.");
 }

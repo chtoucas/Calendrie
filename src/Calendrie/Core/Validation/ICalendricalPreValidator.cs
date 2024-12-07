@@ -1,10 +1,10 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core;
+namespace Calendrie.Core.Validation;
 
+using Calendrie.Core;
 using Calendrie.Core.Schemas;
-using Calendrie.Core.Validation;
 
 #region Developer Notes
 

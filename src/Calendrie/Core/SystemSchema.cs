@@ -4,6 +4,7 @@
 namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Validation;
 
 #region Developer Notes
 
