@@ -11,6 +11,7 @@ param(
                  # Do NOT include Calendrie.Sketches in the reports?
                  [switch] $Full,
                  [switch] $NoBuild,
+                 [switch] $NoFilter,
                  [switch] $NoTest,
                  [switch] $NoReport,
 
@@ -30,6 +31,7 @@ Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
      -Full
      -NoBuild        do NOT build the test suite?
+     -NoFilter
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?
   -h|-Help           print this help then exit
@@ -85,8 +87,10 @@ try {
     }
 
     if (-not $NoTest) {
-        $filter = 'ExcludeFrom!=CodeCoverage'
-        $args += "--filter:$filter"
+        if ($not $NoFilter) {
+            $filter = 'ExcludeFrom!=CodeCoverage'
+            $args += "--filter:$filter"
+        }
 
         & dotnet test $testProject $args `
             --no-build `
