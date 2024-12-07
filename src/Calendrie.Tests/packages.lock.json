@@ -42,11 +42,11 @@
       },
       "Unquote": {
         "type": "Direct",
-        "requested": "[7.0.0, )",
-        "resolved": "7.0.0",
-        "contentHash": "KRcPaRnqd/RhCBy6GksG5OZYwa4XLK0fHYOYL/UoCiRkvi7v8gYgEx1i7CliPtKstdu8m3Ijy5KP+MnIoMO+kg==",
+        "requested": "[7.0.1, )",
+        "resolved": "7.0.1",
+        "contentHash": "8Fc2sTDQpZZ8zYjLEzeIlqjtLzrOU6IDRp1Y1HERNMfwdCMip76kLA2yNFMGWpyXaUaHzFeZWB8eqk2pI4sM1A==",
         "dependencies": {
-          "FSharp.Core": "8.0.100"
+          "FSharp.Core": "6.0.0"
         }
       },
       "xunit": {
@@ -139,14 +139,14 @@
       "calendrie.sketches": {
         "type": "Project",
         "dependencies": {
-          "Calendrie": "[0.0.0-DUMMY, )"
+          "Calendrie": "[0.1.0, )"
         }
       },
       "calendrie.testing": {
         "type": "Project",
         "dependencies": {
-          "Calendrie": "[0.0.0-DUMMY, )",
-          "Calendrie.Sketches": "[0.0.0-DUMMY, )",
+          "Calendrie": "[0.1.0, )",
+          "Calendrie.Sketches": "[0.1.0, )",
           "xunit.assert": "[2.9.2, )",
           "xunit.extensibility.core": "[2.9.2, )"
         }
