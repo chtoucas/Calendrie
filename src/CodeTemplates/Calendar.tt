@@ -130,13 +130,13 @@ internal static class <#= Prefix #>Scope
     /// Represents the minimum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
+    public static int Min<#= DaysSinceEpochStaticSuffix #> => Instance.Segment.SupportedDays.Min;
 
     /// <summary>
     /// Represents the maximum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
+    public static int Max<#= DaysSinceEpochStaticSuffix #> => Instance.Segment.SupportedDays.Max;
 
     public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), Epoch);
 }

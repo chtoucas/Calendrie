@@ -9,30 +9,24 @@ using Calendrie.Hemerology;
 
 public partial struct GregorianDate
 {
+    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
+    /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = GregorianScope.Instance.Domain;
 
-    /// <summary>
-    /// Represents the minimum value of <see cref="_daysSinceZero"/>.
-    /// </summary>
+    /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
     private static readonly int s_MinDaysSinceZero = GregorianScope.MinDaysSinceZero;
-
-    /// <summary>
-    /// Represents the maximum value of <see cref="_daysSinceZero"/>.
-    /// </summary>
+    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
     private static readonly int s_MaxDaysSinceZero = GregorianScope.MaxDaysSinceZero;
 
-    /// <summary>
-    /// Represents the minimum value of the current type.
-    /// </summary>
+    /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly GregorianDate s_MinValue = new(GregorianScope.MinDaysSinceZero);
-
-    /// <summary>
-    /// Represents the maximum value of the current type.
-    /// </summary>
+    /// <summary>Represents the maximum value of the current type.</summary>
     private static readonly GregorianDate s_MaxValue = new(GregorianScope.MaxDaysSinceZero);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
+    /// <para>This field is in the range from <see cref="s_MinDaysSinceZero"/>
+    /// to <see cref="s_MaxDaysSinceZero"/>.</para>
     /// </summary>
     private readonly int _daysSinceZero;
 
