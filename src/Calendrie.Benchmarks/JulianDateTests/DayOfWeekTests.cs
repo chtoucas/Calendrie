@@ -14,7 +14,7 @@ public class DayOfWeekTests : JulianDateComparisons
     public DayOfWeek WithJulianDate() => julianDate.DayOfWeek;
 
     [Benchmark(Description = "JulianDate_Plain")]
-    public DayOfWeek WithJulianDate_PlainJulianDate() => plainJulianDate.DayOfWeek;
+    public DayOfWeek WithPlainJulianDate() => plainJulianDate.DayOfWeek;
 
     [Benchmark(Description = "LocalDate_NodaTime")]
     public IsoDayOfWeek WithLocalDate() => localDate.DayOfWeek;

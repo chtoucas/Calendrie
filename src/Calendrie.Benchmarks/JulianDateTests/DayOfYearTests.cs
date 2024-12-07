@@ -12,7 +12,7 @@ public class DayOfYearTests : JulianDateComparisons
     public int WithJulianDate() => julianDate.DayOfYear;
 
     [Benchmark(Description = "JulianDate_Plain")]
-    public int WithJulianDate_PlainJulianDate() => plainJulianDate.DayOfYear;
+    public int WithPlainJulianDate() => plainJulianDate.DayOfYear;
 
     [Benchmark(Description = "LocalDate_NodaTime")]
     public int WithLocalDate() => localDate.DayOfYear;
