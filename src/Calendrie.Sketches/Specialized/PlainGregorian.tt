@@ -4,7 +4,4 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-// TODO(code): why do I need this here but not within Calendrie.
-#nullable enable
-
-<#= new ZeroCalendarTemplate(this, "GregorianSchema").Execute() #>
+<#= new ZeroCalendarTemplate(this, "GregorianSchema") { EnablePragmas = true }.Execute() #>

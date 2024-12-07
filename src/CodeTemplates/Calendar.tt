@@ -35,13 +35,15 @@ public partial class CalendarTemplate : CSharpTemplate
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
     public string DaysSinceEpochSuffix { get; set; } = "DaysSinceEpoch";
 
+    public bool EnablePragmas { get; set; }
+
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
 
     protected sealed override void WriteContent()
     {
-        // Apparently, it's no longer necessary.
-        //EmitPragmas();
+        // TODO(code): why is it necessary for Calendrier.Sketches but not within Calendrie.
+        if (EnablePragmas) EmitPragmas();
 
         EmitNamespace();
         EmitUsings();
@@ -50,10 +52,7 @@ public partial class CalendarTemplate : CSharpTemplate
         EmitCalendar();
         EmitAdjuster();
 
-        if (EnableClock)
-        {
-            EmitClock();
-        }
+        if (EnableClock) EmitClock();
 
         EmitDate();
     } // T4: End of WriteContent()
