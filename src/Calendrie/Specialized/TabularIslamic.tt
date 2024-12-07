@@ -4,14 +4,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-<#= new TabularIslamicTemplate(this).Execute() #><#+
-
-public sealed class TabularIslamicTemplate : CalendarTemplate
-{
-    public TabularIslamicTemplate(TextTransformation parent) :
-        base(parent, "TabularIslamicSchema", "DayZero.TabularIslamic") { }
-
-    public override void Initialize() { DisplayName = "Tabular Islamic"; }
-}
-
-#>
+<#= new CalendarTemplate(this, "TabularIslamicSchema", "DayZero.TabularIslamic")
+    {
+        DisplayName = "Tabular Islamic"
+    }.Execute() #>

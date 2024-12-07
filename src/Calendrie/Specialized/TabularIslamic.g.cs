@@ -558,3 +558,4 @@ public partial struct TabularIslamicDate // Math
         return new(_daysSinceEpoch - 1);
     }
 }
+
