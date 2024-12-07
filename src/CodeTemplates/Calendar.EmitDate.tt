@@ -35,41 +35,27 @@ public readonly partial struct <#= Prefix #>Date :
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
-    /// <summary>
-    /// Represents the epoch of the associated calendar.
-    /// </summary>
+    /// <summary>Represents the epoch of the associated calendar.</summary>
     private static readonly DayNumber s_Epoch = <#= Prefix #>Scope.Epoch;
 
-    /// <summary>
-    /// Represents the range of supported <see cref="DayNumber"/>'s by the
-    /// associated calendar.
-    /// </summary>
+    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
+    /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
 
-    /// <summary>
-    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
-    /// </summary>
+    /// <summary>Represents the minimum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
     private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>;
-
-    /// <summary>
-    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
-    /// </summary>
+    /// <summary>Represents the maximum value of <see cref="<#= DaysSinceEpochField #>"/>.</summary>
     private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>;
 
-    /// <summary>
-    /// Represents the minimum value of the current type.
-    /// </summary>
+    /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>);
-
-    /// <summary>
-    /// Represents the maximum value of the current type.
-    /// </summary>
+    /// <summary>Represents the maximum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
-    /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochStaticSuffix #>"/> to
-    /// <see cref="s_Max<#= DaysSinceEpochStaticSuffix #>"/>.</para>
+    /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochStaticSuffix #>"/>
+    /// to <see cref="s_Max<#= DaysSinceEpochStaticSuffix #>"/>.</para>
     /// </summary>
     private readonly int <#= DaysSinceEpochField #>;
 

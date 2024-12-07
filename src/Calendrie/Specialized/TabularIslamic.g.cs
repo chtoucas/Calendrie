@@ -120,41 +120,27 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Preamble
 {
-    /// <summary>
-    /// Represents the epoch of the associated calendar.
-    /// </summary>
+    /// <summary>Represents the epoch of the associated calendar.</summary>
     private static readonly DayNumber s_Epoch = TabularIslamicScope.Epoch;
 
-    /// <summary>
-    /// Represents the range of supported <see cref="DayNumber"/>'s by the
-    /// associated calendar.
-    /// </summary>
+    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
+    /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = TabularIslamicScope.Domain;
 
-    /// <summary>
-    /// Represents the minimum value of <see cref="_daysSinceEpoch"/>.
-    /// </summary>
+    /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
     private static readonly int s_MinDaysSinceEpoch = TabularIslamicScope.MinDaysSinceEpoch;
-
-    /// <summary>
-    /// Represents the maximum value of <see cref="_daysSinceEpoch"/>.
-    /// </summary>
+    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
     private static readonly int s_MaxDaysSinceEpoch = TabularIslamicScope.MaxDaysSinceEpoch;
 
-    /// <summary>
-    /// Represents the minimum value of the current type.
-    /// </summary>
+    /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly TabularIslamicDate s_MinValue = new(TabularIslamicScope.MinDaysSinceEpoch);
-
-    /// <summary>
-    /// Represents the maximum value of the current type.
-    /// </summary>
+    /// <summary>Represents the maximum value of the current type.</summary>
     private static readonly TabularIslamicDate s_MaxValue = new(TabularIslamicScope.MaxDaysSinceEpoch);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
-    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/> to
-    /// <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
+    /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
     /// </summary>
     private readonly int _daysSinceEpoch;
 
