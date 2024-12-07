@@ -43,19 +43,19 @@ public partial struct <#= Prefix #>Date // Preamble
     private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>;
+    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochSuffix #>;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochStaticSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>;
+    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochSuffix #>;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochSuffix #>);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochStaticSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochSuffix #>);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
-    /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochStaticSuffix #>"/>
-    /// to <see cref="s_Max<#= DaysSinceEpochStaticSuffix #>"/>.</para>
+    /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochSuffix #>"/>
+    /// to <see cref="s_Max<#= DaysSinceEpochSuffix #>"/>.</para>
     /// </summary>
     private readonly int _<#= DaysSinceEpochVar #>;
 
@@ -479,7 +479,7 @@ public partial struct <#= Prefix #>Date // Math
 
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(Epoch + <#= DaysSinceEpochVar #>);
-        if (<#= DaysSinceEpochVar #> < s_Min<#= DaysSinceEpochStaticSuffix #> || <#= DaysSinceEpochVar #> > s_Max<#= DaysSinceEpochStaticSuffix #>)
+        if (<#= DaysSinceEpochVar #> < s_Min<#= DaysSinceEpochSuffix #> || <#= DaysSinceEpochVar #> > s_Max<#= DaysSinceEpochSuffix #>)
             ThrowHelpers.ThrowDateOverflow();
 
         return new(<#= DaysSinceEpochVar #>);

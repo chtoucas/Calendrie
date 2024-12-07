@@ -33,7 +33,7 @@ public partial class CalendarTemplate : CSharpTemplate
     public string Prefix { get; set; }
 
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
-    public string DaysSinceEpochStaticSuffix { get; set; } = "DaysSinceEpoch";
+    public string DaysSinceEpochSuffix { get; set; } = "DaysSinceEpoch";
 
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
@@ -133,13 +133,13 @@ internal static class <#= Prefix #>Scope
     /// Represents the minimum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    public static int Min<#= DaysSinceEpochStaticSuffix #> => Instance.Segment.SupportedDays.Min;
+    public static int Min<#= DaysSinceEpochSuffix #> => Instance.Segment.SupportedDays.Min;
 
     /// <summary>
     /// Represents the maximum possible value for the number of consecutive days
     /// from the epoch.
     /// </summary>
-    public static int Max<#= DaysSinceEpochStaticSuffix #> => Instance.Segment.SupportedDays.Max;
+    public static int Max<#= DaysSinceEpochSuffix #> => Instance.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Creates a new instance of the <#= ScopeClass #> class suitable for use
