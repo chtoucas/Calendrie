@@ -18,7 +18,7 @@ public class JulianCtor
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => DayNumber.FromJulianParts(_year, _month, _day);
 
-    [Benchmark(Description = "JulianDate", Baseline = true)]
+    [Benchmark(Description = "JulianDate")]
     public JulianDate WithJulianDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "JulianDate_Plain")]
@@ -27,7 +27,7 @@ public class JulianCtor
     [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate() => new(_year, _month, _day, CalendarSystem.Julian);
 
-    [Benchmark(Description = "DateOnly_BCL")]
+    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public DateOnly WithDateOnly() => new(_year, _month, _day, new System.Globalization.JulianCalendar());
 
     [Benchmark(Description = "DateTime_BCL")]
