@@ -1,11 +1,11 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.JulianDateTests;
 
 using static Benchmarks.BenchmarkHelpers;
 
-public class JulianDtor : JulianComparisons
+public class DtorTests : JulianDateComparisons
 {
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()

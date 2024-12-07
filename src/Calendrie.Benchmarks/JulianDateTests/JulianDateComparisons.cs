@@ -1,13 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.JulianDateTests;
 
 using Calendrie.Specialized;
 
 using NodaTime;
 
-public abstract class JulianComparisons
+public abstract class JulianDateComparisons
 {
     private protected DayNumber dayNumber;
     private protected JulianDate julianDate;
@@ -16,7 +16,7 @@ public abstract class JulianComparisons
     private protected DateTime dateTime;
     private protected LocalDate localDate;
 
-    private protected JulianComparisons(GJDateType type = GJDateType.FixedFast)
+    private protected JulianDateComparisons(GJDateType type = GJDateType.FixedFast)
     {
         Parts = BenchmarkHelpers.CreateJulianParts(type);
     }

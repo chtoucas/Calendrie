@@ -1,13 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.GregorianDateTests;
 
 using Calendrie.Specialized;
 
 using NodaTime;
 
-public class GregorianYesterday : GregorianComparisons
+public class YesterdayTests : GregorianDateComparisons
 {
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber() => dayNumber.PreviousDay();

@@ -1,9 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.JulianDateTests;
 
-public class JulianDayOfYear : JulianComparisons
+public class DayOfYearTests : JulianDateComparisons
 {
     [Benchmark(Description = "DayNumber")]
     public int WithDayNumber() => dayNumber.GetJulianOrdinalParts().DayOfYear;

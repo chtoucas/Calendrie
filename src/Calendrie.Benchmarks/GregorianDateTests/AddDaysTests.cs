@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.GregorianDateTests;
 
 using Calendrie.Specialized;
 
@@ -9,7 +9,7 @@ using NodaTime;
 
 [CategoriesColumn]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
-public class GregorianAddDays : GregorianComparisons
+public class AddDaysTests : GregorianDateComparisons
 {
     //
     // No change of month

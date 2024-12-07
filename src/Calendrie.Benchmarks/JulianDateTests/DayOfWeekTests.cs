@@ -1,11 +1,11 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.JulianDateTests;
 
 using NodaTime;
 
-public class JulianDayOfWeek : JulianComparisons
+public class DayOfWeekTests : JulianDateComparisons
 {
     [Benchmark(Description = "DayNumber")]
     public DayOfWeek WithDayNumber() => dayNumber.DayOfWeek;

@@ -1,13 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.GregorianDateTests;
 
 using Calendrie.Specialized;
 
 using NodaTime;
 
-public abstract class GregorianComparisons
+public abstract class GregorianDateComparisons
 {
     private protected DayNumber dayNumber;
     private protected CivilDate civilDate;
@@ -17,7 +17,7 @@ public abstract class GregorianComparisons
     private protected DateTime dateTime;
     private protected LocalDate localDate;
 
-    private protected GregorianComparisons(GJDateType type = GJDateType.FixedFast)
+    private protected GregorianDateComparisons(GJDateType type = GJDateType.FixedFast)
     {
         Parts = BenchmarkHelpers.CreateGregorianParts(type);
     }

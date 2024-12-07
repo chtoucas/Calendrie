@@ -1,13 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.JulianDateTests;
 
 using Calendrie.Specialized;
 
 using NodaTime;
 
-public class JulianCtor
+public class CtorTests
 {
     private int _year, _month, _day;
 

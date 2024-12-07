@@ -1,11 +1,11 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.GregorianDateTests;
 
 using static Benchmarks.BenchmarkHelpers;
 
-public class GregorianProps : GregorianComparisons
+public class PropsTests : GregorianDateComparisons
 {
     [Benchmark(Description = "DayNumber")]
     public void WithDayNumber()

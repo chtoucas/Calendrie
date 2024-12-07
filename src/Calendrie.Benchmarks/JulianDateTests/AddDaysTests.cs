@@ -1,13 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.JulianDateTests;
 
 using Calendrie.Specialized;
 
 using NodaTime;
 
-public class JulianAddDays : JulianComparisons
+public class AddDaysTests : JulianDateComparisons
 {
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumber31() => dayNumber.AddDays(31);

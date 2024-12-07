@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.CoreTests;
 
 using Calendrie.Core.Utilities;
 
@@ -9,7 +9,7 @@ using static Benchmarks.BenchmarkHelpers;
 
 // See also __PATCH_DIVREM__ in main proj.
 
-public class Division
+public class DivisionTests
 {
     private const int Dividor = 31;
     private const int Dividend = 5_484_955;

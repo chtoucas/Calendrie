@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Benchmarks.Comparisons;
+namespace Benchmarks.GregorianDateTests;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
@@ -10,7 +10,7 @@ using Calendrie.Specialized;
 
 [CategoriesColumn]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
-public class GregorianValidation
+public class ScopeTests
 {
     // Range [1..9999], optimized
     private static readonly CivilScope s_CivilScope = new(new CivilSchema());
