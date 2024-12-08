@@ -11,8 +11,9 @@ public partial struct JulianDate
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = JulianScope.Instance.Epoch;
+#pragma warning disable IDE1006 // Naming Styles
+    private const int s_EpochDaysSinceZero = -1;
+#pragma warning restore IDE1006
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
@@ -90,7 +91,7 @@ public partial struct JulianDate
     public static JulianAdjuster Adjuster => JulianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(s_EpochDaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;

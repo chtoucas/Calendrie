@@ -116,8 +116,7 @@ public partial struct TabularIslamicDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = TabularIslamicScope.Instance.Epoch;
+    private static readonly int s_EpochDaysSinceZero = TabularIslamicScope.Instance.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
@@ -198,7 +197,7 @@ public partial struct TabularIslamicDate // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(s_EpochDaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -316,7 +315,7 @@ public partial struct TabularIslamicDate // Factories
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
     }
 
     /// <summary>
@@ -326,7 +325,7 @@ public partial struct TabularIslamicDate // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static TabularIslamicDate FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 }
 
 public partial struct TabularIslamicDate // Counting

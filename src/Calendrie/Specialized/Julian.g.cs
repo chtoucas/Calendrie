@@ -47,7 +47,7 @@ public partial struct JulianDate // Factories
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ public partial struct JulianDate // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static JulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 }
 
 public partial struct JulianDate // Counting

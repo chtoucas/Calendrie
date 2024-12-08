@@ -40,7 +40,7 @@ public partial class CalendarTemplate : CSharpTemplate
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
 
-    public bool EnableMicroOptimizations { get; set; }
+    public bool EnableMicroOptimizations { get; set; } = true;
 
     protected sealed override void WriteContent()
     {

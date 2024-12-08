@@ -6,6 +6,5 @@
 
 <#= new CalendarTemplate(this, "Egyptian13Schema", "DayZero.Armenian")
     {
-        DisplayName = "Armenian",
-        EnableMicroOptimizations = false
+        DisplayName = "Armenian"
     }.Execute() #>
