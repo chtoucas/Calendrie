@@ -47,18 +47,6 @@ internal sealed class JulianScope : CalendarScope
     }
 
     /// <summary>
-    /// Gets the minimum possible value for the number of consecutive days from
-    /// the epoch.
-    /// </summary>
-    public int MinDaysSinceEpoch => Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Gets the maximum possible value for the number of consecutive days from
-    /// the epoch.
-    /// </summary>
-    public int MaxDaysSinceEpoch => Segment.SupportedDays.Max;
-
-    /// <summary>
     /// Validates the specified month.
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>

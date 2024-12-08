@@ -14,24 +14,28 @@ public partial struct JulianDate
 
     private const int EpochDaysSinceZero = -2;
 
+    // NB: Min/MaxDaysSinceZero = JulianScope.Instance.Segment.SupportedDays.Min/Max
+
+    /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.
+    /// <para>This field is a constant equal to -365_249_635.</para></summary>
+    internal const int MinDaysSinceEpoch = -365_249_635;
+    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// <para>This field is a constant equal to -365_249_633.</para></summary>
+    internal const int MaxDaysSinceEpoch = 365_249_633;
+
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = JulianScope.Instance.Domain;
 
-    /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = JulianScope.Instance.MinDaysSinceEpoch;
-    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = JulianScope.Instance.MaxDaysSinceEpoch;
-
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly JulianDate s_MinValue = new(s_MinDaysSinceEpoch);
+    private static readonly JulianDate s_MinValue = new(MinDaysSinceEpoch);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly JulianDate s_MaxValue = new(s_MaxDaysSinceEpoch);
+    private static readonly JulianDate s_MaxValue = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.OldStyle"/>.
-    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
-    /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// <para>This field is in the range from <see cref="MinDaysSinceEpoch"/>
+    /// to <see cref="MaxDaysSinceEpoch"/>.</para>
     /// </summary>
     private readonly int _daysSinceEpoch;
 
@@ -202,4 +206,84 @@ public partial struct JulianDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static JulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+}
+
+public partial struct JulianDate // Math
+{
+#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
+    // Friendly alternates do exist but use domain-specific names.
+
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    public static int operator -(JulianDate left, JulianDate right) => left.CountDaysSince(right);
+
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    public static JulianDate operator +(JulianDate value, int days) => value.AddDays(days);
+
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    public static JulianDate operator -(JulianDate value, int days) => value.AddDays(-days);
+
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
+    public static JulianDate operator ++(JulianDate value) => value.NextDay();
+
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
+    public static JulianDate operator --(JulianDate value) => value.PreviousDay();
+
+#pragma warning restore CA2225
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysSince(JulianDate other) =>
+        // No need to use a checked context here.
+        _daysSinceEpoch - other._daysSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate AddDays(int days)
+    {
+        int daysSinceEpoch = checked(_daysSinceEpoch + days);
+
+        // Don't write (the addition may also overflow...):
+        // > s_Domain.CheckOverflow(Epoch + daysSinceEpoch);
+        if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceEpoch + 1);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceEpoch - 1);
+    }
 }

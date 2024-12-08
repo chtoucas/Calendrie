@@ -11,24 +11,28 @@ public partial struct GregorianDate
 {
     // WARNING: the order in which the static fields are written is __important__.
 
+    // NB: Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
+
+    /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.
+    /// <para>This field is a constant equal to -365_242_135.</para></summary>
+    internal const int MinDaysSinceZero = -365_242_135;
+    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
+    /// <para>This field is a constant equal to 365_242_133.</para></summary>
+    internal const int MaxDaysSinceZero = 365_242_133;
+
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = GregorianScope.Instance.Domain;
 
-    /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MinDaysSinceZero = GregorianScope.Instance.MinDaysSinceZero;
-    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = GregorianScope.Instance.MaxDaysSinceZero;
-
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly GregorianDate s_MinValue = new(s_MinDaysSinceZero);
+    private static readonly GregorianDate s_MinValue = new(MinDaysSinceZero);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly GregorianDate s_MaxValue = new(s_MaxDaysSinceZero);
+    private static readonly GregorianDate s_MaxValue = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from <see cref="s_MinDaysSinceZero"/>
-    /// to <see cref="s_MaxDaysSinceZero"/>.</para>
+    /// <para>This field is in the range from <see cref="MinDaysSinceZero"/>
+    /// to <see cref="MaxDaysSinceZero"/>.</para>
     /// </summary>
     private readonly int _daysSinceZero;
 
@@ -178,4 +182,84 @@ public partial struct GregorianDate
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
         year = GregorianFormulae.GetYear(_daysSinceZero, out dayOfYear);
+}
+
+public partial struct GregorianDate // Math
+{
+#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
+    // Friendly alternates do exist but use domain-specific names.
+
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    public static int operator -(GregorianDate left, GregorianDate right) => left.CountDaysSince(right);
+
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    public static GregorianDate operator +(GregorianDate value, int days) => value.AddDays(days);
+
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    public static GregorianDate operator -(GregorianDate value, int days) => value.AddDays(-days);
+
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
+    public static GregorianDate operator ++(GregorianDate value) => value.NextDay();
+
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
+    public static GregorianDate operator --(GregorianDate value) => value.PreviousDay();
+
+#pragma warning restore CA2225
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysSince(GregorianDate other) =>
+        // No need to use a checked context here.
+        _daysSinceZero - other._daysSinceZero;
+
+    /// <inheritdoc />
+    [Pure]
+    public GregorianDate AddDays(int days)
+    {
+        int daysSinceZero = checked(_daysSinceZero + days);
+
+        // Don't write (the addition may also overflow...):
+        // > s_Domain.CheckOverflow(Epoch + daysSinceZero);
+        if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public GregorianDate NextDay()
+    {
+        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceZero + 1);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public GregorianDate PreviousDay()
+    {
+        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceZero - 1);
+    }
 }

@@ -8,17 +8,19 @@ using Calendrie.Hemerology;
 
 public partial struct CivilDate
 {
-    // WARNING: the order in which the static fields are written is __important__.
+    // NB: MinDaysSinceZero = 0 and
+    // MaxDaysSinceZero = CivilScope.Instance.Segment.SupportedDays.Max
 
-    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = CivilScope.Instance.MaxDaysSinceZero;
+    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
+    /// <para>This field is a constant equal to 3_652_058.</para></summary>
+    internal const int MaxDaysSinceZero = 3_652_058;
 
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly CivilDate s_MaxValue = new(s_MaxDaysSinceZero);
+    private static readonly CivilDate s_MaxValue = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from 0 to <see cref="s_MaxDaysSinceZero"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceZero"/>.
     /// </para>
     /// </summary>
     private readonly int _daysSinceZero;
@@ -183,7 +185,7 @@ public partial struct CivilDate // Factories
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
 
-        if (unchecked((uint)daysSinceZero) > (uint)s_MaxDaysSinceZero)
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
             throw new AoorException(nameof(dayNumber));
 
         return new(daysSinceZero);
@@ -226,7 +228,7 @@ public partial struct CivilDate // Adjustments
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
 
-        if ((uint)daysSinceZero > (uint)s_MaxDaysSinceZero)
+        if ((uint)daysSinceZero > MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceZero);
@@ -237,7 +239,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate NextOrSame(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.NextOrSame(dayOfWeek).DaysSinceZero;
-        if (daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -246,7 +248,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate Next(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.Next(dayOfWeek).DaysSinceZero;
-        if (daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 }
@@ -308,7 +310,7 @@ public partial struct CivilDate // Math
 
         // Don't write (the addition may also overflow...):
         // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        if ((uint)daysSinceZero > (uint)s_MaxDaysSinceZero)
+        if ((uint)daysSinceZero > MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceZero);

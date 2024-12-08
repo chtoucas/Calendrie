@@ -20,6 +20,10 @@ module Prelude =
 
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
+    [<Fact>]
+    let ``Value of CivilDate.MaxDaysSinceZero`` () =
+        CivilDate.MaxDaysSinceZero === CivilScope.Instance.Segment.SupportedDays.Max
+
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
     let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =
         let (daysSinceEpoch, y, m, d) = info.Deconstruct()

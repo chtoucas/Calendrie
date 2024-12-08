@@ -43,14 +43,6 @@ internal sealed class CivilScope : CalendarScope
         YearsValidator = StandardScope.YearsValidatorImpl;
     }
 
-    // NB: MinDaysSinceZero = 0.
-
-    /// <summary>
-    /// Gets the maximum possible value for the number of consecutive days from
-    /// the epoch.
-    /// </summary>
-    public int MaxDaysSinceZero => Segment.SupportedDays.Max;
-
     /// <summary>
     /// Validates the specified month.
     /// </summary>

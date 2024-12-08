@@ -20,6 +20,14 @@ module Prelude =
 
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
+    [<Fact>]
+    let ``Value of GregorianDate.MinDaysSinceZero`` () =
+        GregorianDate.MinDaysSinceZero === GregorianScope.Instance.Segment.SupportedDays.Min
+
+    [<Fact>]
+    let ``Value of GregorianDate.MaxDaysSinceZero`` () =
+        GregorianDate.MaxDaysSinceZero === GregorianScope.Instance.Segment.SupportedDays.Max
+
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
     let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =
         let (daysSinceEpoch, y, m, d) = info.Deconstruct()
