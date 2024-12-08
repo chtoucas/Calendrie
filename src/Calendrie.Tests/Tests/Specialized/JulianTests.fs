@@ -15,11 +15,11 @@ open Xunit
 module Prelude =
     [<Fact>]
     let ``Value of JulianDate.MinDaysSinceEpoch`` () =
-        JulianDate.MinDaysSinceEpoch === JulianScope.Instance.Segment.SupportedDays.Min
+        JulianDate.MinDaysSinceEpoch === JulianCalendar.ScopeT.Segment.SupportedDays.Min
 
     [<Fact>]
     let ``Value of JulianDate.MaxDaysSinceEpoch`` () =
-        JulianDate.MaxDaysSinceEpoch === JulianScope.Instance.Segment.SupportedDays.Max
+        JulianDate.MaxDaysSinceEpoch === JulianCalendar.ScopeT.Segment.SupportedDays.Max
 
 module Bundles =
     // NB: notice the use of UnboundedJulianDataSet.

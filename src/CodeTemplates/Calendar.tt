@@ -50,7 +50,6 @@ public partial class CalendarTemplate : CSharpTemplate
         EmitNamespace();
         EmitUsings();
 
-        EmitScope();
         EmitCalendar();
         EmitAdjuster();
 
@@ -89,54 +88,6 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
-    protected virtual void EmitScope()
-    {
-        // WARNING: the constructors of the schema and the scope MUST have a
-        // fixed form as one can see below.
-
-        WriteLine();
-#>
-/// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="<#= Prefix #>Calendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class <#= Prefix #>Scope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="<#= Prefix #>Calendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - <#= Prefix #>Scope.Instance (ctor)
-    // - <#= Prefix #>Calendar.Instance via <#= Prefix #>Scope.Instance
-    // - All instances of the <#= Prefix #>Date type via its property Schema
-    // - <#= Prefix #>Calendar, custom methods only (see the file _Calendar.cs)
-    public static readonly <#= SchemaClass #> Schema = new();
-
-    // This scope instance is the one used by:
-    // - <#= Prefix #>Calendar.Instance (ctor)
-    // - All instances of the <#= Prefix #>Date type via its property Scope
-    public static readonly <#= ScopeClass #> Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the <#= ScopeClass #> class suitable for use
-    /// with <see cref="<#= Prefix #>Calendar"/>.
-    /// </summary>
-    public static <#= ScopeClass #> Create() => Create(new <#= SchemaClass #>());
-
-    /// <summary>
-    /// Creates a new instance of the <#= ScopeClass #> class suitable for use
-    /// with <see cref="<#= Prefix #>Calendar"/>.
-    /// </summary>
-    private static <#= ScopeClass #> Create(<#= SchemaClass #> schema) => new(schema, <#= Epoch #>);
-}
-<#+
-    } // T4: End of EmitScope()
-
     protected virtual void EmitCalendar()
     {
         // WARNING: the constructors of the schema and the scope MUST have a
@@ -150,16 +101,29 @@ internal static class <#= Prefix #>Scope
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - <#= Prefix #>Calendar.Instance via <#= Prefix #>Calendar.ScopeT
+    // - All instances of the <#= Prefix #>Date type via its property Schema
+    // - <#= Prefix #>Calendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly <#= SchemaClass #> SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - <#= Prefix #>Calendar.Instance (ctor)
+    // - All instances of the <#= Prefix #>Date type via its property Scope
+    internal static readonly <#= ScopeClass #> ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly <#= Prefix #>Calendar Instance = new(<#= Prefix #>Scope.Instance);
+    internal static readonly <#= Prefix #>Calendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
     /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
-    public <#= Prefix #>Calendar() : this(<#= Prefix #>Scope.Create()) { }
+    public <#= Prefix #>Calendar() : this(CreateScope(new <#= SchemaClass #>())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
@@ -173,6 +137,12 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     /// Gets the date adjuster.
     /// </summary>
     public <#= Prefix #>Adjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the <#= ScopeClass #> class suitable for use
+    /// with <see cref="<#= Prefix #>Calendar"/>.
+    /// </summary>
+    private static <#= ScopeClass #> CreateScope(<#= SchemaClass #> schema) => new(schema, <#= Epoch #>);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override <#= Prefix #>Date NewDate(int <#= DaysSinceEpochVar #>) => new(<#= DaysSinceEpochVar #>);

@@ -18,60 +18,34 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="PlainGregorianCalendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class PlainGregorianScope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="PlainGregorianCalendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - PlainGregorianScope.Instance (ctor)
-    // - PlainGregorianCalendar.Instance via PlainGregorianScope.Instance
-    // - All instances of the PlainGregorianDate type via its property Schema
-    // - PlainGregorianCalendar, custom methods only (see the file _Calendar.cs)
-    public static readonly GregorianSchema Schema = new();
-
-    // This scope instance is the one used by:
-    // - PlainGregorianCalendar.Instance (ctor)
-    // - All instances of the PlainGregorianDate type via its property Scope
-    public static readonly StandardScope Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="PlainGregorianCalendar"/>.
-    /// </summary>
-    public static StandardScope Create() => Create(new GregorianSchema());
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="PlainGregorianCalendar"/>.
-    /// </summary>
-    private static StandardScope Create(GregorianSchema schema) => new(schema, DayZero.NewStyle);
-}
-
-/// <summary>
 /// Represents the PlainGregorian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregorianDate>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - PlainGregorianCalendar.Instance via PlainGregorianCalendar.ScopeT
+    // - All instances of the PlainGregorianDate type via its property Schema
+    // - PlainGregorianCalendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly GregorianSchema SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - PlainGregorianCalendar.Instance (ctor)
+    // - All instances of the PlainGregorianDate type via its property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly PlainGregorianCalendar Instance = new(PlainGregorianScope.Instance);
+    internal static readonly PlainGregorianCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
     /// <para>See also <seealso cref="PlainGregorianDate.Calendar"/>.</para>
     /// </summary>
-    public PlainGregorianCalendar() : this(PlainGregorianScope.Create()) { }
+    public PlainGregorianCalendar() : this(CreateScope(new GregorianSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
@@ -85,6 +59,12 @@ public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregor
     /// Gets the date adjuster.
     /// </summary>
     public PlainGregorianAdjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="PlainGregorianCalendar"/>.
+    /// </summary>
+    private static StandardScope CreateScope(GregorianSchema schema) => new(schema, DayZero.NewStyle);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override PlainGregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
@@ -118,12 +98,12 @@ public partial struct PlainGregorianDate // Preamble
 {
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = PlainGregorianScope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = PlainGregorianCalendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MinDaysSinceZero = PlainGregorianScope.Instance.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceZero = PlainGregorianCalendar.ScopeT.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = PlainGregorianScope.Instance.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceZero = PlainGregorianCalendar.ScopeT.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly PlainGregorianDate s_MinValue = new(s_MinDaysSinceZero);
@@ -269,12 +249,12 @@ public partial struct PlainGregorianDate // Preamble
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static GregorianSchema Schema => PlainGregorianScope.Schema;
+    private static GregorianSchema Schema => PlainGregorianCalendar.SchemaT;
 
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
-    private static StandardScope Scope => PlainGregorianScope.Instance;
+    private static StandardScope Scope => PlainGregorianCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

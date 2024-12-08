@@ -24,7 +24,6 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
-    protected sealed override void EmitScope() { }
     protected sealed override void EmitCalendar() { }
 
     protected sealed override void EmitDatePreamble() { }

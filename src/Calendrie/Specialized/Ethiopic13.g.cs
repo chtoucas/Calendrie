@@ -16,60 +16,34 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="Ethiopic13Calendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class Ethiopic13Scope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="Ethiopic13Calendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - Ethiopic13Scope.Instance (ctor)
-    // - Ethiopic13Calendar.Instance via Ethiopic13Scope.Instance
-    // - All instances of the Ethiopic13Date type via its property Schema
-    // - Ethiopic13Calendar, custom methods only (see the file _Calendar.cs)
-    public static readonly Coptic13Schema Schema = new();
-
-    // This scope instance is the one used by:
-    // - Ethiopic13Calendar.Instance (ctor)
-    // - All instances of the Ethiopic13Date type via its property Scope
-    public static readonly StandardScope Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="Ethiopic13Calendar"/>.
-    /// </summary>
-    public static StandardScope Create() => Create(new Coptic13Schema());
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="Ethiopic13Calendar"/>.
-    /// </summary>
-    private static StandardScope Create(Coptic13Schema schema) => new(schema, DayZero.Ethiopic);
-}
-
-/// <summary>
 /// Represents the Ethiopic calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - Ethiopic13Calendar.Instance via Ethiopic13Calendar.ScopeT
+    // - All instances of the Ethiopic13Date type via its property Schema
+    // - Ethiopic13Calendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly Coptic13Schema SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - Ethiopic13Calendar.Instance (ctor)
+    // - All instances of the Ethiopic13Date type via its property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly Ethiopic13Calendar Instance = new(Ethiopic13Scope.Instance);
+    internal static readonly Ethiopic13Calendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
     /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
-    public Ethiopic13Calendar() : this(Ethiopic13Scope.Create()) { }
+    public Ethiopic13Calendar() : this(CreateScope(new Coptic13Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
@@ -83,6 +57,12 @@ public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
     /// Gets the date adjuster.
     /// </summary>
     public Ethiopic13Adjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="Ethiopic13Calendar"/>.
+    /// </summary>
+    private static StandardScope CreateScope(Coptic13Schema schema) => new(schema, DayZero.Ethiopic);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override Ethiopic13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -116,16 +96,16 @@ public partial struct Ethiopic13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = Ethiopic13Scope.Instance.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = Ethiopic13Calendar.ScopeT.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = Ethiopic13Scope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = Ethiopic13Calendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = Ethiopic13Scope.Instance.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = Ethiopic13Calendar.ScopeT.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = Ethiopic13Scope.Instance.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = Ethiopic13Calendar.ScopeT.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly Ethiopic13Date s_MinValue = new(s_MinDaysSinceEpoch);
@@ -277,13 +257,13 @@ public partial struct Ethiopic13Date // Preamble
     //
     // Don't use Scope.Schema or Ethiopic13Scope.Instance.Schema. Both are of
     // type ICalendricalSchema, not Coptic13Schema.
-    private static Coptic13Schema Schema => Ethiopic13Scope.Schema;
+    private static Coptic13Schema Schema => Ethiopic13Calendar.SchemaT;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => Ethiopic13Scope.Instance;
+    private static StandardScope Scope => Ethiopic13Calendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -16,60 +16,34 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="Armenian13Calendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class Armenian13Scope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="Armenian13Calendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - Armenian13Scope.Instance (ctor)
-    // - Armenian13Calendar.Instance via Armenian13Scope.Instance
-    // - All instances of the Armenian13Date type via its property Schema
-    // - Armenian13Calendar, custom methods only (see the file _Calendar.cs)
-    public static readonly Egyptian13Schema Schema = new();
-
-    // This scope instance is the one used by:
-    // - Armenian13Calendar.Instance (ctor)
-    // - All instances of the Armenian13Date type via its property Scope
-    public static readonly StandardScope Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="Armenian13Calendar"/>.
-    /// </summary>
-    public static StandardScope Create() => Create(new Egyptian13Schema());
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="Armenian13Calendar"/>.
-    /// </summary>
-    private static StandardScope Create(Egyptian13Schema schema) => new(schema, DayZero.Armenian);
-}
-
-/// <summary>
 /// Represents the Armenian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - Armenian13Calendar.Instance via Armenian13Calendar.ScopeT
+    // - All instances of the Armenian13Date type via its property Schema
+    // - Armenian13Calendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly Egyptian13Schema SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - Armenian13Calendar.Instance (ctor)
+    // - All instances of the Armenian13Date type via its property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly Armenian13Calendar Instance = new(Armenian13Scope.Instance);
+    internal static readonly Armenian13Calendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Armenian13Calendar"/> class.
     /// <para>See also <seealso cref="Armenian13Date.Calendar"/>.</para>
     /// </summary>
-    public Armenian13Calendar() : this(Armenian13Scope.Create()) { }
+    public Armenian13Calendar() : this(CreateScope(new Egyptian13Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Armenian13Calendar"/> class.
@@ -83,6 +57,12 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
     /// Gets the date adjuster.
     /// </summary>
     public Armenian13Adjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="Armenian13Calendar"/>.
+    /// </summary>
+    private static StandardScope CreateScope(Egyptian13Schema schema) => new(schema, DayZero.Armenian);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override Armenian13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -116,16 +96,16 @@ public partial struct Armenian13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = Armenian13Scope.Instance.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = Armenian13Calendar.ScopeT.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = Armenian13Scope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = Armenian13Calendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = Armenian13Scope.Instance.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = Armenian13Calendar.ScopeT.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = Armenian13Scope.Instance.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = Armenian13Calendar.ScopeT.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly Armenian13Date s_MinValue = new(s_MinDaysSinceEpoch);
@@ -277,13 +257,13 @@ public partial struct Armenian13Date // Preamble
     //
     // Don't use Scope.Schema or Armenian13Scope.Instance.Schema. Both are of
     // type ICalendricalSchema, not Egyptian13Schema.
-    private static Egyptian13Schema Schema => Armenian13Scope.Schema;
+    private static Egyptian13Schema Schema => Armenian13Calendar.SchemaT;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => Armenian13Scope.Instance;
+    private static StandardScope Scope => Armenian13Calendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

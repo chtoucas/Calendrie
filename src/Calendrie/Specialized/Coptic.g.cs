@@ -16,60 +16,34 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="CopticCalendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class CopticScope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="CopticCalendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - CopticScope.Instance (ctor)
-    // - CopticCalendar.Instance via CopticScope.Instance
-    // - All instances of the CopticDate type via its property Schema
-    // - CopticCalendar, custom methods only (see the file _Calendar.cs)
-    public static readonly Coptic12Schema Schema = new();
-
-    // This scope instance is the one used by:
-    // - CopticCalendar.Instance (ctor)
-    // - All instances of the CopticDate type via its property Scope
-    public static readonly StandardScope Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="CopticCalendar"/>.
-    /// </summary>
-    public static StandardScope Create() => Create(new Coptic12Schema());
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="CopticCalendar"/>.
-    /// </summary>
-    private static StandardScope Create(Coptic12Schema schema) => new(schema, DayZero.Coptic);
-}
-
-/// <summary>
 /// Represents the Coptic calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - CopticCalendar.Instance via CopticCalendar.ScopeT
+    // - All instances of the CopticDate type via its property Schema
+    // - CopticCalendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly Coptic12Schema SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - CopticCalendar.Instance (ctor)
+    // - All instances of the CopticDate type via its property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly CopticCalendar Instance = new(CopticScope.Instance);
+    internal static readonly CopticCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
     /// <para>See also <seealso cref="CopticDate.Calendar"/>.</para>
     /// </summary>
-    public CopticCalendar() : this(CopticScope.Create()) { }
+    public CopticCalendar() : this(CreateScope(new Coptic12Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
@@ -83,6 +57,12 @@ public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
     /// Gets the date adjuster.
     /// </summary>
     public CopticAdjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="CopticCalendar"/>.
+    /// </summary>
+    private static StandardScope CreateScope(Coptic12Schema schema) => new(schema, DayZero.Coptic);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override CopticDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -116,16 +96,16 @@ public partial struct CopticDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = CopticScope.Instance.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = CopticCalendar.ScopeT.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = CopticScope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = CopticCalendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = CopticScope.Instance.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = CopticCalendar.ScopeT.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = CopticScope.Instance.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = CopticCalendar.ScopeT.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly CopticDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -277,13 +257,13 @@ public partial struct CopticDate // Preamble
     //
     // Don't use Scope.Schema or CopticScope.Instance.Schema. Both are of
     // type ICalendricalSchema, not Coptic12Schema.
-    private static Coptic12Schema Schema => CopticScope.Schema;
+    private static Coptic12Schema Schema => CopticCalendar.SchemaT;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => CopticScope.Instance;
+    private static StandardScope Scope => CopticCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

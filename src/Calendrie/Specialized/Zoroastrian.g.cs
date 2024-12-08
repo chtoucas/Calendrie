@@ -16,60 +16,34 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="ZoroastrianCalendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class ZoroastrianScope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="ZoroastrianCalendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - ZoroastrianScope.Instance (ctor)
-    // - ZoroastrianCalendar.Instance via ZoroastrianScope.Instance
-    // - All instances of the ZoroastrianDate type via its property Schema
-    // - ZoroastrianCalendar, custom methods only (see the file _Calendar.cs)
-    public static readonly Egyptian12Schema Schema = new();
-
-    // This scope instance is the one used by:
-    // - ZoroastrianCalendar.Instance (ctor)
-    // - All instances of the ZoroastrianDate type via its property Scope
-    public static readonly StandardScope Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="ZoroastrianCalendar"/>.
-    /// </summary>
-    public static StandardScope Create() => Create(new Egyptian12Schema());
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="ZoroastrianCalendar"/>.
-    /// </summary>
-    private static StandardScope Create(Egyptian12Schema schema) => new(schema, DayZero.Zoroastrian);
-}
-
-/// <summary>
 /// Represents the Zoroastrian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDate>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - ZoroastrianCalendar.Instance via ZoroastrianCalendar.ScopeT
+    // - All instances of the ZoroastrianDate type via its property Schema
+    // - ZoroastrianCalendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly Egyptian12Schema SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - ZoroastrianCalendar.Instance (ctor)
+    // - All instances of the ZoroastrianDate type via its property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly ZoroastrianCalendar Instance = new(ZoroastrianScope.Instance);
+    internal static readonly ZoroastrianCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
     /// <para>See also <seealso cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
-    public ZoroastrianCalendar() : this(ZoroastrianScope.Create()) { }
+    public ZoroastrianCalendar() : this(CreateScope(new Egyptian12Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
@@ -83,6 +57,12 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
     /// Gets the date adjuster.
     /// </summary>
     public ZoroastrianAdjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="ZoroastrianCalendar"/>.
+    /// </summary>
+    private static StandardScope CreateScope(Egyptian12Schema schema) => new(schema, DayZero.Zoroastrian);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override ZoroastrianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -116,16 +96,16 @@ public partial struct ZoroastrianDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = ZoroastrianScope.Instance.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = ZoroastrianCalendar.ScopeT.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = ZoroastrianScope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = ZoroastrianCalendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = ZoroastrianScope.Instance.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = ZoroastrianCalendar.ScopeT.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = ZoroastrianScope.Instance.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = ZoroastrianCalendar.ScopeT.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly ZoroastrianDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -277,13 +257,13 @@ public partial struct ZoroastrianDate // Preamble
     //
     // Don't use Scope.Schema or ZoroastrianScope.Instance.Schema. Both are of
     // type ICalendricalSchema, not Egyptian12Schema.
-    private static Egyptian12Schema Schema => ZoroastrianScope.Schema;
+    private static Egyptian12Schema Schema => ZoroastrianCalendar.SchemaT;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => ZoroastrianScope.Instance;
+    private static StandardScope Scope => ZoroastrianCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

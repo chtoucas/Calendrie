@@ -16,60 +16,34 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="TabularIslamicCalendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class TabularIslamicScope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="TabularIslamicCalendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - TabularIslamicScope.Instance (ctor)
-    // - TabularIslamicCalendar.Instance via TabularIslamicScope.Instance
-    // - All instances of the TabularIslamicDate type via its property Schema
-    // - TabularIslamicCalendar, custom methods only (see the file _Calendar.cs)
-    public static readonly TabularIslamicSchema Schema = new();
-
-    // This scope instance is the one used by:
-    // - TabularIslamicCalendar.Instance (ctor)
-    // - All instances of the TabularIslamicDate type via its property Scope
-    public static readonly StandardScope Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="TabularIslamicCalendar"/>.
-    /// </summary>
-    public static StandardScope Create() => Create(new TabularIslamicSchema());
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="TabularIslamicCalendar"/>.
-    /// </summary>
-    private static StandardScope Create(TabularIslamicSchema schema) => new(schema, DayZero.TabularIslamic);
-}
-
-/// <summary>
 /// Represents the Tabular Islamic calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - TabularIslamicCalendar.Instance via TabularIslamicCalendar.ScopeT
+    // - All instances of the TabularIslamicDate type via its property Schema
+    // - TabularIslamicCalendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly TabularIslamicSchema SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - TabularIslamicCalendar.Instance (ctor)
+    // - All instances of the TabularIslamicDate type via its property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly TabularIslamicCalendar Instance = new(TabularIslamicScope.Instance);
+    internal static readonly TabularIslamicCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
-    public TabularIslamicCalendar() : this(TabularIslamicScope.Create()) { }
+    public TabularIslamicCalendar() : this(CreateScope(new TabularIslamicSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
@@ -83,6 +57,12 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     /// Gets the date adjuster.
     /// </summary>
     public TabularIslamicAdjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="TabularIslamicCalendar"/>.
+    /// </summary>
+    private static StandardScope CreateScope(TabularIslamicSchema schema) => new(schema, DayZero.TabularIslamic);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -116,16 +96,16 @@ public partial struct TabularIslamicDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = TabularIslamicScope.Instance.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = TabularIslamicCalendar.ScopeT.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = TabularIslamicScope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = TabularIslamicCalendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = TabularIslamicScope.Instance.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = TabularIslamicCalendar.ScopeT.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = TabularIslamicScope.Instance.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = TabularIslamicCalendar.ScopeT.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly TabularIslamicDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -277,13 +257,13 @@ public partial struct TabularIslamicDate // Preamble
     //
     // Don't use Scope.Schema or TabularIslamicScope.Instance.Schema. Both are of
     // type ICalendricalSchema, not TabularIslamicSchema.
-    private static TabularIslamicSchema Schema => TabularIslamicScope.Schema;
+    private static TabularIslamicSchema Schema => TabularIslamicCalendar.SchemaT;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => TabularIslamicScope.Instance;
+    private static StandardScope Scope => TabularIslamicCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

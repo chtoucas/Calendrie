@@ -22,7 +22,7 @@ module Prelude =
 
     [<Fact>]
     let ``Value of CivilDate.MaxDaysSinceZero`` () =
-        CivilDate.MaxDaysSinceZero === CivilScope.Instance.Segment.SupportedDays.Max
+        CivilDate.MaxDaysSinceZero === CivilCalendar.ScopeT.Segment.SupportedDays.Max
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
     let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =

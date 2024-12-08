@@ -18,60 +18,34 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides static methods related to the scope of application of
-/// <see cref="PlainJulianCalendar"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-internal static class PlainJulianScope
-{
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>
-    /// Represents the schema underlying the <see cref="PlainJulianCalendar"/>
-    /// calendar.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - PlainJulianScope.Instance (ctor)
-    // - PlainJulianCalendar.Instance via PlainJulianScope.Instance
-    // - All instances of the PlainJulianDate type via its property Schema
-    // - PlainJulianCalendar, custom methods only (see the file _Calendar.cs)
-    public static readonly JulianSchema Schema = new();
-
-    // This scope instance is the one used by:
-    // - PlainJulianCalendar.Instance (ctor)
-    // - All instances of the PlainJulianDate type via its property Scope
-    public static readonly StandardScope Instance = Create(Schema);
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="PlainJulianCalendar"/>.
-    /// </summary>
-    public static StandardScope Create() => Create(new JulianSchema());
-
-    /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="PlainJulianCalendar"/>.
-    /// </summary>
-    private static StandardScope Create(JulianSchema schema) => new(schema, DayZero.OldStyle);
-}
-
-/// <summary>
 /// Represents the PlainJulian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDate>
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
+    // This schema instance is the one used by:
+    // - PlainJulianCalendar.Instance via PlainJulianCalendar.ScopeT
+    // - All instances of the PlainJulianDate type via its property Schema
+    // - PlainJulianCalendar, custom methods only (see the file _Calendar.cs)
+    internal static readonly JulianSchema SchemaT = new();
+
+    // This scope instance is the one used by:
+    // - PlainJulianCalendar.Instance (ctor)
+    // - All instances of the PlainJulianDate type via its property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+
     // This class is not a singleton but we ensure that all date instances are
     // using the same calendar instance. While not mandatory at all, I like the
     // idea.
-    internal static readonly PlainJulianCalendar Instance = new(PlainJulianScope.Instance);
+    internal static readonly PlainJulianCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
     /// <para>See also <seealso cref="PlainJulianDate.Calendar"/>.</para>
     /// </summary>
-    public PlainJulianCalendar() : this(PlainJulianScope.Create()) { }
+    public PlainJulianCalendar() : this(CreateScope(new JulianSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
@@ -85,6 +59,12 @@ public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDat
     /// Gets the date adjuster.
     /// </summary>
     public PlainJulianAdjuster Adjuster { get; }
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="PlainJulianCalendar"/>.
+    /// </summary>
+    private static StandardScope CreateScope(JulianSchema schema) => new(schema, DayZero.OldStyle);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override PlainJulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -119,16 +99,16 @@ public partial struct PlainJulianDate // Preamble
     // WARNING: the order in which the static fields are written is __important__.
 
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = PlainJulianScope.Instance.Epoch;
+    private static readonly DayNumber s_Epoch = PlainJulianCalendar.ScopeT.Epoch;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = PlainJulianScope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = PlainJulianCalendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = PlainJulianScope.Instance.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = PlainJulianCalendar.ScopeT.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = PlainJulianScope.Instance.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = PlainJulianCalendar.ScopeT.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly PlainJulianDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -280,13 +260,13 @@ public partial struct PlainJulianDate // Preamble
     //
     // Don't use Scope.Schema or PlainJulianScope.Instance.Schema. Both are of
     // type ICalendricalSchema, not JulianSchema.
-    private static JulianSchema Schema => PlainJulianScope.Schema;
+    private static JulianSchema Schema => PlainJulianCalendar.SchemaT;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => PlainJulianScope.Instance;
+    private static StandardScope Scope => PlainJulianCalendar.ScopeT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
