@@ -21,23 +21,18 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian13Date>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     // This schema instance is the one used by:
-    // - Zoroastrian13Calendar.Instance via Zoroastrian13Calendar.ScopeT
-    // - All instances of the Zoroastrian13Date type via its property Schema
+    // - All instances of the Zoroastrian13Date type via the property Schema
     // - Zoroastrian13Calendar, custom methods only (see the file _Calendar.cs)
     internal static readonly Egyptian13Schema SchemaT = new();
 
     // This scope instance is the one used by:
-    // - Zoroastrian13Calendar.Instance (ctor)
-    // - All instances of the Zoroastrian13Date type via its property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+    // - All instances of the Zoroastrian13Date type via the property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(new Egyptian13Schema());
 
-    // This class is not a singleton but we ensure that all date instances are
-    // using the same calendar instance. While not mandatory at all, I like the
-    // idea.
-    internal static readonly Zoroastrian13Calendar Instance = new(ScopeT);
+    // This calendar instance is the one used by:
+    // - All instances of the Zoroastrian13Date type via the properties Calendar and Adjuster
+    internal static readonly Zoroastrian13Calendar Instance = new(CreateScope(new Egyptian13Schema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/> class.

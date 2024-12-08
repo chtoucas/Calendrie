@@ -21,23 +21,18 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     // This schema instance is the one used by:
-    // - TabularIslamicCalendar.Instance via TabularIslamicCalendar.ScopeT
-    // - All instances of the TabularIslamicDate type via its property Schema
+    // - All instances of the TabularIslamicDate type via the property Schema
     // - TabularIslamicCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly TabularIslamicSchema SchemaT = new();
 
     // This scope instance is the one used by:
-    // - TabularIslamicCalendar.Instance (ctor)
-    // - All instances of the TabularIslamicDate type via its property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+    // - All instances of the TabularIslamicDate type via the property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(new TabularIslamicSchema());
 
-    // This class is not a singleton but we ensure that all date instances are
-    // using the same calendar instance. While not mandatory at all, I like the
-    // idea.
-    internal static readonly TabularIslamicCalendar Instance = new(ScopeT);
+    // This calendar instance is the one used by:
+    // - All instances of the TabularIslamicDate type via the properties Calendar and Adjuster
+    internal static readonly TabularIslamicCalendar Instance = new(CreateScope(new TabularIslamicSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.

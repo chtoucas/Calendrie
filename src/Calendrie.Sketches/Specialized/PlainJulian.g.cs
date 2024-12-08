@@ -23,23 +23,18 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDate>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     // This schema instance is the one used by:
-    // - PlainJulianCalendar.Instance via PlainJulianCalendar.ScopeT
-    // - All instances of the PlainJulianDate type via its property Schema
+    // - All instances of the PlainJulianDate type via the property Schema
     // - PlainJulianCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly JulianSchema SchemaT = new();
 
     // This scope instance is the one used by:
-    // - PlainJulianCalendar.Instance (ctor)
-    // - All instances of the PlainJulianDate type via its property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+    // - All instances of the PlainJulianDate type via the property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(new JulianSchema());
 
-    // This class is not a singleton but we ensure that all date instances are
-    // using the same calendar instance. While not mandatory at all, I like the
-    // idea.
-    internal static readonly PlainJulianCalendar Instance = new(ScopeT);
+    // This calendar instance is the one used by:
+    // - All instances of the PlainJulianDate type via the properties Calendar and Adjuster
+    internal static readonly PlainJulianCalendar Instance = new(CreateScope(new JulianSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.

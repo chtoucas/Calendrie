@@ -9,12 +9,10 @@ using Calendrie.Hemerology;
 
 public partial struct GregorianDate
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    // NB: Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
-
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to -365_242_135.</para></summary>
+    //
+    // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
     internal const int MinDaysSinceZero = -365_242_135;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 365_242_133.</para></summary>

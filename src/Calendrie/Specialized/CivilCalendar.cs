@@ -16,8 +16,8 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
 {
     // See comments in Armenian13Calendar for instance.
     internal static readonly CivilSchema SchemaT = new();
-    internal static readonly CivilScope ScopeT = new(SchemaT);
-    internal static readonly CivilCalendar Instance = new(ScopeT);
+    internal static readonly CivilScope ScopeT = new(new CivilSchema());
+    internal static readonly CivilCalendar Instance = new(new CivilScope(new CivilSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.

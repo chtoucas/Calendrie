@@ -21,23 +21,18 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     // This schema instance is the one used by:
-    // - WorldCalendar.Instance via WorldCalendar.ScopeT
-    // - All instances of the WorldDate type via its property Schema
+    // - All instances of the WorldDate type via the property Schema
     // - WorldCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly WorldSchema SchemaT = new();
 
     // This scope instance is the one used by:
-    // - WorldCalendar.Instance (ctor)
-    // - All instances of the WorldDate type via its property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(SchemaT);
+    // - All instances of the WorldDate type via the property Scope
+    internal static readonly StandardScope ScopeT = CreateScope(new WorldSchema());
 
-    // This class is not a singleton but we ensure that all date instances are
-    // using the same calendar instance. While not mandatory at all, I like the
-    // idea.
-    internal static readonly WorldCalendar Instance = new(ScopeT);
+    // This calendar instance is the one used by:
+    // - All instances of the WorldDate type via the properties Calendar and Adjuster
+    internal static readonly WorldCalendar Instance = new(CreateScope(new WorldSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/> class.

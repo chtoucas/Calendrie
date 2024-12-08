@@ -16,8 +16,8 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
 {
     // See comments in Armenian13Calendar for instance.
     internal static readonly GregorianSchema SchemaT = new();
-    internal static readonly GregorianScope ScopeT = new(SchemaT);
-    internal static readonly GregorianCalendar Instance = new(ScopeT);
+    internal static readonly GregorianScope ScopeT = new(new GregorianSchema());
+    internal static readonly GregorianCalendar Instance = new(new GregorianScope(new GregorianSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.

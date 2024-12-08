@@ -10,14 +10,12 @@ using Calendrie.Hemerology;
 
 public partial struct JulianDate
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     private const int EpochDaysSinceZero = -2;
-
-    // NB: Min/MaxDaysSinceZero = JulianScope.Instance.Segment.SupportedDays.Min/Max
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_635.</para></summary>
+    //
+    // Min/MaxDaysSinceZero = JulianScope.Instance.Segment.SupportedDays.Min/Max
     internal const int MinDaysSinceEpoch = -365_249_635;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_633.</para></summary>

@@ -101,23 +101,18 @@ using Calendrie.Horology;
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
     // This schema instance is the one used by:
-    // - <#= Prefix #>Calendar.Instance via <#= Prefix #>Calendar.ScopeT
-    // - All instances of the <#= Prefix #>Date type via its property Schema
+    // - All instances of the <#= Prefix #>Date type via the property Schema
     // - <#= Prefix #>Calendar, custom methods only (see the file _Calendar.cs)
     internal static readonly <#= SchemaClass #> SchemaT = new();
 
     // This scope instance is the one used by:
-    // - <#= Prefix #>Calendar.Instance (ctor)
-    // - All instances of the <#= Prefix #>Date type via its property Scope
-    internal static readonly <#= ScopeClass #> ScopeT = CreateScope(SchemaT);
+    // - All instances of the <#= Prefix #>Date type via the property Scope
+    internal static readonly <#= ScopeClass #> ScopeT = CreateScope(new <#= SchemaClass #>());
 
-    // This class is not a singleton but we ensure that all date instances are
-    // using the same calendar instance. While not mandatory at all, I like the
-    // idea.
-    internal static readonly <#= Prefix #>Calendar Instance = new(ScopeT);
+    // This calendar instance is the one used by:
+    // - All instances of the <#= Prefix #>Date type via the properties Calendar and Adjuster
+    internal static readonly <#= Prefix #>Calendar Instance = new(CreateScope(new <#= SchemaClass #>()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
