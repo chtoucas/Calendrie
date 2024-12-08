@@ -5,15 +5,14 @@ namespace Calendrie.Specialized;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 public partial struct JulianDate
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-#pragma warning disable IDE1006 // Naming Styles
-    private const int s_EpochDaysSinceZero = -1;
-#pragma warning restore IDE1006
+    private const int EpochDaysSinceZero = -2;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
@@ -91,7 +90,7 @@ public partial struct JulianDate
     public static JulianAdjuster Adjuster => JulianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
-    public DayNumber DayNumber => new(s_EpochDaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -180,4 +179,27 @@ public partial struct JulianDate
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
         year = JulianFormulae.GetYear(_daysSinceEpoch, out dayOfYear);
+}
+
+public partial struct JulianDate // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static JulianDate FromDayNumber(DayNumber dayNumber)
+    {
+        s_Domain.Validate(dayNumber);
+
+        // We know that the subtraction won't overflow
+        // > return new(dayNumber - s_Epoch);
+        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct
+    /// from the specified day number.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static JulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
+        new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 }

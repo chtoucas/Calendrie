@@ -37,29 +37,6 @@ public readonly partial struct JulianDate :
     IAdjustable<JulianDate>
 { }
 
-public partial struct JulianDate // Factories
-{
-    /// <inheritdoc />
-    [Pure]
-    public static JulianDate FromDayNumber(DayNumber dayNumber)
-    {
-        s_Domain.Validate(dayNumber);
-
-        // We know that the subtraction won't overflow
-        // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
-    }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianDate"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static JulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
-}
-
 public partial struct JulianDate // Counting
 {
     /// <inheritdoc />
