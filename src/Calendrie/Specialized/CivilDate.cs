@@ -308,10 +308,7 @@ public partial struct CivilDate // Math
     {
         int daysSinceZero = checked(_daysSinceZero + days);
 
-        // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(s_Epoch + daysSinceEpoch);
-        if ((uint)daysSinceZero > MaxDaysSinceZero)
-            ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceZero);
     }
