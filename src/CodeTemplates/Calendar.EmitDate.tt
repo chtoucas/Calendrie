@@ -35,8 +35,13 @@ public readonly partial struct <#= Prefix #>Date :
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
+<#+ if (EnableMicroOptimizations) { #>
+    /// <summary>Represents the epoch of the associated calendar.</summary>
+    private static readonly DayNumber s_Epoch = <#= Epoch #>;
+<#+ } else { #>
     /// <summary>Represents the epoch of the associated calendar.</summary>
     private static readonly DayNumber s_Epoch = <#= Prefix #>Scope.Epoch;
+<#+ } #>
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>

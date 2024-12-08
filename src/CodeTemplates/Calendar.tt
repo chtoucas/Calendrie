@@ -40,6 +40,8 @@ public partial class CalendarTemplate : CSharpTemplate
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
 
+    public bool EnableMicroOptimizations { get; set; }
+
     protected sealed override void WriteContent()
     {
         // TODO(code): why is it necessary for Calendrier.Sketches but not within Calendrie?
@@ -92,6 +94,8 @@ using Calendrie.Horology;
         // WARNING: the constructors of the schema and the scope MUST have a
         // fixed form as one can see below.
 
+        var epochValue = EnableMicroOptimizations ? Epoch : "Epoch";
+
         WriteLine();
 #>
 /// <summary>
@@ -102,8 +106,10 @@ using Calendrie.Horology;
 internal static class <#= Prefix #>Scope
 {
     // WARNING: the order in which the static fields are written is __important__.
+<#+ if (!EnableMicroOptimizations) { #>
 
     public static readonly DayNumber Epoch = <#= Epoch #>;
+<#+ } #>
 
     // This schema instance is the one used by:
     // - <#= Prefix #>Scope.Instance (ctor)
@@ -115,7 +121,7 @@ internal static class <#= Prefix #>Scope
     // This scope instance is the one used by:
     // - <#= Prefix #>Calendar.Instance (ctor)
     // - All instances of the <#= Prefix #>Date type via its property Scope
-    public static readonly <#= ScopeClass #> Instance = new(Schema, Epoch);
+    public static readonly <#= ScopeClass #> Instance = new(Schema, <#= epochValue #>);
 
     // The next three properties are only created to ease the initialization of
     // the static fields of <#= Prefix #>Date. Notice that these properties are
@@ -144,7 +150,7 @@ internal static class <#= Prefix #>Scope
     /// Creates a new instance of the <#= ScopeClass #> class suitable for use
     /// with <see cref="<#= Prefix #>Calendar"/>.
     /// </summary>
-    public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), Epoch);
+    public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), <#= epochValue #>);
 }
 <#+
     } // T4: End of EmitScope()
