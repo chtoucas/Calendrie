@@ -8,11 +8,13 @@ using Calendrie.Hemerology;
 
 public partial struct CivilDate
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = CivilScope.MaxDaysSinceZero;
+    private static readonly int s_MaxDaysSinceZero = CivilScope.Instance.MaxDaysSinceZero;
 
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly CivilDate s_MaxValue = new(CivilScope.MaxDaysSinceZero);
+    private static readonly CivilDate s_MaxValue = new(s_MaxDaysSinceZero);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.

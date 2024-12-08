@@ -32,8 +32,6 @@ internal sealed class GregorianScope : CalendarScope
     // See comments in Armenian13Scope for instance.
     public static readonly GregorianSchema SchemaT = new();
     public static readonly GregorianScope Instance = new(SchemaT);
-    public static int MinDaysSinceZero => Instance.Segment.SupportedDays.Min;
-    public static int MaxDaysSinceZero => Instance.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianScope"/> class.
@@ -47,6 +45,18 @@ internal sealed class GregorianScope : CalendarScope
 
         YearsValidator = ProlepticScope.YearsValidatorImpl;
     }
+
+    /// <summary>
+    /// Gets the minimum possible value for the number of consecutive days from
+    /// the epoch.
+    /// </summary>
+    public int MinDaysSinceZero => Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Gets the maximum possible value for the number of consecutive days from
+    /// the epoch.
+    /// </summary>
+    public int MaxDaysSinceZero => Segment.SupportedDays.Max;
 
     /// <summary>
     /// Validates the specified month.

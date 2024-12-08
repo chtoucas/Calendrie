@@ -31,8 +31,6 @@ internal sealed class CivilScope : CalendarScope
     // See comments in Armenian13Scope for instance.
     public static readonly CivilSchema SchemaT = new();
     public static readonly CivilScope Instance = new(SchemaT);
-    // NB: MinDaysSinceZero = 0.
-    public static int MaxDaysSinceZero => Instance.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilScope"/> class.
@@ -44,6 +42,14 @@ internal sealed class CivilScope : CalendarScope
     {
         YearsValidator = StandardScope.YearsValidatorImpl;
     }
+
+    // NB: MinDaysSinceZero = 0.
+
+    /// <summary>
+    /// Gets the maximum possible value for the number of consecutive days from
+    /// the epoch.
+    /// </summary>
+    public int MaxDaysSinceZero => Segment.SupportedDays.Max;
 
     /// <summary>
     /// Validates the specified month.

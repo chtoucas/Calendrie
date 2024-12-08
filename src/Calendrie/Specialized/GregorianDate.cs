@@ -9,19 +9,21 @@ using Calendrie.Hemerology;
 
 public partial struct GregorianDate
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = GregorianScope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MinDaysSinceZero = GregorianScope.MinDaysSinceZero;
+    private static readonly int s_MinDaysSinceZero = GregorianScope.Instance.MinDaysSinceZero;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = GregorianScope.MaxDaysSinceZero;
+    private static readonly int s_MaxDaysSinceZero = GregorianScope.Instance.MaxDaysSinceZero;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly GregorianDate s_MinValue = new(GregorianScope.MinDaysSinceZero);
+    private static readonly GregorianDate s_MinValue = new(s_MinDaysSinceZero);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly GregorianDate s_MaxValue = new(GregorianScope.MaxDaysSinceZero);
+    private static readonly GregorianDate s_MaxValue = new(s_MaxDaysSinceZero);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
