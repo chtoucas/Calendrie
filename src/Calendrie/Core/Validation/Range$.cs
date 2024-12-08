@@ -15,21 +15,16 @@ internal static partial class RangeExtensions
     /// Validates the specified <see cref="int"/> value.
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>
-    public static void Validate(
-        this Range<int> range, int value, string? paramName = null)
+    public static void Validate(this Range<int> range, int value, string? paramName = null)
     {
         if (value < range.Min || value > range.Max)
-            ThrowValueOutOfRange(value, paramName ?? nameof(value));
-    }
+            throwValueOutOfRange(value, paramName ?? nameof(value));
 
-    /// <summary>
-    /// The value was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    private static void ThrowValueOutOfRange(int value, string? paramName = null) =>
-        throw new AoorException(
-            paramName ?? nameof(value),
-            value,
-            $"The value was out of range; value = {value}.");
+        [DoesNotReturn]
+        static void throwValueOutOfRange(int value, string? paramName = null) =>
+            throw new AoorException(
+                paramName ?? nameof(value),
+                value,
+                $"The value was out of range; value = {value}.");
+    }
 }

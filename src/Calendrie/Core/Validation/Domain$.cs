@@ -15,11 +15,19 @@ public static class DomainExtensions
     /// Validates the specified <see cref="DayNumber"/> value.
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Validate(
         this Range<DayNumber> domain, DayNumber dayNumber, string? paramName = null)
     {
         if (dayNumber < domain.Min || dayNumber > domain.Max)
-            ThrowDateOutOfRange(dayNumber, paramName ?? nameof(dayNumber));
+            throwDateOutOfRange(dayNumber, paramName ?? nameof(dayNumber));
+
+        [DoesNotReturn]
+        static void throwDateOutOfRange(DayNumber dayNumber, string? paramName = null) =>
+            throw new AoorException(
+                paramName ?? nameof(dayNumber),
+                dayNumber,
+                $"The value of the day number was out of range; value = {dayNumber}.");
     }
 
     /// <summary>
@@ -28,6 +36,7 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="dayNumber"/> would
     /// overflow the range of supported values.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void CheckOverflow(this Range<DayNumber> domain, DayNumber dayNumber)
     {
         if (dayNumber < domain.Min || dayNumber > domain.Max) ThrowHelpers.ThrowDateOverflow();
@@ -39,6 +48,7 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="OverflowException">The value is greater than the upper
     /// bound of the range of supported values.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void CheckUpperBound(this Range<DayNumber> domain, DayNumber dayNumber)
     {
         if (dayNumber > domain.Max) ThrowHelpers.ThrowDateOverflow();
@@ -50,19 +60,9 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="OverflowException">The value is less than the lower
     /// bound of the range of supported values.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void CheckLowerBound(this Range<DayNumber> domain, DayNumber dayNumber)
     {
         if (dayNumber < domain.Min) ThrowHelpers.ThrowDateOverflow();
     }
-
-    /// <summary>
-    /// The value of the day number was out of range.
-    /// </summary>
-    /// <exception cref="AoorException"/>
-    [DoesNotReturn]
-    private static void ThrowDateOutOfRange(DayNumber dayNumber, string? paramName = null) =>
-        throw new AoorException(
-            paramName ?? nameof(dayNumber),
-            dayNumber,
-            $"The value of the day number was out of range; value = {dayNumber}.");
 }
