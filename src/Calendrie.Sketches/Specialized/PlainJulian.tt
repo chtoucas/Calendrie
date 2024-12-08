@@ -4,4 +4,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-<#= new CalendarTemplate(this, "JulianSchema", "DayZero.OldStyle") { EnablePragmas = true }.Execute() #>
+<#= new CalendarTemplate(this, "JulianSchema", "DayZero.OldStyle")
+    {
+        EnableMicroOptimizations = false,
+        EnablePragmas = true
+    }.Execute() #>
