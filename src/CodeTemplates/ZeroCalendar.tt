@@ -76,17 +76,17 @@ public partial struct <#= Prefix #>Date // Preamble
 {
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
+    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochSuffix #>);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.

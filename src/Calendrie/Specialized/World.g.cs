@@ -24,8 +24,11 @@ internal static class WorldScope
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    public static readonly DayNumber Epoch = DayZero.SundayBeforeGregorian;
-
+    /// <summary>
+    /// Represents the schema underlying the <see cref="WorldCalendar"/>
+    /// calendar.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - WorldScope.Instance (ctor)
     // - WorldCalendar.Instance via WorldScope.Instance
@@ -36,36 +39,19 @@ internal static class WorldScope
     // This scope instance is the one used by:
     // - WorldCalendar.Instance (ctor)
     // - All instances of the WorldDate type via its property Scope
-    public static readonly StandardScope Instance = new(Schema, Epoch);
-
-    // The next three properties are only created to ease the initialization of
-    // the static fields of WorldDate. Notice that these properties are
-    // properties (!) of value type without a backing field, therefore they only
-    // exist temporarily.
-
-    /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values by the
-    /// calendar <see cref="WorldCalendar"/>.
-    /// </summary>
-    public static Range<DayNumber> Domain => Instance.Domain;
-
-    /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
+    public static readonly StandardScope Instance = Create(Schema);
 
     /// <summary>
     /// Creates a new instance of the StandardScope class suitable for use
     /// with <see cref="WorldCalendar"/>.
     /// </summary>
-    public static StandardScope Create() => new(new WorldSchema(), Epoch);
+    public static StandardScope Create() => Create(new WorldSchema());
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="WorldCalendar"/>.
+    /// </summary>
+    private static StandardScope Create(WorldSchema schema) => new(schema, DayZero.SundayBeforeGregorian);
 }
 
 /// <summary>
@@ -128,25 +114,27 @@ public readonly partial struct WorldDate :
 
 public partial struct WorldDate // Preamble
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = WorldScope.Epoch;
+    private static readonly DayNumber s_Epoch = WorldScope.Instance.Epoch;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = WorldScope.Domain;
+    private static readonly Range<DayNumber> s_Domain = WorldScope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = WorldScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = WorldScope.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = WorldScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = WorldScope.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly WorldDate s_MinValue = new(WorldScope.MinDaysSinceEpoch);
+    private static readonly WorldDate s_MinValue = new(s_MinDaysSinceEpoch);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly WorldDate s_MaxValue = new(WorldScope.MaxDaysSinceEpoch);
+    private static readonly WorldDate s_MaxValue = new(s_MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// Represents the count of consecutive days since the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
     /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
     /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
     /// </summary>

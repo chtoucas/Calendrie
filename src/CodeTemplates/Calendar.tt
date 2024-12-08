@@ -94,8 +94,6 @@ using Calendrie.Horology;
         // WARNING: the constructors of the schema and the scope MUST have a
         // fixed form as one can see below.
 
-        var epochValue = EnableMicroOptimizations ? Epoch : "Epoch";
-
         WriteLine();
 #>
 /// <summary>
@@ -106,11 +104,12 @@ using Calendrie.Horology;
 internal static class <#= Prefix #>Scope
 {
     // WARNING: the order in which the static fields are written is __important__.
-<#+ if (!EnableMicroOptimizations) { #>
 
-    public static readonly DayNumber Epoch = <#= Epoch #>;
-<#+ } #>
-
+    /// <summary>
+    /// Represents the schema underlying the <see cref="<#= Prefix #>Calendar"/>
+    /// calendar.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - <#= Prefix #>Scope.Instance (ctor)
     // - <#= Prefix #>Calendar.Instance via <#= Prefix #>Scope.Instance
@@ -121,36 +120,19 @@ internal static class <#= Prefix #>Scope
     // This scope instance is the one used by:
     // - <#= Prefix #>Calendar.Instance (ctor)
     // - All instances of the <#= Prefix #>Date type via its property Scope
-    public static readonly <#= ScopeClass #> Instance = new(Schema, <#= epochValue #>);
-
-    // The next three properties are only created to ease the initialization of
-    // the static fields of <#= Prefix #>Date. Notice that these properties are
-    // properties (!) of value type without a backing field, therefore they only
-    // exist temporarily.
-
-    /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values by the
-    /// calendar <see cref="<#= Prefix #>Calendar"/>.
-    /// </summary>
-    public static Range<DayNumber> Domain => Instance.Domain;
-
-    /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int Min<#= DaysSinceEpochSuffix #> => Instance.Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int Max<#= DaysSinceEpochSuffix #> => Instance.Segment.SupportedDays.Max;
+    public static readonly <#= ScopeClass #> Instance = Create(Schema);
 
     /// <summary>
     /// Creates a new instance of the <#= ScopeClass #> class suitable for use
     /// with <see cref="<#= Prefix #>Calendar"/>.
     /// </summary>
-    public static <#= ScopeClass #> Create() => new(new <#= SchemaClass #>(), <#= epochValue #>);
+    public static <#= ScopeClass #> Create() => Create(new <#= SchemaClass #>());
+
+    /// <summary>
+    /// Creates a new instance of the <#= ScopeClass #> class suitable for use
+    /// with <see cref="<#= Prefix #>Calendar"/>.
+    /// </summary>
+    private static <#= ScopeClass #> Create(<#= SchemaClass #> schema) => new(schema, <#= Epoch #>);
 }
 <#+
     } // T4: End of EmitScope()

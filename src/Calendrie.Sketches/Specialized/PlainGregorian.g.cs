@@ -26,8 +26,11 @@ internal static class PlainGregorianScope
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    public static readonly DayNumber Epoch = DayZero.NewStyle;
-
+    /// <summary>
+    /// Represents the schema underlying the <see cref="PlainGregorianCalendar"/>
+    /// calendar.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - PlainGregorianScope.Instance (ctor)
     // - PlainGregorianCalendar.Instance via PlainGregorianScope.Instance
@@ -38,36 +41,19 @@ internal static class PlainGregorianScope
     // This scope instance is the one used by:
     // - PlainGregorianCalendar.Instance (ctor)
     // - All instances of the PlainGregorianDate type via its property Scope
-    public static readonly StandardScope Instance = new(Schema, Epoch);
-
-    // The next three properties are only created to ease the initialization of
-    // the static fields of PlainGregorianDate. Notice that these properties are
-    // properties (!) of value type without a backing field, therefore they only
-    // exist temporarily.
-
-    /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values by the
-    /// calendar <see cref="PlainGregorianCalendar"/>.
-    /// </summary>
-    public static Range<DayNumber> Domain => Instance.Domain;
-
-    /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MinDaysSinceZero => Instance.Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MaxDaysSinceZero => Instance.Segment.SupportedDays.Max;
+    public static readonly StandardScope Instance = Create(Schema);
 
     /// <summary>
     /// Creates a new instance of the StandardScope class suitable for use
     /// with <see cref="PlainGregorianCalendar"/>.
     /// </summary>
-    public static StandardScope Create() => new(new GregorianSchema(), Epoch);
+    public static StandardScope Create() => Create(new GregorianSchema());
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="PlainGregorianCalendar"/>.
+    /// </summary>
+    private static StandardScope Create(GregorianSchema schema) => new(schema, DayZero.NewStyle);
 }
 
 /// <summary>
@@ -132,17 +118,17 @@ public partial struct PlainGregorianDate // Preamble
 {
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = PlainGregorianScope.Domain;
+    private static readonly Range<DayNumber> s_Domain = PlainGregorianScope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MinDaysSinceZero = PlainGregorianScope.MinDaysSinceZero;
+    private static readonly int s_MinDaysSinceZero = PlainGregorianScope.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = PlainGregorianScope.MaxDaysSinceZero;
+    private static readonly int s_MaxDaysSinceZero = PlainGregorianScope.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly PlainGregorianDate s_MinValue = new(PlainGregorianScope.MinDaysSinceZero);
+    private static readonly PlainGregorianDate s_MinValue = new(s_MinDaysSinceZero);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly PlainGregorianDate s_MaxValue = new(PlainGregorianScope.MaxDaysSinceZero);
+    private static readonly PlainGregorianDate s_MaxValue = new(s_MaxDaysSinceZero);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.

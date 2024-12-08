@@ -31,34 +31,37 @@ public readonly partial struct <#= Prefix #>Date :
 
     protected virtual void EmitDatePreamble()
     {
+        var epochDaysSinceEpoch = EnableMicroOptimizations ? "s_EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
+
         WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
 <#+ if (EnableMicroOptimizations) { #>
-    /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = <#= Epoch #>;
+    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Scope.Instance.Epoch.DaysSinceZero;
 <#+ } else { #>
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = <#= Prefix #>Scope.Epoch;
+    private static readonly DayNumber s_Epoch = <#= Prefix #>Scope.Instance.Epoch;
 <#+ } #>
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Domain;
+    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Scope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Min<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Instance.Min<#= DaysSinceEpochSuffix #>;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Max<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Scope.Instance.Max<#= DaysSinceEpochSuffix #>;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MinValue = new(<#= Prefix #>Scope.Min<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= Prefix #>Scope.Max<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochSuffix #>);
 
     /// <summary>
-    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// Represents the count of consecutive days since the epoch <see cref="<#= Epoch #>"/>.
     /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochSuffix #>"/>
     /// to <see cref="s_Max<#= DaysSinceEpochSuffix #>"/>.</para>
     /// </summary>
@@ -122,7 +125,7 @@ public partial struct <#= Prefix #>Date // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _<#= DaysSinceEpochVar #>;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(<#= epochDaysSinceEpoch #> + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
@@ -234,6 +237,8 @@ public partial struct <#= Prefix #>Date // Preamble
 
     protected virtual void EmitDateFactories()
     {
+        var epochDaysSinceEpoch = EnableMicroOptimizations ? "s_EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
+
         WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Factories
@@ -246,7 +251,7 @@ public partial struct <#= Prefix #>Date // Factories
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero - <#= epochDaysSinceEpoch #>);
     }
 
     /// <summary>
@@ -256,7 +261,7 @@ public partial struct <#= Prefix #>Date // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static <#= Prefix #>Date FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        new(dayNumber.DaysSinceZero - <#= epochDaysSinceEpoch #>);
 }
 <#+
     } // T4: End of EmitDateFactories()

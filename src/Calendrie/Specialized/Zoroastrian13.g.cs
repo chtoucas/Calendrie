@@ -24,8 +24,11 @@ internal static class Zoroastrian13Scope
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    public static readonly DayNumber Epoch = DayZero.Zoroastrian;
-
+    /// <summary>
+    /// Represents the schema underlying the <see cref="Zoroastrian13Calendar"/>
+    /// calendar.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - Zoroastrian13Scope.Instance (ctor)
     // - Zoroastrian13Calendar.Instance via Zoroastrian13Scope.Instance
@@ -36,36 +39,19 @@ internal static class Zoroastrian13Scope
     // This scope instance is the one used by:
     // - Zoroastrian13Calendar.Instance (ctor)
     // - All instances of the Zoroastrian13Date type via its property Scope
-    public static readonly StandardScope Instance = new(Schema, Epoch);
-
-    // The next three properties are only created to ease the initialization of
-    // the static fields of Zoroastrian13Date. Notice that these properties are
-    // properties (!) of value type without a backing field, therefore they only
-    // exist temporarily.
-
-    /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values by the
-    /// calendar <see cref="Zoroastrian13Calendar"/>.
-    /// </summary>
-    public static Range<DayNumber> Domain => Instance.Domain;
-
-    /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
+    public static readonly StandardScope Instance = Create(Schema);
 
     /// <summary>
     /// Creates a new instance of the StandardScope class suitable for use
     /// with <see cref="Zoroastrian13Calendar"/>.
     /// </summary>
-    public static StandardScope Create() => new(new Egyptian13Schema(), Epoch);
+    public static StandardScope Create() => Create(new Egyptian13Schema());
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="Zoroastrian13Calendar"/>.
+    /// </summary>
+    private static StandardScope Create(Egyptian13Schema schema) => new(schema, DayZero.Zoroastrian);
 }
 
 /// <summary>
@@ -128,25 +114,27 @@ public readonly partial struct Zoroastrian13Date :
 
 public partial struct Zoroastrian13Date // Preamble
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = Zoroastrian13Scope.Epoch;
+    private static readonly DayNumber s_Epoch = Zoroastrian13Scope.Instance.Epoch;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = Zoroastrian13Scope.Domain;
+    private static readonly Range<DayNumber> s_Domain = Zoroastrian13Scope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = Zoroastrian13Scope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = Zoroastrian13Scope.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = Zoroastrian13Scope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = Zoroastrian13Scope.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly Zoroastrian13Date s_MinValue = new(Zoroastrian13Scope.MinDaysSinceEpoch);
+    private static readonly Zoroastrian13Date s_MinValue = new(s_MinDaysSinceEpoch);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly Zoroastrian13Date s_MaxValue = new(Zoroastrian13Scope.MaxDaysSinceEpoch);
+    private static readonly Zoroastrian13Date s_MaxValue = new(s_MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// Represents the count of consecutive days since the epoch <see cref="DayZero.Zoroastrian"/>.
     /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
     /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
     /// </summary>

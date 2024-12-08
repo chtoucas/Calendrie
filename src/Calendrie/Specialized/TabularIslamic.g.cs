@@ -24,8 +24,11 @@ internal static class TabularIslamicScope
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    public static readonly DayNumber Epoch = DayZero.TabularIslamic;
-
+    /// <summary>
+    /// Represents the schema underlying the <see cref="TabularIslamicCalendar"/>
+    /// calendar.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - TabularIslamicScope.Instance (ctor)
     // - TabularIslamicCalendar.Instance via TabularIslamicScope.Instance
@@ -36,36 +39,19 @@ internal static class TabularIslamicScope
     // This scope instance is the one used by:
     // - TabularIslamicCalendar.Instance (ctor)
     // - All instances of the TabularIslamicDate type via its property Scope
-    public static readonly StandardScope Instance = new(Schema, Epoch);
-
-    // The next three properties are only created to ease the initialization of
-    // the static fields of TabularIslamicDate. Notice that these properties are
-    // properties (!) of value type without a backing field, therefore they only
-    // exist temporarily.
-
-    /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values by the
-    /// calendar <see cref="TabularIslamicCalendar"/>.
-    /// </summary>
-    public static Range<DayNumber> Domain => Instance.Domain;
-
-    /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
+    public static readonly StandardScope Instance = Create(Schema);
 
     /// <summary>
     /// Creates a new instance of the StandardScope class suitable for use
     /// with <see cref="TabularIslamicCalendar"/>.
     /// </summary>
-    public static StandardScope Create() => new(new TabularIslamicSchema(), Epoch);
+    public static StandardScope Create() => Create(new TabularIslamicSchema());
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="TabularIslamicCalendar"/>.
+    /// </summary>
+    private static StandardScope Create(TabularIslamicSchema schema) => new(schema, DayZero.TabularIslamic);
 }
 
 /// <summary>
@@ -128,25 +114,27 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Preamble
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = TabularIslamicScope.Epoch;
+    private static readonly DayNumber s_Epoch = TabularIslamicScope.Instance.Epoch;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = TabularIslamicScope.Domain;
+    private static readonly Range<DayNumber> s_Domain = TabularIslamicScope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = TabularIslamicScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = TabularIslamicScope.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = TabularIslamicScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = TabularIslamicScope.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly TabularIslamicDate s_MinValue = new(TabularIslamicScope.MinDaysSinceEpoch);
+    private static readonly TabularIslamicDate s_MinValue = new(s_MinDaysSinceEpoch);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly TabularIslamicDate s_MaxValue = new(TabularIslamicScope.MaxDaysSinceEpoch);
+    private static readonly TabularIslamicDate s_MaxValue = new(s_MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// Represents the count of consecutive days since the epoch <see cref="DayZero.TabularIslamic"/>.
     /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
     /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
     /// </summary>

@@ -24,8 +24,11 @@ internal static class CopticScope
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    public static readonly DayNumber Epoch = DayZero.Coptic;
-
+    /// <summary>
+    /// Represents the schema underlying the <see cref="CopticCalendar"/>
+    /// calendar.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - CopticScope.Instance (ctor)
     // - CopticCalendar.Instance via CopticScope.Instance
@@ -36,36 +39,19 @@ internal static class CopticScope
     // This scope instance is the one used by:
     // - CopticCalendar.Instance (ctor)
     // - All instances of the CopticDate type via its property Scope
-    public static readonly StandardScope Instance = new(Schema, Epoch);
-
-    // The next three properties are only created to ease the initialization of
-    // the static fields of CopticDate. Notice that these properties are
-    // properties (!) of value type without a backing field, therefore they only
-    // exist temporarily.
-
-    /// <summary>
-    /// Gets the range of supported <see cref="DayNumber"/> values by the
-    /// calendar <see cref="CopticCalendar"/>.
-    /// </summary>
-    public static Range<DayNumber> Domain => Instance.Domain;
-
-    /// <summary>
-    /// Represents the minimum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MinDaysSinceEpoch => Instance.Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Represents the maximum possible value for the number of consecutive days
-    /// from the epoch.
-    /// </summary>
-    public static int MaxDaysSinceEpoch => Instance.Segment.SupportedDays.Max;
+    public static readonly StandardScope Instance = Create(Schema);
 
     /// <summary>
     /// Creates a new instance of the StandardScope class suitable for use
     /// with <see cref="CopticCalendar"/>.
     /// </summary>
-    public static StandardScope Create() => new(new Coptic12Schema(), Epoch);
+    public static StandardScope Create() => Create(new Coptic12Schema());
+
+    /// <summary>
+    /// Creates a new instance of the StandardScope class suitable for use
+    /// with <see cref="CopticCalendar"/>.
+    /// </summary>
+    private static StandardScope Create(Coptic12Schema schema) => new(schema, DayZero.Coptic);
 }
 
 /// <summary>
@@ -128,25 +114,27 @@ public readonly partial struct CopticDate :
 
 public partial struct CopticDate // Preamble
 {
+    // WARNING: the order in which the static fields are written is __important__.
+
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = CopticScope.Epoch;
+    private static readonly DayNumber s_Epoch = CopticScope.Instance.Epoch;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = CopticScope.Domain;
+    private static readonly Range<DayNumber> s_Domain = CopticScope.Instance.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = CopticScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = CopticScope.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = CopticScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = CopticScope.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly CopticDate s_MinValue = new(CopticScope.MinDaysSinceEpoch);
+    private static readonly CopticDate s_MinValue = new(s_MinDaysSinceEpoch);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly CopticDate s_MaxValue = new(CopticScope.MaxDaysSinceEpoch);
+    private static readonly CopticDate s_MaxValue = new(s_MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Represents the count of consecutive days since <see cref="s_Epoch"/>.
+    /// Represents the count of consecutive days since the epoch <see cref="DayZero.Coptic"/>.
     /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
     /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
     /// </summary>
