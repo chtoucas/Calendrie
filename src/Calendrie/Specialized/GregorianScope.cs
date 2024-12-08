@@ -29,10 +29,6 @@ internal sealed class GregorianScope : CalendarScope
     /// </summary>
     public const int MaxYear = ProlepticScope.MaxYear;
 
-    // See comments in Armenian13Scope for instance.
-    public static readonly GregorianSchema SchemaT = new();
-    public static readonly GregorianScope Instance = new(SchemaT);
-
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianScope"/> class.
     /// </summary>

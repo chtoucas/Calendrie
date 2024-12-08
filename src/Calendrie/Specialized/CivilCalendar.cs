@@ -14,7 +14,10 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturette
 {
-    internal static readonly CivilCalendar Instance = new(CivilScope.Instance);
+    // See comments in Armenian13Calendar for instance.
+    internal static readonly CivilSchema SchemaT = new();
+    internal static readonly CivilScope ScopeT = new(SchemaT);
+    internal static readonly CivilCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.

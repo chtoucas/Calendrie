@@ -25,7 +25,7 @@ public partial struct JulianDate
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = JulianScope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = JulianCalendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly JulianDate s_MinValue = new(MinDaysSinceEpoch);
@@ -163,7 +163,7 @@ public partial struct JulianDate
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static JulianSchema Schema => JulianScope.SchemaT;
+    private static JulianSchema Schema => JulianCalendar.SchemaT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

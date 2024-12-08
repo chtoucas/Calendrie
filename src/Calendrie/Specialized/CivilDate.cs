@@ -155,7 +155,7 @@ public partial struct CivilDate
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static CivilSchema Schema => CivilScope.SchemaT;
+    private static CivilSchema Schema => CivilCalendar.SchemaT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

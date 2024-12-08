@@ -22,7 +22,7 @@ public partial struct GregorianDate
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = GregorianScope.Instance.Domain;
+    private static readonly Range<DayNumber> s_Domain = GregorianCalendar.ScopeT.Domain;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly GregorianDate s_MinValue = new(MinDaysSinceZero);
@@ -162,7 +162,7 @@ public partial struct GregorianDate
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static GregorianSchema Schema => GregorianScope.SchemaT;
+    private static GregorianSchema Schema => GregorianCalendar.SchemaT;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

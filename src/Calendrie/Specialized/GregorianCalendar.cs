@@ -14,7 +14,10 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegularFeaturette
 {
-    internal static readonly GregorianCalendar Instance = new(GregorianScope.Instance);
+    // See comments in Armenian13Calendar for instance.
+    internal static readonly GregorianSchema SchemaT = new();
+    internal static readonly GregorianScope ScopeT = new(SchemaT);
+    internal static readonly GregorianCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.

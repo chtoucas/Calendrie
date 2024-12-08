@@ -14,7 +14,10 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeaturette
 {
-    internal static readonly JulianCalendar Instance = new(JulianScope.Instance);
+    // See comments in Armenian13Calendar for instance.
+    internal static readonly JulianSchema SchemaT = new();
+    internal static readonly JulianScope ScopeT = new(SchemaT);
+    internal static readonly JulianCalendar Instance = new(ScopeT);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>
