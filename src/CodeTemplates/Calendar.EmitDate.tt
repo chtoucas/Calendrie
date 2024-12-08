@@ -2,6 +2,9 @@
 
 public partial class CalendarTemplate
 {
+    protected string EpochDaysSinceEpoch =>
+        EnableMicroOptimizations ? "s_EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
+
     protected virtual void EmitDate()
     {
         EmitDateDecl();
@@ -31,8 +34,6 @@ public readonly partial struct <#= Prefix #>Date :
 
     protected virtual void EmitDatePreamble()
     {
-        var epochDaysSinceEpoch = EnableMicroOptimizations ? "s_EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
-
         WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Preamble
@@ -125,7 +126,7 @@ public partial struct <#= Prefix #>Date // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _<#= DaysSinceEpochVar #>;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(<#= epochDaysSinceEpoch #> + _daysSinceEpoch);
+    public DayNumber DayNumber => new(<#= EpochDaysSinceEpoch #> + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
@@ -237,8 +238,6 @@ public partial struct <#= Prefix #>Date // Preamble
 
     protected virtual void EmitDateFactories()
     {
-        var epochDaysSinceEpoch = EnableMicroOptimizations ? "s_EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
-
         WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Factories
@@ -251,7 +250,7 @@ public partial struct <#= Prefix #>Date // Factories
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - <#= epochDaysSinceEpoch #>);
+        return new(dayNumber.DaysSinceZero - <#= EpochDaysSinceEpoch #>);
     }
 
     /// <summary>
@@ -261,7 +260,7 @@ public partial struct <#= Prefix #>Date // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static <#= Prefix #>Date FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - <#= epochDaysSinceEpoch #>);
+        new(dayNumber.DaysSinceZero - <#= EpochDaysSinceEpoch #>);
 }
 <#+
     } // T4: End of EmitDateFactories()
