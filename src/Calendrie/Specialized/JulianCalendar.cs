@@ -28,13 +28,13 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
 
     internal JulianCalendar(JulianScope scope) : base("Julian", scope)
     {
-        Adjuster = new JulianAdjuster(this);
+        Adjuster = new SpecialAdjuster<JulianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public JulianAdjuster Adjuster { get; }
+    public SpecialAdjuster<JulianDate> Adjuster { get; }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;

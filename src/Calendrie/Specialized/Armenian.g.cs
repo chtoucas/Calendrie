@@ -51,30 +51,18 @@ public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
     /// </summary>
     private ArmenianCalendar(StandardScope scope) : base("Armenian", scope)
     {
-        Adjuster = new ArmenianAdjuster(this);
+        Adjuster = new SpecialAdjuster<ArmenianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public ArmenianAdjuster Adjuster { get; }
+    public SpecialAdjuster<ArmenianDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Egyptian12Schema schema) => new(Epoch, schema);
-}
-
-/// <summary>
-/// Provides common adjusters for <see cref="ArmenianDate"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class ArmenianAdjuster : SpecialAdjuster<ArmenianDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianAdjuster"/> class.
-    /// </summary>
-    internal ArmenianAdjuster(ArmenianCalendar calendar) : base(calendar) { }
 }
 
 /// <summary>
@@ -165,7 +153,7 @@ public partial struct ArmenianDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static ArmenianAdjuster Adjuster => ArmenianCalendar.Instance.Adjuster;
+    public static SpecialAdjuster<ArmenianDate> Adjuster => ArmenianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

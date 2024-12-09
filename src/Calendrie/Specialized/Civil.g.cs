@@ -13,18 +13,6 @@ namespace Calendrie.Specialized;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides common adjusters for <see cref="CivilDate"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class CivilAdjuster : SpecialAdjuster<CivilDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CivilAdjuster"/> class.
-    /// </summary>
-    internal CivilAdjuster(CivilCalendar calendar) : base(calendar) { }
-}
-
-/// <summary>
 /// Represents the Civil date.
 /// <para><see cref="CivilDate"/> is an immutable struct.</para>
 /// </summary>

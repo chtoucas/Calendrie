@@ -14,18 +14,6 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides common adjusters for <see cref="JulianDate"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class JulianAdjuster : SpecialAdjuster<JulianDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="JulianAdjuster"/> class.
-    /// </summary>
-    internal JulianAdjuster(JulianCalendar calendar) : base(calendar) { }
-}
-
-/// <summary>
 /// Represents the Julian date.
 /// <para><see cref="JulianDate"/> is an immutable struct.</para>
 /// </summary>

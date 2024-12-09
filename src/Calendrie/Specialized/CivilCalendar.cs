@@ -27,13 +27,13 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
 
     private CivilCalendar(CivilScope scope) : base("Civil", scope)
     {
-        Adjuster = new CivilAdjuster(this);
+        Adjuster = new SpecialAdjuster<CivilDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public CivilAdjuster Adjuster { get; }
+    public SpecialAdjuster<CivilDate> Adjuster { get; }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;

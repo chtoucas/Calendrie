@@ -30,13 +30,13 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
     /// </summary>
     internal GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
     {
-        Adjuster = new GregorianAdjuster(this);
+        Adjuster = new SpecialAdjuster<GregorianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public GregorianAdjuster Adjuster { get; }
+    public SpecialAdjuster<GregorianDate> Adjuster { get; }
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;

@@ -14,7 +14,7 @@ using Calendrie.Hemerology;
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
+public class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     where TDate : ISpecialDate<TDate>
 {
     /// <summary>
@@ -23,7 +23,7 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
     /// null.</exception>
-    private protected SpecialAdjuster(SpecialCalendar<TDate> calendar)
+    internal SpecialAdjuster(SpecialCalendar<TDate> calendar)
     {
         ArgumentNullException.ThrowIfNull(calendar);
 

@@ -53,30 +53,18 @@ public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDat
     /// </summary>
     private PlainJulianCalendar(StandardScope scope) : base("PlainJulian", scope)
     {
-        Adjuster = new PlainJulianAdjuster(this);
+        Adjuster = new SpecialAdjuster<PlainJulianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public PlainJulianAdjuster Adjuster { get; }
+    public SpecialAdjuster<PlainJulianDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(JulianSchema schema) => new(Epoch, schema);
-}
-
-/// <summary>
-/// Provides common adjusters for <see cref="PlainJulianDate"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class PlainJulianAdjuster : SpecialAdjuster<PlainJulianDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianAdjuster"/> class.
-    /// </summary>
-    internal PlainJulianAdjuster(PlainJulianCalendar calendar) : base(calendar) { }
 }
 
 /// <summary>
@@ -168,7 +156,7 @@ public partial struct PlainJulianDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainJulianAdjuster Adjuster => PlainJulianCalendar.Instance.Adjuster;
+    public static SpecialAdjuster<PlainJulianDate> Adjuster => PlainJulianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

@@ -14,18 +14,6 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides common adjusters for <see cref="GregorianDate"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class GregorianAdjuster : SpecialAdjuster<GregorianDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianAdjuster"/> class.
-    /// </summary>
-    internal GregorianAdjuster(GregorianCalendar calendar) : base(calendar) { }
-}
-
-/// <summary>
 /// Represents the Gregorian date.
 /// <para><see cref="GregorianDate"/> is an immutable struct.</para>
 /// </summary>

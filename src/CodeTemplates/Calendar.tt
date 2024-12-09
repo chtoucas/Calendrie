@@ -1,5 +1,4 @@
 ﻿<#@ assembly name="$(CalendrieT4Assembly)" #>
-<#@ include file="Calendar.EmitAdjuster.tt" #>
 <#@ include file="Calendar.EmitClock.tt" #>
 <#@ include file="Calendar.EmitDate.tt" #>
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
@@ -51,7 +50,6 @@ public partial class CalendarTemplate : CSharpTemplate
         EmitUsings();
 
         EmitCalendar();
-        EmitAdjuster();
 
         if (EnableClock) EmitClock();
 
@@ -131,13 +129,13 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     /// </summary>
     private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope)
     {
-        Adjuster = new <#= Prefix #>Adjuster(this);
+        Adjuster = new SpecialAdjuster<<#= Prefix #>Date>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public <#= Prefix #>Adjuster Adjuster { get; }
+    public SpecialAdjuster<<#= Prefix #>Date> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="<#= ScopeClass #>"/> class.

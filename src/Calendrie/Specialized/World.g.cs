@@ -51,30 +51,18 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     /// </summary>
     private WorldCalendar(StandardScope scope) : base("World", scope)
     {
-        Adjuster = new WorldAdjuster(this);
+        Adjuster = new SpecialAdjuster<WorldDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public WorldAdjuster Adjuster { get; }
+    public SpecialAdjuster<WorldDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(WorldSchema schema) => new(Epoch, schema);
-}
-
-/// <summary>
-/// Provides common adjusters for <see cref="WorldDate"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class WorldAdjuster : SpecialAdjuster<WorldDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="WorldAdjuster"/> class.
-    /// </summary>
-    internal WorldAdjuster(WorldCalendar calendar) : base(calendar) { }
 }
 
 /// <summary>
@@ -165,7 +153,7 @@ public partial struct WorldDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static WorldAdjuster Adjuster => WorldCalendar.Instance.Adjuster;
+    public static SpecialAdjuster<WorldDate> Adjuster => WorldCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

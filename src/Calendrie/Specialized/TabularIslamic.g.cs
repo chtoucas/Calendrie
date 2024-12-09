@@ -51,30 +51,18 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     /// </summary>
     private TabularIslamicCalendar(StandardScope scope) : base("Tabular Islamic", scope)
     {
-        Adjuster = new TabularIslamicAdjuster(this);
+        Adjuster = new SpecialAdjuster<TabularIslamicDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public TabularIslamicAdjuster Adjuster { get; }
+    public SpecialAdjuster<TabularIslamicDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(TabularIslamicSchema schema) => new(Epoch, schema);
-}
-
-/// <summary>
-/// Provides common adjusters for <see cref="TabularIslamicDate"/>.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class TabularIslamicAdjuster : SpecialAdjuster<TabularIslamicDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="TabularIslamicAdjuster"/> class.
-    /// </summary>
-    internal TabularIslamicAdjuster(TabularIslamicCalendar calendar) : base(calendar) { }
 }
 
 /// <summary>
@@ -165,7 +153,7 @@ public partial struct TabularIslamicDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static TabularIslamicAdjuster Adjuster => TabularIslamicCalendar.Instance.Adjuster;
+    public static SpecialAdjuster<TabularIslamicDate> Adjuster => TabularIslamicCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //
