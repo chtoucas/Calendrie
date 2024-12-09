@@ -29,21 +29,20 @@ using Calendrie.Hemerology;
 /// for derived classes.
 /// <para>This class works best when <typeparamref name="TDate"/> is based on
 /// the count of consecutive days since the epoch.</para>
-/// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public abstract partial class SpecialCalendar<TDate> : Calendar, IDateProvider<TDate>
+public partial class SpecialCalendar<TDate> : Calendar, IDateProvider<TDate>
     where TDate : ISpecialDate<TDate>
 {
     /// <summary>
-    /// Called from constructors in derived classes to initialize the
-    /// <see cref="SpecialCalendar{TDate}"/> class.
+    /// Initializes a new instance of the <see cref="SpecialCalendar{TDate}"/>
+    /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is
     /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// <see langword="null"/>.</exception>
-    private protected SpecialCalendar(string name, CalendarScope scope) : base(name, scope)
+    internal SpecialCalendar(string name, CalendarScope scope) : base(name, scope)
     {
         Debug.Assert(scope.Segment.IsComplete);
     }

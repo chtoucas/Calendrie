@@ -15,16 +15,16 @@ open Xunit
 
 module Prelude =
     [<Fact>]
-    let ``Constructor throws when the scope is null`` () =
-        let scope: MinMaxYearScope | null = null
+    let ``Constructor throws when the calendar is null`` () =
+        let chr: SpecialCalendar<ArmenianDate> | null = null
 
-        nullExn "scope" (fun () -> new FauxSpecialAdjuster<ArmenianDate>(scope))
+        nullExn "calendar" (fun () -> new SpecialAdjuster<ArmenianDate>(chr))
 
-    [<Fact>]
-    let ``Property scope`` () =
-        let range = Range.Create(1, 2)
-        let scope = MinMaxYearScope.Create(new Egyptian12Schema(), DayZero.Armenian, range)
-        let adjuster = new FauxSpecialAdjuster<ArmenianDate>(scope)
+    //[<Fact>]
+    //let ``Property scope`` () =
+    //    let range = Range.Create(1, 2)
+    //    let scope = MinMaxYearScope.Create(new Egyptian12Schema(), DayZero.Armenian, range)
+    //    let adjuster = new FauxSpecialAdjuster<ArmenianDate>(scope)
 
-        adjuster.Scope ==& scope
+    //    adjuster.Scope ==& scope
 

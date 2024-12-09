@@ -15,8 +15,8 @@ public interface ISpecialDate<TSelf> : IDate<TSelf>
     where TSelf : IDate<TSelf>
 {
     /// <summary>
-    /// Creates a new instance of <typeparamref name="TSelf"/> from the specified
-    /// count of consecutive days since the epoch.
+    /// Creates a new instance of the <typeparamref name="TSelf"/> struct from
+    /// the specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure] internal static abstract TSelf FromDaysSinceEpochUnchecked(int daysSinceEpoch);

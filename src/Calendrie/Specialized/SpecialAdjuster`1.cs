@@ -11,15 +11,14 @@ using Calendrie.Hemerology;
 /// <summary>
 /// Defines an adjuster for <typeparamref name="TDate"/> and provides a base for
 /// derived classes.
-/// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
+public sealed class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     where TDate : ISpecialDate<TDate>
 {
     /// <summary>
-    /// Called from constructors in derived classes to initialize the
-    /// <see cref="SpecialAdjuster{TDate}"/> class.
+    /// Initializes a new instance of the <see cref="SpecialAdjuster{TDate}"/>
+    /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
     /// null.</exception>
@@ -30,27 +29,13 @@ public class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
         Scope = calendar.Scope;
     }
 
-    /// <summary>
-    /// Called from constructors in derived classes to initialize the
-    /// <see cref="SpecialAdjuster{TDate}"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
-    /// null.</exception>
-    private protected SpecialAdjuster(CalendarScope scope)
-    {
-        ArgumentNullException.ThrowIfNull(scope);
-        Debug.Assert(scope.Segment.IsComplete);
-
-        Scope = scope;
-    }
-
     /// <inheritdoc/>
     public CalendarScope Scope { get; }
 
     /// <summary>
     /// Gets the schema.
     /// </summary>
-    protected ICalendricalSchema Schema => Scope.Schema;
+    private ICalendricalSchema Schema => Scope.Schema;
 
     /// <inheritdoc />
     [Pure]
