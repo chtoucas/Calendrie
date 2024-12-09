@@ -296,8 +296,6 @@ Calendrie.Core.SystemSegment.ToCalendricalSegment() -> Calendrie.Core.Calendrica
 Calendrie.Core.Utilities.IAdjustable<TSelf>
 Calendrie.Core.Utilities.IAdjustable<TSelf>.Adjust(System.Func<TSelf, TSelf>! adjuster) -> TSelf
 Calendrie.Core.Utilities.IComparisonOperators<TSelf, TOther>
-Calendrie.Core.Utilities.IDifferenceOperators<TSelf, TResult>
-Calendrie.Core.Utilities.IDifferenceOperators<TSelf, TResult>.operator -(TSelf left, TSelf right) -> TResult
 Calendrie.Core.Utilities.IEqualityOperators<TSelf, TOther>
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>.Max(TSelf x, TSelf y) -> TSelf
@@ -448,6 +446,7 @@ Calendrie.Hemerology.IDate<TSelf, TCalendar>
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar!
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IDate<TSelf>
+Calendrie.Hemerology.IDate<TSelf>.operator -(TSelf left, TSelf right) -> int
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
 Calendrie.Hemerology.IDateable.CenturyOfEra.get -> Calendrie.Ord

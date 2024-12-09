@@ -24,7 +24,7 @@ public readonly partial struct Ord :
     // Arithmetic
     IAdditionOperators<Ord, int, Ord>,
     ISubtractionOperators<Ord, int, Ord>,
-    IDifferenceOperators<Ord, int>,
+    ISubtractionOperators<Ord, Ord, int>,
     IIncrementOperators<Ord>,
     IDecrementOperators<Ord>,
     IUnaryNegationOperators<Ord, Ord>

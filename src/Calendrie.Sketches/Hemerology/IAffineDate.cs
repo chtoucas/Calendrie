@@ -39,7 +39,6 @@ public interface IAffineDate<TSelf> :
     IStandardArithmetic<TSelf>,
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
-    IDifferenceOperators<TSelf, int>,
     IIncrementOperators<TSelf>,
     IDecrementOperators<TSelf>
     where TSelf : IAffineDate<TSelf>
@@ -52,4 +51,11 @@ public interface IAffineDate<TSelf> :
     /// outside the range of values supported by the default calendar.
     /// </exception>
     [Pure] static abstract TSelf FromDaysSinceEpoch(int daysSinceEpoch);
+
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See IStandardArithmetic<TSelf>.CountDaysSince()")]
+    static abstract int operator -(TSelf left, TSelf right);
 }

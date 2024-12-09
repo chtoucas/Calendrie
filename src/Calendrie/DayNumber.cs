@@ -64,7 +64,7 @@ public readonly partial struct DayNumber :
     IStandardArithmetic<DayNumber>,
     IAdditionOperators<DayNumber, int, DayNumber>,
     ISubtractionOperators<DayNumber, int, DayNumber>,
-    IDifferenceOperators<DayNumber, int>,
+    ISubtractionOperators<DayNumber, DayNumber, int>,
     IIncrementOperators<DayNumber>,
     IDecrementOperators<DayNumber>
 {
