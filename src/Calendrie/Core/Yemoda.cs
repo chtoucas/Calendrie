@@ -43,7 +43,7 @@ using Calendrie.Core.Intervals;
 // days in the month).
 //
 // To ensure that default(Yemoda) returns a well-formed "date", we
-// substract 1 to both Day and Month; it represents the 01/01/0000. Notice
+// subtract 1 to both Day and Month; it represents the 01/01/0000. Notice
 // the year 0. This might be problematic for real date structs for which the
 // year 0 is not valid. The binary value of the theoretical zero (01/01/0001,
 // see StartOfYear1) is not equal to zero but to (1 << 11) = 2048. Read also
