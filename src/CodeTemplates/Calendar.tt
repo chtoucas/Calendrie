@@ -101,15 +101,21 @@ using Calendrie.Horology;
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
 {
+    /// <summary>Represents the epoch.</summary>
+    internal static readonly DayNumber Epoch = <#= Epoch #>;
+
+    /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
     // - All instances of the <#= Prefix #>Date type via the property Schema
     // - <#= Prefix #>Calendar, custom methods only (see the file _Calendar.cs)
     internal static readonly <#= SchemaClass #> SchemaT = new();
 
+    /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the <#= Prefix #>Date type via the property Scope
     internal static readonly <#= ScopeClass #> ScopeT = CreateScope(new <#= SchemaClass #>());
 
+    /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
     // - All instances of the <#= Prefix #>Date type via the properties Calendar and Adjuster
     internal static readonly <#= Prefix #>Calendar Instance = new(CreateScope(new <#= SchemaClass #>()));
@@ -134,10 +140,9 @@ public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #
     public <#= Prefix #>Adjuster Adjuster { get; }
 
     /// <summary>
-    /// Creates a new instance of the <#= ScopeClass #> class suitable for use
-    /// with <see cref="<#= Prefix #>Calendar"/>.
+    /// Creates a new instance of the <see href="<#= ScopeClass #>"/> class.
     /// </summary>
-    private static <#= ScopeClass #> CreateScope(<#= SchemaClass #> schema) => new(schema, <#= Epoch #>);
+    private static <#= ScopeClass #> CreateScope(<#= SchemaClass #> schema) => new(Epoch, schema);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override <#= Prefix #>Date NewDate(int <#= DaysSinceEpochVar #>) => new(<#= DaysSinceEpochVar #>);

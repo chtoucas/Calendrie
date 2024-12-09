@@ -41,7 +41,7 @@ public partial struct <#= Prefix #>Date // Preamble
     // WARNING: the order in which the static fields are written is __important__.
 
 <#+ if (EnableMicroOptimizations) { #>
-    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.ScopeT.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.Epoch.DaysSinceZero;
 <#+ } else { #>
     /// <summary>Represents the epoch of the associated calendar.</summary>
     private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.ScopeT.Epoch;
@@ -204,8 +204,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // Don't use Scope.Schema or <#= Prefix #>Scope.Instance.Schema. Both are of
-    // type ICalendricalSchema, not <#= SchemaClass #>.
+    // Don't use Scope.Schema which is only of type ICalendricalSchema.
     private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.SchemaT;
 
     /// <summary>

@@ -21,15 +21,21 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
 {
+    /// <summary>Represents the epoch.</summary>
+    internal static readonly DayNumber Epoch = DayZero.Armenian;
+
+    /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
     // - All instances of the ArmenianDate type via the property Schema
     // - ArmenianCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly Egyptian12Schema SchemaT = new();
 
+    /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the ArmenianDate type via the property Scope
     internal static readonly StandardScope ScopeT = CreateScope(new Egyptian12Schema());
 
+    /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
     // - All instances of the ArmenianDate type via the properties Calendar and Adjuster
     internal static readonly ArmenianCalendar Instance = new(CreateScope(new Egyptian12Schema()));
@@ -54,10 +60,9 @@ public sealed partial class ArmenianCalendar : SpecialCalendar<ArmenianDate>
     public ArmenianAdjuster Adjuster { get; }
 
     /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="ArmenianCalendar"/>.
+    /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(Egyptian12Schema schema) => new(schema, DayZero.Armenian);
+    private static StandardScope CreateScope(Egyptian12Schema schema) => new(Epoch, schema);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override ArmenianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -91,7 +96,7 @@ public partial struct ArmenianDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = ArmenianCalendar.ScopeT.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = ArmenianCalendar.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
@@ -250,8 +255,7 @@ public partial struct ArmenianDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // Don't use Scope.Schema or ArmenianScope.Instance.Schema. Both are of
-    // type ICalendricalSchema, not Egyptian12Schema.
+    // Don't use Scope.Schema which is only of type ICalendricalSchema.
     private static Egyptian12Schema Schema => ArmenianCalendar.SchemaT;
 
     /// <summary>

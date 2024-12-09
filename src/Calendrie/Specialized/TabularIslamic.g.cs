@@ -21,15 +21,21 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
 {
+    /// <summary>Represents the epoch.</summary>
+    internal static readonly DayNumber Epoch = DayZero.TabularIslamic;
+
+    /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
     // - All instances of the TabularIslamicDate type via the property Schema
     // - TabularIslamicCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly TabularIslamicSchema SchemaT = new();
 
+    /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the TabularIslamicDate type via the property Scope
     internal static readonly StandardScope ScopeT = CreateScope(new TabularIslamicSchema());
 
+    /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
     // - All instances of the TabularIslamicDate type via the properties Calendar and Adjuster
     internal static readonly TabularIslamicCalendar Instance = new(CreateScope(new TabularIslamicSchema()));
@@ -54,10 +60,9 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     public TabularIslamicAdjuster Adjuster { get; }
 
     /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="TabularIslamicCalendar"/>.
+    /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(TabularIslamicSchema schema) => new(schema, DayZero.TabularIslamic);
+    private static StandardScope CreateScope(TabularIslamicSchema schema) => new(Epoch, schema);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -91,7 +96,7 @@ public partial struct TabularIslamicDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = TabularIslamicCalendar.ScopeT.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = TabularIslamicCalendar.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
@@ -250,8 +255,7 @@ public partial struct TabularIslamicDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // Don't use Scope.Schema or TabularIslamicScope.Instance.Schema. Both are of
-    // type ICalendricalSchema, not TabularIslamicSchema.
+    // Don't use Scope.Schema which is only of type ICalendricalSchema.
     private static TabularIslamicSchema Schema => TabularIslamicCalendar.SchemaT;
 
     /// <summary>

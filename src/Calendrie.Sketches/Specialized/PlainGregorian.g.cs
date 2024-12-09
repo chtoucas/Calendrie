@@ -23,15 +23,21 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregorianDate>
 {
+    /// <summary>Represents the epoch.</summary>
+    internal static readonly DayNumber Epoch = DayZero.NewStyle;
+
+    /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
     // - All instances of the PlainGregorianDate type via the property Schema
     // - PlainGregorianCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly GregorianSchema SchemaT = new();
 
+    /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the PlainGregorianDate type via the property Scope
     internal static readonly StandardScope ScopeT = CreateScope(new GregorianSchema());
 
+    /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
     // - All instances of the PlainGregorianDate type via the properties Calendar and Adjuster
     internal static readonly PlainGregorianCalendar Instance = new(CreateScope(new GregorianSchema()));
@@ -56,10 +62,9 @@ public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregor
     public PlainGregorianAdjuster Adjuster { get; }
 
     /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="PlainGregorianCalendar"/>.
+    /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(GregorianSchema schema) => new(schema, DayZero.NewStyle);
+    private static StandardScope CreateScope(GregorianSchema schema) => new(Epoch, schema);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override PlainGregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);

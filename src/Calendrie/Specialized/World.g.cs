@@ -21,15 +21,21 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 {
+    /// <summary>Represents the epoch.</summary>
+    internal static readonly DayNumber Epoch = DayZero.SundayBeforeGregorian;
+
+    /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
     // - All instances of the WorldDate type via the property Schema
     // - WorldCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly WorldSchema SchemaT = new();
 
+    /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the WorldDate type via the property Scope
     internal static readonly StandardScope ScopeT = CreateScope(new WorldSchema());
 
+    /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
     // - All instances of the WorldDate type via the properties Calendar and Adjuster
     internal static readonly WorldCalendar Instance = new(CreateScope(new WorldSchema()));
@@ -54,10 +60,9 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     public WorldAdjuster Adjuster { get; }
 
     /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="WorldCalendar"/>.
+    /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(WorldSchema schema) => new(schema, DayZero.SundayBeforeGregorian);
+    private static StandardScope CreateScope(WorldSchema schema) => new(Epoch, schema);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -91,7 +96,7 @@ public partial struct WorldDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = WorldCalendar.ScopeT.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = WorldCalendar.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
@@ -250,8 +255,7 @@ public partial struct WorldDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // Don't use Scope.Schema or WorldScope.Instance.Schema. Both are of
-    // type ICalendricalSchema, not WorldSchema.
+    // Don't use Scope.Schema which is only of type ICalendricalSchema.
     private static WorldSchema Schema => WorldCalendar.SchemaT;
 
     /// <summary>

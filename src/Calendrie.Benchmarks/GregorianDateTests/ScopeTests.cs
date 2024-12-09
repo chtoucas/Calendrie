@@ -20,7 +20,7 @@ public class ScopeTests
 
     // Range [1..9999], only the validation of years is optimized
     private static readonly StandardScope s_StandardScope =
-        new(new GregorianSchema(), DayZero.NewStyle);
+        new(DayZero.NewStyle, new GregorianSchema());
 
     // Range [1..9999], plain
     private static readonly MinMaxYearScope s_MinMaxYearScope =

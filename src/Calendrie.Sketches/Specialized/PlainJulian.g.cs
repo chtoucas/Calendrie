@@ -23,15 +23,21 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDate>
 {
+    /// <summary>Represents the epoch.</summary>
+    internal static readonly DayNumber Epoch = DayZero.OldStyle;
+
+    /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
     // - All instances of the PlainJulianDate type via the property Schema
     // - PlainJulianCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly JulianSchema SchemaT = new();
 
+    /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the PlainJulianDate type via the property Scope
     internal static readonly StandardScope ScopeT = CreateScope(new JulianSchema());
 
+    /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
     // - All instances of the PlainJulianDate type via the properties Calendar and Adjuster
     internal static readonly PlainJulianCalendar Instance = new(CreateScope(new JulianSchema()));
@@ -56,10 +62,9 @@ public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDat
     public PlainJulianAdjuster Adjuster { get; }
 
     /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="PlainJulianCalendar"/>.
+    /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(JulianSchema schema) => new(schema, DayZero.OldStyle);
+    private static StandardScope CreateScope(JulianSchema schema) => new(Epoch, schema);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override PlainJulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -253,8 +258,7 @@ public partial struct PlainJulianDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // Don't use Scope.Schema or PlainJulianScope.Instance.Schema. Both are of
-    // type ICalendricalSchema, not JulianSchema.
+    // Don't use Scope.Schema which is only of type ICalendricalSchema.
     private static JulianSchema Schema => PlainJulianCalendar.SchemaT;
 
     /// <summary>

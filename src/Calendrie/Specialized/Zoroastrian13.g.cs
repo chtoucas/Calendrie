@@ -21,15 +21,21 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian13Date>
 {
+    /// <summary>Represents the epoch.</summary>
+    internal static readonly DayNumber Epoch = DayZero.Zoroastrian;
+
+    /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
     // - All instances of the Zoroastrian13Date type via the property Schema
     // - Zoroastrian13Calendar, custom methods only (see the file _Calendar.cs)
     internal static readonly Egyptian13Schema SchemaT = new();
 
+    /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the Zoroastrian13Date type via the property Scope
     internal static readonly StandardScope ScopeT = CreateScope(new Egyptian13Schema());
 
+    /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
     // - All instances of the Zoroastrian13Date type via the properties Calendar and Adjuster
     internal static readonly Zoroastrian13Calendar Instance = new(CreateScope(new Egyptian13Schema()));
@@ -54,10 +60,9 @@ public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian1
     public Zoroastrian13Adjuster Adjuster { get; }
 
     /// <summary>
-    /// Creates a new instance of the StandardScope class suitable for use
-    /// with <see cref="Zoroastrian13Calendar"/>.
+    /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(Egyptian13Schema schema) => new(schema, DayZero.Zoroastrian);
+    private static StandardScope CreateScope(Egyptian13Schema schema) => new(Epoch, schema);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private protected sealed override Zoroastrian13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
@@ -91,7 +96,7 @@ public partial struct Zoroastrian13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = Zoroastrian13Calendar.ScopeT.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = Zoroastrian13Calendar.Epoch.DaysSinceZero;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
@@ -250,8 +255,7 @@ public partial struct Zoroastrian13Date // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // Don't use Scope.Schema or Zoroastrian13Scope.Instance.Schema. Both are of
-    // type ICalendricalSchema, not Egyptian13Schema.
+    // Don't use Scope.Schema which is only of type ICalendricalSchema.
     private static Egyptian13Schema Schema => Zoroastrian13Calendar.SchemaT;
 
     /// <summary>

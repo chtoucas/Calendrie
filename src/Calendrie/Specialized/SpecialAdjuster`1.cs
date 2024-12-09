@@ -36,10 +36,10 @@ public abstract class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// null.</exception>
-    [Obsolete("To be removed")]
     private protected SpecialAdjuster(CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(scope);
+        Debug.Assert(scope.Segment.IsComplete);
 
         Scope = scope;
     }

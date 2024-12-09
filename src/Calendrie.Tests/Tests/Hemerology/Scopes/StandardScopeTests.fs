@@ -20,26 +20,26 @@ open Xunit
 module Prelude =
     [<Fact>]
     let ``Constructor throws when "schema" is null`` () =
-        nullExn "schema" (fun () -> new StandardScope(null, DayZero.OldStyle))
+        nullExn "schema" (fun () -> new StandardScope(DayZero.OldStyle, null))
 
     [<Fact>]
     let ``Constructor throws when schema.MinYear > 1`` () =
         let range = Range.Create(StandardScope.MinYear + 1, StandardScope.MaxYear)
         let sch = new FauxCalendricalSchema(range)
 
-        argExn "supportedYears" (fun () -> new StandardScope(sch, DayZero.OldStyle))
+        argExn "supportedYears" (fun () -> new StandardScope(DayZero.OldStyle, sch))
 
     [<Fact>]
     let ``Constructor throws when schema.MaxYear < 9999`` () =
         let range = Range.Create(1, StandardScope.MaxYear - 1)
         let sch = new FauxCalendricalSchema(range)
 
-        argExn "supportedYears" (fun () -> new StandardScope(sch, DayZero.OldStyle))
+        argExn "supportedYears" (fun () -> new StandardScope(DayZero.OldStyle, sch))
 
     [<Fact>]
     let ``Property Epoch`` () =
         let epoch = DayZero.NewStyle + 123_456_789
-        let scope = new StandardScope(new FauxCalendricalSchema(), epoch)
+        let scope = new StandardScope(epoch, new FauxCalendricalSchema())
 
         scope.Epoch === epoch
 
@@ -47,7 +47,7 @@ module Prelude =
     let ``Property Domain`` () =
         let epoch = DayZero.NewStyle + 123_456_789
         let sch = new GregorianSchema()
-        let scope = new StandardScope(sch, epoch)
+        let scope = new StandardScope(epoch, sch)
         let minDayNumber = epoch + sch.GetStartOfYear(StandardScope.MinYear)
         let maxDayNumber = epoch + sch.GetEndOfYear(StandardScope.MaxYear)
         let range = Range.Create(minDayNumber, maxDayNumber)
@@ -56,7 +56,7 @@ module Prelude =
 
     [<Fact>]
     let ``Property SupportedYears`` () =
-        let scope = new StandardScope(new FauxCalendricalSchema(), DayZero.OldStyle)
+        let scope = new StandardScope(DayZero.OldStyle, new FauxCalendricalSchema())
         let range = Range.Create(StandardScope.MinYear, StandardScope.MaxYear)
 
         scope.Segment.SupportedYears === range
