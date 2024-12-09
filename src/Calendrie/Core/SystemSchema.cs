@@ -16,8 +16,8 @@ using Calendrie.Core.Validation;
 // This class is public but has an internal ctor since we cannot guarantee
 // that a derived class follows the rules defined above.
 //
-// Les limites MinMinYear/MaxMaxYear ont été fixées afin de pouvoir
-// utiliser Yemoda & co, mais aussi d'éviter des dépassements
+// Les limites DefaultMinYear/DefaultMaxYear ont été fixées afin de pouvoir
+// utiliser Yemoda & co, mais aussi afin d'éviter des dépassements
 // arithmétiques. Sans cela on pourrait parfois aller beaucoup plus loin
 // (à condition de rester dans les limites de Int32), d'où l'interface
 // ICalendricalSchema permettant de définir des schémas dépourvus des
