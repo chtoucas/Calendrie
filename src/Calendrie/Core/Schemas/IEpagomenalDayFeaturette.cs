@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core;
+namespace Calendrie.Core.Schemas;
 
 // Un jour épagomène est un des 5 ou 6 jours ajoutés en fin d'année
 // d'un calendrier composé de 12 mois de 30 jours pour synchroniser les
@@ -15,7 +15,7 @@ namespace Calendrie.Core;
 /// <para>The epagomenal days are usually found in descendants of the Egyptian
 /// calendar.</para>
 /// </summary>
-public interface IEpagomenalDayFeaturette
+internal interface IEpagomenalDayFeaturette
 {
     /// <summary>
     /// Determines whether the specified date is an epagomenal day or not, and

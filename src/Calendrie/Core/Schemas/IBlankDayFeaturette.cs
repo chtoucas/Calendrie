@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core;
+namespace Calendrie.Core.Schemas;
 
 // TODO(code): blank-days should be kept outside the week cycle, review all
 // methods that compute the days of the week.
@@ -23,7 +23,7 @@ namespace Calendrie.Core;
 /// <para>Blank-day calendars belong to the larger family of perennial calendars.
 /// </para>
 /// </summary>
-public interface IBlankDayFeaturette
+internal interface IBlankDayFeaturette
 {
     /// <summary>
     /// Determines whether the specified date is a blank day or not.

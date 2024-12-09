@@ -3,9 +3,10 @@
 
 namespace Calendrie.Testing.Facts.Core;
 
+using Calendrie.Core.Schemas;
 using Calendrie.Testing.Data;
 
-public abstract class IEpagomenalDayFeaturetteFacts<TSchema, TDataSet> :
+internal abstract class IEpagomenalDayFeaturetteFacts<TSchema, TDataSet> :
     CalendricalDataConsumer<TDataSet>
     where TSchema : IEpagomenalDayFeaturette
     where TDataSet : ICalendricalDataSet, IEpagomenalDataSet, ISingleton<TDataSet>
