@@ -3,9 +3,10 @@
 
 namespace Calendrie.Core.Schemas;
 
+// Keep this interface internal, it only exists to simplify testing.
 // This interface is expected to be implemented explicitely.
-// Cannot be part of ICalendricalSchema as it would require "static abstract"
-// to be allowed with abstract classes.
+// Cannot be part of ICalendricalSchema as it would require C# to support
+// "static abstract" methods in abstract classes.
 
 /// <summary>
 /// Defines support for a function returning the distribution of days in month.

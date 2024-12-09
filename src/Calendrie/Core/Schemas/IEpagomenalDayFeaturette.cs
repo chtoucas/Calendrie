@@ -10,6 +10,8 @@ namespace Calendrie.Core.Schemas;
 // questions d'ordre technique on le rattache au douzième mois.
 // Ex. : le jour de la révolution du calendrier républicain.
 
+// Keep this interface internal, it only exists to simplify testing.
+
 /// <summary>
 /// Defines methods specific to calendrical schemas featuring epagomenal days.
 /// <para>The epagomenal days are usually found in descendants of the Egyptian

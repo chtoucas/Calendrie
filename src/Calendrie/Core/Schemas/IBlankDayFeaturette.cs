@@ -13,6 +13,8 @@ namespace Calendrie.Core.Schemas;
 // community"; see the wikipedia page
 // https://en.wikipedia.org/wiki/Hugh_Jones_(professor)
 
+// Keep this interface internal, it only exists to simplify testing.
+
 /// <summary>
 /// Defines methods specific to calendrical schemas featuring blank days.
 /// <para>A blank-day schema is a solar schema that adds one extra blank day on
