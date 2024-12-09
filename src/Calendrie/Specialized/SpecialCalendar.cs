@@ -27,6 +27,8 @@ using Calendrie.Hemerology;
 /// <summary>
 /// Represents a calendar with dates within a range of years and provides a base
 /// for derived classes.
+/// <para>This class can ONLY be initialized from within friend assemblies.
+/// </para>
 /// <para>This class works best when <typeparamref name="TDate"/> is based on
 /// the count of consecutive days since the epoch.</para>
 /// </summary>

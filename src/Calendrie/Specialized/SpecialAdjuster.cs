@@ -11,6 +11,8 @@ using Calendrie.Hemerology;
 /// <summary>
 /// Defines an adjuster for <typeparamref name="TDate"/> and provides a base for
 /// derived classes.
+/// <para>This class can ONLY be initialized from within friend assemblies.
+/// </para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public sealed class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
