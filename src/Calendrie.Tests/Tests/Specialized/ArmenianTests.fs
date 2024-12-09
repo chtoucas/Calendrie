@@ -28,7 +28,7 @@ module Bundles =
         override __.GetDate(dayNumber) = ArmenianDate.FromDayNumber(dayNumber);
 
         [<Fact>]
-        member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 12
+        static member MonthsInYear() = ArmenianCalendar.MonthsInYear === 12
 
     [<Sealed>]
     type DateFacts() =
@@ -75,10 +75,10 @@ module Bundles13 =
         override __.GetDate(dayNumber) = Armenian13Date.FromDayNumber(dayNumber);
 
         [<Fact>]
-        member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 13
+        static member MonthsInYear() = Armenian13Calendar.MonthsInYear === 13
 
         [<Fact>]
-        member x.VirtualMonth_Prop() = x.CalendarUT.VirtualMonth === 13
+        static member VirtualMonth() = Armenian13Calendar.VirtualMonth === 13
 
     [<Sealed>]
     type DateFacts() =

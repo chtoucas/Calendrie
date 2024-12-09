@@ -231,8 +231,6 @@ Calendrie.Core.Intervals.UpperRay<T>.UpperRay() -> void
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay(T min) -> void
 Calendrie.Core.IRegularFeaturette
 Calendrie.Core.IRegularFeaturette.MonthsInYear.get -> int
-Calendrie.Core.IVirtualMonthFeaturette
-Calendrie.Core.IVirtualMonthFeaturette.VirtualMonth.get -> int
 Calendrie.Core.PartsAdapter
 Calendrie.Core.PartsAdapter.GetDateParts(int daysSinceEpoch) -> Calendrie.DateParts
 Calendrie.Core.PartsAdapter.GetDateParts(int y, int doy) -> Calendrie.DateParts
@@ -251,19 +249,16 @@ Calendrie.Core.Schemas.Coptic12Schema
 Calendrie.Core.Schemas.Coptic12Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
 Calendrie.Core.Schemas.Coptic13Schema
 Calendrie.Core.Schemas.Coptic13Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
-Calendrie.Core.Schemas.Coptic13Schema.VirtualMonth.get -> int
 Calendrie.Core.Schemas.CopticSchema
 Calendrie.Core.Schemas.Egyptian12Schema
 Calendrie.Core.Schemas.Egyptian12Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
 Calendrie.Core.Schemas.Egyptian13Schema
 Calendrie.Core.Schemas.Egyptian13Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
-Calendrie.Core.Schemas.Egyptian13Schema.VirtualMonth.get -> int
 Calendrie.Core.Schemas.EgyptianSchema
 Calendrie.Core.Schemas.FrenchRepublican12Schema
 Calendrie.Core.Schemas.FrenchRepublican12Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
 Calendrie.Core.Schemas.FrenchRepublican13Schema
 Calendrie.Core.Schemas.FrenchRepublican13Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
-Calendrie.Core.Schemas.FrenchRepublican13Schema.VirtualMonth.get -> int
 Calendrie.Core.Schemas.FrenchRepublicanSchema
 Calendrie.Core.Schemas.GJSchema
 Calendrie.Core.Schemas.GJSchema.MonthsInYear.get -> int
@@ -551,8 +546,6 @@ Calendrie.OrdinalParts.Year.init -> void
 Calendrie.Specialized.Armenian13Calendar
 Calendrie.Specialized.Armenian13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Armenian13Date>!
 Calendrie.Specialized.Armenian13Calendar.Armenian13Calendar() -> void
-Calendrie.Specialized.Armenian13Calendar.MonthsInYear.get -> int
-Calendrie.Specialized.Armenian13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.AddDays(int days) -> Calendrie.Specialized.Armenian13Date
 Calendrie.Specialized.Armenian13Date.Adjust(System.Func<Calendrie.Specialized.Armenian13Date, Calendrie.Specialized.Armenian13Date>! adjuster) -> Calendrie.Specialized.Armenian13Date
@@ -592,7 +585,6 @@ Calendrie.Specialized.Armenian13Date.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.ArmenianCalendar
 Calendrie.Specialized.ArmenianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.ArmenianDate>!
 Calendrie.Specialized.ArmenianCalendar.ArmenianCalendar() -> void
-Calendrie.Specialized.ArmenianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.AddDays(int days) -> Calendrie.Specialized.ArmenianDate
 Calendrie.Specialized.ArmenianDate.Adjust(System.Func<Calendrie.Specialized.ArmenianDate, Calendrie.Specialized.ArmenianDate>! adjuster) -> Calendrie.Specialized.ArmenianDate
@@ -671,8 +663,6 @@ Calendrie.Specialized.CivilDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.Coptic13Calendar
 Calendrie.Specialized.Coptic13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Coptic13Date>!
 Calendrie.Specialized.Coptic13Calendar.Coptic13Calendar() -> void
-Calendrie.Specialized.Coptic13Calendar.MonthsInYear.get -> int
-Calendrie.Specialized.Coptic13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.AddDays(int days) -> Calendrie.Specialized.Coptic13Date
 Calendrie.Specialized.Coptic13Date.Adjust(System.Func<Calendrie.Specialized.Coptic13Date, Calendrie.Specialized.Coptic13Date>! adjuster) -> Calendrie.Specialized.Coptic13Date
@@ -712,7 +702,6 @@ Calendrie.Specialized.Coptic13Date.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.CopticCalendar
 Calendrie.Specialized.CopticCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.CopticDate>!
 Calendrie.Specialized.CopticCalendar.CopticCalendar() -> void
-Calendrie.Specialized.CopticCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.AddDays(int days) -> Calendrie.Specialized.CopticDate
 Calendrie.Specialized.CopticDate.Adjust(System.Func<Calendrie.Specialized.CopticDate, Calendrie.Specialized.CopticDate>! adjuster) -> Calendrie.Specialized.CopticDate
@@ -752,8 +741,6 @@ Calendrie.Specialized.CopticDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.Ethiopic13Calendar
 Calendrie.Specialized.Ethiopic13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Ethiopic13Date>!
 Calendrie.Specialized.Ethiopic13Calendar.Ethiopic13Calendar() -> void
-Calendrie.Specialized.Ethiopic13Calendar.MonthsInYear.get -> int
-Calendrie.Specialized.Ethiopic13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.AddDays(int days) -> Calendrie.Specialized.Ethiopic13Date
 Calendrie.Specialized.Ethiopic13Date.Adjust(System.Func<Calendrie.Specialized.Ethiopic13Date, Calendrie.Specialized.Ethiopic13Date>! adjuster) -> Calendrie.Specialized.Ethiopic13Date
@@ -793,7 +780,6 @@ Calendrie.Specialized.Ethiopic13Date.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.EthiopicCalendar
 Calendrie.Specialized.EthiopicCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.EthiopicDate>!
 Calendrie.Specialized.EthiopicCalendar.EthiopicCalendar() -> void
-Calendrie.Specialized.EthiopicCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.AddDays(int days) -> Calendrie.Specialized.EthiopicDate
 Calendrie.Specialized.EthiopicDate.Adjust(System.Func<Calendrie.Specialized.EthiopicDate, Calendrie.Specialized.EthiopicDate>! adjuster) -> Calendrie.Specialized.EthiopicDate
@@ -932,7 +918,6 @@ Calendrie.Specialized.SpecialCalendar<TDate>.GetStartOfMonth(int year, int month
 Calendrie.Specialized.SpecialCalendar<TDate>.GetStartOfYear(int year) -> TDate
 Calendrie.Specialized.TabularIslamicCalendar
 Calendrie.Specialized.TabularIslamicCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.TabularIslamicDate>!
-Calendrie.Specialized.TabularIslamicCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.TabularIslamicCalendar.TabularIslamicCalendar() -> void
 Calendrie.Specialized.TabularIslamicDate
 Calendrie.Specialized.TabularIslamicDate.AddDays(int days) -> Calendrie.Specialized.TabularIslamicDate
@@ -972,7 +957,6 @@ Calendrie.Specialized.TabularIslamicDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.WorldCalendar
 Calendrie.Specialized.WorldCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.WorldDate>!
 Calendrie.Specialized.WorldCalendar.CountDaysInWorldMonth(int year, int month) -> int
-Calendrie.Specialized.WorldCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.WorldCalendar.WorldCalendar() -> void
 Calendrie.Specialized.WorldDate
 Calendrie.Specialized.WorldDate.AddDays(int days) -> Calendrie.Specialized.WorldDate
@@ -1012,8 +996,6 @@ Calendrie.Specialized.WorldDate.YearOfCentury.get -> int
 Calendrie.Specialized.WorldDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.Zoroastrian13Calendar
 Calendrie.Specialized.Zoroastrian13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Zoroastrian13Date>!
-Calendrie.Specialized.Zoroastrian13Calendar.MonthsInYear.get -> int
-Calendrie.Specialized.Zoroastrian13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Zoroastrian13Calendar.Zoroastrian13Calendar() -> void
 Calendrie.Specialized.Zoroastrian13Date
 Calendrie.Specialized.Zoroastrian13Date.AddDays(int days) -> Calendrie.Specialized.Zoroastrian13Date
@@ -1053,7 +1035,6 @@ Calendrie.Specialized.Zoroastrian13Date.Zoroastrian13Date(int year, int dayOfYea
 Calendrie.Specialized.Zoroastrian13Date.Zoroastrian13Date(int year, int month, int day) -> void
 Calendrie.Specialized.ZoroastrianCalendar
 Calendrie.Specialized.ZoroastrianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.ZoroastrianDate>!
-Calendrie.Specialized.ZoroastrianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.ZoroastrianCalendar.ZoroastrianCalendar() -> void
 Calendrie.Specialized.ZoroastrianDate
 Calendrie.Specialized.ZoroastrianDate.AddDays(int days) -> Calendrie.Specialized.ZoroastrianDate
@@ -1094,10 +1075,13 @@ Calendrie.Specialized.ZoroastrianDate.ZoroastrianDate(int year, int month, int d
 const Calendrie.Core.CalendricalConstants.DaysInWanderingYear = 365 -> int
 const Calendrie.Core.CalendricalConstants.DaysInWeek = 7 -> int
 const Calendrie.Core.CalendricalConstants.DaysPer4JulianYearCycle = 1461 -> int
+const Calendrie.Core.Schemas.Coptic13Schema.VirtualMonth = 13 -> int
 const Calendrie.Core.Schemas.CopticSchema.DaysInCopticMonth = 30 -> int
 const Calendrie.Core.Schemas.CopticSchema.DaysPer4YearCycle = 1461 -> int
+const Calendrie.Core.Schemas.Egyptian13Schema.VirtualMonth = 13 -> int
 const Calendrie.Core.Schemas.EgyptianSchema.DaysInEgyptianMonth = 30 -> int
 const Calendrie.Core.Schemas.EgyptianSchema.DaysInYear = 365 -> int
+const Calendrie.Core.Schemas.FrenchRepublican13Schema.VirtualMonth = 13 -> int
 const Calendrie.Core.Schemas.FrenchRepublicanSchema.DaysInFrenchRepublicanMonth = 30 -> int
 const Calendrie.Core.Schemas.FrenchRepublicanSchema.DaysPer4000YearCycle = 1460969 -> long
 const Calendrie.Core.Schemas.GJSchema.DaysInCommonYear = 365 -> int
@@ -1154,6 +1138,20 @@ const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
 const Calendrie.DayNumber.MinSupportedYear = -4999999 -> int
 const Calendrie.Ord.MaxAlgebraicValue = 2147483647 -> int
 const Calendrie.Ord.MinAlgebraicValue = -2147483646 -> int
+const Calendrie.Specialized.Armenian13Calendar.MonthsInYear = 13 -> int
+const Calendrie.Specialized.Armenian13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Specialized.ArmenianCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.Coptic13Calendar.MonthsInYear = 13 -> int
+const Calendrie.Specialized.Coptic13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Specialized.CopticCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.Ethiopic13Calendar.MonthsInYear = 13 -> int
+const Calendrie.Specialized.Ethiopic13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Specialized.EthiopicCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.TabularIslamicCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.WorldCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.Zoroastrian13Calendar.MonthsInYear = 13 -> int
+const Calendrie.Specialized.Zoroastrian13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Specialized.ZoroastrianCalendar.MonthsInYear = 12 -> int
 override Calendrie.Core.Intervals.LowerRay<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.LowerRay<T>.GetHashCode() -> int
 override Calendrie.Core.Intervals.LowerRay<T>.ToString() -> string!

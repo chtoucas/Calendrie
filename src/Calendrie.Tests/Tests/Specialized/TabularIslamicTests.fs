@@ -28,7 +28,7 @@ module Bundles =
         override __.GetDate(dayNumber) = TabularIslamicDate.FromDayNumber(dayNumber);
 
         [<Fact>]
-        member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 12
+        static member MonthsInYear() = TabularIslamicCalendar.MonthsInYear === 12
 
     [<Sealed>]
     type DateFacts() =

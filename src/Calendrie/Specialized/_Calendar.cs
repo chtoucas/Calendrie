@@ -3,80 +3,112 @@
 
 namespace Calendrie.Specialized;
 
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class ArmenianCalendar : IRegularFeaturette
+public partial class ArmenianCalendar
 {
-    /// <inheritdoc />
-    public int MonthsInYear => Egyptian12Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = Egyptian12Schema.MonthsPerYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class Armenian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
+public partial class Armenian13Calendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => Egyptian13Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int MonthsInYear = Egyptian13Schema.MonthsPerYear;
 
-    /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    /// <summary>
+    /// Represents the virtual month.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class CopticCalendar : IRegularFeaturette
+public partial class CopticCalendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => Coptic12Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = Coptic12Schema.MonthsPerYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class Coptic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
+public partial class Coptic13Calendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => Coptic13Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int MonthsInYear = Coptic13Schema.MonthsPerYear;
 
-    /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    /// <summary>
+    /// Represents the virtual month.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = Coptic13Schema.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class EthiopicCalendar : IRegularFeaturette
+public partial class EthiopicCalendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => Coptic12Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = Coptic12Schema.MonthsPerYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class Ethiopic13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
+public partial class Ethiopic13Calendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => Coptic13Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int MonthsInYear = Coptic13Schema.MonthsPerYear;
 
-    /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    /// <summary>
+    /// Represents the virtual month.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = Coptic13Schema.VirtualMonth;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class TabularIslamicCalendar : IRegularFeaturette
+public partial class TabularIslamicCalendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => TabularIslamicSchema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = TabularIslamicSchema.MonthsPerYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class WorldCalendar : IRegularFeaturette
+public partial class WorldCalendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => WorldSchema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = WorldSchema.MonthsPerYear;
 
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days
@@ -94,19 +126,28 @@ public partial class WorldCalendar : IRegularFeaturette
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class ZoroastrianCalendar : IRegularFeaturette
+public partial class ZoroastrianCalendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => Egyptian12Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = Egyptian12Schema.MonthsPerYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class Zoroastrian13Calendar : IRegularFeaturette, IVirtualMonthFeaturette
+public partial class Zoroastrian13Calendar
 {
-    /// <inheritdoc/>
-    public int MonthsInYear => Egyptian13Schema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int MonthsInYear = Egyptian13Schema.MonthsPerYear;
 
-    /// <inheritdoc/>
-    public int VirtualMonth => SchemaT.VirtualMonth;
+    /// <summary>
+    /// Represents the virtual month.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
 }

@@ -52,7 +52,7 @@ module Bundles =
         override __.GetDate(dayNumber) = WorldDate.FromDayNumber(dayNumber);
 
         [<Fact>]
-        member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 12
+        static member MonthsInYear() = WorldCalendar.MonthsInYear === 12
 
     [<Sealed>]
     type DateFacts() =

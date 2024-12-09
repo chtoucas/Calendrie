@@ -13,7 +13,6 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class FrenchRepublican13Schema :
     FrenchRepublicanSchema,
     IEpagomenalDayFeaturette,
-    IVirtualMonthFeaturette,
     IDaysInMonthDistribution
 {
     /// <summary>
@@ -23,6 +22,12 @@ public sealed partial class FrenchRepublican13Schema :
     private const int MonthsPerYear = 13;
 
     /// <summary>
+    /// Represents the virtual month.
+    /// <para>This field is a constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = 13;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="FrenchRepublican13Schema"/>
     /// class.
     /// </summary>
@@ -30,9 +35,6 @@ public sealed partial class FrenchRepublican13Schema :
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
-    public int VirtualMonth => 13;
 
     /// <inheritdoc />
     [Pure]

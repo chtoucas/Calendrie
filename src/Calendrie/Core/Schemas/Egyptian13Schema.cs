@@ -19,7 +19,6 @@ using Ptolemaic13 = PtolemaicSchema.Thirteen;
 public sealed partial class Egyptian13Schema :
     EgyptianSchema,
     IEpagomenalDayFeaturette,
-    IVirtualMonthFeaturette,
     IDaysInMonthDistribution
 {
     /// <summary>
@@ -29,15 +28,18 @@ public sealed partial class Egyptian13Schema :
     internal const int MonthsPerYear = 13;
 
     /// <summary>
+    /// Represents the virtual month.
+    /// <para>This field is a constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = 13;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Egyptian13Schema"/> class.
     /// </summary>
     internal Egyptian13Schema() : base(5) { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
-    public int VirtualMonth => 13;
 
     /// <inheritdoc />
     [Pure]

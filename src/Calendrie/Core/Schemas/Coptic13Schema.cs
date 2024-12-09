@@ -13,14 +13,19 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class Coptic13Schema :
     CopticSchema,
     IEpagomenalDayFeaturette,
-    IVirtualMonthFeaturette,
     IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
-    /// <para>This field is a constant equal to 12.</para>
+    /// <para>This field is a constant equal to 13.</para>
     /// </summary>
     internal const int MonthsPerYear = 13;
+
+    /// <summary>
+    /// Represents the virtual month.
+    /// <para>This field is a constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = 13;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic13Schema"/> class.
@@ -29,9 +34,6 @@ public sealed partial class Coptic13Schema :
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
-    public int VirtualMonth => 13;
 
     /// <inheritdoc />
     [Pure]
