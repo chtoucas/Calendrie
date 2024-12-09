@@ -22,7 +22,7 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = GJSchema.MonthsPerYear;
+    public const int MonthsInYear = GJSchema.MonthsInYear;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>

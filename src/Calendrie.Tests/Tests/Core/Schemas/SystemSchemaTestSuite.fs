@@ -20,8 +20,8 @@ open Xunit
 
 // TODO(code): Hebrew (unfinished, no data), Pax (unfinished) and lunisolar (fake) schema.
 
-let private verifyThatPreValidatorIs<'a> (sch: ICalendricalSchema) =
-    sch.PreValidator |> is<'a>
+//let private verifyThatPreValidatorIs<'a> (sch: ICalendricalSchema) =
+//    sch.PreValidator |> is<'a>
 
 [<Sealed>]
 type CivilTests() =

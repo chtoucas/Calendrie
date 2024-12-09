@@ -130,22 +130,6 @@ public partial class SystemSchema // Properties
             _supportedYearsCore = value;
         }
     }
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        if (this is IRegularFeaturette sch)
-        {
-            monthsInYear = sch.MonthsInYear;
-            return true;
-        }
-        else
-        {
-            monthsInYear = 0;
-            return false;
-        }
-    }
 }
 
 public partial class SystemSchema // Conversions

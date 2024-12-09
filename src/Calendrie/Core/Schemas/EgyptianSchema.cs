@@ -5,7 +5,7 @@ namespace Calendrie.Core.Schemas;
 
 /// <summary>Represents an Egyptian schema and provides a base for derived classes.</summary>
 /// <remarks>This class can ONLY be inherited from within friend assemblies.</remarks>
-public abstract partial class EgyptianSchema : SystemSchema, IRegularFeaturette
+public abstract partial class EgyptianSchema : SystemSchema
 {
     /// <summary>Represents the number of days in a year.</summary>
     /// <remarks>This field is constant equal to 365.</remarks>
@@ -26,9 +26,6 @@ public abstract partial class EgyptianSchema : SystemSchema, IRegularFeaturette
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments =>
         CalendricalAdjustments.None;
-
-    /// <inheritdoc />
-    public abstract int MonthsInYear { get; }
 }
 
 public partial class EgyptianSchema // Year, month or day infos

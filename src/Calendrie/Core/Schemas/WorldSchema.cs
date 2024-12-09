@@ -27,16 +27,13 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 /// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
 /// </remarks>
-public sealed partial class WorldSchema :
-    SystemSchema,
-    IRegularFeaturette,
-    IBlankDayFeaturette
+public sealed partial class WorldSchema : SystemSchema, IBlankDayFeaturette
 {
     /// <summary>
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    internal const int MonthsPerYear = 12;
+    public const int MonthsInYear = 12;
 
     /// <summary>
     /// Represents the number of days per 400-year cycle.
@@ -68,9 +65,6 @@ public sealed partial class WorldSchema :
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
-    /// <inheritdoc />
-    public int MonthsInYear => MonthsPerYear;
-
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days that are
     /// formally outside any month).
@@ -81,6 +75,14 @@ public sealed partial class WorldSchema :
         // m = 1, 4, 7, 10              -> 31 days
         // m = 2, 3, 5, 6, 8, 9, 11, 12 -> 30 days
         (m - 1) % 3 == 0 ? 31 : 30;
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class WorldSchema // Year, month or day infos
@@ -112,7 +114,7 @@ public partial class WorldSchema // Counting months and days within a year or a 
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]
@@ -205,6 +207,6 @@ public partial class WorldSchema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsPerYear; d = 31;
+        m = MonthsInYear; d = 31;
     }
 }

@@ -9,9 +9,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-public sealed partial class TropicaliaSchema :
-    TropicalistaSchema,
-    IDaysInMonthDistribution
+public sealed partial class TropicaliaSchema : TropicalistaSchema, IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of days from march to december, both

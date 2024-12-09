@@ -24,7 +24,6 @@ namespace Calendrie.Core.Schemas;
 /// </remarks>
 public sealed partial class InternationalFixedSchema :
     SystemSchema,
-    IRegularFeaturette,
     IBlankDayFeaturette,
     IDaysInMonthDistribution
 {
@@ -32,7 +31,7 @@ public sealed partial class InternationalFixedSchema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    private const int MonthsPerYear = 13;
+    public const int MonthsInYear = 13;
 
     /// <summary>
     /// Represents the number of days per 400-year cycle.
@@ -73,14 +72,19 @@ public sealed partial class InternationalFixedSchema :
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
     /// <inheritdoc />
-    public int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
         leap
         ? [28, 28, 28, 28, 28, 29, 28, 28, 28, 28, 28, 28, 29]
         : [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29];
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class InternationalFixedSchema // Year, month or day infos
@@ -112,7 +116,7 @@ public partial class InternationalFixedSchema // Counting months and days within
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]
@@ -191,6 +195,6 @@ public partial class InternationalFixedSchema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsPerYear; d = 29;
+        m = MonthsInYear; d = 29;
     }
 }

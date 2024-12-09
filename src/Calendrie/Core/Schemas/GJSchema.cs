@@ -12,16 +12,13 @@ using Calendrie.Core.Intervals;
 /// Provides a base for the Gregorian and Julian schemas.
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
-public abstract partial class GJSchema :
-    SystemSchema,
-    IRegularFeaturette,
-    IDaysInMonthDistribution
+public abstract partial class GJSchema : SystemSchema, IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    internal const int MonthsPerYear = 12;
+    public const int MonthsInYear = 12;
 
     /// <summary>
     /// Represents the number of days in a common year.
@@ -58,9 +55,6 @@ public abstract partial class GJSchema :
     public sealed override CalendricalAdjustments PeriodicAdjustments =>
         CalendricalAdjustments.Days;
 
-    /// <inheritdoc />
-    public int MonthsInYear => MonthsPerYear;
-
     /// <summary>
     /// Gets the number of days in each year of the first 4-year cycle,
     /// the one starting at year 0.
@@ -86,6 +80,14 @@ public abstract partial class GJSchema :
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
         leap ? DaysInMonthLeapYear : DaysInMonth;
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class GJSchema // Year, month or day infos
@@ -107,7 +109,7 @@ public partial class GJSchema // Counting months and days within a year or a mon
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]

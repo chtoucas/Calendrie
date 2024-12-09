@@ -17,7 +17,7 @@ public sealed partial class Coptic12Schema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    internal const int MonthsPerYear = 12;
+    public const int MonthsInYear = 12;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic12Schema"/> class.
@@ -25,14 +25,19 @@ public sealed partial class Coptic12Schema :
     internal Coptic12Schema() : base(30) { }
 
     /// <inheritdoc />
-    public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
         leap
         ? [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 36]
         : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class Coptic12Schema // Year, month or day infos
@@ -55,7 +60,7 @@ public partial class Coptic12Schema // Counting months and days within a year or
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]

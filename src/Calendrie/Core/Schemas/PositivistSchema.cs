@@ -22,16 +22,13 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 /// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
 /// </remarks>
-public sealed partial class PositivistSchema :
-    SystemSchema,
-    IRegularFeaturette,
-    IBlankDayFeaturette
+public sealed partial class PositivistSchema : SystemSchema, IBlankDayFeaturette
 {
     /// <summary>
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    private const int MonthsPerYear = 13;
+    public const int MonthsInYear = 13;
 
     /// <summary>
     /// Represents the number of days per 400-year cycle.
@@ -72,7 +69,12 @@ public sealed partial class PositivistSchema :
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
     /// <inheritdoc />
-    public int MonthsInYear => MonthsPerYear;
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class PositivistSchema // Year, month or day infos
@@ -103,7 +105,7 @@ public partial class PositivistSchema // Counting months and days within a year 
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]
@@ -170,7 +172,7 @@ public partial class PositivistSchema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsPerYear;
+        m = MonthsInYear;
         d = GregorianFormulae.IsLeapYear(y) ? 30 : 29;
     }
 }

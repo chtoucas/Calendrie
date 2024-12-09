@@ -36,6 +36,14 @@ public sealed class FauxLunisolarSchema : SystemSchema, IDaysInMonthDistribution
     public override CalendricalFamily Family => CalendricalFamily.Lunisolar;
     public override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Months;
 
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = 0;
+        return false;
+    }
+
     [Pure] public override bool IsLeapYear(int y) => (y & 3) == 0;
     [Pure] public override bool IsIntercalaryMonth(int y, int m) => m == 13;
     [Pure] public override bool IsIntercalaryDay(int y, int m, int d) => false;

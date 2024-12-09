@@ -50,7 +50,7 @@ public partial class FauxCalendricalSchema : CalendricalSchema
     public static FauxCalendricalSchema WithMinDaysInMonth(int minDaysInMonth) =>
         new(DefaultMinDaysInYear, minDaysInMonth);
 
-    private sealed class FauxRegularSchema : FauxCalendricalSchema, IRegularFeaturette
+    private sealed class FauxRegularSchema : FauxCalendricalSchema
     {
         public FauxRegularSchema(Func<CalendricalSchema, ICalendricalPreValidator> preValidator)
             : this(12)
@@ -70,6 +70,13 @@ public partial class FauxCalendricalSchema : CalendricalSchema
 
         public int MonthsInYear { get; }
 
+        [Pure]
+        public sealed override bool IsRegular(out int monthsInYear)
+        {
+            monthsInYear = MonthsInYear;
+            return true;
+        }
+
         [Pure] public override int CountMonthsInYear(int y) => MonthsInYear;
     }
 }
@@ -82,16 +89,8 @@ public partial class FauxCalendricalSchema // Props & methods
     [Pure]
     public override bool IsRegular(out int monthsInYear)
     {
-        if (this is IRegularFeaturette sch)
-        {
-            monthsInYear = sch.MonthsInYear;
-            return true;
-        }
-        else
-        {
-            monthsInYear = 0;
-            return false;
-        }
+        monthsInYear = 0;
+        return true;
     }
 
     [Pure] public sealed override bool IsLeapYear(int y) => throw new NotSupportedException();

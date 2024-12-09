@@ -13,7 +13,7 @@ public partial class PlainGregorianCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = GJSchema.MonthsPerYear;
+    public const int MonthsInYear = GJSchema.MonthsInYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -24,5 +24,5 @@ public partial class PlainJulianCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = GJSchema.MonthsPerYear;
+    public const int MonthsInYear = GJSchema.MonthsInYear;
 }

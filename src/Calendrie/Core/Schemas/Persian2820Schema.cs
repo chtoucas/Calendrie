@@ -37,16 +37,13 @@ using Calendrie.Core.Intervals;
 /// <remarks>This is not the calendar currently in use in Iran. Furthermore, it has "been criticized
 /// by calendar researchers, among them the Iranian astronomers Malakpour (2004) and Sayyâd (2000)";
 /// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</remarks>
-public sealed partial class Persian2820Schema :
-    SystemSchema,
-    IRegularFeaturette,
-    IDaysInMonthDistribution
+public sealed partial class Persian2820Schema : SystemSchema, IDaysInMonthDistribution
 {
     /// <summary>
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    private const int MonthsPerYear = 12;
+    public const int MonthsInYear = 12;
 
     /// <summary>
     /// Represents the number of days per 2820-year cycle.
@@ -102,14 +99,19 @@ public sealed partial class Persian2820Schema :
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
     /// <inheritdoc />
-    public int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
         leap
         ? [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30]
         : [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class Persian2820Schema // Year, month or day infos
@@ -142,7 +144,7 @@ public partial class Persian2820Schema // Counting months and days within a year
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]
@@ -213,7 +215,7 @@ public partial class Persian2820Schema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsPerYear;
+        m = MonthsInYear;
         d = IsLeapYear(y) ? 30 : 29;
     }
 }

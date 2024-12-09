@@ -7,13 +7,13 @@ namespace Calendrie.Core.Schemas;
 /// Provides a base for the "Tropicália" schemas.
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-public abstract partial class TropicalistaSchema : SystemSchema, IRegularFeaturette
+public abstract partial class TropicalistaSchema : SystemSchema
 {
     /// <summary>
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    private const int MonthsPerYear = 12;
+    public const int MonthsInYear = 12;
 
     /// <summary>
     /// Represents the number of days per 128-year cycle.
@@ -55,7 +55,12 @@ public abstract partial class TropicalistaSchema : SystemSchema, IRegularFeature
         CalendricalAdjustments.Days;
 
     /// <inheritdoc />
-    public int MonthsInYear => MonthsPerYear;
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class TropicalistaSchema // Year, month or day infos
@@ -86,7 +91,7 @@ public partial class TropicalistaSchema // Counting months and days within a yea
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]

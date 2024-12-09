@@ -4,7 +4,7 @@
 namespace Calendrie.Core;
 
 /// <summary>
-/// Defines a calendrical schema.
+/// Defines a calendrical kernel.
 /// </summary>
 public interface ICalendricalKernel
 {

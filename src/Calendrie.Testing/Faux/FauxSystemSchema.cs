@@ -7,7 +7,22 @@ using Calendrie.Core.Intervals;
 
 using static Calendrie.Core.CalendricalConstants;
 
-public partial class FauxSystemSchema : SystemSchema
+public abstract class FauxSystemSchemaBase : SystemSchema
+{
+    protected FauxSystemSchemaBase(int minDaysInYear, int minDaysInMonth)
+        : base(minDaysInYear, minDaysInMonth) { }
+    protected FauxSystemSchemaBase(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+        : base(supportedYears, minDaysInYear, minDaysInMonth) { }
+
+    [Pure]
+    public override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = 0;
+        return true;
+    }
+}
+
+public partial class FauxSystemSchema : FauxSystemSchemaBase
 {
     private const int DefaultMinDaysInYear = 365;
     private const int DefaultMinDaysInMonth = 28;
@@ -46,7 +61,7 @@ public partial class FauxSystemSchema : SystemSchema
     public static FauxSystemSchema WithMinDaysInMonth(int minDaysInMonth) =>
         new(DefaultMinDaysInYear, minDaysInMonth);
 
-    private sealed class FauxRegularSchema : FauxSystemSchema, IRegularFeaturette
+    private sealed class FauxRegularSchema : FauxSystemSchema
     {
         public FauxRegularSchema(int monthsInYear)
             : this(monthsInYear, DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
@@ -58,6 +73,13 @@ public partial class FauxSystemSchema : SystemSchema
         public int MonthsInYear { get; }
 
         [Pure] public override int CountMonthsInYear(int y) => MonthsInYear;
+
+        [Pure]
+        public sealed override bool IsRegular(out int monthsInYear)
+        {
+            monthsInYear = MonthsInYear;
+            return true;
+        }
     }
 }
 

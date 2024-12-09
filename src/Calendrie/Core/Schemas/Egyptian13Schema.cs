@@ -25,7 +25,7 @@ public sealed partial class Egyptian13Schema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    internal const int MonthsPerYear = 13;
+    public const int MonthsInYear = 13;
 
     /// <summary>
     /// Represents the virtual month.
@@ -39,13 +39,18 @@ public sealed partial class Egyptian13Schema :
     internal Egyptian13Schema() : base(5) { }
 
     /// <inheritdoc />
-    public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
         // No leap years.
         [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class Egyptian13Schema // Year, month or day infos
@@ -65,7 +70,7 @@ public partial class Egyptian13Schema // Counting months and days within a year 
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]
@@ -101,6 +106,6 @@ public partial class Egyptian13Schema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsPerYear; d = 5;
+        m = MonthsInYear; d = 5;
     }
 }

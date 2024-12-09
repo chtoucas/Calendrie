@@ -19,7 +19,7 @@ public sealed partial class Coptic13Schema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    internal const int MonthsPerYear = 13;
+    public const int MonthsInYear = 13;
 
     /// <summary>
     /// Represents the virtual month.
@@ -33,14 +33,19 @@ public sealed partial class Coptic13Schema :
     internal Coptic13Schema() : base(5) { }
 
     /// <inheritdoc />
-    public sealed override int MonthsInYear => MonthsPerYear;
-
-    /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
         leap
         ? [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6]
         : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
 }
 
 public partial class Coptic13Schema // Year, month or day infos
@@ -65,7 +70,7 @@ public partial class Coptic13Schema // Counting months and days within a year or
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]

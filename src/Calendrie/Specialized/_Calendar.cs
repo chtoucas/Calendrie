@@ -13,7 +13,7 @@ public partial class ArmenianCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = Egyptian12Schema.MonthsPerYear;
+    public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -24,7 +24,7 @@ public partial class Armenian13Calendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
-    public const int MonthsInYear = Egyptian13Schema.MonthsPerYear;
+    public const int MonthsInYear = Egyptian13Schema.MonthsInYear;
 
     /// <summary>
     /// Represents the virtual month.
@@ -41,7 +41,7 @@ public partial class CopticCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = Coptic12Schema.MonthsPerYear;
+    public const int MonthsInYear = Coptic12Schema.MonthsInYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -52,7 +52,7 @@ public partial class Coptic13Calendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
-    public const int MonthsInYear = Coptic13Schema.MonthsPerYear;
+    public const int MonthsInYear = Coptic13Schema.MonthsInYear;
 
     /// <summary>
     /// Represents the virtual month.
@@ -69,7 +69,7 @@ public partial class EthiopicCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = Coptic12Schema.MonthsPerYear;
+    public const int MonthsInYear = Coptic12Schema.MonthsInYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -80,7 +80,7 @@ public partial class Ethiopic13Calendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
-    public const int MonthsInYear = Coptic13Schema.MonthsPerYear;
+    public const int MonthsInYear = Coptic13Schema.MonthsInYear;
 
     /// <summary>
     /// Represents the virtual month.
@@ -97,7 +97,7 @@ public partial class TabularIslamicCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = TabularIslamicSchema.MonthsPerYear;
+    public const int MonthsInYear = TabularIslamicSchema.MonthsInYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -108,7 +108,7 @@ public partial class WorldCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = WorldSchema.MonthsPerYear;
+    public const int MonthsInYear = WorldSchema.MonthsInYear;
 
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days
@@ -132,7 +132,7 @@ public partial class ZoroastrianCalendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = Egyptian12Schema.MonthsPerYear;
+    public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -143,7 +143,7 @@ public partial class Zoroastrian13Calendar
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
-    public const int MonthsInYear = Egyptian13Schema.MonthsPerYear;
+    public const int MonthsInYear = Egyptian13Schema.MonthsInYear;
 
     /// <summary>
     /// Represents the virtual month.
