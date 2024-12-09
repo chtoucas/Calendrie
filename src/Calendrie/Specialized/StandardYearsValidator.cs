@@ -30,15 +30,13 @@ internal sealed class StandardYearsValidator : IYearsValidator
     /// <inheritdoc />
     public void Validate(int year, string? paramName = null)
     {
-        if (year < MinYear || year > MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
     }
 
     /// <inheritdoc />
     public void CheckOverflow(int year)
     {
-        if (year < MinYear || year > MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowDateOverflow();
     }
 
     /// <inheritdoc />
