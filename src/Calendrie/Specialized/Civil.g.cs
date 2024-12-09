@@ -16,15 +16,12 @@ using Calendrie.Hemerology;
 /// Provides common adjusters for <see cref="CivilDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
+public sealed class CivilAdjuster : SpecialAdjuster<CivilDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilAdjuster"/> class.
     /// </summary>
     internal CivilAdjuster(CivilCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override CivilDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
@@ -33,6 +30,7 @@ public sealed partial class CivilAdjuster : SpecialAdjuster<CivilDate>
 /// </summary>
 public readonly partial struct CivilDate :
     IDate<CivilDate, CivilCalendar>,
+    ISpecialDate<CivilDate>,
     IAdjustable<CivilDate>
 { }
 

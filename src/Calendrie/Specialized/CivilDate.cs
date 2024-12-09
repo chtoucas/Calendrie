@@ -187,6 +187,11 @@ public partial struct CivilDate // Factories
 
         return new(daysSinceZero);
     }
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static CivilDate ISpecialDate<CivilDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct CivilDate // Adjustments

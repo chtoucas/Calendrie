@@ -63,24 +63,18 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Coptic12Schema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override EthiopicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="EthiopicDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
+public sealed class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="EthiopicAdjuster"/> class.
     /// </summary>
     internal EthiopicAdjuster(EthiopicCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override EthiopicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -89,6 +83,7 @@ public sealed partial class EthiopicAdjuster : SpecialAdjuster<EthiopicDate>
 /// </summary>
 public readonly partial struct EthiopicDate :
     IDate<EthiopicDate, EthiopicCalendar>,
+    ISpecialDate<EthiopicDate>,
     IAdjustable<EthiopicDate>
 { }
 
@@ -305,6 +300,11 @@ public partial struct EthiopicDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static EthiopicDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static EthiopicDate ISpecialDate<EthiopicDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct EthiopicDate // Counting

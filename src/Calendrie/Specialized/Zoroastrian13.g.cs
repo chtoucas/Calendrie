@@ -63,24 +63,18 @@ public sealed partial class Zoroastrian13Calendar : SpecialCalendar<Zoroastrian1
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Egyptian13Schema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override Zoroastrian13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="Zoroastrian13Date"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class Zoroastrian13Adjuster : SpecialAdjuster<Zoroastrian13Date>
+public sealed class Zoroastrian13Adjuster : SpecialAdjuster<Zoroastrian13Date>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Zoroastrian13Adjuster"/> class.
     /// </summary>
     internal Zoroastrian13Adjuster(Zoroastrian13Calendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override Zoroastrian13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -89,6 +83,7 @@ public sealed partial class Zoroastrian13Adjuster : SpecialAdjuster<Zoroastrian1
 /// </summary>
 public readonly partial struct Zoroastrian13Date :
     IDate<Zoroastrian13Date, Zoroastrian13Calendar>,
+    ISpecialDate<Zoroastrian13Date>,
     IAdjustable<Zoroastrian13Date>
 { }
 
@@ -305,6 +300,11 @@ public partial struct Zoroastrian13Date // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static Zoroastrian13Date FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static Zoroastrian13Date ISpecialDate<Zoroastrian13Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct Zoroastrian13Date // Counting

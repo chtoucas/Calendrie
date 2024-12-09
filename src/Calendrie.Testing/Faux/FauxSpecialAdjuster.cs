@@ -7,10 +7,7 @@ using Calendrie.Hemerology;
 using Calendrie.Specialized;
 
 public sealed class FauxSpecialAdjuster<TDate> : SpecialAdjuster<TDate>
-    where TDate : IDateable
+    where TDate : IDateable, ISpecialDate<TDate>
 {
     public FauxSpecialAdjuster(MinMaxYearScope scope) : base(scope) { }
-
-    private protected override TDate NewDate(int daysSinceEpoch) =>
-        throw new NotSupportedException();
 }

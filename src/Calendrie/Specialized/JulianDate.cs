@@ -199,6 +199,11 @@ public partial struct JulianDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static JulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static JulianDate ISpecialDate<JulianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct JulianDate // Math

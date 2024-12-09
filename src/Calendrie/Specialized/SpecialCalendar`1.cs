@@ -33,6 +33,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public abstract partial class SpecialCalendar<TDate> : Calendar, IDateProvider<TDate>
+    where TDate : ISpecialDate<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -74,13 +75,6 @@ public abstract partial class SpecialCalendar<TDate> : Calendar, IDateProvider<T
 
 public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
 {
-    /// <summary>
-    /// Creates a new instance of <typeparamref name="TDate"/> from the specified
-    /// count of consecutive days since the epoch.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure] private protected abstract TDate NewDate(int daysSinceEpoch);
-
     /// <inheritdoc/>
     [Pure]
     public IEnumerable<TDate> GetDaysInYear(int year)
@@ -92,7 +86,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select NewDate(daysSinceEpoch);
+               select TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -106,7 +100,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select NewDate(daysSinceEpoch);
+               select TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -115,7 +109,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         YearsValidator.Validate(year);
         int daysSinceEpoch = Schema.GetStartOfYear(year);
-        return NewDate(daysSinceEpoch);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -124,7 +118,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         YearsValidator.Validate(year);
         int daysSinceEpoch = Schema.GetEndOfYear(year);
-        return NewDate(daysSinceEpoch);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -133,7 +127,7 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
-        return NewDate(daysSinceEpoch);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -142,6 +136,6 @@ public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
-        return NewDate(daysSinceEpoch);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 }

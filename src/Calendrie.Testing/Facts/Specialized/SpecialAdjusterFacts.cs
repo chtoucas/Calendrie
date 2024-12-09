@@ -3,14 +3,13 @@
 
 namespace Calendrie.Testing.Facts.Specialized;
 
-using Calendrie.Hemerology;
 using Calendrie.Specialized;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
 public abstract partial class SpecialAdjusterFacts<TDate, TDataSet> :
     IDateAdjusterFacts<SpecialAdjuster<TDate>, TDate, TDataSet>
-    where TDate : IAdjustable<TDate>, IDateable
+    where TDate : IAdjustable<TDate>, ISpecialDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected SpecialAdjusterFacts(SpecialAdjuster<TDate> adjuster) : base(adjuster) { }

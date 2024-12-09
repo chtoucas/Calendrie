@@ -63,24 +63,18 @@ public sealed partial class CopticCalendar : SpecialCalendar<CopticDate>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Coptic12Schema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override CopticDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="CopticDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class CopticAdjuster : SpecialAdjuster<CopticDate>
+public sealed class CopticAdjuster : SpecialAdjuster<CopticDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticAdjuster"/> class.
     /// </summary>
     internal CopticAdjuster(CopticCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override CopticDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -89,6 +83,7 @@ public sealed partial class CopticAdjuster : SpecialAdjuster<CopticDate>
 /// </summary>
 public readonly partial struct CopticDate :
     IDate<CopticDate, CopticCalendar>,
+    ISpecialDate<CopticDate>,
     IAdjustable<CopticDate>
 { }
 
@@ -305,6 +300,11 @@ public partial struct CopticDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static CopticDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static CopticDate ISpecialDate<CopticDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct CopticDate // Counting

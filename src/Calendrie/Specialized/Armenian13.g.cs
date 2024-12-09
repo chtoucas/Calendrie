@@ -63,24 +63,18 @@ public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Egyptian13Schema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override Armenian13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="Armenian13Date"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
+public sealed class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Armenian13Adjuster"/> class.
     /// </summary>
     internal Armenian13Adjuster(Armenian13Calendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override Armenian13Date NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -89,6 +83,7 @@ public sealed partial class Armenian13Adjuster : SpecialAdjuster<Armenian13Date>
 /// </summary>
 public readonly partial struct Armenian13Date :
     IDate<Armenian13Date, Armenian13Calendar>,
+    ISpecialDate<Armenian13Date>,
     IAdjustable<Armenian13Date>
 { }
 
@@ -305,6 +300,11 @@ public partial struct Armenian13Date // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static Armenian13Date FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static Armenian13Date ISpecialDate<Armenian13Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct Armenian13Date // Counting

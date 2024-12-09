@@ -17,15 +17,12 @@ using Calendrie.Hemerology;
 /// Provides common adjusters for <see cref="GregorianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
+public sealed class GregorianAdjuster : SpecialAdjuster<GregorianDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianAdjuster"/> class.
     /// </summary>
     internal GregorianAdjuster(GregorianCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override GregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
@@ -34,6 +31,7 @@ public sealed partial class GregorianAdjuster : SpecialAdjuster<GregorianDate>
 /// </summary>
 public readonly partial struct GregorianDate :
     IDate<GregorianDate, GregorianCalendar>,
+    ISpecialDate<GregorianDate>,
     IAdjustable<GregorianDate>
 { }
 
@@ -47,6 +45,10 @@ public partial struct GregorianDate // Factories
 
         return new(dayNumber.DaysSinceZero);
     }
+
+    /// <inheritdoc />
+    static GregorianDate ISpecialDate<GregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct GregorianDate // Counting

@@ -27,6 +27,7 @@ public partial class CalendarTemplate
 /// </summary>
 public readonly partial struct <#= Prefix #>Date :
     IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
+    ISpecialDate<<#= Prefix #>Date>,
     IAdjustable<<#= Prefix #>Date>
 { }
 <#+
@@ -260,6 +261,11 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static <#= Prefix #>Date FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - <#= EpochDaysSinceEpoch #>);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static <#= Prefix #>Date ISpecialDate<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 <#+
     } // T4: End of EmitDateFactories()

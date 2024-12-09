@@ -38,7 +38,4 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
-
-    [Pure]
-    private protected sealed override JulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }

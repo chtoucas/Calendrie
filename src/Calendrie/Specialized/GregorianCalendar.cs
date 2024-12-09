@@ -40,7 +40,4 @@ public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>, IRegular
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override GregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }

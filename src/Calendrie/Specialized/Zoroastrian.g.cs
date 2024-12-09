@@ -63,24 +63,18 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Egyptian12Schema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override ZoroastrianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="ZoroastrianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDate>
+public sealed class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianAdjuster"/> class.
     /// </summary>
     internal ZoroastrianAdjuster(ZoroastrianCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override ZoroastrianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -89,6 +83,7 @@ public sealed partial class ZoroastrianAdjuster : SpecialAdjuster<ZoroastrianDat
 /// </summary>
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
+    ISpecialDate<ZoroastrianDate>,
     IAdjustable<ZoroastrianDate>
 { }
 
@@ -305,6 +300,11 @@ public partial struct ZoroastrianDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static ZoroastrianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static ZoroastrianDate ISpecialDate<ZoroastrianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct ZoroastrianDate // Counting

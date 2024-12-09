@@ -37,7 +37,4 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
 
     /// <inheritdoc />
     public int MonthsInYear => GJSchema.MonthsPerYear;
-
-    [Pure]
-    private protected sealed override CivilDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }

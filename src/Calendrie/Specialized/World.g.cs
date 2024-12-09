@@ -63,24 +63,18 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(WorldSchema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="WorldDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
+public sealed class WorldAdjuster : SpecialAdjuster<WorldDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldAdjuster"/> class.
     /// </summary>
     internal WorldAdjuster(WorldCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override WorldDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -89,6 +83,7 @@ public sealed partial class WorldAdjuster : SpecialAdjuster<WorldDate>
 /// </summary>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
+    ISpecialDate<WorldDate>,
     IAdjustable<WorldDate>
 { }
 
@@ -305,6 +300,11 @@ public partial struct WorldDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static WorldDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static WorldDate ISpecialDate<WorldDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct WorldDate // Counting

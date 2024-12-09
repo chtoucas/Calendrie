@@ -270,6 +270,10 @@ public partial struct <#= Prefix #>Date // Factories
 
         return new(dayNumber.DaysSinceZero);
     }
+
+    /// <inheritdoc />
+    static <#= Prefix #>Date ISpecialDate<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 <#+
     } // T4: End of EmitDateFactories()

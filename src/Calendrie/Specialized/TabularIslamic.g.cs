@@ -63,24 +63,18 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(TabularIslamicSchema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="TabularIslamicDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIslamicDate>
+public sealed class TabularIslamicAdjuster : SpecialAdjuster<TabularIslamicDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicAdjuster"/> class.
     /// </summary>
     internal TabularIslamicAdjuster(TabularIslamicCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override TabularIslamicDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -89,6 +83,7 @@ public sealed partial class TabularIslamicAdjuster : SpecialAdjuster<TabularIsla
 /// </summary>
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate, TabularIslamicCalendar>,
+    ISpecialDate<TabularIslamicDate>,
     IAdjustable<TabularIslamicDate>
 { }
 
@@ -305,6 +300,11 @@ public partial struct TabularIslamicDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static TabularIslamicDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static TabularIslamicDate ISpecialDate<TabularIslamicDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct TabularIslamicDate // Counting

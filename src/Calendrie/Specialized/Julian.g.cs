@@ -17,15 +17,12 @@ using Calendrie.Hemerology;
 /// Provides common adjusters for <see cref="JulianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
+public sealed class JulianAdjuster : SpecialAdjuster<JulianDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianAdjuster"/> class.
     /// </summary>
     internal JulianAdjuster(JulianCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override JulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -34,6 +31,7 @@ public sealed partial class JulianAdjuster : SpecialAdjuster<JulianDate>
 /// </summary>
 public readonly partial struct JulianDate :
     IDate<JulianDate, JulianCalendar>,
+    ISpecialDate<JulianDate>,
     IAdjustable<JulianDate>
 { }
 

@@ -65,24 +65,18 @@ public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregor
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(GregorianSchema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override PlainGregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="PlainGregorianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PlainGregorianAdjuster : SpecialAdjuster<PlainGregorianDate>
+public sealed class PlainGregorianAdjuster : SpecialAdjuster<PlainGregorianDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianAdjuster"/> class.
     /// </summary>
     internal PlainGregorianAdjuster(PlainGregorianCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override PlainGregorianDate NewDate(int daysSinceZero) => new(daysSinceZero);
 }
 
 /// <summary>
@@ -91,6 +85,7 @@ public sealed partial class PlainGregorianAdjuster : SpecialAdjuster<PlainGregor
 /// </summary>
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
+    ISpecialDate<PlainGregorianDate>,
     IAdjustable<PlainGregorianDate>
 { }
 
@@ -286,6 +281,10 @@ public partial struct PlainGregorianDate // Factories
 
         return new(dayNumber.DaysSinceZero);
     }
+
+    /// <inheritdoc />
+    static PlainGregorianDate ISpecialDate<PlainGregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct PlainGregorianDate // Counting

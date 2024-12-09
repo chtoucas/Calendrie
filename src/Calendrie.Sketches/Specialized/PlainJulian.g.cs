@@ -65,24 +65,18 @@ public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDat
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(JulianSchema schema) => new(Epoch, schema);
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override PlainJulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
 /// Provides common adjusters for <see cref="PlainJulianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PlainJulianAdjuster : SpecialAdjuster<PlainJulianDate>
+public sealed class PlainJulianAdjuster : SpecialAdjuster<PlainJulianDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianAdjuster"/> class.
     /// </summary>
     internal PlainJulianAdjuster(PlainJulianCalendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override PlainJulianDate NewDate(int daysSinceEpoch) => new(daysSinceEpoch);
 }
 
 /// <summary>
@@ -91,6 +85,7 @@ public sealed partial class PlainJulianAdjuster : SpecialAdjuster<PlainJulianDat
 /// </summary>
 public readonly partial struct PlainJulianDate :
     IDate<PlainJulianDate, PlainJulianCalendar>,
+    ISpecialDate<PlainJulianDate>,
     IAdjustable<PlainJulianDate>
 { }
 
@@ -308,6 +303,11 @@ public partial struct PlainJulianDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static PlainJulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static PlainJulianDate ISpecialDate<PlainJulianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
 }
 
 public partial struct PlainJulianDate // Counting

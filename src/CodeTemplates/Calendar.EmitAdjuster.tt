@@ -10,15 +10,12 @@ public partial class CalendarTemplate
 /// Provides common adjusters for <see cref="<#= Prefix #>Date"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class <#= Prefix #>Adjuster : SpecialAdjuster<<#= Prefix #>Date>
+public sealed class <#= Prefix #>Adjuster : SpecialAdjuster<<#= Prefix #>Date>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Adjuster"/> class.
     /// </summary>
     internal <#= Prefix #>Adjuster(<#= Prefix #>Calendar calendar) : base(calendar) { }
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private protected sealed override <#= Prefix #>Date NewDate(int <#= DaysSinceEpochVar #>) => new(<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitAdjuster()
