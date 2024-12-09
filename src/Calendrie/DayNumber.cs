@@ -176,15 +176,14 @@ public partial struct DayNumber // Gregorian/Julian conversions
     private const int MinGregorianDaysSinceZero = -1_826_212_500;
     private const int MaxGregorianDaysSinceZero = 1_826_212_499;
 
-    private static readonly DayNumber s_MinGregorianValue = new(MinGregorianDaysSinceZero);
-    private static readonly DayNumber s_MaxGregorianValue = new(MaxGregorianDaysSinceZero);
-
     /// <summary>
     /// Gets the range of supported Gregorian values for a <see cref="DayNumber"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Range<DayNumber> GregorianDomain =>
-        Range.CreateLeniently(s_MinGregorianValue, s_MaxGregorianValue);
+        Range.CreateLeniently<DayNumber>(
+            new(MinGregorianDaysSinceZero),
+            new(MaxGregorianDaysSinceZero));
 
     /// <summary>
     /// Creates a new instance of <see cref="DayNumber"/> from the specified
@@ -276,15 +275,14 @@ public partial struct DayNumber // Gregorian/Julian conversions
     private const int MinJulianDaysSinceZero = -1_826_250_002;
     private const int MaxJulianDaysSinceZero = 1_826_249_997;
 
-    private static readonly DayNumber s_MinJulianValue = new(MinJulianDaysSinceZero);
-    private static readonly DayNumber s_MaxJulianValue = new(MaxJulianDaysSinceZero);
-
     /// <summary>
     /// Gets the range of supported Julian values for a <see cref="DayNumber"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Range<DayNumber> JulianDomain =>
-        Range.CreateLeniently(s_MinJulianValue, s_MaxJulianValue);
+        Range.CreateLeniently<DayNumber>(
+            new(MinJulianDaysSinceZero),
+            new(MaxJulianDaysSinceZero));
 
     /// <summary>
     /// Creates a new instance of <see cref="DayNumber"/> from the specified
@@ -600,9 +598,7 @@ public partial struct DayNumber // Math ops
     {
         int newDays = checked(value._daysSinceZero + days);
         if (newDays == MinDaysSinceZero - 1 || newDays == MaxDaysSinceZero + 1)
-        {
             ThrowDayNumberOverflow();
-        }
         return new DayNumber(newDays);
     }
 
@@ -616,9 +612,7 @@ public partial struct DayNumber // Math ops
     {
         int newDays = checked(value._daysSinceZero - days);
         if (newDays == MinDaysSinceZero - 1 || newDays == MaxDaysSinceZero + 1)
-        {
             ThrowDayNumberOverflow();
-        }
         return new DayNumber(newDays);
     }
 
