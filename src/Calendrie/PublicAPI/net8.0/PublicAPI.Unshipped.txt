@@ -103,8 +103,6 @@ Calendrie.Core.CalendricalSegmentBuilder.SetMaxToEndOfYear(int year) -> void
 Calendrie.Core.CalendricalSegmentBuilder.SetMinToStartOfMinSupportedYear() -> void
 Calendrie.Core.CalendricalSegmentBuilder.SetMinToStartOfYear(int year) -> void
 Calendrie.Core.CalendricalSegmentBuilder.TrySetMinToStartOfMinSupportedYearOnOrAfterYear1() -> bool
-Calendrie.Core.IBlankDayFeaturette
-Calendrie.Core.IBlankDayFeaturette.IsBlankDay(int y, int m, int d) -> bool
 Calendrie.Core.ICalendricalKernel
 Calendrie.Core.ICalendricalKernel.Algorithm.get -> Calendrie.CalendricalAlgorithm
 Calendrie.Core.ICalendricalKernel.CountDaysInMonth(int y, int m) -> int
@@ -153,8 +151,6 @@ Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearAfterMonth(int y, int m) ->
 Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int daysSinceEpoch) -> int
 Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int y, int doy) -> int
 Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int y, int m, int d) -> int
-Calendrie.Core.IEpagomenalDayFeaturette
-Calendrie.Core.IEpagomenalDayFeaturette.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
 Calendrie.Core.Intervals.IInterval<T>
 Calendrie.Core.Intervals.IInterval<T>.IsLeftBounded.get -> bool
 Calendrie.Core.Intervals.IInterval<T>.IsLeftOpen.get -> bool
