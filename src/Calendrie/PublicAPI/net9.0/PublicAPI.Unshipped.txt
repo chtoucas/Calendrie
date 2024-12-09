@@ -624,7 +624,6 @@ Calendrie.Specialized.ArmenianDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.CivilCalendar
 Calendrie.Specialized.CivilCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.CivilDate>!
 Calendrie.Specialized.CivilCalendar.CivilCalendar() -> void
-Calendrie.Specialized.CivilCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.AddDays(int days) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.Adjust(System.Func<Calendrie.Specialized.CivilDate, Calendrie.Specialized.CivilDate>! adjuster) -> Calendrie.Specialized.CivilDate
@@ -819,7 +818,6 @@ Calendrie.Specialized.EthiopicDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.GregorianCalendar
 Calendrie.Specialized.GregorianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.GregorianDate>!
 Calendrie.Specialized.GregorianCalendar.GregorianCalendar() -> void
-Calendrie.Specialized.GregorianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.AddDays(int days) -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.GregorianDate.Adjust(System.Func<Calendrie.Specialized.GregorianDate, Calendrie.Specialized.GregorianDate>! adjuster) -> Calendrie.Specialized.GregorianDate
@@ -859,7 +857,6 @@ Calendrie.Specialized.ISpecialDate<TSelf>
 Calendrie.Specialized.JulianCalendar
 Calendrie.Specialized.JulianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.JulianDate>!
 Calendrie.Specialized.JulianCalendar.JulianCalendar() -> void
-Calendrie.Specialized.JulianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.AddDays(int days) -> Calendrie.Specialized.JulianDate
 Calendrie.Specialized.JulianDate.Adjust(System.Func<Calendrie.Specialized.JulianDate, Calendrie.Specialized.JulianDate>! adjuster) -> Calendrie.Specialized.JulianDate
@@ -1141,12 +1138,15 @@ const Calendrie.Ord.MinAlgebraicValue = -2147483646 -> int
 const Calendrie.Specialized.Armenian13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Specialized.Armenian13Calendar.VirtualMonth = 13 -> int
 const Calendrie.Specialized.ArmenianCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.CivilCalendar.MonthsInYear = 12 -> int
 const Calendrie.Specialized.Coptic13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Specialized.Coptic13Calendar.VirtualMonth = 13 -> int
 const Calendrie.Specialized.CopticCalendar.MonthsInYear = 12 -> int
 const Calendrie.Specialized.Ethiopic13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Specialized.Ethiopic13Calendar.VirtualMonth = 13 -> int
 const Calendrie.Specialized.EthiopicCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.GregorianCalendar.MonthsInYear = 12 -> int
+const Calendrie.Specialized.JulianCalendar.MonthsInYear = 12 -> int
 const Calendrie.Specialized.TabularIslamicCalendar.MonthsInYear = 12 -> int
 const Calendrie.Specialized.WorldCalendar.MonthsInYear = 12 -> int
 const Calendrie.Specialized.Zoroastrian13Calendar.MonthsInYear = 13 -> int
