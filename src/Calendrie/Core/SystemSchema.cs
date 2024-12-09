@@ -214,21 +214,21 @@ public partial class SystemSchema // Dates in a given year or month
     /// Obtains the month parts for the first month of the specified year.
     /// </summary>
     [Pure]
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public Yemo GetMonthPartsAtStartOfYear(int y) => Yemo.AtStartOfYear(y);
 
     /// <summary>
     /// Obtains the date parts for the first day of the specified year.
     /// </summary>
     [Pure]
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public Yemoda GetDatePartsAtStartOfYear(int y) => Yemoda.AtStartOfYear(y);
 
     /// <summary>
     /// Obtains the ordinal date parts for the first day of the specified year.
     /// </summary>
     [Pure]
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public Yedoy GetOrdinalPartsAtStartOfYear(int y) => Yedoy.AtStartOfYear(y);
 
     //
@@ -287,7 +287,7 @@ public partial class SystemSchema // Dates in a given year or month
     /// Obtains the date parts for the first day of the specified month.
     /// </summary>
     [Pure]
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Box principle")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public Yemoda GetDatePartsAtStartOfMonth(int y, int m) => Yemoda.AtStartOfMonth(y, m);
 
     /// <summary>

@@ -59,7 +59,7 @@ public interface IDateAdjuster<TDate>
     /// <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of
     /// supported dates.</exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetStartOfYear(TDate date);
 
     /// <summary>
@@ -69,7 +69,7 @@ public interface IDateAdjuster<TDate>
     /// <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of
     /// supported dates.</exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetEndOfYear(TDate date);
 
     /// <summary>
@@ -79,7 +79,7 @@ public interface IDateAdjuster<TDate>
     /// <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of
     /// supported dates.</exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetStartOfMonth(TDate date);
 
     /// <summary>
@@ -89,7 +89,7 @@ public interface IDateAdjuster<TDate>
     /// <see langword="null"/>.</exception>
     /// <exception cref="AoorException">The result would overflow the range of
     /// supported dates.</exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetEndOfMonth(TDate date);
 
     //
@@ -101,7 +101,7 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="AoorException">The resulting date would be invalid.
     /// </exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustYear(TDate date, int newYear);
 
     /// <summary>
@@ -109,7 +109,7 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="AoorException">The resulting date would be invalid.
     /// </exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustMonth(TDate date, int newMonth);
 
     /// <summary>
@@ -118,7 +118,7 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="AoorException">The resulting date would be invalid.
     /// </exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustDay(TDate date, int newDay);
 
     /// <summary>
@@ -127,6 +127,6 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="AoorException">The resulting date would be invalid.
     /// </exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustDayOfYear(TDate date, int newDayOfYear);
 }

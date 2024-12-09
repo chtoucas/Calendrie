@@ -10,9 +10,13 @@ namespace Calendrie.Core.Utilities;
 public interface IMinMaxFunction<TSelf> : IComparable<TSelf>
     where TSelf : IMinMaxFunction<TSelf>
 {
-    /// <summary>Obtains the minimum of two specified values.</summary>
+    /// <summary>
+    /// Obtains the minimum of two specified values.
+    /// </summary>
     [Pure] static abstract TSelf Min(TSelf x, TSelf y);
 
-    /// <summary>Obtains the maximum of two specified values.</summary>
+    /// <summary>
+    /// Obtains the maximum of two specified values.
+    /// </summary>
     [Pure] static abstract TSelf Max(TSelf x, TSelf y);
 }

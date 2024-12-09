@@ -221,6 +221,6 @@ public interface IFixedDate<TSelf> : IFixedDate
     /// valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "VB.NET Next statement.")]
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "VB.NET Next statement")]
     [Pure] TSelf Next(DayOfWeek dayOfWeek);
 }
