@@ -48,6 +48,7 @@
     <Compile Include="Tests\Core\Utilities\ReadOnlySetTests.fs" />
     <Compile Include="Tests\Core\Utilities\RequiresTests.fs" />
     <Compile Include="Tests\Core\Utilities\ThrowHelpersTests.fs" />
+    <Compile Include="Tests\Core\Validation\RangeExtensionsTests.fs" />
     <Compile Include="Tests\Core\Validation\DomainExtensionsTests.fs" />
     <Compile Include="Tests\Core\Validation\PlainPreValidatorTestSuite.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTests.fs" />
