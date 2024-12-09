@@ -15,7 +15,7 @@ namespace Calendrie.Core;
 /// <para>The epagomenal days are usually found in descendants of the Egyptian
 /// calendar.</para>
 /// </summary>
-public interface IEpagomenalDayFeaturette : ICalendricalKernel
+public interface IEpagomenalDayFeaturette
 {
     /// <summary>
     /// Determines whether the specified date is an epagomenal day or not, and
