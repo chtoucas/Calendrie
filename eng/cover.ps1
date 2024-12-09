@@ -87,7 +87,7 @@ try {
     }
 
     if (-not $NoTest) {
-        if ($not $NoFilter) {
+        if (-not $NoFilter) {
             $filter = 'ExcludeFrom!=CodeCoverage'
             $args += "--filter:$filter"
         }
