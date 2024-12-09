@@ -12,10 +12,10 @@ public partial struct JulianDate
 {
     private const int EpochDaysSinceZero = -2;
 
+    // Min/MaxDaysSinceZero = JulianScope.Instance.Segment.SupportedDays.Min/Max
+
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_635.</para></summary>
-    //
-    // Min/MaxDaysSinceZero = JulianScope.Instance.Segment.SupportedDays.Min/Max
     internal const int MinDaysSinceEpoch = -365_249_635;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_633.</para></summary>
@@ -24,11 +24,6 @@ public partial struct JulianDate
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = JulianCalendar.ScopeT.Domain;
-
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly JulianDate s_MinValue = new(MinDaysSinceEpoch);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly JulianDate s_MaxValue = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.OldStyle"/>.
@@ -76,11 +71,11 @@ public partial struct JulianDate
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static JulianDate MinValue => s_MinValue;
+    public static JulianDate MinValue { get; } = new(MinDaysSinceEpoch);
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static JulianDate MaxValue => s_MaxValue;
+    public static JulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <inheritdoc />
     public static JulianCalendar Calendar => JulianCalendar.Instance;
@@ -271,7 +266,7 @@ public partial struct JulianDate // Math
     [Pure]
     public JulianDate NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -279,7 +274,7 @@ public partial struct JulianDate // Math
     [Pure]
     public JulianDate PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

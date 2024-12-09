@@ -8,15 +8,12 @@ using Calendrie.Hemerology;
 
 public partial struct CivilDate
 {
-    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
-    /// <para>This field is a constant equal to 3_652_058.</para></summary>
-    //
     // MinDaysSinceZero = 0
     // MaxDaysSinceZero = CivilScope.Instance.Segment.SupportedDays.Max
-    internal const int MaxDaysSinceZero = 3_652_058;
 
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly CivilDate s_MaxValue = new(MaxDaysSinceZero);
+    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
+    /// <para>This field is a constant equal to 3_652_058.</para></summary>
+    internal const int MaxDaysSinceZero = 3_652_058;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
@@ -70,7 +67,7 @@ public partial struct CivilDate
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static CivilDate MaxValue => s_MaxValue;
+    public static CivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Gets the date adjuster.
@@ -317,7 +314,7 @@ public partial struct CivilDate // Math
     [Pure]
     public CivilDate NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero + 1);
     }
 

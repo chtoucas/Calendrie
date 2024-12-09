@@ -9,10 +9,10 @@ using Calendrie.Hemerology;
 
 public partial struct GregorianDate
 {
+    // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
+
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to -365_242_135.</para></summary>
-    //
-    // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
     internal const int MinDaysSinceZero = -365_242_135;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 365_242_133.</para></summary>
@@ -21,11 +21,6 @@ public partial struct GregorianDate
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
     private static readonly Range<DayNumber> s_Domain = GregorianCalendar.ScopeT.Domain;
-
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly GregorianDate s_MinValue = new(MinDaysSinceZero);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly GregorianDate s_MaxValue = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
@@ -73,11 +68,11 @@ public partial struct GregorianDate
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static GregorianDate MinValue => s_MinValue;
+    public static GregorianDate MinValue { get; } = new(MinDaysSinceZero);
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static GregorianDate MaxValue => s_MaxValue;
+    public static GregorianDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <inheritdoc />
     public static GregorianCalendar Calendar => GregorianCalendar.Instance;
@@ -247,7 +242,7 @@ public partial struct GregorianDate // Math
     [Pure]
     public GregorianDate NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero + 1);
     }
 
@@ -255,7 +250,7 @@ public partial struct GregorianDate // Math
     [Pure]
     public GregorianDate PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
 }
