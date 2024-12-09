@@ -40,14 +40,14 @@ internal sealed class StandardScope : CalendarScope
     public StandardScope(DayNumber epoch, ICalendricalSchema schema)
         : base(epoch, CalendricalSegment.Create(schema, SupportedYears))
     {
-        YearsValidator = new YearsValidator_();
+        YearsValidator = new StandardYearsValidator();
     }
 
     /// <summary>
     /// Gets the validator for the range [1..9999] of years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static IYearsValidator YearsValidatorImpl => new YearsValidator_();
+    public static IYearsValidator YearsValidatorImpl => new StandardYearsValidator();
 
     /// <summary>
     /// Gets the minimum possible value for the number of consecutive days from
@@ -80,41 +80,5 @@ internal sealed class StandardScope : CalendarScope
     {
         if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         PreValidator.ValidateDayOfYear(year, dayOfYear, paramName);
-    }
-
-    /// <summary>
-    /// Represents a validator for the range [1..9999] of years.
-    /// <para>This class cannot be inherited.</para>
-    /// </summary>
-    private sealed class YearsValidator_ : IYearsValidator
-    {
-        /// <inheritdoc />
-        public Range<int> Range => SupportedYears;
-
-        /// <inheritdoc />
-        public void Validate(int year, string? paramName = null)
-        {
-            if (year < MinYear || year > MaxYear)
-                ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        }
-
-        /// <inheritdoc />
-        public void CheckOverflow(int year)
-        {
-            if (year < MinYear || year > MaxYear)
-                ThrowHelpers.ThrowDateOverflow();
-        }
-
-        /// <inheritdoc />
-        public void CheckUpperBound(int year)
-        {
-            if (year > MaxYear) ThrowHelpers.ThrowDateOverflow();
-        }
-
-        /// <inheritdoc />
-        public void CheckLowerBound(int year)
-        {
-            if (year < MinYear) ThrowHelpers.ThrowDateOverflow();
-        }
     }
 }

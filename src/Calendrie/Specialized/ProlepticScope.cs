@@ -34,42 +34,5 @@ internal static class ProlepticScope
     /// Gets the validator for the range [-999_998..999_999] of years.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static IYearsValidator YearsValidatorImpl => new YearsValidator_();
-
-    /// <summary>
-    /// Represents a validator for the range [-999_998..999_999] of years.
-    /// <para>This class cannot be inherited.</para>
-    /// </summary>
-    private sealed class YearsValidator_ : IYearsValidator
-    {
-        /// <inheritdoc />
-        public Range<int> Range => SupportedYears;
-
-        /// <inheritdoc />
-        public void Validate(int year, string? paramName = null)
-        {
-            if (year < MinYear || year > MaxYear)
-                ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        }
-
-        /// <inheritdoc />
-        public void CheckOverflow(int year)
-        {
-            if (year < MinYear || year > MaxYear)
-                ThrowHelpers.ThrowDateOverflow();
-        }
-
-        /// <inheritdoc />
-        public void CheckUpperBound(int year)
-        {
-            if (year > MaxYear) ThrowHelpers.ThrowDateOverflow();
-        }
-
-        /// <inheritdoc />
-        public void CheckLowerBound(int year)
-        {
-            if (year < MinYear) ThrowHelpers.ThrowDateOverflow();
-        }
-    }
-
+    public static IYearsValidator YearsValidatorImpl => new ProlepticYearsValidator();
 }
