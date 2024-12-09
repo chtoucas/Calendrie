@@ -548,9 +548,8 @@ Calendrie.OrdinalParts.OrdinalParts() -> void
 Calendrie.OrdinalParts.OrdinalParts(int Year, int DayOfYear) -> void
 Calendrie.OrdinalParts.Year.get -> int
 Calendrie.OrdinalParts.Year.init -> void
-Calendrie.Specialized.Armenian13Adjuster
 Calendrie.Specialized.Armenian13Calendar
-Calendrie.Specialized.Armenian13Calendar.Adjuster.get -> Calendrie.Specialized.Armenian13Adjuster!
+Calendrie.Specialized.Armenian13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Armenian13Date>!
 Calendrie.Specialized.Armenian13Calendar.Armenian13Calendar() -> void
 Calendrie.Specialized.Armenian13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Armenian13Calendar.VirtualMonth.get -> int
@@ -590,9 +589,8 @@ Calendrie.Specialized.Armenian13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) 
 Calendrie.Specialized.Armenian13Date.Year.get -> int
 Calendrie.Specialized.Armenian13Date.YearOfCentury.get -> int
 Calendrie.Specialized.Armenian13Date.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.ArmenianAdjuster
 Calendrie.Specialized.ArmenianCalendar
-Calendrie.Specialized.ArmenianCalendar.Adjuster.get -> Calendrie.Specialized.ArmenianAdjuster!
+Calendrie.Specialized.ArmenianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.ArmenianDate>!
 Calendrie.Specialized.ArmenianCalendar.ArmenianCalendar() -> void
 Calendrie.Specialized.ArmenianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.ArmenianDate
@@ -631,9 +629,8 @@ Calendrie.Specialized.ArmenianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) ->
 Calendrie.Specialized.ArmenianDate.Year.get -> int
 Calendrie.Specialized.ArmenianDate.YearOfCentury.get -> int
 Calendrie.Specialized.ArmenianDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.CivilAdjuster
 Calendrie.Specialized.CivilCalendar
-Calendrie.Specialized.CivilCalendar.Adjuster.get -> Calendrie.Specialized.CivilAdjuster!
+Calendrie.Specialized.CivilCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.CivilDate>!
 Calendrie.Specialized.CivilCalendar.CivilCalendar() -> void
 Calendrie.Specialized.CivilCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.CivilDate
@@ -671,9 +668,8 @@ Calendrie.Specialized.CivilDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Ca
 Calendrie.Specialized.CivilDate.Year.get -> int
 Calendrie.Specialized.CivilDate.YearOfCentury.get -> int
 Calendrie.Specialized.CivilDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.Coptic13Adjuster
 Calendrie.Specialized.Coptic13Calendar
-Calendrie.Specialized.Coptic13Calendar.Adjuster.get -> Calendrie.Specialized.Coptic13Adjuster!
+Calendrie.Specialized.Coptic13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Coptic13Date>!
 Calendrie.Specialized.Coptic13Calendar.Coptic13Calendar() -> void
 Calendrie.Specialized.Coptic13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Coptic13Calendar.VirtualMonth.get -> int
@@ -713,9 +709,8 @@ Calendrie.Specialized.Coptic13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) ->
 Calendrie.Specialized.Coptic13Date.Year.get -> int
 Calendrie.Specialized.Coptic13Date.YearOfCentury.get -> int
 Calendrie.Specialized.Coptic13Date.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.CopticAdjuster
 Calendrie.Specialized.CopticCalendar
-Calendrie.Specialized.CopticCalendar.Adjuster.get -> Calendrie.Specialized.CopticAdjuster!
+Calendrie.Specialized.CopticCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.CopticDate>!
 Calendrie.Specialized.CopticCalendar.CopticCalendar() -> void
 Calendrie.Specialized.CopticCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.CopticDate
@@ -754,9 +749,8 @@ Calendrie.Specialized.CopticDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> C
 Calendrie.Specialized.CopticDate.Year.get -> int
 Calendrie.Specialized.CopticDate.YearOfCentury.get -> int
 Calendrie.Specialized.CopticDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.Ethiopic13Adjuster
 Calendrie.Specialized.Ethiopic13Calendar
-Calendrie.Specialized.Ethiopic13Calendar.Adjuster.get -> Calendrie.Specialized.Ethiopic13Adjuster!
+Calendrie.Specialized.Ethiopic13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Ethiopic13Date>!
 Calendrie.Specialized.Ethiopic13Calendar.Ethiopic13Calendar() -> void
 Calendrie.Specialized.Ethiopic13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Ethiopic13Calendar.VirtualMonth.get -> int
@@ -796,9 +790,8 @@ Calendrie.Specialized.Ethiopic13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) 
 Calendrie.Specialized.Ethiopic13Date.Year.get -> int
 Calendrie.Specialized.Ethiopic13Date.YearOfCentury.get -> int
 Calendrie.Specialized.Ethiopic13Date.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.EthiopicAdjuster
 Calendrie.Specialized.EthiopicCalendar
-Calendrie.Specialized.EthiopicCalendar.Adjuster.get -> Calendrie.Specialized.EthiopicAdjuster!
+Calendrie.Specialized.EthiopicCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.EthiopicDate>!
 Calendrie.Specialized.EthiopicCalendar.EthiopicCalendar() -> void
 Calendrie.Specialized.EthiopicCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.EthiopicDate
@@ -837,9 +830,8 @@ Calendrie.Specialized.EthiopicDate.PreviousOrSame(System.DayOfWeek dayOfWeek) ->
 Calendrie.Specialized.EthiopicDate.Year.get -> int
 Calendrie.Specialized.EthiopicDate.YearOfCentury.get -> int
 Calendrie.Specialized.EthiopicDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.GregorianAdjuster
 Calendrie.Specialized.GregorianCalendar
-Calendrie.Specialized.GregorianCalendar.Adjuster.get -> Calendrie.Specialized.GregorianAdjuster!
+Calendrie.Specialized.GregorianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.GregorianDate>!
 Calendrie.Specialized.GregorianCalendar.GregorianCalendar() -> void
 Calendrie.Specialized.GregorianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.GregorianDate
@@ -877,9 +869,9 @@ Calendrie.Specialized.GregorianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -
 Calendrie.Specialized.GregorianDate.Year.get -> int
 Calendrie.Specialized.GregorianDate.YearOfCentury.get -> int
 Calendrie.Specialized.GregorianDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.JulianAdjuster
+Calendrie.Specialized.ISpecialDate<TSelf>
 Calendrie.Specialized.JulianCalendar
-Calendrie.Specialized.JulianCalendar.Adjuster.get -> Calendrie.Specialized.JulianAdjuster!
+Calendrie.Specialized.JulianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.JulianDate>!
 Calendrie.Specialized.JulianCalendar.JulianCalendar() -> void
 Calendrie.Specialized.JulianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.JulianDate
@@ -938,9 +930,8 @@ Calendrie.Specialized.SpecialCalendar<TDate>.GetEndOfMonth(int year, int month) 
 Calendrie.Specialized.SpecialCalendar<TDate>.GetEndOfYear(int year) -> TDate
 Calendrie.Specialized.SpecialCalendar<TDate>.GetStartOfMonth(int year, int month) -> TDate
 Calendrie.Specialized.SpecialCalendar<TDate>.GetStartOfYear(int year) -> TDate
-Calendrie.Specialized.TabularIslamicAdjuster
 Calendrie.Specialized.TabularIslamicCalendar
-Calendrie.Specialized.TabularIslamicCalendar.Adjuster.get -> Calendrie.Specialized.TabularIslamicAdjuster!
+Calendrie.Specialized.TabularIslamicCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.TabularIslamicDate>!
 Calendrie.Specialized.TabularIslamicCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.TabularIslamicCalendar.TabularIslamicCalendar() -> void
 Calendrie.Specialized.TabularIslamicDate
@@ -978,9 +969,8 @@ Calendrie.Specialized.TabularIslamicDate.TabularIslamicDate(int year, int month,
 Calendrie.Specialized.TabularIslamicDate.Year.get -> int
 Calendrie.Specialized.TabularIslamicDate.YearOfCentury.get -> int
 Calendrie.Specialized.TabularIslamicDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.WorldAdjuster
 Calendrie.Specialized.WorldCalendar
-Calendrie.Specialized.WorldCalendar.Adjuster.get -> Calendrie.Specialized.WorldAdjuster!
+Calendrie.Specialized.WorldCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.WorldDate>!
 Calendrie.Specialized.WorldCalendar.CountDaysInWorldMonth(int year, int month) -> int
 Calendrie.Specialized.WorldCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.WorldCalendar.WorldCalendar() -> void
@@ -1020,9 +1010,8 @@ Calendrie.Specialized.WorldDate.WorldDate(int year, int month, int day) -> void
 Calendrie.Specialized.WorldDate.Year.get -> int
 Calendrie.Specialized.WorldDate.YearOfCentury.get -> int
 Calendrie.Specialized.WorldDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Specialized.Zoroastrian13Adjuster
 Calendrie.Specialized.Zoroastrian13Calendar
-Calendrie.Specialized.Zoroastrian13Calendar.Adjuster.get -> Calendrie.Specialized.Zoroastrian13Adjuster!
+Calendrie.Specialized.Zoroastrian13Calendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Zoroastrian13Date>!
 Calendrie.Specialized.Zoroastrian13Calendar.MonthsInYear.get -> int
 Calendrie.Specialized.Zoroastrian13Calendar.VirtualMonth.get -> int
 Calendrie.Specialized.Zoroastrian13Calendar.Zoroastrian13Calendar() -> void
@@ -1062,9 +1051,8 @@ Calendrie.Specialized.Zoroastrian13Date.YearOfEra.get -> Calendrie.Ord
 Calendrie.Specialized.Zoroastrian13Date.Zoroastrian13Date() -> void
 Calendrie.Specialized.Zoroastrian13Date.Zoroastrian13Date(int year, int dayOfYear) -> void
 Calendrie.Specialized.Zoroastrian13Date.Zoroastrian13Date(int year, int month, int day) -> void
-Calendrie.Specialized.ZoroastrianAdjuster
 Calendrie.Specialized.ZoroastrianCalendar
-Calendrie.Specialized.ZoroastrianCalendar.Adjuster.get -> Calendrie.Specialized.ZoroastrianAdjuster!
+Calendrie.Specialized.ZoroastrianCalendar.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.ZoroastrianDate>!
 Calendrie.Specialized.ZoroastrianCalendar.MonthsInYear.get -> int
 Calendrie.Specialized.ZoroastrianCalendar.ZoroastrianCalendar() -> void
 Calendrie.Specialized.ZoroastrianDate
@@ -1682,7 +1670,7 @@ static Calendrie.OrdinalParts.operator <(Calendrie.OrdinalParts left, Calendrie.
 static Calendrie.OrdinalParts.operator <=(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
 static Calendrie.OrdinalParts.operator >(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
 static Calendrie.OrdinalParts.operator >=(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
-static Calendrie.Specialized.Armenian13Date.Adjuster.get -> Calendrie.Specialized.Armenian13Adjuster!
+static Calendrie.Specialized.Armenian13Date.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Armenian13Date>!
 static Calendrie.Specialized.Armenian13Date.Calendar.get -> Calendrie.Specialized.Armenian13Calendar!
 static Calendrie.Specialized.Armenian13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.Armenian13Date
 static Calendrie.Specialized.Armenian13Date.Max(Calendrie.Specialized.Armenian13Date x, Calendrie.Specialized.Armenian13Date y) -> Calendrie.Specialized.Armenian13Date
@@ -1700,7 +1688,7 @@ static Calendrie.Specialized.Armenian13Date.operator <=(Calendrie.Specialized.Ar
 static Calendrie.Specialized.Armenian13Date.operator ==(Calendrie.Specialized.Armenian13Date left, Calendrie.Specialized.Armenian13Date right) -> bool
 static Calendrie.Specialized.Armenian13Date.operator >(Calendrie.Specialized.Armenian13Date left, Calendrie.Specialized.Armenian13Date right) -> bool
 static Calendrie.Specialized.Armenian13Date.operator >=(Calendrie.Specialized.Armenian13Date left, Calendrie.Specialized.Armenian13Date right) -> bool
-static Calendrie.Specialized.ArmenianDate.Adjuster.get -> Calendrie.Specialized.ArmenianAdjuster!
+static Calendrie.Specialized.ArmenianDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.ArmenianDate>!
 static Calendrie.Specialized.ArmenianDate.Calendar.get -> Calendrie.Specialized.ArmenianCalendar!
 static Calendrie.Specialized.ArmenianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.ArmenianDate
 static Calendrie.Specialized.ArmenianDate.Max(Calendrie.Specialized.ArmenianDate x, Calendrie.Specialized.ArmenianDate y) -> Calendrie.Specialized.ArmenianDate
@@ -1718,7 +1706,7 @@ static Calendrie.Specialized.ArmenianDate.operator <=(Calendrie.Specialized.Arme
 static Calendrie.Specialized.ArmenianDate.operator ==(Calendrie.Specialized.ArmenianDate left, Calendrie.Specialized.ArmenianDate right) -> bool
 static Calendrie.Specialized.ArmenianDate.operator >(Calendrie.Specialized.ArmenianDate left, Calendrie.Specialized.ArmenianDate right) -> bool
 static Calendrie.Specialized.ArmenianDate.operator >=(Calendrie.Specialized.ArmenianDate left, Calendrie.Specialized.ArmenianDate right) -> bool
-static Calendrie.Specialized.CivilDate.Adjuster.get -> Calendrie.Specialized.CivilAdjuster!
+static Calendrie.Specialized.CivilDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.CivilDate>!
 static Calendrie.Specialized.CivilDate.Calendar.get -> Calendrie.Specialized.CivilCalendar!
 static Calendrie.Specialized.CivilDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.CivilDate
 static Calendrie.Specialized.CivilDate.Max(Calendrie.Specialized.CivilDate x, Calendrie.Specialized.CivilDate y) -> Calendrie.Specialized.CivilDate
@@ -1736,7 +1724,7 @@ static Calendrie.Specialized.CivilDate.operator <=(Calendrie.Specialized.CivilDa
 static Calendrie.Specialized.CivilDate.operator ==(Calendrie.Specialized.CivilDate left, Calendrie.Specialized.CivilDate right) -> bool
 static Calendrie.Specialized.CivilDate.operator >(Calendrie.Specialized.CivilDate left, Calendrie.Specialized.CivilDate right) -> bool
 static Calendrie.Specialized.CivilDate.operator >=(Calendrie.Specialized.CivilDate left, Calendrie.Specialized.CivilDate right) -> bool
-static Calendrie.Specialized.Coptic13Date.Adjuster.get -> Calendrie.Specialized.Coptic13Adjuster!
+static Calendrie.Specialized.Coptic13Date.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Coptic13Date>!
 static Calendrie.Specialized.Coptic13Date.Calendar.get -> Calendrie.Specialized.Coptic13Calendar!
 static Calendrie.Specialized.Coptic13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.Coptic13Date
 static Calendrie.Specialized.Coptic13Date.Max(Calendrie.Specialized.Coptic13Date x, Calendrie.Specialized.Coptic13Date y) -> Calendrie.Specialized.Coptic13Date
@@ -1754,7 +1742,7 @@ static Calendrie.Specialized.Coptic13Date.operator <=(Calendrie.Specialized.Copt
 static Calendrie.Specialized.Coptic13Date.operator ==(Calendrie.Specialized.Coptic13Date left, Calendrie.Specialized.Coptic13Date right) -> bool
 static Calendrie.Specialized.Coptic13Date.operator >(Calendrie.Specialized.Coptic13Date left, Calendrie.Specialized.Coptic13Date right) -> bool
 static Calendrie.Specialized.Coptic13Date.operator >=(Calendrie.Specialized.Coptic13Date left, Calendrie.Specialized.Coptic13Date right) -> bool
-static Calendrie.Specialized.CopticDate.Adjuster.get -> Calendrie.Specialized.CopticAdjuster!
+static Calendrie.Specialized.CopticDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.CopticDate>!
 static Calendrie.Specialized.CopticDate.Calendar.get -> Calendrie.Specialized.CopticCalendar!
 static Calendrie.Specialized.CopticDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.CopticDate
 static Calendrie.Specialized.CopticDate.Max(Calendrie.Specialized.CopticDate x, Calendrie.Specialized.CopticDate y) -> Calendrie.Specialized.CopticDate
@@ -1772,7 +1760,7 @@ static Calendrie.Specialized.CopticDate.operator <=(Calendrie.Specialized.Coptic
 static Calendrie.Specialized.CopticDate.operator ==(Calendrie.Specialized.CopticDate left, Calendrie.Specialized.CopticDate right) -> bool
 static Calendrie.Specialized.CopticDate.operator >(Calendrie.Specialized.CopticDate left, Calendrie.Specialized.CopticDate right) -> bool
 static Calendrie.Specialized.CopticDate.operator >=(Calendrie.Specialized.CopticDate left, Calendrie.Specialized.CopticDate right) -> bool
-static Calendrie.Specialized.Ethiopic13Date.Adjuster.get -> Calendrie.Specialized.Ethiopic13Adjuster!
+static Calendrie.Specialized.Ethiopic13Date.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Ethiopic13Date>!
 static Calendrie.Specialized.Ethiopic13Date.Calendar.get -> Calendrie.Specialized.Ethiopic13Calendar!
 static Calendrie.Specialized.Ethiopic13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.Ethiopic13Date
 static Calendrie.Specialized.Ethiopic13Date.Max(Calendrie.Specialized.Ethiopic13Date x, Calendrie.Specialized.Ethiopic13Date y) -> Calendrie.Specialized.Ethiopic13Date
@@ -1790,7 +1778,7 @@ static Calendrie.Specialized.Ethiopic13Date.operator <=(Calendrie.Specialized.Et
 static Calendrie.Specialized.Ethiopic13Date.operator ==(Calendrie.Specialized.Ethiopic13Date left, Calendrie.Specialized.Ethiopic13Date right) -> bool
 static Calendrie.Specialized.Ethiopic13Date.operator >(Calendrie.Specialized.Ethiopic13Date left, Calendrie.Specialized.Ethiopic13Date right) -> bool
 static Calendrie.Specialized.Ethiopic13Date.operator >=(Calendrie.Specialized.Ethiopic13Date left, Calendrie.Specialized.Ethiopic13Date right) -> bool
-static Calendrie.Specialized.EthiopicDate.Adjuster.get -> Calendrie.Specialized.EthiopicAdjuster!
+static Calendrie.Specialized.EthiopicDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.EthiopicDate>!
 static Calendrie.Specialized.EthiopicDate.Calendar.get -> Calendrie.Specialized.EthiopicCalendar!
 static Calendrie.Specialized.EthiopicDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.EthiopicDate
 static Calendrie.Specialized.EthiopicDate.Max(Calendrie.Specialized.EthiopicDate x, Calendrie.Specialized.EthiopicDate y) -> Calendrie.Specialized.EthiopicDate
@@ -1808,7 +1796,7 @@ static Calendrie.Specialized.EthiopicDate.operator <=(Calendrie.Specialized.Ethi
 static Calendrie.Specialized.EthiopicDate.operator ==(Calendrie.Specialized.EthiopicDate left, Calendrie.Specialized.EthiopicDate right) -> bool
 static Calendrie.Specialized.EthiopicDate.operator >(Calendrie.Specialized.EthiopicDate left, Calendrie.Specialized.EthiopicDate right) -> bool
 static Calendrie.Specialized.EthiopicDate.operator >=(Calendrie.Specialized.EthiopicDate left, Calendrie.Specialized.EthiopicDate right) -> bool
-static Calendrie.Specialized.GregorianDate.Adjuster.get -> Calendrie.Specialized.GregorianAdjuster!
+static Calendrie.Specialized.GregorianDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.GregorianDate>!
 static Calendrie.Specialized.GregorianDate.Calendar.get -> Calendrie.Specialized.GregorianCalendar!
 static Calendrie.Specialized.GregorianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.GregorianDate
 static Calendrie.Specialized.GregorianDate.Max(Calendrie.Specialized.GregorianDate x, Calendrie.Specialized.GregorianDate y) -> Calendrie.Specialized.GregorianDate
@@ -1826,7 +1814,7 @@ static Calendrie.Specialized.GregorianDate.operator <=(Calendrie.Specialized.Gre
 static Calendrie.Specialized.GregorianDate.operator ==(Calendrie.Specialized.GregorianDate left, Calendrie.Specialized.GregorianDate right) -> bool
 static Calendrie.Specialized.GregorianDate.operator >(Calendrie.Specialized.GregorianDate left, Calendrie.Specialized.GregorianDate right) -> bool
 static Calendrie.Specialized.GregorianDate.operator >=(Calendrie.Specialized.GregorianDate left, Calendrie.Specialized.GregorianDate right) -> bool
-static Calendrie.Specialized.JulianDate.Adjuster.get -> Calendrie.Specialized.JulianAdjuster!
+static Calendrie.Specialized.JulianDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.JulianDate>!
 static Calendrie.Specialized.JulianDate.Calendar.get -> Calendrie.Specialized.JulianCalendar!
 static Calendrie.Specialized.JulianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.JulianDate
 static Calendrie.Specialized.JulianDate.Max(Calendrie.Specialized.JulianDate x, Calendrie.Specialized.JulianDate y) -> Calendrie.Specialized.JulianDate
@@ -1844,7 +1832,7 @@ static Calendrie.Specialized.JulianDate.operator <=(Calendrie.Specialized.Julian
 static Calendrie.Specialized.JulianDate.operator ==(Calendrie.Specialized.JulianDate left, Calendrie.Specialized.JulianDate right) -> bool
 static Calendrie.Specialized.JulianDate.operator >(Calendrie.Specialized.JulianDate left, Calendrie.Specialized.JulianDate right) -> bool
 static Calendrie.Specialized.JulianDate.operator >=(Calendrie.Specialized.JulianDate left, Calendrie.Specialized.JulianDate right) -> bool
-static Calendrie.Specialized.TabularIslamicDate.Adjuster.get -> Calendrie.Specialized.TabularIslamicAdjuster!
+static Calendrie.Specialized.TabularIslamicDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.TabularIslamicDate>!
 static Calendrie.Specialized.TabularIslamicDate.Calendar.get -> Calendrie.Specialized.TabularIslamicCalendar!
 static Calendrie.Specialized.TabularIslamicDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.TabularIslamicDate
 static Calendrie.Specialized.TabularIslamicDate.Max(Calendrie.Specialized.TabularIslamicDate x, Calendrie.Specialized.TabularIslamicDate y) -> Calendrie.Specialized.TabularIslamicDate
@@ -1862,7 +1850,7 @@ static Calendrie.Specialized.TabularIslamicDate.operator <=(Calendrie.Specialize
 static Calendrie.Specialized.TabularIslamicDate.operator ==(Calendrie.Specialized.TabularIslamicDate left, Calendrie.Specialized.TabularIslamicDate right) -> bool
 static Calendrie.Specialized.TabularIslamicDate.operator >(Calendrie.Specialized.TabularIslamicDate left, Calendrie.Specialized.TabularIslamicDate right) -> bool
 static Calendrie.Specialized.TabularIslamicDate.operator >=(Calendrie.Specialized.TabularIslamicDate left, Calendrie.Specialized.TabularIslamicDate right) -> bool
-static Calendrie.Specialized.WorldDate.Adjuster.get -> Calendrie.Specialized.WorldAdjuster!
+static Calendrie.Specialized.WorldDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.WorldDate>!
 static Calendrie.Specialized.WorldDate.Calendar.get -> Calendrie.Specialized.WorldCalendar!
 static Calendrie.Specialized.WorldDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.WorldDate
 static Calendrie.Specialized.WorldDate.Max(Calendrie.Specialized.WorldDate x, Calendrie.Specialized.WorldDate y) -> Calendrie.Specialized.WorldDate
@@ -1880,7 +1868,7 @@ static Calendrie.Specialized.WorldDate.operator <=(Calendrie.Specialized.WorldDa
 static Calendrie.Specialized.WorldDate.operator ==(Calendrie.Specialized.WorldDate left, Calendrie.Specialized.WorldDate right) -> bool
 static Calendrie.Specialized.WorldDate.operator >(Calendrie.Specialized.WorldDate left, Calendrie.Specialized.WorldDate right) -> bool
 static Calendrie.Specialized.WorldDate.operator >=(Calendrie.Specialized.WorldDate left, Calendrie.Specialized.WorldDate right) -> bool
-static Calendrie.Specialized.Zoroastrian13Date.Adjuster.get -> Calendrie.Specialized.Zoroastrian13Adjuster!
+static Calendrie.Specialized.Zoroastrian13Date.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.Zoroastrian13Date>!
 static Calendrie.Specialized.Zoroastrian13Date.Calendar.get -> Calendrie.Specialized.Zoroastrian13Calendar!
 static Calendrie.Specialized.Zoroastrian13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.Zoroastrian13Date
 static Calendrie.Specialized.Zoroastrian13Date.Max(Calendrie.Specialized.Zoroastrian13Date x, Calendrie.Specialized.Zoroastrian13Date y) -> Calendrie.Specialized.Zoroastrian13Date
@@ -1898,7 +1886,7 @@ static Calendrie.Specialized.Zoroastrian13Date.operator <=(Calendrie.Specialized
 static Calendrie.Specialized.Zoroastrian13Date.operator ==(Calendrie.Specialized.Zoroastrian13Date left, Calendrie.Specialized.Zoroastrian13Date right) -> bool
 static Calendrie.Specialized.Zoroastrian13Date.operator >(Calendrie.Specialized.Zoroastrian13Date left, Calendrie.Specialized.Zoroastrian13Date right) -> bool
 static Calendrie.Specialized.Zoroastrian13Date.operator >=(Calendrie.Specialized.Zoroastrian13Date left, Calendrie.Specialized.Zoroastrian13Date right) -> bool
-static Calendrie.Specialized.ZoroastrianDate.Adjuster.get -> Calendrie.Specialized.ZoroastrianAdjuster!
+static Calendrie.Specialized.ZoroastrianDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.ZoroastrianDate>!
 static Calendrie.Specialized.ZoroastrianDate.Calendar.get -> Calendrie.Specialized.ZoroastrianCalendar!
 static Calendrie.Specialized.ZoroastrianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.ZoroastrianDate
 static Calendrie.Specialized.ZoroastrianDate.Max(Calendrie.Specialized.ZoroastrianDate x, Calendrie.Specialized.ZoroastrianDate y) -> Calendrie.Specialized.ZoroastrianDate
