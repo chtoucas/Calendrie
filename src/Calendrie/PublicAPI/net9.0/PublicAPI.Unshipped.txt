@@ -285,14 +285,6 @@ Calendrie.Core.SystemSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.
 Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
 Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
 Calendrie.Core.SystemSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.SystemSegment
-Calendrie.Core.SystemSegment.MinMaxDateParts.get -> Calendrie.Core.Utilities.OrderedPair<Calendrie.Core.Yemoda>
-Calendrie.Core.SystemSegment.MinMaxMonthParts.get -> Calendrie.Core.Utilities.OrderedPair<Calendrie.Core.Yemo>
-Calendrie.Core.SystemSegment.MinMaxOrdinalParts.get -> Calendrie.Core.Utilities.OrderedPair<Calendrie.Core.Yedoy>
-Calendrie.Core.SystemSegment.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.SystemSegment.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.SystemSegment.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.SystemSegment.ToCalendricalSegment() -> Calendrie.Core.CalendricalSegment!
 Calendrie.Core.Utilities.IAdjustable<TSelf>
 Calendrie.Core.Utilities.IAdjustable<TSelf>.Adjust(System.Func<TSelf, TSelf>! adjuster) -> TSelf
 Calendrie.Core.Utilities.IComparisonOperators<TSelf, TOther>
@@ -1453,7 +1445,6 @@ override sealed Calendrie.Core.Schemas.WorldSchema.IsLeapYear(int y) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-override sealed Calendrie.Core.SystemSegment.ToString() -> string!
 override sealed Calendrie.Core.Validation.YearsValidator.ToString() -> string!
 override sealed Calendrie.Specialized.SpecialCalendar<TDate>.CountDaysInMonth(int year, int month) -> int
 override sealed Calendrie.Specialized.SpecialCalendar<TDate>.CountDaysInYear(int year) -> int
@@ -1539,8 +1530,6 @@ static Calendrie.Core.Intervals.UpperRay<T>.operator !=(Calendrie.Core.Intervals
 static Calendrie.Core.Intervals.UpperRay<T>.operator ==(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
 static Calendrie.Core.SystemSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.SystemSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.SystemSegment.Create(Calendrie.Core.SystemSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.SystemSegment!
-static Calendrie.Core.SystemSegment.FromCalendricalSegment(Calendrie.Core.CalendricalSegment! segment) -> Calendrie.Core.SystemSegment!
 static Calendrie.Core.Utilities.OrderedPair.Create<T>(T x, T y) -> Calendrie.Core.Utilities.OrderedPair<T>
 static Calendrie.Core.Utilities.OrderedPair<T>.operator !=(Calendrie.Core.Utilities.OrderedPair<T> left, Calendrie.Core.Utilities.OrderedPair<T> right) -> bool
 static Calendrie.Core.Utilities.OrderedPair<T>.operator ==(Calendrie.Core.Utilities.OrderedPair<T> left, Calendrie.Core.Utilities.OrderedPair<T> right) -> bool
