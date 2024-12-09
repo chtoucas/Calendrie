@@ -3,7 +3,6 @@
 
 namespace Calendrie.Specialized;
 
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 
 /// <summary>
@@ -12,12 +11,18 @@ using Calendrie.Core.Schemas;
 /// the range [-999_998..999_999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeaturette
+public sealed class JulianCalendar : SpecialCalendar<JulianDate>
 {
     // See comments in Armenian13Calendar for instance.
     internal static readonly JulianSchema SchemaT = new();
     internal static readonly JulianScope ScopeT = new(new JulianSchema());
     internal static readonly JulianCalendar Instance = new(new JulianScope(new JulianSchema()));
+
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = GJSchema.MonthsPerYear;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>
@@ -35,7 +40,4 @@ public sealed class JulianCalendar : SpecialCalendar<JulianDate>, IRegularFeatur
     /// Gets the date adjuster.
     /// </summary>
     public SpecialAdjuster<JulianDate> Adjuster { get; }
-
-    /// <inheritdoc />
-    public int MonthsInYear => GJSchema.MonthsPerYear;
 }

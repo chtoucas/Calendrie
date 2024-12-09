@@ -3,7 +3,6 @@
 
 namespace Calendrie.Specialized;
 
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 
 /// <summary>
@@ -12,12 +11,18 @@ using Calendrie.Core.Schemas;
 /// of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturette
+public sealed class CivilCalendar : SpecialCalendar<CivilDate>
 {
     // See comments in Armenian13Calendar for instance.
     internal static readonly CivilSchema SchemaT = new();
     internal static readonly CivilScope ScopeT = new(new CivilSchema());
     internal static readonly CivilCalendar Instance = new(new CivilScope(new CivilSchema()));
+
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = GJSchema.MonthsPerYear;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
@@ -34,7 +39,4 @@ public sealed class CivilCalendar : SpecialCalendar<CivilDate>, IRegularFeaturet
     /// Gets the date adjuster.
     /// </summary>
     public SpecialAdjuster<CivilDate> Adjuster { get; }
-
-    /// <inheritdoc />
-    public int MonthsInYear => GJSchema.MonthsPerYear;
 }

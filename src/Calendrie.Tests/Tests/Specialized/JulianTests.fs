@@ -39,7 +39,7 @@ module Bundles =
         override __.GetDate(dayNumber) = JulianDate.FromDayNumber(dayNumber);
 
         [<Fact>]
-        member x.MonthsInYear_Prop() = x.CalendarUT.MonthsInYear === 12
+        static member MonthsInYear() = JulianCalendar.MonthsInYear === 12
 
     [<Sealed>]
     type DateFacts() =

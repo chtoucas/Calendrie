@@ -3,21 +3,26 @@
 
 namespace Calendrie.Specialized;
 
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class PlainGregorianCalendar : IRegularFeaturette
+public partial class PlainGregorianCalendar
 {
-    /// <inheritdoc />
-    public int MonthsInYear => GJSchema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = GJSchema.MonthsPerYear;
 }
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class PlainJulianCalendar : IRegularFeaturette
+public partial class PlainJulianCalendar
 {
-    /// <inheritdoc />
-    public int MonthsInYear => GJSchema.MonthsPerYear;
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = GJSchema.MonthsPerYear;
 }
