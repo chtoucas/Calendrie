@@ -64,7 +64,7 @@ using Calendrie.Core.Intervals;
 
 /// <summary>
 /// Represents a prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>
-/// interface and provides a base for derived classes.
+/// interface.
 /// </summary>
 public partial class PrototypalSchema :
     ICalendricalKernel,
@@ -97,6 +97,21 @@ public partial class PrototypalSchema :
     /// <summary>
     /// Initializes a new instance of the <see cref="PrototypalSchema"/> class.
     /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.
+    /// </exception>
+    internal PrototypalSchema(ICalendricalSchema schema)
+    {
+        ArgumentNullException.ThrowIfNull(schema, nameof(schema));
+
+        _kernel = schema;
+        _proxy = new SchemaProxy(this);
+
+        _minDaysInYear = schema.MinDaysInYear;
+        _minDaysInMonth = schema.MinDaysInMonth;
+    }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PrototypalSchema"/> class.
+    /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
     internal PrototypalSchema(
@@ -113,13 +128,6 @@ public partial class PrototypalSchema :
 
         _minDaysInYear = minDaysInYear;
         _minDaysInMonth = minDaysInMonth;
-    }
-
-    public static PrototypalSchema Create(ICalendricalSchema schema)
-    {
-        ArgumentNullException.ThrowIfNull(schema);
-
-        return new PrototypalSchema(schema, schema.MinDaysInYear, schema.MinDaysInMonth);
     }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.

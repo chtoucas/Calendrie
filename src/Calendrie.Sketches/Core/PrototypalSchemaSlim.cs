@@ -4,11 +4,23 @@
 namespace Calendrie.Core;
 
 /// <summary>
-/// Represents an prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>
+/// Represents a prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>
 /// interface.
 /// </summary>
 public class PrototypalSchemaSlim : PrototypalSchema
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PrototypalSchemaSlim"/>
+    /// class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.
+    /// </exception>
+    internal PrototypalSchemaSlim(ICalendricalSchema schema) : base(schema)
+    {
+        // See GetMonth() for an explanation of the formula.
+        ApproxMonthsInYear = 1 + (MinDaysInYear - 1) / MinDaysInMonth;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="PrototypalSchemaSlim"/>
     /// class.
@@ -28,21 +40,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
     /// <inheritdoc />
     public int MinDaysInMonth => _minDaysInMonth;
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the overriden version of
-    /// <see cref="PrototypalSchema.GetMonth(int, int, out int)"/> is disabled or not.
-    /// <para>The default value is false.</para>
-    /// </summary>
-    public bool DisableCustomGetMonth { get; set; }
-
     protected int ApproxMonthsInYear { get; }
-
-    public static PrototypalSchemaSlim CreateSlim(ICalendricalSchema schema)
-    {
-        ArgumentNullException.ThrowIfNull(schema);
-
-        return new PrototypalSchemaSlim(schema, schema.MinDaysInYear, schema.MinDaysInMonth);
-    }
 
     /// <inheritdoc />
     [Pure]
@@ -90,8 +88,6 @@ public class PrototypalSchemaSlim : PrototypalSchema
     [Pure]
     public sealed override int GetMonth(int y, int doy, out int d)
     {
-        if (DisableCustomGetMonth) { return base.GetMonth(y, doy, out d); }
-
         // Algorithm:
         // > int m = GetMonth(y, doy);
         // > d = doy - CountDaysInYearBeforeMonth(y, m);
