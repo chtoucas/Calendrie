@@ -6,6 +6,8 @@ namespace Benchmarks;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
+using Calendrie.Core;
+
 using NodaTime;
 
 internal enum GJDateType

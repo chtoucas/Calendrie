@@ -3,6 +3,7 @@
 
 namespace Benchmarks.GregorianDateTests;
 
+using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;

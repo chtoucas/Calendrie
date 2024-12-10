@@ -28,7 +28,7 @@ public class DtorTests : JulianDateComparisons
     }
 
     [Benchmark(Description = "JulianDate_Plain")]
-    public void WithJulianDate_PlainJulianDate()
+    public void WithPlainJulianDate()
     {
         var (y, m, d) = plainJulianDate;
 
