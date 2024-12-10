@@ -16,6 +16,7 @@ using Calendrie.Hemerology;
 /// dates prior their epochal origin.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
+[ExcludeFromCodeCoverage]
 public static partial class CalendarZoo { }
 
 // More historically accurate calendars:

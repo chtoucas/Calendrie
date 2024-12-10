@@ -7,8 +7,6 @@ module internal Calendrie.Testing.XunitModule
 open System
 open System.Collections.Generic
 
-open Calendrie.Core.Utilities
-
 open Xunit
 
 /// Verifies that two objects are equal, using a default comparer.
