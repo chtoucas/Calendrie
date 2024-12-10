@@ -16,7 +16,8 @@ using static Calendrie.Core.CalendricalConstants;
 // - GetOrdinalPartsAtEndOfMonth(int y, int m)
 
 // WARNING: a schema should avoid public static methods since it does not valid
-// the input parameters of a method.
+// the input parameters of a method. For the same reason, prefer computational
+// formulae to arrays or spans.
 
 #region Developer Notes
 

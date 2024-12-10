@@ -4,6 +4,12 @@
 namespace Calendrie.Testing.Facts.Specialized;
 
 using Calendrie.Specialized;
+using Calendrie.Testing.Data;
+using Calendrie.Testing.Facts.Hemerology;
+
+// FIXME(fact): skip negative years.
+// Use an ICalendarDataSet? StandardCalendarDataSet?
+// What about ProlepticScopeFacts.
 
 public static class StandardScopeFacts
 {
@@ -22,4 +28,43 @@ public static class StandardScopeFacts
         StandardScope.MaxYear - 1,
         StandardScope.MaxYear
     ];
+}
+
+/// <summary>
+/// Provides data-driven tests for <see cref="StandardScope"/>.
+/// </summary>
+internal abstract class StandardScopeFacts<TDataSet> :
+    CalendarScopeFacts<StandardScope, TDataSet>
+    where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
+{
+    protected StandardScopeFacts(StandardScope scope) : base(scope)
+    {
+        Debug.Assert(scope != null);
+        Debug.Assert(scope.Segment.SupportedYears.Min == StandardScope.MinYear);
+        Debug.Assert(scope.Segment.SupportedYears.Max == StandardScope.MaxYear);
+    }
+
+    public static TheoryData<int> InvalidYearData => StandardScopeFacts.InvalidYearData;
+    public static TheoryData<int> ValidYearData => StandardScopeFacts.ValidYearData;
+
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void ValidateYearMonth_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonth(y, 1));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYearMonth(y, 1, nameof(y)));
+    }
+
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void ValidateYearMonthDay_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonthDay(y, 1, 1));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYearMonthDay(y, 1, 1, nameof(y)));
+    }
+
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void ValidateOrdinal_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateOrdinal(y, 1));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateOrdinal(y, 1, nameof(y)));
+    }
 }

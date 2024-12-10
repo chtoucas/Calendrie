@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Hemerology.Scopes.BoundedBelowScopeTests
+module Calendrie.Tests.Hemerology.BoundedBelowScopeTests
 
 open Calendrie
 open Calendrie.Core.Schemas

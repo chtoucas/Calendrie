@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Hemerology.Scopes.StandardScopeTests
+module Calendrie.Tests.Specialized.StandardScopeTests
 
 open System
 
@@ -12,7 +12,7 @@ open Calendrie.Specialized
 open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Schemas
-open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Specialized
 open Calendrie.Testing.Faux
 
 open Xunit

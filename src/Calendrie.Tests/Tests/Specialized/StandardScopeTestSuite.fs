@@ -1,14 +1,14 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Hemerology.Scopes.StandardScopeTestSuite
+module Calendrie.Tests.Specialized.StandardScopeTestSuite
 
 open Calendrie
 open Calendrie.Core.Schemas
 open Calendrie.Specialized
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
-open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Specialized
 open Calendrie.Testing.Faux
 
 // Returns a StandardScope.
