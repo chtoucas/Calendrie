@@ -58,7 +58,6 @@
     <Compile Include="Tests\Core\MonthsCalculatorTests.fs" />
     <Compile Include="Tests\Core\PartsAdapterTests.fs" />
     <Compile Include="Tests\Core\PartsTests.fs" />
-    <Compile Include="Tests\Core\TemporalArithmeticTests.fs" />
     <Compile Include="Tests\Hemerology\BoundedBelowScopeTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarScopeTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearScopeTests.fs" />
