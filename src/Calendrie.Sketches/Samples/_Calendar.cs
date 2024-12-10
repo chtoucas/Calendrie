@@ -7,6 +7,7 @@ using Calendrie.Core.Schemas;
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
+[ExcludeFromCodeCoverage]
 public partial class PlainGregorianCalendar
 {
     /// <summary>
@@ -18,6 +19,7 @@ public partial class PlainGregorianCalendar
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
+[ExcludeFromCodeCoverage]
 public partial class PlainJulianCalendar
 {
     /// <summary>
@@ -26,3 +28,9 @@ public partial class PlainJulianCalendar
     /// </summary>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 }
+
+[ExcludeFromCodeCoverage]
+public partial struct PlainGregorianDate { }
+
+[ExcludeFromCodeCoverage]
+public partial struct PlainJulianDate { }
