@@ -50,11 +50,9 @@ internal abstract class MonthsCalculator
         }
 
         [Pure]
-        // CIL code size = 11 bytes <= 32 bytes.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CountMonthsSinceEpoch(int y, int m) => MonthsInYear * (y - 1) + m - 1;
 
-        // CIL code size = 20 bytes <= 32 bytes.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
         {
@@ -80,11 +78,9 @@ internal abstract class MonthsCalculator
         }
 
         [Pure]
-        // CIL code size = 11 bytes <= 32 bytes.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CountMonthsSinceEpoch(int y, int m) => MonthsInYear * (y - 1) + m - 1;
 
-        // CIL code size = 20 bytes <= 32 bytes.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
         {

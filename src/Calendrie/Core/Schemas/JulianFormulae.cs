@@ -20,7 +20,6 @@ internal static class JulianFormulae
     /// Determines whether the specified year is leap or not.
     /// </summary>
     [Pure]
-    // CIL code size = 9 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(long y) => (y & 3) == 0;
 
@@ -28,7 +27,6 @@ internal static class JulianFormulae
     /// Determines whether the specified year is leap or not.
     /// </summary>
     [Pure]
-    // CIL code size = 7 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(int y) => (y & 3) == 0;
 

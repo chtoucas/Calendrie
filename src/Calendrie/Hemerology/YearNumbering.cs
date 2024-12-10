@@ -22,7 +22,6 @@ public partial class YearNumbering
     /// <para>The first century starts at the onset of year 1.</para>
     /// </summary>
     [Pure]
-    // CIL code size = 9 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int GetCentury(int year) => MathZ.AdjustedDivide(year, 100);
 
@@ -31,7 +30,6 @@ public partial class YearNumbering
     /// <para>The first century starts at the onset of year 1.</para>
     /// </summary>
     [Pure]
-    // CIL code size = 9 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int GetYearOfCentury(int year) => MathZ.AdjustedModulo(year, 100);
 }

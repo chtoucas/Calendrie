@@ -139,7 +139,6 @@ public partial class SystemSchema // Conversions
     /// consecutive months from the epoch to a date).
     /// </summary>
     [Pure]
-    // CIL code size = 19 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yemo GetMonthParts(int monthsSinceEpoch)
     {
@@ -155,7 +154,6 @@ public partial class SystemSchema // Conversions
     /// </para>
     /// </summary>
     [Pure]
-    // CIL code size = 22 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yemoda GetDateParts(int daysSinceEpoch)
     {
@@ -170,7 +168,6 @@ public partial class SystemSchema // Conversions
     /// </para>
     /// </summary>
     [Pure]
-    // CIL code size = 16 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yedoy GetOrdinalParts(int daysSinceEpoch)
     {
@@ -184,7 +181,6 @@ public partial class SystemSchema // Conversions
     /// <seealso cref="ICalendricalSchema.GetMonth(int, int, out int)"/>.</para>
     /// </summary>
     [Pure]
-    // CIL code size = 20 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yemoda GetDateParts(int y, int doy)
     {
@@ -195,7 +191,6 @@ public partial class SystemSchema // Conversions
     /// <summary>
     /// Obtains the ordinal date parts for the specified date.
     /// </summary>
-    // CIL code size = 18 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yedoy GetOrdinalParts(int y, int m, int d)
     {

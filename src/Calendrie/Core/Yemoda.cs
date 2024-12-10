@@ -321,7 +321,6 @@ public readonly partial struct Yemoda :
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure]
-    // CIL code size = 12 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yemoda AtStartOfYear(int y)
     {
@@ -337,7 +336,6 @@ public readonly partial struct Yemoda :
     /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure]
-    // CIL code size = 18 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yemoda AtStartOfMonth(int y, int m)
     {
@@ -402,7 +400,6 @@ public partial struct Yemoda // Binary data helpers
     /// Packs the specified date parts into a single 32-bit word.
     /// </summary>
     [Pure]
-    // CIL code size = 17 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int Pack(int y, int m, int d)
     {
@@ -433,7 +430,6 @@ public partial struct Yemoda // Binary data helpers
     /// <summary>
     /// Unpacks the binary data.
     /// </summary>
-    // CIL code size = 26 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal void Unpack(out int y, out int m)
     {

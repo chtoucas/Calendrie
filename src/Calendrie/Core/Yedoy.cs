@@ -186,7 +186,6 @@ public readonly partial struct Yedoy :
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure]
-    // CIL code size = 12 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yedoy AtStartOfYear(int y)
     {
@@ -216,7 +215,6 @@ public partial struct Yedoy // Binary data helpers
     /// Packs the specified ordinal date parts into a single 32-bit word.
     /// </summary>
     [Pure]
-    // CIL code size = 11 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int Pack(int y, int doy)
     {
@@ -229,7 +227,6 @@ public partial struct Yedoy // Binary data helpers
     /// <summary>
     /// Unpacks the binary data.
     /// </summary>
-    // CIL code size = 27 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal void Unpack(out int y, out int doy)
     {

@@ -69,7 +69,6 @@ public partial class TropicalistaSchema // Year, month or day infos
     /// Determines whether the specified year is leap or not.
     /// </summary>
     [Pure]
-    // CIL code size = 15 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     // NB: year zero is not leap.
     internal static bool IsLeapYearImpl(int y) => (y & 3) == 0 && (y & 127) != 0;

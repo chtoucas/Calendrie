@@ -170,7 +170,6 @@ public readonly partial struct Yemo :
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure]
-    // CIL code size = 12 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yemo AtStartOfYear(int y)
     {
@@ -232,7 +231,6 @@ public partial struct Yemo // Binary data helpers
     /// Packs the specified month parts into a single 32-bit word.
     /// </summary>
     [Pure]
-    // CIL code size = 13 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int Pack(int y, int m)
     {
@@ -245,7 +243,6 @@ public partial struct Yemo // Binary data helpers
     /// <summary>
     /// Unpacks the binary data.
     /// </summary>
-    // CIL code size = 26 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal void Unpack(out int y, out int m)
     {

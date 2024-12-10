@@ -27,7 +27,6 @@ internal static class GregorianFormulae
     /// Determines whether the specified year is leap or not.
     /// </summary>
     [Pure]
-    // CIL code size = 30 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(long y) =>
         (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
@@ -36,7 +35,6 @@ internal static class GregorianFormulae
     /// Determines whether the specified year is leap or not.
     /// </summary>
     [Pure]
-    // CIL code size = 26 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(int y) =>
         (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
@@ -216,7 +214,6 @@ internal static class GregorianFormulae
     /// consecutive days from the epoch to a date).
     /// </summary>
     [Pure]
-    // CIL code size = 21 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Yemoda GetDateParts(int daysSinceEpoch)
     {
@@ -242,7 +239,6 @@ internal static class GregorianFormulae
     /// of consecutive days from the epoch to a date).
     /// </summary>
     [Pure]
-    // CIL code size = 18 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Yedoy GetOrdinalParts(int daysSinceEpoch)
     {
