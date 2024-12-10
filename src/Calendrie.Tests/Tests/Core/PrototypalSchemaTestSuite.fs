@@ -13,7 +13,7 @@ open Calendrie.Testing.Faux
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+// We do not exclude this one from CodeCoverage.
 type Coptic12Tests() =
     inherit PrototypalSchemaFacts<Coptic12DataSet>(new PrototypalSchema(new Coptic12Schema()))
 
@@ -55,6 +55,7 @@ type FrenchRepublican13Tests() =
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type GregorianTests() =
     inherit PrototypalSchemaFacts<GregorianDataSet>(new PrototypalSchema(new GregorianSchema()))
 
