@@ -37,14 +37,14 @@ The default behaviour is to run the regular test plan using the configuration De
 
 Test plans
 ----------
-- "default"   = excludes "redundant" tests and slow-running tests
-- "regular"   = excludes "redundant" tests
+- "default"   = exclude tests of low importance and slow-running tests
+- "regular"   = exclude tests of low importance
 - "most"      = the whole test suite
-- "more"      = includes all tests ignored by "regular"
+- "more"      = include all tests ignored by "regular"
+The difference between "default" and "regular" is really tiny.
 
-We have also a plan named "cover". It mimics the test plan used by the code
-coverage tool. The difference between "cover" and "default" is really tiny;
-right now there is none.
+We also have a plan named "cover". It mimics the (default) test plan used by the
+code coverage tool.
 
 Of course, one can use "dotnet test" to run the whole test suite or to apply
 custom filters.
