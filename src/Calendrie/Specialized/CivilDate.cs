@@ -26,9 +26,9 @@ public partial struct CivilDate
     /// Initializes a new instance of the <see cref="CivilDate"/> struct to the
     /// specified date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid date or <paramref name="year"/> is outside the range of supported
-    /// years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid date or <paramref name="year"/> is outside the range
+    /// of supported years.</exception>
     public CivilDate(int year, int month, int day)
     {
         CivilScope.ValidateYearMonthDayImpl(year, month, day);
@@ -40,9 +40,9 @@ public partial struct CivilDate
     /// Initializes a new instance of the <see cref="CivilDate"/> struct to the
     /// specified ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid ordinal date or <paramref name="year"/> is outside the range of
-    /// supported years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid ordinal date or <paramref name="year"/> is outside
+    /// the range of supported years.</exception>
     public CivilDate(int year, int dayOfYear)
     {
         CivilScope.ValidateOrdinalImpl(year, dayOfYear);
@@ -183,7 +183,7 @@ public partial struct CivilDate // Factories
         int daysSinceZero = dayNumber.DaysSinceZero;
 
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
-            throw new AoorException(nameof(dayNumber));
+            throw new ArgumentOutOfRangeException(nameof(dayNumber));
 
         return new(daysSinceZero);
     }

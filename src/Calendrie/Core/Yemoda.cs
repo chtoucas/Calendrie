@@ -302,8 +302,9 @@ public readonly partial struct Yemoda :
     /// <summary>
     /// Creates a new instance of <see cref="Yemoda"/> from the specified year, month and day.
     /// </summary>
-    /// <exception cref="AoorException">The specified triple is not representable; one of the
-    /// value is too large to be handled by the system.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified triple is
+    /// not representable; one of the value is too large to be handled by the
+    /// system.</exception>
     [Pure]
     public static Yemoda Create(int year, int month, int day)
     {
@@ -392,7 +393,7 @@ public partial struct Yemoda // Binary data helpers
     [CLSCompliant(false)]
     public long ToBinary(uint extraData)
     {
-        AoorException.ThrowIfGreaterThan(extraData, (uint)int.MaxValue);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(extraData, (uint)int.MaxValue);
 
         return ((long)ToBinary() << 32) | extraData;
     }

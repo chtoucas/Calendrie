@@ -42,7 +42,8 @@ public interface ICalendricalPreValidator
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     void ValidateMonth(int y, int month, string? paramName = null);
 
     /// <summary>
@@ -51,7 +52,8 @@ public interface ICalendricalPreValidator
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     void ValidateMonthDay(int y, int month, int day, string? paramName = null);
 
     /// <summary>
@@ -60,7 +62,8 @@ public interface ICalendricalPreValidator
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null);
 
     /// <summary>

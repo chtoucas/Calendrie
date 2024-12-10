@@ -25,8 +25,8 @@ public partial class Range // Factories
 {
     /// <summary>Creates a new instance of the <see cref="Range{T}"/> struct representing the range
     /// [<paramref name="min"/>..<paramref name="max"/>].</summary>
-    /// <exception cref="AoorException"><paramref name="max"/> is less than <paramref name="min"/>.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
+    /// less than <paramref name="min"/>.</exception>
     [Pure]
     public static Range<T> Create<T>(T min, T max)
         where T : struct, IEquatable<T>, IComparable<T>
@@ -73,7 +73,8 @@ public partial class Range // Factories
 
     /// <summary>Creates a new instance of the <see cref="Range{T}"/> struct from the specified
     /// minimum and length.</summary>
-    /// <exception cref="AoorException"><paramref name="length"/> is less than 1.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="length"/>
+    /// is less than 1.</exception>
     [Pure]
     public static Range<T> StartingAt<T>(T min, int length)
         where T : struct, IEquatable<T>, IComparable<T>, IAdditionOperators<T, int, T>

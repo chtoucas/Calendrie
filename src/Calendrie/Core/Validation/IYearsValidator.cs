@@ -24,7 +24,8 @@ public interface IYearsValidator
     /// <summary>
     /// Validates the specified year.
     /// </summary>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     void Validate(int year, string? paramName = null);
 
     /// <summary>

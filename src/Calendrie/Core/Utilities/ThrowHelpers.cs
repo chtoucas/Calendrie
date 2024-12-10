@@ -30,10 +30,10 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// <summary>
     /// The value of the year was out of range.
     /// </summary>
-    /// <exception cref="AoorException"/>
+    /// <exception cref="ArgumentOutOfRangeException"/>
     [DoesNotReturn]
     public static void ThrowYearOutOfRange(int year, string? paramName = null) =>
-        throw new AoorException(
+        throw new ArgumentOutOfRangeException(
             paramName ?? nameof(year),
             year,
             $"The value of the year was out of range; value = {year}.");
@@ -41,10 +41,10 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// <summary>
     /// The value of the month of the year was out of range.
     /// </summary>
-    /// <exception cref="AoorException"/>
+    /// <exception cref="ArgumentOutOfRangeException"/>
     [DoesNotReturn]
     public static void ThrowMonthOutOfRange(int month, string? paramName = null) =>
-        throw new AoorException(
+        throw new ArgumentOutOfRangeException(
             paramName ?? nameof(month),
             month,
             $"The value of the month of the year was out of range; value = {month}.");
@@ -52,10 +52,10 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// <summary>
     /// The value of the day of the month was out of range.
     /// </summary>
-    /// <exception cref="AoorException"/>
+    /// <exception cref="ArgumentOutOfRangeException"/>
     [DoesNotReturn]
     public static void ThrowDayOutOfRange(int day, string? paramName = null) =>
-        throw new AoorException(
+        throw new ArgumentOutOfRangeException(
             paramName ?? nameof(day),
             day,
             $"The value of the day of the month was out of range; value = {day}.");
@@ -63,10 +63,10 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
     /// <summary>
     /// The value of the day of the year was out of range.
     /// </summary>
-    /// <exception cref="AoorException"/>
+    /// <exception cref="ArgumentOutOfRangeException"/>
     [DoesNotReturn]
     public static void ThrowDayOfYearOutOfRange(int dayOfYear, string? paramName = null) =>
-        throw new AoorException(
+        throw new ArgumentOutOfRangeException(
             paramName ?? nameof(dayOfYear),
             dayOfYear,
             $"The value of the day of the year was out of range; value = {dayOfYear}.");

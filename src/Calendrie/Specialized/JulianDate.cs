@@ -36,9 +36,9 @@ public partial struct JulianDate
     /// Initializes a new instance of the <see cref="JulianDate"/> struct to the
     /// specified date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid date or <paramref name="year"/> is outside the range of supported
-    /// years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid date or <paramref name="year"/> is outside the range
+    /// of supported years.</exception>
     public JulianDate(int year, int month, int day)
     {
         JulianScope.ValidateYearMonthDayImpl(year, month, day);
@@ -50,9 +50,9 @@ public partial struct JulianDate
     /// Initializes a new instance of the <see cref="JulianDate"/> struct to the
     /// specified ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid ordinal date or <paramref name="year"/> is outside the range of
-    /// supported years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid ordinal date or <paramref name="year"/> is outside
+    /// the range of supported years.</exception>
     public JulianDate(int year, int dayOfYear)
     {
         JulianScope.ValidateOrdinalImpl(year, dayOfYear);

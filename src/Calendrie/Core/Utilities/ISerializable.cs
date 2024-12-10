@@ -29,6 +29,6 @@ public interface ISerializable<TSelf, TBinary> :
     /// Deserializes a binary value and recreates an original serialized
     /// <typeparamref name="TSelf"/> object.
     /// </summary>
-    /// <exception cref="AoorException">Invalid input.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Invalid input.</exception>
     [Pure] static abstract TSelf FromBinary(TBinary data);
 }

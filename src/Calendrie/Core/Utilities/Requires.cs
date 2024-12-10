@@ -18,7 +18,7 @@ internal static class Requires
     /// Validates that the specified value is a member of the enum
     /// <see cref="DayOfWeek"/>.
     /// </summary>
-    /// <exception cref="AoorException">Thrown if <paramref name="dayOfWeek"/>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="dayOfWeek"/>
     /// was not a known member of the enum <see cref="DayOfWeek"/>.</exception>
     public static void Defined(
         DayOfWeek dayOfWeek,
@@ -29,7 +29,7 @@ internal static class Requires
         fail(dayOfWeek, paramName);
 
         static void fail(DayOfWeek dayOfWeek, string paramName) =>
-            throw new AoorException(
+            throw new ArgumentOutOfRangeException(
                 paramName,
                 dayOfWeek,
                 $"The value of the day of the week must be in the range 0 through 6; value = {dayOfWeek}.");

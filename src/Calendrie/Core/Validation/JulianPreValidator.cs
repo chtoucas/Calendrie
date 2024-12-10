@@ -31,7 +31,8 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     /// of the month.
     /// <para>This method does NOT validate <paramref name="y"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public static void ValidateMonthDay(long y, int month, int day, string? paramName = null)
     {
         if (month < 1 || month > Solar12.MonthsInYear)
@@ -48,7 +49,8 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     /// Validates the well-formedness of the specified day of the year.
     /// <para>This method does NOT validate <paramref name="y"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public static void ValidateDayOfYear(long y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1

@@ -42,7 +42,8 @@ internal sealed class CivilScope : CalendarScope
     /// <summary>
     /// Validates the specified month.
     /// </summary>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public static void ValidateYearMonthImpl(int year, int month, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)
@@ -54,7 +55,8 @@ internal sealed class CivilScope : CalendarScope
     /// <summary>
     /// Validates the specified date.
     /// </summary>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public static void ValidateYearMonthDayImpl(int year, int month, int day, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)
@@ -72,7 +74,8 @@ internal sealed class CivilScope : CalendarScope
     /// <summary>
     /// Validates the specified ordinal date.
     /// </summary>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public static void ValidateOrdinalImpl(int year, int dayOfYear, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)

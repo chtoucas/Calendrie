@@ -257,8 +257,8 @@ public partial class Calendar // Year, month, day infos
     // Base parameter names (y, m, d) are not explicit enough.
 
     /// <inheritdoc />
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the
-    /// range of supported years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of supported years.</exception>
     [Pure]
     public bool IsLeapYear(int year)
     {
@@ -267,8 +267,8 @@ public partial class Calendar // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The month is either invalid or outside
-    /// the range of supported months.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
     [Pure]
     public bool IsIntercalaryMonth(int year, int month)
     {
@@ -277,8 +277,8 @@ public partial class Calendar // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The date is either invalid or outside
-    /// the range of supported dates.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
+    /// or outside the range of supported dates.</exception>
     [Pure]
     public bool IsIntercalaryDay(int year, int month, int day)
     {
@@ -287,8 +287,8 @@ public partial class Calendar // Year, month, day infos
     }
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The date is either invalid or outside
-    /// the range of supported dates.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
+    /// or outside the range of supported dates.</exception>
     [Pure]
     public bool IsSupplementaryDay(int year, int month, int day)
     {
@@ -300,18 +300,18 @@ public partial class Calendar // Year, month, day infos
     // incomplet.
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The year is outside the range of
-    /// supported years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
     [Pure] public abstract int CountMonthsInYear(int year);
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The year is outside the range of
-    /// supported years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
     [Pure] public abstract int CountDaysInYear(int year);
 
     /// <inheritdoc />
-    /// <exception cref="AoorException">The month is either invalid or outside
-    /// the range of supported months.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
     [Pure] public abstract int CountDaysInMonth(int year, int month);
 
 #pragma warning restore CA1725
@@ -322,8 +322,8 @@ public partial class Calendar // Conversions
     /// <summary>
     /// Obtains the day number on the specified date.
     /// </summary>
-    /// <exception cref="AoorException">The date is not within the calendar
-    /// boundaries.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The date is not within the
+    /// calendar boundaries.</exception>
     [Pure]
     public DayNumber GetDayNumber(int year, int month, int day)
     {
@@ -335,8 +335,8 @@ public partial class Calendar // Conversions
     /// <summary>
     /// Obtains the day number on the specified ordinal date.
     /// </summary>
-    /// <exception cref="AoorException">The ordinal date is not within the
-    /// calendar boundaries.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The ordinal date is not
+    /// within the calendar boundaries.</exception>
     [Pure]
     public DayNumber GetDayNumber(int year, int dayOfYear)
     {

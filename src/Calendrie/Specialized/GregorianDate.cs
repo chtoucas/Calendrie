@@ -33,9 +33,9 @@ public partial struct GregorianDate
     /// Initializes a new instance of the <see cref="GregorianDate"/> struct to
     /// the specified date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid date or <paramref name="year"/> is outside the range of supported
-    /// years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid date or <paramref name="year"/> is outside the range
+    /// of supported years.</exception>
     public GregorianDate(int year, int month, int day)
     {
         GregorianScope.ValidateYearMonthDayImpl(year, month, day);
@@ -47,9 +47,9 @@ public partial struct GregorianDate
     /// Initializes a new instance of the <see cref="GregorianDate"/> struct to
     /// the specified ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid ordinal date or <paramref name="year"/> is outside the range of
-    /// supported years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid ordinal date or <paramref name="year"/> is outside
+    /// the range of supported years.</exception>
     public GregorianDate(int year, int dayOfYear)
     {
         GregorianScope.ValidateOrdinalImpl(year, dayOfYear);

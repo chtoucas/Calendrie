@@ -57,8 +57,8 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="date"/> is
     /// <see langword="null"/>.</exception>
-    /// <exception cref="AoorException">The result would overflow the range of
-    /// supported dates.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetStartOfYear(TDate date);
 
@@ -67,8 +67,8 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="date"/> is
     /// <see langword="null"/>.</exception>
-    /// <exception cref="AoorException">The result would overflow the range of
-    /// supported dates.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetEndOfYear(TDate date);
 
@@ -77,8 +77,8 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="date"/> is
     /// <see langword="null"/>.</exception>
-    /// <exception cref="AoorException">The result would overflow the range of
-    /// supported dates.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetStartOfMonth(TDate date);
 
@@ -87,8 +87,8 @@ public interface IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="date"/> is
     /// <see langword="null"/>.</exception>
-    /// <exception cref="AoorException">The result would overflow the range of
-    /// supported dates.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate GetEndOfMonth(TDate date);
 
@@ -99,16 +99,16 @@ public interface IDateAdjuster<TDate>
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.
     /// </summary>
-    /// <exception cref="AoorException">The resulting date would be invalid.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustYear(TDate date, int newYear);
 
     /// <summary>
     /// Adjusts the month field to the specified value, yielding a new date.
     /// </summary>
-    /// <exception cref="AoorException">The resulting date would be invalid.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustMonth(TDate date, int newMonth);
 
@@ -116,8 +116,8 @@ public interface IDateAdjuster<TDate>
     /// Adjusts the day of the month field to the specified value, yielding a new
     /// date.
     /// </summary>
-    /// <exception cref="AoorException">The resulting date would be invalid.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustDay(TDate date, int newDay);
 
@@ -125,8 +125,8 @@ public interface IDateAdjuster<TDate>
     /// Adjusts the day of the year field to the specified value, yielding a new
     /// date.
     /// </summary>
-    /// <exception cref="AoorException">The resulting date would be invalid.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date")]
     [Pure] TDate AdjustDayOfYear(TDate date, int newDayOfYear);
 }

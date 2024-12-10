@@ -34,8 +34,8 @@ public static class RangeSet
     /// Creates a new instance of the <see cref="RangeSet{T}"/> struct representing the range
     /// [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="max"/> is less than
-    /// <paramref name="min"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
+    /// less than <paramref name="min"/>.</exception>
     [Pure]
     public static RangeSet<T> Create<T>(T min, T max)
         where T : struct, IEquatable<T>, IComparable<T>
@@ -107,11 +107,11 @@ public readonly partial struct RangeSet<T> :
     /// Initializes a new instance of the <see cref="RangeSet{T}"/> struct representing the
     /// range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="max"/> is less than
-    /// <paramref name="min"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
+    /// less than <paramref name="min"/>.</exception>
     public RangeSet(T min, T max)
     {
-        AoorException.ThrowIfLessThan(max, min);
+        ArgumentOutOfRangeException.ThrowIfLessThan(max, min);
 
         _endpoints = OrderedPair.FromOrderedValues(min, max);
         _isInhabited = true;

@@ -14,7 +14,8 @@ public static class DomainExtensions
     /// <summary>
     /// Validates the specified <see cref="DayNumber"/> value.
     /// </summary>
-    /// <exception cref="AoorException">The validation failed.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Validate(this Range<DayNumber> domain, DayNumber dayNumber)
     {
@@ -23,7 +24,7 @@ public static class DomainExtensions
 
         [DoesNotReturn]
         static void throwDateOutOfRange(DayNumber dayNumber, string paramName) =>
-            throw new AoorException(
+            throw new ArgumentOutOfRangeException(
                 paramName,
                 dayNumber,
                 $"The value of the day number was out of range; value = {dayNumber}.");

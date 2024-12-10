@@ -132,12 +132,12 @@ public abstract partial class CalendricalSchema : ICalendricalSchemaPlus
     /// Called from constructors in derived classes to initialize the
     /// <see cref="CalendricalSchema"/> class.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="minDaysInYear"/> or
-    /// <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
+    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     protected CalendricalSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
     {
-        AoorException.ThrowIfLessThanOrEqual(minDaysInYear, 0);
-        AoorException.ThrowIfLessThanOrEqual(minDaysInMonth, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInYear, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInMonth, 0);
 
         SupportedYears = supportedYears;
         MinDaysInYear = minDaysInYear;

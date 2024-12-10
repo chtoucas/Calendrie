@@ -172,8 +172,8 @@ public interface IFixedDate<TSelf> : IFixedDate
     /// Obtains the day strictly before the current instance that falls on the
     /// specified day of the week.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
     [Pure] TSelf Previous(DayOfWeek dayOfWeek);
@@ -184,8 +184,8 @@ public interface IFixedDate<TSelf> : IFixedDate
     /// <para>If the day already falls on the given day of the week, returns the
     /// current instance.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
     [Pure] TSelf PreviousOrSame(DayOfWeek dayOfWeek);
@@ -195,8 +195,8 @@ public interface IFixedDate<TSelf> : IFixedDate
     /// <para>If the day already falls on the given day of the week, returns the
     /// current instance.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
     [Pure] TSelf Nearest(DayOfWeek dayOfWeek);
@@ -207,8 +207,8 @@ public interface IFixedDate<TSelf> : IFixedDate
     /// <para>If the day already falls on the given day of the week, returns the
     /// current instance.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
     [Pure] TSelf NextOrSame(DayOfWeek dayOfWeek);
@@ -217,8 +217,8 @@ public interface IFixedDate<TSelf> : IFixedDate
     /// Obtains the day strictly after the current instance that falls on the
     /// specified day of the week.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "VB.NET Next statement")]

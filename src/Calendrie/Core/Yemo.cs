@@ -152,8 +152,9 @@ public readonly partial struct Yemo :
     /// <summary>
     /// Creates a new instance of <see cref="Yemo"/> from the specified year and month.
     /// </summary>
-    /// <exception cref="AoorException">The specified pair is not representable; one of the
-    /// value is too large to be handled by the system.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified pair is not
+    /// representable; one of the value is too large to be handled by the system.
+    /// </exception>
     [Pure]
     public static Yemo Create(int year, int month)
     {

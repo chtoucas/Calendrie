@@ -162,8 +162,9 @@ public readonly partial struct Yedoy :
     /// Creates a new instance of <see cref="Yedoy"/> from the specified year and day of the
     /// year.
     /// </summary>
-    /// <exception cref="AoorException">The specified pair is not representable; one of the
-    /// value is too large to be handled by the system.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified pair is not
+    /// representable; one of the value is too large to be handled by the system.
+    /// </exception>
     [Pure]
     public static Yedoy Create(int year, int dayOfYear)
     {

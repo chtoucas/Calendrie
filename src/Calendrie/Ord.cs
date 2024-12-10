@@ -133,8 +133,8 @@ public partial struct Ord // Factories, conversions
     /// Creates a new instance of the <see cref="Ord"/> struct from the specified
     /// signed rank.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="rank"/> is equal to zero
-    /// or <see cref="int.MinValue"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rank"/> is
+    /// equal to zero or <see cref="int.MinValue"/>.</exception>
     public static Ord FromRank(int rank)
     {
         if (rank == 0 || rank == int.MinValue)
@@ -149,11 +149,11 @@ public partial struct Ord // Factories, conversions
     /// Creates a new instance of the <see cref="Ord"/> struct from the specified
     /// algebraic value.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="value"/> is lower than
-    /// <see cref="MinAlgebraicValue"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/>
+    /// is lower than <see cref="MinAlgebraicValue"/>.</exception>
     public static Ord FromInt32(int value)
     {
-        AoorException.ThrowIfLessThan(value, MinAlgebraicValue);
+        ArgumentOutOfRangeException.ThrowIfLessThan(value, MinAlgebraicValue);
 
         return new Ord(value);
     }

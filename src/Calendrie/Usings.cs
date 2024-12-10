@@ -9,5 +9,3 @@ global using System.Diagnostics.Contracts;
 global using System.Runtime.CompilerServices;
 
 global using Calendrie.Core.Utilities;
-
-global using AoorException = System.ArgumentOutOfRangeException;

@@ -71,7 +71,7 @@ public interface IDate<TSelf, out TCalendar> :
     /// Creates a new instance of the <typeparamref name="TSelf"/> struct from
     /// the specified day number.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayNumber"/> is outside
-    /// the range of supported values.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
     static abstract TSelf FromDayNumber(DayNumber dayNumber);
 }

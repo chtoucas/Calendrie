@@ -64,8 +64,8 @@ public abstract partial class SystemSchema : CalendricalSchema
     /// <para>All methods MUST work with years in <see cref="DefaultSupportedYears"/>.
     /// In particular, methods must work with negative years.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="minDaysInYear"/> or
-    /// <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
+    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     private protected SystemSchema(int minDaysInYear, int minDaysInMonth)
         : this(DefaultSupportedYears, minDaysInYear, minDaysInMonth) { }
 
@@ -73,10 +73,10 @@ public abstract partial class SystemSchema : CalendricalSchema
     /// Called from constructors in derived classes to initialize the
     /// <see cref="SystemSchema"/> class.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="supportedYears"/> is NOT
-    /// a subinterval of <see cref="Yemoda.SupportedYears"/>.</exception>
-    /// <exception cref="AoorException"><paramref name="minDaysInYear"/> or
-    /// <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="supportedYears"/>
+    /// is NOT a subinterval of <see cref="Yemoda.SupportedYears"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
+    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     private protected SystemSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
