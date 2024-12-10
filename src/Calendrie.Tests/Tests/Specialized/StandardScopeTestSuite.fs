@@ -53,6 +53,7 @@ type FrenchRepublican13Tests() =
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type GregorianTests() =
     inherit StandardScopeFacts<GregorianDataSet>(scopeOf(new GregorianSchema()))
 

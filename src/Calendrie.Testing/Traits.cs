@@ -43,15 +43,15 @@ public enum TestExcludeFrom
 {
     /// <summary>
     /// Exclude from code coverage.
-    /// <para>For instance, we exclude redundant tests and deeply recursive
-    /// functions.</para>
+    /// <para>We use this value to exclude tests not needed to achieve full code
+    /// coverage. For instance, we exclude redundant tests.</para>
+    /// <para>We also exclude deeply recursive functions.</para>
     /// </summary>
     CodeCoverage,
 
     /// <summary>
     /// Exclude from the "regular" test plan.
-    /// <para>We use this value to exclude tests of very low importance and not
-    /// needed to achieve full code coverage.</para>
+    /// <para>We use this value to exclude tests of low importance.</para>
     /// <para>This value only exists to reduce the time needed to complete the
     /// test plan "Regular".</para>
     /// </summary>

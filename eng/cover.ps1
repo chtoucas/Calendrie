@@ -9,6 +9,7 @@ param(
     [Alias('c')] [string] $Configuration = 'Debug',
 
     [Alias('a')] [switch] $All,
+                 [switch] $Slow,
                  [switch] $NoBuild,
                  [switch] $NoTest,
                  [switch] $NoReport,
@@ -28,6 +29,7 @@ Code coverage script.
 Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
   -a|-All            include the project Calendrie.Sketches
+     -Slow           include slow tests
      -NoBuild        do NOT build the test suite?
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?
@@ -84,7 +86,11 @@ try {
     }
 
     if (-not $NoTest) {
-        $filter = 'ExcludeFrom!=CodeCoverage'
+        if ($Slow) {
+            $filter = 'ExcludeFrom!=CodeCoverage'
+        } else {
+            $filter = 'ExcludeFrom!=CodeCoverage&Performance!~Slow'
+        }
         $args += "--filter:$filter"
 
         & dotnet test $testProject $args `

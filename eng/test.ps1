@@ -87,9 +87,9 @@ try {
             $filter = ''
         }
         'cover' {
-            # Mimic the default test plan used by cover.ps1, excludes
-            # - tests explicitely excluded from the plan CodeCoverage
-            $filter = 'ExcludeFrom!=CodeCoverage'
+            # Mimic the (default) test plan used by cover.ps1. It excludes tests
+            # excluded from the plan CodeCoverage and slow tests.
+            $filter = 'ExcludeFrom!=CodeCoverage&Performance!~Slow'
         }
     }
 
