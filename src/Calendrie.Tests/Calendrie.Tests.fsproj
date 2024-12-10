@@ -11,6 +11,7 @@
     <!--
       FS0044  This construct is deprecated
     -->
+    <!--<NoWarn>$(NoWarn);FS0044</NoWarn>-->
     <WarningsNotAsErrors>$(WarningsNotAsErrors);FS0044</WarningsNotAsErrors>
     <!--
       We enable most opt-in warnings. Missing warnings:
@@ -28,8 +29,8 @@
   <ItemGroup>
     <Compile Include="Testing\XunitModule.fs" />
     <Compile Include="Testing\FsCheckModule.fs" />
-    <Compile Include="Tests\Core\Intervals\IntervalTests.fs" />
     <Compile Include="Tests\Testing\EnumDataSetTests.fs" />
+    <Compile Include="Tests\Core\Intervals\IntervalTests.fs" />
     <Compile Include="Tests\Core\Intervals\LowerRayTests.fs" />
     <Compile Include="Tests\Core\Intervals\RangeSetTests.fs" />
     <Compile Include="Tests\Core\Intervals\RangeTests.fs" />
@@ -48,7 +49,6 @@
     <Compile Include="Tests\Core\Utilities\ReadOnlySetTests.fs" />
     <Compile Include="Tests\Core\Utilities\RequiresTests.fs" />
     <Compile Include="Tests\Core\Utilities\ThrowHelpersTests.fs" />
-    <Compile Include="Tests\Core\Validation\RangeExtensionsTests.fs" />
     <Compile Include="Tests\Core\Validation\DomainExtensionsTests.fs" />
     <Compile Include="Tests\Core\Validation\PlainPreValidatorTestSuite.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTests.fs" />
