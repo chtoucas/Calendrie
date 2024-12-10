@@ -95,8 +95,7 @@ public partial class PrototypalSchema :
 #pragma warning restore CA1051
 
     /// <summary>
-    /// Called from constructors in derived classes to initialize the
-    /// <see cref="PrototypalSchema"/> class.
+    /// Initializes a new instance of the <see cref="PrototypalSchema"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
@@ -114,6 +113,13 @@ public partial class PrototypalSchema :
 
         _minDaysInYear = minDaysInYear;
         _minDaysInMonth = minDaysInMonth;
+    }
+
+    public static PrototypalSchema Create(ICalendricalSchema schema)
+    {
+        ArgumentNullException.ThrowIfNull(schema);
+
+        return new PrototypalSchema(schema, schema.MinDaysInYear, schema.MinDaysInMonth);
     }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.

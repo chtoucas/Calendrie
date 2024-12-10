@@ -37,6 +37,13 @@ public class PrototypalSchemaSlim : PrototypalSchema
 
     protected int ApproxMonthsInYear { get; }
 
+    public static PrototypalSchemaSlim CreateSlim(ICalendricalSchema schema)
+    {
+        ArgumentNullException.ThrowIfNull(schema);
+
+        return new PrototypalSchemaSlim(schema, schema.MinDaysInYear, schema.MinDaysInMonth);
+    }
+
     /// <inheritdoc />
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch, out int doy)
