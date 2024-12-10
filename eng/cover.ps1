@@ -8,8 +8,7 @@ param(
     [ValidateSet('Debug', 'Release')]
     [Alias('c')] [string] $Configuration = 'Debug',
 
-                 # Do NOT include Calendrie.Sketches in the reports?
-                 [switch] $Full,
+    [Alias('a')] [switch] $All,
                  [switch] $NoBuild,
                  [switch] $NoFilter,
                  [switch] $NoTest,
@@ -29,9 +28,9 @@ Code coverage script.
 
 Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
-     -Full
+  -a|-All            include the project Calendrie.Sketches
      -NoBuild        do NOT build the test suite?
-     -NoFilter
+     -NoFilter       do NOT filter out any test
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?
   -h|-Help           print this help then exit
@@ -58,7 +57,7 @@ try {
     $format = 'opencover'
 
     $outName  = 'coverage'
-    if ($Full) { $outName += "-full" }
+    if ($All) { $outName += "-all" }
     $outName += "-$configuration"
     $outDir   = Join-Path $ArtifactsDir $outName.ToLowerInvariant()
     $output   = Join-Path $outDir "$format.xml"
@@ -68,7 +67,7 @@ try {
     # Filters: https://github.com/Microsoft/vstest-docs/blob/main/docs/filter.md
     $includes = @("[$assemblyName]*")
     $excludes = @("[$assemblyName]System.*")
-    if ($Full) {
+    if ($All) {
         $includes += "[$otherAssemblyName]*"
         $excludes += "[$otherAssemblyName]System.*"
     }
