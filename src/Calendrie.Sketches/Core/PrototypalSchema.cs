@@ -66,7 +66,7 @@ using Calendrie.Core.Intervals;
 /// Represents a prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>
 /// interface and provides a base for derived classes.
 /// </summary>
-public abstract partial class PrototypalSchema :
+public partial class PrototypalSchema :
     ICalendricalKernel,
     ICalendricalSchema,
     ICalendricalSchemaPlus
@@ -100,7 +100,7 @@ public abstract partial class PrototypalSchema :
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    protected PrototypalSchema(
+    internal PrototypalSchema(
         ICalendricalKernel kernel,
         int minDaysInYear,
         int minDaysInMonth)

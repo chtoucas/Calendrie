@@ -5,6 +5,7 @@ namespace Calendrie.Samples;
 
 using Calendrie.Core;
 
+[ExcludeFromCodeCoverage]
 public sealed class GregorianPrototype : PrototypalSchema
 {
     private static ReadOnlySpan<int> DaysInYearBeforeMonthOfCommonYear =>

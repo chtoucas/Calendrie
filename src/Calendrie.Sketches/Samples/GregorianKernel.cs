@@ -6,6 +6,7 @@ namespace Calendrie.Samples;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 
+[ExcludeFromCodeCoverage]
 public sealed class GregorianKernel : ICalendricalKernel
 {
     public const int MonthsInYear = 12;
