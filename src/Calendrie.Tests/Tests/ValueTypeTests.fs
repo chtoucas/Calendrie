@@ -74,11 +74,8 @@ module RuntimeSizes =
     [<Fact>]
     let ``Types in Calendrie:Core`` () =
         Marshal.SizeOf(typedefof<Yedoy>) === 4
-        Marshal.SizeOf(typedefof<Yedoyx>) === 4
         Marshal.SizeOf(typedefof<Yemo>) === 4
         Marshal.SizeOf(typedefof<Yemoda>) === 4
-        Marshal.SizeOf(typedefof<Yemodax>) === 4
-        Marshal.SizeOf(typedefof<Yemox>) === 4
 
     [<Fact>]
     let ``Types in Calendrie:Specialized`` () =
@@ -181,14 +178,6 @@ module DefaultValues =
         (y, m, d) === (1, 1, 1)
 
     [<Fact>]
-    let ``Default value of Yemodax is 01/01/0001 (0)`` () =
-        let parts = Unchecked.defaultof<Yemodax>
-        let y, m, d = parts.Deconstruct()
-
-        (y, m, d) === (1, 1, 1)
-        parts.Extra === 0
-
-    [<Fact>]
     let ``Default value of Yemo is 01/0001`` () =
         let parts = Unchecked.defaultof<Yemo>
         let y, m = parts.Deconstruct()
@@ -196,27 +185,11 @@ module DefaultValues =
         (y, m) === (1, 1)
 
     [<Fact>]
-    let ``Default value of Yemox is 01/0001 (0)`` () =
-        let parts = Unchecked.defaultof<Yemox>
-        let y, m = parts.Deconstruct()
-
-        (y, m) === (1, 1)
-        parts.Extra === 0
-
-    [<Fact>]
     let ``Default value of Yedoy is 001/0001`` () =
         let parts = Unchecked.defaultof<Yedoy>
         let y, doy = parts.Deconstruct()
 
         (y, doy) === (1, 1)
-
-    [<Fact>]
-    let ``Default value of Yedoyx is 001/0001 (0)`` () =
-        let parts = Unchecked.defaultof<Yedoyx>
-        let y, doy = parts.Deconstruct()
-
-        (y, doy) === (1, 1)
-        parts.Extra === 0
 
     //
     // Date types found in Calendrie.Specialized

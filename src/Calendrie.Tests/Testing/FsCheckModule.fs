@@ -207,12 +207,6 @@ type GlobalArbitraries =
         |> Gen.map Yemoda.FromBinary
         |> Arb.fromGen
 
-    /// Obtains an arbitrary for Yemodax.
-    static member GetYemodaxArbitrary() =
-        Arb.generate<int>
-        |> Gen.map Yemodax.FromBinary
-        |> Arb.fromGen
-
     /// Obtains an arbitrary for Yemo.
     static member GetYemoArbitrary() =
         Arb.fromGen <| gen {
@@ -220,26 +214,10 @@ type GlobalArbitraries =
             let! m = Gen.choose (Yemo.MinMonth, Yemo.MaxMonth)
             return Yemo.Create(y, m)
         }
-
-    /// Obtains an arbitrary for Yemox.
-    static member GetYemoxArbitrary() =
-        Arb.fromGen <| gen {
-            let! y = Gen.choose (Yemox.MinYear, Yemox.MaxYear)
-            let! m = Gen.choose (Yemox.MinMonth, Yemox.MaxMonth)
-            let! x = Gen.choose (Yemox.MinExtra, Yemox.MaxExtra)
-            return Yemox.Create(y, m, x)
-        }
-
     /// Obtains an arbitrary for Yedoy.
     static member GetYedoyArbitrary() =
         Arb.generate<int>
         |> Gen.map Yedoy.FromBinary
-        |> Arb.fromGen
-
-    /// Obtains an arbitrary for Yedoyx.
-    static member GetYedoyxArbitrary() =
-        Arb.generate<int>
-        |> Gen.map Yedoyx.FromBinary
         |> Arb.fromGen
 
     //
