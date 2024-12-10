@@ -3,8 +3,8 @@
 
 module Calendrie.Tests.Core.Utilities.ThrowHelpersTests
 
-open Calendrie.Testing
 open Calendrie.Core.Utilities
+open Calendrie.Testing
 
 open Xunit
 

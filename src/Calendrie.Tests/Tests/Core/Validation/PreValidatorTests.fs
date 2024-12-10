@@ -1,11 +1,10 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Schemas.PreValidatorTests
+module Calendrie.Tests.Core.Validation.PreValidatorTests
 
 open System
 
-open Calendrie.Core
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing
