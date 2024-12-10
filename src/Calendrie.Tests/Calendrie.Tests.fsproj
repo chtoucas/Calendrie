@@ -49,7 +49,7 @@
     <Compile Include="Tests\Core\Utilities\RequiresTests.fs" />
     <Compile Include="Tests\Core\Utilities\ThrowHelpersTests.fs" />
     <Compile Include="Tests\Core\Validation\DomainExtensionsTests.fs" />
-    <Compile Include="Tests\Core\Validation\PlainPreValidatorTestSuite.fs" />
+    <Compile Include="Tests\Core\Validation\PlainPreValidatorTests.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTests.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTestSuite.fs" />
     <Compile Include="Tests\Core\Validation\RangeValidatorTests.fs" />
@@ -60,12 +60,12 @@
     <Compile Include="Tests\Core\PartsTests.fs" />
     <Compile Include="Tests\Core\PrototypalSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\PrototypalSchemaSlimTestSuite.fs" />
-    <Compile Include="Tests\Hemerology\BoundedBelowScopeTests.fs" />
+    <Compile Include="Tests\Hemerology\YearNumberingTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarScopeTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearScopeTests.fs" />
+    <Compile Include="Tests\Hemerology\BoundedBelowScopeTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearCalendarTests.fs" />
-    <Compile Include="Tests\Hemerology\YearNumberingTests.fs" />
     <Compile Include="Tests\Specialized\StandardScopeTests.fs" />
     <Compile Include="Tests\Specialized\StandardScopeTestSuite.fs" />
     <Compile Include="Tests\Specialized\StandardYearsValidatorTests.fs" />
