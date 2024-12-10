@@ -60,10 +60,12 @@ public sealed class BoundedBelowScope : CalendarScope
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
-    /// <exception cref="AoorException"><paramref name="minDateParts"/> is invalid or outside
-    /// the range of dates supported by <paramref name="schema"/>.</exception>
-    /// <exception cref="AoorException"><paramref name="maxYear"/> is outside the range of years
-    /// supported by <paramref name="schema"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDateParts"/>
+    /// is invalid or outside the range of dates supported by <paramref name="schema"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxYear"/>
+    /// is outside the range of years supported by <paramref name="schema"/>.
+    /// </exception>
     /// <exception cref="ArgumentException"><paramref name="minDateParts"/> is the first day of
     /// a year.</exception>
     [Pure]
@@ -81,8 +83,9 @@ public sealed class BoundedBelowScope : CalendarScope
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
-    /// <exception cref="AoorException"><paramref name="parts"/> is invalid or outside the range
-    /// of dates supported by <paramref name="schema"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="parts"/>
+    /// is invalid or outside the range of dates supported by <paramref name="schema"/>.
+    /// </exception>
     /// <exception cref="ArgumentException"><paramref name="parts"/> is the first day of a year.
     /// </exception>
     [Pure]

@@ -73,7 +73,7 @@ public sealed partial class CalendricalSegmentBuilder
         {
             if (Endpoint.IsGreaterThan(value, _max))
             {
-                throw new AoorException(nameof(value));
+                throw new ArgumentOutOfRangeException(nameof(value));
             }
             _min = value;
         }
@@ -92,7 +92,7 @@ public sealed partial class CalendricalSegmentBuilder
         {
             if (Endpoint.IsGreaterThan(_min, value))
             {
-                throw new AoorException(nameof(value));
+                throw new ArgumentOutOfRangeException(nameof(value));
             }
             _max = value;
         }
@@ -148,9 +148,9 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <value>The minimal number of consecutive days from the epoch.</value>
     /// <exception cref="InvalidOperationException">(Getter) The minimum is not
     /// set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified number of
-    /// consecutive days from the epoch is outside the range of supported values
-    /// by the schema.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified
+    /// number of consecutive days from the epoch is outside the range of
+    /// supported values by the schema.</exception>
     public int MinDaysSinceEpoch
     {
         get => Min.DaysSinceEpoch;
@@ -165,9 +165,9 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <value>The maximal number of consecutive days from the epoch.</value>
     /// <exception cref="InvalidOperationException">(Getter) The maximum is not
     /// set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified number of
-    /// consecutive days from the epoch is outside the range of supported values
-    /// by the schema.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified
+    /// number of consecutive days from the epoch is outside the range of
+    /// supported values by the schema.</exception>
     public int MaxDaysSinceEpoch
     {
         get => Max.DaysSinceEpoch;
@@ -182,8 +182,8 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <value>The minimal value of a <see cref="DateParts"/>.</value>
     /// <exception cref="InvalidOperationException">(Getter) The minimum is not
     /// set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified date parts are
-    /// invalid or outside the range of supported values by the schema.
+    /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified date
+    /// parts are invalid or outside the range of supported values by the schema.
     /// </exception>
     public DateParts MinDateParts
     {
@@ -199,8 +199,8 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <value>The maximal value of a <see cref="DateParts"/>.</value>
     /// <exception cref="InvalidOperationException">(Getter) The maximum is not
     /// set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified date parts are
-    /// invalid or outside the range of supported values by the schema.
+    /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified date
+    /// parts are invalid or outside the range of supported values by the schema.
     /// </exception>
     public DateParts MaxDateParts
     {
@@ -216,9 +216,9 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <value>The minimal value of an <see cref="OrdinalParts"/>.</value>
     /// <exception cref="InvalidOperationException">(Getter) The minimum is not
     /// set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified ordinal date parts
-    /// are invalid or outside the range of supported values by the schema.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified
+    /// ordinal date parts are invalid or outside the range of supported values
+    /// by the schema.</exception>
     public OrdinalParts MinOrdinalParts
     {
         get => Min.OrdinalParts;
@@ -232,9 +232,9 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <value>The maximal value of an <see cref="OrdinalParts"/>.</value>
     /// <exception cref="InvalidOperationException">(Getter) The maximum is not
     /// set.</exception>
-    /// <exception cref="AoorException">(Setter) The specified ordinal date parts
-    /// are invalid or outside the range of supported values by the schema.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified
+    /// ordinal date parts are invalid or outside the range of supported values
+    /// by the schema.</exception>
     public OrdinalParts MaxOrdinalParts
     {
         get => Max.OrdinalParts;
@@ -244,9 +244,8 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <summary>
     /// Sets the minimum to the start of the specified year.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the
-    /// range of supported
-    /// values by the schema.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of supported values by the schema.</exception>
     public void SetMinToStartOfYear(int year)
     {
         ValidateYear(year, nameof(year));
@@ -277,8 +276,8 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <summary>
     /// Sets the maximum to the end of the specified year.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="year"/> is outside the
-    /// range of supported values by the schema.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of supported values by the schema.</exception>
     public void SetMaxToEndOfYear(int year)
     {
         ValidateYear(year, nameof(year));
@@ -292,8 +291,8 @@ public partial class CalendricalSegmentBuilder // Builder methods
     public void SetMaxToEndOfMaxSupportedYear() =>
         Max = GetEndpointAtEndOfYear(_schema.SupportedYears.Max);
 
-    // This method throw an ArgumentException not an AoorException, therefore
-    // it's not equivalent to set Min and Max separately.
+    // This method throw an ArgumentException not an ArgumentOutOfRangeException,
+    // therefore it's not equivalent to set Min and Max separately.
     internal void SetSupportedYears(Range<int> supportedYears)
     {
         if (!supportedYears.IsSubsetOf(_schema.SupportedYears))
@@ -314,7 +313,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
         var range = _schema.SupportedDays;
         if (daysSinceEpoch < range.Min || daysSinceEpoch > range.Max)
         {
-            throw new AoorException(
+            throw new ArgumentOutOfRangeException(
                 paramName,
                 daysSinceEpoch,
                 $"The value was out of range; value = {daysSinceEpoch}.");

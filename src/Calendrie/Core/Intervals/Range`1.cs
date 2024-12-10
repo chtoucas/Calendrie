@@ -23,11 +23,11 @@ public readonly partial struct Range<T> :
     /// Initializes a new instance of the <see cref="Range{T}"/> struct representing the
     /// range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="max"/> is less than
-    /// <paramref name="min"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
+    /// less than <paramref name="min"/>.</exception>
     public Range(T min, T max)
     {
-        if (max.CompareTo(min) < 0) throw new AoorException(nameof(max));
+        if (max.CompareTo(min) < 0) throw new ArgumentOutOfRangeException(nameof(max));
 
         Endpoints = OrderedPair.FromOrderedValues(min, max);
     }
@@ -94,15 +94,15 @@ public partial struct Range<T> // Adjustments
     /// Adjusts the minimum to the specified value, yielding a new <see cref="Range{T}"/>
     /// instance representing the interval [<paramref name="min"/>, <see cref="Max"/>].
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="min"/> is greater than <see cref="Max"/>.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="min"/> is
+    /// greater than <see cref="Max"/>.</exception>
     [Pure]
     public Range<T> WithMin(T min)
     {
         // We don't write
         // > new(min, Max)
         // to obtain the correct parameter name in the exception.
-        if (min.CompareTo(Max) > 0) throw new AoorException(nameof(min));
+        if (min.CompareTo(Max) > 0) throw new ArgumentOutOfRangeException(nameof(min));
 
         var endpoints = OrderedPair.FromOrderedValues(min, Max);
         return new(endpoints);
@@ -112,8 +112,8 @@ public partial struct Range<T> // Adjustments
     /// Adjusts the maximum to the specified value, yielding a new <see cref="Range{T}"/>
     /// instance representing the interval [<see cref="Min"/>, <paramref name="max"/>].
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="max"/> is less than <see cref="Min"/>.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
+    /// less than <see cref="Min"/>.</exception>
     [Pure]
     public Range<T> WithMax(T max) => new(Min, max);
 

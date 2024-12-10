@@ -105,9 +105,9 @@ public partial struct PlainGregorianDate // Preamble
     /// Initializes a new instance of the <see cref="PlainGregorianDate"/> struct
     /// to the specified date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid date or <paramref name="year"/> is outside the range of supported
-    /// years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid date or <paramref name="year"/> is outside the range
+    /// of supported years.</exception>
     public PlainGregorianDate(int year, int month, int day)
     {
         Scope.ValidateYearMonthDay(year, month, day);
@@ -119,9 +119,9 @@ public partial struct PlainGregorianDate // Preamble
     /// Initializes a new instance of the <see cref="PlainGregorianDate"/> struct
     /// to the specified ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The specified components do not form a
-    /// valid ordinal date or <paramref name="year"/> is outside the range of
-    /// supported years.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid ordinal date or <paramref name="year"/> is outside
+    /// the range of supported years.</exception>
     public PlainGregorianDate(int year, int dayOfYear)
     {
         Scope.ValidateOrdinal(year, dayOfYear);

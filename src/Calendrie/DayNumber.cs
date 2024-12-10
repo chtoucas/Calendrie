@@ -189,8 +189,9 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// Creates a new instance of <see cref="DayNumber"/> from the specified
     /// Gregorian date parts.
     /// </summary>
-    /// <exception cref="AoorException">The given parts are outside the range of
-    /// supported years or do not represent a valid Gregorian date.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The given parts are outside
+    /// the range of supported years or do not represent a valid Gregorian date.
+    /// </exception>
     [Pure]
     public static DayNumber FromGregorianParts(int year, int month, int day)
     {
@@ -205,9 +206,9 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// Creates a new instance of <see cref="DayNumber"/> from the specified
     /// Gregorian ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The given parts are outside the range of
-    /// supported years or do not represent a valid Gregorian ordinal date.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">The given parts are outside
+    /// the range of supported years or do not represent a valid Gregorian ordinal
+    /// date.</exception>
     [Pure]
     public static DayNumber FromGregorianOrdinalParts(int year, int dayOfYear)
     {
@@ -288,8 +289,9 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// Creates a new instance of <see cref="DayNumber"/> from the specified
     /// Julian date parts.
     /// </summary>
-    /// <exception cref="AoorException">The given parts are outside the range of
-    /// supported years or do not represent a valid Julian date.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The given parts are outside
+    /// the range of supported years or do not represent a valid Julian date.
+    /// </exception>
     [Pure]
     public static DayNumber FromJulianParts(int year, int month, int day)
     {
@@ -305,9 +307,9 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// Creates a new instance of <see cref="DayNumber"/> from the specified
     /// Julian ordinal date parts.
     /// </summary>
-    /// <exception cref="AoorException">The given parts are outside the range of
-    /// supported years or do not represent a valid Julian ordinal date.
-    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">The given parts are outside
+    /// the range of supported years or do not represent a valid Julian ordinal
+    /// date.</exception>
     [Pure]
     public static DayNumber FromJulianOrdinalParts(int year, int dayOfYear)
     {
@@ -370,7 +372,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// <summary>
     /// Validates the specified Gregorian or Julian year.
     /// </summary>
-    /// <exception cref="AoorException" />
+    /// <exception cref="ArgumentOutOfRangeException" />
     private static void ValidateYear(int year)
     {
         if (year < MinSupportedYear || year > MaxSupportedYear)

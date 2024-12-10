@@ -106,8 +106,8 @@ public abstract partial class PrototypalSchema :
         int minDaysInMonth)
     {
         ArgumentNullException.ThrowIfNull(kernel, nameof(kernel));
-        AoorException.ThrowIfLessThanOrEqual(minDaysInYear, 0, nameof(minDaysInYear));
-        AoorException.ThrowIfLessThanOrEqual(minDaysInMonth, 0, nameof(minDaysInMonth));
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInYear, 0, nameof(minDaysInYear));
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInMonth, 0, nameof(minDaysInMonth));
 
         _kernel = kernel;
         _proxy = new SchemaProxy(this);

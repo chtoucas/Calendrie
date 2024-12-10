@@ -15,8 +15,8 @@ public readonly record struct AdditionRuleset
     /// Gets or initializes the strategy employed to resolve ambiguities when
     /// adding a number of months or years to a date.
     /// </summary>
-    /// <exception cref="AoorException">value is outside the range of its valid
-    /// values.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">value is outside the range
+    /// of its valid values.</exception>
     public AdditionRule DateRule
     {
         get => _dateRule;
@@ -32,8 +32,8 @@ public readonly record struct AdditionRuleset
     /// Gets or initializes the strategy employed to resolve ambiguities when
     /// adding a number of years to an ordinal date.
     /// </summary>
-    /// <exception cref="AoorException">value is outside the range of its valid
-    /// values.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">value is outside the range
+    /// of its valid values.</exception>
     public AdditionRule OrdinalRule
     {
         get => _ordinalRule;
@@ -49,8 +49,8 @@ public readonly record struct AdditionRuleset
     /// Gets or initializes the strategy employed to resolve ambiguities when
     /// adding a number of years to a month.
     /// </summary>
-    /// <exception cref="AoorException">value is outside the range of its valid
-    /// values.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">value is outside the range
+    /// of its valid values.</exception>
     public AdditionRule MonthRule
     {
         get => _monthRule;

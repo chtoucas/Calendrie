@@ -138,7 +138,7 @@ public partial struct Ord // Factories, conversions
     public static Ord FromRank(int rank)
     {
         if (rank == 0 || rank == int.MinValue)
-            throw new AoorException(nameof(rank));
+            throw new ArgumentOutOfRangeException(nameof(rank));
 
         // The next operation never overflows. It is equivalent to:
         //   rank > 0 ? Zeroth + rank : First + rank;

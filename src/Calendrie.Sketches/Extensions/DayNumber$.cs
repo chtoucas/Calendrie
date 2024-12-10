@@ -17,8 +17,8 @@ public partial class DayNumberExtensions
     /// specified day of the week.
     /// <para>See also <seealso cref="DayNumber.Previous(DayOfWeek)"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     //
@@ -36,14 +36,14 @@ public partial class DayNumberExtensions
     /// specified day of the week.
     /// <para>See also <seealso cref="DayNumber.Previous(DayOfWeek)"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public static DayNumber Before(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        AoorException.ThrowIfLessThan(num, 1);
+        ArgumentOutOfRangeException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > PreviousOrSameCore(dayNumber, dayOfWeek, -1, 1 - num);
@@ -59,8 +59,8 @@ public partial class DayNumberExtensions
     /// <para>See also <seealso cref="DayNumber.PreviousOrSame(DayOfWeek)"/>.
     /// </para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
@@ -78,8 +78,8 @@ public partial class DayNumberExtensions
     /// <para>See also <seealso cref="DayNumber.PreviousOrSame(DayOfWeek)"/>.
     /// </para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     //
@@ -87,7 +87,7 @@ public partial class DayNumberExtensions
     [Pure]
     public static DayNumber OnOrBefore(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        AoorException.ThrowIfLessThan(num, 1);
+        ArgumentOutOfRangeException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > PreviousOrSameCore(dayNumber, dayOfWeek, 0, 1 - num);
@@ -102,8 +102,8 @@ public partial class DayNumberExtensions
     /// returns the current instance.</para>
     /// <para>See also <seealso cref="DayNumber.NextOrSame(DayOfWeek)"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
@@ -120,8 +120,8 @@ public partial class DayNumberExtensions
     /// returns the current instance.</para>
     /// <para>See also <seealso cref="DayNumber.NextOrSame(DayOfWeek)"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     //
@@ -129,7 +129,7 @@ public partial class DayNumberExtensions
     [Pure]
     public static DayNumber OnOrAfter(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        AoorException.ThrowIfLessThan(num, 1);
+        ArgumentOutOfRangeException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > NextOrSameCore(dayNumber, dayOfWeek, 0, 1 - num);
@@ -142,8 +142,8 @@ public partial class DayNumberExtensions
     /// specified day of the week.
     /// <para>See also <seealso cref="DayNumber.Next(DayOfWeek)"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     //
@@ -161,14 +161,14 @@ public partial class DayNumberExtensions
     /// specified day of the week.
     /// <para>See also <seealso cref="DayNumber.Next(DayOfWeek)"/>.</para>
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="dayOfWeek"/> is not a
-    /// valid day of the week.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public static DayNumber After(this DayNumber dayNumber, DayOfWeek dayOfWeek, int num)
     {
-        AoorException.ThrowIfLessThan(num, 1);
+        ArgumentOutOfRangeException.ThrowIfLessThan(num, 1);
 
         // We don't use
         // > NextOrSameCore(dayNumber, dayOfWeek, 1, 1 - num);

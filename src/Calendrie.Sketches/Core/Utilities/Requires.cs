@@ -15,8 +15,8 @@ internal static class RequiresEx
     /// Validates that the specified value is a member of the enum
     /// <see cref="AdditionRule"/>.
     /// </summary>
-    /// <exception cref="AoorException">Thrown if <paramref name="rule"/> was
-    /// not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public static void Defined(
         AdditionRule rule,
         [CallerArgumentExpression(nameof(rule))] string paramName = "")
@@ -26,7 +26,7 @@ internal static class RequiresEx
         fail(rule, paramName);
 
         static void fail(AdditionRule rule, string paramName) =>
-            throw new AoorException(
+            throw new ArgumentOutOfRangeException(
                 paramName,
                 rule,
                 $"The value of the addition rule must be in the range 0 through 3; value = {rule}.");

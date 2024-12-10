@@ -82,7 +82,7 @@ public abstract partial class SystemSchema : CalendricalSchema
     {
         if (!supportedYears.IsSubsetOf(Yemoda.SupportedYears))
         {
-            throw new AoorException(nameof(supportedYears));
+            throw new ArgumentOutOfRangeException(nameof(supportedYears));
         }
     }
 

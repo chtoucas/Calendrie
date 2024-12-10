@@ -47,8 +47,8 @@ public interface IAffineDate<TSelf> :
     /// Creates a new <typeparamref name="TSelf"/> instance from the specified
     /// number of consecutive days since the epoch.
     /// </summary>
-    /// <exception cref="AoorException"><paramref name="daysSinceEpoch"/> is
-    /// outside the range of values supported by the default calendar.
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="daysSinceEpoch"/>
+    /// is outside the range of values supported by the default calendar.
     /// </exception>
     [Pure] static abstract TSelf FromDaysSinceEpoch(int daysSinceEpoch);
 
