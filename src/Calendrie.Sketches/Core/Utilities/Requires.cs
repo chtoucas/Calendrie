@@ -3,9 +3,6 @@
 
 namespace Calendrie.Core.Utilities;
 
-// See https://github.com/CommunityToolkit/dotnet/blob/main/src/CommunityToolkit.Diagnostics/Guard.cs
-// See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.assumes?view=visualstudiosdk-2022
-
 /// <summary>
 /// Provides helper methods to specify preconditions on a method.
 /// <para>This class cannot be inherited.</para>

@@ -99,7 +99,7 @@ module Setters =
     [<Fact>]
     let ``MinDaysSinceEpoch throws when daysSinceEpoch is out of range`` () =
         let sch = new GregorianSchema()
-        let sys = SystemSegment.Create(sch, sch.SupportedYears)
+        let sys = CalendricalSegment.Create(sch, sch.SupportedYears)
         let builder = new CalendricalSegmentBuilder(sch)
 
         outOfRangeExn "value" (fun () -> builder.MinDaysSinceEpoch <- sys.SupportedDays.Min - 1; builder)
@@ -110,7 +110,7 @@ module Setters =
     [<Fact>]
     let ``MaxDaysSinceEpoch throws when daysSinceEpoch is out of range`` () =
         let sch = new GregorianSchema()
-        let sys = SystemSegment.Create(sch, sch.SupportedYears)
+        let sys = CalendricalSegment.Create(sch, sch.SupportedYears)
         let builder = new CalendricalSegmentBuilder(sch)
 
         outOfRangeExn "value" (fun () -> builder.MaxDaysSinceEpoch <- sys.SupportedDays.Min - 1; builder)
@@ -121,7 +121,7 @@ module Setters =
     [<Fact>]
     let ``SetMinToStartOfYear() throws when the year is out of range`` () =
         let sch = new GregorianSchema()
-        let sys = SystemSegment.Create(sch, sch.SupportedYears)
+        let sys = CalendricalSegment.Create(sch, sch.SupportedYears)
         let builder = new CalendricalSegmentBuilder(sch)
 
         outOfRangeExn "year" (fun () -> builder.SetMinToStartOfYear(sys.SupportedYears.Min - 1))
@@ -132,7 +132,7 @@ module Setters =
     [<Fact>]
     let ``SetMaxToEndOfYear() throws when the year is out of range`` () =
         let sch = new GregorianSchema()
-        let sys = SystemSegment.Create(sch, sch.SupportedYears)
+        let sys = CalendricalSegment.Create(sch, sch.SupportedYears)
         let builder = new CalendricalSegmentBuilder(sch)
 
         outOfRangeExn "year" (fun () -> builder.SetMaxToEndOfYear(sys.SupportedYears.Min - 1))

@@ -46,7 +46,6 @@
     <Compile Include="Tests\Core\Utilities\MathUTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathZTests.fs" />
     <Compile Include="Tests\Core\Utilities\OrderedPairTests.fs" />
-    <Compile Include="Tests\Core\Utilities\ReadOnlySetTests.fs" />
     <Compile Include="Tests\Core\Utilities\RequiresTests.fs" />
     <Compile Include="Tests\Core\Utilities\ThrowHelpersTests.fs" />
     <Compile Include="Tests\Core\Validation\DomainExtensionsTests.fs" />
@@ -59,7 +58,6 @@
     <Compile Include="Tests\Core\MonthsCalculatorTests.fs" />
     <Compile Include="Tests\Core\PartsAdapterTests.fs" />
     <Compile Include="Tests\Core\PartsTests.fs" />
-    <Compile Include="Tests\Core\SystemSegmentTests.fs" />
     <Compile Include="Tests\Core\TemporalArithmeticTests.fs" />
     <Compile Include="Tests\Hemerology\BoundedBelowScopeTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarScopeTests.fs" />
