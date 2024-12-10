@@ -1,20 +1,20 @@
 Summary
-  Generated on: 09/12/2024 - 18:41:12
+  Generated on: 10/12/2024 - 07:45:43
   Parser: OpenCover
   Assemblies: 1
-  Classes: 108
-  Files: 102
+  Classes: 106
+  Files: 100
   Line coverage: 100.0%
-  Covered lines: 5073
+  Covered lines: 4981
   Uncovered lines: 0
-  Coverable lines: 5073
-  Total lines: 19710
-  Branch coverage: 99.8% (1315 of 1317)
-  Covered branches: 1315
-  Total branches: 1317
-  Method coverage: 100% (1947 of 1947)
-  Covered methods: 1947
-  Total methods: 1947
+  Coverable lines: 4981
+  Total lines: 19490
+  Branch coverage: 100% (1309 of 1309)
+  Covered branches: 1309
+  Total branches: 1309
+  Method coverage: 100% (1929 of 1929)
+  Covered methods: 1929
+  Total methods: 1929
 
 Calendrie                                             100.0%
   Calendrie.Core.CalendricalSchema                    100.0%
@@ -58,7 +58,6 @@ Calendrie                                             100.0%
   Calendrie.Core.Schemas.TropicalistaSchema           100.0%
   Calendrie.Core.Schemas.WorldSchema                  100.0%
   Calendrie.Core.SystemSchema                         100.0%
-  Calendrie.Core.SystemSegment                        100.0%
   Calendrie.Core.Utilities.MathN                      100.0%
   Calendrie.Core.Utilities.MathT                      100.0%
   Calendrie.Core.Utilities.MathU                      100.0%
@@ -74,7 +73,6 @@ Calendrie                                             100.0%
   Calendrie.Core.Validation.LunarPreValidator         100.0%
   Calendrie.Core.Validation.LunisolarPreValidator     100.0%
   Calendrie.Core.Validation.PlainPreValidator         100.0%
-  Calendrie.Core.Validation.RangeExtensions           100.0%
   Calendrie.Core.Validation.Solar12PreValidator       100.0%
   Calendrie.Core.Validation.Solar13PreValidator       100.0%
   Calendrie.Core.Validation.YearsValidator            100.0%

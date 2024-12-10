@@ -19,12 +19,12 @@ module Factories =
     let ``Create() throws for an invalid date`` () =
         let sch = new GregorianSchema()
 
-        outOfRangeExn "parts" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(GregorianSchema.MinYear - 1, 12, 1), GregorianSchema.MaxYear))
-        outOfRangeExn "parts" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(GregorianSchema.MaxYear + 1, 12, 1), GregorianSchema.MaxYear))
-        outOfRangeExn "parts" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 0, 1), 2))
-        outOfRangeExn "parts" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 13, 1), 2))
-        outOfRangeExn "parts" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 1, 0), 2))
-        outOfRangeExn "parts" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 1, 32), 2))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(GregorianSchema.MinYear - 1, 12, 1), GregorianSchema.MaxYear))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(GregorianSchema.MaxYear + 1, 12, 1), GregorianSchema.MaxYear))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 0, 1), 2))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 13, 1), 2))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 1, 0), 2))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 1, 32), 2))
 
     [<Fact>]
     let ``Create() throws for an invalid max year`` () =

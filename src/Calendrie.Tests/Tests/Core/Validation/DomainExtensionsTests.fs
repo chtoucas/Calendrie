@@ -14,13 +14,13 @@ open Xunit
 let ``Validate()`` () =
     let range = Range.Create(DayNumber.Zero, DayNumber.Zero + 2)
 
-    outOfRangeExn "paramName" (fun () -> range.Validate(DayNumber.Zero - 1, "paramName"))
+    //outOfRangeExn "paramName" (fun () -> range.Validate(DayNumber.Zero - 1, "paramName"))
     outOfRangeExn "dayNumber" (fun () -> range.Validate(DayNumber.Zero - 1))
     range.Validate(DayNumber.Zero)
     range.Validate(DayNumber.Zero + 1)
     range.Validate(DayNumber.Zero + 2)
     outOfRangeExn "dayNumber" (fun () -> range.Validate(DayNumber.Zero + 3))
-    outOfRangeExn "paramName" (fun () -> range.Validate(DayNumber.Zero + 3, "paramName"))
+    //outOfRangeExn "paramName" (fun () -> range.Validate(DayNumber.Zero + 3, "paramName"))
 
 [<Fact>]
 let ``CheckOverflow()`` () =

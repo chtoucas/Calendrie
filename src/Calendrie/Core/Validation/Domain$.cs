@@ -16,16 +16,15 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="AoorException">The validation failed.</exception>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void Validate(
-        this Range<DayNumber> domain, DayNumber dayNumber, string? paramName = null)
+    public static void Validate(this Range<DayNumber> domain, DayNumber dayNumber)
     {
         if (dayNumber < domain.Min || dayNumber > domain.Max)
-            throwDateOutOfRange(dayNumber, paramName ?? nameof(dayNumber));
+            throwDateOutOfRange(dayNumber, nameof(dayNumber));
 
         [DoesNotReturn]
-        static void throwDateOutOfRange(DayNumber dayNumber, string? paramName = null) =>
+        static void throwDateOutOfRange(DayNumber dayNumber, string paramName) =>
             throw new AoorException(
-                paramName ?? nameof(dayNumber),
+                paramName,
                 dayNumber,
                 $"The value of the day number was out of range; value = {dayNumber}.");
     }

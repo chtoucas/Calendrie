@@ -249,7 +249,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// values by the schema.</exception>
     public void SetMinToStartOfYear(int year)
     {
-        _schema.SupportedYears.Validate(year, nameof(year));
+        ValidateYear(year, nameof(year));
 
         Min = GetEndpointAtStartOfYear(year);
     }
@@ -281,7 +281,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// range of supported values by the schema.</exception>
     public void SetMaxToEndOfYear(int year)
     {
-        _schema.SupportedYears.Validate(year, nameof(year));
+        ValidateYear(year, nameof(year));
 
         Max = GetEndpointAtEndOfYear(year);
     }
@@ -309,8 +309,27 @@ public partial class CalendricalSegmentBuilder // Builder methods
     // Private helpers
     //
 
+    private void ValidateDaysSinceEpoch(int daysSinceEpoch, string paramName)
+    {
+        var range = _schema.SupportedDays;
+        if (daysSinceEpoch < range.Min || daysSinceEpoch > range.Max)
+        {
+            throw new AoorException(
+                paramName,
+                daysSinceEpoch,
+                $"The value was out of range; value = {daysSinceEpoch}.");
+        }
+    }
+
+    private void ValidateYear(int year, string? paramName = null)
+    {
+        var range = _schema.SupportedYears;
+        if (year < range.Min || year > range.Max)
+            ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+    }
+
     [Conditional("DEBUG")]
-    private void __ValidateYear(int year) => _schema.SupportedYears.Validate(year, nameof(year));
+    private void __ValidateYear(int year) => ValidateYear(year);
 
     [Pure]
     private Endpoint GetEndpointAtStartOfYear(int year)
@@ -339,45 +358,45 @@ public partial class CalendricalSegmentBuilder // Builder methods
     }
 
     [Pure]
-    private Endpoint GetEndpointFromDaysSinceEpoch(int daysSinceEpoch)
+    private Endpoint GetEndpointFromDaysSinceEpoch(int value)
     {
-        _schema.SupportedDays.Validate(daysSinceEpoch, nameof(daysSinceEpoch));
+        ValidateDaysSinceEpoch(value, nameof(value));
 
         return new Endpoint
         {
-            DaysSinceEpoch = daysSinceEpoch,
-            DateParts = _partsAdapter.GetDateParts(daysSinceEpoch),
-            OrdinalParts = _partsAdapter.GetOrdinalParts(daysSinceEpoch),
+            DaysSinceEpoch = value,
+            DateParts = _partsAdapter.GetDateParts(value),
+            OrdinalParts = _partsAdapter.GetOrdinalParts(value),
         };
     }
 
     [Pure]
-    private Endpoint GetEndpoint(DateParts parts)
+    private Endpoint GetEndpoint(DateParts value)
     {
-        var (y, m, d) = parts;
-        _schema.SupportedYears.Validate(y, nameof(parts));
-        PreValidator.ValidateMonthDay(y, m, d, nameof(parts));
+        var (y, m, d) = value;
+        ValidateYear(y, nameof(value));
+        PreValidator.ValidateMonthDay(y, m, d, nameof(value));
 
         return new Endpoint
         {
             DaysSinceEpoch = _schema.CountDaysSinceEpoch(y, m, d),
-            DateParts = parts,
+            DateParts = value,
             OrdinalParts = _partsAdapter.GetOrdinalParts(y, m, d),
         };
     }
 
     [Pure]
-    private Endpoint GetEndpoint(OrdinalParts parts)
+    private Endpoint GetEndpoint(OrdinalParts value)
     {
-        var (y, doy) = parts;
-        _schema.SupportedYears.Validate(y, nameof(parts));
-        PreValidator.ValidateDayOfYear(y, doy, nameof(parts));
+        var (y, doy) = value;
+        ValidateYear(y, nameof(value));
+        PreValidator.ValidateDayOfYear(y, doy, nameof(value));
 
         return new Endpoint
         {
             DaysSinceEpoch = _schema.CountDaysSinceEpoch(y, doy),
             DateParts = _partsAdapter.GetDateParts(y, doy),
-            OrdinalParts = parts,
+            OrdinalParts = value,
         };
     }
 }
