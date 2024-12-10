@@ -12,16 +12,11 @@ public sealed class GregorianKernel : ICalendricalKernel
     public const int DaysInCommonYear = 365;
     public const int DaysInLeapYear = 366;
 
-    // Index 0 is fake in order for the span index to match the month index.
-    internal static ReadOnlySpan<byte> DaysInMonthOfCommonYear =>
-        [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    internal static ReadOnlySpan<byte> DaysInMonthOfLeapYear =>
-        [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    private static ReadOnlySpan<byte> DaysInMonthOfCommonYear =>
+        [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    // CountDaysInMonth() is not safe to use. Three solutions:
-    // 1. Let .NET throw an IndexOutOfRangeException.
-    // 2. Throw an ArgumentOutOfRangeException.
-    // 3. Use a purely computational formula.
+    private static ReadOnlySpan<byte> DaysInMonthOfLeapYear =>
+        [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     internal GregorianKernel() { }
 
@@ -44,14 +39,14 @@ public sealed class GregorianKernel : ICalendricalKernel
     [Pure]
     public int CountDaysInYear(int y) => IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
 
+    // CountDaysInMonth() is not safe to use. Three solutions:
+    // 1. Let .NET throw an IndexOutOfRangeException.
+    // 2. Throw an ArgumentOutOfRangeException.
+    // 3. Use a purely computational formula.
     [Pure]
-    public int CountDaysInMonth(int y, int m)
-    {
-        // This method throws an IndexOutOfRangeException if m < 0 or m > 12.
-        // Index 0 is fake.
-        Debug.Assert(m != 0);
-        return (IsLeapYear(y) ? DaysInMonthOfLeapYear : DaysInMonthOfCommonYear)[m];
-    }
+    public int CountDaysInMonth(int y, int m) =>
+        // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
+        (IsLeapYear(y) ? DaysInMonthOfLeapYear : DaysInMonthOfCommonYear)[m - 1];
 
     [Pure]
     public bool IsLeapYear(int y) => (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);

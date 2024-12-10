@@ -7,34 +7,26 @@ namespace Calendrie.Core;
 /// Represents an prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>
 /// interface.
 /// </summary>
-public class ArchetypalSchema : PrototypalSchema
+public class PrototypalSchemaSlim : PrototypalSchema
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ArchetypalSchema"/> class.
+    /// Initializes a new instance of the <see cref="PrototypalSchemaSlim"/>
+    /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    public ArchetypalSchema(
-        ICalendricalKernel kernel,
-        int minDaysInYear,
-        int minDaysInMonth)
-        : base(kernel)
+    public PrototypalSchemaSlim(ICalendricalKernel kernel, int minDaysInYear, int minDaysInMonth)
+        : base(kernel, minDaysInYear, minDaysInMonth)
     {
-        AoorException.ThrowIfLessThanOrEqual(minDaysInYear, 0, nameof(minDaysInYear));
-        AoorException.ThrowIfLessThanOrEqual(minDaysInMonth, 0, nameof(minDaysInMonth));
-
-        MinDaysInYear = minDaysInYear;
-        MinDaysInMonth = minDaysInMonth;
-
         // See GetMonth() for an explanation of the formula.
         ApproxMonthsInYear = 1 + (minDaysInYear - 1) / minDaysInMonth;
     }
 
     /// <inheritdoc />
-    public sealed override int MinDaysInYear { get; }
+    public int MinDaysInYear => _minDaysInYear;
 
     /// <inheritdoc />
-    public sealed override int MinDaysInMonth { get; }
+    public int MinDaysInMonth => _minDaysInMonth;
 
     /// <summary>
     /// Gets or sets a value indicating whether the overriden version of

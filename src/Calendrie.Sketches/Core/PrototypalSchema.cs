@@ -84,18 +84,36 @@ public abstract partial class PrototypalSchema :
     /// </summary>
     private readonly SchemaProxy _proxy;
 
+#pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable CA1051 // Do not declare visible instance fields
+    [CLSCompliant(false)]
+    protected readonly int _minDaysInYear;
+
+    [CLSCompliant(false)]
+    protected readonly int _minDaysInMonth;
+#pragma warning restore IDE1006
+#pragma warning restore CA1051
+
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="PrototypalSchema"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    protected PrototypalSchema(ICalendricalKernel kernel)
+    protected PrototypalSchema(
+        ICalendricalKernel kernel,
+        int minDaysInYear,
+        int minDaysInMonth)
     {
         ArgumentNullException.ThrowIfNull(kernel, nameof(kernel));
+        AoorException.ThrowIfLessThanOrEqual(minDaysInYear, 0, nameof(minDaysInYear));
+        AoorException.ThrowIfLessThanOrEqual(minDaysInMonth, 0, nameof(minDaysInMonth));
 
         _kernel = kernel;
         _proxy = new SchemaProxy(this);
+
+        _minDaysInYear = minDaysInYear;
+        _minDaysInMonth = minDaysInMonth;
     }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.
@@ -377,9 +395,10 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
 public partial class PrototypalSchema // ICalendricalSchema (2)
 {
     /// <inheritdoc />
-    public abstract int MinDaysInYear { get; }
+    int ICalendricalSchema.MinDaysInYear => _minDaysInYear;
+
     /// <inheritdoc />
-    public abstract int MinDaysInMonth { get; }
+    int ICalendricalSchema.MinDaysInMonth => _minDaysInMonth;
 
     /// <inheritdoc />
     public virtual ICalendricalPreValidator PreValidator => new PlainPreValidator(this);
