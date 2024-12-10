@@ -19,12 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Specialized\PlainGregorian.g.cs">
+    <Compile Update="Samples\PlainGregorian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>PlainGregorian.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\PlainJulian.g.cs">
+    <Compile Update="Samples\PlainJulian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>PlainJulian.tt</DependentUpon>

@@ -7,5 +7,6 @@
 <#= new CalendarTemplate(this, "JulianSchema", "DayZero.OldStyle")
     {
         EnableMicroOptimizations = false,
-        EnablePragmas = true
+        EnablePragmas = true,
+        ImportSpecializedNamespace = true
     }.Execute() #>

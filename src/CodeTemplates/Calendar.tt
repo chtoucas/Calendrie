@@ -35,11 +35,11 @@ public partial class CalendarTemplate : CSharpTemplate
     public string DaysSinceEpochSuffix { get; set; } = "DaysSinceEpoch";
 
     public bool EnablePragmas { get; set; }
+    public bool EnableMicroOptimizations { get; set; } = true;
+    public bool ImportSpecializedNamespace { get; set; }
 
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
-
-    public bool EnableMicroOptimizations { get; set; } = true;
 
     protected sealed override void WriteContent()
     {
@@ -82,6 +82,9 @@ using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
+<#+ } #>
+<#+ if (ImportSpecializedNamespace) { #>
+using Calendrie.Specialized;
 <#+ } #>
 <#+
     } // T4: End of EmitUsings()

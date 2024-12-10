@@ -7,5 +7,6 @@
 <#= new ZeroCalendarTemplate(this, "GregorianSchema")
     {
         EnableMicroOptimizations = false,
-        EnablePragmas = true
+        EnablePragmas = true,
+        ImportSpecializedNamespace = true
     }.Execute() #>

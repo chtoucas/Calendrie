@@ -10,12 +10,13 @@
 
 #nullable enable
 
-namespace Calendrie.Specialized;
+namespace Calendrie.Samples;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
+using Calendrie.Specialized;
 
 /// <summary>
 /// Represents the PlainJulian calendar.
