@@ -36,21 +36,25 @@ type Coptic13Tests() =
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Egyptian12Tests() =
     inherit ICalendricalPreValidatorFacts<Egyptian12DataSet>(new Egyptian12Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Egyptian13Tests() =
     inherit ICalendricalPreValidatorFacts<Egyptian13DataSet>(new Egyptian13Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type FrenchRepublican12Tests() =
     inherit ICalendricalPreValidatorFacts<FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type FrenchRepublican13Tests() =
     inherit ICalendricalPreValidatorFacts<FrenchRepublican13DataSet>(new FrenchRepublican13Schema())
 
@@ -84,11 +88,13 @@ type FauxLunisolarTests() =
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Persian2820Tests() =
     inherit ICalendricalPreValidatorFacts<Persian2820DataSet>(new Persian2820Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type PositivistTests() =
     inherit ICalendricalPreValidatorFacts<PositivistDataSet>(new PositivistSchema())
 
@@ -101,20 +107,24 @@ type TabularIslamicTests() =
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type TropicaliaTests() =
     inherit ICalendricalPreValidatorFacts<TropicaliaDataSet>(new TropicaliaSchema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Tropicalia3031Tests() =
     inherit ICalendricalPreValidatorFacts<Tropicalia3031DataSet>(new Tropicalia3031Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Tropicalia3130Tests() =
     inherit ICalendricalPreValidatorFacts<Tropicalia3130DataSet>(new Tropicalia3130Schema())
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type WorldTests() =
     inherit ICalendricalPreValidatorFacts<WorldDataSet>(new WorldSchema())

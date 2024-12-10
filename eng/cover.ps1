@@ -10,7 +10,6 @@ param(
 
     [Alias('a')] [switch] $All,
                  [switch] $NoBuild,
-                 [switch] $NoFilter,
                  [switch] $NoTest,
                  [switch] $NoReport,
 
@@ -30,7 +29,6 @@ Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
   -a|-All            include the project Calendrie.Sketches
      -NoBuild        do NOT build the test suite?
-     -NoFilter       do NOT filter out any test
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?
   -h|-Help           print this help then exit
@@ -86,10 +84,8 @@ try {
     }
 
     if (-not $NoTest) {
-        if (-not $NoFilter) {
-            $filter = 'ExcludeFrom!=CodeCoverage'
-            $args += "--filter:$filter"
-        }
+        $filter = 'ExcludeFrom!=CodeCoverage'
+        $args += "--filter:$filter"
 
         & dotnet test $testProject $args `
             --no-build `

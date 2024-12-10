@@ -70,13 +70,13 @@ try {
     switch ($Plan) {
         'default' {
             # Default test suite, excludes
-            # - tests explicitely excluded from the plan Regular
+            # - tests excluded from the plan Regular
             # - slow tests
             $filter = 'ExcludeFrom!=Regular&Performance!~Slow'
         }
         'regular' {
             # Regular test suite, excludes
-            # - tests explicitely excluded from this plan
+            # - tests excluded from the plan Regular
             $filter = 'ExcludeFrom!=Regular'
         }
         'more' {
@@ -88,8 +88,7 @@ try {
         }
         'cover' {
             # Mimic the default test plan used by cover.ps1, excludes
-            # - tests explicitely excluded from this plan
-            # - tests excluded from the plan Regular (via ExcludeFromTraitDiscoverer)
+            # - tests explicitely excluded from the plan CodeCoverage
             $filter = 'ExcludeFrom!=CodeCoverage'
         }
     }

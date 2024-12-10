@@ -43,7 +43,8 @@ public enum TestExcludeFrom
 {
     /// <summary>
     /// Exclude from code coverage.
-    /// <para>For instance, we exclude deeply recursive functions.</para>
+    /// <para>For instance, we exclude redundant tests and deeply recursive
+    /// functions.</para>
     /// </summary>
     CodeCoverage,
 
@@ -53,8 +54,6 @@ public enum TestExcludeFrom
     /// needed to achieve full code coverage.</para>
     /// <para>This value only exists to reduce the time needed to complete the
     /// test plan "Regular".</para>
-    /// <para>A test marked with this value will also be excluded from code
-    /// coverage.</para>
     /// </summary>
     Regular
 }
@@ -105,8 +104,6 @@ public sealed class ExcludeFromTraitDiscoverer : ITraitDiscoverer
                 break;
             case TestExcludeFrom.Regular:
                 yield return new KeyValuePair<string, string>(XunitTraits.ExcludeFrom, TestExcludeFromValues.Regular);
-                // Automatically exclude test(s) from CodeCoverage.
-                yield return new KeyValuePair<string, string>(XunitTraits.ExcludeFrom, TestExcludeFromValues.CodeCoverage);
                 break;
             default:
                 throw new InvalidOperationException();
