@@ -39,9 +39,6 @@ internal partial class BenchmarkHelpers // Consume
     public static void Consume(in DayOfWeek _) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void Consume(in IsoWeekday _) { }
-
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void Consume(in IsoDayOfWeek _) { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
