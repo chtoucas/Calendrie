@@ -67,11 +67,9 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<AdditionRuleset>) === 12
         Marshal.SizeOf(typedefof<DateParts>) === 12
         Marshal.SizeOf(typedefof<DayNumber>) === 4
-        Marshal.SizeOf(typedefof<Moment>) === 8
         Marshal.SizeOf(typedefof<MonthParts>) === 8
         Marshal.SizeOf(typedefof<Ord>) === 4
         Marshal.SizeOf(typedefof<OrdinalParts>) === 8
-        Marshal.SizeOf(typedefof<TimeOfDay>) === 4
 
     [<Fact>]
     let ``Types in Calendrie:Core`` () =
@@ -149,14 +147,6 @@ module DefaultValues =
         let y, m, d = parts.Deconstruct()
 
         (y, m, d) === (1, 1, 1)
-
-    [<Fact>]
-    let ``Default value of TimeOfDay is Midnight (00:00:00.000)`` () =
-        let time = Unchecked.defaultof<TimeOfDay>
-        let h, m, s, ms = time.Deconstruct()
-
-        time === TimeOfDay.Midnight
-        (h, m, s, ms) === (0, 0, 0, 0)
 
     [<Fact>]
     let ``Default value of DateParts is 00/00/0000`` () =
