@@ -66,7 +66,6 @@
     <Compile Include="Tests\Hemerology\BoundedBelowScopeTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearCalendarTests.fs" />
-    <Compile Include="Tests\Hemerology\BoundedBelowCalendarTests.fs" />
     <Compile Include="Tests\Specialized\StandardScopeTests.fs" />
     <Compile Include="Tests\Specialized\StandardScopeTestSuite.fs" />
     <Compile Include="Tests\Specialized\StandardYearsValidatorTests.fs" />
@@ -81,6 +80,9 @@
     <Compile Include="Tests\Specialized\TabularIslamicTests.fs" />
     <Compile Include="Tests\Specialized\WorldTests.fs" />
     <Compile Include="Tests\Specialized\ZoroastrianTests.fs" />
+    <Compile Include="Tests\Temp\BoundedBelowScopeTests.fs" />
+    <Compile Include="Tests\Temp\MinMaxYearCalendarTests.fs" />
+    <Compile Include="Tests\Temp\BoundedBelowCalendarTests.fs" />
     <Compile Include="Tests\AdditionRulesetTests.fs" />
     <Compile Include="Tests\DayNumberTests.fs" />
     <Compile Include="Tests\DayZeroTests.fs" />

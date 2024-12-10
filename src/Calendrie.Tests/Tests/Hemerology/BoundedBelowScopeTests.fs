@@ -7,13 +7,8 @@ open Calendrie
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology
 open Calendrie.Testing
-open Calendrie.Testing.Facts.Temp
 
 open Xunit
-
-[<Sealed>]
-type CSharpTests() =
-    inherit BoundedBelowScopeTests()
 
 module Factories =
     [<Fact>]
