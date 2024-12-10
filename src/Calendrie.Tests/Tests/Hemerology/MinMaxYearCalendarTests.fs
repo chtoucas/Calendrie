@@ -8,8 +8,13 @@ open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology
 open Calendrie.Testing
+open Calendrie.Testing.Facts.Temp
 
 open Xunit
+
+[<Sealed>]
+type CSharpTests() =
+    inherit GregorianMinMaxYearCalendarTests()
 
 module Prelude =
     [<Fact>]

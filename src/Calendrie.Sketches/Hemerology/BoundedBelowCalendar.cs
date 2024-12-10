@@ -2,6 +2,9 @@
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
 namespace Calendrie.Hemerology;
+
+// TODO(code): voir Zorglub pour des méthodes en plus.
+
 /// <summary>
 /// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>

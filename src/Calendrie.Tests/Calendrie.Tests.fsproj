@@ -66,6 +66,7 @@
     <Compile Include="Tests\Hemerology\BoundedBelowScopeTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearCalendarTests.fs" />
+    <Compile Include="Tests\Hemerology\BoundedBelowCalendarTests.fs" />
     <Compile Include="Tests\Specialized\StandardScopeTests.fs" />
     <Compile Include="Tests\Specialized\StandardScopeTestSuite.fs" />
     <Compile Include="Tests\Specialized\StandardYearsValidatorTests.fs" />
