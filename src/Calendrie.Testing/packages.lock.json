@@ -34,7 +34,7 @@
       "calendrie.sketches": {
         "type": "Project",
         "dependencies": {
-          "Calendrie": "[0.0.0-DUMMY, )"
+          "Calendrie": "[0.1.0, )"
         }
       }
     }

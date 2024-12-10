@@ -1536,7 +1536,7 @@ static Calendrie.Core.Utilities.OrderedPair<T>.operator ==(Calendrie.Core.Utilit
 static Calendrie.Core.Validation.DomainExtensions.CheckLowerBound(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> domain, Calendrie.DayNumber dayNumber) -> void
 static Calendrie.Core.Validation.DomainExtensions.CheckOverflow(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> domain, Calendrie.DayNumber dayNumber) -> void
 static Calendrie.Core.Validation.DomainExtensions.CheckUpperBound(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> domain, Calendrie.DayNumber dayNumber) -> void
-static Calendrie.Core.Validation.DomainExtensions.Validate(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> domain, Calendrie.DayNumber dayNumber, string? paramName = null) -> void
+static Calendrie.Core.Validation.DomainExtensions.Validate(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> domain, Calendrie.DayNumber dayNumber) -> void
 static Calendrie.Core.Yedoy.Create(int year, int dayOfYear) -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.FromBinary(int data) -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.MaxValue.get -> Calendrie.Core.Yedoy
