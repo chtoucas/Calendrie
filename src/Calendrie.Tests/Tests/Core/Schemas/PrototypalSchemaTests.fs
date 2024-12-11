@@ -25,8 +25,8 @@ module Prelude =
         outOfRangeExn "minDaysInMonth" (fun () -> new PrototypalSchema(new GregorianSchema(), 1, -1))
 
     [<Fact>]
-    let ``Constructor throws when "minDaysInYear" and "minDaysInMonth" are > 0`` () =
-        new PrototypalSchema(new GregorianSchema(), 1, 1) |> ignore
+    let ``Constructor does not throw when "minDaysInYear" and "minDaysInMonth" are > 0`` () =
+        new PrototypalSchema(new GregorianSchema(), 2, 1) |> ignore
 
     [<Fact>]
     let ``Constructor throws when "schema" is null`` () =
