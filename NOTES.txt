@@ -1,5 +1,4 @@
 ﻿
-
 Tâches
 ------
 
@@ -12,3 +11,7 @@ Recommandations C#
 - "sealed"
     - par défaut
     - ToString()
+
+### Documentation XML
+
+Utiliser <see langword="null"/>, idem pour "true" et "false".

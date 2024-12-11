@@ -37,6 +37,7 @@ Usage: qtest.ps1 [arguments]
 
 Examples.
 > qtest.ps1 XXX        # Run tests whose names contain XXX
+> qtest.ps1 XXX+       # Run tests whose names contain XXX.
 > qtest.ps1 -ns YYY    # Run tests whose names contain Calendrie.Tests.YYY
 
 "@
