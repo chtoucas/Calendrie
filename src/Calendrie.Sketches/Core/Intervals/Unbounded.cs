@@ -39,7 +39,7 @@ public sealed class Unbounded<T> : IInterval<T>
     /// Returns a culture-independent string representation of this interval.
     /// </summary>
     [Pure]
-    public override string ToString() => IntervalFormat.Unbounded;
+    public sealed override string ToString() => IntervalFormat.Unbounded;
 
     #region Interval methods
     // Perf: we do NOT implement ISetComparable<IInterval<T>> to avoid
@@ -61,6 +61,7 @@ public sealed class Unbounded<T> : IInterval<T>
         return SetEquals(other);
     }
 
+    // TODO(api): ISetComparable (see comments above).
 #if false
 
     /// <summary>
