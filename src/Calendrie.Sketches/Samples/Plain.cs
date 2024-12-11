@@ -29,8 +29,12 @@ public partial class PlainJulianCalendar
     public const int MonthsInYear = GJSchema.MonthsInYear;
 }
 
+/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
+/// </remarks>
 [ExcludeFromCodeCoverage]
 public partial struct PlainGregorianDate { }
 
+/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
+/// </remarks>
 [ExcludeFromCodeCoverage]
 public partial struct PlainJulianDate { }

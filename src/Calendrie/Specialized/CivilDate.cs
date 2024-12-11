@@ -6,6 +6,8 @@ namespace Calendrie.Specialized;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
+/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
+/// </remarks>
 public partial struct CivilDate
 {
     // MinDaysSinceZero = 0

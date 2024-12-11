@@ -7,6 +7,8 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
+/// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
+/// supported.</remarks>
 public partial struct GregorianDate
 {
     // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
