@@ -99,7 +99,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
         // Local method: at most
         //   Math.Min(ApproxMonthsInYear, monthsInYear) - 1
         // iteration steps if doy = MinDaysInYear.
-        //if (ApproxMonthsInYear > 2 * monthsInYear) { return base.GetMonth(y, doy, out d); }
+        if (ApproxMonthsInYear > 2 * monthsInYear) { return base.GetMonth(y, doy, out d); }
 
         // To get our first approximation of the value of the month, we pretend
         // that the months have a constant length equal to MinDaysInMonth.
