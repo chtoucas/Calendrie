@@ -7,8 +7,8 @@ using Calendrie;
 using Calendrie.Core;
 
 /// <summary>
-/// Represents a scope for a calendar supporting <i>all</i> dates on or after a given date,
-/// <i>but not the first day of a year</i>.
+/// Represents a scope for a calendar supporting <i>all</i> dates on or after a
+/// given date, <i>but not the first day of a year</i>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed class BoundedBelowScope : CalendarScope
@@ -16,10 +16,11 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <summary>
     /// Initializes a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">The start of <paramref name="segment"/> is the first
-    /// day of a year -or- the end of <paramref name="segment"/> is not the end of a year.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">The start of <paramref name="segment"/>
+    /// is the first day of a year -or- the end of <paramref name="segment"/> is
+    /// not the end of a year.</exception>
     private BoundedBelowScope(DayNumber epoch, CalendricalSegment segment)
         : base(epoch, segment)
     {
@@ -59,15 +60,16 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDateParts"/>
     /// is invalid or outside the range of dates supported by <paramref name="schema"/>.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxYear"/>
     /// is outside the range of years supported by <paramref name="schema"/>.
     /// </exception>
-    /// <exception cref="ArgumentException"><paramref name="minDateParts"/> is the first day of
-    /// a year.</exception>
+    /// <exception cref="ArgumentException"><paramref name="minDateParts"/> is
+    /// the first day of a year.</exception>
     [Pure]
     public static BoundedBelowScope Create(
         ICalendricalSchema schema, DayNumber epoch, DateParts minDateParts, int maxYear)
@@ -82,12 +84,13 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="parts"/>
     /// is invalid or outside the range of dates supported by <paramref name="schema"/>.
     /// </exception>
-    /// <exception cref="ArgumentException"><paramref name="parts"/> is the first day of a year.
-    /// </exception>
+    /// <exception cref="ArgumentException"><paramref name="parts"/> is the first
+    /// day of a year.</exception>
     [Pure]
     public static BoundedBelowScope StartingAt(
         ICalendricalSchema schema, DayNumber epoch, DateParts parts)
@@ -99,21 +102,22 @@ public sealed class BoundedBelowScope : CalendarScope
         return new BoundedBelowScope(epoch, seg);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException">The minimum date of <paramref name="scope"/> is the
-    /// start of the minimal year -or- the maximum date of <paramref name="scope"/> is not the
-    /// end of the maximal year.</exception>
-    [Pure]
-    public static BoundedBelowScope Create(CalendarScope scope)
-    {
-        ArgumentNullException.ThrowIfNull(scope);
+    ///// <summary>
+    ///// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
+    ///// </summary>
+    ///// <exception cref="ArgumentNullException"><paramref name="scope"/> is
+    ///// <see langword="null"/>.</exception>
+    ///// <exception cref="ArgumentException">The minimum date of <paramref name="scope"/>
+    ///// is the start of the minimal year -or- the maximum date of <paramref name="scope"/>
+    ///// is not the end of the maximal year.</exception>
+    //[Pure]
+    //public static BoundedBelowScope Create(CalendarScope scope)
+    //{
+    //    ArgumentNullException.ThrowIfNull(scope);
 
-        return scope is BoundedBelowScope scope_ ? scope_
-            : new BoundedBelowScope(scope.Epoch, scope.Segment);
-    }
+    //    return scope is BoundedBelowScope scope_ ? scope_
+    //        : new BoundedBelowScope(scope.Epoch, scope.Segment);
+    //}
 
     #endregion
 
@@ -129,7 +133,8 @@ public sealed class BoundedBelowScope : CalendarScope
     }
 
     /// <inheritdoc />
-    public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
+    public sealed override void ValidateYearMonthDay(
+        int year, int month, int day, string? paramName = null)
     {
         YearsValidator.Validate(year, paramName);
         PreValidator.ValidateMonthDay(year, month, day, paramName);

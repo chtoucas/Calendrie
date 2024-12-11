@@ -72,9 +72,7 @@ public sealed partial class CalendricalSegmentBuilder
         set
         {
             if (Endpoint.IsGreaterThan(value, _max))
-            {
                 throw new ArgumentOutOfRangeException(nameof(value));
-            }
             _min = value;
         }
     }
@@ -91,9 +89,7 @@ public sealed partial class CalendricalSegmentBuilder
         set
         {
             if (Endpoint.IsGreaterThan(_min, value))
-            {
                 throw new ArgumentOutOfRangeException(nameof(value));
-            }
             _max = value;
         }
     }
@@ -296,9 +292,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     internal void SetSupportedYears(Range<int> supportedYears)
     {
         if (!supportedYears.IsSubsetOf(_schema.SupportedYears))
-        {
             throw new ArgumentException(null, nameof(supportedYears));
-        }
 
         Min = GetEndpointAtStartOfYear(supportedYears.Min);
         Max = GetEndpointAtEndOfYear(supportedYears.Max);
