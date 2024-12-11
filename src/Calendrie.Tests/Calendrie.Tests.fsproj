@@ -35,12 +35,16 @@
     <Compile Include="Tests\Core\Intervals\RangeSetTests.fs" />
     <Compile Include="Tests\Core\Intervals\RangeTests.fs" />
     <Compile Include="Tests\Core\Intervals\UpperRayTests.fs" />
+    <Compile Include="Tests\Core\Intervals\UnboundedTests.fs" />
     <Compile Include="Tests\Core\Schemas\CalendricalSchemaTests.fs" />
     <Compile Include="Tests\Core\Schemas\DaysInMonthDistributionTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\FeaturetteTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\GregorianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\JulianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\SystemSchemaTestSuite.fs" />
+    <Compile Include="Tests\Core\Schemas\PrototypalSchemaTests.fs" />
+    <Compile Include="Tests\Core\Schemas\PrototypalSchemaTestSuite.fs" />
+    <Compile Include="Tests\Core\Schemas\PrototypalSchemaSlimTestSuite.fs" />
     <Compile Include="Tests\Core\Utilities\MathNTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathTTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathUTests.fs" />
@@ -58,8 +62,6 @@
     <Compile Include="Tests\Core\MonthsCalculatorTests.fs" />
     <Compile Include="Tests\Core\PartsAdapterTests.fs" />
     <Compile Include="Tests\Core\PartsTests.fs" />
-    <Compile Include="Tests\Core\PrototypalSchemaTestSuite.fs" />
-    <Compile Include="Tests\Core\PrototypalSchemaSlimTestSuite.fs" />
     <Compile Include="Tests\Hemerology\YearNumberingTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarScopeTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearScopeTests.fs" />

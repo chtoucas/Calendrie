@@ -1,0 +1,49 @@
+﻿// SPDX-License-Identifier: BSD-3-Clause
+// Copyright (c) Tran Ngoc Bich. All rights reserved.
+
+module Calendrie.Tests.Core.Intervals.UnboundedTests
+
+open System
+
+open Calendrie.Core.Intervals
+open Calendrie.Testing
+
+open Xunit
+open FsCheck.Xunit
+
+module Prelude =
+    [<Fact>]
+    let ``Property IsLeftOpen is always true`` () =
+        Unbounded<int>.Instance.IsLeftOpen |> ok
+
+    [<Fact>]
+    let ``Property IsRightOpen is always true`` () =
+        Unbounded<int>.Instance.IsRightOpen |> ok
+
+    [<Fact>]
+    let ``Property IsLeftBounded is always false`` () =
+        Unbounded<int>.Instance.IsLeftBounded |> nok
+
+    [<Fact>]
+    let ``Property IsRightBounded is always false`` () =
+        Unbounded<int>.Instance.IsRightBounded |> nok
+
+    [<Fact>]
+    let ``ToString()`` () =
+        Unbounded<int>.Instance.ToString() === IntervalFormat.Unbounded
+
+module SetOperations =
+    //
+    // Membership
+    //
+
+    [<Fact>]
+    let ``Contains() returns true at Int32:Min/MaxValue`` () =
+        let x = Unbounded<int>.Instance
+
+        x.Contains(Int32.MinValue)  |> ok
+        x.Contains(Int32.MaxValue)  |> ok
+
+    [<Property>]
+    let ``Contains() always returns true`` (i: int) =
+        Unbounded<int>.Instance.Contains(i) |> ok
