@@ -1,20 +1,20 @@
 Summary
-  Generated on: 10/12/2024 - 07:45:43
+  Generated on: 11/12/2024 - 07:18:19
   Parser: OpenCover
-  Assemblies: 1
-  Classes: 106
-  Files: 100
-  Line coverage: 100.0%
-  Covered lines: 4981
-  Uncovered lines: 0
-  Coverable lines: 4981
-  Total lines: 19490
-  Branch coverage: 100% (1309 of 1309)
-  Covered branches: 1309
-  Total branches: 1309
-  Method coverage: 100% (1929 of 1929)
-  Covered methods: 1929
-  Total methods: 1929
+  Assemblies: 2
+  Classes: 118
+  Files: 112
+  Line coverage: 99.6%
+  Covered lines: 5484
+  Uncovered lines: 20
+  Coverable lines: 5504
+  Total lines: 21628
+  Branch coverage: 99.9% (1396 of 1397)
+  Covered branches: 1396
+  Total branches: 1397
+  Method coverage: 99.7% (2105 of 2110)
+  Covered methods: 2105
+  Total methods: 2110
 
 Calendrie                                             100.0%
   Calendrie.Core.CalendricalSchema                    100.0%
@@ -123,3 +123,17 @@ Calendrie                                             100.0%
   Calendrie.Specialized.Zoroastrian13Date             100.0%
   Calendrie.Specialized.ZoroastrianCalendar           100.0%
   Calendrie.Specialized.ZoroastrianDate               100.0%
+
+Calendrie.Sketches                                     96.1%
+  Calendrie.AdditionRuleset                           100.0%
+  Calendrie.Core.Intervals.IntervalExtra              100.0%
+  Calendrie.Core.Intervals.Lavretni                   100.0%
+  Calendrie.Core.Intervals.Unbounded<T>               100.0%
+  Calendrie.Core.PrototypalSchema                     100.0%
+  Calendrie.Core.PrototypalSchemaSlim                  91.1%
+  Calendrie.Core.Utilities.RequiresEx                 100.0%
+  Calendrie.Extensions.DayNumberExtensions             20.0%
+  Calendrie.Hemerology.BoundedBelowCalendar           100.0%
+  Calendrie.Hemerology.BoundedBelowScope              100.0%
+  Calendrie.Hemerology.MinMaxYearCalendar             100.0%
+  Calendrie.Hemerology.MinMaxYearScope                100.0%

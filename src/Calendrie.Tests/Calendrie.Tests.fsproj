@@ -44,6 +44,7 @@
     <Compile Include="Tests\Core\Schemas\SystemSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaTests.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaTestSuite.fs" />
+    <Compile Include="Tests\Core\Schemas\PrototypalSchemaSlimTests.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaSlimTestSuite.fs" />
     <Compile Include="Tests\Core\Utilities\MathNTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathTTests.fs" />

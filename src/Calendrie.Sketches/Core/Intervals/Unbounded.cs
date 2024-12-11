@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+// REVIEW(code): pourquoi j'ai choisi une classe et une struct ?
+
 /// <summary>
 /// Represents an unbounded interval.
 /// <para>This class cannot be inherited.</para>
