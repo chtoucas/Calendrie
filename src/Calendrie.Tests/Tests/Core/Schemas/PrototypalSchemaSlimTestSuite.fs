@@ -133,7 +133,8 @@ type JulianTests() =
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+// We do not exclude this one from CodeCoverage.
+//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type LunisolarTests() =
     inherit PrototypalSchemaFacts<FauxLunisolarDataSet>(new PrototypalSchemaSlim(new FauxLunisolarSchema()))
 
