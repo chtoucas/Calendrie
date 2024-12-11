@@ -1,7 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Specialized;
+namespace Calendrie.Hemerology;
+
+using Calendrie.Specialized;
 
 // Calendrier liturgique orthodoxe.
 //
