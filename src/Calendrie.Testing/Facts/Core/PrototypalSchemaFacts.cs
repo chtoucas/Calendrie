@@ -17,12 +17,7 @@ public abstract class PrototypalSchemaFacts<TDataSet> :
 {
     protected PrototypalSchemaFacts(PrototypalSchema schema) : base(schema) { }
 
-    // REVIEW(fact): at some point we should not bypass these tests.
-    [Fact] public sealed override void Algorithm_Prop() { }
-    [Fact] public sealed override void Family_Prop() { }
-    [Fact] public sealed override void PeriodicAdjustments_Prop() { }
-    [Fact] public sealed override void PreValidator_Prop() { }
-    [Fact] public sealed override void IsRegular() { }
+    public ICalendricalSchemaPlus PrototypeUT => SchemaUT;
 
     [Fact]
     public override void SupportedYears_Prop() =>
