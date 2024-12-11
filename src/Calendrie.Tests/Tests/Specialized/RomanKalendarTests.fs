@@ -1,15 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Hemerology.RomanKalendarTests
+module Calendrie.Tests.Specialized.RomanKalendarTests
 
 open System
 
+open Calendrie.Specialized
 open Calendrie.Testing
 open Calendrie.Testing.Data
-
-open Calendrie.Hemerology
-open Calendrie.Specialized
 
 open Xunit
 

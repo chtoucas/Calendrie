@@ -1,9 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology;
-
-using Calendrie.Specialized;
+namespace Calendrie.Specialized;
 
 // TODO(code): épacte, lettre dominicale, indiction, cycle solaire, etc.
 // Algorithmes alternatifs. Nom : RomanLiturgicalYear ?
