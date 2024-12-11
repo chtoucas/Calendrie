@@ -38,15 +38,15 @@ public sealed class OrthodoxKalendar
     [Pure]
     private static JulianDate InitPaschalMoon(int year)
     {
-        int epact = GetEpact(year);
+        int epact = getEpact(year);
         return new JulianDate(year, 4, 19) - epact;
-    }
 
-    [Pure]
-    private static int GetEpact(int year)
-    {
-        Debug.Assert(year >= 0);
+        [Pure]
+        static int getEpact(int year)
+        {
+            Debug.Assert(year >= 0);
 
-        return (14 + 11 * (year % 19)) % 30;
+            return (14 + 11 * (year % 19)) % 30;
+        }
     }
 }
