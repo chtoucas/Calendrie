@@ -5,7 +5,6 @@ namespace Calendrie.Samples;
 
 using System.Collections.Generic;
 
-using Calendrie.Core.Schemas;
 using Calendrie.Specialized;
 
 [ExcludeFromCodeCoverage]
@@ -43,13 +42,16 @@ public partial class Folklore // Friday the 13th (Gregorian calendar)
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public static IEnumerable<GregorianDate> FindUnluckyFridays(this GregorianCalendar @this, int year)
     {
-        StandardScope.YearsValidatorImpl.Validate(year);
+        // This method should be faster. By using the internals, we can validate
+        // only once.
+
+        ProlepticScope.YearsValidatorImpl.Validate(year);
 
         return iterator();
 
         IEnumerable<GregorianDate> iterator()
         {
-            var sch = new GregorianSchema();
+            var sch = GregorianCalendar.SchemaT;
 
             for (int m = 1; m <= 12; m++)
             {
