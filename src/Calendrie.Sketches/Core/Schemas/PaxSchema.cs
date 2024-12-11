@@ -27,7 +27,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-public sealed partial class PaxSchema : LeapWeekSchema
+public sealed partial class PaxSchema : SystemSchema, ILeapWeekSchema
 {
     /// <summary>
     /// Represents the number of days per 400-year cycle.
@@ -72,27 +72,27 @@ public sealed partial class PaxSchema : LeapWeekSchema
 public partial class PaxSchema // LeapWeekSchema
 {
     /// <inheritdoc />
-    public sealed override DayOfWeek FirstDayOfWeek => DayOfWeek.Sunday;
+    public DayOfWeek FirstDayOfWeek => DayOfWeek.Sunday;
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsIntercalaryWeek(int y, int woy) =>
+    public bool IsIntercalaryWeek(int y, int woy) =>
         // Intercalary week = the week of the Pax month on a leap year.
         woy == 49 && IsLeapYear(y);
 
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountWeeksInYear(int y) => IsLeapYear(y) ? 53 : 52;
+    public int CountWeeksInYear(int y) => IsLeapYear(y) ? 53 : 52;
 
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysSinceEpoch(int y, int woy, DayOfWeek dow) =>
+    public int CountDaysSinceEpoch(int y, int woy, DayOfWeek dow) =>
         // The first day of the week is a Sunday not a Monday, therefore
         // we do not have to use the adjusted day of the week.
         GetStartOfYear(y) + 7 * (woy - 1) + (int)dow;
 
     /// <inheritdoc />
-    public sealed override void GetWeekdateParts(int daysSinceEpoch, out int y, out int woy, out DayOfWeek dow)
+    public void GetWeekdateParts(int daysSinceEpoch, out int y, out int woy, out DayOfWeek dow)
     {
         throw new NotImplementedException();
     }
