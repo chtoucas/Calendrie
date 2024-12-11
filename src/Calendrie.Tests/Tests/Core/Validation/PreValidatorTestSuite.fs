@@ -12,7 +12,7 @@ open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
 open Calendrie.Testing.Faux
 
-// TODO(code): Hebrew (unfinished, no data) and lunisolar (fake) schema.
+// TODO(fact): lunisolar (fake).
 
 // Solar12PreValidator
 [<Sealed>]

@@ -13,7 +13,7 @@ open Calendrie.Testing.Data.Schemas
 
 open Xunit
 
-// TODO(code): overflow in Release build.
+// TODO(fact): overflow in Release build.
 
 // Overflow tests for 32-bit versions:
 // - same as with the instance methods.

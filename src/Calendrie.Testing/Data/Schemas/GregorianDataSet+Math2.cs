@@ -8,7 +8,7 @@ public static class GregorianMathDataSetUnambiguous
     /// <summary>Start date, end date, exact diff between.</summary>
     public static DataGroup<DateDiff> DateDiffData { get; } = DataGroup.Create(DateDiffs);
 
-    // TODO(data): see XXX below. Something is wrong with the data or with Subtract().
+    // TODO(fact): see XXX below. Something is wrong with the data or with Subtract().
     private static IEnumerable<DateDiff> DateDiffs
     {
         get

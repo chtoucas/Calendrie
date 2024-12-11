@@ -3,7 +3,7 @@
 
 namespace Calendrie.Hemerology;
 
-// TODO(api): adjusters. Adjust()
+// TODO(code): adjusters. Adjust()
 // Merge IAdjustableDate w/ IDate? Hum no because we have also IAffineDate.
 // Le seul avantage à avoir ces méthodes sur un objet date est qu'on peut ne
 // pas avoir à revalider les paramètres.

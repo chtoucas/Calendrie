@@ -3,7 +3,7 @@
 
 namespace Calendrie.Specialized;
 
-// TODO(api): épacte, lettre dominicale, indiction, cycle solaire, etc.
+// TODO(code): épacte, lettre dominicale, indiction, cycle solaire, etc.
 // Algorithmes alternatifs. Nom : RomanLiturgicalYear ?
 
 #region Developer Notes

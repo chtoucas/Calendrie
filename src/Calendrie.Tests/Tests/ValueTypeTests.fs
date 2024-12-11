@@ -93,8 +93,8 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<Zoroastrian13Date>) === 4
         Marshal.SizeOf(typedefof<ZoroastrianDate>) === 4
 
-    // TODO(code): test all models.
-    // TODO(code): add tests for the data types defined within THIS project.
+    // TODO(fact): test all models.
+    // TODO(fact): add tests for the data types defined within THIS project.
     [<Fact>]
     let ``Types in Calendrie:Testing:Data`` () =
         Marshal.SizeOf(typedefof<YearMonthsSinceEpoch>) === 8

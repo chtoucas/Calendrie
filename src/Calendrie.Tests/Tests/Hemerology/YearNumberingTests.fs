@@ -9,7 +9,7 @@ open Calendrie.Testing.Data
 
 open Xunit
 
-// TODO(code): dépassements arithmétiques.
+// TODO(fact): dépassements arithmétiques.
 
 let decadeOfCenturyInfoData = YearNumberingDataSet.DecadeOfCenturyInfoData
 let isoDecadeOfCenturyInfoData = YearNumberingDataSet.IsoDecadeOfCenturyInfoData

@@ -1,0 +1,14 @@
+﻿
+
+Tâches
+------
+
+Trois types de tâches : FIXME, TODO et REVIEW.
+Sous-catégories : code, doc et fact
+
+Recommandations C#
+------------------
+
+- "sealed"
+    - par défaut
+    - ToString()

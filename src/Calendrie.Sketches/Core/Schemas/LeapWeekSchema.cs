@@ -5,7 +5,7 @@ namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Intervals;
 
-// TODO(api): should be an interface.
+// TODO(code): should be an interface.
 // (y, m, d) <-> (y, woy, dow). See also CalendarWeek. Maybe create CalendarWeekdate?
 
 // References:

@@ -12,7 +12,7 @@ open Xunit
 open FsCheck
 open FsCheck.Xunit
 
-// TODO(code): binary serialization for Yemo(x).
+// TODO(fact): binary serialization for Yemo(x).
 
 module TestCommon =
     //

@@ -3,7 +3,7 @@
 
 namespace Calendrie.Core.Intervals;
 
-// REVIEW(api): add factory Create(Range<T>), Singleton()?
+// REVIEW(code): add factory Create(Range<T>), Singleton()?
 
 // RangeSet<T> is the return type for Intersect() and Gap().
 //

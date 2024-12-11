@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing.Data;
 
-// TODO(data): DaysSinceEpochInfoData should include data before the epoch, then
+// TODO(fact): DaysSinceEpochInfoData should include data before the epoch, then
 // we should review the test bundles to ensure that we use it to test negative years.
 
 /// <summary>
@@ -63,7 +63,7 @@ public abstract partial class SchemaDataSet : ICalendricalDataSet
     public abstract TheoryData<int, int, int> InvalidDayFieldData { get; }
     public abstract TheoryData<int, int> InvalidDayOfYearFieldData { get; }
 
-    // TODO(data): derived classes should at least override
+    // TODO(fact): derived classes should at least override
     // - ConsecutiveDaysData
     // - ConsecutiveDaysOrdinalData
     // - ConsecutiveMonthsData

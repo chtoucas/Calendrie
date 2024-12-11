@@ -189,7 +189,7 @@ public partial struct Range<T> // IEquatable
 
 public partial struct Range<T> // Strict partial order
 {
-    // REVIEW(api): strict partial order. For other types too. External comparer?
+    // REVIEW(code): strict partial order. For other types too. External comparer?
 #if false
 
     /// <summary>

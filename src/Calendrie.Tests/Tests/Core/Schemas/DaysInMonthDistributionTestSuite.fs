@@ -10,8 +10,7 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
-// TODO(code): Hebrew (unfinished, no data), Pax (unfinished), Positivist (unfinished)
-// and World (unfinished) schemas.
+// TODO(fact): Pax (unfinished), Positivist (unfinished), lunisolar (fake), World (unfinished).
 
 let private test = DaysInMonthDistributionFacts.Test
 

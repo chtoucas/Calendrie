@@ -63,7 +63,7 @@ public sealed class Unbounded<T> : IInterval<T>
         return SetEquals(other);
     }
 
-    // TODO(api): ISetComparable (see comments above).
+    // TODO(code): ISetComparable (see comments above).
 #if false
 
     /// <summary>

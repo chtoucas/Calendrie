@@ -18,7 +18,7 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
-// TODO(code): Hebrew (unfinished, no data), Pax (unfinished) and lunisolar (fake) schema.
+// TODO(fact): Pax (unfinished) and lunisolar (fake).
 
 //let private verifyThatPreValidatorIs<'a> (sch: ICalendricalSchema) =
 //    sch.PreValidator |> is<'a>

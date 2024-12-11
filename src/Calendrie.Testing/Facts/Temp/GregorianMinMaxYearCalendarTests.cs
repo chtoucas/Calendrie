@@ -11,7 +11,7 @@ using Calendrie.Testing.Data.Bounded;
 using Calendrie.Testing.Data.Unbounded;
 using Calendrie.Testing.Facts.Hemerology;
 
-// TODO(code): à améliorer. À refaire en F#. Idem pour BoundedBelowCalendarTests.
+// TODO(fact): à améliorer. À refaire en F#. Idem pour BoundedBelowCalendarTests.
 
 public class GregorianMinMaxYearCalendarDataSet :
     MinMaxYearCalendarDataSet<UnboundedGregorianDataSet>,

@@ -204,7 +204,7 @@ public partial class FauxLunisolarDataSet // Start and end of year
         new(LeapYear, 13, 30),
     ];
 
-    // TODO(data): à compléter.
+    // TODO(fact): à compléter.
     public override DataGroup<YearMonthsSinceEpoch> StartOfYearMonthsSinceEpochData { get; } =
     [
         new(-1, -25),

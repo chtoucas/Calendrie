@@ -168,7 +168,7 @@ public partial class PaxDataSet // Start and end of year
         new(LeapYear, 14, 28),
     ];
 
-    // TODO(data): à compléter.
+    // TODO(fact): à compléter.
     public override DataGroup<YearMonthsSinceEpoch> StartOfYearMonthsSinceEpochData { get; } =
     [
         new(1, 0),

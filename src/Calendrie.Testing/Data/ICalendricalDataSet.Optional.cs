@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing.Data;
 
-// TODO(data): one interface per rule? Separate data for subtraction?
+// TODO(fact): one interface per rule? Separate data for subtraction?
 // To avoid having to create a dataset per rule, we could change the format and
 // add roundoff.
 

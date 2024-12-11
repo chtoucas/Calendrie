@@ -12,7 +12,7 @@ open Calendrie.Testing.Data
 
 open Xunit
 
-// TODO(code): failing tests; see commented code.
+// TODO(fact): failing tests; see commented code.
 
 let private paramName = "paramName"
 

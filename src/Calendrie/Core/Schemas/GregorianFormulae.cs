@@ -5,7 +5,7 @@ namespace Calendrie.Core.Schemas;
 
 // The Min/MaxYear limits do not apply here.
 
-// REVIEW(perf): GetYear() overflows pretty quickly. Optimize * 400? Idem w/ 32-bit
+// REVIEW(code): GetYear() overflows pretty quickly. Optimize * 400? Idem w/ 32-bit
 // FIXME(code): checked ops?
 // formulae should use the new signature: GetOrdinalParts() -> GetYear().
 
