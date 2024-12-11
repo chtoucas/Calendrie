@@ -6,6 +6,10 @@ namespace Calendrie.Extensions;
 using Calendrie.Core;
 using Calendrie.Specialized;
 
+/// <summary>
+/// Provides extension methods for <see cref="JulianDate"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public static partial class JulianExtensions { }
 
 public partial class JulianExtensions // JulianDate

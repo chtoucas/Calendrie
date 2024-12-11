@@ -8,6 +8,11 @@ using System.Collections.Generic;
 using Calendrie.Core;
 using Calendrie.Specialized;
 
+/// <summary>
+/// Provides extension methods for <see cref="GregorianDate"/> and
+/// <see cref="GregorianCalendar"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public static partial class GregorianExtensions { }
 
 public partial class GregorianExtensions // GregorianDate

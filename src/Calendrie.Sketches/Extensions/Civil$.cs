@@ -8,6 +8,11 @@ using System.Collections.Generic;
 using Calendrie.Core;
 using Calendrie.Specialized;
 
+/// <summary>
+/// Provides extension methods for <see cref="CivilDate"/> and
+/// <see cref="CivilCalendar"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public static partial class CivilExtensions { }
 
 public partial class CivilExtensions // CivilDate
