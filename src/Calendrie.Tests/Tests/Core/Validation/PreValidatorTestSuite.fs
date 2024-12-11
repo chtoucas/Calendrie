@@ -89,6 +89,12 @@ type FauxLunisolarTests() =
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+type PaxTests() =
+    inherit ICalendricalPreValidatorFacts<PaxDataSet>(new PaxSchema())
+
+[<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Persian2820Tests() =
     inherit ICalendricalPreValidatorFacts<Persian2820DataSet>(new Persian2820Schema())
 

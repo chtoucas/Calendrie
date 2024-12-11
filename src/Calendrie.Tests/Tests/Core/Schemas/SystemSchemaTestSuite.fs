@@ -156,6 +156,25 @@ type FauxLunisolarTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
 [<Sealed>]
+type PaxTests() as self =
+    inherit ICalendricalSchemaBasicFacts<PaxSchema, PaxDataSet>(new PaxSchema())
+    do
+        self.TestGetMonthAnyway <- true
+
+    override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
+    override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Other
+    override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Weeks
+    //override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>(x.SchemaUT)
+    override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
+
+    override x.SupportedYears_Prop() =
+        let range = SystemSchema.DefaultSupportedYears.WithMin(1)
+        x.SchemaUT.SupportedYears === range
+
+    [<Fact>]
+    member x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Other
+
+[<Sealed>]
 type Persian2820Tests() =
     inherit SystemSchemaFacts<Persian2820DataSet>(new Persian2820Schema())
 

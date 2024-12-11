@@ -75,11 +75,11 @@ type JulianTests() =
 type FauxLunisolarTests() =
     inherit StandardScopeFacts<FauxLunisolarDataSet>(scopeOf(new FauxLunisolarSchema()))
 
-//[<Sealed>]
-//[<TestExcludeFrom(TestExcludeFrom.Regular)>]
-//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-//type PaxTests() =
-//    inherit StandardScopeFacts<PaxDataSet>(scopeOf(new PaxSchema()))
+[<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+type PaxTests() =
+    inherit StandardScopeFacts<PaxDataSet>(scopeOf(new PaxSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
