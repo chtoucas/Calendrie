@@ -1,5 +1,5 @@
 Summary
-  Generated on: 11/12/2024 - 07:30:11
+  Generated on: 11/12/2024 - 07:38:02
   Parser: OpenCover
   Assemblies: 2
   Classes: 118
@@ -9,8 +9,8 @@ Summary
   Uncovered lines: 16
   Coverable lines: 5505
   Total lines: 21630
-  Branch coverage: 99.9% (1398 of 1399)
-  Covered branches: 1398
+  Branch coverage: 100% (1399 of 1399)
+  Covered branches: 1399
   Total branches: 1399
   Method coverage: 99.8% (2106 of 2110)
   Covered methods: 2106

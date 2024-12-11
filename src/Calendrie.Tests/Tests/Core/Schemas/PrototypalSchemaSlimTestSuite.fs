@@ -29,7 +29,8 @@ type Coptic12Tests() =
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+// We do not exclude this one from CodeCoverage: necessary to cover a branch within GetMonth().
+//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic13Tests() =
     inherit PrototypalSchemaFacts<Coptic13DataSet>(new PrototypalSchemaSlim(new Coptic13Schema()))
 
@@ -133,7 +134,7 @@ type JulianTests() =
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-// We do not exclude this one from CodeCoverage.
+// We do not exclude this one from CodeCoverage: necessary to cover a branch within GetMonth().
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type LunisolarTests() =
     inherit PrototypalSchemaFacts<FauxLunisolarDataSet>(new PrototypalSchemaSlim(new FauxLunisolarSchema()))
