@@ -37,8 +37,12 @@ Usage: qtest.ps1 [arguments]
 
 Examples.
 > qtest.ps1 XXX        # Run tests whose names contain XXX
-> qtest.ps1 XXX+       # Run tests whose names contain XXX.
 > qtest.ps1 -ns YYY    # Run tests whose names contain Calendrie.Tests.YYY
+
+Tips.
+To test a method YYY within a module named XXX, use the filter XXX+YYY
+If two modules are named SampleTests and SampleTestSuite, use the filter
+SampleTests+ to only test the module SampleTests.
 
 "@
 }

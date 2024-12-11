@@ -3,14 +3,19 @@
 
 module Calendrie.Tests.Specialized.JulianTests
 
+open System
+
 open Calendrie
 open Calendrie.Specialized
 open Calendrie.Testing
+open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Specialized
 
 open Xunit
+
+open type Calendrie.Extensions.JulianExtensions
 
 module Prelude =
     [<Fact>]
@@ -20,6 +25,19 @@ module Prelude =
     [<Fact>]
     let ``Value of JulianDate.MaxDaysSinceEpoch`` () =
         JulianDate.MaxDaysSinceEpoch === JulianCalendar.ScopeT.Segment.SupportedDays.Max
+
+module Extensions =
+    let private chr = new JulianCalendar()
+    let private domain = chr.Scope.Domain
+
+    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(domain)
+
+    [<Theory; MemberData(nameof(dayNumberToDayOfWeekData))>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    let ``GetDayOfWeek(CalendarDate) via DayNumber`` (dayNumber: DayNumber) (dayOfWeek: DayOfWeek) =
+        let date = JulianDate.FromDayNumber(dayNumber)
+
+        date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
     // NB: notice the use of UnboundedJulianDataSet.

@@ -3,6 +3,8 @@
 
 module Calendrie.Tests.Specialized.CivilTests
 
+open System
+
 open Calendrie
 open Calendrie.Specialized
 open Calendrie.Testing
@@ -12,6 +14,8 @@ open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Specialized
 
 open Xunit
+
+open type Calendrie.Extensions.CivilExtensions
 
 // NB: notice the use of StandardGregorianDataSet.
 
@@ -30,6 +34,33 @@ module Prelude =
         let date = new CivilDate(y, m, d)
 
         date.DaysSinceZero === daysSinceEpoch
+
+module Extensions =
+    let private chr = new CivilCalendar()
+    let private domain = chr.Scope.Domain
+
+    let private calendarDataSet = StandardGregorianDataSet.Instance
+    let dayOfWeekData = calendarDataSet.DayOfWeekData
+    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(domain)
+
+    //
+    // GetDayOfWeek()
+    //
+
+    [<Theory; MemberData(nameof(dayOfWeekData))>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    let ``CivilDate:GetDayOfWeek()`` (info: YemodaAnd<DayOfWeek>) =
+        let (y, m, d, dayOfWeek) = info.Deconstruct()
+        let date = new CivilDate(y, m, d)
+
+        date.GetDayOfWeek() === dayOfWeek
+
+    [<Theory; MemberData(nameof(dayNumberToDayOfWeekData))>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    let ``CivilDate:GetDayOfWeek() via DayNumber`` (dayNumber: DayNumber) (dayOfWeek: DayOfWeek) =
+        let date = CivilDate.FromDayNumber(dayNumber)
+
+        date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
     let private chr = new CivilCalendar()

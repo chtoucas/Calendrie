@@ -3,15 +3,20 @@
 
 module Calendrie.Tests.Specialized.GregorianTests
 
+open System
+
 open Calendrie
 open Calendrie.Specialized
 open Calendrie.Testing
 open Calendrie.Testing.Data
+open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Specialized
 
 open Xunit
+
+open type Calendrie.Extensions.GregorianExtensions
 
 // NB: notice the use of UnboundedGregorianDataSet.
 
@@ -34,6 +39,33 @@ module Prelude =
         let date = new GregorianDate(y, m, d)
 
         date.DaysSinceZero === daysSinceEpoch
+
+module Extensions =
+    let private chr = new GregorianCalendar()
+    let private domain = chr.Scope.Domain
+
+    let private calendarDataSet = StandardGregorianDataSet.Instance
+    let dayOfWeekData = calendarDataSet.DayOfWeekData
+    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(domain)
+
+    //
+    // GetDayOfWeek()
+    //
+
+    [<Theory; MemberData(nameof(dayOfWeekData))>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    let ``GregorianDate:GetDayOfWeek()`` (info: YemodaAnd<DayOfWeek>) =
+        let (y, m, d, dayOfWeek) = info.Deconstruct()
+        let date = new GregorianDate(y, m, d)
+
+        date.GetDayOfWeek() === dayOfWeek
+
+    [<Theory; MemberData(nameof(dayNumberToDayOfWeekData))>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    let ``GregorianDate:GetDayOfWeek() via DayNumber`` (dayNumber: DayNumber) (dayOfWeek: DayOfWeek) =
+        let date = GregorianDate.FromDayNumber(dayNumber)
+
+        date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
     let private chr = new GregorianCalendar()

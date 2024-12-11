@@ -1,49 +1,42 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Samples;
+namespace Calendrie.Extensions;
 
 using System.Collections.Generic;
 
+using Calendrie.Core;
 using Calendrie.Specialized;
 
-[ExcludeFromCodeCoverage]
-public static partial class Folklore { }
+public static partial class GregorianExtensions { }
 
-public partial class Folklore // Friday the 13th (Gregorian calendar)
+public partial class GregorianExtensions // GregorianDate
 {
     [Pure]
-    public static bool IsUnluckyFriday(this CivilDate date) =>
-        // On vérifie d'abord le jour de la semaine (propriété la plus rapide à obtenir).
-        date.DayOfWeek == DayOfWeek.Friday
-        && date.Day == 13;
+    public static DayOfWeek GetDayOfWeek(this GregorianDate date)
+    {
+        // Should be faster than the base method which relies on CountDaysSinceEpoch().
+        var (y, m, d) = date;
+
+        int doomsday = DoomsdayRule.GetGregorianDoomsday(y, m);
+        return (DayOfWeek)MathZ.Modulo(doomsday + d, CalendricalConstants.DaysInWeek);
+    }
 
     [Pure]
     public static bool IsUnluckyFriday(this GregorianDate date) =>
         // On vérifie d'abord le jour de la semaine (propriété la plus rapide à obtenir).
         date.DayOfWeek == DayOfWeek.Friday
         && date.Day == 13;
+}
 
-    [Pure]
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    public static IEnumerable<CivilDate> FindUnluckyFridays(this CivilCalendar @this, int year)
-    {
-        for (int m = 1; m <= 12; m++)
-        {
-            var date = new CivilDate(year, m, 13);
-            if (date.DayOfWeek == DayOfWeek.Friday)
-            {
-                yield return date;
-            }
-        }
-    }
-
+public partial class GregorianExtensions // GregorianCalendar
+{
     [Pure]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public static IEnumerable<GregorianDate> FindUnluckyFridays(this GregorianCalendar @this, int year)
     {
-        // This method should be faster. By using the internals, we can validate
-        // only once.
+        // This method should be faster than the one found in CivilExtensions.
+        // Indeed, by using the internals, validation occurs only once.
 
         ProlepticScope.YearsValidatorImpl.Validate(year);
 
