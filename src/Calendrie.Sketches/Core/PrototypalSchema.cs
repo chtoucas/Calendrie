@@ -123,6 +123,8 @@ public partial class PrototypalSchema :
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInYear, 0, nameof(minDaysInYear));
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInMonth, 0, nameof(minDaysInMonth));
 
+        Debug.Assert(minDaysInYear > minDaysInMonth);
+
         _kernel = kernel;
         _proxy = new SchemaProxy(this);
 
