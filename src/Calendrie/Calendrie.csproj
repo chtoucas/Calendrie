@@ -18,6 +18,9 @@
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\Usings.cs">
+      <Visible>true</Visible>
+    </Compile>
     <!-- T4 templates -->
     <None Update="**\*.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
