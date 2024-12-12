@@ -11,32 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- T4 templates -->
-    <None Update="**\*.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>%(Filename).g.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Samples\PlainGregorian.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PlainGregorian.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Samples\PlainJulian.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PlainJulian.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- T4 service -->
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
   </ItemGroup>
 

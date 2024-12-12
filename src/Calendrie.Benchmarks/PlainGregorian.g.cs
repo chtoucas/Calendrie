@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace Calendrie.Samples;
+namespace Benchmarks;
 
 using System.Numerics;
 
