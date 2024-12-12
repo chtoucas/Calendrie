@@ -3,6 +3,7 @@
 
 namespace Benchmarks.JulianSchemaTests;
 
+using Calendrie;
 using Calendrie.Core.Schemas;
 
 using static Benchmarks.BenchmarkHelpers;

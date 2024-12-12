@@ -5,7 +5,9 @@ namespace Benchmarks;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
 
+using Calendrie;
 using Calendrie.Core;
 
 using NodaTime;

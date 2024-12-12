@@ -3,6 +3,7 @@
 
 namespace Benchmarks.GregorianSchemaTests;
 
+using Calendrie;
 using Calendrie.Core.Schemas;
 
 using static Benchmarks.BenchmarkHelpers;

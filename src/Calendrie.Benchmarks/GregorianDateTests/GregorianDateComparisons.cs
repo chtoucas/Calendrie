@@ -3,6 +3,7 @@
 
 namespace Benchmarks.GregorianDateTests;
 
+using Calendrie;
 using Calendrie.Systems;
 
 using NodaTime;
