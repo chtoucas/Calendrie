@@ -1,12 +1,14 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Samples;
+namespace Samples;
 
+using System.Diagnostics.Contracts;
+
+using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 
-[ExcludeFromCodeCoverage]
 public sealed class GregorianKernel : ICalendricalKernel
 {
     public const int MonthsInYear = 12;

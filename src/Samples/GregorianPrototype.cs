@@ -1,11 +1,12 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Samples;
+namespace Samples;
+
+using System.Diagnostics.Contracts;
 
 using Calendrie.Core;
 
-[ExcludeFromCodeCoverage]
 public sealed class GregorianPrototype : PrototypalSchema
 {
     private static ReadOnlySpan<int> DaysInYearBeforeMonthOfCommonYear =>

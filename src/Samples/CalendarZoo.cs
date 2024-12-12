@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Samples;
+namespace Samples;
 
 using Calendrie;
 using Calendrie.Core.Intervals;
@@ -16,7 +16,6 @@ using Calendrie.Hemerology;
 /// dates prior their epochal origin.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-[ExcludeFromCodeCoverage]
 public static partial class CalendarZoo { }
 
 // More historically accurate calendars:

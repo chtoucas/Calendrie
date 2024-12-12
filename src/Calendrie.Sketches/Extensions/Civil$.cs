@@ -3,8 +3,6 @@
 
 namespace Calendrie.Extensions;
 
-using System.Collections.Generic;
-
 using Calendrie.Core;
 using Calendrie.Systems;
 
