@@ -3,16 +3,14 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Hemerology;
-
 /// <summary>
 /// Defines a date type with a companion calendar of fixed type.
 /// <para>This interface SHOULD NOT be implemented by date types participating
 /// in a poly-calendar system.</para>
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface ISpecialDate<TSelf> : IDate<TSelf>
-    where TSelf : IDate<TSelf>
+public interface IDateFactory<TSelf>
+    where TSelf : IDateFactory<TSelf>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSelf"/> struct from

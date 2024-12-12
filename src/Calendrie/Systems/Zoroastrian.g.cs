@@ -73,7 +73,7 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
 /// </summary>
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
-    ISpecialDate<ZoroastrianDate>,
+    IDateFactory<ZoroastrianDate>,
     IAdjustable<ZoroastrianDate>,
     ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
 { }
@@ -294,7 +294,7 @@ public partial struct ZoroastrianDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static ZoroastrianDate ISpecialDate<ZoroastrianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static ZoroastrianDate IDateFactory<ZoroastrianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

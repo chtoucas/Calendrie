@@ -204,7 +204,7 @@ public partial struct CivilDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CivilDate ISpecialDate<CivilDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static CivilDate IDateFactory<CivilDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

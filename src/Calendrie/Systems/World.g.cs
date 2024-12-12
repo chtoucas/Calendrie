@@ -73,7 +73,7 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 /// </summary>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
-    ISpecialDate<WorldDate>,
+    IDateFactory<WorldDate>,
     IAdjustable<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>
 { }
@@ -294,7 +294,7 @@ public partial struct WorldDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static WorldDate ISpecialDate<WorldDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static WorldDate IDateFactory<WorldDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

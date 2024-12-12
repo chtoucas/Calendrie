@@ -204,7 +204,7 @@ public partial struct JulianDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static JulianDate ISpecialDate<JulianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static JulianDate IDateFactory<JulianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

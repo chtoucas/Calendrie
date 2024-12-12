@@ -76,7 +76,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 /// </summary>
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
-    ISpecialDate<PlainGregorianDate>,
+    IDateFactory<PlainGregorianDate>,
     IAdjustable<PlainGregorianDate>,
     ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>
 { }
@@ -275,7 +275,7 @@ public partial struct PlainGregorianDate // Factories
     }
 
     /// <inheritdoc />
-    static PlainGregorianDate ISpecialDate<PlainGregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static PlainGregorianDate IDateFactory<PlainGregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 
