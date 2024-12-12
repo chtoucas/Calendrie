@@ -5,7 +5,6 @@ namespace Calendrie.Testing.Facts.Temp;
 
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-using Calendrie.Samples;
 using Calendrie.Testing.Data.Unbounded;
 using Calendrie.Testing.Facts.Hemerology;
 
@@ -14,12 +13,16 @@ public static class BoundedBelowCalendarTests
     // Exemple du calendrier grégorien qui débute officiellement le 15/10/1582.
     // En 1582, 3 mois, octobre à décembre.
     // En 1582, 78 jours = 17 (oct) + 30 (nov) + 31 (déc).
+    private static readonly BoundedBelowCalendar s_GenuineGregorian =
+            new("Gregorian",
+                BoundedBelowScope.StartingAt(
+                    new CivilSchema(), DayZero.NewStyle, new DateParts(1582, 10, 15)));
 
     [Fact]
     public static void CountMonthsInFirstYear()
     {
         // Act
-        var chr = CalendarZoo.GenuineGregorian;
+        var chr = s_GenuineGregorian;
         int minYear = chr.MinDateParts.Year;
         int monthsInFirstYear = 3;
         // Assert
@@ -31,7 +34,7 @@ public static class BoundedBelowCalendarTests
     public static void CountDaysInFirstYear()
     {
         // Act
-        var chr = CalendarZoo.GenuineGregorian;
+        var chr = s_GenuineGregorian;
         int minYear = chr.MinDateParts.Year;
         int daysInFirstYear = 78;
         // Assert
@@ -43,7 +46,7 @@ public static class BoundedBelowCalendarTests
     public static void CountDaysInFirstMonth()
     {
         // Act
-        var chr = CalendarZoo.GenuineGregorian;
+        var chr = s_GenuineGregorian;
         int daysInFirstMonth = 17;
         var parts = chr.MinDateParts;
         // Assert
