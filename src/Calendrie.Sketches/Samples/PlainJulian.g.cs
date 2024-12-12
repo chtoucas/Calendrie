@@ -18,7 +18,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
-using Calendrie.Specialized;
+using Calendrie.Systems;
 
 /// <summary>
 /// Represents the PlainJulian calendar.

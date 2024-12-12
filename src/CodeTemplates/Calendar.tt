@@ -36,7 +36,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public bool EnablePragmas { get; set; }
     public bool EnableMicroOptimizations { get; set; } = true;
-    public bool ImportSpecializedNamespace { get; set; }
+    public bool ImportCalendrieSystemsNamespace { get; set; }
 
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
@@ -85,8 +85,8 @@ using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>
-<#+ if (ImportSpecializedNamespace) { #>
-using Calendrie.Specialized;
+<#+ if (ImportCalendrieSystemsNamespace) { #>
+using Calendrie.Systems;
 <#+ } #>
 <#+
     } // T4: End of EmitUsings()

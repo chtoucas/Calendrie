@@ -6,7 +6,7 @@ module Calendrie.Tests.DayZeroTests
 open System
 
 open Calendrie
-open Calendrie.Specialized
+open Calendrie.Systems
 open Calendrie.Testing
 
 open Xunit

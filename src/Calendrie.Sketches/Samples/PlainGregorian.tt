@@ -8,5 +8,5 @@
     {
         EnableMicroOptimizations = false,
         EnablePragmas = true,
-        ImportSpecializedNamespace = true
+        ImportCalendrieSystemsNamespace = true
     }.Execute() #>

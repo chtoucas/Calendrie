@@ -7,7 +7,7 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-using Calendrie.Specialized;
+using Calendrie.Systems;
 
 [CategoriesColumn]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]

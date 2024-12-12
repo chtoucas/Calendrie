@@ -4,7 +4,7 @@
 namespace Calendrie.Extensions;
 
 using Calendrie.Core;
-using Calendrie.Specialized;
+using Calendrie.Systems;
 
 /// <summary>
 /// Provides extension methods for <see cref="JulianDate"/>.

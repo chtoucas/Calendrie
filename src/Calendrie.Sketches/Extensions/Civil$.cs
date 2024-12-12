@@ -6,7 +6,7 @@ namespace Calendrie.Extensions;
 using System.Collections.Generic;
 
 using Calendrie.Core;
-using Calendrie.Specialized;
+using Calendrie.Systems;
 
 /// <summary>
 /// Provides extension methods for <see cref="CivilDate"/> and

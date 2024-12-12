@@ -24,7 +24,7 @@ using Calendrie.Core.Validation;
 //       MinMaxYearDayCalendar            DayNumber
 //       (MyCivilCalendar)                MyCivilDate
 //       SpecialCalendar
-//         # Specialized calendars
+//         # System calendars
 //         CivilCalendar                    CivilDate
 //         GregorianCalendar                GregorianDate
 //         JulianCalendar                   JulianDate

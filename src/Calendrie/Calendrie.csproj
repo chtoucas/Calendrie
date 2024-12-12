@@ -26,67 +26,67 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Specialized\Armenian.g.cs">
+    <Compile Update="Systems\Armenian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Armenian.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Armenian13.g.cs">
+    <Compile Update="Systems\Armenian13.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Armenian13.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Coptic.g.cs">
+    <Compile Update="Systems\Coptic.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Coptic.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Coptic13.g.cs">
+    <Compile Update="Systems\Coptic13.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Coptic13.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Ethiopic.g.cs">
+    <Compile Update="Systems\Ethiopic.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Ethiopic.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Ethiopic13.g.cs">
+    <Compile Update="Systems\Ethiopic13.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Ethiopic13.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Gregorian.g.cs">
+    <Compile Update="Systems\Gregorian.g.cs">
       <DependentUpon>Gregorian.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Specialized\Civil.g.cs">
+    <Compile Update="Systems\Civil.g.cs">
       <DependentUpon>Civil.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Specialized\Julian.g.cs">
+    <Compile Update="Systems\Julian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Julian.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\TabularIslamic.g.cs">
+    <Compile Update="Systems\TabularIslamic.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TabularIslamic.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\World.g.cs">
+    <Compile Update="Systems\World.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>World.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Zoroastrian.g.cs">
+    <Compile Update="Systems\Zoroastrian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Zoroastrian.tt</DependentUpon>
     </Compile>
-    <Compile Update="Specialized\Zoroastrian13.g.cs">
+    <Compile Update="Systems\Zoroastrian13.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Zoroastrian13.tt</DependentUpon>

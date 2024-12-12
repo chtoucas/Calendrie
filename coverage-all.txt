@@ -1,22 +1,22 @@
 Summary
-  Generated on: 11/12/2024 - 07:38:02
+  Generated on: 12/12/2024 - 08:31:59
   Parser: OpenCover
   Assemblies: 2
-  Classes: 118
-  Files: 112
-  Line coverage: 99.7%
-  Covered lines: 5489
-  Uncovered lines: 16
-  Coverable lines: 5505
-  Total lines: 21630
-  Branch coverage: 100% (1399 of 1399)
-  Covered branches: 1399
-  Total branches: 1399
-  Method coverage: 99.8% (2106 of 2110)
-  Covered methods: 2106
-  Total methods: 2110
+  Classes: 126
+  Files: 120
+  Line coverage: 98.2%
+  Covered lines: 5635
+  Uncovered lines: 98
+  Coverable lines: 5733
+  Total lines: 22426
+  Branch coverage: 97.7% (1434 of 1467)
+  Covered branches: 1434
+  Total branches: 1467
+  Method coverage: 98% (2143 of 2185)
+  Covered methods: 2143
+  Total methods: 2185
 
-Calendrie                                             100.0%
+Calendrie                                              99.9%
   Calendrie.Core.CalendricalSchema                    100.0%
   Calendrie.Core.CalendricalSegment                   100.0%
   Calendrie.Core.CalendricalSegmentBuilder            100.0%
@@ -88,52 +88,60 @@ Calendrie                                             100.0%
   Calendrie.MonthParts                                100.0%
   Calendrie.Ord                                       100.0%
   Calendrie.OrdinalParts                              100.0%
-  Calendrie.Specialized.Armenian13Calendar            100.0%
-  Calendrie.Specialized.Armenian13Date                100.0%
-  Calendrie.Specialized.ArmenianCalendar              100.0%
-  Calendrie.Specialized.ArmenianDate                  100.0%
-  Calendrie.Specialized.CivilCalendar                 100.0%
-  Calendrie.Specialized.CivilDate                     100.0%
-  Calendrie.Specialized.CivilScope                    100.0%
-  Calendrie.Specialized.Coptic13Calendar              100.0%
-  Calendrie.Specialized.Coptic13Date                  100.0%
-  Calendrie.Specialized.CopticCalendar                100.0%
-  Calendrie.Specialized.CopticDate                    100.0%
-  Calendrie.Specialized.Ethiopic13Calendar            100.0%
-  Calendrie.Specialized.Ethiopic13Date                100.0%
-  Calendrie.Specialized.EthiopicCalendar              100.0%
-  Calendrie.Specialized.EthiopicDate                  100.0%
-  Calendrie.Specialized.GregorianCalendar             100.0%
-  Calendrie.Specialized.GregorianDate                 100.0%
-  Calendrie.Specialized.GregorianScope                100.0%
-  Calendrie.Specialized.JulianCalendar                100.0%
-  Calendrie.Specialized.JulianDate                    100.0%
-  Calendrie.Specialized.JulianScope                   100.0%
-  Calendrie.Specialized.ProlepticScope                100.0%
-  Calendrie.Specialized.ProlepticYearsValidator       100.0%
-  Calendrie.Specialized.SpecialAdjuster<T>            100.0%
-  Calendrie.Specialized.SpecialCalendar<T>            100.0%
-  Calendrie.Specialized.StandardScope                 100.0%
-  Calendrie.Specialized.StandardYearsValidator        100.0%
-  Calendrie.Specialized.TabularIslamicCalendar        100.0%
-  Calendrie.Specialized.TabularIslamicDate            100.0%
-  Calendrie.Specialized.WorldCalendar                 100.0%
-  Calendrie.Specialized.WorldDate                     100.0%
-  Calendrie.Specialized.Zoroastrian13Calendar         100.0%
-  Calendrie.Specialized.Zoroastrian13Date             100.0%
-  Calendrie.Specialized.ZoroastrianCalendar           100.0%
-  Calendrie.Specialized.ZoroastrianDate               100.0%
+  Calendrie.Systems.Armenian13Calendar                100.0%
+  Calendrie.Systems.Armenian13Date                    100.0%
+  Calendrie.Systems.ArmenianCalendar                  100.0%
+  Calendrie.Systems.ArmenianDate                      100.0%
+  Calendrie.Systems.CivilCalendar                     100.0%
+  Calendrie.Systems.CivilDate                          98.4%
+  Calendrie.Systems.CivilScope                        100.0%
+  Calendrie.Systems.Coptic13Calendar                  100.0%
+  Calendrie.Systems.Coptic13Date                      100.0%
+  Calendrie.Systems.CopticCalendar                    100.0%
+  Calendrie.Systems.CopticDate                        100.0%
+  Calendrie.Systems.Ethiopic13Calendar                100.0%
+  Calendrie.Systems.Ethiopic13Date                    100.0%
+  Calendrie.Systems.EthiopicCalendar                  100.0%
+  Calendrie.Systems.EthiopicDate                      100.0%
+  Calendrie.Systems.GregorianCalendar                 100.0%
+  Calendrie.Systems.GregorianDate                      99.1%
+  Calendrie.Systems.GregorianScope                    100.0%
+  Calendrie.Systems.JulianCalendar                    100.0%
+  Calendrie.Systems.JulianDate                        100.0%
+  Calendrie.Systems.JulianScope                       100.0%
+  Calendrie.Systems.ProlepticScope                    100.0%
+  Calendrie.Systems.ProlepticYearsValidator           100.0%
+  Calendrie.Systems.SpecialAdjuster<T>                100.0%
+  Calendrie.Systems.SpecialCalendar<T>                100.0%
+  Calendrie.Systems.StandardScope                     100.0%
+  Calendrie.Systems.StandardYearsValidator            100.0%
+  Calendrie.Systems.TabularIslamicCalendar            100.0%
+  Calendrie.Systems.TabularIslamicDate                100.0%
+  Calendrie.Systems.WorldCalendar                     100.0%
+  Calendrie.Systems.WorldDate                         100.0%
+  Calendrie.Systems.Zoroastrian13Calendar             100.0%
+  Calendrie.Systems.Zoroastrian13Date                 100.0%
+  Calendrie.Systems.ZoroastrianCalendar               100.0%
+  Calendrie.Systems.ZoroastrianDate                   100.0%
 
-Calendrie.Sketches                                     96.9%
+Calendrie.Sketches                                     87.3%
   Calendrie.AdditionRuleset                           100.0%
+  Calendrie.Core.DoomsdayRule                         100.0%
   Calendrie.Core.Intervals.IntervalExtra              100.0%
   Calendrie.Core.Intervals.Lavretni                   100.0%
   Calendrie.Core.Intervals.Unbounded<T>               100.0%
   Calendrie.Core.PrototypalSchema                     100.0%
   Calendrie.Core.PrototypalSchemaSlim                 100.0%
+  Calendrie.Core.Schemas.PaxSchema                     73.7%
   Calendrie.Core.Utilities.RequiresEx                 100.0%
+  Calendrie.Extensions.CivilExtensions                 29.4%
   Calendrie.Extensions.DayNumberExtensions             20.0%
+  Calendrie.Extensions.GregorianExtensions             22.7%
+  Calendrie.Extensions.JulianExtensions               100.0%
   Calendrie.Hemerology.BoundedBelowCalendar           100.0%
   Calendrie.Hemerology.BoundedBelowScope              100.0%
   Calendrie.Hemerology.MinMaxYearCalendar             100.0%
   Calendrie.Hemerology.MinMaxYearScope                100.0%
+  Calendrie.Systems.GregorianReform                   100.0%
+  Calendrie.Systems.OrthodoxKalendar                    0.0%
+  Calendrie.Systems.RomanKalendar                      63.4%

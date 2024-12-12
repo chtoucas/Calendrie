@@ -4,7 +4,7 @@
 namespace Benchmarks.JulianDateTests;
 
 using Calendrie.Samples;
-using Calendrie.Specialized;
+using Calendrie.Systems;
 
 using NodaTime;
 

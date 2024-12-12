@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing.Data.Bounded;
 
-using Calendrie.Specialized;
+using Calendrie.Systems;
 using Calendrie.Testing.Data.Unbounded;
 
 /// <summary>

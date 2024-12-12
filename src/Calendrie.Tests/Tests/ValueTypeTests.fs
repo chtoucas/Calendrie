@@ -10,7 +10,7 @@ open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Utilities
-open Calendrie.Specialized
+open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
 
@@ -78,7 +78,7 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<Yemoda>) === 4
 
     [<Fact>]
-    let ``Types in Calendrie:Specialized`` () =
+    let ``Types in Calendrie:Systems`` () =
         Marshal.SizeOf(typedefof<Armenian13Date>) === 4
         Marshal.SizeOf(typedefof<ArmenianDate>) === 4
         Marshal.SizeOf(typedefof<CivilDate>) === 4
@@ -192,7 +192,7 @@ module DefaultValues =
         (y, doy) === (1, 1)
 
     //
-    // Date types found in Calendrie.Specialized
+    // Date types found in Calendrie.Systems
     //
 
     [<Fact>]
