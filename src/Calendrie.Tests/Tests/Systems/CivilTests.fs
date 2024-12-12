@@ -3,6 +3,8 @@
 
 module Calendrie.Tests.Systems.CivilTests
 
+#nowarn 3391 // Implicit conversion from CivilDate to GregorianDate
+
 open System
 
 open Calendrie
@@ -43,6 +45,14 @@ module Prelude =
         let gregorianDate = new GregorianDate(y, m, d)
 
         gregorianDate === civilDate.ToGregorianDate()
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Implicit conversion to GregorianDate`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let civilDate : GregorianDate = new CivilDate(y, m, d)
+        let gregorianDate = new GregorianDate(y, m, d)
+
+        gregorianDate === civilDate
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``GregorianDate:FromCivilDate()`` (x: DateInfo) =
