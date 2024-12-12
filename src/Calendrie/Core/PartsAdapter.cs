@@ -3,16 +3,23 @@
 
 namespace Calendrie.Core;
 
-/// <summary>Provides methods one can use to create new calendrical parts.
-/// <para>This class assumes that input parameters are valid for the underlying calendrical
-/// schema.</para></summary>
+/// <summary>
+/// Provides methods one can use to create new calendrical parts.
+/// <para>This class assumes that input parameters are valid for the underlying
+/// calendrical schema.</para>
+/// </summary>
 public sealed partial class PartsAdapter
 {
-    /// <summary>Represents the schema.</summary>
+    /// <summary>
+    /// Represents the schema.
+    /// </summary>
     private readonly ICalendricalSchema _schema;
 
-    /// <summary>Initializes a new instance of the <see cref="PartsAdapter"/> class.</summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is <see langword="null"/>.</exception>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PartsAdapter"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     public PartsAdapter(ICalendricalSchema schema)
     {
         ArgumentNullException.ThrowIfNull(schema);
@@ -23,8 +30,10 @@ public sealed partial class PartsAdapter
 
 public partial class PartsAdapter // Conversions
 {
-    /// <summary>Obtains the date parts for the specified month count (the number of consecutive
-    /// months from the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified month count (the number of
+    /// consecutive months from the epoch to a date).
+    /// </summary>
     [Pure]
     public MonthParts GetMonthParts(int monthsSinceEpoch)
     {
@@ -32,8 +41,10 @@ public partial class PartsAdapter // Conversions
         return new MonthParts(y, m);
     }
 
-    /// <summary>Obtains the date parts for the specified day count (the number of consecutive days
-    /// from the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified day count (the number of
+    /// consecutive days from the epoch to a date).
+    /// </summary>
     [Pure]
     public DateParts GetDateParts(int daysSinceEpoch)
     {
@@ -41,8 +52,10 @@ public partial class PartsAdapter // Conversions
         return new DateParts(y, m, d);
     }
 
-    /// <summary>Obtains the ordinal date parts for the specified day count (the number of
-    /// consecutive days from the epoch to a date).</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified day count (the number
+    /// of consecutive days from the epoch to a date).
+    /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalParts(int daysSinceEpoch)
     {
@@ -50,7 +63,9 @@ public partial class PartsAdapter // Conversions
         return new OrdinalParts(y, doy);
     }
 
-    /// <summary>Obtains the ordinal date parts for the specified date.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the specified date.
+    /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalParts(int y, int m, int d)
     {
@@ -58,7 +73,9 @@ public partial class PartsAdapter // Conversions
         return new OrdinalParts(y, doy);
     }
 
-    /// <summary>Obtains the date parts for the specified ordinal date.</summary>
+    /// <summary>
+    /// Obtains the date parts for the specified ordinal date.
+    /// </summary>
     [Pure]
     public DateParts GetDateParts(int y, int doy)
     {
@@ -74,21 +91,29 @@ public partial class PartsAdapter // Dates in a given year or month
     // therefore some methods may be static, nervetheless I prefer to exclude
     // them from the API as they are just aliases of other methods.
 
-    /// <summary>Obtains the month parts for the first month of the specified year.</summary>
+    /// <summary>
+    /// Obtains the month parts for the first month of the specified year.
+    /// </summary>
     [Pure, ExcludeFromCodeCoverage]
     public static MonthParts GetMonthPartsAtStartOfYear(int y) => MonthParts.AtStartOfYear(y);
 
-    /// <summary>Obtains the date parts for the first day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the date parts for the first day of the specified year.
+    /// </summary>
     [Pure, ExcludeFromCodeCoverage]
     public static DateParts GetDatePartsAtStartOfYear(int y) => DateParts.AtStartOfYear(y);
 
-    /// <summary>Obtains the ordinal date parts for the first day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the first day of the specified year.
+    /// </summary>
     [Pure, ExcludeFromCodeCoverage]
     public static OrdinalParts GetOrdinalPartsAtStartOfYear(int y) =>
         OrdinalParts.AtStartOfYear(y);
 #endif
 
-    /// <summary>Obtains the date parts for the last month of the specified year.</summary>
+    /// <summary>
+    /// Obtains the date parts for the last month of the specified year.
+    /// </summary>
     [Pure]
     public MonthParts GetMonthPartsAtEndOfYear(int y)
     {
@@ -96,7 +121,9 @@ public partial class PartsAdapter // Dates in a given year or month
         return new MonthParts(y, m);
     }
 
-    /// <summary>Obtains the date parts for the last day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the date parts for the last day of the specified year.
+    /// </summary>
     [Pure]
     public DateParts GetDatePartsAtEndOfYear(int y)
     {
@@ -105,7 +132,9 @@ public partial class PartsAdapter // Dates in a given year or month
         return new DateParts(y, m, d);
     }
 
-    /// <summary>Obtains the ordinal date parts for the last day of the specified year.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the last day of the specified year.
+    /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalPartsAtEndOfYear(int y)
     {
@@ -114,13 +143,17 @@ public partial class PartsAdapter // Dates in a given year or month
     }
 
 #if DEBUG
-    /// <summary>Obtains the date parts for the first day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the date parts for the first day of the specified month.
+    /// </summary>
     [Pure, ExcludeFromCodeCoverage]
     public static DateParts GetDatePartsAtStartOfMonth(int y, int m) =>
         DateParts.AtStartOfMonth(y, m);
 #endif
 
-    /// <summary>Obtains the ordinal date parts for the first day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the first day of the specified month.
+    /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalPartsAtStartOfMonth(int y, int m)
     {
@@ -128,7 +161,9 @@ public partial class PartsAdapter // Dates in a given year or month
         return new OrdinalParts(y, doy);
     }
 
-    /// <summary>Obtains the date parts for the last day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the date parts for the last day of the specified month.
+    /// </summary>
     [Pure]
     public DateParts GetDatePartsAtEndOfMonth(int y, int m)
     {
@@ -136,7 +171,9 @@ public partial class PartsAdapter // Dates in a given year or month
         return new DateParts(y, m, d);
     }
 
-    /// <summary>Obtains the ordinal date parts for the last day of the specified month.</summary>
+    /// <summary>
+    /// Obtains the ordinal date parts for the last day of the specified month.
+    /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalPartsAtEndOfMonth(int y, int m)
     {

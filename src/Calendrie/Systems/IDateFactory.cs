@@ -8,6 +8,8 @@ using Calendrie.Hemerology;
 /// <summary>
 /// Defines a factory method to create a date from the count of consecutive days
 /// since the epoch of the companion calendar.
+/// <para>This interface can ONLY be initialized from within friend assemblies.
+/// </para>
 /// <para>This interface SHOULD NOT be implemented by date types participating
 /// in a poly-calendar system.</para>
 /// </summary>
