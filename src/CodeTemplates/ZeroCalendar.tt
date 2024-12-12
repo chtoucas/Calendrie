@@ -13,6 +13,29 @@ public class ZeroCalendarTemplate : CalendarTemplate
         DaysSinceEpochSuffix = "DaysSinceZero";
     }
 
+    protected override void EmitUsings()
+    {
+        WriteLine();
+#>
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
+using System.Numerics;
+
+using Calendrie;
+using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
+using Calendrie.Core.Validation;
+using Calendrie.Hemerology;
+<#+ if (EnableClock) { #>
+using Calendrie.Horology;
+<#+ } #>
+<#+ if (ImportCalendrieSystemsNamespace) { #>
+using Calendrie.Systems;
+<#+ } #>
+<#+
+    } // T4: End of EmitUsings()
+
     protected override void EmitClock()
     {
         WriteLine();
