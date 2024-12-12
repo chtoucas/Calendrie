@@ -438,7 +438,6 @@ Calendrie.Hemerology.IDate<TSelf, TCalendar>
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar!
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IDate<TSelf>
-Calendrie.Hemerology.IDate<TSelf>.operator -(TSelf left, TSelf right) -> int
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
 Calendrie.Hemerology.IDateable.CenturyOfEra.get -> Calendrie.Ord
@@ -473,6 +472,12 @@ Calendrie.Hemerology.IDateProvider<TDate>.GetEndOfMonth(int year, int month) -> 
 Calendrie.Hemerology.IDateProvider<TDate>.GetEndOfYear(int year) -> TDate
 Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfMonth(int year, int month) -> TDate
 Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfYear(int year) -> TDate
+Calendrie.Hemerology.IDayArithmetic<TSelf>
+Calendrie.Hemerology.IDayArithmetic<TSelf>.AddDays(int days) -> TSelf
+Calendrie.Hemerology.IDayArithmetic<TSelf>.CountDaysSince(TSelf other) -> int
+Calendrie.Hemerology.IDayArithmetic<TSelf>.NextDay() -> TSelf
+Calendrie.Hemerology.IDayArithmetic<TSelf>.operator -(TSelf left, TSelf right) -> int
+Calendrie.Hemerology.IDayArithmetic<TSelf>.PreviousDay() -> TSelf
 Calendrie.Hemerology.IEpagomenalDay
 Calendrie.Hemerology.IEpagomenalDay.IsEpagomenal(out int epagomenalNumber) -> bool
 Calendrie.Hemerology.IFixedDate
@@ -485,11 +490,6 @@ Calendrie.Hemerology.IFixedDate<TSelf>.Next(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IStandardArithmetic<TSelf>
-Calendrie.Hemerology.IStandardArithmetic<TSelf>.AddDays(int days) -> TSelf
-Calendrie.Hemerology.IStandardArithmetic<TSelf>.CountDaysSince(TSelf other) -> int
-Calendrie.Hemerology.IStandardArithmetic<TSelf>.NextDay() -> TSelf
-Calendrie.Hemerology.IStandardArithmetic<TSelf>.PreviousDay() -> TSelf
 Calendrie.Hemerology.YearNumbering
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
@@ -632,6 +632,7 @@ Calendrie.Specialized.CivilDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calend
 Calendrie.Specialized.CivilDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.PreviousDay() -> Calendrie.Specialized.CivilDate
 Calendrie.Specialized.CivilDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Specialized.CivilDate
+Calendrie.Specialized.CivilDate.ToGregorianDate() -> Calendrie.Specialized.GregorianDate
 Calendrie.Specialized.CivilDate.Year.get -> int
 Calendrie.Specialized.CivilDate.YearOfCentury.get -> int
 Calendrie.Specialized.CivilDate.YearOfEra.get -> Calendrie.Ord
@@ -1699,6 +1700,7 @@ static Calendrie.Specialized.ArmenianDate.operator >=(Calendrie.Specialized.Arme
 static Calendrie.Specialized.CivilDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.CivilDate>!
 static Calendrie.Specialized.CivilDate.Calendar.get -> Calendrie.Specialized.CivilCalendar!
 static Calendrie.Specialized.CivilDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.CivilDate
+static Calendrie.Specialized.CivilDate.implicit operator Calendrie.Specialized.GregorianDate(Calendrie.Specialized.CivilDate date) -> Calendrie.Specialized.GregorianDate
 static Calendrie.Specialized.CivilDate.Max(Calendrie.Specialized.CivilDate x, Calendrie.Specialized.CivilDate y) -> Calendrie.Specialized.CivilDate
 static Calendrie.Specialized.CivilDate.MaxValue.get -> Calendrie.Specialized.CivilDate
 static Calendrie.Specialized.CivilDate.Min(Calendrie.Specialized.CivilDate x, Calendrie.Specialized.CivilDate y) -> Calendrie.Specialized.CivilDate
@@ -1788,6 +1790,7 @@ static Calendrie.Specialized.EthiopicDate.operator >(Calendrie.Specialized.Ethio
 static Calendrie.Specialized.EthiopicDate.operator >=(Calendrie.Specialized.EthiopicDate left, Calendrie.Specialized.EthiopicDate right) -> bool
 static Calendrie.Specialized.GregorianDate.Adjuster.get -> Calendrie.Specialized.SpecialAdjuster<Calendrie.Specialized.GregorianDate>!
 static Calendrie.Specialized.GregorianDate.Calendar.get -> Calendrie.Specialized.GregorianCalendar!
+static Calendrie.Specialized.GregorianDate.FromCivilDate(Calendrie.Specialized.CivilDate date) -> Calendrie.Specialized.GregorianDate
 static Calendrie.Specialized.GregorianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Specialized.GregorianDate
 static Calendrie.Specialized.GregorianDate.Max(Calendrie.Specialized.GregorianDate x, Calendrie.Specialized.GregorianDate y) -> Calendrie.Specialized.GregorianDate
 static Calendrie.Specialized.GregorianDate.MaxValue.get -> Calendrie.Specialized.GregorianDate
