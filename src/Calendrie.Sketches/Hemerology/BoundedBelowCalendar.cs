@@ -6,6 +6,9 @@ namespace Calendrie.Hemerology;
 using System.Collections.Generic;
 using System.Linq;
 
+using Calendrie.Core;
+using Calendrie.Core.Validation;
+
 /// <summary>
 /// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>
@@ -21,6 +24,8 @@ public partial class BoundedBelowCalendar : Calendar
     public BoundedBelowCalendar(string name, BoundedBelowScope scope) : base(name, scope)
     {
         Debug.Assert(scope != null);
+
+        PartsAdapter = new PartsAdapter(Schema);
 
         DayNumberProvider = new DayNumberProvider_(this);
 
@@ -49,6 +54,11 @@ public partial class BoundedBelowCalendar : Calendar
     /// Gets the earliest supported ordinal date parts.
     /// </summary>
     public OrdinalParts MinOrdinalParts { get; }
+
+    /// <summary>
+    /// Gets the adapter for calendrical parts.
+    /// </summary>
+    protected PartsAdapter PartsAdapter { get; }
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -115,6 +125,43 @@ public partial class BoundedBelowCalendar : Calendar
     {
         var (y, m, d) = MinDateParts;
         return Schema.CountDaysInMonth(y, m) - d + 1;
+    }
+}
+
+public partial class BoundedBelowCalendar // Conversions
+{
+    /// <inheritdoc />
+    [Pure]
+    public DateParts GetDateParts(DayNumber dayNumber)
+    {
+        var scope = Scope;
+        scope.Domain.Validate(dayNumber);
+        return PartsAdapter.GetDateParts(dayNumber - scope.Epoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public DateParts GetDateParts(int year, int dayOfYear)
+    {
+        Scope.ValidateOrdinal(year, dayOfYear);
+        return PartsAdapter.GetDateParts(year, dayOfYear);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public OrdinalParts GetOrdinalParts(DayNumber dayNumber)
+    {
+        var scope = Scope;
+        scope.Domain.Validate(dayNumber);
+        return PartsAdapter.GetOrdinalParts(dayNumber - scope.Epoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public OrdinalParts GetOrdinalParts(int year, int month, int day)
+    {
+        Scope.ValidateYearMonthDay(year, month, day);
+        return PartsAdapter.GetOrdinalParts(year, month, day);
     }
 }
 
