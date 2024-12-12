@@ -22,7 +22,10 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 /// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
 /// </remarks>
-public sealed partial class PositivistSchema : SystemSchema, IBlankDayFeaturette
+public sealed partial class PositivistSchema :
+    SystemSchema,
+    IBlankDayFeaturette,
+    ISchemaActivator<PositivistSchema>
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -67,6 +70,10 @@ public sealed partial class PositivistSchema : SystemSchema, IBlankDayFeaturette
 
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
+
+    /// <inheritdoc />
+    [Pure]
+    static PositivistSchema ISchemaActivator<PositivistSchema>.CreateInstance() => new();
 
     /// <inheritdoc />
     [Pure]

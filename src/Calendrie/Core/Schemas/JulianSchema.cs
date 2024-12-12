@@ -9,7 +9,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-public sealed partial class JulianSchema : GJSchema
+public sealed partial class JulianSchema : GJSchema, ISchemaActivator<JulianSchema>
 {
     /// <summary>
     /// Represents the number of days per 4-year cycle.
@@ -22,6 +22,10 @@ public sealed partial class JulianSchema : GJSchema
     /// Initializes a new instance of the <see cref="JulianSchema"/> class.
     /// </summary>
     internal JulianSchema() : base(DefaultSupportedYears) { }
+
+    /// <inheritdoc />
+    [Pure]
+    static JulianSchema ISchemaActivator<JulianSchema>.CreateInstance() => new();
 }
 
 public partial class JulianSchema // Year, month or day infos

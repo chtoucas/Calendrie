@@ -8,7 +8,10 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-public sealed partial class Tropicalia3130Schema : TropicalistaSchema, IDaysInMonthDistribution
+public sealed partial class Tropicalia3130Schema :
+    TropicalistaSchema,
+    IDaysInMonthDistribution,
+    ISchemaActivator<Tropicalia3130Schema>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Tropicalia3130Schema"/> class.
@@ -21,6 +24,10 @@ public sealed partial class Tropicalia3130Schema : TropicalistaSchema, IDaysInMo
         leap
         ? [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30]
         : [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 29];
+
+    /// <inheritdoc />
+    [Pure]
+    static Tropicalia3130Schema ISchemaActivator<Tropicalia3130Schema>.CreateInstance() => new();
 }
 
 public partial class Tropicalia3130Schema // Year, month or day infos

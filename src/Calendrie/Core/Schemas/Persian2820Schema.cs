@@ -37,7 +37,10 @@ using Calendrie.Core.Intervals;
 /// <remarks>This is not the calendar currently in use in Iran. Furthermore, it has "been criticized
 /// by calendar researchers, among them the Iranian astronomers Malakpour (2004) and Sayyâd (2000)";
 /// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</remarks>
-public sealed partial class Persian2820Schema : SystemSchema, IDaysInMonthDistribution
+public sealed partial class Persian2820Schema :
+    SystemSchema,
+    IDaysInMonthDistribution,
+    ISchemaActivator<Persian2820Schema>
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -104,6 +107,10 @@ public sealed partial class Persian2820Schema : SystemSchema, IDaysInMonthDistri
         leap
         ? [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30]
         : [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+
+    /// <inheritdoc />
+    [Pure]
+    static Persian2820Schema ISchemaActivator<Persian2820Schema>.CreateInstance() => new();
 
     /// <inheritdoc />
     [Pure]

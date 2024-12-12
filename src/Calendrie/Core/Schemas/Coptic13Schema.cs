@@ -13,7 +13,8 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class Coptic13Schema :
     CopticSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution
+    IDaysInMonthDistribution,
+    ISchemaActivator<Coptic13Schema>
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -38,6 +39,10 @@ public sealed partial class Coptic13Schema :
         leap
         ? [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6]
         : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
+
+    /// <inheritdoc />
+    [Pure]
+    static Coptic13Schema ISchemaActivator<Coptic13Schema>.CreateInstance() => new();
 
     /// <inheritdoc />
     [Pure]

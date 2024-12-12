@@ -27,7 +27,10 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 /// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
 /// </remarks>
-public sealed partial class WorldSchema : SystemSchema, IBlankDayFeaturette
+public sealed partial class WorldSchema :
+    SystemSchema,
+    IBlankDayFeaturette,
+    ISchemaActivator<WorldSchema>
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -64,6 +67,10 @@ public sealed partial class WorldSchema : SystemSchema, IBlankDayFeaturette
 
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
+
+    /// <inheritdoc />
+    [Pure]
+    static WorldSchema ISchemaActivator<WorldSchema>.CreateInstance() => new();
 
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days that are

@@ -27,7 +27,10 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-public sealed partial class PaxSchema : SystemSchema, ILeapWeekSchema
+public sealed partial class PaxSchema :
+    SystemSchema,
+    ILeapWeekSchema,
+    ISchemaActivator<PaxSchema>
 {
     /// <summary>
     /// Represents the number of days per 400-year cycle.
@@ -48,6 +51,10 @@ public sealed partial class PaxSchema : SystemSchema, ILeapWeekSchema
 
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Weeks;
+
+    /// <inheritdoc />
+    [Pure]
+    static PaxSchema ISchemaActivator<PaxSchema>.CreateInstance() => new();
 
     /// <summary>
     /// Determines whether the specified month is the Pax month of the year or not.

@@ -12,7 +12,8 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class FrenchRepublican12Schema :
     FrenchRepublicanSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution
+    IDaysInMonthDistribution,
+    ISchemaActivator<FrenchRepublican12Schema>
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -32,6 +33,10 @@ public sealed partial class FrenchRepublican12Schema :
         leap
         ? [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 36]
         : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
+
+    /// <inheritdoc />
+    [Pure]
+    static FrenchRepublican12Schema ISchemaActivator<FrenchRepublican12Schema>.CreateInstance() => new();
 
     /// <inheritdoc />
     [Pure]

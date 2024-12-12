@@ -25,7 +25,8 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class InternationalFixedSchema :
     SystemSchema,
     IBlankDayFeaturette,
-    IDaysInMonthDistribution
+    IDaysInMonthDistribution,
+    ISchemaActivator<InternationalFixedSchema>
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -77,6 +78,10 @@ public sealed partial class InternationalFixedSchema :
         leap
         ? [28, 28, 28, 28, 28, 29, 28, 28, 28, 28, 28, 28, 29]
         : [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29];
+
+    /// <inheritdoc />
+    [Pure]
+    static InternationalFixedSchema ISchemaActivator<InternationalFixedSchema>.CreateInstance() => new();
 
     /// <inheritdoc />
     [Pure]

@@ -8,7 +8,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-public sealed partial class GregorianSchema : GJSchema
+public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<GregorianSchema>
 {
     /// <summary>
     /// Represents the earliest supported year.
@@ -53,6 +53,10 @@ public sealed partial class GregorianSchema : GJSchema
     /// <para>The span index matches the century number (0 to 3).</para>
     /// </summary>
     internal static ReadOnlySpan<ushort> DaysIn4CenturyCycle => [36_525, 36_524, 36_524, 36_524];
+
+    /// <inheritdoc />
+    [Pure]
+    static GregorianSchema ISchemaActivator<GregorianSchema>.CreateInstance() => new();
 }
 
 public partial class GregorianSchema // Year, month or day infos

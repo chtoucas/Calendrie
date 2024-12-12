@@ -11,7 +11,10 @@ using Calendrie.Core.Intervals;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-public sealed partial class TabularIslamicSchema : SystemSchema, IDaysInMonthDistribution
+public sealed partial class TabularIslamicSchema :
+    SystemSchema,
+    IDaysInMonthDistribution,
+    ISchemaActivator<TabularIslamicSchema>
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -65,6 +68,10 @@ public sealed partial class TabularIslamicSchema : SystemSchema, IDaysInMonthDis
         leap
         ? [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 30]
         : [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
+
+    /// <inheritdoc />
+    [Pure]
+    static TabularIslamicSchema ISchemaActivator<TabularIslamicSchema>.CreateInstance() => new();
 
     /// <inheritdoc />
     [Pure]

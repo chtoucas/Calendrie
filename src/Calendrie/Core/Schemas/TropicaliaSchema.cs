@@ -9,7 +9,10 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
 /// </summary>
-public sealed partial class TropicaliaSchema : TropicalistaSchema, IDaysInMonthDistribution
+public sealed partial class TropicaliaSchema :
+    TropicalistaSchema,
+    IDaysInMonthDistribution,
+    ISchemaActivator<TropicaliaSchema>
 {
     /// <summary>
     /// Represents the number of days from march to december, both
@@ -30,6 +33,10 @@ public sealed partial class TropicaliaSchema : TropicalistaSchema, IDaysInMonthD
         leap
         ? [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
         : [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    /// <inheritdoc />
+    [Pure]
+    static TropicaliaSchema ISchemaActivator<TropicaliaSchema>.CreateInstance() => new();
 }
 
 public partial class TropicaliaSchema // Year, month or day infos

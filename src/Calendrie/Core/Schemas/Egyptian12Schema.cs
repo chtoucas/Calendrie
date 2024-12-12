@@ -16,7 +16,8 @@ using Ptolemaic12 = PtolemaicSchema.Twelve;
 public sealed partial class Egyptian12Schema :
     EgyptianSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution
+    IDaysInMonthDistribution,
+    ISchemaActivator<Egyptian12Schema>
 {
     /// <summary>Represents the number of months in a year.</summary>
     /// <remarks>This field is a constant equal to 12.</remarks>
@@ -30,6 +31,10 @@ public sealed partial class Egyptian12Schema :
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
         // No leap years.
         [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
+
+    /// <inheritdoc />
+    [Pure]
+    static Egyptian12Schema ISchemaActivator<Egyptian12Schema>.CreateInstance() => new();
 
     /// <inheritdoc />
     [Pure]
