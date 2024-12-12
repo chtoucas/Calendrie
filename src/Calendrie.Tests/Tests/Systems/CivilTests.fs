@@ -22,6 +22,7 @@ open type Calendrie.Extensions.CivilExtensions
 module Prelude =
     let private calendarDataSet = StandardGregorianDataSet.Instance
 
+    let dateInfoData = calendarDataSet.DateInfoData
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
     [<Fact>]
@@ -34,6 +35,22 @@ module Prelude =
         let date = new CivilDate(y, m, d)
 
         date.DaysSinceZero === daysSinceEpoch
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ToGregorianDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let civilDate = new CivilDate(y, m, d)
+        let gregorianDate = new GregorianDate(y, m, d)
+
+        gregorianDate === civilDate.ToGregorianDate()
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``GregorianDate:FromCivilDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let gregorianDate = new GregorianDate(y, m, d)
+        let civilDate = new CivilDate(y, m, d)
+
+        GregorianDate.FromCivilDate(civilDate) === gregorianDate
 
 module Extensions =
     let private chr = new CivilCalendar()
