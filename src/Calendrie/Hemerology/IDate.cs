@@ -22,7 +22,7 @@ public interface IDate<TSelf> :
     IComparisonOperators<TSelf, TSelf>,
     IMinMaxFunction<TSelf>,
     // Arithmetic
-    IStandardArithmetic<TSelf>,
+    IDayArithmetic<TSelf>,
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,

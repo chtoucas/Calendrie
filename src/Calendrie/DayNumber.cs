@@ -61,7 +61,7 @@ public readonly partial struct DayNumber :
     IMinMaxValue<DayNumber>,
     IMinMaxFunction<DayNumber>,
     // Arithmetic
-    IStandardArithmetic<DayNumber>,
+    IDayArithmetic<DayNumber>,
     IAdditionOperators<DayNumber, int, DayNumber>,
     ISubtractionOperators<DayNumber, int, DayNumber>,
     ISubtractionOperators<DayNumber, DayNumber, int>,

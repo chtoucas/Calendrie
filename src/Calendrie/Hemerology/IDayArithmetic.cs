@@ -8,8 +8,8 @@ namespace Calendrie.Hemerology;
 /// day unit.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IStandardArithmetic<TSelf>
-    where TSelf : IStandardArithmetic<TSelf>
+public interface IDayArithmetic<TSelf>
+    where TSelf : IDayArithmetic<TSelf>
 {
     /// <summary>
     /// Counts the number of days elapsed since the specified date.
