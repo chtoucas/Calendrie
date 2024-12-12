@@ -27,20 +27,42 @@ public partial class BoundedBelowScopeTests : CalendricalDataConsumer<GregorianD
                 s_Schema, DayZero.NewStyle, new(s_Schema.SupportedYears.Min - 1, 1, 1), 9999));
 
     [Fact]
+    public static void Create_InvalidMinYear_Generic() =>
+        Assert.Throws<ArgumentOutOfRangeException>(
+            () => BoundedBelowScope.Create<GregorianSchema>(
+                DayZero.NewStyle, new(s_Schema.SupportedYears.Min - 1, 1, 1), 9999));
+
+    [Fact]
     public static void Create_InvalidMaxYear() =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create(
                 s_Schema, DayZero.NewStyle, new(s_Schema.SupportedYears.Max + 1, 1, 1), 9999));
+
+    [Fact]
+    public static void Create_InvalidMaxYear_Generic() =>
+        Assert.Throws<ArgumentOutOfRangeException>(
+            () => BoundedBelowScope.Create<GregorianSchema>(
+                DayZero.NewStyle, new(s_Schema.SupportedYears.Max + 1, 1, 1), 9999));
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public static void Create_InvalidMonth(int y, int m) =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create(s_Schema, DayZero.NewStyle, new(y, m, 1), 9999));
 
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public static void Create_InvalidMonth_Generic(int y, int m) =>
+        Assert.Throws<ArgumentOutOfRangeException>(
+            () => BoundedBelowScope.Create<GregorianSchema>(DayZero.NewStyle, new(y, m, 1), 9999));
+
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public static void Create_InvalidDay(int y, int m, int d) =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create(s_Schema, DayZero.NewStyle, new(y, m, d), 9999));
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public static void Create_InvalidDay_Generic(int y, int m, int d) =>
+        Assert.Throws<ArgumentOutOfRangeException>(
+            () => BoundedBelowScope.Create<GregorianSchema>(DayZero.NewStyle, new(y, m, d), 9999));
 
     [Theory(Skip = "MinDateParts cannot be the start of a year."), MemberData(nameof(DateInfoData))]
     public void Create(DateInfo info)

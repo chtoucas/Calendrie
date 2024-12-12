@@ -4,8 +4,8 @@
 namespace Samples;
 
 using Calendrie;
-using Calendrie.Core;
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -62,18 +62,15 @@ public partial class CalendarZoo
 
         internal static readonly BoundedBelowCalendar Gregorian =
             new("Gregorian",
-                BoundedBelowScope.StartingAt(
-                    UnsafeSchemas.CreateCivilSchema(), DayZero.NewStyle, new DateParts(1582, 10, 15)));
+                BoundedBelowScope.StartingAt<CivilSchema>(DayZero.NewStyle, new DateParts(1582, 10, 15)));
 
         internal static readonly MinMaxYearCalendar Julian =
             new("Julian",
-                MinMaxYearScope.StartingAt(
-                    UnsafeSchemas.CreateJulianSchema(), DayZero.OldStyle, 8));
+                MinMaxYearScope.StartingAt<JulianSchema>(DayZero.OldStyle, 8));
 
         internal static readonly MinMaxYearCalendar FrenchRevolutionary =
             new("French Revolutionary",
-                MinMaxYearScope.Create(
-                    UnsafeSchemas.CreateCoptic12Schema(), DayZero.FrenchRepublican, Range.Create(1, 14)));
+                MinMaxYearScope.Create<Coptic12Schema>(DayZero.FrenchRepublican, Range.Create(1, 14)));
     }
 }
 
@@ -106,16 +103,13 @@ public partial class CalendarZoo
         static LongCalendars() { }
 
         internal static readonly MinMaxYearCalendar Gregorian =
-            new("Gregorian",
-                MinMaxYearScope.CreateMaximal(UnsafeSchemas.CreateGregorianSchema(), DayZero.NewStyle));
+            new("Gregorian", MinMaxYearScope.CreateMaximal<GregorianSchema>(DayZero.NewStyle));
 
         internal static readonly MinMaxYearCalendar Julian =
-            new("Julian",
-                MinMaxYearScope.CreateMaximal(UnsafeSchemas.CreateJulianSchema(), DayZero.NewStyle));
+            new("Julian", MinMaxYearScope.CreateMaximal<JulianSchema>(DayZero.OldStyle));
 
         internal static readonly MinMaxYearCalendar Tropicalia =
-            new("Tropicalia",
-                MinMaxYearScope.CreateMaximal(UnsafeSchemas.CreateTropicaliaSchema(), DayZero.NewStyle));
+            new("Tropicalia", MinMaxYearScope.CreateMaximal<TropicaliaSchema>(DayZero.NewStyle));
     }
 }
 
@@ -149,18 +143,16 @@ public partial class CalendarZoo
 
         internal static readonly MinMaxYearCalendar Egyptian =
             new("Egyptian",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    UnsafeSchemas.CreateEgyptian12Schema(), DayZero.Egyptian));
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<Egyptian12Schema>(DayZero.Egyptian));
 
         internal static readonly MinMaxYearCalendar FrenchRepublican =
             new("French Republican",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    UnsafeSchemas.CreateFrenchRepublican12Schema(), DayZero.FrenchRepublican));
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<FrenchRepublican12Schema>(
+                    DayZero.FrenchRepublican));
 
         internal static readonly MinMaxYearCalendar Persian2820 =
             new("Tabular Persian",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    UnsafeSchemas.CreatePersian2820Schema(), DayZero.Persian));
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<Persian2820Schema>(DayZero.Persian));
     }
 }
 
@@ -209,29 +201,26 @@ public partial class CalendarZoo
         internal static readonly MinMaxYearCalendar InternationalFixed =
             // The International Fixed calendar re-uses the Gregorian epoch.
             new("International Fixed",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    UnsafeSchemas.CreateInternationalFixedSchema(), DayZero.NewStyle));
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<InternationalFixedSchema>(
+                    DayZero.NewStyle));
 
-        //internal static readonly MinMaxYearCalendar Pax =
-        //    new("Pax",
-        //        MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-        //            SchemaActivator.CreatePaxSchema(), DayZero.SundayBeforeGregorian));
+        internal static readonly MinMaxYearCalendar Pax =
+            new("Pax",
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<PaxSchema>(
+                    DayZero.SundayBeforeGregorian));
 
         internal static readonly MinMaxYearCalendar Positivist =
             new("Positivist",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    UnsafeSchemas.CreatePositivistSchema(), DayZero.Positivist));
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<PositivistSchema>(DayZero.Positivist));
 
         internal static readonly MinMaxYearCalendar RevisedWorld =
             // The Revised World calendar re-uses the Gregorian epoch.
             new("Revised World",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    UnsafeSchemas.CreateWorldSchema(), DayZero.NewStyle));
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<WorldSchema>(DayZero.NewStyle));
 
         internal static readonly MinMaxYearCalendar World =
             new("World",
-                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    UnsafeSchemas.CreateWorldSchema(), DayZero.SundayBeforeGregorian));
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1<WorldSchema>(DayZero.SundayBeforeGregorian));
     }
 }
 
