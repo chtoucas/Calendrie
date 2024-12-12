@@ -38,13 +38,33 @@ module Prelude =
 
         date.DaysSinceZero === daysSinceEpoch
 
+    //
+    // Conversions
+    //
+
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ToGregorianDate()`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
         let civilDate = new CivilDate(y, m, d)
         let gregorianDate = new GregorianDate(y, m, d)
 
-        gregorianDate === civilDate.ToGregorianDate()
+        civilDate.ToGregorianDate() === gregorianDate
+
+    [<Fact>]
+    let ``ToGregorianDate() at CivilDate:MaxValue`` () =
+        let civilDate = CivilDate.MaxValue
+        let y, m, d = civilDate.Deconstruct()
+        let gregorianDate = new GregorianDate(y, m, d)
+
+        civilDate.ToGregorianDate() === gregorianDate
+
+    [<Fact>]
+    let ``ToGregorianDate() at CivilDate:MinValue`` () =
+        let civilDate = CivilDate.MinValue
+        let y, m, d = civilDate.Deconstruct()
+        let gregorianDate = new GregorianDate(y, m, d)
+
+        civilDate.ToGregorianDate() === gregorianDate
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Implicit conversion to GregorianDate`` (x: DateInfo) =
@@ -52,13 +72,45 @@ module Prelude =
         let civilDate : GregorianDate = new CivilDate(y, m, d)
         let gregorianDate = new GregorianDate(y, m, d)
 
-        gregorianDate === civilDate
+        civilDate === gregorianDate
+
+    [<Fact>]
+    let ``Implicit conversion to GregorianDate at CivilDate:MaxValue`` () =
+        let civilDate : GregorianDate = CivilDate.MaxValue
+        let y, m, d = CivilDate.MaxValue.Deconstruct()
+        let gregorianDate = new GregorianDate(y, m, d)
+
+        civilDate === gregorianDate
+
+    [<Fact>]
+    let ``Implicit conversion to GregorianDate at CivilDate:MinValue`` () =
+        let civilDate : GregorianDate = CivilDate.MinValue
+        let y, m, d = CivilDate.MinValue.Deconstruct()
+        let gregorianDate = new GregorianDate(y, m, d)
+
+        civilDate === gregorianDate
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``GregorianDate:FromCivilDate()`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
         let gregorianDate = new GregorianDate(y, m, d)
         let civilDate = new CivilDate(y, m, d)
+
+        GregorianDate.FromCivilDate(civilDate) === gregorianDate
+
+    [<Fact>]
+    let ``GregorianDate:FromCivilDate(CivilDate:MaxValue)`` () =
+        let civilDate = CivilDate.MaxValue
+        let y, m, d = civilDate.Deconstruct()
+        let gregorianDate = new GregorianDate(y, m, d)
+
+        GregorianDate.FromCivilDate(civilDate) === gregorianDate
+
+    [<Fact>]
+    let ``GregorianDate:FromCivilDate(CivilDate:MinValue)`` () =
+        let civilDate = CivilDate.MinValue
+        let y, m, d = civilDate.Deconstruct()
+        let gregorianDate = new GregorianDate(y, m, d)
 
         GregorianDate.FromCivilDate(civilDate) === gregorianDate
 
