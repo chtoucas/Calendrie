@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
@@ -72,7 +74,8 @@ public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
     ISpecialDate<WorldDate>,
-    IAdjustable<WorldDate>
+    IAdjustable<WorldDate>,
+    ISubtractionOperators<WorldDate, WorldDate, int>
 { }
 
 public partial struct WorldDate // Preamble

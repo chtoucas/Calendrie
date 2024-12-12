@@ -17,6 +17,8 @@ public sealed class JulianTemplate : CalendarTemplate
     {
         WriteLine();
 #>
+using System.Numerics;
+
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>

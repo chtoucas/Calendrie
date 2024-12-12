@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
@@ -20,7 +22,8 @@ using Calendrie.Hemerology;
 public readonly partial struct GregorianDate :
     IDate<GregorianDate, GregorianCalendar>,
     ISpecialDate<GregorianDate>,
-    IAdjustable<GregorianDate>
+    IAdjustable<GregorianDate>,
+    ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
 
 public partial struct GregorianDate // Factories

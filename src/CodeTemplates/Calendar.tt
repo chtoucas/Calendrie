@@ -76,6 +76,8 @@ namespace <#= Namespace #>;
     {
         WriteLine();
 #>
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;

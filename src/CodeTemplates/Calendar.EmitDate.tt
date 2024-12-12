@@ -28,7 +28,8 @@ public partial class CalendarTemplate
 public readonly partial struct <#= Prefix #>Date :
     IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
     ISpecialDate<<#= Prefix #>Date>,
-    IAdjustable<<#= Prefix #>Date>
+    IAdjustable<<#= Prefix #>Date>,
+    ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>
 { }
 <#+
     } // T4: End of EmitDateDecl()

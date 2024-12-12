@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
@@ -72,7 +74,8 @@ public sealed partial class EthiopicCalendar : SpecialCalendar<EthiopicDate>
 public readonly partial struct EthiopicDate :
     IDate<EthiopicDate, EthiopicCalendar>,
     ISpecialDate<EthiopicDate>,
-    IAdjustable<EthiopicDate>
+    IAdjustable<EthiopicDate>,
+    ISubtractionOperators<EthiopicDate, EthiopicDate, int>
 { }
 
 public partial struct EthiopicDate // Preamble

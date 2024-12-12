@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
@@ -20,7 +22,8 @@ using Calendrie.Hemerology;
 public readonly partial struct JulianDate :
     IDate<JulianDate, JulianCalendar>,
     ISpecialDate<JulianDate>,
-    IAdjustable<JulianDate>
+    IAdjustable<JulianDate>,
+    ISubtractionOperators<JulianDate, JulianDate, int>
 { }
 
 public partial struct JulianDate // Counting

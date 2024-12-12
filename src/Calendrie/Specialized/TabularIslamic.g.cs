@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
@@ -72,7 +74,8 @@ public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIsla
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate, TabularIslamicCalendar>,
     ISpecialDate<TabularIslamicDate>,
-    IAdjustable<TabularIslamicDate>
+    IAdjustable<TabularIslamicDate>,
+    ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>
 { }
 
 public partial struct TabularIslamicDate // Preamble

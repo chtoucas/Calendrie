@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -19,7 +21,8 @@ using Calendrie.Hemerology;
 public readonly partial struct CivilDate :
     IDate<CivilDate, CivilCalendar>,
     ISpecialDate<CivilDate>,
-    IAdjustable<CivilDate>
+    IAdjustable<CivilDate>,
+    ISubtractionOperators<CivilDate, CivilDate, int>
 { }
 
 public partial struct CivilDate // Counting

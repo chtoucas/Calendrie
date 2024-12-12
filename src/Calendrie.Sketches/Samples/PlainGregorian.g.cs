@@ -12,6 +12,8 @@
 
 namespace Calendrie.Samples;
 
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
@@ -75,7 +77,8 @@ public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregor
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
     ISpecialDate<PlainGregorianDate>,
-    IAdjustable<PlainGregorianDate>
+    IAdjustable<PlainGregorianDate>,
+    ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>
 { }
 
 public partial struct PlainGregorianDate // Preamble

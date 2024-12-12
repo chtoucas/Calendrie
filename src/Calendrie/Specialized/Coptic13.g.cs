@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
@@ -72,7 +74,8 @@ public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
 public readonly partial struct Coptic13Date :
     IDate<Coptic13Date, Coptic13Calendar>,
     ISpecialDate<Coptic13Date>,
-    IAdjustable<Coptic13Date>
+    IAdjustable<Coptic13Date>,
+    ISubtractionOperators<Coptic13Date, Coptic13Date, int>
 { }
 
 public partial struct Coptic13Date // Preamble

@@ -10,6 +10,8 @@
 
 namespace Calendrie.Specialized;
 
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
@@ -72,7 +74,8 @@ public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDat
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
     ISpecialDate<ZoroastrianDate>,
-    IAdjustable<ZoroastrianDate>
+    IAdjustable<ZoroastrianDate>,
+    ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
 { }
 
 public partial struct ZoroastrianDate // Preamble
