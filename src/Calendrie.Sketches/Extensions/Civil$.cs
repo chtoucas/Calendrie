@@ -20,9 +20,7 @@ public partial class CivilExtensions // CivilDate
     [Pure]
     public static DayOfWeek GetDayOfWeek(this CivilDate date)
     {
-        // Should be faster than the base method which relies on CountDaysSinceEpoch().
         var (y, m, d) = date;
-
         int doomsday = DoomsdayRule.GetGregorianDoomsday(y, m);
         return (DayOfWeek)MathZ.Modulo(doomsday + d, CalendricalConstants.DaysInWeek);
     }

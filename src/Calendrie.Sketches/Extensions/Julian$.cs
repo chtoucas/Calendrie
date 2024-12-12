@@ -17,9 +17,7 @@ public partial class JulianExtensions // JulianDate
     [Pure]
     public static DayOfWeek GetDayOfWeek(this JulianDate date)
     {
-        // Should be faster than the base method which relies on CountDaysSinceEpoch().
         var (y, m, d) = date;
-
         int doomsday = DoomsdayRule.GetJulianDoomsday(y, m);
         return (DayOfWeek)MathZ.Modulo(doomsday + d, CalendricalConstants.DaysInWeek);
     }
