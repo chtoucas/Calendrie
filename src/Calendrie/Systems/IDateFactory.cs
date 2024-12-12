@@ -3,19 +3,21 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Hemerology;
+
 /// <summary>
-/// Defines a date type with a companion calendar of fixed type.
+/// Defines a factory method to create a date from the count of consecutive days
+/// since the epoch of the companion calendar.
 /// <para>This interface SHOULD NOT be implemented by date types participating
 /// in a poly-calendar system.</para>
 /// </summary>
-/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IDateFactory<TSelf>
-    where TSelf : IDateFactory<TSelf>
+/// <typeparam name="TDate">The date type.</typeparam>
+public interface IDateFactory<TDate> where TDate : IFixedDate
 {
     /// <summary>
-    /// Creates a new instance of the <typeparamref name="TSelf"/> struct from
+    /// Creates a new instance of the <typeparamref name="TDate"/> struct from
     /// the specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    [Pure] internal static abstract TSelf FromDaysSinceEpochUnchecked(int daysSinceEpoch);
+    [Pure] internal static abstract TDate FromDaysSinceEpochUnchecked(int daysSinceEpoch);
 }
