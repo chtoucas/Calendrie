@@ -21,7 +21,7 @@ using Calendrie.Hemerology;
 /// Represents the Ethiopic calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class Ethiopic13Calendar : SpecialCalendar<Ethiopic13Date>
+public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.Ethiopic;

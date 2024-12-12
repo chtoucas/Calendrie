@@ -24,7 +24,7 @@ using Calendrie.Systems;
 /// Represents the PlainGregorian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PlainGregorianCalendar : SpecialCalendar<PlainGregorianDate>
+public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregorianDate>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.NewStyle;

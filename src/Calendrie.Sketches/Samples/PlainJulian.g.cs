@@ -24,7 +24,7 @@ using Calendrie.Systems;
 /// Represents the PlainJulian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PlainJulianCalendar : SpecialCalendar<PlainJulianDate>
+public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.OldStyle;

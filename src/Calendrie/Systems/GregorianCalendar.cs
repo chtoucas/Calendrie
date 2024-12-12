@@ -11,7 +11,7 @@ using Calendrie.Core.Schemas;
 /// the range [-999_998..999_999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class GregorianCalendar : SpecialCalendar<GregorianDate>
+public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
 {
     // See comments in Armenian13Calendar for instance.
     internal static readonly GregorianSchema SchemaT = new();

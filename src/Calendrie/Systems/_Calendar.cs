@@ -113,7 +113,7 @@ public partial class WorldCalendar
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days
     /// that are formally outside any month).
-    /// <para>See also <seealso cref="SpecialCalendar{WorldDate}.CountDaysInMonth(int, int)"/>.
+    /// <para>See also <seealso cref="CalendarSystem{WorldDate}.CountDaysInMonth(int, int)"/>.
     /// </para>
     /// </summary>
     [Pure]

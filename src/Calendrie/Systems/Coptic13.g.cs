@@ -21,7 +21,7 @@ using Calendrie.Hemerology;
 /// Represents the Coptic calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class Coptic13Calendar : SpecialCalendar<Coptic13Date>
+public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.Coptic;

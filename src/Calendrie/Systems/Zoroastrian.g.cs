@@ -21,7 +21,7 @@ using Calendrie.Hemerology;
 /// Represents the Zoroastrian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class ZoroastrianCalendar : SpecialCalendar<ZoroastrianDate>
+public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.Zoroastrian;

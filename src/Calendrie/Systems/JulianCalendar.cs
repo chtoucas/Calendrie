@@ -11,7 +11,7 @@ using Calendrie.Core.Schemas;
 /// the range [-999_998..999_999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class JulianCalendar : SpecialCalendar<JulianDate>
+public sealed class JulianCalendar : CalendarSystem<JulianDate>
 {
     // See comments in Armenian13Calendar for instance.
     internal static readonly JulianSchema SchemaT = new();

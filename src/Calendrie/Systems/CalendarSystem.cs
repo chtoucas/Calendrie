@@ -33,18 +33,18 @@ using Calendrie.Hemerology;
 /// the count of consecutive days since the epoch.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public partial class SpecialCalendar<TDate> : Calendar, IDateProvider<TDate>
+public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     where TDate : ISpecialDate<TDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SpecialCalendar{TDate}"/>
+    /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
     /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is
     /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// <see langword="null"/>.</exception>
-    internal SpecialCalendar(string name, CalendarScope scope) : base(name, scope)
+    internal CalendarSystem(string name, CalendarScope scope) : base(name, scope)
     {
         Debug.Assert(scope.Segment.IsComplete);
     }
@@ -74,7 +74,7 @@ public partial class SpecialCalendar<TDate> : Calendar, IDateProvider<TDate>
     }
 }
 
-public partial class SpecialCalendar<TDate> // IDateProvider<TDate>
+public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {
     /// <inheritdoc/>
     [Pure]

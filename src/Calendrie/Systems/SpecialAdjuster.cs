@@ -6,7 +6,7 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
-// See comments in SpecialCalendar<>.
+// See comments in CalendarSystem<>.
 
 /// <summary>
 /// Defines an adjuster for <typeparamref name="TDate"/> and provides a base for
@@ -24,7 +24,7 @@ public sealed class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
     /// null.</exception>
-    internal SpecialAdjuster(SpecialCalendar<TDate> calendar)
+    internal SpecialAdjuster(CalendarSystem<TDate> calendar)
     {
         ArgumentNullException.ThrowIfNull(calendar);
 

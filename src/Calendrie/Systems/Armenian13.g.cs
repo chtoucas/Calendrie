@@ -21,7 +21,7 @@ using Calendrie.Hemerology;
 /// Represents the Armenian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class Armenian13Calendar : SpecialCalendar<Armenian13Date>
+public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.Armenian;

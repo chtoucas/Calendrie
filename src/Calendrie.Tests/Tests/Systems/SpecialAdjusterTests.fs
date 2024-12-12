@@ -11,7 +11,7 @@ open Xunit
 module Prelude =
     [<Fact>]
     let ``Constructor throws when the calendar is null`` () =
-        let chr: SpecialCalendar<ArmenianDate> | null = null
+        let chr: CalendarSystem<ArmenianDate> | null = null
 
         nullExn "calendar" (fun () -> new SpecialAdjuster<ArmenianDate>(chr))
 

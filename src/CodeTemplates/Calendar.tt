@@ -102,7 +102,7 @@ using Calendrie.Systems;
 /// Represents the <#= DisplayName #> calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class <#= Prefix #>Calendar : SpecialCalendar<<#= Prefix #>Date>
+public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>Date>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = <#= Epoch #>;

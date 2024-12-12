@@ -11,7 +11,7 @@ using Calendrie.Core.Schemas;
 /// of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class CivilCalendar : SpecialCalendar<CivilDate>
+public sealed class CivilCalendar : CalendarSystem<CivilDate>
 {
     // See comments in Armenian13Calendar for instance.
     internal static readonly CivilSchema SchemaT = new();

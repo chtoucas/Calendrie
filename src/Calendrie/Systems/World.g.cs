@@ -21,7 +21,7 @@ using Calendrie.Hemerology;
 /// Represents the World calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class WorldCalendar : SpecialCalendar<WorldDate>
+public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.SundayBeforeGregorian;

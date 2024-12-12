@@ -21,7 +21,7 @@ using Calendrie.Hemerology;
 /// Represents the Tabular Islamic calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class TabularIslamicCalendar : SpecialCalendar<TabularIslamicDate>
+public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslamicDate>
 {
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.TabularIslamic;
