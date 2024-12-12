@@ -33,7 +33,7 @@ let ``Property Easter`` y m d =
     easter.DayOfWeek === DayOfWeek.Sunday
     kalendar.Easter  === easter
 
-[<Theory(Skip = "D&R data does not match our definition of the Paschal Moon (?)"); MemberData(nameof(paschalMoonData))>]
+[<Theory(Skip = "It seems that the D&R data does not match our definition of the Paschal Moon"); MemberData(nameof(paschalMoonData))>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 let ``Property PaschalMoon`` y m d =
     let moon = new GregorianDate(y, m, d)

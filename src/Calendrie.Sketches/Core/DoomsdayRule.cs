@@ -3,7 +3,10 @@
 
 namespace Calendrie.Core;
 
-// Doomsday rule, adapted by Keith & Craver.
+// Doomsday rule, adapted by Keith & Craver
+//
+// Only useful for Gregorian/Julian types storing their information in the
+// year/month/day format.
 //
 // Conway algorithm:
 //   given a reference doomsday in the year:
