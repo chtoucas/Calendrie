@@ -178,6 +178,18 @@ public partial struct CivilDate
 
 public partial struct CivilDate // Factories
 {
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="CivilDate"/> value to a
+    /// <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static implicit operator GregorianDate(CivilDate date) => new(date._daysSinceZero);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>See also <see cref="GregorianDate.FromCivilDate(CivilDate)"/></para>
+    /// </summary>
+    public GregorianDate ToGregorianDate() => new(_daysSinceZero);
+
     /// <inheritdoc />
     [Pure]
     public static CivilDate FromDayNumber(DayNumber dayNumber)

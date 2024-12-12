@@ -179,6 +179,16 @@ public partial struct GregorianDate
         year = GregorianFormulae.GetYear(_daysSinceZero, out dayOfYear);
 }
 
+public partial struct GregorianDate // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
+    /// the specified <see cref="CivilDate"/> value.
+    /// <para>See also <see cref="CivilDate.ToGregorianDate()"/></para>
+    /// </summary>
+    public static GregorianDate FromCivilDate(CivilDate date) => new(date.DaysSinceZero);
+}
+
 public partial struct GregorianDate // Math
 {
 #pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
