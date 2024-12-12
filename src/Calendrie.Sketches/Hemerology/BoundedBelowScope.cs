@@ -21,7 +21,7 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <exception cref="ArgumentException">The start of <paramref name="segment"/>
     /// is the first day of a year -or- the end of <paramref name="segment"/> is
     /// not the end of a year.</exception>
-    private BoundedBelowScope(DayNumber epoch, CalendricalSegment segment)
+    public BoundedBelowScope(DayNumber epoch, CalendricalSegment segment)
         : base(epoch, segment)
     {
         var seg = Segment;
@@ -57,6 +57,13 @@ public sealed class BoundedBelowScope : CalendarScope
 
     #region Factories
 
+    public static BoundedBelowScope Create<TSchema>(
+        DayNumber epoch, DateParts minDateParts, int maxYear)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return Create(TSchema.CreateInstance(), epoch, minDateParts, maxYear);
+    }
+
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
@@ -79,6 +86,12 @@ public sealed class BoundedBelowScope : CalendarScope
         var seg = builder.BuildSegment();
 
         return new BoundedBelowScope(epoch, seg);
+    }
+
+    public static BoundedBelowScope StartingAt<TSchema>(DayNumber epoch, DateParts parts)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return StartingAt(TSchema.CreateInstance(), epoch, parts);
     }
 
     /// <summary>

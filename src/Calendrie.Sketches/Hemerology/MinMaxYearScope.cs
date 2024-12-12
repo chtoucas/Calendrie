@@ -19,7 +19,7 @@ public sealed class MinMaxYearScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
     /// <see langword="null"/>.</exception>
-    public MinMaxYearScope(DayNumber epoch, CalendricalSegment segment)
+    private MinMaxYearScope(DayNumber epoch, CalendricalSegment segment)
         : base(epoch, segment)
     {
         Debug.Assert(segment != null);
@@ -27,6 +27,12 @@ public sealed class MinMaxYearScope : CalendarScope
     }
 
     #region Factories
+
+    public static MinMaxYearScope Create<TSchema>(DayNumber epoch, Range<int> supportedYears)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return Create(TSchema.CreateInstance(), epoch, supportedYears);
+    }
 
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
@@ -44,6 +50,12 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(epoch, seg);
     }
 
+    public static MinMaxYearScope CreateMaximal<TSchema>(DayNumber epoch)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return CreateMaximal(TSchema.CreateInstance(), epoch);
+    }
+
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
     /// </summary>
@@ -55,6 +67,12 @@ public sealed class MinMaxYearScope : CalendarScope
         var seg = CalendricalSegment.CreateMaximal(schema);
 
         return new MinMaxYearScope(epoch, seg);
+    }
+
+    public static MinMaxYearScope CreateMaximalOnOrAfterYear1<TSchema>(DayNumber epoch)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return CreateMaximalOnOrAfterYear1(TSchema.CreateInstance(), epoch);
     }
 
     /// <summary>
@@ -72,6 +90,12 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(epoch, seg);
     }
 
+    public static MinMaxYearScope StartingAt<TSchema>(DayNumber epoch, int year)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return StartingAt(TSchema.CreateInstance(), epoch, year);
+    }
+
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
     /// dates on or after the specified year.
@@ -87,6 +111,12 @@ public sealed class MinMaxYearScope : CalendarScope
         var segment = builder.BuildSegment();
 
         return new MinMaxYearScope(epoch, segment);
+    }
+
+    public static MinMaxYearScope EndingAt<TSchema>(DayNumber epoch, int year)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return EndingAt(TSchema.CreateInstance(), epoch, year);
     }
 
     /// <summary>
