@@ -5,8 +5,9 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// NB: an affine date can only be linked to a single calendar system,
-// therefore we can provide unambigiously a factory method FromDaysSinceEpoch().
+// NB: contrary to an IDate, an affine date can only be linked to a single
+// calendar system, therefore we can provide unambigiously a factory method
+// FromDaysSinceEpoch(). IDate does not mandate the equivalent FromDayNumber().
 
 /// <summary>
 /// Defines an affine date.
@@ -36,11 +37,7 @@ public interface IAffineDate<TSelf> :
     IComparisonOperators<TSelf, TSelf>,
     IMinMaxFunction<TSelf>,
     // Arithmetic
-    IDayArithmetic<TSelf>,
-    IAdditionOperators<TSelf, int, TSelf>,
-    ISubtractionOperators<TSelf, int, TSelf>,
-    IIncrementOperators<TSelf>,
-    IDecrementOperators<TSelf>
+    IDayArithmetic<TSelf>
     where TSelf : IAffineDate<TSelf>
 {
     /// <summary>
@@ -51,11 +48,4 @@ public interface IAffineDate<TSelf> :
     /// is outside the range of values supported by the default calendar.
     /// </exception>
     [Pure] static abstract TSelf FromDaysSinceEpoch(int daysSinceEpoch);
-
-    /// <summary>
-    /// Subtracts the two specified dates and returns the number of days between
-    /// them.
-    /// </summary>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See IStandardArithmetic<TSelf>.CountDaysSince()")]
-    static abstract int operator -(TSelf left, TSelf right);
 }

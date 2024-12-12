@@ -62,11 +62,7 @@ public readonly partial struct DayNumber :
     IMinMaxFunction<DayNumber>,
     // Arithmetic
     IDayArithmetic<DayNumber>,
-    IAdditionOperators<DayNumber, int, DayNumber>,
-    ISubtractionOperators<DayNumber, int, DayNumber>,
-    ISubtractionOperators<DayNumber, DayNumber, int>,
-    IIncrementOperators<DayNumber>,
-    IDecrementOperators<DayNumber>
+    ISubtractionOperators<DayNumber, DayNumber, int>
 {
     /// <summary>
     /// Represents the smallest possible value of the count of consecutive days

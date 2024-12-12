@@ -22,20 +22,9 @@ public interface IDate<TSelf> :
     IComparisonOperators<TSelf, TSelf>,
     IMinMaxFunction<TSelf>,
     // Arithmetic
-    IDayArithmetic<TSelf>,
-    IAdditionOperators<TSelf, int, TSelf>,
-    ISubtractionOperators<TSelf, int, TSelf>,
-    IIncrementOperators<TSelf>,
-    IDecrementOperators<TSelf>
+    IDayArithmetic<TSelf>
     where TSelf : IDate<TSelf>
-{
-    /// <summary>
-    /// Subtracts the two specified dates and returns the number of days between
-    /// them.
-    /// </summary>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See IStandardArithmetic<TSelf>.CountDaysSince()")]
-    static abstract int operator -(TSelf left, TSelf right);
-}
+{ }
 
 // L'interface suivante est prévue pour les dates ne fonctionnant qu'avec un seul
 // type de calendrier, d'où le fait d'avoir choisi des propriétés et méthodes
