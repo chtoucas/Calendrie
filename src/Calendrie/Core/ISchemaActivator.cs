@@ -3,9 +3,8 @@
 
 namespace Calendrie.Core;
 
-// Funny interface: it's public but
-// - it can ONLY be implemented from within friend assemblies
-// - it has a single static method, which is internal
+// Funny interface: it's public but it can ONLY be implemented from within friend
+// assemblies, having a static __internal__ method.
 
 public interface ISchemaActivator<TSelf> where TSelf : ICalendricalSchema
 {

@@ -10,8 +10,7 @@ using Calendrie.Hemerology;
 
 /// <summary>
 /// Provides a compendium of calendars.
-/// <para>These calendars are pretty <i>useless</i> on their own as they don't
-/// come with a date type.</para>
+/// <para>These calendars don't come with a companion date type.</para>
 /// <para>Unless specified otherwise, the calendars listed here do not allow
 /// dates prior their epochal origin.</para>
 /// <para>This class cannot be inherited.</para>
