@@ -41,6 +41,7 @@ public partial class GregorianExtensions // GregorianCalendar
         // This method should be faster than the one found in CivilExtensions.
         // Indeed, by using the internals, validation occurs only once.
 
+        // Check arg eagerly.
         ProlepticScope.YearsValidatorImpl.Validate(year);
 
         return iterator();
