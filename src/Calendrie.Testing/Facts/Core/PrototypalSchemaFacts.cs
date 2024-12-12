@@ -3,9 +3,9 @@
 
 namespace Calendrie.Testing.Facts.Core;
 
-using Calendrie.Testing.Data;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
+using Calendrie.Testing.Data;
 
 /// <summary>
 /// Provides facts about <see cref="PrototypalSchema"/>.
