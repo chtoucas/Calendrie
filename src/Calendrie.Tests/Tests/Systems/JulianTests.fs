@@ -76,7 +76,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<JulianDate, UnboundedJulianDataSet>(JulianDate.Adjuster)
+        inherit DateAdjusterFacts<JulianDate, UnboundedJulianDataSet>(JulianDate.Adjuster)
 
         override __.GetDate(y, m, d) = new JulianDate(y, m, d)
         override __.GetDate(y, doy) = new JulianDate(y, doy)

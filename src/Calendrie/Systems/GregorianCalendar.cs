@@ -35,11 +35,11 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// </summary>
     internal GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
     {
-        Adjuster = new SpecialAdjuster<GregorianDate>(this);
+        Adjuster = new DateAdjuster<GregorianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<GregorianDate> Adjuster { get; }
+    public DateAdjuster<GregorianDate> Adjuster { get; }
 }

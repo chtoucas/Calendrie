@@ -53,13 +53,13 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     /// </summary>
     private Coptic13Calendar(StandardScope scope) : base("Coptic", scope)
     {
-        Adjuster = new SpecialAdjuster<Coptic13Date>(this);
+        Adjuster = new DateAdjuster<Coptic13Date>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<Coptic13Date> Adjuster { get; }
+    public DateAdjuster<Coptic13Date> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -156,7 +156,7 @@ public partial struct Coptic13Date // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static SpecialAdjuster<Coptic13Date> Adjuster => Coptic13Calendar.Instance.Adjuster;
+    public static DateAdjuster<Coptic13Date> Adjuster => Coptic13Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

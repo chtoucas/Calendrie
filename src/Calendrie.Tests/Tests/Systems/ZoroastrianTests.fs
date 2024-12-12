@@ -47,7 +47,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<ZoroastrianDate, StandardZoroastrian12DataSet>(ZoroastrianDate.Adjuster)
+        inherit DateAdjusterFacts<ZoroastrianDate, StandardZoroastrian12DataSet>(ZoroastrianDate.Adjuster)
 
         override __.GetDate(y, m, d) = new ZoroastrianDate(y, m, d)
         override __.GetDate(y, doy) = new ZoroastrianDate(y, doy)
@@ -96,7 +96,7 @@ module Bundles13 =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>(Zoroastrian13Date.Adjuster)
+        inherit DateAdjusterFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>(Zoroastrian13Date.Adjuster)
 
         override __.GetDate(y, m, d) = new Zoroastrian13Date(y, m, d)
         override __.GetDate(y, doy) = new Zoroastrian13Date(y, doy)

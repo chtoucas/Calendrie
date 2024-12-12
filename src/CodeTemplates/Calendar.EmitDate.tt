@@ -121,7 +121,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static SpecialAdjuster<<#= Prefix #>Date> Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
+    public static DateAdjuster<<#= Prefix #>Date> Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

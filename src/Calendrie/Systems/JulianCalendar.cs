@@ -33,11 +33,11 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
 
     internal JulianCalendar(JulianScope scope) : base("Julian", scope)
     {
-        Adjuster = new SpecialAdjuster<JulianDate>(this);
+        Adjuster = new DateAdjuster<JulianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<JulianDate> Adjuster { get; }
+    public DateAdjuster<JulianDate> Adjuster { get; }
 }

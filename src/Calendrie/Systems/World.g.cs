@@ -53,13 +53,13 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// </summary>
     private WorldCalendar(StandardScope scope) : base("World", scope)
     {
-        Adjuster = new SpecialAdjuster<WorldDate>(this);
+        Adjuster = new DateAdjuster<WorldDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<WorldDate> Adjuster { get; }
+    public DateAdjuster<WorldDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -156,7 +156,7 @@ public partial struct WorldDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static SpecialAdjuster<WorldDate> Adjuster => WorldCalendar.Instance.Adjuster;
+    public static DateAdjuster<WorldDate> Adjuster => WorldCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

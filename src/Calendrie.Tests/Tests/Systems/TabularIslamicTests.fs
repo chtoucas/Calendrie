@@ -47,7 +47,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<TabularIslamicDate, StandardTabularIslamicDataSet>(TabularIslamicDate.Adjuster)
+        inherit DateAdjusterFacts<TabularIslamicDate, StandardTabularIslamicDataSet>(TabularIslamicDate.Adjuster)
 
         override __.GetDate(y, m, d) = new TabularIslamicDate(y, m, d)
         override __.GetDate(y, doy) = new TabularIslamicDate(y, doy)

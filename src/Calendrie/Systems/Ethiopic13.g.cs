@@ -53,13 +53,13 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// </summary>
     private Ethiopic13Calendar(StandardScope scope) : base("Ethiopic", scope)
     {
-        Adjuster = new SpecialAdjuster<Ethiopic13Date>(this);
+        Adjuster = new DateAdjuster<Ethiopic13Date>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<Ethiopic13Date> Adjuster { get; }
+    public DateAdjuster<Ethiopic13Date> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -156,7 +156,7 @@ public partial struct Ethiopic13Date // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static SpecialAdjuster<Ethiopic13Date> Adjuster => Ethiopic13Calendar.Instance.Adjuster;
+    public static DateAdjuster<Ethiopic13Date> Adjuster => Ethiopic13Calendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

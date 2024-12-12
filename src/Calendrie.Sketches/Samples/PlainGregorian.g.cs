@@ -56,13 +56,13 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// </summary>
     private PlainGregorianCalendar(StandardScope scope) : base("PlainGregorian", scope)
     {
-        Adjuster = new SpecialAdjuster<PlainGregorianDate>(this);
+        Adjuster = new DateAdjuster<PlainGregorianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<PlainGregorianDate> Adjuster { get; }
+    public DateAdjuster<PlainGregorianDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -155,7 +155,7 @@ public partial struct PlainGregorianDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static SpecialAdjuster<PlainGregorianDate> Adjuster => PlainGregorianCalendar.Instance.Adjuster;
+    public static DateAdjuster<PlainGregorianDate> Adjuster => PlainGregorianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);

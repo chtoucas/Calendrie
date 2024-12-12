@@ -38,7 +38,7 @@ namespace Calendrie.Hemerology;
 //
 // For a default implementation, see DateAdjuster.
 // A custom implementation SHOULD only be done when we can avoid to validate
-// the result; see for instance SpecialAdjuster where we know in
+// the result; see for instance DateAdjuster where we know in
 // advance that the result is guaranteed to be within the calendar boundaries.
 
 /// <summary>

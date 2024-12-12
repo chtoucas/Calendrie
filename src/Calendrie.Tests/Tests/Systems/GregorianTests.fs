@@ -102,7 +102,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit SpecialAdjusterFacts<GregorianDate, UnboundedGregorianDataSet>(GregorianDate.Adjuster)
+        inherit DateAdjusterFacts<GregorianDate, UnboundedGregorianDataSet>(GregorianDate.Adjuster)
 
         override __.GetDate(y, m, d) = new GregorianDate(y, m, d)
         override __.GetDate(y, doy) = new GregorianDate(y, doy)

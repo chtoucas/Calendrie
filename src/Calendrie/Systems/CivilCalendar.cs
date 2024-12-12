@@ -32,11 +32,11 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
 
     private CivilCalendar(CivilScope scope) : base("Civil", scope)
     {
-        Adjuster = new SpecialAdjuster<CivilDate>(this);
+        Adjuster = new DateAdjuster<CivilDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<CivilDate> Adjuster { get; }
+    public DateAdjuster<CivilDate> Adjuster { get; }
 }

@@ -8,15 +8,15 @@ using Calendrie.Systems;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
-public abstract partial class SpecialAdjusterFacts<TDate, TDataSet> :
-    IDateAdjusterFacts<SpecialAdjuster<TDate>, TDate, TDataSet>
+public abstract partial class DateAdjusterFacts<TDate, TDataSet> :
+    IDateAdjusterFacts<DateAdjuster<TDate>, TDate, TDataSet>
     where TDate : IAdjustable<TDate>, IDate<TDate>, IDateFactory<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected SpecialAdjusterFacts(SpecialAdjuster<TDate> adjuster) : base(adjuster) { }
+    protected DateAdjusterFacts(DateAdjuster<TDate> adjuster) : base(adjuster) { }
 }
 
-public partial class SpecialAdjusterFacts<TDate, TDataSet> // Adjust()
+public partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
 {
     [Fact]
     public void Adjust_InvalidAdjuster()

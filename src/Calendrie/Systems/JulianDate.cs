@@ -86,7 +86,7 @@ public partial struct JulianDate
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static SpecialAdjuster<JulianDate> Adjuster => JulianCalendar.Instance.Adjuster;
+    public static DateAdjuster<JulianDate> Adjuster => JulianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);

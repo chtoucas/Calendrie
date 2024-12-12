@@ -53,13 +53,13 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// </summary>
     private ZoroastrianCalendar(StandardScope scope) : base("Zoroastrian", scope)
     {
-        Adjuster = new SpecialAdjuster<ZoroastrianDate>(this);
+        Adjuster = new DateAdjuster<ZoroastrianDate>(this);
     }
 
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
-    public SpecialAdjuster<ZoroastrianDate> Adjuster { get; }
+    public DateAdjuster<ZoroastrianDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -156,7 +156,7 @@ public partial struct ZoroastrianDate // Preamble
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static SpecialAdjuster<ZoroastrianDate> Adjuster => ZoroastrianCalendar.Instance.Adjuster;
+    public static DateAdjuster<ZoroastrianDate> Adjuster => ZoroastrianCalendar.Instance.Adjuster;
 
     /// <inheritdoc />
     //

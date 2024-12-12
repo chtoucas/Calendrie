@@ -15,16 +15,16 @@ using Calendrie.Hemerology;
 /// </para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public sealed class SpecialAdjuster<TDate> : IDateAdjuster<TDate>
+public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     where TDate : IDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SpecialAdjuster{TDate}"/>
+    /// Initializes a new instance of the <see cref="DateAdjuster{TDate}"/>
     /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
     /// null.</exception>
-    internal SpecialAdjuster(CalendarSystem<TDate> calendar)
+    internal DateAdjuster(CalendarSystem<TDate> calendar)
     {
         ArgumentNullException.ThrowIfNull(calendar);
 
