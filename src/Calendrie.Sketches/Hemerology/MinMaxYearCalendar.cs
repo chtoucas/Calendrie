@@ -22,9 +22,9 @@ public partial class MinMaxYearCalendar : Calendar
     {
         PartsAdapter = new PartsAdapter(Schema);
 
-        DayNumberProvider = new DayNumberProvider_(this);
-        DatePartsProvider = new DatePartsProvider_(this);
-        OrdinalPartsProvider = new OrdinalPartsProvider_(this);
+        DayNumberProvider = new MinMaxYearDayNumberProvider(this);
+        DatePartsProvider = new MinMaxYearDatePartsProvider(this);
+        OrdinalPartsProvider = new MinMaxYearOrdinalPartsProvider(this);
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ public partial class MinMaxYearCalendar : Calendar
     /// <summary>
     /// Gets the adapter for calendrical parts.
     /// </summary>
-    protected PartsAdapter PartsAdapter { get; }
+    protected internal PartsAdapter PartsAdapter { get; }
 
     /// <inheritdoc/>
     [Pure]
@@ -109,241 +109,238 @@ public partial class MinMaxYearCalendar // Conversions
     }
 }
 
-public partial class MinMaxYearCalendar // Parts providers
+public sealed class MinMaxYearDayNumberProvider : IDateProvider<DayNumber>
 {
-    private sealed class DayNumberProvider_ : IDateProvider<DayNumber>
+    private readonly MinMaxYearCalendar _inner;
+    private readonly DayNumber _epoch;
+
+    public MinMaxYearDayNumberProvider(MinMaxYearCalendar inner)
     {
-        private readonly MinMaxYearCalendar _this;
-        private readonly DayNumber _epoch;
+        Debug.Assert(inner != null);
 
-        public DayNumberProvider_(MinMaxYearCalendar @this)
-        {
-            Debug.Assert(@this != null);
-
-            _this = @this;
-            _epoch = @this.Scope.Epoch;
-        }
-
-        /// <inheritdoc/>
-        [Pure]
-        public IEnumerable<DayNumber> GetDaysInYear(int year)
-        {
-            _this.YearsValidator.Validate(year);
-
-            int startOfYear = _this.Schema.GetStartOfYear(year);
-            int daysInYear = _this.Schema.CountDaysInYear(year);
-
-            return from daysSinceEpoch
-                   in Enumerable.Range(startOfYear, daysInYear)
-                   select _epoch + daysSinceEpoch;
-        }
-
-        /// <inheritdoc/>
-        [Pure]
-        public IEnumerable<DayNumber> GetDaysInMonth(int year, int month)
-        {
-            _this.Scope.ValidateYearMonth(year, month);
-
-            int startOfMonth = _this.Schema.GetStartOfMonth(year, month);
-            int daysInMonth = _this.Schema.CountDaysInMonth(year, month);
-
-            return from daysSinceEpoch
-                   in Enumerable.Range(startOfMonth, daysInMonth)
-                   select _epoch + daysSinceEpoch;
-        }
-
-        /// <inheritdoc/>
-        [Pure]
-        public DayNumber GetStartOfYear(int year)
-        {
-            _this.YearsValidator.Validate(year);
-            return _epoch + _this.Schema.GetStartOfYear(year);
-        }
-
-        /// <inheritdoc/>
-        [Pure]
-        public DayNumber GetEndOfYear(int year)
-        {
-            _this.YearsValidator.Validate(year);
-            return _epoch + _this.Schema.GetEndOfYear(year);
-        }
-
-        /// <inheritdoc/>
-        [Pure]
-        public DayNumber GetStartOfMonth(int year, int month)
-        {
-            _this.Scope.ValidateYearMonth(year, month);
-            return _epoch + _this.Schema.GetStartOfMonth(year, month);
-        }
-
-        /// <inheritdoc/>
-        [Pure]
-        public DayNumber GetEndOfMonth(int year, int month)
-        {
-            _this.Scope.ValidateYearMonth(year, month);
-            return _epoch + _this.Schema.GetEndOfMonth(year, month);
-        }
+        _inner = inner;
+        _epoch = inner.Scope.Epoch;
     }
 
-    private sealed class DatePartsProvider_ : IDateProvider<DateParts>
+    /// <inheritdoc/>
+    [Pure]
+    public IEnumerable<DayNumber> GetDaysInYear(int year)
     {
-        private readonly MinMaxYearCalendar _this;
+        _inner.YearsValidator.Validate(year);
 
-        public DatePartsProvider_(MinMaxYearCalendar @this)
+        int startOfYear = _inner.Schema.GetStartOfYear(year);
+        int daysInYear = _inner.Schema.CountDaysInYear(year);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfYear, daysInYear)
+               select _epoch + daysSinceEpoch;
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public IEnumerable<DayNumber> GetDaysInMonth(int year, int month)
+    {
+        _inner.Scope.ValidateYearMonth(year, month);
+
+        int startOfMonth = _inner.Schema.GetStartOfMonth(year, month);
+        int daysInMonth = _inner.Schema.CountDaysInMonth(year, month);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfMonth, daysInMonth)
+               select _epoch + daysSinceEpoch;
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DayNumber GetStartOfYear(int year)
+    {
+        _inner.YearsValidator.Validate(year);
+        return _epoch + _inner.Schema.GetStartOfYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DayNumber GetEndOfYear(int year)
+    {
+        _inner.YearsValidator.Validate(year);
+        return _epoch + _inner.Schema.GetEndOfYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DayNumber GetStartOfMonth(int year, int month)
+    {
+        _inner.Scope.ValidateYearMonth(year, month);
+        return _epoch + _inner.Schema.GetStartOfMonth(year, month);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DayNumber GetEndOfMonth(int year, int month)
+    {
+        _inner.Scope.ValidateYearMonth(year, month);
+        return _epoch + _inner.Schema.GetEndOfMonth(year, month);
+    }
+}
+
+public sealed class MinMaxYearDatePartsProvider : IDateProvider<DateParts>
+{
+    private readonly MinMaxYearCalendar _inner;
+
+    public MinMaxYearDatePartsProvider(MinMaxYearCalendar inner)
+    {
+        Debug.Assert(inner != null);
+
+        _inner = inner;
+    }
+
+    [Pure]
+    public IEnumerable<DateParts> GetDaysInYear(int year)
+    {
+        // Check arg eagerly.
+        _inner.YearsValidator.Validate(year);
+
+        return iterator();
+
+        IEnumerable<DateParts> iterator()
         {
-            Debug.Assert(@this != null);
+            int monthsInYear = _inner.Schema.CountMonthsInYear(year);
 
-            _this = @this;
-        }
-
-        [Pure]
-        public IEnumerable<DateParts> GetDaysInYear(int year)
-        {
-            // Check arg eagerly.
-            _this.YearsValidator.Validate(year);
-
-            return iterator();
-
-            IEnumerable<DateParts> iterator()
+            for (int m = 1; m <= monthsInYear; m++)
             {
-                int monthsInYear = _this.Schema.CountMonthsInYear(year);
-
-                for (int m = 1; m <= monthsInYear; m++)
-                {
-                    int daysInMonth = _this.Schema.CountDaysInMonth(year, m);
-
-                    for (int d = 1; d <= daysInMonth; d++)
-                    {
-                        yield return new DateParts(year, m, d);
-                    }
-                }
-            }
-        }
-
-        [Pure]
-        public IEnumerable<DateParts> GetDaysInMonth(int year, int month)
-        {
-            // Check arg eagerly.
-            _this.Scope.ValidateYearMonth(year, month);
-
-            return iterator();
-
-            IEnumerable<DateParts> iterator()
-            {
-                int daysInMonth = _this.Schema.CountDaysInMonth(year, month);
+                int daysInMonth = _inner.Schema.CountDaysInMonth(year, m);
 
                 for (int d = 1; d <= daysInMonth; d++)
                 {
-                    yield return new DateParts(year, month, d);
+                    yield return new DateParts(year, m, d);
                 }
             }
-        }
-
-        [Pure]
-        public DateParts GetStartOfYear(int year)
-        {
-            _this.YearsValidator.Validate(year);
-            return DateParts.AtStartOfYear(year);
-        }
-
-        [Pure]
-        public DateParts GetEndOfYear(int year)
-        {
-            _this.YearsValidator.Validate(year);
-            return _this.PartsAdapter.GetDatePartsAtEndOfYear(year);
-        }
-
-        [Pure]
-        public DateParts GetStartOfMonth(int year, int month)
-        {
-            _this.Scope.ValidateYearMonth(year, month);
-            return DateParts.AtStartOfMonth(year, month);
-        }
-
-        [Pure]
-        public DateParts GetEndOfMonth(int year, int month)
-        {
-            _this.Scope.ValidateYearMonth(year, month);
-            return _this.PartsAdapter.GetDatePartsAtEndOfMonth(year, month);
         }
     }
 
-    private sealed class OrdinalPartsProvider_ : IDateProvider<OrdinalParts>
+    [Pure]
+    public IEnumerable<DateParts> GetDaysInMonth(int year, int month)
     {
-        private readonly MinMaxYearCalendar _this;
+        // Check arg eagerly.
+        _inner.Scope.ValidateYearMonth(year, month);
 
-        public OrdinalPartsProvider_(MinMaxYearCalendar @this)
+        return iterator();
+
+        IEnumerable<DateParts> iterator()
         {
-            Debug.Assert(@this != null);
+            int daysInMonth = _inner.Schema.CountDaysInMonth(year, month);
 
-            _this = @this;
-        }
-
-        [Pure]
-        public IEnumerable<OrdinalParts> GetDaysInYear(int year)
-        {
-            // Check arg eagerly.
-            _this.YearsValidator.Validate(year);
-
-            return iterator();
-
-            IEnumerable<OrdinalParts> iterator()
+            for (int d = 1; d <= daysInMonth; d++)
             {
-                int daysInYear = _this.Schema.CountDaysInYear(year);
-
-                for (int doy = 1; doy <= daysInYear; doy++)
-                {
-                    yield return new OrdinalParts(year, doy);
-                }
+                yield return new DateParts(year, month, d);
             }
         }
+    }
 
-        [Pure]
-        public IEnumerable<OrdinalParts> GetDaysInMonth(int year, int month)
+    [Pure]
+    public DateParts GetStartOfYear(int year)
+    {
+        _inner.YearsValidator.Validate(year);
+        return DateParts.AtStartOfYear(year);
+    }
+
+    [Pure]
+    public DateParts GetEndOfYear(int year)
+    {
+        _inner.YearsValidator.Validate(year);
+        return _inner.PartsAdapter.GetDatePartsAtEndOfYear(year);
+    }
+
+    [Pure]
+    public DateParts GetStartOfMonth(int year, int month)
+    {
+        _inner.Scope.ValidateYearMonth(year, month);
+        return DateParts.AtStartOfMonth(year, month);
+    }
+
+    [Pure]
+    public DateParts GetEndOfMonth(int year, int month)
+    {
+        _inner.Scope.ValidateYearMonth(year, month);
+        return _inner.PartsAdapter.GetDatePartsAtEndOfMonth(year, month);
+    }
+}
+
+public sealed class MinMaxYearOrdinalPartsProvider : IDateProvider<OrdinalParts>
+{
+    private readonly MinMaxYearCalendar _inner;
+
+    public MinMaxYearOrdinalPartsProvider(MinMaxYearCalendar inner)
+    {
+        Debug.Assert(inner != null);
+
+        _inner = inner;
+    }
+
+    [Pure]
+    public IEnumerable<OrdinalParts> GetDaysInYear(int year)
+    {
+        // Check arg eagerly.
+        _inner.YearsValidator.Validate(year);
+
+        return iterator();
+
+        IEnumerable<OrdinalParts> iterator()
         {
-            // Check arg eagerly.
-            _this.Scope.ValidateYearMonth(year, month);
+            int daysInYear = _inner.Schema.CountDaysInYear(year);
 
-            return iterator();
-
-            IEnumerable<OrdinalParts> iterator()
+            for (int doy = 1; doy <= daysInYear; doy++)
             {
-                int startOfMonth = _this.Schema.CountDaysInYearBeforeMonth(year, month);
-                int daysInMonth = _this.Schema.CountDaysInMonth(year, month);
-
-                for (int d = 1; d <= daysInMonth; d++)
-                {
-                    yield return new OrdinalParts(year, startOfMonth + d);
-                }
+                yield return new OrdinalParts(year, doy);
             }
         }
+    }
 
-        [Pure]
-        public OrdinalParts GetStartOfYear(int year)
-        {
-            _this.YearsValidator.Validate(year);
-            return OrdinalParts.AtStartOfYear(year);
-        }
+    [Pure]
+    public IEnumerable<OrdinalParts> GetDaysInMonth(int year, int month)
+    {
+        // Check arg eagerly.
+        _inner.Scope.ValidateYearMonth(year, month);
 
-        [Pure]
-        public OrdinalParts GetEndOfYear(int year)
-        {
-            _this.YearsValidator.Validate(year);
-            return _this.PartsAdapter.GetOrdinalPartsAtEndOfYear(year);
-        }
+        return iterator();
 
-        [Pure]
-        public OrdinalParts GetStartOfMonth(int year, int month)
+        IEnumerable<OrdinalParts> iterator()
         {
-            _this.Scope.ValidateYearMonth(year, month);
-            return _this.PartsAdapter.GetOrdinalPartsAtStartOfMonth(year, month);
-        }
+            int startOfMonth = _inner.Schema.CountDaysInYearBeforeMonth(year, month);
+            int daysInMonth = _inner.Schema.CountDaysInMonth(year, month);
 
-        [Pure]
-        public OrdinalParts GetEndOfMonth(int year, int month)
-        {
-            _this.Scope.ValidateYearMonth(year, month);
-            return _this.PartsAdapter.GetOrdinalPartsAtEndOfMonth(year, month);
+            for (int d = 1; d <= daysInMonth; d++)
+            {
+                yield return new OrdinalParts(year, startOfMonth + d);
+            }
         }
+    }
+
+    [Pure]
+    public OrdinalParts GetStartOfYear(int year)
+    {
+        _inner.YearsValidator.Validate(year);
+        return OrdinalParts.AtStartOfYear(year);
+    }
+
+    [Pure]
+    public OrdinalParts GetEndOfYear(int year)
+    {
+        _inner.YearsValidator.Validate(year);
+        return _inner.PartsAdapter.GetOrdinalPartsAtEndOfYear(year);
+    }
+
+    [Pure]
+    public OrdinalParts GetStartOfMonth(int year, int month)
+    {
+        _inner.Scope.ValidateYearMonth(year, month);
+        return _inner.PartsAdapter.GetOrdinalPartsAtStartOfMonth(year, month);
+    }
+
+    [Pure]
+    public OrdinalParts GetEndOfMonth(int year, int month)
+    {
+        _inner.Scope.ValidateYearMonth(year, month);
+        return _inner.PartsAdapter.GetOrdinalPartsAtEndOfMonth(year, month);
     }
 }

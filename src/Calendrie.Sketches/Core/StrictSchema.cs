@@ -6,7 +6,8 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
-// TODO(code): use a segment for validation.
+// TODO(code): use a segment for validation. Objectif: MinMaxYearCalendar and
+// BoundedBelowCalendar.
 
 public abstract partial class StrictSchema : ICalendricalSchema
 {
