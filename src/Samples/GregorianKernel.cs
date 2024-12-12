@@ -27,7 +27,7 @@ public sealed class GregorianKernel : ICalendricalKernel
     public CalendricalFamily Family => CalendricalFamily.Solar;
     public CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
-    public static Range<int> SupportedYears => Range.Maximal32;
+    public static Range<int> SupportedYears => Range.Create(int.MinValue, int.MaxValue);
 
     [Pure]
     public bool IsRegular(out int monthsInYear)

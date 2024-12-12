@@ -8,6 +8,8 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
+// REVIEW(code): internal ctor's? Idem with PrototypalSchemaSlim.
+
 #region Developer Notes
 
 // The code is NOT meant to be efficient.
@@ -99,7 +101,7 @@ public partial class PrototypalSchema :
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.
     /// </exception>
-    internal PrototypalSchema(ICalendricalSchema schema)
+    public PrototypalSchema(ICalendricalSchema schema)
     {
         ArgumentNullException.ThrowIfNull(schema, nameof(schema));
 
@@ -114,7 +116,7 @@ public partial class PrototypalSchema :
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    internal PrototypalSchema(
+    public PrototypalSchema(
         ICalendricalKernel kernel,
         int minDaysInYear,
         int minDaysInMonth)

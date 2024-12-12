@@ -15,7 +15,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.
     /// </exception>
-    internal PrototypalSchemaSlim(ICalendricalSchema schema) : base(schema)
+    public PrototypalSchemaSlim(ICalendricalSchema schema) : base(schema)
     {
         // See GetMonth() for an explanation of the formula.
         ApproxMonthsInYear = 1 + (MinDaysInYear - 1) / MinDaysInMonth;
@@ -27,7 +27,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    internal PrototypalSchemaSlim(ICalendricalKernel kernel, int minDaysInYear, int minDaysInMonth)
+    public PrototypalSchemaSlim(ICalendricalKernel kernel, int minDaysInYear, int minDaysInMonth)
         : base(kernel, minDaysInYear, minDaysInMonth)
     {
         // See GetMonth() for an explanation of the formula.
