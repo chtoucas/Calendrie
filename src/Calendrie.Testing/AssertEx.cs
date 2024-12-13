@@ -5,6 +5,8 @@
 
 namespace Calendrie.Testing;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Xunit Assert extended.
 /// </summary>

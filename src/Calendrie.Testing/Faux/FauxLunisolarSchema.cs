@@ -6,6 +6,7 @@ namespace Calendrie.Testing.Faux;
 using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 
 using static Calendrie.Core.CalendricalConstants;
 
