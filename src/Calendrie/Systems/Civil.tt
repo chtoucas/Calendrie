@@ -19,6 +19,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
 #>
 using System.Numerics;
 
+using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;

@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 // Three cycles:
 // - a grand cycle consisting of 2820 years,

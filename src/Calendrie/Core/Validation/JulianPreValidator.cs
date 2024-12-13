@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 
 using static Calendrie.Core.CalendricalConstants;
 

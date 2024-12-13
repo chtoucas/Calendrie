@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 // We don't need to use MathZ, therefore the computations here are strictly
 // identical whether the year is >= 0 or < 0.

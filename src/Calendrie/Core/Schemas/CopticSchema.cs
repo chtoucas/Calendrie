@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 /// <summary>Represents a Coptic schema and provides a base for derived classes.</summary>
 /// <remarks>This class can ONLY be inherited from within friend assemblies.</remarks>

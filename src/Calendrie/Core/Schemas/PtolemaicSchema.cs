@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Represents a Ptolemaic schema and provides a base for derived classes.
 /// <para>A schema is said to be ptolemaic if each year is divided into 12

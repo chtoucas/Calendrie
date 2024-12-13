@@ -5,6 +5,8 @@ namespace Calendrie.Core;
 
 using System.ComponentModel;
 
+using Calendrie.Core.Utilities;
+
 // Yemo = YEar-MOnth
 //
 // We could have re-used Yemoda but I find it cleaner to have a separate

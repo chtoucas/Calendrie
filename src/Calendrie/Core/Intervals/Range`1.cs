@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Represents a closed bounded interval.
 /// <para>This type has been designed with discrete intervals in mind, nevertheless everything

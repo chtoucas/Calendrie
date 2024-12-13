@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core;
 
+using Calendrie.Core.Utilities;
+
 // Doomsday rule, adapted by Keith & Craver
 //
 // Only useful for Gregorian/Julian types storing their information in the

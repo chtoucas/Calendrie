@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 using Ptolemaic12 = PtolemaicSchema.Twelve;
 
 /// <summary>Represents the Egyptian schema.</summary>

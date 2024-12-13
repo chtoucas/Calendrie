@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 // Si on n'utilisait pas un entier long dans GetDateParts() et GetYear(),
 // la valeur pour MaxYear serait plutôt 1024 (= 1 << 10), à condition bien
 // entendu de ne considérer que des puissances de 2.

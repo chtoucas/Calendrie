@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core;
 
+using Calendrie.Core.Utilities;
+
 internal abstract class MonthsCalculator
 {
     private readonly ICalendricalSchema _schema;

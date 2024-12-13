@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>Represents an Egyptian schema and provides a base for derived classes.</summary>
 /// <remarks>This class can ONLY be inherited from within friend assemblies.</remarks>
 public abstract partial class EgyptianSchema : SystemSchema

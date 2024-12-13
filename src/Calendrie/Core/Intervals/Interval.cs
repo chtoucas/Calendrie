@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+using Calendrie.Core.Utilities;
+
 // Omitted methods: see IntervalExtra in Calendrie.Sketches.
 // Methods with args reversed: see Lavretni in Calendrie.Sketches.
 

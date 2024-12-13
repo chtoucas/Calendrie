@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 // In fact, the formulae should also work with year = 0 as an input parameter.
 // Nevertheless, since daysSinceEpoch < 0 when year = 0, it's better to ignore
 // that.

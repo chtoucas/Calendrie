@@ -3,6 +3,8 @@
 
 namespace Calendrie;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Defines the strategies employed to resolve ambiguities when adding a number
 /// of months or years to a calendrical object.

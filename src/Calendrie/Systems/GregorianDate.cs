@@ -5,6 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are

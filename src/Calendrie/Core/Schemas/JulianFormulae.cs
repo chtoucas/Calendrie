@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Provides static formulae for the Julian schema (32-bit and 64-bit versions).
 /// <para>See also <seealso cref="JulianSchema"/>.</para>

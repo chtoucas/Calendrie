@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Validation;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Provides extension methods for <see cref="Range{DayNumber}"/>.

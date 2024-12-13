@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 using Ptolemaic13 = PtolemaicSchema.Thirteen;
 
 /// <summary>

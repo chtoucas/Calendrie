@@ -3,6 +3,8 @@
 
 namespace Calendrie;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Represents a pair of a year and a day of the year.
 /// <para>This type uses the lexicographic order on pairs (Year, DayOfYear).

@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Validation;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Provides a plain implementation for <see cref="ICalendricalPreValidator"/>.
 /// <para>This class cannot be inherited.</para>

@@ -3,6 +3,8 @@
 
 namespace Calendrie.Hemerology;
 
+using Calendrie.Core.Utilities;
+
 // REVIEW(code): cycles of arbitrary fixed length and with a known starting
 // point, for instance
 //   GetCycle(int year, int len, int startYear, out int yearOfCycle)

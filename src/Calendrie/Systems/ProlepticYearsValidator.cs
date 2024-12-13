@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 using Calendrie.Core.Validation;
 
 /// <summary>

@@ -4,6 +4,7 @@
 namespace Calendrie.Extensions;
 
 using Calendrie.Core;
+using Calendrie.Core.Utilities;
 using Calendrie.Systems;
 
 /// <summary>

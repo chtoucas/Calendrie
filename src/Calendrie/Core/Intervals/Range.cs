@@ -5,6 +5,8 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
+using Calendrie.Core.Utilities;
+
 // REVIEW(code): extension methods "in param"? Public Maximal32?
 
 // Name conflict with BCL System.Range: use an alias, either

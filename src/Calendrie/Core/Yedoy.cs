@@ -6,6 +6,8 @@ namespace Calendrie.Core;
 using System.ComponentModel;
 using System.Numerics;
 
+using Calendrie.Core.Utilities;
+
 // Yedoy = YEar-DayOfYear
 
 /// <summary>

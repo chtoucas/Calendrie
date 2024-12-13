@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Provides a base for the "Tropicália" schemas.
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>

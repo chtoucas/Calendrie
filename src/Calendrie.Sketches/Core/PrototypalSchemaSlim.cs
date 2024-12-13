@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Represents a prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>
 /// interface.

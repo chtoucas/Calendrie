@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents the proleptic Tabular Islamic schema.

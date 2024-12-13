@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 // The Min/MaxYear limits do not apply here.
 
 // REVIEW(code): GetYear() overflows pretty quickly. Optimize * 400? Idem w/ 32-bit

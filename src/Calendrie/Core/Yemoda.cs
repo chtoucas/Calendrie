@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Numerics;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 // TODO(doc): to be updated, default value and IMinMaxValue<>.
 // Default value: when used as a binary repr for a struct date type, one

@@ -5,6 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 

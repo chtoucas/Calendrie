@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Schemas;
 
+using Calendrie.Core.Utilities;
+
 /// <summary>
 /// Represents the "Tropicália" schema (30-31).
 /// <para>This class cannot be inherited.</para>

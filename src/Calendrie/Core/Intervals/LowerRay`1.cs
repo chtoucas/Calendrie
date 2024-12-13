@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+using Calendrie.Core.Utilities;
+
 // REVIEW(code): ISetComparable<> with other interval types.
 // Idem for the other interval types.
 
