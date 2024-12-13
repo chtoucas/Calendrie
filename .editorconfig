@@ -36,7 +36,7 @@ charset = utf-8-bom
 # The global configuration is done within .globalconfig
 
 # To enable Code Analysis on generated files, we pretend that they are not...
-[src/Calendrie/**/*.g.cs]
+[src/{Calendrie,Calendrie.Sketches}/**/*.g.cs]
 generated_code = false
 # Remove redundant nullable directive
 #dotnet_diagnostic.IDE0240.severity = none
