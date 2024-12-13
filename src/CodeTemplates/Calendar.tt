@@ -43,7 +43,8 @@ public partial class CalendarTemplate : CSharpTemplate
 
     protected sealed override void WriteContent()
     {
-        // TODO(code): why is it necessary for Calendrier.Sketches but not within Calendrie?
+        // May be necessary, depends on the Code Analysis settings regarding
+        // generated files.
         if (EnablePragmas) EmitPragmas();
 
         EmitNamespace();
