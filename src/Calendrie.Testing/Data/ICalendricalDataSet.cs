@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data;
 
+using Calendrie.Core;
+
 public partial interface ICalendricalDataSet
 {
     /// <summary>Gets a sample common year.</summary>

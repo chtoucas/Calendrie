@@ -3,6 +3,9 @@
 
 namespace Calendrie.Testing.Data.Schemas;
 
+using Calendrie.Core;
+using Calendrie.Core.Schemas;
+
 /// <summary>
 /// Provides test data for <see cref="GregorianSchema"/>.
 /// </summary>

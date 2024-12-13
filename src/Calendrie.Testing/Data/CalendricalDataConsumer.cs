@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data;
 
+using Calendrie.Core;
+
 /// <summary>
 /// Provides static access to calendrical data.
 /// </summary>

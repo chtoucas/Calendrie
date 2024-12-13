@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data.Schemas;
 
+using Calendrie.Core.Schemas;
+
 public abstract class TropicalistaDataSet : SchemaDataSet
 {
     public const int CommonYear = 3;

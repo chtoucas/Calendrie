@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data.Schemas;
 
+using Calendrie.Core.Schemas;
+
 public static class GregorianMathDataSetUnambiguous
 {
     /// <summary>Start date, end date, exact diff between.</summary>

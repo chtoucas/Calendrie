@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Faux;
 
+using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 

@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data.Bounded;
 
+using Calendrie.Core;
+
 // NB: while it would have been perfectly reasonnable to use the simpler
 // constraint where TDataSet is only an ICalendarDataSet, I prefer to restrict
 // a bit the scope of this class.

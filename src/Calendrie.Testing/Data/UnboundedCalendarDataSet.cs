@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data;
 
+using Calendrie.Core;
+
 // For unbounded datasets, do not copy the static props from the calendrical
 // dataset, it's unnecessary as one can always call them directly.
 // We use a SchemaDataSet, not an ICalendricalDataSet, to construct an

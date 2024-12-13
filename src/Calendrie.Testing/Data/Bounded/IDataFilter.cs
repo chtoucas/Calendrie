@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data.Bounded;
 
+using Calendrie.Core;
+
 /// <summary>
 /// Defines a data filter.
 /// </summary>

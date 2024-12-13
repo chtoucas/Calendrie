@@ -5,6 +5,8 @@
 
 namespace Calendrie.Testing.Data;
 
+using Calendrie.Core;
+
 #region Developer Notes
 
 // We rely on Yemoda/Yedoy/Yemo to define our models, which means that we

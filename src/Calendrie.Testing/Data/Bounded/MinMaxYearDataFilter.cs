@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Data.Bounded;
 
+using Calendrie.Core;
 using Calendrie.Core.Intervals;
 
 public sealed class MinMaxYearDataFilter : IDataFilter

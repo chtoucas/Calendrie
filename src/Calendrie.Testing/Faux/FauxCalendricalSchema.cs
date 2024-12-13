@@ -3,13 +3,14 @@
 
 namespace Calendrie.Testing.Faux;
 
+using Calendrie.Core;
+using Calendrie.Core.Intervals;
+using Calendrie.Core.Validation;
+
 // GetStartOfYear() must be implemented for calendars, arithmetic & scope to work.
 // We must also implement IsRegular(), otherwise CalendricalSchema.Profile will fail.
 // CountMonthsInYear() (must be > 0) and CountMonthsSinceEpoch() must be implemented
 // too for arithmetic.
-
-using Calendrie.Core.Intervals;
-using Calendrie.Core.Validation;
 
 using static Calendrie.Core.CalendricalConstants;
 

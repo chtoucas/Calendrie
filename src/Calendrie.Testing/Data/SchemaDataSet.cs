@@ -3,6 +3,8 @@
 
 namespace Calendrie.Testing.Data;
 
+using Calendrie.Core;
+
 // TODO(fact): DaysSinceEpochInfoData should include data before the epoch, then
 // we should review the test bundles to ensure that we use it to test negative years.
 

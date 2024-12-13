@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Data.Schemas;
 
+using Calendrie.Core;
 using Calendrie.Testing.Faux;
 
 /// <summary>

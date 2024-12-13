@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Facts.Temp;
 
+using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Data.Schemas;
