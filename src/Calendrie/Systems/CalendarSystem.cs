@@ -3,8 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using System.Linq;
-
 using Calendrie.Hemerology;
 
 // Reasons to keep the constructor internal (special calendar and adjuster):

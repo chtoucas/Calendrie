@@ -3,8 +3,6 @@
 
 namespace Calendrie.Testing.Data;
 
-using System.Linq;
-
 using Calendrie.Core.Intervals;
 using Calendrie.Testing.Data.Schemas;
 

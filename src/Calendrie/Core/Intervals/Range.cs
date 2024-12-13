@@ -3,7 +3,6 @@
 
 namespace Calendrie.Core.Intervals;
 
-using System.Linq;
 using System.Numerics;
 
 // REVIEW(code): extension methods "in param"? Public Maximal32?

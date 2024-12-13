@@ -3,8 +3,6 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using System.Linq;
-
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 

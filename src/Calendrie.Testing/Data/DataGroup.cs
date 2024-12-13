@@ -4,7 +4,6 @@
 namespace Calendrie.Testing.Data;
 
 using System.Collections;
-using System.Linq;
 
 // TODO(fact): use DataGroup. Filter matching data in Bounded.
 // See which optional/supplementary data should be lazy and explain why.

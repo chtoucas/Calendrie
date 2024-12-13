@@ -3,8 +3,6 @@
 
 namespace Calendrie.Hemerology;
 
-using System.Linq;
-
 using Calendrie.Core;
 using Calendrie.Core.Validation;
 
