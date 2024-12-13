@@ -15,7 +15,7 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-open type Calendrie.Extensions.JulianExtensions
+open type Calendrie.Extensions.JulianDateExtensions
 
 module Prelude =
     [<Fact>]

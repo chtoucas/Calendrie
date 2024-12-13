@@ -17,7 +17,7 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-open type Calendrie.Extensions.CivilExtensions
+open type Calendrie.Extensions.CivilDateExtensions
 
 // NB: notice the use of StandardGregorianDataSet.
 

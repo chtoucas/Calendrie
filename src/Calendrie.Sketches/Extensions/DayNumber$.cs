@@ -9,8 +9,7 @@ namespace Calendrie.Extensions;
 /// </summary>
 public static partial class DayNumberExtensions { }
 
-// Alternative impl to Previous() & co.
-public partial class DayNumberExtensions
+public partial class DayNumberExtensions // Alternative impl to Previous() & co.
 {
     /// <summary>
     /// Obtains the day number before the current instance that falls on the

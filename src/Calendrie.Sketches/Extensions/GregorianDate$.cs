@@ -8,18 +8,16 @@ using Calendrie.Core.Utilities;
 using Calendrie.Systems;
 
 /// <summary>
-/// Provides extension methods for <see cref="JulianDate"/>.
+/// Provides extension methods for <see cref="GregorianDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public static partial class JulianExtensions { }
-
-public partial class JulianExtensions // JulianDate
+public static class GregorianDateExtensions
 {
     [Pure]
-    public static DayOfWeek GetDayOfWeek(this JulianDate date)
+    public static DayOfWeek GetDayOfWeek(this GregorianDate date)
     {
         var (y, m, d) = date;
-        int doomsday = DoomsdayRule.GetJulianDoomsday(y, m);
+        int doomsday = DoomsdayRule.GetGregorianDoomsday(y, m);
         return (DayOfWeek)MathZ.Modulo(doomsday + d, CalendricalConstants.DaysInWeek);
     }
 }

@@ -16,7 +16,7 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-open type Calendrie.Extensions.GregorianExtensions
+open type Calendrie.Extensions.GregorianDateExtensions
 
 // NB: notice the use of UnboundedGregorianDataSet.
 
