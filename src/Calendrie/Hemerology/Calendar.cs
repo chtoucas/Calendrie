@@ -218,12 +218,12 @@ public abstract partial class Calendar : ICalendricalKernel
     /// <summary>
     /// Gets a validator for the range of supported years.
     /// </summary>
-    protected internal IYearsValidator YearsValidator { get; }
+    protected IYearsValidator YearsValidator { get; }
 
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    protected internal ICalendricalSchema Schema { get; }
+    protected ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

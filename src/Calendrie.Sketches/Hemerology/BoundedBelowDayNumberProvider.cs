@@ -17,7 +17,6 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
 
     private readonly DateParts _minDateParts;
     private readonly OrdinalParts _minOrdinalParts;
-    private readonly MonthParts _minMonthParts;
 
     public BoundedBelowDayNumberProvider(BoundedBelowScope scope)
     {
@@ -28,9 +27,8 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
         _schema = scope.Schema;
         _yearsValidator = scope.YearsValidator;
 
-        _minMonthParts = scope.MinMonthParts;
-        _minOrdinalParts = scope.MinOrdinalParts;
         _minDateParts = scope.MinDateParts;
+        _minOrdinalParts = scope.MinOrdinalParts;
     }
 
     /// <summary>
@@ -83,7 +81,7 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
     {
         _scope.ValidateYearMonth(year, month);
         int startOfMonth, daysInMonth;
-        if (new MonthParts(year, month) == _minMonthParts)
+        if (new MonthParts(year, month) == _minDateParts.MonthParts)
         {
             startOfMonth = _scope.Domain.Min - _epoch;
             daysInMonth = CountDaysInFirstMonth();
@@ -127,7 +125,7 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
     public DayNumber GetStartOfMonth(int year, int month)
     {
         _scope.ValidateYearMonth(year, month);
-        return new MonthParts(year, month) == _minMonthParts
+        return new MonthParts(year, month) == _minDateParts.MonthParts
             ? throw new ArgumentOutOfRangeException(nameof(month))
             : _epoch + _schema.GetStartOfMonth(year, month);
     }

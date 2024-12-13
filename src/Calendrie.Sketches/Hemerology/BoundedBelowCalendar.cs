@@ -21,13 +21,11 @@ public class BoundedBelowCalendar : NakedCalendar
 
         MinDateParts = scope.MinDateParts;
         MinOrdinalParts = scope.MinOrdinalParts;
-        MinMonthParts = scope.MinMonthParts;
     }
 
-    /// <summary>
-    /// Gets the earliest supported month parts.
-    /// </summary>
-    public MonthParts MinMonthParts { get; }
+    // The following two properties should remain public, otherwise an outsider
+    // won't have access to these infos. Indeed, BoundedBelowCalendar.Scope is
+    // of type CalendarScope, not BoundedBelowScope.
 
     /// <summary>
     /// Gets the earliest supported date parts.
@@ -72,7 +70,7 @@ public class BoundedBelowCalendar : NakedCalendar
     public sealed override int CountDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
-        return new MonthParts(year, month) == MinMonthParts
+        return new MonthParts(year, month) == MinDateParts.MonthParts
             ? CountDaysInFirstMonth()
             : Schema.CountDaysInMonth(year, month);
     }

@@ -157,7 +157,7 @@ public class GregorianBoundedBelowCalendarTests :
     public void CountDaysInFirstYear()
     {
         // Act
-        var sch = CalendarUT.Schema;
+        var sch = CalendarUT.Scope.Schema;
         int daysInFirstYear = sch.CountDaysInYear(FirstYear)
             - sch.CountDaysInYearBeforeMonth(FirstYear, FirstMonth)
             - (FirstDay - 1);
@@ -170,7 +170,7 @@ public class GregorianBoundedBelowCalendarTests :
     public void CountDaysInFirstMonth()
     {
         // Act
-        var sch = CalendarUT.Schema;
+        var sch = CalendarUT.Scope.Schema;
         int daysInFirstMonth = sch.CountDaysInMonth(FirstYear, FirstMonth) - (FirstDay - 1);
         // Assert
         Assert.Equal(daysInFirstMonth, CalendarUT.CountDaysInMonth(FirstYear, FirstMonth));

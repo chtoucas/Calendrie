@@ -30,15 +30,7 @@ public sealed class BoundedBelowScope : CalendarScope
 
         MinDateParts = seg.MinMaxDateParts.LowerValue;
         MinOrdinalParts = seg.MinMaxOrdinalParts.LowerValue;
-        MinMonthParts = MinDateParts.MonthParts;
-
-        MinYear = MinDateParts.Year;
     }
-
-    /// <summary>
-    /// Gets the earliest supported month parts.
-    /// </summary>
-    public MonthParts MinMonthParts { get; }
 
     /// <summary>
     /// Gets the earliest supported date parts.
@@ -49,11 +41,6 @@ public sealed class BoundedBelowScope : CalendarScope
     /// Gets the earliest supported ordinal date parts.
     /// </summary>
     public OrdinalParts MinOrdinalParts { get; }
-
-    /// <summary>
-    /// Gets the earliest supported year.
-    /// </summary>
-    private int MinYear { get; }
 
     #region Factories
 
@@ -141,7 +128,7 @@ public sealed class BoundedBelowScope : CalendarScope
         PreValidator.ValidateMonth(year, month, paramName);
 
         // Tiny optimization: we first check "year".
-        if (year == MinYear && new MonthParts(year, month) < MinMonthParts)
+        if (year == MinDateParts.Year && new MonthParts(year, month) < MinDateParts.MonthParts)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
     }
 
@@ -153,12 +140,12 @@ public sealed class BoundedBelowScope : CalendarScope
         PreValidator.ValidateMonthDay(year, month, day, paramName);
 
         // Tiny optimization: we first check "year".
-        if (year == MinYear)
+        if (year == MinDateParts.Year)
         {
             // We check the month parts first even if it is not necessary.
             // Reason: identify the guilty part.
             var parts = new DateParts(year, month, day);
-            if (parts.MonthParts < MinMonthParts)
+            if (parts.MonthParts < MinDateParts.MonthParts)
             {
                 ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
             }
@@ -176,7 +163,7 @@ public sealed class BoundedBelowScope : CalendarScope
         PreValidator.ValidateDayOfYear(year, dayOfYear, paramName);
 
         // Tiny optimization: we first check "year".
-        if (year == MinYear && new OrdinalParts(year, dayOfYear) < MinOrdinalParts)
+        if (year == MinDateParts.Year && new OrdinalParts(year, dayOfYear) < MinOrdinalParts)
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
     }
 }
