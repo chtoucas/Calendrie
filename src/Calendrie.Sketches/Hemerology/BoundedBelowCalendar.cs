@@ -21,6 +21,8 @@ public class BoundedBelowCalendar : NakedCalendar
 
         MinDateParts = scope.MinDateParts;
         MinOrdinalParts = scope.MinOrdinalParts;
+
+        DayNumberProvider = new BoundedBelowDayNumberProvider(scope);
     }
 
     // The following two properties should remain public, otherwise an outsider
@@ -36,6 +38,11 @@ public class BoundedBelowCalendar : NakedCalendar
     /// Gets the earliest supported ordinal date parts.
     /// </summary>
     public OrdinalParts MinOrdinalParts { get; }
+
+    /// <summary>
+    /// Gets the provider for day numbers.
+    /// </summary>
+    public BoundedBelowDayNumberProvider DayNumberProvider { get; }
 
     // NB : pour optimiser les choses on pourrait traiter d'abord le cas
     // limite (première année ou premier mois) puis le cas général.
@@ -74,6 +81,10 @@ public class BoundedBelowCalendar : NakedCalendar
             ? CountDaysInFirstMonth()
             : Schema.CountDaysInMonth(year, month);
     }
+
+    //
+    // Custom methods
+    //
 
     /// <summary>
     /// Obtains the number of months in the first supported year.

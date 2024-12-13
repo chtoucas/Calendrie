@@ -21,7 +21,7 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <exception cref="ArgumentException">The start of <paramref name="segment"/>
     /// is the first day of a year -or- the end of <paramref name="segment"/> is
     /// not the end of a year.</exception>
-    public BoundedBelowScope(DayNumber epoch, CalendricalSegment segment)
+    private BoundedBelowScope(DayNumber epoch, CalendricalSegment segment)
         : base(epoch, segment)
     {
         var seg = Segment;

@@ -13,7 +13,27 @@ public class MinMaxYearCalendar : NakedCalendar
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    public MinMaxYearCalendar(string name, MinMaxYearScope scope) : base(name, scope) { }
+    public MinMaxYearCalendar(string name, MinMaxYearScope scope) : base(name, scope)
+    {
+        DayNumberProvider = new MinMaxYearDayNumberProvider(scope);
+        DatePartsProvider = new MinMaxYearDatePartsProvider(scope);
+        OrdinalPartsProvider = new MinMaxYearOrdinalPartsProvider(scope);
+    }
+
+    /// <summary>
+    /// Gets the provider for day numbers.
+    /// </summary>
+    public MinMaxYearDayNumberProvider DayNumberProvider { get; }
+
+    /// <summary>
+    /// Gets the provider for date parts.
+    /// </summary>
+    public MinMaxYearDatePartsProvider DatePartsProvider { get; }
+
+    /// <summary>
+    /// Gets the provider for ordinal parts.
+    /// </summary>
+    public MinMaxYearOrdinalPartsProvider OrdinalPartsProvider { get; }
 
     /// <inheritdoc/>
     [Pure]
