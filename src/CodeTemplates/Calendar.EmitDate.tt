@@ -46,17 +46,17 @@ public partial struct <#= Prefix #>Date // Preamble
     private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.Epoch.DaysSinceZero;
 <#+ } else { #>
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.ScopeT.Epoch;
+    private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.UnderlyingScope.Epoch;
 <#+ } #>
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Calendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Calendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.ScopeT.Min<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.Min<#= DaysSinceEpochSuffix #>;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.ScopeT.Max<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.Max<#= DaysSinceEpochSuffix #>;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
@@ -207,13 +207,13 @@ public partial struct <#= Prefix #>Date // Preamble
     /// </summary>
     //
     // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.SchemaT;
+    private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.ScopeT;
+    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

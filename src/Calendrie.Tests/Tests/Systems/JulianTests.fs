@@ -20,11 +20,11 @@ open type Calendrie.Extensions.JulianExtensions
 module Prelude =
     [<Fact>]
     let ``Value of JulianDate.MinDaysSinceEpoch`` () =
-        JulianDate.MinDaysSinceEpoch === JulianCalendar.ScopeT.Segment.SupportedDays.Min
+        JulianDate.MinDaysSinceEpoch === JulianCalendar.UnderlyingScope.Segment.SupportedDays.Min
 
     [<Fact>]
     let ``Value of JulianDate.MaxDaysSinceEpoch`` () =
-        JulianDate.MaxDaysSinceEpoch === JulianCalendar.ScopeT.Segment.SupportedDays.Max
+        JulianDate.MaxDaysSinceEpoch === JulianCalendar.UnderlyingScope.Segment.SupportedDays.Max
 
 module Extensions =
     let private chr = new JulianCalendar()

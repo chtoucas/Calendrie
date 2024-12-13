@@ -35,12 +35,12 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     // This schema instance is the one used by:
     // - All instances of the CopticDate type via the property Schema
     // - CopticCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly Coptic12Schema SchemaT = new();
+    internal static readonly Coptic12Schema UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the CopticDate type via the property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(new Coptic12Schema());
+    internal static readonly StandardScope UnderlyingScope = CreateScope(new Coptic12Schema());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
@@ -91,12 +91,12 @@ public partial struct CopticDate // Preamble
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = CopticCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = CopticCalendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = CopticCalendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = CopticCalendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = CopticCalendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = CopticCalendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly CopticDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -247,13 +247,13 @@ public partial struct CopticDate // Preamble
     /// </summary>
     //
     // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static Coptic12Schema Schema => CopticCalendar.SchemaT;
+    private static Coptic12Schema Schema => CopticCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => CopticCalendar.ScopeT;
+    private static StandardScope Scope => CopticCalendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

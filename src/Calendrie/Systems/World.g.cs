@@ -35,12 +35,12 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     // This schema instance is the one used by:
     // - All instances of the WorldDate type via the property Schema
     // - WorldCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly WorldSchema SchemaT = new();
+    internal static readonly WorldSchema UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the WorldDate type via the property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(new WorldSchema());
+    internal static readonly StandardScope UnderlyingScope = CreateScope(new WorldSchema());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
@@ -91,12 +91,12 @@ public partial struct WorldDate // Preamble
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = WorldCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = WorldCalendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = WorldCalendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = WorldCalendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = WorldCalendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = WorldCalendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly WorldDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -247,13 +247,13 @@ public partial struct WorldDate // Preamble
     /// </summary>
     //
     // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static WorldSchema Schema => WorldCalendar.SchemaT;
+    private static WorldSchema Schema => WorldCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => WorldCalendar.ScopeT;
+    private static StandardScope Scope => WorldCalendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

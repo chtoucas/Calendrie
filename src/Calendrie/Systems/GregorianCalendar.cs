@@ -14,8 +14,8 @@ using Calendrie.Core.Schemas;
 public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
 {
     // See comments in Armenian13Calendar for instance.
-    internal static readonly GregorianSchema SchemaT = new();
-    internal static readonly GregorianScope ScopeT = new(new GregorianSchema());
+    internal static readonly GregorianSchema UnderlyingSchema = new();
+    internal static readonly GregorianScope UnderlyingScope = new(new GregorianSchema());
     internal static readonly GregorianCalendar Instance = new(new GregorianScope(new GregorianSchema()));
 
     /// <summary>

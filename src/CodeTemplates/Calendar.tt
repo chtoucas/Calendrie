@@ -116,12 +116,12 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     // This schema instance is the one used by:
     // - All instances of the <#= Prefix #>Date type via the property Schema
     // - <#= Prefix #>Calendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly <#= SchemaClass #> SchemaT = new();
+    internal static readonly <#= SchemaClass #> UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the <#= Prefix #>Date type via the property Scope
-    internal static readonly <#= ScopeClass #> ScopeT = CreateScope(new <#= SchemaClass #>());
+    internal static readonly <#= ScopeClass #> UnderlyingScope = CreateScope(new <#= SchemaClass #>());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:

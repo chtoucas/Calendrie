@@ -37,12 +37,12 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     // This schema instance is the one used by:
     // - All instances of the PlainGregorianDate type via the property Schema
     // - PlainGregorianCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly GregorianSchema SchemaT = new();
+    internal static readonly GregorianSchema UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the PlainGregorianDate type via the property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(new GregorianSchema());
+    internal static readonly StandardScope UnderlyingScope = CreateScope(new GregorianSchema());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
@@ -89,12 +89,12 @@ public partial struct PlainGregorianDate // Preamble
 {
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = PlainGregorianCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = PlainGregorianCalendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MinDaysSinceZero = PlainGregorianCalendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceZero = PlainGregorianCalendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = PlainGregorianCalendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceZero = PlainGregorianCalendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly PlainGregorianDate s_MinValue = new(s_MinDaysSinceZero);
@@ -240,12 +240,12 @@ public partial struct PlainGregorianDate // Preamble
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static GregorianSchema Schema => PlainGregorianCalendar.SchemaT;
+    private static GregorianSchema Schema => PlainGregorianCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
-    private static StandardScope Scope => PlainGregorianCalendar.ScopeT;
+    private static StandardScope Scope => PlainGregorianCalendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

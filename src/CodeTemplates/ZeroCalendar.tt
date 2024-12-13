@@ -99,12 +99,12 @@ public partial struct <#= Prefix #>Date // Preamble
 {
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Calendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Calendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
@@ -250,12 +250,12 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.SchemaT;
+    private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
-    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.ScopeT;
+    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

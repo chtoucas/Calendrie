@@ -38,12 +38,12 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     // This schema instance is the one used by:
     // - All instances of the PlainJulianDate type via the property Schema
     // - PlainJulianCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly JulianSchema SchemaT = new();
+    internal static readonly JulianSchema UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the PlainJulianDate type via the property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(new JulianSchema());
+    internal static readonly StandardScope UnderlyingScope = CreateScope(new JulianSchema());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
@@ -91,16 +91,16 @@ public partial struct PlainJulianDate // Preamble
     // WARNING: the order in which the static fields are written is __important__.
 
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = PlainJulianCalendar.ScopeT.Epoch;
+    private static readonly DayNumber s_Epoch = PlainJulianCalendar.UnderlyingScope.Epoch;
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = PlainJulianCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = PlainJulianCalendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = PlainJulianCalendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = PlainJulianCalendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = PlainJulianCalendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = PlainJulianCalendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly PlainJulianDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -251,13 +251,13 @@ public partial struct PlainJulianDate // Preamble
     /// </summary>
     //
     // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static JulianSchema Schema => PlainJulianCalendar.SchemaT;
+    private static JulianSchema Schema => PlainJulianCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => PlainJulianCalendar.ScopeT;
+    private static StandardScope Scope => PlainJulianCalendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

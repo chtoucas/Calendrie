@@ -35,12 +35,12 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
     // This schema instance is the one used by:
     // - All instances of the Armenian13Date type via the property Schema
     // - Armenian13Calendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly Egyptian13Schema SchemaT = new();
+    internal static readonly Egyptian13Schema UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the Armenian13Date type via the property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(new Egyptian13Schema());
+    internal static readonly StandardScope UnderlyingScope = CreateScope(new Egyptian13Schema());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
@@ -91,12 +91,12 @@ public partial struct Armenian13Date // Preamble
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = Armenian13Calendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = Armenian13Calendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = Armenian13Calendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = Armenian13Calendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = Armenian13Calendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = Armenian13Calendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly Armenian13Date s_MinValue = new(s_MinDaysSinceEpoch);
@@ -247,13 +247,13 @@ public partial struct Armenian13Date // Preamble
     /// </summary>
     //
     // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static Egyptian13Schema Schema => Armenian13Calendar.SchemaT;
+    private static Egyptian13Schema Schema => Armenian13Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => Armenian13Calendar.ScopeT;
+    private static StandardScope Scope => Armenian13Calendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

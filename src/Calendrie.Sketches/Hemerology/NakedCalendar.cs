@@ -27,7 +27,7 @@ public abstract class NakedCalendar : Calendar
     /// <summary>
     /// Gets the adapter for the calendrical parts.
     /// </summary>
-    protected internal PartsAdapter PartsAdapter { get; }
+    protected PartsAdapter PartsAdapter { get; }
 
     //
     // Conversions

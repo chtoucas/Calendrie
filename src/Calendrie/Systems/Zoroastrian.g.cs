@@ -35,12 +35,12 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     // This schema instance is the one used by:
     // - All instances of the ZoroastrianDate type via the property Schema
     // - ZoroastrianCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly Egyptian12Schema SchemaT = new();
+    internal static readonly Egyptian12Schema UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the ZoroastrianDate type via the property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(new Egyptian12Schema());
+    internal static readonly StandardScope UnderlyingScope = CreateScope(new Egyptian12Schema());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
@@ -91,12 +91,12 @@ public partial struct ZoroastrianDate // Preamble
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = ZoroastrianCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = ZoroastrianCalendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = ZoroastrianCalendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = ZoroastrianCalendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = ZoroastrianCalendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = ZoroastrianCalendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly ZoroastrianDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -247,13 +247,13 @@ public partial struct ZoroastrianDate // Preamble
     /// </summary>
     //
     // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static Egyptian12Schema Schema => ZoroastrianCalendar.SchemaT;
+    private static Egyptian12Schema Schema => ZoroastrianCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => ZoroastrianCalendar.ScopeT;
+    private static StandardScope Scope => ZoroastrianCalendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -14,8 +14,8 @@ using Calendrie.Core.Schemas;
 public sealed class CivilCalendar : CalendarSystem<CivilDate>
 {
     // See comments in Armenian13Calendar for instance.
-    internal static readonly CivilSchema SchemaT = new();
-    internal static readonly CivilScope ScopeT = new(new CivilSchema());
+    internal static readonly CivilSchema UnderlyingSchema = new();
+    internal static readonly CivilScope UnderlyingScope = new(new CivilSchema());
     internal static readonly CivilCalendar Instance = new(new CivilScope(new CivilSchema()));
 
     /// <summary>

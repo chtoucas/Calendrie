@@ -22,7 +22,7 @@ public partial struct GregorianDate
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = GregorianCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = GregorianCalendar.UnderlyingScope.Domain;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
@@ -157,7 +157,7 @@ public partial struct GregorianDate
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static GregorianSchema Schema => GregorianCalendar.SchemaT;
+    private static GregorianSchema Schema => GregorianCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -46,7 +46,7 @@ public partial class GregorianExtensions // GregorianCalendar
 
         IEnumerable<GregorianDate> iterator()
         {
-            var sch = GregorianCalendar.SchemaT;
+            var sch = GregorianCalendar.UnderlyingSchema;
 
             for (int m = 1; m <= 12; m++)
             {

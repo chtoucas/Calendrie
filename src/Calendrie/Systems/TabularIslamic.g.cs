@@ -35,12 +35,12 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     // This schema instance is the one used by:
     // - All instances of the TabularIslamicDate type via the property Schema
     // - TabularIslamicCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly TabularIslamicSchema SchemaT = new();
+    internal static readonly TabularIslamicSchema UnderlyingSchema = new();
 
     /// <summary>Represents a singleton instance of the scope.</summary>
     // This scope instance is the one used by:
     // - All instances of the TabularIslamicDate type via the property Scope
-    internal static readonly StandardScope ScopeT = CreateScope(new TabularIslamicSchema());
+    internal static readonly StandardScope UnderlyingScope = CreateScope(new TabularIslamicSchema());
 
     /// <summary>Represents a singleton instance of the calendar.</summary>
     // This calendar instance is the one used by:
@@ -91,12 +91,12 @@ public partial struct TabularIslamicDate // Preamble
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = TabularIslamicCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = TabularIslamicCalendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = TabularIslamicCalendar.ScopeT.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = TabularIslamicCalendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = TabularIslamicCalendar.ScopeT.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = TabularIslamicCalendar.UnderlyingScope.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly TabularIslamicDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -247,13 +247,13 @@ public partial struct TabularIslamicDate // Preamble
     /// </summary>
     //
     // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static TabularIslamicSchema Schema => TabularIslamicCalendar.SchemaT;
+    private static TabularIslamicSchema Schema => TabularIslamicCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => TabularIslamicCalendar.ScopeT;
+    private static StandardScope Scope => TabularIslamicCalendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

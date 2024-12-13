@@ -25,7 +25,7 @@ public partial struct JulianDate
 
     /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
     /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = JulianCalendar.ScopeT.Domain;
+    private static readonly Range<DayNumber> s_Domain = JulianCalendar.UnderlyingScope.Domain;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.OldStyle"/>.
@@ -158,7 +158,7 @@ public partial struct JulianDate
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    private static JulianSchema Schema => JulianCalendar.SchemaT;
+    private static JulianSchema Schema => JulianCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

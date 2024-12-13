@@ -14,8 +14,8 @@ using Calendrie.Core.Schemas;
 public sealed class JulianCalendar : CalendarSystem<JulianDate>
 {
     // See comments in Armenian13Calendar for instance.
-    internal static readonly JulianSchema SchemaT = new();
-    internal static readonly JulianScope ScopeT = new(new JulianSchema());
+    internal static readonly JulianSchema UnderlyingSchema = new();
+    internal static readonly JulianScope UnderlyingScope = new(new JulianSchema());
     internal static readonly JulianCalendar Instance = new(new JulianScope(new JulianSchema()));
 
     /// <summary>
