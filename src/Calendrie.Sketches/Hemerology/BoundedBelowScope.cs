@@ -3,7 +3,6 @@
 
 namespace Calendrie.Hemerology;
 
-using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Utilities;
 
