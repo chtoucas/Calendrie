@@ -223,6 +223,7 @@ Calendrie.Core.Intervals.UpperRay<T>.Min.get -> T
 Calendrie.Core.Intervals.UpperRay<T>.SetEquals(Calendrie.Core.Intervals.UpperRay<T> other) -> bool
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay() -> void
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay(T min) -> void
+Calendrie.Core.ISchemaActivator<TSelf>
 Calendrie.Core.PartsAdapter
 Calendrie.Core.PartsAdapter.GetDateParts(int daysSinceEpoch) -> Calendrie.DateParts
 Calendrie.Core.PartsAdapter.GetDateParts(int y, int doy) -> Calendrie.DateParts
@@ -235,7 +236,6 @@ Calendrie.Core.PartsAdapter.GetOrdinalParts(int y, int m, int d) -> Calendrie.Or
 Calendrie.Core.PartsAdapter.GetOrdinalPartsAtEndOfMonth(int y, int m) -> Calendrie.OrdinalParts
 Calendrie.Core.PartsAdapter.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.OrdinalParts
 Calendrie.Core.PartsAdapter.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.OrdinalParts
-Calendrie.Core.PartsAdapter.PartsAdapter(Calendrie.Core.ICalendricalSchema! schema) -> void
 Calendrie.Core.Schemas.CivilSchema
 Calendrie.Core.Schemas.Coptic12Schema
 Calendrie.Core.Schemas.Coptic12Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
