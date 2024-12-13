@@ -3,6 +3,7 @@
 
 namespace Samples;
 
+using System;
 using System.Diagnostics.Contracts;
 
 using Calendrie.Core;

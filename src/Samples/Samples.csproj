@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
 
-    <ImplicitUsings>enable</ImplicitUsings>
-
     <!--
       CS1591  Missing XML comment for publicly visible type or member 'Type_or_Member'
     -->

@@ -3,8 +3,6 @@
 
 namespace Benchmarks.CoreTests;
 
-using System.Runtime.CompilerServices;
-
 using Calendrie.Core.Utilities;
 
 using static Benchmarks.BenchmarkHelpers;

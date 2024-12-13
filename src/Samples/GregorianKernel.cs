@@ -3,11 +3,14 @@
 
 namespace Samples;
 
+using System;
 using System.Diagnostics.Contracts;
 
 using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
+
+using Range = Calendrie.Core.Intervals.Range;
 
 public sealed class GregorianKernel : ICalendricalKernel
 {
