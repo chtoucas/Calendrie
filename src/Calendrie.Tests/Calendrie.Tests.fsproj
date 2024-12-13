@@ -63,7 +63,6 @@
     <Compile Include="Tests\Core\MonthsCalculatorTests.fs" />
     <Compile Include="Tests\Core\PartsAdapterTests.fs" />
     <Compile Include="Tests\Core\PartsTests.fs" />
-    <Compile Include="Tests\Hemerology\YearNumberingTests.fs" />
     <Compile Include="Tests\Hemerology\CalendarScopeTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearScopeTests.fs" />
     <Compile Include="Tests\Hemerology\BoundedBelowScopeTests.fs" />
@@ -88,12 +87,13 @@
     <Compile Include="Tests\Temp\BoundedBelowScopeTests.fs" />
     <Compile Include="Tests\Temp\MinMaxYearCalendarTests.fs" />
     <Compile Include="Tests\Temp\BoundedBelowCalendarTests.fs" />
-    <Compile Include="Tests\AdditionRulesetTests.fs" />
-    <Compile Include="Tests\DayNumberTests.fs" />
-    <Compile Include="Tests\DayZeroTests.fs" />
-    <Compile Include="Tests\OrdTests.fs" />
-    <Compile Include="Tests\PartsTests.fs" />
     <Compile Include="Tests\ValueTypeTests.fs" />
+    <Compile Include="Tests\DayNumberTests.fs" />
+    <Compile Include="Tests\OrdTests.fs" />
+    <Compile Include="Tests\DayZeroTests.fs" />
+    <Compile Include="Tests\PartsTests.fs" />
+    <Compile Include="Tests\AdditionRulesetTests.fs" />
+    <Compile Include="Tests\YearNumberingTests.fs" />
     <Compile Include="Program.fs" />
     <None Include="Calendrie.Tests.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

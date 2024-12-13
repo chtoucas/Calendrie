@@ -1,9 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Hemerology.YearNumberingTests
+module Calendrie.Tests.YearNumberingTests
 
-open Calendrie.Hemerology
+open Calendrie
 open Calendrie.Testing
 open Calendrie.Testing.Data
 

@@ -490,7 +490,6 @@ Calendrie.Hemerology.IFixedDate<TSelf>.Next(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.YearNumbering
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
@@ -1046,6 +1045,7 @@ Calendrie.Systems.ZoroastrianDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Systems.ZoroastrianDate.ZoroastrianDate() -> void
 Calendrie.Systems.ZoroastrianDate.ZoroastrianDate(int year, int dayOfYear) -> void
 Calendrie.Systems.ZoroastrianDate.ZoroastrianDate(int year, int month, int day) -> void
+Calendrie.YearNumbering
 const Calendrie.Core.CalendricalConstants.DaysInWanderingYear = 365 -> int
 const Calendrie.Core.CalendricalConstants.DaysInWeek = 7 -> int
 const Calendrie.Core.CalendricalConstants.DaysPer4JulianYearCycle = 1461 -> int
@@ -1614,22 +1614,6 @@ static Calendrie.DayZero.SundayBeforeGregorian.get -> Calendrie.DayNumber
 static Calendrie.DayZero.TabularIslamic.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Tropicalia.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Zoroastrian.get -> Calendrie.DayNumber
-static Calendrie.Hemerology.YearNumbering.GetCentury(int year) -> int
-static Calendrie.Hemerology.YearNumbering.GetCentury(int year, out int yearOfCentury) -> int
-static Calendrie.Hemerology.YearNumbering.GetDecade(int year, out int yearOfDecade) -> int
-static Calendrie.Hemerology.YearNumbering.GetDecadeOfCentury(int year, out int century, out int yearOfDecade) -> int
-static Calendrie.Hemerology.YearNumbering.GetIsoCentury(int year, out int yearOfCentury) -> int
-static Calendrie.Hemerology.YearNumbering.GetIsoDecade(int year, out int yearOfDecade) -> int
-static Calendrie.Hemerology.YearNumbering.GetIsoDecadeOfCentury(int year, out int century, out int yearOfDecade) -> int
-static Calendrie.Hemerology.YearNumbering.GetIsoMillennium(int year, out int yearOfMillennium) -> int
-static Calendrie.Hemerology.YearNumbering.GetMillennium(int year, out int yearOfMillennium) -> int
-static Calendrie.Hemerology.YearNumbering.GetYearFromCentury(int century, int yearOfCentury) -> int
-static Calendrie.Hemerology.YearNumbering.GetYearFromDecade(int decade, int yearOfDecade) -> int
-static Calendrie.Hemerology.YearNumbering.GetYearFromIsoCentury(int century, int yearOfCentury) -> int
-static Calendrie.Hemerology.YearNumbering.GetYearFromIsoDecade(int decade, int yearOfDecade) -> int
-static Calendrie.Hemerology.YearNumbering.GetYearFromIsoMillennium(int millennium, int yearOfMillennium) -> int
-static Calendrie.Hemerology.YearNumbering.GetYearFromMillennium(int millennium, int yearOfMillennium) -> int
-static Calendrie.Hemerology.YearNumbering.GetYearOfCentury(int year) -> int
 static Calendrie.MonthParts.AtStartOfYear(int y) -> Calendrie.MonthParts
 static Calendrie.MonthParts.operator <(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
@@ -1897,6 +1881,22 @@ static Calendrie.Systems.ZoroastrianDate.operator <=(Calendrie.Systems.Zoroastri
 static Calendrie.Systems.ZoroastrianDate.operator ==(Calendrie.Systems.ZoroastrianDate left, Calendrie.Systems.ZoroastrianDate right) -> bool
 static Calendrie.Systems.ZoroastrianDate.operator >(Calendrie.Systems.ZoroastrianDate left, Calendrie.Systems.ZoroastrianDate right) -> bool
 static Calendrie.Systems.ZoroastrianDate.operator >=(Calendrie.Systems.ZoroastrianDate left, Calendrie.Systems.ZoroastrianDate right) -> bool
+static Calendrie.YearNumbering.GetCentury(int year) -> int
+static Calendrie.YearNumbering.GetCentury(int year, out int yearOfCentury) -> int
+static Calendrie.YearNumbering.GetDecade(int year, out int yearOfDecade) -> int
+static Calendrie.YearNumbering.GetDecadeOfCentury(int year, out int century, out int yearOfDecade) -> int
+static Calendrie.YearNumbering.GetIsoCentury(int year, out int yearOfCentury) -> int
+static Calendrie.YearNumbering.GetIsoDecade(int year, out int yearOfDecade) -> int
+static Calendrie.YearNumbering.GetIsoDecadeOfCentury(int year, out int century, out int yearOfDecade) -> int
+static Calendrie.YearNumbering.GetIsoMillennium(int year, out int yearOfMillennium) -> int
+static Calendrie.YearNumbering.GetMillennium(int year, out int yearOfMillennium) -> int
+static Calendrie.YearNumbering.GetYearFromCentury(int century, int yearOfCentury) -> int
+static Calendrie.YearNumbering.GetYearFromDecade(int decade, int yearOfDecade) -> int
+static Calendrie.YearNumbering.GetYearFromIsoCentury(int century, int yearOfCentury) -> int
+static Calendrie.YearNumbering.GetYearFromIsoDecade(int decade, int yearOfDecade) -> int
+static Calendrie.YearNumbering.GetYearFromIsoMillennium(int millennium, int yearOfMillennium) -> int
+static Calendrie.YearNumbering.GetYearFromMillennium(int millennium, int yearOfMillennium) -> int
+static Calendrie.YearNumbering.GetYearOfCentury(int year) -> int
 virtual Calendrie.Core.CalendricalSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
 virtual Calendrie.Core.CalendricalSchema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 virtual Calendrie.Core.CalendricalSchema.GetYear(int daysSinceEpoch, out int doy) -> int
