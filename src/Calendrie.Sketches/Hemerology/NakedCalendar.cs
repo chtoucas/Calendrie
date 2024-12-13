@@ -7,34 +7,31 @@ using Calendrie.Core;
 using Calendrie.Core.Validation;
 
 /// <summary>
-/// Defines a calendar without a dedicated companion date type.
+/// Represents a calendar without a dedicated companion date type.
 /// </summary>
-public interface INakedCalendar
+public abstract class NakedCalendar : Calendar
 {
     /// <summary>
-    /// Gets the calendar scope.
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="NakedCalendar"/> class.
     /// </summary>
-    CalendarScope Scope { get; }
+    /// <exception cref="ArgumentNullException">One of the parameters is
+    /// <see langword="null"/>.</exception>
+    protected NakedCalendar(string name, CalendarScope scope) : base(name, scope)
+    {
+        Debug.Assert(scope != null);
+
+        PartsAdapter = new PartsAdapter(Schema);
+    }
 
     /// <summary>
-    /// Gets the provider for day numbers.
+    /// Gets the adapter for the calendrical parts.
     /// </summary>
-    IDateProvider<DayNumber> DayNumberProvider { get; }
+    protected internal PartsAdapter PartsAdapter { get; }
 
-    /// <summary>
-    /// Gets the provider for date parts.
-    /// </summary>
-    IDateProvider<DateParts> DatePartsProvider { get; }
-
-    /// <summary>
-    /// Gets the provider for ordinal parts.
-    /// </summary>
-    IDateProvider<OrdinalParts> OrdinalPartsProvider { get; }
-
-    /// <summary>
-    /// Gets the adapter for calendrical parts.
-    /// </summary>
-    protected PartsAdapter PartsAdapter { get; }
+    //
+    // Conversions
+    //
 
     /// <summary>
     /// Obtains the date parts for the specified day number.
@@ -42,7 +39,7 @@ public interface INakedCalendar
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of values supported by this calendar.</exception>
     [Pure]
-    DateParts GetDateParts(DayNumber dayNumber)
+    public DateParts GetDateParts(DayNumber dayNumber)
     {
         var scope = Scope;
         scope.Domain.Validate(dayNumber);
@@ -55,7 +52,7 @@ public interface INakedCalendar
     /// <exception cref="ArgumentOutOfRangeException">The ordinal date is either
     /// invalid or outside the range of supported dates.</exception>
     [Pure]
-    DateParts GetDateParts(int year, int dayOfYear)
+    public DateParts GetDateParts(int year, int dayOfYear)
     {
         Scope.ValidateOrdinal(year, dayOfYear);
         return PartsAdapter.GetDateParts(year, dayOfYear);
@@ -67,7 +64,7 @@ public interface INakedCalendar
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of values supported by this calendar.</exception>
     [Pure]
-    OrdinalParts GetOrdinalParts(DayNumber dayNumber)
+    public OrdinalParts GetOrdinalParts(DayNumber dayNumber)
     {
         var scope = Scope;
         scope.Domain.Validate(dayNumber);
@@ -80,7 +77,7 @@ public interface INakedCalendar
     /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
     /// or outside the range of supported dates.</exception>
     [Pure]
-    OrdinalParts GetOrdinalParts(int year, int month, int day)
+    public OrdinalParts GetOrdinalParts(int year, int month, int day)
     {
         Scope.ValidateYearMonthDay(year, month, day);
         return PartsAdapter.GetOrdinalParts(year, month, day);

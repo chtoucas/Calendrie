@@ -14,29 +14,15 @@ using Calendrie.Core.Validation;
 // Types implementing ICalendar or ICalendar<T>
 // --------------------------------------------
 //
-//   SimpleCalendar                         CalendarDate, OrdinalDate, etc.
-//     SimpleGregorian & co
-//   BasicCalendar
+// Calendar
+//   CalendarSystem
+//     CivilCalendar                    CivilDate
+//     GregorianCalendar                GregorianDate
+//     JulianCalendar                   JulianDate
+//     etc
+//   NakedCalendar
 //     BoundedBelowCalendar
-//       BoundedBelowCalendar<TDate>        TDate
-//         BoundedBelowDayCalendar          DayNumber
 //     MinMaxYearCalendar
-//       MinMaxYearDayCalendar            DayNumber
-//       (MyCivilCalendar)                MyCivilDate
-//       CalendarSystem
-//         CivilCalendar                    CivilDate
-//         GregorianCalendar                GregorianDate
-//         JulianCalendar                   JulianDate
-//         etc.
-//       ZCalendar                        ZDate
-//         GregorianZCalendar & co
-// A   NakedCalendar
-//       BoundedBelowNakedCalendar
-//       MinMaxYearNakedCalendar
-//       (MyNakedCalendar)
-//
-// Annotation: A = abstract
-// Between parentheses: sample calendars
 //
 // Calendar vs Date
 // ----------------
@@ -205,6 +191,7 @@ public abstract partial class Calendar : ICalendricalKernel
 
         Name = name;
         Scope = scope;
+
         Schema = scope.Schema;
         YearsValidator = scope.YearsValidator;
     }
