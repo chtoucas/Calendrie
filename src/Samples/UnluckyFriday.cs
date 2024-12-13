@@ -30,25 +30,3 @@ public static class CivilDateExtras
         }
     }
 }
-
-public static class GregorianDateExtras
-{
-    [Pure]
-    public static bool IsUnluckyFriday(this GregorianDate date) =>
-        // On vérifie d'abord le jour de la semaine (propriété la plus rapide à obtenir).
-        date.DayOfWeek == DayOfWeek.Friday
-        && date.Day == 13;
-
-    [Pure]
-    public static IEnumerable<GregorianDate> FindUnluckyFridays(int year)
-    {
-        for (int m = 1; m <= 12; m++)
-        {
-            var date = new GregorianDate(year, m, 13);
-            if (date.DayOfWeek == DayOfWeek.Friday)
-            {
-                yield return date;
-            }
-        }
-    }
-}
