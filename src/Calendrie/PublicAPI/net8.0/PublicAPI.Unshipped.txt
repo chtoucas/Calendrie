@@ -223,7 +223,7 @@ Calendrie.Core.Intervals.UpperRay<T>.Min.get -> T
 Calendrie.Core.Intervals.UpperRay<T>.SetEquals(Calendrie.Core.Intervals.UpperRay<T> other) -> bool
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay() -> void
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay(T min) -> void
-Calendrie.Core.ISchemaActivator<TSelf>
+Calendrie.Core.ISchemaActivator<TSchema>
 Calendrie.Core.PartsAdapter
 Calendrie.Core.PartsAdapter.GetDateParts(int daysSinceEpoch) -> Calendrie.DateParts
 Calendrie.Core.PartsAdapter.GetDateParts(int y, int doy) -> Calendrie.DateParts
@@ -287,8 +287,6 @@ Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Cor
 Calendrie.Core.SystemSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.Utilities.IAdjustable<TSelf>
 Calendrie.Core.Utilities.IAdjustable<TSelf>.Adjust(System.Func<TSelf, TSelf>! adjuster) -> TSelf
-Calendrie.Core.Utilities.IComparisonOperators<TSelf, TOther>
-Calendrie.Core.Utilities.IEqualityOperators<TSelf, TOther>
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>.Max(TSelf x, TSelf y) -> TSelf
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>.Min(TSelf x, TSelf y) -> TSelf
