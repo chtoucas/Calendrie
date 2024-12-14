@@ -13,17 +13,12 @@ using Calendrie.Core.Utilities;
 public sealed class CalendricalSegment
 {
     /// <summary>
-    /// Represents the underlying schema.
-    /// </summary>
-    private readonly ICalendricalSchema _schema;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="CalendricalSegment"/> class.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
     internal CalendricalSegment(ICalendricalSchema schema, Endpoint min, Endpoint max)
     {
-        _schema = schema;
+        Schema = schema;
 
         SupportedDays = Range.Create(min.DaysSinceEpoch, max.DaysSinceEpoch);
         SupportedMonths = Range.Create(min.MonthsSinceEpoch, max.MonthsSinceEpoch);
@@ -99,7 +94,7 @@ public sealed class CalendricalSegment
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    internal ICalendricalSchema Schema => _schema;
+    internal ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

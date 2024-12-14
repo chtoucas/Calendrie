@@ -74,17 +74,11 @@ public partial class CalendarZoo
 }
 
 // Long proleptic calendars:
-// - Tropicalia
 // - LongGregorian
 // - LongJulian
+// - Tropicalia
 public partial class CalendarZoo
 {
-    /// <summary>
-    /// Gets the (long) proleptic Tropicália calendar.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static MinMaxYearCalendar Tropicalia => LongCalendars.Tropicalia;
-
     /// <summary>
     /// Gets the (long) proleptic Gregorian calendar.
     /// <para>This static property is thread-safe.</para>
@@ -96,6 +90,12 @@ public partial class CalendarZoo
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MinMaxYearCalendar LongJulian => LongCalendars.Julian;
+
+    /// <summary>
+    /// Gets the (long) proleptic Tropicália calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar Tropicalia => LongCalendars.Tropicalia;
 
     private static class LongCalendars
     {
@@ -112,7 +112,7 @@ public partial class CalendarZoo
     }
 }
 
-// Retropolated calendars:
+// Other retropolated calendars:
 // - Egyptian
 // - FrenchRepublican
 // - Persian2820
@@ -169,11 +169,11 @@ public partial class CalendarZoo
     /// </summary>
     public static MinMaxYearCalendar InternationalFixed => PerennialCalendars.InternationalFixed;
 
-    ///// <summary>
-    ///// Gets the Pax calendar.
-    ///// <para>This static property is thread-safe.</para>
-    ///// </summary>
-    //public static MinMaxYearCalendar Pax => ProposedCalendars.Pax;
+    /// <summary>
+    /// Gets the Pax calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar Pax => PerennialCalendars.Pax;
 
     /// <summary>
     /// Gets the Positivist calendar aka the Georgian calendar.
