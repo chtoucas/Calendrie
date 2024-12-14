@@ -10,7 +10,7 @@ using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 
-using Range = Calendrie.Core.Intervals.Range;
+using Range_ = Calendrie.Core.Intervals.Range;
 
 public sealed class GregorianKernel : ICalendricalKernel
 {
@@ -30,7 +30,7 @@ public sealed class GregorianKernel : ICalendricalKernel
     public CalendricalFamily Family => CalendricalFamily.Solar;
     public CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
-    public static Range<int> SupportedYears => Range.Create(int.MinValue, int.MaxValue);
+    public static Range<int> SupportedYears => Range_.Create(int.MinValue, int.MaxValue);
 
     [Pure]
     public bool IsRegular(out int monthsInYear)

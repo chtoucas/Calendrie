@@ -10,12 +10,14 @@ Comparaison avec NodaTime et les BCL
 ### BCL
 
 - un type date (DateOnly) commun à tous les calendriers
-- réprésentation interne : _dayNumber (int)
+- réprésentation interne : _dayNumber (int), le nombre de jours consécutifs
+  depuis l'epoch du calendrier grégorien (à vérifier)
 
 ### Calendrie
 
 - un type date spécifique à chaque calendrier
-- réprésentation interne : _daysSinceEpoch (int)
+- réprésentation interne : _daysSinceEpoch (int), le nombre de jours consécutifs
+  depuis l'epoch du calendrier sous-jacent
 
 Tâches
 ------

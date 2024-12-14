@@ -33,6 +33,8 @@ public partial class PartsAdapter // Conversions
     /// <summary>
     /// Obtains the date parts for the specified month count (the number of
     /// consecutive months from the epoch to a date).
+    /// <para>This method does NOT check whether its parameter is valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public MonthParts GetMonthParts(int monthsSinceEpoch)
@@ -44,6 +46,8 @@ public partial class PartsAdapter // Conversions
     /// <summary>
     /// Obtains the date parts for the specified day count (the number of
     /// consecutive days from the epoch to a date).
+    /// <para>This method does NOT check whether its parameter is valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public DateParts GetDateParts(int daysSinceEpoch)
@@ -55,6 +59,8 @@ public partial class PartsAdapter // Conversions
     /// <summary>
     /// Obtains the ordinal date parts for the specified day count (the number
     /// of consecutive days from the epoch to a date).
+    /// <para>This method does NOT check whether its parameter is valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalParts(int daysSinceEpoch)
@@ -65,6 +71,8 @@ public partial class PartsAdapter // Conversions
 
     /// <summary>
     /// Obtains the ordinal date parts for the specified date.
+    /// <para>This method does NOT check whether its parameters are valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalParts(int y, int m, int d)
@@ -75,6 +83,8 @@ public partial class PartsAdapter // Conversions
 
     /// <summary>
     /// Obtains the date parts for the specified ordinal date.
+    /// <para>This method does NOT check whether its parameters are valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public DateParts GetDateParts(int y, int doy)
@@ -113,6 +123,8 @@ public partial class PartsAdapter // Dates in a given year or month
 
     /// <summary>
     /// Obtains the date parts for the last month of the specified year.
+    /// <para>This method does NOT check whether its parameter is valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public MonthParts GetMonthPartsAtEndOfYear(int y)
@@ -123,6 +135,8 @@ public partial class PartsAdapter // Dates in a given year or month
 
     /// <summary>
     /// Obtains the date parts for the last day of the specified year.
+    /// <para>This method does NOT check whether its parameter is valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public DateParts GetDatePartsAtEndOfYear(int y)
@@ -134,6 +148,8 @@ public partial class PartsAdapter // Dates in a given year or month
 
     /// <summary>
     /// Obtains the ordinal date parts for the last day of the specified year.
+    /// <para>This method does NOT check whether its parameter is valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalPartsAtEndOfYear(int y)
@@ -153,6 +169,8 @@ public partial class PartsAdapter // Dates in a given year or month
 
     /// <summary>
     /// Obtains the ordinal date parts for the first day of the specified month.
+    /// <para>This method does NOT check whether its parameters are valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalPartsAtStartOfMonth(int y, int m)
@@ -163,6 +181,8 @@ public partial class PartsAdapter // Dates in a given year or month
 
     /// <summary>
     /// Obtains the date parts for the last day of the specified month.
+    /// <para>This method does NOT check whether its parameters are valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public DateParts GetDatePartsAtEndOfMonth(int y, int m)
@@ -173,6 +193,8 @@ public partial class PartsAdapter // Dates in a given year or month
 
     /// <summary>
     /// Obtains the ordinal date parts for the last day of the specified month.
+    /// <para>This method does NOT check whether its parameters are valid or not.
+    /// </para>
     /// </summary>
     [Pure]
     public OrdinalParts GetOrdinalPartsAtEndOfMonth(int y, int m)
