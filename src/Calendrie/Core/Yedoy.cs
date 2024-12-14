@@ -23,7 +23,11 @@ using Calendrie.Core.Utilities;
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yedoy :
     ISerializable<Yedoy, int>,
-    IComparisonOperators<Yedoy>,
+    IEqualityOperators<Yedoy, Yedoy, bool>,
+    IEquatable<Yedoy>,
+    IComparisonOperators<Yedoy, Yedoy, bool>,
+    IComparable<Yedoy>,
+    IComparable,
     IMinMaxValue<Yedoy>
 {
     #region Bit settings

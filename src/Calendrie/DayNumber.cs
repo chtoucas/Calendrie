@@ -58,7 +58,11 @@ using Calendrie.Hemerology;
 public readonly partial struct DayNumber :
     IFixedDate<DayNumber>,
     // Comparison
-    IComparisonOperators<DayNumber>,
+    IEqualityOperators<DayNumber, DayNumber, bool>,
+    IEquatable<DayNumber>,
+    IComparisonOperators<DayNumber, DayNumber, bool>,
+    IComparable<DayNumber>,
+    IComparable,
     IMinMaxValue<DayNumber>,
     IMinMaxFunction<DayNumber>,
     // Arithmetic

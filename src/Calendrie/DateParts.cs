@@ -3,6 +3,8 @@
 
 namespace Calendrie;
 
+using System.Numerics;
+
 using Calendrie.Core.Utilities;
 
 /// <summary>
@@ -17,7 +19,11 @@ using Calendrie.Core.Utilities;
 /// <param name="Month">Month of the year.</param>
 /// <param name="Day">Day of the month.</param>
 public readonly record struct DateParts(int Year, int Month, int Day) :
-    IComparisonOperators<DateParts>
+    IEqualityOperators<DateParts, DateParts, bool>,
+    IEquatable<DateParts>,
+    IComparisonOperators<DateParts, DateParts, bool>,
+    IComparable<DateParts>,
+    IComparable
 {
     /// <summary>
     /// Gets the month parts.

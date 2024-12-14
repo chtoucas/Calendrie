@@ -82,7 +82,11 @@ using Calendrie.Core.Utilities;
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yemoda :
     ISerializable<Yemoda, int>,
-    IComparisonOperators<Yemoda>,
+    IEqualityOperators<Yemoda, Yemoda, bool>,
+    IEquatable<Yemoda>,
+    IComparisonOperators<Yemoda, Yemoda, bool>,
+    IComparable<Yemoda>,
+    IComparable,
     IMinMaxValue<Yemoda>
 {
     #region Bit settings

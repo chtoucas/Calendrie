@@ -21,7 +21,11 @@ using Calendrie.Core.Utilities;
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Ord :
     // Comparison
-    IComparisonOperators<Ord>,
+    IEqualityOperators<Ord, Ord, bool>,
+    IEquatable<Ord>,
+    IComparisonOperators<Ord, Ord, bool>,
+    IComparable<Ord>,
+    IComparable,
     IMinMaxValue<Ord>,
     // Arithmetic
     IAdditionOperators<Ord, int, Ord>,

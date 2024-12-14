@@ -21,7 +21,11 @@ public interface IDate<TSelf> :
     IDateable,
     IFixedDate<TSelf>,
     // Comparison
-    IComparisonOperators<TSelf>,
+    IEqualityOperators<TSelf, TSelf, bool>,
+    IEquatable<TSelf>,
+    IComparisonOperators<TSelf, TSelf, bool>,
+    IComparable<TSelf>,
+    IComparable,
     IMinMaxFunction<TSelf>,
     // Arithmetic
     IDayArithmetic<TSelf>

@@ -4,6 +4,7 @@
 namespace Calendrie.Core;
 
 using System.ComponentModel;
+using System.Numerics;
 
 using Calendrie.Core.Utilities;
 
@@ -26,7 +27,11 @@ using Calendrie.Core.Utilities;
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yemo :
     ISerializable<Yemo, int>,
-    IComparisonOperators<Yemo>
+    IEqualityOperators<Yemo, Yemo, bool>,
+    IEquatable<Yemo>,
+    IComparisonOperators<Yemo, Yemo, bool>,
+    IComparable<Yemo>,
+    IComparable
 {
     /// <summary>
     /// Represents the absolute minimum value for <see cref="Year"/>.
