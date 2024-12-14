@@ -12,6 +12,12 @@ using Calendrie.Core.Utilities;
 public class PrototypalSchemaSlim : PrototypalSchema
 {
     /// <summary>
+    /// Represents the cache for <see cref="GetStartOfYear(int)"/>.
+    /// <para>This field is read-only.</para>
+    /// </summary>
+    private readonly StartOfYearCache[] _startOfYearCache = StartOfYearCache.Create();
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PrototypalSchemaSlim"/>
     /// class.
     /// </summary>
@@ -41,6 +47,13 @@ public class PrototypalSchemaSlim : PrototypalSchema
 
     /// <inheritdoc />
     public int MinDaysInMonth => _minDaysInMonth;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the cache for
+    /// <see cref="GetStartOfYear(int)"/> is disabled or not.
+    /// <para>The default value is false.</para>
+    /// </summary>
+    public bool DisableStartOfYearCache { get; init; }
 
     protected int ApproxMonthsInYear { get; }
 
@@ -123,4 +136,35 @@ public class PrototypalSchemaSlim : PrototypalSchema
         d = doy - daysInYearBeforeMonth;
         return m;
     }
+
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYear(int y)
+    {
+        if (DisableStartOfYearCache) { return GetStartOfYearCore(y); }
+
+        // TODO(code): caching.
+        // Currently, we just copied the cache class from NodaTime.
+        // https://github.com/bitfaster/BitFaster.Caching
+
+        int index = StartOfYearCache.GetIndex(y);
+        var value = _startOfYearCache[index];
+
+        if (!value.IsValidForYear(y))
+        {
+            int startOfYear = GetStartOfYearCore(y);
+            value = new StartOfYearCache(y, startOfYear);
+            _startOfYearCache[index] = value;
+        }
+
+        return value.StartOfYear;
+    }
+
+    /// <summary>
+    /// Counts the number of consecutive days from the epoch to the first day
+    /// of the specified year (no cache).
+    /// </summary>
+    [Pure]
+    protected virtual int GetStartOfYearCore(int y) => base.GetStartOfYear(y);
 }
