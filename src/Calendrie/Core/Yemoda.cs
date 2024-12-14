@@ -9,7 +9,7 @@ using System.Numerics;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(doc): to be updated, default value and IMinMaxValue<>.
+// FIXME(code): default value and IMinMaxValue<>, update doc accordingly.
 // Default value: when used as a binary repr for a struct date type, one
 // would expect that default(Yemoda) = epoch that is 01/01/0001.
 // With default(Yemoda) = 01/01/0000, Yemoda can no longer be used with

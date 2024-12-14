@@ -9,7 +9,7 @@ using Calendrie.Core.Validation;
 using static Calendrie.Core.CalendricalConstants;
 
 // TODO(doc): XML doc, overflows (validator), no array lookup.
-// Remove methods using a conversion (y, m, d) <-> (y, doy)?
+// REVIEW(code): remove methods using a conversion (y, m, d) <-> (y, doy)?
 // - CountDaysInMonthBefore(y, doy)
 // - CountDaysInMonthAfter(y, doy)
 // - GetOrdinalPartsAtStartOfMonth(int y, int m)

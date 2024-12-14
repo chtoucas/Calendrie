@@ -8,8 +8,7 @@ using Calendrie.Core.Utilities;
 // The Min/MaxYear limits do not apply here.
 
 // REVIEW(code): GetYear() overflows pretty quickly. Optimize * 400? Idem w/ 32-bit
-// FIXME(code): checked ops?
-// formulae should use the new signature: GetOrdinalParts() -> GetYear().
+// FIXME(code): formulae should use the new signature: GetOrdinalParts() -> GetYear().
 
 /// <summary>
 /// Provides static formulae for the Gregorian schema (32-bit and 64-bit
