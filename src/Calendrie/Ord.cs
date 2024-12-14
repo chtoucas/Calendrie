@@ -27,6 +27,7 @@ public readonly partial struct Ord :
     IComparable<Ord>,
     IComparable,
     IMinMaxValue<Ord>,
+    IMinMaxFunction<Ord>,
     // Arithmetic
     IAdditionOperators<Ord, int, Ord>,
     ISubtractionOperators<Ord, int, Ord>,

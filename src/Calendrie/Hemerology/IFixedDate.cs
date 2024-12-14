@@ -3,6 +3,10 @@
 
 namespace Calendrie.Hemerology;
 
+using System.Numerics;
+
+using Calendrie.Core.Utilities;
+
 #region Developer Notes
 
 // TL;DR: Despite its flaws we'll use the CRTP.
@@ -136,7 +140,8 @@ namespace Calendrie.Hemerology;
 /// <summary>
 /// Defines a fixed date.
 /// <para>A date is said to be <i>fixed</i> if it's attached to a timeline. In
-/// this project, it can be mapped to a <see cref="DayNumber"/>.</para>
+/// this project, it means that it can be mapped to a <see cref="Calendrie.DayNumber"/>.
+/// </para>
 /// </summary>
 public interface IFixedDate
 {
@@ -161,7 +166,18 @@ public interface IFixedDate
 /// Defines a fixed date type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IFixedDate<TSelf> : IFixedDate
+public interface IFixedDate<TSelf> :
+    IFixedDate,
+    // Comparison
+    IEqualityOperators<TSelf, TSelf, bool>,
+    IEquatable<TSelf>,
+    IComparisonOperators<TSelf, TSelf, bool>,
+    IComparable<TSelf>,
+    IComparable,
+    // No IMinMaxValue<T> for date types participating in a poly-calendar system.
+    IMinMaxFunction<TSelf>,
+    // Arithmetic
+    IDayArithmetic<TSelf>
     where TSelf : IFixedDate<TSelf>
 {
     //

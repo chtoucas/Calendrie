@@ -5,6 +5,9 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
+// For types implementing this interface, we should manually add
+// ISubtractionOperators<TSelf, TSelf, int>
+
 /// <summary>
 /// Defines the standard mathematical operations on a date, those related to the
 /// day unit.

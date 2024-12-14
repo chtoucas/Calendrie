@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-using Calendrie.Core.Utilities;
-
 // A date type is expected to provide a constructor or a factory with the
 // following parameters:
 // - (y, m, d)
@@ -19,16 +17,7 @@ using Calendrie.Core.Utilities;
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IDate<TSelf> :
     IDateable,
-    IFixedDate<TSelf>,
-    // Comparison
-    IEqualityOperators<TSelf, TSelf, bool>,
-    IEquatable<TSelf>,
-    IComparisonOperators<TSelf, TSelf, bool>,
-    IComparable<TSelf>,
-    IComparable,
-    IMinMaxFunction<TSelf>,
-    // Arithmetic
-    IDayArithmetic<TSelf>
+    IFixedDate<TSelf>
     where TSelf : IDate<TSelf>
 { }
 
