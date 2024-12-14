@@ -7,14 +7,8 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
-// Range of supported years
-// - ProlepticScope     [-9998..9999]
-// - StandardScope      [1..9999]
-// - MinMaxYearScope    [minYear..maxYear]
-// - BoundedBelowScope  [minDate.Year..maxYear], the first year is not complete
-
 /// <summary>
-/// Defines the scope of application of a calendar, an interval of days, and
+/// Defines the scope of application of a calendar, a range of days, and
 /// provides a base for derived classes.
 /// </summary>
 public abstract partial class CalendarScope : ICalendricalValidator

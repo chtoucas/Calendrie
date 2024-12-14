@@ -1,17 +1,54 @@
 ﻿
+Comparaison avec NodaTime et les BCL
+------------------------------------
+
+### NodaTime
+
+- un type date (LocalDate) commun à tous les calendriers
+- représentation interne : y/m/d (int)
+
+### BCL
+
+- un type date (DateOnly) commun à tous les calendriers
+- réprésentation interne : _dayNumber (int)
+
+### Calendrie
+
+- un type date spécifique à chaque calendrier
+- réprésentation interne : _daysSinceEpoch (int)
+
 Tâches
 ------
 
-Trois types de tâches : FIXME, TODO et REVIEW.
-Sous-catégories : code, doc et fact
+Trois types de tâches : FIXME, TODO et REVIEW
+Sous-catégories entre paranthèses : p.ex. TODO(code)
+Trois sous-catégories : "code", "doc" et "fact"
 
-Recommandations C#
-------------------
+Code C#
+-------
 
-- "sealed"
-    - par défaut
-    - ToString()
+- utilisation du mot-clé "sealed"
+  - comportement par défaut des classes
+  - propriétés et méthodes surchargées ("override"), tout particulièrement
+    la méthode ToString()
+- attribut "Pure"
+
+### Code Analysis
+
+Justifier l'utilisation des
+- #pragma warning disable
+- SuppressMessage
 
 ### Documentation XML
 
 Utiliser <see langword="null"/>, idem pour "true" et "false".
+
+### Vérifier régulièrement
+
+- PublicAPI : les méthodes virtuelles
+
+Tests
+-----
+
+Ne pas utiliser "." dans les noms de test car Test Explorer n’aime pas ça.
+On utilise ":" ou "::" à la place.
