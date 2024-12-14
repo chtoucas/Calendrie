@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+using System.Numerics;
+
 using Calendrie.Core.Utilities;
 
 /// <summary>
@@ -19,7 +21,8 @@ using Calendrie.Core.Utilities;
 public readonly partial struct Range<T> :
     ISegment<T>,
     ISetComparable<Range<T>>,
-    IEqualityOperators<Range<T>>
+    IEqualityOperators<Range<T>, Range<T>, bool>,
+    IEquatable<Range<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>

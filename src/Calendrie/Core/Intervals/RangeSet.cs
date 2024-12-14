@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+using System.Numerics;
+
 using Calendrie.Core.Utilities;
 
 // REVIEW(code): add factory Create(Range<T>), Singleton()?
@@ -86,7 +88,8 @@ public static class RangeSet
 /// </summary>
 /// <typeparam name="T">The type of the interval's elements.</typeparam>
 public readonly partial struct RangeSet<T> :
-    IEqualityOperators<RangeSet<T>>
+    IEqualityOperators<RangeSet<T>, RangeSet<T>, bool>,
+    IEquatable<RangeSet<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>

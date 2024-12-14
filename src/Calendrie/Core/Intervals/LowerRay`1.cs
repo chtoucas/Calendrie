@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+using System.Numerics;
+
 using Calendrie.Core.Utilities;
 
 // REVIEW(code): ISetComparable<> with other interval types.
@@ -20,7 +22,8 @@ using Calendrie.Core.Utilities;
 public readonly partial struct LowerRay<T> :
     IRay<T>,
     ISetComparable<LowerRay<T>>,
-    IEqualityOperators<LowerRay<T>>
+    IEqualityOperators<LowerRay<T>, LowerRay<T>, bool>,
+    IEquatable<LowerRay<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>

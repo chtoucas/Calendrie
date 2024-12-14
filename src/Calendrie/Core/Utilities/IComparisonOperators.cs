@@ -10,8 +10,9 @@ using System.Numerics;
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IComparisonOperators<TSelf> :
+    IEqualityOperators<TSelf, TSelf, bool>,
+    IEquatable<TSelf>,
     IComparisonOperators<TSelf, TSelf, bool>,
-    IEqualityOperators<TSelf>,
     IComparable<TSelf>,
     IComparable
     where TSelf : IComparisonOperators<TSelf>?

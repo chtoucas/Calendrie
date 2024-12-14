@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Utilities;
 
+using System.Numerics;
+
 #region Developer Notes
 
 // An ordered pair is just a 2-tuple whose elements are pre-ordered.
@@ -73,7 +75,8 @@ public static class OrderedPair
 /// </summary>
 /// <typeparam name="T">The type of the pair's elements.</typeparam>
 public readonly partial struct OrderedPair<T> :
-    IEqualityOperators<OrderedPair<T>>
+    IEqualityOperators<OrderedPair<T>, OrderedPair<T>, bool>,
+    IEquatable<OrderedPair<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>

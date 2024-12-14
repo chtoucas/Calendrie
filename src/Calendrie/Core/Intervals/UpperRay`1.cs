@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Intervals;
 
+using System.Numerics;
+
 using Calendrie.Core.Utilities;
 
 /// <summary>
@@ -17,7 +19,8 @@ using Calendrie.Core.Utilities;
 public readonly partial struct UpperRay<T> :
     IRay<T>,
     ISetComparable<UpperRay<T>>,
-    IEqualityOperators<UpperRay<T>>
+    IEqualityOperators<UpperRay<T>, UpperRay<T>, bool>,
+    IEquatable<UpperRay<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>
