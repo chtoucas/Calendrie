@@ -7,23 +7,24 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents a closed bounded interval.
-/// <para>This type has been designed with discrete intervals in mind, nevertheless everything
-/// should work fine for continuous intervals, except that formatting and documentation should
-/// feel a bit awkward.</para>
+/// <para>This type has been designed with discrete intervals in mind,
+/// nevertheless everything should work fine for continuous intervals, except
+/// that formatting and documentation should feel a bit awkward.</para>
 /// <para>An instance may be reduced to a single value.</para>
-/// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.</para>
+/// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.
+/// </para>
 /// <para><see cref="Range{T}"/> is an immutable struct.</para>
 /// </summary>
 /// <typeparam name="T">The type of the interval's elements.</typeparam>
 public readonly partial struct Range<T> :
     ISegment<T>,
     ISetComparable<Range<T>>,
-    IEqualityOperators<Range<T>, Range<T>>
+    IEqualityOperators<Range<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Range{T}"/> struct representing the
-    /// range [<paramref name="min"/>..<paramref name="max"/>].
+    /// Initializes a new instance of the <see cref="Range{T}"/> struct
+    /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
     /// less than <paramref name="min"/>.</exception>
@@ -35,8 +36,8 @@ public readonly partial struct Range<T> :
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Range{T}"/> struct from the specified
-    /// endpoints.
+    /// Initializes a new instance of the <see cref="Range{T}"/> struct from the
+    /// specified endpoints.
     /// </summary>
     // Public version: see Range.FromEndpoints().
     internal Range(OrderedPair<T> endpoints) { Endpoints = endpoints; }
@@ -46,7 +47,8 @@ public readonly partial struct Range<T> :
 
     /// <summary>
     /// Gets the minimum.
-    /// <para>The minimum is a minimal element also called the least element.</para>
+    /// <para>The minimum is a minimal element also called the least element.
+    /// </para>
     /// </summary>
     public T Min => Endpoints.LowerValue;
 
@@ -54,7 +56,8 @@ public readonly partial struct Range<T> :
 
     /// <summary>
     /// Gets the maximum.
-    /// <para>The maximum is a maximal element also called the greatest element.</para>
+    /// <para>The maximum is a maximal element also called the greatest element.
+    /// </para>
     /// </summary>
     public T Max => Endpoints.UpperValue;
 
@@ -164,13 +167,15 @@ public partial struct Range<T> // ISet...
 public partial struct Range<T> // IEquatable
 {
     /// <summary>
-    /// Determines whether two specified instances of <see cref="Range{T}"/> are equal.
+    /// Determines whether two specified instances of <see cref="Range{T}"/> are
+    /// equal.
     /// </summary>
     public static bool operator ==(Range<T> left, Range<T> right) =>
         left.Endpoints == right.Endpoints;
 
     /// <summary>
-    /// Determines whether two specified instances of <see cref="Range{T}"/> are not equal.
+    /// Determines whether two specified instances of <see cref="Range{T}"/> are
+    /// not equal.
     /// </summary>
     public static bool operator !=(Range<T> left, Range<T> right) =>
         left.Endpoints != right.Endpoints;
@@ -195,34 +200,40 @@ public partial struct Range<T> // Strict partial order
 #if false
 
     /// <summary>
-    /// Compares the two specified instances to see if the left one is before the right one.
+    /// Compares the two specified instances to see if the left one is before
+    /// the right one.
     /// </summary>
     public static bool operator <(Range<T> left, Range<T> right) =>
         left.Max.CompareTo(right.Min) < 0;
 
     /// <summary>
-    /// Compares the two specified instances to see if the left one is after the right one.
+    /// Compares the two specified instances to see if the left one is after the
+    /// right one.
     /// </summary>
     public static bool operator >(Range<T> left, Range<T> right) =>
         right.Max.CompareTo(left.Min) < 0;
 
     /// <summary>
-    /// Compares the two specified values to see if the left one is before the right one.
+    /// Compares the two specified values to see if the left one is before the
+    /// right one.
     /// </summary>
     public static bool operator <(Range<T> left, T right) => left.Max.CompareTo(right) < 0;
 
     /// <summary>
-    /// Compares the two specified values to see if the left one is before the right one.
+    /// Compares the two specified values to see if the left one is before the
+    /// right one.
     /// </summary>
     public static bool operator >(Range<T> left, T right) => left.Min.CompareTo(right) > 0;
 
     /// <summary>
-    /// Compares the two specified values to see if the left one is before the right one.
+    /// Compares the two specified values to see if the left one is before the
+    /// right one.
     /// </summary>
     public static bool operator <(T left, Range<T> right) => left.CompareTo(right.Min) < 0;
 
     /// <summary>
-    /// Compares the two specified values to see if the left one is before the right one.
+    /// Compares the two specified values to see if the left one is before the
+    /// right one.
     /// </summary>
     public static bool operator >(T left, Range<T> right) => left.CompareTo(right.Max) > 0;
 

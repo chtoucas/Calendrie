@@ -16,7 +16,7 @@ using Calendrie.Core.Utilities;
 /// <param name="Year">Algebraic year number.</param>
 /// <param name="DayOfYear">Day of the year.</param>
 public readonly record struct OrdinalParts(int Year, int DayOfYear) :
-    IComparisonOperators<OrdinalParts, OrdinalParts>
+    IComparisonOperators<OrdinalParts>
 {
     /// <summary>
     /// Creates a new instance of the <see cref="OrdinalParts"/> struct

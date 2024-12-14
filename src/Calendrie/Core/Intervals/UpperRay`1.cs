@@ -7,9 +7,9 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents a left-bounded closed ray; it has an minimum and no upper bound.
-/// <para>This type has been designed with discrete intervals in mind, nevertheless everything
-/// should work fine for continuous intervals, except that formatting and documentation should
-/// feel a bit awkward.</para>
+/// <para>This type has been designed with discrete intervals in mind,
+/// nevertheless everything should work fine for continuous intervals, except
+/// that formatting and documentation should feel a bit awkward.</para>
 /// <para>Represents also the (weak) upper closure of a value.</para>
 /// <para><see cref="UpperRay{T}"/> is an immutable struct.</para>
 /// </summary>
@@ -17,19 +17,20 @@ using Calendrie.Core.Utilities;
 public readonly partial struct UpperRay<T> :
     IRay<T>,
     ISetComparable<UpperRay<T>>,
-    IEqualityOperators<UpperRay<T>, UpperRay<T>>
+    IEqualityOperators<UpperRay<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UpperRay{T}"/> struct representing the ray
-    /// [<paramref name="min"/>..], the set of values greater than or equal to
-    /// <paramref name="min"/>.
+    /// Initializes a new instance of the <see cref="UpperRay{T}"/> struct
+    /// representing the ray [<paramref name="min"/>..], the set of values
+    /// greater than or equal to <paramref name="min"/>.
     /// </summary>
     public UpperRay(T min) { Min = min; }
 
     /// <summary>
     /// Gets the minimum.
-    /// <para>The minimum is a minimal element also called the least element.</para>
+    /// <para>The minimum is a minimal element also called the least element.
+    /// </para>
     /// </summary>
     public T Min { get; }
 
@@ -94,14 +95,15 @@ public partial struct UpperRay<T> // ISet...
 public partial struct UpperRay<T> // IEquatable
 {
     /// <summary>
-    /// Determines whether two specified instances of <see cref="UpperRay{T}"/> are equal.
+    /// Determines whether two specified instances of <see cref="UpperRay{T}"/>
+    /// are equal.
     /// </summary>
     public static bool operator ==(UpperRay<T> left, UpperRay<T> right) =>
         left.Min.Equals(right.Min);
 
     /// <summary>
-    /// Determines whether two specified instances of <see cref="UpperRay{T}"/> are not
-    /// equal.
+    /// Determines whether two specified instances of <see cref="UpperRay{T}"/>
+    /// are not equal.
     /// </summary>
     public static bool operator !=(UpperRay<T> left, UpperRay<T> right) =>
         !left.Min.Equals(right.Min);

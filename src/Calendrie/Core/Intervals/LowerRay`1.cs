@@ -10,9 +10,9 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents a right-bounded closed ray; it has a maximum and no lower bound.
-/// <para>This type has been designed with discrete intervals in mind, nevertheless everything
-/// should work fine for continuous intervals, except that formatting and documentation should
-/// feel a bit awkward.</para>
+/// <para>This type has been designed with discrete intervals in mind,
+/// nevertheless everything should work fine for continuous intervals, except
+/// that formatting and documentation should feel a bit awkward.</para>
 /// <para>Represents also the (weak) lower closure of a value.</para>
 /// <para><see cref="LowerRay{T}"/> is an immutable struct.</para>
 /// </summary>
@@ -20,19 +20,20 @@ using Calendrie.Core.Utilities;
 public readonly partial struct LowerRay<T> :
     IRay<T>,
     ISetComparable<LowerRay<T>>,
-    IEqualityOperators<LowerRay<T>, LowerRay<T>>
+    IEqualityOperators<LowerRay<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="LowerRay{T}"/> struct representing the
-    /// ray [..<paramref name="max"/>], the set of values less than or equal to
-    /// <paramref name="max"/>.
+    /// Initializes a new instance of the <see cref="LowerRay{T}"/> struct
+    /// representing the ray [..<paramref name="max"/>], the set of values less
+    /// than or equal to <paramref name="max"/>.
     /// </summary>
     public LowerRay(T max) { Max = max; }
 
     /// <summary>
     /// Gets the maximum.
-    /// <para>The maximum is a maximal element also called the greatest element.</para>
+    /// <para>The maximum is a maximal element also called the greatest element.
+    /// </para>
     /// </summary>
     public T Max { get; }
 
@@ -103,14 +104,15 @@ public partial struct LowerRay<T> // ISet...
 public partial struct LowerRay<T> // IEquatable
 {
     /// <summary>
-    /// Determines whether two specified instances of <see cref="LowerRay{T}"/> are equal.
+    /// Determines whether two specified instances of <see cref="LowerRay{T}"/>
+    /// are equal.
     /// </summary>
     public static bool operator ==(LowerRay<T> left, LowerRay<T> right) =>
         left.Max.Equals(right.Max);
 
     /// <summary>
-    /// Determines whether two specified instances of <see cref="LowerRay{T}"/> are not
-    /// equal.
+    /// Determines whether two specified instances of <see cref="LowerRay{T}"/>
+    /// are not equal.
     /// </summary>
     public static bool operator !=(LowerRay<T> left, LowerRay<T> right) =>
         !left.Max.Equals(right.Max);

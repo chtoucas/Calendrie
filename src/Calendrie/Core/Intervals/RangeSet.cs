@@ -23,7 +23,8 @@ public static class RangeSet
 
     /// <summary>
     /// Obtains the empty range.
-    /// <para>The empty range is both an intersection absorber and a span identity.</para>
+    /// <para>The empty range is both an intersection absorber and a span
+    /// identity.</para>
     /// </summary>
     [Pure]
     public static RangeSet<T> Empty<T>()
@@ -33,8 +34,8 @@ public static class RangeSet
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct representing the range
-    /// [<paramref name="min"/>..<paramref name="max"/>].
+    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct
+    /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
     /// less than <paramref name="min"/>.</exception>
@@ -46,8 +47,8 @@ public static class RangeSet
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct representing the range
-    /// [<paramref name="min"/>..<paramref name="max"/>].
+    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct
+    /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// <para>This factory method does NOT validate its parameters.</para>
     /// </summary>
     [Pure]
@@ -61,8 +62,8 @@ public static class RangeSet
     #region Conversions
 
     /// <summary>
-    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct from the specified
-    /// endpoints.
+    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct from the
+    /// specified endpoints.
     /// </summary>
     [Pure]
     public static RangeSet<T> FromEndpoints<T>(OrderedPair<T> endpoints)
@@ -77,19 +78,21 @@ public static class RangeSet
 /// <summary>
 /// Represents a (possibly empty) closed bounded interval.
 /// <para>An instance may be empty or reduced to a single value.</para>
-/// <para><i>Unless you need to take the intersection of two ranges, you most certainly should
-/// use <see cref="Range{T}"/> instead.</i></para>
-/// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.</para>
+/// <para><i>Unless you need to take the intersection of two ranges, you most
+/// certainly should use <see cref="Range{T}"/> instead.</i></para>
+/// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.
+/// </para>
 /// <para><see cref="RangeSet{T}"/> is an immutable struct.</para>
 /// </summary>
 /// <typeparam name="T">The type of the interval's elements.</typeparam>
 public readonly partial struct RangeSet<T> :
-    IEqualityOperators<RangeSet<T>, RangeSet<T>>
+    IEqualityOperators<RangeSet<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>
     /// Represents the empty range.
-    /// <para>The empty range is both an intersection absorber and a span identity.</para>
+    /// <para>The empty range is both an intersection absorber and a span
+    /// identity.</para>
     /// </summary>
 #pragma warning disable CS0649 // Field 'field' is never assigned to, and will always have its default value 'value'
     // FIXME(code): CS0649 when /p:HideInternals=true
@@ -99,15 +102,16 @@ public readonly partial struct RangeSet<T> :
     // Default value = empty set, _isInhabited = false and _endpoints = (default(T), default(T)).
 
     /// <summary>
-    /// Represents the pair of left and right endpoints if this range is inhabited.
+    /// Represents the pair of left and right endpoints if this range is
+    /// inhabited.
     /// </summary>
     private readonly OrderedPair<T> _endpoints;
 
     private readonly bool _isInhabited;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeSet{T}"/> struct representing the
-    /// range [<paramref name="min"/>..<paramref name="max"/>].
+    /// Initializes a new instance of the <see cref="RangeSet{T}"/> struct
+    /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
     /// less than <paramref name="min"/>.</exception>
@@ -120,8 +124,8 @@ public readonly partial struct RangeSet<T> :
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeSet{T}"/> struct from the specified
-    /// endpoints.
+    /// Initializes a new instance of the <see cref="RangeSet{T}"/> struct from
+    /// the specified endpoints.
     /// </summary>
     // Public version: see RangeSet.FromEndpoints().
     internal RangeSet(OrderedPair<T> endpoints)
@@ -153,12 +157,14 @@ public readonly partial struct RangeSet<T> :
 public partial struct RangeSet<T> // IEquatable
 {
     /// <summary>
-    /// Determines whether two specified instances of <see cref="RangeSet{T}"/> are equal.
+    /// Determines whether two specified instances of <see cref="RangeSet{T}"/>
+    /// are equal.
     /// </summary>
     public static bool operator ==(RangeSet<T> left, RangeSet<T> right) => left.Equals(right);
 
     /// <summary>
-    /// Determines whether two specified instances of <see cref="RangeSet{T}"/> are not equal.
+    /// Determines whether two specified instances of <see cref="RangeSet{T}"/>
+    /// are not equal.
     /// </summary>
     public static bool operator !=(RangeSet<T> left, RangeSet<T> right) => !left.Equals(right);
 

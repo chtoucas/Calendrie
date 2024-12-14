@@ -36,7 +36,7 @@ public interface IAffineDate<TSelf> :
     IAffineDate,
     IMinMaxValue<TSelf>,
     // Comparison
-    IComparisonOperators<TSelf, TSelf>,
+    IComparisonOperators<TSelf>,
     IMinMaxFunction<TSelf>,
     // Arithmetic
     IDayArithmetic<TSelf>

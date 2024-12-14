@@ -9,12 +9,10 @@ using System.Numerics;
 /// Defines a mechanism for comparing two values to determine relative order.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-/// <typeparam name="TOther">The type that will be compared with
-/// <typeparamref name="TSelf" />.</typeparam>
-public interface IComparisonOperators<TSelf, TOther> :
-    IComparisonOperators<TSelf, TOther, bool>,
-    IEqualityOperators<TSelf, TOther>,
-    IComparable<TOther>,
+public interface IComparisonOperators<TSelf> :
+    IComparisonOperators<TSelf, TSelf, bool>,
+    IEqualityOperators<TSelf>,
+    IComparable<TSelf>,
     IComparable
-    where TSelf : IComparisonOperators<TSelf, TOther>?
+    where TSelf : IComparisonOperators<TSelf>?
 { }

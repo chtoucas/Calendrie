@@ -26,7 +26,7 @@ using Calendrie.Core.Utilities;
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yemo :
     ISerializable<Yemo, int>,
-    IComparisonOperators<Yemo, Yemo>
+    IComparisonOperators<Yemo>
 {
     /// <summary>
     /// Represents the absolute minimum value for <see cref="Year"/>.

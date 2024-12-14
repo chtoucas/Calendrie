@@ -17,7 +17,7 @@ using Calendrie.Core.Utilities;
 /// <param name="Month">Month of the year.</param>
 /// <param name="Day">Day of the month.</param>
 public readonly record struct DateParts(int Year, int Month, int Day) :
-    IComparisonOperators<DateParts, DateParts>
+    IComparisonOperators<DateParts>
 {
     /// <summary>
     /// Gets the month parts.

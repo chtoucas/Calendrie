@@ -15,7 +15,7 @@ using Calendrie.Core.Utilities;
 /// <param name="Year">Algebraic year number.</param>
 /// <param name="Month">Month of the year.</param>
 public readonly record struct MonthParts(int Year, int Month) :
-    IComparisonOperators<MonthParts, MonthParts>
+    IComparisonOperators<MonthParts>
 {
     /// <summary>
     /// Creates a new instance of the <see cref="MonthParts"/> struct

@@ -35,11 +35,15 @@ namespace Calendrie.Core.Utilities;
 
 #endregion
 
-/// <summary>Provides static helpers for <see cref="OrderedPair{T}"/>.</summary>
-/// <remarks>This class cannot be inherited.</remarks>
+/// <summary>
+/// Provides static helpers for <see cref="OrderedPair{T}"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 public static class OrderedPair
 {
-    /// <summary>Creates a new <see cref="OrderedPair{T}"/> struct from the specified values.
+    /// <summary>
+    /// Creates a new <see cref="OrderedPair{T}"/> struct from the specified
+    /// values.
     /// </summary>
     [Pure]
     public static OrderedPair<T> Create<T>(T x, T y)
@@ -48,9 +52,11 @@ public static class OrderedPair
         return new(x, y);
     }
 
-    /// <summary>Creates a new <see cref="OrderedPair{T}"/> struct from the <i>already ordered</i>
-    /// values.</summary>
-    /// <remarks>This factory method does NOT validate its parameters.</remarks>
+    /// <summary>
+    /// Creates a new <see cref="OrderedPair{T}"/> struct from the <i>already
+    /// ordered</i> values.
+    /// <para>This factory method does NOT validate its parameters.</para>
+    /// </summary>
     [Pure]
     internal static OrderedPair<T> FromOrderedValues<T>(T lowerValue, T upperValue)
         where T : struct, IEquatable<T>, IComparable<T>
@@ -59,17 +65,20 @@ public static class OrderedPair
     }
 }
 
-/// <summary>Defines an ordered pair of <i>comparable</i> values.</summary>
-/// <remarks>
-/// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.</para>
+/// <summary>
+/// Defines an ordered pair of <i>comparable</i> values.
+/// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.
+/// </para>
 /// <para><see cref="OrderedPair{T}"/> is an immutable struct.</para>
-/// </remarks>
+/// </summary>
 /// <typeparam name="T">The type of the pair's elements.</typeparam>
 public readonly partial struct OrderedPair<T> :
-    IEqualityOperators<OrderedPair<T>, OrderedPair<T>>
+    IEqualityOperators<OrderedPair<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
-    /// <summary>Initializes a new instance of the <see cref="OrderedPair{T}"/> struct.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OrderedPair{T}"/> struct.
+    /// </summary>
     public OrderedPair(T x, T y)
     {
         if (y.CompareTo(x) < 0)
@@ -84,8 +93,10 @@ public readonly partial struct OrderedPair<T> :
         }
     }
 
-    /// <summary>Initializes a new instance of the <see cref="OrderedPair{T}"/> struct.</summary>
-    /// <remarks>This constructor method does NOT validate its parameters.</remarks>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OrderedPair{T}"/> struct.
+    /// <para>This constructor method does NOT validate its parameters.</para>
+    /// </summary>
     internal OrderedPair(T lowerValue, T upperValue, bool _)
     {
         Debug.Assert(lowerValue.CompareTo(upperValue) <= 0);
@@ -94,28 +105,39 @@ public readonly partial struct OrderedPair<T> :
         UpperValue = upperValue;
     }
 
-    /// <summary>Gets the lower value.</summary>
+    /// <summary>
+    /// Gets the lower value.
+    /// </summary>
     public T LowerValue { get; }
 
-    /// <summary>Gets the upper value.</summary>
+    /// <summary>
+    /// Gets the upper value.
+    /// </summary>
     public T UpperValue { get; }
 
-    /// <summary>Returns a culture-independent string representation of the current instance.
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString() =>
         FormattableString.Invariant($"({LowerValue}, {UpperValue})");
 
-    /// <summary>Deconstructs the current instance into its components.</summary>
+    /// <summary>
+    /// Deconstructs the current instance into its components.
+    /// </summary>
     public void Deconstruct(out T lowerValue, out T upperValue) =>
         (lowerValue, upperValue) = (LowerValue, UpperValue);
 }
 
 public partial struct OrderedPair<T> // QEP
 {
-    /// <summary>Maps both enclosed elements with the specified selector.</summary>
-    /// <remarks>The order of the pair's elements may not be preserved.</remarks>
-    /// <exception cref="ArgumentNullException"><paramref name="selector"/> is <see langword="null"/>.</exception>
+    /// <summary>
+    /// Maps both enclosed elements with the specified selector.
+    /// <para>The order of the pair's elements may not be preserved.</para>
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="selector"/> is
+    /// <see langword="null"/>.</exception>
     [Pure]
     public OrderedPair<TResult> Select<TResult>(Func<T, TResult> selector)
         where TResult : struct, IEquatable<TResult>, IComparable<TResult>
@@ -125,14 +147,16 @@ public partial struct OrderedPair<T> // QEP
         return new OrderedPair<TResult>(selector(LowerValue), selector(UpperValue));
     }
 
-    /// <summary>Maps the enclosed elements with the specified selectors.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Maps the enclosed elements with the specified selectors.
     /// <para>The order of the pair's elements may not be preserved.</para>
-    /// <para>Despite its name, this method cannot appear within a Query Expression Pattern.
-    /// </para>
-    /// </remarks>
-    /// <exception cref="ArgumentNullException"><paramref name="lowerValueSelector"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="upperValueSelector"/> is <see langword="null"/>.</exception>
+    /// <para>Despite its name, this method cannot appear within a Query
+    /// Expression Pattern.</para>
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="lowerValueSelector"/>
+    /// is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="upperValueSelector"/>
+    /// is <see langword="null"/>.</exception>
     [Pure]
     public OrderedPair<TResult> Select<TResult>(
         Func<T, TResult> lowerValueSelector, Func<T, TResult> upperValueSelector)

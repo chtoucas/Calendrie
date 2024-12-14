@@ -3,8 +3,8 @@
 
 namespace Calendrie.Core;
 
-// Funny interface: it's public but it can ONLY be implemented from within friend
-// assemblies, having a static __internal__ method.
+// Funny interface: it's public but, having a static __internal__ method, it can
+// ONLY be implemented from within friend assemblies.
 
 /// <summary>
 /// Defines an internal method to create new instances of a given schema type.
