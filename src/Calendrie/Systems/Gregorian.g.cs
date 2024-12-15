@@ -22,7 +22,7 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct GregorianDate :
     IDate<GregorianDate, GregorianCalendar>,
-    IDateFactory<GregorianDate>,
+    IFixedDateFactory<GregorianDate>,
     IAdjustable<GregorianDate>,
     ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
@@ -39,7 +39,7 @@ public partial struct GregorianDate // Factories
     }
 
     /// <inheritdoc />
-    static GregorianDate IDateFactory<GregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static GregorianDate IFixedDateFactory<GregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

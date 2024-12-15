@@ -14,7 +14,7 @@ using Calendrie.Hemerology;
 /// in a poly-calendar system.</para>
 /// </summary>
 /// <typeparam name="TDate">The date type.</typeparam>
-public interface IDateFactory<TDate> where TDate : IFixedDate
+public interface IFixedDateFactory<TDate> where TDate : IFixedDate
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TDate"/> struct from

@@ -16,7 +16,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
-    where TDate : IDate<TDate>, IDateFactory<TDate>
+    where TDate : IDate<TDate>, IFixedDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DateAdjuster{TDate}"/>

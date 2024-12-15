@@ -295,7 +295,7 @@ public partial struct <#= Prefix #>Date // Factories
     }
 
     /// <inheritdoc />
-    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static <#= Prefix #>Date IFixedDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 <#+

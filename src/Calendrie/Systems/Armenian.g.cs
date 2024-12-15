@@ -78,7 +78,7 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
 /// </summary>
 public readonly partial struct ArmenianDate :
     IDate<ArmenianDate, ArmenianCalendar>,
-    IDateFactory<ArmenianDate>,
+    IFixedDateFactory<ArmenianDate>,
     IAdjustable<ArmenianDate>,
     ISubtractionOperators<ArmenianDate, ArmenianDate, int>
 { }
@@ -299,7 +299,7 @@ public partial struct ArmenianDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static ArmenianDate IDateFactory<ArmenianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static ArmenianDate IFixedDateFactory<ArmenianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

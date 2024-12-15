@@ -11,7 +11,7 @@ using Calendrie.Testing.Facts.Hemerology;
 
 public abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     IDateAdjusterFacts<DateAdjuster<TDate>, TDate, TDataSet>
-    where TDate : IAdjustable<TDate>, IDate<TDate>, IDateFactory<TDate>
+    where TDate : IAdjustable<TDate>, IDate<TDate>, IFixedDateFactory<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected DateAdjusterFacts(DateAdjuster<TDate> adjuster) : base(adjuster) { }

@@ -27,7 +27,7 @@ public partial class CalendarTemplate
 /// </summary>
 public readonly partial struct <#= Prefix #>Date :
     IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
-    IDateFactory<<#= Prefix #>Date>,
+    IFixedDateFactory<<#= Prefix #>Date>,
     IAdjustable<<#= Prefix #>Date>,
     ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>
 { }
@@ -265,7 +265,7 @@ public partial struct <#= Prefix #>Date // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static <#= Prefix #>Date IFixedDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 <#+
