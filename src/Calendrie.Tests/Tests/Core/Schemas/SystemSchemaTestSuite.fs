@@ -37,6 +37,9 @@ type CivilTests() =
         let range = SystemSchema.DefaultSupportedYears.WithMin(1)
         x.SchemaUT.SupportedYears === range
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<CivilSchema>()
+
 [<Sealed>]
 type Coptic12Tests() =
     inherit SystemSchemaFacts<Coptic12DataSet>(new Coptic12Schema())
@@ -55,6 +58,9 @@ type Coptic12Tests() =
         let sch = x.SchemaUT
         for m in 1 .. x.MaxMonth do
             (fun () -> sch.CountDaysInMonth(Int32.MaxValue, m)) |> overflows
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<Coptic12Schema>()
 
 [<Sealed>]
 type Coptic13Tests() =
@@ -75,6 +81,9 @@ type Coptic13Tests() =
         for m in 1 .. x.MaxMonth do
             (fun () -> sch.CountDaysInMonth(Int32.MaxValue, m)) |> overflows
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<Coptic13Schema>()
+
 [<Sealed>]
 type Egyptian12Tests() =
     inherit SystemSchemaFacts<Egyptian12DataSet>(new Egyptian12Schema())
@@ -84,6 +93,9 @@ type Egyptian12Tests() =
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar12
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<Egyptian12Schema>()
 
 [<Sealed>]
 type Egyptian13Tests() =
@@ -95,6 +107,9 @@ type Egyptian13Tests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<Egyptian13Schema>()
+
 [<Sealed>]
 type FrenchRepublican12Tests() =
     inherit SystemSchemaFacts<FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
@@ -104,6 +119,9 @@ type FrenchRepublican12Tests() =
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar12
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<FrenchRepublican12Schema>()
 
 [<Sealed>]
 type FrenchRepublican13Tests() =
@@ -115,6 +133,9 @@ type FrenchRepublican13Tests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<FrenchRepublican13Schema>()
+
 [<Sealed>]
 type GregorianTests() =
     inherit SystemSchemaFacts<GregorianDataSet>(new GregorianSchema())
@@ -124,6 +145,9 @@ type GregorianTests() =
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar12
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<GregorianPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<GregorianSchema>()
 
 [<Sealed>]
 type InternationalFixedTests() =
@@ -135,6 +159,9 @@ type InternationalFixedTests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar13PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<InternationalFixedSchema>()
+
 [<Sealed>]
 type JulianTests() =
     inherit SystemSchemaFacts<JulianDataSet>(new JulianSchema())
@@ -144,6 +171,9 @@ type JulianTests() =
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar12
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<JulianPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<JulianSchema>()
 
 [<Sealed>]
 type FauxLunisolarTests() =
@@ -174,6 +204,9 @@ type PaxTests() as self =
     [<Fact>]
     member x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Other
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<PaxSchema>()
+
 [<Sealed>]
 type Persian2820Tests() =
     inherit SystemSchemaFacts<Persian2820DataSet>(new Persian2820Schema())
@@ -201,6 +234,9 @@ type Persian2820Tests() =
             for m in 12 .. x.MaxMonth do
                 (fun () -> sch.CountDaysInMonth(Int32.MinValue + y0, m)) |> overflows
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<Persian2820Schema>()
+
 [<Sealed>]
 type PositivistTests() =
     inherit SystemSchemaFacts<PositivistDataSet>(new PositivistSchema())
@@ -210,6 +246,9 @@ type PositivistTests() =
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar13
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar13PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<PositivistSchema>()
 
 [<Sealed>]
 type TabularIslamicTests() =
@@ -249,6 +288,9 @@ type TabularIslamicTests() =
         // No overflow if m != 12.
         [1 .. maxMonth] |> List.filter isnot12 |> List.map countDaysInMonth
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<TabularIslamicSchema>()
+
 [<Sealed>]
 type TropicaliaTests() =
     inherit SystemSchemaFacts<TropicaliaDataSet>(new TropicaliaSchema())
@@ -258,6 +300,9 @@ type TropicaliaTests() =
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar12
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<TropicaliaSchema>()
 
 [<Sealed>]
 type Tropicalia3031Tests() =
@@ -269,6 +314,9 @@ type Tropicalia3031Tests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<Tropicalia3031Schema>()
+
 [<Sealed>]
 type Tropicalia3130Tests() =
     inherit SystemSchemaFacts<Tropicalia3130DataSet>(new Tropicalia3130Schema())
@@ -279,6 +327,9 @@ type Tropicalia3130Tests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<Tropicalia3130Schema>()
+
 [<Sealed>]
 type WorldTests() =
     inherit SystemSchemaFacts<WorldDataSet>(new WorldSchema())
@@ -288,3 +339,6 @@ type WorldTests() =
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar12
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
+
+    [<Fact>]
+    static member CreateInstance() = SchemaActivatorFacts.Test<WorldSchema>()
