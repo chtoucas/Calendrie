@@ -91,3 +91,11 @@ public interface ICalendar
     /// </summary>
     [Pure] int CountDaysInMonth(int y, int m);
 }
+
+/// <summary>
+/// Defines a calendar with a companion date type.
+/// </summary>
+/// <typeparam name="TDate">The companion date type.</typeparam>
+public interface ICalendar<TDate> : ICalendar, IDateProvider<TDate>
+    where TDate : IDate<TDate>
+{ }

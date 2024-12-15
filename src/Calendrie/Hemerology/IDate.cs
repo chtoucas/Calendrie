@@ -33,7 +33,7 @@ public interface IDate<TSelf> :
 // WithCalendar(newCalendar) pour l'interconversion.
 
 /// <summary>
-/// Defines a date type with a companion calendar of fixed type.
+/// Defines a date type with a fixed companion calendar type.
 /// <para>This interface SHOULD NOT be implemented by date types participating
 /// in a poly-calendar system.</para>
 /// </summary>
@@ -42,7 +42,7 @@ public interface IDate<TSelf> :
 public interface IDate<TSelf, out TCalendar> :
     IDate<TSelf>,
     IMinMaxValue<TSelf>
-    where TCalendar : Calendar
+    where TCalendar : ICalendar
     where TSelf : IDate<TSelf, TCalendar>
 {
     /// <summary>
