@@ -26,7 +26,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
     public PrototypalSchemaSlim(ICalendricalSchema schema) : base(schema)
     {
         // See GetMonth() for an explanation of the formula.
-        ApproxMonthsInYear = 1 + (MinDaysInYear - 1) / MinDaysInMonth;
+        ApproxMonthsInYear = 1 + (m_MinDaysInYear - 1) / m_MinDaysInMonth;
     }
 
     /// <summary>
@@ -42,19 +42,6 @@ public class PrototypalSchemaSlim : PrototypalSchema
         ApproxMonthsInYear = 1 + (minDaysInYear - 1) / minDaysInMonth;
     }
 
-    /// <inheritdoc />
-    public int MinDaysInYear => _minDaysInYear;
-
-    /// <inheritdoc />
-    public int MinDaysInMonth => _minDaysInMonth;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the cache for
-    /// <see cref="GetStartOfYear(int)"/> is disabled or not.
-    /// <para>The default value is false.</para>
-    /// </summary>
-    public bool DisableStartOfYearCache { get; init; }
-
     protected int ApproxMonthsInYear { get; }
 
     /// <inheritdoc />
@@ -68,7 +55,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
         // that the years have a constant length equal to MinDaysInYear.
         // > y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear, out int d0y);
         // Notice that the division gives us a zero-based year.
-        int y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear);
+        int y = 1 + MathZ.Divide(daysSinceEpoch, m_MinDaysInYear);
         int startOfYear = GetStartOfYear(y);
 
         // TODO(code): explain the algorithm, idem with PrototypalSchema.
@@ -79,14 +66,14 @@ public class PrototypalSchemaSlim : PrototypalSchema
             // is greater than or equal to the actual value.
             while (daysSinceEpoch < startOfYear)
             {
-                startOfYear -= CountDaysInYear(--y);
+                startOfYear -= m_Kernel.CountDaysInYear(--y);
             }
         }
         else
         {
             while (daysSinceEpoch >= startOfYear)
             {
-                int startOfNextYear = startOfYear + CountDaysInYear(y);
+                int startOfNextYear = startOfYear + m_Kernel.CountDaysInYear(y);
                 if (daysSinceEpoch < startOfNextYear) { break; }
                 y++;
                 startOfYear = startOfNextYear;
@@ -108,7 +95,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
         // > d = doy - CountDaysInYearBeforeMonth(y, m);
         // > return m;
 
-        int monthsInYear = CountMonthsInYear(y);
+        int monthsInYear = m_Kernel.CountMonthsInYear(y);
 
         // Base method: at most (monthsInYear - 1) iteration steps.
         // Local method: at most
@@ -123,13 +110,13 @@ public class PrototypalSchemaSlim : PrototypalSchema
         // We can ignore the remainder of the division which gives a theoretical
         // but wrong (except if the months do actually have a constant length)
         // value for the day of the month.
-        int m = Math.Min(1 + (doy - 1) / MinDaysInMonth, monthsInYear);
+        int m = Math.Min(1 + (doy - 1) / m_MinDaysInMonth, monthsInYear);
         int daysInYearBeforeMonth = CountDaysInYearBeforeMonth(y, m);
 
         while (doy < 1 + daysInYearBeforeMonth)
         {
             //if (m == 1) { daysInYearBeforeMonth = 0; break; }
-            daysInYearBeforeMonth -= CountDaysInMonth(y, --m);
+            daysInYearBeforeMonth -= m_Kernel.CountDaysInMonth(y, --m);
         }
 
         // Notice that, as expected, d >= 1.
@@ -142,8 +129,6 @@ public class PrototypalSchemaSlim : PrototypalSchema
     [Pure]
     public sealed override int GetStartOfYear(int y)
     {
-        if (DisableStartOfYearCache) { return GetStartOfYearCore(y); }
-
         // TODO(code): caching.
         // Currently, we just copied the cache class from NodaTime.
         // https://github.com/bitfaster/BitFaster.Caching

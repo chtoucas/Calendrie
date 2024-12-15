@@ -75,12 +75,6 @@ public partial class PrototypalSchema :
     ICalendricalSchemaPlus
 {
     /// <summary>
-    /// Represents the kernel of a schema.
-    /// <para>This field is read-only.</para>
-    /// </summary>
-    private readonly ICalendricalKernel _kernel;
-
-    /// <summary>
     /// Represents a partial <see cref="ICalendricalSchema"/> view of this
     /// instance.
     /// <para>This field is read-only.</para>
@@ -89,11 +83,15 @@ public partial class PrototypalSchema :
 
 #pragma warning disable IDE1006 // Naming Styles
 #pragma warning disable CA1051 // Do not declare visible instance fields
-    [CLSCompliant(false)]
-    protected readonly int _minDaysInYear;
+    /// <summary>
+    /// Represents the calendar kernel.
+    /// <para>This field is read-only.</para>
+    /// </summary>
+    protected readonly ICalendricalKernel m_Kernel;
 
-    [CLSCompliant(false)]
-    protected readonly int _minDaysInMonth;
+    protected readonly int m_MinDaysInYear;
+
+    protected readonly int m_MinDaysInMonth;
 #pragma warning restore IDE1006
 #pragma warning restore CA1051
 
@@ -106,12 +104,13 @@ public partial class PrototypalSchema :
     {
         ArgumentNullException.ThrowIfNull(schema, nameof(schema));
 
-        _kernel = schema;
+        m_Kernel = schema;
         _proxy = new SchemaProxy(this);
 
-        _minDaysInYear = schema.MinDaysInYear;
-        _minDaysInMonth = schema.MinDaysInMonth;
+        m_MinDaysInYear = schema.MinDaysInYear;
+        m_MinDaysInMonth = schema.MinDaysInMonth;
     }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="PrototypalSchema"/> class.
     /// </summary>
@@ -128,11 +127,11 @@ public partial class PrototypalSchema :
 
         Debug.Assert(minDaysInYear > minDaysInMonth);
 
-        _kernel = kernel;
-        _proxy = new SchemaProxy(this);
+        m_Kernel = kernel;
+        m_MinDaysInYear = minDaysInYear;
+        m_MinDaysInMonth = minDaysInMonth;
 
-        _minDaysInYear = minDaysInYear;
-        _minDaysInMonth = minDaysInMonth;
+        _proxy = new SchemaProxy(this);
     }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.
@@ -164,42 +163,42 @@ public partial class PrototypalSchema :
 
 public partial class PrototypalSchema // ICalendricalKernel
 {
-    CalendricalAlgorithm ICalendricalKernel.Algorithm => _kernel.Algorithm;
+    CalendricalAlgorithm ICalendricalKernel.Algorithm => m_Kernel.Algorithm;
 
-    CalendricalFamily ICalendricalKernel.Family => _kernel.Family;
+    CalendricalFamily ICalendricalKernel.Family => m_Kernel.Family;
 
-    CalendricalAdjustments ICalendricalKernel.PeriodicAdjustments => _kernel.PeriodicAdjustments;
+    CalendricalAdjustments ICalendricalKernel.PeriodicAdjustments => m_Kernel.PeriodicAdjustments;
 
     [Pure]
-    bool ICalendricalKernel.IsRegular(out int monthsInYear) => _kernel.IsRegular(out monthsInYear);
+    bool ICalendricalKernel.IsRegular(out int monthsInYear) => m_Kernel.IsRegular(out monthsInYear);
 
     /// <inheritdoc />
     [Pure]
-    public int CountMonthsInYear(int y) => _kernel.CountMonthsInYear(y);
+    public int CountMonthsInYear(int y) => m_Kernel.CountMonthsInYear(y);
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInYear(int y) => _kernel.CountDaysInYear(y);
+    public int CountDaysInYear(int y) => m_Kernel.CountDaysInYear(y);
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInMonth(int y, int m) => _kernel.CountDaysInMonth(y, m);
+    public int CountDaysInMonth(int y, int m) => m_Kernel.CountDaysInMonth(y, m);
 
     /// <inheritdoc />
     [Pure]
-    public bool IsLeapYear(int y) => _kernel.IsLeapYear(y);
+    public bool IsLeapYear(int y) => m_Kernel.IsLeapYear(y);
 
     /// <inheritdoc />
     [Pure]
-    public bool IsIntercalaryMonth(int y, int m) => _kernel.IsIntercalaryMonth(y, m);
+    public bool IsIntercalaryMonth(int y, int m) => m_Kernel.IsIntercalaryMonth(y, m);
 
     /// <inheritdoc />
     [Pure]
-    public bool IsIntercalaryDay(int y, int m, int d) => _kernel.IsIntercalaryDay(y, m, d);
+    public bool IsIntercalaryDay(int y, int m, int d) => m_Kernel.IsIntercalaryDay(y, m, d);
 
     /// <inheritdoc />
     [Pure]
-    public bool IsSupplementaryDay(int y, int m, int d) => _kernel.IsSupplementaryDay(y, m, d);
+    public bool IsSupplementaryDay(int y, int m, int d) => m_Kernel.IsSupplementaryDay(y, m, d);
 }
 
 public partial class PrototypalSchema // ICalendricalSchema (1)
@@ -244,7 +243,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
         int count = 0;
         for (int i = 1; i < m; i++)
         {
-            count += CountDaysInMonth(y, i);
+            count += m_Kernel.CountDaysInMonth(y, i);
         }
         return count;
     }
@@ -259,11 +258,11 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
         if (monthsSinceEpoch < 0)
         {
             y = 0;
-            int startOfYear = -CountMonthsInYear(0);
+            int startOfYear = -m_Kernel.CountMonthsInYear(0);
 
             while (monthsSinceEpoch < startOfYear)
             {
-                startOfYear -= CountMonthsInYear(--y);
+                startOfYear -= m_Kernel.CountMonthsInYear(--y);
             }
 
             // Notice that, as expected, m >= 1.
@@ -276,7 +275,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
 
             while (monthsSinceEpoch >= startOfYear)
             {
-                int startOfNextYear = startOfYear + CountMonthsInYear(y);
+                int startOfNextYear = startOfYear + m_Kernel.CountMonthsInYear(y);
                 if (monthsSinceEpoch < startOfNextYear) { break; }
                 y++;
                 startOfYear = startOfNextYear;
@@ -301,11 +300,11 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
         if (daysSinceEpoch < 0)
         {
             int y = 0;
-            int startOfYear = -CountDaysInYear(0);
+            int startOfYear = -m_Kernel.CountDaysInYear(0);
 
             while (daysSinceEpoch < startOfYear)
             {
-                startOfYear -= CountDaysInYear(--y);
+                startOfYear -= m_Kernel.CountDaysInYear(--y);
             }
 
             // Notice that, as expected, doy >= 1.
@@ -319,7 +318,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
 
             while (daysSinceEpoch >= startOfYear)
             {
-                int startOfNextYear = startOfYear + CountDaysInYear(y);
+                int startOfNextYear = startOfYear + m_Kernel.CountDaysInYear(y);
                 if (daysSinceEpoch < startOfNextYear) { break; }
                 y++;
                 startOfYear = startOfNextYear;
@@ -343,7 +342,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
         int m = 1;
         int daysInYearBeforeMonth = 0;
 
-        int monthsInYear = CountMonthsInYear(y);
+        int monthsInYear = m_Kernel.CountMonthsInYear(y);
         while (m < monthsInYear)
         {
             int daysInYearBeforeNextMonth = CountDaysInYearBeforeMonth(y, m + 1);
@@ -368,14 +367,14 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
         {
             for (int i = y; i < 1; i++)
             {
-                monthsSinceEpoch -= CountMonthsInYear(i);
+                monthsSinceEpoch -= m_Kernel.CountMonthsInYear(i);
             }
         }
         else
         {
             for (int i = 1; i < y; i++)
             {
-                monthsSinceEpoch += CountMonthsInYear(i);
+                monthsSinceEpoch += m_Kernel.CountMonthsInYear(i);
             }
         }
 
@@ -396,14 +395,14 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
         {
             for (int i = y; i < 1; i++)
             {
-                daysSinceEpoch -= CountDaysInYear(i);
+                daysSinceEpoch -= m_Kernel.CountDaysInYear(i);
             }
         }
         else
         {
             for (int i = 1; i < y; i++)
             {
-                daysSinceEpoch += CountDaysInYear(i);
+                daysSinceEpoch += m_Kernel.CountDaysInYear(i);
             }
         }
 
@@ -413,13 +412,10 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
 
 public partial class PrototypalSchema // ICalendricalSchema (2)
 {
-    /// <inheritdoc />
-    int ICalendricalSchema.MinDaysInYear => _minDaysInYear;
+    int ICalendricalSchema.MinDaysInYear => m_MinDaysInYear;
 
-    /// <inheritdoc />
-    int ICalendricalSchema.MinDaysInMonth => _minDaysInMonth;
+    int ICalendricalSchema.MinDaysInMonth => m_MinDaysInMonth;
 
-    /// <inheritdoc />
     public virtual ICalendricalPreValidator PreValidator => new PlainPreValidator(this);
 
     [Pure]
@@ -446,11 +442,11 @@ public partial class PrototypalSchema // ICalendricalSchema (2)
 
     [Pure]
     int ICalendricalSchema.GetEndOfYearInMonths(int y) =>
-        GetStartOfYearInMonths(y) + CountMonthsInYear(y) - 1;
+        GetStartOfYearInMonths(y) + m_Kernel.CountMonthsInYear(y) - 1;
 
     [Pure]
     int ICalendricalSchema.GetEndOfYear(int y) =>
-        GetStartOfYear(y) + CountDaysInYear(y) - 1;
+        GetStartOfYear(y) + m_Kernel.CountDaysInYear(y) - 1;
 
     [Pure]
     int ICalendricalSchema.GetStartOfMonth(int y, int m) =>
@@ -458,14 +454,14 @@ public partial class PrototypalSchema // ICalendricalSchema (2)
 
     [Pure]
     int ICalendricalSchema.GetEndOfMonth(int y, int m) =>
-        GetStartOfYear(y) + CountDaysInYearBeforeMonth(y, m) + CountDaysInMonth(y, m) - 1;
+        GetStartOfYear(y) + CountDaysInYearBeforeMonth(y, m) + m_Kernel.CountDaysInMonth(y, m) - 1;
 }
 
 public partial class PrototypalSchema // ICalendricalSchemaPlus
 {
     [Pure]
     int ICalendricalSchemaPlus.CountDaysInYearAfterMonth(int y, int m) =>
-        CountDaysInYear(y) - CountDaysInMonth(y, m) - CountDaysInYearBeforeMonth(y, m);
+        m_Kernel.CountDaysInYear(y) - m_Kernel.CountDaysInMonth(y, m) - CountDaysInYearBeforeMonth(y, m);
 
     #region CountDaysInYearBefore()
 
@@ -520,7 +516,7 @@ public partial class PrototypalSchema // ICalendricalSchemaPlus
     // "Natural" version, based on (y, ydoy).
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private int CountDaysInYearAfterImpl(int y, int doy) => CountDaysInYear(y) - doy;
+    private int CountDaysInYearAfterImpl(int y, int doy) => m_Kernel.CountDaysInYear(y) - doy;
 
     #endregion
     #region CountDaysInMonthBefore()
@@ -577,7 +573,7 @@ public partial class PrototypalSchema // ICalendricalSchemaPlus
     // "Natural" version, based on (y, m, d).
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private int CountDaysInMonthAfterImpl(int y, int m, int d) => CountDaysInMonth(y, m) - d;
+    private int CountDaysInMonthAfterImpl(int y, int m, int d) => m_Kernel.CountDaysInMonth(y, m) - d;
 
     #endregion
 }
