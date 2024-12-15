@@ -110,7 +110,7 @@ public partial class SystemSchema // Properties
     /// <summary>
     /// Gets the core domain, the interval of years for which the <i>core</i>
     /// methods are known not to overflow.
-    /// <para>The core methods are those inherited from <see cref="ICalendricalKernel"/>.
+    /// <para>The core methods are those inherited from <see cref="ICalendar"/>.
     /// </para>
     /// <para>The default value is equal to the whole range of 32-bit signed
     /// integers.</para>

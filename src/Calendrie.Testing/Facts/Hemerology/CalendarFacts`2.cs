@@ -14,7 +14,7 @@ using Calendrie.Testing.Data;
 // - Scope
 // This class no longer derives from CalendarTesting, but is it the right move?
 
-// We do not use ICalendricalKernelFacts which is tailored to work with schemas
+// We do not use ICalendarFacts which is tailored to work with schemas
 // (unbounded calendars).
 
 /// <summary>
@@ -60,7 +60,7 @@ public partial class CalendarFacts<TCalendar, TDataSet> // Abstract
     //[Fact] public abstract void IsRegular();
 }
 
-public partial class CalendarFacts<TCalendar, TDataSet> // ICalendricalKernel
+public partial class CalendarFacts<TCalendar, TDataSet> // ICalendar
 {
     //
     // Characteristics

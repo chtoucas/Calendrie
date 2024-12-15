@@ -13,7 +13,7 @@ using Calendrie.Testing.Data;
 internal static class DaysInMonthDistributionFacts
 {
     public static void Test<TSchema>(TSchema schema, int commonYear, int leapYear)
-        where TSchema : IDaysInMonthDistribution, ICalendricalKernel
+        where TSchema : IDaysInMonthDistribution, ICalendar
     {
         if (leapYear != commonYear)
         {
@@ -27,7 +27,7 @@ internal static class DaysInMonthDistributionFacts
     }
 
     public static void TestCore<TSchema>(TSchema schema, int y, bool leap)
-        where TSchema : IDaysInMonthDistribution, ICalendricalKernel
+        where TSchema : IDaysInMonthDistribution, ICalendar
     {
         ArgumentNullException.ThrowIfNull(schema);
 
@@ -47,7 +47,7 @@ internal static class DaysInMonthDistributionFacts
 
 internal abstract class DaysInMonthDistributionFacts<TSchema, TDataSet> :
     CalendricalDataConsumer<TDataSet>
-    where TSchema : IDaysInMonthDistribution, ICalendricalKernel
+    where TSchema : IDaysInMonthDistribution, ICalendar
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
     protected DaysInMonthDistributionFacts(TSchema schema)

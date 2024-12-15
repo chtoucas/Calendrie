@@ -15,13 +15,13 @@ using Calendrie.Hemerology;
 
 // The code is NOT meant to be efficient.
 //
-// Usefulness? ICalendricalKernel is easy to implement and test (see for
-// instance GregorianKernel), which might not be the case of
-// ICalendricalSchema. With PrototypalSchema, we can then
+// Usefulness? ICalendar is easy to implement and test (see for instance
+// GregorianKernel), which might not be the case of ICalendricalSchema.
+// With PrototypalSchema, we can then
 // - quickly prototype a new schema
 // - validate test data independently
-// At the same time, it demonstrates that an ICalendricalKernel instance is
-// all we need to build a full schema.
+// At the same time, it demonstrates that an ICalendar instance is all we need
+// to build a full schema.
 //
 // Apart from the core kernel methods, the only other methods available
 // implicitely are the abstract/virtual ones.
@@ -35,7 +35,7 @@ using Calendrie.Hemerology;
 // - Arithmetic
 //
 // These are the properties defined by ICalendricalSchema not inherited from
-// ICalendricalKernel.
+// ICalendar.
 //
 // ### Virtual Methods
 //
@@ -71,7 +71,7 @@ using Calendrie.Hemerology;
 /// interface.
 /// </summary>
 public partial class PrototypalSchema :
-    ICalendricalKernel,
+    ICalendar,
     ICalendricalSchema,
     ICalendricalSchemaPlus
 {
@@ -88,7 +88,7 @@ public partial class PrototypalSchema :
     /// Represents the calendar kernel.
     /// <para>This field is read-only.</para>
     /// </summary>
-    protected readonly ICalendricalKernel m_Kernel;
+    protected readonly ICalendar m_Kernel;
 
     protected readonly int m_MinDaysInYear;
 
@@ -118,7 +118,7 @@ public partial class PrototypalSchema :
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
     public PrototypalSchema(
-        ICalendricalKernel kernel,
+        ICalendar kernel,
         int minDaysInYear,
         int minDaysInMonth)
     {
@@ -162,16 +162,16 @@ public partial class PrototypalSchema :
     }
 }
 
-public partial class PrototypalSchema // ICalendricalKernel
+public partial class PrototypalSchema // ICalendar
 {
-    CalendricalAlgorithm ICalendricalKernel.Algorithm => m_Kernel.Algorithm;
+    CalendricalAlgorithm ICalendar.Algorithm => m_Kernel.Algorithm;
 
-    CalendricalFamily ICalendricalKernel.Family => m_Kernel.Family;
+    CalendricalFamily ICalendar.Family => m_Kernel.Family;
 
-    CalendricalAdjustments ICalendricalKernel.PeriodicAdjustments => m_Kernel.PeriodicAdjustments;
+    CalendricalAdjustments ICalendar.PeriodicAdjustments => m_Kernel.PeriodicAdjustments;
 
     [Pure]
-    bool ICalendricalKernel.IsRegular(out int monthsInYear) => m_Kernel.IsRegular(out monthsInYear);
+    bool ICalendar.IsRegular(out int monthsInYear) => m_Kernel.IsRegular(out monthsInYear);
 
     /// <inheritdoc />
     [Pure]

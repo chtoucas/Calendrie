@@ -176,7 +176,7 @@ using Calendrie.Core.Validation;
 /// <para>We do NOT assume the existence of a dedicated companion date type.
 /// </para>
 /// </summary>
-public abstract partial class Calendar : ICalendricalKernel
+public abstract partial class Calendar : ICalendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the

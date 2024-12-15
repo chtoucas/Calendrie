@@ -10,7 +10,7 @@ using Calendrie.Testing.Data;
 /// Provides basic facts about <see cref="ICalendricalSchema"/>.
 /// </summary>
 public abstract class ICalendricalSchemaBasicFacts<TSchema, TDataSet> :
-    ICalendricalKernelFacts<TSchema, TDataSet>
+    ICalendarFacts<TSchema, TDataSet>
     where TSchema : ICalendricalSchema
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {

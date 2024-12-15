@@ -35,15 +35,15 @@ using Calendrie.Testing.Data;
 #endregion
 
 /// <summary>
-/// Provides facts about <see cref="ICalendricalKernel"/>.
+/// Provides facts about <see cref="ICalendar"/>.
 /// <para>Only use this class to test schemas (unbounded calendars).</para>
 /// </summary>
-public abstract partial class ICalendricalKernelFacts<TKernel, TDataSet> :
+public abstract partial class ICalendarFacts<TKernel, TDataSet> :
     CalendricalDataConsumer<TDataSet>
-    where TKernel : ICalendricalKernel
+    where TKernel : ICalendar
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected ICalendricalKernelFacts(TKernel schema)
+    protected ICalendarFacts(TKernel schema)
     {
         ArgumentNullException.ThrowIfNull(schema);
 
@@ -56,7 +56,7 @@ public abstract partial class ICalendricalKernelFacts<TKernel, TDataSet> :
     protected TKernel SchemaUT { get; }
 }
 
-public partial class ICalendricalKernelFacts<TKernel, TDataSet> // Abstract
+public partial class ICalendarFacts<TKernel, TDataSet> // Abstract
 {
     [Fact] public abstract void Algorithm_Prop();
     [Fact] public abstract void Family_Prop();
@@ -66,7 +66,7 @@ public partial class ICalendricalKernelFacts<TKernel, TDataSet> // Abstract
     [Fact] public abstract void IsRegular();
 }
 
-public partial class ICalendricalKernelFacts<TKernel, TDataSet> // Methods
+public partial class ICalendarFacts<TKernel, TDataSet> // Methods
 {
     #region Characteristics
 

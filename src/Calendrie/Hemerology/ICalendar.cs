@@ -6,7 +6,7 @@ namespace Calendrie.Hemerology;
 /// <summary>
 /// Defines a calendar.
 /// </summary>
-public interface ICalendricalKernel
+public interface ICalendar
 {
     /// <summary>
     /// Gets the calendrical algorithm: arithmetical, astronomical or

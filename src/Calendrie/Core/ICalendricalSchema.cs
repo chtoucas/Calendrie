@@ -14,7 +14,7 @@ using Calendrie.Hemerology;
 //
 // ### Public Hierarchy
 //
-// ICalendricalKernel
+// ICalendar
 // └─ ICalendricalSchema
 //    ├─ OffsettedSchema                            DRAFT
 //    ├─ StrictSchema                               DRAFT
@@ -106,10 +106,10 @@ using Calendrie.Hemerology;
 /// that all returned values are valid when the previous condition is met.</item>
 /// </list>
 /// </summary>
-public partial interface ICalendricalSchema : ICalendricalKernel
+public partial interface ICalendricalSchema : ICalendar
 {
-    // ICalendricalKernel is shared between calendars and schemas, otherwise
-    // most properties below could have been part of the kernel.
+    // ICalendar is shared between calendars and schemas, otherwise most
+    // properties below could have been part of the kernel.
 
     /// <summary>
     /// Gets the minimal total number of days there is at least in a year.

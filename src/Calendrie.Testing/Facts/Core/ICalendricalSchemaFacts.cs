@@ -11,7 +11,7 @@ using Calendrie.Testing.Data;
 /// Provides facts about <see cref="ICalendricalSchema"/>.
 /// </summary>
 public abstract partial class ICalendricalSchemaFacts<TSchema, TDataSet> :
-    ICalendricalKernelFacts<TSchema, TDataSet>
+    ICalendarFacts<TSchema, TDataSet>
     where TSchema : ICalendricalSchema
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
