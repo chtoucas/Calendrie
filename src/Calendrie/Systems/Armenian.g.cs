@@ -28,6 +28,18 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
 {
+    /// <summary>
+    /// Represents the earliest supported year.
+    /// <para>This field is a constant equal to 1.</para>
+    /// </summary>
+    public const int MinYear = StandardScope.MinYear;
+
+    /// <summary>
+    /// Represents the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public const int MaxYear = StandardScope.MaxYear;
+
     /// <summary>Represents the epoch.</summary>
     internal static readonly DayNumber Epoch = DayZero.Armenian;
 

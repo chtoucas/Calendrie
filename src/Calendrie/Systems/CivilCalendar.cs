@@ -13,16 +13,28 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class CivilCalendar : CalendarSystem<CivilDate>
 {
-    // See comments in Armenian13Calendar for instance.
-    internal static readonly CivilSchema UnderlyingSchema = new();
-    internal static readonly CivilScope UnderlyingScope = new(new CivilSchema());
-    internal static readonly CivilCalendar Instance = new(new CivilScope(new CivilSchema()));
+    /// <summary>
+    /// Represents the earliest supported year.
+    /// <para>This field is a constant equal to 1.</para>
+    /// </summary>
+    public const int MinYear = CivilScope.MinYear;
+
+    /// <summary>
+    /// Represents the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public const int MaxYear = CivilScope.MaxYear;
 
     /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
     public const int MonthsInYear = GJSchema.MonthsInYear;
+
+    // See comments in Armenian13Calendar for instance.
+    internal static readonly CivilSchema UnderlyingSchema = new();
+    internal static readonly CivilScope UnderlyingScope = new(new CivilSchema());
+    internal static readonly CivilCalendar Instance = new(new CivilScope(new CivilSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.

@@ -13,16 +13,28 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class JulianCalendar : CalendarSystem<JulianDate>
 {
-    // See comments in Armenian13Calendar for instance.
-    internal static readonly JulianSchema UnderlyingSchema = new();
-    internal static readonly JulianScope UnderlyingScope = new(new JulianSchema());
-    internal static readonly JulianCalendar Instance = new(new JulianScope(new JulianSchema()));
+    /// <summary>
+    /// Represents the earliest supported year.
+    /// <para>This field is a constant equal to -999_998.</para>
+    /// </summary>
+    public const int MinYear = ProlepticScope.MinYear;
+
+    /// <summary>
+    /// Represents the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public const int MaxYear = ProlepticScope.MaxYear;
 
     /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
     public const int MonthsInYear = GJSchema.MonthsInYear;
+
+    // See comments in Armenian13Calendar for instance.
+    internal static readonly JulianSchema UnderlyingSchema = new();
+    internal static readonly JulianScope UnderlyingScope = new(new JulianSchema());
+    internal static readonly JulianCalendar Instance = new(new JulianScope(new JulianSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>

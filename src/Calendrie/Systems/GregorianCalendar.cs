@@ -13,16 +13,28 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
 {
-    // See comments in Armenian13Calendar for instance.
-    internal static readonly GregorianSchema UnderlyingSchema = new();
-    internal static readonly GregorianScope UnderlyingScope = new(new GregorianSchema());
-    internal static readonly GregorianCalendar Instance = new(new GregorianScope(new GregorianSchema()));
+    /// <summary>
+    /// Represents the earliest supported year.
+    /// <para>This field is a constant equal to -999_998.</para>
+    /// </summary>
+    public const int MinYear = ProlepticScope.MinYear;
+
+    /// <summary>
+    /// Represents the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public const int MaxYear = ProlepticScope.MaxYear;
 
     /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
     public const int MonthsInYear = GJSchema.MonthsInYear;
+
+    // See comments in Armenian13Calendar for instance.
+    internal static readonly GregorianSchema UnderlyingSchema = new();
+    internal static readonly GregorianScope UnderlyingScope = new(new GregorianSchema());
+    internal static readonly GregorianCalendar Instance = new(new GregorianScope(new GregorianSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.

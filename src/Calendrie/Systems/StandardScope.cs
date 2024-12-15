@@ -51,14 +51,12 @@ internal sealed class StandardScope : CalendarScope
     public static IYearsValidator YearsValidatorImpl => new StandardYearsValidator();
 
     /// <summary>
-    /// Gets the minimum possible value for the number of consecutive days from
-    /// the epoch.
+    /// Gets the minimum value for the number of consecutive days from the epoch.
     /// </summary>
     public int MinDaysSinceEpoch => Segment.SupportedDays.Min;
 
     /// <summary>
-    /// Gets the maximum possible value for the number of consecutive days from
-    /// the epoch.
+    /// Gets the maximum value for the number of consecutive days from the epoch.
     /// </summary>
     public int MaxDaysSinceEpoch => Segment.SupportedDays.Max;
 
