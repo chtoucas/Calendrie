@@ -7,6 +7,7 @@ namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
+using Calendrie.Hemerology;
 
 // REVIEW(code): internal ctor's? Idem with PrototypalSchemaSlim.
 

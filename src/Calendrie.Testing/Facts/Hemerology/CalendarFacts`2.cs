@@ -7,7 +7,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// TODO(fact): ICalendricalKernel and ICalendar props and methods.
+// TODO(fact): ICalendar and Calendar props and methods.
 // - IsRegular()
 // - Epoch
 // - Domain

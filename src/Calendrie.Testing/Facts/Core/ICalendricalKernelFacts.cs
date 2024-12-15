@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing.Facts.Core;
 
-using Calendrie.Core;
+using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 #region Developer Notes

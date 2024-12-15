@@ -1,10 +1,10 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core;
+namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Defines a calendrical kernel.
+/// Defines a calendar.
 /// </summary>
 public interface ICalendricalKernel
 {

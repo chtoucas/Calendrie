@@ -4,6 +4,7 @@
 namespace Calendrie.Testing.Data;
 
 using Calendrie.Core;
+using Calendrie.Hemerology;
 
 // TODO(fact): DaysSinceEpochInfoData should include data before the epoch, then
 // we should review the test bundles to ensure that we use it to test negative years.
@@ -13,7 +14,7 @@ using Calendrie.Core;
 /// </summary>
 public abstract partial class SchemaDataSet : ICalendricalDataSet
 {
-    // ICalendricalKernel, not ICalendricalSchema, to prevent us from using any
+    // ICalendar, not ICalendricalSchema, to prevent us from using any
     // fancy method. We keep ICalendricalSchema in the ctor to ensure that we
     // construct an CalendricalDataSet from a schema not a calendar.
     private readonly ICalendricalKernel _schema;
