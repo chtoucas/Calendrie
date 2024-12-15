@@ -45,8 +45,9 @@ using Calendrie.Core.Validation;
 // - GetStartOfYearInMonths()
 // - GetStartOfYear()
 //
-// WARNING: the default impl of GetYear() and GetStartOfYear() are extremely
-// slow if the values of "y" or "daysSinceEpoch" are big. See SupportedYears.
+// WARNING: the default impl of GetYear() and GetStartOfYear/InMonths() are
+// extremely slow if the values of "y" or "daysSinceEpoch" are large; see
+// SupportedYears.
 //
 // Notice that in Calendrie.Core.Schemas, we use purely computational
 // formulae (faster, no IndexOutOfRangeException) mostly obtained by

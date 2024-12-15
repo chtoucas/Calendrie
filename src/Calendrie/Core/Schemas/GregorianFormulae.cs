@@ -213,7 +213,7 @@ internal static class GregorianFormulae
     /// <summary>
     /// Obtains the date parts for the specified day count (the number of
     /// consecutive days from the epoch to a date).
-    /// </summary>
+    /// </summary> 
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Yemoda GetDateParts(int daysSinceEpoch)

@@ -212,8 +212,8 @@ public partial class CalendricalSchema // Properties
     public int MinDaysInMonth { get; }
 
     /// <inheritdoc />
-    /// <remarks>For methods expecting a month or day parameters, we assume that they are within the
-    /// range defined by <see cref="Yemoda"/>.</remarks>
+    /// <remarks>For methods expecting a month or day parameters, we assume that
+    /// they are within the range defined by <see cref="Yemoda"/>.</remarks>
     public Range<int> SupportedYears { get; }
 
     private Range<int>? _domain;

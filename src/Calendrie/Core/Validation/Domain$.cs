@@ -21,10 +21,10 @@ public static class DomainExtensions
     public static void Validate(this Range<DayNumber> domain, DayNumber dayNumber)
     {
         if (dayNumber < domain.Min || dayNumber > domain.Max)
-            throwDateOutOfRange(dayNumber, nameof(dayNumber));
+            fail(dayNumber, nameof(dayNumber));
 
         [DoesNotReturn]
-        static void throwDateOutOfRange(DayNumber dayNumber, string paramName) =>
+        static void fail(DayNumber dayNumber, string paramName) =>
             throw new ArgumentOutOfRangeException(
                 paramName,
                 dayNumber,

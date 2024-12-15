@@ -8,9 +8,9 @@ using Calendrie.Core.Validation;
 
 #region Developer Notes
 
-// SystemSchema puts limits on the range of admissible values for the year
-// but more importantly also for the month of the year and the day of the
-// month, therefore it cannot represent schemas with __unusually long years
+// SystemSchema puts limits on the range of admissible values for the year but
+// more importantly also for the month of the year and the day of the month,
+// therefore it cannot be used to represent schemas with __unusually long years
 // or months__.
 //
 // This class is public but has an internal ctor since we cannot guarantee

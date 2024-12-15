@@ -28,6 +28,7 @@ internal static class Requires
 
         fail(dayOfWeek, paramName);
 
+        [DoesNotReturn]
         static void fail(DayOfWeek dayOfWeek, string paramName) =>
             throw new ArgumentOutOfRangeException(
                 paramName,
@@ -52,8 +53,8 @@ internal static class Requires
 
         fail(paramName, expected, schema.Profile);
 
-        static void fail(
-            string paramName, CalendricalProfile expected, CalendricalProfile actual) =>
+        [DoesNotReturn]
+        static void fail(string paramName, CalendricalProfile expected, CalendricalProfile actual) =>
             throw new ArgumentException(
                 $"The schema profile should be equal to \"{expected}\" but it is equal to \"{actual}\".",
                 paramName);

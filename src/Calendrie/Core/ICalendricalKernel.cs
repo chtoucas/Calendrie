@@ -32,6 +32,7 @@ public interface ICalendricalKernel
     /// <para>The number of months is given in an output parameter; if this
     /// schema is not regular <paramref name="monthsInYear"/> is set to 0.
     /// </para>
+    /// <para>See also <seealso cref="CountMonthsInYear(int)"/>.</para>
     /// </summary>
     [Pure] bool IsRegular(out int monthsInYear);
 
@@ -76,6 +77,7 @@ public interface ICalendricalKernel
 
     /// <summary>
     /// Obtains the number of months in the specified year.
+    /// <para>See also <seealso cref="IsRegular(out int)"/>.</para>
     /// </summary>
     [Pure] int CountMonthsInYear(int y);
 
