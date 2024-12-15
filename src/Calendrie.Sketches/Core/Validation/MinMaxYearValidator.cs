@@ -33,8 +33,9 @@ public sealed class MinMaxYearValidator : ICalendricalValidator
     /// </exception>
     public MinMaxYearValidator(ICalendricalSchema schema, Range<int> supportedYears)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
 
+        _schema = schema;
         _preValidator = schema.PreValidator;
 
         var seg = CalendricalSegment.Create(schema, supportedYears);

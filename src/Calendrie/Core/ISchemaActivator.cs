@@ -8,6 +8,8 @@ namespace Calendrie.Core;
 
 /// <summary>
 /// Defines an internal method to create new instances of a given schema type.
+/// <para>This interface can ONLY be implemented from within friend assemblies.
+/// </para>
 /// </summary>
 /// <typeparam name="TSchema">The type of schema to be created.</typeparam>
 public interface ISchemaActivator<TSchema> where TSchema : ICalendricalSchema
