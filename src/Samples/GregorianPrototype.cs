@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics.Contracts;
 
 using Calendrie.Core;
+using Calendrie.Hemerology;
 
 public sealed class GregorianPrototype : PrototypalSchema
 {
@@ -27,8 +28,10 @@ public sealed class GregorianPrototype : PrototypalSchema
     [Pure]
     public sealed override int CountDaysInYearBeforeMonth(int y, int m)
     {
+        var kernel = this as ICalendar;
+
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
-        return (IsLeapYear(y)
+        return (kernel.IsLeapYear(y)
             ? DaysInYearBeforeMonthOfLeapYear
             : DaysInYearBeforeMonthOfCommonYear
         )[m - 1];

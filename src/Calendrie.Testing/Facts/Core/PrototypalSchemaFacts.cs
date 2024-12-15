@@ -5,6 +5,7 @@ namespace Calendrie.Testing.Facts.Core;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
+using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
@@ -31,30 +32,32 @@ public abstract class PrototypalSchemaFacts<TDataSet> :
         // should work most of the time.
         // See also SystemSchemaFacts.KernelDoesNotOverflow()
 
-        _ = SchemaUT.IsLeapYear(Yemoda.MinYear);
-        _ = SchemaUT.IsLeapYear(Yemoda.MaxYear);
+        var kernel = SchemaUT as ICalendar;
 
-        _ = SchemaUT.CountMonthsInYear(int.MinValue);
-        _ = SchemaUT.CountMonthsInYear(int.MaxValue);
+        _ = kernel.IsLeapYear(Yemoda.MinYear);
+        _ = kernel.IsLeapYear(Yemoda.MaxYear);
 
-        _ = SchemaUT.CountDaysInYear(Yemoda.MinYear);
-        _ = SchemaUT.CountDaysInYear(Yemoda.MaxYear);
+        _ = kernel.CountMonthsInYear(int.MinValue);
+        _ = kernel.CountMonthsInYear(int.MaxValue);
+
+        _ = kernel.CountDaysInYear(Yemoda.MinYear);
+        _ = kernel.CountDaysInYear(Yemoda.MaxYear);
 
         for (int m = 1; m <= MaxMonth; m++)
         {
-            _ = SchemaUT.IsIntercalaryMonth(int.MinValue, m);
-            _ = SchemaUT.IsIntercalaryMonth(int.MaxValue, m);
+            _ = kernel.IsIntercalaryMonth(int.MinValue, m);
+            _ = kernel.IsIntercalaryMonth(int.MaxValue, m);
 
-            _ = SchemaUT.CountDaysInMonth(Yemoda.MinYear, m);
-            _ = SchemaUT.CountDaysInMonth(Yemoda.MaxYear, m);
+            _ = kernel.CountDaysInMonth(Yemoda.MinYear, m);
+            _ = kernel.CountDaysInMonth(Yemoda.MaxYear, m);
 
             for (int d = 1; d <= MaxDay; d++)
             {
-                _ = SchemaUT.IsIntercalaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsIntercalaryDay(int.MaxValue, m, d);
+                _ = kernel.IsIntercalaryDay(int.MinValue, m, d);
+                _ = kernel.IsIntercalaryDay(int.MaxValue, m, d);
 
-                _ = SchemaUT.IsSupplementaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsSupplementaryDay(int.MaxValue, m, d);
+                _ = kernel.IsSupplementaryDay(int.MinValue, m, d);
+                _ = kernel.IsSupplementaryDay(int.MaxValue, m, d);
             }
         }
     }

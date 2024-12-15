@@ -173,33 +173,26 @@ public partial class PrototypalSchema // ICalendar
     [Pure]
     bool ICalendar.IsRegular(out int monthsInYear) => m_Kernel.IsRegular(out monthsInYear);
 
-    /// <inheritdoc />
     [Pure]
-    public int CountMonthsInYear(int y) => m_Kernel.CountMonthsInYear(y);
+    int ICalendar.CountMonthsInYear(int y) => m_Kernel.CountMonthsInYear(y);
 
-    /// <inheritdoc />
     [Pure]
-    public int CountDaysInYear(int y) => m_Kernel.CountDaysInYear(y);
+    int ICalendar.CountDaysInYear(int y) => m_Kernel.CountDaysInYear(y);
 
-    /// <inheritdoc />
     [Pure]
-    public int CountDaysInMonth(int y, int m) => m_Kernel.CountDaysInMonth(y, m);
+    int ICalendar.CountDaysInMonth(int y, int m) => m_Kernel.CountDaysInMonth(y, m);
 
-    /// <inheritdoc />
     [Pure]
-    public bool IsLeapYear(int y) => m_Kernel.IsLeapYear(y);
+    bool ICalendar.IsLeapYear(int y) => m_Kernel.IsLeapYear(y);
 
-    /// <inheritdoc />
     [Pure]
-    public bool IsIntercalaryMonth(int y, int m) => m_Kernel.IsIntercalaryMonth(y, m);
+    bool ICalendar.IsIntercalaryMonth(int y, int m) => m_Kernel.IsIntercalaryMonth(y, m);
 
-    /// <inheritdoc />
     [Pure]
-    public bool IsIntercalaryDay(int y, int m, int d) => m_Kernel.IsIntercalaryDay(y, m, d);
+    bool ICalendar.IsIntercalaryDay(int y, int m, int d) => m_Kernel.IsIntercalaryDay(y, m, d);
 
-    /// <inheritdoc />
     [Pure]
-    public bool IsSupplementaryDay(int y, int m, int d) => m_Kernel.IsSupplementaryDay(y, m, d);
+    bool ICalendar.IsSupplementaryDay(int y, int m, int d) => m_Kernel.IsSupplementaryDay(y, m, d);
 }
 
 public partial class PrototypalSchema // ICalendricalSchema (1)
