@@ -103,18 +103,6 @@ Calendrie.Core.CalendricalSegmentBuilder.SetMaxToEndOfYear(int year) -> void
 Calendrie.Core.CalendricalSegmentBuilder.SetMinToStartOfMinSupportedYear() -> void
 Calendrie.Core.CalendricalSegmentBuilder.SetMinToStartOfYear(int year) -> void
 Calendrie.Core.CalendricalSegmentBuilder.TrySetMinToStartOfMinSupportedYearOnOrAfterYear1() -> bool
-Calendrie.Core.ICalendricalKernel
-Calendrie.Core.ICalendricalKernel.Algorithm.get -> Calendrie.CalendricalAlgorithm
-Calendrie.Core.ICalendricalKernel.CountDaysInMonth(int y, int m) -> int
-Calendrie.Core.ICalendricalKernel.CountDaysInYear(int y) -> int
-Calendrie.Core.ICalendricalKernel.CountMonthsInYear(int y) -> int
-Calendrie.Core.ICalendricalKernel.Family.get -> Calendrie.CalendricalFamily
-Calendrie.Core.ICalendricalKernel.IsIntercalaryDay(int y, int m, int d) -> bool
-Calendrie.Core.ICalendricalKernel.IsIntercalaryMonth(int y, int m) -> bool
-Calendrie.Core.ICalendricalKernel.IsLeapYear(int y) -> bool
-Calendrie.Core.ICalendricalKernel.IsRegular(out int monthsInYear) -> bool
-Calendrie.Core.ICalendricalKernel.IsSupplementaryDay(int y, int m, int d) -> bool
-Calendrie.Core.ICalendricalKernel.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 Calendrie.Core.ICalendricalSchema
 Calendrie.Core.ICalendricalSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 Calendrie.Core.ICalendricalSchema.CountDaysSinceEpoch(int y, int doy) -> int
@@ -432,8 +420,21 @@ Calendrie.Hemerology.CalendarScope.Segment.get -> Calendrie.Core.CalendricalSegm
 Calendrie.Hemerology.CalendarScope.YearsValidator.get -> Calendrie.Core.Validation.IYearsValidator!
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
+Calendrie.Hemerology.ICalendar
+Calendrie.Hemerology.ICalendar.Algorithm.get -> Calendrie.CalendricalAlgorithm
+Calendrie.Hemerology.ICalendar.CountDaysInMonth(int y, int m) -> int
+Calendrie.Hemerology.ICalendar.CountDaysInYear(int y) -> int
+Calendrie.Hemerology.ICalendar.CountMonthsInYear(int y) -> int
+Calendrie.Hemerology.ICalendar.Family.get -> Calendrie.CalendricalFamily
+Calendrie.Hemerology.ICalendar.IsIntercalaryDay(int y, int m, int d) -> bool
+Calendrie.Hemerology.ICalendar.IsIntercalaryMonth(int y, int m) -> bool
+Calendrie.Hemerology.ICalendar.IsLeapYear(int y) -> bool
+Calendrie.Hemerology.ICalendar.IsRegular(out int monthsInYear) -> bool
+Calendrie.Hemerology.ICalendar.IsSupplementaryDay(int y, int m, int d) -> bool
+Calendrie.Hemerology.ICalendar.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
+Calendrie.Hemerology.ICalendar<TDate>
 Calendrie.Hemerology.IDate<TSelf, TCalendar>
-Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar!
+Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IDate<TSelf>
 Calendrie.Hemerology.IDateable
@@ -462,7 +463,6 @@ Calendrie.Hemerology.IDateAdjuster<TDate>.GetEndOfMonth(TDate date) -> TDate
 Calendrie.Hemerology.IDateAdjuster<TDate>.GetEndOfYear(TDate date) -> TDate
 Calendrie.Hemerology.IDateAdjuster<TDate>.GetStartOfMonth(TDate date) -> TDate
 Calendrie.Hemerology.IDateAdjuster<TDate>.GetStartOfYear(TDate date) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.Scope.get -> Calendrie.Hemerology.CalendarScope!
 Calendrie.Hemerology.IDateProvider<TDate>
 Calendrie.Hemerology.IDateProvider<TDate>.GetDaysInMonth(int year, int month) -> System.Collections.Generic.IEnumerable<TDate>!
 Calendrie.Hemerology.IDateProvider<TDate>.GetDaysInYear(int year) -> System.Collections.Generic.IEnumerable<TDate>!
@@ -723,11 +723,11 @@ Calendrie.Systems.DateAdjuster<TDate>.AdjustDay(TDate date, int newDay) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.AdjustDayOfYear(TDate date, int newDayOfYear) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.AdjustMonth(TDate date, int newMonth) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.AdjustYear(TDate date, int newYear) -> TDate
+Calendrie.Systems.DateAdjuster<TDate>.Calendar.get -> Calendrie.Systems.CalendarSystem<TDate>!
 Calendrie.Systems.DateAdjuster<TDate>.GetEndOfMonth(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetEndOfYear(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetStartOfMonth(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetStartOfYear(TDate date) -> TDate
-Calendrie.Systems.DateAdjuster<TDate>.Scope.get -> Calendrie.Hemerology.CalendarScope!
 Calendrie.Systems.DateAdjuster<TDate>.WithDay(int newDay) -> System.Func<TDate, TDate>!
 Calendrie.Systems.DateAdjuster<TDate>.WithDayOfYear(int newDayOfYear) -> System.Func<TDate, TDate>!
 Calendrie.Systems.DateAdjuster<TDate>.WithMonth(int newMonth) -> System.Func<TDate, TDate>!
@@ -848,7 +848,7 @@ Calendrie.Systems.GregorianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Ca
 Calendrie.Systems.GregorianDate.Year.get -> int
 Calendrie.Systems.GregorianDate.YearOfCentury.get -> int
 Calendrie.Systems.GregorianDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Systems.IDateFactory<TDate>
+Calendrie.Systems.IFixedDateFactory<TDate>
 Calendrie.Systems.JulianCalendar
 Calendrie.Systems.JulianCalendar.Adjuster.get -> Calendrie.Systems.DateAdjuster<Calendrie.Systems.JulianDate>!
 Calendrie.Systems.JulianCalendar.JulianCalendar() -> void
@@ -1123,22 +1123,48 @@ const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
 const Calendrie.DayNumber.MinSupportedYear = -4999999 -> int
 const Calendrie.Ord.MaxAlgebraicValue = 2147483647 -> int
 const Calendrie.Ord.MinAlgebraicValue = -2147483646 -> int
+const Calendrie.Systems.Armenian13Calendar.MaxYear = 9999 -> int
+const Calendrie.Systems.Armenian13Calendar.MinYear = 1 -> int
 const Calendrie.Systems.Armenian13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Systems.Armenian13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Systems.ArmenianCalendar.MaxYear = 9999 -> int
+const Calendrie.Systems.ArmenianCalendar.MinYear = 1 -> int
 const Calendrie.Systems.ArmenianCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.CivilCalendar.MaxYear = 9999 -> int
+const Calendrie.Systems.CivilCalendar.MinYear = 1 -> int
 const Calendrie.Systems.CivilCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.Coptic13Calendar.MaxYear = 9999 -> int
+const Calendrie.Systems.Coptic13Calendar.MinYear = 1 -> int
 const Calendrie.Systems.Coptic13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Systems.Coptic13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Systems.CopticCalendar.MaxYear = 9999 -> int
+const Calendrie.Systems.CopticCalendar.MinYear = 1 -> int
 const Calendrie.Systems.CopticCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.Ethiopic13Calendar.MaxYear = 9999 -> int
+const Calendrie.Systems.Ethiopic13Calendar.MinYear = 1 -> int
 const Calendrie.Systems.Ethiopic13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Systems.Ethiopic13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Systems.EthiopicCalendar.MaxYear = 9999 -> int
+const Calendrie.Systems.EthiopicCalendar.MinYear = 1 -> int
 const Calendrie.Systems.EthiopicCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.GregorianCalendar.MaxYear = 999999 -> int
+const Calendrie.Systems.GregorianCalendar.MinYear = -999998 -> int
 const Calendrie.Systems.GregorianCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.JulianCalendar.MaxYear = 999999 -> int
+const Calendrie.Systems.JulianCalendar.MinYear = -999998 -> int
 const Calendrie.Systems.JulianCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.TabularIslamicCalendar.MaxYear = 9999 -> int
+const Calendrie.Systems.TabularIslamicCalendar.MinYear = 1 -> int
 const Calendrie.Systems.TabularIslamicCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.WorldCalendar.MaxYear = 9999 -> int
+const Calendrie.Systems.WorldCalendar.MinYear = 1 -> int
 const Calendrie.Systems.WorldCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.Zoroastrian13Calendar.MaxYear = 9999 -> int
+const Calendrie.Systems.Zoroastrian13Calendar.MinYear = 1 -> int
 const Calendrie.Systems.Zoroastrian13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Systems.Zoroastrian13Calendar.VirtualMonth = 13 -> int
+const Calendrie.Systems.ZoroastrianCalendar.MaxYear = 9999 -> int
+const Calendrie.Systems.ZoroastrianCalendar.MinYear = 1 -> int
 const Calendrie.Systems.ZoroastrianCalendar.MonthsInYear = 12 -> int
 override Calendrie.Core.Intervals.LowerRay<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.LowerRay<T>.GetHashCode() -> int
