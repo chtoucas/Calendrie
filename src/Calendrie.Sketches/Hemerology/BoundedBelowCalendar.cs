@@ -21,13 +21,13 @@ public class BoundedBelowCalendar : NakedCalendar
 
         MinDateParts = scope.MinDateParts;
         MinOrdinalParts = scope.MinOrdinalParts;
+        MaxYear = scope.Segment.SupportedYears.Max;
 
         DayNumberProvider = new BoundedBelowDayNumberProvider(scope);
     }
 
-    // The following two properties should remain public, otherwise an outsider
-    // won't have access to these infos. Indeed, BoundedBelowCalendar.Scope is
-    // of type CalendarScope, not BoundedBelowScope.
+    // The following properties should remain public, otherwise an outsider
+    // may have difficulty to find them.
 
     /// <summary>
     /// Gets the earliest supported date parts.
@@ -38,6 +38,11 @@ public class BoundedBelowCalendar : NakedCalendar
     /// Gets the earliest supported ordinal date parts.
     /// </summary>
     public OrdinalParts MinOrdinalParts { get; }
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// </summary>
+    public int MaxYear { get; }
 
     /// <summary>
     /// Gets the provider for day numbers.

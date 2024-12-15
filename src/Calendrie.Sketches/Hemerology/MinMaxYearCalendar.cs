@@ -15,10 +15,24 @@ public class MinMaxYearCalendar : NakedCalendar
     /// <see langword="null"/>.</exception>
     public MinMaxYearCalendar(string name, MinMaxYearScope scope) : base(name, scope)
     {
+        Debug.Assert(scope != null);
+
+        (MinYear, MaxYear) = scope.Segment.SupportedYears.Endpoints;
+
         DayNumberProvider = new MinMaxYearDayNumberProvider(scope);
         DatePartsProvider = new MinMaxYearDatePartsProvider(scope);
         OrdinalPartsProvider = new MinMaxYearOrdinalPartsProvider(scope);
     }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
+    public int MinYear { get; }
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// </summary>
+    public int MaxYear { get; }
 
     /// <summary>
     /// Gets the provider for day numbers.
