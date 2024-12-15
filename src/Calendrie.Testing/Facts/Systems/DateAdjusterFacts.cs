@@ -11,10 +11,21 @@ using Calendrie.Testing.Facts.Hemerology;
 
 public abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     IDateAdjusterFacts<DateAdjuster<TDate>, TDate, TDataSet>
-    where TDate : IAdjustable<TDate>, IDate<TDate>, IFixedDateFactory<TDate>
+    where TDate : struct, IAdjustable<TDate>, IDate<TDate>, IFixedDateFactory<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected DateAdjusterFacts(DateAdjuster<TDate> adjuster) : base(adjuster) { }
+    protected DateAdjusterFacts(DateAdjuster<TDate> adjuster)
+        : this(adjuster, GuardAdjuster(adjuster).Calendar) { }
+
+    private DateAdjusterFacts(DateAdjuster<TDate> adjuster, CalendarSystem<TDate> calendar)
+        : base(adjuster, calendar.Scope.Segment.SupportedYears) { }
+
+    private static DateAdjuster<TDate> GuardAdjuster(DateAdjuster<TDate> adjuster)
+    {
+        ArgumentNullException.ThrowIfNull(adjuster);
+
+        return adjuster;
+    }
 }
 
 public partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()

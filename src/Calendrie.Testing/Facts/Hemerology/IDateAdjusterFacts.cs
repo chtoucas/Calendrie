@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
+using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
@@ -14,12 +15,12 @@ public abstract partial class IDateAdjusterFacts<TAdjuster, TDate, TDataSet> :
     where TDate : IDateable
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected IDateAdjusterFacts(TAdjuster adjuster)
+    protected IDateAdjusterFacts(TAdjuster adjuster, Range<int> supportedYears)
     {
         ArgumentNullException.ThrowIfNull(adjuster);
 
         AdjusterUT = adjuster;
-        SupportedYearsTester = new SupportedYearsTester(adjuster.Scope.Segment.SupportedYears);
+        SupportedYearsTester = new SupportedYearsTester(supportedYears);
     }
 
     /// <summary>

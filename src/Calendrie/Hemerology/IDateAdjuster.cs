@@ -3,7 +3,7 @@
 
 namespace Calendrie.Hemerology;
 
-// TODO(code): adjusters. Adjust(). Why Scope? Default impl for AdjustYear() & co
+// TODO(code): adjusters. Adjust(). Default impl for AdjustYear() & co?
 // Merge IAdjustableDate w/ IDate? Hum no because we have also IAffineDate.
 // Le seul avantage à avoir ces méthodes sur un objet date est qu'on peut ne
 // pas avoir à revalider les paramètres.
@@ -47,11 +47,6 @@ namespace Calendrie.Hemerology;
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public interface IDateAdjuster<TDate>
 {
-    /// <summary>
-    /// Gets the calendar scope.
-    /// </summary>
-    CalendarScope Scope { get; }
-
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
     /// </summary>

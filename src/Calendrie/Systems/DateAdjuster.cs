@@ -16,8 +16,18 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
-    where TDate : IDate<TDate>, IFixedDateFactory<TDate>
+    where TDate : struct, IDate<TDate>, IFixedDateFactory<TDate>
 {
+    /// <summary>
+    /// Represents the calendar scope.
+    /// </summary>
+    private readonly CalendarScope _scope;
+
+    /// <summary>
+    /// Represents the schema.
+    /// </summary>
+    private readonly ICalendricalSchema _schema;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="DateAdjuster{TDate}"/>
     /// class.
@@ -28,22 +38,22 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     {
         ArgumentNullException.ThrowIfNull(calendar);
 
-        Scope = calendar.Scope;
+        Calendar = calendar;
+
+        _scope = calendar.Scope;
+        _schema = calendar.Scope.Schema;
     }
 
-    /// <inheritdoc/>
-    public CalendarScope Scope { get; }
-
     /// <summary>
-    /// Gets the schema.
+    /// Gets the associated calendar.
     /// </summary>
-    private ICalendricalSchema Schema => Scope.Schema;
+    public CalendarSystem<TDate> Calendar { get; }
 
     /// <inheritdoc />
     [Pure]
     public TDate GetStartOfYear(TDate date)
     {
-        int daysSinceEpoch = Schema.GetStartOfYear(date.Year);
+        int daysSinceEpoch = _schema.GetStartOfYear(date.Year);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -51,7 +61,7 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     [Pure]
     public TDate GetEndOfYear(TDate date)
     {
-        int daysSinceEpoch = Schema.GetEndOfYear(date.Year);
+        int daysSinceEpoch = _schema.GetEndOfYear(date.Year);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -60,7 +70,7 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     public TDate GetStartOfMonth(TDate date)
     {
         var (y, m, _) = date;
-        int daysSinceEpoch = Schema.GetStartOfMonth(y, m);
+        int daysSinceEpoch = _schema.GetStartOfMonth(y, m);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -69,7 +79,7 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     public TDate GetEndOfMonth(TDate date)
     {
         var (y, m, _) = date;
-        int daysSinceEpoch = Schema.GetEndOfMonth(y, m);
+        int daysSinceEpoch = _schema.GetEndOfMonth(y, m);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -83,9 +93,9 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     {
         var (_, m, d) = date;
         // We MUST re-validate the entire date.
-        Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+        _scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newYear, m, d);
+        int daysSinceEpoch = _schema.CountDaysSinceEpoch(newYear, m, d);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -95,9 +105,9 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     {
         var (y, _, d) = date;
         // We only need to validate "newMonth" and "d".
-        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+        _schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newMonth, d);
+        int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, newMonth, d);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -108,13 +118,13 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
         var (y, m, _) = date;
         // We only need to validate "newDay".
         if (newDay < 1
-            || (newDay > Schema.MinDaysInMonth
-                && newDay > Schema.CountDaysInMonth(y, m)))
+            || (newDay > _schema.MinDaysInMonth
+                && newDay > _schema.CountDaysInMonth(y, m)))
         {
             throw new ArgumentOutOfRangeException(nameof(newDay));
         }
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, m, newDay);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -124,9 +134,9 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     {
         int y = date.Year;
         // We only need to validate "newDayOfYear".
-        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+        _schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
+        int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, newDayOfYear);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
