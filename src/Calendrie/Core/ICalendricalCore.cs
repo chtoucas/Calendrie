@@ -4,9 +4,9 @@
 namespace Calendrie.Core;
 
 /// <summary>
-/// Defines a calendar.
+/// Defines the core calendrical methods.
 /// </summary>
-public interface ICalendar
+public interface ICalendricalCore
 {
     /// <summary>
     /// Gets the calendrical algorithm: arithmetical, astronomical or

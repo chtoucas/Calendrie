@@ -31,7 +31,7 @@ public abstract class PrototypalSchemaFacts<TDataSet> :
         // should work most of the time.
         // See also SystemSchemaFacts.KernelDoesNotOverflow()
 
-        var kernel = SchemaUT as ICalendar;
+        var kernel = SchemaUT as ICalendricalCore;
 
         _ = kernel.IsLeapYear(Yemoda.MinYear);
         _ = kernel.IsLeapYear(Yemoda.MaxYear);

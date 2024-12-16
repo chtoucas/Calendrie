@@ -13,7 +13,7 @@ using Calendrie.Core.Validation;
 //
 // ### Public Hierarchy
 //
-// ICalendar
+// ICalendricalCore
 // └─ ICalendricalSchema
 //    ├─ OffsettedSchema                            DRAFT
 //    ├─ StrictSchema                               DRAFT
@@ -105,11 +105,8 @@ using Calendrie.Core.Validation;
 /// that all returned values are valid when the previous condition is met.</item>
 /// </list>
 /// </summary>
-public partial interface ICalendricalSchema : ICalendar
+public partial interface ICalendricalSchema : ICalendricalCore
 {
-    // ICalendar is shared between calendars and schemas, otherwise most
-    // properties below could have been part of the kernel.
-
     /// <summary>
     /// Gets the minimal total number of days there is at least in a year.
     /// </summary>

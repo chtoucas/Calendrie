@@ -35,12 +35,12 @@ using Calendrie.Testing.Data;
 #endregion
 
 /// <summary>
-/// Provides facts about <see cref="ICalendar"/>.
+/// Provides facts about <see cref="ICalendricalCore"/>.
 /// <para>Only use this class to test schemas (unbounded calendars).</para>
 /// </summary>
 public abstract partial class ICalendarFacts<TKernel, TDataSet> :
     CalendricalDataConsumer<TDataSet>
-    where TKernel : ICalendar
+    where TKernel : ICalendricalCore
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
     protected ICalendarFacts(TKernel schema)

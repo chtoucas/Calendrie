@@ -16,7 +16,7 @@ public abstract partial class SchemaDataSet : ICalendricalDataSet
     // ICalendar, not ICalendricalSchema, to prevent us from using any
     // fancy method. We keep ICalendricalSchema in the ctor to ensure that we
     // construct an CalendricalDataSet from a schema not a calendar.
-    private readonly ICalendar _schema;
+    private readonly ICalendricalCore _schema;
 
     protected SchemaDataSet(ICalendricalSchema schema, int commonYear, int leapYear)
     {

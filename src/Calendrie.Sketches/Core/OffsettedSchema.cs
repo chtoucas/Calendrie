@@ -41,7 +41,7 @@ public partial class OffsettedSchema<TSchema> : ICalendricalSchema
     protected TSchema Schema { get; }
 }
 
-public partial class OffsettedSchema<TSchema> // ICalendar
+public partial class OffsettedSchema<TSchema> // ICalendricalCore
 {
     /// <inheritdoc />
     public CalendricalAlgorithm Algorithm => Schema.Algorithm;

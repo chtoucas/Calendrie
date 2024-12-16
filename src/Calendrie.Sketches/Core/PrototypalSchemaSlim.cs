@@ -35,7 +35,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    public PrototypalSchemaSlim(ICalendar kernel, int minDaysInYear, int minDaysInMonth)
+    public PrototypalSchemaSlim(ICalendricalCore kernel, int minDaysInYear, int minDaysInMonth)
         : base(kernel, minDaysInYear, minDaysInMonth)
     {
         // See GetMonth() for an explanation of the formula.

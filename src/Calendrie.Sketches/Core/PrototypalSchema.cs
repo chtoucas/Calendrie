@@ -12,13 +12,13 @@ using Calendrie.Core.Validation;
 
 // The code is NOT meant to be efficient.
 //
-// Usefulness? ICalendar is easy to implement and test (see for instance
+// Usefulness? ICalendricalCore is easy to implement and test (see for instance
 // GregorianKernel), which might not be the case of ICalendricalSchema.
 // With PrototypalSchema, we can then
 // - quickly prototype a new schema
 // - validate test data independently
-// At the same time, it demonstrates that an ICalendar instance is all we need
-// to build a full schema.
+// At the same time, it demonstrates that an ICalendricalCore instance is all we
+// need to build a full schema.
 //
 // Apart from the core kernel methods, the only other methods available
 // implicitely are the abstract/virtual ones.
@@ -32,7 +32,7 @@ using Calendrie.Core.Validation;
 // - Arithmetic
 //
 // These are the properties defined by ICalendricalSchema not inherited from
-// ICalendar.
+// ICalendricalCore.
 //
 // ### Virtual Methods
 //
@@ -68,7 +68,7 @@ using Calendrie.Core.Validation;
 /// interface.
 /// </summary>
 public partial class PrototypalSchema :
-    ICalendar,
+    ICalendricalCore,
     ICalendricalSchema,
     ICalendricalSchemaPlus
 {
@@ -85,7 +85,7 @@ public partial class PrototypalSchema :
     /// Represents the calendar kernel.
     /// <para>This field is read-only.</para>
     /// </summary>
-    protected readonly ICalendar m_Kernel;
+    protected readonly ICalendricalCore m_Kernel;
 
     protected readonly int m_MinDaysInYear;
 
@@ -115,7 +115,7 @@ public partial class PrototypalSchema :
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
     public PrototypalSchema(
-        ICalendar kernel,
+        ICalendricalCore kernel,
         int minDaysInYear,
         int minDaysInMonth)
     {
@@ -159,37 +159,37 @@ public partial class PrototypalSchema :
     }
 }
 
-public partial class PrototypalSchema // ICalendar
+public partial class PrototypalSchema // ICalendricalCore
 {
-    CalendricalAlgorithm ICalendar.Algorithm => m_Kernel.Algorithm;
+    CalendricalAlgorithm ICalendricalCore.Algorithm => m_Kernel.Algorithm;
 
-    CalendricalFamily ICalendar.Family => m_Kernel.Family;
+    CalendricalFamily ICalendricalCore.Family => m_Kernel.Family;
 
-    CalendricalAdjustments ICalendar.PeriodicAdjustments => m_Kernel.PeriodicAdjustments;
-
-    [Pure]
-    bool ICalendar.IsRegular(out int monthsInYear) => m_Kernel.IsRegular(out monthsInYear);
+    CalendricalAdjustments ICalendricalCore.PeriodicAdjustments => m_Kernel.PeriodicAdjustments;
 
     [Pure]
-    bool ICalendar.IsLeapYear(int y) => m_Kernel.IsLeapYear(y);
+    bool ICalendricalCore.IsRegular(out int monthsInYear) => m_Kernel.IsRegular(out monthsInYear);
 
     [Pure]
-    bool ICalendar.IsIntercalaryMonth(int y, int m) => m_Kernel.IsIntercalaryMonth(y, m);
+    bool ICalendricalCore.IsLeapYear(int y) => m_Kernel.IsLeapYear(y);
 
     [Pure]
-    bool ICalendar.IsIntercalaryDay(int y, int m, int d) => m_Kernel.IsIntercalaryDay(y, m, d);
+    bool ICalendricalCore.IsIntercalaryMonth(int y, int m) => m_Kernel.IsIntercalaryMonth(y, m);
 
     [Pure]
-    bool ICalendar.IsSupplementaryDay(int y, int m, int d) => m_Kernel.IsSupplementaryDay(y, m, d);
+    bool ICalendricalCore.IsIntercalaryDay(int y, int m, int d) => m_Kernel.IsIntercalaryDay(y, m, d);
 
     [Pure]
-    int ICalendar.CountMonthsInYear(int y) => m_Kernel.CountMonthsInYear(y);
+    bool ICalendricalCore.IsSupplementaryDay(int y, int m, int d) => m_Kernel.IsSupplementaryDay(y, m, d);
 
     [Pure]
-    int ICalendar.CountDaysInYear(int y) => m_Kernel.CountDaysInYear(y);
+    int ICalendricalCore.CountMonthsInYear(int y) => m_Kernel.CountMonthsInYear(y);
 
     [Pure]
-    int ICalendar.CountDaysInMonth(int y, int m) => m_Kernel.CountDaysInMonth(y, m);
+    int ICalendricalCore.CountDaysInYear(int y) => m_Kernel.CountDaysInYear(y);
+
+    [Pure]
+    int ICalendricalCore.CountDaysInMonth(int y, int m) => m_Kernel.CountDaysInMonth(y, m);
 }
 
 public partial class PrototypalSchema // ICalendricalSchema (1)

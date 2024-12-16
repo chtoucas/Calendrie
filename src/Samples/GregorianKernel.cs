@@ -12,7 +12,7 @@ using Calendrie.Core.Intervals;
 
 using Range_ = Calendrie.Core.Intervals.Range;
 
-public sealed class GregorianKernel : ICalendar
+public sealed class GregorianKernel : ICalendricalCore
 {
     public const int MonthsInYear = 12;
     public const int DaysInCommonYear = 365;

@@ -27,7 +27,7 @@ public sealed class GregorianPrototype : PrototypalSchema
     [Pure]
     public sealed override int CountDaysInYearBeforeMonth(int y, int m)
     {
-        var kernel = this as ICalendar;
+        var kernel = this as ICalendricalCore;
 
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
         return (kernel.IsLeapYear(y)
