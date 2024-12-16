@@ -6,89 +6,93 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
-public sealed partial class OffsettedSchema : ICalendricalSchema
+public static class OffsettedSchema
+{
+    public static OffsettedSchema<TSchema> Create<TSchema>(int offset)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return new OffsettedSchema<TSchema>(TSchema.CreateInstance(), offset);
+    }
+}
+
+public partial class OffsettedSchema<TSchema> : ICalendricalSchema
+    where TSchema : ICalendricalSchema
 {
     /// <summary>
-    /// Represents the plain schema.
-    /// <para>This field is read-ony.</para>
-    /// </summary>
-    private readonly ICalendricalSchema _schema;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="OffsettedSchema"/> class.
+    /// Initializes a new instance of the <see cref="OffsettedSchema{TSchema}"/>
+    /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.
     /// </exception>
-    public OffsettedSchema(ICalendricalSchema schema, int offset)
+    public OffsettedSchema(TSchema schema, int offset)
     {
         ArgumentNullException.ThrowIfNull(schema);
 
-        _schema = schema;
-
+        Schema = schema;
         Offset = offset;
     }
 
     public int Offset { get; }
 
-    public static OffsettedSchema Create<TSchema>(int offset)
-        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
-    {
-        return new OffsettedSchema(TSchema.CreateInstance(), offset);
-    }
+    /// <summary>
+    /// Gets the plain schema.
+    /// <para>This field is read-ony.</para>
+    /// </summary>
+    protected TSchema Schema { get; }
 }
 
-public partial class OffsettedSchema // ICalendar
+public partial class OffsettedSchema<TSchema> // ICalendar
 {
     /// <inheritdoc />
-    public CalendricalAlgorithm Algorithm => _schema.Algorithm;
+    public CalendricalAlgorithm Algorithm => Schema.Algorithm;
 
     /// <inheritdoc />
-    public CalendricalFamily Family => _schema.Family;
+    public CalendricalFamily Family => Schema.Family;
 
     /// <inheritdoc />
-    public CalendricalAdjustments PeriodicAdjustments => _schema.PeriodicAdjustments;
-
-    /// <inheritdoc />
-    [Pure]
-    public bool IsRegular(out int monthsInYear) => _schema.IsRegular(out monthsInYear);
+    public CalendricalAdjustments PeriodicAdjustments => Schema.PeriodicAdjustments;
 
     /// <inheritdoc />
     [Pure]
-    public bool IsLeapYear(int y) => _schema.IsLeapYear(y - Offset);
+    public bool IsRegular(out int monthsInYear) => Schema.IsRegular(out monthsInYear);
 
     /// <inheritdoc />
     [Pure]
-    public bool IsIntercalaryMonth(int y, int m) => _schema.IsIntercalaryMonth(y - Offset, m);
+    public bool IsLeapYear(int y) => Schema.IsLeapYear(y - Offset);
 
     /// <inheritdoc />
     [Pure]
-    public bool IsIntercalaryDay(int y, int m, int d) => _schema.IsIntercalaryDay(y - Offset, m, d);
+    public bool IsIntercalaryMonth(int y, int m) => Schema.IsIntercalaryMonth(y - Offset, m);
+
+    /// <inheritdoc />
+    [Pure]
+    public bool IsIntercalaryDay(int y, int m, int d) => Schema.IsIntercalaryDay(y - Offset, m, d);
 
     /// <inheritdoc />
     [Pure]
     public bool IsSupplementaryDay(int y, int m, int d) =>
-        _schema.IsSupplementaryDay(y - Offset, m, d);
+        Schema.IsSupplementaryDay(y - Offset, m, d);
 
     /// <inheritdoc />
     [Pure]
-    public int CountMonthsInYear(int y) => _schema.CountMonthsInYear(y - Offset);
+    public int CountMonthsInYear(int y) => Schema.CountMonthsInYear(y - Offset);
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInYear(int y) => _schema.CountDaysInYear(y - Offset);
+    public int CountDaysInYear(int y) => Schema.CountDaysInYear(y - Offset);
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInMonth(int y, int m) => _schema.CountDaysInMonth(y - Offset, m);
+    public int CountDaysInMonth(int y, int m) => Schema.CountDaysInMonth(y - Offset, m);
 }
 
-public partial class OffsettedSchema // ICalendricalSchema
+public partial class OffsettedSchema<TSchema> // ICalendricalSchema
 {
     /// <inheritdoc />
-    public int MinDaysInYear => _schema.MinDaysInYear;
+    public int MinDaysInYear => Schema.MinDaysInYear;
 
     /// <inheritdoc />
-    public int MinDaysInMonth => _schema.MinDaysInMonth;
+    public int MinDaysInMonth => Schema.MinDaysInMonth;
 
     private Range<int>? _supportedDays;
     /// <inheritdoc />
@@ -103,10 +107,10 @@ public partial class OffsettedSchema // ICalendricalSchema
             SupportedYears.Endpoints.Select(GetStartOfYearInMonths, GetEndOfYearInMonths));
 
     /// <inheritdoc />
-    public Range<int> SupportedYears => _schema.SupportedYears;
+    public Range<int> SupportedYears => Schema.SupportedYears;
 
     /// <inheritdoc />
-    public ICalendricalPreValidator PreValidator => _schema.PreValidator;
+    public ICalendricalPreValidator PreValidator => Schema.PreValidator;
 
     //
     // Counting months and days within a year or a month
@@ -115,7 +119,7 @@ public partial class OffsettedSchema // ICalendricalSchema
     /// <inheritdoc />
     [Pure]
     public int CountDaysInYearBeforeMonth(int y, int m) =>
-        _schema.CountDaysInYearBeforeMonth(y - Offset, m);
+        Schema.CountDaysInYearBeforeMonth(y - Offset, m);
 
     //
     // Conversions
@@ -123,42 +127,43 @@ public partial class OffsettedSchema // ICalendricalSchema
 
     /// <inheritdoc />
     [Pure]
-    public int CountMonthsSinceEpoch(int y, int m) => _schema.CountMonthsSinceEpoch(y - Offset, m);
+    public int CountMonthsSinceEpoch(int y, int m) => Schema.CountMonthsSinceEpoch(y - Offset, m);
 
     /// <inheritdoc />
     [Pure]
     public int CountDaysSinceEpoch(int y, int m, int d) =>
-        _schema.CountDaysSinceEpoch(y - Offset, m, d);
+        Schema.CountDaysSinceEpoch(y - Offset, m, d);
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysSinceEpoch(int y, int doy) => _schema.CountDaysSinceEpoch(y - Offset, doy);
+    public int CountDaysSinceEpoch(int y, int doy) => Schema.CountDaysSinceEpoch(y - Offset, doy);
 
     /// <inheritdoc />
     public void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
-        _schema.GetMonthParts(monthsSinceEpoch, out y, out m);
+        Schema.GetMonthParts(monthsSinceEpoch, out y, out m);
         y += Offset;
     }
+
     /// <inheritdoc />
     public void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
-        _schema.GetDateParts(daysSinceEpoch, out y, out m, out d);
+        Schema.GetDateParts(daysSinceEpoch, out y, out m, out d);
         y += Offset;
     }
 
     /// <inheritdoc />
     [Pure]
     public int GetYear(int daysSinceEpoch, out int doy) =>
-        Offset + _schema.GetYear(daysSinceEpoch, out doy);
+        Offset + Schema.GetYear(daysSinceEpoch, out doy);
 
     /// <inheritdoc />
     [Pure]
-    public int GetMonth(int y, int doy, out int d) => _schema.GetMonth(y - Offset, doy, out d);
+    public int GetMonth(int y, int doy, out int d) => Schema.GetMonth(y - Offset, doy, out d);
 
     /// <inheritdoc />
     [Pure]
-    public int GetDayOfYear(int y, int m, int d) => _schema.GetDayOfYear(y - Offset, m, d);
+    public int GetDayOfYear(int y, int m, int d) => Schema.GetDayOfYear(y - Offset, m, d);
 
     //
     // Counting months and days since the epoch
@@ -166,105 +171,25 @@ public partial class OffsettedSchema // ICalendricalSchema
 
     /// <inheritdoc />
     [Pure]
-    public int GetStartOfYearInMonths(int y) => _schema.GetStartOfYearInMonths(y - Offset);
+    public int GetStartOfYearInMonths(int y) => Schema.GetStartOfYearInMonths(y - Offset);
 
     /// <inheritdoc />
     [Pure]
-    public int GetEndOfYearInMonths(int y) => _schema.GetEndOfYearInMonths(y - Offset);
+    public int GetEndOfYearInMonths(int y) => Schema.GetEndOfYearInMonths(y - Offset);
 
     /// <inheritdoc />
     [Pure]
-    public int GetStartOfYear(int y) => _schema.GetStartOfYear(y - Offset);
+    public int GetStartOfYear(int y) => Schema.GetStartOfYear(y - Offset);
 
     /// <inheritdoc />
     [Pure]
-    public int GetEndOfYear(int y) => _schema.GetEndOfYear(y - Offset);
+    public int GetEndOfYear(int y) => Schema.GetEndOfYear(y - Offset);
 
     /// <inheritdoc />
     [Pure]
-    public int GetStartOfMonth(int y, int m) => _schema.GetStartOfMonth(y - Offset, m);
+    public int GetStartOfMonth(int y, int m) => Schema.GetStartOfMonth(y - Offset, m);
 
     /// <inheritdoc />
     [Pure]
-    public int GetEndOfMonth(int y, int m) => _schema.GetEndOfMonth(y - Offset, m);
+    public int GetEndOfMonth(int y, int m) => Schema.GetEndOfMonth(y - Offset, m);
 }
-
-#if false // ICalendricalSchemaPlus
-
-public partial class OffsettedSchema // ICalendricalSchemaPlus
-{
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInYearAfterMonth(int y, int m) =>
-    _schema.CountDaysInYearAfterMonth(y - Offset, m);
-
-    #region CountDaysInYearBefore()
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInYearBefore(int y, int m, int d) =>
-    _schema.CountDaysInYearBefore(y - Offset, m, d);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInYearBefore(int y, int doy) =>
-        _schema.CountDaysInYearBefore(y - Offset, doy);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInYearBefore(int daysSinceEpoch) => throw new NotImplementedException();
-
-    #endregion
-    #region CountDaysInYearAfter()
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInYearAfter(int y, int m, int d) =>
-    _schema.CountDaysInYearAfter(y - Offset, m, d);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInYearAfter(int y, int doy) => _schema.CountDaysInYearAfter(y - Offset, doy);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInYearAfter(int daysSinceEpoch) => throw new NotImplementedException();
-
-    #endregion
-    #region CountDaysInMonthBefore()
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthBefore(int y, int m, int d) =>
-        _schema.CountDaysInMonthBefore(y - Offset, m, d);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthBefore(int y, int doy) =>
-        _schema.CountDaysInMonthBefore(y - Offset, doy);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthBefore(int daysSinceEpoch) => throw new NotImplementedException();
-
-    #endregion
-    #region CountDaysInMonthAfter()
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthAfter(int y, int m, int d) =>
-        _schema.CountDaysInMonthAfter(y - Offset, m, d);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthAfter(int y, int doy) =>
-        _schema.CountDaysInMonthAfter(y - Offset, doy);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthAfter(int daysSinceEpoch) => throw new NotImplementedException();
-
-    #endregion
-}
-
-#endif
