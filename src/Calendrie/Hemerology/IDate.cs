@@ -5,6 +5,8 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
+using Calendrie.Core;
+
 // A date type is expected to provide a constructor or a factory with the
 // following parameters:
 // - (y, m, d)

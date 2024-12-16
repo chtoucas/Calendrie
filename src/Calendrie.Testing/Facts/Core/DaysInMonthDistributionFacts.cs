@@ -3,8 +3,8 @@
 
 namespace Calendrie.Testing.Facts.Core;
 
+using Calendrie.Core;
 using Calendrie.Core.Schemas;
-using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 // REVIEW(fact): once IDaysInMonthDistribution becomes public, this should be

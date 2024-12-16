@@ -7,8 +7,8 @@ using System;
 using System.Diagnostics.Contracts;
 
 using Calendrie;
+using Calendrie.Core;
 using Calendrie.Core.Intervals;
-using Calendrie.Hemerology;
 
 using Range_ = Calendrie.Core.Intervals.Range;
 

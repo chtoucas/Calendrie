@@ -4,7 +4,6 @@
 namespace Calendrie.Core;
 
 using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
 
 /// <summary>
 /// Represents a prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>

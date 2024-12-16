@@ -7,7 +7,6 @@ using System;
 using System.Diagnostics.Contracts;
 
 using Calendrie.Core;
-using Calendrie.Hemerology;
 
 public sealed class GregorianPrototype : PrototypalSchema
 {
