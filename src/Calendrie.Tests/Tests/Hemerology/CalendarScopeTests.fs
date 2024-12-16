@@ -7,6 +7,7 @@ open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
+open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Faux
 
