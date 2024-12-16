@@ -53,7 +53,6 @@
     <Compile Include="Tests\Core\Utilities\OrderedPairTests.fs" />
     <Compile Include="Tests\Core\Utilities\RequiresTests.fs" />
     <Compile Include="Tests\Core\Utilities\ThrowHelpersTests.fs" />
-    <Compile Include="Tests\Core\Validation\DomainExtensionsTests.fs" />
     <Compile Include="Tests\Core\Validation\PlainPreValidatorTests.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTests.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTestSuite.fs" />
