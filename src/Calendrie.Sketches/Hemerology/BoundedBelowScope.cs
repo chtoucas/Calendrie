@@ -44,6 +44,17 @@ public sealed class BoundedBelowScope : CalendarScope
 
     #region Factories
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDateParts"/>
+    /// is invalid or outside the range of dates supported by <typeparamref name="TSchema"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxYear"/>
+    /// is outside the range of years supported by <typeparamref name="TSchema"/>.
+    /// </exception>
+    /// <exception cref="ArgumentException"><paramref name="minDateParts"/> is
+    /// the first day of a year.</exception>
     public static BoundedBelowScope Create<TSchema>(
         DayNumber epoch, DateParts minDateParts, int maxYear)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
@@ -75,6 +86,14 @@ public sealed class BoundedBelowScope : CalendarScope
         return new BoundedBelowScope(epoch, seg);
     }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="parts"/>
+    /// is invalid or outside the range of dates supported by <typeparamref name="TSchema"/>.
+    /// </exception>
+    /// <exception cref="ArgumentException"><paramref name="parts"/> is the first
+    /// day of a year.</exception>
     public static BoundedBelowScope StartingAt<TSchema>(DayNumber epoch, DateParts parts)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {

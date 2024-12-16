@@ -27,6 +27,13 @@ public sealed class MinMaxYearScope : CalendarScope
 
     #region Factories
 
+
+    /// <summary>
+    /// Creates the default maximal scope for the specified schema type and epoch.
+    /// </summary>
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
+    /// NOT a subinterval of the range of supported years by <typeparamref name="TSchema"/>.
+    /// </exception>
     public static MinMaxYearScope Create<TSchema>(DayNumber epoch, Range<int> supportedYears)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
@@ -49,6 +56,9 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(epoch, seg);
     }
 
+    /// <summary>
+    /// Creates the default maximal scope for the specified schema type and epoch.
+    /// </summary>
     public static MinMaxYearScope CreateMaximal<TSchema>(DayNumber epoch)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
@@ -68,6 +78,11 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(epoch, seg);
     }
 
+    /// <summary>
+    /// Creates the default maximal scope for the specified schema and epoch.
+    /// </summary>
+    /// <exception cref="ArgumentException">The range of supported years by
+    /// <typeparamref name="TSchema"/> does not contain the year 1.</exception>
     public static MinMaxYearScope CreateMaximalOnOrAfterYear1<TSchema>(DayNumber epoch)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
@@ -89,6 +104,12 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(epoch, seg);
     }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
+    /// dates on or after the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of supported values by the schema.</exception>
     public static MinMaxYearScope StartingAt<TSchema>(DayNumber epoch, int year)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
@@ -112,6 +133,12 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(epoch, segment);
     }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
+    /// dates on or before the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of supported values by the schema.</exception>
     public static MinMaxYearScope EndingAt<TSchema>(DayNumber epoch, int year)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
