@@ -246,17 +246,6 @@ public abstract partial class Calendar
     /// </summary>
     [Pure]
     public override string ToString() => Name;
-
-    /// <summary>
-    /// Returns <see langword="true"/> if this schema is regular; otherwise
-    /// returns <see langword="false"/>.
-    /// <para>The number of months is given in an output parameter; if this
-    /// schema is not regular <paramref name="monthsInYear"/> is set to 0.
-    /// </para>
-    /// <para>See also <seealso cref="CountMonthsInYear(int)"/>.</para>
-    /// </summary>
-    [Pure]
-    public bool IsRegular(out int monthsInYear) => Schema.IsRegular(out monthsInYear);
 }
 
 public partial class Calendar // Year and month infos
@@ -289,14 +278,6 @@ public partial class Calendar // Year and month infos
 
     // Les méthodes suivantes sont abstraites car une année ou un mois peut être
     // incomplet.
-
-    /// <summary>
-    /// Obtains the number of months in the specified year.
-    /// <para>See also <seealso cref="IsRegular(out int)"/>.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
-    [Pure] public abstract int CountMonthsInYear(int year);
 
     /// <summary>
     /// Obtains the number of days in the specified year.

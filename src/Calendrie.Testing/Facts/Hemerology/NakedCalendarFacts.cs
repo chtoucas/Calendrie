@@ -45,6 +45,27 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // Properties
 
 public partial class NakedCalendarFacts<TCalendar, TDataSet> // Characteristics
 {
+    //
+    // Counting
+    //
+
+    #region CountMonthsInYear()
+
+    [Fact]
+    public void CountMonthsInYear_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(CalendarUT.CountMonthsInYear);
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void CountMonthsInYear(YearInfo info)
+    {
+        // Act
+        int actual = CalendarUT.CountMonthsInYear(info.Year);
+        // Assert
+        Assert.Equal(info.MonthsInYear, actual);
+    }
+
+    #endregion
+
     #region IsIntercalaryDay()
 
     [Fact]

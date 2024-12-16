@@ -111,22 +111,6 @@ public partial class CalendarFacts<TCalendar, TDataSet>
     // Counting
     //
 
-    #region CountMonthsInYear()
-
-    [Fact]
-    public void CountMonthsInYear_InvalidYear() =>
-        SupportedYearsTester.TestInvalidYear(CalendarUT.CountMonthsInYear);
-
-    [Theory, MemberData(nameof(YearInfoData))]
-    public void CountMonthsInYear(YearInfo info)
-    {
-        // Act
-        int actual = CalendarUT.CountMonthsInYear(info.Year);
-        // Assert
-        Assert.Equal(info.MonthsInYear, actual);
-    }
-
-    #endregion
     #region CountDaysInYear()
 
     [Fact]

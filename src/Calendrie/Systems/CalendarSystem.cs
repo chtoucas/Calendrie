@@ -49,14 +49,6 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
 
     /// <inheritdoc/>
     [Pure]
-    public sealed override int CountMonthsInYear(int year)
-    {
-        YearsValidator.Validate(year);
-        return Schema.CountMonthsInYear(year);
-    }
-
-    /// <inheritdoc/>
-    [Pure]
     public sealed override int CountDaysInYear(int year)
     {
         YearsValidator.Validate(year);

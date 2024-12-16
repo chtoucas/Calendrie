@@ -13,7 +13,6 @@ public sealed class FauxCalendar : Calendar
 
     public override int CountDaysInMonth(int year, int month) => throw new NotSupportedException();
     public override int CountDaysInYear(int year) => throw new NotSupportedException();
-    public override int CountMonthsInYear(int year) => throw new NotSupportedException();
 }
 
 public sealed class FauxCalendar<TDate> : Calendar, IDateProvider<TDate>
@@ -22,7 +21,6 @@ public sealed class FauxCalendar<TDate> : Calendar, IDateProvider<TDate>
 
     public override int CountDaysInMonth(int year, int month) => throw new NotSupportedException();
     public override int CountDaysInYear(int year) => throw new NotSupportedException();
-    public override int CountMonthsInYear(int year) => throw new NotSupportedException();
 
     public IEnumerable<TDate> GetDaysInMonth(int year, int month) => throw new NotSupportedException();
     public IEnumerable<TDate> GetDaysInYear(int year) => throw new NotSupportedException();

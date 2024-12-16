@@ -36,10 +36,10 @@ module Prelude =
         chr.Scope ==& scope
 
     [<Fact>]
-    let ``IsRegular() when the calendar is regular`` () =
+    let ``NakedCalendar::IsRegular() when the calendar is regular`` () =
         let name = "My Name"
-        let scope = new StandardScope(new GregorianSchema(), DayZero.NewStyle)
-        let chr = new FauxCalendar(name, scope)
+        let scope = MinMaxYearScope.CreateMaximal(new GregorianSchema(), DayZero.NewStyle)
+        let chr = new MinMaxYearCalendar(name, scope)
 
         let (regular, monthsInYear) = chr.IsRegular()
 
@@ -47,10 +47,10 @@ module Prelude =
         monthsInYear === 12
 
     [<Fact>]
-    let ``IsRegular() when the calendar is not regular`` () =
+    let ``NakedCalendar::IsRegular()() when the calendar is not regular`` () =
         let name = "My Name"
-        let scope = new StandardScope(new FauxLunisolarSchema(), DayZero.NewStyle)
-        let chr = new FauxCalendar(name, scope)
+        let scope = MinMaxYearScope.CreateMaximal(new FauxLunisolarSchema(), DayZero.NewStyle)
+        let chr = new MinMaxYearCalendar(name, scope)
 
         let (regular, monthsInYear) = chr.IsRegular()
 
