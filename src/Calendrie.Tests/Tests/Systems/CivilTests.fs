@@ -115,7 +115,7 @@ module Prelude =
         GregorianDate.FromCivilDate(civilDate) === gregorianDate
 
 module Extensions =
-    let private chr = new CivilCalendar()
+    let private chr = CivilCalendar.Instance
     let private domain = chr.Scope.Domain
 
     let private calendarDataSet = StandardGregorianDataSet.Instance
@@ -142,7 +142,7 @@ module Extensions =
         date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
-    let private chr = new CivilCalendar()
+    let private chr = CivilCalendar.Instance
 
     [<Sealed>]
     type CalendaTests() =

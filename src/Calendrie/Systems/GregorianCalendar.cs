@@ -22,21 +22,25 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     // See comments in Armenian13Calendar for instance.
     internal static readonly GregorianSchema UnderlyingSchema = new();
     internal static readonly GregorianScope UnderlyingScope = new(new GregorianSchema());
-    internal static readonly GregorianCalendar Instance = new(new GregorianScope(new GregorianSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
     /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
-    public GregorianCalendar() : this(new GregorianScope(new GregorianSchema())) { }
+    private GregorianCalendar() : this(new GregorianScope(new GregorianSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
     /// </summary>
-    internal GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
+    private GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
     {
         Adjuster = new DateAdjuster<GregorianDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
+    /// </summary>
+    public static GregorianCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -52,4 +56,11 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the date adjuster.
     /// </summary>
     public DateAdjuster<GregorianDate> Adjuster { get; }
+
+    private sealed class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly GregorianCalendar Instance = new();
+    }
 }

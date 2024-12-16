@@ -27,7 +27,7 @@ module Prelude =
         JulianDate.MaxDaysSinceEpoch === JulianCalendar.UnderlyingScope.Segment.SupportedDays.Max
 
 module Extensions =
-    let private chr = new JulianCalendar()
+    let private chr = JulianCalendar.Instance
     let private domain = chr.Scope.Domain
 
     let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(domain)
@@ -42,7 +42,7 @@ module Extensions =
 module Bundles =
     // NB: notice the use of UnboundedJulianDataSet.
 
-    let private chr = new JulianCalendar()
+    let private chr = JulianCalendar.Instance
 
     [<Sealed>]
     type CalendaTests() =

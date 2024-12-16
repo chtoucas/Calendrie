@@ -104,7 +104,7 @@ let ``Static property FrenchRepublican`` () =
 [<Fact>]
 let ``Static property Minguo`` () =
     let date = CivilDate.FromDayNumber(DayZero.Minguo)
-    let chr = new CivilCalendar()
+    let chr = CivilCalendar.Instance
     let startOfYear = chr.GetStartOfYear(1912)
 
     date === startOfYear
@@ -112,7 +112,7 @@ let ``Static property Minguo`` () =
 [<Fact>]
 let ``Static property Tropicalia`` () =
     let date = CivilDate.FromDayNumber(DayZero.Tropicalia)
-    let chr = new CivilCalendar()
+    let chr = CivilCalendar.Instance
     let startOfYear = chr.GetStartOfYear(1968)
 
     date === startOfYear

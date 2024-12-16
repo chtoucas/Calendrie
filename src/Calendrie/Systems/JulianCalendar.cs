@@ -22,19 +22,23 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     // See comments in Armenian13Calendar for instance.
     internal static readonly JulianSchema UnderlyingSchema = new();
     internal static readonly JulianScope UnderlyingScope = new(new JulianSchema());
-    internal static readonly JulianCalendar Instance = new(new JulianScope(new JulianSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>
     /// class.
     /// <para>See also <seealso cref="JulianDate.Calendar"/>.</para>
     /// </summary>
-    public JulianCalendar() : this(new JulianScope(new JulianSchema())) { }
+    private JulianCalendar() : this(new JulianScope(new JulianSchema())) { }
 
-    internal JulianCalendar(JulianScope scope) : base("Julian", scope)
+    private JulianCalendar(JulianScope scope) : base("Julian", scope)
     {
         Adjuster = new DateAdjuster<JulianDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="JulianCalendar"/> class.
+    /// </summary>
+    public static JulianCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -50,4 +54,11 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     /// Gets the date adjuster.
     /// </summary>
     public DateAdjuster<JulianDate> Adjuster { get; }
+
+    private sealed class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly JulianCalendar Instance = new();
+    }
 }

@@ -22,18 +22,22 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     // See comments in Armenian13Calendar for instance.
     internal static readonly CivilSchema UnderlyingSchema = new();
     internal static readonly CivilScope UnderlyingScope = new(new CivilSchema());
-    internal static readonly CivilCalendar Instance = new(new CivilScope(new CivilSchema()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
     /// </summary>
-    public CivilCalendar() : this(new CivilScope(new CivilSchema())) { }
+    private CivilCalendar() : this(new CivilScope(new CivilSchema())) { }
 
     private CivilCalendar(CivilScope scope) : base("Civil", scope)
     {
         Adjuster = new DateAdjuster<CivilDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
+    /// </summary>
+    public static CivilCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -49,4 +53,11 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// Gets the date adjuster.
     /// </summary>
     public DateAdjuster<CivilDate> Adjuster { get; }
+
+    private sealed class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly CivilCalendar Instance = new();
+    }
 }

@@ -41,7 +41,7 @@ module Prelude =
         date.DaysSinceZero === daysSinceEpoch
 
 module Extensions =
-    let private chr = new GregorianCalendar()
+    let private chr = GregorianCalendar.Instance
     let private domain = chr.Scope.Domain
 
     let private calendarDataSet = StandardGregorianDataSet.Instance
@@ -68,7 +68,7 @@ module Extensions =
         date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
-    let private chr = new GregorianCalendar()
+    let private chr = GregorianCalendar.Instance
 
     [<Sealed>]
     type CalendaTests() =
