@@ -37,13 +37,11 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
 
     /// <summary>
     /// Gets the earliest supported year.
-    /// <para>This field is a constant equal to 1.</para>
     /// </summary>
     public static int MinYear => CivilScope.MinYear;
 
     /// <summary>
     /// Gets the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
     /// </summary>
     public static int MaxYear => CivilScope.MaxYear;
 

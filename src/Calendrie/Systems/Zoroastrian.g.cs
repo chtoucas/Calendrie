@@ -61,13 +61,11 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
 
     /// <summary>
     /// Gets the earliest supported year.
-    /// <para>This field is a constant equal to 1.</para>
     /// </summary>
     public static int MinYear => StandardScope.MinYear;
 
     /// <summary>
     /// Gets the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
 

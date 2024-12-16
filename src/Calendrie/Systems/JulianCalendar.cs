@@ -38,13 +38,11 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
 
     /// <summary>
     /// Gets the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para>
     /// </summary>
     public static int MinYear => JulianScope.MinYear;
 
     /// <summary>
     /// Gets the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
     /// </summary>
     public static int MaxYear => JulianScope.MaxYear;
 
