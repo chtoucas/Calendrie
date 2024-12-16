@@ -31,7 +31,7 @@ using Calendrie.Hemerology;
 /// the count of consecutive days since the epoch.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public partial class CalendarSystem<TDate> : Calendar, ICalendar<TDate>
+public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     where TDate : IDate<TDate>, IFixedDateFactory<TDate>
 {
     /// <summary>
