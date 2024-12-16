@@ -42,7 +42,8 @@ public partial class OffsettedSchemaPlus<TSchema> : OffsettedSchema<TSchema>, IC
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInYearBefore(int daysSinceEpoch) => throw new NotImplementedException();
+    public int CountDaysInYearBefore(int daysSinceEpoch) =>
+        Schema.CountDaysInYearBefore(daysSinceEpoch);
 
     #endregion
     #region CountDaysInYearAfter()
@@ -54,11 +55,13 @@ public partial class OffsettedSchemaPlus<TSchema> : OffsettedSchema<TSchema>, IC
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInYearAfter(int y, int doy) => Schema.CountDaysInYearAfter(y - Offset, doy);
+    public int CountDaysInYearAfter(int y, int doy) =>
+        Schema.CountDaysInYearAfter(y - Offset, doy);
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInYearAfter(int daysSinceEpoch) => throw new NotImplementedException();
+    public int CountDaysInYearAfter(int daysSinceEpoch) =>
+        Schema.CountDaysInYearAfter(daysSinceEpoch);
 
     #endregion
     #region CountDaysInMonthBefore()
@@ -75,7 +78,8 @@ public partial class OffsettedSchemaPlus<TSchema> : OffsettedSchema<TSchema>, IC
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInMonthBefore(int daysSinceEpoch) => throw new NotImplementedException();
+    public int CountDaysInMonthBefore(int daysSinceEpoch) =>
+        Schema.CountDaysInMonthBefore(daysSinceEpoch);
 
     #endregion
     #region CountDaysInMonthAfter()
@@ -92,7 +96,8 @@ public partial class OffsettedSchemaPlus<TSchema> : OffsettedSchema<TSchema>, IC
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInMonthAfter(int daysSinceEpoch) => throw new NotImplementedException();
+    public int CountDaysInMonthAfter(int daysSinceEpoch) =>
+        Schema.CountDaysInMonthAfter(daysSinceEpoch);
 
     #endregion
 }
