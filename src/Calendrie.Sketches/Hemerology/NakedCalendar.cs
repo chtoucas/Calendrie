@@ -4,7 +4,6 @@
 namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
-using Calendrie.Core.Validation;
 
 /// <summary>
 /// Represents a calendar without a dedicated companion date type.
@@ -19,16 +18,8 @@ public abstract class NakedCalendar : Calendar
     /// <see langword="null"/>.</exception>
     protected NakedCalendar(string name, CalendarScope scope) : base(name, scope)
     {
-        Debug.Assert(scope != null);
-
-        Epoch = scope.Epoch;
         PartsAdapter = new PartsAdapter(Schema);
     }
-
-    /// <summary>
-    /// Gets the epoch.
-    /// </summary>
-    public DayNumber Epoch { get; }
 
     /// <summary>
     /// Gets the adapter for the calendrical parts.
@@ -71,7 +62,7 @@ public abstract class NakedCalendar : Calendar
     [Pure]
     public DateParts GetDateParts(DayNumber dayNumber)
     {
-        Scope.Domain.Validate(dayNumber);
+        Scope.Validate(dayNumber);
         return PartsAdapter.GetDateParts(dayNumber - Epoch);
     }
 
@@ -95,7 +86,7 @@ public abstract class NakedCalendar : Calendar
     [Pure]
     public OrdinalParts GetOrdinalParts(DayNumber dayNumber)
     {
-        Scope.Domain.Validate(dayNumber);
+        Scope.Validate(dayNumber);
         return PartsAdapter.GetOrdinalParts(dayNumber - Epoch);
     }
 

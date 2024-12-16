@@ -83,10 +83,8 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 
 using Calendrie;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
@@ -123,7 +121,7 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     public const int MaxYear = <#= ScopeClass #>.MaxYear;
 
     /// <summary>Represents the epoch.</summary>
-    internal static readonly DayNumber Epoch = <#= Epoch #>;
+    private static readonly DayNumber s_Epoch = <#= Epoch #>;
 
     /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
@@ -163,7 +161,7 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// <summary>
     /// Creates a new instance of the <see href="<#= ScopeClass #>"/> class.
     /// </summary>
-    private static <#= ScopeClass #> CreateScope(<#= SchemaClass #> schema) => new(schema, Epoch);
+    private static <#= ScopeClass #> CreateScope(<#= SchemaClass #> schema) => new(schema, s_Epoch);
 }
 <#+
     } // T4: End of EmitCalendar()

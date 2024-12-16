@@ -43,15 +43,11 @@ public partial struct <#= Prefix #>Date // Preamble
     // WARNING: the order in which the static fields are written is __important__.
 
 <#+ if (EnableMicroOptimizations) { #>
-    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.UnderlyingScope.Epoch.DaysSinceZero;
 <#+ } else { #>
     /// <summary>Represents the epoch of the associated calendar.</summary>
     private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.UnderlyingScope.Epoch;
 <#+ } #>
-
-    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
-    /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = <#= Prefix #>Calendar.UnderlyingScope.Domain;
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
     private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.Min<#= DaysSinceEpochSuffix #>;
@@ -247,7 +243,7 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Scope.Validate(dayNumber);
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
@@ -317,7 +313,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -326,7 +322,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -335,7 +331,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        Scope.CheckOverflow(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -344,7 +340,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -353,7 +349,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 }
@@ -493,7 +489,7 @@ public partial struct <#= Prefix #>Date // Math
         int <#= DaysSinceEpochVar #> = checked(_<#= DaysSinceEpochVar #> + days);
 
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(Epoch + <#= DaysSinceEpochVar #>);
+        // > Scope.CheckOverflow(Epoch + <#= DaysSinceEpochVar #>);
         if (<#= DaysSinceEpochVar #> < s_Min<#= DaysSinceEpochSuffix #> || <#= DaysSinceEpochVar #> > s_Max<#= DaysSinceEpochSuffix #>)
             ThrowHelpers.ThrowDateOverflow();
 

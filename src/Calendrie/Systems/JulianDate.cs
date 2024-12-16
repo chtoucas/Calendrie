@@ -3,10 +3,8 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 
 /// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
 /// supported.</remarks>
@@ -22,10 +20,6 @@ public partial struct JulianDate
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_633.</para></summary>
     internal const int MaxDaysSinceEpoch = 365_249_633;
-
-    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
-    /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = JulianCalendar.UnderlyingScope.Domain;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.OldStyle"/>.
@@ -161,6 +155,12 @@ public partial struct JulianDate
     private static JulianSchema Schema => JulianCalendar.UnderlyingSchema;
 
     /// <summary>
+    /// Gets the calendar scope.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static JulianScope Scope => JulianCalendar.UnderlyingScope;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -186,7 +186,7 @@ public partial struct JulianDate // Factories
     [Pure]
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Scope.Validate(dayNumber);
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);

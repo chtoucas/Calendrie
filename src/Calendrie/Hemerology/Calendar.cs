@@ -192,6 +192,7 @@ public abstract partial class Calendar : ICalendar
         Name = name;
         Scope = scope;
 
+        Epoch = scope.Epoch;
         Schema = scope.Schema;
         YearsValidator = scope.YearsValidator;
     }
@@ -200,6 +201,11 @@ public abstract partial class Calendar : ICalendar
     /// Gets the culture-independent name of the calendar.
     /// </summary>
     public string Name { get; }
+
+    /// <summary>
+    /// Gets the epoch.
+    /// </summary>
+    public DayNumber Epoch { get; }
 
     /// <inheritdoc />
     public CalendricalAlgorithm Algorithm => Schema.Algorithm;

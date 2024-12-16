@@ -20,7 +20,6 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
 using System.Numerics;
 
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;

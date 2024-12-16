@@ -13,7 +13,6 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -63,7 +62,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -72,7 +71,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -81,7 +80,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        Scope.CheckOverflow(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -90,7 +89,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -99,7 +98,7 @@ public partial struct JulianDate // Adjustments
     public JulianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 }

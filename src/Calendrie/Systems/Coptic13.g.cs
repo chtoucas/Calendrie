@@ -16,10 +16,8 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 
 using Calendrie;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -41,7 +39,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     public const int MaxYear = StandardScope.MaxYear;
 
     /// <summary>Represents the epoch.</summary>
-    internal static readonly DayNumber Epoch = DayZero.Coptic;
+    private static readonly DayNumber s_Epoch = DayZero.Coptic;
 
     /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
@@ -81,7 +79,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(Coptic13Schema schema) => new(schema, Epoch);
+    private static StandardScope CreateScope(Coptic13Schema schema) => new(schema, s_Epoch);
 }
 
 /// <summary>
@@ -99,11 +97,7 @@ public partial struct Coptic13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = Coptic13Calendar.Epoch.DaysSinceZero;
-
-    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
-    /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = Coptic13Calendar.UnderlyingScope.Domain;
+    private static readonly int s_EpochDaysSinceZero = Coptic13Calendar.UnderlyingScope.Epoch.DaysSinceZero;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
     private static readonly int s_MinDaysSinceEpoch = Coptic13Calendar.UnderlyingScope.MinDaysSinceEpoch;
@@ -293,7 +287,7 @@ public partial struct Coptic13Date // Factories
     [Pure]
     public static Coptic13Date FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Scope.Validate(dayNumber);
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
@@ -351,7 +345,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -360,7 +354,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -369,7 +363,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        Scope.CheckOverflow(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -378,7 +372,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 
@@ -387,7 +381,7 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return FromDayNumberUnchecked(dayNumber);
     }
 }
@@ -509,7 +503,7 @@ public partial struct Coptic13Date // Math
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
 
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(Epoch + daysSinceEpoch);
+        // > Scope.CheckOverflow(Epoch + daysSinceEpoch);
         if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 

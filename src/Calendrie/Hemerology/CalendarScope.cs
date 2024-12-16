@@ -5,6 +5,7 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 using Calendrie.Core.Validation;
 
 /// <summary>
@@ -68,6 +69,57 @@ public abstract partial class CalendarScope : ICalendricalValidator
     /// Gets the underlying schema.
     /// </summary>
     protected internal ICalendricalSchema Schema => _schema;
+
+    /// <summary>
+    /// Validates the specified <see cref="DayNumber"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
+    public void Validate(DayNumber dayNumber)
+    {
+        if (dayNumber < Domain.Min || dayNumber > Domain.Max)
+            fail(dayNumber, nameof(dayNumber));
+
+        [DoesNotReturn]
+        static void fail(DayNumber dayNumber, string paramName) =>
+            throw new ArgumentOutOfRangeException(
+                paramName,
+                dayNumber,
+                $"The value of the day number was out of range; value = {dayNumber}.");
+    }
+
+    /// <summary>
+    /// Determines whether the specified <see cref="DayNumber"/> is outside the
+    /// range of supported values or not.
+    /// </summary>
+    /// <exception cref="OverflowException"><paramref name="dayNumber"/> would
+    /// overflow the range of supported values.</exception>
+    public void CheckOverflow(DayNumber dayNumber)
+    {
+        if (dayNumber < Domain.Min || dayNumber > Domain.Max) ThrowHelpers.ThrowDateOverflow();
+    }
+
+    /// <summary>
+    /// Determines whether the specified <see cref="DayNumber"/> is greater than
+    /// the upper bound of the range of supported values or not.
+    /// </summary>
+    /// <exception cref="OverflowException">The value is greater than the upper
+    /// bound of the range of supported values.</exception>
+    public void CheckUpperBound(DayNumber dayNumber)
+    {
+        if (dayNumber > Domain.Max) ThrowHelpers.ThrowDateOverflow();
+    }
+
+    /// <summary>
+    /// Determines whether the specified <see cref="DayNumber"/> is less than
+    /// the lower bound of the range of supported values or not.
+    /// </summary>
+    /// <exception cref="OverflowException">The value is less than the lower
+    /// bound of the range of supported values.</exception>
+    public void CheckLowerBound(DayNumber dayNumber)
+    {
+        if (dayNumber < Domain.Min) ThrowHelpers.ThrowDateOverflow();
+    }
 
     /// <inheritdoc />
     public abstract void ValidateYearMonth(int year, int month, string? paramName = null);

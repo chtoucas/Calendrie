@@ -17,10 +17,8 @@ using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 using Calendrie.Systems;
 
@@ -43,7 +41,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     public const int MaxYear = StandardScope.MaxYear;
 
     /// <summary>Represents the epoch.</summary>
-    internal static readonly DayNumber Epoch = DayZero.NewStyle;
+    private static readonly DayNumber s_Epoch = DayZero.NewStyle;
 
     /// <summary>Represents a singleton instance of the schema.</summary>
     // This schema instance is the one used by:
@@ -83,7 +81,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(GregorianSchema schema) => new(schema, Epoch);
+    private static StandardScope CreateScope(GregorianSchema schema) => new(schema, s_Epoch);
 }
 
 /// <summary>
@@ -99,10 +97,6 @@ public readonly partial struct PlainGregorianDate :
 
 public partial struct PlainGregorianDate // Preamble
 {
-    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
-    /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = PlainGregorianCalendar.UnderlyingScope.Domain;
-
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
     private static readonly int s_MinDaysSinceZero = PlainGregorianCalendar.UnderlyingScope.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
@@ -285,7 +279,7 @@ public partial struct PlainGregorianDate // Factories
     [Pure]
     public static PlainGregorianDate FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Scope.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -331,7 +325,7 @@ public partial struct PlainGregorianDate // Adjustments
     public PlainGregorianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -340,7 +334,7 @@ public partial struct PlainGregorianDate // Adjustments
     public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -349,7 +343,7 @@ public partial struct PlainGregorianDate // Adjustments
     public PlainGregorianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        Scope.CheckOverflow(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -358,7 +352,7 @@ public partial struct PlainGregorianDate // Adjustments
     public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -367,7 +361,7 @@ public partial struct PlainGregorianDate // Adjustments
     public PlainGregorianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 }
@@ -489,7 +483,7 @@ public partial struct PlainGregorianDate // Math
         int daysSinceZero = checked(_daysSinceZero + days);
 
         // Don't write (the addition may also overflow...):
-        // > s_Domain.CheckOverflow(Epoch + daysSinceZero);
+        // > Scope.CheckOverflow(Epoch + daysSinceZero);
         if (daysSinceZero < s_MinDaysSinceZero || daysSinceZero > s_MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
 

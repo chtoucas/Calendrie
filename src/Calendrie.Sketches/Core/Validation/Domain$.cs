@@ -17,6 +17,7 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
+    [Obsolete("Use CalendarScope")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Validate(this Range<DayNumber> domain, DayNumber dayNumber)
     {
@@ -37,6 +38,7 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="dayNumber"/> would
     /// overflow the range of supported values.</exception>
+    [Obsolete("Use CalendarScope")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void CheckOverflow(this Range<DayNumber> domain, DayNumber dayNumber)
     {
@@ -49,6 +51,7 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="OverflowException">The value is greater than the upper
     /// bound of the range of supported values.</exception>
+    [Obsolete("Use CalendarScope")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void CheckUpperBound(this Range<DayNumber> domain, DayNumber dayNumber)
     {
@@ -61,6 +64,7 @@ public static class DomainExtensions
     /// </summary>
     /// <exception cref="OverflowException">The value is less than the lower
     /// bound of the range of supported values.</exception>
+    [Obsolete("Use CalendarScope")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void CheckLowerBound(this Range<DayNumber> domain, DayNumber dayNumber)
     {

@@ -13,7 +13,6 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -33,7 +32,7 @@ public partial struct GregorianDate // Factories
     [Pure]
     public static GregorianDate FromDayNumber(DayNumber dayNumber)
     {
-        s_Domain.Validate(dayNumber);
+        Scope.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -79,7 +78,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -88,7 +87,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        s_Domain.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -97,7 +96,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Nearest(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Nearest(dayOfWeek);
-        s_Domain.CheckOverflow(dayNumber);
+        Scope.CheckOverflow(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -106,7 +105,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 
@@ -115,7 +114,7 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate Next(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Next(dayOfWeek);
-        s_Domain.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero);
     }
 }

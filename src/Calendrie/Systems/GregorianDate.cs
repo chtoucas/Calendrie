@@ -3,7 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -20,10 +19,6 @@ public partial struct GregorianDate
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 365_242_133.</para></summary>
     internal const int MaxDaysSinceZero = 365_242_133;
-
-    /// <summary>Represents the range of supported <see cref="DayNumber"/>'s by
-    /// the associated calendar.</summary>
-    private static readonly Range<DayNumber> s_Domain = GregorianCalendar.UnderlyingScope.Domain;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
@@ -159,6 +154,12 @@ public partial struct GregorianDate
     /// Gets the underlying schema.
     /// </summary>
     private static GregorianSchema Schema => GregorianCalendar.UnderlyingSchema;
+
+    /// <summary>
+    /// Gets the calendar scope.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static GregorianScope Scope => GregorianCalendar.UnderlyingScope;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
