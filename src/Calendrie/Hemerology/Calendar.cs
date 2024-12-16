@@ -176,7 +176,7 @@ using Calendrie.Core.Validation;
 /// <para>We do NOT assume the existence of a dedicated companion date type.
 /// </para>
 /// </summary>
-public abstract partial class Calendar : ICalendricalCore
+public abstract partial class Calendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -212,13 +212,22 @@ public abstract partial class Calendar : ICalendricalCore
     /// </summary>
     public DayNumber Epoch { get; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendrical algorithm: arithmetical, astronomical or
+    /// observational.
+    /// </summary>
     public CalendricalAlgorithm Algorithm => Schema.Algorithm;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendrical family, determined by the astronomical cycle: solar,
+    /// lunar, lunisolar...
+    /// </summary>
     public CalendricalFamily Family => Schema.Family;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the method employed at regular intervals in order to synchronise
+    /// the two main cycles, lunar and solar.
+    /// </summary>
     public CalendricalAdjustments PeriodicAdjustments => Schema.PeriodicAdjustments;
 
     /// <summary>
@@ -238,17 +247,25 @@ public abstract partial class Calendar : ICalendricalCore
     [Pure]
     public override string ToString() => Name;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if this schema is regular; otherwise
+    /// returns <see langword="false"/>.
+    /// <para>The number of months is given in an output parameter; if this
+    /// schema is not regular <paramref name="monthsInYear"/> is set to 0.
+    /// </para>
+    /// <para>See also <seealso cref="CountMonthsInYear(int)"/>.</para>
+    /// </summary>
     [Pure]
     public bool IsRegular(out int monthsInYear) => Schema.IsRegular(out monthsInYear);
 }
 
 public partial class Calendar // Year, month, day infos
 {
-#pragma warning disable CA1725 // Parameter names should match base declaration (Naming) ✓
-    // Base parameter names (y, m, d) are not explicit enough.
-
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified year is leap or not.
+    /// <para>A leap year is a year with at least one intercalary day, week or
+    /// month.</para>
+    /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of supported years.</exception>
     [Pure]
@@ -258,7 +275,9 @@ public partial class Calendar // Year, month, day infos
         return Schema.IsLeapYear(year);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified month is intercalary or not.
+    /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
     /// or outside the range of supported months.</exception>
     [Pure]
@@ -268,7 +287,9 @@ public partial class Calendar // Year, month, day infos
         return Schema.IsIntercalaryMonth(year, month);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified date is an intercalary day or not.
+    /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
     /// or outside the range of supported dates.</exception>
     [Pure]
@@ -278,7 +299,14 @@ public partial class Calendar // Year, month, day infos
         return Schema.IsIntercalaryDay(year, month, day);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified date is a supplementary day or not.
+    /// <para>Supplementary days are days kept outside the intermediary cycles,
+    /// those shorter than a year. For technical reasons, we usually attach them
+    /// to the month before. Notice that a supplementary day may be intercalary
+    /// too. An example of such days is given by the epagomenal days which are
+    /// kept outside any regular month or decade.</para>
+    /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
     /// or outside the range of supported dates.</exception>
     [Pure]
@@ -291,20 +319,25 @@ public partial class Calendar // Year, month, day infos
     // Les méthodes suivantes sont abstraites car une année ou un mois peut être
     // incomplet.
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of months in the specified year.
+    /// <para>See also <seealso cref="IsRegular(out int)"/>.</para>
+    /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The year is outside the
     /// range of supported years.</exception>
     [Pure] public abstract int CountMonthsInYear(int year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The year is outside the
     /// range of supported years.</exception>
     [Pure] public abstract int CountDaysInYear(int year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
     /// or outside the range of supported months.</exception>
     [Pure] public abstract int CountDaysInMonth(int year, int month);
-
-#pragma warning restore CA1725
 }
