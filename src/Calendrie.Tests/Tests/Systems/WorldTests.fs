@@ -14,7 +14,7 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-let private chr = new WorldCalendar()
+let private chr = WorldCalendar.Instance
 
 module Methods =
     let dateInfoData = WorldDataSet.Instance.DateInfoData

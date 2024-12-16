@@ -13,7 +13,7 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Bundles =
-    let private chr = new ArmenianCalendar()
+    let private chr = ArmenianCalendar.Instance
 
     [<Sealed>]
     type CalendaTests() =
@@ -60,7 +60,7 @@ module Bundles =
 
 
 module Bundles13 =
-    let private chr = new Armenian13Calendar()
+    let private chr = Armenian13Calendar.Instance
 
     [<Sealed>]
     type CalendaTests() =

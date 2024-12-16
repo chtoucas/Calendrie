@@ -40,16 +40,11 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
     // - All instances of the Zoroastrian13Date type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new Egyptian13Schema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the Zoroastrian13Date type via the properties Calendar and Adjuster
-    internal static readonly Zoroastrian13Calendar Instance = new(CreateScope(new Egyptian13Schema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/> class.
     /// <para>See also <seealso cref="Zoroastrian13Date.Calendar"/>.</para>
     /// </summary>
-    public Zoroastrian13Calendar() : this(CreateScope(new Egyptian13Schema())) { }
+    private Zoroastrian13Calendar() : this(CreateScope(new Egyptian13Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/> class.
@@ -58,6 +53,14 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
     {
         Adjuster = new DateAdjuster<Zoroastrian13Date>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="Zoroastrian13Calendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the Zoroastrian13Date type via the properties Calendar and Adjuster
+    public static Zoroastrian13Calendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -78,6 +81,13 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Egyptian13Schema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly Zoroastrian13Calendar Instance = new();
+    }
 }
 
 /// <summary>

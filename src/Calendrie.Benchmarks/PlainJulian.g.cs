@@ -43,16 +43,11 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     // - All instances of the PlainJulianDate type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new JulianSchema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the PlainJulianDate type via the properties Calendar and Adjuster
-    internal static readonly PlainJulianCalendar Instance = new(CreateScope(new JulianSchema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
     /// <para>See also <seealso cref="PlainJulianDate.Calendar"/>.</para>
     /// </summary>
-    public PlainJulianCalendar() : this(CreateScope(new JulianSchema())) { }
+    private PlainJulianCalendar() : this(CreateScope(new JulianSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
@@ -61,6 +56,14 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     {
         Adjuster = new DateAdjuster<PlainJulianDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the PlainJulianDate type via the properties Calendar and Adjuster
+    public static PlainJulianCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -81,6 +84,13 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(JulianSchema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly PlainJulianCalendar Instance = new();
+    }
 }
 
 /// <summary>

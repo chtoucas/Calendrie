@@ -40,16 +40,11 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     // - All instances of the ArmenianDate type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new Egyptian12Schema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the ArmenianDate type via the properties Calendar and Adjuster
-    internal static readonly ArmenianCalendar Instance = new(CreateScope(new Egyptian12Schema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianCalendar"/> class.
     /// <para>See also <seealso cref="ArmenianDate.Calendar"/>.</para>
     /// </summary>
-    public ArmenianCalendar() : this(CreateScope(new Egyptian12Schema())) { }
+    private ArmenianCalendar() : this(CreateScope(new Egyptian12Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianCalendar"/> class.
@@ -58,6 +53,14 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     {
         Adjuster = new DateAdjuster<ArmenianDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="ArmenianCalendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the ArmenianDate type via the properties Calendar and Adjuster
+    public static ArmenianCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -78,6 +81,13 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Egyptian12Schema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly ArmenianCalendar Instance = new();
+    }
 }
 
 /// <summary>

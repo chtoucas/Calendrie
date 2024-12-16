@@ -13,7 +13,7 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Bundles =
-    let private chr = new TabularIslamicCalendar()
+    let private chr = TabularIslamicCalendar.Instance
 
     [<Sealed>]
     type CalendaTests() =

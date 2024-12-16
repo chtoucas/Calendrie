@@ -40,16 +40,11 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     // - All instances of the Ethiopic13Date type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new Coptic13Schema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the Ethiopic13Date type via the properties Calendar and Adjuster
-    internal static readonly Ethiopic13Calendar Instance = new(CreateScope(new Coptic13Schema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
     /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
-    public Ethiopic13Calendar() : this(CreateScope(new Coptic13Schema())) { }
+    private Ethiopic13Calendar() : this(CreateScope(new Coptic13Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
@@ -58,6 +53,14 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     {
         Adjuster = new DateAdjuster<Ethiopic13Date>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="Ethiopic13Calendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the Ethiopic13Date type via the properties Calendar and Adjuster
+    public static Ethiopic13Calendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -78,6 +81,13 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Coptic13Schema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly Ethiopic13Calendar Instance = new();
+    }
 }
 
 /// <summary>

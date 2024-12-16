@@ -40,16 +40,11 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     // - All instances of the Coptic13Date type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new Coptic13Schema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the Coptic13Date type via the properties Calendar and Adjuster
-    internal static readonly Coptic13Calendar Instance = new(CreateScope(new Coptic13Schema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic13Calendar"/> class.
     /// <para>See also <seealso cref="Coptic13Date.Calendar"/>.</para>
     /// </summary>
-    public Coptic13Calendar() : this(CreateScope(new Coptic13Schema())) { }
+    private Coptic13Calendar() : this(CreateScope(new Coptic13Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic13Calendar"/> class.
@@ -58,6 +53,14 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     {
         Adjuster = new DateAdjuster<Coptic13Date>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="Coptic13Calendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the Coptic13Date type via the properties Calendar and Adjuster
+    public static Coptic13Calendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -78,6 +81,13 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Coptic13Schema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly Coptic13Calendar Instance = new();
+    }
 }
 
 /// <summary>

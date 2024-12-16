@@ -54,7 +54,7 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// </summary>
     public DateAdjuster<CivilDate> Adjuster { get; }
 
-    private sealed class Singleton
+    private static class Singleton
     {
         static Singleton() { }
 

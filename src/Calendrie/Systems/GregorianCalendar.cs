@@ -57,7 +57,7 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// </summary>
     public DateAdjuster<GregorianDate> Adjuster { get; }
 
-    private sealed class Singleton
+    private static class Singleton
     {
         static Singleton() { }
 

@@ -13,7 +13,7 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Bundles =
-    let private chr = new EthiopicCalendar()
+    let private chr = EthiopicCalendar.Instance
 
     [<Sealed>]
     type CalendaTests() =
@@ -59,7 +59,7 @@ module Bundles =
         override __.GetDate(y, m, d) = new EthiopicDate(y, m, d)
 
 module Bundles13 =
-    let private chr = new Ethiopic13Calendar()
+    let private chr = Ethiopic13Calendar.Instance
 
     [<Sealed>]
     type CalendaTests() =

@@ -40,16 +40,11 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     // - All instances of the CopticDate type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new Coptic12Schema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the CopticDate type via the properties Calendar and Adjuster
-    internal static readonly CopticCalendar Instance = new(CreateScope(new Coptic12Schema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
     /// <para>See also <seealso cref="CopticDate.Calendar"/>.</para>
     /// </summary>
-    public CopticCalendar() : this(CreateScope(new Coptic12Schema())) { }
+    private CopticCalendar() : this(CreateScope(new Coptic12Schema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
@@ -58,6 +53,14 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     {
         Adjuster = new DateAdjuster<CopticDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the CopticDate type via the properties Calendar and Adjuster
+    public static CopticCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -78,6 +81,13 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(Coptic12Schema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly CopticCalendar Instance = new();
+    }
 }
 
 /// <summary>

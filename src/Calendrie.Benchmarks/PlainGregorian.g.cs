@@ -42,16 +42,11 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     // - All instances of the PlainGregorianDate type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new GregorianSchema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the PlainGregorianDate type via the properties Calendar and Adjuster
-    internal static readonly PlainGregorianCalendar Instance = new(CreateScope(new GregorianSchema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
     /// <para>See also <seealso cref="PlainGregorianDate.Calendar"/>.</para>
     /// </summary>
-    public PlainGregorianCalendar() : this(CreateScope(new GregorianSchema())) { }
+    private PlainGregorianCalendar() : this(CreateScope(new GregorianSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
@@ -60,6 +55,14 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     {
         Adjuster = new DateAdjuster<PlainGregorianDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the PlainGregorianDate type via the properties Calendar and Adjuster
+    public static PlainGregorianCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -80,6 +83,13 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(GregorianSchema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly PlainGregorianCalendar Instance = new();
+    }
 }
 
 /// <summary>

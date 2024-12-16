@@ -40,16 +40,11 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     // - All instances of the TabularIslamicDate type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new TabularIslamicSchema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the TabularIslamicDate type via the properties Calendar and Adjuster
-    internal static readonly TabularIslamicCalendar Instance = new(CreateScope(new TabularIslamicSchema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
-    public TabularIslamicCalendar() : this(CreateScope(new TabularIslamicSchema())) { }
+    private TabularIslamicCalendar() : this(CreateScope(new TabularIslamicSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
@@ -58,6 +53,14 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     {
         Adjuster = new DateAdjuster<TabularIslamicDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the TabularIslamicDate type via the properties Calendar and Adjuster
+    public static TabularIslamicCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -78,6 +81,13 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(TabularIslamicSchema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly TabularIslamicCalendar Instance = new();
+    }
 }
 
 /// <summary>

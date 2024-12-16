@@ -40,16 +40,11 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     // - All instances of the WorldDate type via the property Scope
     internal static readonly StandardScope UnderlyingScope = CreateScope(new WorldSchema());
 
-    /// <summary>Represents a singleton instance of the calendar.</summary>
-    // This calendar instance is the one used by:
-    // - All instances of the WorldDate type via the properties Calendar and Adjuster
-    internal static readonly WorldCalendar Instance = new(CreateScope(new WorldSchema()));
-
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
     /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
     /// </summary>
-    public WorldCalendar() : this(CreateScope(new WorldSchema())) { }
+    private WorldCalendar() : this(CreateScope(new WorldSchema())) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
@@ -58,6 +53,14 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     {
         Adjuster = new DateAdjuster<WorldDate>(this);
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
+    /// </summary>
+    //
+    // This calendar instance is the one used by:
+    // - All instances of the WorldDate type via the properties Calendar and Adjuster
+    public static WorldCalendar Instance => Singleton.Instance;
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -78,6 +81,13 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
     private static StandardScope CreateScope(WorldSchema schema) => new(schema, s_Epoch);
+
+    private static class Singleton
+    {
+        static Singleton() { }
+
+        internal static readonly WorldCalendar Instance = new();
+    }
 }
 
 /// <summary>
