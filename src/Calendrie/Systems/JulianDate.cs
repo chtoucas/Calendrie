@@ -5,6 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 /// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
 /// supported.</remarks>
@@ -146,8 +147,7 @@ public partial struct JulianDate
         }
     }
 
-    /// <inheritdoc />
-    public bool IsSupplementary => false;
+    bool IDateable.IsSupplementary => false;
 
     /// <summary>
     /// Gets the underlying schema.

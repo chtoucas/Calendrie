@@ -149,8 +149,7 @@ public partial struct CivilDate
         }
     }
 
-    /// <inheritdoc />
-    public bool IsSupplementary => false;
+    bool IDateable.IsSupplementary => false;
 
     /// <summary>
     /// Gets the underlying schema.
