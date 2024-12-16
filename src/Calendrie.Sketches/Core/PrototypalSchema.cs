@@ -9,8 +9,6 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
-// REVIEW(code): internal ctor's? Idem with PrototypalSchemaSlim.
-
 #region Developer Notes
 
 // The code is NOT meant to be efficient.
