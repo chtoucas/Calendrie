@@ -4,14 +4,12 @@
 namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
-using Calendrie.Core.Validation;
 
 public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
 {
     private readonly CalendarScope _scope;
     private readonly DayNumber _epoch;
     private readonly ICalendricalSchema _schema;
-    private readonly IYearsValidator _yearsValidator;
 
     private readonly DateParts _minDateParts;
     private readonly OrdinalParts _minOrdinalParts;
@@ -23,7 +21,6 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
         _scope = scope;
         _epoch = scope.Epoch;
         _schema = scope.Schema;
-        _yearsValidator = scope.YearsValidator;
 
         _minDateParts = scope.MinDateParts;
         _minOrdinalParts = scope.MinOrdinalParts;
@@ -50,7 +47,7 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
     [Pure]
     public IEnumerable<DayNumber> GetDaysInYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
         int startOfYear, daysInYear;
         if (year == _minDateParts.Year)
         {
@@ -104,7 +101,7 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
     [Pure]
     public DayNumber GetStartOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
         return year == _minDateParts.Year
             ? throw new ArgumentOutOfRangeException(nameof(year))
             : _epoch + _schema.GetStartOfYear(year);
@@ -114,7 +111,7 @@ public sealed class BoundedBelowDayNumberProvider : IDateProvider<DayNumber>
     [Pure]
     public DayNumber GetEndOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
         return _epoch + _schema.GetEndOfYear(year);
     }
 

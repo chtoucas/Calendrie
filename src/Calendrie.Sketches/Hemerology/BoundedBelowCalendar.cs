@@ -61,7 +61,7 @@ public class BoundedBelowCalendar : NakedCalendar
     [Pure]
     public sealed override int CountMonthsInYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         return year == MinDateParts.Year
             ? CountMonthsInFirstYear()
             : Schema.CountMonthsInYear(year);
@@ -71,7 +71,7 @@ public class BoundedBelowCalendar : NakedCalendar
     [Pure]
     public sealed override int CountDaysInYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         return year == MinDateParts.Year
             ? CountDaysInFirstYear()
             : Schema.CountDaysInYear(year);

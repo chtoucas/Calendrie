@@ -4,13 +4,11 @@
 namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
-using Calendrie.Core.Validation;
 
 public sealed class MinMaxYearOrdinalPartsProvider : IDateProvider<OrdinalParts>
 {
     private readonly MinMaxYearScope _scope;
     private readonly ICalendricalSchema _schema;
-    private readonly IYearsValidator _yearsValidator;
 
     private readonly PartsAdapter _adapter;
 
@@ -20,7 +18,6 @@ public sealed class MinMaxYearOrdinalPartsProvider : IDateProvider<OrdinalParts>
 
         _scope = scope;
         _schema = _scope.Schema;
-        _yearsValidator = _scope.YearsValidator;
 
         _adapter = new PartsAdapter(_schema);
     }
@@ -30,7 +27,7 @@ public sealed class MinMaxYearOrdinalPartsProvider : IDateProvider<OrdinalParts>
     public IEnumerable<OrdinalParts> GetDaysInYear(int year)
     {
         // Check arg eagerly.
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
 
         return iterator();
 
@@ -70,7 +67,7 @@ public sealed class MinMaxYearOrdinalPartsProvider : IDateProvider<OrdinalParts>
     [Pure]
     public OrdinalParts GetStartOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
         return OrdinalParts.AtStartOfYear(year);
     }
 
@@ -78,7 +75,7 @@ public sealed class MinMaxYearOrdinalPartsProvider : IDateProvider<OrdinalParts>
     [Pure]
     public OrdinalParts GetEndOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
         return _adapter.GetOrdinalPartsAtEndOfYear(year);
     }
 

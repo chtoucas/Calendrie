@@ -40,7 +40,7 @@ internal sealed class GregorianScope : CalendarScope
     {
         Debug.Assert(schema.SupportedYears == ProlepticScope.SupportedYears);
 
-        YearsValidator = ProlepticScope.YearsValidatorImpl;
+        YearsValidator = new ProlepticYearsValidator();
     }
 
     /// <summary>

@@ -37,7 +37,7 @@ internal sealed class CivilScope : CalendarScope
     public CivilScope(CivilSchema schema) :
         base(CalendricalSegment.Create(schema, StandardScope.SupportedYears), DayZero.NewStyle)
     {
-        YearsValidator = StandardScope.YearsValidatorImpl;
+        YearsValidator = new StandardYearsValidator();
     }
 
     /// <summary>

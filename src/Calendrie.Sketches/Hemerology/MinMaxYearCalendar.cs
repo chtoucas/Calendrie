@@ -53,7 +53,7 @@ public class MinMaxYearCalendar : NakedCalendar
     [Pure]
     public sealed override int CountMonthsInYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         return Schema.CountMonthsInYear(year);
     }
 
@@ -61,7 +61,7 @@ public class MinMaxYearCalendar : NakedCalendar
     [Pure]
     public sealed override int CountDaysInYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         return Schema.CountDaysInYear(year);
     }
 

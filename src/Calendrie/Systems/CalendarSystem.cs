@@ -51,7 +51,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     [Pure]
     public sealed override int CountDaysInYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         return Schema.CountDaysInYear(year);
     }
 
@@ -70,7 +70,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public IEnumerable<TDate> GetDaysInYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
 
         int startOfYear = Schema.GetStartOfYear(year);
         int daysInYear = Schema.CountDaysInYear(year);
@@ -98,7 +98,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public TDate GetStartOfYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetStartOfYear(year);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
@@ -107,7 +107,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public TDate GetEndOfYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetEndOfYear(year);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }

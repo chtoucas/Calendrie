@@ -4,14 +4,12 @@
 namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
-using Calendrie.Core.Validation;
 
 public sealed class MinMaxYearDayNumberProvider : IDateProvider<DayNumber>
 {
     private readonly MinMaxYearScope _scope;
     private readonly DayNumber _epoch;
     private readonly ICalendricalSchema _schema;
-    private readonly IYearsValidator _yearsValidator;
 
     public MinMaxYearDayNumberProvider(MinMaxYearScope scope)
     {
@@ -20,14 +18,13 @@ public sealed class MinMaxYearDayNumberProvider : IDateProvider<DayNumber>
         _scope = scope;
         _epoch = scope.Epoch;
         _schema = scope.Schema;
-        _yearsValidator = scope.YearsValidator;
     }
 
     /// <inheritdoc/>
     [Pure]
     public IEnumerable<DayNumber> GetDaysInYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
 
         int startOfYear = _schema.GetStartOfYear(year);
         int daysInYear = _schema.CountDaysInYear(year);
@@ -55,7 +52,7 @@ public sealed class MinMaxYearDayNumberProvider : IDateProvider<DayNumber>
     [Pure]
     public DayNumber GetStartOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
         return _epoch + _schema.GetStartOfYear(year);
     }
 
@@ -63,7 +60,7 @@ public sealed class MinMaxYearDayNumberProvider : IDateProvider<DayNumber>
     [Pure]
     public DayNumber GetEndOfYear(int year)
     {
-        _yearsValidator.Validate(year);
+        _scope.ValidateYear(year);
         return _epoch + _schema.GetEndOfYear(year);
     }
 

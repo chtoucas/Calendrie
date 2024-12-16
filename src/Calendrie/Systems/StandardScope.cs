@@ -6,7 +6,6 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -43,12 +42,6 @@ internal sealed class StandardScope : CalendarScope
     {
         YearsValidator = new StandardYearsValidator();
     }
-
-    /// <summary>
-    /// Gets the validator for the range [1..9999] of years.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static IYearsValidator YearsValidatorImpl => new StandardYearsValidator();
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.

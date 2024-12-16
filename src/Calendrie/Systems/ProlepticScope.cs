@@ -4,7 +4,6 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Validation;
 
 /// <summary>
 /// Provides static methods related to the (proleptic) scope of a calendar
@@ -29,10 +28,4 @@ internal static class ProlepticScope
     /// Represents the range of supported years.
     /// </summary>
     public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
-
-    /// <summary>
-    /// Gets the validator for the range [-999_998..999_999] of years.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static IYearsValidator YearsValidatorImpl => new ProlepticYearsValidator();
 }

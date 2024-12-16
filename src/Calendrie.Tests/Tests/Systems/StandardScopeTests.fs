@@ -65,7 +65,7 @@ module YearsValidatorImpl =
     let validYearData = StandardScopeFacts.ValidYearData
     let invalidYearData = StandardScopeFacts.InvalidYearData
 
-    let private validator = StandardScope.YearsValidatorImpl
+    let private validator = new StandardYearsValidator()
 
     [<Fact>]
     let ``Property Range`` () =

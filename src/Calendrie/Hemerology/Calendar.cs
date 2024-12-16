@@ -4,7 +4,6 @@
 namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
-using Calendrie.Core.Validation;
 
 #region Developer Notes
 
@@ -194,7 +193,6 @@ public abstract partial class Calendar
 
         Epoch = scope.Epoch;
         Schema = scope.Schema;
-        YearsValidator = scope.YearsValidator;
     }
 
     /// <summary>
@@ -231,11 +229,6 @@ public abstract partial class Calendar
     public CalendricalAdjustments PeriodicAdjustments => Schema.PeriodicAdjustments;
 
     /// <summary>
-    /// Gets a validator for the range of supported years.
-    /// </summary>
-    protected IYearsValidator YearsValidator { get; }
-
-    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
     protected ICalendricalSchema Schema { get; }
@@ -260,7 +253,7 @@ public partial class Calendar // Year and month infos
     [Pure]
     public bool IsLeapYear(int year)
     {
-        YearsValidator.Validate(year);
+        Scope.ValidateYear(year);
         return Schema.IsLeapYear(year);
     }
 

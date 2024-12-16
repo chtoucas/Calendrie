@@ -53,7 +53,7 @@ public abstract partial class CalendarScope
     /// <summary>
     /// Gets the validator for the range of supported years.
     /// </summary>
-    public IYearsValidator YearsValidator { get; internal init; }
+    protected IYearsValidator YearsValidator { get; init; }
 
     /// <summary>
     /// Gets the pre-validator.
@@ -115,6 +115,14 @@ public abstract partial class CalendarScope
     {
         if (dayNumber < Domain.Min) ThrowHelpers.ThrowDateOverflow();
     }
+
+    /// <summary>
+    /// Validates the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
+    public void ValidateYear(int year, string? paramName = null) =>
+        YearsValidator.Validate(year, paramName);
 
     /// <summary>
     /// Validates the specified month.
