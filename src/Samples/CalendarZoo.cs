@@ -261,16 +261,16 @@ public partial class CalendarZoo
         internal static readonly MinMaxYearCalendar Holocene =
             new("Holocene",
                 MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    OffsettedSchema.OfType<CivilSchema>(10_000), DayZero.NewStyle));
+                    OffsettedSchema.Create<CivilSchema>(10_000), DayZero.NewStyle));
 
         internal static readonly MinMaxYearCalendar Minguo =
             new("Holocene",
                 MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    OffsettedSchema.OfType<CivilSchema>(-1911), DayZero.NewStyle));
+                    OffsettedSchema.Create<CivilSchema>(-1911), DayZero.NewStyle));
 
         internal static readonly MinMaxYearCalendar ThaiSolar =
             new("Holocene",
                 MinMaxYearScope.CreateMaximalOnOrAfterYear1(
-                    OffsettedSchema.OfType<CivilSchema>(543), DayZero.NewStyle));
+                    OffsettedSchema.Create<CivilSchema>(543), DayZero.NewStyle));
     }
 }

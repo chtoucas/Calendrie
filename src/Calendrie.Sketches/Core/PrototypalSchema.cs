@@ -174,15 +174,6 @@ public partial class PrototypalSchema // ICalendar
     bool ICalendar.IsRegular(out int monthsInYear) => m_Kernel.IsRegular(out monthsInYear);
 
     [Pure]
-    int ICalendar.CountMonthsInYear(int y) => m_Kernel.CountMonthsInYear(y);
-
-    [Pure]
-    int ICalendar.CountDaysInYear(int y) => m_Kernel.CountDaysInYear(y);
-
-    [Pure]
-    int ICalendar.CountDaysInMonth(int y, int m) => m_Kernel.CountDaysInMonth(y, m);
-
-    [Pure]
     bool ICalendar.IsLeapYear(int y) => m_Kernel.IsLeapYear(y);
 
     [Pure]
@@ -193,6 +184,15 @@ public partial class PrototypalSchema // ICalendar
 
     [Pure]
     bool ICalendar.IsSupplementaryDay(int y, int m, int d) => m_Kernel.IsSupplementaryDay(y, m, d);
+
+    [Pure]
+    int ICalendar.CountMonthsInYear(int y) => m_Kernel.CountMonthsInYear(y);
+
+    [Pure]
+    int ICalendar.CountDaysInYear(int y) => m_Kernel.CountDaysInYear(y);
+
+    [Pure]
+    int ICalendar.CountDaysInMonth(int y, int m) => m_Kernel.CountDaysInMonth(y, m);
 }
 
 public partial class PrototypalSchema // ICalendricalSchema (1)
