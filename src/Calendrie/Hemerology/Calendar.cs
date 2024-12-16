@@ -259,7 +259,7 @@ public abstract partial class Calendar
     public bool IsRegular(out int monthsInYear) => Schema.IsRegular(out monthsInYear);
 }
 
-public partial class Calendar // Year, month, day infos
+public partial class Calendar // Year and month infos
 {
     /// <summary>
     /// Determines whether the specified year is leap or not.
@@ -285,35 +285,6 @@ public partial class Calendar // Year, month, day infos
     {
         Scope.ValidateYearMonth(year, month);
         return Schema.IsIntercalaryMonth(year, month);
-    }
-
-    /// <summary>
-    /// Determines whether the specified date is an intercalary day or not.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
-    /// or outside the range of supported dates.</exception>
-    [Pure]
-    public bool IsIntercalaryDay(int year, int month, int day)
-    {
-        Scope.ValidateYearMonthDay(year, month, day);
-        return Schema.IsIntercalaryDay(year, month, day);
-    }
-
-    /// <summary>
-    /// Determines whether the specified date is a supplementary day or not.
-    /// <para>Supplementary days are days kept outside the intermediary cycles,
-    /// those shorter than a year. For technical reasons, we usually attach them
-    /// to the month before. Notice that a supplementary day may be intercalary
-    /// too. An example of such days is given by the epagomenal days which are
-    /// kept outside any regular month or decade.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
-    /// or outside the range of supported dates.</exception>
-    [Pure]
-    public bool IsSupplementaryDay(int year, int month, int day)
-    {
-        Scope.ValidateYearMonthDay(year, month, day);
-        return Schema.IsSupplementaryDay(year, month, day);
     }
 
     // Les méthodes suivantes sont abstraites car une année ou un mois peut être

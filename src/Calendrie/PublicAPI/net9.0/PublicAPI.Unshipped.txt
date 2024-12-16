@@ -406,11 +406,9 @@ Calendrie.Hemerology.Calendar.Algorithm.get -> Calendrie.CalendricalAlgorithm
 Calendrie.Hemerology.Calendar.Calendar(string! name, Calendrie.Hemerology.CalendarScope! scope) -> void
 Calendrie.Hemerology.Calendar.Epoch.get -> Calendrie.DayNumber
 Calendrie.Hemerology.Calendar.Family.get -> Calendrie.CalendricalFamily
-Calendrie.Hemerology.Calendar.IsIntercalaryDay(int year, int month, int day) -> bool
 Calendrie.Hemerology.Calendar.IsIntercalaryMonth(int year, int month) -> bool
 Calendrie.Hemerology.Calendar.IsLeapYear(int year) -> bool
 Calendrie.Hemerology.Calendar.IsRegular(out int monthsInYear) -> bool
-Calendrie.Hemerology.Calendar.IsSupplementaryDay(int year, int month, int day) -> bool
 Calendrie.Hemerology.Calendar.Name.get -> string!
 Calendrie.Hemerology.Calendar.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 Calendrie.Hemerology.Calendar.Schema.get -> Calendrie.Core.ICalendricalSchema!

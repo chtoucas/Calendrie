@@ -43,6 +43,60 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // Properties
     public void ToString_ReturnsName() => Assert.Equal(CalendarUT.Name, CalendarUT.ToString());
 }
 
+public partial class NakedCalendarFacts<TCalendar, TDataSet> // Characteristics
+{
+    #region IsIntercalaryDay()
+
+    [Fact]
+    public void IsIntercalaryDay_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(y => CalendarUT.IsIntercalaryDay(y, 1, 1));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void IsIntercalaryDay_InvalidMonth(int y, int m) =>
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.IsIntercalaryDay(y, m, 1));
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void IsIntercalaryDay_InvalidDay(int y, int m, int d) =>
+        AssertEx.ThrowsAoorexn("day", () => CalendarUT.IsIntercalaryDay(y, m, d));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void IsIntercalaryDay(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        // Act
+        bool actual = CalendarUT.IsIntercalaryDay(y, m, d);
+        // Assert
+        Assert.Equal(info.IsIntercalary, actual);
+    }
+
+    #endregion
+    #region IsSupplementaryDay()
+
+    [Fact]
+    public void IsSupplementaryDay_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(y => CalendarUT.IsSupplementaryDay(y, 1, 1));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void IsSupplementaryDay_InvalidMonth(int y, int m) =>
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.IsSupplementaryDay(y, m, 1));
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void IsSupplementaryDay_InvalidDay(int y, int m, int d) =>
+        AssertEx.ThrowsAoorexn("day", () => CalendarUT.IsSupplementaryDay(y, m, d));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void IsSupplementaryDay(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        // Act
+        bool actual = CalendarUT.IsSupplementaryDay(y, m, d);
+        // Assert
+        Assert.Equal(info.IsSupplementary, actual);
+    }
+
+    #endregion
+}
+
 public partial class NakedCalendarFacts<TCalendar, TDataSet> // Conversions
 {
     #region GetDayNumber﹍DateParts()
