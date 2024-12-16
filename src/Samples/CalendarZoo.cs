@@ -4,6 +4,7 @@
 namespace Samples;
 
 using Calendrie;
+using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
@@ -229,4 +230,47 @@ public partial class CalendarZoo
 // - ThaiSolar
 public partial class CalendarZoo
 {
+    /// <summary>
+    /// Gets the Holocene calendar.
+    /// <para>The Holocene calendar differs from the Gregorian calendar only in
+    /// the way years are numbered.</para>
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar Holocene => OffsettedCalendars.Holocene;
+
+    /// <summary>
+    /// Gets the Minguo calendar.
+    /// <para>The Minguo calendar differs from the Gregorian calendar only in
+    /// the way years are numbered.</para>
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar Minguo => OffsettedCalendars.Minguo;
+
+    /// <summary>
+    /// Gets the Thai solar calendar.
+    /// <para>The Thai solar calendar differs from the Gregorian calendar only in
+    /// the way years are numbered.</para>
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static MinMaxYearCalendar ThaiSolar => OffsettedCalendars.ThaiSolar;
+
+    private static class OffsettedCalendars
+    {
+        static OffsettedCalendars() { }
+
+        internal static readonly MinMaxYearCalendar Holocene =
+            new("Holocene",
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
+                    OffsettedSchema.OfType<CivilSchema>(10_000), DayZero.NewStyle));
+
+        internal static readonly MinMaxYearCalendar Minguo =
+            new("Holocene",
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
+                    OffsettedSchema.OfType<CivilSchema>(-1911), DayZero.NewStyle));
+
+        internal static readonly MinMaxYearCalendar ThaiSolar =
+            new("Holocene",
+                MinMaxYearScope.CreateMaximalOnOrAfterYear1(
+                    OffsettedSchema.OfType<CivilSchema>(543), DayZero.NewStyle));
+    }
 }
