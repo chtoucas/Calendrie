@@ -21,15 +21,16 @@ public sealed class BoundedBelowScope : CalendarScope
     /// <exception cref="ArgumentException">The start of <paramref name="segment"/>
     /// is the first day of a year -or- the end of <paramref name="segment"/> is
     /// not the end of a year.</exception>
-    private BoundedBelowScope(DayNumber epoch, CalendricalSegment segment)
-        : base(epoch, segment)
+    private BoundedBelowScope(CalendricalSegment segment, DayNumber epoch)
+        : base(segment, epoch)
     {
-        var seg = Segment;
-        if (seg.MinIsStartOfYear || !seg.MaxIsEndOfYear)
+        Debug.Assert(segment != null);
+
+        if (segment.MinIsStartOfYear || !segment.MaxIsEndOfYear)
             throw new ArgumentException(null, nameof(segment));
 
-        MinDateParts = seg.MinMaxDateParts.LowerValue;
-        MinOrdinalParts = seg.MinMaxOrdinalParts.LowerValue;
+        MinDateParts = segment.MinMaxDateParts.LowerValue;
+        MinOrdinalParts = segment.MinMaxOrdinalParts.LowerValue;
     }
 
     /// <summary>
@@ -81,9 +82,9 @@ public sealed class BoundedBelowScope : CalendarScope
     {
         var builder = new CalendricalSegmentBuilder(schema) { MinDateParts = minDateParts };
         builder.SetMaxToEndOfYear(maxYear);
-        var seg = builder.BuildSegment();
+        var segment = builder.BuildSegment();
 
-        return new BoundedBelowScope(epoch, seg);
+        return new BoundedBelowScope(segment, epoch);
     }
 
     /// <summary>
@@ -116,11 +117,13 @@ public sealed class BoundedBelowScope : CalendarScope
     {
         var builder = new CalendricalSegmentBuilder(schema) { MinDateParts = parts };
         builder.SetMaxToEndOfMaxSupportedYear();
-        var seg = builder.BuildSegment();
+        var segment = builder.BuildSegment();
 
-        return new BoundedBelowScope(epoch, seg);
+        return new BoundedBelowScope(segment, epoch);
     }
 
+    // Voir MinMaxYearScope.Create(CalendarScope)
+    //
     ///// <summary>
     ///// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     ///// </summary>

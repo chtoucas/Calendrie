@@ -36,7 +36,7 @@ internal sealed class GregorianScope : CalendarScope
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
     public GregorianScope(GregorianSchema schema) :
-        base(DayZero.NewStyle, CalendricalSegment.Create(schema, ProlepticScope.SupportedYears))
+        base(CalendricalSegment.Create(schema, ProlepticScope.SupportedYears), DayZero.NewStyle)
     {
         Debug.Assert(schema.SupportedYears == ProlepticScope.SupportedYears);
 

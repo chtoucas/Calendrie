@@ -81,7 +81,7 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(Egyptian13Schema schema) => new(Epoch, schema);
+    private static StandardScope CreateScope(Egyptian13Schema schema) => new(schema, Epoch);
 }
 
 /// <summary>

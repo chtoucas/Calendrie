@@ -163,7 +163,7 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// <summary>
     /// Creates a new instance of the <see href="<#= ScopeClass #>"/> class.
     /// </summary>
-    private static <#= ScopeClass #> CreateScope(<#= SchemaClass #> schema) => new(Epoch, schema);
+    private static <#= ScopeClass #> CreateScope(<#= SchemaClass #> schema) => new(schema, Epoch);
 }
 <#+
     } // T4: End of EmitCalendar()

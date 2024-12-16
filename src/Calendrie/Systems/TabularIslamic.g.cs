@@ -81,7 +81,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(TabularIslamicSchema schema) => new(Epoch, schema);
+    private static StandardScope CreateScope(TabularIslamicSchema schema) => new(schema, Epoch);
 }
 
 /// <summary>

@@ -13,14 +13,14 @@ public sealed class FauxCalendarScope : CalendarScope
         : this(schema, default, minYear, maxYear) { }
 
     public FauxCalendarScope(ICalendricalSchema schema, DayNumber epoch, int minYear, int maxYear)
-        : base(epoch, CalendricalSegment.Create(schema, Range.Create(minYear, maxYear))) { }
+        : base(CalendricalSegment.Create(schema, Range.Create(minYear, maxYear)), epoch) { }
 
     public FauxCalendarScope(DayNumber epoch, CalendricalSegment segment)
-        : base(epoch, segment) { }
+        : base(segment, epoch) { }
 
     // Constructor to be able to test the base constructors; see also WithMinDaysInXXX().
     public FauxCalendarScope(CalendricalSegment segment)
-        : base(default, segment) { }
+        : base(segment, default) { }
 
     public override void ValidateYearMonth(int year, int month, string? paramName = null) => throw new NotSupportedException();
     public override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null) => throw new NotSupportedException();

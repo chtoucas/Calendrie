@@ -81,7 +81,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(Coptic13Schema schema) => new(Epoch, schema);
+    private static StandardScope CreateScope(Coptic13Schema schema) => new(schema, Epoch);
 }
 
 /// <summary>

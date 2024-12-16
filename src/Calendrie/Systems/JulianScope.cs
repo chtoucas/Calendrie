@@ -36,7 +36,7 @@ internal sealed class JulianScope : CalendarScope
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
     public JulianScope(JulianSchema schema) :
-        base(DayZero.OldStyle, CalendricalSegment.Create(schema, ProlepticScope.SupportedYears))
+        base(CalendricalSegment.Create(schema, ProlepticScope.SupportedYears), DayZero.OldStyle)
     {
         Debug.Assert(schema.SupportedYears == ProlepticScope.SupportedYears);
 

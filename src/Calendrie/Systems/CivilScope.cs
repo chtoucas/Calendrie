@@ -35,7 +35,7 @@ internal sealed class CivilScope : CalendarScope
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
     public CivilScope(CivilSchema schema) :
-        base(DayZero.NewStyle, CalendricalSegment.Create(schema, StandardScope.SupportedYears))
+        base(CalendricalSegment.Create(schema, StandardScope.SupportedYears), DayZero.NewStyle)
     {
         YearsValidator = StandardScope.YearsValidatorImpl;
     }

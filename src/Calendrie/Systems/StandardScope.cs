@@ -38,8 +38,8 @@ internal sealed class StandardScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    public StandardScope(DayNumber epoch, ICalendricalSchema schema)
-        : base(epoch, CalendricalSegment.Create(schema, SupportedYears))
+    public StandardScope(ICalendricalSchema schema, DayNumber epoch)
+        : base(CalendricalSegment.Create(schema, SupportedYears), epoch)
     {
         YearsValidator = new StandardYearsValidator();
     }

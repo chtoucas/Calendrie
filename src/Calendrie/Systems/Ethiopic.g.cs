@@ -81,7 +81,7 @@ public sealed partial class EthiopicCalendar : CalendarSystem<EthiopicDate>
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(Coptic12Schema schema) => new(Epoch, schema);
+    private static StandardScope CreateScope(Coptic12Schema schema) => new(schema, Epoch);
 }
 
 /// <summary>

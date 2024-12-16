@@ -18,8 +18,8 @@ public sealed class MinMaxYearScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
     /// <see langword="null"/>.</exception>
-    private MinMaxYearScope(DayNumber epoch, CalendricalSegment segment)
-        : base(epoch, segment)
+    private MinMaxYearScope(CalendricalSegment segment, DayNumber epoch)
+        : base(segment, epoch)
     {
         Debug.Assert(segment != null);
         Debug.Assert(segment.IsComplete);
@@ -51,9 +51,9 @@ public sealed class MinMaxYearScope : CalendarScope
     [Pure]
     public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch, Range<int> supportedYears)
     {
-        var seg = CalendricalSegment.Create(schema, supportedYears);
+        var segment = CalendricalSegment.Create(schema, supportedYears);
 
-        return new MinMaxYearScope(epoch, seg);
+        return new MinMaxYearScope(segment, epoch);
     }
 
     /// <summary>
@@ -73,9 +73,9 @@ public sealed class MinMaxYearScope : CalendarScope
     [Pure]
     public static MinMaxYearScope CreateMaximal(ICalendricalSchema schema, DayNumber epoch)
     {
-        var seg = CalendricalSegment.CreateMaximal(schema);
+        var segment = CalendricalSegment.CreateMaximal(schema);
 
-        return new MinMaxYearScope(epoch, seg);
+        return new MinMaxYearScope(segment, epoch);
     }
 
     /// <summary>
@@ -99,9 +99,9 @@ public sealed class MinMaxYearScope : CalendarScope
     [Pure]
     public static MinMaxYearScope CreateMaximalOnOrAfterYear1(ICalendricalSchema schema, DayNumber epoch)
     {
-        var seg = CalendricalSegment.CreateMaximalOnOrAfterYear1(schema);
+        var segment = CalendricalSegment.CreateMaximalOnOrAfterYear1(schema);
 
-        return new MinMaxYearScope(epoch, seg);
+        return new MinMaxYearScope(segment, epoch);
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public sealed class MinMaxYearScope : CalendarScope
         builder.SetMaxToEndOfMaxSupportedYear();
         var segment = builder.BuildSegment();
 
-        return new MinMaxYearScope(epoch, segment);
+        return new MinMaxYearScope(segment, epoch);
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ public sealed class MinMaxYearScope : CalendarScope
         builder.SetMaxToEndOfYear(year);
         var segment = builder.BuildSegment();
 
-        return new MinMaxYearScope(epoch, segment);
+        return new MinMaxYearScope(segment, epoch);
     }
 
     /// <summary>
@@ -176,7 +176,7 @@ public sealed class MinMaxYearScope : CalendarScope
 
         return scope is MinMaxYearScope scope_ ? scope_
             : !scope.Segment.IsComplete ? throw new ArgumentException(null, nameof(scope))
-            : new MinMaxYearScope(scope.Epoch, scope.Segment);
+            : new MinMaxYearScope(scope.Segment, scope.Epoch);
     }
 
     #endregion

@@ -84,7 +84,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(JulianSchema schema) => new(Epoch, schema);
+    private static StandardScope CreateScope(JulianSchema schema) => new(schema, Epoch);
 }
 
 /// <summary>

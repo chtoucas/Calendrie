@@ -83,7 +83,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(GregorianSchema schema) => new(Epoch, schema);
+    private static StandardScope CreateScope(GregorianSchema schema) => new(schema, Epoch);
 }
 
 /// <summary>

@@ -24,7 +24,7 @@ public abstract partial class CalendarScope : ICalendricalValidator
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
     /// <see langword="null"/>.</exception>
-    protected CalendarScope(DayNumber epoch, CalendricalSegment segment)
+    protected CalendarScope(CalendricalSegment segment, DayNumber epoch)
     {
         ArgumentNullException.ThrowIfNull(segment);
 

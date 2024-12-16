@@ -81,7 +81,7 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
     /// </summary>
-    private static StandardScope CreateScope(Egyptian12Schema schema) => new(Epoch, schema);
+    private static StandardScope CreateScope(Egyptian12Schema schema) => new(schema, Epoch);
 }
 
 /// <summary>
