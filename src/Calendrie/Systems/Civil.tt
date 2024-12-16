@@ -11,6 +11,8 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
     public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema")
     {
         ScopeClass = "CivilScope";
+
+        EnableIsSupplimentary = false;
     }
 
     protected sealed override void EmitUsings()

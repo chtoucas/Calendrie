@@ -11,6 +11,8 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
     public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema")
     {
         ScopeClass = "GregorianScope";
+
+        EnableIsSupplimentary = false;
     }
 
     protected sealed override void EmitUsings()

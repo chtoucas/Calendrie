@@ -630,7 +630,6 @@ Calendrie.Systems.CivilDate.Deconstruct(out int year, out int dayOfYear) -> void
 Calendrie.Systems.CivilDate.Deconstruct(out int year, out int month, out int day) -> void
 Calendrie.Systems.CivilDate.Equals(Calendrie.Systems.CivilDate other) -> bool
 Calendrie.Systems.CivilDate.IsIntercalary.get -> bool
-Calendrie.Systems.CivilDate.IsSupplementary.get -> bool
 Calendrie.Systems.CivilDate.Month.get -> int
 Calendrie.Systems.CivilDate.Nearest(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CivilDate
@@ -834,7 +833,6 @@ Calendrie.Systems.GregorianDate.GregorianDate() -> void
 Calendrie.Systems.GregorianDate.GregorianDate(int year, int dayOfYear) -> void
 Calendrie.Systems.GregorianDate.GregorianDate(int year, int month, int day) -> void
 Calendrie.Systems.GregorianDate.IsIntercalary.get -> bool
-Calendrie.Systems.GregorianDate.IsSupplementary.get -> bool
 Calendrie.Systems.GregorianDate.Month.get -> int
 Calendrie.Systems.GregorianDate.Nearest(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.GregorianDate
 Calendrie.Systems.GregorianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.GregorianDate
@@ -869,7 +867,6 @@ Calendrie.Systems.JulianDate.Deconstruct(out int year, out int dayOfYear) -> voi
 Calendrie.Systems.JulianDate.Deconstruct(out int year, out int month, out int day) -> void
 Calendrie.Systems.JulianDate.Equals(Calendrie.Systems.JulianDate other) -> bool
 Calendrie.Systems.JulianDate.IsIntercalary.get -> bool
-Calendrie.Systems.JulianDate.IsSupplementary.get -> bool
 Calendrie.Systems.JulianDate.JulianDate() -> void
 Calendrie.Systems.JulianDate.JulianDate(int year, int dayOfYear) -> void
 Calendrie.Systems.JulianDate.JulianDate(int year, int month, int day) -> void
@@ -906,7 +903,6 @@ Calendrie.Systems.TabularIslamicDate.Deconstruct(out int year, out int dayOfYear
 Calendrie.Systems.TabularIslamicDate.Deconstruct(out int year, out int month, out int day) -> void
 Calendrie.Systems.TabularIslamicDate.Equals(Calendrie.Systems.TabularIslamicDate other) -> bool
 Calendrie.Systems.TabularIslamicDate.IsIntercalary.get -> bool
-Calendrie.Systems.TabularIslamicDate.IsSupplementary.get -> bool
 Calendrie.Systems.TabularIslamicDate.Month.get -> int
 Calendrie.Systems.TabularIslamicDate.Nearest(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.TabularIslamicDate
 Calendrie.Systems.TabularIslamicDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.TabularIslamicDate

@@ -6,6 +6,7 @@
 
 <#= new ZeroCalendarTemplate(this, "GregorianSchema")
     {
+        EnableIsSupplimentary = false,
         EnableMicroOptimizations = false,
         EnablePragmas = true,
         ImportCalendrieSystemsNamespace = true

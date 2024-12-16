@@ -34,6 +34,8 @@ public partial class CalendarTemplate : CSharpTemplate
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
     public string DaysSinceEpochSuffix { get; set; } = "DaysSinceEpoch";
 
+    public bool EnableIsSupplimentary { get; set; } = true;
+
     public bool EnablePragmas { get; set; }
     public bool EnableMicroOptimizations { get; set; } = true;
     public bool ImportCalendrieSystemsNamespace { get; set; }

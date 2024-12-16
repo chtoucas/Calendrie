@@ -249,15 +249,7 @@ public partial struct PlainJulianDate // Preamble
         }
     }
 
-    /// <inheritdoc />
-    public bool IsSupplementary
-    {
-        get
-        {
-            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return Schema.IsSupplementaryDay(y, m, d);
-        }
-    }
+    bool IDateable.IsSupplementary => false;
 
     /// <summary>
     /// Gets the underlying schema.

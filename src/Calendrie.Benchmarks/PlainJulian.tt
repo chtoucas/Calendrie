@@ -6,6 +6,7 @@
 
 <#= new CalendarTemplate(this, "JulianSchema", "DayZero.OldStyle")
     {
+        EnableIsSupplimentary = false,
         EnableMicroOptimizations = false,
         EnablePragmas = true,
         ImportCalendrieSystemsNamespace = true

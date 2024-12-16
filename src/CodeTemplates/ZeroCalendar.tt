@@ -231,6 +231,7 @@ public partial struct <#= Prefix #>Date // Preamble
         }
     }
 
+<#+ if (EnableIsSupplimentary) { #>
     /// <inheritdoc />
     public bool IsSupplementary
     {
@@ -240,6 +241,9 @@ public partial struct <#= Prefix #>Date // Preamble
             return Schema.IsSupplementaryDay(y, m, d);
         }
     }
+<#+ } else { #>
+    bool IDateable.IsSupplementary => false;
+<#+ } #>
 
     /// <summary>
     /// Gets the underlying schema.
