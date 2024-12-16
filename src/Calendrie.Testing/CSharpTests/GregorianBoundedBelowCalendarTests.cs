@@ -56,7 +56,7 @@ public static class BoundedBelowCalendarTests
 }
 
 public class GregorianBoundedBelowCalendarTests :
-    CalendarFacts<BoundedBelowCalendar, UnboundedGregorianDataSet>
+    NakedCalendarFacts<BoundedBelowCalendar, UnboundedGregorianDataSet>
 {
     private const int FirstYear = -123_456;
     private const int FirstMonth = 4;
@@ -73,18 +73,6 @@ public class GregorianBoundedBelowCalendarTests :
                 new GregorianSchema(),
                 DayZero.NewStyle,
                 new DateParts(FirstYear, FirstMonth, FirstDay)));
-
-    [Fact]
-    public sealed override void Algorithm_Prop() =>
-        Assert.Equal(CalendricalAlgorithm.Arithmetical, CalendarUT.Algorithm);
-
-    [Fact]
-    public sealed override void Family_Prop() =>
-        Assert.Equal(CalendricalFamily.Solar, CalendarUT.Family);
-
-    [Fact]
-    public sealed override void PeriodicAdjustments_Prop() =>
-        Assert.Equal(CalendricalAdjustments.Days, CalendarUT.PeriodicAdjustments);
 
     [Fact]
     public void MinDateParts_Prop()

@@ -34,7 +34,7 @@ public class GregorianMinMaxYearCalendarDataSet :
 }
 
 public class GregorianMinMaxYearCalendarTests :
-    CalendarFacts<MinMaxYearCalendar, GregorianMinMaxYearCalendarDataSet>
+    NakedCalendarFacts<MinMaxYearCalendar, GregorianMinMaxYearCalendarDataSet>
 {
     // On triche un peu, les années de début et de fin ont été choisies de
     // telle sorte que les tests marchent... (cf. GregorianData).
@@ -60,17 +60,5 @@ public class GregorianMinMaxYearCalendarTests :
         Assert.Equal(FirstYear, supportedYears.Min);
         Assert.Equal(LastYear, supportedYears.Max);
     }
-
-    [Fact]
-    public sealed override void Algorithm_Prop() =>
-        Assert.Equal(CalendricalAlgorithm.Arithmetical, CalendarUT.Algorithm);
-
-    [Fact]
-    public sealed override void Family_Prop() =>
-        Assert.Equal(CalendricalFamily.Solar, CalendarUT.Family);
-
-    [Fact]
-    public sealed override void PeriodicAdjustments_Prop() =>
-        Assert.Equal(CalendricalAdjustments.Days, CalendarUT.PeriodicAdjustments);
 }
 
