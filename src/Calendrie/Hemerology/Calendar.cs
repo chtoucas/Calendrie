@@ -302,32 +302,3 @@ public partial class Calendar // Year, month, day infos
 
 #pragma warning restore CA1725
 }
-
-public partial class Calendar // Conversions
-{
-    /// <summary>
-    /// Obtains the day number on the specified date.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The date is not within the
-    /// calendar boundaries.</exception>
-    [Pure]
-    public DayNumber GetDayNumber(int year, int month, int day)
-    {
-        var scope = Scope;
-        scope.ValidateYearMonthDay(year, month, day);
-        return scope.Epoch + Schema.CountDaysSinceEpoch(year, month, day);
-    }
-
-    /// <summary>
-    /// Obtains the day number on the specified ordinal date.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The ordinal date is not
-    /// within the calendar boundaries.</exception>
-    [Pure]
-    public DayNumber GetDayNumber(int year, int dayOfYear)
-    {
-        var scope = Scope;
-        scope.ValidateOrdinal(year, dayOfYear);
-        return scope.Epoch + Schema.CountDaysSinceEpoch(year, dayOfYear);
-    }
-}

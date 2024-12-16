@@ -62,6 +62,9 @@ public partial class CalendarFacts<TCalendar, TDataSet> // Abstract
 
 public partial class CalendarFacts<TCalendar, TDataSet> // ICalendar
 {
+    //[Fact]
+    //public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
+
     //
     // Characteristics
     //
@@ -208,60 +211,6 @@ public partial class CalendarFacts<TCalendar, TDataSet> // ICalendar
         int actual = CalendarUT.CountDaysInMonth(y, m);
         // Assert
         Assert.Equal(info.DaysInMonth, actual);
-    }
-
-    #endregion
-}
-
-public partial class CalendarFacts<TCalendar, TDataSet> // ICalendar
-{
-    //[Fact]
-    //public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
-
-    #region GetDayNumber﹍DateParts()
-
-    [Fact]
-    public void GetDayNumber﹍DateParts_InvalidYear() =>
-        SupportedYearsTester.TestInvalidYear(y => CalendarUT.GetDayNumber(y, 1, 1));
-
-    [Theory, MemberData(nameof(InvalidMonthFieldData))]
-    public void GetDayNumber﹍DateParts_InvalidMonth(int y, int m) =>
-        AssertEx.ThrowsAoorexn("month", () => CalendarUT.GetDayNumber(y, m, 1));
-
-    [Theory, MemberData(nameof(InvalidDayFieldData))]
-    public void GetDayNumber﹍DateParts_InvalidDay(int y, int m, int d) =>
-        AssertEx.ThrowsAoorexn("day", () => CalendarUT.GetDayNumber(y, m, d));
-
-    [Theory, MemberData(nameof(DayNumberInfoData))]
-    public void GetDayNumber﹍DateParts(DayNumberInfo info)
-    {
-        var (dayNumber, y, m, d) = info;
-        // Act
-        var actual = CalendarUT.GetDayNumber(y, m, d);
-        // Assert
-        Assert.Equal(dayNumber, actual);
-    }
-
-    #endregion
-    #region GetDayNumber﹍OrdinalParts()
-
-    [Fact]
-    public void GetDayNumber﹍OrdinalParts_InvalidYear() =>
-        SupportedYearsTester.TestInvalidYear(y => CalendarUT.GetDayNumber(y, 1));
-
-    [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
-    public void GetDayNumber﹍OrdinalParts_InvalidDayOfYear(int y, int doy) =>
-        AssertEx.ThrowsAoorexn("dayOfYear", () => CalendarUT.GetDayNumber(y, doy));
-
-    [Theory, MemberData(nameof(DateInfoData))]
-    public void GetDayNumber﹍OrdinalParts(DateInfo info)
-    {
-        var (y, m, d, doy) = info;
-        var dayNumber = CalendarUT.GetDayNumber(y, m, d);
-        // Act
-        var actual = CalendarUT.GetDayNumber(y, doy);
-        // Assert
-        Assert.Equal(dayNumber, actual);
     }
 
     #endregion
