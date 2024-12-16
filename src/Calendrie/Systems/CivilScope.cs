@@ -17,17 +17,20 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 internal sealed class CivilScope : CalendarScope
 {
+    // Even if this class becomes public, these constants MUST stay internal
+    // in case we change their values in the future.
+
     /// <summary>
     /// Represents the earliest supported year.
     /// <para>This field is a constant equal to 1.</para>
     /// </summary>
-    public const int MinYear = StandardScope.MinYear;
+    internal const int MinYear = StandardScope.MinYear;
 
     /// <summary>
     /// Represents the latest supported year.
     /// <para>This field is a constant equal to 9999.</para>
     /// </summary>
-    public const int MaxYear = StandardScope.MaxYear;
+    internal const int MaxYear = StandardScope.MaxYear;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilScope"/> class.

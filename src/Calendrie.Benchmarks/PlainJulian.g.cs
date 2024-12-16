@@ -29,18 +29,6 @@ using Calendrie.Systems;
 /// </summary>
 public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate>
 {
-    /// <summary>
-    /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to 1.</para>
-    /// </summary>
-    public const int MinYear = StandardScope.MinYear;
-
-    /// <summary>
-    /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
-    /// </summary>
-    public const int MaxYear = StandardScope.MaxYear;
-
     /// <summary>Represents the epoch.</summary>
     private static readonly DayNumber s_Epoch = DayZero.OldStyle;
 
@@ -73,6 +61,18 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     {
         Adjuster = new DateAdjuster<PlainJulianDate>(this);
     }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// <para>This field is a constant equal to 1.</para>
+    /// </summary>
+    public static int MinYear => StandardScope.MinYear;
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
     /// Gets the date adjuster.

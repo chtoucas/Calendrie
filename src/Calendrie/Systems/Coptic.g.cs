@@ -26,18 +26,6 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 {
-    /// <summary>
-    /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to 1.</para>
-    /// </summary>
-    public const int MinYear = StandardScope.MinYear;
-
-    /// <summary>
-    /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
-    /// </summary>
-    public const int MaxYear = StandardScope.MaxYear;
-
     /// <summary>Represents the epoch.</summary>
     private static readonly DayNumber s_Epoch = DayZero.Coptic;
 
@@ -70,6 +58,18 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     {
         Adjuster = new DateAdjuster<CopticDate>(this);
     }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// <para>This field is a constant equal to 1.</para>
+    /// </summary>
+    public static int MinYear => StandardScope.MinYear;
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
     /// Gets the date adjuster.

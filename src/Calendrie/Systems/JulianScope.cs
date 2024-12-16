@@ -18,17 +18,20 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 internal sealed class JulianScope : CalendarScope
 {
+    // Even if this class becomes public, these constants MUST stay internal
+    // in case we change their values in the future.
+
     /// <summary>
     /// Represents the earliest supported year.
     /// <para>This field is a constant equal to -999_998.</para>
     /// </summary>
-    public const int MinYear = ProlepticScope.MinYear;
+    internal const int MinYear = ProlepticScope.MinYear;
 
     /// <summary>
     /// Represents the latest supported year.
     /// <para>This field is a constant equal to 999_999.</para>
     /// </summary>
-    public const int MaxYear = ProlepticScope.MaxYear;
+    internal const int MaxYear = ProlepticScope.MaxYear;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianScope"/> class.

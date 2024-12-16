@@ -14,18 +14,6 @@ using Calendrie.Core.Schemas;
 public sealed class JulianCalendar : CalendarSystem<JulianDate>
 {
     /// <summary>
-    /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para>
-    /// </summary>
-    public const int MinYear = ProlepticScope.MinYear;
-
-    /// <summary>
-    /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
-    /// </summary>
-    public const int MaxYear = ProlepticScope.MaxYear;
-
-    /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
@@ -47,6 +35,18 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     {
         Adjuster = new DateAdjuster<JulianDate>(this);
     }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// <para>This field is a constant equal to -999_998.</para>
+    /// </summary>
+    public static int MinYear => JulianScope.MinYear;
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public static int MaxYear => JulianScope.MaxYear;
 
     /// <summary>
     /// Gets the date adjuster.

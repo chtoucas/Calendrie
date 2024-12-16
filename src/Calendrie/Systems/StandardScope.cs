@@ -15,17 +15,20 @@ using Calendrie.Hemerology;
 /// </summary>
 internal sealed class StandardScope : CalendarScope
 {
+    // Even if this class becomes public, these constants MUST stay internal
+    // in case we change their values in the future.
+
     /// <summary>
     /// Represents the earliest supported year.
     /// <para>This field is a constant equal to 1.</para>
     /// </summary>
-    public const int MinYear = 1;
+    internal const int MinYear = 1;
 
     /// <summary>
     /// Represents the latest supported year.
     /// <para>This field is a constant equal to 9999.</para>
     /// </summary>
-    public const int MaxYear = 9999;
+    internal const int MaxYear = 9999;
 
     /// <summary>
     /// Represents the range of supported years.

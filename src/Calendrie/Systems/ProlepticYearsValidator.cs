@@ -13,17 +13,20 @@ using Calendrie.Core.Validation;
 /// </summary>
 internal sealed class ProlepticYearsValidator : IYearsValidator
 {
+    // Even if this class becomes public, these constants MUST stay private
+    // in case we change their values in the future.
+
     /// <summary>
     /// Represents the earliest supported year.
     /// <para>This field is a constant equal to -999_998.</para>
     /// </summary>
-    public const int MinYear = ProlepticScope.MinYear;
+    private const int MinYear = ProlepticScope.MinYear;
 
     /// <summary>
     /// Represents the latest supported year.
     /// <para>This field is a constant equal to 999_999.</para>
     /// </summary>
-    public const int MaxYear = ProlepticScope.MaxYear;
+    private const int MaxYear = ProlepticScope.MaxYear;
 
     /// <inheritdoc />
     public Range<int> Range => ProlepticScope.SupportedYears;

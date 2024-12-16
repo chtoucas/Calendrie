@@ -108,18 +108,6 @@ using Calendrie.Systems;
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>Date>
 {
-    /// <summary>
-    /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to 1.</para>
-    /// </summary>
-    public const int MinYear = <#= ScopeClass #>.MinYear;
-
-    /// <summary>
-    /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
-    /// </summary>
-    public const int MaxYear = <#= ScopeClass #>.MaxYear;
-
     /// <summary>Represents the epoch.</summary>
     private static readonly DayNumber s_Epoch = <#= Epoch #>;
 
@@ -152,6 +140,18 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     {
         Adjuster = new DateAdjuster<<#= Prefix #>Date>(this);
     }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// <para>This field is a constant equal to 1.</para>
+    /// </summary>
+    public static int MinYear => <#= ScopeClass #>.MinYear;
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public static int MaxYear => <#= ScopeClass #>.MaxYear;
 
     /// <summary>
     /// Gets the date adjuster.

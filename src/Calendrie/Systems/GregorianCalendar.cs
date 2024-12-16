@@ -14,18 +14,6 @@ using Calendrie.Core.Schemas;
 public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
 {
     /// <summary>
-    /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para>
-    /// </summary>
-    public const int MinYear = ProlepticScope.MinYear;
-
-    /// <summary>
-    /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 9999.</para>
-    /// </summary>
-    public const int MaxYear = ProlepticScope.MaxYear;
-
-    /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
@@ -49,6 +37,18 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     {
         Adjuster = new DateAdjuster<GregorianDate>(this);
     }
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// <para>This field is a constant equal to -999_998.</para>
+    /// </summary>
+    public static int MinYear => GregorianScope.MinYear;
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// <para>This field is a constant equal to 9999.</para>
+    /// </summary>
+    public static int MaxYear => GregorianScope.MaxYear;
 
     /// <summary>
     /// Gets the date adjuster.
