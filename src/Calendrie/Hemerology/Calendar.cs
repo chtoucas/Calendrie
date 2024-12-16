@@ -203,6 +203,11 @@ public abstract partial class Calendar : ICalendar
     public string Name { get; }
 
     /// <summary>
+    /// Gets the calendar scope.
+    /// </summary>
+    public CalendarScope Scope { get; }
+
+    /// <summary>
     /// Gets the epoch.
     /// </summary>
     public DayNumber Epoch { get; }
@@ -215,11 +220,6 @@ public abstract partial class Calendar : ICalendar
 
     /// <inheritdoc />
     public CalendricalAdjustments PeriodicAdjustments => Schema.PeriodicAdjustments;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// </summary>
-    public CalendarScope Scope { get; }
 
     /// <summary>
     /// Gets a validator for the range of supported years.

@@ -12,13 +12,8 @@ using Calendrie.Core.Validation;
 /// Defines the scope of application of a calendar, a range of days, and
 /// provides a base for derived classes.
 /// </summary>
-public abstract partial class CalendarScope : ICalendricalValidator
+public abstract partial class CalendarScope
 {
-    /// <summary>
-    /// Represents the underlying schema.
-    /// </summary>
-    private readonly ICalendricalSchema _schema;
-
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="CalendarScope"/> class.
@@ -30,7 +25,7 @@ public abstract partial class CalendarScope : ICalendricalValidator
         ArgumentNullException.ThrowIfNull(segment);
 
         Segment = segment;
-        _schema = segment.Schema;
+        Schema = segment.Schema;
 
         Epoch = epoch;
 
@@ -63,12 +58,12 @@ public abstract partial class CalendarScope : ICalendricalValidator
     /// <summary>
     /// Gets the pre-validator.
     /// </summary>
-    protected ICalendricalPreValidator PreValidator => _schema.PreValidator;
+    protected ICalendricalPreValidator PreValidator => Schema.PreValidator;
 
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    protected internal ICalendricalSchema Schema => _schema;
+    protected internal ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Validates the specified <see cref="DayNumber"/> value.
@@ -121,12 +116,24 @@ public abstract partial class CalendarScope : ICalendricalValidator
         if (dayNumber < Domain.Min) ThrowHelpers.ThrowDateOverflow();
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Validates the specified month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public abstract void ValidateYearMonth(int year, int month, string? paramName = null);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Validates the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public abstract void ValidateYearMonthDay(int year, int month, int day, string? paramName = null);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Validates the specified ordinal date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
     public abstract void ValidateOrdinal(int year, int dayOfYear, string? paramName = null);
 }
