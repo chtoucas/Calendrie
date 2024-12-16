@@ -411,7 +411,7 @@ Calendrie.Hemerology.Calendar.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Hemerology.Calendar.Scope.get -> Calendrie.Hemerology.CalendarScope!
 Calendrie.Hemerology.Calendar.YearsValidator.get -> Calendrie.Core.Validation.IYearsValidator!
 Calendrie.Hemerology.CalendarScope
-Calendrie.Hemerology.CalendarScope.CalendarScope(Calendrie.DayNumber epoch, Calendrie.Core.CalendricalSegment! segment) -> void
+Calendrie.Hemerology.CalendarScope.CalendarScope(Calendrie.Core.CalendricalSegment! segment, Calendrie.DayNumber epoch) -> void
 Calendrie.Hemerology.CalendarScope.Domain.get -> Calendrie.Core.Intervals.Range<Calendrie.DayNumber>
 Calendrie.Hemerology.CalendarScope.Epoch.get -> Calendrie.DayNumber
 Calendrie.Hemerology.CalendarScope.PreValidator.get -> Calendrie.Core.Validation.ICalendricalPreValidator!
