@@ -21,6 +21,7 @@ abstract Calendrie.Hemerology.Calendar.CountDaysInYear(int year) -> int
 abstract Calendrie.Hemerology.CalendarScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
 abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonth(int year, int month, string? paramName = null) -> void
 abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
+abstract Calendrie.Hemerology.NakedCalendar.CountMonthsInYear(int year) -> int
 Calendrie.CalendricalAdjustments
 Calendrie.CalendricalAdjustments.Days = 1 -> Calendrie.CalendricalAdjustments
 Calendrie.CalendricalAdjustments.DaysAndMonths = Calendrie.CalendricalAdjustments.Days | Calendrie.CalendricalAdjustments.Months -> Calendrie.CalendricalAdjustments
@@ -481,6 +482,18 @@ Calendrie.Hemerology.IFixedDate<TSelf>.Next(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IFixedDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.NakedCalendar
+Calendrie.Hemerology.NakedCalendar.GetDateParts(Calendrie.DayNumber dayNumber) -> Calendrie.DateParts
+Calendrie.Hemerology.NakedCalendar.GetDateParts(int year, int dayOfYear) -> Calendrie.DateParts
+Calendrie.Hemerology.NakedCalendar.GetDayNumber(int year, int dayOfYear) -> Calendrie.DayNumber
+Calendrie.Hemerology.NakedCalendar.GetDayNumber(int year, int month, int day) -> Calendrie.DayNumber
+Calendrie.Hemerology.NakedCalendar.GetOrdinalParts(Calendrie.DayNumber dayNumber) -> Calendrie.OrdinalParts
+Calendrie.Hemerology.NakedCalendar.GetOrdinalParts(int year, int month, int day) -> Calendrie.OrdinalParts
+Calendrie.Hemerology.NakedCalendar.IsIntercalaryDay(int year, int month, int day) -> bool
+Calendrie.Hemerology.NakedCalendar.IsRegular(out int monthsInYear) -> bool
+Calendrie.Hemerology.NakedCalendar.IsSupplementaryDay(int year, int month, int day) -> bool
+Calendrie.Hemerology.NakedCalendar.NakedCalendar(string! name, Calendrie.Hemerology.CalendarScope! scope) -> void
+Calendrie.Hemerology.NakedCalendar.PartsAdapter.get -> Calendrie.Core.PartsAdapter!
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
