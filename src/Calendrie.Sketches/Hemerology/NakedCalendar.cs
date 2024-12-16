@@ -21,8 +21,14 @@ public abstract class NakedCalendar : Calendar
     {
         Debug.Assert(scope != null);
 
+        Epoch = scope.Epoch;
         PartsAdapter = new PartsAdapter(Schema);
     }
+
+    /// <summary>
+    /// Gets the epoch.
+    /// </summary>
+    public DayNumber Epoch { get; }
 
     /// <summary>
     /// Gets the adapter for the calendrical parts.
@@ -41,9 +47,8 @@ public abstract class NakedCalendar : Calendar
     [Pure]
     public DayNumber GetDayNumber(int year, int month, int day)
     {
-        var scope = Scope;
-        scope.ValidateYearMonthDay(year, month, day);
-        return scope.Epoch + Schema.CountDaysSinceEpoch(year, month, day);
+        Scope.ValidateYearMonthDay(year, month, day);
+        return Epoch + Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -54,9 +59,8 @@ public abstract class NakedCalendar : Calendar
     [Pure]
     public DayNumber GetDayNumber(int year, int dayOfYear)
     {
-        var scope = Scope;
-        scope.ValidateOrdinal(year, dayOfYear);
-        return scope.Epoch + Schema.CountDaysSinceEpoch(year, dayOfYear);
+        Scope.ValidateOrdinal(year, dayOfYear);
+        return Epoch + Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -67,9 +71,8 @@ public abstract class NakedCalendar : Calendar
     [Pure]
     public DateParts GetDateParts(DayNumber dayNumber)
     {
-        var scope = Scope;
-        scope.Domain.Validate(dayNumber);
-        return PartsAdapter.GetDateParts(dayNumber - scope.Epoch);
+        Scope.Domain.Validate(dayNumber);
+        return PartsAdapter.GetDateParts(dayNumber - Epoch);
     }
 
     /// <summary>
@@ -92,9 +95,8 @@ public abstract class NakedCalendar : Calendar
     [Pure]
     public OrdinalParts GetOrdinalParts(DayNumber dayNumber)
     {
-        var scope = Scope;
-        scope.Domain.Validate(dayNumber);
-        return PartsAdapter.GetOrdinalParts(dayNumber - scope.Epoch);
+        Scope.Domain.Validate(dayNumber);
+        return PartsAdapter.GetOrdinalParts(dayNumber - Epoch);
     }
 
     /// <summary>
