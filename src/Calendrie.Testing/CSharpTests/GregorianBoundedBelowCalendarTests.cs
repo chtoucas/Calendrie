@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Testing.Facts.Temp;
+namespace Calendrie.Testing.CSharpTests;
 
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;

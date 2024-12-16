@@ -84,9 +84,6 @@
     <Compile Include="Tests\Systems\TabularIslamicTests.fs" />
     <Compile Include="Tests\Systems\WorldTests.fs" />
     <Compile Include="Tests\Systems\ZoroastrianTests.fs" />
-    <Compile Include="Tests\Temp\BoundedBelowScopeTests.fs" />
-    <Compile Include="Tests\Temp\MinMaxYearCalendarTests.fs" />
-    <Compile Include="Tests\Temp\BoundedBelowCalendarTests.fs" />
     <Compile Include="Tests\ValueTypeTests.fs" />
     <Compile Include="Tests\DayNumberTests.fs" />
     <Compile Include="Tests\OrdTests.fs" />
@@ -94,6 +91,7 @@
     <Compile Include="Tests\PartsTests.fs" />
     <Compile Include="Tests\AdditionRulesetTests.fs" />
     <Compile Include="Tests\YearNumberingTests.fs" />
+    <Compile Include="Tests\CSharpTests.fs" />
     <Compile Include="Program.fs" />
     <None Include="Calendrie.Tests.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
