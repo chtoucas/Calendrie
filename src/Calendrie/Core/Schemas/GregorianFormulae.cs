@@ -58,6 +58,7 @@ internal static class GregorianFormulae
     /// Obtains the number of days before the start of the specified month.
     /// </summary>
     [Pure]
+    [Obsolete("Unused")]
     public static int CountDaysInYearBeforeMonth(long y, int m) =>
         m < 3 ? 31 * (m - 1)
         : IsLeapYear(y) ? (int)((uint)(153 * m - 157) / 5)
@@ -67,6 +68,7 @@ internal static class GregorianFormulae
     /// Obtains the number of days before the start of the specified month.
     /// </summary>
     [Pure]
+    [Obsolete("Unused")]
     public static int CountDaysInYearBeforeMonth(int y, int m) =>
         m < 3 ? 31 * (m - 1)
         : IsLeapYear(y) ? (int)((uint)(153 * m - 157) / 5)
@@ -213,8 +215,9 @@ internal static class GregorianFormulae
     /// <summary>
     /// Obtains the date parts for the specified day count (the number of
     /// consecutive days from the epoch to a date).
-    /// </summary> 
+    /// </summary>
     [Pure]
+    [Obsolete("Unused")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Yemoda GetDateParts(int daysSinceEpoch)
     {
@@ -240,6 +243,7 @@ internal static class GregorianFormulae
     /// of consecutive days from the epoch to a date).
     /// </summary>
     [Pure]
+    [Obsolete("Unused")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Yedoy GetOrdinalParts(int daysSinceEpoch)
     {
@@ -304,5 +308,6 @@ internal static class GregorianFormulae
     /// the specified year.
     /// </summary>
     [Pure]
+    [Obsolete("Unused")]
     public static int GetEndOfYear(int y) => GetStartOfYear(y) + CountDaysInYear(y) - 1;
 }
