@@ -313,6 +313,22 @@ public partial struct <#= Prefix #>Date // Adjustments
 
     /// <inheritdoc />
     [Pure]
+    public <#= Prefix #>Date WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    /// <inheritdoc />
+    [Pure]
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);

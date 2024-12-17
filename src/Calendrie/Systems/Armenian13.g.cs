@@ -349,6 +349,22 @@ public partial struct Armenian13Date // Adjustments
 
     /// <inheritdoc />
     [Pure]
+    public Armenian13Date WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+
+    /// <inheritdoc />
+    [Pure]
+    public Armenian13Date WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    public Armenian13Date WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+
+    /// <inheritdoc />
+    [Pure]
+    public Armenian13Date WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    /// <inheritdoc />
+    [Pure]
     public Armenian13Date Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);

@@ -345,6 +345,22 @@ public partial struct PlainJulianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
+    public PlainJulianDate WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainJulianDate WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainJulianDate WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainJulianDate WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    /// <inheritdoc />
+    [Pure]
     public PlainJulianDate Previous(DayOfWeek dayOfWeek)
     {
         var dayNumber = DayNumber.Previous(dayOfWeek);

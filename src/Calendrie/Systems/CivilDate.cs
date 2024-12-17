@@ -222,6 +222,22 @@ public partial struct CivilDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
+    public CivilDate WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    /// <inheritdoc />
+    [Pure]
     public CivilDate Previous(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.Previous(dayOfWeek).DaysSinceZero;

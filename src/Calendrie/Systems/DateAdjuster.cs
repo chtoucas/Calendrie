@@ -113,6 +113,7 @@ public sealed class DateAdjuster<TDate>
 
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.
+    /// <para>See also TDate.WithYear().</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
@@ -129,6 +130,7 @@ public sealed class DateAdjuster<TDate>
 
     /// <summary>
     /// Adjusts the month field to the specified value, yielding a new date.
+    /// <para>See also TDate.WithMonth().</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
@@ -146,6 +148,7 @@ public sealed class DateAdjuster<TDate>
     /// <summary>
     /// Adjusts the day of the month field to the specified value, yielding a new
     /// date.
+    /// <para>See also TDate.WithDay().</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
@@ -168,6 +171,7 @@ public sealed class DateAdjuster<TDate>
     /// <summary>
     /// Adjusts the day of the year field to the specified value, yielding a new
     /// date.
+    /// <para>See also TDate.WithDayOfYear().</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
@@ -181,34 +185,4 @@ public sealed class DateAdjuster<TDate>
         int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, newDayOfYear);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
-
-    //
-    // Adjusters for the core parts
-    //
-    // These adjusters are meant to be used by IAdjustable.Adjust().
-
-    /// <summary>
-    /// Obtains an adjuster for the year field of a date.
-    /// </summary>
-    [Pure]
-    public Func<TDate, TDate> WithYear(int newYear) => x => AdjustYear(x, newYear);
-
-    /// <summary>
-    /// Obtains an adjuster for the month field of a date.
-    /// </summary>
-    [Pure]
-    public Func<TDate, TDate> WithMonth(int newMonth) => x => AdjustMonth(x, newMonth);
-
-    /// <summary>
-    /// Obtains an adjuster for the day of the month field of a date.
-    /// </summary>
-    [Pure]
-    public Func<TDate, TDate> WithDay(int newDay) => x => AdjustDay(x, newDay);
-
-    /// <summary>
-    /// Obtains an adjuster for the day of the year field of a date.
-    /// </summary>
-    [Pure]
-    public Func<TDate, TDate> WithDayOfYear(int newDayOfYear) =>
-        x => AdjustDayOfYear(x, newDayOfYear);
 }
