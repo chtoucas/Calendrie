@@ -112,7 +112,6 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
-    /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
     private <#= Prefix #>Calendar()
         : base("<#= DisplayName #>", new <#= ScopeClass #>(new <#= SchemaClass #>(), <#= Epoch #>))
@@ -122,6 +121,7 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="<#= Prefix #>Calendar"/> class.
+    /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
     public static <#= Prefix #>Calendar Instance { get; } = new();
 

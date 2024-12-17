@@ -30,7 +30,6 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
-    /// <para>See also <seealso cref="PlainGregorianDate.Calendar"/>.</para>
     /// </summary>
     private PlainGregorianCalendar()
         : base("PlainGregorian", new StandardScope(new GregorianSchema(), DayZero.NewStyle))
@@ -40,6 +39,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
+    /// <para>See also <seealso cref="PlainGregorianDate.Calendar"/>.</para>
     /// </summary>
     public static PlainGregorianCalendar Instance { get; } = new();
 
@@ -97,9 +97,11 @@ public partial struct PlainGregorianDate // Preamble
     /// of supported years.</exception>
     public PlainGregorianDate(int year, int month, int day)
     {
-        Scope.ValidateYearMonthDay(year, month, day);
+        var chr = PlainGregorianCalendar.Instance;
 
-        _daysSinceZero = Schema.CountDaysSinceEpoch(year, month, day);
+        chr.Scope.ValidateYearMonthDay(year, month, day);
+
+        _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -111,9 +113,11 @@ public partial struct PlainGregorianDate // Preamble
     /// the range of supported years.</exception>
     public PlainGregorianDate(int year, int dayOfYear)
     {
-        Scope.ValidateOrdinal(year, dayOfYear);
+        var chr = PlainGregorianCalendar.Instance;
 
-        _daysSinceZero = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        chr.Scope.ValidateOrdinal(year, dayOfYear);
+
+        _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -156,14 +160,14 @@ public partial struct PlainGregorianDate // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Schema.GetYear(_daysSinceZero);
+    public int Year => Calendar.UnderlyingSchema.GetYear(_daysSinceZero);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Schema.GetDateParts(_daysSinceZero, out _, out int m, out _);
+            Calendar.Schema.GetDateParts(_daysSinceZero, out _, out int m, out _);
             return m;
         }
     }
@@ -173,7 +177,7 @@ public partial struct PlainGregorianDate // Preamble
     {
         get
         {
-            _ = Schema.GetYear(_daysSinceZero, out int doy);
+            _ = Calendar.Schema.GetYear(_daysSinceZero, out int doy);
             return doy;
         }
     }
@@ -183,7 +187,7 @@ public partial struct PlainGregorianDate // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceZero, out _, out _, out int d);
+            Calendar.Schema.GetDateParts(_daysSinceZero, out _, out _, out int d);
             return d;
         }
     }
@@ -196,30 +200,13 @@ public partial struct PlainGregorianDate // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-            return Schema.IsIntercalaryDay(y, m, d);
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+            return sch.IsIntercalaryDay(y, m, d);
         }
     }
 
     bool IDateable.IsSupplementary => false;
-
-    /// <summary>
-    /// Gets the underlying schema.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static GregorianSchema Schema => Calendar.UnderlyingSchema;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static CalendarScope Scope => Calendar.Scope;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static DateAdjuster<PlainGregorianDate> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -228,17 +215,18 @@ public partial struct PlainGregorianDate // Preamble
     [Pure]
     public override string ToString()
     {
-        Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(_daysSinceZero, out year, out month, out day);
+        Calendar.Schema.GetDateParts(_daysSinceZero, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(_daysSinceZero, out dayOfYear);
+        year = Calendar.Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
 public partial struct PlainGregorianDate // Factories
@@ -247,7 +235,7 @@ public partial struct PlainGregorianDate // Factories
     [Pure]
     public static PlainGregorianDate FromDayNumber(DayNumber dayNumber)
     {
-        Scope.Validate(dayNumber);
+        Calendar.Scope.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -267,19 +255,23 @@ public partial struct PlainGregorianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_daysSinceZero);
+    public int CountElapsedDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceZero);
+    public int CountRemainingDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearAfter(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_daysSinceZero);
+    public int CountElapsedDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceZero);
+    public int CountRemainingDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
 public partial struct PlainGregorianDate // Adjustments
@@ -295,39 +287,48 @@ public partial struct PlainGregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+    public PlainGregorianDate WithYear(int newYear) =>
+        Calendar.Adjuster.AdjustYear(this, newYear);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+    public PlainGregorianDate WithMonth(int newMonth) =>
+        Calendar.Adjuster.AdjustMonth(this, newMonth);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+    public PlainGregorianDate WithDay(int newDay) =>
+        Calendar.Adjuster.AdjustDay(this, newDay);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public PlainGregorianDate WithDayOfYear(int newDayOfYear) =>
+        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
+    public PlainGregorianDate Previous(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
+    public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
+    public PlainGregorianDate Nearest(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
+    public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
+    public PlainGregorianDate Next(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct PlainGregorianDate // IEquatable

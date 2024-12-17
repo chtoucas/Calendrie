@@ -231,7 +231,7 @@ public abstract partial class Calendar
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    protected ICalendricalSchema Schema { get; }
+    protected internal ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

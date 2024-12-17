@@ -20,9 +20,29 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
     /// <summary>
-    /// Represents a singleton instance of the underlying schema.
+    /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// </summary>
-    //
+    private CivilCalendar() : base("Civil", new CivilScope(new CivilSchema()))
+    {
+        UnderlyingSchema = (CivilSchema)Schema;
+    }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
+    /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
+    /// </summary>
+    public static CivilCalendar Instance { get; } = new();
+
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
+    public static int MinYear => CivilScope.MinYear;
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// </summary>
+    public static int MaxYear => CivilScope.MaxYear;
+
     // TODO(code): UnderlyingSchema
     // Because I don't want Calendar to be generic [Calendar<TSchema>], we lose
     // the actual schema type; we only get an ICalendricalSchema. This property
@@ -43,26 +63,9 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     // also means to move these methods from ICalendricalSchemaPlus to
     // ICalendricalSchema. Finally, we would also need to replace GetYear() by
     // GetYear(int daysSinceEpoch, out int doy).
-    internal static readonly CivilSchema UnderlyingSchema = new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
-    /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
+    /// Gets the schema.
     /// </summary>
-    private CivilCalendar() : base("Civil", new CivilScope(new CivilSchema())) { }
-
-    /// <summary>
-    /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
-    /// </summary>
-    public static CivilCalendar Instance { get; } = new();
-
-    /// <summary>
-    /// Gets the earliest supported year.
-    /// </summary>
-    public static int MinYear => CivilScope.MinYear;
-
-    /// <summary>
-    /// Gets the latest supported year.
-    /// </summary>
-    public static int MaxYear => CivilScope.MaxYear;
+    internal CivilSchema UnderlyingSchema { get; }
 }

@@ -20,18 +20,16 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
     /// <summary>
-    /// Represents a singleton instance of the underlying schema.
-    /// </summary>
-    internal static readonly GregorianSchema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
-    /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
-    private GregorianCalendar() : base("Gregorian", new GregorianScope(new GregorianSchema())) { }
+    private GregorianCalendar() : base("Gregorian", new GregorianScope(new GregorianSchema()))
+    {
+        UnderlyingSchema = (GregorianSchema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
+    /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
     public static GregorianCalendar Instance { get; } = new();
 
@@ -44,4 +42,9 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => GregorianScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal GregorianSchema UnderlyingSchema { get; }
 }

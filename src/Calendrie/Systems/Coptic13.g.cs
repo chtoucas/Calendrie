@@ -28,7 +28,6 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic13Calendar"/> class.
-    /// <para>See also <seealso cref="Coptic13Date.Calendar"/>.</para>
     /// </summary>
     private Coptic13Calendar()
         : base("Coptic", new StandardScope(new Coptic13Schema(), DayZero.Coptic))
@@ -38,6 +37,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Coptic13Calendar"/> class.
+    /// <para>See also <seealso cref="Coptic13Date.Calendar"/>.</para>
     /// </summary>
     public static Coptic13Calendar Instance { get; } = new();
 
@@ -99,9 +99,11 @@ public partial struct Coptic13Date // Preamble
     /// of supported years.</exception>
     public Coptic13Date(int year, int month, int day)
     {
-        Scope.ValidateYearMonthDay(year, month, day);
+        var chr = Coptic13Calendar.Instance;
 
-        _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, month, day);
+        chr.Scope.ValidateYearMonthDay(year, month, day);
+
+        _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -113,9 +115,11 @@ public partial struct Coptic13Date // Preamble
     /// the range of supported years.</exception>
     public Coptic13Date(int year, int dayOfYear)
     {
-        Scope.ValidateOrdinal(year, dayOfYear);
+        var chr = Coptic13Calendar.Instance;
 
-        _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        chr.Scope.ValidateOrdinal(year, dayOfYear);
+
+        _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -160,14 +164,14 @@ public partial struct Coptic13Date // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Schema.GetYear(_daysSinceEpoch);
+    public int Year => Calendar.UnderlyingSchema.GetYear(_daysSinceEpoch);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out _);
+            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out _);
             return m;
         }
     }
@@ -177,7 +181,7 @@ public partial struct Coptic13Date // Preamble
     {
         get
         {
-            _ = Schema.GetYear(_daysSinceEpoch, out int doy);
+            _ = Calendar.Schema.GetYear(_daysSinceEpoch, out int doy);
             return doy;
         }
     }
@@ -187,7 +191,7 @@ public partial struct Coptic13Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
             return d;
         }
     }
@@ -200,8 +204,9 @@ public partial struct Coptic13Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return Schema.IsIntercalaryDay(y, m, d);
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return sch.IsIntercalaryDay(y, m, d);
         }
     }
 
@@ -210,28 +215,11 @@ public partial struct Coptic13Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return Schema.IsSupplementaryDay(y, m, d);
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return sch.IsSupplementaryDay(y, m, d);
         }
     }
-
-    /// <summary>
-    /// Gets the underlying schema.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static Coptic13Schema Schema => Calendar.UnderlyingSchema;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static CalendarScope Scope => Calendar.Scope;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static DateAdjuster<Coptic13Date> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -240,17 +228,18 @@ public partial struct Coptic13Date // Preamble
     [Pure]
     public override string ToString()
     {
-        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(_daysSinceEpoch, out year, out month, out day);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(_daysSinceEpoch, out dayOfYear);
+        year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
 public partial struct Coptic13Date // Factories
@@ -259,7 +248,7 @@ public partial struct Coptic13Date // Factories
     [Pure]
     public static Coptic13Date FromDayNumber(DayNumber dayNumber)
     {
-        Scope.Validate(dayNumber);
+        Calendar.Scope.Validate(dayNumber);
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
@@ -281,19 +270,23 @@ public partial struct Coptic13Date // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearBefore(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearAfter(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
 public partial struct Coptic13Date // Adjustments
@@ -309,39 +302,48 @@ public partial struct Coptic13Date // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+    public Coptic13Date WithYear(int newYear) =>
+        Calendar.Adjuster.AdjustYear(this, newYear);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+    public Coptic13Date WithMonth(int newMonth) =>
+        Calendar.Adjuster.AdjustMonth(this, newMonth);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+    public Coptic13Date WithDay(int newDay) =>
+        Calendar.Adjuster.AdjustDay(this, newDay);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public Coptic13Date WithDayOfYear(int newDayOfYear) =>
+        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
+    public Coptic13Date Previous(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
+    public Coptic13Date PreviousOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
+    public Coptic13Date Nearest(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
+    public Coptic13Date NextOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
+    public Coptic13Date Next(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct Coptic13Date // IEquatable

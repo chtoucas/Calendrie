@@ -31,7 +31,7 @@ public partial struct GregorianDate // Factories
     [Pure]
     public static GregorianDate FromDayNumber(DayNumber dayNumber)
     {
-        Scope.Validate(dayNumber);
+        Calendar.Scope.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }
@@ -51,19 +51,23 @@ public partial struct GregorianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_daysSinceZero);
+    public int CountElapsedDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceZero);
+    public int CountRemainingDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearAfter(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_daysSinceZero);
+    public int CountElapsedDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceZero);
+    public int CountRemainingDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
 public partial struct GregorianDate // Adjustments
@@ -79,39 +83,48 @@ public partial struct GregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+    public GregorianDate WithYear(int newYear) =>
+        Calendar.Adjuster.AdjustYear(this, newYear);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+    public GregorianDate WithMonth(int newMonth) =>
+        Calendar.Adjuster.AdjustMonth(this, newMonth);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+    public GregorianDate WithDay(int newDay) =>
+        Calendar.Adjuster.AdjustDay(this, newDay);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public GregorianDate WithDayOfYear(int newDayOfYear) =>
+        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
+    public GregorianDate Previous(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
+    public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
+    public GregorianDate Nearest(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
+    public GregorianDate NextOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
+    public GregorianDate Next(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct GregorianDate // IEquatable

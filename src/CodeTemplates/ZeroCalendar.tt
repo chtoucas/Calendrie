@@ -121,9 +121,11 @@ public partial struct <#= Prefix #>Date // Preamble
     /// of supported years.</exception>
     public <#= Prefix #>Date(int year, int month, int day)
     {
-        Scope.ValidateYearMonthDay(year, month, day);
+        var chr = <#= Prefix #>Calendar.Instance;
 
-        _<#= DaysSinceEpochVar #> = Schema.CountDaysSinceEpoch(year, month, day);
+        chr.Scope.ValidateYearMonthDay(year, month, day);
+
+        _<#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -135,9 +137,11 @@ public partial struct <#= Prefix #>Date // Preamble
     /// the range of supported years.</exception>
     public <#= Prefix #>Date(int year, int dayOfYear)
     {
-        Scope.ValidateOrdinal(year, dayOfYear);
+        var chr = <#= Prefix #>Calendar.Instance;
 
-        _<#= DaysSinceEpochVar #> = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        chr.Scope.ValidateOrdinal(year, dayOfYear);
+
+        _<#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -180,14 +184,14 @@ public partial struct <#= Prefix #>Date // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Schema.GetYear(_<#= DaysSinceEpochVar #>);
+    public int Year => Calendar.UnderlyingSchema.GetYear(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out int m, out _);
+            Calendar.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out int m, out _);
             return m;
         }
     }
@@ -197,7 +201,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            _ = Schema.GetYear(_<#= DaysSinceEpochVar #>, out int doy);
+            _ = Calendar.Schema.GetYear(_<#= DaysSinceEpochVar #>, out int doy);
             return doy;
         }
     }
@@ -207,7 +211,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out _, out int d);
+            Calendar.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out _, out int d);
             return d;
         }
     }
@@ -220,8 +224,9 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-            return Schema.IsIntercalaryDay(y, m, d);
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+            return sch.IsIntercalaryDay(y, m, d);
         }
     }
 
@@ -231,31 +236,14 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         get
         {
-            Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-            return Schema.IsSupplementaryDay(y, m, d);
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+            return sch.IsSupplementaryDay(y, m, d);
         }
     }
 <#+ } else { #>
     bool IDateable.IsSupplementary => false;
 <#+ } #>
-
-    /// <summary>
-    /// Gets the underlying schema.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static <#= SchemaClass #> Schema => Calendar.UnderlyingSchema;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static CalendarScope Scope => Calendar.Scope;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static DateAdjuster<<#= Prefix #>Date> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -264,17 +252,18 @@ public partial struct <#= Prefix #>Date // Preamble
     [Pure]
     public override string ToString()
     {
-        Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out year, out month, out day);
+        Calendar.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(_<#= DaysSinceEpochVar #>, out dayOfYear);
+        year = Calendar.Schema.GetYear(_<#= DaysSinceEpochVar #>, out dayOfYear);
 }
 <#+
     } // T4: End of EmitDatePreamble()
@@ -289,7 +278,7 @@ public partial struct <#= Prefix #>Date // Factories
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        Scope.Validate(dayNumber);
+        Calendar.Scope.Validate(dayNumber);
 
         return new(dayNumber.DaysSinceZero);
     }

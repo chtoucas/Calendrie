@@ -29,19 +29,23 @@ public partial struct JulianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearBefore(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearAfter(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
 public partial struct JulianDate // Adjustments
@@ -57,39 +61,48 @@ public partial struct JulianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+    public JulianDate WithYear(int newYear) =>
+        Calendar.Adjuster.AdjustYear(this, newYear);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+    public JulianDate WithMonth(int newMonth) =>
+        Calendar.Adjuster.AdjustMonth(this, newMonth);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+    public JulianDate WithDay(int newDay) =>
+        Calendar.Adjuster.AdjustDay(this, newDay);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public JulianDate WithDayOfYear(int newDayOfYear) =>
+        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
+    public JulianDate Previous(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
+    public JulianDate PreviousOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
+    public JulianDate Nearest(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
+    public JulianDate NextOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public JulianDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
+    public JulianDate Next(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct JulianDate // IEquatable

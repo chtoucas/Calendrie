@@ -144,23 +144,6 @@ public partial struct GregorianDate
     bool IDateable.IsSupplementary => false;
 
     /// <summary>
-    /// Gets the underlying schema.
-    /// </summary>
-    private static GregorianSchema Schema => GregorianCalendar.UnderlyingSchema;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static CalendarScope Scope => GregorianCalendar.Instance.Scope;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static DateAdjuster<GregorianDate> Adjuster => GregorianCalendar.Instance.Adjuster;
-
-    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>

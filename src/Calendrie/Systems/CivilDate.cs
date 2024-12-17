@@ -146,18 +146,6 @@ public partial struct CivilDate
     bool IDateable.IsSupplementary => false;
 
     /// <summary>
-    /// Gets the underlying schema.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static CivilSchema Schema => CivilCalendar.UnderlyingSchema;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static DateAdjuster<CivilDate> Adjuster => CivilCalendar.Instance.Adjuster;
-
-    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -227,19 +215,23 @@ public partial struct CivilDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+    public CivilDate WithYear(int newYear) =>
+        Calendar.Adjuster.AdjustYear(this, newYear);
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+    public CivilDate WithMonth(int newMonth) =>
+        Calendar.Adjuster.AdjustMonth(this, newMonth);
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+    public CivilDate WithDay(int newDay) =>
+        Calendar.Adjuster.AdjustDay(this, newDay);
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public CivilDate WithDayOfYear(int newDayOfYear) =>
+        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
 
     /// <inheritdoc />
     [Pure]

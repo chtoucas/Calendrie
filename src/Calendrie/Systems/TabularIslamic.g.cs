@@ -28,7 +28,6 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
-    /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
     private TabularIslamicCalendar()
         : base("Tabular Islamic", new StandardScope(new TabularIslamicSchema(), DayZero.TabularIslamic))
@@ -38,6 +37,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
+    /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
     public static TabularIslamicCalendar Instance { get; } = new();
 
@@ -99,9 +99,11 @@ public partial struct TabularIslamicDate // Preamble
     /// of supported years.</exception>
     public TabularIslamicDate(int year, int month, int day)
     {
-        Scope.ValidateYearMonthDay(year, month, day);
+        var chr = TabularIslamicCalendar.Instance;
 
-        _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, month, day);
+        chr.Scope.ValidateYearMonthDay(year, month, day);
+
+        _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -113,9 +115,11 @@ public partial struct TabularIslamicDate // Preamble
     /// the range of supported years.</exception>
     public TabularIslamicDate(int year, int dayOfYear)
     {
-        Scope.ValidateOrdinal(year, dayOfYear);
+        var chr = TabularIslamicCalendar.Instance;
 
-        _daysSinceEpoch = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        chr.Scope.ValidateOrdinal(year, dayOfYear);
+
+        _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
@@ -160,14 +164,14 @@ public partial struct TabularIslamicDate // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Schema.GetYear(_daysSinceEpoch);
+    public int Year => Calendar.UnderlyingSchema.GetYear(_daysSinceEpoch);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out _);
+            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out _);
             return m;
         }
     }
@@ -177,7 +181,7 @@ public partial struct TabularIslamicDate // Preamble
     {
         get
         {
-            _ = Schema.GetYear(_daysSinceEpoch, out int doy);
+            _ = Calendar.Schema.GetYear(_daysSinceEpoch, out int doy);
             return doy;
         }
     }
@@ -187,7 +191,7 @@ public partial struct TabularIslamicDate // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
             return d;
         }
     }
@@ -200,30 +204,13 @@ public partial struct TabularIslamicDate // Preamble
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return Schema.IsIntercalaryDay(y, m, d);
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return sch.IsIntercalaryDay(y, m, d);
         }
     }
 
     bool IDateable.IsSupplementary => false;
-
-    /// <summary>
-    /// Gets the underlying schema.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static TabularIslamicSchema Schema => Calendar.UnderlyingSchema;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static CalendarScope Scope => Calendar.Scope;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static DateAdjuster<TabularIslamicDate> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -232,17 +219,18 @@ public partial struct TabularIslamicDate // Preamble
     [Pure]
     public override string ToString()
     {
-        Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(_daysSinceEpoch, out year, out month, out day);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(_daysSinceEpoch, out dayOfYear);
+        year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
 public partial struct TabularIslamicDate // Factories
@@ -251,7 +239,7 @@ public partial struct TabularIslamicDate // Factories
     [Pure]
     public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
     {
-        Scope.Validate(dayNumber);
+        Calendar.Scope.Validate(dayNumber);
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
@@ -273,19 +261,23 @@ public partial struct TabularIslamicDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Schema.CountDaysInYearBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearBefore(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInYear() =>
+        Calendar.UnderlyingSchema.CountDaysInYearAfter(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Schema.CountDaysInMonthBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_daysSinceEpoch);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInMonth() =>
+        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
 public partial struct TabularIslamicDate // Adjustments
@@ -301,39 +293,48 @@ public partial struct TabularIslamicDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
+    public TabularIslamicDate WithYear(int newYear) =>
+        Calendar.Adjuster.AdjustYear(this, newYear);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
+    public TabularIslamicDate WithMonth(int newMonth) =>
+        Calendar.Adjuster.AdjustMonth(this, newMonth);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
+    public TabularIslamicDate WithDay(int newDay) =>
+        Calendar.Adjuster.AdjustDay(this, newDay);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public TabularIslamicDate WithDayOfYear(int newDayOfYear) =>
+        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
+    public TabularIslamicDate Previous(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
+    public TabularIslamicDate PreviousOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
+    public TabularIslamicDate Nearest(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
+    public TabularIslamicDate NextOrSame(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
+    public TabularIslamicDate Next(DayOfWeek dayOfWeek) =>
+        Calendar.Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct TabularIslamicDate // IEquatable

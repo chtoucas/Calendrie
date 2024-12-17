@@ -144,23 +144,6 @@ public partial struct JulianDate
     bool IDateable.IsSupplementary => false;
 
     /// <summary>
-    /// Gets the underlying schema.
-    /// </summary>
-    private static JulianSchema Schema => JulianCalendar.UnderlyingSchema;
-
-    /// <summary>
-    /// Gets the calendar scope.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static CalendarScope Scope => JulianCalendar.Instance.Scope;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    private static DateAdjuster<JulianDate> Adjuster => JulianCalendar.Instance.Adjuster;
-
-    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -186,7 +169,7 @@ public partial struct JulianDate // Factories
     [Pure]
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
-        Scope.Validate(dayNumber);
+        Calendar.Scope.Validate(dayNumber);
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);

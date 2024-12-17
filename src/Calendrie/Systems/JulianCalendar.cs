@@ -20,19 +20,17 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
     /// <summary>
-    /// Represents a singleton instance of the underlying schema.
-    /// </summary>
-    internal static readonly JulianSchema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/>
     /// class.
-    /// <para>See also <seealso cref="JulianDate.Calendar"/>.</para>
     /// </summary>
-    private JulianCalendar() : base("Julian", new JulianScope(new JulianSchema())) { }
+    private JulianCalendar() : base("Julian", new JulianScope(new JulianSchema()))
+    {
+        UnderlyingSchema = (JulianSchema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="JulianCalendar"/> class.
+    /// <para>See also <seealso cref="JulianDate.Calendar"/>.</para>
     /// </summary>
     public static JulianCalendar Instance { get; } = new();
 
@@ -45,4 +43,9 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => JulianScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal JulianSchema UnderlyingSchema { get; }
 }
