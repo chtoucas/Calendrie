@@ -1,22 +1,22 @@
 Summary
-  Generated on: 17/12/2024 - 07:24:47
+  Generated on: 17/12/2024 - 07:32:40
   Parser: OpenCover
   Assemblies: 2
   Classes: 139
   Files: 134
   Line coverage: 94.5%
-  Covered lines: 5770
-  Uncovered lines: 335
+  Covered lines: 5771
+  Uncovered lines: 334
   Coverable lines: 6105
   Total lines: 24050
   Branch coverage: 96.3% (1448 of 1503)
   Covered branches: 1448
   Total branches: 1503
-  Method coverage: 94.4% (2224 of 2355)
-  Covered methods: 2224
+  Method coverage: 94.4% (2225 of 2355)
+  Covered methods: 2225
   Total methods: 2355
 
-Calendrie                                               99.9%
+Calendrie                                              100.0%
   Calendrie.Core.CalendricalSchema                     100.0%
   Calendrie.Core.CalendricalSegment                    100.0%
   Calendrie.Core.CalendricalSegmentBuilder             100.0%
@@ -93,7 +93,7 @@ Calendrie                                               99.9%
   Calendrie.Systems.CalendarSystem<T>                  100.0%
   Calendrie.Systems.CivilCalendar                      100.0%
   Calendrie.Systems.CivilDate                          100.0%
-  Calendrie.Systems.CivilScope                          96.9%
+  Calendrie.Systems.CivilScope                         100.0%
   Calendrie.Systems.Coptic13Calendar                   100.0%
   Calendrie.Systems.Coptic13Date                       100.0%
   Calendrie.Systems.CopticCalendar                     100.0%

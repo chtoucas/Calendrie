@@ -17,6 +17,11 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
+// Not an actual StandardScope but close enough.
+[<Sealed>]
+type CivilTests() =
+    inherit CivilScopeFacts<GregorianDataSet>(new CivilScope(new CivilSchema()))
+
 module Prelude =
     [<Fact>]
     let ``Constructor throws when "schema" is null`` () =
