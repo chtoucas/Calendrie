@@ -1,147 +1,160 @@
 Summary
-  Generated on: 12/12/2024 - 09:48:53
+  Generated on: 17/12/2024 - 07:24:47
   Parser: OpenCover
   Assemblies: 2
-  Classes: 126
-  Files: 120
-  Line coverage: 98.3%
-  Covered lines: 5638
-  Uncovered lines: 95
-  Coverable lines: 5733
-  Total lines: 22425
-  Branch coverage: 97.7% (1434 of 1467)
-  Covered branches: 1434
-  Total branches: 1467
-  Method coverage: 98.2% (2146 of 2185)
-  Covered methods: 2146
-  Total methods: 2185
+  Classes: 139
+  Files: 134
+  Line coverage: 94.5%
+  Covered lines: 5770
+  Uncovered lines: 335
+  Coverable lines: 6105
+  Total lines: 24050
+  Branch coverage: 96.3% (1448 of 1503)
+  Covered branches: 1448
+  Total branches: 1503
+  Method coverage: 94.4% (2224 of 2355)
+  Covered methods: 2224
+  Total methods: 2355
 
-Calendrie                                             100.0%
-  Calendrie.Core.CalendricalSchema                    100.0%
-  Calendrie.Core.CalendricalSegment                   100.0%
-  Calendrie.Core.CalendricalSegmentBuilder            100.0%
-  Calendrie.Core.Intervals.Interval                   100.0%
-  Calendrie.Core.Intervals.LowerRay                   100.0%
-  Calendrie.Core.Intervals.LowerRay<T>                100.0%
-  Calendrie.Core.Intervals.Range                      100.0%
-  Calendrie.Core.Intervals.Range<T>                   100.0%
-  Calendrie.Core.Intervals.RangeSet                   100.0%
-  Calendrie.Core.Intervals.RangeSet<T>                100.0%
-  Calendrie.Core.Intervals.UpperRay                   100.0%
-  Calendrie.Core.Intervals.UpperRay<T>                100.0%
-  Calendrie.Core.MonthsCalculator                     100.0%
-  Calendrie.Core.PartsAdapter                         100.0%
-  Calendrie.Core.Schemas.CivilFormulae                100.0%
-  Calendrie.Core.Schemas.CivilSchema                  100.0%
-  Calendrie.Core.Schemas.Coptic12Schema               100.0%
-  Calendrie.Core.Schemas.Coptic13Schema               100.0%
-  Calendrie.Core.Schemas.CopticSchema                 100.0%
-  Calendrie.Core.Schemas.Egyptian12Schema             100.0%
-  Calendrie.Core.Schemas.Egyptian13Schema             100.0%
-  Calendrie.Core.Schemas.EgyptianSchema               100.0%
-  Calendrie.Core.Schemas.FrenchRepublican12Schema     100.0%
-  Calendrie.Core.Schemas.FrenchRepublican13Schema     100.0%
-  Calendrie.Core.Schemas.FrenchRepublicanSchema       100.0%
-  Calendrie.Core.Schemas.GJSchema                     100.0%
-  Calendrie.Core.Schemas.GregorianFormulae            100.0%
-  Calendrie.Core.Schemas.GregorianSchema              100.0%
-  Calendrie.Core.Schemas.InternationalFixedSchema     100.0%
-  Calendrie.Core.Schemas.JulianFormulae               100.0%
-  Calendrie.Core.Schemas.JulianSchema                 100.0%
-  Calendrie.Core.Schemas.Persian2820Schema            100.0%
-  Calendrie.Core.Schemas.PositivistSchema             100.0%
-  Calendrie.Core.Schemas.PtolemaicSchema              100.0%
-  Calendrie.Core.Schemas.TabularIslamicSchema         100.0%
-  Calendrie.Core.Schemas.Tropicalia3031Schema         100.0%
-  Calendrie.Core.Schemas.Tropicalia3130Schema         100.0%
-  Calendrie.Core.Schemas.TropicaliaSchema             100.0%
-  Calendrie.Core.Schemas.TropicalistaSchema           100.0%
-  Calendrie.Core.Schemas.WorldSchema                  100.0%
-  Calendrie.Core.SystemSchema                         100.0%
-  Calendrie.Core.Utilities.MathN                      100.0%
-  Calendrie.Core.Utilities.MathT                      100.0%
-  Calendrie.Core.Utilities.MathU                      100.0%
-  Calendrie.Core.Utilities.MathZ                      100.0%
-  Calendrie.Core.Utilities.OrderedPair                100.0%
-  Calendrie.Core.Utilities.OrderedPair<T>             100.0%
-  Calendrie.Core.Utilities.Requires                   100.0%
-  Calendrie.Core.Utilities.ThrowHelpers               100.0%
-  Calendrie.Core.Validation.DomainExtensions          100.0%
-  Calendrie.Core.Validation.GregorianPreValidator     100.0%
-  Calendrie.Core.Validation.ICalendricalPreValidator  100.0%
-  Calendrie.Core.Validation.JulianPreValidator        100.0%
-  Calendrie.Core.Validation.LunarPreValidator         100.0%
-  Calendrie.Core.Validation.LunisolarPreValidator     100.0%
-  Calendrie.Core.Validation.PlainPreValidator         100.0%
-  Calendrie.Core.Validation.Solar12PreValidator       100.0%
-  Calendrie.Core.Validation.Solar13PreValidator       100.0%
-  Calendrie.Core.Validation.YearsValidator            100.0%
-  Calendrie.Core.Yedoy                                100.0%
-  Calendrie.Core.Yemo                                 100.0%
-  Calendrie.Core.Yemoda                               100.0%
-  Calendrie.DateParts                                 100.0%
-  Calendrie.DayNumber                                 100.0%
-  Calendrie.DayZero                                   100.0%
-  Calendrie.Hemerology.Calendar                       100.0%
-  Calendrie.Hemerology.CalendarScope                  100.0%
-  Calendrie.Hemerology.YearNumbering                  100.0%
-  Calendrie.MonthParts                                100.0%
-  Calendrie.Ord                                       100.0%
-  Calendrie.OrdinalParts                              100.0%
-  Calendrie.Systems.Armenian13Calendar                100.0%
-  Calendrie.Systems.Armenian13Date                    100.0%
-  Calendrie.Systems.ArmenianCalendar                  100.0%
-  Calendrie.Systems.ArmenianDate                      100.0%
-  Calendrie.Systems.CalendarSystem<T>                 100.0%
-  Calendrie.Systems.CivilCalendar                     100.0%
-  Calendrie.Systems.CivilDate                         100.0%
-  Calendrie.Systems.CivilScope                        100.0%
-  Calendrie.Systems.Coptic13Calendar                  100.0%
-  Calendrie.Systems.Coptic13Date                      100.0%
-  Calendrie.Systems.CopticCalendar                    100.0%
-  Calendrie.Systems.CopticDate                        100.0%
-  Calendrie.Systems.DateAdjuster<T>                   100.0%
-  Calendrie.Systems.Ethiopic13Calendar                100.0%
-  Calendrie.Systems.Ethiopic13Date                    100.0%
-  Calendrie.Systems.EthiopicCalendar                  100.0%
-  Calendrie.Systems.EthiopicDate                      100.0%
-  Calendrie.Systems.GregorianCalendar                 100.0%
-  Calendrie.Systems.GregorianDate                     100.0%
-  Calendrie.Systems.GregorianScope                    100.0%
-  Calendrie.Systems.JulianCalendar                    100.0%
-  Calendrie.Systems.JulianDate                        100.0%
-  Calendrie.Systems.JulianScope                       100.0%
-  Calendrie.Systems.ProlepticScope                    100.0%
-  Calendrie.Systems.ProlepticYearsValidator           100.0%
-  Calendrie.Systems.StandardScope                     100.0%
-  Calendrie.Systems.StandardYearsValidator            100.0%
-  Calendrie.Systems.TabularIslamicCalendar            100.0%
-  Calendrie.Systems.TabularIslamicDate                100.0%
-  Calendrie.Systems.WorldCalendar                     100.0%
-  Calendrie.Systems.WorldDate                         100.0%
-  Calendrie.Systems.Zoroastrian13Calendar             100.0%
-  Calendrie.Systems.Zoroastrian13Date                 100.0%
-  Calendrie.Systems.ZoroastrianCalendar               100.0%
-  Calendrie.Systems.ZoroastrianDate                   100.0%
+Calendrie                                               99.9%
+  Calendrie.Core.CalendricalSchema                     100.0%
+  Calendrie.Core.CalendricalSegment                    100.0%
+  Calendrie.Core.CalendricalSegmentBuilder             100.0%
+  Calendrie.Core.Intervals.Interval                    100.0%
+  Calendrie.Core.Intervals.LowerRay                    100.0%
+  Calendrie.Core.Intervals.LowerRay<T>                 100.0%
+  Calendrie.Core.Intervals.Range                       100.0%
+  Calendrie.Core.Intervals.Range<T>                    100.0%
+  Calendrie.Core.Intervals.RangeSet                    100.0%
+  Calendrie.Core.Intervals.RangeSet<T>                 100.0%
+  Calendrie.Core.Intervals.UpperRay                    100.0%
+  Calendrie.Core.Intervals.UpperRay<T>                 100.0%
+  Calendrie.Core.MonthsCalculator                      100.0%
+  Calendrie.Core.PartsAdapter                          100.0%
+  Calendrie.Core.Schemas.CivilFormulae                 100.0%
+  Calendrie.Core.Schemas.CivilSchema                   100.0%
+  Calendrie.Core.Schemas.Coptic12Schema                100.0%
+  Calendrie.Core.Schemas.Coptic13Schema                100.0%
+  Calendrie.Core.Schemas.CopticSchema                  100.0%
+  Calendrie.Core.Schemas.Egyptian12Schema              100.0%
+  Calendrie.Core.Schemas.Egyptian13Schema              100.0%
+  Calendrie.Core.Schemas.EgyptianSchema                100.0%
+  Calendrie.Core.Schemas.FrenchRepublican12Schema      100.0%
+  Calendrie.Core.Schemas.FrenchRepublican13Schema      100.0%
+  Calendrie.Core.Schemas.FrenchRepublicanSchema        100.0%
+  Calendrie.Core.Schemas.GJSchema                      100.0%
+  Calendrie.Core.Schemas.GregorianFormulae             100.0%
+  Calendrie.Core.Schemas.GregorianSchema               100.0%
+  Calendrie.Core.Schemas.InternationalFixedSchema      100.0%
+  Calendrie.Core.Schemas.JulianFormulae                100.0%
+  Calendrie.Core.Schemas.JulianSchema                  100.0%
+  Calendrie.Core.Schemas.Persian2820Schema             100.0%
+  Calendrie.Core.Schemas.PositivistSchema              100.0%
+  Calendrie.Core.Schemas.PtolemaicSchema               100.0%
+  Calendrie.Core.Schemas.TabularIslamicSchema          100.0%
+  Calendrie.Core.Schemas.Tropicalia3031Schema          100.0%
+  Calendrie.Core.Schemas.Tropicalia3130Schema          100.0%
+  Calendrie.Core.Schemas.TropicaliaSchema              100.0%
+  Calendrie.Core.Schemas.TropicalistaSchema            100.0%
+  Calendrie.Core.Schemas.WorldSchema                   100.0%
+  Calendrie.Core.SystemSchema                          100.0%
+  Calendrie.Core.Utilities.MathN                       100.0%
+  Calendrie.Core.Utilities.MathT                       100.0%
+  Calendrie.Core.Utilities.MathZ                       100.0%
+  Calendrie.Core.Utilities.OrderedPair                 100.0%
+  Calendrie.Core.Utilities.OrderedPair<T>              100.0%
+  Calendrie.Core.Utilities.Requires                    100.0%
+  Calendrie.Core.Utilities.ThrowHelpers                100.0%
+  Calendrie.Core.Validation.GregorianPreValidator      100.0%
+  Calendrie.Core.Validation.ICalendricalPreValidator   100.0%
+  Calendrie.Core.Validation.JulianPreValidator         100.0%
+  Calendrie.Core.Validation.LunarPreValidator          100.0%
+  Calendrie.Core.Validation.LunisolarPreValidator      100.0%
+  Calendrie.Core.Validation.PlainPreValidator          100.0%
+  Calendrie.Core.Validation.Solar12PreValidator        100.0%
+  Calendrie.Core.Validation.Solar13PreValidator        100.0%
+  Calendrie.Core.Validation.YearsValidator             100.0%
+  Calendrie.Core.Yedoy                                 100.0%
+  Calendrie.Core.Yemo                                  100.0%
+  Calendrie.Core.Yemoda                                100.0%
+  Calendrie.DateParts                                  100.0%
+  Calendrie.DayNumber                                  100.0%
+  Calendrie.DayZero                                    100.0%
+  Calendrie.Hemerology.Calendar                        100.0%
+  Calendrie.Hemerology.CalendarScope                   100.0%
+  Calendrie.Hemerology.NakedCalendar                   100.0%
+  Calendrie.MonthParts                                 100.0%
+  Calendrie.Ord                                        100.0%
+  Calendrie.OrdinalParts                               100.0%
+  Calendrie.Systems.Armenian13Calendar                 100.0%
+  Calendrie.Systems.Armenian13Date                     100.0%
+  Calendrie.Systems.ArmenianCalendar                   100.0%
+  Calendrie.Systems.ArmenianDate                       100.0%
+  Calendrie.Systems.CalendarSystem<T>                  100.0%
+  Calendrie.Systems.CivilCalendar                      100.0%
+  Calendrie.Systems.CivilDate                          100.0%
+  Calendrie.Systems.CivilScope                          96.9%
+  Calendrie.Systems.Coptic13Calendar                   100.0%
+  Calendrie.Systems.Coptic13Date                       100.0%
+  Calendrie.Systems.CopticCalendar                     100.0%
+  Calendrie.Systems.CopticDate                         100.0%
+  Calendrie.Systems.DateAdjuster<T>                    100.0%
+  Calendrie.Systems.Ethiopic13Calendar                 100.0%
+  Calendrie.Systems.Ethiopic13Date                     100.0%
+  Calendrie.Systems.EthiopicCalendar                   100.0%
+  Calendrie.Systems.EthiopicDate                       100.0%
+  Calendrie.Systems.GregorianCalendar                  100.0%
+  Calendrie.Systems.GregorianDate                      100.0%
+  Calendrie.Systems.GregorianScope                     100.0%
+  Calendrie.Systems.JulianCalendar                     100.0%
+  Calendrie.Systems.JulianDate                         100.0%
+  Calendrie.Systems.JulianScope                        100.0%
+  Calendrie.Systems.ProlepticScope                     100.0%
+  Calendrie.Systems.ProlepticYearsValidator            100.0%
+  Calendrie.Systems.StandardScope                      100.0%
+  Calendrie.Systems.StandardYearsValidator             100.0%
+  Calendrie.Systems.TabularIslamicCalendar             100.0%
+  Calendrie.Systems.TabularIslamicDate                 100.0%
+  Calendrie.Systems.WorldCalendar                      100.0%
+  Calendrie.Systems.WorldDate                          100.0%
+  Calendrie.Systems.Zoroastrian13Calendar              100.0%
+  Calendrie.Systems.Zoroastrian13Date                  100.0%
+  Calendrie.Systems.ZoroastrianCalendar                100.0%
+  Calendrie.Systems.ZoroastrianDate                    100.0%
+  Calendrie.YearNumbering                              100.0%
 
-Calendrie.Sketches                                     87.3%
-  Calendrie.AdditionRuleset                           100.0%
-  Calendrie.Core.DoomsdayRule                         100.0%
-  Calendrie.Core.Intervals.IntervalExtra              100.0%
-  Calendrie.Core.Intervals.Lavretni                   100.0%
-  Calendrie.Core.Intervals.Unbounded<T>               100.0%
-  Calendrie.Core.PrototypalSchema                     100.0%
-  Calendrie.Core.PrototypalSchemaSlim                 100.0%
-  Calendrie.Core.Schemas.PaxSchema                     73.7%
-  Calendrie.Core.Utilities.RequiresEx                 100.0%
-  Calendrie.Extensions.CivilExtensions                 29.4%
-  Calendrie.Extensions.DayNumberExtensions             20.0%
-  Calendrie.Extensions.GregorianExtensions             22.7%
-  Calendrie.Extensions.JulianExtensions               100.0%
-  Calendrie.Hemerology.BoundedBelowCalendar           100.0%
-  Calendrie.Hemerology.BoundedBelowScope              100.0%
-  Calendrie.Hemerology.MinMaxYearCalendar             100.0%
-  Calendrie.Hemerology.MinMaxYearScope                100.0%
-  Calendrie.Systems.GregorianReform                   100.0%
-  Calendrie.Systems.OrthodoxKalendar                    0.0%
-  Calendrie.Systems.RomanKalendar                      63.4%
+Calendrie.Sketches                                      70.5%
+  Calendrie.AdditionRuleset                            100.0%
+  Calendrie.Core.DoomsdayRule                          100.0%
+  Calendrie.Core.Intervals.IntervalExtra               100.0%
+  Calendrie.Core.Intervals.Lavretni                    100.0%
+  Calendrie.Core.Intervals.Unbounded<T>                100.0%
+  Calendrie.Core.OffsettedSchema                         0.0%
+  Calendrie.Core.OffsettedSchema<T>                      0.0%
+  Calendrie.Core.OffsettedSchemaPlus                     0.0%
+  Calendrie.Core.OffsettedSchemaPlus<T>                  0.0%
+  Calendrie.Core.PrototypalSchema                      100.0%
+  Calendrie.Core.PrototypalSchemaSlim                  100.0%
+  Calendrie.Core.Schemas.GregorianFormulae2            100.0%
+  Calendrie.Core.Schemas.JulianFormulae2               100.0%
+  Calendrie.Core.Schemas.PaxSchema                      74.1%
+  Calendrie.Core.Utilities.MathU                       100.0%
+  Calendrie.Core.Utilities.RequiresEx                  100.0%
+  Calendrie.Core.Validation.DomainExtensions           100.0%
+  Calendrie.Core.Validation.GregorianPreValidator2     100.0%
+  Calendrie.Core.Validation.JulianPreValidator2        100.0%
+  Calendrie.Extensions.CivilDateExtensions             100.0%
+  Calendrie.Extensions.DayNumberExtensions              20.0%
+  Calendrie.Extensions.GregorianDateExtensions         100.0%
+  Calendrie.Extensions.JulianDateExtensions            100.0%
+  Calendrie.Hemerology.BoundedBelowCalendar             94.4%
+  Calendrie.Hemerology.BoundedBelowDayNumberProvider    12.8%
+  Calendrie.Hemerology.BoundedBelowScope                92.5%
+  Calendrie.Hemerology.MinMaxYearCalendar               80.0%
+  Calendrie.Hemerology.MinMaxYearDatePartsProvider      14.2%
+  Calendrie.Hemerology.MinMaxYearDayNumberProvider      17.9%
+  Calendrie.Hemerology.MinMaxYearOrdinalPartsProvider   15.2%
+  Calendrie.Hemerology.MinMaxYearScope                  76.5%
+  Calendrie.Systems.GregorianReform                    100.0%
+  Calendrie.Systems.OrthodoxKalendar                     0.0%
+  Calendrie.Systems.RomanKalendar                       63.4%

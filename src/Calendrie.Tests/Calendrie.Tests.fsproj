@@ -72,6 +72,7 @@
     <Compile Include="Tests\Systems\StandardScopeTests.fs" />
     <Compile Include="Tests\Systems\StandardScopeTestSuite.fs" />
     <Compile Include="Tests\Systems\StandardYearsValidatorTests.fs" />
+    <Compile Include="Tests\Systems\ProlepticScopeTestSuite.fs" />
     <Compile Include="Tests\Systems\ProlepticYearsValidatorTests.fs" />
     <Compile Include="Tests\Systems\DateAdjusterTests.fs" />
     <Compile Include="Tests\Systems\ArmenianTests.fs" />
