@@ -322,7 +322,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
     }
 
-    [Conditional("DEBUG")]
+    [Conditional("DEBUG"), ExcludeFromCodeCoverage]
     private void __ValidateYear(int year) => ValidateYear(year);
 
     [Pure]

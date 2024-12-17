@@ -276,8 +276,7 @@ public partial struct Yemo // Binary data helpers
         }
     }
 
-    [Conditional("DEBUG")]
-    [ExcludeFromCodeCoverage]
+    [Conditional("DEBUG"), ExcludeFromCodeCoverage]
     private static void __CheckBinaryData(int bin) => ValidateBinaryData(bin);
 }
 
