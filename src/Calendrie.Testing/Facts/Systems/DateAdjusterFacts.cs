@@ -3,7 +3,6 @@
 
 namespace Calendrie.Testing.Facts.Systems;
 
-using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 using Calendrie.Systems;
 using Calendrie.Testing.Data;
@@ -11,7 +10,7 @@ using Calendrie.Testing.Facts.Hemerology;
 
 public abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     IDateAdjusterFacts<DateAdjuster<TDate>, TDate, TDataSet>
-    where TDate : struct, IAdjustable<TDate>, IDate<TDate>, IFixedDateFactory<TDate>
+    where TDate : struct, IDate<TDate>, IFixedDateFactory<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected DateAdjusterFacts(DateAdjuster<TDate> adjuster)

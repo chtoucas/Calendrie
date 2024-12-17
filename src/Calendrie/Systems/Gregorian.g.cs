@@ -22,7 +22,6 @@ using Calendrie.Hemerology;
 public readonly partial struct GregorianDate :
     IDate<GregorianDate, GregorianCalendar>,
     IFixedDateFactory<GregorianDate>,
-    IAdjustable<GregorianDate>,
     ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
 

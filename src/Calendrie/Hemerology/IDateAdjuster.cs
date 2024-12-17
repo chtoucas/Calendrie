@@ -3,7 +3,7 @@
 
 namespace Calendrie.Hemerology;
 
-// TODO(code): adjusters. Adjust(). Default impl for AdjustYear() & co?
+// REVIEW(code): adjusters.
 // Merge IAdjustableDate w/ IDate? Hum no because we have also IAffineDate.
 // Le seul avantage à avoir ces méthodes sur un objet date est qu'on peut ne
 // pas avoir à revalider les paramètres.
@@ -45,7 +45,7 @@ namespace Calendrie.Hemerology;
 /// Defines an adjuster for <typeparamref name="TDate"/>.
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public interface IDateAdjuster<TDate>
+public interface IDateAdjuster<TDate> where TDate : IDateable
 {
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.

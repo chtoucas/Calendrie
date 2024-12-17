@@ -285,8 +285,6 @@ Calendrie.Core.SystemSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.
 Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
 Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
 Calendrie.Core.SystemSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.Utilities.IAdjustable<TSelf>
-Calendrie.Core.Utilities.IAdjustable<TSelf>.Adjust(System.Func<TSelf, TSelf>! adjuster) -> TSelf
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>.Max(TSelf x, TSelf y) -> TSelf
 Calendrie.Core.Utilities.IMinMaxFunction<TSelf>.Min(TSelf x, TSelf y) -> TSelf
@@ -431,6 +429,7 @@ Calendrie.Hemerology.IDate<TSelf, TCalendar>
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar!
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IDate<TSelf>
+Calendrie.Hemerology.IDate<TSelf>.Adjust(System.Func<TSelf, TSelf>! adjuster) -> TSelf
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
 Calendrie.Hemerology.IDateable.CenturyOfEra.get -> Calendrie.Ord

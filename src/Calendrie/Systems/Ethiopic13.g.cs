@@ -97,7 +97,6 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 public readonly partial struct Ethiopic13Date :
     IDate<Ethiopic13Date, Ethiopic13Calendar>,
     IFixedDateFactory<Ethiopic13Date>,
-    IAdjustable<Ethiopic13Date>,
     ISubtractionOperators<Ethiopic13Date, Ethiopic13Date, int>
 { }
 

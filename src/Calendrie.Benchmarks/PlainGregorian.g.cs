@@ -99,7 +99,6 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
     IFixedDateFactory<PlainGregorianDate>,
-    IAdjustable<PlainGregorianDate>,
     ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>
 { }
 

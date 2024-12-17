@@ -100,7 +100,6 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 public readonly partial struct PlainJulianDate :
     IDate<PlainJulianDate, PlainJulianCalendar>,
     IFixedDateFactory<PlainJulianDate>,
-    IAdjustable<PlainJulianDate>,
     ISubtractionOperators<PlainJulianDate, PlainJulianDate, int>
 { }
 

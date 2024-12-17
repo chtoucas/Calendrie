@@ -97,7 +97,6 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
     IFixedDateFactory<WorldDate>,
-    IAdjustable<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>
 { }
 

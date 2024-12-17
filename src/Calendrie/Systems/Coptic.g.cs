@@ -97,7 +97,6 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 public readonly partial struct CopticDate :
     IDate<CopticDate, CopticCalendar>,
     IFixedDateFactory<CopticDate>,
-    IAdjustable<CopticDate>,
     ISubtractionOperators<CopticDate, CopticDate, int>
 { }
 

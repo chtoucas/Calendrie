@@ -97,7 +97,6 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
 public readonly partial struct ArmenianDate :
     IDate<ArmenianDate, ArmenianCalendar>,
     IFixedDateFactory<ArmenianDate>,
-    IAdjustable<ArmenianDate>,
     ISubtractionOperators<ArmenianDate, ArmenianDate, int>
 { }
 

@@ -97,7 +97,6 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
     IFixedDateFactory<ZoroastrianDate>,
-    IAdjustable<ZoroastrianDate>,
     ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
 { }
 
