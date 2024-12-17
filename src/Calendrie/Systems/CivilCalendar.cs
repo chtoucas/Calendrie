@@ -22,16 +22,16 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// </summary>
-    private CivilCalendar() : base("Civil", new CivilScope(new CivilSchema()))
+    private CivilCalendar(CivilSchema schema, CivilScope scope) : base("Civil", scope)
     {
-        UnderlyingSchema = (CivilSchema)Schema;
+        UnderlyingSchema = schema;
     }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
     /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
     /// </summary>
-    public static CivilCalendar Instance { get; } = new();
+    public static CivilCalendar Instance { get; } = CreateInstance();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -51,4 +51,14 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     // the actual schema type; we only get an ICalendricalSchema. This property
     // is here to circumvent this problem.
     internal CivilSchema UnderlyingSchema { get; }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilCalendar"/> class.
+    /// </summary>
+    private static CivilCalendar CreateInstance()
+    {
+        var sch = new CivilSchema();
+
+        return new(sch, new CivilScope(sch));
+    }
 }

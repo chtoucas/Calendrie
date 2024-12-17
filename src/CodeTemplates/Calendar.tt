@@ -113,17 +113,17 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
     /// </summary>
-    private <#= Prefix #>Calendar()
-        : base("<#= DisplayName #>", new <#= ScopeClass #>(new <#= SchemaClass #>(), <#= Epoch #>))
+    private <#= Prefix #>Calendar(<#= SchemaClass #> schema, <#= ScopeClass #> scope)
+        : base("<#= DisplayName #>", scope)
     {
-        UnderlyingSchema = (<#= SchemaClass #>)Schema;
+        UnderlyingSchema = schema;
     }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="<#= Prefix #>Calendar"/> class.
     /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
-    public static <#= Prefix #>Calendar Instance { get; } = new();
+    public static <#= Prefix #>Calendar Instance { get; } = CreateInstance();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -139,6 +139,16 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// Gets the schema.
     /// </summary>
     internal <#= SchemaClass #> UnderlyingSchema { get; }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="ArmenianCalendar"/> class.
+    /// </summary>
+    private static <#= Prefix #>Calendar CreateInstance()
+    {
+        var sch = new <#= SchemaClass #>();
+
+        return new(sch, new <#= ScopeClass #>(sch, <#= Epoch #>));
+    }
 }
 <#+
     } // T4: End of EmitCalendar()

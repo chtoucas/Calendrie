@@ -29,17 +29,17 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
     /// </summary>
-    private Ethiopic13Calendar()
-        : base("Ethiopic", new StandardScope(new Coptic13Schema(), DayZero.Ethiopic))
+    private Ethiopic13Calendar(Coptic13Schema schema, StandardScope scope)
+        : base("Ethiopic", scope)
     {
-        UnderlyingSchema = (Coptic13Schema)Schema;
+        UnderlyingSchema = schema;
     }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Ethiopic13Calendar"/> class.
     /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
-    public static Ethiopic13Calendar Instance { get; } = new();
+    public static Ethiopic13Calendar Instance { get; } = CreateInstance();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -55,6 +55,16 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// Gets the schema.
     /// </summary>
     internal Coptic13Schema UnderlyingSchema { get; }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="ArmenianCalendar"/> class.
+    /// </summary>
+    private static Ethiopic13Calendar CreateInstance()
+    {
+        var sch = new Coptic13Schema();
+
+        return new(sch, new StandardScope(sch, DayZero.Ethiopic));
+    }
 }
 
 /// <summary>

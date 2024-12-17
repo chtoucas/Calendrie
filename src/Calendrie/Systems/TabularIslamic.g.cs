@@ -29,17 +29,17 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// </summary>
-    private TabularIslamicCalendar()
-        : base("Tabular Islamic", new StandardScope(new TabularIslamicSchema(), DayZero.TabularIslamic))
+    private TabularIslamicCalendar(TabularIslamicSchema schema, StandardScope scope)
+        : base("Tabular Islamic", scope)
     {
-        UnderlyingSchema = (TabularIslamicSchema)Schema;
+        UnderlyingSchema = schema;
     }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
     /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
-    public static TabularIslamicCalendar Instance { get; } = new();
+    public static TabularIslamicCalendar Instance { get; } = CreateInstance();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -55,6 +55,16 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// Gets the schema.
     /// </summary>
     internal TabularIslamicSchema UnderlyingSchema { get; }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="ArmenianCalendar"/> class.
+    /// </summary>
+    private static TabularIslamicCalendar CreateInstance()
+    {
+        var sch = new TabularIslamicSchema();
+
+        return new(sch, new StandardScope(sch, DayZero.TabularIslamic));
+    }
 }
 
 /// <summary>
