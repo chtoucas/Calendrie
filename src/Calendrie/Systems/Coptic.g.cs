@@ -49,10 +49,7 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
     /// </summary>
-    private CopticCalendar(StandardScope scope) : base("Coptic", scope)
-    {
-        Adjuster = new DateAdjuster<CopticDate>(this);
-    }
+    private CopticCalendar(StandardScope scope) : base("Coptic", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
@@ -71,11 +68,6 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<CopticDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -170,12 +162,6 @@ public partial struct CopticDate // Preamble
     /// <inheritdoc />
     public static CopticCalendar Calendar => CopticCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<CopticDate> Adjuster => CopticCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -269,6 +255,12 @@ public partial struct CopticDate // Preamble
     private static StandardScope Scope => CopticCalendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<CopticDate> Adjuster => CopticCalendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -334,7 +326,6 @@ public partial struct CopticDate // Counting
 public partial struct CopticDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public CopticDate Adjust(Func<CopticDate, CopticDate> adjuster)
     {

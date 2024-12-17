@@ -32,10 +32,7 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
     /// </summary>
-    private GregorianCalendar(GregorianScope scope) : base("Gregorian", scope)
-    {
-        Adjuster = new DateAdjuster<GregorianDate>(this);
-    }
+    private GregorianCalendar(GregorianScope scope) : base("Gregorian", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
@@ -51,11 +48,6 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => GregorianScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<GregorianDate> Adjuster { get; }
 
     private static class Singleton
     {

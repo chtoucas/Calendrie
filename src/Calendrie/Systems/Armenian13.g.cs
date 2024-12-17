@@ -49,10 +49,7 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
     /// <summary>
     /// Initializes a new instance of the <see cref="Armenian13Calendar"/> class.
     /// </summary>
-    private Armenian13Calendar(StandardScope scope) : base("Armenian", scope)
-    {
-        Adjuster = new DateAdjuster<Armenian13Date>(this);
-    }
+    private Armenian13Calendar(StandardScope scope) : base("Armenian", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Armenian13Calendar"/> class.
@@ -71,11 +68,6 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<Armenian13Date> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -170,12 +162,6 @@ public partial struct Armenian13Date // Preamble
     /// <inheritdoc />
     public static Armenian13Calendar Calendar => Armenian13Calendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<Armenian13Date> Adjuster => Armenian13Calendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -269,6 +255,12 @@ public partial struct Armenian13Date // Preamble
     private static StandardScope Scope => Armenian13Calendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<Armenian13Date> Adjuster => Armenian13Calendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -334,7 +326,6 @@ public partial struct Armenian13Date // Counting
 public partial struct Armenian13Date // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public Armenian13Date Adjust(Func<Armenian13Date, Armenian13Date> adjuster)
     {

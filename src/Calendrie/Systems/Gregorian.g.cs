@@ -69,7 +69,6 @@ public partial struct GregorianDate // Counting
 public partial struct GregorianDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public GregorianDate Adjust(Func<GregorianDate, GregorianDate> adjuster)
     {

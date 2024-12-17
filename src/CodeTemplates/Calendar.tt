@@ -133,10 +133,7 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
     /// </summary>
-    private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope)
-    {
-        Adjuster = new DateAdjuster<<#= Prefix #>Date>(this);
-    }
+    private <#= Prefix #>Calendar(<#= ScopeClass #> scope) : base("<#= DisplayName #>", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="<#= Prefix #>Calendar"/> class.
@@ -155,11 +152,6 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => <#= ScopeClass #>.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<<#= Prefix #>Date> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="<#= ScopeClass #>"/> class.

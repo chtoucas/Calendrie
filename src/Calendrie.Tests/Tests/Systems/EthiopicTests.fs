@@ -48,12 +48,9 @@ module Bundles =
         [<Fact>]
         static member Calendar_Prop() = EthiopicDate.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = EthiopicDate.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<EthiopicDate, StandardEthiopic12DataSet>(EthiopicDate.Adjuster)
+        inherit DateAdjusterFacts<EthiopicDate, StandardEthiopic12DataSet>(EthiopicCalendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new EthiopicDate(y, m, d)
         override __.GetDate(y, doy) = new EthiopicDate(y, doy)
@@ -103,12 +100,9 @@ module Bundles13 =
         [<Fact>]
         static member Calendar_Prop() = Ethiopic13Date.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = Ethiopic13Date.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<Ethiopic13Date, StandardEthiopic13DataSet>(Ethiopic13Date.Adjuster)
+        inherit DateAdjusterFacts<Ethiopic13Date, StandardEthiopic13DataSet>(Ethiopic13Calendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new Ethiopic13Date(y, m, d)
         override __.GetDate(y, doy) = new Ethiopic13Date(y, doy)

@@ -47,7 +47,6 @@ public partial struct JulianDate // Counting
 public partial struct JulianDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public JulianDate Adjust(Func<JulianDate, JulianDate> adjuster)
     {

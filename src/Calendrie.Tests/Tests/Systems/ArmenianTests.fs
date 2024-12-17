@@ -48,12 +48,9 @@ module Bundles =
         [<Fact>]
         static member Calendar_Prop() = ArmenianDate.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = ArmenianDate.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<ArmenianDate, StandardArmenian12DataSet>(ArmenianDate.Adjuster)
+        inherit DateAdjusterFacts<ArmenianDate, StandardArmenian12DataSet>(ArmenianCalendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new ArmenianDate(y, m, d)
         override __.GetDate(y, doy) = new ArmenianDate(y, doy)
@@ -104,12 +101,9 @@ module Bundles13 =
         [<Fact>]
         static member Calendar_Prop() = Armenian13Date.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = Armenian13Date.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<Armenian13Date, StandardArmenian13DataSet>(Armenian13Date.Adjuster)
+        inherit DateAdjusterFacts<Armenian13Date, StandardArmenian13DataSet>(Armenian13Calendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new Armenian13Date(y, m, d)
         override __.GetDate(y, doy) = new Armenian13Date(y, doy)

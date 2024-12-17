@@ -77,12 +77,6 @@ public partial struct JulianDate
     /// <inheritdoc />
     public static JulianCalendar Calendar => JulianCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<JulianDate> Adjuster => JulianCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
@@ -159,6 +153,12 @@ public partial struct JulianDate
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static JulianScope Scope => JulianCalendar.UnderlyingScope;
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<JulianDate> Adjuster => JulianCalendar.Instance.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -51,10 +51,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
     /// </summary>
-    private PlainGregorianCalendar(StandardScope scope) : base("PlainGregorian", scope)
-    {
-        Adjuster = new DateAdjuster<PlainGregorianDate>(this);
-    }
+    private PlainGregorianCalendar(StandardScope scope) : base("PlainGregorian", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
@@ -73,11 +70,6 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<PlainGregorianDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -168,12 +160,6 @@ public partial struct PlainGregorianDate // Preamble
     /// <inheritdoc />
     public static PlainGregorianCalendar Calendar => PlainGregorianCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<PlainGregorianDate> Adjuster => PlainGregorianCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 
@@ -244,13 +230,21 @@ public partial struct PlainGregorianDate // Preamble
 
     /// <summary>
     /// Gets the underlying schema.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static GregorianSchema Schema => PlainGregorianCalendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static StandardScope Scope => PlainGregorianCalendar.UnderlyingScope;
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<PlainGregorianDate> Adjuster => PlainGregorianCalendar.Instance.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -316,7 +310,6 @@ public partial struct PlainGregorianDate // Counting
 public partial struct PlainGregorianDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public PlainGregorianDate Adjust(Func<PlainGregorianDate, PlainGregorianDate> adjuster)
     {

@@ -49,10 +49,7 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
     /// </summary>
-    private Ethiopic13Calendar(StandardScope scope) : base("Ethiopic", scope)
-    {
-        Adjuster = new DateAdjuster<Ethiopic13Date>(this);
-    }
+    private Ethiopic13Calendar(StandardScope scope) : base("Ethiopic", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Ethiopic13Calendar"/> class.
@@ -71,11 +68,6 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<Ethiopic13Date> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -170,12 +162,6 @@ public partial struct Ethiopic13Date // Preamble
     /// <inheritdoc />
     public static Ethiopic13Calendar Calendar => Ethiopic13Calendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<Ethiopic13Date> Adjuster => Ethiopic13Calendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -269,6 +255,12 @@ public partial struct Ethiopic13Date // Preamble
     private static StandardScope Scope => Ethiopic13Calendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<Ethiopic13Date> Adjuster => Ethiopic13Calendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -334,7 +326,6 @@ public partial struct Ethiopic13Date // Counting
 public partial struct Ethiopic13Date // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public Ethiopic13Date Adjust(Func<Ethiopic13Date, Ethiopic13Date> adjuster)
     {

@@ -15,39 +15,32 @@ using Calendrie.Hemerology;
 /// </para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public sealed class DateAdjuster<TDate>
+internal sealed class DateAdjuster<TDate>
     where TDate : struct, IDate<TDate>, IFixedDateFactory<TDate>
 {
-    /// <summary>
-    /// Represents the calendar scope.
-    /// </summary>
-    private readonly CalendarScope _scope;
-
-    /// <summary>
-    /// Represents the schema.
-    /// </summary>
-    private readonly ICalendricalSchema _schema;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DateAdjuster{TDate}"/>
     /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
+    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// null.</exception>
-    internal DateAdjuster(CalendarSystem<TDate> calendar)
+    public DateAdjuster(CalendarScope scope)
     {
-        ArgumentNullException.ThrowIfNull(calendar);
+        ArgumentNullException.ThrowIfNull(scope);
 
-        Calendar = calendar;
-
-        _scope = calendar.Scope;
-        _schema = calendar.Scope.Schema;
+        Scope = scope;
+        Schema = scope.Schema;
     }
 
     /// <summary>
-    /// Gets the associated calendar.
+    /// Gets the scope.
     /// </summary>
-    public CalendarSystem<TDate> Calendar { get; }
+    public CalendarScope Scope { get; }
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    private ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
@@ -59,7 +52,7 @@ public sealed class DateAdjuster<TDate>
     [Pure]
     public TDate GetStartOfYear(TDate date)
     {
-        int daysSinceEpoch = _schema.GetStartOfYear(date.Year);
+        int daysSinceEpoch = Schema.GetStartOfYear(date.Year);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -73,7 +66,7 @@ public sealed class DateAdjuster<TDate>
     [Pure]
     public TDate GetEndOfYear(TDate date)
     {
-        int daysSinceEpoch = _schema.GetEndOfYear(date.Year);
+        int daysSinceEpoch = Schema.GetEndOfYear(date.Year);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -88,7 +81,7 @@ public sealed class DateAdjuster<TDate>
     public TDate GetStartOfMonth(TDate date)
     {
         var (y, m, _) = date;
-        int daysSinceEpoch = _schema.GetStartOfMonth(y, m);
+        int daysSinceEpoch = Schema.GetStartOfMonth(y, m);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -103,7 +96,7 @@ public sealed class DateAdjuster<TDate>
     public TDate GetEndOfMonth(TDate date)
     {
         var (y, m, _) = date;
-        int daysSinceEpoch = _schema.GetEndOfMonth(y, m);
+        int daysSinceEpoch = Schema.GetEndOfMonth(y, m);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -122,9 +115,9 @@ public sealed class DateAdjuster<TDate>
     {
         var (_, m, d) = date;
         // We MUST re-validate the entire date.
-        _scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+        Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = _schema.CountDaysSinceEpoch(newYear, m, d);
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newYear, m, d);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -139,9 +132,9 @@ public sealed class DateAdjuster<TDate>
     {
         var (y, _, d) = date;
         // We only need to validate "newMonth" and "d".
-        _schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, newMonth, d);
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newMonth, d);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -158,13 +151,13 @@ public sealed class DateAdjuster<TDate>
         var (y, m, _) = date;
         // We only need to validate "newDay".
         if (newDay < 1
-            || (newDay > _schema.MinDaysInMonth
-                && newDay > _schema.CountDaysInMonth(y, m)))
+            || (newDay > Schema.MinDaysInMonth
+                && newDay > Schema.CountDaysInMonth(y, m)))
         {
             throw new ArgumentOutOfRangeException(nameof(newDay));
         }
 
-        int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -180,9 +173,9 @@ public sealed class DateAdjuster<TDate>
     {
         int y = date.Year;
         // We only need to validate "newDayOfYear".
-        _schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, newDayOfYear);
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
@@ -202,7 +195,7 @@ public sealed class DateAdjuster<TDate>
     public TDate Previous(TDate date, DayOfWeek dayOfWeek)
     {
         var dayNumber = date.DayNumber.Previous(dayOfWeek);
-        _scope.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return TDate.FromDayNumberUnchecked(dayNumber);
     }
 
@@ -220,7 +213,7 @@ public sealed class DateAdjuster<TDate>
     public TDate PreviousOrSame(TDate date, DayOfWeek dayOfWeek)
     {
         var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
-        _scope.CheckLowerBound(dayNumber);
+        Scope.CheckLowerBound(dayNumber);
         return TDate.FromDayNumberUnchecked(dayNumber);
     }
 
@@ -237,7 +230,7 @@ public sealed class DateAdjuster<TDate>
     public TDate Nearest(TDate date, DayOfWeek dayOfWeek)
     {
         var dayNumber = date.DayNumber.Nearest(dayOfWeek);
-        _scope.CheckOverflow(dayNumber);
+        Scope.CheckOverflow(dayNumber);
         return TDate.FromDayNumberUnchecked(dayNumber);
     }
 
@@ -255,7 +248,7 @@ public sealed class DateAdjuster<TDate>
     public TDate NextOrSame(TDate date, DayOfWeek dayOfWeek)
     {
         var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
-        _scope.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return TDate.FromDayNumberUnchecked(dayNumber);
     }
 
@@ -271,7 +264,7 @@ public sealed class DateAdjuster<TDate>
     public TDate Next(TDate date, DayOfWeek dayOfWeek)
     {
         var dayNumber = date.DayNumber.Next(dayOfWeek);
-        _scope.CheckUpperBound(dayNumber);
+        Scope.CheckUpperBound(dayNumber);
         return TDate.FromDayNumberUnchecked(dayNumber);
     }
 }

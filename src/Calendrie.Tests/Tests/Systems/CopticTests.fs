@@ -48,12 +48,9 @@ module Bundles =
         [<Fact>]
         static member Calendar_Prop() = CopticDate.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = CopticDate.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<CopticDate, StandardCoptic12DataSet>(CopticDate.Adjuster)
+        inherit DateAdjusterFacts<CopticDate, StandardCoptic12DataSet>(CopticCalendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new CopticDate(y, m, d)
         override __.GetDate(y, doy) = new CopticDate(y, doy)
@@ -103,12 +100,9 @@ module Bundles13 =
         [<Fact>]
         static member Calendar_Prop() = Coptic13Date.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = Coptic13Date.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<Coptic13Date, StandardCoptic13DataSet>(Coptic13Date.Adjuster)
+        inherit DateAdjusterFacts<Coptic13Date, StandardCoptic13DataSet>(Coptic13Calendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new Coptic13Date(y, m, d)
         override __.GetDate(y, doy) = new Coptic13Date(y, doy)

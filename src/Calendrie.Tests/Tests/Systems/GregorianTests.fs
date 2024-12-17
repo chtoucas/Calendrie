@@ -103,12 +103,9 @@ module Bundles =
         [<Fact>]
         static member Calendar_Prop() = GregorianDate.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = GregorianDate.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<GregorianDate, UnboundedGregorianDataSet>(GregorianDate.Adjuster)
+        inherit DateAdjusterFacts<GregorianDate, UnboundedGregorianDataSet>(GregorianCalendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new GregorianDate(y, m, d)
         override __.GetDate(y, doy) = new GregorianDate(y, doy)

@@ -177,12 +177,9 @@ module Bundles =
         [<Fact>]
         static member Calendar_Prop() = CivilDate.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = CivilDate.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<CivilDate, StandardGregorianDataSet>(CivilDate.Adjuster)
+        inherit DateAdjusterFacts<CivilDate, StandardGregorianDataSet>(CivilCalendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new CivilDate(y, m, d)
         override __.GetDate(y, doy) = new CivilDate(y, doy)

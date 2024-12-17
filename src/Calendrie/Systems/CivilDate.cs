@@ -72,12 +72,6 @@ public partial struct CivilDate
     /// <remarks>This static property is thread-safe.</remarks>
     public static CivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<CivilDate> Adjuster => CivilCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
@@ -153,8 +147,15 @@ public partial struct CivilDate
 
     /// <summary>
     /// Gets the underlying schema.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static CivilSchema Schema => CivilCalendar.UnderlyingSchema;
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<CivilDate> Adjuster => CivilCalendar.Instance.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -216,7 +217,6 @@ public partial struct CivilDate // Factories
 public partial struct CivilDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="CivilCalendar.Adjuster"/>.</remarks>
     [Pure]
     public CivilDate Adjust(Func<CivilDate, CivilDate> adjuster)
     {

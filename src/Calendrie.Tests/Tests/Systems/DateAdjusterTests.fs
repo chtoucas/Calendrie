@@ -3,6 +3,10 @@
 
 module Calendrie.Tests.Systems.DateAdjusterTests
 
+open Calendrie
+open Calendrie.Core.Intervals
+open Calendrie.Core.Schemas
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 
@@ -10,16 +14,16 @@ open Xunit
 
 module Prelude =
     [<Fact>]
-    let ``Constructor throws when the calendar is null`` () =
-        let chr: CalendarSystem<ArmenianDate> | null = null
+    let ``Constructor throws when the scope is null`` () =
+        let scope: CalendarScope | null = null
 
-        nullExn "calendar" (fun () -> new DateAdjuster<ArmenianDate>(chr))
+        nullExn "scope" (fun () -> new DateAdjuster<ArmenianDate>(scope))
 
-    //[<Fact>]
-    //let ``Property scope`` () =
-    //    let range = Range.Create(1, 2)
-    //    let scope = MinMaxYearScope.Create(new Egyptian12Schema(), DayZero.Armenian, range)
-    //    let adjuster = new FauxDateAdjuster<ArmenianDate>(scope)
+    [<Fact>]
+    let ``Property scope`` () =
+        let range = Range.Create(1, 2)
+        let scope = MinMaxYearScope.Create(new Egyptian12Schema(), DayZero.Armenian, range)
+        let adjuster = new DateAdjuster<ArmenianDate>(scope)
 
-    //    adjuster.Scope ==& scope
+        adjuster.Scope ==& scope
 

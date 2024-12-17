@@ -77,12 +77,9 @@ module Bundles =
         [<Fact>]
         static member Calendar_Prop() = JulianDate.Calendar |> isnotnull
 
-        [<Fact>]
-        static member Adjuster_Prop() = JulianDate.Adjuster |> isnotnull
-
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<JulianDate, UnboundedJulianDataSet>(JulianDate.Adjuster)
+        inherit DateAdjusterFacts<JulianDate, UnboundedJulianDataSet>(JulianCalendar.Instance.Adjuster)
 
         override __.GetDate(y, m, d) = new JulianDate(y, m, d)
         override __.GetDate(y, doy) = new JulianDate(y, doy)

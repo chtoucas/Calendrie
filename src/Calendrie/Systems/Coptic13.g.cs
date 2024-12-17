@@ -49,10 +49,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic13Calendar"/> class.
     /// </summary>
-    private Coptic13Calendar(StandardScope scope) : base("Coptic", scope)
-    {
-        Adjuster = new DateAdjuster<Coptic13Date>(this);
-    }
+    private Coptic13Calendar(StandardScope scope) : base("Coptic", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Coptic13Calendar"/> class.
@@ -71,11 +68,6 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<Coptic13Date> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -170,12 +162,6 @@ public partial struct Coptic13Date // Preamble
     /// <inheritdoc />
     public static Coptic13Calendar Calendar => Coptic13Calendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<Coptic13Date> Adjuster => Coptic13Calendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -269,6 +255,12 @@ public partial struct Coptic13Date // Preamble
     private static StandardScope Scope => Coptic13Calendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<Coptic13Date> Adjuster => Coptic13Calendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -334,7 +326,6 @@ public partial struct Coptic13Date // Counting
 public partial struct Coptic13Date // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public Coptic13Date Adjust(Func<Coptic13Date, Coptic13Date> adjuster)
     {

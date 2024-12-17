@@ -30,10 +30,7 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     /// </summary>
     private JulianCalendar() : this(new JulianScope(new JulianSchema())) { }
 
-    private JulianCalendar(JulianScope scope) : base("Julian", scope)
-    {
-        Adjuster = new DateAdjuster<JulianDate>(this);
-    }
+    private JulianCalendar(JulianScope scope) : base("Julian", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="JulianCalendar"/> class.
@@ -49,11 +46,6 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => JulianScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<JulianDate> Adjuster { get; }
 
     private static class Singleton
     {

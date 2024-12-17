@@ -75,12 +75,6 @@ public partial struct GregorianDate
     /// <inheritdoc />
     public static GregorianCalendar Calendar => GregorianCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<GregorianDate> Adjuster => GregorianCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 
@@ -159,6 +153,12 @@ public partial struct GregorianDate
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     private static GregorianScope Scope => GregorianCalendar.UnderlyingScope;
+
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<GregorianDate> Adjuster => GregorianCalendar.Instance.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

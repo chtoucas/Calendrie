@@ -49,10 +49,7 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
     /// </summary>
-    private WorldCalendar(StandardScope scope) : base("World", scope)
-    {
-        Adjuster = new DateAdjuster<WorldDate>(this);
-    }
+    private WorldCalendar(StandardScope scope) : base("World", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
@@ -71,11 +68,6 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<WorldDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -170,12 +162,6 @@ public partial struct WorldDate // Preamble
     /// <inheritdoc />
     public static WorldCalendar Calendar => WorldCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<WorldDate> Adjuster => WorldCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -269,6 +255,12 @@ public partial struct WorldDate // Preamble
     private static StandardScope Scope => WorldCalendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<WorldDate> Adjuster => WorldCalendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -334,7 +326,6 @@ public partial struct WorldDate // Counting
 public partial struct WorldDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public WorldDate Adjust(Func<WorldDate, WorldDate> adjuster)
     {

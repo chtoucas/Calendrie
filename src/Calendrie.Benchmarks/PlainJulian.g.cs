@@ -52,10 +52,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
     /// </summary>
-    private PlainJulianCalendar(StandardScope scope) : base("PlainJulian", scope)
-    {
-        Adjuster = new DateAdjuster<PlainJulianDate>(this);
-    }
+    private PlainJulianCalendar(StandardScope scope) : base("PlainJulian", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
@@ -74,11 +71,6 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<PlainJulianDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -174,12 +166,6 @@ public partial struct PlainJulianDate // Preamble
     /// <inheritdoc />
     public static PlainJulianCalendar Calendar => PlainJulianCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<PlainJulianDate> Adjuster => PlainJulianCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -265,6 +251,12 @@ public partial struct PlainJulianDate // Preamble
     private static StandardScope Scope => PlainJulianCalendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<PlainJulianDate> Adjuster => PlainJulianCalendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -330,7 +322,6 @@ public partial struct PlainJulianDate // Counting
 public partial struct PlainJulianDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public PlainJulianDate Adjust(Func<PlainJulianDate, PlainJulianDate> adjuster)
     {

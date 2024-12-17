@@ -49,10 +49,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// </summary>
-    private TabularIslamicCalendar(StandardScope scope) : base("Tabular Islamic", scope)
-    {
-        Adjuster = new DateAdjuster<TabularIslamicDate>(this);
-    }
+    private TabularIslamicCalendar(StandardScope scope) : base("Tabular Islamic", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
@@ -71,11 +68,6 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<TabularIslamicDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -170,12 +162,6 @@ public partial struct TabularIslamicDate // Preamble
     /// <inheritdoc />
     public static TabularIslamicCalendar Calendar => TabularIslamicCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<TabularIslamicDate> Adjuster => TabularIslamicCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -261,6 +247,12 @@ public partial struct TabularIslamicDate // Preamble
     private static StandardScope Scope => TabularIslamicCalendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<TabularIslamicDate> Adjuster => TabularIslamicCalendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -326,7 +318,6 @@ public partial struct TabularIslamicDate // Counting
 public partial struct TabularIslamicDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public TabularIslamicDate Adjust(Func<TabularIslamicDate, TabularIslamicDate> adjuster)
     {

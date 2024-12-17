@@ -49,10 +49,7 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
     /// </summary>
-    private ZoroastrianCalendar(StandardScope scope) : base("Zoroastrian", scope)
-    {
-        Adjuster = new DateAdjuster<ZoroastrianDate>(this);
-    }
+    private ZoroastrianCalendar(StandardScope scope) : base("Zoroastrian", scope) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="ZoroastrianCalendar"/> class.
@@ -71,11 +68,6 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets the date adjuster.
-    /// </summary>
-    public DateAdjuster<ZoroastrianDate> Adjuster { get; }
 
     /// <summary>
     /// Creates a new instance of the <see href="StandardScope"/> class.
@@ -170,12 +162,6 @@ public partial struct ZoroastrianDate // Preamble
     /// <inheritdoc />
     public static ZoroastrianCalendar Calendar => ZoroastrianCalendar.Instance;
 
-    /// <summary>
-    /// Gets the date adjuster.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateAdjuster<ZoroastrianDate> Adjuster => ZoroastrianCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -269,6 +255,12 @@ public partial struct ZoroastrianDate // Preamble
     private static StandardScope Scope => ZoroastrianCalendar.UnderlyingScope;
 
     /// <summary>
+    /// Gets the date adjuster.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    private static DateAdjuster<ZoroastrianDate> Adjuster => ZoroastrianCalendar.Instance.Adjuster;
+
+    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
@@ -334,7 +326,6 @@ public partial struct ZoroastrianDate // Counting
 public partial struct ZoroastrianDate // Adjustments
 {
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
     [Pure]
     public ZoroastrianDate Adjust(Func<ZoroastrianDate, ZoroastrianDate> adjuster)
     {
