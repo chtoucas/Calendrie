@@ -198,8 +198,6 @@ public partial struct <#= Prefix #>Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema which is only of type ICalendricalSchema.
     private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.UnderlyingSchema;
 
     /// <summary>
