@@ -1,20 +1,20 @@
 Summary
-  Generated on: 12/12/2024 - 09:48:28
+  Generated on: 17/12/2024 - 07:42:55
   Parser: OpenCover
   Assemblies: 1
-  Classes: 106
-  Files: 100
+  Classes: 105
+  Files: 101
   Line coverage: 100.0%
-  Covered lines: 4981
+  Covered lines: 4969
   Uncovered lines: 0
-  Coverable lines: 4981
-  Total lines: 19561
-  Branch coverage: 100% (1309 of 1309)
-  Covered branches: 1309
-  Total branches: 1309
-  Method coverage: 100% (1932 of 1932)
-  Covered methods: 1932
-  Total methods: 1932
+  Coverable lines: 4969
+  Total lines: 19992
+  Branch coverage: 100% (1249 of 1249)
+  Covered branches: 1249
+  Total branches: 1249
+  Method coverage: 100% (1984 of 1984)
+  Covered methods: 1984
+  Total methods: 1984
 
 Calendrie                                             100.0%
   Calendrie.Core.CalendricalSchema                    100.0%
@@ -60,13 +60,11 @@ Calendrie                                             100.0%
   Calendrie.Core.SystemSchema                         100.0%
   Calendrie.Core.Utilities.MathN                      100.0%
   Calendrie.Core.Utilities.MathT                      100.0%
-  Calendrie.Core.Utilities.MathU                      100.0%
   Calendrie.Core.Utilities.MathZ                      100.0%
   Calendrie.Core.Utilities.OrderedPair                100.0%
   Calendrie.Core.Utilities.OrderedPair<T>             100.0%
   Calendrie.Core.Utilities.Requires                   100.0%
   Calendrie.Core.Utilities.ThrowHelpers               100.0%
-  Calendrie.Core.Validation.DomainExtensions          100.0%
   Calendrie.Core.Validation.GregorianPreValidator     100.0%
   Calendrie.Core.Validation.ICalendricalPreValidator  100.0%
   Calendrie.Core.Validation.JulianPreValidator        100.0%
@@ -84,7 +82,7 @@ Calendrie                                             100.0%
   Calendrie.DayZero                                   100.0%
   Calendrie.Hemerology.Calendar                       100.0%
   Calendrie.Hemerology.CalendarScope                  100.0%
-  Calendrie.Hemerology.YearNumbering                  100.0%
+  Calendrie.Hemerology.NakedCalendar                  100.0%
   Calendrie.MonthParts                                100.0%
   Calendrie.Ord                                       100.0%
   Calendrie.OrdinalParts                              100.0%
@@ -123,3 +121,4 @@ Calendrie                                             100.0%
   Calendrie.Systems.Zoroastrian13Date                 100.0%
   Calendrie.Systems.ZoroastrianCalendar               100.0%
   Calendrie.Systems.ZoroastrianDate                   100.0%
+  Calendrie.YearNumbering                             100.0%
