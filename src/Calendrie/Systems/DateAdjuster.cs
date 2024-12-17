@@ -15,7 +15,7 @@ using Calendrie.Hemerology;
 /// </para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
+public sealed class DateAdjuster<TDate>
     where TDate : struct, IDate<TDate>, IFixedDateFactory<TDate>
 {
     /// <summary>
@@ -49,7 +49,13 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     /// </summary>
     public CalendarSystem<TDate> Calendar { get; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the first day of the year to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetStartOfYear(TDate date)
     {
@@ -57,7 +63,13 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the last day of the year to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetEndOfYear(TDate date)
     {
@@ -65,7 +77,13 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the first day of the month to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetStartOfMonth(TDate date)
     {
@@ -74,7 +92,13 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the last day of the month to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetEndOfMonth(TDate date)
     {
@@ -87,7 +111,11 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
     // Adjustments for the core parts
     //
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adjusts the year field to the specified value, yielding a new date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [Pure]
     public TDate AdjustYear(TDate date, int newYear)
     {
@@ -99,7 +127,11 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adjusts the month field to the specified value, yielding a new date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [Pure]
     public TDate AdjustMonth(TDate date, int newMonth)
     {
@@ -111,7 +143,12 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adjusts the day of the month field to the specified value, yielding a new
+    /// date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [Pure]
     public TDate AdjustDay(TDate date, int newDay)
     {
@@ -128,7 +165,12 @@ public sealed class DateAdjuster<TDate> : IDateAdjuster<TDate>
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adjusts the day of the year field to the specified value, yielding a new
+    /// date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
+    /// be invalid.</exception>
     [Pure]
     public TDate AdjustDayOfYear(TDate date, int newDayOfYear)
     {

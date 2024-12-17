@@ -9,7 +9,7 @@ using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
 public abstract partial class DateAdjusterFacts<TDate, TDataSet> :
-    IDateAdjusterFacts<DateAdjuster<TDate>, TDate, TDataSet>
+    IDateAdjusterFacts<TDate, TDataSet>
     where TDate : struct, IDate<TDate>, IFixedDateFactory<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {

@@ -443,15 +443,6 @@ Calendrie.Hemerology.IDateable.Month.get -> int
 Calendrie.Hemerology.IDateable.Year.get -> int
 Calendrie.Hemerology.IDateable.YearOfCentury.get -> int
 Calendrie.Hemerology.IDateable.YearOfEra.get -> Calendrie.Ord
-Calendrie.Hemerology.IDateAdjuster<TDate>
-Calendrie.Hemerology.IDateAdjuster<TDate>.AdjustDay(TDate date, int newDay) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.AdjustDayOfYear(TDate date, int newDayOfYear) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.AdjustMonth(TDate date, int newMonth) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.AdjustYear(TDate date, int newYear) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.GetEndOfMonth(TDate date) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.GetEndOfYear(TDate date) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.GetStartOfMonth(TDate date) -> TDate
-Calendrie.Hemerology.IDateAdjuster<TDate>.GetStartOfYear(TDate date) -> TDate
 Calendrie.Hemerology.IDateProvider<TDate>
 Calendrie.Hemerology.IDateProvider<TDate>.GetDaysInMonth(int year, int month) -> System.Collections.Generic.IEnumerable<TDate>!
 Calendrie.Hemerology.IDateProvider<TDate>.GetDaysInYear(int year) -> System.Collections.Generic.IEnumerable<TDate>!
