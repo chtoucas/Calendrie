@@ -284,6 +284,12 @@ public partial struct PlainGregorianDate // Factories
     }
 
     /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static PlainGregorianDate IFixedDateFactory<PlainGregorianDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+        new(dayNumber.DaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static PlainGregorianDate IFixedDateFactory<PlainGregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
@@ -337,48 +343,23 @@ public partial struct PlainGregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Previous(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
+    public PlainGregorianDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
+    public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Nearest(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
+    public PlainGregorianDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
+    public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Next(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
+    public PlainGregorianDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct PlainGregorianDate // IEquatable

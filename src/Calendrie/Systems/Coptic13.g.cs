@@ -301,13 +301,9 @@ public partial struct Coptic13Date // Factories
         return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="Coptic13Date"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
+    /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Coptic13Date FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static Coptic13Date IFixedDateFactory<Coptic13Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 
     /// <inheritdoc />
@@ -365,48 +361,23 @@ public partial struct Coptic13Date // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date Previous(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Coptic13Date Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date PreviousOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Coptic13Date PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date Nearest(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Coptic13Date Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date NextOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Coptic13Date NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Coptic13Date Next(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Coptic13Date Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct Coptic13Date // IEquatable

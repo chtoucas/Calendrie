@@ -301,13 +301,9 @@ public partial struct WorldDate // Factories
         return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="WorldDate"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
+    /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static WorldDate FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static WorldDate IFixedDateFactory<WorldDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 
     /// <inheritdoc />
@@ -365,48 +361,23 @@ public partial struct WorldDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public WorldDate Previous(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public WorldDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public WorldDate PreviousOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public WorldDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public WorldDate Nearest(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public WorldDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public WorldDate NextOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public WorldDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public WorldDate Next(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public WorldDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct WorldDate // IEquatable

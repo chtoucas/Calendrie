@@ -293,13 +293,9 @@ public partial struct TabularIslamicDate // Factories
         return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="TabularIslamicDate"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
+    /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static TabularIslamicDate FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static TabularIslamicDate IFixedDateFactory<TabularIslamicDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 
     /// <inheritdoc />
@@ -357,48 +353,23 @@ public partial struct TabularIslamicDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate Previous(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public TabularIslamicDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate PreviousOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public TabularIslamicDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate Nearest(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public TabularIslamicDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate NextOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public TabularIslamicDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate Next(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public TabularIslamicDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct TabularIslamicDate // IEquatable

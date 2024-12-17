@@ -17,6 +17,13 @@ using Calendrie.Hemerology;
 public interface IFixedDateFactory<TDate> where TDate : IFixedDate
 {
     /// <summary>
+    /// Creates a new instance of the <typeparamref name="TDate"/> struct
+    /// from the specified day number.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure] internal static abstract TDate FromDayNumberUnchecked(DayNumber dayNumber);
+
+    /// <summary>
     /// Creates a new instance of the <typeparamref name="TDate"/> struct from
     /// the specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>

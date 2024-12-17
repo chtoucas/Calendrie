@@ -297,13 +297,9 @@ public partial struct PlainJulianDate // Factories
         return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianDate"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
+    /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static PlainJulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static PlainJulianDate IFixedDateFactory<PlainJulianDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
 
     /// <inheritdoc />
@@ -361,48 +357,23 @@ public partial struct PlainJulianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Previous(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public PlainJulianDate Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate PreviousOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public PlainJulianDate PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Nearest(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public PlainJulianDate Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate NextOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public PlainJulianDate NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Next(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public PlainJulianDate Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct PlainJulianDate // IEquatable

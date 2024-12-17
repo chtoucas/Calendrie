@@ -301,13 +301,9 @@ public partial struct Ethiopic13Date // Factories
         return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="Ethiopic13Date"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
+    /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Ethiopic13Date FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static Ethiopic13Date IFixedDateFactory<Ethiopic13Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 
     /// <inheritdoc />
@@ -365,48 +361,23 @@ public partial struct Ethiopic13Date // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date Previous(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Ethiopic13Date Previous(DayOfWeek dayOfWeek) => Adjuster.Previous(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date PreviousOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Ethiopic13Date PreviousOrSame(DayOfWeek dayOfWeek) => Adjuster.PreviousOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date Nearest(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Ethiopic13Date Nearest(DayOfWeek dayOfWeek) => Adjuster.Nearest(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date NextOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Ethiopic13Date NextOrSame(DayOfWeek dayOfWeek) => Adjuster.NextOrSame(this, dayOfWeek);
 
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date Next(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return FromDayNumberUnchecked(dayNumber);
-    }
+    public Ethiopic13Date Next(DayOfWeek dayOfWeek) => Adjuster.Next(this, dayOfWeek);
 }
 
 public partial struct Ethiopic13Date // IEquatable

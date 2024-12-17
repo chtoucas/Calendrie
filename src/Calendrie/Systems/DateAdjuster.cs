@@ -185,4 +185,93 @@ public sealed class DateAdjuster<TDate>
         int daysSinceEpoch = _schema.CountDaysSinceEpoch(y, newDayOfYear);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
+
+    //
+    // Adjusters for the day of the week
+    //
+
+    /// <summary>
+    /// Obtains the date strictly before the specified value that falls on the
+    /// specified day of the week.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public TDate Previous(TDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Previous(dayOfWeek);
+        _scope.CheckLowerBound(dayNumber);
+        return TDate.FromDayNumberUnchecked(dayNumber);
+    }
+
+    /// <summary>
+    /// Obtains the date on or before the specified value that falls on the
+    /// specified day of the week.
+    /// <para>If the date already falls on the given day of the week, returns
+    /// the same instance.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public TDate PreviousOrSame(TDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
+        _scope.CheckLowerBound(dayNumber);
+        return TDate.FromDayNumberUnchecked(dayNumber);
+    }
+
+    /// <summary>
+    /// Obtains the nearest date that falls on the specified day of the week.
+    /// <para>If the date already falls on the given day of the week, returns
+    /// the current instance.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public TDate Nearest(TDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Nearest(dayOfWeek);
+        _scope.CheckOverflow(dayNumber);
+        return TDate.FromDayNumberUnchecked(dayNumber);
+    }
+
+    /// <summary>
+    /// Obtains the date on or after the specified value that falls on the
+    /// specified day of the week.
+    /// <para>If the date already falls on the given day of the week, returns
+    /// the same instance.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public TDate NextOrSame(TDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
+        _scope.CheckUpperBound(dayNumber);
+        return TDate.FromDayNumberUnchecked(dayNumber);
+    }
+
+    /// <summary>
+    /// Obtains the date strictly after the specified value that falls on the
+    /// specified day of the week.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public TDate Next(TDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Next(dayOfWeek);
+        _scope.CheckUpperBound(dayNumber);
+        return TDate.FromDayNumberUnchecked(dayNumber);
+    }
 }

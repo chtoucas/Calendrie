@@ -293,91 +293,17 @@ public partial struct <#= Prefix #>Date // Factories
     }
 
     /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static <#= Prefix #>Date IFixedDateFactory<<#= Prefix #>Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+        new(dayNumber.DaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static <#= Prefix #>Date IFixedDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 <#+
     } // T4: End of EmitDateFactories()
-
-    protected override void EmitDateAdjustment()
-    {
-        WriteLine();
-#>
-public partial struct <#= Prefix #>Date // Adjustments
-{
-    /// <inheritdoc />
-    /// <remarks>See also <seealso cref="Adjuster"/>.</remarks>
-    [Pure]
-    public <#= Prefix #>Date Adjust(Func<<#= Prefix #>Date, <#= Prefix #>Date> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date WithYear(int newYear) => Adjuster.AdjustYear(this, newYear);
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date WithMonth(int newMonth) => Adjuster.AdjustMonth(this, newMonth);
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date WithDay(int newDay) => Adjuster.AdjustDay(this, newDay);
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date WithDayOfYear(int newDayOfYear) => Adjuster.AdjustDayOfYear(this, newDayOfYear);
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
-    {
-        var dayNumber = DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return new(dayNumber.DaysSinceZero);
-    }
-}
-<#+
-    } // T4: End of EmitDateAdjustment()
 } // T4: End of ZeroCalendarTemplate
 
 #>

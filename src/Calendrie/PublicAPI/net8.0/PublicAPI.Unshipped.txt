@@ -738,6 +738,11 @@ Calendrie.Systems.DateAdjuster<TDate>.GetEndOfMonth(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetEndOfYear(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetStartOfMonth(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetStartOfYear(TDate date) -> TDate
+Calendrie.Systems.DateAdjuster<TDate>.Nearest(TDate date, System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Systems.DateAdjuster<TDate>.Next(TDate date, System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Systems.DateAdjuster<TDate>.NextOrSame(TDate date, System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Systems.DateAdjuster<TDate>.Previous(TDate date, System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Systems.DateAdjuster<TDate>.PreviousOrSame(TDate date, System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Systems.Ethiopic13Calendar
 Calendrie.Systems.Ethiopic13Calendar.Adjuster.get -> Calendrie.Systems.DateAdjuster<Calendrie.Systems.Ethiopic13Date>!
 Calendrie.Systems.Ethiopic13Date
