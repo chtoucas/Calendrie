@@ -5,7 +5,7 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-using Calendrie.Core.Utilities;
+using Calendrie.Core;
 
 #region Developer Notes
 

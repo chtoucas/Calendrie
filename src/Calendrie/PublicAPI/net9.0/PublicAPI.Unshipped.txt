@@ -74,9 +74,9 @@ Calendrie.Core.CalendricalSegment
 Calendrie.Core.CalendricalSegment.IsComplete.get -> bool
 Calendrie.Core.CalendricalSegment.MaxIsEndOfYear.get -> bool
 Calendrie.Core.CalendricalSegment.MinIsStartOfYear.get -> bool
-Calendrie.Core.CalendricalSegment.MinMaxDateParts.get -> Calendrie.Core.Utilities.OrderedPair<Calendrie.DateParts>
-Calendrie.Core.CalendricalSegment.MinMaxMonthParts.get -> Calendrie.Core.Utilities.OrderedPair<Calendrie.MonthParts>
-Calendrie.Core.CalendricalSegment.MinMaxOrdinalParts.get -> Calendrie.Core.Utilities.OrderedPair<Calendrie.OrdinalParts>
+Calendrie.Core.CalendricalSegment.MinMaxDateParts.get -> Calendrie.Core.Intervals.OrderedPair<Calendrie.DateParts>
+Calendrie.Core.CalendricalSegment.MinMaxMonthParts.get -> Calendrie.Core.Intervals.OrderedPair<Calendrie.MonthParts>
+Calendrie.Core.CalendricalSegment.MinMaxOrdinalParts.get -> Calendrie.Core.Intervals.OrderedPair<Calendrie.OrdinalParts>
 Calendrie.Core.CalendricalSegment.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.CalendricalSegment.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.CalendricalSegment.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
@@ -151,6 +151,9 @@ Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearAfterMonth(int y, int m) ->
 Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int daysSinceEpoch) -> int
 Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int y, int doy) -> int
 Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int y, int m, int d) -> int
+Calendrie.Core.IMinMaxFunction<TSelf>
+Calendrie.Core.IMinMaxFunction<TSelf>.Max(TSelf x, TSelf y) -> TSelf
+Calendrie.Core.IMinMaxFunction<TSelf>.Min(TSelf x, TSelf y) -> TSelf
 Calendrie.Core.Intervals.IInterval<T>
 Calendrie.Core.Intervals.IInterval<T>.IsLeftBounded.get -> bool
 Calendrie.Core.Intervals.IInterval<T>.IsLeftOpen.get -> bool
@@ -160,9 +163,19 @@ Calendrie.Core.Intervals.Interval
 Calendrie.Core.Intervals.IRay<T>
 Calendrie.Core.Intervals.IRay<T>.Endpoint.get -> T
 Calendrie.Core.Intervals.ISegment<T>
-Calendrie.Core.Intervals.ISegment<T>.Endpoints.get -> Calendrie.Core.Utilities.OrderedPair<T>
+Calendrie.Core.Intervals.ISegment<T>.Endpoints.get -> Calendrie.Core.Intervals.OrderedPair<T>
 Calendrie.Core.Intervals.ISegment<T>.LowerEnd.get -> T
 Calendrie.Core.Intervals.ISegment<T>.UpperEnd.get -> T
+Calendrie.Core.Intervals.ISetComparable<TOther>
+Calendrie.Core.Intervals.ISetComparable<TOther>.IsProperSubsetOf(TOther other) -> bool
+Calendrie.Core.Intervals.ISetComparable<TOther>.IsProperSupersetOf(TOther other) -> bool
+Calendrie.Core.Intervals.ISetEquatable<TOther>
+Calendrie.Core.Intervals.ISetEquatable<TOther>.SetEquals(TOther other) -> bool
+Calendrie.Core.Intervals.ISetIncludible<TOther>
+Calendrie.Core.Intervals.ISetIncludible<TOther>.IsSubsetOf(TOther other) -> bool
+Calendrie.Core.Intervals.ISetIncludible<TOther>.IsSupersetOf(TOther other) -> bool
+Calendrie.Core.Intervals.ISetMembership<T>
+Calendrie.Core.Intervals.ISetMembership<T>.Contains(T value) -> bool
 Calendrie.Core.Intervals.LowerRay
 Calendrie.Core.Intervals.LowerRay<T>
 Calendrie.Core.Intervals.LowerRay<T>.Contains(T value) -> bool
@@ -179,10 +192,20 @@ Calendrie.Core.Intervals.LowerRay<T>.LowerRay() -> void
 Calendrie.Core.Intervals.LowerRay<T>.LowerRay(T max) -> void
 Calendrie.Core.Intervals.LowerRay<T>.Max.get -> T
 Calendrie.Core.Intervals.LowerRay<T>.SetEquals(Calendrie.Core.Intervals.LowerRay<T> other) -> bool
+Calendrie.Core.Intervals.OrderedPair
+Calendrie.Core.Intervals.OrderedPair<T>
+Calendrie.Core.Intervals.OrderedPair<T>.Deconstruct(out T lowerValue, out T upperValue) -> void
+Calendrie.Core.Intervals.OrderedPair<T>.Equals(Calendrie.Core.Intervals.OrderedPair<T> other) -> bool
+Calendrie.Core.Intervals.OrderedPair<T>.LowerValue.get -> T
+Calendrie.Core.Intervals.OrderedPair<T>.OrderedPair() -> void
+Calendrie.Core.Intervals.OrderedPair<T>.OrderedPair(T x, T y) -> void
+Calendrie.Core.Intervals.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! lowerValueSelector, System.Func<T, TResult>! upperValueSelector) -> Calendrie.Core.Intervals.OrderedPair<TResult>
+Calendrie.Core.Intervals.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! selector) -> Calendrie.Core.Intervals.OrderedPair<TResult>
+Calendrie.Core.Intervals.OrderedPair<T>.UpperValue.get -> T
 Calendrie.Core.Intervals.Range
 Calendrie.Core.Intervals.Range<T>
 Calendrie.Core.Intervals.Range<T>.Contains(T value) -> bool
-Calendrie.Core.Intervals.Range<T>.Endpoints.get -> Calendrie.Core.Utilities.OrderedPair<T>
+Calendrie.Core.Intervals.Range<T>.Endpoints.get -> Calendrie.Core.Intervals.OrderedPair<T>
 Calendrie.Core.Intervals.Range<T>.Equals(Calendrie.Core.Intervals.Range<T> other) -> bool
 Calendrie.Core.Intervals.Range<T>.IsLeftBounded.get -> bool
 Calendrie.Core.Intervals.Range<T>.IsLeftOpen.get -> bool
@@ -285,33 +308,6 @@ Calendrie.Core.SystemSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.
 Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
 Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
 Calendrie.Core.SystemSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.Utilities.IMinMaxFunction<TSelf>
-Calendrie.Core.Utilities.IMinMaxFunction<TSelf>.Max(TSelf x, TSelf y) -> TSelf
-Calendrie.Core.Utilities.IMinMaxFunction<TSelf>.Min(TSelf x, TSelf y) -> TSelf
-Calendrie.Core.Utilities.ISerializable<TBinary>
-Calendrie.Core.Utilities.ISerializable<TBinary>.ToBinary() -> TBinary
-Calendrie.Core.Utilities.ISerializable<TSelf, TBinary>
-Calendrie.Core.Utilities.ISerializable<TSelf, TBinary>.FromBinary(TBinary data) -> TSelf
-Calendrie.Core.Utilities.ISetComparable<TOther>
-Calendrie.Core.Utilities.ISetComparable<TOther>.IsProperSubsetOf(TOther other) -> bool
-Calendrie.Core.Utilities.ISetComparable<TOther>.IsProperSupersetOf(TOther other) -> bool
-Calendrie.Core.Utilities.ISetEquatable<TOther>
-Calendrie.Core.Utilities.ISetEquatable<TOther>.SetEquals(TOther other) -> bool
-Calendrie.Core.Utilities.ISetIncludible<TOther>
-Calendrie.Core.Utilities.ISetIncludible<TOther>.IsSubsetOf(TOther other) -> bool
-Calendrie.Core.Utilities.ISetIncludible<TOther>.IsSupersetOf(TOther other) -> bool
-Calendrie.Core.Utilities.ISetMembership<T>
-Calendrie.Core.Utilities.ISetMembership<T>.Contains(T value) -> bool
-Calendrie.Core.Utilities.OrderedPair
-Calendrie.Core.Utilities.OrderedPair<T>
-Calendrie.Core.Utilities.OrderedPair<T>.Deconstruct(out T lowerValue, out T upperValue) -> void
-Calendrie.Core.Utilities.OrderedPair<T>.Equals(Calendrie.Core.Utilities.OrderedPair<T> other) -> bool
-Calendrie.Core.Utilities.OrderedPair<T>.LowerValue.get -> T
-Calendrie.Core.Utilities.OrderedPair<T>.OrderedPair() -> void
-Calendrie.Core.Utilities.OrderedPair<T>.OrderedPair(T x, T y) -> void
-Calendrie.Core.Utilities.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! lowerValueSelector, System.Func<T, TResult>! upperValueSelector) -> Calendrie.Core.Utilities.OrderedPair<TResult>
-Calendrie.Core.Utilities.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! selector) -> Calendrie.Core.Utilities.OrderedPair<TResult>
-Calendrie.Core.Utilities.OrderedPair<T>.UpperValue.get -> T
 Calendrie.Core.Validation.ICalendricalPreValidator
 Calendrie.Core.Validation.ICalendricalPreValidator.CreateDefault(Calendrie.Core.CalendricalSchema! schema) -> Calendrie.Core.Validation.ICalendricalPreValidator!
 Calendrie.Core.Validation.ICalendricalPreValidator.ValidateDayOfYear(int y, int dayOfYear, string? paramName = null) -> void
@@ -1131,6 +1127,9 @@ const Calendrie.Systems.ZoroastrianCalendar.MonthsInYear = 12 -> int
 override Calendrie.Core.Intervals.LowerRay<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.LowerRay<T>.GetHashCode() -> int
 override Calendrie.Core.Intervals.LowerRay<T>.ToString() -> string!
+override Calendrie.Core.Intervals.OrderedPair<T>.Equals(object? obj) -> bool
+override Calendrie.Core.Intervals.OrderedPair<T>.GetHashCode() -> int
+override Calendrie.Core.Intervals.OrderedPair<T>.ToString() -> string!
 override Calendrie.Core.Intervals.Range<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.Range<T>.GetHashCode() -> int
 override Calendrie.Core.Intervals.Range<T>.ToString() -> string!
@@ -1140,9 +1139,6 @@ override Calendrie.Core.Intervals.RangeSet<T>.ToString() -> string!
 override Calendrie.Core.Intervals.UpperRay<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.UpperRay<T>.GetHashCode() -> int
 override Calendrie.Core.Intervals.UpperRay<T>.ToString() -> string!
-override Calendrie.Core.Utilities.OrderedPair<T>.Equals(object? obj) -> bool
-override Calendrie.Core.Utilities.OrderedPair<T>.GetHashCode() -> int
-override Calendrie.Core.Utilities.OrderedPair<T>.ToString() -> string!
 override Calendrie.Core.Yedoy.Equals(object? obj) -> bool
 override Calendrie.Core.Yedoy.GetHashCode() -> int
 override Calendrie.Core.Yedoy.ToString() -> string!
@@ -1488,12 +1484,15 @@ static Calendrie.Core.Intervals.LowerRay.Complement(this Calendrie.Core.Interval
 static Calendrie.Core.Intervals.LowerRay.EndingAt<T>(T max) -> Calendrie.Core.Intervals.LowerRay<T>
 static Calendrie.Core.Intervals.LowerRay<T>.operator !=(Calendrie.Core.Intervals.LowerRay<T> left, Calendrie.Core.Intervals.LowerRay<T> right) -> bool
 static Calendrie.Core.Intervals.LowerRay<T>.operator ==(Calendrie.Core.Intervals.LowerRay<T> left, Calendrie.Core.Intervals.LowerRay<T> right) -> bool
+static Calendrie.Core.Intervals.OrderedPair.Create<T>(T x, T y) -> Calendrie.Core.Intervals.OrderedPair<T>
+static Calendrie.Core.Intervals.OrderedPair<T>.operator !=(Calendrie.Core.Intervals.OrderedPair<T> left, Calendrie.Core.Intervals.OrderedPair<T> right) -> bool
+static Calendrie.Core.Intervals.OrderedPair<T>.operator ==(Calendrie.Core.Intervals.OrderedPair<T> left, Calendrie.Core.Intervals.OrderedPair<T> right) -> bool
 static Calendrie.Core.Intervals.Range.Count(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> range) -> int
 static Calendrie.Core.Intervals.Range.Count(this Calendrie.Core.Intervals.Range<int> range) -> int
 static Calendrie.Core.Intervals.Range.Create<T>(T min, T max) -> Calendrie.Core.Intervals.Range<T>
 static Calendrie.Core.Intervals.Range.EndingAt<T>(T max) -> Calendrie.Core.Intervals.Range<T>
 static Calendrie.Core.Intervals.Range.EndingAt<T>(T max, int length) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.FromEndpoints<T>(Calendrie.Core.Utilities.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.Range<T>
+static Calendrie.Core.Intervals.Range.FromEndpoints<T>(Calendrie.Core.Intervals.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.Range<T>
 static Calendrie.Core.Intervals.Range.LongCount(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> range) -> long
 static Calendrie.Core.Intervals.Range.LongCount(this Calendrie.Core.Intervals.Range<int> range) -> long
 static Calendrie.Core.Intervals.Range.Maximal<T>() -> Calendrie.Core.Intervals.Range<T>
@@ -1506,7 +1505,7 @@ static Calendrie.Core.Intervals.Range<T>.operator !=(Calendrie.Core.Intervals.Ra
 static Calendrie.Core.Intervals.Range<T>.operator ==(Calendrie.Core.Intervals.Range<T> left, Calendrie.Core.Intervals.Range<T> right) -> bool
 static Calendrie.Core.Intervals.RangeSet.Create<T>(T min, T max) -> Calendrie.Core.Intervals.RangeSet<T>
 static Calendrie.Core.Intervals.RangeSet.Empty<T>() -> Calendrie.Core.Intervals.RangeSet<T>
-static Calendrie.Core.Intervals.RangeSet.FromEndpoints<T>(Calendrie.Core.Utilities.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.RangeSet<T>
+static Calendrie.Core.Intervals.RangeSet.FromEndpoints<T>(Calendrie.Core.Intervals.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.RangeSet<T>
 static Calendrie.Core.Intervals.RangeSet<T>.operator !=(Calendrie.Core.Intervals.RangeSet<T> left, Calendrie.Core.Intervals.RangeSet<T> right) -> bool
 static Calendrie.Core.Intervals.RangeSet<T>.operator ==(Calendrie.Core.Intervals.RangeSet<T> left, Calendrie.Core.Intervals.RangeSet<T> right) -> bool
 static Calendrie.Core.Intervals.UpperRay.Complement(this Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> ray) -> Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber>
@@ -1516,9 +1515,6 @@ static Calendrie.Core.Intervals.UpperRay<T>.operator !=(Calendrie.Core.Intervals
 static Calendrie.Core.Intervals.UpperRay<T>.operator ==(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
 static Calendrie.Core.SystemSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.SystemSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.Utilities.OrderedPair.Create<T>(T x, T y) -> Calendrie.Core.Utilities.OrderedPair<T>
-static Calendrie.Core.Utilities.OrderedPair<T>.operator !=(Calendrie.Core.Utilities.OrderedPair<T> left, Calendrie.Core.Utilities.OrderedPair<T> right) -> bool
-static Calendrie.Core.Utilities.OrderedPair<T>.operator ==(Calendrie.Core.Utilities.OrderedPair<T> left, Calendrie.Core.Utilities.OrderedPair<T> right) -> bool
 static Calendrie.Core.Yedoy.Create(int year, int dayOfYear) -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.FromBinary(int data) -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.MaxValue.get -> Calendrie.Core.Yedoy

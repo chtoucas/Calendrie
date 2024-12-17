@@ -30,6 +30,7 @@
     <Compile Include="Testing\XunitModule.fs" />
     <Compile Include="Testing\FsCheckModule.fs" />
     <Compile Include="Tests\Testing\EnumDataSetTests.fs" />
+    <Compile Include="Tests\Core\Intervals\OrderedPairTests.fs" />
     <Compile Include="Tests\Core\Intervals\IntervalTests.fs" />
     <Compile Include="Tests\Core\Intervals\LowerRayTests.fs" />
     <Compile Include="Tests\Core\Intervals\RangeSetTests.fs" />
@@ -50,7 +51,6 @@
     <Compile Include="Tests\Core\Utilities\MathTTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathUTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathZTests.fs" />
-    <Compile Include="Tests\Core\Utilities\OrderedPairTests.fs" />
     <Compile Include="Tests\Core\Utilities\RequiresTests.fs" />
     <Compile Include="Tests\Core\Utilities\ThrowHelpersTests.fs" />
     <Compile Include="Tests\Core\Validation\PlainPreValidatorTests.fs" />

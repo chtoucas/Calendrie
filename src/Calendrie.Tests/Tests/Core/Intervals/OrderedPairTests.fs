@@ -1,9 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Utilities.OrderedPairTests
+module Calendrie.Tests.Core.Intervals.OrderedPairTests
 
-open Calendrie.Core.Utilities
+open Calendrie.Core.Intervals
 open Calendrie.Testing
 
 open Xunit

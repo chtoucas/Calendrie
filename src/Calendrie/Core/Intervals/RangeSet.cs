@@ -5,8 +5,6 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-using Calendrie.Core.Utilities;
-
 // REVIEW(code): add factory Create(Range<T>), Singleton()?
 
 // RangeSet<T> is the return type for Intersect() and Gap().

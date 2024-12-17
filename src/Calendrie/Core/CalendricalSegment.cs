@@ -4,7 +4,6 @@
 namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Provides informations on a range of days for a given schema.

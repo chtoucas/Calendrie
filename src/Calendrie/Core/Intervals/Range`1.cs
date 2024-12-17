@@ -5,8 +5,6 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-using Calendrie.Core.Utilities;
-
 /// <summary>
 /// Represents a closed bounded interval.
 /// <para>This type has been designed with discrete intervals in mind,
