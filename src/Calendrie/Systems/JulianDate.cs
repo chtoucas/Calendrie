@@ -193,15 +193,6 @@ public partial struct JulianDate // Factories
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianDate"/> struct
-    /// from the specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static JulianDate FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static JulianDate IFixedDateFactory<JulianDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
