@@ -27,20 +27,14 @@ using Calendrie.Hemerology;
 public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslamicDate>
 {
     /// <summary>
-    /// Represents a singleton instance of the schema.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - All instances of the TabularIslamicDate type via the property Schema
-    // - TabularIslamicCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly TabularIslamicSchema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
     private TabularIslamicCalendar()
-        : base("Tabular Islamic", new StandardScope(new TabularIslamicSchema(), DayZero.TabularIslamic)) { }
+        : base("Tabular Islamic", new StandardScope(new TabularIslamicSchema(), DayZero.TabularIslamic))
+    {
+        UnderlyingSchema = (TabularIslamicSchema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
@@ -56,6 +50,11 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal TabularIslamicSchema UnderlyingSchema { get; }
 }
 
 /// <summary>
@@ -212,21 +211,19 @@ public partial struct TabularIslamicDate // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static TabularIslamicSchema Schema => TabularIslamicCalendar.UnderlyingSchema;
+    private static TabularIslamicSchema Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => TabularIslamicCalendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<TabularIslamicDate> Adjuster => TabularIslamicCalendar.Instance.Adjuster;
+    private static DateAdjuster<TabularIslamicDate> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

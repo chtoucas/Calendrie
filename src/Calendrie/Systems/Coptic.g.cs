@@ -27,20 +27,14 @@ using Calendrie.Hemerology;
 public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 {
     /// <summary>
-    /// Represents a singleton instance of the schema.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - All instances of the CopticDate type via the property Schema
-    // - CopticCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly Coptic12Schema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
     /// <para>See also <seealso cref="CopticDate.Calendar"/>.</para>
     /// </summary>
     private CopticCalendar()
-        : base("Coptic", new StandardScope(new Coptic12Schema(), DayZero.Coptic)) { }
+        : base("Coptic", new StandardScope(new Coptic12Schema(), DayZero.Coptic))
+    {
+        UnderlyingSchema = (Coptic12Schema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
@@ -56,6 +50,11 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal Coptic12Schema UnderlyingSchema { get; }
 }
 
 /// <summary>
@@ -220,21 +219,19 @@ public partial struct CopticDate // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static Coptic12Schema Schema => CopticCalendar.UnderlyingSchema;
+    private static Coptic12Schema Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => CopticCalendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<CopticDate> Adjuster => CopticCalendar.Instance.Adjuster;
+    private static DateAdjuster<CopticDate> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

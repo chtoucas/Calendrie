@@ -29,20 +29,14 @@ using Calendrie.Systems;
 public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregorianDate>
 {
     /// <summary>
-    /// Represents a singleton instance of the schema.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - All instances of the PlainGregorianDate type via the property Schema
-    // - PlainGregorianCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly GregorianSchema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
     /// <para>See also <seealso cref="PlainGregorianDate.Calendar"/>.</para>
     /// </summary>
     private PlainGregorianCalendar()
-        : base("PlainGregorian", new StandardScope(new GregorianSchema(), DayZero.NewStyle)) { }
+        : base("PlainGregorian", new StandardScope(new GregorianSchema(), DayZero.NewStyle))
+    {
+        UnderlyingSchema = (GregorianSchema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
@@ -58,6 +52,11 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal GregorianSchema UnderlyingSchema { get; }
 }
 
 /// <summary>
@@ -208,19 +207,19 @@ public partial struct PlainGregorianDate // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static GregorianSchema Schema => PlainGregorianCalendar.UnderlyingSchema;
+    private static GregorianSchema Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => PlainGregorianCalendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<PlainGregorianDate> Adjuster => PlainGregorianCalendar.Instance.Adjuster;
+    private static DateAdjuster<PlainGregorianDate> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

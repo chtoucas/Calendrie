@@ -30,20 +30,14 @@ using Calendrie.Systems;
 public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate>
 {
     /// <summary>
-    /// Represents a singleton instance of the schema.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - All instances of the PlainJulianDate type via the property Schema
-    // - PlainJulianCalendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly JulianSchema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
     /// <para>See also <seealso cref="PlainJulianDate.Calendar"/>.</para>
     /// </summary>
     private PlainJulianCalendar()
-        : base("PlainJulian", new StandardScope(new JulianSchema(), DayZero.OldStyle)) { }
+        : base("PlainJulian", new StandardScope(new JulianSchema(), DayZero.OldStyle))
+    {
+        UnderlyingSchema = (JulianSchema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
@@ -59,6 +53,11 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal JulianSchema UnderlyingSchema { get; }
 }
 
 /// <summary>
@@ -216,21 +215,19 @@ public partial struct PlainJulianDate // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static JulianSchema Schema => PlainJulianCalendar.UnderlyingSchema;
+    private static JulianSchema Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => PlainJulianCalendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<PlainJulianDate> Adjuster => PlainJulianCalendar.Instance.Adjuster;
+    private static DateAdjuster<PlainJulianDate> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -27,20 +27,14 @@ using Calendrie.Hemerology;
 public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 {
     /// <summary>
-    /// Represents a singleton instance of the schema.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - All instances of the Ethiopic13Date type via the property Schema
-    // - Ethiopic13Calendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly Coptic13Schema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
     /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
     private Ethiopic13Calendar()
-        : base("Ethiopic", new StandardScope(new Coptic13Schema(), DayZero.Ethiopic)) { }
+        : base("Ethiopic", new StandardScope(new Coptic13Schema(), DayZero.Ethiopic))
+    {
+        UnderlyingSchema = (Coptic13Schema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Ethiopic13Calendar"/> class.
@@ -56,6 +50,11 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal Coptic13Schema UnderlyingSchema { get; }
 }
 
 /// <summary>
@@ -220,21 +219,19 @@ public partial struct Ethiopic13Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static Coptic13Schema Schema => Ethiopic13Calendar.UnderlyingSchema;
+    private static Coptic13Schema Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => Ethiopic13Calendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<Ethiopic13Date> Adjuster => Ethiopic13Calendar.Instance.Adjuster;
+    private static DateAdjuster<Ethiopic13Date> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

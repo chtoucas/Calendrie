@@ -198,19 +198,19 @@ public partial struct <#= Prefix #>Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static <#= SchemaClass #> Schema => <#= Prefix #>Calendar.UnderlyingSchema;
+    private static <#= SchemaClass #> Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => <#= Prefix #>Calendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<<#= Prefix #>Date> Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
+    private static DateAdjuster<<#= Prefix #>Date> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

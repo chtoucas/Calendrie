@@ -27,20 +27,14 @@ using Calendrie.Hemerology;
 public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13Date>
 {
     /// <summary>
-    /// Represents a singleton instance of the schema.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - All instances of the Zoroastrian13Date type via the property Schema
-    // - Zoroastrian13Calendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly Egyptian13Schema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="Zoroastrian13Calendar"/> class.
     /// <para>See also <seealso cref="Zoroastrian13Date.Calendar"/>.</para>
     /// </summary>
     private Zoroastrian13Calendar()
-        : base("Zoroastrian", new StandardScope(new Egyptian13Schema(), DayZero.Zoroastrian)) { }
+        : base("Zoroastrian", new StandardScope(new Egyptian13Schema(), DayZero.Zoroastrian))
+    {
+        UnderlyingSchema = (Egyptian13Schema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Zoroastrian13Calendar"/> class.
@@ -56,6 +50,11 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal Egyptian13Schema UnderlyingSchema { get; }
 }
 
 /// <summary>
@@ -220,21 +219,19 @@ public partial struct Zoroastrian13Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static Egyptian13Schema Schema => Zoroastrian13Calendar.UnderlyingSchema;
+    private static Egyptian13Schema Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => Zoroastrian13Calendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<Zoroastrian13Date> Adjuster => Zoroastrian13Calendar.Instance.Adjuster;
+    private static DateAdjuster<Zoroastrian13Date> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -27,20 +27,14 @@ using Calendrie.Hemerology;
 public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 {
     /// <summary>
-    /// Represents a singleton instance of the schema.
-    /// </summary>
-    //
-    // This schema instance is the one used by:
-    // - All instances of the Armenian13Date type via the property Schema
-    // - Armenian13Calendar, custom methods only (see the file _Calendar.cs)
-    internal static readonly Egyptian13Schema UnderlyingSchema = new();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="Armenian13Calendar"/> class.
     /// <para>See also <seealso cref="Armenian13Date.Calendar"/>.</para>
     /// </summary>
     private Armenian13Calendar()
-        : base("Armenian", new StandardScope(new Egyptian13Schema(), DayZero.Armenian)) { }
+        : base("Armenian", new StandardScope(new Egyptian13Schema(), DayZero.Armenian))
+    {
+        UnderlyingSchema = (Egyptian13Schema)Schema;
+    }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Armenian13Calendar"/> class.
@@ -56,6 +50,11 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets the schema.
+    /// </summary>
+    internal Egyptian13Schema UnderlyingSchema { get; }
 }
 
 /// <summary>
@@ -220,21 +219,19 @@ public partial struct Armenian13Date // Preamble
     /// Gets the underlying schema.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    //
-    // Don't use Scope.Schema which is only of type ICalendricalSchema.
-    private static Egyptian13Schema Schema => Armenian13Calendar.UnderlyingSchema;
+    private static Egyptian13Schema Schema => Calendar.UnderlyingSchema;
 
     /// <summary>
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static CalendarScope Scope => Armenian13Calendar.Instance.Scope;
+    private static CalendarScope Scope => Calendar.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static DateAdjuster<Armenian13Date> Adjuster => Armenian13Calendar.Instance.Adjuster;
+    private static DateAdjuster<Armenian13Date> Adjuster => Calendar.Adjuster;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
