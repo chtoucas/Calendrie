@@ -30,6 +30,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = EthiopicCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = EthiopicCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = EthiopicCalendar.MaxYear === StandardScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<EthiopicDate, EthiopicCalendar, StandardEthiopic12DataSet>(chr)
@@ -78,6 +84,12 @@ module Bundles13 =
 
         [<Fact>]
         static member VirtualMonth() = Ethiopic13Calendar.VirtualMonth === 13
+
+        [<Fact>]
+        static member MinYear() = Ethiopic13Calendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = Ethiopic13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
     type DateFacts() =

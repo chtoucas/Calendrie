@@ -30,6 +30,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = ZoroastrianCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = ZoroastrianCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = ZoroastrianCalendar.MaxYear === StandardScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<ZoroastrianDate, ZoroastrianCalendar, StandardZoroastrian12DataSet>(chr)
@@ -78,6 +84,12 @@ module Bundles13 =
 
         [<Fact>]
         static member VirtualMonth() = Zoroastrian13Calendar.VirtualMonth === 13
+
+        [<Fact>]
+        static member MinYear() = Zoroastrian13Calendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = Zoroastrian13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
     type DateFacts() =

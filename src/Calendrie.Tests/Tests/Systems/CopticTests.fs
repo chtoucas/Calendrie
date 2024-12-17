@@ -30,6 +30,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = CopticCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = CopticCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = CopticCalendar.MaxYear === StandardScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
@@ -78,6 +84,12 @@ module Bundles13 =
 
         [<Fact>]
         static member VirtualMonth() = Coptic13Calendar.VirtualMonth === 13
+
+        [<Fact>]
+        static member MinYear() = Coptic13Calendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = Coptic13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
     type DateFacts() =

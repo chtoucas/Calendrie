@@ -30,6 +30,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = ArmenianCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = ArmenianCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = ArmenianCalendar.MaxYear === StandardScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<ArmenianDate, ArmenianCalendar, StandardArmenian12DataSet>(chr)
@@ -79,6 +85,12 @@ module Bundles13 =
 
         [<Fact>]
         static member VirtualMonth() = Armenian13Calendar.VirtualMonth === 13
+
+        [<Fact>]
+        static member MinYear() = Armenian13Calendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = Armenian13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
     type DateFacts() =

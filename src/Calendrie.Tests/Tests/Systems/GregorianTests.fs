@@ -85,6 +85,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = GregorianCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = GregorianCalendar.MinYear === ProlepticScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = GregorianCalendar.MaxYear === ProlepticScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)

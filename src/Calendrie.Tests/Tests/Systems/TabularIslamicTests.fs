@@ -30,6 +30,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = TabularIslamicCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = TabularIslamicCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = TabularIslamicCalendar.MaxYear === StandardScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<TabularIslamicDate, TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)

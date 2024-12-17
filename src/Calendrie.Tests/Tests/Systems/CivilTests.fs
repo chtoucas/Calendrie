@@ -159,6 +159,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = CivilCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = CivilCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = CivilCalendar.MaxYear === StandardScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<CivilDate, CivilCalendar, StandardGregorianDataSet>(chr)

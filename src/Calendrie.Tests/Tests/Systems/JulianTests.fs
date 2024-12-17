@@ -59,6 +59,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = JulianCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = JulianCalendar.MinYear === ProlepticScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = JulianCalendar.MaxYear === ProlepticScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>(chr)

@@ -54,6 +54,12 @@ module Bundles =
         [<Fact>]
         static member MonthsInYear() = WorldCalendar.MonthsInYear === 12
 
+        [<Fact>]
+        static member MinYear() = WorldCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = WorldCalendar.MaxYear === StandardScope.MaxYear
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<WorldDate, WorldCalendar, StandardWorldDataSet>(chr)
