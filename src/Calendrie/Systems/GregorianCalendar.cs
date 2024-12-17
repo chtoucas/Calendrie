@@ -19,25 +19,21 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// </summary>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
-    // See comments in Armenian13Calendar for instance.
+    /// <summary>
+    /// Represents a singleton instance of the underlying schema.
+    /// </summary>
     internal static readonly GregorianSchema UnderlyingSchema = new();
-    internal static readonly GregorianScope UnderlyingScope = new(new GregorianSchema());
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
     /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
-    private GregorianCalendar() : this(new GregorianScope(new GregorianSchema())) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
-    /// </summary>
-    private GregorianCalendar(GregorianScope scope) : base("Gregorian", scope) { }
+    private GregorianCalendar() : base("Gregorian", new GregorianScope(new GregorianSchema())) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
     /// </summary>
-    public static GregorianCalendar Instance => Singleton.Instance;
+    public static GregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -48,11 +44,4 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => GregorianScope.MaxYear;
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly GregorianCalendar Instance = new();
-    }
 }

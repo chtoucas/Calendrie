@@ -42,16 +42,16 @@ public partial struct <#= Prefix #>Date // Preamble
     // WARNING: the order in which the static fields are written is __important__.
 
 <#+ if (EnableMicroOptimizations) { #>
-    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.UnderlyingScope.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.Instance.Epoch.DaysSinceZero;
 <#+ } else { #>
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.UnderlyingScope.Epoch;
+    private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.Instance.Epoch;
 <#+ } #>
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.Min<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.Min<#= DaysSinceEpochSuffix #>;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.Max<#= DaysSinceEpochSuffix #>;
+    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.Max<#= DaysSinceEpochSuffix #>;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
@@ -206,7 +206,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.UnderlyingScope;
+    private static CalendarScope Scope => <#= Prefix #>Calendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

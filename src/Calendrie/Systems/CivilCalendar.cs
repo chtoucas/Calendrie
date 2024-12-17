@@ -19,22 +19,21 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// </summary>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
-    // See comments in Armenian13Calendar for instance.
+    /// <summary>
+    /// Represents a singleton instance of the underlying schema.
+    /// </summary>
     internal static readonly CivilSchema UnderlyingSchema = new();
-    internal static readonly CivilScope UnderlyingScope = new(new CivilSchema());
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
     /// </summary>
-    private CivilCalendar() : this(new CivilScope(new CivilSchema())) { }
-
-    private CivilCalendar(CivilScope scope) : base("Civil", scope) { }
+    private CivilCalendar() : base("Civil", new CivilScope(new CivilSchema())) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
     /// </summary>
-    public static CivilCalendar Instance => Singleton.Instance;
+    public static CivilCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -45,11 +44,4 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => CivilScope.MaxYear;
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly CivilCalendar Instance = new();
-    }
 }

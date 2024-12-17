@@ -152,7 +152,7 @@ public partial struct JulianDate
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static JulianScope Scope => JulianCalendar.UnderlyingScope;
+    private static CalendarScope Scope => JulianCalendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

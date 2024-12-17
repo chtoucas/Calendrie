@@ -46,16 +46,6 @@ internal sealed class StandardScope : CalendarScope
         YearsValidator = new StandardYearsValidator();
     }
 
-    /// <summary>
-    /// Gets the minimum value for the number of consecutive days from the epoch.
-    /// </summary>
-    public int MinDaysSinceEpoch => Segment.SupportedDays.Min;
-
-    /// <summary>
-    /// Gets the maximum value for the number of consecutive days from the epoch.
-    /// </summary>
-    public int MaxDaysSinceEpoch => Segment.SupportedDays.Max;
-
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
     {

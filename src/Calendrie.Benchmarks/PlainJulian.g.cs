@@ -29,38 +29,26 @@ using Calendrie.Systems;
 /// </summary>
 public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate>
 {
-    /// <summary>Represents the epoch.</summary>
-    private static readonly DayNumber s_Epoch = DayZero.OldStyle;
-
-    /// <summary>Represents a singleton instance of the schema.</summary>
+    /// <summary>
+    /// Represents a singleton instance of the schema.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - All instances of the PlainJulianDate type via the property Schema
     // - PlainJulianCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly JulianSchema UnderlyingSchema = new();
 
-    /// <summary>Represents a singleton instance of the scope.</summary>
-    // This scope instance is the one used by:
-    // - All instances of the PlainJulianDate type via the property Scope
-    internal static readonly StandardScope UnderlyingScope = CreateScope(new JulianSchema());
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
     /// <para>See also <seealso cref="PlainJulianDate.Calendar"/>.</para>
     /// </summary>
-    private PlainJulianCalendar() : this(CreateScope(new JulianSchema())) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
-    /// </summary>
-    private PlainJulianCalendar(StandardScope scope) : base("PlainJulian", scope) { }
+    private PlainJulianCalendar()
+        : base("PlainJulian", new StandardScope(new JulianSchema(), DayZero.OldStyle)) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
     /// </summary>
-    //
-    // This calendar instance is the one used by:
-    // - All instances of the PlainJulianDate type via the properties Calendar and Adjuster
-    public static PlainJulianCalendar Instance => Singleton.Instance;
+    public static PlainJulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -71,18 +59,6 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Creates a new instance of the <see href="StandardScope"/> class.
-    /// </summary>
-    private static StandardScope CreateScope(JulianSchema schema) => new(schema, s_Epoch);
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly PlainJulianCalendar Instance = new();
-    }
 }
 
 /// <summary>
@@ -100,12 +76,12 @@ public partial struct PlainJulianDate // Preamble
     // WARNING: the order in which the static fields are written is __important__.
 
     /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = PlainJulianCalendar.UnderlyingScope.Epoch;
+    private static readonly DayNumber s_Epoch = PlainJulianCalendar.Instance.Epoch;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = PlainJulianCalendar.UnderlyingScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = PlainJulianCalendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = PlainJulianCalendar.UnderlyingScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = PlainJulianCalendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly PlainJulianDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -248,7 +224,7 @@ public partial struct PlainJulianDate // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => PlainJulianCalendar.UnderlyingScope;
+    private static CalendarScope Scope => PlainJulianCalendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

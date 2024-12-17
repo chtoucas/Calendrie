@@ -26,38 +26,26 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 {
-    /// <summary>Represents the epoch.</summary>
-    private static readonly DayNumber s_Epoch = DayZero.Coptic;
-
-    /// <summary>Represents a singleton instance of the schema.</summary>
+    /// <summary>
+    /// Represents a singleton instance of the schema.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - All instances of the CopticDate type via the property Schema
     // - CopticCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly Coptic12Schema UnderlyingSchema = new();
 
-    /// <summary>Represents a singleton instance of the scope.</summary>
-    // This scope instance is the one used by:
-    // - All instances of the CopticDate type via the property Scope
-    internal static readonly StandardScope UnderlyingScope = CreateScope(new Coptic12Schema());
-
     /// <summary>
     /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
     /// <para>See also <seealso cref="CopticDate.Calendar"/>.</para>
     /// </summary>
-    private CopticCalendar() : this(CreateScope(new Coptic12Schema())) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
-    /// </summary>
-    private CopticCalendar(StandardScope scope) : base("Coptic", scope) { }
+    private CopticCalendar()
+        : base("Coptic", new StandardScope(new Coptic12Schema(), DayZero.Coptic)) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
     /// </summary>
-    //
-    // This calendar instance is the one used by:
-    // - All instances of the CopticDate type via the properties Calendar and Adjuster
-    public static CopticCalendar Instance => Singleton.Instance;
+    public static CopticCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -68,18 +56,6 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Creates a new instance of the <see href="StandardScope"/> class.
-    /// </summary>
-    private static StandardScope CreateScope(Coptic12Schema schema) => new(schema, s_Epoch);
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly CopticCalendar Instance = new();
-    }
 }
 
 /// <summary>
@@ -96,12 +72,12 @@ public partial struct CopticDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = CopticCalendar.UnderlyingScope.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = CopticCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = CopticCalendar.UnderlyingScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = CopticCalendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = CopticCalendar.UnderlyingScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = CopticCalendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly CopticDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -252,7 +228,7 @@ public partial struct CopticDate // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => CopticCalendar.UnderlyingScope;
+    private static CalendarScope Scope => CopticCalendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

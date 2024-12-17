@@ -27,11 +27,11 @@ module Prelude =
 
     [<Fact>]
     let ``Value of GregorianDate.MinDaysSinceZero`` () =
-        GregorianDate.MinDaysSinceZero === GregorianCalendar.UnderlyingScope.Segment.SupportedDays.Min
+        GregorianDate.MinDaysSinceZero === GregorianCalendar.Instance.Scope.Segment.SupportedDays.Min
 
     [<Fact>]
     let ``Value of GregorianDate.MaxDaysSinceZero`` () =
-        GregorianDate.MaxDaysSinceZero === GregorianCalendar.UnderlyingScope.Segment.SupportedDays.Max
+        GregorianDate.MaxDaysSinceZero === GregorianCalendar.Instance.Scope.Segment.SupportedDays.Max
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
     let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =

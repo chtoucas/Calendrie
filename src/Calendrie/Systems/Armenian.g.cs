@@ -26,38 +26,26 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
 {
-    /// <summary>Represents the epoch.</summary>
-    private static readonly DayNumber s_Epoch = DayZero.Armenian;
-
-    /// <summary>Represents a singleton instance of the schema.</summary>
+    /// <summary>
+    /// Represents a singleton instance of the underlying schema.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - All instances of the ArmenianDate type via the property Schema
     // - ArmenianCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly Egyptian12Schema UnderlyingSchema = new();
 
-    /// <summary>Represents a singleton instance of the scope.</summary>
-    // This scope instance is the one used by:
-    // - All instances of the ArmenianDate type via the property Scope
-    internal static readonly StandardScope UnderlyingScope = CreateScope(new Egyptian12Schema());
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianCalendar"/> class.
     /// <para>See also <seealso cref="ArmenianDate.Calendar"/>.</para>
     /// </summary>
-    private ArmenianCalendar() : this(CreateScope(new Egyptian12Schema())) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianCalendar"/> class.
-    /// </summary>
-    private ArmenianCalendar(StandardScope scope) : base("Armenian", scope) { }
+    private ArmenianCalendar()
+        : base("Armenian", new StandardScope(new Egyptian12Schema(), DayZero.Armenian)) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="ArmenianCalendar"/> class.
     /// </summary>
-    //
-    // This calendar instance is the one used by:
-    // - All instances of the ArmenianDate type via the properties Calendar and Adjuster
-    public static ArmenianCalendar Instance => Singleton.Instance;
+    public static ArmenianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -68,18 +56,6 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Creates a new instance of the <see href="StandardScope"/> class.
-    /// </summary>
-    private static StandardScope CreateScope(Egyptian12Schema schema) => new(schema, s_Epoch);
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly ArmenianCalendar Instance = new();
-    }
 }
 
 /// <summary>
@@ -96,12 +72,12 @@ public partial struct ArmenianDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = ArmenianCalendar.UnderlyingScope.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = ArmenianCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = ArmenianCalendar.UnderlyingScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = ArmenianCalendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = ArmenianCalendar.UnderlyingScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = ArmenianCalendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly ArmenianDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -252,7 +228,7 @@ public partial struct ArmenianDate // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => ArmenianCalendar.UnderlyingScope;
+    private static CalendarScope Scope => ArmenianCalendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

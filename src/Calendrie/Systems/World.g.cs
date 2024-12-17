@@ -26,38 +26,26 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 {
-    /// <summary>Represents the epoch.</summary>
-    private static readonly DayNumber s_Epoch = DayZero.SundayBeforeGregorian;
-
-    /// <summary>Represents a singleton instance of the schema.</summary>
+    /// <summary>
+    /// Represents a singleton instance of the schema.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - All instances of the WorldDate type via the property Schema
     // - WorldCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly WorldSchema UnderlyingSchema = new();
 
-    /// <summary>Represents a singleton instance of the scope.</summary>
-    // This scope instance is the one used by:
-    // - All instances of the WorldDate type via the property Scope
-    internal static readonly StandardScope UnderlyingScope = CreateScope(new WorldSchema());
-
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
     /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
     /// </summary>
-    private WorldCalendar() : this(CreateScope(new WorldSchema())) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
-    /// </summary>
-    private WorldCalendar(StandardScope scope) : base("World", scope) { }
+    private WorldCalendar()
+        : base("World", new StandardScope(new WorldSchema(), DayZero.SundayBeforeGregorian)) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
     /// </summary>
-    //
-    // This calendar instance is the one used by:
-    // - All instances of the WorldDate type via the properties Calendar and Adjuster
-    public static WorldCalendar Instance => Singleton.Instance;
+    public static WorldCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -68,18 +56,6 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Creates a new instance of the <see href="StandardScope"/> class.
-    /// </summary>
-    private static StandardScope CreateScope(WorldSchema schema) => new(schema, s_Epoch);
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly WorldCalendar Instance = new();
-    }
 }
 
 /// <summary>
@@ -96,12 +72,12 @@ public partial struct WorldDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = WorldCalendar.UnderlyingScope.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = WorldCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = WorldCalendar.UnderlyingScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = WorldCalendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = WorldCalendar.UnderlyingScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = WorldCalendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly WorldDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -252,7 +228,7 @@ public partial struct WorldDate // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => WorldCalendar.UnderlyingScope;
+    private static CalendarScope Scope => WorldCalendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

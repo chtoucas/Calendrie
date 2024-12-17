@@ -26,38 +26,26 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 {
-    /// <summary>Represents the epoch.</summary>
-    private static readonly DayNumber s_Epoch = DayZero.Ethiopic;
-
-    /// <summary>Represents a singleton instance of the schema.</summary>
+    /// <summary>
+    /// Represents a singleton instance of the schema.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - All instances of the Ethiopic13Date type via the property Schema
     // - Ethiopic13Calendar, custom methods only (see the file _Calendar.cs)
     internal static readonly Coptic13Schema UnderlyingSchema = new();
 
-    /// <summary>Represents a singleton instance of the scope.</summary>
-    // This scope instance is the one used by:
-    // - All instances of the Ethiopic13Date type via the property Scope
-    internal static readonly StandardScope UnderlyingScope = CreateScope(new Coptic13Schema());
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
     /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
-    private Ethiopic13Calendar() : this(CreateScope(new Coptic13Schema())) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Ethiopic13Calendar"/> class.
-    /// </summary>
-    private Ethiopic13Calendar(StandardScope scope) : base("Ethiopic", scope) { }
+    private Ethiopic13Calendar()
+        : base("Ethiopic", new StandardScope(new Coptic13Schema(), DayZero.Ethiopic)) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Ethiopic13Calendar"/> class.
     /// </summary>
-    //
-    // This calendar instance is the one used by:
-    // - All instances of the Ethiopic13Date type via the properties Calendar and Adjuster
-    public static Ethiopic13Calendar Instance => Singleton.Instance;
+    public static Ethiopic13Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -68,18 +56,6 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Creates a new instance of the <see href="StandardScope"/> class.
-    /// </summary>
-    private static StandardScope CreateScope(Coptic13Schema schema) => new(schema, s_Epoch);
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly Ethiopic13Calendar Instance = new();
-    }
 }
 
 /// <summary>
@@ -96,12 +72,12 @@ public partial struct Ethiopic13Date // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = Ethiopic13Calendar.UnderlyingScope.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = Ethiopic13Calendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = Ethiopic13Calendar.UnderlyingScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = Ethiopic13Calendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = Ethiopic13Calendar.UnderlyingScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = Ethiopic13Calendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly Ethiopic13Date s_MinValue = new(s_MinDaysSinceEpoch);
@@ -252,7 +228,7 @@ public partial struct Ethiopic13Date // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => Ethiopic13Calendar.UnderlyingScope;
+    private static CalendarScope Scope => Ethiopic13Calendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

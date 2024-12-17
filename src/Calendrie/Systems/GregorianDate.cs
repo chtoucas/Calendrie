@@ -152,7 +152,7 @@ public partial struct GregorianDate
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static GregorianScope Scope => GregorianCalendar.UnderlyingScope;
+    private static CalendarScope Scope => GregorianCalendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

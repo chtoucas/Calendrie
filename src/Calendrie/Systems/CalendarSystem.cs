@@ -54,6 +54,16 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// </summary>
     internal DateAdjuster<TDate> Adjuster { get; }
 
+    /// <summary>
+    /// Gets the minimum value for the number of consecutive days from the epoch.
+    /// </summary>
+    internal int MinDaysSinceEpoch => Scope.Segment.SupportedDays.Min;
+
+    /// <summary>
+    /// Gets the maximum value for the number of consecutive days from the epoch.
+    /// </summary>
+    internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
+
     /// <inheritdoc/>
     [Pure]
     public sealed override int CountDaysInYear(int year)

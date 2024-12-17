@@ -26,38 +26,26 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate>
 {
-    /// <summary>Represents the epoch.</summary>
-    private static readonly DayNumber s_Epoch = DayZero.Zoroastrian;
-
-    /// <summary>Represents a singleton instance of the schema.</summary>
+    /// <summary>
+    /// Represents a singleton instance of the schema.
+    /// </summary>
+    //
     // This schema instance is the one used by:
     // - All instances of the ZoroastrianDate type via the property Schema
     // - ZoroastrianCalendar, custom methods only (see the file _Calendar.cs)
     internal static readonly Egyptian12Schema UnderlyingSchema = new();
 
-    /// <summary>Represents a singleton instance of the scope.</summary>
-    // This scope instance is the one used by:
-    // - All instances of the ZoroastrianDate type via the property Scope
-    internal static readonly StandardScope UnderlyingScope = CreateScope(new Egyptian12Schema());
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
     /// <para>See also <seealso cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
-    private ZoroastrianCalendar() : this(CreateScope(new Egyptian12Schema())) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
-    /// </summary>
-    private ZoroastrianCalendar(StandardScope scope) : base("Zoroastrian", scope) { }
+    private ZoroastrianCalendar()
+        : base("Zoroastrian", new StandardScope(new Egyptian12Schema(), DayZero.Zoroastrian)) { }
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="ZoroastrianCalendar"/> class.
     /// </summary>
-    //
-    // This calendar instance is the one used by:
-    // - All instances of the ZoroastrianDate type via the properties Calendar and Adjuster
-    public static ZoroastrianCalendar Instance => Singleton.Instance;
+    public static ZoroastrianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -68,18 +56,6 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Creates a new instance of the <see href="StandardScope"/> class.
-    /// </summary>
-    private static StandardScope CreateScope(Egyptian12Schema schema) => new(schema, s_Epoch);
-
-    private static class Singleton
-    {
-        static Singleton() { }
-
-        internal static readonly ZoroastrianCalendar Instance = new();
-    }
 }
 
 /// <summary>
@@ -96,12 +72,12 @@ public partial struct ZoroastrianDate // Preamble
 {
     // WARNING: the order in which the static fields are written is __important__.
 
-    private static readonly int s_EpochDaysSinceZero = ZoroastrianCalendar.UnderlyingScope.Epoch.DaysSinceZero;
+    private static readonly int s_EpochDaysSinceZero = ZoroastrianCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = ZoroastrianCalendar.UnderlyingScope.MinDaysSinceEpoch;
+    private static readonly int s_MinDaysSinceEpoch = ZoroastrianCalendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = ZoroastrianCalendar.UnderlyingScope.MaxDaysSinceEpoch;
+    private static readonly int s_MaxDaysSinceEpoch = ZoroastrianCalendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly ZoroastrianDate s_MinValue = new(s_MinDaysSinceEpoch);
@@ -252,7 +228,7 @@ public partial struct ZoroastrianDate // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static StandardScope Scope => ZoroastrianCalendar.UnderlyingScope;
+    private static CalendarScope Scope => ZoroastrianCalendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.

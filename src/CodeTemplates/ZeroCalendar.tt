@@ -96,9 +96,9 @@ public sealed partial class <#= Prefix #>Clock
 public partial struct <#= Prefix #>Date // Preamble
 {
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.MinDaysSinceEpoch;
+    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.UnderlyingScope.MaxDaysSinceEpoch;
+    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
     private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
@@ -249,7 +249,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// Gets the calendar scope.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    private static <#= ScopeClass #> Scope => <#= Prefix #>Calendar.UnderlyingScope;
+    private static CalendarScope Scope => <#= Prefix #>Calendar.Instance.Scope;
 
     /// <summary>
     /// Gets the date adjuster.
