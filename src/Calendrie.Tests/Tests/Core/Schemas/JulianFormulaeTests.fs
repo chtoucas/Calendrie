@@ -193,6 +193,6 @@ let ``GetStartOfYear(int64) overflows at Int64.Min/MaxValue`` () =
 #else
 [<Fact>]
 let ``GetStartOfYear(int64) does not overflow at Int64.Min/MaxValue (unchecked)`` () =
-    JulianFormulae.GetStartOfYear(Int64.MinValue) |> ignore
-    JulianFormulae.GetStartOfYear(Int64.MaxValue) |> ignore
+    JulianFormulae2.GetStartOfYear(Int64.MinValue) |> ignore
+    JulianFormulae2.GetStartOfYear(Int64.MaxValue) |> ignore
 #endif
