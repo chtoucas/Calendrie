@@ -27,45 +27,6 @@ internal sealed class GregorianPreValidator : ICalendricalPreValidator
     /// </summary>
     public static GregorianPreValidator Instance { get; } = new();
 
-    #region 64-bit versions
-
-    /// <summary>
-    /// Validates the well-formedness of the specified month of the year and day
-    /// of the month.
-    /// <para>This method does NOT validate <paramref name="y"/>.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
-    /// </exception>
-    public static void ValidateMonthDay(long y, int month, int day, string? paramName = null)
-    {
-        if (month < 1 || month > Solar12.MonthsInYear)
-            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
-        if (day < 1
-            || (day > Solar.MinDaysInMonth
-                && day > GregorianFormulae.CountDaysInMonth(y, month)))
-        {
-            ThrowHelpers.ThrowDayOutOfRange(day, paramName);
-        }
-    }
-
-    /// <summary>
-    /// Validates the well-formedness of the specified day of the year.
-    /// <para>This method does NOT validate <paramref name="y"/>.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
-    /// </exception>
-    public static void ValidateDayOfYear(long y, int dayOfYear, string? paramName = null)
-    {
-        if (dayOfYear < 1
-            || (dayOfYear > Solar.MinDaysInYear
-                && dayOfYear > GregorianFormulae.CountDaysInYear(y)))
-        {
-            ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
-        }
-    }
-
-    #endregion
-
     /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)
     {

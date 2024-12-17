@@ -11,7 +11,7 @@ public class CountDaysInMonthTests : GregorianSchemaComparisons
     public int Formulae() => GregorianFormulae.CountDaysInMonth(year, month);
 
     [Benchmark]
-    public int Formulae64() => GregorianFormulae.CountDaysInMonth(yearL, month);
+    public int Formulae64() => GregorianFormulae2.CountDaysInMonth(yearL, month);
 
     [Benchmark]
     public int Schema() => schema.CountDaysInMonth(year, month);

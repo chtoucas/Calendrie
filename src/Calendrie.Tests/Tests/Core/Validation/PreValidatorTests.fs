@@ -62,50 +62,50 @@ module GregorianCase =
 
     [<Fact>]
     let ``ValidateMonthDay() ignores year and does not throw`` () =
-        GregorianPreValidator.ValidateMonthDay(Int64.MinValue, 1, 1)
-        GregorianPreValidator.ValidateMonthDay(Int64.MaxValue, 1, 1)
+        GregorianPreValidator2.ValidateMonthDay(Int64.MinValue, 1, 1)
+        GregorianPreValidator2.ValidateMonthDay(Int64.MaxValue, 1, 1)
         // End of december: day > MinDaysInMonth.
-        GregorianPreValidator.ValidateMonthDay(Int64.MinValue, 12, 31)
-        GregorianPreValidator.ValidateMonthDay(Int64.MaxValue, 12, 31)
+        GregorianPreValidator2.ValidateMonthDay(Int64.MinValue, 12, 31)
+        GregorianPreValidator2.ValidateMonthDay(Int64.MaxValue, 12, 31)
 
     [<Theory; MemberData(nameof(invalidMonthFieldData))>]
     let ``ValidateMonthDay() throws when "month" is out of range`` y m =
-        outOfRangeExn "month" (fun () -> GregorianPreValidator.ValidateMonthDay(y, m, 1))
-        outOfRangeExn "m" (fun () -> GregorianPreValidator.ValidateMonthDay(y, m, 1, nameof(m)))
+        outOfRangeExn "month" (fun () -> GregorianPreValidator2.ValidateMonthDay(y, m, 1))
+        outOfRangeExn "m" (fun () -> GregorianPreValidator2.ValidateMonthDay(y, m, 1, nameof(m)))
 
     [<Theory; MemberData(nameof(invalidDayFieldData))>]
     let ``ValidateMonthDay() throws when "day" is out of range`` y m d =
-        outOfRangeExn "day" (fun () -> GregorianPreValidator.ValidateMonthDay(y, m, d))
-        outOfRangeExn "d" (fun () -> GregorianPreValidator.ValidateMonthDay(y, m, d, nameof(d)))
+        outOfRangeExn "day" (fun () -> GregorianPreValidator2.ValidateMonthDay(y, m, d))
+        outOfRangeExn "d" (fun () -> GregorianPreValidator2.ValidateMonthDay(y, m, d, nameof(d)))
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ValidateMonthDay() does not throw when the input is valid`` (x: DateInfo) =
         let y, m, d = x.Yemoda.Deconstruct()
-        GregorianPreValidator.ValidateMonthDay(int64 y, m, d)
+        GregorianPreValidator2.ValidateMonthDay(int64 y, m, d)
 
     // ValidateDayOfYear()
 
     [<Fact>]
     let ``ValidateDayOfYear() ignores year and does not throw`` () =
-        GregorianPreValidator.ValidateDayOfYear(Int64.MinValue, 1)
-        GregorianPreValidator.ValidateDayOfYear(Int64.MaxValue, 1)
+        GregorianPreValidator2.ValidateDayOfYear(Int64.MinValue, 1)
+        GregorianPreValidator2.ValidateDayOfYear(Int64.MaxValue, 1)
         // Leap year: dayOfYear > MinDaysInYear.
         // NB: the next tests are a bit redundant. Indeed, if IsLeapYear() does
         // not overflow, then ValidateDayOfYear() won't either.
-        GregorianFormulae.IsLeapYear(Int64.MinValue) |> ok
-        GregorianFormulae.IsLeapYear(Int64.MaxValue - 3L) |> ok
-        GregorianPreValidator.ValidateDayOfYear(Int64.MinValue, 366)
-        GregorianPreValidator.ValidateDayOfYear(Int64.MaxValue - 3L, 366)
+        GregorianFormulae2.IsLeapYear(Int64.MinValue) |> ok
+        GregorianFormulae2.IsLeapYear(Int64.MaxValue - 3L) |> ok
+        GregorianPreValidator2.ValidateDayOfYear(Int64.MinValue, 366)
+        GregorianPreValidator2.ValidateDayOfYear(Int64.MaxValue - 3L, 366)
 
     [<Theory; MemberData(nameof(invalidDayOfYearFieldData))>]
     let ``ValidateDayOfYear() throws when "dayOfYear" is out of range`` y doy =
-        outOfRangeExn "dayOfYear" (fun () -> GregorianPreValidator.ValidateDayOfYear(y, doy))
-        outOfRangeExn "doy" (fun () -> GregorianPreValidator.ValidateDayOfYear(y, doy, nameof(doy)))
+        outOfRangeExn "dayOfYear" (fun () -> GregorianPreValidator2.ValidateDayOfYear(y, doy))
+        outOfRangeExn "doy" (fun () -> GregorianPreValidator2.ValidateDayOfYear(y, doy, nameof(doy)))
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ValidateDayOfYear() does not throw when the input is valid`` (x: DateInfo) =
         let y, doy = x.Yedoy.Deconstruct()
-        GregorianPreValidator.ValidateDayOfYear(int64 y, doy)
+        GregorianPreValidator2.ValidateDayOfYear(int64 y, doy)
 
 module JulianCase =
     let private dataSet = JulianDataSet.Instance
@@ -119,47 +119,47 @@ module JulianCase =
 
     [<Fact>]
     let ``ValidateMonthDay() ignores year and does not throw`` () =
-        JulianPreValidator.ValidateMonthDay(Int64.MinValue, 1, 1)
-        JulianPreValidator.ValidateMonthDay(Int64.MaxValue, 1, 1)
+        JulianPreValidator2.ValidateMonthDay(Int64.MinValue, 1, 1)
+        JulianPreValidator2.ValidateMonthDay(Int64.MaxValue, 1, 1)
         // End of december: day > MinDaysInMonth.
-        JulianPreValidator.ValidateMonthDay(Int64.MinValue, 12, 31)
-        JulianPreValidator.ValidateMonthDay(Int64.MaxValue, 12, 31)
+        JulianPreValidator2.ValidateMonthDay(Int64.MinValue, 12, 31)
+        JulianPreValidator2.ValidateMonthDay(Int64.MaxValue, 12, 31)
 
     [<Theory; MemberData(nameof(invalidMonthFieldData))>]
     let ``ValidateMonthDay() throws when "month" is out of range`` y m =
-        outOfRangeExn "month" (fun () -> JulianPreValidator.ValidateMonthDay(y, m, 1))
-        outOfRangeExn "m" (fun () -> JulianPreValidator.ValidateMonthDay(y, m, 1, nameof(m)))
+        outOfRangeExn "month" (fun () -> JulianPreValidator2.ValidateMonthDay(y, m, 1))
+        outOfRangeExn "m" (fun () -> JulianPreValidator2.ValidateMonthDay(y, m, 1, nameof(m)))
 
     [<Theory; MemberData(nameof(invalidDayFieldData))>]
     let ``ValidateMonthDay() throws when "day" is out of range`` y m d =
-        outOfRangeExn "day" (fun () -> JulianPreValidator.ValidateMonthDay(y, m, d))
-        outOfRangeExn "d" (fun () -> JulianPreValidator.ValidateMonthDay(y, m, d, nameof(d)))
+        outOfRangeExn "day" (fun () -> JulianPreValidator2.ValidateMonthDay(y, m, d))
+        outOfRangeExn "d" (fun () -> JulianPreValidator2.ValidateMonthDay(y, m, d, nameof(d)))
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ValidateMonthDay() does not throw when the input is valid`` (x: DateInfo) =
         let y, m, d = x.Yemoda.Deconstruct()
-        JulianPreValidator.ValidateMonthDay(int64 y, m, d)
+        JulianPreValidator2.ValidateMonthDay(int64 y, m, d)
 
     // ValidateDayOfYear()
 
     [<Fact>]
     let ``ValidateDayOfYear() ignores year and does not throw`` () =
-        JulianPreValidator.ValidateDayOfYear(Int64.MinValue, 1)
-        JulianPreValidator.ValidateDayOfYear(Int64.MaxValue, 1)
+        JulianPreValidator2.ValidateDayOfYear(Int64.MinValue, 1)
+        JulianPreValidator2.ValidateDayOfYear(Int64.MaxValue, 1)
         // Leap year: dayOfYear > MinDaysInYear.
         // NB: the next tests are a bit redundant. Indeed, if IsLeapYear() does
         // not overflow, then ValidateDayOfYear() won't either.
-        JulianFormulae.IsLeapYear(Int64.MinValue) |> ok
-        JulianFormulae.IsLeapYear(Int64.MaxValue - 3L) |> ok
-        JulianPreValidator.ValidateDayOfYear(Int64.MinValue, 366)
-        JulianPreValidator.ValidateDayOfYear(Int64.MaxValue - 3L, 366)
+        JulianFormulae2.IsLeapYear(Int64.MinValue) |> ok
+        JulianFormulae2.IsLeapYear(Int64.MaxValue - 3L) |> ok
+        JulianPreValidator2.ValidateDayOfYear(Int64.MinValue, 366)
+        JulianPreValidator2.ValidateDayOfYear(Int64.MaxValue - 3L, 366)
 
     [<Theory; MemberData(nameof(invalidDayOfYearFieldData))>]
     let ``ValidateDayOfYear() throws when "dayOfYear" is out of range`` y doy =
-        outOfRangeExn "dayOfYear" (fun () -> JulianPreValidator.ValidateDayOfYear(y, doy))
-        outOfRangeExn "doy" (fun () -> JulianPreValidator.ValidateDayOfYear(y, doy, nameof(doy)))
+        outOfRangeExn "dayOfYear" (fun () -> JulianPreValidator2.ValidateDayOfYear(y, doy))
+        outOfRangeExn "doy" (fun () -> JulianPreValidator2.ValidateDayOfYear(y, doy, nameof(doy)))
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ValidateDayOfYear() does not throw when the input is valid`` (x: DateInfo) =
         let y, doy = x.Yedoy.Deconstruct()
-        JulianPreValidator.ValidateDayOfYear(int64 y, doy)
+        JulianPreValidator2.ValidateDayOfYear(int64 y, doy)
