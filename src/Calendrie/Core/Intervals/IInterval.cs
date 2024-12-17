@@ -3,8 +3,6 @@
 
 namespace Calendrie.Core.Intervals;
 
-using Calendrie.Core.Utilities;
-
 /// <summary>
 /// Defines an interval.
 /// <para>Discrete intervals SHOULD always be represented using their normal

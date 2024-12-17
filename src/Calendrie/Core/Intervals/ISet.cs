@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Utilities;
+namespace Calendrie.Core.Intervals;
 
 // Terminology for the set membership relation:
 // - "x is a member of A"

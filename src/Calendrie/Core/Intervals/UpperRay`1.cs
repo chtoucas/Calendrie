@@ -5,8 +5,6 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-using Calendrie.Core.Utilities;
-
 /// <summary>
 /// Represents a left-bounded closed ray; it has an minimum and no upper bound.
 /// <para>This type has been designed with discrete intervals in mind,
