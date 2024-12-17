@@ -1,10 +1,10 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Extensions;
+namespace Samples;
 
-using Calendrie.Core;
-using Calendrie.Core.Utilities;
+using System.Diagnostics.Contracts;
+
 using Calendrie.Systems;
 
 using static Calendrie.Core.CalendricalConstants;
@@ -16,10 +16,11 @@ using static Calendrie.Core.CalendricalConstants;
 public static class CivilDateExtensions
 {
     [Pure]
-    public static DayOfWeek GetDayOfWeek(this CivilDate date)
-    {
-        var (y, m, d) = date;
-        int doomsday = DoomsdayRule.GetGregorianDoomsday(y, m);
-        return (DayOfWeek)MathZ.Modulo(doomsday + d, DaysInWeek);
-    }
+    public static CivilDate AddWeeks(this CivilDate date, int weeks) => date.AddDays(DaysInWeek * weeks);
+
+    [Pure]
+    public static CivilDate NextWeek(this CivilDate date) => date.AddDays(DaysInWeek);
+
+    [Pure]
+    public static CivilDate PreviousWeek(this CivilDate date) => date.AddDays(-DaysInWeek);
 }

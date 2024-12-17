@@ -7,6 +7,8 @@ using Calendrie.Core;
 using Calendrie.Core.Utilities;
 using Calendrie.Systems;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Provides extension methods for <see cref="GregorianDate"/>.
 /// <para>This class cannot be inherited.</para>
@@ -18,6 +20,6 @@ public static class GregorianDateExtensions
     {
         var (y, m, d) = date;
         int doomsday = DoomsdayRule.GetGregorianDoomsday(y, m);
-        return (DayOfWeek)MathZ.Modulo(doomsday + d, CalendricalConstants.DaysInWeek);
+        return (DayOfWeek)MathZ.Modulo(doomsday + d, DaysInWeek);
     }
 }
