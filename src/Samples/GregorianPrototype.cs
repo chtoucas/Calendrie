@@ -4,7 +4,6 @@
 namespace Samples;
 
 using System;
-using System.Diagnostics.Contracts;
 
 using Calendrie.Core;
 
@@ -23,8 +22,6 @@ public sealed class GregorianPrototype : PrototypalSchema
     // Overriden methods
     //
 
-    /// <inheritdoc />
-    [Pure]
     public sealed override int CountDaysInYearBeforeMonth(int y, int m)
     {
         var kernel = this as ICalendricalCore;

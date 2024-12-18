@@ -3,8 +3,6 @@
 
 namespace Samples;
 
-using System.Diagnostics.Contracts;
-
 using Calendrie.Systems;
 
 using static Calendrie.Core.CalendricalConstants;
@@ -15,17 +13,14 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 public static partial class CivilDateExtensions { }
 
-// Arithmetic
+// Math
 //
 public partial class CivilDateExtensions
 {
-    [Pure]
     public static CivilDate AddWeeks(this CivilDate date, int weeks) => date.AddDays(DaysInWeek * weeks);
 
-    [Pure]
     public static CivilDate NextWeek(this CivilDate date) => date.AddDays(DaysInWeek);
 
-    [Pure]
     public static CivilDate PreviousWeek(this CivilDate date) => date.AddDays(-DaysInWeek);
 }
 
@@ -38,23 +33,19 @@ public partial class CivilDateExtensions
     //
 
     // May throw an ArgumentOutOfRangeException.
-    [Pure]
     public static GregorianDate ToGregorianDate(this CivilDate date) =>
         GregorianDate.FromDayNumber(date.DayNumber);
 
     // Simpler, faster, no exceptions: there is an implicit conversion from
     // CivilDate to GregorianDate, or if you prefer you can use the more explicit
     // version: GregorianDate.FromCivilDate(date).
-    [Pure]
     public static GregorianDate AsGregorianDate(this CivilDate date) => date;
 
     // May throw an ArgumentOutOfRangeException.
-    [Pure]
     public static JulianDate ToJulianDate(this CivilDate date) =>
         JulianDate.FromDayNumber(date.DayNumber);
 
     // May throw an ArgumentOutOfRangeException.
-    [Pure]
     public static WorldDate ToWorldDate(this CivilDate date) =>
         WorldDate.FromDayNumber(date.DayNumber);
 
@@ -63,17 +54,14 @@ public partial class CivilDateExtensions
     //
 
     // May throw an ArgumentOutOfRangeException.
-    [Pure]
     public static CivilDate FromGregorianDate(GregorianDate date) =>
         CivilDate.FromDayNumber(date.DayNumber);
 
     // May throw an ArgumentOutOfRangeException.
-    [Pure]
     public static CivilDate FromJulianDate(JulianDate date) =>
         CivilDate.FromDayNumber(date.DayNumber);
 
     // May throw an ArgumentOutOfRangeException.
-    [Pure]
     public static CivilDate FromWorldDate(WorldDate date) =>
         CivilDate.FromDayNumber(date.DayNumber);
 }
