@@ -18,7 +18,7 @@ public static class DateAdjuster
     /// </summary>
     [Pure]
     public static DateAdjuster<TDate> Create<TDate>(CalendarSystem<TDate> calendar)
-        where TDate : IDate<TDate>, IFixedDateFactory<TDate>
+        where TDate : IDate<TDate>, IDateFactory<TDate>
     {
         ArgumentNullException.ThrowIfNull(calendar);
 
@@ -34,7 +34,7 @@ public static class DateAdjuster
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public sealed class DateAdjuster<TDate>
-    where TDate : IDate<TDate>, IFixedDateFactory<TDate>
+    where TDate : IDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DateAdjuster{TDate}"/>

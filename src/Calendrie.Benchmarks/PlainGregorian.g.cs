@@ -70,7 +70,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 /// </summary>
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
-    IFixedDateFactory<PlainGregorianDate>,
+    IDateFactory<PlainGregorianDate>,
     ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>
 { }
 
@@ -156,7 +156,7 @@ public partial struct PlainGregorianDate // Preamble
     /// <summary>Gets the count of days since the Gregorian epoch.</summary>
     public int DaysSinceZero => _daysSinceZero;
 
-    int IFixedDate.DaysSinceEpoch => _daysSinceZero;
+    int IAbsoluteDate.DaysSinceEpoch => _daysSinceZero;
 
     /// <inheritdoc />
     public Ord CenturyOfEra => Ord.FromInt32(Century);
@@ -253,12 +253,12 @@ public partial struct PlainGregorianDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainGregorianDate IFixedDateFactory<PlainGregorianDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static PlainGregorianDate IDateFactory<PlainGregorianDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainGregorianDate IFixedDateFactory<PlainGregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static PlainGregorianDate IDateFactory<PlainGregorianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

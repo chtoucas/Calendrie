@@ -71,7 +71,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 /// </summary>
 public readonly partial struct PlainJulianDate :
     IDate<PlainJulianDate, PlainJulianCalendar>,
-    IFixedDateFactory<PlainJulianDate>,
+    IDateFactory<PlainJulianDate>,
     ISubtractionOperators<PlainJulianDate, PlainJulianDate, int>
 { }
 
@@ -263,12 +263,12 @@ public partial struct PlainJulianDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainJulianDate IFixedDateFactory<PlainJulianDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static PlainJulianDate IDateFactory<PlainJulianDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainJulianDate IFixedDateFactory<PlainJulianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static PlainJulianDate IDateFactory<PlainJulianDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

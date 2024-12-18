@@ -138,12 +138,13 @@ using Calendrie.Core;
 #endregion
 
 /// <summary>
-/// Defines a fixed date.
-/// <para>A date is said to be <i>fixed</i> if it's attached to a timeline. In
-/// this project, it means that it can be mapped to a <see cref="Calendrie.DayNumber"/>.
+/// Defines an absolute date.
+/// <para>A date is said to be <i>absolute</i> if it's attached to a global
+/// timeline. In this project, it means that it can be mapped to a
+/// <see cref="Calendrie.DayNumber"/>.
 /// </para>
 /// </summary>
-public interface IFixedDate
+public interface IAbsoluteDate
 {
     /// <summary>
     /// Gets the day number.
@@ -163,11 +164,11 @@ public interface IFixedDate
 }
 
 /// <summary>
-/// Defines a fixed date type.
+/// Defines a absolute date type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IFixedDate<TSelf> :
-    IFixedDate,
+public interface IAbsoluteDate<TSelf> :
+    IAbsoluteDate,
     // Comparison
     IEqualityOperators<TSelf, TSelf, bool>,
     IEquatable<TSelf>,
@@ -178,7 +179,7 @@ public interface IFixedDate<TSelf> :
     IMinMaxFunction<TSelf>,
     // Arithmetic
     IDayArithmetic<TSelf>
-    where TSelf : IFixedDate<TSelf>
+    where TSelf : IAbsoluteDate<TSelf>
 {
     //
     // Adjust the day of the week

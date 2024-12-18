@@ -89,7 +89,7 @@ public partial struct CivilDate
     /// </summary>
     public int DaysSinceZero => _daysSinceZero;
 
-    int IFixedDate.DaysSinceEpoch => _daysSinceZero;
+    int IAbsoluteDate.DaysSinceEpoch => _daysSinceZero;
 
     /// <inheritdoc />
     public Ord CenturyOfEra => Ord.FromInt32(Century);
@@ -199,12 +199,12 @@ public partial struct CivilDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CivilDate IFixedDateFactory<CivilDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static CivilDate IDateFactory<CivilDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CivilDate IFixedDateFactory<CivilDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static CivilDate IDateFactory<CivilDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

@@ -68,7 +68,7 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 /// </summary>
 public readonly partial struct CopticDate :
     IDate<CopticDate, CopticCalendar>,
-    IFixedDateFactory<CopticDate>,
+    IDateFactory<CopticDate>,
     ISubtractionOperators<CopticDate, CopticDate, int>
 { }
 
@@ -268,12 +268,12 @@ public partial struct CopticDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CopticDate IFixedDateFactory<CopticDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static CopticDate IDateFactory<CopticDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CopticDate IFixedDateFactory<CopticDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static CopticDate IDateFactory<CopticDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

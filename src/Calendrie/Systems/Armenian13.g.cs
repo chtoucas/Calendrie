@@ -68,7 +68,7 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 /// </summary>
 public readonly partial struct Armenian13Date :
     IDate<Armenian13Date, Armenian13Calendar>,
-    IFixedDateFactory<Armenian13Date>,
+    IDateFactory<Armenian13Date>,
     ISubtractionOperators<Armenian13Date, Armenian13Date, int>
 { }
 
@@ -268,12 +268,12 @@ public partial struct Armenian13Date // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static Armenian13Date IFixedDateFactory<Armenian13Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static Armenian13Date IDateFactory<Armenian13Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static Armenian13Date IFixedDateFactory<Armenian13Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static Armenian13Date IDateFactory<Armenian13Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

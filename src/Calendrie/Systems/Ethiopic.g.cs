@@ -68,7 +68,7 @@ public sealed partial class EthiopicCalendar : CalendarSystem<EthiopicDate>
 /// </summary>
 public readonly partial struct EthiopicDate :
     IDate<EthiopicDate, EthiopicCalendar>,
-    IFixedDateFactory<EthiopicDate>,
+    IDateFactory<EthiopicDate>,
     ISubtractionOperators<EthiopicDate, EthiopicDate, int>
 { }
 
@@ -268,12 +268,12 @@ public partial struct EthiopicDate // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static EthiopicDate IFixedDateFactory<EthiopicDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static EthiopicDate IDateFactory<EthiopicDate>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static EthiopicDate IFixedDateFactory<EthiopicDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static EthiopicDate IDateFactory<EthiopicDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

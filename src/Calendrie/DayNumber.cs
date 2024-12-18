@@ -56,7 +56,7 @@ using Calendrie.Hemerology;
 /// <para><see cref="DayNumber"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct DayNumber :
-    IFixedDate<DayNumber>,
+    IAbsoluteDate<DayNumber>,
     IMinMaxValue<DayNumber>,
     ISubtractionOperators<DayNumber, DayNumber, int>
 {
@@ -120,7 +120,7 @@ public readonly partial struct DayNumber :
     /// <remarks>This static property is thread-safe.</remarks>
     public static DayNumber MaxValue { get; } = new(MaxDaysSinceZero);
 
-    DayNumber IFixedDate.DayNumber => this;
+    DayNumber IAbsoluteDate.DayNumber => this;
 
     /// <summary>
     /// Gets the count of consecutive days since <see cref="Zero"/>.
@@ -134,7 +134,7 @@ public readonly partial struct DayNumber :
     /// <para>The result is in the range from <see cref="MinDaysSinceZero"/> to
     /// <see cref="MaxDaysSinceZero"/>.</para>
     /// </summary>
-    int IFixedDate.DaysSinceEpoch => _daysSinceZero;
+    int IAbsoluteDate.DaysSinceEpoch => _daysSinceZero;
 
     /// <summary>
     /// Gets the ordinal numeral from this instance.

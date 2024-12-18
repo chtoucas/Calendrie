@@ -10,7 +10,7 @@ using Calendrie.Hemerology;
 // - we don't validate the input. Only for TDate developed whitin this
 //   project do we know that it's not possible to create an invalid date.
 //   In this project, we don't have an example based on IDateable but on
-//   IFixedDate. Indeed, a DayNumber exists beyond the scope of a calendar
+//   IAbsoluteDate. Indeed, a DayNumber exists beyond the scope of a calendar
 //   and therefore could be used as a type argument.
 // - This impl is only interesting if NewDate() is non-validating, otherwise
 //   we should simply use the methods provided by a calendar.
@@ -32,7 +32,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
-    where TDate : IDate<TDate>, IFixedDateFactory<TDate>
+    where TDate : IDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>

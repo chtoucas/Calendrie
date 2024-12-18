@@ -175,7 +175,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <summary>Gets the count of days since the Gregorian epoch.</summary>
     public int DaysSinceZero => _<#= DaysSinceEpochVar #>;
 
-    int IFixedDate.DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
+    int IAbsoluteDate.DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
     public Ord CenturyOfEra => Ord.FromInt32(Century);
@@ -291,12 +291,12 @@ public partial struct <#= Prefix #>Date // Factories
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static <#= Prefix #>Date IFixedDateFactory<<#= Prefix #>Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
+    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
         new(dayNumber.DaysSinceZero);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static <#= Prefix #>Date IFixedDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 <#+

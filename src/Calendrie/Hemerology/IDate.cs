@@ -5,8 +5,8 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// A date type is expected to provide a constructor or a factory with the
-// following parameters:
+// A date type is expected to provide a constructor or a static factory method
+// for the following parameters:
 // - (y, m, d)
 // - (y, doy)
 // - (dayNumber)
@@ -17,7 +17,7 @@ using System.Numerics;
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IDate<TSelf> :
     IDateable,
-    IFixedDate<TSelf>
+    IAbsoluteDate<TSelf>
     where TSelf : IDate<TSelf>
 {
     /// <summary>
