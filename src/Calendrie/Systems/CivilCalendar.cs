@@ -32,12 +32,6 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
-    /// <para>See <see cref="CivilDate.Calendar"/>.</para>
-    /// </summary>
-    internal static CivilCalendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => CivilScope.MinYear;
@@ -46,6 +40,12 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => CivilScope.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
+    /// <para>See <see cref="CivilDate.Calendar"/>.</para>
+    /// </summary>
+    internal static CivilCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

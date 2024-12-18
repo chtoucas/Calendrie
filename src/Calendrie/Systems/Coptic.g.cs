@@ -41,12 +41,6 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
-    /// <para>See <see cref="CopticDate.Calendar"/>.</para>
-    /// </summary>
-    internal static CopticCalendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => StandardScope.MinYear;
@@ -55,6 +49,12 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
+    /// <para>See <see cref="CopticDate.Calendar"/>.</para>
+    /// </summary>
+    internal static CopticCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

@@ -33,12 +33,6 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
-    /// <para>See <see cref="GregorianDate.Calendar"/>.</para>
-    /// </summary>
-    internal static GregorianCalendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => GregorianScope.MinYear;
@@ -47,6 +41,12 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => GregorianScope.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
+    /// <para>See <see cref="GregorianDate.Calendar"/>.</para>
+    /// </summary>
+    internal static GregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

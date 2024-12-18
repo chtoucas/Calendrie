@@ -32,12 +32,6 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="JulianCalendar"/> class.
-    /// <para>See <see cref="JulianDate.Calendar"/>.</para>
-    /// </summary>
-    internal static JulianCalendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => JulianScope.MinYear;
@@ -46,6 +40,12 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => JulianScope.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="JulianCalendar"/> class.
+    /// <para>See <see cref="JulianDate.Calendar"/>.</para>
+    /// </summary>
+    internal static JulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

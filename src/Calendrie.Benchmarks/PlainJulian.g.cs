@@ -44,12 +44,6 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
-    /// <para>See <see cref="PlainJulianDate.Calendar"/>.</para>
-    /// </summary>
-    internal static PlainJulianCalendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => StandardScope.MinYear;
@@ -58,6 +52,12 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
+    /// <para>See <see cref="PlainJulianDate.Calendar"/>.</para>
+    /// </summary>
+    internal static PlainJulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

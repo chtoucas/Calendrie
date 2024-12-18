@@ -125,12 +125,6 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="<#= Prefix #>Calendar"/> class.
-    /// <para>See <see cref="<#= Prefix #>Date.Calendar"/>.</para>
-    /// </summary>
-    internal static <#= Prefix #>Calendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => <#= ScopeClass #>.MinYear;
@@ -139,6 +133,12 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => <#= ScopeClass #>.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="<#= Prefix #>Calendar"/> class.
+    /// <para>See <see cref="<#= Prefix #>Date.Calendar"/>.</para>
+    /// </summary>
+    internal static <#= Prefix #>Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

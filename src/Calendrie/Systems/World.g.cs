@@ -41,12 +41,6 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
-    /// <para>See <see cref="WorldDate.Calendar"/>.</para>
-    /// </summary>
-    internal static WorldCalendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => StandardScope.MinYear;
@@ -55,6 +49,12 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
+    /// <para>See <see cref="WorldDate.Calendar"/>.</para>
+    /// </summary>
+    internal static WorldCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

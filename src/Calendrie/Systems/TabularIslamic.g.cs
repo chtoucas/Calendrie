@@ -41,12 +41,6 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
-    /// <para>See <see cref="TabularIslamicDate.Calendar"/>.</para>
-    /// </summary>
-    internal static TabularIslamicCalendar Instance { get; } = new();
-
-    /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
     public static int MinYear => StandardScope.MinYear;
@@ -55,6 +49,12 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
+    /// <para>See <see cref="TabularIslamicDate.Calendar"/>.</para>
+    /// </summary>
+    internal static TabularIslamicCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.
