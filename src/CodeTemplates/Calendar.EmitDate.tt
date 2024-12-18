@@ -233,7 +233,7 @@ public partial struct <#= Prefix #>Date // Preamble
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Date // Factories
+public partial struct <#= Prefix #>Date // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

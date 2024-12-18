@@ -253,7 +253,7 @@ public partial struct CopticDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct CopticDate // Factories
+public partial struct CopticDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

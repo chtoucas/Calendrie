@@ -25,7 +25,7 @@ public readonly partial struct GregorianDate :
     ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
 
-public partial struct GregorianDate // Factories
+public partial struct GregorianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

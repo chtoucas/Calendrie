@@ -253,7 +253,7 @@ public partial struct Zoroastrian13Date // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct Zoroastrian13Date // Factories
+public partial struct Zoroastrian13Date // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

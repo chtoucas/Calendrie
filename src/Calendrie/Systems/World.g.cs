@@ -253,7 +253,7 @@ public partial struct WorldDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct WorldDate // Factories
+public partial struct WorldDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

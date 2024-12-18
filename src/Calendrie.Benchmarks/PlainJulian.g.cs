@@ -248,7 +248,7 @@ public partial struct PlainJulianDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct PlainJulianDate // Factories
+public partial struct PlainJulianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

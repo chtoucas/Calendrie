@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 
 /// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
 /// supported.</remarks>
-public partial struct GregorianDate
+public partial struct GregorianDate // Preamble
 {
     // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
 
@@ -169,7 +169,7 @@ public partial struct GregorianDate
         year = GregorianFormulae.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct GregorianDate // Factories
+public partial struct GregorianDate // Factories & conversions
 {
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianDate"/> struct from

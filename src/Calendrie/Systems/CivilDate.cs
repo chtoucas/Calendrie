@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 
 /// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
 /// </remarks>
-public partial struct CivilDate
+public partial struct CivilDate // Preamble
 {
     // MinDaysSinceZero = 0
     // MaxDaysSinceZero = CivilScope.Instance.Segment.SupportedDays.Max
@@ -171,7 +171,7 @@ public partial struct CivilDate
         year = CivilFormulae.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct CivilDate // Factories
+public partial struct CivilDate // Factories & conversions
 {
     /// <summary>
     /// Defines an implicit conversion of a <see cref="CivilDate"/> value to a

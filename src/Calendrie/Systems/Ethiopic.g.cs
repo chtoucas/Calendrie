@@ -253,7 +253,7 @@ public partial struct EthiopicDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct EthiopicDate // Factories
+public partial struct EthiopicDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

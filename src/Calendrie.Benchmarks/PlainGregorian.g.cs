@@ -240,7 +240,7 @@ public partial struct PlainGregorianDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct PlainGregorianDate // Factories
+public partial struct PlainGregorianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

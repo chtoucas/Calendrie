@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 
 /// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
 /// supported.</remarks>
-public partial struct JulianDate
+public partial struct JulianDate // Preamble
 {
     private const int EpochDaysSinceZero = -2;
 
@@ -169,7 +169,7 @@ public partial struct JulianDate
         year = JulianFormulae.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct JulianDate // Factories
+public partial struct JulianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

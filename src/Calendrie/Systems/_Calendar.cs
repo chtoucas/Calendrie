@@ -22,7 +22,7 @@ public int CountMonthsInYear(int year)
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class ArmenianCalendar
+public partial class ArmenianCalendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -33,7 +33,7 @@ public partial class ArmenianCalendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class Armenian13Calendar
+public partial class Armenian13Calendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -50,7 +50,7 @@ public partial class Armenian13Calendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class CopticCalendar
+public partial class CopticCalendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -61,7 +61,7 @@ public partial class CopticCalendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class Coptic13Calendar
+public partial class Coptic13Calendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -78,7 +78,7 @@ public partial class Coptic13Calendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class EthiopicCalendar
+public partial class EthiopicCalendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -89,7 +89,7 @@ public partial class EthiopicCalendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class Ethiopic13Calendar
+public partial class Ethiopic13Calendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -106,7 +106,7 @@ public partial class Ethiopic13Calendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class TabularIslamicCalendar
+public partial class TabularIslamicCalendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -117,7 +117,7 @@ public partial class TabularIslamicCalendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class WorldCalendar
+public partial class WorldCalendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -141,7 +141,7 @@ public partial class WorldCalendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class ZoroastrianCalendar
+public partial class ZoroastrianCalendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -152,7 +152,7 @@ public partial class ZoroastrianCalendar
 
 /// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</remarks>
-public partial class Zoroastrian13Calendar
+public partial class Zoroastrian13Calendar // Complements
 {
     /// <summary>
     /// Represents the total number of months in a year.

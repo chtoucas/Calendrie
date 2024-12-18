@@ -253,7 +253,7 @@ public partial struct ArmenianDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct ArmenianDate // Factories
+public partial struct ArmenianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]

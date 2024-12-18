@@ -244,7 +244,7 @@ public partial struct TabularIslamicDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct TabularIslamicDate // Factories
+public partial struct TabularIslamicDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
