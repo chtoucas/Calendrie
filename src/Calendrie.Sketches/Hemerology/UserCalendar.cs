@@ -3,9 +3,9 @@
 
 namespace Calendrie.Hemerology;
 
-public abstract class Chronology : Calendar
+public abstract class UserCalendar : Calendar
 {
-    protected Chronology(string name, CalendarScope scope) : base(name, scope) { }
+    protected UserCalendar(string name, CalendarScope scope) : base(name, scope) { }
 
     /// <summary>
     /// Counts the number of consecutive days from the epoch to the specified
