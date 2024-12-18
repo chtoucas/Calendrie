@@ -32,7 +32,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
-    where TDate : struct, IDate<TDate>, IFixedDateFactory<TDate>
+    where TDate : IDate<TDate>, IFixedDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
@@ -46,6 +46,8 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
 
         Adjuster = new DateAdjuster<TDate>(scope);
     }
+
+    // The next internal properties are only meant to be used by the date type.
 
     /// <summary>
     /// Gets the date adjuster.

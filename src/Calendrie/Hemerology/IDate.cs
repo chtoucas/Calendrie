@@ -29,6 +29,10 @@ public interface IDate<TSelf> :
     /// <see langword="null"/>.</exception>
     [Pure] TSelf Adjust(Func<TSelf, TSelf> adjuster);
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.
     /// </summary>

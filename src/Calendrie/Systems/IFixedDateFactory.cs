@@ -3,8 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Hemerology;
-
 /// <summary>
 /// Defines a factory method to create a date from the count of consecutive days
 /// since the epoch of the companion calendar.
@@ -14,7 +12,7 @@ using Calendrie.Hemerology;
 /// in a poly-calendar system.</para>
 /// </summary>
 /// <typeparam name="TDate">The date type.</typeparam>
-public interface IFixedDateFactory<TDate> where TDate : IFixedDate
+public interface IFixedDateFactory<TDate>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TDate"/> struct
