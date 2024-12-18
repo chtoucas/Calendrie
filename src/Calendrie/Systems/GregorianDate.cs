@@ -76,7 +76,7 @@ public partial struct GregorianDate
     public static GregorianCalendar Calendar => GregorianCalendar.Instance;
 
     /// <summary>
-    /// Gets the date adjuster.
+    /// Gets the adjuster for the current type.
     /// <remarks>This static property is thread-safe.</remarks>
     /// </summary>
     public static DateAdjuster<GregorianDate> Adjuster => GregorianCalendar.Instance.Adjuster;

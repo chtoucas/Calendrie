@@ -78,7 +78,7 @@ public partial struct JulianDate
     public static JulianCalendar Calendar => JulianCalendar.Instance;
 
     /// <summary>
-    /// Gets the date adjuster.
+    /// Gets the adjuster for the current type.
     /// <remarks>This static property is thread-safe.</remarks>
     /// </summary>
     public static DateAdjuster<JulianDate> Adjuster => JulianCalendar.Instance.Adjuster;
