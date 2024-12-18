@@ -231,6 +231,8 @@ public abstract partial class Calendar
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
+    //
+    // Also internal for date types in Calendrie.Systems.
     protected internal ICalendricalSchema Schema { get; }
 
     /// <summary>

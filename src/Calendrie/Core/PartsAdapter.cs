@@ -20,8 +20,11 @@ public sealed partial class PartsAdapter
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    public PartsAdapter(ICalendricalSchema schema)
+    internal PartsAdapter(ICalendricalSchema schema)
     {
+        // The methods dot not check their parameters, therefore it's important
+        // to keep the ctor internal.
+
         ArgumentNullException.ThrowIfNull(schema);
 
         _schema = schema;
