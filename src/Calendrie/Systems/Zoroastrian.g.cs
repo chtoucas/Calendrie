@@ -29,6 +29,11 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
     /// </summary>
+    public ZoroastrianCalendar() : this(new Egyptian12Schema()) { }
+
+    private ZoroastrianCalendar(Egyptian12Schema schema)
+        : this(schema, new StandardScope(schema, DayZero.Zoroastrian)) { }
+
     private ZoroastrianCalendar(Egyptian12Schema schema, StandardScope scope)
         : base("Zoroastrian", scope)
     {
@@ -39,7 +44,7 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// Gets a singleton instance of the <see cref="ZoroastrianCalendar"/> class.
     /// <para>See also <seealso cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
-    public static ZoroastrianCalendar Instance { get; } = CreateInstance();
+    public static ZoroastrianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -55,16 +60,6 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// Gets the schema.
     /// </summary>
     internal Egyptian12Schema UnderlyingSchema { get; }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianCalendar"/> class.
-    /// </summary>
-    private static ZoroastrianCalendar CreateInstance()
-    {
-        var sch = new Egyptian12Schema();
-
-        return new(sch, new StandardScope(sch, DayZero.Zoroastrian));
-    }
 }
 
 /// <summary>

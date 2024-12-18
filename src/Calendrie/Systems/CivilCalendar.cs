@@ -7,8 +7,8 @@ using Calendrie.Core.Schemas;
 
 /// <summary>
 /// Represents the Civil calendar.
-/// <para>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</para>
+/// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed class CivilCalendar : CalendarSystem<CivilDate>
@@ -22,6 +22,10 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// </summary>
+    public CivilCalendar() : this(new CivilSchema()) { }
+
+    private CivilCalendar(CivilSchema schema) : this(schema, new CivilScope(schema)) { }
+
     private CivilCalendar(CivilSchema schema, CivilScope scope) : base("Civil", scope)
     {
         UnderlyingSchema = schema;
@@ -31,7 +35,7 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
     /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
     /// </summary>
-    public static CivilCalendar Instance { get; } = CreateInstance();
+    public static CivilCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -51,14 +55,4 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     // the actual schema type; we only get an ICalendricalSchema. This property
     // is here to circumvent this problem.
     internal CivilSchema UnderlyingSchema { get; }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilCalendar"/> class.
-    /// </summary>
-    private static CivilCalendar CreateInstance()
-    {
-        var sch = new CivilSchema();
-
-        return new(sch, new CivilScope(sch));
-    }
 }

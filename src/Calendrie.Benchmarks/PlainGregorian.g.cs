@@ -31,6 +31,11 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
     /// </summary>
+    public PlainGregorianCalendar() : this(new GregorianSchema()) { }
+
+    private PlainGregorianCalendar(GregorianSchema schema)
+        : this(schema, new StandardScope(schema, DayZero.NewStyle)) { }
+
     private PlainGregorianCalendar(GregorianSchema schema, StandardScope scope)
         : base("PlainGregorian", scope)
     {
@@ -41,7 +46,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
     /// <para>See also <seealso cref="PlainGregorianDate.Calendar"/>.</para>
     /// </summary>
-    public static PlainGregorianCalendar Instance { get; } = CreateInstance();
+    public static PlainGregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -57,16 +62,6 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// Gets the schema.
     /// </summary>
     internal GregorianSchema UnderlyingSchema { get; }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianCalendar"/> class.
-    /// </summary>
-    private static PlainGregorianCalendar CreateInstance()
-    {
-        var sch = new GregorianSchema();
-
-        return new(sch, new StandardScope(sch, DayZero.NewStyle));
-    }
 }
 
 /// <summary>

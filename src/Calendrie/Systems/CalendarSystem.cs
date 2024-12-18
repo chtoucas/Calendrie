@@ -38,9 +38,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
     /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="name"/> is
-    /// <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
+    /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
     internal CalendarSystem(string name, CalendarScope scope) : base(name, scope)
     {

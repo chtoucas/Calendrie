@@ -22,6 +22,10 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
     /// </summary>
+    public GregorianCalendar() : this(new GregorianSchema()) { }
+
+    private GregorianCalendar(GregorianSchema schema) : this(schema, new GregorianScope(schema)) { }
+
     private GregorianCalendar(GregorianSchema schema, GregorianScope scope)
         : base("Gregorian", scope)
     {
@@ -32,7 +36,7 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
     /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
-    public static GregorianCalendar Instance { get; } = CreateInstance();
+    public static GregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -48,14 +52,4 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the schema.
     /// </summary>
     internal GregorianSchema UnderlyingSchema { get; }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianCalendar"/> class.
-    /// </summary>
-    private static GregorianCalendar CreateInstance()
-    {
-        var sch = new GregorianSchema();
-
-        return new(sch, new GregorianScope(sch));
-    }
 }

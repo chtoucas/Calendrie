@@ -29,6 +29,11 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
     /// </summary>
+    public WorldCalendar() : this(new WorldSchema()) { }
+
+    private WorldCalendar(WorldSchema schema)
+        : this(schema, new StandardScope(schema, DayZero.SundayBeforeGregorian)) { }
+
     private WorldCalendar(WorldSchema schema, StandardScope scope)
         : base("World", scope)
     {
@@ -39,7 +44,7 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
     /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
     /// </summary>
-    public static WorldCalendar Instance { get; } = CreateInstance();
+    public static WorldCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -55,16 +60,6 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// Gets the schema.
     /// </summary>
     internal WorldSchema UnderlyingSchema { get; }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianCalendar"/> class.
-    /// </summary>
-    private static WorldCalendar CreateInstance()
-    {
-        var sch = new WorldSchema();
-
-        return new(sch, new StandardScope(sch, DayZero.SundayBeforeGregorian));
-    }
 }
 
 /// <summary>

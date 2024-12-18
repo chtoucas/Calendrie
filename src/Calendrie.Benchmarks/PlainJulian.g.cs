@@ -32,6 +32,11 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
     /// </summary>
+    public PlainJulianCalendar() : this(new JulianSchema()) { }
+
+    private PlainJulianCalendar(JulianSchema schema)
+        : this(schema, new StandardScope(schema, DayZero.OldStyle)) { }
+
     private PlainJulianCalendar(JulianSchema schema, StandardScope scope)
         : base("PlainJulian", scope)
     {
@@ -42,7 +47,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
     /// <para>See also <seealso cref="PlainJulianDate.Calendar"/>.</para>
     /// </summary>
-    public static PlainJulianCalendar Instance { get; } = CreateInstance();
+    public static PlainJulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -58,16 +63,6 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Gets the schema.
     /// </summary>
     internal JulianSchema UnderlyingSchema { get; }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianCalendar"/> class.
-    /// </summary>
-    private static PlainJulianCalendar CreateInstance()
-    {
-        var sch = new JulianSchema();
-
-        return new(sch, new StandardScope(sch, DayZero.OldStyle));
-    }
 }
 
 /// <summary>

@@ -20,8 +20,8 @@ public int CountMonthsInYear(int year)
 }
 #endif
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class ArmenianCalendar
 {
     /// <summary>
@@ -31,8 +31,8 @@ public partial class ArmenianCalendar
     public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class Armenian13Calendar
 {
     /// <summary>
@@ -48,8 +48,8 @@ public partial class Armenian13Calendar
     public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class CopticCalendar
 {
     /// <summary>
@@ -59,8 +59,8 @@ public partial class CopticCalendar
     public const int MonthsInYear = Coptic12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class Coptic13Calendar
 {
     /// <summary>
@@ -76,8 +76,8 @@ public partial class Coptic13Calendar
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class EthiopicCalendar
 {
     /// <summary>
@@ -87,8 +87,8 @@ public partial class EthiopicCalendar
     public const int MonthsInYear = Coptic12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class Ethiopic13Calendar
 {
     /// <summary>
@@ -104,8 +104,8 @@ public partial class Ethiopic13Calendar
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class TabularIslamicCalendar
 {
     /// <summary>
@@ -115,8 +115,8 @@ public partial class TabularIslamicCalendar
     public const int MonthsInYear = TabularIslamicSchema.MonthsInYear;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class WorldCalendar
 {
     /// <summary>
@@ -139,8 +139,8 @@ public partial class WorldCalendar
     }
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class ZoroastrianCalendar
 {
     /// <summary>
@@ -150,8 +150,8 @@ public partial class ZoroastrianCalendar
     public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
+/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</remarks>
 public partial class Zoroastrian13Calendar
 {
     /// <summary>
