@@ -150,6 +150,12 @@ public partial struct PlainJulianDate // Preamble
     /// <inheritdoc />
     public static PlainJulianCalendar Calendar => PlainJulianCalendar.Instance;
 
+    /// <summary>
+    /// Gets the adjuster of the current date type.
+    /// <remarks>This static property is thread-safe.</remarks>
+    /// </summary>
+    public static DateAdjuster<PlainJulianDate> Adjuster => PlainJulianCalendar.Instance.Adjuster;
+
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -300,6 +306,10 @@ public partial struct PlainJulianDate // Adjustments
         return adjuster.Invoke(this);
     }
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <inheritdoc />
     [Pure]
     public PlainJulianDate WithYear(int newYear) =>
@@ -319,6 +329,10 @@ public partial struct PlainJulianDate // Adjustments
     [Pure]
     public PlainJulianDate WithDayOfYear(int newDayOfYear) =>
         Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    //
+    // Adjust the day of the week
+    //
 
     /// <inheritdoc />
     [Pure]

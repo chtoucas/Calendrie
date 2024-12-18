@@ -146,6 +146,12 @@ public partial struct ZoroastrianDate // Preamble
     /// <inheritdoc />
     public static ZoroastrianCalendar Calendar => ZoroastrianCalendar.Instance;
 
+    /// <summary>
+    /// Gets the adjuster of the current date type.
+    /// <remarks>This static property is thread-safe.</remarks>
+    /// </summary>
+    public static DateAdjuster<ZoroastrianDate> Adjuster => ZoroastrianCalendar.Instance.Adjuster;
+
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -305,6 +311,10 @@ public partial struct ZoroastrianDate // Adjustments
         return adjuster.Invoke(this);
     }
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <inheritdoc />
     [Pure]
     public ZoroastrianDate WithYear(int newYear) =>
@@ -324,6 +334,10 @@ public partial struct ZoroastrianDate // Adjustments
     [Pure]
     public ZoroastrianDate WithDayOfYear(int newDayOfYear) =>
         Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    //
+    // Adjust the day of the week
+    //
 
     /// <inheritdoc />
     [Pure]

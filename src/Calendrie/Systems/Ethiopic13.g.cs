@@ -146,6 +146,12 @@ public partial struct Ethiopic13Date // Preamble
     /// <inheritdoc />
     public static Ethiopic13Calendar Calendar => Ethiopic13Calendar.Instance;
 
+    /// <summary>
+    /// Gets the adjuster of the current date type.
+    /// <remarks>This static property is thread-safe.</remarks>
+    /// </summary>
+    public static DateAdjuster<Ethiopic13Date> Adjuster => Ethiopic13Calendar.Instance.Adjuster;
+
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -305,6 +311,10 @@ public partial struct Ethiopic13Date // Adjustments
         return adjuster.Invoke(this);
     }
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <inheritdoc />
     [Pure]
     public Ethiopic13Date WithYear(int newYear) =>
@@ -324,6 +334,10 @@ public partial struct Ethiopic13Date // Adjustments
     [Pure]
     public Ethiopic13Date WithDayOfYear(int newDayOfYear) =>
         Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    //
+    // Adjust the day of the week
+    //
 
     /// <inheritdoc />
     [Pure]

@@ -44,7 +44,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     {
         Debug.Assert(scope.Segment.IsComplete);
 
-        Adjuster = new DateAdjuster<TDate>(scope);
+        Adjuster = DateAdjuster.Create(this);
     }
 
     // The next internal properties are only meant to be used by the date type.

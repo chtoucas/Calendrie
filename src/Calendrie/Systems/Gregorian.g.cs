@@ -81,6 +81,10 @@ public partial struct GregorianDate // Adjustments
         return adjuster.Invoke(this);
     }
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <inheritdoc />
     [Pure]
     public GregorianDate WithYear(int newYear) =>
@@ -100,6 +104,10 @@ public partial struct GregorianDate // Adjustments
     [Pure]
     public GregorianDate WithDayOfYear(int newDayOfYear) =>
         Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    //
+    // Adjust the day of the week
+    //
 
     /// <inheritdoc />
     [Pure]

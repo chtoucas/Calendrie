@@ -59,6 +59,10 @@ public partial struct JulianDate // Adjustments
         return adjuster.Invoke(this);
     }
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <inheritdoc />
     [Pure]
     public JulianDate WithYear(int newYear) =>
@@ -78,6 +82,10 @@ public partial struct JulianDate // Adjustments
     [Pure]
     public JulianDate WithDayOfYear(int newDayOfYear) =>
         Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    //
+    // Adjust the day of the week
+    //
 
     /// <inheritdoc />
     [Pure]

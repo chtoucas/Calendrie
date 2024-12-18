@@ -6,7 +6,25 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
-// See comments in CalendarSystem<>.
+/// <summary>
+/// Provides static helpers and extension methods for <see cref="DateAdjuster{TDate}"/>.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public static class DateAdjuster
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="DateAdjuster{TDate}"/> class
+    /// from the specified calendar.
+    /// </summary>
+    [Pure]
+    public static DateAdjuster<TDate> Create<TDate>(CalendarSystem<TDate> calendar)
+        where TDate : IDate<TDate>, IFixedDateFactory<TDate>
+    {
+        ArgumentNullException.ThrowIfNull(calendar);
+
+        return new(calendar.Scope);
+    }
+}
 
 /// <summary>
 /// Defines an adjuster for <typeparamref name="TDate"/> and provides a base for
@@ -15,8 +33,8 @@ using Calendrie.Hemerology;
 /// </para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-internal sealed class DateAdjuster<TDate>
-    where TDate : struct, IDate<TDate>, IFixedDateFactory<TDate>
+public sealed class DateAdjuster<TDate>
+    where TDate : IDate<TDate>, IFixedDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DateAdjuster{TDate}"/>
@@ -24,7 +42,7 @@ internal sealed class DateAdjuster<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// null.</exception>
-    public DateAdjuster(CalendarScope scope)
+    internal DateAdjuster(CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(scope);
 
@@ -35,7 +53,7 @@ internal sealed class DateAdjuster<TDate>
     /// <summary>
     /// Gets the scope.
     /// </summary>
-    public CalendarScope Scope { get; }
+    internal CalendarScope Scope { get; }
 
     /// <summary>
     /// Gets the schema.

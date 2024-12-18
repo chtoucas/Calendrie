@@ -146,6 +146,12 @@ public partial struct WorldDate // Preamble
     /// <inheritdoc />
     public static WorldCalendar Calendar => WorldCalendar.Instance;
 
+    /// <summary>
+    /// Gets the adjuster of the current date type.
+    /// <remarks>This static property is thread-safe.</remarks>
+    /// </summary>
+    public static DateAdjuster<WorldDate> Adjuster => WorldCalendar.Instance.Adjuster;
+
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -305,6 +311,10 @@ public partial struct WorldDate // Adjustments
         return adjuster.Invoke(this);
     }
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <inheritdoc />
     [Pure]
     public WorldDate WithYear(int newYear) =>
@@ -324,6 +334,10 @@ public partial struct WorldDate // Adjustments
     [Pure]
     public WorldDate WithDayOfYear(int newDayOfYear) =>
         Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    //
+    // Adjust the day of the week
+    //
 
     /// <inheritdoc />
     [Pure]

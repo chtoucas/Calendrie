@@ -75,6 +75,12 @@ public partial struct CivilDate
     /// <inheritdoc />
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <remarks>This static property is thread-safe.</remarks>
+    /// </summary>
+    public static DateAdjuster<CivilDate> Adjuster => CivilCalendar.Instance.Adjuster;
+
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 

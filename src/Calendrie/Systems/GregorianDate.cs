@@ -75,6 +75,12 @@ public partial struct GregorianDate
     /// <inheritdoc />
     public static GregorianCalendar Calendar => GregorianCalendar.Instance;
 
+    /// <summary>
+    /// Gets the date adjuster.
+    /// <remarks>This static property is thread-safe.</remarks>
+    /// </summary>
+    public static DateAdjuster<GregorianDate> Adjuster => GregorianCalendar.Instance.Adjuster;
+
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 

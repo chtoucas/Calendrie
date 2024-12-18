@@ -144,6 +144,12 @@ public partial struct PlainGregorianDate // Preamble
     /// <inheritdoc />
     public static PlainGregorianCalendar Calendar => PlainGregorianCalendar.Instance;
 
+    /// <summary>
+    /// Gets the adjuster of the current date type.
+    /// <remarks>This static property is thread-safe.</remarks>
+    /// </summary>
+    public static DateAdjuster<PlainGregorianDate> Adjuster => PlainGregorianCalendar.Instance.Adjuster;
+
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 
@@ -290,6 +296,10 @@ public partial struct PlainGregorianDate // Adjustments
         return adjuster.Invoke(this);
     }
 
+    //
+    // "Nondestructive mutation"
+    //
+
     /// <inheritdoc />
     [Pure]
     public PlainGregorianDate WithYear(int newYear) =>
@@ -309,6 +319,10 @@ public partial struct PlainGregorianDate // Adjustments
     [Pure]
     public PlainGregorianDate WithDayOfYear(int newDayOfYear) =>
         Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+
+    //
+    // Adjust the day of the week
+    //
 
     /// <inheritdoc />
     [Pure]
