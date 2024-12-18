@@ -33,9 +33,9 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="JulianCalendar"/> class.
-    /// <para>See also <seealso cref="JulianDate.Calendar"/>.</para>
+    /// <para>See <see cref="JulianDate.Calendar"/>.</para>
     /// </summary>
-    public static JulianCalendar Instance { get; } = new();
+    internal static JulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

@@ -34,9 +34,9 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="GregorianCalendar"/> class.
-    /// <para>See also <seealso cref="GregorianDate.Calendar"/>.</para>
+    /// <para>See <see cref="GregorianDate.Calendar"/>.</para>
     /// </summary>
-    public static GregorianCalendar Instance { get; } = new();
+    internal static GregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

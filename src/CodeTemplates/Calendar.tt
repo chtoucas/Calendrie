@@ -126,9 +126,9 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="<#= Prefix #>Calendar"/> class.
-    /// <para>See also <seealso cref="<#= Prefix #>Date.Calendar"/>.</para>
+    /// <para>See <see cref="<#= Prefix #>Date.Calendar"/>.</para>
     /// </summary>
-    public static <#= Prefix #>Calendar Instance { get; } = new();
+    internal static <#= Prefix #>Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

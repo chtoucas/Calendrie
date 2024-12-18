@@ -44,9 +44,9 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
-    /// <para>See also <seealso cref="PlainGregorianDate.Calendar"/>.</para>
+    /// <para>See <see cref="PlainGregorianDate.Calendar"/>.</para>
     /// </summary>
-    public static PlainGregorianCalendar Instance { get; } = new();
+    internal static PlainGregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

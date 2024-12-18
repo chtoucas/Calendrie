@@ -42,9 +42,9 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
-    /// <para>See also <seealso cref="WorldDate.Calendar"/>.</para>
+    /// <para>See <see cref="WorldDate.Calendar"/>.</para>
     /// </summary>
-    public static WorldCalendar Instance { get; } = new();
+    internal static WorldCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

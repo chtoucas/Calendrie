@@ -42,9 +42,9 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Armenian13Calendar"/> class.
-    /// <para>See also <seealso cref="Armenian13Date.Calendar"/>.</para>
+    /// <para>See <see cref="Armenian13Date.Calendar"/>.</para>
     /// </summary>
-    public static Armenian13Calendar Instance { get; } = new();
+    internal static Armenian13Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

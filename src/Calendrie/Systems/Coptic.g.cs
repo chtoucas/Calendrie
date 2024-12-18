@@ -42,9 +42,9 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
-    /// <para>See also <seealso cref="CopticDate.Calendar"/>.</para>
+    /// <para>See <see cref="CopticDate.Calendar"/>.</para>
     /// </summary>
-    public static CopticCalendar Instance { get; } = new();
+    internal static CopticCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

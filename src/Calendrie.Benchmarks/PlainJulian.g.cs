@@ -45,9 +45,9 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
-    /// <para>See also <seealso cref="PlainJulianDate.Calendar"/>.</para>
+    /// <para>See <see cref="PlainJulianDate.Calendar"/>.</para>
     /// </summary>
-    public static PlainJulianCalendar Instance { get; } = new();
+    internal static PlainJulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

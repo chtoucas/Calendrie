@@ -42,9 +42,9 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="ZoroastrianCalendar"/> class.
-    /// <para>See also <seealso cref="ZoroastrianDate.Calendar"/>.</para>
+    /// <para>See <see cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
-    public static ZoroastrianCalendar Instance { get; } = new();
+    internal static ZoroastrianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

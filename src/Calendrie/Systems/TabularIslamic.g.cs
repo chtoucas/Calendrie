@@ -42,9 +42,9 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="TabularIslamicCalendar"/> class.
-    /// <para>See also <seealso cref="TabularIslamicDate.Calendar"/>.</para>
+    /// <para>See <see cref="TabularIslamicDate.Calendar"/>.</para>
     /// </summary>
-    public static TabularIslamicCalendar Instance { get; } = new();
+    internal static TabularIslamicCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

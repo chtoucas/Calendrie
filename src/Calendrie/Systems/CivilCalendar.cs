@@ -33,9 +33,9 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="CivilCalendar"/> class.
-    /// <para>See also <seealso cref="CivilDate.Calendar"/>.</para>
+    /// <para>See <see cref="CivilDate.Calendar"/>.</para>
     /// </summary>
-    public static CivilCalendar Instance { get; } = new();
+    internal static CivilCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.

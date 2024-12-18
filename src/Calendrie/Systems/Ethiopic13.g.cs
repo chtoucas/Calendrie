@@ -42,9 +42,9 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 
     /// <summary>
     /// Gets a singleton instance of the <see cref="Ethiopic13Calendar"/> class.
-    /// <para>See also <seealso cref="Ethiopic13Date.Calendar"/>.</para>
+    /// <para>See <see cref="Ethiopic13Date.Calendar"/>.</para>
     /// </summary>
-    public static Ethiopic13Calendar Instance { get; } = new();
+    internal static Ethiopic13Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
