@@ -5,7 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-// Reasons to keep the constructor internal (special calendar and adjuster):
+// Reasons to keep the constructor internal (system calendars and adjusters):
 // - the scope must be of type "MinMaxYearScope" but we don't enforce this
 // - we don't validate the input. Only for TDate developed whitin this
 //   project do we know that it's not possible to create an invalid date.

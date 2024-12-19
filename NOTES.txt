@@ -1,4 +1,6 @@
-﻿
+﻿Notes
+=====
+
 Comparaison avec NodaTime et les BCL
 ------------------------------------
 
@@ -18,6 +20,18 @@ Comparaison avec NodaTime et les BCL
 - un type date spécifique à chaque calendrier
 - réprésentation interne : _daysSinceEpoch (int), le nombre de jours consécutifs
   depuis l'epoch du calendrier sous-jacent
+
+Répresenter une date
+--------------------
+
+Quatre formats :
+- nombre de jours consécutifs depuis l'epoch du calendrier
+- année / mois / jour du mois
+- année / semaine / jour de la semaine
+- année / jour de l'année
+
+Développement
+=============
 
 Tâches
 ------
