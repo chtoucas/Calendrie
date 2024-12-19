@@ -38,11 +38,12 @@ using Calendrie.Core.Validation;
 #endregion
 
 /// <summary>
-/// Represents a system schema and provides a base for derived classes.
+/// Represents a limit schema and provides a base for derived classes.
+/// <para>A limit schema impose limits on the range of date parts. All results
+/// SHOULD be representable by the <see cref="Yemoda"/>, <see cref="Yemo"/> and
+/// <see cref="Yedoy"/> types.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
-/// <para>All results SHOULD be representable by the system; see
-/// <see cref="Yemoda"/>, <see cref="Yemo"/> and <see cref="Yedoy"/>.</para>
 /// </summary>
 public abstract partial class LimitSchema : CalendricalSchema
 {
