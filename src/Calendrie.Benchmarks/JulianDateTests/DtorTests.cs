@@ -65,7 +65,9 @@ public class DtorTests : JulianDateComparisons
     [Benchmark(Description = "DateTime_BCL")]
     public void WithDateTime()
     {
-        var (y, m, d) = dateTime;
+        int y = BclJulianCalendar.GetYear(dateTime);
+        int m = BclJulianCalendar.GetMonth(dateTime);
+        int d = BclJulianCalendar.GetDayOfMonth(dateTime);
 
         Consume(in y);
         Consume(in m);
