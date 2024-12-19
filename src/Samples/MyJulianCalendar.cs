@@ -10,15 +10,19 @@ using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
+using Range_ = Calendrie.Core.Intervals.Range;
+
 public sealed partial class MyJulianCalendar : UserCalendar
 {
     internal const string DisplayName = "Julien";
 
     public MyJulianCalendar()
         : base(DisplayName,
-            MinMaxYearScope.CreateMaximalOnOrAfterYear1<JulianSchema>(DayZero.OldStyle))
+            MinMaxYearScope.Create<JulianSchema>(DayZero.OldStyle, Range_.Create(1, Yemoda.MaxYear)))
     {
         UnderlyingSchema = (JulianSchema)Schema;
+
+        (MinDateParts, MaxDateParts) = Scope.Segment.ExtractMinMaxDateParts();
     }
 
     internal JulianSchema UnderlyingSchema { get; }
@@ -28,18 +32,22 @@ public partial class MyJulianCalendar
 {
     internal static MyJulianCalendar Instance { get; } = new();
 
-    public Yemoda GetDate(int year, int month, int day)
+    internal Yemoda MinDateParts { get; }
+    internal Yemoda MaxDateParts { get; }
+
+    public Yemoda CreateDateParts(int year, int month, int day)
     {
         Scope.ValidateYearMonthDay(year, month, day);
-        throw new NotImplementedException();
+        return UnderlyingSchema.GetDateParts(year, month, day);
     }
 
-    public Yemoda GetDate(int year, int dayOfYear)
+    public Yemoda CreateDateParts(int year, int dayOfYear)
     {
-        throw new NotImplementedException();
+        Scope.ValidateOrdinal(year, dayOfYear);
+        return UnderlyingSchema.GetDateParts(year, dayOfYear);
     }
 
-    public Yemoda GetDate(DayNumber dayNumber)
+    public Yemoda CreateDateParts(DayNumber dayNumber)
     {
         Scope.Validate(dayNumber);
         return UnderlyingSchema.GetDateParts(dayNumber - Epoch);

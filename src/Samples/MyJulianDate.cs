@@ -20,22 +20,25 @@ public readonly partial struct MyJulianDate :
 {
     private static readonly DayNumber s_Epoch = MyJulianCalendar.Instance.Epoch;
 
+    private static readonly Yemoda s_MinDateParts = MyJulianCalendar.Instance.MinDateParts;
+    private static readonly Yemoda s_MaxDateParts = MyJulianCalendar.Instance.MaxDateParts;
+
     private readonly Yemoda _bin;
 
     public MyJulianDate(int year, int month, int day)
     {
-        _bin = Calendar.GetDate(year, month, day);
+        _bin = Calendar.CreateDateParts(year, month, day);
     }
 
     public MyJulianDate(int year, int dayOfYear)
     {
-        _bin = Calendar.GetDate(year, dayOfYear);
+        _bin = Calendar.CreateDateParts(year, dayOfYear);
     }
 
     private MyJulianDate(Yemoda bin) { _bin = bin; }
 
-    public static MyJulianDate MinValue => throw new NotImplementedException();
-    public static MyJulianDate MaxValue => throw new NotImplementedException();
+    public static MyJulianDate MinValue { get; } = new(s_MinDateParts);
+    public static MyJulianDate MaxValue { get; } = new(s_MaxDateParts);
 
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
@@ -83,8 +86,7 @@ public readonly partial struct MyJulianDate :
 
 public partial struct MyJulianDate // Factories & conversions
 {
-    public static MyJulianDate FromDayNumber(DayNumber dayNumber) =>
-        new(Calendar.GetDate(dayNumber));
+    public static MyJulianDate FromDayNumber(DayNumber dayNumber) => new(Calendar.CreateDateParts(dayNumber));
 }
 
 public partial struct MyJulianDate // Counting

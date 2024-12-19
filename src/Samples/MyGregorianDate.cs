@@ -97,7 +97,7 @@ public readonly partial struct MyGregorianDate :
 
 public partial struct MyGregorianDate // Factories & conversions
 {
-    public static MyGregorianDate FromDayNumber(DayNumber dayNumber) => Calendar.GetDate(dayNumber);
+    public static MyGregorianDate FromDayNumber(DayNumber dayNumber) => Calendar.CreateDate(dayNumber);
 }
 
 public partial struct MyGregorianDate // Counting

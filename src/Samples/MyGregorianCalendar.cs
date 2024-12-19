@@ -142,7 +142,7 @@ public partial class MyGregorianCalendar
         return Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    public MyGregorianDate GetDate(DayNumber dayNumber)
+    public MyGregorianDate CreateDate(DayNumber dayNumber)
     {
         Scope.Validate(dayNumber);
         return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);

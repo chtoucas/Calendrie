@@ -176,6 +176,15 @@ public partial class SystemSchema // Conversions
     }
 
     /// <summary>
+    /// Creates a new instance of the <see cref="Yemoda"/> struct from the
+    /// specified year, month and day.
+    /// </summary>
+    [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+    public Yemoda GetDateParts(int y, int m, int d) => new(y, m, d);
+
+    /// <summary>
     /// Obtains the date parts for the specified ordinal date.
     /// <para>See also
     /// <seealso cref="ICalendricalSchema.GetMonth(int, int, out int)"/>.</para>
