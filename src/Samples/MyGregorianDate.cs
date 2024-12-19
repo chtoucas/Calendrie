@@ -82,6 +82,12 @@ public readonly partial struct MyGregorianDate :
     public bool IsIntercalary => Calendar.IsIntercalaryDay(_daysSinceEpoch);
     public bool IsSupplementary => Calendar.IsSupplementaryDay(_daysSinceEpoch);
 
+    public override string ToString()
+    {
+        Calendar.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({MyGregorianCalendar.DisplayName})");
+    }
+
     public void Deconstruct(out int year, out int month, out int day) =>
         Calendar.GetDateParts(_daysSinceEpoch, out year, out month, out day);
 

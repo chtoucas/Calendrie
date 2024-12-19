@@ -13,8 +13,10 @@ using Calendrie.Hemerology;
 
 public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<MyGregorianDate>
 {
+    internal const string DisplayName = "Grégorien";
+
     public MyGregorianCalendar()
-        : base("Grégorien",
+        : base(DisplayName,
             MinMaxYearScope.CreateMaximalOnOrAfterYear1<GregorianSchema>(DayZero.NewStyle))
     {
         (MinYear, MaxYear) = Scope.Segment.SupportedYears.Endpoints;
@@ -115,19 +117,31 @@ public partial class MyGregorianCalendar
     internal int CountDaysInYearAfter(int daysSinceEpoch)
     {
         int y = GetYear(daysSinceEpoch, out int doy);
-        return CountDaysInYear(y) - doy;
+        return Schema.CountDaysInYear(y) - doy;
     }
 
     // This method does not validate its parameters
     internal int CountDaysInMonthAfter(int daysSinceEpoch)
     {
         Schema.GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
-        return CountDaysInMonth(y, m) - d;
+        return Schema.CountDaysInMonth(y, m) - d;
     }
 }
 
 public partial class MyGregorianCalendar
 {
+    public int CountDaysSinceEpoch(int year, int month, int day)
+    {
+        Scope.ValidateYearMonthDay(year, month, day);
+        return Schema.CountDaysSinceEpoch(year, month, day);
+    }
+
+    public int CountDaysSinceEpoch(int year, int dayOfYear)
+    {
+        Scope.ValidateOrdinal(year, dayOfYear);
+        return Schema.CountDaysSinceEpoch(year, dayOfYear);
+    }
+
     public MyGregorianDate GetDate(DayNumber dayNumber)
     {
         Scope.Validate(dayNumber);
