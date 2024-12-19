@@ -165,40 +165,40 @@ public partial class MyJulianCalendar // Date helpers (adjustments)
     // Adjusters for the day of the week
     //
 
-    internal MyJulianDate Previous(MyJulianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return MyJulianDate.FromDayNumber(dayNumber);
-    }
+    //internal MyJulianDate Previous(MyJulianDate date, DayOfWeek dayOfWeek)
+    //{
+    //    var dayNumber = date.DayNumber.Previous(dayOfWeek);
+    //    Scope.CheckLowerBound(dayNumber);
+    //    return MyJulianDate.FromDayNumber(dayNumber);
+    //}
 
-    internal MyJulianDate PreviousOrSame(MyJulianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return MyJulianDate.FromDayNumber(dayNumber);
-    }
+    //internal MyJulianDate PreviousOrSame(MyJulianDate date, DayOfWeek dayOfWeek)
+    //{
+    //    var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
+    //    Scope.CheckLowerBound(dayNumber);
+    //    return MyJulianDate.FromDayNumber(dayNumber);
+    //}
 
-    internal MyJulianDate Nearest(MyJulianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return MyJulianDate.FromDayNumber(dayNumber);
-    }
+    //internal MyJulianDate Nearest(MyJulianDate date, DayOfWeek dayOfWeek)
+    //{
+    //    var dayNumber = date.DayNumber.Nearest(dayOfWeek);
+    //    Scope.CheckOverflow(dayNumber);
+    //    return MyJulianDate.FromDayNumber(dayNumber);
+    //}
 
-    internal MyJulianDate NextOrSame(MyJulianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return MyJulianDate.FromDayNumber(dayNumber);
-    }
+    //internal MyJulianDate NextOrSame(MyJulianDate date, DayOfWeek dayOfWeek)
+    //{
+    //    var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
+    //    Scope.CheckUpperBound(dayNumber);
+    //    return MyJulianDate.FromDayNumber(dayNumber);
+    //}
 
-    internal MyJulianDate Next(MyGregorianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return MyJulianDate.FromDayNumber(dayNumber);
-    }
+    //internal MyJulianDate Next(MyGregorianDate date, DayOfWeek dayOfWeek)
+    //{
+    //    var dayNumber = date.DayNumber.Next(dayOfWeek);
+    //    Scope.CheckUpperBound(dayNumber);
+    //    return MyJulianDate.FromDayNumber(dayNumber);
+    //}
 }
 
 public partial class MyJulianCalendar // Date helpers (math)

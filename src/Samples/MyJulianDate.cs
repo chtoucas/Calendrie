@@ -19,9 +19,6 @@ public readonly partial struct MyJulianDate :
 {
     private static readonly DayNumber s_Epoch = MyJulianCalendar.Instance.Epoch;
 
-    private static readonly Yemoda s_MinDateParts = MyJulianCalendar.Instance.MinDateParts;
-    private static readonly Yemoda s_MaxDateParts = MyJulianCalendar.Instance.MaxDateParts;
-
     private readonly Yemoda _bin;
 
     public MyJulianDate(int year, int month, int day)
@@ -36,8 +33,8 @@ public readonly partial struct MyJulianDate :
 
     internal MyJulianDate(Yemoda bin) { _bin = bin; }
 
-    public static MyJulianDate MinValue { get; } = new(s_MinDateParts);
-    public static MyJulianDate MaxValue { get; } = new(s_MaxDateParts);
+    public static MyJulianDate MinValue { get; } = new(MyJulianCalendar.Instance.MinDateParts);
+    public static MyJulianDate MaxValue { get; } = new(MyJulianCalendar.Instance.MaxDateParts);
 
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
