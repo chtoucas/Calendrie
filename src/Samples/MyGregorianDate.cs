@@ -96,10 +96,10 @@ public partial struct MyGregorianDate // Factories & conversions
 
 public partial struct MyGregorianDate // Counting
 {
-    public int CountElapsedDaysInYear() => throw new NotImplementedException();
-    public int CountRemainingDaysInYear() => throw new NotImplementedException();
-    public int CountElapsedDaysInMonth() => throw new NotImplementedException();
-    public int CountRemainingDaysInMonth() => throw new NotImplementedException();
+    public int CountElapsedDaysInYear() => DayOfYear - 1;
+    public int CountRemainingDaysInYear() => Calendar.CountDaysInYearAfter(_daysSinceEpoch);
+    public int CountElapsedDaysInMonth() => Day - 1;
+    public int CountRemainingDaysInMonth() => Calendar.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
 public partial struct MyGregorianDate // Adjustments

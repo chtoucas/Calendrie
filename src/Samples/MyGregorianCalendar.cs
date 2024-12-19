@@ -16,7 +16,15 @@ public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<My
     public MyGregorianCalendar()
         : base("Grégorien",
             MinMaxYearScope.CreateMaximalOnOrAfterYear1<GregorianSchema>(DayZero.NewStyle))
-    { }
+    {
+        (MinYear, MaxYear) = Scope.Segment.SupportedYears.Endpoints;
+    }
+
+    public static MyGregorianDate MinDate => MyGregorianDate.MinValue;
+    public static MyGregorianDate MaxDate => MyGregorianDate.MaxValue;
+
+    public int MinYear { get; }
+    public int MaxYear { get; }
 }
 
 public partial class MyGregorianCalendar // IDateProvider<MyGregorianDate>
@@ -108,6 +116,20 @@ public partial class MyGregorianCalendar
     // This method does not validate its parameters
     internal int GetYear(int daysSinceEpoch, out int dayofYear) =>
         Schema.GetYear(daysSinceEpoch, out dayofYear);
+
+    // This method does not validate its parameters
+    internal int CountDaysInYearAfter(int daysSinceEpoch)
+    {
+        int y = GetYear(daysSinceEpoch, out int doy);
+        return CountDaysInYear(y) - doy;
+    }
+
+    // This method does not validate its parameters
+    internal int CountDaysInMonthAfter(int daysSinceEpoch)
+    {
+        Schema.GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
+        return CountDaysInMonth(y, m) - d;
+    }
 }
 
 public partial class MyGregorianCalendar
