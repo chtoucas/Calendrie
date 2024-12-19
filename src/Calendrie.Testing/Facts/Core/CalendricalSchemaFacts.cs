@@ -9,15 +9,15 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about <see cref="ICalendricalSchemaPlus"/>.
 /// </summary>
-public abstract partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> :
+public abstract partial class CalendricalSchemaFacts<TSchema, TDataSet> :
     ICalendricalSchemaFacts<TSchema, TDataSet>
-    where TSchema : ICalendricalSchemaPlus
+    where TSchema : CalendricalSchema
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected ICalendricalSchemaPlusFacts(TSchema schema) : base(schema) { }
+    protected CalendricalSchemaFacts(TSchema schema) : base(schema) { }
 }
 
-public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
+public partial class CalendricalSchemaFacts<TSchema, TDataSet> // Methods
 {
     #region CountDaysInYearAfterMonth()
 
@@ -436,7 +436,7 @@ public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Methods
     #endregion
 }
 
-public partial class ICalendricalSchemaPlusFacts<TSchema, TDataSet> // Overflows
+public partial class CalendricalSchemaFacts<TSchema, TDataSet> // Overflows
 {
     [Fact] public void CountDaysInYearAfterMonth_DoesNotUnderflow() => _ = SchemaUT.CountDaysInYearAfterMonth(MinYear, 1);
     [Fact] public void CountDaysInYearAfterMonth_DoesNotOverflow() => _ = SchemaUT.CountDaysInYearAfterMonth(MaxYear, MaxMonth);

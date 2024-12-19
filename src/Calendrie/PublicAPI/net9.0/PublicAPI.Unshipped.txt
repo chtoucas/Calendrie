@@ -137,20 +137,6 @@ Calendrie.Core.ICalendricalSchema.PreValidator.get -> Calendrie.Core.Validation.
 Calendrie.Core.ICalendricalSchema.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.ICalendricalSchema.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.ICalendricalSchema.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.ICalendricalSchemaPlus
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInMonthAfter(int daysSinceEpoch) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInMonthAfter(int y, int doy) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInMonthAfter(int y, int m, int d) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInMonthBefore(int daysSinceEpoch) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInMonthBefore(int y, int doy) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInMonthBefore(int y, int m, int d) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearAfter(int daysSinceEpoch) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearAfter(int y, int doy) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearAfter(int y, int m, int d) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearAfterMonth(int y, int m) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int daysSinceEpoch) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int y, int doy) -> int
-Calendrie.Core.ICalendricalSchemaPlus.CountDaysInYearBefore(int y, int m, int d) -> int
 Calendrie.Core.IMinMaxFunction<TSelf>
 Calendrie.Core.IMinMaxFunction<TSelf>.Max(TSelf x, TSelf y) -> TSelf
 Calendrie.Core.IMinMaxFunction<TSelf>.Min(TSelf x, TSelf y) -> TSelf

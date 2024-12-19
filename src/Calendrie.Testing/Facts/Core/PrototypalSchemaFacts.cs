@@ -12,7 +12,7 @@ using Calendrie.Testing.Data;
 /// </summary>
 [TestPerformance(TestPerformance.SlowBundle)]
 public abstract class PrototypalSchemaFacts<TDataSet> :
-    ICalendricalSchemaPlusFacts<PrototypalSchema, TDataSet>
+    ICalendricalSchemaFacts<PrototypalSchema, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
     protected PrototypalSchemaFacts(PrototypalSchema schema) : base(schema) { }

@@ -124,7 +124,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <summary>
 /// Represents a calendrical schema and provides a base for derived classes.
 /// </summary>
-public abstract partial class CalendricalSchema : ICalendricalSchemaPlus
+public abstract partial class CalendricalSchema : ICalendricalSchema
 {
     private readonly MonthsCalculator _monthsCalculator;
 
@@ -293,7 +293,14 @@ public partial class CalendricalSchema // Counting months and days within a year
     // solution.
     [Pure] public abstract int CountDaysInYearBeforeMonth(int y, int m);
 
-    /// <inheritdoc />
+    //
+    //
+    //
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified month and
+    /// until the end of the year.
+    /// </summary>
     [Pure]
     public int CountDaysInYearAfterMonth(int y, int m) =>
         // We could have writen:
@@ -310,17 +317,32 @@ public partial class CalendricalSchema // Counting months and days within a year
 
     #region CountDaysInYearBefore()
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>The result should match the value of <c>(DayOfYear - 1)</c>.</para>
+    /// </summary>
     [Pure]
     public int CountDaysInYearBefore(int y, int m, int d) =>
         // > GetDayOfYear(y, m, d) - 1
         CountDaysInYearBeforeMonth(y, m) + d - 1;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>Trivial (<c>= <paramref name="doy"/> - 1</c>), only added for
+    /// completeness.</para>
+    /// </summary>
     [Pure]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public int CountDaysInYearBefore(int y, int doy) => doy - 1;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>The result should match the value of <c>(DayOfYear - 1)</c>.</para>
+    /// </summary>
     [Pure]
     public int CountDaysInYearBefore(int daysSinceEpoch)
     {
@@ -332,16 +354,25 @@ public partial class CalendricalSchema // Counting months and days within a year
     #endregion
     #region CountDaysInYearAfter()
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
     [Pure]
     public int CountDaysInYearAfter(int y, int m, int d) =>
         CountDaysInYear(y) - CountDaysInYearBeforeMonth(y, m) - d;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
     [Pure]
     public int CountDaysInYearAfter(int y, int doy) => CountDaysInYear(y) - doy;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
     [Pure]
     public int CountDaysInYearAfter(int daysSinceEpoch)
     {
@@ -360,11 +391,22 @@ public partial class CalendricalSchema // Counting months and days within a year
     #endregion
     #region CountDaysInMonthBefore()
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>Trivial (<c>= <paramref name="d"/> - 1</c>), only added for
+    /// completeness.</para>
+    /// </summary>
     [Pure]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public int CountDaysInMonthBefore(int y, int m, int d) => d - 1;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>The result should match the value of <c>(Day - 1)</c>.</para>
+    /// </summary>
     [Pure]
     public int CountDaysInMonthBefore(int y, int doy)
     {
@@ -373,7 +415,11 @@ public partial class CalendricalSchema // Counting months and days within a year
         return d - 1;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>The result should match the value of <c>(Day - 1)</c>.</para>
+    /// </summary>
     [Pure]
     public int CountDaysInMonthBefore(int daysSinceEpoch)
     {
@@ -386,11 +432,17 @@ public partial class CalendricalSchema // Counting months and days within a year
     #endregion
     #region CountDaysInMonthAfter()
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
     [Pure]
     public int CountDaysInMonthAfter(int y, int m, int d) => CountDaysInMonth(y, m) - d;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
     [Pure]
     public int CountDaysInMonthAfter(int y, int doy)
     {
@@ -399,7 +451,10 @@ public partial class CalendricalSchema // Counting months and days within a year
         return CountDaysInMonth(y, m) - d;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
     [Pure]
     public int CountDaysInMonthAfter(int daysSinceEpoch)
     {

@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core;
 
+// Obsolete interface
+
 /// <summary>
 /// Defines an extended calendrical schema.
 /// </summary>
