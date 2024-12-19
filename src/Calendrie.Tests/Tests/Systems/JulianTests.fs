@@ -17,14 +17,20 @@ open Xunit
 
 open type Calendrie.Extensions.JulianDateExtensions
 
+#if DEBUG
 module Prelude =
     [<Fact>]
     let ``Value of JulianDate.MinDaysSinceEpoch`` () =
-        JulianDate.MinDaysSinceEpoch === JulianCalendar.Instance.Scope.Segment.SupportedDays.Min
+        // C# protected internal
+        //JulianDate.MinDaysSinceEpoch === JulianCalendar.Instance.Scope.Segment.SupportedDays.Min
+        JulianDate.MinDaysSinceEpoch === JulianCalendar.Instance.Segment.SupportedDays.Min
 
     [<Fact>]
     let ``Value of JulianDate.MaxDaysSinceEpoch`` () =
-        JulianDate.MaxDaysSinceEpoch === JulianCalendar.Instance.Scope.Segment.SupportedDays.Max
+        // C# protected internal
+        //JulianDate.MaxDaysSinceEpoch === JulianCalendar.Instance.Scope.Segment.SupportedDays.Max
+        JulianDate.MaxDaysSinceEpoch === JulianCalendar.Instance.Segment.SupportedDays.Max
+#endif
 
 module Extensions =
     let private chr = JulianCalendar.Instance

@@ -25,13 +25,19 @@ module Prelude =
 
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
+#if DEBUG
     [<Fact>]
     let ``Value of GregorianDate.MinDaysSinceZero`` () =
-        GregorianDate.MinDaysSinceZero === GregorianCalendar.Instance.Scope.Segment.SupportedDays.Min
+        // C# protected internal
+        //GregorianDate.MinDaysSinceZero === GregorianCalendar.Instance.Scope.Segment.SupportedDays.Min
+        GregorianDate.MinDaysSinceZero === GregorianCalendar.Instance.Segment.SupportedDays.Min
 
     [<Fact>]
     let ``Value of GregorianDate.MaxDaysSinceZero`` () =
-        GregorianDate.MaxDaysSinceZero === GregorianCalendar.Instance.Scope.Segment.SupportedDays.Max
+        // C# protected internal
+        //GregorianDate.MaxDaysSinceZero === GregorianCalendar.Instance.Scope.Segment.SupportedDays.Max
+        GregorianDate.MaxDaysSinceZero === GregorianCalendar.Instance.Segment.SupportedDays.Max
+#endif
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
     let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =

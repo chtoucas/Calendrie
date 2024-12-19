@@ -33,7 +33,8 @@ module Prelude =
         let chr = new FauxCalendar(name, scope)
 
         chr.Name  === name
-        chr.Scope ==& scope
+        // C# protected internal
+        //chr.Scope ==& scope
 
     [<Fact>]
     let ``NakedCalendar::IsRegular() when the calendar is regular`` () =

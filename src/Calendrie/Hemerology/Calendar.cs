@@ -201,11 +201,6 @@ public abstract partial class Calendar
     public string Name { get; }
 
     /// <summary>
-    /// Gets the calendar scope.
-    /// </summary>
-    public CalendarScope Scope { get; }
-
-    /// <summary>
     /// Gets the epoch.
     /// </summary>
     public DayNumber Epoch { get; }
@@ -229,11 +224,19 @@ public abstract partial class Calendar
     public CalendricalAdjustments PeriodicAdjustments => Schema.PeriodicAdjustments;
 
     /// <summary>
+    /// Gets the calendar scope.
+    /// </summary>
+    protected internal CalendarScope Scope { get; }
+
+    /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    //
-    // Also internal for date types in Calendrie.Systems.
     protected internal ICalendricalSchema Schema { get; }
+
+#if DEBUG // Only for testing (search for C# protected internal in the test project)
+    // FS0405: F# doesn't cope well with "protected internal".
+    internal CalendricalSegment Segment => Scope.Segment;
+#endif
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

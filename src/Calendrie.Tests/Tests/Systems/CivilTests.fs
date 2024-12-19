@@ -27,9 +27,13 @@ module Prelude =
     let dateInfoData = calendarDataSet.DateInfoData
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
+#if DEBUG
     [<Fact>]
     let ``Value of CivilDate.MaxDaysSinceZero`` () =
-        CivilDate.MaxDaysSinceZero === CivilCalendar.Instance.Scope.Segment.SupportedDays.Max
+        // C# protected internal
+        //CivilDate.MaxDaysSinceZero === CivilCalendar.Instance.Scope.Segment.SupportedDays.Max
+        CivilDate.MaxDaysSinceZero === CivilCalendar.Instance.Segment.SupportedDays.Max
+#endif
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
     let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =
