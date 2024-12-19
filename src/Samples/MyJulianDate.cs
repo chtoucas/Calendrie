@@ -4,7 +4,6 @@
 namespace Samples;
 
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 
@@ -53,8 +52,20 @@ public readonly partial struct MyJulianDate :
     public int Month => _bin.Month;
     public int DayOfYear => Calendar.GetDayOfYear(_bin);
     public int Day => _bin.Day;
-    public DayOfWeek DayOfWeek =>
-        (DayOfWeek)Modulo((int)checked(s_Epoch.DayOfWeek + DaysSinceEpoch), DaysInWeek);
+
+    public DayOfWeek DayOfWeek
+    {
+        get
+        {
+            return (DayOfWeek)mod((int)(s_Epoch.DayOfWeek + DaysSinceEpoch), DaysInWeek);
+
+            static int mod(int m, int n)
+            {
+                int r = m % n;
+                return r >= 0 ? r : (r + n);
+            }
+        }
+    }
 
     public bool IsIntercalary => Calendar.IsIntercalaryDay(_bin);
     public bool IsSupplementary => Calendar.IsSupplementaryDay(_bin);
@@ -69,19 +80,7 @@ public readonly partial struct MyJulianDate :
         (year, month, day) = _bin;
 
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Calendar.GetOrdinalParts(_bin, out dayOfYear);
-
-    //
-    // Helpers
-    //
-
-    private static int Modulo(int m, int n)
-    {
-        Debug.Assert(n > 0);
-
-        int r = m % n;
-        return r >= 0 ? r : (r + n);
-    }
+        (year, dayOfYear) = Calendar.GetOrdinalParts(_bin);
 }
 
 public partial struct MyJulianDate // Factories & conversions

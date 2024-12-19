@@ -84,11 +84,10 @@ public partial class MyJulianCalendar // Date helpers
         return Schema.GetDayOfYear(y, m, d);
     }
 
-    internal int GetOrdinalParts(Yemoda ymd, out int dayOfYear)
+    internal Yedoy GetOrdinalParts(Yemoda ymd)
     {
         var (y, m, d) = ymd;
-        dayOfYear = Schema.GetDayOfYear(y, m, d);
-        return y;
+        return UnderlyingSchema.GetOrdinalParts(y, m, d);
     }
 
     internal bool IsIntercalaryDay(Yemoda ymd)
@@ -109,13 +108,13 @@ public partial class MyJulianCalendar // Date helpers (counting)
     internal int CountDaysInYearAfter(Yemoda ymd)
     {
         var (y, m, d) = ymd;
-        return Schema.CountDaysInYear(y) - Schema.CountDaysInYearBeforeMonth(y, m) - d;
+        return UnderlyingSchema.CountDaysInYearAfter(y, m, d);
     }
 
     internal int CountDaysInMonthAfter(Yemoda ymd)
     {
         var (y, m, d) = ymd;
-        return Schema.CountDaysInMonth(y, m) - d;
+        return UnderlyingSchema.CountDaysInMonthAfter(y, m, d);
     }
 }
 
