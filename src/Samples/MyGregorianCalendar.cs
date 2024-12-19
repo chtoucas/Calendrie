@@ -89,12 +89,6 @@ public partial class MyGregorianCalendar
     internal int MinDaysSinceEpoch => Scope.Segment.SupportedDays.Min;
     internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
 
-    internal MyGregorianDate GetDate(DayNumber dayNumber)
-    {
-        Scope.Validate(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
     // This method does not validate its parameters
     internal bool IsIntercalaryDay(int daysSinceEpoch)
     {
@@ -134,6 +128,12 @@ public partial class MyGregorianCalendar
 
 public partial class MyGregorianCalendar
 {
+    public MyGregorianDate GetDate(DayNumber dayNumber)
+    {
+        Scope.Validate(dayNumber);
+        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
+    }
+
     //
     // Adjustments for the core parts
     //
