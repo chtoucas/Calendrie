@@ -1,17 +1,18 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
-
 namespace Samples;
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 
 using Calendrie;
 using Calendrie.Core;
 using Calendrie.Hemerology;
+
+using static Calendrie.Core.CalendricalConstants;
 
 public readonly partial struct MyJulianDate :
     IDate<MyJulianDate, MyJulianCalendar>,
@@ -23,11 +24,15 @@ public readonly partial struct MyJulianDate :
 
     public MyJulianDate(int year, int month, int day)
     {
-        // FIXME(code): validation and factory
-        _bin = Yemoda.Create(year, month, day);
+        _bin = Calendar.GetDate(year, month, day);
     }
 
-    public MyJulianDate(Yemoda bin) { _bin = bin; }
+    public MyJulianDate(int year, int dayOfYear)
+    {
+        _bin = Calendar.GetDate(year, dayOfYear);
+    }
+
+    private MyJulianDate(Yemoda bin) { _bin = bin; }
 
     public static MyJulianDate MinValue => throw new NotImplementedException();
     public static MyJulianDate MaxValue => throw new NotImplementedException();
@@ -35,7 +40,7 @@ public readonly partial struct MyJulianDate :
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
     public DayNumber DayNumber => s_Epoch + DaysSinceEpoch;
-    public int DaysSinceEpoch => Calendar.CountDaysSinceEpoch(this);
+    public int DaysSinceEpoch => Calendar.CountDaysSinceEpoch(_bin);
 
     public Ord CenturyOfEra => Ord.FromInt32(Century);
     public int Century => YearNumbering.GetCentury(_bin.Year);
@@ -43,12 +48,13 @@ public readonly partial struct MyJulianDate :
     public int YearOfCentury => YearNumbering.GetYearOfCentury(_bin.Year);
     public int Year => _bin.Year;
     public int Month => _bin.Month;
-    public int DayOfYear => Calendar.GetDayOfYear(this);
+    public int DayOfYear => Calendar.GetDayOfYear(_bin);
     public int Day => _bin.Day;
-    public DayOfWeek DayOfWeek => throw new NotImplementedException();
+    public DayOfWeek DayOfWeek =>
+        (DayOfWeek)Modulo((int)checked(s_Epoch.DayOfWeek + DaysSinceEpoch), DaysInWeek);
 
-    public bool IsIntercalary => Calendar.IsIntercalaryDay(this);
-    public bool IsSupplementary => Calendar.IsSupplementaryDay(this);
+    public bool IsIntercalary => Calendar.IsIntercalaryDay(_bin);
+    public bool IsSupplementary => Calendar.IsSupplementaryDay(_bin);
 
     public override string ToString()
     {
@@ -60,20 +66,33 @@ public readonly partial struct MyJulianDate :
         (year, month, day) = _bin;
 
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Calendar.GetOrdinalParts(this, out dayOfYear);
+        year = Calendar.GetOrdinalParts(_bin, out dayOfYear);
+
+    //
+    // Helpers
+    //
+
+    private static int Modulo(int m, int n)
+    {
+        Debug.Assert(n > 0);
+
+        int r = m % n;
+        return r >= 0 ? r : (r + n);
+    }
 }
 
 public partial struct MyJulianDate // Factories & conversions
 {
-    public static MyJulianDate FromDayNumber(DayNumber dayNumber) => throw new NotImplementedException();
+    public static MyJulianDate FromDayNumber(DayNumber dayNumber) =>
+        new(Calendar.GetDate(dayNumber));
 }
 
 public partial struct MyJulianDate // Counting
 {
     public int CountElapsedDaysInYear() => DayOfYear - 1;
-    public int CountRemainingDaysInYear() => Calendar.CountDaysInYearAfter(this);
+    public int CountRemainingDaysInYear() => Calendar.CountDaysInYearAfter(_bin);
     public int CountElapsedDaysInMonth() => _bin.Day - 1;
-    public int CountRemainingDaysInMonth() => Calendar.CountDaysInMonthAfter(this);
+    public int CountRemainingDaysInMonth() => Calendar.CountDaysInMonthAfter(_bin);
 }
 
 public partial struct MyJulianDate // Adjustments
@@ -137,8 +156,8 @@ public partial struct MyJulianDate // Math
 
 #pragma warning restore CA2225 // Operator overloads have named alternates
 
-    public int CountDaysSince(MyJulianDate other) => throw new NotImplementedException();
-    public MyJulianDate AddDays(int days) => throw new NotImplementedException();
-    public MyJulianDate NextDay() => throw new NotImplementedException();
-    public MyJulianDate PreviousDay() => throw new NotImplementedException();
+    public int CountDaysSince(MyJulianDate other) => Calendar.CountDaysBetween(other._bin, _bin);
+    public MyJulianDate AddDays(int days) => new(Calendar.AddDays(_bin, days));
+    public MyJulianDate NextDay() => new(Calendar.NextDay(_bin));
+    public MyJulianDate PreviousDay() => new(Calendar.PreviousDay(_bin));
 }
