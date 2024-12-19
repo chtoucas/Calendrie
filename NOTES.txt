@@ -4,36 +4,61 @@
 Comparaison avec NodaTime et les BCL
 ------------------------------------
 
-### NodaTime
-
-- un type date (LocalDate) commun à tous les calendriers
-- représentation interne : y/m/d (int)
-
 ### BCL
 
-- un type date (DateOnly) commun à tous les calendriers
-- réprésentation interne : _dayNumber (int), le nombre de jours consécutifs
-  depuis l'epoch du calendrier grégorien (à vérifier)
+- un type date DateOnly (mais aussi DateTime) commun à tous les calendriers
+- réprésentation binaire : _dayNumber (int), le nombre de jours consécutifs
+  depuis l'epoch du calendrier grégorien. En clair, même si on peut construire
+  une valeur de type DateOnly en spécifiant un calendrier non-grégorien, le
+  résultat sera quand même une date grégorienne.
+
+### NodaTime
+
+- un type date LocalDate commun à tous les calendriers
+- représentation binaire : YearMonthDayCalendar (int)
 
 ### Calendrie
 
-- un type date spécifique à chaque calendrier
-- réprésentation interne : _daysSinceEpoch (int), le nombre de jours consécutifs
+- un type date par calendrier
+- réprésentation binaire : _daysSinceEpoch (int), le nombre de jours consécutifs
   depuis l'epoch du calendrier sous-jacent
 
 Répresenter une date
 --------------------
 
-Quatre formats :
-- nombre de jours consécutifs depuis l'epoch du calendrier
-- année / mois / jour du mois
-- année / semaine / jour de la semaine
-- année / jour de l'année
+Quatre formats de date.
 
-Pour un type date, une structure, on devrait s'assurer que la valeur par défaut
-est une date valide dans le calendrier sous-jacent. En général, cette valeur
-correspond au 1/1/1. Il faut donc qu'elle fasse partie de l'intervale de jours
-supportés par le calendrier.
+1. Nombre de jours consécutifs depuis l'epoch du calendrier
+Il s'agit du format utilisé par Calendrie et, dans une certaine mesure, par
+la BCL.
+
+Points forts :
+- format binaire élémentaire
+- obtention rapide de la propriété DayOfWeek
+- ajouter ou soustraire un nombre de jours est un opération triviale
+Points faibles :
+- l'année, le mois, le jour du mois, le jour de l'année doivent être calculés
+  à la volée, tout comme des propriétés tel que "jour intercalaire" ou
+  "jour supplémentaire"
+
+2. Année / mois / jour du mois
+Format utilisé par NodaTime
+
+Points forts :
+- tout ce qui est lié à la représentation j/m/a d'une date est accessible
+  immédiatement
+Points faibles :
+- format binaire complexe
+- les propriétes DayOfYear et DayOfWeek sont calculées
+
+3. Année / semaine / jour de la semaine
+
+4. Année / jour de l'année
+
+Pour un type date de type valeur, une structure, on devrait s'assurer que la
+valeur par défaut est une date valide dans le calendrier sous-jacent. En général,
+cette valeur correspond à l'epoch, càd le 1/1/1. Il faut donc que l'epoch
+appartienne à l'intervalle de jours supportés par le calendrier.
 
 Développement
 =============
