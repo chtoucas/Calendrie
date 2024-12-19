@@ -4,48 +4,82 @@
 namespace Samples;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Calendrie;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
-public sealed partial class MyGregorianCalendar : Calendar
+public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<MyGregorianDate>
 {
     public MyGregorianCalendar()
-        : base("Grégorien", MinMaxYearScope.CreateMaximal<GregorianSchema>(DayZero.NewStyle)) { }
+        : base("Grégorien",
+            MinMaxYearScope.CreateMaximalOnOrAfterYear1<GregorianSchema>(DayZero.NewStyle))
+    { }
+}
 
-    internal static MyGregorianCalendar Instance { get; } = new();
-    internal int MinDaysSinceEpoch => Scope.Segment.SupportedDays.Min;
-    internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
-
-    public sealed override int CountDaysInYear(int year)
+public partial class MyGregorianCalendar // IDateProvider<MyGregorianDate>
+{
+    public IEnumerable<MyGregorianDate> GetDaysInYear(int year)
     {
         Scope.ValidateYear(year);
-        return Schema.CountDaysInYear(year);
+
+        int startOfYear = Schema.GetStartOfYear(year);
+        int daysInYear = Schema.CountDaysInYear(year);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfYear, daysInYear)
+               select new MyGregorianDate(daysSinceEpoch);
     }
 
-    public sealed override int CountDaysInMonth(int year, int month)
+    public IEnumerable<MyGregorianDate> GetDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
-        return Schema.CountDaysInMonth(year, month);
+
+        int startOfMonth = Schema.GetStartOfMonth(year, month);
+        int daysInMonth = Schema.CountDaysInMonth(year, month);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfMonth, daysInMonth)
+               select new MyGregorianDate(daysSinceEpoch);
+    }
+
+    public MyGregorianDate GetStartOfYear(int year)
+    {
+        Scope.ValidateYear(year);
+        int daysSinceEpoch = Schema.GetStartOfYear(year);
+        return new MyGregorianDate(daysSinceEpoch);
+    }
+
+    public MyGregorianDate GetEndOfYear(int year)
+    {
+        Scope.ValidateYear(year);
+        int daysSinceEpoch = Schema.GetEndOfYear(year);
+        return new MyGregorianDate(daysSinceEpoch);
+    }
+
+    public MyGregorianDate GetStartOfMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
+        return new MyGregorianDate(daysSinceEpoch);
+    }
+
+    public MyGregorianDate GetEndOfMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
+        return new MyGregorianDate(daysSinceEpoch);
     }
 }
 
-// Internal methods used to build MyDate
-// These methods may not validate their parameters
 public partial class MyGregorianCalendar
 {
-    internal int CountDaysSinceEpoch(int year, int month, int day)
-    {
-        Scope.ValidateYearMonthDay(year, month, day);
-        return Schema.CountDaysSinceEpoch(year, month, day);
-    }
+    internal static MyGregorianCalendar Instance { get; } = new();
 
-    internal int CountDaysSinceEpoch(int year, int dayOfYear)
-    {
-        Scope.ValidateOrdinal(year, dayOfYear);
-        return Schema.CountDaysSinceEpoch(year, dayOfYear);
-    }
+    internal int MinDaysSinceEpoch => Scope.Segment.SupportedDays.Min;
+    internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
 
     internal MyGregorianDate GetDate(DayNumber dayNumber)
     {
@@ -53,27 +87,29 @@ public partial class MyGregorianCalendar
         return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
     }
 
+    // This method does not validate its parameters
     internal bool IsIntercalaryDay(int daysSinceEpoch)
     {
         Schema.GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
         return Schema.IsIntercalaryDay(y, m, d);
     }
 
+    // This method does not validate its parameters
     internal bool IsSupplementaryDay(int daysSinceEpoch)
     {
         Schema.GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
         return Schema.IsSupplementaryDay(y, m, d);
     }
 
+    // This method does not validate its parameters
     internal void GetDateParts(int daysSinceEpoch, out int year, out int month, out int day) =>
         Schema.GetDateParts(daysSinceEpoch, out year, out month, out day);
 
+    // This method does not validate its parameters
     internal int GetYear(int daysSinceEpoch, out int dayofYear) =>
         Schema.GetYear(daysSinceEpoch, out dayofYear);
 }
 
-// internal (optional) methods used to build MyDate
-//
 public partial class MyGregorianCalendar
 {
     //
@@ -101,9 +137,7 @@ public partial class MyGregorianCalendar
     public MyGregorianDate AdjustDay(MyGregorianDate date, int newDay)
     {
         var (y, m, _) = date;
-        if (newDay < 1
-            || (newDay > Schema.MinDaysInMonth
-                && newDay > Schema.CountDaysInMonth(y, m)))
+        if (newDay < 1 || newDay > Schema.CountDaysInMonth(y, m))
         {
             throw new ArgumentOutOfRangeException(nameof(newDay));
         }

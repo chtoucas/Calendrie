@@ -30,6 +30,11 @@ Quatre formats :
 - année / semaine / jour de la semaine
 - année / jour de l'année
 
+Pour un type date, une structure, on devrait s'assurer que la valeur par défaut
+est une date valide dans le calendrier sous-jacent. En général, cette valeur
+correspond au 1/1/1. Il faut donc qu'elle fasse partie de l'intervale de jours
+supportés par le calendrier.
+
 Développement
 =============
 
