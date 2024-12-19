@@ -6,16 +6,17 @@ namespace Samples;
 using System;
 
 using Calendrie;
+using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
-public sealed partial class MyCalendar : UserCalendar
+public sealed partial class MyGregorianCalendar : Calendar
 {
-    public MyCalendar(string name, MinMaxYearScope scope) : base(name, scope) { }
+    public MyGregorianCalendar()
+        : base("Grégorien", MinMaxYearScope.CreateMaximal<GregorianSchema>(DayZero.NewStyle)) { }
 
+    internal static MyGregorianCalendar Instance { get; } = new();
     internal int MinDaysSinceEpoch => Scope.Segment.SupportedDays.Min;
     internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
-
-    internal static MyCalendar Instance { get; } = new("My Calendar", null!);
 
     public sealed override int CountDaysInYear(int year)
     {
@@ -30,105 +31,25 @@ public sealed partial class MyCalendar : UserCalendar
     }
 }
 
-// Public methods for MyDate
-//
-public partial class MyCalendar
+// Internal methods used to build MyDate
+// These methods may not validate their parameters
+public partial class MyGregorianCalendar
 {
-    //
-    // Adjustments for the core parts
-    //
-
-    public MyDate AdjustYear(MyDate date, int newYear)
+    internal int CountDaysSinceEpoch(int year, int month, int day)
     {
-        var (_, m, d) = date;
-        Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
-
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        Scope.ValidateYearMonthDay(year, month, day);
+        return Schema.CountDaysSinceEpoch(year, month, day);
     }
 
-    public MyDate AdjustMonth(MyDate date, int newMonth)
+    internal int CountDaysSinceEpoch(int year, int dayOfYear)
     {
-        var (y, _, d) = date;
-        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
-
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceEpoch);
+        Scope.ValidateOrdinal(year, dayOfYear);
+        return Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
-    public MyDate AdjustDay(MyDate date, int newDay)
-    {
-        var (y, m, _) = date;
-        if (newDay < 1
-            || (newDay > Schema.MinDaysInMonth
-                && newDay > Schema.CountDaysInMonth(y, m)))
-        {
-            throw new ArgumentOutOfRangeException(nameof(newDay));
-        }
-
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceEpoch);
-    }
-
-    public MyDate AdjustDayOfYear(MyDate date, int newDayOfYear)
-    {
-        int y = date.Year;
-        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
-
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceEpoch);
-    }
-
-    //
-    // Adjusters for the day of the week
-    //
-
-    public MyDate Previous(MyDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
-    public MyDate PreviousOrSame(MyDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
-    public MyDate Nearest(MyDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
-    public MyDate NextOrSame(MyDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
-    public MyDate Next(MyDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-}
-
-// Internal methods for MyDate
-//
-public partial class MyCalendar
-{
-    internal MyDate GetDate(DayNumber dayNumber)
+    internal MyGregorianDate GetDate(DayNumber dayNumber)
     {
         Scope.Validate(dayNumber);
-
-        // We know that the subtraction won't overflow
-        // > return new(dayNumber - s_Epoch);
         return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
     }
 
@@ -149,4 +70,93 @@ public partial class MyCalendar
 
     internal int GetYear(int daysSinceEpoch, out int dayofYear) =>
         Schema.GetYear(daysSinceEpoch, out dayofYear);
+}
+
+// internal (optional) methods used to build MyDate
+//
+public partial class MyGregorianCalendar
+{
+    //
+    // Adjustments for the core parts
+    //
+
+    public MyGregorianDate AdjustYear(MyGregorianDate date, int newYear)
+    {
+        var (_, m, d) = date;
+        Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceEpoch);
+    }
+
+    public MyGregorianDate AdjustMonth(MyGregorianDate date, int newMonth)
+    {
+        var (y, _, d) = date;
+        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceEpoch);
+    }
+
+    public MyGregorianDate AdjustDay(MyGregorianDate date, int newDay)
+    {
+        var (y, m, _) = date;
+        if (newDay < 1
+            || (newDay > Schema.MinDaysInMonth
+                && newDay > Schema.CountDaysInMonth(y, m)))
+        {
+            throw new ArgumentOutOfRangeException(nameof(newDay));
+        }
+
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceEpoch);
+    }
+
+    public MyGregorianDate AdjustDayOfYear(MyGregorianDate date, int newDayOfYear)
+    {
+        int y = date.Year;
+        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceEpoch);
+    }
+
+    //
+    // Adjusters for the day of the week
+    //
+
+    public MyGregorianDate Previous(MyGregorianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Previous(dayOfWeek);
+        Scope.CheckLowerBound(dayNumber);
+        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
+    }
+
+    public MyGregorianDate PreviousOrSame(MyGregorianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
+        Scope.CheckLowerBound(dayNumber);
+        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
+    }
+
+    public MyGregorianDate Nearest(MyGregorianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Nearest(dayOfWeek);
+        Scope.CheckOverflow(dayNumber);
+        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
+    }
+
+    public MyGregorianDate NextOrSame(MyGregorianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
+        Scope.CheckUpperBound(dayNumber);
+        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
+    }
+
+    public MyGregorianDate Next(MyGregorianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Next(dayOfWeek);
+        Scope.CheckUpperBound(dayNumber);
+        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
+    }
 }
