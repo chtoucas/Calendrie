@@ -151,20 +151,6 @@ public sealed class CalendricalSegment
         return builder.BuildSegment();
     }
 
-    public OrderedPair<Yemoda> ExtractMinMaxDateParts()
-    {
-        return Schema is not SystemSchema
-            ? throw new InvalidOperationException()
-            : MinMaxDateParts.Select(x => new Yemoda(x.Year, x.Month, x.Day));
-    }
-
-    public OrderedPair<Yedoy> ExtractMinMaxOrdinalParts()
-    {
-        return Schema is not SystemSchema
-            ? throw new InvalidOperationException()
-            : MinMaxOrdinalParts.Select(x => new Yedoy(x.Year, x.DayOfYear));
-    }
-
     internal sealed class Endpoint
     {
         public int MonthsSinceEpoch { get; internal set; }

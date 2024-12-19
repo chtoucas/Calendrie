@@ -97,7 +97,8 @@ public readonly partial struct MyGregorianDate :
 
 public partial struct MyGregorianDate // Factories & conversions
 {
-    public static MyGregorianDate FromDayNumber(DayNumber dayNumber) => Calendar.CreateDate(dayNumber);
+    public static MyGregorianDate FromDayNumber(DayNumber dayNumber) =>
+        new(Calendar.CountDaysSinceEpoch(dayNumber));
 }
 
 public partial struct MyGregorianDate // Counting

@@ -35,7 +35,7 @@ public readonly partial struct MyJulianDate :
         _bin = Calendar.CreateDateParts(year, dayOfYear);
     }
 
-    private MyJulianDate(Yemoda bin) { _bin = bin; }
+    internal MyJulianDate(Yemoda bin) { _bin = bin; }
 
     public static MyJulianDate MinValue { get; } = new(s_MinDateParts);
     public static MyJulianDate MaxValue { get; } = new(s_MaxDateParts);
@@ -99,18 +99,28 @@ public partial struct MyJulianDate // Counting
 
 public partial struct MyJulianDate // Adjustments
 {
-    public MyJulianDate Adjust(Func<MyJulianDate, MyJulianDate> adjuster) => throw new NotImplementedException();
+    public MyJulianDate Adjust(Func<MyJulianDate, MyJulianDate> adjuster)
+    {
+        ArgumentNullException.ThrowIfNull(adjuster);
+        return adjuster.Invoke(this);
+    }
 
-    public MyJulianDate WithYear(int newYear) => throw new NotImplementedException();
-    public MyJulianDate WithMonth(int newMonth) => throw new NotImplementedException();
-    public MyJulianDate WithDay(int newDay) => throw new NotImplementedException();
-    public MyJulianDate WithDayOfYear(int newDayOfYear) => throw new NotImplementedException();
+    public MyJulianDate WithYear(int newYear) => Calendar.AdjustYear(this, newYear);
+    public MyJulianDate WithMonth(int newMonth) => Calendar.AdjustMonth(this, newMonth);
+    public MyJulianDate WithDay(int newDay) => Calendar.AdjustDay(this, newDay);
+    public MyJulianDate WithDayOfYear(int newDayOfYear) => Calendar.AdjustDayOfYear(this, newDayOfYear);
 
-    public MyJulianDate Previous(DayOfWeek dayOfWeek) => throw new NotImplementedException();
-    public MyJulianDate PreviousOrSame(DayOfWeek dayOfWeek) => throw new NotImplementedException();
-    public MyJulianDate Nearest(DayOfWeek dayOfWeek) => throw new NotImplementedException();
-    public MyJulianDate NextOrSame(DayOfWeek dayOfWeek) => throw new NotImplementedException();
-    public MyJulianDate Next(DayOfWeek dayOfWeek) => throw new NotImplementedException();
+    public MyJulianDate Previous(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.Previous(this, dayOfWeek);
+    public MyJulianDate PreviousOrSame(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.PreviousOrSame(this, dayOfWeek);
+
+    public MyJulianDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        return FromDayNumber(nearest);
+    }
+
+    public MyJulianDate NextOrSame(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.NextOrSame(this, dayOfWeek);
+    public MyJulianDate Next(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.Next(this, dayOfWeek);
 }
 
 public partial struct MyJulianDate // IEquatable

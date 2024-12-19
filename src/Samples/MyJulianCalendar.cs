@@ -12,29 +12,45 @@ using Calendrie.Hemerology;
 
 using Range_ = Calendrie.Core.Intervals.Range;
 
-public sealed partial class MyJulianCalendar : UserCalendar
+public sealed partial class MyJulianCalendar : Calendar
 {
     internal const string DisplayName = "Julien";
 
+    public const int MinYear = 1;
+    public const int MaxYear = Yemoda.MaxYear;
+
     public MyJulianCalendar()
         : base(DisplayName,
-            MinMaxYearScope.Create<JulianSchema>(DayZero.OldStyle, Range_.Create(1, Yemoda.MaxYear)))
+            MinMaxYearScope.Create<JulianSchema>(DayZero.OldStyle, Range_.Create(MinYear, MaxYear)))
     {
         UnderlyingSchema = (JulianSchema)Schema;
 
-        (MinDateParts, MaxDateParts) = Scope.Segment.ExtractMinMaxDateParts();
+        (MinDateParts, MaxDateParts) =
+            Scope.Segment.MinMaxDateParts.Select(x => Yemoda.Create(x.Year, x.Month, x.Day));
     }
 
-    internal JulianSchema UnderlyingSchema { get; }
-}
-
-public partial class MyJulianCalendar
-{
     internal static MyJulianCalendar Instance { get; } = new();
+
+    internal JulianSchema UnderlyingSchema { get; }
 
     internal Yemoda MinDateParts { get; }
     internal Yemoda MaxDateParts { get; }
 
+    public sealed override int CountDaysInYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return Schema.CountDaysInYear(year);
+    }
+
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return Schema.CountDaysInMonth(year, month);
+    }
+}
+
+public partial class MyJulianCalendar // Date constructors helpers
+{
     public Yemoda CreateDateParts(int year, int month, int day)
     {
         Scope.ValidateYearMonthDay(year, month, day);
@@ -52,7 +68,10 @@ public partial class MyJulianCalendar
         Scope.Validate(dayNumber);
         return UnderlyingSchema.GetDateParts(dayNumber - Epoch);
     }
+}
 
+public partial class MyJulianCalendar // Date helpers
+{
     internal int CountDaysSinceEpoch(Yemoda ymd)
     {
         var (y, m, d) = ymd;
@@ -83,7 +102,10 @@ public partial class MyJulianCalendar
         var (y, m, d) = ymd;
         return Schema.IsSupplementaryDay(y, m, d);
     }
+}
 
+public partial class MyJulianCalendar // Date helpers (counting)
+{
     internal int CountDaysInYearAfter(Yemoda ymd)
     {
         var (y, m, d) = ymd;
@@ -95,7 +117,93 @@ public partial class MyJulianCalendar
         var (y, m, d) = ymd;
         return Schema.CountDaysInMonth(y, m) - d;
     }
+}
 
+public partial class MyJulianCalendar // Date helpers (adjustments)
+{
+    //
+    // Adjustments for the core parts
+    //
+
+    internal MyJulianDate AdjustYear(MyJulianDate date, int newYear)
+    {
+        var (_, m, d) = date;
+        Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+
+        return new(UnderlyingSchema.GetDateParts(newYear, m, d));
+    }
+
+    internal MyJulianDate AdjustMonth(MyJulianDate date, int newMonth)
+    {
+        var (y, _, d) = date;
+        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        return new(UnderlyingSchema.GetDateParts(y, newMonth, d));
+    }
+
+    internal MyJulianDate AdjustDay(MyJulianDate date, int newDay)
+    {
+        var (y, m, _) = date;
+        if (newDay < 1
+            || (newDay > Schema.MinDaysInMonth
+                && newDay > Schema.CountDaysInMonth(y, m)))
+        {
+            throw new ArgumentOutOfRangeException(nameof(newDay));
+        }
+
+        return new(UnderlyingSchema.GetDateParts(y, m, newDay));
+    }
+
+    internal MyJulianDate AdjustDayOfYear(MyJulianDate date, int newDayOfYear)
+    {
+        int y = date.Year;
+        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        return new(UnderlyingSchema.GetDateParts(y, newDayOfYear));
+    }
+
+    //
+    // Adjusters for the day of the week
+    //
+
+    internal MyJulianDate Previous(MyJulianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Previous(dayOfWeek);
+        Scope.CheckLowerBound(dayNumber);
+        return MyJulianDate.FromDayNumber(dayNumber);
+    }
+
+    internal MyJulianDate PreviousOrSame(MyJulianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
+        Scope.CheckLowerBound(dayNumber);
+        return MyJulianDate.FromDayNumber(dayNumber);
+    }
+
+    internal MyJulianDate Nearest(MyJulianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Nearest(dayOfWeek);
+        Scope.CheckOverflow(dayNumber);
+        return MyJulianDate.FromDayNumber(dayNumber);
+    }
+
+    internal MyJulianDate NextOrSame(MyJulianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
+        Scope.CheckUpperBound(dayNumber);
+        return MyJulianDate.FromDayNumber(dayNumber);
+    }
+
+    internal MyJulianDate Next(MyGregorianDate date, DayOfWeek dayOfWeek)
+    {
+        var dayNumber = date.DayNumber.Next(dayOfWeek);
+        Scope.CheckUpperBound(dayNumber);
+        return MyJulianDate.FromDayNumber(dayNumber);
+    }
+}
+
+public partial class MyJulianCalendar // Date helpers (math)
+{
     internal int CountDaysBetween(Yemoda left, Yemoda right) => throw new NotImplementedException();
     internal Yemoda AddDays(Yemoda ymd, int days) => throw new NotImplementedException();
     internal Yemoda NextDay(Yemoda ymd) => throw new NotImplementedException();
