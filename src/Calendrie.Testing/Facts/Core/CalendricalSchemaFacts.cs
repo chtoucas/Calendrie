@@ -7,7 +7,7 @@ using Calendrie.Core;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="ICalendricalSchemaPlus"/>.
+/// Provides facts about <see cref="CalendricalSchema"/>.
 /// </summary>
 public abstract partial class CalendricalSchemaFacts<TSchema, TDataSet> :
     ICalendricalSchemaFacts<TSchema, TDataSet>
