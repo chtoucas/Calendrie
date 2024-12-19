@@ -19,9 +19,10 @@ public class DayOfWeekTests : JulianDateComparisons
     [Benchmark(Description = "LocalDate_NodaTime")]
     public IsoDayOfWeek WithLocalDate() => localDate.DayOfWeek;
 
-    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
-    public DayOfWeek WithDateOnly() => dateOnly.DayOfWeek;
+    // Wrong... this gives us the Gregorian parts.
+    //[Benchmark(Description = "DateOnly_BCL", Baseline = true)]
+    //public DayOfWeek WithDateOnly() => dateOnly.DayOfWeek;
 
     [Benchmark(Description = "DateTime_BCL")]
-    public DayOfWeek WithDateTime() => dateTime.DayOfWeek;
+    public DayOfWeek WithDateTime() => BclJulianCalendar.GetDayOfWeek(dateTime);
 }

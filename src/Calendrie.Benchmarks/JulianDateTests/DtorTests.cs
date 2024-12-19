@@ -51,15 +51,16 @@ public class DtorTests : JulianDateComparisons
         Consume(in d);
     }
 
-    [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
-    public void WithDateOnly()
-    {
-        var (y, m, d) = dateOnly;
+    // Wrong... this gives us the Gregorian parts.
+    //[Benchmark(Description = "DateOnly_BCL", Baseline = true)]
+    //public void WithDateOnly()
+    //{
+    //    var (y, m, d) = dateOnly;
 
-        Consume(in y);
-        Consume(in m);
-        Consume(in d);
-    }
+    //    Consume(in y);
+    //    Consume(in m);
+    //    Consume(in d);
+    //}
 
     [Benchmark(Description = "DateTime_BCL")]
     public void WithDateTime()

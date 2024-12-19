@@ -10,6 +10,8 @@ using NodaTime;
 
 public abstract class JulianDateComparisons
 {
+    protected static readonly System.Globalization.JulianCalendar BclJulianCalendar = new();
+
     private protected DayNumber dayNumber;
     private protected JulianDate julianDate;
     private protected PlainJulianDate plainJulianDate;
@@ -34,8 +36,8 @@ public abstract class JulianDateComparisons
 
         plainJulianDate = new(y, m, d);
 
-        dateTime = new(y, m, d, new System.Globalization.JulianCalendar());
-        dateOnly = new(y, m, d, new System.Globalization.JulianCalendar());
+        dateTime = new(y, m, d, BclJulianCalendar);
+        dateOnly = new(y, m, d, BclJulianCalendar);
         localDate = new(y, m, d, CalendarSystem.Julian);
     }
 }
