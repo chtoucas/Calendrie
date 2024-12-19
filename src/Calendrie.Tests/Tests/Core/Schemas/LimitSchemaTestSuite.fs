@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Schemas.SystemSchemaTestSuite
+module Calendrie.Tests.Core.Schemas.LimitSchemaTestSuite
 
 open System
 
@@ -25,7 +25,7 @@ open Xunit
 
 [<Sealed>]
 type CivilTests() =
-    inherit SystemSchemaFacts<StandardGregorianDataSet>(new CivilSchema())
+    inherit LimitSchemaFacts<StandardGregorianDataSet>(new CivilSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -34,7 +34,7 @@ type CivilTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
     override x.SupportedYears_Prop() =
-        let range = SystemSchema.DefaultSupportedYears.WithMin(1)
+        let range = LimitSchema.DefaultSupportedYears.WithMin(1)
         x.SchemaUT.SupportedYears === range
 
     [<Fact>]
@@ -42,7 +42,7 @@ type CivilTests() =
 
 [<Sealed>]
 type Coptic12Tests() =
-    inherit SystemSchemaFacts<Coptic12DataSet>(new Coptic12Schema())
+    inherit LimitSchemaFacts<Coptic12DataSet>(new Coptic12Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -64,7 +64,7 @@ type Coptic12Tests() =
 
 [<Sealed>]
 type Coptic13Tests() =
-    inherit SystemSchemaFacts<Coptic13DataSet>(new Coptic13Schema())
+    inherit LimitSchemaFacts<Coptic13DataSet>(new Coptic13Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -86,7 +86,7 @@ type Coptic13Tests() =
 
 [<Sealed>]
 type Egyptian12Tests() =
-    inherit SystemSchemaFacts<Egyptian12DataSet>(new Egyptian12Schema())
+    inherit LimitSchemaFacts<Egyptian12DataSet>(new Egyptian12Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.AnnusVagus
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.None
@@ -99,7 +99,7 @@ type Egyptian12Tests() =
 
 [<Sealed>]
 type Egyptian13Tests() =
-    inherit SystemSchemaFacts<Egyptian13DataSet>(new Egyptian13Schema())
+    inherit LimitSchemaFacts<Egyptian13DataSet>(new Egyptian13Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.AnnusVagus
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.None
@@ -112,7 +112,7 @@ type Egyptian13Tests() =
 
 [<Sealed>]
 type FrenchRepublican12Tests() =
-    inherit SystemSchemaFacts<FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
+    inherit LimitSchemaFacts<FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -125,7 +125,7 @@ type FrenchRepublican12Tests() =
 
 [<Sealed>]
 type FrenchRepublican13Tests() =
-    inherit SystemSchemaFacts<FrenchRepublican13DataSet>(new FrenchRepublican13Schema())
+    inherit LimitSchemaFacts<FrenchRepublican13DataSet>(new FrenchRepublican13Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -138,7 +138,7 @@ type FrenchRepublican13Tests() =
 
 [<Sealed>]
 type GregorianTests() =
-    inherit SystemSchemaFacts<GregorianDataSet>(new GregorianSchema())
+    inherit LimitSchemaFacts<GregorianDataSet>(new GregorianSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -151,7 +151,7 @@ type GregorianTests() =
 
 [<Sealed>]
 type InternationalFixedTests() =
-    inherit SystemSchemaFacts<InternationalFixedDataSet>(new InternationalFixedSchema())
+    inherit LimitSchemaFacts<InternationalFixedDataSet>(new InternationalFixedSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -164,7 +164,7 @@ type InternationalFixedTests() =
 
 [<Sealed>]
 type JulianTests() =
-    inherit SystemSchemaFacts<JulianDataSet>(new JulianSchema())
+    inherit LimitSchemaFacts<JulianDataSet>(new JulianSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -177,7 +177,7 @@ type JulianTests() =
 
 [<Sealed>]
 type FauxLunisolarTests() =
-    inherit SystemSchemaFacts<FauxLunisolarDataSet>(new FauxLunisolarSchema())
+    inherit LimitSchemaFacts<FauxLunisolarDataSet>(new FauxLunisolarSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Lunisolar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Months
@@ -198,7 +198,7 @@ type PaxTests() as self =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
     override x.SupportedYears_Prop() =
-        let range = SystemSchema.DefaultSupportedYears.WithMin(1)
+        let range = LimitSchema.DefaultSupportedYears.WithMin(1)
         x.SchemaUT.SupportedYears === range
 
     [<Fact>]
@@ -209,7 +209,7 @@ type PaxTests() as self =
 
 [<Sealed>]
 type Persian2820Tests() =
-    inherit SystemSchemaFacts<Persian2820DataSet>(new Persian2820Schema())
+    inherit LimitSchemaFacts<Persian2820DataSet>(new Persian2820Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -239,7 +239,7 @@ type Persian2820Tests() =
 
 [<Sealed>]
 type PositivistTests() =
-    inherit SystemSchemaFacts<PositivistDataSet>(new PositivistSchema())
+    inherit LimitSchemaFacts<PositivistDataSet>(new PositivistSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -252,7 +252,7 @@ type PositivistTests() =
 
 [<Sealed>]
 type TabularIslamicTests() =
-    inherit SystemSchemaFacts<TabularIslamicDataSet>(new TabularIslamicSchema()) with
+    inherit LimitSchemaFacts<TabularIslamicDataSet>(new TabularIslamicSchema()) with
 
     let isnot12 m = m <> 12
 
@@ -293,7 +293,7 @@ type TabularIslamicTests() =
 
 [<Sealed>]
 type TropicaliaTests() =
-    inherit SystemSchemaFacts<TropicaliaDataSet>(new TropicaliaSchema())
+    inherit LimitSchemaFacts<TropicaliaDataSet>(new TropicaliaSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -306,7 +306,7 @@ type TropicaliaTests() =
 
 [<Sealed>]
 type Tropicalia3031Tests() =
-    inherit SystemSchemaFacts<Tropicalia3031DataSet>(new Tropicalia3031Schema())
+    inherit LimitSchemaFacts<Tropicalia3031DataSet>(new Tropicalia3031Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -319,7 +319,7 @@ type Tropicalia3031Tests() =
 
 [<Sealed>]
 type Tropicalia3130Tests() =
-    inherit SystemSchemaFacts<Tropicalia3130DataSet>(new Tropicalia3130Schema())
+    inherit LimitSchemaFacts<Tropicalia3130DataSet>(new Tropicalia3130Schema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -332,7 +332,7 @@ type Tropicalia3130Tests() =
 
 [<Sealed>]
 type WorldTests() =
-    inherit SystemSchemaFacts<WorldDataSet>(new WorldSchema())
+    inherit LimitSchemaFacts<WorldDataSet>(new WorldSchema())
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days

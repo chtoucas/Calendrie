@@ -13,7 +13,7 @@ using Calendrie.Core.Utilities;
 /// </para>
 /// </summary>
 public sealed partial class TabularIslamicSchema :
-    SystemSchema,
+    LimitSchema,
     IDaysInMonthDistribution,
     ISchemaActivator<TabularIslamicSchema>
 {

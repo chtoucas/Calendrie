@@ -19,7 +19,7 @@ using Calendrie.Core.Validation;
 //    ├─ StrictSchema                               DRAFT
 //    └─ ICalendricalSchemaPlus
 //       └─ CalendricalSchema [A]
-//          └─ SystemSchema [A]
+//          └─ LimitSchema [A]
 //             ├─ HebrewSchema                      DRAFT
 //             ├─ InternationalFixedSchema
 //             ├─ Persian2820Schema
@@ -51,7 +51,7 @@ using Calendrie.Core.Validation;
 // Comments
 // --------
 //
-// Included in SystemSchema but not in ICalendricalSchema:
+// Included in LimitSchema but not in ICalendricalSchema:
 // - methods using Yemoda or Yedoy.
 // - MinDaysInYear
 // - MinDaysInMonth

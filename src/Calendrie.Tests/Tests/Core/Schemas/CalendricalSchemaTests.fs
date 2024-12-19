@@ -70,58 +70,58 @@ module Prelude =
         profile1 === CalendricalProfile.Other
         profile2 === profile1
 
-module SystemSchemaPrelude =
+module LimitSchemaPrelude =
     [<Fact>]
     let ``Constructor expects supportedYears:Min to be >= MaxSupportedYears:Min`` () =
-        let maxrange = SystemSchema.MaxSupportedYears
+        let maxrange = LimitSchema.MaxSupportedYears
         let range = maxrange.WithMin(maxrange.Min - 1)
 
-        outOfRangeExn "supportedYears" (fun () -> new FauxSystemSchema(range))
+        outOfRangeExn "supportedYears" (fun () -> new FauxLimitSchema(range))
 
     [<Fact>]
     let ``Constructor expects supportedYears:Max to be <= MaxSupportedYears:Max`` () =
-        let maxrange = SystemSchema.MaxSupportedYears
+        let maxrange = LimitSchema.MaxSupportedYears
         let range = maxrange.WithMax(maxrange.Max + 1)
 
-        outOfRangeExn "supportedYears" (fun () -> new FauxSystemSchema(range))
+        outOfRangeExn "supportedYears" (fun () -> new FauxLimitSchema(range))
 
     [<Fact>]
     let ``Constructor succeeds with supportedYears = DefaultSupportedYears`` () =
-        new FauxSystemSchema(SystemSchema.DefaultSupportedYears) |> ignore
+        new FauxLimitSchema(LimitSchema.DefaultSupportedYears) |> ignore
 
     [<Fact>]
     let ``Constructor succeeds with supportedYears = MaxSupportedYears`` () =
-        new FauxSystemSchema(SystemSchema.MaxSupportedYears) |> ignore
+        new FauxLimitSchema(LimitSchema.MaxSupportedYears) |> ignore
 
     [<Fact>]
     let ``Constructor throws when supportedYearsCore is not a superset of supportedYears`` () =
         let range = Range.Create(1, 100)
         let rangeCore = Range.Create(2, 99)
 
-        argExn "value" (fun () -> new FauxSystemSchema(range, rangeCore))
+        argExn "value" (fun () -> new FauxLimitSchema(range, rangeCore))
 
     [<Fact>]
     let ``Constructor succeeds when supportedYearsCore = supportedYears`` () =
         let range = Range.Create(1, 100)
-        new FauxSystemSchema(range, range) |> ignore
+        new FauxLimitSchema(range, range) |> ignore
 
     [<Fact>]
     let ``Constructor succeeds when supportedYearsCore is a superset of supportedYears`` () =
         let range = Range.Create(1, 100)
         let rangeCore = Range.Create(0, 101)
-        new FauxSystemSchema(range, rangeCore) |> ignore
+        new FauxLimitSchema(range, rangeCore) |> ignore
 
     [<Fact>]
     let ``Default value for SupportedYearsCore is any int`` () =
-        let sch = new FauxSystemSchema()
+        let sch = new FauxLimitSchema()
 
         sch.SupportedYearsCore === Range.Maximal32
 
     [<Fact>]
     let ``Default value for SupportedYears is DefaultSupportedYears`` () =
-        let sch = new FauxSystemSchema()
+        let sch = new FauxLimitSchema()
 
-        sch.SupportedYears === SystemSchema.DefaultSupportedYears
+        sch.SupportedYears === LimitSchema.DefaultSupportedYears
 
 module Coptic13Case =
     [<Fact>]

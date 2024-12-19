@@ -9,7 +9,7 @@ using Calendrie.Core.Utilities;
 /// Provides a base for the "Tropicália" schemas.
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-public abstract partial class TropicalistaSchema : SystemSchema
+public abstract partial class TropicalistaSchema : LimitSchema
 {
     /// <summary>
     /// Represents the number of months in a year.

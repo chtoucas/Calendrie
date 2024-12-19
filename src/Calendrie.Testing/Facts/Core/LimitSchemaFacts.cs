@@ -10,20 +10,20 @@ using Calendrie.Testing.Data;
 // Sync with ICalendricalPartsFactoryFacts.
 
 /// <summary>
-/// Provides facts about <see cref="SystemSchema"/>.
+/// Provides facts about <see cref="LimitSchema"/>.
 /// </summary>
-public abstract partial class SystemSchemaFacts<TDataSet> :
-    ICalendricalSchemaPlusFacts<SystemSchema, TDataSet>
+public abstract partial class LimitSchemaFacts<TDataSet> :
+    ICalendricalSchemaPlusFacts<LimitSchema, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected SystemSchemaFacts(SystemSchema schema) : base(schema) { }
+    protected LimitSchemaFacts(LimitSchema schema) : base(schema) { }
 
     // This property is actually part of CalendricalSchema but being internal
     // it's not publicly testable.
     [Fact] public abstract void Profile_Prop();
 }
 
-public partial class SystemSchemaFacts<TDataSet> // Properties
+public partial class LimitSchemaFacts<TDataSet> // Properties
 {
     [Fact]
     public sealed override void Algorithm_Prop() =>
@@ -31,14 +31,14 @@ public partial class SystemSchemaFacts<TDataSet> // Properties
 
     [Fact]
     public override void SupportedYears_Prop() =>
-        Assert.Equal(SystemSchema.DefaultSupportedYears, SchemaUT.SupportedYears);
+        Assert.Equal(LimitSchema.DefaultSupportedYears, SchemaUT.SupportedYears);
 
     [Fact]
     public virtual void SupportedYearsCore_Prop() =>
         Assert.Equal(Range.Maximal32, SchemaUT.SupportedYearsCore);
 }
 
-public partial class SystemSchemaFacts<TDataSet> // Methods
+public partial class LimitSchemaFacts<TDataSet> // Methods
 {
     #region GetYear()
 
@@ -330,7 +330,7 @@ public partial class SystemSchemaFacts<TDataSet> // Methods
     #endregion
 }
 
-public partial class SystemSchemaFacts<TDataSet> // Overflows
+public partial class LimitSchemaFacts<TDataSet> // Overflows
 {
     [Fact]
     public sealed override void KernelDoesNotOverflow()

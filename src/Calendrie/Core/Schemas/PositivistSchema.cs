@@ -23,7 +23,7 @@ namespace Calendrie.Core.Schemas;
 /// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
 /// </remarks>
 public sealed partial class PositivistSchema :
-    SystemSchema,
+    LimitSchema,
     IBlankDayFeaturette,
     ISchemaActivator<PositivistSchema>
 {

@@ -8,11 +8,11 @@ using Calendrie.Core.Intervals;
 
 using static Calendrie.Core.CalendricalConstants;
 
-public abstract class FauxSystemSchemaBase : SystemSchema
+public abstract class FauxLimitSchemaBase : LimitSchema
 {
-    protected FauxSystemSchemaBase(int minDaysInYear, int minDaysInMonth)
+    protected FauxLimitSchemaBase(int minDaysInYear, int minDaysInMonth)
         : base(minDaysInYear, minDaysInMonth) { }
-    protected FauxSystemSchemaBase(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    protected FauxLimitSchemaBase(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 
     [Pure]
@@ -23,46 +23,53 @@ public abstract class FauxSystemSchemaBase : SystemSchema
     }
 }
 
-public partial class FauxSystemSchema : FauxSystemSchemaBase
+public partial class FauxLimitSchema : LimitSchema
 {
     private const int DefaultMinDaysInYear = 365;
     private const int DefaultMinDaysInMonth = 28;
 
-    public FauxSystemSchema()
+    public FauxLimitSchema()
         : base(DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
 
     // Base constructors.
-    public FauxSystemSchema(int minDaysInYear, int minDaysInMonth)
+    public FauxLimitSchema(int minDaysInYear, int minDaysInMonth)
         : base(minDaysInYear, minDaysInMonth) { }
-    public FauxSystemSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    public FauxLimitSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 
     // Constructor in order to test the base constructors.
-    public FauxSystemSchema(Range<int> supportedYears)
+    public FauxLimitSchema(Range<int> supportedYears)
         : base(supportedYears, DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
 
     // Constructors to test the properties.
-    public FauxSystemSchema(CalendricalFamily family)
+    public FauxLimitSchema(CalendricalFamily family)
         : this() { Family = family; }
-    public FauxSystemSchema(CalendricalAdjustments adjustments)
+    public FauxLimitSchema(CalendricalAdjustments adjustments)
         : this() { PeriodicAdjustments = adjustments; }
-    public FauxSystemSchema(Range<int> supportedYears, Range<int> supportedYearsCore)
+    public FauxLimitSchema(Range<int> supportedYears, Range<int> supportedYearsCore)
         : this(supportedYears) { SupportedYearsCore = supportedYearsCore; }
 
     // Pre-defined instances.
-    public static FauxSystemSchema Regular12 => new FauxRegularSchema(12);
-    public static FauxSystemSchema Regular13 => new FauxRegularSchema(13);
-    public static FauxSystemSchema Regular14 => new FauxRegularSchema(14);
+    public static FauxLimitSchema Regular12 => new FauxRegularSchema(12);
+    public static FauxLimitSchema Regular13 => new FauxRegularSchema(13);
+    public static FauxLimitSchema Regular14 => new FauxRegularSchema(14);
 
     [Pure]
-    public static FauxSystemSchema WithMinDaysInYear(int minDaysInYear) =>
+    public static FauxLimitSchema WithMinDaysInYear(int minDaysInYear) =>
         new(minDaysInYear, DefaultMinDaysInMonth);
 
     [Pure]
-    public static FauxSystemSchema WithMinDaysInMonth(int minDaysInMonth) =>
+    public static FauxLimitSchema WithMinDaysInMonth(int minDaysInMonth) =>
         new(DefaultMinDaysInYear, minDaysInMonth);
 
-    private sealed class FauxRegularSchema : FauxSystemSchema
+    [Pure]
+    public override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = 0;
+        return true;
+    }
+
+    private sealed class FauxRegularSchema : FauxLimitSchema
     {
         public FauxRegularSchema(int monthsInYear)
             : this(monthsInYear, DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
@@ -84,7 +91,7 @@ public partial class FauxSystemSchema : FauxSystemSchemaBase
     }
 }
 
-public partial class FauxSystemSchema // Props & methods
+public partial class FauxLimitSchema // Props & methods
 {
     public sealed override CalendricalFamily Family { get; } = CalendricalFamily.Other;
     public sealed override CalendricalAdjustments PeriodicAdjustments { get; } = CalendricalAdjustments.None;
@@ -112,38 +119,38 @@ public partial class FauxSystemSchema // Props & methods
     }
 }
 
-public partial class FauxSystemSchema // Profiles
+public partial class FauxLimitSchema // Profiles
 {
-    public static readonly TheoryData<FauxSystemSchema> NotLunar =
+    public static readonly TheoryData<FauxLimitSchema> NotLunar =
     [
         new FauxRegularSchema(Lunar.MonthsInYear + 1, Lunar.MinDaysInYear, Lunar.MinDaysInMonth),
         new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear - 1, Lunar.MinDaysInMonth),
         new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear, Lunar.MinDaysInMonth - 1),
     ];
 
-    public static readonly TheoryData<FauxSystemSchema> NotLunisolar =
+    public static readonly TheoryData<FauxLimitSchema> NotLunisolar =
     [
-        new FauxSystemSchema(Lunisolar.MinDaysInYear - 1, Lunisolar.MinDaysInMonth),
-        new FauxSystemSchema(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth - 1),
+        new FauxLimitSchema(Lunisolar.MinDaysInYear - 1, Lunisolar.MinDaysInMonth),
+        new FauxLimitSchema(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth - 1),
     ];
 
-    public static readonly TheoryData<FauxSystemSchema> NotSolar12 =
+    public static readonly TheoryData<FauxLimitSchema> NotSolar12 =
     [
         new FauxRegularSchema(Solar12.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
     ];
 
-    public static readonly TheoryData<FauxSystemSchema> NotSolar13 =
+    public static readonly TheoryData<FauxLimitSchema> NotSolar13 =
     [
         new FauxRegularSchema(Solar13.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
     ];
 
-    public static SystemSchema WithBadProfile => new FauxSchemaWithBadProfile();
+    public static LimitSchema WithBadProfile => new FauxSchemaWithBadProfile();
 
-    private sealed class FauxSchemaWithBadProfile : FauxSystemSchema
+    private sealed class FauxSchemaWithBadProfile : FauxLimitSchema
     {
 #pragma warning disable CA1822 // Mark members as static
         internal new CalendricalProfile Profile => (CalendricalProfile)5;

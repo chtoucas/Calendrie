@@ -42,7 +42,7 @@
     <Compile Include="Tests\Core\Schemas\FeaturetteTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\GregorianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\JulianFormulaeTests.fs" />
-    <Compile Include="Tests\Core\Schemas\SystemSchemaTestSuite.fs" />
+    <Compile Include="Tests\Core\Schemas\LimitSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaTests.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaSlimTests.fs" />

@@ -8,7 +8,7 @@ using Calendrie.Core.Schemas;
 using Calendrie.Testing.Data;
 
 // REVIEW(fact): once IDaysInMonthDistribution becomes public, this should be
-// part of SystemSchemaFacts.
+// part of LimitSchemaFacts.
 
 internal static class DaysInMonthDistributionFacts
 {

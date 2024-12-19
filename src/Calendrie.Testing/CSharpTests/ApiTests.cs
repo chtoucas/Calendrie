@@ -18,7 +18,7 @@ public static class ApiTests
     {
         // We also test the abstract classes.
         var schemaTypes = s_DefinedTypes
-            .Where(t => t.IsSubclassOf(typeof(SystemSchema)));
+            .Where(t => t.IsSubclassOf(typeof(LimitSchema)));
 
         Assert.NotEmpty(schemaTypes);
 
@@ -34,7 +34,7 @@ public static class ApiTests
     public static void Schema_GetInstance()
     {
         var schemaTypes = s_DefinedTypes
-            .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(SystemSchema)));
+            .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(LimitSchema)));
 
         Assert.NotEmpty(schemaTypes);
 

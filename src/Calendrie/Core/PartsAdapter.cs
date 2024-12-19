@@ -100,7 +100,7 @@ public partial class PartsAdapter // Conversions
 public partial class PartsAdapter // Dates in a given year or month
 {
 #if DEBUG
-    // Contrary to SystemSchema, the "box principle" does not apply here,
+    // Contrary to LimitSchema, the "box principle" does not apply here,
     // therefore some methods may be static, nervetheless I prefer to exclude
     // them from the API as they are just aliases of other methods.
 

@@ -15,7 +15,7 @@ abstract Calendrie.Core.CalendricalSchema.IsLeapYear(int y) -> bool
 abstract Calendrie.Core.CalendricalSchema.IsRegular(out int monthsInYear) -> bool
 abstract Calendrie.Core.CalendricalSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 abstract Calendrie.Core.CalendricalSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-abstract Calendrie.Core.SystemSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
+abstract Calendrie.Core.LimitSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
 abstract Calendrie.Hemerology.Calendar.CountDaysInMonth(int year, int month) -> int
 abstract Calendrie.Hemerology.Calendar.CountDaysInYear(int year) -> int
 abstract Calendrie.Hemerology.CalendarScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
@@ -247,6 +247,24 @@ Calendrie.Core.Intervals.UpperRay<T>.SetEquals(Calendrie.Core.Intervals.UpperRay
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay() -> void
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay(T min) -> void
 Calendrie.Core.ISchemaActivator<TSchema>
+Calendrie.Core.LimitSchema
+Calendrie.Core.LimitSchema.GetDateParts(int daysSinceEpoch) -> Calendrie.Core.Yemoda
+Calendrie.Core.LimitSchema.GetDateParts(int y, int doy) -> Calendrie.Core.Yemoda
+Calendrie.Core.LimitSchema.GetDateParts(int y, int m, int d) -> Calendrie.Core.Yemoda
+Calendrie.Core.LimitSchema.GetDatePartsAtEndOfMonth(int y, int m) -> Calendrie.Core.Yemoda
+Calendrie.Core.LimitSchema.GetDatePartsAtEndOfYear(int y) -> Calendrie.Core.Yemoda
+Calendrie.Core.LimitSchema.GetDatePartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yemoda
+Calendrie.Core.LimitSchema.GetDatePartsAtStartOfYear(int y) -> Calendrie.Core.Yemoda
+Calendrie.Core.LimitSchema.GetMonthParts(int monthsSinceEpoch) -> Calendrie.Core.Yemo
+Calendrie.Core.LimitSchema.GetMonthPartsAtEndOfYear(int y) -> Calendrie.Core.Yemo
+Calendrie.Core.LimitSchema.GetMonthPartsAtStartOfYear(int y) -> Calendrie.Core.Yemo
+Calendrie.Core.LimitSchema.GetOrdinalParts(int daysSinceEpoch) -> Calendrie.Core.Yedoy
+Calendrie.Core.LimitSchema.GetOrdinalParts(int y, int m, int d) -> Calendrie.Core.Yedoy
+Calendrie.Core.LimitSchema.GetOrdinalPartsAtEndOfMonth(int y, int m) -> Calendrie.Core.Yedoy
+Calendrie.Core.LimitSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.Yedoy
+Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
+Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
+Calendrie.Core.LimitSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.PartsAdapter
 Calendrie.Core.PartsAdapter.GetDateParts(int daysSinceEpoch) -> Calendrie.DateParts
 Calendrie.Core.PartsAdapter.GetDateParts(int y, int doy) -> Calendrie.DateParts
@@ -291,23 +309,6 @@ Calendrie.Core.Schemas.TropicaliaSchema
 Calendrie.Core.Schemas.TropicalistaSchema
 Calendrie.Core.Schemas.WorldSchema
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
-Calendrie.Core.SystemSchema
-Calendrie.Core.SystemSchema.GetDateParts(int daysSinceEpoch) -> Calendrie.Core.Yemoda
-Calendrie.Core.SystemSchema.GetDateParts(int y, int doy) -> Calendrie.Core.Yemoda
-Calendrie.Core.SystemSchema.GetDatePartsAtEndOfMonth(int y, int m) -> Calendrie.Core.Yemoda
-Calendrie.Core.SystemSchema.GetDatePartsAtEndOfYear(int y) -> Calendrie.Core.Yemoda
-Calendrie.Core.SystemSchema.GetDatePartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yemoda
-Calendrie.Core.SystemSchema.GetDatePartsAtStartOfYear(int y) -> Calendrie.Core.Yemoda
-Calendrie.Core.SystemSchema.GetMonthParts(int monthsSinceEpoch) -> Calendrie.Core.Yemo
-Calendrie.Core.SystemSchema.GetMonthPartsAtEndOfYear(int y) -> Calendrie.Core.Yemo
-Calendrie.Core.SystemSchema.GetMonthPartsAtStartOfYear(int y) -> Calendrie.Core.Yemo
-Calendrie.Core.SystemSchema.GetOrdinalParts(int daysSinceEpoch) -> Calendrie.Core.Yedoy
-Calendrie.Core.SystemSchema.GetOrdinalParts(int y, int m, int d) -> Calendrie.Core.Yedoy
-Calendrie.Core.SystemSchema.GetOrdinalPartsAtEndOfMonth(int y, int m) -> Calendrie.Core.Yedoy
-Calendrie.Core.SystemSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.Yedoy
-Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
-Calendrie.Core.SystemSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
-Calendrie.Core.SystemSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.Validation.ICalendricalPreValidator
 Calendrie.Core.Validation.ICalendricalPreValidator.CreateDefault(Calendrie.Core.CalendricalSchema! schema) -> Calendrie.Core.Validation.ICalendricalPreValidator!
 Calendrie.Core.Validation.ICalendricalPreValidator.ValidateDayOfYear(int y, int dayOfYear, string? paramName = null) -> void
@@ -1561,8 +1562,8 @@ static Calendrie.Core.Intervals.UpperRay.Complement(this Calendrie.Core.Interval
 static Calendrie.Core.Intervals.UpperRay.StartingAt<T>(T min) -> Calendrie.Core.Intervals.UpperRay<T>
 static Calendrie.Core.Intervals.UpperRay<T>.operator !=(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
 static Calendrie.Core.Intervals.UpperRay<T>.operator ==(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
-static Calendrie.Core.SystemSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.SystemSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
+static Calendrie.Core.LimitSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
+static Calendrie.Core.LimitSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.Yedoy.Create(int year, int dayOfYear) -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.FromBinary(int data) -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.MaxValue.get -> Calendrie.Core.Yedoy

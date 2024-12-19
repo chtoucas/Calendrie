@@ -6,7 +6,7 @@ namespace Calendrie.Testing.Facts.Core;
 using Calendrie.Core;
 using Calendrie.Testing.Data;
 
-// Sync with SystemSchemaFacts.
+// Sync with LimitSchemaFacts.
 
 /// <summary>
 /// Provides facts about <see cref="PartsAdapter"/>.

@@ -7,7 +7,7 @@ using Calendrie.Core.Utilities;
 
 /// <summary>Represents an Egyptian schema and provides a base for derived classes.</summary>
 /// <remarks>This class can ONLY be inherited from within friend assemblies.</remarks>
-public abstract partial class EgyptianSchema : SystemSchema
+public abstract partial class EgyptianSchema : LimitSchema
 {
     /// <summary>Represents the number of days in a year.</summary>
     /// <remarks>This field is constant equal to 365.</remarks>

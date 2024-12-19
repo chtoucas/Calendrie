@@ -28,7 +28,7 @@ namespace Calendrie.Core.Schemas;
 /// </para>
 /// </summary>
 public sealed partial class PaxSchema :
-    SystemSchema,
+    LimitSchema,
     ILeapWeekSchema,
     ISchemaActivator<PaxSchema>
 {

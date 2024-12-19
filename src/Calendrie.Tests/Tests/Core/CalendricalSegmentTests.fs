@@ -41,7 +41,7 @@ module Factories =
     [<Fact>]
     let ``CreateMaximal()`` () =
         let range = Range.Create(-10, 10)
-        let seg = CalendricalSegment.CreateMaximal(new FauxSystemSchema(range))
+        let seg = CalendricalSegment.CreateMaximal(new FauxLimitSchema(range))
 
         seg.IsComplete |> ok
         seg.SupportedYears === range
@@ -49,7 +49,7 @@ module Factories =
     [<Fact>]
     let ``CreateMaximal() when the schema only supports years <= 0`` () =
         let range = Range.Create(-10, 0)
-        let seg = CalendricalSegment.CreateMaximal(new FauxSystemSchema(range))
+        let seg = CalendricalSegment.CreateMaximal(new FauxLimitSchema(range))
 
         seg.IsComplete |> ok
         seg.SupportedYears === range
@@ -57,7 +57,7 @@ module Factories =
     [<Fact>]
     let ``CreateMaximal() when the schema only supports years > 0`` () =
         let range = Range.Create(5, 10)
-        let seg = CalendricalSegment.CreateMaximal(new FauxSystemSchema(range))
+        let seg = CalendricalSegment.CreateMaximal(new FauxLimitSchema(range))
 
         seg.IsComplete |> ok
         seg.SupportedYears === range
@@ -70,12 +70,12 @@ module Factories =
     let ``CreateMaximalOnOrAfterYear1() throws when the schema only supports years <= 0`` () =
         let range = Range.Create(-10, 0)
 
-        argExn "schema" (fun () -> CalendricalSegment.CreateMaximalOnOrAfterYear1(new FauxSystemSchema(range)))
+        argExn "schema" (fun () -> CalendricalSegment.CreateMaximalOnOrAfterYear1(new FauxLimitSchema(range)))
 
     [<Fact>]
     let ``CreateMaximalOnOrAfterYear1()`` () =
         let range = Range.Create(-10, 10)
-        let seg = CalendricalSegment.CreateMaximalOnOrAfterYear1(new FauxSystemSchema(range))
+        let seg = CalendricalSegment.CreateMaximalOnOrAfterYear1(new FauxLimitSchema(range))
 
         seg.IsComplete |> ok
         seg.SupportedYears === Range.Create(1, 10)
@@ -83,7 +83,7 @@ module Factories =
     [<Fact>]
     let ``CreateMaximalOnOrAfterYear1() when the schema only supports years > 0`` () =
         let range = Range.Create(5, 10)
-        let seg = CalendricalSegment.CreateMaximalOnOrAfterYear1(new FauxSystemSchema(range))
+        let seg = CalendricalSegment.CreateMaximalOnOrAfterYear1(new FauxLimitSchema(range))
 
         seg.IsComplete |> ok
         seg.SupportedYears === range
@@ -94,7 +94,7 @@ module Factories =
 
     [<Fact>]
     let ``Create(range) throws when range is not a subinterval of schema.SupportedYears`` () =
-        let sch = new FauxSystemSchema(Range.Create(5, 10))
+        let sch = new FauxLimitSchema(Range.Create(5, 10))
 
         argExn "supportedYears" (fun () -> CalendricalSegment.Create(sch, Range.Create(3, 4)))
         argExn "supportedYears" (fun () -> CalendricalSegment.Create(sch, Range.Create(3, 5)))

@@ -8,7 +8,7 @@ using Calendrie.Core.Validation;
 
 #region Developer Notes
 
-// SystemSchema puts limits on the range of admissible values for the year but
+// LimitSchema puts limits on the range of admissible values for the year but
 // more importantly also for the month of the year and the day of the month,
 // therefore it cannot be used to represent schemas with __unusually long years
 // or months__.
@@ -44,7 +44,7 @@ using Calendrie.Core.Validation;
 /// <para>All results SHOULD be representable by the system; see
 /// <see cref="Yemoda"/>, <see cref="Yemo"/> and <see cref="Yedoy"/>.</para>
 /// </summary>
-public abstract partial class SystemSchema : CalendricalSchema
+public abstract partial class LimitSchema : CalendricalSchema
 {
     /// <summary>
     /// Represents the default value for the earliest supported year.
@@ -60,24 +60,24 @@ public abstract partial class SystemSchema : CalendricalSchema
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="SystemSchema"/> class.
+    /// <see cref="LimitSchema"/> class.
     /// <para>All methods MUST work with years in <see cref="DefaultSupportedYears"/>.
     /// In particular, methods must work with negative years.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
-    private protected SystemSchema(int minDaysInYear, int minDaysInMonth)
+    private protected LimitSchema(int minDaysInYear, int minDaysInMonth)
         : this(DefaultSupportedYears, minDaysInYear, minDaysInMonth) { }
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="SystemSchema"/> class.
+    /// <see cref="LimitSchema"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="supportedYears"/>
     /// is NOT a subinterval of <see cref="Yemoda.SupportedYears"/>.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
-    private protected SystemSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    private protected LimitSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
         if (!supportedYears.IsSubsetOf(Yemoda.SupportedYears))
@@ -103,7 +103,7 @@ public abstract partial class SystemSchema : CalendricalSchema
     public static Range<int> MaxSupportedYears => Yemoda.SupportedYears;
 }
 
-public partial class SystemSchema // Properties
+public partial class LimitSchema // Properties
 {
     private Range<int> _supportedYearsCore = Range.Maximal32;
     /// <summary>
@@ -132,7 +132,7 @@ public partial class SystemSchema // Properties
     }
 }
 
-public partial class SystemSchema // Conversions
+public partial class LimitSchema // Conversions
 {
     /// <summary>
     /// Obtains the date parts for the specified month count (the number of
@@ -208,7 +208,7 @@ public partial class SystemSchema // Conversions
     }
 }
 
-public partial class SystemSchema // Dates in a given year or month
+public partial class LimitSchema // Dates in a given year or month
 {
     //
     // Start of year
