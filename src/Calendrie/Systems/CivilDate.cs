@@ -7,6 +7,8 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
 /// </remarks>
 public partial struct CivilDate // Preamble
@@ -251,7 +253,10 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate Previous(DayOfWeek dayOfWeek)
     {
-        int daysSinceZero = DayNumber.Previous(dayOfWeek).DaysSinceZero;
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = DaysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ); ;
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
@@ -260,7 +265,11 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
-        int daysSinceZero = DayNumber.PreviousOrSame(dayOfWeek).DaysSinceZero;
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = DaysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
@@ -270,10 +279,7 @@ public partial struct CivilDate // Adjustments
     public CivilDate Nearest(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
-
-        if ((uint)daysSinceZero > MaxDaysSinceZero)
-            ThrowHelpers.ThrowDateOverflow();
-
+        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -281,7 +287,11 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate NextOrSame(DayOfWeek dayOfWeek)
     {
-        int daysSinceZero = DayNumber.NextOrSame(dayOfWeek).DaysSinceZero;
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = DaysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
@@ -290,7 +300,10 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate Next(DayOfWeek dayOfWeek)
     {
-        int daysSinceZero = DayNumber.Next(dayOfWeek).DaysSinceZero;
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = DaysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
