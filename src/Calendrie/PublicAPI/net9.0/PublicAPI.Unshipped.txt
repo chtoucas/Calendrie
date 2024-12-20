@@ -130,6 +130,7 @@ Calendrie.Core.ICalendricalSchema.GetMonthParts(int monthsSinceEpoch, out int y,
 Calendrie.Core.ICalendricalSchema.GetStartOfMonth(int y, int m) -> int
 Calendrie.Core.ICalendricalSchema.GetStartOfYear(int y) -> int
 Calendrie.Core.ICalendricalSchema.GetStartOfYearInMonths(int y) -> int
+Calendrie.Core.ICalendricalSchema.GetYear(int daysSinceEpoch) -> int
 Calendrie.Core.ICalendricalSchema.GetYear(int daysSinceEpoch, out int doy) -> int
 Calendrie.Core.ICalendricalSchema.MinDaysInMonth.get -> int
 Calendrie.Core.ICalendricalSchema.MinDaysInYear.get -> int
@@ -297,6 +298,7 @@ Calendrie.Core.Schemas.WorldSchema
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
 Calendrie.Core.Validation.ICalendricalPreValidator
 Calendrie.Core.Validation.ICalendricalPreValidator.CreateDefault(Calendrie.Core.CalendricalSchema! schema) -> Calendrie.Core.Validation.ICalendricalPreValidator!
+Calendrie.Core.Validation.ICalendricalPreValidator.ValidateDayOfMonth(int y, int m, int day, string? paramName = null) -> void
 Calendrie.Core.Validation.ICalendricalPreValidator.ValidateDayOfYear(int y, int dayOfYear, string? paramName = null) -> void
 Calendrie.Core.Validation.ICalendricalPreValidator.ValidateMonth(int y, int month, string? paramName = null) -> void
 Calendrie.Core.Validation.ICalendricalPreValidator.ValidateMonthDay(int y, int month, int day, string? paramName = null) -> void
