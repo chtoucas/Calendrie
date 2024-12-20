@@ -74,7 +74,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<WorldDate, StandardWorldDataSet>(WorldCalendar.Instance.Adjuster)
+        inherit DateAdjusterFacts<WorldDate, StandardWorldDataSet>(WorldDate.Adjuster)
 
         override __.GetDate(y, m, d) = new WorldDate(y, m, d)
         override __.GetDate(y, doy) = new WorldDate(y, doy)

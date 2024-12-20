@@ -183,7 +183,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<CivilDate, StandardGregorianDataSet>(CivilCalendar.Instance.Adjuster)
+        inherit DateAdjusterFacts<CivilDate, StandardGregorianDataSet>(CivilDate.Adjuster)
 
         override __.GetDate(y, m, d) = new CivilDate(y, m, d)
         override __.GetDate(y, doy) = new CivilDate(y, doy)
