@@ -143,6 +143,8 @@ public partial class MyGregorianCalendar // Date helpers
 
     internal int GetYear(int daysSinceEpoch, out int dayofYear) =>
         Schema.GetYear(daysSinceEpoch, out dayofYear);
+
+    internal int GetYear(int daysSinceEpoch) => Schema.GetYear(daysSinceEpoch);
 }
 
 // These methods do not validate their parameters

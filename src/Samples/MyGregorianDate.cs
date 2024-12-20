@@ -48,7 +48,7 @@ public readonly partial struct MyGregorianDate :
     public int Century => YearNumbering.GetCentury(Year);
     public Ord YearOfEra => Ord.FromInt32(Year);
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
-    public int Year => Calendar.GetYear(_daysSinceEpoch, out _);
+    public int Year => Calendar.GetYear(_daysSinceEpoch);
 
     public int Month
     {
