@@ -61,4 +61,14 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
+
+    /// <inheritdoc />
+    public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
+    {
+        if (day < 1
+            || (day > Lunar.MinDaysInMonth && day > _schema.CountDaysInMonth(y, m)))
+        {
+            ThrowHelpers.ThrowDayOutOfRange(day, paramName);
+        }
+    }
 }

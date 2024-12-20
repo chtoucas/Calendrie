@@ -27,6 +27,9 @@ public abstract partial class CalendarScope
         Segment = segment;
         Schema = segment.Schema;
 
+        // Cache the pre-validator which is a computed prop.
+        PreValidator = Schema.PreValidator;
+
         Epoch = epoch;
 
         YearsValidator = new YearsValidator(segment.SupportedYears);
@@ -57,7 +60,7 @@ public abstract partial class CalendarScope
     /// <summary>
     /// Gets the pre-validator.
     /// </summary>
-    protected ICalendricalPreValidator PreValidator => Schema.PreValidator;
+    protected ICalendricalPreValidator PreValidator { get; }
 
     /// <summary>
     /// Gets the underlying schema.

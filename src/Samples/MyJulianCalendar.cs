@@ -8,6 +8,7 @@ using System;
 using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 using Range_ = Calendrie.Core.Intervals.Range;
@@ -27,6 +28,9 @@ public sealed partial class MyJulianCalendar : Calendar
 
         (MinDateParts, MaxDateParts) =
             Scope.Segment.MinMaxDateParts.Select(x => Yemoda.Create(x.Year, x.Month, x.Day));
+
+        // Cache the pre-validator which is a computed prop.
+        PreValidator = Schema.PreValidator;
     }
 
     internal static MyJulianCalendar Instance { get; } = new();
@@ -35,6 +39,8 @@ public sealed partial class MyJulianCalendar : Calendar
 
     internal Yemoda MinDateParts { get; }
     internal Yemoda MaxDateParts { get; }
+
+    private ICalendricalPreValidator PreValidator { get; }
 
     public sealed override int CountDaysInYear(int year)
     {
@@ -135,7 +141,7 @@ public partial class MyJulianCalendar // Date helpers (adjustments)
     internal MyJulianDate AdjustMonth(MyJulianDate date, int newMonth)
     {
         var (y, _, d) = date;
-        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+        PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         return new(UnderlyingSchema.GetDateParts(y, newMonth, d));
     }
@@ -143,12 +149,7 @@ public partial class MyJulianCalendar // Date helpers (adjustments)
     internal MyJulianDate AdjustDay(MyJulianDate date, int newDay)
     {
         var (y, m, _) = date;
-        if (newDay < 1
-            || (newDay > Schema.MinDaysInMonth
-                && newDay > Schema.CountDaysInMonth(y, m)))
-        {
-            throw new ArgumentOutOfRangeException(nameof(newDay));
-        }
+        PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         return new(UnderlyingSchema.GetDateParts(y, m, newDay));
     }
@@ -156,7 +157,7 @@ public partial class MyJulianCalendar // Date helpers (adjustments)
     internal MyJulianDate AdjustDayOfYear(MyJulianDate date, int newDayOfYear)
     {
         int y = date.Year;
-        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+        PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         return new(UnderlyingSchema.GetDateParts(y, newDayOfYear));
     }

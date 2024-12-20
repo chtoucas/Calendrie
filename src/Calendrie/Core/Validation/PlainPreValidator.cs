@@ -47,9 +47,7 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
         if (month < 1 || month > _schema.CountMonthsInYear(y))
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1 || day > _schema.CountDaysInMonth(y, month))
-        {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
-        }
     }
 
     /// <inheritdoc />
@@ -60,5 +58,12 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
+    }
+
+    /// <inheritdoc />
+    public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
+    {
+        if (day < 1 || day > _schema.CountDaysInMonth(y, m))
+            ThrowHelpers.ThrowDayOutOfRange(day, paramName);
     }
 }

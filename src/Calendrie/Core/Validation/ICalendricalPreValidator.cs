@@ -49,6 +49,7 @@ public interface ICalendricalPreValidator
     /// <summary>
     /// Validates the well-formedness of the specified month of the year and day
     /// of the month.
+    /// <para>This method does NOT validate <paramref name="y"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
@@ -65,6 +66,17 @@ public interface ICalendricalPreValidator
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
     void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null);
+
+    /// <summary>
+    /// Validates the well-formedness of the specified day of the month.
+    /// <para>This method does NOT validate <paramref name="y"/> and
+    /// <paramref name="m"/>.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
+    void ValidateDayOfMonth(int y, int m, int day, string? paramName = null);
 
     /// <summary>
     /// Creates the default <see cref="ICalendricalPreValidator"/> for the

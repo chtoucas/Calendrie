@@ -9,6 +9,7 @@ using System.Linq;
 
 using Calendrie;
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 public sealed partial class MyGregorianCalendar : Calendar, IDateProvider<MyGregorianDate>
@@ -21,6 +22,8 @@ public sealed partial class MyGregorianCalendar : Calendar, IDateProvider<MyGreg
     {
         (MinYear, MaxYear) = Scope.Segment.SupportedYears.Endpoints;
         (MinDaysSinceEpoch, MaxDaysSinceEpoch) = Scope.Segment.SupportedDays.Endpoints;
+        // Cache the pre-validator which is a computed prop.
+        PreValidator = Schema.PreValidator;
     }
 
     public static MyGregorianDate MinDate => MyGregorianDate.MinValue;
@@ -33,6 +36,8 @@ public sealed partial class MyGregorianCalendar : Calendar, IDateProvider<MyGreg
 
     internal int MinDaysSinceEpoch { get; }
     internal int MaxDaysSinceEpoch { get; }
+
+    private ICalendricalPreValidator PreValidator { get; }
 
     public sealed override int CountDaysInYear(int year)
     {
@@ -181,7 +186,7 @@ public partial class MyGregorianCalendar // Date helpers (adjustments)
     internal MyGregorianDate AdjustMonth(MyGregorianDate date, int newMonth)
     {
         var (y, _, d) = date;
-        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+        PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newMonth, d);
         return new(daysSinceEpoch);
@@ -190,12 +195,7 @@ public partial class MyGregorianCalendar // Date helpers (adjustments)
     internal MyGregorianDate AdjustDay(MyGregorianDate date, int newDay)
     {
         var (y, m, _) = date;
-        if (newDay < 1
-            || (newDay > Schema.MinDaysInMonth
-                && newDay > Schema.CountDaysInMonth(y, m)))
-        {
-            throw new ArgumentOutOfRangeException(nameof(newDay));
-        }
+        PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
         return new(daysSinceEpoch);
@@ -204,7 +204,7 @@ public partial class MyGregorianCalendar // Date helpers (adjustments)
     internal MyGregorianDate AdjustDayOfYear(MyGregorianDate date, int newDayOfYear)
     {
         int y = date.Year;
-        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+        PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);

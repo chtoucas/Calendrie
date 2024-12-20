@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core;
+using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -48,6 +49,8 @@ public sealed class DateAdjuster<TDate>
 
         Scope = scope;
         Schema = scope.Schema;
+        // Cache the pre-validator which is a computed prop.
+        PreValidator = Schema.PreValidator;
     }
 
     /// <summary>
@@ -59,6 +62,11 @@ public sealed class DateAdjuster<TDate>
     /// Gets the schema.
     /// </summary>
     private ICalendricalSchema Schema { get; }
+
+    /// <summary>
+    /// Gets the pre-validator.
+    /// </summary>
+    private ICalendricalPreValidator PreValidator { get; }
 
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
@@ -150,7 +158,7 @@ public sealed class DateAdjuster<TDate>
     {
         var (y, _, d) = date;
         // We only need to validate "newMonth" and "d".
-        Schema.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+        PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newMonth, d);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
@@ -168,12 +176,7 @@ public sealed class DateAdjuster<TDate>
     {
         var (y, m, _) = date;
         // We only need to validate "newDay".
-        if (newDay < 1
-            || (newDay > Schema.MinDaysInMonth
-                && newDay > Schema.CountDaysInMonth(y, m)))
-        {
-            throw new ArgumentOutOfRangeException(nameof(newDay));
-        }
+        PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
@@ -191,7 +194,7 @@ public sealed class DateAdjuster<TDate>
     {
         int y = date.Year;
         // We only need to validate "newDayOfYear".
-        Schema.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+        PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
