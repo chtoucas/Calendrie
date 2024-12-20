@@ -78,6 +78,19 @@ public partial class LimitSchemaFacts<TDataSet> // Methods
     }
 
     #endregion
+    #region GetDateParts﹍DateParts()
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void GetDateParts﹍DateParts(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        // Act
+        var actual = SchemaUT.GetDateParts(y, m, d);
+        // Assert
+        Assert.Equal(info.Yemoda, actual);
+    }
+
+    #endregion
 
     #region GetOrdinalParts﹍DaysSinceEpoch()
 
