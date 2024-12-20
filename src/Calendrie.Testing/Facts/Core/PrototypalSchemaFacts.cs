@@ -17,7 +17,7 @@ public abstract class PrototypalSchemaFacts<TDataSet> :
 {
     protected PrototypalSchemaFacts(PrototypalSchema schema) : base(schema) { }
 
-    public ICalendricalSchemaPlus PrototypeUT => SchemaUT;
+    public ICalendricalSchema PrototypeUT => SchemaUT;
 
     [Fact]
     public override void SupportedYears_Prop() =>

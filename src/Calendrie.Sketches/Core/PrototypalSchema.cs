@@ -1,6 +1,8 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+//#define ENABLE_ICALENDRICAL_PLUS
+
 #pragma warning disable CA1033 // Interface methods should be callable by child types
 
 namespace Calendrie.Core;
@@ -63,14 +65,125 @@ using Calendrie.Core.Validation;
 
 #endregion
 
+#if ENABLE_ICALENDRICAL_PLUS
+
 /// <summary>
-/// Represents a prototypal implementation of the <see cref="ICalendricalSchemaPlus"/>
+/// Defines an extended calendrical schema.
+/// </summary>
+public interface ICalendricalSchemaPlus : ICalendricalSchema
+{
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified month and
+    /// until the end of the year.
+    /// </summary>
+    [Pure] int CountDaysInYearAfterMonth(int y, int m);
+
+    #region CountDaysInYearBefore()
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>The result should match the value of <c>(DayOfYear - 1)</c>.</para>
+    /// </summary>
+    [Pure] int CountDaysInYearBefore(int y, int m, int d);
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>Trivial (<c>= <paramref name="doy"/> - 1</c>), only added for
+    /// completeness.</para>
+    /// </summary>
+    [Pure] int CountDaysInYearBefore(int y, int doy);
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>The result should match the value of <c>(DayOfYear - 1)</c>.</para>
+    /// </summary>
+    [Pure] int CountDaysInYearBefore(int daysSinceEpoch);
+
+    #endregion
+    #region CountDaysInYearAfter()
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
+    [Pure] int CountDaysInYearAfter(int y, int m, int d);
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
+    [Pure] int CountDaysInYearAfter(int y, int doy);
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
+    [Pure] int CountDaysInYearAfter(int daysSinceEpoch);
+
+    #endregion
+    #region CountDaysInMonthBefore()
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>Trivial (<c>= <paramref name="d"/> - 1</c>), only added for
+    /// completeness.</para>
+    /// </summary>
+    [Pure] int CountDaysInMonthBefore(int y, int m, int d);
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>The result should match the value of <c>(Day - 1)</c>.</para>
+    /// </summary>
+    [Pure] int CountDaysInMonthBefore(int y, int doy);
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>The result should match the value of <c>(Day - 1)</c>.</para>
+    /// </summary>
+    [Pure] int CountDaysInMonthBefore(int daysSinceEpoch);
+
+    #endregion
+    #region CountDaysInMonthAfter()
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
+    [Pure] int CountDaysInMonthAfter(int y, int m, int d);
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
+    [Pure] int CountDaysInMonthAfter(int y, int doy);
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
+    [Pure] int CountDaysInMonthAfter(int daysSinceEpoch);
+
+    #endregion
+}
+
+#endif
+
+/// <summary>
+/// Represents a prototypal implementation of the <see cref="ICalendricalSchema"/>
 /// interface.
 /// </summary>
 public partial class PrototypalSchema :
     ICalendricalCore,
-    ICalendricalSchema,
-    ICalendricalSchemaPlus
+    ICalendricalSchema
+#if ENABLE_ICALENDRICAL_PLUS
+    , ICalendricalSchemaPlus
+#endif
 {
     /// <summary>
     /// Represents a partial <see cref="ICalendricalSchema"/> view of this
@@ -114,10 +227,7 @@ public partial class PrototypalSchema :
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    public PrototypalSchema(
-        ICalendricalCore kernel,
-        int minDaysInYear,
-        int minDaysInMonth)
+    public PrototypalSchema(ICalendricalCore kernel, int minDaysInYear, int minDaysInMonth)
     {
         ArgumentNullException.ThrowIfNull(kernel, nameof(kernel));
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInYear, 0, nameof(minDaysInYear));
@@ -126,10 +236,10 @@ public partial class PrototypalSchema :
         Debug.Assert(minDaysInYear > minDaysInMonth);
 
         m_Kernel = kernel;
+        _proxy = new SchemaProxy(this);
+
         m_MinDaysInYear = minDaysInYear;
         m_MinDaysInMonth = minDaysInMonth;
-
-        _proxy = new SchemaProxy(this);
     }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.
@@ -143,6 +253,7 @@ public partial class PrototypalSchema :
             _this = @this;
         }
 
+#if ENABLE_ICALENDRICAL_PLUS
         /// <summary>Conversion (y, m, d) -> (y, doy).</summary>
         [Pure]
         public int GetDayOfYear(int y, int m, int d) => _this.GetDayOfYear(y, m, d);
@@ -150,6 +261,7 @@ public partial class PrototypalSchema :
         /// <summary>Conversion daysSinceEpoch -> (y, m, d).</summary>
         public void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) =>
             _this.GetDateParts(daysSinceEpoch, out y, out m, out d);
+#endif
 
         [Pure]
         public int GetEndOfYear(int y) => _this.GetEndOfYear(y);
@@ -448,6 +560,8 @@ public partial class PrototypalSchema // ICalendricalSchema (2)
         GetStartOfYear(y) + CountDaysInYearBeforeMonth(y, m) + m_Kernel.CountDaysInMonth(y, m) - 1;
 }
 
+#if ENABLE_ICALENDRICAL_PLUS
+
 public partial class PrototypalSchema // ICalendricalSchemaPlus
 {
     [Pure]
@@ -568,3 +682,5 @@ public partial class PrototypalSchema // ICalendricalSchemaPlus
 
     #endregion
 }
+
+#endif

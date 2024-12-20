@@ -14,7 +14,7 @@
     <!--<NoWarn>$(NoWarn);FS0044</NoWarn>-->
     <WarningsNotAsErrors>$(WarningsNotAsErrors);FS0044</WarningsNotAsErrors>
     <!--
-      We enable most opt-in warnings. Missing warnings:
+      We enable most opt-in warnings. Missing ones:
       FS3180  Warn when a mutable local is implicitly allocated as a reference
               cell because it has been captured by a closure.
       FS3388  Warn when an additional upcast is implicitly used, added in F# 6.

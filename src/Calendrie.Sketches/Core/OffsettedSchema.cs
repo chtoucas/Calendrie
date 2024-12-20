@@ -6,6 +6,10 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
+// J'aurais bien aimé pouvoir faire la même chose avec CalendricalSchema mais en
+// l'état cela me semble compliqué. Par exemple, Min/MaxYear ne sont plus les
+// mêmes, mais ces propriétés étant "fermées" on ne peut pas faire grand chose.
+
 public static class OffsettedSchema
 {
     public static OffsettedSchema<TSchema> Create<TSchema>(int offset)
