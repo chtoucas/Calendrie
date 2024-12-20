@@ -68,6 +68,7 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
 /// </summary>
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
+    IMutableDateFields<ZoroastrianDate>,
     IDateFactory<ZoroastrianDate>,
     ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
 { }
@@ -328,7 +329,7 @@ public partial struct ZoroastrianDate // Adjustments
     /// <inheritdoc />
     [Pure]
     public ZoroastrianDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

@@ -21,6 +21,7 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct JulianDate :
     IDate<JulianDate, JulianCalendar>,
+    IMutableDateFields<JulianDate>,
     IDateFactory<JulianDate>,
     ISubtractionOperators<JulianDate, JulianDate, int>
 { }
@@ -76,7 +77,7 @@ public partial struct JulianDate // Adjustments
     /// <inheritdoc />
     [Pure]
     public JulianDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

@@ -27,6 +27,7 @@ public partial class CalendarTemplate
 /// </summary>
 public readonly partial struct <#= Prefix #>Date :
     IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
+    IMutableDateFields<<#= Prefix #>Date>,
     IDateFactory<<#= Prefix #>Date>,
     ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>
 { }
@@ -320,7 +321,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     /// <inheritdoc />
     [Pure]
     public <#= Prefix #>Date WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

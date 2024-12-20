@@ -68,6 +68,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 /// </summary>
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate, TabularIslamicCalendar>,
+    IMutableDateFields<TabularIslamicDate>,
     IDateFactory<TabularIslamicDate>,
     ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>
 { }
@@ -319,7 +320,7 @@ public partial struct TabularIslamicDate // Adjustments
     /// <inheritdoc />
     [Pure]
     public TabularIslamicDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

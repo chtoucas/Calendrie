@@ -68,6 +68,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
 /// </summary>
 public readonly partial struct Coptic13Date :
     IDate<Coptic13Date, Coptic13Calendar>,
+    IMutableDateFields<Coptic13Date>,
     IDateFactory<Coptic13Date>,
     ISubtractionOperators<Coptic13Date, Coptic13Date, int>
 { }
@@ -328,7 +329,7 @@ public partial struct Coptic13Date // Adjustments
     /// <inheritdoc />
     [Pure]
     public Coptic13Date WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

@@ -119,7 +119,7 @@ public partial struct MyGregorianDate // Adjustments
 
     public MyGregorianDate WithYear(int newYear) => Calendar.AdjustYear(this, newYear);
     public MyGregorianDate WithMonth(int newMonth) => Calendar.AdjustMonth(this, newMonth);
-    public MyGregorianDate WithDay(int newDay) => Calendar.AdjustDay(this, newDay);
+    public MyGregorianDate WithDay(int newDay) => Calendar.AdjustDayOfMonth(this, newDay);
     public MyGregorianDate WithDayOfYear(int newDayOfYear) => Calendar.AdjustDayOfYear(this, newDayOfYear);
 
     public MyGregorianDate Previous(DayOfWeek dayOfWeek) => Calendar.Previous(this, dayOfWeek);

@@ -11,7 +11,7 @@ using Calendrie.Testing.Data;
 
 internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
-    where TDate : struct, IDate<TDate>, IDateFactory<TDate>
+    where TDate : struct, IDate<TDate>, IDateFactory<TDate>, IMutableDateFields<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected DateAdjusterFacts(DateAdjuster<TDate> adjuster)
@@ -159,11 +159,11 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustMonth()
 internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDay()
 {
     [Theory, MemberData(nameof(InvalidDayFieldData))]
-    public void AdjustDay_InvalidDay(int y, int m, int newDay)
+    public void AdjustDay_InvalidDay(int y, int m, int newDayOfMonth)
     {
         var date = GetDate(y, m, 1);
         // Act & Assert
-        AssertEx.ThrowsAoorexn("newDay", () => AdjusterUT.AdjustDay(date, newDay));
+        AssertEx.ThrowsAoorexn("newDayOfMonth", () => AdjusterUT.AdjustDayOfMonth(date, newDayOfMonth));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -172,7 +172,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDay()
         var (y, m, d) = info.Yemoda;
         var date = GetDate(y, m, d);
         // Act & Assert
-        Assert.Equal(date, AdjusterUT.AdjustDay(date, d));
+        Assert.Equal(date, AdjusterUT.AdjustDayOfMonth(date, d));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -182,7 +182,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDay()
         var date = GetDate(y, m, 1);
         var exp = GetDate(y, m, d);
         // Act & Assert
-        Assert.Equal(exp, AdjusterUT.AdjustDay(date, d));
+        Assert.Equal(exp, AdjusterUT.AdjustDayOfMonth(date, d));
     }
 }
 
@@ -247,11 +247,11 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     }
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
-    public void Adjust_InvalidDay(int y, int m, int newDay)
+    public void Adjust_InvalidDay(int y, int m, int newDayOfMonth)
     {
         var date = GetDate(y, m, 1);
         // Act & Assert
-        AssertEx.ThrowsAoorexn("newDay", () => date.WithDay(newDay));
+        AssertEx.ThrowsAoorexn("newDayOfMonth", () => date.WithDay(newDayOfMonth));
     }
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]

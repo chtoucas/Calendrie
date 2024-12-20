@@ -68,6 +68,7 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 /// </summary>
 public readonly partial struct Ethiopic13Date :
     IDate<Ethiopic13Date, Ethiopic13Calendar>,
+    IMutableDateFields<Ethiopic13Date>,
     IDateFactory<Ethiopic13Date>,
     ISubtractionOperators<Ethiopic13Date, Ethiopic13Date, int>
 { }
@@ -328,7 +329,7 @@ public partial struct Ethiopic13Date // Adjustments
     /// <inheritdoc />
     [Pure]
     public Ethiopic13Date WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

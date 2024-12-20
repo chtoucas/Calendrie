@@ -68,6 +68,7 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 /// </summary>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
+    IMutableDateFields<WorldDate>,
     IDateFactory<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>
 { }
@@ -328,7 +329,7 @@ public partial struct WorldDate // Adjustments
     /// <inheritdoc />
     [Pure]
     public WorldDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

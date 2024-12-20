@@ -68,6 +68,7 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
 /// </summary>
 public readonly partial struct ArmenianDate :
     IDate<ArmenianDate, ArmenianCalendar>,
+    IMutableDateFields<ArmenianDate>,
     IDateFactory<ArmenianDate>,
     ISubtractionOperators<ArmenianDate, ArmenianDate, int>
 { }
@@ -328,7 +329,7 @@ public partial struct ArmenianDate // Adjustments
     /// <inheritdoc />
     [Pure]
     public ArmenianDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

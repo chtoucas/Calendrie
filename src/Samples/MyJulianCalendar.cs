@@ -146,12 +146,12 @@ public partial class MyJulianCalendar // Date helpers (adjustments)
         return new(UnderlyingSchema.GetDateParts(y, newMonth, d));
     }
 
-    internal MyJulianDate AdjustDay(MyJulianDate date, int newDay)
+    internal MyJulianDate AdjustDayOfMonth(MyJulianDate date, int newDayOfMonth)
     {
         var (y, m, _) = date;
-        PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+        PreValidator.ValidateDayOfMonth(y, m, newDayOfMonth, nameof(newDayOfMonth));
 
-        return new(UnderlyingSchema.GetDateParts(y, m, newDay));
+        return new(UnderlyingSchema.GetDateParts(y, m, newDayOfMonth));
     }
 
     internal MyJulianDate AdjustDayOfYear(MyJulianDate date, int newDayOfYear)

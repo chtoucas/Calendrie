@@ -172,13 +172,13 @@ public sealed class DateAdjuster<TDate>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
     [Pure]
-    public TDate AdjustDay(TDate date, int newDay)
+    public TDate AdjustDayOfMonth(TDate date, int newDayOfMonth)
     {
         var (y, m, _) = date;
         // We only need to validate "newDay".
-        PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+        PreValidator.ValidateDayOfMonth(y, m, newDayOfMonth, nameof(newDayOfMonth));
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDayOfMonth);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 

@@ -28,41 +28,6 @@ public interface IDate<TSelf> :
     /// <exception cref="ArgumentNullException"><paramref name="adjuster"/> is
     /// <see langword="null"/>.</exception>
     [Pure] TSelf Adjust(Func<TSelf, TSelf> adjuster);
-
-    //
-    // "Nondestructive mutation"
-    //
-
-    /// <summary>
-    /// Adjusts the year field to the specified value, yielding a new date.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
-    /// be invalid.</exception>
-    [Pure] TSelf WithYear(int newYear);
-
-    /// <summary>
-    /// Adjusts the month field to the specified value, yielding a new date.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
-    /// be invalid.</exception>
-    [Pure] TSelf WithMonth(int newMonth);
-
-    /// <summary>
-    /// Adjusts the day of the month field to the specified value, yielding a
-    /// new date.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
-    /// be invalid.</exception>
-    [Pure] TSelf WithDay(int newDay);
-
-    /// <summary>
-    /// Adjusts the day of the year field to the specified value, yielding a new
-    /// date.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The resulting date would
-    /// be invalid.</exception>
-    [Pure] TSelf WithDayOfYear(int newDayOfYear);
-
 }
 
 // L'interface suivante est prévue pour les dates ne fonctionnant qu'avec un seul

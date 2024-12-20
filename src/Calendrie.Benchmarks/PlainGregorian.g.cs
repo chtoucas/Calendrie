@@ -70,6 +70,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 /// </summary>
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
+    IMutableDateFields<PlainGregorianDate>,
     IDateFactory<PlainGregorianDate>,
     ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>
 { }
@@ -313,7 +314,7 @@ public partial struct PlainGregorianDate // Adjustments
     /// <inheritdoc />
     [Pure]
     public PlainGregorianDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDay(this, newDay);
+        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
 
     /// <inheritdoc />
     [Pure]

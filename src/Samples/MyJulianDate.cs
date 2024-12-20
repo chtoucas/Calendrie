@@ -103,7 +103,7 @@ public partial struct MyJulianDate // Adjustments
 
     public MyJulianDate WithYear(int newYear) => Calendar.AdjustYear(this, newYear);
     public MyJulianDate WithMonth(int newMonth) => Calendar.AdjustMonth(this, newMonth);
-    public MyJulianDate WithDay(int newDay) => Calendar.AdjustDay(this, newDay);
+    public MyJulianDate WithDay(int newDay) => Calendar.AdjustDayOfMonth(this, newDay);
     public MyJulianDate WithDayOfYear(int newDayOfYear) => Calendar.AdjustDayOfYear(this, newDayOfYear);
 
     public MyJulianDate Previous(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.Previous(this, dayOfWeek);
