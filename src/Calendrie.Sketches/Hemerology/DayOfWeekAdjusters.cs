@@ -31,16 +31,6 @@ public static class DayOfWeekAdjusters
         return δ == 0 ? date : date + (δ > 0 ? δ - DaysInWeek : δ);
     }
 
-    //[Pure]
-    //public static T Nearest<T>(T date, DayOfWeek dayOfWeek)
-    //    where T : struct, IAbsoluteDate, IAdditionOperators<T, int, T>
-    //{
-    //    Requires.Defined(dayOfWeek);
-
-    //    DayNumber nearest = date.DayNumber.Nearest(dayOfWeek);
-    //    return T.FromDayNumber(nearest);
-    //}
-
     [Pure]
     public static T NextOrSame<T>(T date, DayOfWeek dayOfWeek)
         where T : struct, IAbsoluteDate, IAdditionOperators<T, int, T>
