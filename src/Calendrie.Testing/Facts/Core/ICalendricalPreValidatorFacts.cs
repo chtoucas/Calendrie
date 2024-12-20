@@ -109,6 +109,23 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
     }
 
     #endregion
+    #region ValidateDayOfMonth()
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void ValidateDayOfMonth_InvalidDay(int y, int m, int d)
+    {
+        AssertEx.ThrowsAoorexn("day", () => PreValidatorUT.ValidateDayOfMonth(y, m, d));
+        AssertEx.ThrowsAoorexn("d", () => PreValidatorUT.ValidateDayOfMonth(y, m, d, nameof(d)));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void ValidateDayOfMonth(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        PreValidatorUT.ValidateDayOfMonth(y, m, d);
+    }
+
+    #endregion
 }
 
 public partial class ICalendricalPreValidatorFacts<TDataSet> // Overflows
