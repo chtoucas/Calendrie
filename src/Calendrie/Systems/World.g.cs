@@ -68,6 +68,7 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 /// </summary>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
+    IAdjustableDayOfWeekField<WorldDate>,
     IMutableDateFields<WorldDate>,
     IDateFactory<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>

@@ -27,6 +27,7 @@ public partial class CalendarTemplate
 /// </summary>
 public readonly partial struct <#= Prefix #>Date :
     IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
+    IAdjustableDayOfWeekField<<#= Prefix #>Date>,
     IMutableDateFields<<#= Prefix #>Date>,
     IDateFactory<<#= Prefix #>Date>,
     ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>

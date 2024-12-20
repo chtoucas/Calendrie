@@ -71,6 +71,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 /// </summary>
 public readonly partial struct PlainJulianDate :
     IDate<PlainJulianDate, PlainJulianCalendar>,
+    IAdjustableDayOfWeekField<PlainJulianDate>,
     IMutableDateFields<PlainJulianDate>,
     IDateFactory<PlainJulianDate>,
     ISubtractionOperators<PlainJulianDate, PlainJulianDate, int>

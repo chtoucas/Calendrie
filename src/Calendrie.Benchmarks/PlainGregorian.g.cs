@@ -70,6 +70,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 /// </summary>
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
+    IAdjustableDayOfWeekField<PlainGregorianDate>,
     IMutableDateFields<PlainGregorianDate>,
     IDateFactory<PlainGregorianDate>,
     ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>

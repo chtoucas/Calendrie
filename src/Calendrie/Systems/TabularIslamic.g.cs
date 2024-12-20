@@ -68,6 +68,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 /// </summary>
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate, TabularIslamicCalendar>,
+    IAdjustableDayOfWeekField<TabularIslamicDate>,
     IMutableDateFields<TabularIslamicDate>,
     IDateFactory<TabularIslamicDate>,
     ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>

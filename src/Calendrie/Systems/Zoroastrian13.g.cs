@@ -68,6 +68,7 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
 /// </summary>
 public readonly partial struct Zoroastrian13Date :
     IDate<Zoroastrian13Date, Zoroastrian13Calendar>,
+    IAdjustableDayOfWeekField<Zoroastrian13Date>,
     IMutableDateFields<Zoroastrian13Date>,
     IDateFactory<Zoroastrian13Date>,
     ISubtractionOperators<Zoroastrian13Date, Zoroastrian13Date, int>

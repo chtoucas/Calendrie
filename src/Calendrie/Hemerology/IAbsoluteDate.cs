@@ -166,7 +166,7 @@ public interface IAbsoluteDate
 /// <summary>
 /// Defines a absolute date type.
 /// </summary>
-/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+/// <typeparam name="TSelf">The date type that implements this interface.</typeparam>
 public interface IAbsoluteDate<TSelf> :
     IAbsoluteDate,
     // Comparison
@@ -180,64 +180,4 @@ public interface IAbsoluteDate<TSelf> :
     // Arithmetic
     IDayArithmetic<TSelf>
     where TSelf : IAbsoluteDate<TSelf>
-{
-    //
-    // Adjust the day of the week
-    //
-
-    /// <summary>
-    /// Obtains the day strictly before the current instance that falls on the
-    /// specified day of the week.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
-    /// is not a valid day of the week.</exception>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported days.</exception>
-    [Pure] TSelf Previous(DayOfWeek dayOfWeek);
-
-    /// <summary>
-    /// Obtains the day on or before the current instance that falls on the
-    /// specified day of the week.
-    /// <para>If the day already falls on the given day of the week, returns the
-    /// current instance.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
-    /// is not a valid day of the week.</exception>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported days.</exception>
-    [Pure] TSelf PreviousOrSame(DayOfWeek dayOfWeek);
-
-    /// <summary>
-    /// Obtains the nearest day that falls on the specified day of the week.
-    /// <para>If the day already falls on the given day of the week, returns the
-    /// current instance.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
-    /// is not a valid day of the week.</exception>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported days.</exception>
-    [Pure] TSelf Nearest(DayOfWeek dayOfWeek);
-
-    /// <summary>
-    /// Obtains the day on or after the current instance that falls on the
-    /// specified day of the week.
-    /// <para>If the day already falls on the given day of the week, returns the
-    /// current instance.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
-    /// is not a valid day of the week.</exception>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported days.</exception>
-    [Pure] TSelf NextOrSame(DayOfWeek dayOfWeek);
-
-    /// <summary>
-    /// Obtains the day strictly after the current instance that falls on the
-    /// specified day of the week.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
-    /// is not a valid day of the week.</exception>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported days.</exception>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "VB.NET Next statement")]
-    [Pure] TSelf Next(DayOfWeek dayOfWeek);
-}
+{ }

@@ -413,11 +413,12 @@ Calendrie.Hemerology.IAbsoluteDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Hemerology.IAbsoluteDate.DayOfWeek.get -> System.DayOfWeek
 Calendrie.Hemerology.IAbsoluteDate.DaysSinceEpoch.get -> int
 Calendrie.Hemerology.IAbsoluteDate<TSelf>
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Nearest(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Next(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>
+Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.Nearest(System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.Next(System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.NextOrSame(System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.Previous(System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
 Calendrie.Hemerology.IDate<TSelf, TCalendar>
@@ -425,10 +426,6 @@ Calendrie.Hemerology.IDate<TSelf, TCalendar>.Calendar.get -> TCalendar!
 Calendrie.Hemerology.IDate<TSelf, TCalendar>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IDate<TSelf>
 Calendrie.Hemerology.IDate<TSelf>.Adjust(System.Func<TSelf, TSelf>! adjuster) -> TSelf
-Calendrie.Hemerology.IDate<TSelf>.WithDay(int newDay) -> TSelf
-Calendrie.Hemerology.IDate<TSelf>.WithDayOfYear(int newDayOfYear) -> TSelf
-Calendrie.Hemerology.IDate<TSelf>.WithMonth(int newMonth) -> TSelf
-Calendrie.Hemerology.IDate<TSelf>.WithYear(int newYear) -> TSelf
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
 Calendrie.Hemerology.IDateable.CenturyOfEra.get -> Calendrie.Ord
@@ -719,7 +716,7 @@ Calendrie.Systems.CopticDate.YearOfCentury.get -> int
 Calendrie.Systems.CopticDate.YearOfEra.get -> Calendrie.Ord
 Calendrie.Systems.DateAdjuster
 Calendrie.Systems.DateAdjuster<TDate>
-Calendrie.Systems.DateAdjuster<TDate>.AdjustDay(TDate date, int newDay) -> TDate
+Calendrie.Systems.DateAdjuster<TDate>.AdjustDayOfMonth(TDate date, int newDayOfMonth) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.AdjustDayOfYear(TDate date, int newDayOfYear) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.AdjustMonth(TDate date, int newMonth) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.AdjustYear(TDate date, int newYear) -> TDate
