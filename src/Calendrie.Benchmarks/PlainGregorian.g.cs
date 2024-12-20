@@ -171,7 +171,7 @@ public partial struct PlainGregorianDate // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Calendar.UnderlyingSchema.GetYear(_daysSinceZero);
+    public int Year => Calendar.Schema.GetYear(_daysSinceZero);
 
     /// <inheritdoc />
     public int Month

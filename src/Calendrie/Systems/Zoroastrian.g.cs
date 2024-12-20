@@ -175,7 +175,7 @@ public partial struct ZoroastrianDate // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Calendar.UnderlyingSchema.GetYear(_daysSinceEpoch);
+    public int Year => Calendar.Schema.GetYear(_daysSinceEpoch);
 
     /// <inheritdoc />
     public int Month

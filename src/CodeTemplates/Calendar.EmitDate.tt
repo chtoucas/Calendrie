@@ -145,7 +145,7 @@ public partial struct <#= Prefix #>Date // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />
-    public int Year => Calendar.UnderlyingSchema.GetYear(_<#= DaysSinceEpochVar #>);
+    public int Year => Calendar.Schema.GetYear(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     public int Month
