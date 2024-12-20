@@ -413,12 +413,6 @@ Calendrie.Hemerology.IAbsoluteDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Hemerology.IAbsoluteDate.DayOfWeek.get -> System.DayOfWeek
 Calendrie.Hemerology.IAbsoluteDate.DaysSinceEpoch.get -> int
 Calendrie.Hemerology.IAbsoluteDate<TSelf>
-Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>
-Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.Nearest(System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.Next(System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.NextOrSame(System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.Previous(System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Hemerology.IAdjustableDayOfWeekField<TDate>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
 Calendrie.Hemerology.IDate<TSelf, TCalendar>

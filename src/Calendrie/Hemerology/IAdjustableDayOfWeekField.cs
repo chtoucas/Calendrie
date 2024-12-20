@@ -8,7 +8,7 @@ namespace Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The date type that implements this interface.
 /// </typeparam>
-public interface IAdjustableDayOfWeekField<out TDate> where TDate : IAbsoluteDate
+internal interface IAdjustableDayOfWeekField<out TDate> where TDate : IAbsoluteDate
 {
     /// <summary>
     /// Obtains the day strictly before the current instance that falls on the

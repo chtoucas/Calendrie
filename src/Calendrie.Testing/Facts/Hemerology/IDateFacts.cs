@@ -21,7 +21,7 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about <see cref="IDate{TSelf}"/>.
 /// </summary>
-public abstract partial class IDateFacts<TDate, TDataSet> :
+internal abstract partial class IDateFacts<TDate, TDataSet> :
     IDateableFacts<TDate, TDataSet>
     where TDate : struct, IDate<TDate>, IAdjustableDayOfWeekField<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
@@ -54,7 +54,7 @@ public abstract partial class IDateFacts<TDate, TDataSet> :
     public static DataGroup<DayNumberInfo> DayNumberInfoData => DataSet.DayNumberInfoData;
 }
 
-public partial class IDateFacts<TDate, TDataSet> // Prelude
+internal partial class IDateFacts<TDate, TDataSet> // Prelude
 {
     //[Theory, MemberData(nameof(CalCalDataSet.DayOfWeekData), MemberType = typeof(CalCalDataSet))]
     //public void DayOfWeek_Prop_ViaDayNumber(DayNumber dayNumber, DayOfWeek dayOfWeek)
@@ -66,7 +66,7 @@ public partial class IDateFacts<TDate, TDataSet> // Prelude
     //}
 }
 
-public partial class IDateFacts<TDate, TDataSet> // Conversions
+internal partial class IDateFacts<TDate, TDataSet> // Conversions
 {
     [Theory, MemberData(nameof(DayNumberInfoData))]
     public void DayNumber_Prop(DayNumberInfo info)
@@ -87,7 +87,7 @@ public partial class IDateFacts<TDate, TDataSet> // Conversions
     }
 }
 
-public partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
+internal partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
 {
     #region Arg check
 
@@ -158,7 +158,7 @@ public partial class IDateFacts<TDate, TDataSet> // Adjust the day of the week
         DayOfWeekAdjusterTester.NearMaxValue(MaxDate).TestNext();
 }
 
-public partial class IDateFacts<TDate, TDataSet> // Math
+internal partial class IDateFacts<TDate, TDataSet> // Math
 {
     #region NextDay()
 
@@ -359,7 +359,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     #endregion
 }
 
-public partial class IDateFacts<TDate, TDataSet> // IEquatable
+internal partial class IDateFacts<TDate, TDataSet> // IEquatable
 {
     [Theory, MemberData(nameof(DateInfoData))]
     public void Equals_WhenSame(DateInfo info)
@@ -414,7 +414,7 @@ public partial class IDateFacts<TDate, TDataSet> // IEquatable
     }
 }
 
-public partial class IDateFacts<TDate, TDataSet> // IComparable
+internal partial class IDateFacts<TDate, TDataSet> // IComparable
 {
     [Fact]
     public void CompareTo_Null()

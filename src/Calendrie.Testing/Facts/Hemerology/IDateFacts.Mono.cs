@@ -11,7 +11,7 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about <see cref="IDate{TSelf, TCalendar}"/>.
 /// </summary>
-public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
+internal abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IDateFacts<TDate, TDataSet>
     where TCalendar : Calendar, IDateProvider<TDate>
     where TDate : struct, IDate<TDate, TCalendar>, IAdjustableDayOfWeekField<TDate>

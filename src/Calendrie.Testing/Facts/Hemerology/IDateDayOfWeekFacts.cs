@@ -10,7 +10,7 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides more facts about <see cref="IDate{TSelf}"/>.
 /// </summary>
-public abstract partial class IDateDayOfWeekFacts<TDate, TDataSet> :
+internal abstract partial class IDateDayOfWeekFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
     where TDate : IDate<TDate>, IAdjustableDayOfWeekField<TDate>
     where TDataSet : ICalendarDataSet, IDayOfWeekDataSet, ISingleton<TDataSet>
@@ -33,7 +33,7 @@ public abstract partial class IDateDayOfWeekFacts<TDate, TDataSet> :
     public static DataGroup<YemodaPairAnd<DayOfWeek>> DayOfWeek_After_Data => DataSet.DayOfWeek_After_Data;
 }
 
-public partial class IDateDayOfWeekFacts<TDate, TDataSet> // Prelude
+internal partial class IDateDayOfWeekFacts<TDate, TDataSet> // Prelude
 {
     [Theory, MemberData(nameof(DayOfWeekData))]
     public void DayOfWeek_Prop(YemodaAnd<DayOfWeek> info)
@@ -45,7 +45,7 @@ public partial class IDateDayOfWeekFacts<TDate, TDataSet> // Prelude
     }
 }
 
-public partial class IDateDayOfWeekFacts<TDate, TDataSet> // Adjust the day of the week
+internal partial class IDateDayOfWeekFacts<TDate, TDataSet> // Adjust the day of the week
 {
     [Theory, MemberData(nameof(DayOfWeek_Before_Data))]
     public void Previous(YemodaPairAnd<DayOfWeek> info)
