@@ -511,10 +511,7 @@ public partial class CalendricalSchema // Conversions
         return y;
     }
 
-    /// <summary>
-    /// Obtains the year from the specified day count (the number of consecutive
-    /// days from the epoch to a date).
-    /// </summary>
+    /// <inheritdoc />
     //
     // Partial form of the other GetYear(). One can also say that it's a
     // partial form of GetDateParts(), but this method usually delegates

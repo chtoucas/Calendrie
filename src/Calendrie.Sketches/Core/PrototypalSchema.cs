@@ -436,6 +436,45 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
 
     /// <inheritdoc />
     [Pure]
+    public virtual int GetYear(int daysSinceEpoch)
+    {
+        // Faster alternatives:
+        // - Use a purely computational formula.
+        // - Start with an approximation of the result, see ArchetypalSchema.
+
+        // Find the year for which (daysSinceEpoch - startOfYear) = d0y
+        // has the smallest value >= 0.
+        if (daysSinceEpoch < 0)
+        {
+            int y = 0;
+            int startOfYear = -m_Kernel.CountDaysInYear(0);
+
+            while (daysSinceEpoch < startOfYear)
+            {
+                startOfYear -= m_Kernel.CountDaysInYear(--y);
+            }
+            return y;
+        }
+        else
+        {
+            int y = 1;
+            int startOfYear = 0;
+
+            while (daysSinceEpoch >= startOfYear)
+            {
+                int startOfNextYear = startOfYear + m_Kernel.CountDaysInYear(y);
+                if (daysSinceEpoch < startOfNextYear) { break; }
+                y++;
+                startOfYear = startOfNextYear;
+            }
+            Debug.Assert(daysSinceEpoch >= startOfYear);
+
+            return y;
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
     public virtual int GetMonth(int y, int doy, out int d)
     {
         // Faster alternatives:

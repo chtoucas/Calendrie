@@ -229,6 +229,29 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Methods
     }
 
     #endregion
+    #region GetYear()
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void GetYear﹍Plain(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        int daysSinceEpoch = SchemaUT.CountDaysSinceEpoch(y, m, d);
+        // Act
+        int yA = SchemaUT.GetYear(daysSinceEpoch);
+        // Assert
+        Assert.Equal(y, yA);
+    }
+
+    [Theory, MemberData(nameof(DaysSinceEpochInfoData))]
+    public void GetYear﹍Plain_DaysSinceEpoch(DaysSinceEpochInfo info)
+    {
+        // Act
+        int yA = SchemaUT.GetYear(info.DaysSinceEpoch);
+        // Assert
+        Assert.Equal(info.Yemoda.Year, yA);
+    }
+
+    #endregion
     #region GetMonth()
 
     [Theory, MemberData(nameof(DateInfoData))]

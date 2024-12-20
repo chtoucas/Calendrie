@@ -211,6 +211,12 @@ public partial interface ICalendricalSchema // Conversions
     [Pure] int GetYear(int daysSinceEpoch, out int doy);
 
     /// <summary>
+    /// Obtains the year from the specified day count (the number of consecutive
+    /// days from the epoch to a date).
+    /// </summary>
+    [Pure] int GetYear(int daysSinceEpoch);
+
+    /// <summary>
     /// Obtains the month and day of the month for the specified ordinal date;
     /// the day of the month is given in an output parameter.
     /// <para>Conversion year/dayOfYear -&gt; year/month/day.</para>

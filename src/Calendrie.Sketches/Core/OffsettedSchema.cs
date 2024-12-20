@@ -163,6 +163,11 @@ public partial class OffsettedSchema<TSchema> // ICalendricalSchema
 
     /// <inheritdoc />
     [Pure]
+    public int GetYear(int daysSinceEpoch) =>
+        Offset + Schema.GetYear(daysSinceEpoch);
+
+    /// <inheritdoc />
+    [Pure]
     public int GetMonth(int y, int doy, out int d) => Schema.GetMonth(y - Offset, doy, out d);
 
     /// <inheritdoc />
