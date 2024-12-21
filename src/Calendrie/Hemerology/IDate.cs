@@ -14,7 +14,8 @@ using System.Numerics;
 /// <summary>
 /// Defines a date type.
 /// </summary>
-/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+/// <typeparam name="TSelf">The date type that implements this interface.
+/// </typeparam>
 public interface IDate<TSelf> :
     IDateable,
     IAbsoluteDate<TSelf>
@@ -37,13 +38,13 @@ public interface IDate<TSelf> :
 /// <para>This interface SHOULD NOT be implemented by date types participating
 /// in a poly-calendar system.</para>
 /// </summary>
-/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+/// <typeparam name="TSelf">The date type that implements this interface.</typeparam>
 /// <typeparam name="TCalendar">The companion calendar type.</typeparam>
 public interface IDate<TSelf, out TCalendar> :
     IDate<TSelf>,
     IMinMaxValue<TSelf>
-    where TCalendar : Calendar
     where TSelf : IDate<TSelf, TCalendar>
+    where TCalendar : Calendar
 {
     /// <summary>
     /// Gets the calendar to which belongs the current date type.

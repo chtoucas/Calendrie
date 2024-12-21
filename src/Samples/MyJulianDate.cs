@@ -9,6 +9,7 @@ using System.Numerics;
 
 using Calendrie;
 using Calendrie.Core;
+using Calendrie.Extensions;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;

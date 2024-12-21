@@ -164,7 +164,8 @@ public interface IAbsoluteDate
 /// <summary>
 /// Defines a absolute date type.
 /// </summary>
-/// <typeparam name="TSelf">The date type that implements this interface.</typeparam>
+/// <typeparam name="TSelf">The date type that implements this interface.
+/// </typeparam>
 public interface IAbsoluteDate<TSelf> :
     IAbsoluteDate,
     // Comparison
