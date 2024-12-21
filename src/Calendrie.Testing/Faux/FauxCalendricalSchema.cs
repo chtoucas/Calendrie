@@ -5,7 +5,6 @@ namespace Calendrie.Testing.Faux;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Validation;
 
 // GetStartOfYear() must be implemented for calendars, arithmetic & scope to work.
 // We must also implement IsRegular(), otherwise CalendricalSchema.Profile will fail.

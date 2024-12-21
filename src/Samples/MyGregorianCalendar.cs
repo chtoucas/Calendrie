@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Calendrie;
+using Calendrie.Core;
 using Calendrie.Core.Schemas;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 public sealed partial class MyGregorianCalendar : Calendar, IDateProvider<MyGregorianDate>

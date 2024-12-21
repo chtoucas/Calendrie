@@ -4,7 +4,6 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core;
-using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
 // Struct constraint: no ArgumentNullException.ThrowIfNull(date).

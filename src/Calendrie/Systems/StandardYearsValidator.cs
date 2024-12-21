@@ -3,9 +3,9 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 
 /// <summary>
 /// Represents a validator for the range [1..9999] of years.

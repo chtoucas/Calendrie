@@ -5,7 +5,6 @@ namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 
 using Endpoint = CalendricalSegment.Endpoint;
 

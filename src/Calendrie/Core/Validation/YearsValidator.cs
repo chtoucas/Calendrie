@@ -7,10 +7,10 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
 /// <summary>
-/// Represents a validator for a range of years.
+/// Represents the default validator for a range of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class YearsValidator : IYearsValidator
+internal sealed class YearsValidator : IYearsValidator
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="YearsValidator"/> class.

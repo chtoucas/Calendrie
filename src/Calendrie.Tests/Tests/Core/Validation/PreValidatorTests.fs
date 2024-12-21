@@ -5,6 +5,7 @@ module Calendrie.Tests.Core.Validation.PreValidatorTests
 
 open System
 
+open Calendrie.Core
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing

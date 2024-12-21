@@ -4,7 +4,6 @@
 module Calendrie.Tests.Core.Validation.RangeValidatorTests
 
 open Calendrie.Core.Intervals
-open Calendrie.Core.Utilities
 open Calendrie.Core.Validation
 open Calendrie.Testing
 
