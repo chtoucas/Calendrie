@@ -272,11 +272,6 @@ public partial struct Ethiopic13Date // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static Ethiopic13Date IDateFactory<Ethiopic13Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
-
-    /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static Ethiopic13Date IDateFactory<Ethiopic13Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
