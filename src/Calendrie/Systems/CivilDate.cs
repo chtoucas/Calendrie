@@ -256,7 +256,7 @@ public partial struct CivilDate // Adjustments
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = DaysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ); ;
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ); ;
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
@@ -269,7 +269,7 @@ public partial struct CivilDate // Adjustments
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = DaysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
@@ -291,7 +291,7 @@ public partial struct CivilDate // Adjustments
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = DaysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
@@ -303,7 +303,7 @@ public partial struct CivilDate // Adjustments
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = DaysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
