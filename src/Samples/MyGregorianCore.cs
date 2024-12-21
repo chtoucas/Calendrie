@@ -6,7 +6,7 @@ namespace Samples;
 using Calendrie;
 using Calendrie.Core;
 
-public sealed class MyGregorianSchema : ICalendricalCore
+public sealed class MyGregorianCore : ICalendricalCore
 {
     public const int MonthsInYear = 12;
     public const int DaysInCommonYear = CalendricalConstants.DaysInWanderingYear;

@@ -27,7 +27,7 @@ internal static class CivilTripleScope
 
     // FIXME(code): get the schema.
     public static readonly ICalendricalSchema Schema =
-        new PrototypalSchemaSlim(new MyGregorianSchema(), 365, 28);
+        new PrototypalSchemaSlim(new MyGregorianCore(), 365, 28);
 
     // Cache the pre-validator which is a computed property.
     public static readonly ICalendricalPreValidator PreValidator = Schema.PreValidator;
@@ -118,8 +118,9 @@ public readonly partial struct CivilTriple :
     {
         get
         {
-            Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return Schema.IsIntercalaryDay(y, m, d);
+            var sch = Schema;
+            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return sch.IsIntercalaryDay(y, m, d);
         }
     }
 
