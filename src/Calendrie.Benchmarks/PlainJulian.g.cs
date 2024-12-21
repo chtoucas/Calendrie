@@ -71,8 +71,8 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 /// </summary>
 public readonly partial struct PlainJulianDate :
     IDate<PlainJulianDate, PlainJulianCalendar>,
+    IAdjustableDate<PlainJulianDate>,
     IAdjustableDayOfWeekField<PlainJulianDate>,
-    IMutableDateFields<PlainJulianDate>,
     IDateFactory<PlainJulianDate>,
     ISubtractionOperators<PlainJulianDate, PlainJulianDate, int>
 { }
@@ -307,10 +307,6 @@ public partial struct PlainJulianDate // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

@@ -70,8 +70,8 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 /// </summary>
 public readonly partial struct PlainGregorianDate :
     IDate<PlainGregorianDate, PlainGregorianCalendar>,
+    IAdjustableDate<PlainGregorianDate>,
     IAdjustableDayOfWeekField<PlainGregorianDate>,
-    IMutableDateFields<PlainGregorianDate>,
     IDateFactory<PlainGregorianDate>,
     ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>
 { }
@@ -297,10 +297,6 @@ public partial struct PlainGregorianDate // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

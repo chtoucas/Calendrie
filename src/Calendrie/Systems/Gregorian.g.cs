@@ -21,8 +21,8 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct GregorianDate :
     IDate<GregorianDate, GregorianCalendar>,
+    IAdjustableDate<GregorianDate>,
     IAdjustableDayOfWeekField<GregorianDate>,
-    IMutableDateFields<GregorianDate>,
     IDateFactory<GregorianDate>,
     ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
@@ -82,10 +82,6 @@ public partial struct GregorianDate // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

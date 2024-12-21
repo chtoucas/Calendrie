@@ -8,11 +8,11 @@ using Calendrie.Hemerology;
 // Keep this interface internal, it was created only to ease testing.
 
 /// <summary>
-/// Defines operations similar to the nondestructive mutation of records.
+/// Defines adjustment methods.
 /// </summary>
 /// <typeparam name="TDate">The date type that implements this interface.
 /// </typeparam>
-internal interface IMutableDateFields<TDate> where TDate : IDateable
+internal interface IAdjustableDate<TDate> where TDate : IDateable
 {
     /// <summary>
     /// Adjusts the current instance using the specified adjuster.

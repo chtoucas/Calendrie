@@ -68,8 +68,8 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 /// </summary>
 public readonly partial struct WorldDate :
     IDate<WorldDate, WorldCalendar>,
+    IAdjustableDate<WorldDate>,
     IAdjustableDayOfWeekField<WorldDate>,
-    IMutableDateFields<WorldDate>,
     IDateFactory<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>
 { }
@@ -312,10 +312,6 @@ public partial struct WorldDate // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

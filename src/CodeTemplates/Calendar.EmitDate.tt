@@ -27,8 +27,8 @@ public partial class CalendarTemplate
 /// </summary>
 public readonly partial struct <#= Prefix #>Date :
     IDate<<#= Prefix #>Date, <#= Prefix #>Calendar>,
+    IAdjustableDate<<#= Prefix #>Date>,
     IAdjustableDayOfWeekField<<#= Prefix #>Date>,
-    IMutableDateFields<<#= Prefix #>Date>,
     IDateFactory<<#= Prefix #>Date>,
     ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>
 { }
@@ -304,10 +304,6 @@ public partial struct <#= Prefix #>Date // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

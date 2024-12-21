@@ -68,8 +68,8 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 /// </summary>
 public readonly partial struct CopticDate :
     IDate<CopticDate, CopticCalendar>,
+    IAdjustableDate<CopticDate>,
     IAdjustableDayOfWeekField<CopticDate>,
-    IMutableDateFields<CopticDate>,
     IDateFactory<CopticDate>,
     ISubtractionOperators<CopticDate, CopticDate, int>
 { }
@@ -312,10 +312,6 @@ public partial struct CopticDate // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

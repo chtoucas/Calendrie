@@ -221,10 +221,6 @@ public partial struct CivilDate // Adjustments
         return adjuster.Invoke(this);
     }
 
-    //
-    // "Nondestructive mutation"
-    //
-
     /// <inheritdoc />
     [Pure]
     public CivilDate WithYear(int newYear) =>

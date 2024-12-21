@@ -21,8 +21,8 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct CivilDate :
     IDate<CivilDate, CivilCalendar>,
+    IAdjustableDate<CivilDate>,
     IAdjustableDayOfWeekField<CivilDate>,
-    IMutableDateFields<CivilDate>,
     IDateFactory<CivilDate>,
     ISubtractionOperators<CivilDate, CivilDate, int>
 { }

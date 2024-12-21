@@ -68,8 +68,8 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 /// </summary>
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate, TabularIslamicCalendar>,
+    IAdjustableDate<TabularIslamicDate>,
     IAdjustableDayOfWeekField<TabularIslamicDate>,
-    IMutableDateFields<TabularIslamicDate>,
     IDateFactory<TabularIslamicDate>,
     ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>
 { }
@@ -303,10 +303,6 @@ public partial struct TabularIslamicDate // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

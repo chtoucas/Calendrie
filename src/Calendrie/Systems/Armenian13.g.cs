@@ -68,8 +68,8 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 /// </summary>
 public readonly partial struct Armenian13Date :
     IDate<Armenian13Date, Armenian13Calendar>,
+    IAdjustableDate<Armenian13Date>,
     IAdjustableDayOfWeekField<Armenian13Date>,
-    IMutableDateFields<Armenian13Date>,
     IDateFactory<Armenian13Date>,
     ISubtractionOperators<Armenian13Date, Armenian13Date, int>
 { }
@@ -312,10 +312,6 @@ public partial struct Armenian13Date // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

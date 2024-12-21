@@ -68,8 +68,8 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
 /// </summary>
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate, ZoroastrianCalendar>,
+    IAdjustableDate<ZoroastrianDate>,
     IAdjustableDayOfWeekField<ZoroastrianDate>,
-    IMutableDateFields<ZoroastrianDate>,
     IDateFactory<ZoroastrianDate>,
     ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
 { }
@@ -312,10 +312,6 @@ public partial struct ZoroastrianDate // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]

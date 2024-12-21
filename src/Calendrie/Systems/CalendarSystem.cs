@@ -50,7 +50,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     // The next internal properties are only meant to be used by the date type.
 
     /// <summary>
-    /// Gets the date adjuster.
+    /// Gets the adjuster for the underlying date type.
     /// </summary>
     //
     // Publicly available via TDate.Adjuster.

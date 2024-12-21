@@ -68,8 +68,8 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 /// </summary>
 public readonly partial struct Ethiopic13Date :
     IDate<Ethiopic13Date, Ethiopic13Calendar>,
+    IAdjustableDate<Ethiopic13Date>,
     IAdjustableDayOfWeekField<Ethiopic13Date>,
-    IMutableDateFields<Ethiopic13Date>,
     IDateFactory<Ethiopic13Date>,
     ISubtractionOperators<Ethiopic13Date, Ethiopic13Date, int>
 { }
@@ -312,10 +312,6 @@ public partial struct Ethiopic13Date // Adjustments
 
         return adjuster.Invoke(this);
     }
-
-    //
-    // "Nondestructive mutation"
-    //
 
     /// <inheritdoc />
     [Pure]
