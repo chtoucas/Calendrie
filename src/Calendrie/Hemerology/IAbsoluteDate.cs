@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-using Calendrie.Core;
-
 #region Developer Notes
 
 // TL;DR: Despite its flaws we'll use the CRTP.
@@ -175,9 +173,19 @@ public interface IAbsoluteDate<TSelf> :
     IComparisonOperators<TSelf, TSelf, bool>,
     IComparable<TSelf>,
     IComparable,
-    // No IMinMaxValue<T> for date types participating in a poly-calendar system.
-    IMinMaxFunction<TSelf>,
+    // No IMinMaxValue<T> in case the date type is part of a poly-calendar
+    // system; see IDate<TSelf, out TCalendar>.
     // Arithmetic
     IDayArithmetic<TSelf>
     where TSelf : IAbsoluteDate<TSelf>
-{ }
+{
+    /// <summary>
+    /// Obtains the minimum of two specified values.
+    /// </summary>
+    [Pure] static virtual TSelf Min(TSelf x, TSelf y) => x < y ? x : y;
+
+    /// <summary>
+    /// Obtains the maximum of two specified values.
+    /// </summary>
+    [Pure] static virtual TSelf Max(TSelf x, TSelf y) => x > y ? x : y;
+}

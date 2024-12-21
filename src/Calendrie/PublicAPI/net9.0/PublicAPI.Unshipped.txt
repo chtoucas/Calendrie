@@ -138,9 +138,6 @@ Calendrie.Core.ICalendricalSchema.PreValidator.get -> Calendrie.Core.Validation.
 Calendrie.Core.ICalendricalSchema.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.ICalendricalSchema.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.ICalendricalSchema.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.IMinMaxFunction<TSelf>
-Calendrie.Core.IMinMaxFunction<TSelf>.Max(TSelf x, TSelf y) -> TSelf
-Calendrie.Core.IMinMaxFunction<TSelf>.Min(TSelf x, TSelf y) -> TSelf
 Calendrie.Core.Intervals.IInterval<T>
 Calendrie.Core.Intervals.IInterval<T>.IsLeftBounded.get -> bool
 Calendrie.Core.Intervals.IInterval<T>.IsLeftOpen.get -> bool

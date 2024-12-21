@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-using Calendrie.Core;
-
 // NB: contrary to an IDate, an affine date can only be linked to a single
 // calendar system, therefore we can provide unambigiously a factory method
 // FromDaysSinceEpoch(). IDate does not mandate the equivalent FromDayNumber().
@@ -34,14 +32,13 @@ public interface IAffineDate : IDateable
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IAffineDate<TSelf> :
     IAffineDate,
-    IMinMaxValue<TSelf>,
     // Comparison
     IEqualityOperators<TSelf, TSelf, bool>,
     IEquatable<TSelf>,
     IComparisonOperators<TSelf, TSelf, bool>,
     IComparable<TSelf>,
     IComparable,
-    IMinMaxFunction<TSelf>,
+    IMinMaxValue<TSelf>,
     // Arithmetic
     IDayArithmetic<TSelf>
     where TSelf : IAffineDate<TSelf>
@@ -54,4 +51,14 @@ public interface IAffineDate<TSelf> :
     /// is outside the range of values supported by the default calendar.
     /// </exception>
     [Pure] static abstract TSelf FromDaysSinceEpoch(int daysSinceEpoch);
+
+    /// <summary>
+    /// Obtains the minimum of two specified values.
+    /// </summary>
+    [Pure] static virtual TSelf Min(TSelf x, TSelf y) => x < y ? x : y;
+
+    /// <summary>
+    /// Obtains the maximum of two specified values.
+    /// </summary>
+    [Pure] static virtual TSelf Max(TSelf x, TSelf y) => x > y ? x : y;
 }

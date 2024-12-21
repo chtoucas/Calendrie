@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Numerics;
 
-using Calendrie.Core;
 using Calendrie.Core.Utilities;
 
 // As with DayNumber, one can initialize an Ord as follows
@@ -28,7 +27,6 @@ public readonly partial struct Ord :
     IComparable<Ord>,
     IComparable,
     IMinMaxValue<Ord>,
-    IMinMaxFunction<Ord>,
     // Arithmetic
     IAdditionOperators<Ord, int, Ord>,
     ISubtractionOperators<Ord, int, Ord>,
@@ -210,11 +208,15 @@ public partial struct Ord // IComparable
     /// <inheritdoc />
     public static bool operator >=(Ord left, Ord right) => left._value >= right._value;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the minimum of two specified values.
+    /// </summary>
     [Pure]
     public static Ord Min(Ord left, Ord right) => left < right ? left : right;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the maximum of two specified values.
+    /// </summary>
     [Pure]
     public static Ord Max(Ord left, Ord right) => left > right ? left : right;
 
