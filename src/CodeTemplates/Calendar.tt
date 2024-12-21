@@ -33,6 +33,8 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
     public string DaysSinceEpochSuffix { get; set; } = "DaysSinceEpoch";
+    public string MinDaysSinceEpoch { get; set; } = "s_MinDaysSinceEpoch";
+    public string MaxDaysSinceEpoch { get; set; } = "s_MaxDaysSinceEpoch";
 
     public bool EnableIsSupplimentary { get; set; } = true;
 
@@ -94,6 +96,8 @@ using Calendrie.Horology;
 <#+ if (ImportCalendrieSystemsNamespace) { #>
 using Calendrie.Systems;
 <#+ } #>
+
+using static Calendrie.Core.CalendricalConstants;
 <#+
     } // T4: End of EmitUsings()
 

@@ -22,6 +22,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 using Calendrie.Systems;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Represents the PlainGregorian calendar.
 /// <para>This class cannot be inherited.</para>
@@ -324,28 +326,64 @@ public partial struct PlainGregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Previous(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Previous(this, dayOfWeek);
+    public PlainGregorianDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceZero < s_MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
+    public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (daysSinceZero < s_MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Nearest(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Nearest(this, dayOfWeek);
+    public PlainGregorianDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int daysSinceZero = nearest.DaysSinceZero - s_Epoch.DaysSinceZero;
+        if (daysSinceZero < s_MinDaysSinceZero || daysSinceZero > s_MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
+    public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Next(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Next(this, dayOfWeek);
+    public PlainGregorianDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 }
 
 public partial struct PlainGregorianDate // IEquatable

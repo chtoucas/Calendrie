@@ -20,6 +20,8 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Represents the Coptic calendar.
 /// <para>This class cannot be inherited.</para>
@@ -339,28 +341,64 @@ public partial struct CopticDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate Previous(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Previous(this, dayOfWeek);
+    public CopticDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate PreviousOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
+    public CopticDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate Nearest(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Nearest(this, dayOfWeek);
+    public CopticDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int daysSinceEpoch = nearest.DaysSinceZero - s_EpochDaysSinceZero;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate NextOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
+    public CopticDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate Next(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Next(this, dayOfWeek);
+    public CopticDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 }
 
 public partial struct CopticDate // IEquatable

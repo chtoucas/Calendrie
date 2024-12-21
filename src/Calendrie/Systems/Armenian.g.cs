@@ -20,6 +20,8 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Represents the Armenian calendar.
 /// <para>This class cannot be inherited.</para>
@@ -339,28 +341,64 @@ public partial struct ArmenianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate Previous(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Previous(this, dayOfWeek);
+    public ArmenianDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate PreviousOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
+    public ArmenianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate Nearest(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Nearest(this, dayOfWeek);
+    public ArmenianDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int daysSinceEpoch = nearest.DaysSinceZero - s_EpochDaysSinceZero;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate NextOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
+    public ArmenianDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate Next(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Next(this, dayOfWeek);
+    public ArmenianDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 }
 
 public partial struct ArmenianDate // IEquatable

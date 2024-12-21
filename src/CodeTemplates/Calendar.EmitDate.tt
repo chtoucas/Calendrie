@@ -2,7 +2,7 @@
 
 public partial class CalendarTemplate
 {
-    protected string EpochDaysSinceEpoch =>
+    protected virtual string EpochDaysSinceZero =>
         EnableMicroOptimizations ? "s_EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
 
     protected virtual void EmitDate()
@@ -51,19 +51,19 @@ public partial struct <#= Prefix #>Date // Preamble
 <#+ } #>
 
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.Min<#= DaysSinceEpochSuffix #>;
+    private static readonly int <#= MinDaysSinceEpoch #> = <#= Prefix #>Calendar.Instance.Min<#= DaysSinceEpochSuffix #>;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.Max<#= DaysSinceEpochSuffix #>;
+    private static readonly int <#= MaxDaysSinceEpoch #> = <#= Prefix #>Calendar.Instance.Max<#= DaysSinceEpochSuffix #>;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(<#= MinDaysSinceEpoch #>);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= MaxDaysSinceEpoch #>);
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="<#= Epoch #>"/>.
-    /// <para>This field is in the range from <see cref="s_Min<#= DaysSinceEpochSuffix #>"/>
-    /// to <see cref="s_Max<#= DaysSinceEpochSuffix #>"/>.</para>
+    /// <para>This field is in the range from <see cref="<#= MinDaysSinceEpoch #>"/>
+    /// to <see cref="<#= MaxDaysSinceEpoch #>"/>.</para>
     /// </summary>
     private readonly int _<#= DaysSinceEpochVar #>;
 
@@ -129,7 +129,7 @@ public partial struct <#= Prefix #>Date // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _<#= DaysSinceEpochVar #>;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(<#= EpochDaysSinceEpoch #> + _daysSinceEpoch);
+    public DayNumber DayNumber => new(<#= EpochDaysSinceZero #> + _<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
@@ -245,18 +245,18 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - <#= EpochDaysSinceEpoch #>);
+        return new(dayNumber.DaysSinceZero - <#= EpochDaysSinceZero #>);
     }
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.FromDayNumberUnchecked(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - <#= EpochDaysSinceEpoch #>);
+        new(dayNumber.DaysSinceZero - <#= EpochDaysSinceZero #>);
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.FromDaysSinceEpochUnchecked(int <#= DaysSinceEpochVar #>) =>
+        new(<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitDateFactories()
@@ -331,28 +331,64 @@ public partial struct <#= Prefix #>Date // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Previous(this, dayOfWeek);
+    public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (<#= DaysSinceEpochVar #> < <#= MinDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
+    public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (<#= DaysSinceEpochVar #> < <#= MinDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Nearest(this, dayOfWeek);
+    public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int <#= DaysSinceEpochVar #> = nearest.DaysSinceZero - <#= EpochDaysSinceZero #>;
+        if (<#= DaysSinceEpochVar #> < <#= MinDaysSinceEpoch #> || <#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
+    public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ < 0 ? δ + DaysInWeek : δ);
+        if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date Next(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Next(this, dayOfWeek);
+    public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
 }
 <#+
     } // T4: End of EmitDateAdjustment()
@@ -491,7 +527,7 @@ public partial struct <#= Prefix #>Date // Math
 
         // Don't write (the addition may also overflow...):
         // > Scope.CheckOverflow(Epoch + <#= DaysSinceEpochVar #>);
-        if (<#= DaysSinceEpochVar #> < s_Min<#= DaysSinceEpochSuffix #> || <#= DaysSinceEpochVar #> > s_Max<#= DaysSinceEpochSuffix #>)
+        if (<#= DaysSinceEpochVar #> < <#= MinDaysSinceEpoch #> || <#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>)
             ThrowHelpers.ThrowDateOverflow();
 
         return new(<#= DaysSinceEpochVar #>);

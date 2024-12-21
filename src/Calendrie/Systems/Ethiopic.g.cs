@@ -20,6 +20,8 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Represents the Ethiopic calendar.
 /// <para>This class cannot be inherited.</para>
@@ -339,28 +341,64 @@ public partial struct EthiopicDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public EthiopicDate Previous(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Previous(this, dayOfWeek);
+    public EthiopicDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public EthiopicDate PreviousOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
+    public EthiopicDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public EthiopicDate Nearest(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Nearest(this, dayOfWeek);
+    public EthiopicDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int daysSinceEpoch = nearest.DaysSinceZero - s_EpochDaysSinceZero;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public EthiopicDate NextOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
+    public EthiopicDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public EthiopicDate Next(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Next(this, dayOfWeek);
+    public EthiopicDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 }
 
 public partial struct EthiopicDate // IEquatable

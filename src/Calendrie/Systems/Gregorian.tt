@@ -10,6 +10,8 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
         ScopeClass = "GregorianScope";
 
         EnableIsSupplimentary = false;
+        MinDaysSinceEpoch = "MinDaysSinceZero";
+        MaxDaysSinceEpoch = "MaxDaysSinceZero";
     }
 
     protected sealed override void EmitUsings()
@@ -23,6 +25,8 @@ using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>
+
+using static Calendrie.Core.CalendricalConstants;
 <#+
     } // T4: End of EmitUsings()
 

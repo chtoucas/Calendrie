@@ -23,6 +23,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 using Calendrie.Systems;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Represents the PlainJulian calendar.
 /// <para>This class cannot be inherited.</para>
@@ -334,28 +336,64 @@ public partial struct PlainJulianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Previous(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Previous(this, dayOfWeek);
+    public PlainJulianDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate PreviousOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
+    public PlainJulianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Nearest(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Nearest(this, dayOfWeek);
+    public PlainJulianDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int daysSinceEpoch = nearest.DaysSinceZero - s_Epoch.DaysSinceZero;
+        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate NextOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
+    public PlainJulianDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Next(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Next(this, dayOfWeek);
+    public PlainJulianDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 }
 
 public partial struct PlainJulianDate // IEquatable

@@ -15,6 +15,8 @@ using System.Numerics;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Represents the Gregorian date.
 /// <para><see cref="GregorianDate"/> is an immutable struct.</para>
@@ -109,28 +111,64 @@ public partial struct GregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate Previous(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Previous(this, dayOfWeek);
+    public GregorianDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceZero < MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.PreviousOrSame(this, dayOfWeek);
+    public GregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (daysSinceZero < MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate Nearest(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Nearest(this, dayOfWeek);
+    public GregorianDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int daysSinceZero = nearest.DaysSinceZero - s_EpochDaysSinceZero;
+        if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate NextOrSame(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.NextOrSame(this, dayOfWeek);
+    public GregorianDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public GregorianDate Next(DayOfWeek dayOfWeek) =>
-        Calendar.Adjuster.Next(this, dayOfWeek);
+    public GregorianDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
 }
 
 public partial struct GregorianDate // IEquatable

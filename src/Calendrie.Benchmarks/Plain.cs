@@ -3,6 +3,7 @@
 
 namespace Benchmarks;
 
+using Calendrie;
 using Calendrie.Core.Schemas;
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
@@ -29,7 +30,10 @@ public partial class PlainJulianCalendar
 
 /// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
 /// </remarks>
-public partial struct PlainGregorianDate { }
+public partial struct PlainGregorianDate
+{
+    private static readonly DayNumber s_Epoch = DayZero.NewStyle;
+}
 
 /// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
 /// </remarks>

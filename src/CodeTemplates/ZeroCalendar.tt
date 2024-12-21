@@ -11,6 +11,8 @@ public class ZeroCalendarTemplate : CalendarTemplate
     {
         DaysSinceEpochVar = "daysSinceZero";
         DaysSinceEpochSuffix = "DaysSinceZero";
+        MinDaysSinceEpoch = "s_MinDaysSinceZero";
+        MaxDaysSinceEpoch = "s_MaxDaysSinceZero";
     }
 
     protected override void EmitUsings()
@@ -31,6 +33,8 @@ using Calendrie.Horology;
 <#+ if (ImportCalendrieSystemsNamespace) { #>
 using Calendrie.Systems;
 <#+ } #>
+
+using static Calendrie.Core.CalendricalConstants;
 <#+
     } // T4: End of EmitUsings()
 
@@ -96,18 +100,18 @@ public sealed partial class <#= Prefix #>Clock
 public partial struct <#= Prefix #>Date // Preamble
 {
     /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Min<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.MinDaysSinceEpoch;
+    private static readonly int <#= MinDaysSinceEpoch #> = <#= Prefix #>Calendar.Instance.MinDaysSinceEpoch;
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int s_Max<#= DaysSinceEpochSuffix #> = <#= Prefix #>Calendar.Instance.MaxDaysSinceEpoch;
+    private static readonly int <#= MaxDaysSinceEpoch #> = <#= Prefix #>Calendar.Instance.MaxDaysSinceEpoch;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MinValue = new(s_Min<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MinValue = new(<#= MinDaysSinceEpoch #>);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MaxValue = new(s_Max<#= DaysSinceEpochSuffix #>);
+    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= MaxDaysSinceEpoch #>);
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from 0 to <see cref="s_Max<#= DaysSinceEpochSuffix #>"/>.
+    /// <para>This field is in the range from 0 to <see cref="<#= MaxDaysSinceEpoch #>"/>.
     /// </para>
     /// </summary>
     private readonly int _<#= DaysSinceEpochVar #>;

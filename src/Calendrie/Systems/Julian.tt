@@ -8,7 +8,13 @@ public sealed class JulianTemplate : CalendarTemplate
     public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema", "DayZero.OldStyle")
     {
         ScopeClass = "JulianScope";
+
+        MinDaysSinceEpoch = "MinDaysSinceEpoch";
+        MaxDaysSinceEpoch = "MaxDaysSinceEpoch";
     }
+
+    protected override string EpochDaysSinceZero =>
+        EnableMicroOptimizations ? "EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
 
     protected sealed override void EmitUsings()
     {
@@ -21,6 +27,8 @@ using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>
+
+using static Calendrie.Core.CalendricalConstants;
 <#+
     } // T4: End of EmitUsings()
 
