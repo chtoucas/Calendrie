@@ -4,7 +4,6 @@
 namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Validation;
 
 // J'aurais bien aimé pouvoir faire la même chose avec CalendricalSchema mais en
 // l'état cela me semble compliqué. Par exemple, Min/MaxYear ne sont plus les
