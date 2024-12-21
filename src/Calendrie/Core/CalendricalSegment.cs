@@ -102,6 +102,13 @@ public sealed class CalendricalSegment
     [Pure]
     public sealed override string ToString() => MinMaxDateParts.ToString();
 
+    [Pure]
+    public static CalendricalSegment Create<TSchema>(Range<int> supportedYears)
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return Create(TSchema.CreateInstance(), supportedYears);
+    }
+
     /// <summary>
     /// Creates a new instance of the <see cref="CalendricalSegment"/> class.
     /// </summary>
@@ -118,6 +125,13 @@ public sealed class CalendricalSegment
         return builder.BuildSegment();
     }
 
+    [Pure]
+    public static CalendricalSegment CreateMaximal<TSchema>()
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return CreateMaximal(TSchema.CreateInstance());
+    }
+
     /// <summary>
     /// Creates the maximal segment for <paramref name="schema"/>.
     /// </summary>
@@ -130,6 +144,13 @@ public sealed class CalendricalSegment
         builder.SetMinToStartOfMinSupportedYear();
         builder.SetMaxToEndOfMaxSupportedYear();
         return builder.BuildSegment();
+    }
+
+    [Pure]
+    public static CalendricalSegment CreateMaximalOnOrAfterYear1<TSchema>()
+        where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
+    {
+        return CreateMaximalOnOrAfterYear1(TSchema.CreateInstance());
     }
 
     /// <summary>
