@@ -52,6 +52,8 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// <summary>
     /// Gets the date adjuster.
     /// </summary>
+    //
+    // Publicly available via TDate.Adjuster.
     internal DateAdjuster<TDate> Adjuster { get; }
 
     /// <summary>

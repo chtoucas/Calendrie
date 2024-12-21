@@ -3,6 +3,8 @@
 
 namespace Calendrie.Hemerology;
 
+// Keep this interface internal, it was created only to ease testing.
+
 /// <summary>
 /// Defines the operations for adjusting the day of the week of a date type.
 /// </summary>

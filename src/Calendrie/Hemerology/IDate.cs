@@ -19,16 +19,7 @@ public interface IDate<TSelf> :
     IDateable,
     IAbsoluteDate<TSelf>
     where TSelf : IDate<TSelf>
-{
-    /// <summary>
-    /// Adjusts the current instance using the specified adjuster.
-    /// <para>If the adjuster throws, this method will propagate the exception.
-    /// </para>
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="adjuster"/> is
-    /// <see langword="null"/>.</exception>
-    [Pure] TSelf Adjust(Func<TSelf, TSelf> adjuster);
-}
+{ }
 
 // L'interface suivante est prévue pour les dates ne fonctionnant qu'avec un seul
 // type de calendrier, d'où le fait d'avoir choisi des propriétés et méthodes
