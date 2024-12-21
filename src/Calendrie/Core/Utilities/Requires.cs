@@ -40,6 +40,8 @@ internal static class Requires
     /// Validates that the specified schema has the <paramref name="expected"/>
     /// profile.
     /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">Thrown if <paramref name="schema"/>
     /// did not have the expected profile.</exception>
     public static void Profile(
@@ -47,7 +49,8 @@ internal static class Requires
         CalendricalProfile expected,
         [CallerArgumentExpression(nameof(schema))] string paramName = "")
     {
-        Debug.Assert(schema != null);
+        // TODO(fact): test this exception.
+        ArgumentNullException.ThrowIfNull(schema);
 
         if (schema.Profile == expected) return;
 

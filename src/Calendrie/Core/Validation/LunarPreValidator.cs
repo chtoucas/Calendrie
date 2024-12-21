@@ -27,7 +27,6 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     /// <see langword="null"/>.</exception>
     public LunarPreValidator(CalendricalSchema schema)
     {
-        ArgumentNullException.ThrowIfNull(schema);
         Requires.Profile(schema, CalendricalProfile.Lunar);
 
         _schema = schema;
