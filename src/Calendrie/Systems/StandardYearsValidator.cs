@@ -18,13 +18,13 @@ internal sealed class StandardYearsValidator : IYearsValidator
 
     /// <summary>
     /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para>
+    /// <para>This field is a constant equal to 1.</para>
     /// </summary>
     private const int MinYear = StandardScope.MinYear;
 
     /// <summary>
     /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 999_999.</para>
+    /// <para>This field is a constant equal to 9999.</para>
     /// </summary>
     private const int MaxYear = StandardScope.MaxYear;
 
