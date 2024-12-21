@@ -9,7 +9,6 @@ using System.Numerics;
 
 using Calendrie;
 using Calendrie.Core;
-using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
 using Range_ = Calendrie.Core.Intervals.Range;
@@ -26,7 +25,9 @@ internal static class CivilTripleScope
     public const int MinYear = 1;
     public const int MaxYear = 9999;
 
-    public static readonly CivilSchema Schema;
+    // FIXME(code): get the schema.
+    public static readonly ICalendricalSchema Schema =
+        new PrototypalSchemaSlim(new MyGregorianSchema(), 365, 28);
 
     // Cache the pre-validator which is a computed property.
     public static readonly ICalendricalPreValidator PreValidator = Schema.PreValidator;
@@ -124,7 +125,7 @@ public readonly partial struct CivilTriple :
 
     bool IDateable.IsSupplementary => false;
 
-    private static CivilSchema Schema => CivilTripleScope.Schema;
+    private static ICalendricalSchema Schema => CivilTripleScope.Schema;
     private static CalendricalSegment Segment => CivilTripleScope.Segment;
 
     public override string ToString()
@@ -154,9 +155,9 @@ public partial struct CivilTriple // Factories & conversions
 public partial struct CivilTriple // Counting
 {
     public int CountElapsedDaysInYear() => DayOfYear - 1;
-    public int CountRemainingDaysInYear() => Schema.CountDaysInYearAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInYear() => throw new NotImplementedException();
     public int CountElapsedDaysInMonth() => Day - 1;
-    public int CountRemainingDaysInMonth() => Schema.CountDaysInMonthAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInMonth() => throw new NotImplementedException();
 }
 
 public partial struct CivilTriple // IEquatable
