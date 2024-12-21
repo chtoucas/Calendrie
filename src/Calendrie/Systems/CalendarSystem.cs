@@ -32,7 +32,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
-    where TDate : IDate<TDate>, IDateFactory<TDate>
+    where TDate : struct, IDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>

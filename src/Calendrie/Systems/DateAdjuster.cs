@@ -7,6 +7,8 @@ using Calendrie.Core;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
 
+// Struct constraint: no ArgumentNullException.ThrowIfNull(date).
+
 /// <summary>
 /// Provides static helpers and extension methods for <see cref="DateAdjuster{TDate}"/>.
 /// <para>This class cannot be inherited.</para>
@@ -19,7 +21,7 @@ public static class DateAdjuster
     /// </summary>
     [Pure]
     public static DateAdjuster<TDate> Create<TDate>(CalendarSystem<TDate> calendar)
-        where TDate : IDate<TDate>, IDateFactory<TDate>
+        where TDate : struct, IDate<TDate>, IDateFactory<TDate>
     {
         ArgumentNullException.ThrowIfNull(calendar);
 
@@ -35,7 +37,7 @@ public static class DateAdjuster
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public sealed class DateAdjuster<TDate>
-    where TDate : IDate<TDate>, IDateFactory<TDate>
+    where TDate : struct, IDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DateAdjuster{TDate}"/>
