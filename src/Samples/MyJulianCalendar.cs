@@ -101,12 +101,6 @@ public partial class MyJulianCalendar // Date helpers
         var (y, m, d) = ymd;
         return Schema.IsIntercalaryDay(y, m, d);
     }
-
-    internal bool IsSupplementaryDay(Yemoda ymd)
-    {
-        var (y, m, d) = ymd;
-        return Schema.IsSupplementaryDay(y, m, d);
-    }
 }
 
 public partial class MyJulianCalendar // Date helpers (counting)

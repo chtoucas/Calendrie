@@ -80,7 +80,7 @@ public readonly partial struct MyGregorianDate :
     public DayOfWeek DayOfWeek => DayNumber.DayOfWeek;
 
     public bool IsIntercalary => Calendar.IsIntercalaryDay(_daysSinceEpoch);
-    public bool IsSupplementary => Calendar.IsSupplementaryDay(_daysSinceEpoch);
+    bool IDateable.IsSupplementary => false;
 
     public override string ToString()
     {

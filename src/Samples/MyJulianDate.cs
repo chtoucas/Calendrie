@@ -65,7 +65,7 @@ public readonly partial struct MyJulianDate :
     }
 
     public bool IsIntercalary => Calendar.IsIntercalaryDay(_bin);
-    public bool IsSupplementary => Calendar.IsSupplementaryDay(_bin);
+    bool IDateable.IsSupplementary => false;
 
     public override string ToString()
     {

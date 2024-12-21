@@ -137,12 +137,6 @@ public partial class MyGregorianCalendar // Date helpers
         return Schema.IsIntercalaryDay(y, m, d);
     }
 
-    internal bool IsSupplementaryDay(int daysSinceEpoch)
-    {
-        Schema.GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
-        return Schema.IsSupplementaryDay(y, m, d);
-    }
-
     internal void GetDateParts(int daysSinceEpoch, out int year, out int month, out int day) =>
         Schema.GetDateParts(daysSinceEpoch, out year, out month, out day);
 

@@ -182,7 +182,7 @@ public partial class LimitSchema // Conversions
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public Yemoda GetDateParts(int y, int m, int d) => new(y, m, d);
 
     /// <summary>
