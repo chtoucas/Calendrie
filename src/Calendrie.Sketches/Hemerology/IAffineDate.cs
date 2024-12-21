@@ -15,7 +15,8 @@ using System.Numerics;
 public interface IAffineDate : IDateable
 {
     /// <summary>
-    /// Gets the number of consecutive days from the epoch to the current instance.
+    /// Gets the number of consecutive days from the epoch to the current
+    /// instance.
     /// </summary>
     int DaysSinceEpoch { get; }
 }
@@ -26,10 +27,11 @@ public interface IAffineDate : IDateable
 /// epoch has not been fixed, therefore the dates can not be linked to a timeline.
 /// </para>
 /// <para>No epoch means no interconversion with other calendars and no day of
-/// the week. The weaker DaysSinceEpoch (the number of consecutive days since the
-/// epoch) is still available which allows for arithmetical operations.</para>
+/// the week. The weaker DaysSinceEpoch (the number of consecutive days since
+/// the epoch) is still available which allows for arithmetical operations.</para>
 /// </summary>
-/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+/// <typeparam name="TSelf">The date type that implements this interface.
+/// </typeparam>
 public interface IAffineDate<TSelf> :
     IAffineDate,
     // Comparison
@@ -48,8 +50,7 @@ public interface IAffineDate<TSelf> :
     /// number of consecutive days since the epoch.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="daysSinceEpoch"/>
-    /// is outside the range of values supported by the default calendar.
-    /// </exception>
+    /// is outside the range of values supported by the default calendar.</exception>
     [Pure] static abstract TSelf FromDaysSinceEpoch(int daysSinceEpoch);
 
     /// <summary>
