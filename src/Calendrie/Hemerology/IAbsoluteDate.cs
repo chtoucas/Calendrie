@@ -336,10 +336,6 @@ public interface IAbsoluteDate<TSelf> :
     [Pure]
     TSelf Nearest(DayOfWeek dayOfWeek)
     {
-        // TODO(code): improve Nearest() and maybe the others.
-        // This is a default implementation and not the most efficient one.
-        // Anyway, since date types are expected to be value types, this impl
-        // should only be called when the value is boxed.
         var nearest = DayNumber.Nearest(dayOfWeek);
         return TSelf.FromDayNumber(nearest);
     }
