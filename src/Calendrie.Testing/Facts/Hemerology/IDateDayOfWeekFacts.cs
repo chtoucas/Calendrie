@@ -12,7 +12,7 @@ using Calendrie.Testing.Data;
 /// </summary>
 internal abstract partial class IDateDayOfWeekFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
-    where TDate : IAbsoluteDate<TDate>, IAdjustableDayOfWeekField<TDate>
+    where TDate : IAbsoluteDate, IAdjustableDayOfWeekField<TDate>
     where TDataSet : ICalendarDataSet, IDayOfWeekDataSet, ISingleton<TDataSet>
 {
     protected IDateDayOfWeekFacts() { }

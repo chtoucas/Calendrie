@@ -5,7 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-// Keep this interface internal, it was created only to ease testing.
+// Keep this interface internal, it was created only to sipmplify testing.
 
 /// <summary>
 /// Defines adjustment methods.

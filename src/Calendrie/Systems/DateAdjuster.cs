@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 // Struct constraint: no ArgumentNullException.ThrowIfNull(date).
 
 /// <summary>
-/// Provides static helpers and extension methods for <see cref="DateAdjuster{TDate}"/>.
+/// Provides static helpers for <see cref="DateAdjuster{TDate}"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public static class DateAdjuster
