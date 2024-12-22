@@ -268,7 +268,7 @@ public partial struct EthiopicDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static EthiopicDate IDateFactory<EthiopicDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static EthiopicDate IDateFactory<EthiopicDate>.CreateUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

@@ -87,7 +87,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+               select TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -101,7 +101,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+               select TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -110,7 +110,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetStartOfYear(year);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -119,7 +119,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetEndOfYear(year);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -128,7 +128,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -137,7 +137,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 }
 
@@ -146,50 +146,42 @@ public partial class CalendarSystem<TDate>
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
-    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetStartOfYear(TDate date)
     {
         int daysSinceEpoch = Schema.GetStartOfYear(date.Year);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <summary>
     /// Obtains the last day of the year to which belongs the specified date.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
-    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetEndOfYear(TDate date)
     {
         int daysSinceEpoch = Schema.GetEndOfYear(date.Year);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <summary>
     /// Obtains the first day of the month to which belongs the specified date.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
-    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetStartOfMonth(TDate date)
     {
         var (y, m, _) = date;
         int daysSinceEpoch = Schema.GetStartOfMonth(y, m);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 
     /// <summary>
     /// Obtains the last day of the month to which belongs the specified date.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
-    /// the range of supported dates.</exception>
     [Pure]
     public TDate GetEndOfMonth(TDate date)
     {
         var (y, m, _) = date;
         int daysSinceEpoch = Schema.GetEndOfMonth(y, m);
-        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+        return TDate.CreateUnchecked(daysSinceEpoch);
     }
 }

@@ -268,7 +268,7 @@ public partial struct WorldDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static WorldDate IDateFactory<WorldDate>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static WorldDate IDateFactory<WorldDate>.CreateUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

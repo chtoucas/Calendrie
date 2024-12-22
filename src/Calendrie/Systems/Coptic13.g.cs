@@ -268,7 +268,7 @@ public partial struct Coptic13Date // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static Coptic13Date IDateFactory<Coptic13Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static Coptic13Date IDateFactory<Coptic13Date>.CreateUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

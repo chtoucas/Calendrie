@@ -268,7 +268,7 @@ public partial struct Armenian13Date // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static Armenian13Date IDateFactory<Armenian13Date>.FromDaysSinceEpochUnchecked(int daysSinceEpoch) =>
+    static Armenian13Date IDateFactory<Armenian13Date>.CreateUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 
