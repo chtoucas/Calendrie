@@ -292,13 +292,8 @@ public partial struct <#= Prefix #>Date // Adjustments
     public <#= Prefix #>Date WithYear(int newYear)
     {
         var (_, m, d) = this;
-
-        var chr = Calendar;
         // We MUST re-validate the entire date.
-        chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
-
-        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(<#= DaysSinceEpochVar #>);
+        return new(newYear, m, d);
     }
 
     /// <inheritdoc />

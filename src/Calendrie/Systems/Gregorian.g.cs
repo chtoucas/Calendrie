@@ -76,13 +76,8 @@ public partial struct GregorianDate // Adjustments
     public GregorianDate WithYear(int newYear)
     {
         var (_, m, d) = this;
-
-        var chr = Calendar;
         // We MUST re-validate the entire date.
-        chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
-
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceZero);
+        return new(newYear, m, d);
     }
 
     /// <inheritdoc />
