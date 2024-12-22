@@ -97,12 +97,6 @@ public partial struct MyJulianDate // Counting
 
 public partial struct MyJulianDate // Adjustments
 {
-    public MyJulianDate Adjust(Func<MyJulianDate, MyJulianDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-        return adjuster.Invoke(this);
-    }
-
     public MyJulianDate WithYear(int newYear) => Calendar.AdjustYear(this, newYear);
     public MyJulianDate WithMonth(int newMonth) => Calendar.AdjustMonth(this, newMonth);
     public MyJulianDate WithDay(int newDay) => Calendar.AdjustDayOfMonth(this, newDay);

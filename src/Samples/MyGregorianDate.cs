@@ -112,12 +112,6 @@ public partial struct MyGregorianDate // Counting
 
 public partial struct MyGregorianDate // Adjustments
 {
-    public MyGregorianDate Adjust(Func<MyGregorianDate, MyGregorianDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-        return adjuster.Invoke(this);
-    }
-
     public MyGregorianDate WithYear(int newYear) => Calendar.AdjustYear(this, newYear);
     public MyGregorianDate WithMonth(int newMonth) => Calendar.AdjustMonth(this, newMonth);
     public MyGregorianDate WithDay(int newDay) => Calendar.AdjustDayOfMonth(this, newDay);
@@ -193,15 +187,9 @@ public partial struct MyGregorianDate // Math
         return new(daysSinceEpoch);
     }
 
-    public MyGregorianDate NextDay()
-    {
-        if (this == MaxValue) throw new OverflowException();
-        return new(_daysSinceEpoch + 1);
-    }
+    public MyGregorianDate NextDay() =>
+        this == MaxValue ? throw new OverflowException() : new(_daysSinceEpoch + 1);
 
-    public MyGregorianDate PreviousDay()
-    {
-        if (this == MinValue) throw new OverflowException();
-        return new(_daysSinceEpoch - 1);
-    }
+    public MyGregorianDate PreviousDay() =>
+        this == MinValue ? throw new OverflowException() : new(_daysSinceEpoch - 1);
 }
