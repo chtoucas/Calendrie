@@ -67,9 +67,7 @@ using Calendrie.Core.Validation;
 /// Represents a prototypal implementation of the <see cref="ICalendricalSchema"/>
 /// interface.
 /// </summary>
-public partial class PrototypalSchema :
-    ICalendricalCore,
-    ICalendricalSchema
+public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
 {
     /// <summary>
     /// Represents a partial <see cref="ICalendricalSchema"/> view of this
