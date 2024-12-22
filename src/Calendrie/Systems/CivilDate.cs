@@ -80,12 +80,6 @@ public partial struct CivilDate // Preamble
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
-    /// <summary>
-    /// Gets the adjuster for the current type.
-    /// <remarks>This static property is thread-safe.</remarks>
-    /// </summary>
-    public static DateAdjuster<CivilDate> Adjuster => CivilCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 
@@ -219,25 +213,65 @@ public partial struct CivilDate // Adjustments
         return adjuster.Invoke(this);
     }
 
-    /// <inheritdoc />
-    [Pure]
-    public CivilDate WithYear(int newYear) =>
-        Calendar.Adjuster.AdjustYear(this, newYear);
+    //
+    // Adjustments for the core parts
+    //
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate WithMonth(int newMonth) =>
-        Calendar.Adjuster.AdjustMonth(this, newMonth);
+    public CivilDate WithYear(int newYear)
+    {
+        var (_, m, d) = this;
+
+        var chr = Calendar;
+        // We MUST re-validate the entire date.
+        chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
+    public CivilDate WithMonth(int newMonth)
+    {
+        var (y, _, d) = this;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newMonth" and "d".
+        sch.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceZero);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate WithDayOfYear(int newDayOfYear) =>
-        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public CivilDate WithDay(int newDay)
+    {
+        var (y, m, _) = this;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newDay".
+        sch.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithDayOfYear(int newDayOfYear)
+    {
+        int y = Year;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newDayOfYear".
+        sch.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceZero);
+    }
 
     //
     // Adjust the day of the week

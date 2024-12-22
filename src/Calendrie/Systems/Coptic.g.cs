@@ -152,12 +152,6 @@ public partial struct CopticDate // Preamble
     /// </summary>
     public static CopticCalendar Calendar => CopticCalendar.Instance;
 
-    /// <summary>
-    /// Gets the adjuster of the current date type.
-    /// <remarks>This static property is thread-safe.</remarks>
-    /// </summary>
-    public static DateAdjuster<CopticDate> Adjuster => CopticCalendar.Instance.Adjuster;
-
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
@@ -312,25 +306,65 @@ public partial struct CopticDate // Adjustments
         return adjuster.Invoke(this);
     }
 
-    /// <inheritdoc />
-    [Pure]
-    public CopticDate WithYear(int newYear) =>
-        Calendar.Adjuster.AdjustYear(this, newYear);
+    //
+    // Adjustments for the core parts
+    //
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate WithMonth(int newMonth) =>
-        Calendar.Adjuster.AdjustMonth(this, newMonth);
+    public CopticDate WithYear(int newYear)
+    {
+        var (_, m, d) = this;
+
+        var chr = Calendar;
+        // We MUST re-validate the entire date.
+        chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate WithDay(int newDay) =>
-        Calendar.Adjuster.AdjustDayOfMonth(this, newDay);
+    public CopticDate WithMonth(int newMonth)
+    {
+        var (y, _, d) = this;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newMonth" and "d".
+        sch.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceEpoch);
+    }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate WithDayOfYear(int newDayOfYear) =>
-        Calendar.Adjuster.AdjustDayOfYear(this, newDayOfYear);
+    public CopticDate WithDay(int newDay)
+    {
+        var (y, m, _) = this;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newDay".
+        sch.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CopticDate WithDayOfYear(int newDayOfYear)
+    {
+        int y = Year;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newDayOfYear".
+        sch.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceEpoch);
+    }
 
     //
     // Adjust the day of the week

@@ -168,12 +168,6 @@ public partial struct <#= Prefix #>Date // Preamble
     /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
 
-    /// <summary>
-    /// Gets the adjuster of the current date type.
-    /// <remarks>This static property is thread-safe.</remarks>
-    /// </summary>
-    public static DateAdjuster<<#= Prefix #>Date> Adjuster => <#= Prefix #>Calendar.Instance.Adjuster;
-
     /// <inheritdoc />
     public DayNumber DayNumber => new(_<#= DaysSinceEpochVar #>);
 

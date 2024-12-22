@@ -50,7 +50,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<ArmenianDate, StandardArmenian12DataSet>(ArmenianDate.Adjuster)
+        inherit DateAdjusterFacts<ArmenianDate, StandardArmenian12DataSet>(ArmenianCalendar.Instance)
 
         override __.GetDate(y, m, d) = new ArmenianDate(y, m, d)
         override __.GetDate(y, doy) = new ArmenianDate(y, doy)
@@ -103,7 +103,7 @@ module Bundles13 =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<Armenian13Date, StandardArmenian13DataSet>(Armenian13Date.Adjuster)
+        inherit DateAdjusterFacts<Armenian13Date, StandardArmenian13DataSet>(Armenian13Calendar.Instance)
 
         override __.GetDate(y, m, d) = new Armenian13Date(y, m, d)
         override __.GetDate(y, doy) = new Armenian13Date(y, doy)

@@ -43,18 +43,9 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     internal CalendarSystem(string name, CalendarScope scope) : base(name, scope)
     {
         Debug.Assert(scope.Segment.IsComplete);
-
-        Adjuster = DateAdjuster.Create(this);
     }
 
     // The next internal properties are only meant to be used by the date type.
-
-    /// <summary>
-    /// Gets the adjuster for the underlying date type.
-    /// </summary>
-    //
-    // Publicly available via TDate.Adjuster.
-    internal DateAdjuster<TDate> Adjuster { get; }
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.
@@ -146,6 +137,59 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+    }
+}
+
+public partial class CalendarSystem<TDate>
+{
+    /// <summary>
+    /// Obtains the first day of the year to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
+    [Pure]
+    public TDate GetStartOfYear(TDate date)
+    {
+        int daysSinceEpoch = Schema.GetStartOfYear(date.Year);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the last day of the year to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
+    [Pure]
+    public TDate GetEndOfYear(TDate date)
+    {
+        int daysSinceEpoch = Schema.GetEndOfYear(date.Year);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the first day of the month to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
+    [Pure]
+    public TDate GetStartOfMonth(TDate date)
+    {
+        var (y, m, _) = date;
+        int daysSinceEpoch = Schema.GetStartOfMonth(y, m);
+        return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the last day of the month to which belongs the specified date.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The result would overflow
+    /// the range of supported dates.</exception>
+    [Pure]
+    public TDate GetEndOfMonth(TDate date)
+    {
+        var (y, m, _) = date;
+        int daysSinceEpoch = Schema.GetEndOfMonth(y, m);
         return TDate.FromDaysSinceEpochUnchecked(daysSinceEpoch);
     }
 }

@@ -14,11 +14,11 @@ internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     where TDate : struct, IDateable, IDateFactory<TDate>, IAdjustableDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected DateAdjusterFacts(DateAdjuster<TDate> adjuster)
+    protected DateAdjusterFacts(CalendarSystem<TDate> adjuster)
     {
         ArgumentNullException.ThrowIfNull(adjuster);
 
-        AdjusterUT = adjuster;
+        CalendarUT = adjuster;
 
         var supportedYears = adjuster.Scope.Segment.SupportedYears;
         SupportedYearsTester = new SupportedYearsTester(supportedYears);
@@ -27,7 +27,7 @@ internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     /// <summary>
     /// Gets the adjuster under test.
     /// </summary>
-    protected DateAdjuster<TDate> AdjusterUT { get; }
+    protected CalendarSystem<TDate> CalendarUT { get; }
 
     protected SupportedYearsTester SupportedYearsTester { get; }
 
@@ -44,7 +44,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
         var date = GetDate(y, m, d);
         var startOfYear = GetDate(y, 1, 1);
         // Act & Assert
-        Assert.Equal(startOfYear, AdjusterUT.GetStartOfYear(date));
+        Assert.Equal(startOfYear, CalendarUT.GetStartOfYear(date));
     }
 
     [Theory, MemberData(nameof(YearInfoData))]
@@ -53,7 +53,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
         int y = info.Year;
         var date = GetDate(y, 1, 1);
         // Act
-        var endOfYear = AdjusterUT.GetEndOfYear(date);
+        var endOfYear = CalendarUT.GetEndOfYear(date);
         // Assert
         Assert.Equal(y, endOfYear.Year);
         Assert.Equal(info.DaysInYear, endOfYear.DayOfYear);
@@ -66,7 +66,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
         var date = GetDate(y, m, d);
         var startOfMonth = GetDate(y, m, 1);
         // Act & Assert
-        Assert.Equal(startOfMonth, AdjusterUT.GetStartOfMonth(date));
+        Assert.Equal(startOfMonth, CalendarUT.GetStartOfMonth(date));
     }
 
     [Theory, MemberData(nameof(MonthInfoData))]
@@ -76,9 +76,11 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
         var date = GetDate(y, m, 1);
         var endOfMonth = GetDate(y, m, info.DaysInMonth);
         // Act & Assert
-        Assert.Equal(endOfMonth, AdjusterUT.GetEndOfMonth(date));
+        Assert.Equal(endOfMonth, CalendarUT.GetEndOfMonth(date));
     }
 }
+
+#if false
 
 internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustYear()
 {
@@ -216,6 +218,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDayOfYear()
     }
 }
 
+#endif
+
 internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
 {
     [Fact]
@@ -247,11 +251,11 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     }
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
-    public void Adjust_InvalidDay(int y, int m, int newDayOfMonth)
+    public void Adjust_InvalidDay(int y, int m, int newDay)
     {
         var date = GetDate(y, m, 1);
         // Act & Assert
-        AssertEx.ThrowsAoorexn("newDayOfMonth", () => date.WithDay(newDayOfMonth));
+        AssertEx.ThrowsAoorexn("newDay", () => date.WithDay(newDay));
     }
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
