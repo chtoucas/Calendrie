@@ -102,6 +102,13 @@ public sealed class CalendricalSegment
     [Pure]
     public sealed override string ToString() => MinMaxDateParts.ToString();
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="CalendricalSegment"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
+    /// NOT a subinterval of the range of supported years by
+    /// <typeparamref name="TSchema"/>.
+    /// </exception>
     [Pure]
     public static CalendricalSegment Create<TSchema>(Range<int> supportedYears)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
@@ -125,6 +132,9 @@ public sealed class CalendricalSegment
         return builder.BuildSegment();
     }
 
+    /// <summary>
+    /// Creates the maximal segment for the <typeparamref name="TSchema"/> type.
+    /// </summary>
     [Pure]
     public static CalendricalSegment CreateMaximal<TSchema>()
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
@@ -146,6 +156,13 @@ public sealed class CalendricalSegment
         return builder.BuildSegment();
     }
 
+    /// <summary>
+    /// Creates the maximal segment with years on after year 1 for the
+    /// <typeparamref name="TSchema"/> type.
+    /// </summary>
+    /// <exception cref="ArgumentException">The range of supported years by
+    /// <typeparamref name="TSchema"/> does not contain the years &gt;= 1.
+    /// </exception>
     [Pure]
     public static CalendricalSegment CreateMaximalOnOrAfterYear1<TSchema>()
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
@@ -154,12 +171,14 @@ public sealed class CalendricalSegment
     }
 
     /// <summary>
-    /// Creates the maximal segment for <paramref name="schema"/>.
+    /// Creates the maximal segment with years on after year 1 for
+    /// <paramref name="schema"/>.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The range of supported years by
-    /// <paramref name="schema"/> does not contain the year 1.</exception>
+    /// <paramref name="schema"/> does not contain the years &gt;= 1.
+    /// </exception>
     [Pure]
     public static CalendricalSegment CreateMaximalOnOrAfterYear1(ICalendricalSchema schema)
     {

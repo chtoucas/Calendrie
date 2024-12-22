@@ -205,41 +205,13 @@ public partial class MyGregorianCalendar // Date helpers (adjustments)
     }
 
     //
-    // Adjusters for the day of the week
+    // Find a close by day of the week
     //
-
-    internal MyGregorianDate Previous(MyGregorianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Previous(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
-    internal MyGregorianDate PreviousOrSame(MyGregorianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.PreviousOrSame(dayOfWeek);
-        Scope.CheckLowerBound(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
 
     internal MyGregorianDate Nearest(MyGregorianDate date, DayOfWeek dayOfWeek)
     {
         var dayNumber = date.DayNumber.Nearest(dayOfWeek);
         Scope.CheckOverflow(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
-    internal MyGregorianDate NextOrSame(MyGregorianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.NextOrSame(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
-    }
-
-    internal MyGregorianDate Next(MyGregorianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Next(dayOfWeek);
-        Scope.CheckUpperBound(dayNumber);
         return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
     }
 }

@@ -123,11 +123,11 @@ public partial struct MyGregorianDate // Adjustments
     public MyGregorianDate WithDay(int newDay) => Calendar.AdjustDayOfMonth(this, newDay);
     public MyGregorianDate WithDayOfYear(int newDayOfYear) => Calendar.AdjustDayOfYear(this, newDayOfYear);
 
-    public MyGregorianDate Previous(DayOfWeek dayOfWeek) => Calendar.Previous(this, dayOfWeek);
-    public MyGregorianDate PreviousOrSame(DayOfWeek dayOfWeek) => Calendar.PreviousOrSame(this, dayOfWeek);
+    public MyGregorianDate Previous(DayOfWeek dayOfWeek) => IAbsoluteDate.Previous(this, dayOfWeek);
+    public MyGregorianDate PreviousOrSame(DayOfWeek dayOfWeek) => IAbsoluteDate.PreviousOrSame(this, dayOfWeek);
     public MyGregorianDate Nearest(DayOfWeek dayOfWeek) => Calendar.Nearest(this, dayOfWeek);
-    public MyGregorianDate NextOrSame(DayOfWeek dayOfWeek) => Calendar.NextOrSame(this, dayOfWeek);
-    public MyGregorianDate Next(DayOfWeek dayOfWeek) => Calendar.Next(this, dayOfWeek);
+    public MyGregorianDate NextOrSame(DayOfWeek dayOfWeek) => IAbsoluteDate.NextOrSame(this, dayOfWeek);
+    public MyGregorianDate Next(DayOfWeek dayOfWeek) => IAbsoluteDate.Next(this, dayOfWeek);
 }
 
 public partial struct MyGregorianDate // IEquatable

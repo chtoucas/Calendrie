@@ -400,6 +400,10 @@ Calendrie.Hemerology.IAbsoluteDate
 Calendrie.Hemerology.IAbsoluteDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Hemerology.IAbsoluteDate.DayOfWeek.get -> System.DayOfWeek
 Calendrie.Hemerology.IAbsoluteDate.DaysSinceEpoch.get -> int
+Calendrie.Hemerology.IAbsoluteDate.Next<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Hemerology.IAbsoluteDate.NextOrSame<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Hemerology.IAbsoluteDate.Previous<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
+Calendrie.Hemerology.IAbsoluteDate.PreviousOrSame<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Hemerology.IAbsoluteDate<TSelf>
 Calendrie.Hemerology.IAbsoluteDate<TSelf>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IAbsoluteDate<TSelf>.Max(TSelf x, TSelf y) -> TSelf

@@ -9,7 +9,6 @@ using System.Numerics;
 
 using Calendrie;
 using Calendrie.Core;
-using Calendrie.Extensions;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
@@ -84,7 +83,8 @@ public readonly partial struct MyJulianDate :
 
 public partial struct MyJulianDate // Factories & conversions
 {
-    public static MyJulianDate FromDayNumber(DayNumber dayNumber) => new(Calendar.CreateDateParts(dayNumber));
+    public static MyJulianDate FromDayNumber(DayNumber dayNumber) =>
+        new(Calendar.CreateDateParts(dayNumber));
 }
 
 public partial struct MyJulianDate // Counting
@@ -108,17 +108,11 @@ public partial struct MyJulianDate // Adjustments
     public MyJulianDate WithDay(int newDay) => Calendar.AdjustDayOfMonth(this, newDay);
     public MyJulianDate WithDayOfYear(int newDayOfYear) => Calendar.AdjustDayOfYear(this, newDayOfYear);
 
-    public MyJulianDate Previous(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.Previous(this, dayOfWeek);
-    public MyJulianDate PreviousOrSame(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.PreviousOrSame(this, dayOfWeek);
-
-    public MyJulianDate Nearest(DayOfWeek dayOfWeek)
-    {
-        var nearest = DayNumber.Nearest(dayOfWeek);
-        return FromDayNumber(nearest);
-    }
-
-    public MyJulianDate NextOrSame(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.NextOrSame(this, dayOfWeek);
-    public MyJulianDate Next(DayOfWeek dayOfWeek) => DayOfWeekAdjusters.Next(this, dayOfWeek);
+    public MyJulianDate Previous(DayOfWeek dayOfWeek) => IAbsoluteDate.Previous(this, dayOfWeek);
+    public MyJulianDate PreviousOrSame(DayOfWeek dayOfWeek) => IAbsoluteDate.PreviousOrSame(this, dayOfWeek);
+    public MyJulianDate Nearest(DayOfWeek dayOfWeek) => Calendar.Nearest(this, dayOfWeek);
+    public MyJulianDate NextOrSame(DayOfWeek dayOfWeek) => IAbsoluteDate.NextOrSame(this, dayOfWeek);
+    public MyJulianDate Next(DayOfWeek dayOfWeek) => IAbsoluteDate.Next(this, dayOfWeek);
 }
 
 public partial struct MyJulianDate // IEquatable

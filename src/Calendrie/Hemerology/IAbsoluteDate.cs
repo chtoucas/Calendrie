@@ -5,6 +5,10 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
+using Calendrie.Core.Utilities;
+
+using static Calendrie.Core.CalendricalConstants;
+
 #region Developer Notes
 
 // TL;DR: Despite its flaws we'll use the CRTP.
@@ -159,6 +163,98 @@ public interface IAbsoluteDate
     /// Gets the day of the week.
     /// </summary>
     DayOfWeek DayOfWeek { get; }
+
+    //
+    // Static helpers
+    //
+
+    /// <summary>
+    /// Obtains the date strictly before the specified value that falls on the
+    /// specified day of the week.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public static TDate Previous<TDate>(TDate date, DayOfWeek dayOfWeek)
+        where TDate : IAbsoluteDate, IAdditionOperators<TDate, int, TDate>
+    {
+        ArgumentNullException.ThrowIfNull(date);
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - date.DayOfWeek;
+        return date + (δ >= 0 ? δ - DaysInWeek : δ);
+    }
+
+    /// <summary>
+    /// Obtains the date on or before the specified value that falls on the
+    /// specified day of the week.
+    /// <para>If the date already falls on the given day of the week, returns
+    /// the same instance.</para>
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public static TDate PreviousOrSame<TDate>(TDate date, DayOfWeek dayOfWeek)
+        where TDate : IAbsoluteDate, IAdditionOperators<TDate, int, TDate>
+    {
+        ArgumentNullException.ThrowIfNull(date);
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - date.DayOfWeek;
+        return δ == 0 ? date : date + (δ > 0 ? δ - DaysInWeek : δ);
+    }
+
+    /// <summary>
+    /// Obtains the date on or after the specified value that falls on the
+    /// specified day of the week.
+    /// <para>If the date already falls on the given day of the week, returns
+    /// the same instance.</para>
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public static TDate NextOrSame<TDate>(TDate date, DayOfWeek dayOfWeek)
+        where TDate : IAbsoluteDate, IAdditionOperators<TDate, int, TDate>
+    {
+        ArgumentNullException.ThrowIfNull(date);
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - date.DayOfWeek;
+        return δ == 0 ? date : date + (δ < 0 ? δ + DaysInWeek : δ);
+    }
+
+    /// <summary>
+    /// Obtains the date strictly after the specified value that falls on the
+    /// specified day of the week.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public static TDate Next<TDate>(TDate date, DayOfWeek dayOfWeek)
+        where TDate : IAbsoluteDate, IAdditionOperators<TDate, int, TDate>
+    {
+        ArgumentNullException.ThrowIfNull(date);
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - date.DayOfWeek;
+        return date + (δ <= 0 ? δ + DaysInWeek : δ);
+    }
 }
 
 /// <summary>
@@ -233,10 +329,20 @@ public interface IAbsoluteDate<TSelf> :
     /// current instance.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
-    /// is not a valid day of the week.</exception>
+    /// is not a valid day of the week - or - the result would be outside the
+    /// range of supported days.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
-    [Pure] TSelf Nearest(DayOfWeek dayOfWeek);
+    [Pure]
+    TSelf Nearest(DayOfWeek dayOfWeek)
+    {
+        // TODO(code): improve Nearest() and maybe the others.
+        // This is a default implementation and not the most efficient one.
+        // Anyway, since date types are expected to be value types, this impl
+        // should only be called when the value is boxed.
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        return TSelf.FromDayNumber(nearest);
+    }
 
     /// <summary>
     /// Obtains the day on or after the current instance that falls on the
