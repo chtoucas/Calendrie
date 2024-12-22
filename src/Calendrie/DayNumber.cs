@@ -57,7 +57,6 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct DayNumber :
     IAbsoluteDate<DayNumber>,
-    IAdjustableDayOfWeek<DayNumber>,
     ISubtractionOperators<DayNumber, DayNumber, int>
 {
     /// <summary>

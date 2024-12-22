@@ -404,6 +404,11 @@ Calendrie.Hemerology.IAbsoluteDate<TSelf>
 Calendrie.Hemerology.IAbsoluteDate<TSelf>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
 Calendrie.Hemerology.IAbsoluteDate<TSelf>.Max(TSelf x, TSelf y) -> TSelf
 Calendrie.Hemerology.IAbsoluteDate<TSelf>.Min(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.IAbsoluteDate<TSelf>.Nearest(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDate<TSelf>.Next(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDate<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
 Calendrie.Hemerology.IDateable

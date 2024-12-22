@@ -23,7 +23,7 @@ using Calendrie.Testing.Data;
 /// </summary>
 internal abstract partial class IDateFacts<TDate, TDataSet> :
     IDateableFacts<TDate, TDataSet>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IAdjustableDayOfWeek<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected IDateFacts(Range<DayNumber> domain)

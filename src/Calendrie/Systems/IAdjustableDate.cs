@@ -12,8 +12,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The date type that implements this interface.
 /// </typeparam>
-internal interface IAdjustableDate<TDate> : IAdjustableDayOfWeek<TDate>
-    where TDate : IDateable, IAbsoluteDate
+internal interface IAdjustableDate<TDate> where TDate : IDateable
 {
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.
