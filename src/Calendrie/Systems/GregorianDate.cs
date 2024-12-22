@@ -77,7 +77,10 @@ public partial struct GregorianDate // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static GregorianDate MaxValue { get; } = new(MaxDaysSinceZero);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static GregorianCalendar Calendar => GregorianCalendar.Instance;
 
     /// <summary>

@@ -707,11 +707,6 @@ Calendrie.Systems.DateAdjuster<TDate>.GetEndOfMonth(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetEndOfYear(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetStartOfMonth(TDate date) -> TDate
 Calendrie.Systems.DateAdjuster<TDate>.GetStartOfYear(TDate date) -> TDate
-Calendrie.Systems.DateAdjuster<TDate>.Nearest(TDate date, System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Systems.DateAdjuster<TDate>.Next(TDate date, System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Systems.DateAdjuster<TDate>.NextOrSame(TDate date, System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Systems.DateAdjuster<TDate>.Previous(TDate date, System.DayOfWeek dayOfWeek) -> TDate
-Calendrie.Systems.DateAdjuster<TDate>.PreviousOrSame(TDate date, System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Systems.Ethiopic13Calendar
 Calendrie.Systems.Ethiopic13Calendar.Ethiopic13Calendar() -> void
 Calendrie.Systems.Ethiopic13Date
@@ -1448,8 +1443,11 @@ override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Ca
 override sealed Calendrie.Systems.CalendarSystem<TDate>.CountDaysInMonth(int year, int month) -> int
 override sealed Calendrie.Systems.CalendarSystem<TDate>.CountDaysInYear(int year) -> int
 static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
+static Calendrie.Core.CalendricalSegment.Create<TSchema>(Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
+static Calendrie.Core.CalendricalSegment.CreateMaximal<TSchema>() -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximalOnOrAfterYear1(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
+static Calendrie.Core.CalendricalSegment.CreateMaximalOnOrAfterYear1<TSchema>() -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.LowerRay<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> bool

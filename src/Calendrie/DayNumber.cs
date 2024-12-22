@@ -121,8 +121,6 @@ public readonly partial struct DayNumber :
     /// <remarks>This static property is thread-safe.</remarks>
     public static DayNumber MaxValue { get; } = new(MaxDaysSinceZero);
 
-    DayNumber IAbsoluteDate.DayNumber => this;
-
     /// <summary>
     /// Gets the count of consecutive days since <see cref="Zero"/>.
     /// <para>The result is in the range from <see cref="MinDaysSinceZero"/> to
@@ -150,6 +148,10 @@ public readonly partial struct DayNumber :
         (DayOfWeek)MathZ.Modulo(
             (int)DayOfWeek.Monday + _daysSinceZero,
             CalendricalConstants.DaysInWeek);
+
+    DayNumber IAbsoluteDate.DayNumber => this;
+
+    static DayNumber IAbsoluteDate<DayNumber>.FromDayNumber(DayNumber dayNumber) => dayNumber;
 
     /// <summary>
     /// Converts the current instance to its equivalent string representation

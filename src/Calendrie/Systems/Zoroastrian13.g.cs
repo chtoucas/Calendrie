@@ -69,7 +69,7 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
 /// <para><see cref="Zoroastrian13Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Zoroastrian13Date :
-    IDate<Zoroastrian13Date, Zoroastrian13Calendar>,
+    IDate<Zoroastrian13Date>,
     IAdjustableDate<Zoroastrian13Date>,
     IAdjustableDayOfWeekField<Zoroastrian13Date>,
     IDateFactory<Zoroastrian13Date>,
@@ -109,7 +109,6 @@ public partial struct Zoroastrian13Date // Preamble
     public Zoroastrian13Date(int year, int month, int day)
     {
         var chr = Zoroastrian13Calendar.Instance;
-
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
@@ -125,7 +124,6 @@ public partial struct Zoroastrian13Date // Preamble
     public Zoroastrian13Date(int year, int dayOfYear)
     {
         var chr = Zoroastrian13Calendar.Instance;
-
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -147,7 +145,10 @@ public partial struct Zoroastrian13Date // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static Zoroastrian13Date MaxValue => s_MaxValue;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Zoroastrian13Calendar Calendar => Zoroastrian13Calendar.Instance;
 
     /// <summary>

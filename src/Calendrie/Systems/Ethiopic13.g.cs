@@ -69,7 +69,7 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
 /// <para><see cref="Ethiopic13Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Ethiopic13Date :
-    IDate<Ethiopic13Date, Ethiopic13Calendar>,
+    IDate<Ethiopic13Date>,
     IAdjustableDate<Ethiopic13Date>,
     IAdjustableDayOfWeekField<Ethiopic13Date>,
     IDateFactory<Ethiopic13Date>,
@@ -109,7 +109,6 @@ public partial struct Ethiopic13Date // Preamble
     public Ethiopic13Date(int year, int month, int day)
     {
         var chr = Ethiopic13Calendar.Instance;
-
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
@@ -125,7 +124,6 @@ public partial struct Ethiopic13Date // Preamble
     public Ethiopic13Date(int year, int dayOfYear)
     {
         var chr = Ethiopic13Calendar.Instance;
-
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -147,7 +145,10 @@ public partial struct Ethiopic13Date // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static Ethiopic13Date MaxValue => s_MaxValue;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Ethiopic13Calendar Calendar => Ethiopic13Calendar.Instance;
 
     /// <summary>

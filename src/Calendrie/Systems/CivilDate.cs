@@ -74,7 +74,10 @@ public partial struct CivilDate // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static CivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
     /// <summary>

@@ -69,7 +69,7 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 /// <para><see cref="Armenian13Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Armenian13Date :
-    IDate<Armenian13Date, Armenian13Calendar>,
+    IDate<Armenian13Date>,
     IAdjustableDate<Armenian13Date>,
     IAdjustableDayOfWeekField<Armenian13Date>,
     IDateFactory<Armenian13Date>,
@@ -109,7 +109,6 @@ public partial struct Armenian13Date // Preamble
     public Armenian13Date(int year, int month, int day)
     {
         var chr = Armenian13Calendar.Instance;
-
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
@@ -125,7 +124,6 @@ public partial struct Armenian13Date // Preamble
     public Armenian13Date(int year, int dayOfYear)
     {
         var chr = Armenian13Calendar.Instance;
-
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -147,7 +145,10 @@ public partial struct Armenian13Date // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static Armenian13Date MaxValue => s_MaxValue;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Armenian13Calendar Calendar => Armenian13Calendar.Instance;
 
     /// <summary>

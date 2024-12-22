@@ -71,7 +71,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 /// <para><see cref="PlainGregorianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainGregorianDate :
-    IDate<PlainGregorianDate, PlainGregorianCalendar>,
+    IDate<PlainGregorianDate>,
     IAdjustableDate<PlainGregorianDate>,
     IAdjustableDayOfWeekField<PlainGregorianDate>,
     IDateFactory<PlainGregorianDate>,
@@ -107,7 +107,6 @@ public partial struct PlainGregorianDate // Preamble
     public PlainGregorianDate(int year, int month, int day)
     {
         var chr = PlainGregorianCalendar.Instance;
-
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
@@ -123,7 +122,6 @@ public partial struct PlainGregorianDate // Preamble
     public PlainGregorianDate(int year, int dayOfYear)
     {
         var chr = PlainGregorianCalendar.Instance;
-
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -145,7 +143,10 @@ public partial struct PlainGregorianDate // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static PlainGregorianDate MaxValue => s_MaxValue;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static PlainGregorianCalendar Calendar => PlainGregorianCalendar.Instance;
 
     /// <summary>

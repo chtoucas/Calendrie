@@ -69,7 +69,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 /// <para><see cref="TabularIslamicDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct TabularIslamicDate :
-    IDate<TabularIslamicDate, TabularIslamicCalendar>,
+    IDate<TabularIslamicDate>,
     IAdjustableDate<TabularIslamicDate>,
     IAdjustableDayOfWeekField<TabularIslamicDate>,
     IDateFactory<TabularIslamicDate>,
@@ -109,7 +109,6 @@ public partial struct TabularIslamicDate // Preamble
     public TabularIslamicDate(int year, int month, int day)
     {
         var chr = TabularIslamicCalendar.Instance;
-
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
@@ -125,7 +124,6 @@ public partial struct TabularIslamicDate // Preamble
     public TabularIslamicDate(int year, int dayOfYear)
     {
         var chr = TabularIslamicCalendar.Instance;
-
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -147,7 +145,10 @@ public partial struct TabularIslamicDate // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static TabularIslamicDate MaxValue => s_MaxValue;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static TabularIslamicCalendar Calendar => TabularIslamicCalendar.Instance;
 
     /// <summary>

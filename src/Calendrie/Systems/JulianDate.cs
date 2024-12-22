@@ -74,7 +74,10 @@ public partial struct JulianDate // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static JulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static JulianCalendar Calendar => JulianCalendar.Instance;
 
     /// <summary>

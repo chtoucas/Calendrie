@@ -6,24 +6,29 @@ namespace Calendrie.Testing.Facts.Hemerology;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// TODO(fact): améliorer ToString().
-
 /// <summary>
-/// Provides facts about <see cref="IDate{TSelf, TCalendar}"/>.
+/// Provides facts about <see cref="IDate{TSelf}"/>.
 /// </summary>
 internal abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IDateFacts<TDate, TDataSet>
     where TCalendar : Calendar, IDateProvider<TDate>
-    where TDate : struct, IDate<TDate, TCalendar>, IAdjustableDayOfWeekField<TDate>
+    where TDate : struct, IDate<TDate>, IAdjustableDayOfWeekField<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected IDateFacts(TCalendar calendar) : base(GetDomain(calendar)) { }
+    protected IDateFacts(TCalendar calendar) : base(GetDomain(calendar))
+    {
+        Debug.Assert(calendar != null);
+
+        Calendar = calendar;
+    }
+
+    public TCalendar Calendar { get; }
 
     [Fact]
     public void ToString_InvariantCulture()
     {
         var date = GetDate(1, 1, 1);
-        string str = FormattableString.Invariant($"01/01/0001 ({TDate.Calendar})");
+        string str = FormattableString.Invariant($"01/01/0001 ({Calendar})");
         // Act & Assert
         Assert.Equal(str, date.ToString());
     }

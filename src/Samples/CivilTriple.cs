@@ -49,6 +49,7 @@ internal static class CivilTripleScope
 }
 
 public readonly partial struct CivilTriple :
+    IDateable,
     IAffineDate<CivilTriple>,
     ISubtractionOperators<CivilTriple, CivilTriple, int>
 {

@@ -69,7 +69,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
 /// <para><see cref="Coptic13Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Coptic13Date :
-    IDate<Coptic13Date, Coptic13Calendar>,
+    IDate<Coptic13Date>,
     IAdjustableDate<Coptic13Date>,
     IAdjustableDayOfWeekField<Coptic13Date>,
     IDateFactory<Coptic13Date>,
@@ -109,7 +109,6 @@ public partial struct Coptic13Date // Preamble
     public Coptic13Date(int year, int month, int day)
     {
         var chr = Coptic13Calendar.Instance;
-
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
@@ -125,7 +124,6 @@ public partial struct Coptic13Date // Preamble
     public Coptic13Date(int year, int dayOfYear)
     {
         var chr = Coptic13Calendar.Instance;
-
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -147,7 +145,10 @@ public partial struct Coptic13Date // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static Coptic13Date MaxValue => s_MaxValue;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Coptic13Calendar Calendar => Coptic13Calendar.Instance;
 
     /// <summary>

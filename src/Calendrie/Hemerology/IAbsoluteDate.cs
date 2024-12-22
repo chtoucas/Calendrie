@@ -174,12 +174,19 @@ public interface IAbsoluteDate<TSelf> :
     IComparisonOperators<TSelf, TSelf, bool>,
     IComparable<TSelf>,
     IComparable,
-    // No IMinMaxValue<T> in case the date type is part of a poly-calendar
-    // system; see IDate<TSelf, out TCalendar>.
+    IMinMaxValue<TSelf>,
     // Arithmetic
     IDayArithmetic<TSelf>
     where TSelf : IAbsoluteDate<TSelf>
 {
+    /// <summary>
+    /// Creates a new instance of the <typeparamref name="TSelf"/> struct from
+    /// the specified day number.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
+    [Pure] static abstract TSelf FromDayNumber(DayNumber dayNumber);
+
     /// <summary>
     /// Obtains the minimum of two specified values.
     /// </summary>

@@ -126,7 +126,6 @@ public partial struct <#= Prefix #>Date // Preamble
     public <#= Prefix #>Date(int year, int month, int day)
     {
         var chr = <#= Prefix #>Calendar.Instance;
-
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _<#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(year, month, day);
@@ -142,7 +141,6 @@ public partial struct <#= Prefix #>Date // Preamble
     public <#= Prefix #>Date(int year, int dayOfYear)
     {
         var chr = <#= Prefix #>Calendar.Instance;
-
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _<#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -164,7 +162,10 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <remarks>This static property is thread-safe.</remarks>
     public static <#= Prefix #>Date MaxValue => s_MaxValue;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
 
     /// <summary>

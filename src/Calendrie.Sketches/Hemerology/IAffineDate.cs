@@ -12,7 +12,7 @@ using System.Numerics;
 /// <summary>
 /// Defines an affine date.
 /// </summary>
-public interface IAffineDate : IDateable
+public interface IAffineDate
 {
     /// <summary>
     /// Gets the number of consecutive days from the epoch to the current
