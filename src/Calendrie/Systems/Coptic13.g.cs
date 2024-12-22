@@ -301,8 +301,13 @@ public partial struct Coptic13Date // Adjustments
     public Coptic13Date WithYear(int newYear)
     {
         var (_, m, d) = this;
+
+        var chr = Calendar;
         // We MUST re-validate the entire date.
-        return new(newYear, m, d);
+        chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceEpoch);
     }
 
     /// <inheritdoc />
