@@ -12,6 +12,7 @@ public partial class CalendarTemplate
         EmitDateFactories();
         EmitDateCounting();
         EmitDateAdjustment();
+        EmitCloseByDayOfWeek();
         EmitDateEquatable();
         EmitDateComparable();
         EmitDateMath();
@@ -29,7 +30,6 @@ public readonly partial struct <#= Prefix #>Date :
     IDateable,
     IAbsoluteDate<<#= Prefix #>Date>,
     IAdjustableDate<<#= Prefix #>Date>,
-    IAdjustableDayOfWeekField<<#= Prefix #>Date>,
     IDateFactory<<#= Prefix #>Date>,
     ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>
 { }
@@ -289,19 +289,6 @@ public partial struct <#= Prefix #>Date // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public <#= Prefix #>Date Adjust(Func<<#= Prefix #>Date, <#= Prefix #>Date> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public <#= Prefix #>Date WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -310,8 +297,8 @@ public partial struct <#= Prefix #>Date // Adjustments
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -324,8 +311,8 @@ public partial struct <#= Prefix #>Date // Adjustments
         // We only need to validate "newMonth" and "d".
         sch.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceEpoch);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, newMonth, d);
+        return new(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -338,8 +325,8 @@ public partial struct <#= Prefix #>Date // Adjustments
         // We only need to validate "newDay".
         sch.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceEpoch);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, newDay);
+        return new(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -352,14 +339,19 @@ public partial struct <#= Prefix #>Date // Adjustments
         // We only need to validate "newDayOfYear".
         sch.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceEpoch);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(<#= DaysSinceEpochVar #>);
     }
+}
+<#+
+    } // T4: End of EmitDateAdjustment()
 
-    //
-    // Adjust the day of the week
-    //
-
+    protected virtual void EmitCloseByDayOfWeek()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Date // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
@@ -422,7 +414,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     }
 }
 <#+
-    } // T4: End of EmitDateAdjustment()
+    } // T4: End of EmitCloseByDayOfWeek()
 
     protected virtual void EmitDateEquatable()
     {

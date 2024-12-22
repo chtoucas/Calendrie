@@ -3,14 +3,14 @@
 
 namespace Calendrie.Hemerology;
 
-// Keep this interface internal, it was created only to sipmplify testing.
+// Keep this interface internal, it was created only to simplify testing.
 
 /// <summary>
-/// Defines the operations for adjusting the day of the week of a date type.
+/// Defines the operations for finding a close by day of the week.
 /// </summary>
 /// <typeparam name="TDate">The date type that implements this interface.
 /// </typeparam>
-internal interface IAdjustableDayOfWeekField<out TDate> where TDate : IAbsoluteDate
+internal interface IAdjustableDayOfWeek<out TDate> where TDate : IAbsoluteDate
 {
     /// <summary>
     /// Obtains the day strictly before the current instance that falls on the

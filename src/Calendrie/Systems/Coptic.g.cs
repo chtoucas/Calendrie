@@ -72,7 +72,6 @@ public readonly partial struct CopticDate :
     IDateable,
     IAbsoluteDate<CopticDate>,
     IAdjustableDate<CopticDate>,
-    IAdjustableDayOfWeekField<CopticDate>,
     IDateFactory<CopticDate>,
     ISubtractionOperators<CopticDate, CopticDate, int>
 { }
@@ -299,19 +298,6 @@ public partial struct CopticDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public CopticDate Adjust(Func<CopticDate, CopticDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public CopticDate WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -365,11 +351,10 @@ public partial struct CopticDate // Adjustments
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct CopticDate // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public CopticDate Previous(DayOfWeek dayOfWeek)

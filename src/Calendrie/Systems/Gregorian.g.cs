@@ -25,7 +25,6 @@ public readonly partial struct GregorianDate :
     IDateable,
     IAbsoluteDate<GregorianDate>,
     IAdjustableDate<GregorianDate>,
-    IAdjustableDayOfWeekField<GregorianDate>,
     IDateFactory<GregorianDate>,
     ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
@@ -74,19 +73,6 @@ public partial struct GregorianDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public GregorianDate Adjust(Func<GregorianDate, GregorianDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public GregorianDate WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -95,8 +81,8 @@ public partial struct GregorianDate // Adjustments
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -109,8 +95,8 @@ public partial struct GregorianDate // Adjustments
         // We only need to validate "newMonth" and "d".
         sch.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -123,8 +109,8 @@ public partial struct GregorianDate // Adjustments
         // We only need to validate "newDay".
         sch.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -137,14 +123,13 @@ public partial struct GregorianDate // Adjustments
         // We only need to validate "newDayOfYear".
         sch.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceZero);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct GregorianDate // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public GregorianDate Previous(DayOfWeek dayOfWeek)

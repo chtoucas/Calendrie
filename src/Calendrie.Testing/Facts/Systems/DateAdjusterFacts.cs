@@ -11,7 +11,7 @@ using Calendrie.Testing.Data;
 
 internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
-    where TDate : struct, IDateable, IDateFactory<TDate>, IAdjustableDate<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate, IDateFactory<TDate>, IAdjustableDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected DateAdjusterFacts(CalendarSystem<TDate> adjuster)
@@ -222,14 +222,6 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDayOfYear()
 
 internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
 {
-    [Fact]
-    public void Adjust_InvalidAdjuster()
-    {
-        var date = GetDate(1, 1, 1);
-        // Act & Assert
-        AssertEx.ThrowsAnexn("adjuster", () => date.Adjust(null!));
-    }
-
     [Theory, MemberData(nameof(DateInfoData))]
     public void Adjust_InvalidYear(DateInfo info)
     {
@@ -264,15 +256,6 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
         var date = GetDate(y, 1);
         // Act & Assert
         AssertEx.ThrowsAoorexn("newDayOfYear", () => date.WithDayOfYear(newDayOfYear));
-    }
-
-    [Theory, MemberData(nameof(DateInfoData))]
-    public void Adjust_Invariance(DateInfo info)
-    {
-        var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
-        // Act & Assert
-        Assert.Equal(date, date.Adjust(x => x));
     }
 
     [Theory, MemberData(nameof(MonthInfoData))]

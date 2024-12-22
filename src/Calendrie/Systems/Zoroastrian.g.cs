@@ -72,7 +72,6 @@ public readonly partial struct ZoroastrianDate :
     IDateable,
     IAbsoluteDate<ZoroastrianDate>,
     IAdjustableDate<ZoroastrianDate>,
-    IAdjustableDayOfWeekField<ZoroastrianDate>,
     IDateFactory<ZoroastrianDate>,
     ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
 { }
@@ -299,19 +298,6 @@ public partial struct ZoroastrianDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public ZoroastrianDate Adjust(Func<ZoroastrianDate, ZoroastrianDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public ZoroastrianDate WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -365,11 +351,10 @@ public partial struct ZoroastrianDate // Adjustments
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct ZoroastrianDate // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public ZoroastrianDate Previous(DayOfWeek dayOfWeek)

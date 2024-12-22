@@ -72,7 +72,6 @@ public readonly partial struct Armenian13Date :
     IDateable,
     IAbsoluteDate<Armenian13Date>,
     IAdjustableDate<Armenian13Date>,
-    IAdjustableDayOfWeekField<Armenian13Date>,
     IDateFactory<Armenian13Date>,
     ISubtractionOperators<Armenian13Date, Armenian13Date, int>
 { }
@@ -299,19 +298,6 @@ public partial struct Armenian13Date // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public Armenian13Date Adjust(Func<Armenian13Date, Armenian13Date> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public Armenian13Date WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -365,11 +351,10 @@ public partial struct Armenian13Date // Adjustments
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct Armenian13Date // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public Armenian13Date Previous(DayOfWeek dayOfWeek)

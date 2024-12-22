@@ -72,7 +72,6 @@ public readonly partial struct TabularIslamicDate :
     IDateable,
     IAbsoluteDate<TabularIslamicDate>,
     IAdjustableDate<TabularIslamicDate>,
-    IAdjustableDayOfWeekField<TabularIslamicDate>,
     IDateFactory<TabularIslamicDate>,
     ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>
 { }
@@ -290,19 +289,6 @@ public partial struct TabularIslamicDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public TabularIslamicDate Adjust(Func<TabularIslamicDate, TabularIslamicDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public TabularIslamicDate WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -356,11 +342,10 @@ public partial struct TabularIslamicDate // Adjustments
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct TabularIslamicDate // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public TabularIslamicDate Previous(DayOfWeek dayOfWeek)

@@ -202,81 +202,8 @@ public partial struct CivilDate // Factories & conversions
         new(daysSinceEpoch);
 }
 
-public partial struct CivilDate // Adjustments
+public partial struct CivilDate // Find close by day of the week
 {
-    /// <inheritdoc />
-    [Pure]
-    public CivilDate Adjust(Func<CivilDate, CivilDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public CivilDate WithYear(int newYear)
-    {
-        var (_, m, d) = this;
-
-        var chr = Calendar;
-        // We MUST re-validate the entire date.
-        chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
-
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public CivilDate WithMonth(int newMonth)
-    {
-        var (y, _, d) = this;
-
-        var sch = Calendar.Schema;
-        // We only need to validate "newMonth" and "d".
-        sch.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
-
-        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public CivilDate WithDay(int newDay)
-    {
-        var (y, m, _) = this;
-
-        var sch = Calendar.Schema;
-        // We only need to validate "newDay".
-        sch.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
-
-        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public CivilDate WithDayOfYear(int newDayOfYear)
-    {
-        int y = Year;
-
-        var sch = Calendar.Schema;
-        // We only need to validate "newDayOfYear".
-        sch.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
-
-        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceZero);
-    }
-
-    //
-    // Adjust the day of the week
-    //
-
     /// <inheritdoc />
     [Pure]
     public CivilDate Previous(DayOfWeek dayOfWeek)

@@ -72,7 +72,6 @@ public readonly partial struct WorldDate :
     IDateable,
     IAbsoluteDate<WorldDate>,
     IAdjustableDate<WorldDate>,
-    IAdjustableDayOfWeekField<WorldDate>,
     IDateFactory<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>
 { }
@@ -299,19 +298,6 @@ public partial struct WorldDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public WorldDate Adjust(Func<WorldDate, WorldDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public WorldDate WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -365,11 +351,10 @@ public partial struct WorldDate // Adjustments
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct WorldDate // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public WorldDate Previous(DayOfWeek dayOfWeek)

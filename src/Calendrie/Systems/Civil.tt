@@ -32,7 +32,7 @@ using Calendrie.Horology;
 
     protected sealed override void EmitDatePreamble() { }
     protected sealed override void EmitDateFactories() { }
-    protected sealed override void EmitDateAdjustment() { }
+    protected sealed override void EmitCloseByDayOfWeek() { }
     protected sealed override void EmitDateMath() { }
 }
 

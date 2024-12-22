@@ -23,7 +23,6 @@ public readonly partial struct CivilDate :
     IDateable,
     IAbsoluteDate<CivilDate>,
     IAdjustableDate<CivilDate>,
-    IAdjustableDayOfWeekField<CivilDate>,
     IDateFactory<CivilDate>,
     ISubtractionOperators<CivilDate, CivilDate, int>
 { }
@@ -49,6 +48,65 @@ public partial struct CivilDate // Counting
     [Pure]
     public int CountRemainingDaysInMonth() =>
         Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceZero);
+}
+
+public partial struct CivilDate // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithYear(int newYear)
+    {
+        var (_, m, d) = this;
+
+        var chr = Calendar;
+        // We MUST re-validate the entire date.
+        chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
+
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithMonth(int newMonth)
+    {
+        var (y, _, d) = this;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newMonth" and "d".
+        sch.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithDay(int newDay)
+    {
+        var (y, m, _) = this;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newDay".
+        sch.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithDayOfYear(int newDayOfYear)
+    {
+        int y = Year;
+
+        var sch = Calendar.Schema;
+        // We only need to validate "newDayOfYear".
+        sch.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceZero);
+    }
 }
 
 public partial struct CivilDate // IEquatable

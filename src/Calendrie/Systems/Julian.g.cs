@@ -25,7 +25,6 @@ public readonly partial struct JulianDate :
     IDateable,
     IAbsoluteDate<JulianDate>,
     IAdjustableDate<JulianDate>,
-    IAdjustableDayOfWeekField<JulianDate>,
     IDateFactory<JulianDate>,
     ISubtractionOperators<JulianDate, JulianDate, int>
 { }
@@ -55,19 +54,6 @@ public partial struct JulianDate // Counting
 
 public partial struct JulianDate // Adjustments
 {
-    /// <inheritdoc />
-    [Pure]
-    public JulianDate Adjust(Func<JulianDate, JulianDate> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
     /// <inheritdoc />
     [Pure]
     public JulianDate WithYear(int newYear)
@@ -123,11 +109,10 @@ public partial struct JulianDate // Adjustments
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct JulianDate // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public JulianDate Previous(DayOfWeek dayOfWeek)

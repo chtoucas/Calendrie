@@ -72,7 +72,6 @@ public readonly partial struct Ethiopic13Date :
     IDateable,
     IAbsoluteDate<Ethiopic13Date>,
     IAdjustableDate<Ethiopic13Date>,
-    IAdjustableDayOfWeekField<Ethiopic13Date>,
     IDateFactory<Ethiopic13Date>,
     ISubtractionOperators<Ethiopic13Date, Ethiopic13Date, int>
 { }
@@ -299,19 +298,6 @@ public partial struct Ethiopic13Date // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public Ethiopic13Date Adjust(Func<Ethiopic13Date, Ethiopic13Date> adjuster)
-    {
-        ArgumentNullException.ThrowIfNull(adjuster);
-
-        return adjuster.Invoke(this);
-    }
-
-    //
-    // Adjustments for the core parts
-    //
-
-    /// <inheritdoc />
-    [Pure]
     public Ethiopic13Date WithYear(int newYear)
     {
         var (_, m, d) = this;
@@ -365,11 +351,10 @@ public partial struct Ethiopic13Date // Adjustments
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+}
 
-    //
-    // Adjust the day of the week
-    //
-
+public partial struct Ethiopic13Date // Find close by day of the week
+{
     /// <inheritdoc />
     [Pure]
     public Ethiopic13Date Previous(DayOfWeek dayOfWeek)

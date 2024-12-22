@@ -5,24 +5,16 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-// Keep this interface internal, it was created only to sipmplify testing.
+// Keep this interface internal, it was created only to simplify testing.
 
 /// <summary>
 /// Defines adjustment methods.
 /// </summary>
 /// <typeparam name="TDate">The date type that implements this interface.
 /// </typeparam>
-internal interface IAdjustableDate<TDate> where TDate : IDateable
+internal interface IAdjustableDate<TDate> : IAdjustableDayOfWeek<TDate>
+    where TDate : IDateable, IAbsoluteDate
 {
-    /// <summary>
-    /// Adjusts the current instance using the specified adjuster.
-    /// <para>If the adjuster throws, this method will propagate the exception.
-    /// </para>
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="adjuster"/> is
-    /// <see langword="null"/>.</exception>
-    [Pure] TDate Adjust(Func<TDate, TDate> adjuster);
-
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.
     /// </summary>
