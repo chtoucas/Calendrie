@@ -72,7 +72,8 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 /// <para><see cref="PlainJulianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainJulianDate :
-    IDate<PlainJulianDate>,
+    IDateable,
+    IAbsoluteDate<PlainJulianDate>,
     IAdjustableDate<PlainJulianDate>,
     IAdjustableDayOfWeekField<PlainJulianDate>,
     IDateFactory<PlainJulianDate>,

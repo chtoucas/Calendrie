@@ -11,7 +11,8 @@ using Calendrie;
 using Calendrie.Hemerology;
 
 public readonly partial struct MyGregorianDate :
-    IDate<MyGregorianDate>,
+    IDateable,
+    IAbsoluteDate<MyGregorianDate>,
     ISubtractionOperators<MyGregorianDate, MyGregorianDate, int>
 {
     private static readonly DayNumber s_Epoch = MyGregorianCalendar.Instance.Epoch;

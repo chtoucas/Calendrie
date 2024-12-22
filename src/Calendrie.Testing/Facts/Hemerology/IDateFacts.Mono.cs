@@ -7,12 +7,12 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="IDate{TSelf}"/>.
+/// Provides facts about <see cref="IAbsoluteDate{TSelf}"/>.
 /// </summary>
 internal abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IDateFacts<TDate, TDataSet>
     where TCalendar : Calendar, IDateProvider<TDate>
-    where TDate : struct, IDate<TDate>, IAdjustableDayOfWeekField<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IAdjustableDayOfWeekField<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected IDateFacts(TCalendar calendar) : base(GetDomain(calendar))

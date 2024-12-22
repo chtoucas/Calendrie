@@ -69,7 +69,8 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 /// <para><see cref="Armenian13Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Armenian13Date :
-    IDate<Armenian13Date>,
+    IDateable,
+    IAbsoluteDate<Armenian13Date>,
     IAdjustableDate<Armenian13Date>,
     IAdjustableDayOfWeekField<Armenian13Date>,
     IDateFactory<Armenian13Date>,

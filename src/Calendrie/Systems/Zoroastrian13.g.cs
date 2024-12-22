@@ -69,7 +69,8 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
 /// <para><see cref="Zoroastrian13Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Zoroastrian13Date :
-    IDate<Zoroastrian13Date>,
+    IDateable,
+    IAbsoluteDate<Zoroastrian13Date>,
     IAdjustableDate<Zoroastrian13Date>,
     IAdjustableDayOfWeekField<Zoroastrian13Date>,
     IDateFactory<Zoroastrian13Date>,

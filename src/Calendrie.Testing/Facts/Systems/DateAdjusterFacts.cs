@@ -11,7 +11,7 @@ using Calendrie.Testing.Data;
 
 internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
-    where TDate : struct, IDate<TDate>, IDateFactory<TDate>, IAdjustableDate<TDate>
+    where TDate : struct, IDateable, IDateFactory<TDate>, IAdjustableDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected DateAdjusterFacts(DateAdjuster<TDate> adjuster)

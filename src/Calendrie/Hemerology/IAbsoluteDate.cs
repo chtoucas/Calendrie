@@ -163,6 +163,10 @@ public interface IAbsoluteDate
 
 /// <summary>
 /// Defines a absolute date type.
+/// <para>A date is said to be <i>absolute</i> if it's attached to a global
+/// timeline. In this project, it means that it can be mapped to a
+/// <see cref="Calendrie.DayNumber"/>.
+/// </para>
 /// </summary>
 /// <typeparam name="TSelf">The date type that implements this interface.
 /// </typeparam>

@@ -69,7 +69,8 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 /// <para><see cref="CopticDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CopticDate :
-    IDate<CopticDate>,
+    IDateable,
+    IAbsoluteDate<CopticDate>,
     IAdjustableDate<CopticDate>,
     IAdjustableDayOfWeekField<CopticDate>,
     IDateFactory<CopticDate>,

@@ -71,7 +71,8 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 /// <para><see cref="PlainGregorianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainGregorianDate :
-    IDate<PlainGregorianDate>,
+    IDateable,
+    IAbsoluteDate<PlainGregorianDate>,
     IAdjustableDate<PlainGregorianDate>,
     IAdjustableDayOfWeekField<PlainGregorianDate>,
     IDateFactory<PlainGregorianDate>,

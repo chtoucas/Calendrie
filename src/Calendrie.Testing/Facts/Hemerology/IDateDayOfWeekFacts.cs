@@ -8,11 +8,11 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides more facts about <see cref="IDate{TSelf}"/>.
+/// Provides more facts about <see cref="IAbsoluteDate{TSelf}"/>.
 /// </summary>
 internal abstract partial class IDateDayOfWeekFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
-    where TDate : IDate<TDate>, IAdjustableDayOfWeekField<TDate>
+    where TDate : IAbsoluteDate<TDate>, IAdjustableDayOfWeekField<TDate>
     where TDataSet : ICalendarDataSet, IDayOfWeekDataSet, ISingleton<TDataSet>
 {
     protected IDateDayOfWeekFacts() { }

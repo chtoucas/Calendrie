@@ -3,8 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Hemerology;
-
 // Funny interface: it's public but, having a static __internal__ method, it can
 // ONLY be implemented from within friend assemblies. Why public? It's use as a
 // type constraint by CalendarSystem and DateAdjuster.
@@ -17,7 +15,7 @@ using Calendrie.Hemerology;
 /// in a poly-calendar system.</para>
 /// </summary>
 /// <typeparam name="TDate">The date type.</typeparam>
-public interface IDateFactory<TDate> where TDate : IAbsoluteDate
+public interface IDateFactory<TDate>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TDate"/> struct from

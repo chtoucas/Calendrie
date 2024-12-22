@@ -26,7 +26,8 @@ public partial class CalendarTemplate
 /// <para><see cref="<#= Prefix #>Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct <#= Prefix #>Date :
-    IDate<<#= Prefix #>Date>,
+    IDateable,
+    IAbsoluteDate<<#= Prefix #>Date>,
     IAdjustableDate<<#= Prefix #>Date>,
     IAdjustableDayOfWeekField<<#= Prefix #>Date>,
     IDateFactory<<#= Prefix #>Date>,

@@ -22,7 +22,8 @@ using static Calendrie.Core.CalendricalConstants;
 /// <para><see cref="GregorianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct GregorianDate :
-    IDate<GregorianDate>,
+    IDateable,
+    IAbsoluteDate<GregorianDate>,
     IAdjustableDate<GregorianDate>,
     IAdjustableDayOfWeekField<GregorianDate>,
     IDateFactory<GregorianDate>,

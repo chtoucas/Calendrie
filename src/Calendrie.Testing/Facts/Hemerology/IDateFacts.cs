@@ -19,11 +19,11 @@ using Calendrie.Testing.Data;
 // DayOfWeek via DayNumber. Pre-filter CalCalDataSet.DayOfWeekData.
 
 /// <summary>
-/// Provides facts about <see cref="IDate{TSelf}"/>.
+/// Provides facts about <see cref="IAbsoluteDate{TSelf}"/>.
 /// </summary>
 internal abstract partial class IDateFacts<TDate, TDataSet> :
     IDateableFacts<TDate, TDataSet>
-    where TDate : struct, IDate<TDate>, IAdjustableDayOfWeekField<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IAdjustableDayOfWeekField<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected IDateFacts(Range<DayNumber> domain)

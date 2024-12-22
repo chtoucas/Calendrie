@@ -20,7 +20,8 @@ using Calendrie.Hemerology;
 /// <para><see cref="CivilDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CivilDate :
-    IDate<CivilDate>,
+    IDateable,
+    IAbsoluteDate<CivilDate>,
     IAdjustableDate<CivilDate>,
     IAdjustableDayOfWeekField<CivilDate>,
     IDateFactory<CivilDate>,
