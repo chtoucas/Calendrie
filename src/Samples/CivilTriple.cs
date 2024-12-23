@@ -225,15 +225,9 @@ public partial struct CivilTriple // Math
         return new(daysSinceEpoch);
     }
 
-    public CivilTriple NextDay()
-    {
-        if (this == MaxValue) throw new OverflowException();
-        return new(_daysSinceEpoch + 1);
-    }
+    public CivilTriple NextDay() =>
+        this == MaxValue ? throw new OverflowException() : new(_daysSinceEpoch + 1);
 
-    public CivilTriple PreviousDay()
-    {
-        if (this == MinValue) throw new OverflowException();
-        return new(_daysSinceEpoch - 1);
-    }
+    public CivilTriple PreviousDay() =>
+        this == MinValue ? throw new OverflowException() : new(_daysSinceEpoch - 1);
 }
