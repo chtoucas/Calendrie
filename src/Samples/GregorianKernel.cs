@@ -7,9 +7,6 @@ using System;
 
 using Calendrie;
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
-
-using Range_ = Calendrie.Core.Intervals.Range;
 
 public sealed class GregorianKernel : ICalendricalCore
 {
@@ -19,17 +16,17 @@ public sealed class GregorianKernel : ICalendricalCore
 
     private static ReadOnlySpan<byte> DaysInMonthOfCommonYear =>
         [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
     private static ReadOnlySpan<byte> DaysInMonthOfLeapYear =>
         [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     internal GregorianKernel() { }
 
+    public static ICalendricalSchema Prototype { get; } =
+        new PrototypalSchema(new GregorianKernel(), minDaysInYear: 365, minDaysInMonth: 28);
+
     public CalendricalAlgorithm Algorithm => CalendricalAlgorithm.Arithmetical;
     public CalendricalFamily Family => CalendricalFamily.Solar;
     public CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
-
-    public static Range<int> SupportedYears => Range_.Create(int.MinValue, int.MaxValue);
 
     public bool IsRegular(out int monthsInYear)
     {

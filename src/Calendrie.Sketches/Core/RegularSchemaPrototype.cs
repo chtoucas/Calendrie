@@ -6,8 +6,9 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// Main difference with CalendricalSchema: GetYear(int daysSinceEpoch) is
-// abstract, whereas here it's implemented using GetYear(daysSinceEpoch, out doy).
+// Main differences with PrototypalSchema:
+// - the schema is regular
+// - GetYear(int daysSinceEpoch) and GetYear(daysSinceEpoch, out _).
 
 public abstract class RegularSchemaPrototype : CalendricalSchema
 {
@@ -56,7 +57,7 @@ public abstract class RegularSchemaPrototype : CalendricalSchema
 
     /// <inheritdoc />
     [Pure]
-    public override int GetYear(int daysSinceEpoch, out int doy)
+    public override int GetYear(int daysSinceEpoch)
     {
         // Find the year for which (daysSinceEpoch - startOfYear) = d0y
         // has the smallest value >= 0.
@@ -70,8 +71,6 @@ public abstract class RegularSchemaPrototype : CalendricalSchema
                 startOfYear -= CountDaysInYear(--y);
             }
 
-            // Notice that, as expected, doy >= 1.
-            doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
         else
@@ -88,15 +87,9 @@ public abstract class RegularSchemaPrototype : CalendricalSchema
             }
             Debug.Assert(daysSinceEpoch >= startOfYear);
 
-            // Notice that, as expected, doy >= 1.
-            doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
     }
-
-    /// <inheritdoc />
-    [Pure]
-    public override int GetYear(int daysSinceEpoch) => GetYear(daysSinceEpoch, out _);
 
     /// <inheritdoc />
     [Pure]
