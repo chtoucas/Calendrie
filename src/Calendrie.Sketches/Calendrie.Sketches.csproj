@@ -11,7 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Samples\GregorianPrototype.cs" Link="_Samples\GregorianPrototype.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="_Samples\" />
   </ItemGroup>
 
 </Project>

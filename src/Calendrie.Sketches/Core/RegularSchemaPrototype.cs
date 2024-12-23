@@ -10,21 +10,40 @@ using Calendrie.Core.Utilities;
 // - the schema is regular
 // - GetYear(int daysSinceEpoch) and GetYear(daysSinceEpoch, out _).
 
-public abstract class RegularSchemaPrototype : CalendricalSchema
+public abstract partial class RegularSchemaPrototype : CalendricalSchema
 {
     protected RegularSchemaPrototype(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
+}
 
-    //
-    // Regular schema
-    //
-
+public partial class RegularSchemaPrototype // Regular schema
+{
+    /// <summary>
+    /// Gets the number of months in a year.
+    /// </summary>
     public abstract int MonthsInYear { get; }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = MonthsInYear;
+        return true;
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
 
     /// <inheritdoc />
     [Pure]
     public sealed override int CountMonthsSinceEpoch(int y, int m) => MonthsInYear * (y - 1) + m - 1;
 
+    /// <inheritdoc />
     public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         y = 1 + MathZ.Divide(monthsSinceEpoch, MonthsInYear, out int m0);
@@ -38,11 +57,10 @@ public abstract class RegularSchemaPrototype : CalendricalSchema
     /// <inheritdoc />
     [Pure]
     public sealed override int GetEndOfYearInMonths(int y) => MonthsInYear * y - 1;
+}
 
-    //
-    // Prototypal methods
-    //
-
+public partial class RegularSchemaPrototype // Prototypal methods
+{
     /// <inheritdoc />
     [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)

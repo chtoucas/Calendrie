@@ -4,12 +4,14 @@
 namespace Samples;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 using Calendrie;
 using Calendrie.Core;
 
 using Range_ = Calendrie.Core.Intervals.Range;
 
+[ExcludeFromCodeCoverage]
 public sealed partial class GregorianPrototype : RegularSchemaPrototype
 {
     public const int DaysInCommonYear = 365;
@@ -80,14 +82,6 @@ public partial class GregorianPrototype // ICalendricalCore
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsInYear;
-        return true;
-    }
-
-    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
-
     public sealed override int CountDaysInYear(int y) =>
         IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
 
@@ -100,8 +94,6 @@ public partial class GregorianPrototype // ICalendricalCore
         (IsLeapYear(y) ? DaysInMonthOfLeapYear : DaysInMonthOfCommonYear)[m - 1];
 
     public sealed override bool IsLeapYear(int y) => (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
-
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
 
     public sealed override bool IsIntercalaryDay(int y, int m, int d) => m == 2 && d == 29;
 
