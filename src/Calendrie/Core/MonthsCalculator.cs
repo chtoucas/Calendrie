@@ -7,16 +7,14 @@ using Calendrie.Core.Utilities;
 
 internal abstract class MonthsCalculator
 {
-    private readonly ICalendricalSchema _schema;
-
     protected MonthsCalculator(ICalendricalSchema schema)
     {
         Debug.Assert(schema != null);
 
-        _schema = schema;
+        Schema = schema;
     }
 
-    protected ICalendricalSchema Schema => _schema;
+    protected ICalendricalSchema Schema { get; }
 
     public static MonthsCalculator Create(ICalendricalSchema schema)
     {
@@ -33,12 +31,16 @@ internal abstract class MonthsCalculator
         };
     }
 
-    /// <summary>Counts the number of consecutive months from the epoch to the first month of the
-    /// specified year.</summary>
+    /// <summary>
+    /// Counts the number of consecutive months from the epoch to the first month
+    /// of the specified year.
+    /// </summary>
     [Pure] public abstract int GetStartOfYear(int y);
 
-    /// <summary>Counts the number of consecutive months from the epoch to the last month of the
-    /// specified year.</summary>
+    /// <summary>
+    /// Counts the number of consecutive months from the epoch to the last month
+    /// of the specified year.
+    /// </summary>
     [Pure] public abstract int GetEndOfYear(int y);
 
     internal sealed class Regular12 : MonthsCalculator
