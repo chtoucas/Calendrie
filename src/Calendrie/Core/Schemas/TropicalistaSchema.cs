@@ -120,8 +120,18 @@ public partial class TropicalistaSchema // Conversions
     }
 }
 
-public partial class TropicalistaSchema // Dates in a given year or month
+public partial class TropicalistaSchema // Counting months and days since the epoch
 {
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetStartOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetEndOfYear(y);
+
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y)

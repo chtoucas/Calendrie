@@ -33,8 +33,8 @@ public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonthDistribution
         ? [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30]
         : [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
 
-    public override CalendricalFamily Family => CalendricalFamily.Lunisolar;
-    public override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Months;
+    public sealed override CalendricalFamily Family => CalendricalFamily.Lunisolar;
+    public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Months;
 
     /// <inheritdoc />
     [Pure]
@@ -44,31 +44,31 @@ public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonthDistribution
         return false;
     }
 
-    [Pure] public override bool IsLeapYear(int y) => (y & 3) == 0;
-    [Pure] public override bool IsIntercalaryMonth(int y, int m) => m == 13;
-    [Pure] public override bool IsIntercalaryDay(int y, int m, int d) => false;
-    [Pure] public override bool IsSupplementaryDay(int y, int m, int d) => false;
+    [Pure] public sealed override bool IsLeapYear(int y) => (y & 3) == 0;
+    [Pure] public sealed override bool IsIntercalaryMonth(int y, int m) => m == 13;
+    [Pure] public sealed override bool IsIntercalaryDay(int y, int m, int d) => false;
+    [Pure] public sealed override bool IsSupplementaryDay(int y, int m, int d) => false;
 
-    [Pure] public override int CountMonthsInYear(int y) => IsLeapYear(y) ? MonthsInLeapYear : MonthsInCommonYear;
-    [Pure] public override int CountDaysInYear(int y) => IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
-    [Pure] public override int CountDaysInYearBeforeMonth(int y, int m) => 29 * (m - 1) + (m >> 1);
-    [Pure] public override int CountDaysInMonth(int y, int m) => 29 + (m & 1);
+    [Pure] public sealed override int CountMonthsInYear(int y) => IsLeapYear(y) ? MonthsInLeapYear : MonthsInCommonYear;
+    [Pure] public sealed override int CountDaysInYear(int y) => IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+    [Pure] public sealed override int CountDaysInYearBeforeMonth(int y, int m) => 29 * (m - 1) + (m >> 1);
+    [Pure] public sealed override int CountDaysInMonth(int y, int m) => 29 + (m & 1);
 
     [Pure]
-    public override int CountMonthsSinceEpoch(int y, int m)
+    public sealed override int GetStartOfYearInMonths(int y)
     {
         y--;
-        return MonthsInCommonYear * y + (y >> 2) + m - 1;
+        return MonthsInCommonYear * y + (y >> 2);
     }
 
-    public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
+    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         y = MathZ.Divide((monthsSinceEpoch << 2) + 52, 49);
         m = 1 + monthsSinceEpoch - (49 * y - 49 >> 2);
     }
 
     [Pure]
-    public override int GetMonth(int y, int doy, out int d)
+    public sealed override int GetMonth(int y, int doy, out int d)
     {
         int d0y = doy - 1;
         int m = ((d0y << 1) + 59) / 59;
@@ -77,16 +77,16 @@ public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonthDistribution
     }
 
     [Pure]
-    public override int GetYear(int daysSinceEpoch)
+    public sealed override int GetYear(int daysSinceEpoch)
     {
         int C = MathZ.Divide(daysSinceEpoch, DaysPer4YearCycle, out int D);
         return (C << 2) + (D >= 1416 ? 4 : 1 + D / 354);
     }
 
     [Pure]
-    public override int GetStartOfYear(int y) => DaysInCommonYear * --y + 30 * (y >> 2);
+    public sealed override int GetStartOfYear(int y) => DaysInCommonYear * --y + 30 * (y >> 2);
 
-    public override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
+    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
         if (IsLeapYear(y))
         {

@@ -205,12 +205,25 @@ public partial class WorldSchema // Conversions
         GregorianFormulae.GetYear(daysSinceEpoch);
 }
 
-public partial class WorldSchema // Dates in a given year or month
+public partial class WorldSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetStartOfYear(y);
 
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetEndOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);
+}
+
+public partial class WorldSchema // Dates in a given year or month
+{
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {

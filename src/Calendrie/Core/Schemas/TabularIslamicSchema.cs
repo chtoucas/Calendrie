@@ -158,13 +158,26 @@ public partial class TabularIslamicSchema // Conversions
         MathZ.Divide(30 * daysSinceEpoch + 10_646, DaysPer30YearCycle);
 }
 
-public partial class TabularIslamicSchema // Dates in a given year or month
+public partial class TabularIslamicSchema // Counting months and days since the epoch
 {
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetStartOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetEndOfYear(y);
+
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y) =>
         DaysInCommonYear * (y - 1) + MathZ.Divide(3 + 11 * y, 30);
+}
 
+public partial class TabularIslamicSchema // Dates in a given year or month
+{
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {

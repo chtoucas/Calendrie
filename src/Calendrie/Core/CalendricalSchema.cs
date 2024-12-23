@@ -125,8 +125,6 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 public abstract partial class CalendricalSchema : ICalendricalSchema
 {
-    private readonly MonthsCalculator _monthsCalculator;
-
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="CalendricalSchema"/> class.
@@ -141,8 +139,6 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
         SupportedYears = supportedYears;
         MinDaysInYear = minDaysInYear;
         MinDaysInMonth = minDaysInMonth;
-
-        _monthsCalculator = MonthsCalculator.Create(this);
     }
 
     private CalendricalProfile? _profile;
@@ -469,13 +465,8 @@ public partial class CalendricalSchema // Counting months and days within a year
 public partial class CalendricalSchema // Conversions
 {
     /// <inheritdoc />
-    //
-    // WARNING: the implementation MUST NOT use GetStartOfYearInMonths() or
-    // GetEndOfYearInMonths(); see MonthsCalculator.Plain.
-    // Otherwise it would simply be:
-    // > GetStartOfYearInMonths(y) + m - 1;
     [Pure]
-    public abstract int CountMonthsSinceEpoch(int y, int m);
+    public virtual int CountMonthsSinceEpoch(int y, int m) => GetStartOfYearInMonths(y) + m - 1;
 
     /// <inheritdoc />
     [Pure]
@@ -547,12 +538,12 @@ public partial class CalendricalSchema // Conversions
 public partial class CalendricalSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
-    [Pure]
-    public int GetStartOfYearInMonths(int y) => _monthsCalculator.GetStartOfYear(y);
+    [Pure] public abstract int GetStartOfYearInMonths(int y);
 
     /// <inheritdoc />
     [Pure]
-    public int GetEndOfYearInMonths(int y) => _monthsCalculator.GetEndOfYear(y);
+    public virtual int GetEndOfYearInMonths(int y) =>
+        GetStartOfYearInMonths(y) + CountMonthsInYear(y) - 1;
 
     /// <inheritdoc />
     //

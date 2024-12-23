@@ -108,6 +108,19 @@ public partial class Egyptian13Schema // Conversions
         Ptolemaic13.GetMonth(doy - 1, out d);
 }
 
+public partial class Egyptian13Schema // Counting months and days since the epoch
+{
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular13.GetStartOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular13.GetEndOfYear(y);
+}
+
 public partial class Egyptian13Schema // Dates in a given year or month
 {
     /// <inheritdoc />

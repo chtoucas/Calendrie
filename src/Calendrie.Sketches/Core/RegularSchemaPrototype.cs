@@ -4,20 +4,45 @@
 namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 // Main difference with CalendricalSchema: GetYear(int daysSinceEpoch) is
 // abstract, whereas here it's implemented using GetYear(daysSinceEpoch, out doy).
-//
-// Main difference with PrototypalSchema: CountMonthsSinceEpoch() is implemented
-// using GetStartOfYearInMonths(), whereas here it's abstract.
 
 public abstract class RegularSchemaPrototype : CalendricalSchema
 {
     protected RegularSchemaPrototype(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 
+    //
+    // Regular schema
+    //
+
     public abstract int MonthsInYear { get; }
 
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int CountMonthsSinceEpoch(int y, int m) => MonthsInYear * (y - 1) + m - 1;
+
+    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
+    {
+        y = 1 + MathZ.Divide(monthsSinceEpoch, MonthsInYear, out int m0);
+        m = 1 + m0;
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y) => MonthsInYear * (y - 1);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) => MonthsInYear * y - 1;
+
+    //
+    // Prototypal methods
+    //
+
+    /// <inheritdoc />
     [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
     {
@@ -29,44 +54,7 @@ public abstract class RegularSchemaPrototype : CalendricalSchema
         return count;
     }
 
-    [Pure]
-    public override int CountMonthsSinceEpoch(int y, int m) =>
-        new MonthsCalculator.Regular(this, MonthsInYear).GetStartOfYear(y) + m - 1;
-
-    public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
-    {
-        if (monthsSinceEpoch < 0)
-        {
-            y = 0;
-            int startOfYear = -MonthsInYear;
-
-            while (monthsSinceEpoch < startOfYear)
-            {
-                startOfYear -= MonthsInYear;
-            }
-
-            // Notice that, as expected, m >= 1.
-            m = 1 + monthsSinceEpoch - startOfYear;
-        }
-        else
-        {
-            y = 1;
-            int startOfYear = 0;
-
-            while (monthsSinceEpoch >= startOfYear)
-            {
-                int startOfNextYear = startOfYear + MonthsInYear;
-                if (monthsSinceEpoch < startOfNextYear) { break; }
-                y++;
-                startOfYear = startOfNextYear;
-            }
-            Debug.Assert(monthsSinceEpoch >= startOfYear);
-
-            // Notice that, as expected, m >= 1.
-            m = 1 + monthsSinceEpoch - startOfYear;
-        }
-    }
-
+    /// <inheritdoc />
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
@@ -106,9 +94,11 @@ public abstract class RegularSchemaPrototype : CalendricalSchema
         }
     }
 
+    /// <inheritdoc />
     [Pure]
     public override int GetYear(int daysSinceEpoch) => GetYear(daysSinceEpoch, out _);
 
+    /// <inheritdoc />
     [Pure]
     public override int GetMonth(int y, int doy, out int d)
     {
@@ -129,6 +119,7 @@ public abstract class RegularSchemaPrototype : CalendricalSchema
         return m;
     }
 
+    /// <inheritdoc />
     [Pure]
     public override int GetStartOfYear(int y)
     {

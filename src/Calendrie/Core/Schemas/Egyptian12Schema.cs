@@ -95,6 +95,19 @@ public partial class Egyptian12Schema // Conversions
         Ptolemaic12.GetMonth(doy - 1, out d);
 }
 
+public partial class Egyptian12Schema // Counting months and days since the epoch
+{
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetStartOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetEndOfYear(y);
+}
+
 public partial class Egyptian12Schema // Dates in a given year or month
 {
     /// <inheritdoc />

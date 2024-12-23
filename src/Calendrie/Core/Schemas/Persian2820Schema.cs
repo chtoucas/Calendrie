@@ -209,8 +209,18 @@ public partial class Persian2820Schema // Conversions
     }
 }
 
-public partial class Persian2820Schema // Dates in a given year or month
+public partial class Persian2820Schema // Counting months and days since the epoch
 {
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetStartOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular12.GetEndOfYear(y);
+
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y)
@@ -219,7 +229,10 @@ public partial class Persian2820Schema // Dates in a given year or month
         int Y = Year0 + MathZ.Modulo(y, 2820, out int C);
         return DaysPer2820YearCycle * C + DaysInCommonYear * (Y - 1) + (31 * Y - 5) / 128;
     }
+}
 
+public partial class Persian2820Schema // Dates in a given year or month
+{
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {

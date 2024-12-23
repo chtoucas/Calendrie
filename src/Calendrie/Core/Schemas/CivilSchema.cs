@@ -96,7 +96,7 @@ public partial class CivilSchema // Conversions
     }
 }
 
-public partial class CivilSchema // Dates in a given year or month
+public partial class CivilSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]

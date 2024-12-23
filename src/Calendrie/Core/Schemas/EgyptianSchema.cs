@@ -78,7 +78,7 @@ public partial class EgyptianSchema // Conversions
         1 + MathZ.Divide(daysSinceEpoch, DaysInYear);
 }
 
-public partial class EgyptianSchema // Dates in a given year or month
+public partial class EgyptianSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]

@@ -103,11 +103,11 @@ public partial class FauxCalendricalSchema // Props & methods
     [Pure] public sealed override int CountDaysInYearBeforeMonth(int y, int m) => throw new NotSupportedException();
     [Pure] public sealed override int CountDaysInMonth(int y, int m) => MinDaysInMonth;
 
-    [Pure] public sealed override int CountMonthsSinceEpoch(int y, int m) => 0;
     public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) => throw new NotSupportedException();
     [Pure] public sealed override int GetMonth(int y, int doy, out int d) => throw new NotSupportedException();
     [Pure] public sealed override int GetYear(int daysSinceEpoch) => throw new NotSupportedException();
 
+    [Pure] public sealed override int GetStartOfYearInMonths(int y) => 0;
     [Pure] public sealed override int GetStartOfYear(int y) => 0;
 }
 

@@ -155,13 +155,13 @@ public partial class PaxSchema // Counting months and days within a year or a mo
 
 public partial class PaxSchema // Conversions
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m)
-    {
-        // FIXME(code): temporary value for tests.
-        return 0;
-    }
+    ///// <inheritdoc />
+    //[Pure]
+    //public sealed override int CountMonthsSinceEpoch(int y, int m)
+    //{
+    //    // FIXME(code): temporary value for tests.
+    //    return 0;
+    //}
 
     /// <inheritdoc />
     public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
@@ -203,8 +203,16 @@ public partial class PaxSchema // Conversions
     }
 }
 
-public partial class PaxSchema // Dates in a given year or month
+public partial class PaxSchema // Counting months and days since the epoch
 {
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y)
+    {
+        // FIXME(code): temporary value for tests.
+        return 0;
+    }
+
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y)
@@ -216,7 +224,10 @@ public partial class PaxSchema // Dates in a given year or month
         int Y = y % 100;
         return 364 * y + 7 * (18 * C - (C >> 2) + Y / 6 + Y / 99);
     }
+}
 
+public partial class PaxSchema // Dates in a given year or month
+{
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {

@@ -52,7 +52,7 @@ public partial class CopticSchema // Conversions
         MathZ.Divide((daysSinceEpoch << 2) + 1463, DaysPer4YearCycle);
 }
 
-public partial class CopticSchema // Dates in a given year or month
+public partial class CopticSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]

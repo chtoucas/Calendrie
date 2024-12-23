@@ -5,56 +5,13 @@ namespace Calendrie.Core;
 
 using Calendrie.Core.Utilities;
 
-internal abstract class MonthsCalculator
+internal static class MonthsCalculator
 {
-    protected MonthsCalculator(ICalendricalSchema schema)
-    {
-        Debug.Assert(schema != null);
-
-        Schema = schema;
-    }
-
-    protected ICalendricalSchema Schema { get; }
-
-    public static MonthsCalculator Create(ICalendricalSchema schema)
-    {
-        ArgumentNullException.ThrowIfNull(schema);
-
-        _ = schema.IsRegular(out int monthsInYear);
-
-        return monthsInYear switch
-        {
-            12 => new Regular12(schema),
-            13 => new Regular13(schema),
-            > 0 => new Regular(schema, monthsInYear),
-            _ => new Plain(schema)
-        };
-    }
-
-    /// <summary>
-    /// Counts the number of consecutive months from the epoch to the first month
-    /// of the specified year.
-    /// </summary>
-    [Pure] public abstract int GetStartOfYear(int y);
-
-    /// <summary>
-    /// Counts the number of consecutive months from the epoch to the last month
-    /// of the specified year.
-    /// </summary>
-    [Pure] public abstract int GetEndOfYear(int y);
-
-    internal sealed class Regular12 : MonthsCalculator
+    internal static class Regular12
     {
         private const int MonthsInYear = 12;
 
-        public Regular12(ICalendricalSchema schema) : base(schema)
-        {
-            Debug.Assert(schema.IsRegular(out int monthsInYear));
-            Debug.Assert(monthsInYear == MonthsInYear);
-        }
-
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CountMonthsSinceEpoch(int y, int m) => MonthsInYear * (y - 1) + m - 1;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -64,25 +21,18 @@ internal abstract class MonthsCalculator
             m = 1 + m0;
         }
 
-        [Pure]
-        public override int GetStartOfYear(int y) => MonthsInYear * (y - 1);
+        [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetStartOfYear(int y) => MonthsInYear * (y - 1);
 
-        [Pure]
-        public override int GetEndOfYear(int y) => MonthsInYear * y - 1;
+        [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetEndOfYear(int y) => MonthsInYear * y - 1;
     }
 
-    internal sealed class Regular13 : MonthsCalculator
+    internal static class Regular13
     {
         private const int MonthsInYear = 13;
 
-        public Regular13(ICalendricalSchema schema) : base(schema)
-        {
-            Debug.Assert(schema.IsRegular(out int monthsInYear));
-            Debug.Assert(monthsInYear == MonthsInYear);
-        }
-
-        [Pure]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CountMonthsSinceEpoch(int y, int m) => MonthsInYear * (y - 1) + m - 1;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -92,41 +42,10 @@ internal abstract class MonthsCalculator
             m = 1 + m0;
         }
 
-        [Pure]
-        public override int GetStartOfYear(int y) => MonthsInYear * (y - 1);
+        [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetStartOfYear(int y) => MonthsInYear * (y - 1);
 
-        [Pure]
-        public override int GetEndOfYear(int y) => MonthsInYear * y - 1;
-    }
-
-    internal sealed class Regular : MonthsCalculator
-    {
-        private readonly int _monthsInYear;
-
-        public Regular(ICalendricalSchema schema, int monthsInYear) : base(schema)
-        {
-            Debug.Assert(schema.IsRegular(out int monthsInYear_));
-            Debug.Assert(monthsInYear_ == monthsInYear);
-
-            _monthsInYear = monthsInYear;
-        }
-
-        [Pure]
-        public override int GetStartOfYear(int y) => _monthsInYear * (y - 1);
-
-        [Pure]
-        public override int GetEndOfYear(int y) => _monthsInYear * y - 1;
-    }
-
-    internal sealed class Plain : MonthsCalculator
-    {
-        public Plain(ICalendricalSchema schema) : base(schema) { }
-
-        [Pure]
-        public override int GetStartOfYear(int y) => Schema.CountMonthsSinceEpoch(y, 1);
-
-        [Pure]
-        public override int GetEndOfYear(int y) =>
-            Schema.CountMonthsSinceEpoch(y, 1) + Schema.CountMonthsInYear(y) - 1;
+        [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetEndOfYear(int y) => MonthsInYear * y - 1;
     }
 }

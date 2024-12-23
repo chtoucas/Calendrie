@@ -85,7 +85,7 @@ public partial class JulianSchema // Conversions
         MathZ.Divide((daysSinceEpoch << 2) + 1464, DaysPer4YearCycle);
 }
 
-public partial class JulianSchema // Dates in a given year or month
+public partial class JulianSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]

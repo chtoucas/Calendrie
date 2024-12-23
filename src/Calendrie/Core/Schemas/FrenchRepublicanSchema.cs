@@ -89,7 +89,7 @@ public partial class FrenchRepublicanSchema // Conversions
     }
 }
 
-public partial class FrenchRepublicanSchema // Dates in a given year or month
+public partial class FrenchRepublicanSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]

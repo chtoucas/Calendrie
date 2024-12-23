@@ -140,7 +140,7 @@ public partial class GregorianSchema // Conversions
     }
 }
 
-public partial class GregorianSchema // Dates in a given year or month
+public partial class GregorianSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]

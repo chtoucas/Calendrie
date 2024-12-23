@@ -191,12 +191,25 @@ public partial class InternationalFixedSchema // Conversions
         GregorianFormulae.GetYear(daysSinceEpoch);
 }
 
-public partial class InternationalFixedSchema // Dates in a given year or month
+public partial class InternationalFixedSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular13.GetStartOfYear(y);
 
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular13.GetEndOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);
+}
+
+public partial class InternationalFixedSchema // Dates in a given year or month
+{
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {

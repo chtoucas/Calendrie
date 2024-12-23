@@ -107,6 +107,19 @@ public partial class Coptic13Schema // Conversions
         Thirteen.GetMonth(doy - 1, out d);
 }
 
+public partial class Coptic13Schema // Counting months and days since the epoch
+{
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetStartOfYearInMonths(int y) =>
+        MonthsCalculator.Regular13.GetStartOfYear(y);
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetEndOfYearInMonths(int y) =>
+        MonthsCalculator.Regular13.GetEndOfYear(y);
+}
+
 public partial class Coptic13Schema // Dates in a given year or month
 {
     /// <inheritdoc />
