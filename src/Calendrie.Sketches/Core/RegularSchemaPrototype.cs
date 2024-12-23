@@ -5,14 +5,18 @@ namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
 
-// See PrototypalSchema. Differences:
-// - GetYear()
-// - CountMonthsSinceEpoch()
+// Main difference with CalendricalSchema: GetYear(int daysSinceEpoch) is
+// abstract, whereas here it's implemented using GetYear(daysSinceEpoch, out doy).
+//
+// Main difference with PrototypalSchema: CountMonthsSinceEpoch() is implemented
+// using GetStartOfYearInMonths(), whereas here it's abstract.
 
-public abstract class SchemaPrototype : CalendricalSchema
+public abstract class RegularSchemaPrototype : CalendricalSchema
 {
-    protected SchemaPrototype(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    protected RegularSchemaPrototype(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
+
+    public abstract int MonthsInYear { get; }
 
     [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
@@ -25,16 +29,20 @@ public abstract class SchemaPrototype : CalendricalSchema
         return count;
     }
 
+    [Pure]
+    public override int CountMonthsSinceEpoch(int y, int m) =>
+        new MonthsCalculator.Regular(this, MonthsInYear).GetStartOfYear(y) + m - 1;
+
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         if (monthsSinceEpoch < 0)
         {
             y = 0;
-            int startOfYear = -CountMonthsInYear(0);
+            int startOfYear = -MonthsInYear;
 
             while (monthsSinceEpoch < startOfYear)
             {
-                startOfYear -= CountMonthsInYear(--y);
+                startOfYear -= MonthsInYear;
             }
 
             // Notice that, as expected, m >= 1.
@@ -47,7 +55,7 @@ public abstract class SchemaPrototype : CalendricalSchema
 
             while (monthsSinceEpoch >= startOfYear)
             {
-                int startOfNextYear = startOfYear + CountMonthsInYear(y);
+                int startOfNextYear = startOfYear + MonthsInYear;
                 if (monthsSinceEpoch < startOfNextYear) { break; }
                 y++;
                 startOfYear = startOfNextYear;
@@ -107,8 +115,7 @@ public abstract class SchemaPrototype : CalendricalSchema
         int m = 1;
         int daysInYearBeforeMonth = 0;
 
-        int monthsInYear = CountMonthsInYear(y);
-        while (m < monthsInYear)
+        while (m < MonthsInYear)
         {
             int daysInYearBeforeNextMonth = CountDaysInYearBeforeMonth(y, m + 1);
             if (doy <= daysInYearBeforeNextMonth) { break; }

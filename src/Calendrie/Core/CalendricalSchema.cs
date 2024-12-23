@@ -469,6 +469,11 @@ public partial class CalendricalSchema // Counting months and days within a year
 public partial class CalendricalSchema // Conversions
 {
     /// <inheritdoc />
+    //
+    // WARNING: the implementation MUST NOT use GetStartOfYearInMonths() or
+    // GetEndOfYearInMonths(); see MonthsCalculator.Plain.
+    // Otherwise it would simply be:
+    // > GetStartOfYearInMonths(y) + m - 1;
     [Pure]
     public abstract int CountMonthsSinceEpoch(int y, int m);
 
