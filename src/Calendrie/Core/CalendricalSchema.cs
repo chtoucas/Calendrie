@@ -538,6 +538,10 @@ public partial class CalendricalSchema // Conversions
 public partial class CalendricalSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
+    //
+    // Even if it is just CountMonthsSinceEpoch(y, 1), this method MUST be
+    // implemented independently. Indeed, we use it to provide a default
+    // impl for CountMonthsSinceEpoch().
     [Pure] public abstract int GetStartOfYearInMonths(int y);
 
     /// <inheritdoc />
