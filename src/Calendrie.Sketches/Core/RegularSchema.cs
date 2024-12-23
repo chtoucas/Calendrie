@@ -3,6 +3,7 @@
 
 namespace Calendrie.Core;
 
+using Calendrie;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
@@ -10,13 +11,13 @@ using Calendrie.Core.Utilities;
 // - the schema is regular
 // - GetYear(int daysSinceEpoch) and GetYear(daysSinceEpoch, out _).
 
-public abstract partial class RegularSchemaPrototype : CalendricalSchema
+public abstract partial class RegularSchema : CalendricalSchema
 {
-    protected RegularSchemaPrototype(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    protected RegularSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 }
 
-public partial class RegularSchemaPrototype // Regular schema
+public partial class RegularSchema // Regular schema
 {
     /// <summary>
     /// Gets the number of months in a year.
@@ -59,7 +60,7 @@ public partial class RegularSchemaPrototype // Regular schema
     public sealed override int GetEndOfYearInMonths(int y) => MonthsInYear * y - 1;
 }
 
-public partial class RegularSchemaPrototype // Prototypal methods
+public partial class RegularSchema // Prototypal methods
 {
     /// <inheritdoc />
     [Pure]
@@ -152,5 +153,53 @@ public partial class RegularSchemaPrototype // Prototypal methods
         }
 
         return daysSinceEpoch;
+    }
+}
+
+public partial class RegularSchema
+{
+    // Only for testing.
+    internal static RegularSchema Create(ICalendricalCore kernel, bool proleptic = true)
+    {
+        ArgumentNullException.ThrowIfNull(kernel);
+
+        var supportedYears = Range.Create(proleptic ? -9998 : 1, 9999);
+
+        return kernel.IsRegular(out int monthsInYear)
+            ? new Impl(kernel, supportedYears, monthsInYear)
+            : throw new ArgumentException(null, nameof(kernel));
+    }
+
+    private sealed class Impl : RegularSchema
+    {
+        private readonly ICalendricalCore _kernel;
+
+        public Impl(ICalendricalCore kernel, Range<int> supportedYears, int monthsInYear)
+            : base(supportedYears, minDaysInYear: 1, minDaysInMonth: 1)
+        {
+            Debug.Assert(kernel != null);
+
+            _kernel = kernel;
+            MonthsInYear = monthsInYear;
+        }
+
+        public sealed override int MonthsInYear { get; }
+
+        public sealed override CalendricalFamily Family => _kernel.Family;
+
+        public sealed override CalendricalAdjustments PeriodicAdjustments =>
+            _kernel.PeriodicAdjustments;
+
+        public sealed override bool IsLeapYear(int y) => _kernel.IsLeapYear(y);
+
+        public sealed override bool IsIntercalaryDay(int y, int m, int d) =>
+            _kernel.IsIntercalaryDay(y, m, d);
+
+        public sealed override bool IsSupplementaryDay(int y, int m, int d) =>
+            _kernel.IsSupplementaryDay(y, m, d);
+
+        public sealed override int CountDaysInYear(int y) => _kernel.CountDaysInYear(y);
+
+        public sealed override int CountDaysInMonth(int y, int m) => _kernel.CountDaysInMonth(y, m);
     }
 }

@@ -151,6 +151,13 @@
           "xunit.extensibility.core": "[2.9.2, )"
         }
       },
+      "samples": {
+        "type": "Project",
+        "dependencies": {
+          "Calendrie": "[0.1.0, )",
+          "Calendrie.Sketches": "[0.1.0, )"
+        }
+      },
       "xunit.assert": {
         "type": "CentralTransitive",
         "requested": "[2.9.2, )",

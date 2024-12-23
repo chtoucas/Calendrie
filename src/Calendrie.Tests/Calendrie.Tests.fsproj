@@ -43,6 +43,7 @@
     <Compile Include="Tests\Core\Schemas\GregorianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\JulianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\LimitSchemaTestSuite.fs" />
+    <Compile Include="Tests\Core\Schemas\RegularSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaTests.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\PrototypalSchemaSlimTests.fs" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
     <ProjectReference Include="..\Calendrie.Testing\Calendrie.Testing.csproj" />
+    <ProjectReference Include="..\Samples\Samples.csproj" />
   </ItemGroup>
 
 </Project>

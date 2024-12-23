@@ -12,7 +12,7 @@ using Calendrie.Core;
 using Range_ = Calendrie.Core.Intervals.Range;
 
 [ExcludeFromCodeCoverage]
-public sealed partial class GregorianPrototype : RegularSchemaPrototype
+public sealed partial class GregorianPrototype : RegularSchema
 {
     public const int DaysInCommonYear = 365;
     public const int DaysInLeapYear = 366;
