@@ -4,6 +4,7 @@
 namespace Calendrie.Testing.Facts.Core;
 
 using Calendrie.Core;
+using Calendrie.Core.Prototypes;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Faux;
 
@@ -11,13 +12,14 @@ using Calendrie.Testing.Faux;
 /// Provides facts about <see cref="RegularSchema"/>.
 /// </summary>
 [TestPerformance(TestPerformance.SlowBundle)]
-public abstract partial class RegularSchemaFacts<TDataSet> :
-    CalendricalSchemaFacts<RegularSchema, TDataSet>
+public abstract partial class RegularSchemaPrototypeFacts<TDataSet> :
+    CalendricalSchemaFacts<RegularSchemaPrototype, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected RegularSchemaFacts(RegularSchema schema) : base(schema) { }
+    protected RegularSchemaPrototypeFacts(RegularSchemaPrototype schema) : base(schema) { }
 
-    protected RegularSchemaFacts(ICalendricalSchema schema) : base(FauxRegularSchema.Create(schema)) { }
+    protected RegularSchemaPrototypeFacts(ICalendricalSchema schema)
+        : base(FauxRegularSchemaPrototype.Create(schema)) { }
 
     [Fact]
     public sealed override void SupportedYears_Prop()
@@ -25,11 +27,11 @@ public abstract partial class RegularSchemaFacts<TDataSet> :
         var sch = SchemaUT;
         if (sch.IsProleptic)
         {
-            Assert.Equal(sch.SupportedYears, RegularSchema.ProlepticSupportedYears);
+            Assert.Equal(sch.SupportedYears, RegularSchemaPrototype.ProlepticSupportedYears);
         }
         else
         {
-            Assert.Equal(sch.SupportedYears, RegularSchema.StandardSupportedYears);
+            Assert.Equal(sch.SupportedYears, RegularSchemaPrototype.StandardSupportedYears);
         }
     }
 }

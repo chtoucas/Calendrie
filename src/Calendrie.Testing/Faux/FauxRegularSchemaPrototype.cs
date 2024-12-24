@@ -5,12 +5,13 @@ namespace Calendrie.Testing.Faux;
 
 using Calendrie;
 using Calendrie.Core;
+using Calendrie.Core.Prototypes;
 
-public sealed class FauxRegularSchema : RegularSchema
+public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
 {
     private readonly ICalendricalCore _kernel;
 
-    public FauxRegularSchema(
+    public FauxRegularSchemaPrototype(
         ICalendricalCore kernel,
         bool proleptic,
         int monthsInYear,
@@ -24,14 +25,14 @@ public sealed class FauxRegularSchema : RegularSchema
         MonthsInYear = monthsInYear;
     }
 
-    public static RegularSchema Create(ICalendricalSchema schema)
+    public static RegularSchemaPrototype Create(ICalendricalSchema schema)
     {
         ArgumentNullException.ThrowIfNull(schema);
 
         if (!schema.IsRegular(out int monthsInYear))
             throw new ArgumentException(null, nameof(schema));
 
-        return new FauxRegularSchema(
+        return new FauxRegularSchemaPrototype(
             schema,
             proleptic: schema.SupportedYears.Min < 0,
             monthsInYear,

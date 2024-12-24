@@ -5,6 +5,7 @@ namespace Calendrie.Testing.Facts.Core;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Prototypes;
 using Calendrie.Testing.Data;
 
 /// <summary>

@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Schemas.RegularSchemaTestSuite
+module Calendrie.Tests.Core.Prototypes.RegularSchemaTestSuite
 
 open Calendrie
 open Calendrie.Core.Schemas
@@ -19,7 +19,7 @@ open Samples
 // We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type CivilPrototypeTests() =
-    inherit RegularSchemaFacts<StandardGregorianDataSet>(new CivilPrototype())
+    inherit RegularSchemaPrototypeFacts<StandardGregorianDataSet>(new CivilPrototype())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -42,7 +42,7 @@ type CivilPrototypeTests() =
 // We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic12Tests() =
-    inherit RegularSchemaFacts<Coptic12DataSet>(new Coptic12Schema())
+    inherit RegularSchemaPrototypeFacts<Coptic12DataSet>(new Coptic12Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -60,7 +60,7 @@ type Coptic12Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic13Tests() =
-    inherit RegularSchemaFacts<Coptic13DataSet>(new Coptic13Schema())
+    inherit RegularSchemaPrototypeFacts<Coptic13DataSet>(new Coptic13Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -75,7 +75,7 @@ type Coptic13Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Egyptian12Tests() =
-    inherit RegularSchemaFacts<Egyptian12DataSet>(new Egyptian12Schema())
+    inherit RegularSchemaPrototypeFacts<Egyptian12DataSet>(new Egyptian12Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.AnnusVagus
@@ -88,7 +88,7 @@ type Egyptian12Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Egyptian13Tests() =
-    inherit RegularSchemaFacts<Egyptian13DataSet>(new Egyptian13Schema())
+    inherit RegularSchemaPrototypeFacts<Egyptian13DataSet>(new Egyptian13Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.AnnusVagus
@@ -101,7 +101,7 @@ type Egyptian13Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type FrenchRepublican12Tests() =
-    inherit RegularSchemaFacts<FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
+    inherit RegularSchemaPrototypeFacts<FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -114,7 +114,7 @@ type FrenchRepublican12Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type FrenchRepublican13Tests() =
-    inherit RegularSchemaFacts<FrenchRepublican13DataSet>(new FrenchRepublican13Schema())
+    inherit RegularSchemaPrototypeFacts<FrenchRepublican13DataSet>(new FrenchRepublican13Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -127,7 +127,7 @@ type FrenchRepublican13Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type GregorianTests() =
-    inherit RegularSchemaFacts<GregorianDataSet>(new GregorianSchema())
+    inherit RegularSchemaPrototypeFacts<GregorianDataSet>(new GregorianSchema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -140,7 +140,7 @@ type GregorianTests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type InternationalFixedTests() =
-    inherit RegularSchemaFacts<InternationalFixedDataSet>(new InternationalFixedSchema())
+    inherit RegularSchemaPrototypeFacts<InternationalFixedDataSet>(new InternationalFixedSchema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -153,7 +153,7 @@ type InternationalFixedTests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type JulianTests() =
-    inherit RegularSchemaFacts<JulianDataSet>(new JulianSchema())
+    inherit RegularSchemaPrototypeFacts<JulianDataSet>(new JulianSchema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -169,7 +169,7 @@ type JulianTests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Persian2820Tests() =
-    inherit RegularSchemaFacts<Persian2820DataSet>(new Persian2820Schema())
+    inherit RegularSchemaPrototypeFacts<Persian2820DataSet>(new Persian2820Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -184,7 +184,7 @@ type Persian2820Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type PositivistTests() =
-    inherit RegularSchemaFacts<PositivistDataSet>(new PositivistSchema())
+    inherit RegularSchemaPrototypeFacts<PositivistDataSet>(new PositivistSchema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -197,7 +197,7 @@ type PositivistTests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type TabularIslamicTests() =
-    inherit RegularSchemaFacts<TabularIslamicDataSet>(new TabularIslamicSchema())
+    inherit RegularSchemaPrototypeFacts<TabularIslamicDataSet>(new TabularIslamicSchema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Lunar
@@ -212,7 +212,7 @@ type TabularIslamicTests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type TropicaliaTests() =
-    inherit RegularSchemaFacts<TropicaliaDataSet>(new TropicaliaSchema())
+    inherit RegularSchemaPrototypeFacts<TropicaliaDataSet>(new TropicaliaSchema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -225,7 +225,7 @@ type TropicaliaTests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Tropicalia3031Tests() =
-    inherit RegularSchemaFacts<Tropicalia3031DataSet>(new Tropicalia3031Schema())
+    inherit RegularSchemaPrototypeFacts<Tropicalia3031DataSet>(new Tropicalia3031Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -238,7 +238,7 @@ type Tropicalia3031Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Tropicalia3130Tests() =
-    inherit RegularSchemaFacts<Tropicalia3130DataSet>(new Tropicalia3130Schema())
+    inherit RegularSchemaPrototypeFacts<Tropicalia3130DataSet>(new Tropicalia3130Schema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -251,7 +251,7 @@ type Tropicalia3130Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type WorldTests() =
-    inherit RegularSchemaFacts<WorldDataSet>(new WorldSchema())
+    inherit RegularSchemaPrototypeFacts<WorldDataSet>(new WorldSchema())
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar

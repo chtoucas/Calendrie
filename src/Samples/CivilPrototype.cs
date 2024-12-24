@@ -6,9 +6,9 @@ namespace Samples;
 using System;
 
 using Calendrie;
-using Calendrie.Core;
+using Calendrie.Core.Prototypes;
 
-public sealed partial class CivilPrototype : RegularSchema
+public sealed partial class CivilPrototype : RegularSchemaPrototype
 {
     public const int DaysInCommonYear = 365;
     public const int DaysInLeapYear = 366;
