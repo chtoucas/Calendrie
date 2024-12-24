@@ -38,6 +38,7 @@
     <Compile Include="Tests\Core\Intervals\UpperRayTests.fs" />
     <Compile Include="Tests\Core\Intervals\UnboundedTests.fs" />
     <Compile Include="Tests\Core\Prototypes\RegularSchemaTestSuite.fs" />
+    <Compile Include="Tests\Core\Prototypes\NonRegularSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Prototypes\PrototypalSchemaTests.fs" />
     <Compile Include="Tests\Core\Prototypes\PrototypalSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Prototypes\PrototypalSchemaSlimTests.fs" />

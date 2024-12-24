@@ -9,7 +9,7 @@ using Calendrie.Testing.Data;
 using Calendrie.Testing.Faux;
 
 /// <summary>
-/// Provides facts about <see cref="RegularSchema"/>.
+/// Provides facts about <see cref="RegularSchemaPrototype"/>.
 /// </summary>
 [TestPerformance(TestPerformance.SlowBundle)]
 public abstract partial class RegularSchemaPrototypeFacts<TDataSet> :
