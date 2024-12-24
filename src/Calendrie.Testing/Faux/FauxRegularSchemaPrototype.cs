@@ -34,7 +34,7 @@ public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
 
         return new FauxRegularSchemaPrototype(
             schema,
-            proleptic: schema.SupportedYears.Min < 0,
+            proleptic: schema.SupportedYears.Min < 1,
             monthsInYear,
             schema.MinDaysInYear,
             schema.MinDaysInMonth)

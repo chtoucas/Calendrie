@@ -32,7 +32,7 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
 
         return new FauxNonRegularSchemaPrototype(
             schema,
-            proleptic: schema.SupportedYears.Min < 0,
+            proleptic: schema.SupportedYears.Min < 1,
             schema.MinDaysInYear,
             schema.MinDaysInMonth)
         {
