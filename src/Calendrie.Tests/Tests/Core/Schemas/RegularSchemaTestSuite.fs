@@ -4,18 +4,17 @@
 module Calendrie.Tests.Core.Schemas.RegularSchemaTestSuite
 
 open Calendrie
-open Calendrie.Core
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
-open Calendrie.Testing.Faux
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+// We do not exclude this one from CodeCoverage.
+//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic12Tests() =
     inherit RegularSchemaFacts<Coptic12DataSet>(new Coptic12Schema())
 

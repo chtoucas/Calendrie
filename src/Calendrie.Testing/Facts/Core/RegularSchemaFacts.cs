@@ -10,6 +10,7 @@ using Calendrie.Testing.Faux;
 /// <summary>
 /// Provides facts about <see cref="RegularSchema"/>.
 /// </summary>
+[TestPerformance(TestPerformance.SlowBundle)]
 public abstract partial class RegularSchemaFacts<TDataSet> :
     CalendricalSchemaFacts<RegularSchema, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
