@@ -104,6 +104,8 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
 
         m_MinDaysInYear = schema.MinDaysInYear;
         m_MinDaysInMonth = schema.MinDaysInMonth;
+
+        PreValidator = schema.PreValidator;
     }
 
     /// <summary>
@@ -124,6 +126,8 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
 
         m_MinDaysInYear = minDaysInYear;
         m_MinDaysInMonth = minDaysInMonth;
+
+        PreValidator = new PlainPreValidator(this);
     }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.
@@ -188,12 +192,6 @@ public partial class PrototypalSchema // ICalendricalCore
 
 public partial class PrototypalSchema // ICalendricalSchema (1)
 {
-    // We limit the range of supported years because the default impl of
-    // GetYear() and GetStartOfYear() are extremely slow if the values of
-    // "y" or "daysSinceEpoch" are big.
-    // Only override this property if both methods can handle big values
-    // efficiently.
-
     private Range<int>? _supportedDays;
     /// <inheritdoc />
     public Range<int> SupportedDays =>
@@ -212,6 +210,12 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
                 _proxy.GetEndOfYearInMonths));
 
     /// <inheritdoc />
+    //
+    // We limit the range of supported years because the default impl of
+    // GetYear() and GetStartOfYear() are extremely slow if the values of
+    // "y" or "daysSinceEpoch" are big.
+    // Only override this property if both methods can handle big values
+    // efficiently.
     public Range<int> SupportedYears { get; init; } = Range.Create(-9998, 9999);
 
     /// <inheritdoc />
@@ -401,7 +405,7 @@ public partial class PrototypalSchema // ICalendricalSchema (2)
 
     int ICalendricalSchema.MinDaysInMonth => m_MinDaysInMonth;
 
-    public virtual ICalendricalPreValidator PreValidator => new PlainPreValidator(this);
+    public virtual ICalendricalPreValidator PreValidator { get; init; }
 
     [Pure]
     int ICalendricalSchema.CountMonthsSinceEpoch(int y, int m) =>
