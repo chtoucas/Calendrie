@@ -197,7 +197,7 @@ type PaxTests() as self =
     //override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>(x.SchemaUT)
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
-    override x.SupportedYears_Prop() =
+    member x.SupportedYears_Prop() =
         let range = LimitSchema.DefaultSupportedYears.WithMin(1)
         x.SchemaUT.SupportedYears === range
 

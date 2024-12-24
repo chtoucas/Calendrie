@@ -48,6 +48,8 @@ public abstract partial class ICalendricalSchemaFacts<TSchema, TDataSet> :
 
     [Fact] public abstract void PreValidator_Prop();
 
+    [Fact] public abstract void SupportedYears_Prop();
+
     protected void VerifyThatPreValidatorIs<T>() => Assert.IsType<T>(SchemaUT.PreValidator);
 }
 

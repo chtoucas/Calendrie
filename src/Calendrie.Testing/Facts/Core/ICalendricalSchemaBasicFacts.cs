@@ -23,7 +23,6 @@ public abstract class ICalendricalSchemaBasicFacts<TSchema, TDataSet> :
     public override void Algorithm_Prop() { }
     public override void Family_Prop() { }
     public override void PeriodicAdjustments_Prop() { }
-    public override void SupportedYears_Prop() { }
 
     public override void IsRegular() { }
 

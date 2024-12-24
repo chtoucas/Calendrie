@@ -61,7 +61,6 @@ public partial class ICalendricalCoreFacts<TKernel, TDataSet> // Abstract
     [Fact] public abstract void Algorithm_Prop();
     [Fact] public abstract void Family_Prop();
     [Fact] public abstract void PeriodicAdjustments_Prop();
-    [Fact] public abstract void SupportedYears_Prop();
 
     [Fact] public abstract void IsRegular();
 }
