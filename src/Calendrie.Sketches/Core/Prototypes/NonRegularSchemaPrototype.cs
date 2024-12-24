@@ -7,21 +7,39 @@ using Calendrie.Core.Intervals;
 
 // WARNING: only meant to be used for rapid prototyping.
 //
-// For explanations, see PrototypalSchema. The main differences is that we
-// implement GetYear(int daysSinceEpoch) not GetYear(daysSinceEpoch, out _).
+// For explanations, see PrototypalSchema.
 
-public abstract class NonRegularSchemaPrototype : CalendricalSchema
+public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
 {
-    protected NonRegularSchemaPrototype(
-        Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
-        : base(supportedYears, minDaysInYear, minDaysInMonth) { }
+    protected NonRegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth)
+        : base(
+            proleptic ? ProlepticSupportedYears : StandardSupportedYears,
+            minDaysInYear,
+            minDaysInMonth)
+    {
+        IsProleptic = proleptic;
+    }
 
+    // Comme pour PrototypalSchema, on limite la plage des années supportées.
+    // Voir les commentaires au niveau de PrototypalSchema.SupportedYears.
+    internal static Range<int> StandardSupportedYears => Range.Create(1, 9999);
+    internal static Range<int> ProlepticSupportedYears => Range.Create(-9998, 9999);
+
+    public bool IsProleptic { get; }
+
+    /// <inheritdoc />
+    [Pure]
     public override bool IsRegular(out int monthsInYear)
     {
         monthsInYear = 0;
         return false;
     }
+}
 
+public partial class NonRegularSchemaPrototype // Prototypal methods
+{
+    /// <inheritdoc />
+    [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
     {
         int count = 0;
@@ -32,6 +50,7 @@ public abstract class NonRegularSchemaPrototype : CalendricalSchema
         return count;
     }
 
+    /// <inheritdoc />
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         if (monthsSinceEpoch < 0)
@@ -64,7 +83,9 @@ public abstract class NonRegularSchemaPrototype : CalendricalSchema
         }
     }
 
-    public override int GetYear(int daysSinceEpoch)
+    /// <inheritdoc />
+    [Pure]
+    public override int GetYear(int daysSinceEpoch, out int doy)
     {
         if (daysSinceEpoch < 0)
         {
@@ -76,6 +97,8 @@ public abstract class NonRegularSchemaPrototype : CalendricalSchema
                 startOfYear -= CountDaysInYear(--y);
             }
 
+            // Notice that, as expected, doy >= 1.
+            doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
         else
@@ -92,10 +115,18 @@ public abstract class NonRegularSchemaPrototype : CalendricalSchema
             }
             Debug.Assert(daysSinceEpoch >= startOfYear);
 
+            // Notice that, as expected, doy >= 1.
+            doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
     }
 
+    /// <inheritdoc />
+    [Pure]
+    public override int GetYear(int daysSinceEpoch) => GetYear(daysSinceEpoch, out _);
+
+    /// <inheritdoc />
+    [Pure]
     public override int GetMonth(int y, int doy, out int d)
     {
         int m = 1;
@@ -116,6 +147,8 @@ public abstract class NonRegularSchemaPrototype : CalendricalSchema
         return m;
     }
 
+    /// <inheritdoc />
+    [Pure]
     public override int GetStartOfYearInMonths(int y)
     {
         int monthsSinceEpoch = 0;
@@ -138,6 +171,8 @@ public abstract class NonRegularSchemaPrototype : CalendricalSchema
         return monthsSinceEpoch;
     }
 
+    /// <inheritdoc />
+    [Pure]
     public override int GetStartOfYear(int y)
     {
         int daysSinceEpoch = 0;

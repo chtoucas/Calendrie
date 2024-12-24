@@ -7,9 +7,7 @@ using Calendrie.Core.Intervals;
 
 // WARNING: only meant to be used for rapid prototyping.
 //
-// For explanations, see PrototypalSchema. The main differences are:
-// - the schema is regular
-// - GetYear(int daysSinceEpoch) and GetYear(daysSinceEpoch, out _).
+// For explanations, see PrototypalSchema.
 
 public abstract partial class RegularSchemaPrototype : RegularSchema
 {
@@ -46,7 +44,7 @@ public partial class RegularSchemaPrototype // Prototypal methods
 
     /// <inheritdoc />
     [Pure]
-    public override int GetYear(int daysSinceEpoch)
+    public override int GetYear(int daysSinceEpoch, out int doy)
     {
         if (daysSinceEpoch < 0)
         {
@@ -58,6 +56,8 @@ public partial class RegularSchemaPrototype // Prototypal methods
                 startOfYear -= CountDaysInYear(--y);
             }
 
+            // Notice that, as expected, doy >= 1.
+            doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
         else
@@ -74,9 +74,15 @@ public partial class RegularSchemaPrototype // Prototypal methods
             }
             Debug.Assert(daysSinceEpoch >= startOfYear);
 
+            // Notice that, as expected, doy >= 1.
+            doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
     }
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetYear(int daysSinceEpoch) => GetYear(daysSinceEpoch, out _);
 
     /// <inheritdoc />
     [Pure]
