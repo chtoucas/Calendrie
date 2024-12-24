@@ -10,7 +10,6 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about <see cref="PrototypalSchema"/>.
 /// </summary>
-[TestPerformance(TestPerformance.SlowBundle)]
 public abstract class PrototypalSchemaFacts<TDataSet> :
     ICalendricalSchemaFacts<PrototypalSchema, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>

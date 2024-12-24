@@ -11,7 +11,6 @@ using Calendrie.Testing.Faux;
 /// <summary>
 /// Provides facts about <see cref="NonRegularSchemaPrototype"/>.
 /// </summary>
-[TestPerformance(TestPerformance.SlowBundle)]
 public abstract partial class NonRegularSchemaPrototypeFacts<TDataSet> :
     CalendricalSchemaFacts<NonRegularSchemaPrototype, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>

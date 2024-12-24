@@ -8,6 +8,8 @@ using Xunit.Sdk;
 
 // Used by eng\test.ps1, eng\cover.ps1 and the github action.
 // See https://github.com/xunit/samples.xunit/blob/main/TraitExtensibility/
+//
+// WARNING: trait discoverers do not inspect the base class attributes.
 
 internal static class XunitTraitAssembly
 {
@@ -86,8 +88,6 @@ public sealed class TestPerformanceAttribute : Attribute, ITraitAttribute
 }
 
 #region Discoverers
-
-// TODO(fact): the trait discoverers do not inspect the base class attributes.
 
 public sealed class ExcludeFromTraitDiscoverer : ITraitDiscoverer
 {
