@@ -258,6 +258,16 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
         AssertEx.ThrowsAoorexn("newDayOfYear", () => date.WithDayOfYear(newDayOfYear));
     }
 
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void Adjust_WithYear(YearInfo info)
+    {
+        var y = info.Year;
+        var date = GetDate(1, 1, 1);
+        var exp = GetDate(y, 1, 1);
+        // Act & Assert
+        Assert.Equal(exp, date.WithYear(y));
+    }
+
     [Theory, MemberData(nameof(MonthInfoData))]
     public void Adjust_WithMonth(MonthInfo info)
     {

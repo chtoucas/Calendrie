@@ -17,7 +17,7 @@ public sealed partial class MyJulianCalendar : Calendar
     internal const string DisplayName = "Julien";
 
     public const int MinYear = 1;
-    public const int MaxYear = Yemoda.MaxYear;
+    public const int MaxYear = 9999;
 
     public MyJulianCalendar()
         : base(DisplayName,

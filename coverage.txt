@@ -1,22 +1,22 @@
 Summary
-  Generated on: 24/12/2024 - 17:37:22
+  Generated on: 24/12/2024 - 21:14:25
   Parser: OpenCover
   Assemblies: 1
   Classes: 110
   Files: 105
-  Line coverage: 98.4%
-  Covered lines: 5513
-  Uncovered lines: 88
+  Line coverage: 99.6%
+  Covered lines: 5579
+  Uncovered lines: 22
   Coverable lines: 5601
   Total lines: 21312
-  Branch coverage: 98.5% (1625 of 1649)
-  Covered branches: 1625
+  Branch coverage: 99.5% (1641 of 1649)
+  Covered branches: 1641
   Total branches: 1649
-  Method coverage: 99.3% (1993 of 2007)
-  Covered methods: 1993
+  Method coverage: 99.5% (1998 of 2007)
+  Covered methods: 1998
   Total methods: 2007
 
-Calendrie                                               98.4%
+Calendrie                                               99.6%
   Calendrie.Core.CalendricalSchema                     100.0%
   Calendrie.Core.CalendricalSegment                     84.4%
   Calendrie.Core.CalendricalSegmentBuilder             100.0%
@@ -85,45 +85,45 @@ Calendrie                                               98.4%
   Calendrie.DayNumber                                   99.4%
   Calendrie.DayZero                                    100.0%
   Calendrie.Hemerology.Calendar                        100.0%
-  Calendrie.Hemerology.CalendarScope                    73.5%
-  Calendrie.Hemerology.IAbsoluteDate                     0.0%
+  Calendrie.Hemerology.CalendarScope                    82.3%
+  Calendrie.Hemerology.IAbsoluteDate                   100.0%
   Calendrie.Hemerology.IAbsoluteDate<T>                  0.0%
   Calendrie.Hemerology.NakedCalendar                   100.0%
   Calendrie.MonthParts                                 100.0%
   Calendrie.Ord                                        100.0%
   Calendrie.OrdinalParts                               100.0%
   Calendrie.Systems.Armenian13Calendar                 100.0%
-  Calendrie.Systems.Armenian13Date                      98.2%
+  Calendrie.Systems.Armenian13Date                     100.0%
   Calendrie.Systems.ArmenianCalendar                   100.0%
-  Calendrie.Systems.ArmenianDate                        98.2%
+  Calendrie.Systems.ArmenianDate                       100.0%
   Calendrie.Systems.CalendarSystem<T>                  100.0%
   Calendrie.Systems.CivilCalendar                      100.0%
-  Calendrie.Systems.CivilDate                           98.0%
+  Calendrie.Systems.CivilDate                          100.0%
   Calendrie.Systems.CivilScope                         100.0%
   Calendrie.Systems.Coptic13Calendar                   100.0%
-  Calendrie.Systems.Coptic13Date                        98.2%
+  Calendrie.Systems.Coptic13Date                       100.0%
   Calendrie.Systems.CopticCalendar                     100.0%
-  Calendrie.Systems.CopticDate                          98.2%
+  Calendrie.Systems.CopticDate                         100.0%
   Calendrie.Systems.Ethiopic13Calendar                 100.0%
-  Calendrie.Systems.Ethiopic13Date                      98.2%
+  Calendrie.Systems.Ethiopic13Date                     100.0%
   Calendrie.Systems.EthiopicCalendar                   100.0%
-  Calendrie.Systems.EthiopicDate                        98.2%
+  Calendrie.Systems.EthiopicDate                       100.0%
   Calendrie.Systems.GregorianCalendar                  100.0%
-  Calendrie.Systems.GregorianDate                       98.0%
+  Calendrie.Systems.GregorianDate                      100.0%
   Calendrie.Systems.GregorianScope                     100.0%
   Calendrie.Systems.JulianCalendar                     100.0%
-  Calendrie.Systems.JulianDate                          98.0%
+  Calendrie.Systems.JulianDate                         100.0%
   Calendrie.Systems.JulianScope                        100.0%
   Calendrie.Systems.ProlepticScope                     100.0%
   Calendrie.Systems.ProlepticYearsValidator            100.0%
   Calendrie.Systems.StandardScope                      100.0%
   Calendrie.Systems.StandardYearsValidator             100.0%
   Calendrie.Systems.TabularIslamicCalendar             100.0%
-  Calendrie.Systems.TabularIslamicDate                  98.1%
+  Calendrie.Systems.TabularIslamicDate                 100.0%
   Calendrie.Systems.WorldCalendar                      100.0%
-  Calendrie.Systems.WorldDate                           98.2%
+  Calendrie.Systems.WorldDate                          100.0%
   Calendrie.Systems.Zoroastrian13Calendar              100.0%
-  Calendrie.Systems.Zoroastrian13Date                   98.2%
+  Calendrie.Systems.Zoroastrian13Date                  100.0%
   Calendrie.Systems.ZoroastrianCalendar                100.0%
-  Calendrie.Systems.ZoroastrianDate                     98.2%
+  Calendrie.Systems.ZoroastrianDate                    100.0%
   Calendrie.YearNumbering                              100.0%

@@ -85,6 +85,8 @@
     <Compile Include="Tests\Systems\TabularIslamicTests.fs" />
     <Compile Include="Tests\Systems\WorldTests.fs" />
     <Compile Include="Tests\Systems\ZoroastrianTests.fs" />
+    <Compile Include="Tests\Samples\CivilPrototypeFacts.fs" />
+    <Compile Include="Tests\Samples\MyGregorianDateFacts.fs" />
     <Compile Include="Tests\ValueTypeTests.fs" />
     <Compile Include="Tests\DayNumberTests.fs" />
     <Compile Include="Tests\OrdTests.fs" />
