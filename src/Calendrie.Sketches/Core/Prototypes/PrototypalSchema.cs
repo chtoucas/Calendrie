@@ -1,6 +1,8 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+//#define ENABLE_OPTIONAL_METHODS
+
 #pragma warning disable CA1033 // Interface methods should be callable by child types
 
 namespace Calendrie.Core.Prototypes;
@@ -152,6 +154,7 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
             _this = @this;
         }
 
+#if ENABLE_OPTIONAL_METHODS
         /// <summary>Conversion (y, m, d) -> (y, doy).</summary>
         [Pure]
         public int GetDayOfYear(int y, int m, int d) => _this.GetDayOfYear(y, m, d);
@@ -159,6 +162,7 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
         /// <summary>Conversion daysSinceEpoch -> (y, m, d).</summary>
         public void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) =>
             _this.GetDateParts(daysSinceEpoch, out y, out m, out d);
+#endif
 
         [Pure]
         public int GetEndOfYear(int y) => _this.GetEndOfYear(y);
@@ -468,6 +472,8 @@ public partial class PrototypalSchema // ICalendricalSchema (2)
         GetStartOfYear(y) + CountDaysInYearBeforeMonth(y, m) + m_Kernel.CountDaysInMonth(y, m) - 1;
 }
 
+#if ENABLE_OPTIONAL_METHODS
+
 public partial class PrototypalSchema //
 {
     /// <summary>
@@ -639,3 +645,5 @@ public partial class PrototypalSchema //
 
     #endregion
 }
+
+#endif
