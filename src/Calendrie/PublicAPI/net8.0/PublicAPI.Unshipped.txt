@@ -16,6 +16,7 @@ abstract Calendrie.Core.CalendricalSchema.IsRegular(out int monthsInYear) -> boo
 abstract Calendrie.Core.CalendricalSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 abstract Calendrie.Core.CalendricalSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 abstract Calendrie.Core.LimitSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
+abstract Calendrie.Core.RegularSchema.MonthsInYear.get -> int
 abstract Calendrie.Hemerology.Calendar.CountDaysInMonth(int year, int month) -> int
 abstract Calendrie.Hemerology.Calendar.CountDaysInYear(int year) -> int
 abstract Calendrie.Hemerology.CalendarScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
@@ -271,6 +272,16 @@ Calendrie.Core.PartsAdapter.GetOrdinalParts(int y, int m, int d) -> Calendrie.Or
 Calendrie.Core.PartsAdapter.GetOrdinalPartsAtEndOfMonth(int y, int m) -> Calendrie.OrdinalParts
 Calendrie.Core.PartsAdapter.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.OrdinalParts
 Calendrie.Core.PartsAdapter.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.OrdinalParts
+Calendrie.Core.Prototypes.NonRegularSchemaPrototype
+Calendrie.Core.Prototypes.NonRegularSchemaPrototype.IsProleptic.get -> bool
+Calendrie.Core.Prototypes.NonRegularSchemaPrototype.NonRegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototypes.NonRegularSchemaPrototype.NonRegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototypes.RegularSchemaPrototype
+Calendrie.Core.Prototypes.RegularSchemaPrototype.IsProleptic.get -> bool
+Calendrie.Core.Prototypes.RegularSchemaPrototype.RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototypes.RegularSchemaPrototype.RegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.RegularSchema
+Calendrie.Core.RegularSchema.RegularSchema(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.Schemas.CivilSchema
 Calendrie.Core.Schemas.Coptic12Schema
 Calendrie.Core.Schemas.Coptic12Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
@@ -1136,6 +1147,18 @@ override Calendrie.Core.Intervals.RangeSet<T>.ToString() -> string!
 override Calendrie.Core.Intervals.UpperRay<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.UpperRay<T>.GetHashCode() -> int
 override Calendrie.Core.Intervals.UpperRay<T>.ToString() -> string!
+override Calendrie.Core.Prototypes.NonRegularSchemaPrototype.CountDaysInYearBeforeMonth(int y, int m) -> int
+override Calendrie.Core.Prototypes.NonRegularSchemaPrototype.GetMonth(int y, int doy, out int d) -> int
+override Calendrie.Core.Prototypes.NonRegularSchemaPrototype.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
+override Calendrie.Core.Prototypes.NonRegularSchemaPrototype.GetStartOfYear(int y) -> int
+override Calendrie.Core.Prototypes.NonRegularSchemaPrototype.GetStartOfYearInMonths(int y) -> int
+override Calendrie.Core.Prototypes.NonRegularSchemaPrototype.GetYear(int daysSinceEpoch) -> int
+override Calendrie.Core.Prototypes.NonRegularSchemaPrototype.GetYear(int daysSinceEpoch, out int doy) -> int
+override Calendrie.Core.Prototypes.RegularSchemaPrototype.CountDaysInYearBeforeMonth(int y, int m) -> int
+override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetMonth(int y, int doy, out int d) -> int
+override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetStartOfYear(int y) -> int
+override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetYear(int daysSinceEpoch) -> int
+override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetYear(int daysSinceEpoch, out int doy) -> int
 override Calendrie.Core.Yedoy.Equals(object? obj) -> bool
 override Calendrie.Core.Yedoy.GetHashCode() -> int
 override Calendrie.Core.Yedoy.ToString() -> string!
@@ -1192,6 +1215,14 @@ override Calendrie.Systems.ZoroastrianDate.Equals(object? obj) -> bool
 override Calendrie.Systems.ZoroastrianDate.GetHashCode() -> int
 override Calendrie.Systems.ZoroastrianDate.ToString() -> string!
 override sealed Calendrie.Core.CalendricalSegment.ToString() -> string!
+override sealed Calendrie.Core.Prototypes.NonRegularSchemaPrototype.IsRegular(out int monthsInYear) -> bool
+override sealed Calendrie.Core.RegularSchema.CountMonthsInYear(int y) -> int
+override sealed Calendrie.Core.RegularSchema.CountMonthsSinceEpoch(int y, int m) -> int
+override sealed Calendrie.Core.RegularSchema.GetEndOfYearInMonths(int y) -> int
+override sealed Calendrie.Core.RegularSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
+override sealed Calendrie.Core.RegularSchema.GetStartOfYearInMonths(int y) -> int
+override sealed Calendrie.Core.RegularSchema.IsIntercalaryMonth(int y, int m) -> bool
+override sealed Calendrie.Core.RegularSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.CivilSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
 override sealed Calendrie.Core.Schemas.CivilSchema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.CivilSchema.GetStartOfYear(int y) -> int

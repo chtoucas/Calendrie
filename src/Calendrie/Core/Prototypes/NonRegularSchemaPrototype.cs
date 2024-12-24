@@ -9,22 +9,50 @@ using Calendrie.Core.Intervals;
 //
 // For explanations, see PrototypalSchema.
 
-public abstract partial class RegularSchemaPrototype : RegularSchema
+/// <summary>
+/// Represents a prototype for a non-regular schema and provides a base for
+/// derived classes.
+/// </summary>
+public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
 {
-    protected RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth)
-        : this(YearsRanges.GetRange(proleptic), minDaysInYear, minDaysInMonth) { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NonRegularSchemaPrototype"/>
+    /// class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
+    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    protected NonRegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth)
+        : this(PrototypeHelpers.GetSupportedYears(proleptic), minDaysInYear, minDaysInMonth) { }
 
-    protected RegularSchemaPrototype(
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NonRegularSchemaPrototype"/>
+    /// class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
+    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    protected NonRegularSchemaPrototype(
         Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
         IsProleptic = supportedYears.Min < 1;
     }
 
+    /// <summary>
+    /// Returns <see langword="true"/> if the current instance is proleptic;
+    /// otherwise returns <see langword="false"/>.
+    /// </summary>
     public bool IsProleptic { get; }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override bool IsRegular(out int monthsInYear)
+    {
+        monthsInYear = 0;
+        return false;
+    }
 }
 
-public partial class RegularSchemaPrototype // Prototypal methods
+public partial class NonRegularSchemaPrototype // Prototypal methods
 {
     /// <inheritdoc />
     [Pure]
@@ -36,6 +64,39 @@ public partial class RegularSchemaPrototype // Prototypal methods
             count += CountDaysInMonth(y, i);
         }
         return count;
+    }
+
+    /// <inheritdoc />
+    public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
+    {
+        if (monthsSinceEpoch < 0)
+        {
+            y = 0;
+            int startOfYear = -CountMonthsInYear(0);
+
+            while (monthsSinceEpoch < startOfYear)
+            {
+                startOfYear -= CountMonthsInYear(--y);
+            }
+
+            m = 1 + monthsSinceEpoch - startOfYear;
+        }
+        else
+        {
+            y = 1;
+            int startOfYear = 0;
+
+            while (monthsSinceEpoch >= startOfYear)
+            {
+                int startOfNextYear = startOfYear + CountMonthsInYear(y);
+                if (monthsSinceEpoch < startOfNextYear) { break; }
+                y++;
+                startOfYear = startOfNextYear;
+            }
+            Debug.Assert(monthsSinceEpoch >= startOfYear);
+
+            m = 1 + monthsSinceEpoch - startOfYear;
+        }
     }
 
     /// <inheritdoc />
@@ -87,7 +148,8 @@ public partial class RegularSchemaPrototype // Prototypal methods
         int m = 1;
         int daysInYearBeforeMonth = 0;
 
-        while (m < MonthsInYear)
+        int monthsInYear = CountMonthsInYear(y);
+        while (m < monthsInYear)
         {
             int daysInYearBeforeNextMonth = CountDaysInYearBeforeMonth(y, m + 1);
             if (doy <= daysInYearBeforeNextMonth) { break; }
@@ -99,6 +161,30 @@ public partial class RegularSchemaPrototype // Prototypal methods
         // Notice that, as expected, d >= 1.
         d = doy - daysInYearBeforeMonth;
         return m;
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetStartOfYearInMonths(int y)
+    {
+        int monthsSinceEpoch = 0;
+
+        if (y < 1)
+        {
+            for (int i = y; i < 1; i++)
+            {
+                monthsSinceEpoch -= CountMonthsInYear(i);
+            }
+        }
+        else
+        {
+            for (int i = 1; i < y; i++)
+            {
+                monthsSinceEpoch += CountMonthsInYear(i);
+            }
+        }
+
+        return monthsSinceEpoch;
     }
 
     /// <inheritdoc />

@@ -6,8 +6,16 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
+/// <summary>
+/// Represents a regular schema and provides a base for derived classes.
+/// </summary>
 public abstract class RegularSchema : CalendricalSchema
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RegularSchema"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
+    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     protected RegularSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 

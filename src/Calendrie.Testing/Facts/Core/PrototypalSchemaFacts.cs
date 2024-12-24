@@ -25,11 +25,11 @@ public abstract class PrototypalSchemaFacts<TDataSet> :
         var sch = SchemaUT;
         if (sch.IsProleptic)
         {
-            Assert.Equal(sch.SupportedYears, YearsRanges.Proleptic);
+            Assert.Equal(sch.SupportedYears, PrototypeHelpers.Proleptic);
         }
         else
         {
-            Assert.Equal(sch.SupportedYears, YearsRanges.Standard);
+            Assert.Equal(sch.SupportedYears, PrototypeHelpers.Standard);
         }
     }
 

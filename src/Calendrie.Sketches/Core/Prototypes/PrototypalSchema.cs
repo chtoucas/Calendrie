@@ -108,7 +108,7 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
         m_MinDaysInMonth = schema.MinDaysInMonth;
 
         IsProleptic = schema.SupportedYears.Min < 1;
-        _supportedYears = YearsRanges.GetRange(IsProleptic);
+        _supportedYears = PrototypeHelpers.GetSupportedYears(IsProleptic);
 
         PreValidator = schema.PreValidator;
 
@@ -134,7 +134,7 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
         m_MinDaysInMonth = minDaysInMonth;
 
         IsProleptic = proleptic;
-        _supportedYears = YearsRanges.GetRange(proleptic);
+        _supportedYears = PrototypeHelpers.GetSupportedYears(proleptic);
 
         PreValidator = new PlainPreValidator(this);
 
