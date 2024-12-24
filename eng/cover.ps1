@@ -29,9 +29,7 @@ Code coverage script.
 Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
   -a|-All            include the project Calendrie.Sketches
-     -Slow           include slow tests
-                     (necessary in order to achieve a better coverage of
-                      Calendrie.Sketches)
+     -Slow           include slow tests (necessary for "full" test coverage)
      -NoBuild        do NOT build the test suite?
      -NoTest         do NOT execute the test suite? Implies -NoBuild
      -NoReport       do NOT run ReportGenerator?

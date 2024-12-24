@@ -1,5 +1,5 @@
 Summary
-  Generated on: 24/12/2024 - 17:08:24
+  Generated on: 24/12/2024 - 17:37:41
   Parser: OpenCover
   Assemblies: 2
   Classes: 143
@@ -8,7 +8,7 @@ Summary
   Covered lines: 6278
   Uncovered lines: 412
   Coverable lines: 6690
-  Total lines: 25377
+  Total lines: 25426
   Branch coverage: 95.6% (1824 of 1907)
   Covered branches: 1824
   Total branches: 1907
@@ -16,7 +16,7 @@ Summary
   Covered methods: 2217
   Total methods: 2350
 
-Calendrie                                               98.3%
+Calendrie                                               98.4%
   Calendrie.Core.CalendricalSchema                     100.0%
   Calendrie.Core.CalendricalSegment                     84.4%
   Calendrie.Core.CalendricalSegmentBuilder             100.0%
@@ -35,6 +35,10 @@ Calendrie                                               98.3%
   Calendrie.Core.LimitSchema                           100.0%
   Calendrie.Core.MonthsCalculator                      100.0%
   Calendrie.Core.PartsAdapter                          100.0%
+  Calendrie.Core.Prototypes.NonRegularSchemaPrototype  100.0%
+  Calendrie.Core.Prototypes.PrototypeHelpers           100.0%
+  Calendrie.Core.Prototypes.RegularSchemaPrototype     100.0%
+  Calendrie.Core.RegularSchema                         100.0%
   Calendrie.Core.Schemas.CivilFormulae                 100.0%
   Calendrie.Core.Schemas.CivilSchema                   100.0%
   Calendrie.Core.Schemas.Coptic12Schema                100.0%
@@ -124,7 +128,7 @@ Calendrie                                               98.3%
   Calendrie.Systems.ZoroastrianDate                     98.2%
   Calendrie.YearNumbering                              100.0%
 
-Calendrie.Sketches                                      74.9%
+Calendrie.Sketches                                      70.2%
   Calendrie.AdditionRuleset                            100.0%
   Calendrie.Core.DoomsdayRule                          100.0%
   Calendrie.Core.Intervals.IntervalExtra               100.0%
@@ -132,12 +136,8 @@ Calendrie.Sketches                                      74.9%
   Calendrie.Core.Intervals.Unbounded<T>                100.0%
   Calendrie.Core.OffsettedSchema                         0.0%
   Calendrie.Core.OffsettedSchema<T>                      0.0%
-  Calendrie.Core.Prototypes.NonRegularSchemaPrototype  100.0%
   Calendrie.Core.Prototypes.PrototypalSchema            97.7%
   Calendrie.Core.Prototypes.PrototypalSchemaSlim       100.0%
-  Calendrie.Core.Prototypes.RegularSchemaPrototype     100.0%
-  Calendrie.Core.Prototypes.YearsRanges                100.0%
-  Calendrie.Core.RegularSchema                         100.0%
   Calendrie.Core.Schemas.GregorianFormulae2            100.0%
   Calendrie.Core.Schemas.JulianFormulae2               100.0%
   Calendrie.Core.Schemas.PaxSchema                      74.1%
