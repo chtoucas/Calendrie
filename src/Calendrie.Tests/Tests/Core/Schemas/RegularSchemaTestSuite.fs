@@ -5,21 +5,19 @@ module Calendrie.Tests.Core.Schemas.RegularSchemaTestSuite
 
 open Calendrie
 open Calendrie.Core
-open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
-
-let private prolepticSupportedYears = Range.Create(-9998, 9999)
+open Calendrie.Testing.Faux
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic12Tests() =
-    inherit ICalendricalSchemaFacts<RegularSchema, Coptic12DataSet>(RegularSchema.Create(new Coptic12Schema()))
+    inherit CalendricalSchemaFacts<RegularSchema, Coptic12DataSet>(FauxRegularSchema.Create(new Coptic12Schema()))
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -27,14 +25,18 @@ type Coptic12Tests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
-    override x.SupportedYears_Prop() = x.SchemaUT.SupportedYears === prolepticSupportedYears
+    override x.SupportedYears_Prop() = x.SchemaUT.SupportedYears === FauxRegularSchema.ProlepticSupportedYears
+
+    // TODO(fact): IsLeapYear() overflows as expected but CalendricalSchemaFacts
+    // does not understand SupportedYearsCore. See LenientSchemaFacts.
+    override _.KernelDoesNotOverflow() = ()
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type GregorianTests() =
-    inherit ICalendricalSchemaFacts<RegularSchema, GregorianDataSet>(RegularSchema.Create(new GregorianSchema()))
+    inherit CalendricalSchemaFacts<RegularSchema, GregorianDataSet>(FauxRegularSchema.Create(new GregorianSchema()))
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
@@ -42,4 +44,4 @@ type GregorianTests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
-    override x.SupportedYears_Prop() = x.SchemaUT.SupportedYears === prolepticSupportedYears
+    override x.SupportedYears_Prop() = x.SchemaUT.SupportedYears === FauxRegularSchema.ProlepticSupportedYears
