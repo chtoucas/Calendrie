@@ -12,8 +12,21 @@ using Calendrie.Core.Utilities;
 
 public abstract partial class RegularSchema : CalendricalSchema
 {
-    protected RegularSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
-        : base(supportedYears, minDaysInYear, minDaysInMonth) { }
+    protected RegularSchema(bool proleptic, int minDaysInYear, int minDaysInMonth)
+        : base(
+            proleptic ? ProlepticSupportedYears : StandardSupportedYears,
+            minDaysInYear,
+            minDaysInMonth)
+    {
+        IsProleptic = proleptic;
+    }
+
+    // Comme pour PrototypalSchema, on limite la plage des années supportées.
+    // Voir les commentaires au niveau de PrototypalSchema.SupportedYears.
+    internal static Range<int> StandardSupportedYears => Range.Create(1, 9999);
+    internal static Range<int> ProlepticSupportedYears => Range.Create(-9998, 9999);
+
+    public bool IsProleptic { get; }
 }
 
 public partial class RegularSchema // Regular schema

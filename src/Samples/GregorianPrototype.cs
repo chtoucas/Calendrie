@@ -9,8 +9,6 @@ using System.Diagnostics.CodeAnalysis;
 using Calendrie;
 using Calendrie.Core;
 
-using Range_ = Calendrie.Core.Intervals.Range;
-
 [ExcludeFromCodeCoverage]
 public sealed partial class GregorianPrototype : RegularSchema
 {
@@ -28,8 +26,7 @@ public sealed partial class GregorianPrototype : RegularSchema
     private static ReadOnlySpan<int> DaysInYearBeforeMonthOfLeapYear =>
         [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
 
-    internal GregorianPrototype()
-        : base(Range_.Create(-9998, 9999), minDaysInYear: 365, minDaysInMonth: 28) { }
+    internal GregorianPrototype() : base(proleptic: true, minDaysInYear: 365, minDaysInMonth: 28) { }
 
     public sealed override int MonthsInYear => 12;
 

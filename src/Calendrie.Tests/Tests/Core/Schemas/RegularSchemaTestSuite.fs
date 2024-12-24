@@ -22,10 +22,15 @@ type Coptic12Tests() =
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
-    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
+    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
-    override x.SupportedYears_Prop() = x.SchemaUT.SupportedYears === FauxRegularSchema.ProlepticSupportedYears
+    override x.SupportedYears_Prop() =
+        let sch = x.SchemaUT
+        if sch.IsProleptic then
+            sch.SupportedYears === RegularSchema.ProlepticSupportedYears
+        else
+            sch.SupportedYears === RegularSchema.StandardSupportedYears
 
     // TODO(fact): IsLeapYear() overflows as expected but CalendricalSchemaFacts
     // does not understand SupportedYearsCore. See LenientSchemaFacts.
@@ -41,7 +46,12 @@ type GregorianTests() =
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
-    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
+    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<GregorianPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
-    override x.SupportedYears_Prop() = x.SchemaUT.SupportedYears === FauxRegularSchema.ProlepticSupportedYears
+    override x.SupportedYears_Prop() =
+        let sch = x.SchemaUT
+        if sch.IsProleptic then
+            sch.SupportedYears === RegularSchema.ProlepticSupportedYears
+        else
+            sch.SupportedYears === RegularSchema.StandardSupportedYears

@@ -5,14 +5,18 @@ namespace Calendrie.Testing.Faux;
 
 using Calendrie;
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
 
 public sealed class FauxRegularSchema : RegularSchema
 {
     private readonly ICalendricalCore _kernel;
 
-    public FauxRegularSchema(ICalendricalCore kernel, Range<int> supportedYears, int monthsInYear)
-        : base(supportedYears, minDaysInYear: 1, minDaysInMonth: 1)
+    public FauxRegularSchema(
+        ICalendricalCore kernel,
+        bool proleptic,
+        int monthsInYear,
+        int minDaysInYear,
+        int minDaysInMonth)
+        : base(proleptic, minDaysInYear, minDaysInMonth)
     {
         Debug.Assert(kernel != null);
 
@@ -20,36 +24,33 @@ public sealed class FauxRegularSchema : RegularSchema
         MonthsInYear = monthsInYear;
     }
 
-    public static RegularSchema Create(ICalendricalCore kernel, bool proleptic = true)
+    public static RegularSchema Create(ICalendricalSchema schema)
     {
-        ArgumentNullException.ThrowIfNull(kernel);
+        ArgumentNullException.ThrowIfNull(schema);
 
-        var supportedYears = proleptic ? ProlepticSupportedYears : StandardSupportedYears;
+        if (!schema.IsRegular(out int monthsInYear))
+            throw new ArgumentException(null, nameof(schema));
 
-        return kernel.IsRegular(out int monthsInYear)
-            ? new FauxRegularSchema(kernel, supportedYears, monthsInYear)
-            : throw new ArgumentException(null, nameof(kernel));
+        return new FauxRegularSchema(
+            schema,
+            proleptic: schema.SupportedYears.Min < 0,
+            monthsInYear,
+            schema.MinDaysInYear,
+            schema.MinDaysInMonth)
+        {
+            PreValidator = schema.PreValidator
+        };
     }
-
-    public static Range<int> StandardSupportedYears { get; } = Range.Create(1, 9999);
-    public static Range<int> ProlepticSupportedYears { get; } = Range.Create(-9998, 9999);
 
     public sealed override int MonthsInYear { get; }
 
     public sealed override CalendricalFamily Family => _kernel.Family;
-
-    public sealed override CalendricalAdjustments PeriodicAdjustments =>
-        _kernel.PeriodicAdjustments;
+    public sealed override CalendricalAdjustments PeriodicAdjustments => _kernel.PeriodicAdjustments;
 
     public sealed override bool IsLeapYear(int y) => _kernel.IsLeapYear(y);
-
-    public sealed override bool IsIntercalaryDay(int y, int m, int d) =>
-        _kernel.IsIntercalaryDay(y, m, d);
-
-    public sealed override bool IsSupplementaryDay(int y, int m, int d) =>
-        _kernel.IsSupplementaryDay(y, m, d);
+    public sealed override bool IsIntercalaryDay(int y, int m, int d) => _kernel.IsIntercalaryDay(y, m, d);
+    public sealed override bool IsSupplementaryDay(int y, int m, int d) => _kernel.IsSupplementaryDay(y, m, d);
 
     public sealed override int CountDaysInYear(int y) => _kernel.CountDaysInYear(y);
-
     public sealed override int CountDaysInMonth(int y, int m) => _kernel.CountDaysInMonth(y, m);
 }
