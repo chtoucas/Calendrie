@@ -15,6 +15,8 @@ public abstract partial class RegularSchemaFacts<TDataSet> :
     CalendricalSchemaFacts<RegularSchema, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
+    protected RegularSchemaFacts(RegularSchema schema) : base(schema) { }
+
     protected RegularSchemaFacts(ICalendricalSchema schema) : base(FauxRegularSchema.Create(schema)) { }
 
     [Fact]

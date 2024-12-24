@@ -474,6 +474,8 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Overflows (Ke
         }
     }
 
+    // Virtual methods: for those schemas that use an array for CountDaysInMonth() & co
+
     [Fact] public void IsLeapYear_DoesNotUnderflow() => _ = SchemaUT.IsLeapYear(MinYear);
     [Fact] public void IsLeapYear_DoesNotOverflow() => _ = SchemaUT.IsLeapYear(MaxYear);
 
@@ -493,16 +495,16 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Overflows (Ke
     [Fact] public void CountDaysInYear_DoesNotOverflow() => _ = SchemaUT.CountDaysInYear(MaxYear);
 
     [Fact] public void CountDaysInMonth_DoesNotUnderflow() => _ = SchemaUT.CountDaysInMonth(MinYear, 1);
-    [Fact] public void CountDaysInMonth_DoesNotOverflow() => _ = SchemaUT.CountDaysInMonth(MaxYear, MaxMonth);
+    [Fact] public virtual void CountDaysInMonth_DoesNotOverflow() => _ = SchemaUT.CountDaysInMonth(MaxYear, MaxMonth);
 }
 
 public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Overflows
 {
     [Fact] public void CountDaysInYearBeforeMonth_DoesNotUnderflow() => _ = SchemaUT.CountDaysInYearBeforeMonth(MinYear, 1);
-    [Fact] public void CountDaysInYearBeforeMonth_DoesNotOverflow() => _ = SchemaUT.CountDaysInYearBeforeMonth(MaxYear, MaxMonth);
+    [Fact] public virtual void CountDaysInYearBeforeMonth_DoesNotOverflow() => _ = SchemaUT.CountDaysInYearBeforeMonth(MaxYear, MaxMonth);
 
     [Fact] public void CountDaysSinceEpoch﹍DateParts_DoesNotUnderflow() => _ = SchemaUT.CountDaysSinceEpoch(MinYear, 1, 1);
-    [Fact] public void CountDaysSinceEpoch﹍DateParts_DoesNotOverflow() => _ = SchemaUT.CountDaysSinceEpoch(MaxYear, MaxMonth, MaxDay);
+    [Fact] public virtual void CountDaysSinceEpoch﹍DateParts_DoesNotOverflow() => _ = SchemaUT.CountDaysSinceEpoch(MaxYear, MaxMonth, MaxDay);
 
     [Fact] public void CountDaysSinceEpoch﹍OrdinalParts_DoesNotUnderflow() => _ = SchemaUT.CountDaysSinceEpoch(MinYear, 1);
     [Fact] public void CountDaysSinceEpoch﹍OrdinalParts_DoesNotOverflow() => _ = SchemaUT.CountDaysSinceEpoch(MaxYear, MaxDayOfYear);
@@ -517,7 +519,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Overflows
     [Fact] public void GetMonth_DoesNotOverflow() => _ = SchemaUT.GetMonth(MaxYear, MaxDayOfYear, out _);
 
     [Fact] public void GetDayOfYear_DoesNotUnderflow() => _ = SchemaUT.GetDayOfYear(MinYear, 1, 1);
-    [Fact] public void GetDayOfYear_DoesNotOverflow() => _ = SchemaUT.GetDayOfYear(MaxYear, MaxMonth, MaxDay);
+    [Fact] public virtual void GetDayOfYear_DoesNotOverflow() => _ = SchemaUT.GetDayOfYear(MaxYear, MaxMonth, MaxDay);
 
     [Fact] public void GetStartOfYearInMonths_DoesNotUnderflow() => _ = SchemaUT.GetStartOfYearInMonths(MinYear);
     [Fact] public void GetStartOfYearInMonths_DoesNotOverflow() => _ = SchemaUT.GetStartOfYearInMonths(MaxYear);
@@ -532,8 +534,8 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Overflows
     [Fact] public void GetEndOfYear_DoesNotOverflow() => _ = SchemaUT.GetEndOfYear(MaxYear);
 
     [Fact] public void GetStartOfMonth_DoesNotUnderflow() => _ = SchemaUT.GetStartOfMonth(MinYear, 1);
-    [Fact] public void GetStartOfMonth_DoesNotOverflow() => _ = SchemaUT.GetStartOfMonth(MaxYear, MaxMonth);
+    [Fact] public virtual void GetStartOfMonth_DoesNotOverflow() => _ = SchemaUT.GetStartOfMonth(MaxYear, MaxMonth);
 
     [Fact] public void GetEndOfMonth_DoesNotUnderflow() => _ = SchemaUT.GetEndOfMonth(MinYear, 1);
-    [Fact] public void GetEndOfMonth_DoesNotOverflow() => _ = SchemaUT.GetEndOfMonth(MaxYear, MaxMonth);
+    [Fact] public virtual void GetEndOfMonth_DoesNotOverflow() => _ = SchemaUT.GetEndOfMonth(MaxYear, MaxMonth);
 }

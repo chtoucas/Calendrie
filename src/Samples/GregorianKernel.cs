@@ -21,7 +21,7 @@ public sealed class GregorianKernel : ICalendricalCore
 
     internal GregorianKernel() { }
 
-    public static ICalendricalSchema Prototype { get; } =
+    public static ICalendricalSchema CreatePrototypalSchema() =>
         new PrototypalSchema(new GregorianKernel(), minDaysInYear: 365, minDaysInMonth: 28);
 
     public CalendricalAlgorithm Algorithm => CalendricalAlgorithm.Arithmetical;

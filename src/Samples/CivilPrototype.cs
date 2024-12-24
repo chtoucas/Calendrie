@@ -4,13 +4,11 @@
 namespace Samples;
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 using Calendrie;
 using Calendrie.Core;
 
-[ExcludeFromCodeCoverage]
-public sealed partial class GregorianPrototype : RegularSchema
+public sealed partial class CivilPrototype : RegularSchema
 {
     public const int DaysInCommonYear = 365;
     public const int DaysInLeapYear = 366;
@@ -26,7 +24,8 @@ public sealed partial class GregorianPrototype : RegularSchema
     private static ReadOnlySpan<int> DaysInYearBeforeMonthOfLeapYear =>
         [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
 
-    internal GregorianPrototype() : base(proleptic: true, minDaysInYear: 365, minDaysInMonth: 28) { }
+    // Public for testing.
+    public CivilPrototype() : base(proleptic: false, minDaysInYear: 365, minDaysInMonth: 28) { }
 
     public sealed override int MonthsInYear => 12;
 
@@ -41,40 +40,25 @@ public sealed partial class GregorianPrototype : RegularSchema
 
     public sealed override int GetYear(int daysSinceEpoch)
     {
-        int y = (int)Divide(400L * (daysSinceEpoch + 2), DaysPer400YearCycle);
-        int c = Divide(y, 100);
+        // Int64 to prevent overflows.
+        int y = (int)(400L * (daysSinceEpoch + 2) / DaysPer400YearCycle);
+        int c = y / 100;
         int startOfYearAfter = DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
 
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
 
+    // We don't override GetMonth() even if we should.
+
     public sealed override int GetStartOfYear(int y)
     {
         y--;
-        int c = Divide(y, 100);
+        int c = y / 100;
         return DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
-    }
-
-    //
-    // Helpers
-    //
-
-    private static int Divide(int m, int n)
-    {
-        int q = m / n;
-        int r = m - q * n;
-        return m >= 0 || r == 0 ? q : q - 1;
-    }
-
-    private static long Divide(long m, long n)
-    {
-        long q = m / n;
-        long r = m - q * n;
-        return m >= 0L || r == 0L ? q : q - 1L;
     }
 }
 
-public partial class GregorianPrototype // ICalendricalCore
+public partial class CivilPrototype // ICalendricalCore
 {
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;

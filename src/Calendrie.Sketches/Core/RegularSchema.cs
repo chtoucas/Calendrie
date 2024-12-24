@@ -6,6 +6,8 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
+// WARNING: only meant to be used for rapid prototyping.
+//
 // Main differences with PrototypalSchema:
 // - the schema is regular
 // - GetYear(int daysSinceEpoch) and GetYear(daysSinceEpoch, out _).
