@@ -5,11 +5,26 @@ namespace Calendrie.Testing.Faux;
 
 using Calendrie;
 using Calendrie.Core;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Prototypes;
 
 public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
 {
     private readonly ICalendricalCore _kernel;
+
+    private FauxRegularSchemaPrototype(
+        ICalendricalCore kernel,
+        Range<int> supportedYears,
+        int monthsInYear,
+        int minDaysInYear,
+        int minDaysInMonth)
+        : base(supportedYears, minDaysInYear, minDaysInMonth)
+    {
+        Debug.Assert(kernel != null);
+
+        _kernel = kernel;
+        MonthsInYear = monthsInYear;
+    }
 
     private FauxRegularSchemaPrototype(
         ICalendricalCore kernel,
@@ -23,6 +38,24 @@ public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
 
         _kernel = kernel;
         MonthsInYear = monthsInYear;
+    }
+
+    public static RegularSchemaPrototype Create(ICalendricalSchema schema, Range<int> supportedYears)
+    {
+        ArgumentNullException.ThrowIfNull(schema);
+
+        if (!schema.IsRegular(out int monthsInYear))
+            throw new ArgumentException(null, nameof(schema));
+
+        return new FauxRegularSchemaPrototype(
+            schema,
+            supportedYears,
+            monthsInYear,
+            schema.MinDaysInYear,
+            schema.MinDaysInMonth)
+        {
+            PreValidator = schema.PreValidator
+        };
     }
 
     public static RegularSchemaPrototype Create(ICalendricalSchema schema)

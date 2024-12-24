@@ -90,6 +90,8 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
 #pragma warning restore IDE1006
 #pragma warning restore CA1051
 
+    private Range<int> _supportedYears;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="PrototypalSchema"/> class.
     /// </summary>
@@ -100,15 +102,15 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
         ArgumentNullException.ThrowIfNull(schema, nameof(schema));
 
         m_Kernel = schema;
-        _proxy = new SchemaProxy(this);
-
         m_MinDaysInYear = schema.MinDaysInYear;
         m_MinDaysInMonth = schema.MinDaysInMonth;
 
-        IsProleptic = schema.SupportedYears.Min < 0;
-        SupportedYears = IsProleptic ? YearsRanges.Proleptic : YearsRanges.Standard;
+        IsProleptic = schema.SupportedYears.Min < 1;
+        _supportedYears = YearsRanges.GetRange(IsProleptic);
 
         PreValidator = schema.PreValidator;
+
+        _proxy = new SchemaProxy(this);
     }
 
     /// <summary>
@@ -126,18 +128,18 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
         Debug.Assert(minDaysInYear > minDaysInMonth);
 
         m_Kernel = kernel;
-        _proxy = new SchemaProxy(this);
-
         m_MinDaysInYear = minDaysInYear;
         m_MinDaysInMonth = minDaysInMonth;
 
         IsProleptic = proleptic;
-        SupportedYears = proleptic ? YearsRanges.Proleptic : YearsRanges.Standard;
+        _supportedYears = YearsRanges.GetRange(proleptic);
 
         PreValidator = new PlainPreValidator(this);
+
+        _proxy = new SchemaProxy(this);
     }
 
-    public bool IsProleptic { get; }
+    public bool IsProleptic { get; private init; }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.
     private sealed class SchemaProxy
@@ -225,7 +227,15 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     // "y" or "daysSinceEpoch" are big.
     // Only override this property if both methods can handle big values
     // efficiently.
-    public Range<int> SupportedYears { get; }
+    public Range<int> SupportedYears
+    {
+        get => _supportedYears;
+        init
+        {
+            IsProleptic = value.Min < 1;
+            _supportedYears = value;
+        }
+    }
 
     /// <inheritdoc />
     [Pure]

@@ -14,6 +14,7 @@ using Calendrie.Core.Intervals;
 internal static class YearsRanges
 {
     public static Range<int> Standard => Range.Create(1, 9999);
-
     public static Range<int> Proleptic => Range.Create(-9998, 9999);
+
+    public static Range<int> GetRange(bool proleptic) => proleptic ? Proleptic : Standard;
 }

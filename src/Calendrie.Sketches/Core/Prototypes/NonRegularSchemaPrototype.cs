@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Prototypes;
 
+using Calendrie.Core.Intervals;
+
 // WARNING: only meant to be used for rapid prototyping.
 //
 // For explanations, see PrototypalSchema.
@@ -10,12 +12,13 @@ namespace Calendrie.Core.Prototypes;
 public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
 {
     protected NonRegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth)
-        : base(
-            proleptic ? YearsRanges.Proleptic : YearsRanges.Standard,
-            minDaysInYear,
-            minDaysInMonth)
+        : this(YearsRanges.GetRange(proleptic), minDaysInYear, minDaysInMonth) { }
+
+    protected NonRegularSchemaPrototype(
+        Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+        : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
-        IsProleptic = proleptic;
+        IsProleptic = supportedYears.Min < 1;
     }
 
     public bool IsProleptic { get; }
