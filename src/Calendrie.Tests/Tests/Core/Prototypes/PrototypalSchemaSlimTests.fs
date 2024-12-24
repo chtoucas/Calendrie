@@ -13,21 +13,21 @@ open Xunit
 module Prelude =
     [<Fact>]
     let ``Constructor throws when "kernel" is null`` () =
-        nullExn "kernel" (fun () -> new PrototypalSchemaSlim(null, 1, 1))
+        nullExn "kernel" (fun () -> new PrototypalSchemaSlim(null, true, 1, 1))
 
     [<Fact>]
     let ``Constructor throws when "minDaysInYear" is <= 0`` () =
-        outOfRangeExn "minDaysInYear" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), 0, 1))
-        outOfRangeExn "minDaysInYear" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), -1, 1))
+        outOfRangeExn "minDaysInYear" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), true, 0, 1))
+        outOfRangeExn "minDaysInYear" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), true, -1, 1))
 
     [<Fact>]
     let ``Constructor throws when "minDaysInMonth" is <= 0`` () =
-        outOfRangeExn "minDaysInMonth" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), 1, 0))
-        outOfRangeExn "minDaysInMonth" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), 1, -1))
+        outOfRangeExn "minDaysInMonth" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), true, 1, 0))
+        outOfRangeExn "minDaysInMonth" (fun () -> new PrototypalSchemaSlim(new GregorianSchema(), true, 1, -1))
 
     [<Fact>]
     let ``Constructor does not throw when "minDaysInYear" and "minDaysInMonth" are > 0`` () =
-        new PrototypalSchemaSlim(new GregorianSchema(), 2, 1) |> ignore
+        new PrototypalSchemaSlim(new GregorianSchema(), true, 2, 1) |> ignore
 
     [<Fact>]
     let ``Constructor throws when "schema" is null`` () =

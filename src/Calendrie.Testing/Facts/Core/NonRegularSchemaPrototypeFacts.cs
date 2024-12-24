@@ -27,11 +27,11 @@ public abstract partial class NonRegularSchemaPrototypeFacts<TDataSet> :
         var sch = SchemaUT;
         if (sch.IsProleptic)
         {
-            Assert.Equal(sch.SupportedYears, NonRegularSchemaPrototype.ProlepticSupportedYears);
+            Assert.Equal(sch.SupportedYears, YearsRanges.Proleptic);
         }
         else
         {
-            Assert.Equal(sch.SupportedYears, NonRegularSchemaPrototype.StandardSupportedYears);
+            Assert.Equal(sch.SupportedYears, YearsRanges.Standard);
         }
     }
 }

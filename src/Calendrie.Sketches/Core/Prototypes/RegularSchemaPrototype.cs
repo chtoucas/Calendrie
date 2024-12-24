@@ -3,8 +3,6 @@
 
 namespace Calendrie.Core.Prototypes;
 
-using Calendrie.Core.Intervals;
-
 // WARNING: only meant to be used for rapid prototyping.
 //
 // For explanations, see PrototypalSchema.
@@ -13,17 +11,12 @@ public abstract partial class RegularSchemaPrototype : RegularSchema
 {
     protected RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth)
         : base(
-            proleptic ? ProlepticSupportedYears : StandardSupportedYears,
+            proleptic ? YearsRanges.Proleptic : YearsRanges.Standard,
             minDaysInYear,
             minDaysInMonth)
     {
         IsProleptic = proleptic;
     }
-
-    // Comme pour PrototypalSchema, on limite la plage des années supportées.
-    // Voir les commentaires au niveau de PrototypalSchema.SupportedYears.
-    internal static Range<int> StandardSupportedYears => Range.Create(1, 9999);
-    internal static Range<int> ProlepticSupportedYears => Range.Create(-9998, 9999);
 
     public bool IsProleptic { get; }
 }

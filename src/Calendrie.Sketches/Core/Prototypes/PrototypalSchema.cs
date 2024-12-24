@@ -105,6 +105,9 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
         m_MinDaysInYear = schema.MinDaysInYear;
         m_MinDaysInMonth = schema.MinDaysInMonth;
 
+        IsProleptic = schema.SupportedYears.Min < 0;
+        SupportedYears = IsProleptic ? YearsRanges.Proleptic : YearsRanges.Standard;
+
         PreValidator = schema.PreValidator;
     }
 
@@ -113,7 +116,8 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
-    public PrototypalSchema(ICalendricalCore kernel, int minDaysInYear, int minDaysInMonth)
+    public PrototypalSchema(
+        ICalendricalCore kernel, bool proleptic, int minDaysInYear, int minDaysInMonth)
     {
         ArgumentNullException.ThrowIfNull(kernel, nameof(kernel));
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInYear, 0, nameof(minDaysInYear));
@@ -127,8 +131,13 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
         m_MinDaysInYear = minDaysInYear;
         m_MinDaysInMonth = minDaysInMonth;
 
+        IsProleptic = proleptic;
+        SupportedYears = proleptic ? YearsRanges.Proleptic : YearsRanges.Standard;
+
         PreValidator = new PlainPreValidator(this);
     }
+
+    public bool IsProleptic { get; }
 
     // Another solution could have been to cast "this" to ICalendricalSchema.
     private sealed class SchemaProxy
@@ -216,7 +225,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     // "y" or "daysSinceEpoch" are big.
     // Only override this property if both methods can handle big values
     // efficiently.
-    public Range<int> SupportedYears { get; init; } = Range.Create(-9998, 9999);
+    public Range<int> SupportedYears { get; }
 
     /// <inheritdoc />
     [Pure]

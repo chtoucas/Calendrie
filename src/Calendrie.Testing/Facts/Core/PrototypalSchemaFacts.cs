@@ -4,7 +4,6 @@
 namespace Calendrie.Testing.Facts.Core;
 
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Prototypes;
 using Calendrie.Testing.Data;
 
@@ -21,8 +20,18 @@ public abstract class PrototypalSchemaFacts<TDataSet> :
     public ICalendricalSchema PrototypeUT => SchemaUT;
 
     [Fact]
-    public override void SupportedYears_Prop() =>
-        Assert.Equal(Range.Create(-9998, 9999), SchemaUT.SupportedYears);
+    public sealed override void SupportedYears_Prop()
+    {
+        var sch = SchemaUT;
+        if (sch.IsProleptic)
+        {
+            Assert.Equal(sch.SupportedYears, YearsRanges.Proleptic);
+        }
+        else
+        {
+            Assert.Equal(sch.SupportedYears, YearsRanges.Standard);
+        }
+    }
 
     [Fact]
     public override void KernelDoesNotOverflow()

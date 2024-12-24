@@ -27,11 +27,11 @@ public abstract partial class RegularSchemaPrototypeFacts<TDataSet> :
         var sch = SchemaUT;
         if (sch.IsProleptic)
         {
-            Assert.Equal(sch.SupportedYears, RegularSchemaPrototype.ProlepticSupportedYears);
+            Assert.Equal(sch.SupportedYears, YearsRanges.Proleptic);
         }
         else
         {
-            Assert.Equal(sch.SupportedYears, RegularSchemaPrototype.StandardSupportedYears);
+            Assert.Equal(sch.SupportedYears, YearsRanges.Standard);
         }
     }
 }
