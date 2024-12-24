@@ -25,9 +25,7 @@ internal static class CivilTripleScope
     public const int MinYear = 1;
     public const int MaxYear = 9999;
 
-    // FIXME(code): get the schema.
-    public static readonly ICalendricalSchema Schema =
-        new PrototypalSchemaSlim(new MyGregorianCore(), 365, 28);
+    public static readonly ICalendricalSchema Schema = new CivilPrototype();
 
     // Cache the pre-validator which is a computed property.
     public static readonly ICalendricalPreValidator PreValidator = Schema.PreValidator;

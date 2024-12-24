@@ -27,9 +27,9 @@ public sealed partial class CivilPrototype : RegularSchema
     // Public for testing.
     public CivilPrototype() : base(proleptic: false, minDaysInYear: 365, minDaysInMonth: 28) { }
 
-    public sealed override int MonthsInYear => 12;
+    public override int MonthsInYear => 12;
 
-    public sealed override int CountDaysInYearBeforeMonth(int y, int m)
+    public override int CountDaysInYearBeforeMonth(int y, int m)
     {
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
         return (IsLeapYear(y)
@@ -38,7 +38,7 @@ public sealed partial class CivilPrototype : RegularSchema
         )[m - 1];
     }
 
-    public sealed override int GetYear(int daysSinceEpoch)
+    public override int GetYear(int daysSinceEpoch)
     {
         // Int64 to prevent overflows.
         int y = (int)(400L * (daysSinceEpoch + 2) / DaysPer400YearCycle);
@@ -48,9 +48,9 @@ public sealed partial class CivilPrototype : RegularSchema
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
 
-    // We don't override GetMonth() even if we should.
+    // In order to keep the code simple, we don't override GetMonth() even if we should.
 
-    public sealed override int GetStartOfYear(int y)
+    public override int GetStartOfYear(int y)
     {
         y--;
         int c = y / 100;
@@ -60,23 +60,22 @@ public sealed partial class CivilPrototype : RegularSchema
 
 public partial class CivilPrototype // ICalendricalCore
 {
-    public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
-    public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
+    public override CalendricalFamily Family => CalendricalFamily.Solar;
+    public override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
-    public sealed override int CountDaysInYear(int y) =>
-        IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+    public override int CountDaysInYear(int y) => IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
 
     // CountDaysInMonth() is not safe to use. Three solutions:
     // 1. Let .NET throw an IndexOutOfRangeException.
     // 2. Throw an ArgumentOutOfRangeException.
     // 3. Use a purely computational formula.
-    public sealed override int CountDaysInMonth(int y, int m) =>
+    public override int CountDaysInMonth(int y, int m) =>
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
         (IsLeapYear(y) ? DaysInMonthOfLeapYear : DaysInMonthOfCommonYear)[m - 1];
 
-    public sealed override bool IsLeapYear(int y) => (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
+    public override bool IsLeapYear(int y) => (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
 
-    public sealed override bool IsIntercalaryDay(int y, int m, int d) => m == 2 && d == 29;
+    public override bool IsIntercalaryDay(int y, int m, int d) => m == 2 && d == 29;
 
-    public sealed override bool IsSupplementaryDay(int y, int m, int d) => false;
+    public override bool IsSupplementaryDay(int y, int m, int d) => false;
 }
