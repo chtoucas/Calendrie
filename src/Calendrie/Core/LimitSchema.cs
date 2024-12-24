@@ -81,9 +81,7 @@ public abstract partial class LimitSchema : CalendricalSchema
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
         if (!supportedYears.IsSubsetOf(Yemoda.SupportedYears))
-        {
             throw new ArgumentOutOfRangeException(nameof(supportedYears));
-        }
     }
 
     /// <summary>
@@ -124,9 +122,8 @@ public partial class LimitSchema // Properties
         protected init
         {
             if (!value.IsSupersetOf(SupportedYears))
-            {
                 throw new ArgumentException(null, nameof(value));
-            }
+
             _supportedYearsCore = value;
         }
     }
