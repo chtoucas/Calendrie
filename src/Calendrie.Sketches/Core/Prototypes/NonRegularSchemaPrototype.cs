@@ -7,33 +7,21 @@ using Calendrie.Core.Intervals;
 
 // WARNING: only meant to be used for rapid prototyping.
 //
-// For explanations, see PrototypalSchema. The main differences are:
-// - the schema is regular
-// - GetYear(int daysSinceEpoch) and GetYear(daysSinceEpoch, out _).
+// For explanations, see PrototypalSchema. The main differences is that we
+// implement GetYear(int daysSinceEpoch) not GetYear(daysSinceEpoch, out _).
 
-public abstract partial class RegularSchemaPrototype : RegularSchema
+public abstract class NonRegularSchemaPrototype : CalendricalSchema
 {
-    protected RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth)
-        : base(
-            proleptic ? ProlepticSupportedYears : StandardSupportedYears,
-            minDaysInYear,
-            minDaysInMonth)
+    protected NonRegularSchemaPrototype(
+        Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+        : base(supportedYears, minDaysInYear, minDaysInMonth) { }
+
+    public override bool IsRegular(out int monthsInYear)
     {
-        IsProleptic = proleptic;
+        monthsInYear = 0;
+        return false;
     }
 
-    // Comme pour PrototypalSchema, on limite la plage des années supportées.
-    // Voir les commentaires au niveau de PrototypalSchema.SupportedYears.
-    internal static Range<int> StandardSupportedYears => Range.Create(1, 9999);
-    internal static Range<int> ProlepticSupportedYears => Range.Create(-9998, 9999);
-
-    public bool IsProleptic { get; }
-}
-
-public partial class RegularSchemaPrototype // Prototypal methods
-{
-    /// <inheritdoc />
-    [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
     {
         int count = 0;
@@ -44,8 +32,38 @@ public partial class RegularSchemaPrototype // Prototypal methods
         return count;
     }
 
-    /// <inheritdoc />
-    [Pure]
+    public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
+    {
+        if (monthsSinceEpoch < 0)
+        {
+            y = 0;
+            int startOfYear = -CountMonthsInYear(0);
+
+            while (monthsSinceEpoch < startOfYear)
+            {
+                startOfYear -= CountMonthsInYear(--y);
+            }
+
+            m = 1 + monthsSinceEpoch - startOfYear;
+        }
+        else
+        {
+            y = 1;
+            int startOfYear = 0;
+
+            while (monthsSinceEpoch >= startOfYear)
+            {
+                int startOfNextYear = startOfYear + CountMonthsInYear(y);
+                if (monthsSinceEpoch < startOfNextYear) { break; }
+                y++;
+                startOfYear = startOfNextYear;
+            }
+            Debug.Assert(monthsSinceEpoch >= startOfYear);
+
+            m = 1 + monthsSinceEpoch - startOfYear;
+        }
+    }
+
     public override int GetYear(int daysSinceEpoch)
     {
         if (daysSinceEpoch < 0)
@@ -78,14 +96,13 @@ public partial class RegularSchemaPrototype // Prototypal methods
         }
     }
 
-    /// <inheritdoc />
-    [Pure]
     public override int GetMonth(int y, int doy, out int d)
     {
         int m = 1;
         int daysInYearBeforeMonth = 0;
 
-        while (m < MonthsInYear)
+        int monthsInYear = CountMonthsInYear(y);
+        while (m < monthsInYear)
         {
             int daysInYearBeforeNextMonth = CountDaysInYearBeforeMonth(y, m + 1);
             if (doy <= daysInYearBeforeNextMonth) { break; }
@@ -99,8 +116,28 @@ public partial class RegularSchemaPrototype // Prototypal methods
         return m;
     }
 
-    /// <inheritdoc />
-    [Pure]
+    public override int GetStartOfYearInMonths(int y)
+    {
+        int monthsSinceEpoch = 0;
+
+        if (y < 1)
+        {
+            for (int i = y; i < 1; i++)
+            {
+                monthsSinceEpoch -= CountMonthsInYear(i);
+            }
+        }
+        else
+        {
+            for (int i = 1; i < y; i++)
+            {
+                monthsSinceEpoch += CountMonthsInYear(i);
+            }
+        }
+
+        return monthsSinceEpoch;
+    }
+
     public override int GetStartOfYear(int y)
     {
         int daysSinceEpoch = 0;
