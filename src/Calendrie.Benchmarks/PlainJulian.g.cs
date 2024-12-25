@@ -475,13 +475,11 @@ public partial struct PlainJulianDate // IComparable
 
 public partial struct PlainJulianDate // Math
 {
-#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
-    // Friendly alternates do exist but use domain-specific names.
-
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
     public static int operator -(PlainJulianDate left, PlainJulianDate right) => left.CountDaysSince(right);
 
     /// <summary>
@@ -490,6 +488,7 @@ public partial struct PlainJulianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static PlainJulianDate operator +(PlainJulianDate value, int days) => value.AddDays(days);
 
     /// <summary>
@@ -498,6 +497,7 @@ public partial struct PlainJulianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static PlainJulianDate operator -(PlainJulianDate value, int days) => value.AddDays(-days);
 
     /// <summary>
@@ -505,6 +505,7 @@ public partial struct PlainJulianDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
     public static PlainJulianDate operator ++(PlainJulianDate value) => value.NextDay();
 
     /// <summary>
@@ -512,9 +513,8 @@ public partial struct PlainJulianDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static PlainJulianDate operator --(PlainJulianDate value) => value.PreviousDay();
-
-#pragma warning restore CA2225
 
     /// <inheritdoc />
     [Pure]

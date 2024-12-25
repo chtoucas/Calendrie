@@ -8,6 +8,7 @@ using Calendrie.Testing.Data;
 
 /// <summary>
 /// Provides basic facts about <see cref="ICalendricalSchema"/>.
+/// <para>Useful when testing an unfinished schema.</para>
 /// </summary>
 public abstract class ICalendricalSchemaBasicFacts<TSchema, TDataSet> :
     ICalendricalCoreFacts<TSchema, TDataSet>

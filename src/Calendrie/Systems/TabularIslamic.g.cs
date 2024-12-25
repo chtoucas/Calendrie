@@ -471,13 +471,11 @@ public partial struct TabularIslamicDate // IComparable
 
 public partial struct TabularIslamicDate // Math
 {
-#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
-    // Friendly alternates do exist but use domain-specific names.
-
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
     public static int operator -(TabularIslamicDate left, TabularIslamicDate right) => left.CountDaysSince(right);
 
     /// <summary>
@@ -486,6 +484,7 @@ public partial struct TabularIslamicDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static TabularIslamicDate operator +(TabularIslamicDate value, int days) => value.AddDays(days);
 
     /// <summary>
@@ -494,6 +493,7 @@ public partial struct TabularIslamicDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static TabularIslamicDate operator -(TabularIslamicDate value, int days) => value.AddDays(-days);
 
     /// <summary>
@@ -501,6 +501,7 @@ public partial struct TabularIslamicDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
     public static TabularIslamicDate operator ++(TabularIslamicDate value) => value.NextDay();
 
     /// <summary>
@@ -508,9 +509,8 @@ public partial struct TabularIslamicDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static TabularIslamicDate operator --(TabularIslamicDate value) => value.PreviousDay();
-
-#pragma warning restore CA2225
 
     /// <inheritdoc />
     [Pure]

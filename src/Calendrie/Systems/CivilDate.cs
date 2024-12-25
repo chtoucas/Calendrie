@@ -266,13 +266,11 @@ public partial struct CivilDate // Find close by day of the week
 
 public partial struct CivilDate // Math
 {
-#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
-    // Friendly alternates do exist but use domain-specific names.
-
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
     public static int operator -(CivilDate left, CivilDate right) => left.CountDaysSince(right);
 
     /// <summary>
@@ -281,6 +279,7 @@ public partial struct CivilDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static CivilDate operator +(CivilDate value, int days) => value.AddDays(days);
 
     /// <summary>
@@ -289,6 +288,7 @@ public partial struct CivilDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static CivilDate operator -(CivilDate value, int days) => value.AddDays(-days);
 
     /// <summary>
@@ -296,6 +296,7 @@ public partial struct CivilDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
     public static CivilDate operator ++(CivilDate value) => value.NextDay();
 
     /// <summary>
@@ -303,9 +304,8 @@ public partial struct CivilDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static CivilDate operator --(CivilDate value) => value.PreviousDay();
-
-#pragma warning restore CA2225
 
     /// <inheritdoc />
     [Pure]

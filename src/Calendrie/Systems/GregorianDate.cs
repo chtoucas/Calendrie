@@ -13,7 +13,7 @@ public partial struct GregorianDate // Preamble
 {
     // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
 
-    // FIXME(code): idem w/ PlainGregorian.
+    // TODO(code): idem w/ PlainGregorian.
 #pragma warning disable IDE1006 // Naming Styles
     private const int s_EpochDaysSinceZero = 0;
 #pragma warning restore IDE1006
@@ -183,13 +183,11 @@ public partial struct GregorianDate // Factories & conversions
 
 public partial struct GregorianDate // Math
 {
-#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
-    // Friendly alternates do exist but use domain-specific names.
-
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
     public static int operator -(GregorianDate left, GregorianDate right) => left.CountDaysSince(right);
 
     /// <summary>
@@ -198,6 +196,7 @@ public partial struct GregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static GregorianDate operator +(GregorianDate value, int days) => value.AddDays(days);
 
     /// <summary>
@@ -206,6 +205,7 @@ public partial struct GregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static GregorianDate operator -(GregorianDate value, int days) => value.AddDays(-days);
 
     /// <summary>
@@ -213,6 +213,7 @@ public partial struct GregorianDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
     public static GregorianDate operator ++(GregorianDate value) => value.NextDay();
 
     /// <summary>
@@ -220,9 +221,8 @@ public partial struct GregorianDate // Math
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static GregorianDate operator --(GregorianDate value) => value.PreviousDay();
-
-#pragma warning restore CA2225
 
     /// <inheritdoc />
     [Pure]

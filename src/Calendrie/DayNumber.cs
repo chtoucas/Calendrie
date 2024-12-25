@@ -571,15 +571,13 @@ public partial struct DayNumber // IComparable
 
 public partial struct DayNumber // Math ops
 {
-#pragma warning disable CA2225 // Operator overloads have named alternates (Usage) ✓
-    // Friendly alternates do exist but use domain-specific names.
-
     /// <summary>
     /// Subtracts the two specified day numbers and returns the number of days
     /// between them.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
     public static int operator -(DayNumber left, DayNumber right) =>
         checked(left._daysSinceZero - right._daysSinceZero);
 
@@ -589,6 +587,7 @@ public partial struct DayNumber // Math ops
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest or the latest supported day numbers.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static DayNumber operator +(DayNumber value, int days)
     {
         int newDays = checked(value._daysSinceZero + days);
@@ -603,6 +602,7 @@ public partial struct DayNumber // Math ops
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest or the latest supported day numbers.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
     public static DayNumber operator -(DayNumber value, int days)
     {
         int newDays = checked(value._daysSinceZero - days);
@@ -616,6 +616,7 @@ public partial struct DayNumber // Math ops
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported day number.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
     public static DayNumber operator ++(DayNumber value) => value.NextDay();
 
     /// <summary>
@@ -623,9 +624,8 @@ public partial struct DayNumber // Math ops
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported day number.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static DayNumber operator --(DayNumber value) => value.PreviousDay();
-
-#pragma warning restore CA2225
 
     /// <summary>
     /// Subtracts the specified day number from this instance and returns the
