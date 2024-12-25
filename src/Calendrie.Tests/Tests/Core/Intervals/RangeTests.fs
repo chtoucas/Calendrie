@@ -558,10 +558,11 @@ module Extensions =
         v.LongCount() === count
 
     [<Fact>]
-    let ``Range:Maximal32:ToEnumerable() overflows`` () =
+    let ``Range:Maximal32:ToEnumerable() does not overflow`` () =
         let v = Range.Maximal32
 
-        (fun () -> v.ToEnumerable()) |> overflows
+        //(fun () -> v.ToEnumerable()) |> overflows
+        v.ToEnumerable()
 
     [<Fact>]
     let ``Range<int>:ToEnumerable() singleton case`` () =
