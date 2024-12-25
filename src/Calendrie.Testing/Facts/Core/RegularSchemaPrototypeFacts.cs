@@ -12,7 +12,7 @@ using Calendrie.Testing.Faux;
 /// Provides facts about <see cref="RegularSchemaPrototype"/>.
 /// </summary>
 public abstract partial class RegularSchemaPrototypeFacts<TDataSet> :
-    CalendricalSchemaFacts<RegularSchemaPrototype, TDataSet>
+    ICalendricalSchemaFacts<RegularSchemaPrototype, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
     protected RegularSchemaPrototypeFacts(RegularSchemaPrototype schema) : base(schema) { }

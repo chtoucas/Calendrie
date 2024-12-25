@@ -13,7 +13,7 @@ using Calendrie.Testing.Data;
 /// Provides facts about <see cref="LimitSchema"/>.
 /// </summary>
 public abstract partial class LimitSchemaFacts<TDataSet> :
-    CalendricalSchemaFacts<LimitSchema, TDataSet>
+    ICalendricalSchemaFacts<LimitSchema, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
     protected LimitSchemaFacts(LimitSchema schema) : base(schema) { }
