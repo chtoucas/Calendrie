@@ -1,0 +1,4 @@
+﻿<#@ template hostspecific="true" #>
+<#@ output extension=".g.cs" #>
+<#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
+<#= new CalendarTemplate(this, "PaxSchema", "DayZero.SundayBeforeGregorian").Execute() #>

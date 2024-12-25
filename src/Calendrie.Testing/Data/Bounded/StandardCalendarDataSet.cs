@@ -160,6 +160,23 @@ public sealed class StandardGregorianDataSet :
 }
 
 /// <summary>
+/// Provides test data for the Pax calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardPaxDataSet :
+    StandardCalendarDataSet<UnboundedPaxDataSet>, ISingleton<StandardPaxDataSet>
+{
+    private StandardPaxDataSet() : base(UnboundedPaxDataSet.Instance) { }
+
+    public static StandardPaxDataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardPaxDataSet Instance = new();
+        static Singleton() { }
+    }
+}
+
+/// <summary>
 /// Provides test data for the Positivist calendar with years within the range [1..9999].
 /// </summary>
 public sealed class StandardPositivistDataSet :

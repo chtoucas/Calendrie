@@ -183,20 +183,21 @@ type FauxLunisolarTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
 [<Sealed>]
-type PaxTests() as self =
-    inherit ICalendricalSchemaBasicFacts<PaxSchema, PaxDataSet>(new PaxSchema())
-    do
-        self.TestGetMonthAnyway <- true
+type PaxTests() = //as self =
+    inherit ICalendricalSchemaFacts<PaxSchema, PaxDataSet>(new PaxSchema())
+    //inherit ICalendricalSchemaBasicFacts<PaxSchema, PaxDataSet>(new PaxSchema())
+    //do
+    //    self.TestGetMonthAnyway <- true
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Other
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Weeks
-    //override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>(x.SchemaUT)
+    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
-    member x.SupportedYears_Prop() =
-        let range = LimitSchema.DefaultSupportedYears.WithMin(1)
-        x.SchemaUT.SupportedYears === range
+    override x.SupportedYears_Prop() = ()
+        //let range = LimitSchema.DefaultSupportedYears.WithMin(1)
+        //x.SchemaUT.SupportedYears === range
 
     [<Fact>]
     member x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Other

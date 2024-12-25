@@ -1,7 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+#define PROTOTYPING
+
 namespace Calendrie.Core.Schemas;
+
+#if PROTOTYPING
+using Calendrie.Core.Prototyping;
+#endif
 
 // Month 12 = Columbus
 // Common year:
@@ -24,11 +30,14 @@ namespace Calendrie.Core.Schemas;
 /// Represents the Pax schema proposed by James A. Colligan, S.J. (1930).
 /// <para>The Pax schema is a leap-week schema.</para>
 /// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.
-/// </para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class PaxSchema :
+#if PROTOTYPING
+    NonRegularSchemaPrototype,
+#else
     LimitSchema,
+#endif
     ILeapWeekSchema,
     ISchemaActivator<PaxSchema>
 {
@@ -44,7 +53,11 @@ public sealed partial class PaxSchema :
     /// <summary>
     /// Initializes a new instance of the <see cref="PaxSchema"/> class.
     /// </summary>
+#if PROTOTYPING
+    internal PaxSchema() : base(proleptic: false, 364, 7) { }
+#else
     internal PaxSchema() : base(DefaultSupportedYears.WithMin(1), 364, 7) { }
+#endif
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Other;
@@ -57,26 +70,30 @@ public sealed partial class PaxSchema :
     static PaxSchema ISchemaActivator<PaxSchema>.CreateInstance() => new();
 
     /// <summary>
-    /// Determines whether the specified month is the Pax month of the year or not.
+    /// Determines whether the specified month is the Pax month of the year or
+    /// not.
     /// </summary>
     [Pure]
     public bool IsPaxMonth(int y, int m) => m == 13 && IsLeapYear(y);
 
     /// <summary>
-    /// Determines whether the specified month is the last month of the year or not.
+    /// Determines whether the specified month is the last month of the year or
+    /// not.
     /// </summary>
     [Pure]
     public bool IsLastMonthOfYear(int y, int m) => m == 14 || (m == 13 && !IsLeapYear(y));
 
+#if !PROTOTYPING
     /// <inheritdoc />
     public sealed override bool IsRegular(out int monthsInYear)
     {
         monthsInYear = 0;
         return false;
     }
+#endif
 }
 
-public partial class PaxSchema // LeapWeekSchema
+public partial class PaxSchema // ILeapWeekSchema
 {
     /// <inheritdoc />
     public DayOfWeek FirstDayOfWeek => DayOfWeek.Sunday;
@@ -146,28 +163,37 @@ public partial class PaxSchema // Counting months and days within a year or a mo
 
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInYearBeforeMonth(int y, int m) => m == 14 ? 343 : 28 * (m - 1);
+    public sealed override int CountDaysInMonth(int y, int m) => IsPaxMonth(y, m) ? 7 : 28;
 
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInMonth(int y, int m) => IsPaxMonth(y, m) ? 7 : 28;
+    public sealed override int CountDaysInYearBeforeMonth(int y, int m) => m == 14 ? 343 : 28 * (m - 1);
 }
 
 public partial class PaxSchema // Conversions
 {
-    ///// <inheritdoc />
-    //[Pure]
-    //public sealed override int CountMonthsSinceEpoch(int y, int m)
-    //{
-    //    // FIXME(code): temporary value for tests.
-    //    return 0;
-    //}
-
+#if !PROTOTYPING
     /// <inheritdoc />
     public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         throw new NotImplementedException();
     }
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetYear(int daysSinceEpoch, out int doy)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int GetYear(int daysSinceEpoch)
+    {
+        throw new NotImplementedException();
+    }
+#endif
 
     /// <inheritdoc />
     [Pure]
@@ -194,24 +220,18 @@ public partial class PaxSchema // Conversions
 
         return m;
     }
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetYear(int daysSinceEpoch)
-    {
-        throw new NotImplementedException();
-    }
 }
 
 public partial class PaxSchema // Counting months and days since the epoch
 {
+#if !PROTOTYPING
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYearInMonths(int y)
     {
-        // FIXME(code): temporary value for tests.
-        return 0;
+        throw new NotImplementedException();
     }
+#endif
 
     /// <inheritdoc />
     [Pure]
@@ -228,10 +248,12 @@ public partial class PaxSchema // Counting months and days since the epoch
 
 public partial class PaxSchema // Dates in a given year or month
 {
+#if !PROTOTYPING
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
         m = IsLeapYear(y) ? 14 : 13;
         d = 28;
     }
+#endif
 }

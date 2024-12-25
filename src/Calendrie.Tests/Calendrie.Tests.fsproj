@@ -82,6 +82,7 @@
     <Compile Include="Tests\Systems\EthiopicTests.fs" />
     <Compile Include="Tests\Systems\GregorianTests.fs" />
     <Compile Include="Tests\Systems\JulianTests.fs" />
+    <Compile Include="Tests\Systems\PaxTests.fs" />
     <Compile Include="Tests\Systems\TabularIslamicTests.fs" />
     <Compile Include="Tests\Systems\WorldTests.fs" />
     <Compile Include="Tests\Systems\ZoroastrianTests.fs" />
