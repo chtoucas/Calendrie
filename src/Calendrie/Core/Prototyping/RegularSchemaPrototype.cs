@@ -124,8 +124,8 @@ public partial class RegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
-    /// <remarks>For performance reasons, a derived class SHOULD override this
-    /// method.</remarks>
+    /// <remarks>For performance reasons, a derived class <b>OUGHT TO</b>
+    /// override this method.</remarks>
     [Pure]
     public override int GetStartOfYear(int y)
     {
