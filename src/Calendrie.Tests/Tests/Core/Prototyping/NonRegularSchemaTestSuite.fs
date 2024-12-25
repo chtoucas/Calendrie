@@ -28,8 +28,7 @@ type LunisolarTests() =
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-// We do not exclude this one from CodeCoverage.
-//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type PaxTests() =
     inherit NonRegularSchemaPrototypeFacts<PaxDataSet>(new PaxSchema())
 
