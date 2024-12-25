@@ -14,7 +14,7 @@ open Calendrie.Testing.Faux
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-// We do not exclude this one from CodeCoverage.
+// We do not exclude this one from CodeCoverage: necessary to fully cover GetMonthParts().
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type LunisolarTests() =
     inherit NonRegularSchemaPrototypeFacts<FauxLunisolarDataSet>(new FauxLunisolarSchema())
@@ -28,7 +28,8 @@ type LunisolarTests() =
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+// We do not exclude this one from CodeCoverage: necessary to fully cover GetMonthParts().
+//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type PaxTests() =
     inherit NonRegularSchemaPrototypeFacts<PaxDataSet>(new PaxSchema())
 
