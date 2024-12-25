@@ -280,6 +280,14 @@ Calendrie.Core.Prototypes.RegularSchemaPrototype
 Calendrie.Core.Prototypes.RegularSchemaPrototype.IsProleptic.get -> bool
 Calendrie.Core.Prototypes.RegularSchemaPrototype.RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.Prototypes.RegularSchemaPrototype.RegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype.IsProleptic.get -> bool
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.RegularSchemaPrototype
+Calendrie.Core.Prototyping.RegularSchemaPrototype.IsProleptic.get -> bool
+Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.RegularSchema
 Calendrie.Core.RegularSchema.RegularSchema(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.Schemas.CivilSchema
@@ -1159,6 +1167,18 @@ override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetMonth(int y, int do
 override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetStartOfYear(int y) -> int
 override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetYear(int daysSinceEpoch) -> int
 override Calendrie.Core.Prototypes.RegularSchemaPrototype.GetYear(int daysSinceEpoch, out int doy) -> int
+override Calendrie.Core.Prototyping.NonRegularSchemaPrototype.CountDaysInYearBeforeMonth(int y, int m) -> int
+override Calendrie.Core.Prototyping.NonRegularSchemaPrototype.GetMonth(int y, int doy, out int d) -> int
+override Calendrie.Core.Prototyping.NonRegularSchemaPrototype.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
+override Calendrie.Core.Prototyping.NonRegularSchemaPrototype.GetStartOfYear(int y) -> int
+override Calendrie.Core.Prototyping.NonRegularSchemaPrototype.GetStartOfYearInMonths(int y) -> int
+override Calendrie.Core.Prototyping.NonRegularSchemaPrototype.GetYear(int daysSinceEpoch) -> int
+override Calendrie.Core.Prototyping.NonRegularSchemaPrototype.GetYear(int daysSinceEpoch, out int doy) -> int
+override Calendrie.Core.Prototyping.RegularSchemaPrototype.CountDaysInYearBeforeMonth(int y, int m) -> int
+override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetMonth(int y, int doy, out int d) -> int
+override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetStartOfYear(int y) -> int
+override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetYear(int daysSinceEpoch) -> int
+override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetYear(int daysSinceEpoch, out int doy) -> int
 override Calendrie.Core.Yedoy.Equals(object? obj) -> bool
 override Calendrie.Core.Yedoy.GetHashCode() -> int
 override Calendrie.Core.Yedoy.ToString() -> string!
@@ -1216,6 +1236,7 @@ override Calendrie.Systems.ZoroastrianDate.GetHashCode() -> int
 override Calendrie.Systems.ZoroastrianDate.ToString() -> string!
 override sealed Calendrie.Core.CalendricalSegment.ToString() -> string!
 override sealed Calendrie.Core.Prototypes.NonRegularSchemaPrototype.IsRegular(out int monthsInYear) -> bool
+override sealed Calendrie.Core.Prototyping.NonRegularSchemaPrototype.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.RegularSchema.CountMonthsInYear(int y) -> int
 override sealed Calendrie.Core.RegularSchema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.RegularSchema.GetEndOfYearInMonths(int y) -> int
@@ -1551,6 +1572,7 @@ static Calendrie.Core.Intervals.Range.EndingAt<T>(T max, int length) -> Calendri
 static Calendrie.Core.Intervals.Range.FromEndpoints<T>(Calendrie.Core.Intervals.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.Range<T>
 static Calendrie.Core.Intervals.Range.LongCount(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> range) -> long
 static Calendrie.Core.Intervals.Range.LongCount(this Calendrie.Core.Intervals.Range<int> range) -> long
+static Calendrie.Core.Intervals.Range.Maximal32.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.Intervals.Range.Maximal<T>() -> Calendrie.Core.Intervals.Range<T>
 static Calendrie.Core.Intervals.Range.Singleton<T>(T value) -> Calendrie.Core.Intervals.Range<T>
 static Calendrie.Core.Intervals.Range.StartingAt<T>(T min) -> Calendrie.Core.Intervals.Range<T>
