@@ -20,9 +20,6 @@ open Xunit
 
 // TODO(fact): Pax (unfinished) and lunisolar (fake).
 
-//let private verifyThatPreValidatorIs<'a> (sch: ICalendricalSchema) =
-//    sch.PreValidator |> is<'a>
-
 [<Sealed>]
 type CivilTests() =
     inherit LimitSchemaFacts<StandardGregorianDataSet>(new CivilSchema())

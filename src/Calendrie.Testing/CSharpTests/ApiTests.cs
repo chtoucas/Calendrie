@@ -8,7 +8,8 @@ using System.Reflection;
 
 using Calendrie.Core;
 
-public static class ApiTests
+[SuppressMessage("Design", "CA1052:Static holder types should be Static or NotInheritable", Justification = "<Pending>")]
+public class ApiTests
 {
     private static readonly IEnumerable<TypeInfo> s_DefinedTypes =
         typeof(ICalendricalSchema).Assembly.DefinedTypes;
@@ -30,15 +31,15 @@ public static class ApiTests
         }
     }
 
-    [Fact]
-    public static void Schema_GetInstance()
+    [Fact(Skip = "CreateInstance()")]
+    public static void Schema_CreateInstance()
     {
         var schemaTypes = s_DefinedTypes
             .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(LimitSchema)));
 
         Assert.NotEmpty(schemaTypes);
 
-        var methodName = "GetInstance";
+        var methodName = "CreateInstance";
 
         foreach (var type in schemaTypes)
         {

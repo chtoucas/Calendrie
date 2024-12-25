@@ -3,16 +3,28 @@
 
 module Calendrie.Tests.CSharpTests
 
+open Calendrie.Testing
 open Calendrie.Testing.CSharpTests
 
 [<Sealed>]
+type CSharpOnlyCSharpTests() =
+    inherit CSharpOnlyTests()
+
+[<Sealed>]
+type ApiCSharpTests() =
+    inherit ApiTests()
+
+[<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type GregorianMinMaxYearCalendarCSharpTests() =
     inherit GregorianMinMaxYearCalendarTests()
 
 [<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type BoundedBelowScopeCSharpTests() =
     inherit BoundedBelowScopeTests()
 
 [<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type GregorianBoundedBelowCalendarCSharpTests() =
     inherit GregorianBoundedBelowCalendarTests()

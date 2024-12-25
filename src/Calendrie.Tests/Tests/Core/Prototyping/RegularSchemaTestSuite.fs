@@ -12,8 +12,8 @@ open Calendrie.Testing.Facts.Core
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
-// We do not exclude this one from Regular and CodeCoverage.
-//[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+// We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic12Tests() =
     inherit RegularSchemaPrototypeFacts<Coptic12DataSet>(new Coptic12Schema())

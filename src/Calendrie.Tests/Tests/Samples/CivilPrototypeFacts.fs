@@ -15,8 +15,8 @@ open Samples
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
-// We do not exclude this one from Regular and CodeCoverage.
-//[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+// We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type CivilPrototypeTests() =
     inherit RegularSchemaPrototypeFacts<StandardGregorianDataSet>(new CivilPrototype())

@@ -11,9 +11,7 @@ open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Systems
 open Calendrie.Testing.Faux
 
-// Returns a StandardScope.
-let private scopeOf(sch) =
-    new StandardScope(sch, DayZero.OldStyle)
+let private scopeOf(sch) = new StandardScope(sch, DayZero.OldStyle)
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
