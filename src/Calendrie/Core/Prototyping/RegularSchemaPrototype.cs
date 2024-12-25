@@ -1,15 +1,19 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+// TODO(code): optimizations, idem with NonRegular...
+#define ENABLE_OPTIMIZATIONS
+
 namespace Calendrie.Core.Prototyping;
 
 using Calendrie.Core.Intervals;
+#if ENABLE_OPTIMIZATIONS
+using Calendrie.Core.Utilities;
+#endif
 
 // WARNING: only meant to be used for rapid prototyping.
 //
 // For explanations, see PrototypalSchema.
-
-// TODO(code): optimize GetYear() and GetStartOfYear(). Idem with NonRegular...
 
 /// <summary>
 /// Represents a prototype for a regular schema and provides a base for derived
@@ -68,6 +72,32 @@ public partial class RegularSchemaPrototype // Prototypal methods
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
+#if ENABLE_OPTIMIZATIONS
+        int y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear);
+        int startOfYear = GetStartOfYear(y);
+
+        if (daysSinceEpoch >= 0)
+        {
+            while (daysSinceEpoch < startOfYear)
+            {
+                startOfYear -= CountDaysInYear(--y);
+            }
+        }
+        else
+        {
+            while (daysSinceEpoch >= startOfYear)
+            {
+                int startOfNextYear = startOfYear + CountDaysInYear(y);
+                if (daysSinceEpoch < startOfNextYear) { break; }
+                y++;
+                startOfYear = startOfNextYear;
+            }
+            Debug.Assert(daysSinceEpoch >= startOfYear);
+        }
+
+        doy = 1 + daysSinceEpoch - startOfYear;
+        return y;
+#else
         if (daysSinceEpoch < 0)
         {
             int y = 0;
@@ -78,7 +108,6 @@ public partial class RegularSchemaPrototype // Prototypal methods
                 startOfYear -= CountDaysInYear(--y);
             }
 
-            // Notice that, as expected, doy >= 1.
             doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
@@ -96,10 +125,10 @@ public partial class RegularSchemaPrototype // Prototypal methods
             }
             Debug.Assert(daysSinceEpoch >= startOfYear);
 
-            // Notice that, as expected, doy >= 1.
             doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
+#endif
     }
 
     /// <inheritdoc />
@@ -126,7 +155,6 @@ public partial class RegularSchemaPrototype // Prototypal methods
             m++;
         }
 
-        // Notice that, as expected, d >= 1.
         d = doy - daysInYearBeforeMonth;
         return m;
     }

@@ -1,9 +1,14 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+#define ENABLE_OPTIMIZATIONS
+
 namespace Calendrie.Core.Prototyping;
 
 using Calendrie.Core.Intervals;
+#if ENABLE_OPTIMIZATIONS
+using Calendrie.Core.Utilities;
+#endif
 
 // WARNING: only meant to be used for rapid prototyping.
 //
@@ -73,6 +78,33 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     /// method.</remarks>
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
+#if ENABLE_OPTIMIZATIONS
+        const int MinMonthsInYear = 12;
+
+        y = 1 + MathZ.Divide(monthsSinceEpoch, MinMonthsInYear);
+        int startOfYear = GetStartOfYearInMonths(y);
+
+        if (monthsSinceEpoch >= 0)
+        {
+            while (monthsSinceEpoch < startOfYear)
+            {
+                startOfYear -= CountMonthsInYear(--y);
+            }
+        }
+        else
+        {
+            while (monthsSinceEpoch >= startOfYear)
+            {
+                int startOfNextYear = startOfYear + CountMonthsInYear(y);
+                if (monthsSinceEpoch < startOfNextYear) { break; }
+                y++;
+                startOfYear = startOfNextYear;
+            }
+            Debug.Assert(monthsSinceEpoch >= startOfYear);
+        }
+
+        m = 1 + monthsSinceEpoch - startOfYear;
+#else
         if (monthsSinceEpoch < 0)
         {
             y = 0;
@@ -101,6 +133,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
 
             m = 1 + monthsSinceEpoch - startOfYear;
         }
+#endif
     }
 
     /// <inheritdoc />
@@ -109,6 +142,32 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
+#if ENABLE_OPTIMIZATIONS
+        int y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear);
+        int startOfYear = GetStartOfYear(y);
+
+        if (daysSinceEpoch >= 0)
+        {
+            while (daysSinceEpoch < startOfYear)
+            {
+                startOfYear -= CountDaysInYear(--y);
+            }
+        }
+        else
+        {
+            while (daysSinceEpoch >= startOfYear)
+            {
+                int startOfNextYear = startOfYear + CountDaysInYear(y);
+                if (daysSinceEpoch < startOfNextYear) { break; }
+                y++;
+                startOfYear = startOfNextYear;
+            }
+            Debug.Assert(daysSinceEpoch >= startOfYear);
+        }
+
+        doy = 1 + daysSinceEpoch - startOfYear;
+        return y;
+#else
         if (daysSinceEpoch < 0)
         {
             int y = 0;
@@ -119,7 +178,6 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
                 startOfYear -= CountDaysInYear(--y);
             }
 
-            // Notice that, as expected, doy >= 1.
             doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
@@ -137,10 +195,10 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
             }
             Debug.Assert(daysSinceEpoch >= startOfYear);
 
-            // Notice that, as expected, doy >= 1.
             doy = 1 + daysSinceEpoch - startOfYear;
             return y;
         }
+#endif
     }
 
     /// <inheritdoc />
@@ -168,7 +226,6 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
             m++;
         }
 
-        // Notice that, as expected, d >= 1.
         d = doy - daysInYearBeforeMonth;
         return m;
     }
