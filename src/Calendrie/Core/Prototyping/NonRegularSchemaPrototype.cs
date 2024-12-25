@@ -7,10 +7,10 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
 // FIXME(code): MinMonthsInYear (via ctor?), idem with PrototypalSchemaSlim
+// TODO(code): optimizations, idem with NonRegular... and PrototypalSchema
+// Explain the algorithms.
 
 // WARNING: only meant to be used for rapid prototyping.
-//
-// For explanations, see PrototypalSchemaSlim.
 
 /// <summary>
 /// Represents a prototype for a non-regular schema and provides a base for
@@ -109,11 +109,20 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
+        // It's very similar to what we do in PrototypalSchema, but when we
+        // start the loop we are much closer to the actual value of the year.
+
+        // To get our first approximation of the value of the year, we pretend
+        // that the years have a constant length equal to MinDaysInYear.
+        // > y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear, out int d0y);
+        // Notice that the division gives us a zero-based year.
         int y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear);
         int startOfYear = GetStartOfYear(y);
 
         if (daysSinceEpoch >= 0)
         {
+            // Notice that the first approximation for the value of the year
+            // is greater than or equal to the actual value.
             while (daysSinceEpoch < startOfYear)
             {
                 startOfYear -= CountDaysInYear(--y);
@@ -131,6 +140,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
             Debug.Assert(daysSinceEpoch >= startOfYear);
         }
 
+        // Notice that, as expected, doy >= 1.
         doy = 1 + daysSinceEpoch - startOfYear;
         return y;
     }

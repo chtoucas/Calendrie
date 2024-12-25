@@ -5,6 +5,8 @@ namespace Calendrie.Core.Prototyping;
 
 using Calendrie.Core.Utilities;
 
+using NodaTime.Calendars;
+
 public class PrototypalSchemaSlim : PrototypalSchema
 {
     /// <summary>
@@ -44,6 +46,8 @@ public class PrototypalSchemaSlim : PrototypalSchema
     /// <inheritdoc />
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
+        // For explanations, see NonRegularSchemaPrototype.
+
         const int MinMonthsInYear = 12;
 
         y = 1 + MathZ.Divide(monthsSinceEpoch, MinMonthsInYear);
@@ -75,22 +79,13 @@ public class PrototypalSchemaSlim : PrototypalSchema
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch, out int doy)
     {
-        // It's very similar to what we do in PrototypalSchema, but when we
-        // start the loop we are much closer to the actual value of the year.
+        // For explanations, see NonRegularSchemaPrototype.
 
-        // To get our first approximation of the value of the year, we pretend
-        // that the years have a constant length equal to MinDaysInYear.
-        // > y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear, out int d0y);
-        // Notice that the division gives us a zero-based year.
         int y = 1 + MathZ.Divide(daysSinceEpoch, m_MinDaysInYear);
         int startOfYear = GetStartOfYear(y);
 
-        // TODO(code): explain the algorithm, idem with PrototypalSchema.
-
         if (daysSinceEpoch >= 0)
         {
-            // Notice that the first approximation for the value of the year
-            // is greater than or equal to the actual value.
             while (daysSinceEpoch < startOfYear)
             {
                 startOfYear -= m_Kernel.CountDaysInYear(--y);
@@ -108,7 +103,6 @@ public class PrototypalSchemaSlim : PrototypalSchema
             Debug.Assert(daysSinceEpoch >= startOfYear);
         }
 
-        // Notice that, as expected, doy >= 1.
         doy = 1 + daysSinceEpoch - startOfYear;
         return y;
     }

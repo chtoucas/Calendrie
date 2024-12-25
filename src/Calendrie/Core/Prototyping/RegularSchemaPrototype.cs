@@ -6,11 +6,9 @@ namespace Calendrie.Core.Prototyping;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(code): optimizations, idem with NonRegular... and PrototypalSchema
-
 // WARNING: only meant to be used for rapid prototyping.
 //
-// For explanations, see PrototypalSchemaSlim.
+// For explanations, see NonRegularSchemaPrototype.
 
 /// <summary>
 /// Represents a prototype for a regular schema and provides a base for derived

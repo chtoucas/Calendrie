@@ -1,4 +1,5 @@
 ﻿#pragma warning disable IDE0073 // Require file header (Style) ✓
+#pragma warning disable IDE0130 // Namespace does not match folder structure (Style) ✓
 // Copyright 2013 The Noda Time Authors. All rights reserved.
 // Use of this source code is governed by the Apache License 2.0,
 // as found in the LICENSE.txt file.
@@ -6,7 +7,7 @@
 // Adapted from
 // https://github.com/nodatime/nodatime/blob/main/src/NodaTime/Calendars/YearStartCacheEntry.cs
 
-namespace Calendrie.Core.Utilities;
+namespace NodaTime.Calendars;
 
 /// <summary>
 /// Type containing as much logic as possible for how the cache of "start of year" data works.
