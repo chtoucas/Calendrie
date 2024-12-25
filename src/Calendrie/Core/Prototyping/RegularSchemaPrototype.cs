@@ -3,10 +3,10 @@
 
 namespace Calendrie.Core.Prototyping;
 
-// TODO(code): MinMonthsInYear, optimizations, idem with NonRegular... and PrototypalSchema
-
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
+
+// TODO(code): optimizations, idem with NonRegular... and PrototypalSchema
 
 // WARNING: only meant to be used for rapid prototyping.
 //

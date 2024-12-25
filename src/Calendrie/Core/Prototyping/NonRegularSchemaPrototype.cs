@@ -6,6 +6,8 @@ namespace Calendrie.Core.Prototyping;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
+// FIXME(code): MinMonthsInYear (via ctor?), idem with PrototypalSchemaSlim
+
 // WARNING: only meant to be used for rapid prototyping.
 //
 // For explanations, see PrototypalSchemaSlim.
