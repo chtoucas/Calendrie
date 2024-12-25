@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Prototypes.NonRegularSchemaTestSuite
+module Calendrie.Tests.Core.Prototyping.NonRegularSchemaTestSuite
 
 open Calendrie
 open Calendrie.Core.Schemas

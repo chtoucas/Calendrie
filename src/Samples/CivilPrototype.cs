@@ -6,7 +6,7 @@ namespace Samples;
 using System;
 
 using Calendrie;
-using Calendrie.Core.Prototypes;
+using Calendrie.Core.Prototyping;
 
 public sealed partial class CivilPrototype : RegularSchemaPrototype
 {

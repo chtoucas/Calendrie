@@ -7,7 +7,7 @@ using System;
 
 using Calendrie;
 using Calendrie.Core;
-using Calendrie.Core.Prototypes;
+using Calendrie.Core.Prototyping;
 
 public sealed class GregorianKernel : ICalendricalCore
 {

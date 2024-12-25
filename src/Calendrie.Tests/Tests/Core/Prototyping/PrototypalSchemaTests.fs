@@ -1,10 +1,10 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Prototypes.PrototypalSchemaTests
+module Calendrie.Tests.Core.Prototyping.PrototypalSchemaTests
 
 open Calendrie.Core
-open Calendrie.Core.Prototypes
+open Calendrie.Core.Prototyping
 open Calendrie.Core.Schemas
 open Calendrie.Testing
 
