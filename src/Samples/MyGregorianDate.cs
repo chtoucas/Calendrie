@@ -98,6 +98,12 @@ public readonly partial struct MyGregorianDate :
 
 public partial struct MyGregorianDate // Factories & conversions
 {
+    // This factory method eventually throws an OverflowException, not an
+    // ArgumentOutOfRangeException. Only used by Nearest() via
+    // IAbsoluteDate.Nearest().
+    static MyGregorianDate IAbsoluteDate<MyGregorianDate>.FromDayNumber(DayNumber dayNumber) =>
+        new(Calendar.CountDaysSinceEpochChecked(dayNumber));
+
     public static MyGregorianDate FromDayNumber(DayNumber dayNumber) =>
         new(Calendar.CountDaysSinceEpoch(dayNumber));
 }
@@ -119,7 +125,7 @@ public partial struct MyGregorianDate // Adjustments
 
     public MyGregorianDate Previous(DayOfWeek dayOfWeek) => IAbsoluteDate.Previous(this, dayOfWeek);
     public MyGregorianDate PreviousOrSame(DayOfWeek dayOfWeek) => IAbsoluteDate.PreviousOrSame(this, dayOfWeek);
-    public MyGregorianDate Nearest(DayOfWeek dayOfWeek) => Calendar.Nearest(this, dayOfWeek);
+    public MyGregorianDate Nearest(DayOfWeek dayOfWeek) => IAbsoluteDate.Nearest(this, dayOfWeek);
     public MyGregorianDate NextOrSame(DayOfWeek dayOfWeek) => IAbsoluteDate.NextOrSame(this, dayOfWeek);
     public MyGregorianDate Next(DayOfWeek dayOfWeek) => IAbsoluteDate.Next(this, dayOfWeek);
 }

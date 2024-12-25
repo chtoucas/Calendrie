@@ -56,10 +56,10 @@ public interface IAffineDate<TSelf> :
     /// <summary>
     /// Obtains the minimum of two specified values.
     /// </summary>
-    [Pure] static virtual TSelf Min(TSelf x, TSelf y) => x < y ? x : y;
+    [Pure] static abstract TSelf Min(TSelf x, TSelf y);
 
     /// <summary>
     /// Obtains the maximum of two specified values.
     /// </summary>
-    [Pure] static virtual TSelf Max(TSelf x, TSelf y) => x > y ? x : y;
+    [Pure] static abstract TSelf Max(TSelf x, TSelf y);
 }

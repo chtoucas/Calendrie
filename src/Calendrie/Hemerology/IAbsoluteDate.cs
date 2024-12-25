@@ -213,6 +213,24 @@ public interface IAbsoluteDate
     }
 
     /// <summary>
+    /// Obtains the nearest day that falls on the specified day of the week.
+    /// <para>If the day already falls on the given day of the week, returns the
+    /// current instance.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
+    /// is not a valid day of the week - or - the result would be outside the
+    /// range of supported days.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported days.</exception>
+    [Pure]
+    public static TDate Nearest<TDate>(TDate date, DayOfWeek dayOfWeek)
+        where TDate : IAbsoluteDate<TDate>
+    {
+        var nearest = date.DayNumber.Nearest(dayOfWeek);
+        return TDate.FromDayNumber(nearest);
+    }
+
+    /// <summary>
     /// Obtains the date on or after the specified value that falls on the
     /// specified day of the week.
     /// <para>If the date already falls on the given day of the week, returns
@@ -290,12 +308,12 @@ public interface IAbsoluteDate<TSelf> :
     /// <summary>
     /// Obtains the minimum of two specified values.
     /// </summary>
-    [Pure] static virtual TSelf Min(TSelf x, TSelf y) => x < y ? x : y;
+    [Pure] static abstract TSelf Min(TSelf x, TSelf y);
 
     /// <summary>
     /// Obtains the maximum of two specified values.
     /// </summary>
-    [Pure] static virtual TSelf Max(TSelf x, TSelf y) => x > y ? x : y;
+    [Pure] static abstract TSelf Max(TSelf x, TSelf y);
 
     //
     // Find close by day of the week
@@ -329,16 +347,10 @@ public interface IAbsoluteDate<TSelf> :
     /// current instance.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
-    /// is not a valid day of the week - or - the result would be outside the
-    /// range of supported days.</exception>
+    /// is not a valid day of the week.</exception>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported days.</exception>
-    [Pure]
-    TSelf Nearest(DayOfWeek dayOfWeek)
-    {
-        var nearest = DayNumber.Nearest(dayOfWeek);
-        return TSelf.FromDayNumber(nearest);
-    }
+    [Pure] TSelf Nearest(DayOfWeek dayOfWeek);
 
     /// <summary>
     /// Obtains the day on or after the current instance that falls on the

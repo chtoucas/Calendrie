@@ -3,7 +3,6 @@
 
 namespace Samples;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -126,6 +125,12 @@ public partial class MyGregorianCalendar // Date constructors helpers
         Scope.Validate(dayNumber);
         return dayNumber.DaysSinceZero - Epoch.DaysSinceZero;
     }
+
+    internal int CountDaysSinceEpochChecked(DayNumber dayNumber)
+    {
+        Scope.CheckOverflow(dayNumber);
+        return dayNumber.DaysSinceZero - Epoch.DaysSinceZero;
+    }
 }
 
 // These methods do not validate their parameters
@@ -196,16 +201,5 @@ public partial class MyGregorianCalendar // Date helpers (adjustments)
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
-    }
-
-    //
-    // Find a close by day of the week
-    //
-
-    internal MyGregorianDate Nearest(MyGregorianDate date, DayOfWeek dayOfWeek)
-    {
-        var dayNumber = date.DayNumber.Nearest(dayOfWeek);
-        Scope.CheckOverflow(dayNumber);
-        return new(dayNumber.DaysSinceZero - Epoch.DaysSinceZero);
     }
 }
