@@ -34,8 +34,6 @@ module Methods =
         chr.CountDaysInWorldMonth(y, m) === daysInMonth
 
 module Bundles =
-    // NB: notice the use of ProlepticJulianDataSet.
-
     let dateInfoData = WorldDataSet.Instance.DateInfoData
     let moreMonthInfoData = WorldDataSet.MoreMonthInfoData
 
@@ -74,8 +72,7 @@ module Bundles =
 
     [<Sealed>]
     type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<WorldDate, StandardWorldDataSet>(WorldCalendar.Instance)
+        inherit DateAdjusterFacts<WorldDate, StandardWorldDataSet>(chr)
 
         override __.GetDate(y, m, d) = new WorldDate(y, m, d)
         override __.GetDate(y, doy) = new WorldDate(y, doy)
-
