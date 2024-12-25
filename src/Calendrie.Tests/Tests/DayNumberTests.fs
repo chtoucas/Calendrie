@@ -743,7 +743,7 @@ module Math =
 
     [<Fact>]
     let ``DayNumber:MinValue + Int32:MaxValue does not overflow`` () =
-        DayNumber.MinValue + Int32.MaxValue         === DayNumber.Zero
+        DayNumber.MinValue + Int32.MaxValue        === DayNumber.Zero
         DayNumber.MinValue.AddDays(Int32.MaxValue) === DayNumber.Zero
 
     //
@@ -759,7 +759,7 @@ module Math =
 
     [<Fact>]
     let ``DayNumber:MaxValue - Int32:MaxValue does not overflow`` () =
-        DayNumber.MaxValue - Int32.MaxValue          === DayNumber.Zero - 1
+        DayNumber.MaxValue - Int32.MaxValue         === DayNumber.Zero - 1
         DayNumber.MaxValue.AddDays(-Int32.MaxValue) === DayNumber.Zero - 1
 
     //
