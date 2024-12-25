@@ -9,6 +9,8 @@ using Calendrie.Core.Intervals;
 //
 // For explanations, see PrototypalSchema.
 
+// TODO(code): optimize GetYear() and GetStartOfYear(). Idem with NonRegular...
+
 /// <summary>
 /// Represents a prototype for a regular schema and provides a base for derived
 /// classes.

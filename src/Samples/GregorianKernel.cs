@@ -20,8 +20,6 @@ public sealed class GregorianKernel : ICalendricalCore
     private static ReadOnlySpan<byte> DaysInMonthOfLeapYear =>
         [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    internal GregorianKernel() { }
-
     public static ICalendricalSchema CreatePrototypalSchema() =>
         new PrototypalSchema(
             new GregorianKernel(), proleptic: true, minDaysInYear: 365, minDaysInMonth: 28);
@@ -36,6 +34,14 @@ public sealed class GregorianKernel : ICalendricalCore
         return true;
     }
 
+    public bool IsLeapYear(int y) => (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
+
+    public bool IsIntercalaryMonth(int y, int m) => false;
+
+    public bool IsIntercalaryDay(int y, int m, int d) => m == 2 && d == 29;
+
+    public bool IsSupplementaryDay(int y, int m, int d) => false;
+
     public int CountMonthsInYear(int y) => MonthsInYear;
 
     public int CountDaysInYear(int y) => IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
@@ -47,12 +53,4 @@ public sealed class GregorianKernel : ICalendricalCore
     public int CountDaysInMonth(int y, int m) =>
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
         (IsLeapYear(y) ? DaysInMonthOfLeapYear : DaysInMonthOfCommonYear)[m - 1];
-
-    public bool IsLeapYear(int y) => (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
-
-    public bool IsIntercalaryMonth(int y, int m) => false;
-
-    public bool IsIntercalaryDay(int y, int m, int d) => m == 2 && d == 29;
-
-    public bool IsSupplementaryDay(int y, int m, int d) => false;
 }
