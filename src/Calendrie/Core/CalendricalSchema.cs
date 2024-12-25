@@ -299,10 +299,6 @@ public partial class CalendricalSchema // Counting months and days within a year
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInYearBefore(int y, int doy) => doy - 1;
-
-    /// <inheritdoc />
-    [Pure]
     public int CountDaysInYearBefore(int daysSinceEpoch)
     {
         _ = GetYear(daysSinceEpoch, out int doy);
@@ -331,10 +327,6 @@ public partial class CalendricalSchema // Counting months and days within a year
 
     #endregion
     #region CountDaysInMonthBefore()
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthBefore(int y, int m, int d) => d - 1;
 
     /// <inheritdoc />
     [Pure]

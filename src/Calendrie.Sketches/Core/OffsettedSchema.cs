@@ -136,11 +136,6 @@ public partial class OffsettedSchema<TSchema> // ICalendricalSchema
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysInYearBefore(int y, int doy) =>
-        Schema.CountDaysInYearBefore(y - Offset, doy);
-
-    /// <inheritdoc />
-    [Pure]
     public int CountDaysInYearBefore(int daysSinceEpoch) =>
         Schema.CountDaysInYearBefore(daysSinceEpoch);
 
@@ -158,11 +153,6 @@ public partial class OffsettedSchema<TSchema> // ICalendricalSchema
     [Pure]
     public int CountDaysInYearAfter(int daysSinceEpoch) =>
         Schema.CountDaysInYearAfter(daysSinceEpoch);
-
-    /// <inheritdoc />
-    [Pure]
-    public int CountDaysInMonthBefore(int y, int m, int d) =>
-        Schema.CountDaysInMonthBefore(y - Offset, m, d);
 
     /// <inheritdoc />
     [Pure]

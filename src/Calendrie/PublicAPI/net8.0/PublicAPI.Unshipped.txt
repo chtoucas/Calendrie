@@ -49,13 +49,11 @@ Calendrie.Core.CalendricalSchema.CountDaysInMonthAfter(int y, int doy) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInMonthAfter(int y, int m, int d) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInMonthBefore(int daysSinceEpoch) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInMonthBefore(int y, int doy) -> int
-Calendrie.Core.CalendricalSchema.CountDaysInMonthBefore(int y, int m, int d) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInYearAfter(int daysSinceEpoch) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInYearAfter(int y, int doy) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInYearAfter(int y, int m, int d) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInYearAfterMonth(int y, int m) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInYearBefore(int daysSinceEpoch) -> int
-Calendrie.Core.CalendricalSchema.CountDaysInYearBefore(int y, int doy) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInYearBefore(int y, int m, int d) -> int
 Calendrie.Core.CalendricalSchema.CountDaysSinceEpoch(int y, int doy) -> int
 Calendrie.Core.CalendricalSchema.GetDayOfYear(int y, int m, int d) -> int
@@ -422,6 +420,7 @@ Calendrie.Hemerology.IAbsoluteDate
 Calendrie.Hemerology.IAbsoluteDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Hemerology.IAbsoluteDate.DayOfWeek.get -> System.DayOfWeek
 Calendrie.Hemerology.IAbsoluteDate.DaysSinceEpoch.get -> int
+Calendrie.Hemerology.IAbsoluteDate.Nearest<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Hemerology.IAbsoluteDate.Next<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Hemerology.IAbsoluteDate.NextOrSame<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Hemerology.IAbsoluteDate.Previous<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
