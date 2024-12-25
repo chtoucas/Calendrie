@@ -124,6 +124,71 @@ public partial class OffsettedSchema<TSchema> // ICalendricalSchema
     public int CountDaysInYearBeforeMonth(int y, int m) =>
         Schema.CountDaysInYearBeforeMonth(y - Offset, m);
 
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInYearAfterMonth(int y, int m) =>
+        Schema.CountDaysInYearAfterMonth(y - Offset, m);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInYearBefore(int y, int m, int d) =>
+        Schema.CountDaysInYearBefore(y - Offset, m, d);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInYearBefore(int y, int doy) =>
+        Schema.CountDaysInYearBefore(y - Offset, doy);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInYearBefore(int daysSinceEpoch) =>
+        Schema.CountDaysInYearBefore(daysSinceEpoch);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInYearAfter(int y, int m, int d) =>
+        Schema.CountDaysInYearAfter(y - Offset, m, d);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInYearAfter(int y, int doy) =>
+        Schema.CountDaysInYearAfter(y - Offset, doy);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInYearAfter(int daysSinceEpoch) =>
+        Schema.CountDaysInYearAfter(daysSinceEpoch);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInMonthBefore(int y, int m, int d) =>
+        Schema.CountDaysInMonthBefore(y - Offset, m, d);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInMonthBefore(int y, int doy) =>
+        Schema.CountDaysInMonthBefore(y - Offset, doy);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInMonthBefore(int daysSinceEpoch) =>
+        Schema.CountDaysInMonthBefore(daysSinceEpoch);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInMonthAfter(int y, int m, int d) =>
+        Schema.CountDaysInMonthAfter(y - Offset, m, d);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInMonthAfter(int y, int doy) =>
+        Schema.CountDaysInMonthAfter(y - Offset, doy);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysInMonthAfter(int daysSinceEpoch) =>
+        Schema.CountDaysInMonthAfter(daysSinceEpoch);
+
     //
     // Conversions
     //

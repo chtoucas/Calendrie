@@ -149,17 +149,11 @@ public partial class MyGregorianCalendar // Date helpers
 // These methods do not validate their parameters
 public partial class MyGregorianCalendar // Date helpers (counting)
 {
-    internal int CountDaysInYearAfter(int daysSinceEpoch)
-    {
-        int y = Schema.GetYear(daysSinceEpoch, out int doy);
-        return Schema.CountDaysInYear(y) - doy;
-    }
+    internal int CountDaysInYearAfter(int daysSinceEpoch) =>
+        Schema.CountDaysInYearAfter(daysSinceEpoch);
 
-    internal int CountDaysInMonthAfter(int daysSinceEpoch)
-    {
-        Schema.GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
-        return Schema.CountDaysInMonth(y, m) - d;
-    }
+    internal int CountDaysInMonthAfter(int daysSinceEpoch) =>
+        Schema.CountDaysInMonthAfter(daysSinceEpoch);
 }
 
 public partial class MyGregorianCalendar // Date helpers (adjustments)

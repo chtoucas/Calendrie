@@ -15,45 +15,44 @@ using Calendrie.Core.Intervals;
 // ICalendricalCore
 // └─ ICalendricalSchema
 //    ├─ OffsettedSchema                            DRAFT
-//    ├─ StrictSchema                               DRAFT
-//    └─ ICalendricalSchemaPlus
-//       └─ CalendricalSchema [A]
-//          └─ LimitSchema [A]
-//             ├─ HebrewSchema                      DRAFT
-//             ├─ InternationalFixedSchema
-//             ├─ Persian2820Schema
-//             ├─ PositivistSchema
-//             ├─ TabularIslamicSchema
-//             ├─ WorldSchema
-//             ├─ EgyptianSchema [A]
-//             │  ├─ Egyptian12Schema
-//             │  └─ Egyptian13Schema
-//             ├─ GJSchema [A]
-//             │  ├─ GregorianSchema
-//             │  └─ JulianSchema
-//             ├─ LeapWeekSchema [A]                DRAFT
-//             │  └─ PaxSchema                      DRAFT
-//             ├─ PtolemaicSchema [A]
-//             │  ├─ CopticSchema [A]
-//             │  │  ├─ Coptic12Schema
-//             │  │  └─ Coptic13Schema
-//             │  └─ FrenchRepublicanSchema [A]
-//             │     ├─ FrenchRepublican12Schema
-//             │     └─ FrenchRepublican13Schema
-//             └─ TropicalistaSchema [A]
-//                ├─ TropicaliaSchema
-//                ├─ Tropicalia3031Schema
-//                └─ Tropicalia3130Schema
+//    ├─ PrototypalSchema                           DRAFT
+//    │  └─ PrototypalSchemaSlim                    DRAFT
+//    └─ CalendricalSchema [A]
+//       ├─ NonRegularSchemaPrototype
+//       ├─ LimitSchema [A]
+//       │  ├─ InternationalFixedSchema
+//       │  ├─ Persian2820Schema
+//       │  ├─ PaxSchema                            DRAFT
+//       │  ├─ PositivistSchema
+//       │  ├─ TabularIslamicSchema
+//       │  ├─ WorldSchema
+//       │  ├─ EgyptianSchema [A]
+//       │  │  ├─ Egyptian12Schema
+//       │  │  └─ Egyptian13Schema
+//       │  ├─ GJSchema [A]
+//       │  │  ├─ CivilSchema
+//       │  │  ├─ GregorianSchema
+//       │  │  └─ JulianSchema
+//       │  ├─ PtolemaicSchema [A]
+//       │  │  ├─ CopticSchema [A]
+//       │  │  │  ├─ Coptic12Schema
+//       │  │  │  └─ Coptic13Schema
+//       │  │  └─ FrenchRepublicanSchema [A]
+//       │  │     ├─ FrenchRepublican12Schema
+//       │  │     └─ FrenchRepublican13Schema
+//       │  └─ TropicalistaSchema [A]
+//       │     ├─ TropicaliaSchema
+//       │     ├─ Tropicalia3031Schema
+//       │     └─ Tropicalia3130Schema
+//       └─ RegularSchema
+//          └─ RegularSchemaPrototype
 //
 // Annotation: [A] = abstract
 //
 // Comments
 // --------
 //
-// Included in LimitSchema but not in ICalendricalSchema:
-// - methods using Yemoda or Yedoy.
-// - MinDaysInYear
-// - MinDaysInMonth
+// LimitSchema adds methods using Yemoda, Yemo or Yedoy are added to LimitSchema.
 //
 // Everything related to ICalendricalArithmetic should be excluded too if we
 // wish to completely ignore Yemoda and Yedoy dependent methods, but we
@@ -268,4 +267,172 @@ public partial interface ICalendricalSchema // Counting months and days since th
     /// the specified month.
     /// </summary>
     [Pure] int GetEndOfMonth(int y, int m);
+}
+
+public partial interface ICalendricalSchema // Counting months and days within a year or a month
+{
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified month and
+    /// until the end of the year.
+    /// </summary>
+    [Pure]
+    int CountDaysInYearAfterMonth(int y, int m) =>
+        // We could have writen:
+        // > return CountDaysInYear(y) - CountDaysInMonth(y, m)
+        // >   - CountDaysInYearBeforeMonth(y, m);
+        // but I am pretty sure it is slower --- CountMonthsInYear() is
+        // almost always a constant and all three methods CountDaysIn...()
+        // have to check whether the year is leap or not.
+        // WARNING: Below we would expect an equality test not >=, but it
+        // might be problematic when testing overflows, indeed Yemo(y, m + 1)
+        // might not be representable (no longer the case).
+        m >= CountMonthsInYear(y) ? 0
+        : CountDaysInYear(y) - CountDaysInYearBeforeMonth(y, m + 1);
+
+    #region CountDaysInYearBefore()
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>The result should match the value of <c>(DayOfYear - 1)</c>.</para>
+    /// </summary>
+    [Pure]
+    int CountDaysInYearBefore(int y, int m, int d) =>
+        // > GetDayOfYear(y, m, d) - 1
+        CountDaysInYearBeforeMonth(y, m) + d - 1;
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>Trivial (<c>= <paramref name="doy"/> - 1</c>), only added for
+    /// completeness.</para>
+    /// </summary>
+    [Pure]
+    int CountDaysInYearBefore(int y, int doy) => doy - 1;
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the year and
+    /// before the specified day.
+    /// <para>The result should match the value of <c>(DayOfYear - 1)</c>.</para>
+    /// </summary>
+    [Pure]
+    int CountDaysInYearBefore(int daysSinceEpoch)
+    {
+        // Quick check: we should obtain 0 for the first day of the year.
+        _ = GetYear(daysSinceEpoch, out int doy);
+        return doy - 1;
+    }
+
+    #endregion
+    #region CountDaysInYearAfter()
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
+    [Pure]
+    int CountDaysInYearAfter(int y, int m, int d) =>
+        CountDaysInYear(y) - CountDaysInYearBeforeMonth(y, m) - d;
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
+    [Pure]
+    int CountDaysInYearAfter(int y, int doy) => CountDaysInYear(y) - doy;
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the year.
+    /// </summary>
+    [Pure]
+    int CountDaysInYearAfter(int daysSinceEpoch)
+    {
+        // Quick check: we should obtain (daysInYear - 1) for the first day
+        // of the year. Formula: "daysInYear - dayOfYear" where
+        // > dayOfYear = 1 + daysSinceEpoch - GetStartOfYear(y);
+        // See comments within GetDayOfYear(y, m, d).
+        // The simple implementation goes like this
+        // > GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
+        // > return CountDaysInYearAfter(y, m, d);
+        // but computing m and d is just unnecessary.
+        int y = GetYear(daysSinceEpoch, out int doy);
+        return CountDaysInYear(y) - doy;
+    }
+
+    #endregion
+    #region CountDaysInMonthBefore()
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>Trivial (<c>= <paramref name="d"/> - 1</c>), only added for
+    /// completeness.</para>
+    /// </summary>
+    [Pure]
+    int CountDaysInMonthBefore(int y, int m, int d) => d - 1;
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>The result should match the value of <c>(Day - 1)</c>.</para>
+    /// </summary>
+    [Pure]
+    int CountDaysInMonthBefore(int y, int doy)
+    {
+        // Conversion (y, doy) -> (y, m, d)
+        _ = GetMonth(y, doy, out int d);
+        return d - 1;
+    }
+
+    /// <summary>
+    /// Obtains the number of whole days elapsed since the start of the month
+    /// and before the specified day.
+    /// <para>The result should match the value of <c>(Day - 1)</c>.</para>
+    /// </summary>
+    [Pure]
+    int CountDaysInMonthBefore(int daysSinceEpoch)
+    {
+        // Straightforward implementation but I doubt that one can do better
+        // than that; the result is bound to the y/m/d representation.
+        GetDateParts(daysSinceEpoch, out _, out _, out int d);
+        return d - 1;
+    }
+
+    #endregion
+    #region CountDaysInMonthAfter()
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
+    [Pure]
+    int CountDaysInMonthAfter(int y, int m, int d) => CountDaysInMonth(y, m) - d;
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
+    [Pure]
+    int CountDaysInMonthAfter(int y, int doy)
+    {
+        // Conversion (y, doy) -> (y, m, d)
+        int m = GetMonth(y, doy, out int d);
+        return CountDaysInMonth(y, m) - d;
+    }
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after the specified date and
+    /// until the end of the month.
+    /// </summary>
+    [Pure]
+    int CountDaysInMonthAfter(int daysSinceEpoch)
+    {
+        // Straightforward implementation but I doubt that one can do better
+        // than that; the result is bound to the y/m/d representation.
+        GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
+        return CountDaysInMonth(y, m) - d;
+    }
+
+    #endregion
 }
