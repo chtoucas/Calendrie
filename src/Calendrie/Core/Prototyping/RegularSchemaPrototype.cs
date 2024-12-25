@@ -47,6 +47,8 @@ public abstract partial class RegularSchemaPrototype : RegularSchema
 public partial class RegularSchemaPrototype // Prototypal methods
 {
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
     {
@@ -59,6 +61,8 @@ public partial class RegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
@@ -97,10 +101,14 @@ public partial class RegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetYear(int daysSinceEpoch) => GetYear(daysSinceEpoch, out _);
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetMonth(int y, int doy, out int d)
     {
@@ -122,6 +130,8 @@ public partial class RegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetStartOfYear(int y)
     {

@@ -55,6 +55,8 @@ public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
 public partial class NonRegularSchemaPrototype // Prototypal methods
 {
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
     {
@@ -67,6 +69,8 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         if (monthsSinceEpoch < 0)
@@ -100,6 +104,8 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
@@ -138,10 +144,14 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetYear(int daysSinceEpoch) => GetYear(daysSinceEpoch, out _);
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetMonth(int y, int doy, out int d)
     {
@@ -164,6 +174,8 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetStartOfYearInMonths(int y)
     {
@@ -188,6 +200,8 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     }
 
     /// <inheritdoc />
+    /// <remarks>For performance reasons, a derived class SHOULD override this
+    /// method.</remarks>
     [Pure]
     public override int GetStartOfYear(int y)
     {
