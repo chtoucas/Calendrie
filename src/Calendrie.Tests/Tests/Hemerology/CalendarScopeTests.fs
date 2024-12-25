@@ -7,7 +7,6 @@ open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
-open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Faux
 
@@ -49,44 +48,38 @@ module Prelude =
         //scope.YearsValidator.Range === seg.SupportedYears
 
 module DayNumberValidation =
+    let seg = CalendricalSegment.Create(new GregorianSchema(), Range.Create(1, 2))
+    let scope = new FauxCalendarScope(DayZero.NewStyle, seg)
+
+    [<Fact>]
+    let ``Check test values`` () =
+        seg.SupportedDays.Min === 0
+        seg.SupportedDays.Max === 729
+
     [<Fact>]
     let ``Validate()`` () =
-        let range = Range.Create(DayNumber.Zero, DayNumber.Zero + 2)
-
-        //outOfRangeExn "paramName" (fun () -> range.Validate(DayNumber.Zero - 1, "paramName"))
-        outOfRangeExn "dayNumber" (fun () -> range.Validate(DayNumber.Zero - 1))
-        range.Validate(DayNumber.Zero)
-        range.Validate(DayNumber.Zero + 1)
-        range.Validate(DayNumber.Zero + 2)
-        outOfRangeExn "dayNumber" (fun () -> range.Validate(DayNumber.Zero + 3))
-        //outOfRangeExn "paramName" (fun () -> range.Validate(DayNumber.Zero + 3, "paramName"))
+        outOfRangeExn "dayNumber" (fun () -> scope.Validate(DayNumber.Zero - 1))
+        scope.Validate(DayNumber.Zero)
+        scope.Validate(DayNumber.Zero + 729)
+        outOfRangeExn "dayNumber" (fun () -> scope.Validate(DayNumber.Zero + 730))
 
     [<Fact>]
     let ``CheckOverflow()`` () =
-        let range = Range.Create(DayNumber.Zero, DayNumber.Zero + 2)
-
-        (fun () -> range.CheckOverflow(DayNumber.Zero - 1)) |> overflows
-        range.CheckOverflow(DayNumber.Zero)
-        range.CheckOverflow(DayNumber.Zero + 1)
-        range.CheckOverflow(DayNumber.Zero + 2)
-        (fun () -> range.CheckOverflow(DayNumber.Zero + 3)) |> overflows
+        (fun () -> scope.CheckOverflow(DayNumber.Zero - 1)) |> overflows
+        scope.CheckOverflow(DayNumber.Zero)
+        scope.CheckOverflow(DayNumber.Zero + 729)
+        (fun () -> scope.CheckOverflow(DayNumber.Zero + 730)) |> overflows
 
     [<Fact>]
     let ``CheckUpperBound()`` () =
-        let range = Range.Create(DayNumber.Zero, DayNumber.Zero + 2)
-
-        range.CheckUpperBound(DayNumber.Zero - 1)
-        range.CheckUpperBound(DayNumber.Zero)
-        range.CheckUpperBound(DayNumber.Zero + 1)
-        range.CheckUpperBound(DayNumber.Zero + 2)
-        (fun () -> range.CheckUpperBound(DayNumber.Zero + 3)) |> overflows
+        scope.CheckUpperBound(DayNumber.Zero - 1)
+        scope.CheckUpperBound(DayNumber.Zero)
+        scope.CheckUpperBound(DayNumber.Zero + 729)
+        (fun () -> scope.CheckUpperBound(DayNumber.Zero + 730)) |> overflows
 
     [<Fact>]
     let ``CheckLowerBound()`` () =
-        let range = Range.Create(DayNumber.Zero, DayNumber.Zero + 2)
-
-        (fun () -> range.CheckLowerBound(DayNumber.Zero - 1)) |> overflows
-        range.CheckLowerBound(DayNumber.Zero)
-        range.CheckLowerBound(DayNumber.Zero + 1)
-        range.CheckLowerBound(DayNumber.Zero + 2)
-        range.CheckLowerBound(DayNumber.Zero + 3)
+        (fun () -> scope.CheckLowerBound(DayNumber.Zero - 1)) |> overflows
+        scope.CheckLowerBound(DayNumber.Zero)
+        scope.CheckLowerBound(DayNumber.Zero + 729)
+        scope.CheckLowerBound(DayNumber.Zero + 730)
