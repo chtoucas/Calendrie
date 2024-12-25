@@ -42,6 +42,36 @@ public class PrototypalSchemaSlim : PrototypalSchema
     protected int ApproxMonthsInYear { get; }
 
     /// <inheritdoc />
+    public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
+    {
+        const int MinMonthsInYear = 12;
+
+        y = 1 + MathZ.Divide(monthsSinceEpoch, MinMonthsInYear);
+        int startOfYear = GetStartOfYearInMonths(y);
+
+        if (monthsSinceEpoch >= 0)
+        {
+            while (monthsSinceEpoch < startOfYear)
+            {
+                startOfYear -= m_Kernel.CountMonthsInYear(--y);
+            }
+        }
+        else
+        {
+            while (monthsSinceEpoch >= startOfYear)
+            {
+                int startOfNextYear = startOfYear + m_Kernel.CountMonthsInYear(y);
+                if (monthsSinceEpoch < startOfNextYear) { break; }
+                y++;
+                startOfYear = startOfNextYear;
+            }
+            Debug.Assert(monthsSinceEpoch >= startOfYear);
+        }
+
+        m = 1 + monthsSinceEpoch - startOfYear;
+    }
+
+    /// <inheritdoc />
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch, out int doy)
     {

@@ -1,18 +1,14 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-#define ENABLE_OPTIMIZATIONS
-
 namespace Calendrie.Core.Prototyping;
 
 using Calendrie.Core.Intervals;
-#if ENABLE_OPTIMIZATIONS
 using Calendrie.Core.Utilities;
-#endif
 
 // WARNING: only meant to be used for rapid prototyping.
 //
-// For explanations, see PrototypalSchema.
+// For explanations, see PrototypalSchemaSlim.
 
 /// <summary>
 /// Represents a prototype for a non-regular schema and provides a base for
@@ -78,7 +74,6 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     /// method.</remarks>
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
-#if ENABLE_OPTIMIZATIONS
         const int MinMonthsInYear = 12;
 
         y = 1 + MathZ.Divide(monthsSinceEpoch, MinMonthsInYear);
@@ -104,36 +99,6 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
         }
 
         m = 1 + monthsSinceEpoch - startOfYear;
-#else
-        if (monthsSinceEpoch < 0)
-        {
-            y = 0;
-            int startOfYear = -CountMonthsInYear(0);
-
-            while (monthsSinceEpoch < startOfYear)
-            {
-                startOfYear -= CountMonthsInYear(--y);
-            }
-
-            m = 1 + monthsSinceEpoch - startOfYear;
-        }
-        else
-        {
-            y = 1;
-            int startOfYear = 0;
-
-            while (monthsSinceEpoch >= startOfYear)
-            {
-                int startOfNextYear = startOfYear + CountMonthsInYear(y);
-                if (monthsSinceEpoch < startOfNextYear) { break; }
-                y++;
-                startOfYear = startOfNextYear;
-            }
-            Debug.Assert(monthsSinceEpoch >= startOfYear);
-
-            m = 1 + monthsSinceEpoch - startOfYear;
-        }
-#endif
     }
 
     /// <inheritdoc />
@@ -142,7 +107,6 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
-#if ENABLE_OPTIMIZATIONS
         int y = 1 + MathZ.Divide(daysSinceEpoch, MinDaysInYear);
         int startOfYear = GetStartOfYear(y);
 
@@ -167,38 +131,6 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
 
         doy = 1 + daysSinceEpoch - startOfYear;
         return y;
-#else
-        if (daysSinceEpoch < 0)
-        {
-            int y = 0;
-            int startOfYear = -CountDaysInYear(0);
-
-            while (daysSinceEpoch < startOfYear)
-            {
-                startOfYear -= CountDaysInYear(--y);
-            }
-
-            doy = 1 + daysSinceEpoch - startOfYear;
-            return y;
-        }
-        else
-        {
-            int y = 1;
-            int startOfYear = 0;
-
-            while (daysSinceEpoch >= startOfYear)
-            {
-                int startOfNextYear = startOfYear + CountDaysInYear(y);
-                if (daysSinceEpoch < startOfNextYear) { break; }
-                y++;
-                startOfYear = startOfNextYear;
-            }
-            Debug.Assert(daysSinceEpoch >= startOfYear);
-
-            doy = 1 + daysSinceEpoch - startOfYear;
-            return y;
-        }
-#endif
     }
 
     /// <inheritdoc />
