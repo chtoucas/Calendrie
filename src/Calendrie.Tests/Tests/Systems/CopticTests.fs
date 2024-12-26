@@ -20,6 +20,14 @@ module Prelude =
         Coptic13Calendar.Instance.Epoch.DaysSinceZero === 103_604
 
     [<Fact>]
+    let ``default(CopticDate) is CopticCalendar.Epoch`` () =
+        Unchecked.defaultof<CopticDate>.DayNumber === CopticCalendar.Instance.Epoch
+    [<Fact>]
+    let ``default(Coptic13Date) is Coptic13Calendar.Epoch`` () =
+        Unchecked.defaultof<Coptic13Date>.DayNumber === Coptic13Calendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of CopticCalendar.MinDaysSinceEpoch`` () =
         CopticCalendar.Instance.MinDaysSinceEpoch === 0
     [<Fact>]
@@ -32,6 +40,7 @@ module Prelude =
     [<Fact>]
     let ``Value of Coptic13Calendar.MaxDaysSinceEpoch`` () =
         Coptic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134
+#endif
 
 module Bundles =
     let private chr = CopticCalendar.Instance

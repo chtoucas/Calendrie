@@ -76,12 +76,12 @@
     <Compile Include="Tests\Systems\StandardYearsValidatorTests.fs" />
     <Compile Include="Tests\Systems\ProlepticScopeTestSuite.fs" />
     <Compile Include="Tests\Systems\ProlepticYearsValidatorTests.fs" />
-    <Compile Include="Tests\Systems\ArmenianTests.fs" />
-    <Compile Include="Tests\Systems\CivilTests.fs" />
-    <Compile Include="Tests\Systems\CopticTests.fs" />
-    <Compile Include="Tests\Systems\EthiopicTests.fs" />
     <Compile Include="Tests\Systems\GregorianTests.fs" />
     <Compile Include="Tests\Systems\JulianTests.fs" />
+    <Compile Include="Tests\Systems\CivilTests.fs" />
+    <Compile Include="Tests\Systems\ArmenianTests.fs" />
+    <Compile Include="Tests\Systems\CopticTests.fs" />
+    <Compile Include="Tests\Systems\EthiopicTests.fs" />
     <Compile Include="Tests\Systems\PaxTests.fs" />
     <Compile Include="Tests\Systems\TabularIslamicTests.fs" />
     <Compile Include="Tests\Systems\WorldTests.fs" />

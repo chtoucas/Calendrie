@@ -20,10 +20,10 @@ public partial struct GregorianDate // Preamble
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to -365_242_135.</para></summary>
-    internal const int MinDaysSinceZero = -365_242_135;
+    private const int MinDaysSinceZero = -365_242_135;
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 365_242_133.</para></summary>
-    internal const int MaxDaysSinceZero = 365_242_133;
+    private const int MaxDaysSinceZero = 365_242_133;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.

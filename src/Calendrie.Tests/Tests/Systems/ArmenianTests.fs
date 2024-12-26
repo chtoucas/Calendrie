@@ -21,6 +21,14 @@ module Prelude =
         Armenian13Calendar.Instance.Epoch.DaysSinceZero === 201_442
 
     [<Fact>]
+    let ``default(ArmenianDate) is ArmenianCalendar.Epoch`` () =
+        Unchecked.defaultof<ArmenianDate>.DayNumber === ArmenianCalendar.Instance.Epoch
+    [<Fact>]
+    let ``default(Armenian13Date) is Armenian13Calendar.Epoch`` () =
+        Unchecked.defaultof<Armenian13Date>.DayNumber === Armenian13Calendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of ArmenianCalendar.MinDaysSinceEpoch`` () =
         ArmenianCalendar.Instance.MinDaysSinceEpoch === 0
     [<Fact>]
@@ -33,6 +41,7 @@ module Prelude =
     [<Fact>]
     let ``Value of Armenian13Calendar.MaxDaysSinceEpoch`` () =
         Armenian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
+#endif
 
 module Bundles =
     let private chr = ArmenianCalendar.Instance

@@ -18,12 +18,18 @@ module Prelude =
         TabularIslamicCalendar.Instance.Epoch.DaysSinceZero === 227_014
 
     [<Fact>]
+    let ``default(TabularIslamicDate) is TabularIslamicCalendar.Epoch`` () =
+        Unchecked.defaultof<TabularIslamicDate>.DayNumber === TabularIslamicCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of TabularIslamicCalendar.MinDaysSinceEpoch`` () =
         TabularIslamicCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
     let ``Value of TabularIslamicCalendar.MaxDaysSinceEpoch`` () =
         TabularIslamicCalendar.Instance.MaxDaysSinceEpoch === 3_543_311
+#endif
 
 module Bundles =
     let private chr = TabularIslamicCalendar.Instance

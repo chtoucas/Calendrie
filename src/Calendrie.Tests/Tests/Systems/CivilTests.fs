@@ -28,19 +28,21 @@ module Prelude =
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
     [<Fact>]
+    let ``Value of CivilCalendar.Epoch.DaysZinceZero`` () =
+        CivilCalendar.Instance.Epoch.DaysSinceZero === 0
+
+    [<Fact>]
+    let ``default(CivilDate) is CivilCalendar.Epoch`` () =
+        Unchecked.defaultof<CivilDate>.DayNumber === CivilCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of CivilCalendar.MinDaysSinceEpoch`` () =
         CivilCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
     let ``Value of CivilCalendar.MaxDaysSinceEpoch`` () =
         CivilCalendar.Instance.MaxDaysSinceEpoch === 3_652_058
-
-#if DEBUG
-    [<Fact>]
-    let ``Value of CivilDate.MaxDaysSinceZero`` () =
-        // C# protected internal
-        //CivilDate.MaxDaysSinceZero === CivilCalendar.Instance.Scope.Segment.SupportedDays.Max
-        CivilDate.MaxDaysSinceZero === CivilCalendar.Instance.Segment.SupportedDays.Max
 #endif
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]

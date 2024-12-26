@@ -45,6 +45,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
         Debug.Assert(scope.Segment.IsComplete);
     }
 
+#if DEBUG
     // The next internal properties are only meant to be used by the date type.
     // For "standard" calendars, MinDaysSinceEpoch = 0.
     // When creating a new type, these properties are useful to determine the
@@ -59,6 +60,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// Gets the maximum value for the number of consecutive days from the epoch.
     /// </summary>
     internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
+#endif
 
     /// <inheritdoc/>
     [Pure]

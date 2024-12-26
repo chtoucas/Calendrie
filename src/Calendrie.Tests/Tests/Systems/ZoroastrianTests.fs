@@ -21,6 +21,14 @@ module Prelude =
         Zoroastrian13Calendar.Instance.Epoch.DaysSinceZero === 230_637
 
     [<Fact>]
+    let ``default(ZoroastrianDate) is ZoroastrianCalendar.Epoch`` () =
+        Unchecked.defaultof<ZoroastrianDate>.DayNumber === ZoroastrianCalendar.Instance.Epoch
+    [<Fact>]
+    let ``default(Zoroastrian13Date) is Zoroastrian13Calendar.Epoch`` () =
+        Unchecked.defaultof<Zoroastrian13Date>.DayNumber === Zoroastrian13Calendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of ZoroastrianCalendar.MinDaysSinceEpoch`` () =
         ZoroastrianCalendar.Instance.MinDaysSinceEpoch === 0
     [<Fact>]
@@ -33,6 +41,7 @@ module Prelude =
     [<Fact>]
     let ``Value of Zoroastrian13Calendar.MaxDaysSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
+#endif
 
 module Bundles =
     let private chr = ZoroastrianCalendar.Instance

@@ -18,25 +18,24 @@ open Xunit
 open type Calendrie.Extensions.JulianDateExtensions
 
 module Prelude =
-
     // Test for Benchmars.PlainJulian
     [<Fact>]
     let ``Value of PlainJulian.MaxDaysSinceEpoch`` () =
         let date = new JulianDate(9999, 1, 1)
         date.DaysSinceEpoch === 3_651_769
 
+    [<Fact>]
+    let ``Value of JulianCalendar.Epoch.DaysZinceZero`` () =
+        JulianCalendar.Instance.Epoch.DaysSinceZero === -2
+
 #if DEBUG
     [<Fact>]
-    let ``Value of JulianDate.MinDaysSinceEpoch`` () =
-        // C# protected internal
-        //JulianDate.MinDaysSinceEpoch === JulianCalendar.Instance.Scope.Segment.SupportedDays.Min
-        JulianDate.MinDaysSinceEpoch === JulianCalendar.Instance.Segment.SupportedDays.Min
+    let ``Value of JulianCalendar.MinDaysSinceEpoch`` () =
+        JulianCalendar.Instance.MinDaysSinceEpoch === -365_249_635
 
     [<Fact>]
-    let ``Value of JulianDate.MaxDaysSinceEpoch`` () =
-        // C# protected internal
-        //JulianDate.MaxDaysSinceEpoch === JulianCalendar.Instance.Scope.Segment.SupportedDays.Max
-        JulianDate.MaxDaysSinceEpoch === JulianCalendar.Instance.Segment.SupportedDays.Max
+    let ``Value of JulianCalendar.MaxDaysSinceEpoch`` () =
+        JulianCalendar.Instance.MaxDaysSinceEpoch === 365_249_633
 #endif
 
 module Extensions =

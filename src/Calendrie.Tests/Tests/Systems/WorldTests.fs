@@ -22,12 +22,18 @@ module Prelude =
         WorldCalendar.Instance.Epoch.DaysSinceZero === -1
 
     [<Fact>]
+    let ``default(WorldDate) is WorldCalendar.Epoch`` () =
+        Unchecked.defaultof<WorldDate>.DayNumber === WorldCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of WorldCalendar.MinDaysSinceEpoch`` () =
         WorldCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
     let ``Value of WorldCalendar.MaxDaysSinceEpoch`` () =
         WorldCalendar.Instance.MaxDaysSinceEpoch === 3_652_058
+#endif
 
 module Methods =
     let dateInfoData = WorldDataSet.Instance.DateInfoData

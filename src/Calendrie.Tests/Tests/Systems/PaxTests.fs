@@ -21,12 +21,18 @@ module Prelude =
         PaxCalendar.Instance.Epoch.DaysSinceZero === -1
 
     [<Fact>]
+    let ``default(PaxDate) is PaxCalendar.Epoch`` () =
+        Unchecked.defaultof<PaxDate>.DayNumber === PaxCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of PaxCalendar.MinDaysSinceEpoch`` () =
         PaxCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
     let ``Value of PaxCalendar.MaxDaysSinceEpoch`` () =
         PaxCalendar.Instance.MaxDaysSinceEpoch === 3_652_060
+#endif
 
 module Bundles =
     let dateInfoData = PaxDataSet.Instance.DateInfoData

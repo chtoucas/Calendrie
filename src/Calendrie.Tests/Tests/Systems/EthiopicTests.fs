@@ -21,6 +21,14 @@ module Prelude =
         Ethiopic13Calendar.Instance.Epoch.DaysSinceZero === 2795
 
     [<Fact>]
+    let ``default(EthiopicDate) is EthiopicCalendar.Epoch`` () =
+        Unchecked.defaultof<EthiopicDate>.DayNumber === EthiopicCalendar.Instance.Epoch
+    [<Fact>]
+    let ``default(Ethiopic13Date) is Ethiopic13Calendar.Epoch`` () =
+        Unchecked.defaultof<Ethiopic13Date>.DayNumber === Ethiopic13Calendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
     let ``Value of EthiopicCalendar.MinDaysSinceEpoch`` () =
         EthiopicCalendar.Instance.MinDaysSinceEpoch === 0
     [<Fact>]
@@ -33,6 +41,7 @@ module Prelude =
     [<Fact>]
     let ``Value of Ethiopic13Calendar.MaxDaysSinceEpoch`` () =
         Ethiopic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134
+#endif
 
 module Bundles =
     let private chr = EthiopicCalendar.Instance
