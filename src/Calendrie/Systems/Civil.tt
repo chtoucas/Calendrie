@@ -5,7 +5,7 @@
 
 public sealed class CivilTemplate : ZeroCalendarTemplate
 {
-    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema")
+    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema", "3_652_058")
     {
         ScopeClass = "CivilScope";
 

@@ -82,20 +82,19 @@ public partial struct TabularIslamicDate // Preamble
 
     private static readonly int s_EpochDaysSinceZero = TabularIslamicCalendar.Instance.Epoch.DaysSinceZero;
 
-    /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = TabularIslamicCalendar.Instance.MinDaysSinceEpoch;
-    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = TabularIslamicCalendar.Instance.MaxDaysSinceEpoch;
+    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// <para>This field is a constant equal to 3_543_311.</para></summary>
+    private const int MaxDaysSinceEpoch = 3_543_311;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly TabularIslamicDate s_MinValue = new(s_MinDaysSinceEpoch);
+    private static readonly TabularIslamicDate s_MinValue = new(0);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly TabularIslamicDate s_MaxValue = new(s_MaxDaysSinceEpoch);
+    private static readonly TabularIslamicDate s_MaxValue = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.TabularIslamic"/>.
-    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
-    /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
+    /// </para>
     /// </summary>
     private readonly int _daysSinceEpoch;
 
@@ -254,6 +253,13 @@ public partial struct TabularIslamicDate // Factories & conversions
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
         return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+
+        //int daysSinceEpoch = dayNumber.DaysSinceZero - s_EpochDaysSinceZero;
+
+        //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
+        //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        //return new(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -354,7 +360,7 @@ public partial struct TabularIslamicDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
-        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -366,8 +372,8 @@ public partial struct TabularIslamicDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
-        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
+        if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -377,8 +383,7 @@ public partial struct TabularIslamicDate // Find close by day of the week
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - s_EpochDaysSinceZero;
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
-            ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -391,7 +396,7 @@ public partial struct TabularIslamicDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
-        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -403,7 +408,7 @@ public partial struct TabularIslamicDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
-        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 }
@@ -526,8 +531,7 @@ public partial struct TabularIslamicDate // Math
 
         // Don't write (the addition may also overflow...):
         // > Scope.CheckOverflow(Epoch + daysSinceEpoch);
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
-            ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceEpoch);
     }

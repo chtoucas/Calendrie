@@ -348,7 +348,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
-        if (daysSinceZero < s_MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -360,8 +360,8 @@ public partial struct PlainGregorianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
-        if (daysSinceZero < s_MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
+        if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -371,8 +371,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceZero = nearest.DaysSinceZero - s_Epoch.DaysSinceZero;
-        if (daysSinceZero < s_MinDaysSinceZero || daysSinceZero > s_MaxDaysSinceZero)
-            ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -520,8 +519,7 @@ public partial struct PlainGregorianDate // Math
 
         // Don't write (the addition may also overflow...):
         // > Scope.CheckOverflow(Epoch + daysSinceZero);
-        if (daysSinceZero < s_MinDaysSinceZero || daysSinceZero > s_MaxDaysSinceZero)
-            ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceZero);
     }

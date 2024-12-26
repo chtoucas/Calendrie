@@ -5,7 +5,7 @@
 
 public sealed class GregorianTemplate : ZeroCalendarTemplate
 {
-    public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema")
+    public GregorianTemplate(TextTransformation parent) : base(parent, "GregorianSchema", "")
     {
         ScopeClass = "GregorianScope";
 
@@ -25,14 +25,13 @@ using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>
-
-using static Calendrie.Core.CalendricalConstants;
 <#+
     } // T4: End of EmitUsings()
 
     protected sealed override void EmitCalendar() { }
 
     protected sealed override void EmitDatePreamble() { }
+    protected sealed override void EmitCloseByDayOfWeek() { }
     protected sealed override void EmitDateMath() { }
 }
 

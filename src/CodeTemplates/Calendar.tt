@@ -6,7 +6,11 @@
 
 public partial class CalendarTemplate : CSharpTemplate
 {
-    public CalendarTemplate(TextTransformation parent, string schemaClass, string epoch) : base(parent)
+    public CalendarTemplate(
+        TextTransformation parent,
+        string schemaClass,
+        string epoch,
+        string maxDaysSinceEpochValue) : base(parent)
     {
         if (String.IsNullOrWhiteSpace(schemaClass))
             throw new ArgumentException("The schema can not be null or blank.", nameof(schemaClass));
@@ -18,6 +22,7 @@ public partial class CalendarTemplate : CSharpTemplate
         Epoch = epoch;
         DisplayName = Name;
         Prefix = Name;
+        MaxDaysSinceEpochValue = maxDaysSinceEpochValue;
     }
 
     public string SchemaClass { get; }
@@ -33,8 +38,9 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
     public string DaysSinceEpochSuffix { get; set; } = "DaysSinceEpoch";
-    public string MinDaysSinceEpoch { get; set; } = "s_MinDaysSinceEpoch";
-    public string MaxDaysSinceEpoch { get; set; } = "s_MaxDaysSinceEpoch";
+    public string MinDaysSinceEpoch { get; set; } = "MinDaysSinceEpoch";
+    public string MaxDaysSinceEpoch { get; set; } = "MaxDaysSinceEpoch";
+    public string MaxDaysSinceEpochValue { get; }
 
     public bool EnableIsSupplimentary { get; set; } = true;
 

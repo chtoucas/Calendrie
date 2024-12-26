@@ -86,20 +86,19 @@ public partial struct PlainJulianDate // Preamble
     /// <summary>Represents the epoch of the associated calendar.</summary>
     private static readonly DayNumber s_Epoch = PlainJulianCalendar.Instance.Epoch;
 
-    /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MinDaysSinceEpoch = PlainJulianCalendar.Instance.MinDaysSinceEpoch;
-    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.</summary>
-    private static readonly int s_MaxDaysSinceEpoch = PlainJulianCalendar.Instance.MaxDaysSinceEpoch;
+    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// <para>This field is a constant equal to 3_651_769.</para></summary>
+    private const int MaxDaysSinceEpoch = 3_651_769;
 
     /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly PlainJulianDate s_MinValue = new(s_MinDaysSinceEpoch);
+    private static readonly PlainJulianDate s_MinValue = new(0);
     /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly PlainJulianDate s_MaxValue = new(s_MaxDaysSinceEpoch);
+    private static readonly PlainJulianDate s_MaxValue = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.OldStyle"/>.
-    /// <para>This field is in the range from <see cref="s_MinDaysSinceEpoch"/>
-    /// to <see cref="s_MaxDaysSinceEpoch"/>.</para>
+    /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
+    /// </para>
     /// </summary>
     private readonly int _daysSinceEpoch;
 
@@ -258,6 +257,13 @@ public partial struct PlainJulianDate // Factories & conversions
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
         return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+
+        //int daysSinceEpoch = dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero;
+
+        //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
+        //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        //return new(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -358,7 +364,7 @@ public partial struct PlainJulianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
-        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -370,8 +376,8 @@ public partial struct PlainJulianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
-        if (daysSinceEpoch < s_MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
+        if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -381,8 +387,7 @@ public partial struct PlainJulianDate // Find close by day of the week
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - s_Epoch.DaysSinceZero;
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
-            ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -395,7 +400,7 @@ public partial struct PlainJulianDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
-        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -407,7 +412,7 @@ public partial struct PlainJulianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
-        if (daysSinceEpoch > s_MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 }
@@ -530,8 +535,7 @@ public partial struct PlainJulianDate // Math
 
         // Don't write (the addition may also overflow...):
         // > Scope.CheckOverflow(Epoch + daysSinceEpoch);
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
-            ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceEpoch);
     }

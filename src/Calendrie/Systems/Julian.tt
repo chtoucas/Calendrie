@@ -5,7 +5,7 @@
 
 public sealed class JulianTemplate : CalendarTemplate
 {
-    public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema", "DayZero.OldStyle")
+    public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema", "DayZero.OldStyle", "")
     {
         ScopeClass = "JulianScope";
 
@@ -36,6 +36,7 @@ using static Calendrie.Core.CalendricalConstants;
 
     protected sealed override void EmitDatePreamble() { }
     protected sealed override void EmitDateFactories() { }
+    protected sealed override void EmitCloseByDayOfWeek() { }
     protected sealed override void EmitDateMath() { }
 }
 

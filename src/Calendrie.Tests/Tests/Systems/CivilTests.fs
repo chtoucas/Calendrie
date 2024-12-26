@@ -27,6 +27,14 @@ module Prelude =
     let dateInfoData = calendarDataSet.DateInfoData
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
+    [<Fact>]
+    let ``Value of CivilCalendar.MinDaysSinceEpoch`` () =
+        CivilCalendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of CivilCalendar.MaxDaysSinceEpoch`` () =
+        CivilCalendar.Instance.MaxDaysSinceEpoch === 3_652_058
+
 #if DEBUG
     [<Fact>]
     let ``Value of CivilDate.MaxDaysSinceZero`` () =

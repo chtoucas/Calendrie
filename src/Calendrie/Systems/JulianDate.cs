@@ -7,6 +7,8 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
 /// supported.</remarks>
 public partial struct JulianDate // Preamble
@@ -183,6 +185,70 @@ public partial struct JulianDate // Factories & conversions
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static JulianDate IDateFactory<JulianDate>.CreateUnchecked(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
+
+public partial struct JulianDate // Find close by day of the week
+{
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceEpoch < MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
+        if (daysSinceEpoch < MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate Nearest(DayOfWeek dayOfWeek)
+    {
+        var nearest = DayNumber.Nearest(dayOfWeek);
+        int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
+        if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceEpoch);
+    }
 }
 
 public partial struct JulianDate // Math

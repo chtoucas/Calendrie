@@ -17,8 +17,15 @@ open Xunit
 
 open type Calendrie.Extensions.JulianDateExtensions
 
-#if DEBUG
 module Prelude =
+
+    // Test for Benchmars.PlainJulian
+    [<Fact>]
+    let ``Value of PlainJulian.MaxDaysSinceEpoch`` () =
+        let date = new JulianDate(9999, 1, 1)
+        date.DaysSinceEpoch === 3_651_769
+
+#if DEBUG
     [<Fact>]
     let ``Value of JulianDate.MinDaysSinceEpoch`` () =
         // C# protected internal
