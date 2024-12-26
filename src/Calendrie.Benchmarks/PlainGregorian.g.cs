@@ -80,19 +80,13 @@ public readonly partial struct PlainGregorianDate :
 
 public partial struct PlainGregorianDate // Preamble
 {
-    /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MinDaysSinceZero = PlainGregorianCalendar.Instance.MinDaysSinceEpoch;
-    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.</summary>
-    private static readonly int s_MaxDaysSinceZero = PlainGregorianCalendar.Instance.MaxDaysSinceEpoch;
-
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly PlainGregorianDate s_MinValue = new(s_MinDaysSinceZero);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly PlainGregorianDate s_MaxValue = new(s_MaxDaysSinceZero);
+    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
+    /// <para>This field is a constant equal to 3_652_058.</para></summary>
+    private const int MaxDaysSinceZero = 3_652_058;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from 0 to <see cref="s_MaxDaysSinceZero"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceZero"/>.
     /// </para>
     /// </summary>
     private readonly int _daysSinceZero;
@@ -137,11 +131,11 @@ public partial struct PlainGregorianDate // Preamble
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static PlainGregorianDate MinValue => s_MinValue;
+    public static PlainGregorianDate MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static PlainGregorianDate MaxValue => s_MaxValue;
+    public static PlainGregorianDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -371,7 +365,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceZero = nearest.DaysSinceZero - s_Epoch.DaysSinceZero;
-        if ((uint)daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -384,7 +378,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
-        if (daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -396,7 +390,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
-        if (daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 }
@@ -519,7 +513,7 @@ public partial struct PlainGregorianDate // Math
 
         // Don't write (the addition may also overflow...):
         // > Scope.CheckOverflow(Epoch + daysSinceZero);
-        if ((uint)daysSinceZero > s_MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
 
         return new(daysSinceZero);
     }

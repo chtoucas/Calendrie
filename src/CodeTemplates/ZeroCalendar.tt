@@ -11,8 +11,8 @@ public class ZeroCalendarTemplate : CalendarTemplate
     {
         DaysSinceEpochVar = "daysSinceZero";
         DaysSinceEpochSuffix = "DaysSinceZero";
-        MinDaysSinceEpoch = "s_MinDaysSinceZero";
-        MaxDaysSinceEpoch = "s_MaxDaysSinceZero";
+        MinDaysSinceEpoch = "MinDaysSinceZero";
+        MaxDaysSinceEpoch = "MaxDaysSinceZero";
     }
 
     protected override void EmitUsings()
@@ -99,15 +99,9 @@ public sealed partial class <#= Prefix #>Clock
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
-    /// <summary>Represents the minimum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int <#= MinDaysSinceEpoch #> = <#= Prefix #>Calendar.Instance.MinDaysSinceEpoch;
-    /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.</summary>
-    private static readonly int <#= MaxDaysSinceEpoch #> = <#= Prefix #>Calendar.Instance.MaxDaysSinceEpoch;
-
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MinValue = new(<#= MinDaysSinceEpoch #>);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= MaxDaysSinceEpoch #>);
+    /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.
+    /// <para>This field is a constant equal to <#= MaxDaysSinceEpochValue #>.</para></summary>
+    private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
@@ -156,11 +150,11 @@ public partial struct <#= Prefix #>Date // Preamble
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static <#= Prefix #>Date MinValue => s_MinValue;
+    public static <#= Prefix #>Date MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static <#= Prefix #>Date MaxValue => s_MaxValue;
+    public static <#= Prefix #>Date MaxValue { get; } = new(<#= MaxDaysSinceEpoch #>);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
