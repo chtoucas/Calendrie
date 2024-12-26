@@ -4,6 +4,7 @@
 namespace Calendrie.Core;
 
 // TODO(code): (y, m, d) <-> (y, woy, dow). See also CalendarWeek. Maybe create CalendarWeekdate?
+// Add Yewe type.
 
 // References:
 // https://en.wikipedia.org/wiki/Leap_week_calendar

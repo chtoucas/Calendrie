@@ -13,7 +13,7 @@ public partial struct GregorianDate // Preamble
 {
     // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
 
-    // TODO(code): idem w/ PlainGregorian.
+    // TODO(code): EpochDaysSinceZero instead of s_EpochDaysSinceZero; idem w/ PlainGregorian.
 #pragma warning disable IDE1006 // Naming Styles
     private const int s_EpochDaysSinceZero = 0;
 #pragma warning restore IDE1006
