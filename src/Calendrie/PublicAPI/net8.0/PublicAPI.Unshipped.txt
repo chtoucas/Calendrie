@@ -285,8 +285,9 @@ Calendrie.Core.PartsAdapter.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Ordin
 Calendrie.Core.PartsAdapter.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.OrdinalParts
 Calendrie.Core.Prototyping.NonRegularSchemaPrototype
 Calendrie.Core.Prototyping.NonRegularSchemaPrototype.IsProleptic.get -> bool
-Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
-Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype.MinMonthsInYear.get -> int
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(bool proleptic, int minMonthsInYear, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minMonthsInYear, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.Prototyping.RegularSchemaPrototype
 Calendrie.Core.Prototyping.RegularSchemaPrototype.IsProleptic.get -> bool
 Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
