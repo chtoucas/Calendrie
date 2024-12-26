@@ -46,6 +46,9 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     }
 
     // The next internal properties are only meant to be used by the date type.
+    // For "standard" calendars, MinDaysSinceEpoch = 0.
+    // When creating a new type, these properties are useful to determine the
+    // actual value of MaxDaysSinceEpoch to be used by the T4 template.
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.
