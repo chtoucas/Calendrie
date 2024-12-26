@@ -63,7 +63,9 @@ public partial class RegularSchemaPrototype // Prototypal methods
 
     /// <inheritdoc />
     /// <remarks>For performance reasons, a derived class SHOULD override this
-    /// method.</remarks>
+    /// method. In fact, one should override <see cref="GetYear(int)"/> using a
+    /// computational formulae, and use it to implement this method the way it's
+    /// done in <see cref="CalendricalSchema"/>.</remarks>
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {

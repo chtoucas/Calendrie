@@ -6,10 +6,6 @@ namespace Calendrie.Core.Prototyping;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// FIXME(code): MinMonthsInYear (via ctor?), idem with PrototypalSchemaSlim
-// TODO(code): optimizations, idem with NonRegular... and PrototypalSchema
-// Explain the algorithms.
-
 // WARNING: only meant to be used for rapid prototyping.
 
 /// <summary>
@@ -22,8 +18,9 @@ public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
     /// Initializes a new instance of the <see cref="NonRegularSchemaPrototype"/>
     /// class.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
-    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minMonthsInYear"/>,
+    /// <paramref name="minDaysInYear"/> or <paramref name="minDaysInMonth"/> is
+    /// a negative integer.</exception>
     protected NonRegularSchemaPrototype(
         bool proleptic, int minMonthsInYear, int minDaysInYear, int minDaysInMonth)
         : this(
@@ -37,8 +34,9 @@ public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
     /// Initializes a new instance of the <see cref="NonRegularSchemaPrototype"/>
     /// class.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
-    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minMonthsInYear"/>,
+    /// <paramref name="minDaysInYear"/> or <paramref name="minDaysInMonth"/> is
+    /// a negative integer.</exception>
     protected NonRegularSchemaPrototype(
         Range<int> supportedYears, int minMonthsInYear, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
@@ -78,6 +76,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
     {
+        // Max number of iterations = MaxMonthsInYear, ie 12 or 13, at most 14.
         int count = 0;
         for (int i = 1; i < m; i++)
         {
@@ -118,7 +117,9 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
 
     /// <inheritdoc />
     /// <remarks>For performance reasons, a derived class SHOULD override this
-    /// method.</remarks>
+    /// method. In fact, one should override <see cref="GetYear(int)"/> using a
+    /// computational formulae, and use it to implement this method the way it's
+    /// done in <see cref="CalendricalSchema"/>.</remarks>
     [Pure]
     public override int GetYear(int daysSinceEpoch, out int doy)
     {
@@ -173,6 +174,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
         int m = 1;
         int daysInYearBeforeMonth = 0;
 
+        // Max number of iterations = MaxMonthsInYear, ie 12 or 13, at most 14.
         int monthsInYear = CountMonthsInYear(y);
         while (m < monthsInYear)
         {
@@ -195,6 +197,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     {
         int monthsSinceEpoch = 0;
 
+        // Number of iterations = y - 1.
         if (y < 1)
         {
             for (int i = y; i < 1; i++)
@@ -221,6 +224,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     {
         int daysSinceEpoch = 0;
 
+        // Number of iterations = y - 1.
         if (y < 1)
         {
             for (int i = y; i < 1; i++)
