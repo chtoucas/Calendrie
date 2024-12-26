@@ -78,18 +78,11 @@ public readonly partial struct Zoroastrian13Date :
 
 public partial struct Zoroastrian13Date // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly int s_EpochDaysSinceZero = Zoroastrian13Calendar.Instance.Epoch.DaysSinceZero;
-
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_649_634.</para></summary>
     private const int MaxDaysSinceEpoch = 3_649_634;
 
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly Zoroastrian13Date s_MinValue = new(0);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly Zoroastrian13Date s_MaxValue = new(MaxDaysSinceEpoch);
+    private static readonly int s_EpochDaysSinceZero = Zoroastrian13Calendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.Zoroastrian"/>.
@@ -138,11 +131,11 @@ public partial struct Zoroastrian13Date // Preamble
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static Zoroastrian13Date MinValue => s_MinValue;
+    public static Zoroastrian13Date MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static Zoroastrian13Date MaxValue => s_MaxValue;
+    public static Zoroastrian13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -549,7 +542,7 @@ public partial struct Zoroastrian13Date // Math
     [Pure]
     public Zoroastrian13Date NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -557,7 +550,7 @@ public partial struct Zoroastrian13Date // Math
     [Pure]
     public Zoroastrian13Date PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

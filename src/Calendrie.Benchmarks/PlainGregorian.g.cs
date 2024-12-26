@@ -528,7 +528,7 @@ public partial struct PlainGregorianDate // Math
     [Pure]
     public PlainGregorianDate NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero + 1);
     }
 
@@ -536,7 +536,7 @@ public partial struct PlainGregorianDate // Math
     [Pure]
     public PlainGregorianDate PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
 }

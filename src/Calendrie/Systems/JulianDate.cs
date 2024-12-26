@@ -15,8 +15,6 @@ public partial struct JulianDate // Preamble
 {
     private const int EpochDaysSinceZero = -2;
 
-    // Min/MaxDaysSinceZero = JulianScope.Instance.Segment.SupportedDays.Min/Max
-
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_635.</para></summary>
     internal const int MinDaysSinceEpoch = -365_249_635;

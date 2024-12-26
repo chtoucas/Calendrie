@@ -81,19 +81,12 @@ public readonly partial struct PlainJulianDate :
 
 public partial struct PlainJulianDate // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = PlainJulianCalendar.Instance.Epoch;
-
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_651_769.</para></summary>
     private const int MaxDaysSinceEpoch = 3_651_769;
 
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly PlainJulianDate s_MinValue = new(0);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly PlainJulianDate s_MaxValue = new(MaxDaysSinceEpoch);
+    /// <summary>Represents the epoch of the associated calendar.</summary>
+    private static readonly DayNumber s_Epoch = PlainJulianCalendar.Instance.Epoch;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.OldStyle"/>.
@@ -142,11 +135,11 @@ public partial struct PlainJulianDate // Preamble
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static PlainJulianDate MinValue => s_MinValue;
+    public static PlainJulianDate MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static PlainJulianDate MaxValue => s_MaxValue;
+    public static PlainJulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -544,7 +537,7 @@ public partial struct PlainJulianDate // Math
     [Pure]
     public PlainJulianDate NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -552,7 +545,7 @@ public partial struct PlainJulianDate // Math
     [Pure]
     public PlainJulianDate PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

@@ -42,7 +42,9 @@ public readonly partial struct <#= Prefix #>Date :
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
+    /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.
+    /// <para>This field is a constant equal to <#= MaxDaysSinceEpochValue #>.</para></summary>
+    private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
 
 <#+ if (EnableMicroOptimizations) { #>
     private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.Instance.Epoch.DaysSinceZero;
@@ -50,15 +52,6 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <summary>Represents the epoch of the associated calendar.</summary>
     private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.Instance.Epoch;
 <#+ } #>
-
-    /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.
-    /// <para>This field is a constant equal to <#= MaxDaysSinceEpochValue #>.</para></summary>
-    private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
-
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MinValue = new(0);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly <#= Prefix #>Date s_MaxValue = new(<#= MaxDaysSinceEpoch #>);
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="<#= Epoch #>"/>.
@@ -107,11 +100,11 @@ public partial struct <#= Prefix #>Date // Preamble
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static <#= Prefix #>Date MinValue => s_MinValue;
+    public static <#= Prefix #>Date MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static <#= Prefix #>Date MaxValue => s_MaxValue;
+    public static <#= Prefix #>Date MaxValue { get; } = new(<#= MaxDaysSinceEpoch #>);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -564,7 +557,7 @@ public partial struct <#= Prefix #>Date // Math
     [Pure]
     public <#= Prefix #>Date NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_<#= DaysSinceEpochVar #> + 1);
     }
 
@@ -572,7 +565,7 @@ public partial struct <#= Prefix #>Date // Math
     [Pure]
     public <#= Prefix #>Date PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_<#= DaysSinceEpochVar #> - 1);
     }
 }

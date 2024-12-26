@@ -13,9 +13,6 @@ using static Calendrie.Core.CalendricalConstants;
 /// </remarks>
 public partial struct CivilDate // Preamble
 {
-    // MinDaysSinceZero = 0
-    // MaxDaysSinceZero = CivilScope.Instance.Segment.SupportedDays.Max
-
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 3_652_058.</para></summary>
     internal const int MaxDaysSinceZero = 3_652_058;

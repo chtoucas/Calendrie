@@ -78,18 +78,11 @@ public readonly partial struct WorldDate :
 
 public partial struct WorldDate // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly int s_EpochDaysSinceZero = WorldCalendar.Instance.Epoch.DaysSinceZero;
-
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_652_058.</para></summary>
     private const int MaxDaysSinceEpoch = 3_652_058;
 
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly WorldDate s_MinValue = new(0);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly WorldDate s_MaxValue = new(MaxDaysSinceEpoch);
+    private static readonly int s_EpochDaysSinceZero = WorldCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
@@ -138,11 +131,11 @@ public partial struct WorldDate // Preamble
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static WorldDate MinValue => s_MinValue;
+    public static WorldDate MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static WorldDate MaxValue => s_MaxValue;
+    public static WorldDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -549,7 +542,7 @@ public partial struct WorldDate // Math
     [Pure]
     public WorldDate NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -557,7 +550,7 @@ public partial struct WorldDate // Math
     [Pure]
     public WorldDate PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

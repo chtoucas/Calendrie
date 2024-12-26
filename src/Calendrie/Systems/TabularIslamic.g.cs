@@ -78,18 +78,11 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Preamble
 {
-    // WARNING: the order in which the static fields are written is __important__.
-
-    private static readonly int s_EpochDaysSinceZero = TabularIslamicCalendar.Instance.Epoch.DaysSinceZero;
-
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_543_311.</para></summary>
     private const int MaxDaysSinceEpoch = 3_543_311;
 
-    /// <summary>Represents the minimum value of the current type.</summary>
-    private static readonly TabularIslamicDate s_MinValue = new(0);
-    /// <summary>Represents the maximum value of the current type.</summary>
-    private static readonly TabularIslamicDate s_MaxValue = new(MaxDaysSinceEpoch);
+    private static readonly int s_EpochDaysSinceZero = TabularIslamicCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.TabularIslamic"/>.
@@ -138,11 +131,11 @@ public partial struct TabularIslamicDate // Preamble
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static TabularIslamicDate MinValue => s_MinValue;
+    public static TabularIslamicDate MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static TabularIslamicDate MaxValue => s_MaxValue;
+    public static TabularIslamicDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -540,7 +533,7 @@ public partial struct TabularIslamicDate // Math
     [Pure]
     public TabularIslamicDate NextDay()
     {
-        if (this == s_MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -548,7 +541,7 @@ public partial struct TabularIslamicDate // Math
     [Pure]
     public TabularIslamicDate PreviousDay()
     {
-        if (this == s_MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

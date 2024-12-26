@@ -13,8 +13,6 @@ using static Calendrie.Core.CalendricalConstants;
 /// supported.</remarks>
 public partial struct GregorianDate // Preamble
 {
-    // Min/MaxDaysSinceZero = GregorianScope.Instance.Segment.SupportedDays.Min/Max
-
     // TODO(code): EpochDaysSinceZero instead of s_EpochDaysSinceZero; idem w/ PlainGregorian.
 #pragma warning disable IDE1006 // Naming Styles
     private const int s_EpochDaysSinceZero = 0;
