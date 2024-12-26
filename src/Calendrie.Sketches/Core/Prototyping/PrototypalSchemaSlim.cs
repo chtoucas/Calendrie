@@ -21,8 +21,11 @@ public class PrototypalSchemaSlim : PrototypalSchema
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is null.
     /// </exception>
-    public PrototypalSchemaSlim(ICalendricalSchema schema) : base(schema)
+    public PrototypalSchemaSlim(ICalendricalSchema schema, int minMonthsInYear) : base(schema)
     {
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minMonthsInYear, 0);
+
+        MinMonthsInYear = minMonthsInYear;
         // See GetMonth() for an explanation of the formula.
         ApproxMonthsInYear = 1 + (m_MinDaysInYear - 1) / m_MinDaysInMonth;
     }
@@ -34,21 +37,27 @@ public class PrototypalSchemaSlim : PrototypalSchema
     /// <exception cref="ArgumentNullException"><paramref name="kernel"/> is null.
     /// </exception>
     public PrototypalSchemaSlim(
-        ICalendricalCore kernel, bool proleptic, int minDaysInYear, int minDaysInMonth)
+        ICalendricalCore kernel,
+        bool proleptic,
+        int minMonthsInYear,
+        int minDaysInYear,
+        int minDaysInMonth)
         : base(kernel, proleptic, minDaysInYear, minDaysInMonth)
     {
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minMonthsInYear, 0);
+
+        MinMonthsInYear = minMonthsInYear;
         // See GetMonth() for an explanation of the formula.
         ApproxMonthsInYear = 1 + (minDaysInYear - 1) / minDaysInMonth;
     }
 
+    public int MinMonthsInYear { get; }
     protected int ApproxMonthsInYear { get; }
 
     /// <inheritdoc />
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
         // For explanations, see NonRegularSchemaPrototype.
-
-        const int MinMonthsInYear = 12;
 
         y = 1 + MathZ.Divide(monthsSinceEpoch, MinMonthsInYear);
         int startOfYear = GetStartOfYearInMonths(y);

@@ -15,9 +15,10 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
     private FauxNonRegularSchemaPrototype(
         ICalendricalCore kernel,
         Range<int> supportedYears,
+        int minMonthsInYear,
         int minDaysInYear,
         int minDaysInMonth)
-        : base(supportedYears, minDaysInYear, minDaysInMonth)
+        : base(supportedYears, minMonthsInYear, minDaysInYear, minDaysInMonth)
     {
         Debug.Assert(kernel != null);
 
@@ -27,9 +28,10 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
     private FauxNonRegularSchemaPrototype(
         ICalendricalCore kernel,
         bool proleptic,
+        int minMonthsInYear,
         int minDaysInYear,
         int minDaysInMonth)
-        : base(proleptic, minDaysInYear, minDaysInMonth)
+        : base(proleptic, minMonthsInYear, minDaysInYear, minDaysInMonth)
     {
         Debug.Assert(kernel != null);
 
@@ -37,7 +39,7 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
     }
 
     public static FauxNonRegularSchemaPrototype Create(
-        ICalendricalSchema schema, Range<int> supportedYears)
+        ICalendricalSchema schema, Range<int> supportedYears, int minMonthsInYear)
     {
         ArgumentNullException.ThrowIfNull(schema);
 
@@ -47,6 +49,7 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
         return new FauxNonRegularSchemaPrototype(
             schema,
             supportedYears,
+            minMonthsInYear,
             schema.MinDaysInYear,
             schema.MinDaysInMonth)
         {
@@ -54,7 +57,7 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
         };
     }
 
-    public static FauxNonRegularSchemaPrototype Create(ICalendricalSchema schema)
+    public static FauxNonRegularSchemaPrototype Create(ICalendricalSchema schema, int minMonthsInYear)
     {
         ArgumentNullException.ThrowIfNull(schema);
 
@@ -64,6 +67,7 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
         return new FauxNonRegularSchemaPrototype(
             schema,
             proleptic: schema.SupportedYears.Min < 1,
+            minMonthsInYear,
             schema.MinDaysInYear,
             schema.MinDaysInMonth)
         {

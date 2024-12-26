@@ -54,7 +54,8 @@ public sealed partial class PaxSchema :
     /// Initializes a new instance of the <see cref="PaxSchema"/> class.
     /// </summary>
 #if PROTOTYPING
-    internal PaxSchema() : base(proleptic: false, 364, 7) { }
+    internal PaxSchema()
+        : base(proleptic: false, minMonthsInYear: 13, minDaysInYear: 364, minDaysInMonth: 7) { }
 #else
     internal PaxSchema() : base(DefaultSupportedYears.WithMin(1), 364, 7) { }
 #endif

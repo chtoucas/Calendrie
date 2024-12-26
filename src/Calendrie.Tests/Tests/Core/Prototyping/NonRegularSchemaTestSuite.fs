@@ -17,7 +17,7 @@ open Calendrie.Testing.Faux
 // We do not exclude this one from CodeCoverage: necessary to fully cover GetMonthParts().
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type LunisolarTests() =
-    inherit NonRegularSchemaPrototypeFacts<FauxLunisolarDataSet>(new FauxLunisolarSchema())
+    inherit NonRegularSchemaPrototypeFacts<FauxLunisolarDataSet>(new FauxLunisolarSchema(), 12)
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Lunisolar

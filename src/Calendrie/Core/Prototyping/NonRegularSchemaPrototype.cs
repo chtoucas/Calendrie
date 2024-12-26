@@ -24,8 +24,14 @@ public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
-    protected NonRegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth)
-        : this(PrototypeHelpers.GetSupportedYears(proleptic), minDaysInYear, minDaysInMonth) { }
+    protected NonRegularSchemaPrototype(
+        bool proleptic, int minMonthsInYear, int minDaysInYear, int minDaysInMonth)
+        : this(
+              PrototypeHelpers.GetSupportedYears(proleptic),
+              minMonthsInYear,
+              minDaysInYear,
+              minDaysInMonth)
+    { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="NonRegularSchemaPrototype"/>
@@ -34,10 +40,14 @@ public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     protected NonRegularSchemaPrototype(
-        Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+        Range<int> supportedYears, int minMonthsInYear, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minMonthsInYear, 0);
+
         IsProleptic = supportedYears.Min < 1;
+
+        MinMonthsInYear = minMonthsInYear;
     }
 
     /// <summary>
@@ -45,6 +55,11 @@ public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
     /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool IsProleptic { get; }
+
+    /// <summary>
+    /// Gets the minimal total number of months there is at least in a year.
+    /// </summary>
+    public int MinMonthsInYear { get; }
 
     /// <inheritdoc />
     [Pure]
@@ -76,8 +91,6 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     /// method.</remarks>
     public override void GetMonthParts(int monthsSinceEpoch, out int y, out int m)
     {
-        const int MinMonthsInYear = 12;
-
         y = 1 + MathZ.Divide(monthsSinceEpoch, MinMonthsInYear);
         int startOfYear = GetStartOfYearInMonths(y);
 

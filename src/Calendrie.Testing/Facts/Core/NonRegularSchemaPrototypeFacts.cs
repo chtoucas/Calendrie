@@ -17,8 +17,8 @@ public abstract partial class NonRegularSchemaPrototypeFacts<TDataSet> :
 {
     protected NonRegularSchemaPrototypeFacts(NonRegularSchemaPrototype schema) : base(schema) { }
 
-    protected NonRegularSchemaPrototypeFacts(ICalendricalSchema schema)
-        : base(FauxNonRegularSchemaPrototype.Create(schema)) { }
+    protected NonRegularSchemaPrototypeFacts(ICalendricalSchema schema, int minMonthsInYear)
+        : base(FauxNonRegularSchemaPrototype.Create(schema, minMonthsInYear)) { }
 
     [Fact]
     public sealed override void SupportedYears_Prop()
