@@ -18,6 +18,10 @@ let private chr = WorldCalendar.Instance
 
 module Prelude =
     [<Fact>]
+    let ``Value of WorldCalendar.Epoch.DaysZinceZero`` () =
+        WorldCalendar.Instance.Epoch.DaysSinceZero === -1
+
+    [<Fact>]
     let ``Value of WorldCalendar.MinDaysSinceEpoch`` () =
         WorldCalendar.Instance.MinDaysSinceEpoch === 0
 

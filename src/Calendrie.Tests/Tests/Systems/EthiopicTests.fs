@@ -14,17 +14,22 @@ open Xunit
 
 module Prelude =
     [<Fact>]
-    let ``Value of EthiopicCalendar.MinDaysSinceEpoch`` () =
-        EthiopicCalendar.Instance.MinDaysSinceEpoch === 0
+    let ``Value of EthiopicCalendar.Epoch.DaysZinceZero`` () =
+        EthiopicCalendar.Instance.Epoch.DaysSinceZero === 2795
+    [<Fact>]
+    let ``Value of Ethiopic13Calendar.Epoch.DaysZinceZero`` () =
+        Ethiopic13Calendar.Instance.Epoch.DaysSinceZero === 2795
 
     [<Fact>]
-    let ``Value of EthiopicCalendar.MaxDaysSinceEpoch`` () =
-        EthiopicCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
-
+    let ``Value of EthiopicCalendar.MinDaysSinceEpoch`` () =
+        EthiopicCalendar.Instance.MinDaysSinceEpoch === 0
     [<Fact>]
     let ``Value of Ethiopic13Calendar.MinDaysSinceEpoch`` () =
         Ethiopic13Calendar.Instance.MinDaysSinceEpoch === 0
 
+    [<Fact>]
+    let ``Value of EthiopicCalendar.MaxDaysSinceEpoch`` () =
+        EthiopicCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
     [<Fact>]
     let ``Value of Ethiopic13Calendar.MaxDaysSinceEpoch`` () =
         Ethiopic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134

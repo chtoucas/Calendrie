@@ -14,16 +14,22 @@ open Xunit
 
 module Prelude =
     [<Fact>]
+    let ``Value of ArmenianCalendar.Epoch.DaysZinceZero`` () =
+        ArmenianCalendar.Instance.Epoch.DaysSinceZero === 201_442
+    [<Fact>]
+    let ``Value of Armenian13Calendar.Epoch.DaysZinceZero`` () =
+        Armenian13Calendar.Instance.Epoch.DaysSinceZero === 201_442
+
+    [<Fact>]
     let ``Value of ArmenianCalendar.MinDaysSinceEpoch`` () =
         ArmenianCalendar.Instance.MinDaysSinceEpoch === 0
-    [<Fact>]
-    let ``Value of ArmenianCalendar.MaxDaysSinceEpoch`` () =
-        ArmenianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
-
     [<Fact>]
     let ``Value of Armenian13Calendar.MinDaysSinceEpoch`` () =
         Armenian13Calendar.Instance.MinDaysSinceEpoch === 0
 
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MaxDaysSinceEpoch`` () =
+        ArmenianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
     [<Fact>]
     let ``Value of Armenian13Calendar.MaxDaysSinceEpoch`` () =
         Armenian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634

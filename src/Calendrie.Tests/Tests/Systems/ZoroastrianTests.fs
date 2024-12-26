@@ -14,17 +14,22 @@ open Xunit
 
 module Prelude =
     [<Fact>]
-    let ``Value of ZoroastrianCalendar.MinDaysSinceEpoch`` () =
-        ZoroastrianCalendar.Instance.MinDaysSinceEpoch === 0
+    let ``Value of ZoroastrianCalendar.Epoch.DaysZinceZero`` () =
+        ZoroastrianCalendar.Instance.Epoch.DaysSinceZero === 230_637
+    [<Fact>]
+    let ``Value of Zoroastrian13Calendar.Epoch.DaysZinceZero`` () =
+        Zoroastrian13Calendar.Instance.Epoch.DaysSinceZero === 230_637
 
     [<Fact>]
-    let ``Value of ZoroastrianCalendar.MaxDaysSinceEpoch`` () =
-        ZoroastrianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
-
+    let ``Value of ZoroastrianCalendar.MinDaysSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MinDaysSinceEpoch === 0
     [<Fact>]
     let ``Value of Zoroastrian13Calendar.MinDaysSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MinDaysSinceEpoch === 0
 
+    [<Fact>]
+    let ``Value of ZoroastrianCalendar.MaxDaysSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
     [<Fact>]
     let ``Value of Zoroastrian13Calendar.MaxDaysSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634

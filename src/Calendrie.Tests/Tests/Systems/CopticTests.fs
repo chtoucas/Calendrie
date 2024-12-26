@@ -13,18 +13,22 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Prelude =
+    let ``Value of CopticCalendar.Epoch.DaysZinceZero`` () =
+        CopticCalendar.Instance.Epoch.DaysSinceZero === 103_604
+    [<Fact>]
+    let ``Value of Coptic13Calendar.Epoch.DaysZinceZero`` () =
+        Coptic13Calendar.Instance.Epoch.DaysSinceZero === 103_604
+
     [<Fact>]
     let ``Value of CopticCalendar.MinDaysSinceEpoch`` () =
         CopticCalendar.Instance.MinDaysSinceEpoch === 0
-
-    [<Fact>]
-    let ``Value of CopticCalendar.MaxDaysSinceEpoch`` () =
-        CopticCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
-
     [<Fact>]
     let ``Value of Coptic13Calendar.MinDaysSinceEpoch`` () =
         Coptic13Calendar.Instance.MinDaysSinceEpoch === 0
 
+    [<Fact>]
+    let ``Value of CopticCalendar.MaxDaysSinceEpoch`` () =
+        CopticCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
     [<Fact>]
     let ``Value of Coptic13Calendar.MaxDaysSinceEpoch`` () =
         Coptic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134

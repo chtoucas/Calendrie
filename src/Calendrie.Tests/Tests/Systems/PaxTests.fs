@@ -17,6 +17,10 @@ let chr = PaxCalendar.Instance
 
 module Prelude =
     [<Fact>]
+    let ``Value of PaxCalendar.Epoch.DaysZinceZero`` () =
+        PaxCalendar.Instance.Epoch.DaysSinceZero === -1
+
+    [<Fact>]
     let ``Value of PaxCalendar.MinDaysSinceEpoch`` () =
         PaxCalendar.Instance.MinDaysSinceEpoch === 0
 

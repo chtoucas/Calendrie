@@ -14,6 +14,10 @@ open Xunit
 
 module Prelude =
     [<Fact>]
+    let ``Value of TabularIslamicCalendar.Epoch.DaysZinceZero`` () =
+        TabularIslamicCalendar.Instance.Epoch.DaysSinceZero === 227_014
+
+    [<Fact>]
     let ``Value of TabularIslamicCalendar.MinDaysSinceEpoch`` () =
         TabularIslamicCalendar.Instance.MinDaysSinceEpoch === 0
 
