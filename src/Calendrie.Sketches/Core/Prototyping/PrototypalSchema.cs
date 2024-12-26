@@ -304,8 +304,8 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     }
 
     /// <inheritdoc />
-    /// <remarks>For performance reasons, a derived class SHOULD override this
-    /// method.</remarks>
+    /// <remarks>For performance reasons, a derived class <b>OUGHT TO</b>
+    /// override this method.</remarks>
     [Pure]
     public virtual int GetYear(int daysSinceEpoch, out int doy)
     {
@@ -378,8 +378,8 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     }
 
     /// <inheritdoc />
-    /// <remarks>For performance reasons, a derived class SHOULD override this
-    /// method.</remarks>
+    /// <remarks>For performance reasons, a derived class <b>OUGHT TO</b>
+    /// override this method.</remarks>
     [Pure]
     public virtual int GetStartOfYearInMonths(int y)
     {
@@ -404,8 +404,8 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     }
 
     /// <inheritdoc />
-    /// <remarks>For performance reasons, a derived class SHOULD override this
-    /// method.</remarks>
+    /// <remarks>For performance reasons, a derived class <b>OUGHT TO</b>
+    /// override this method.</remarks>
     [Pure]
     public virtual int GetStartOfYear(int y)
     {

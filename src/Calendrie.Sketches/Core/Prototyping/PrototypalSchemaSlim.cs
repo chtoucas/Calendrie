@@ -159,8 +159,7 @@ public class PrototypalSchemaSlim : PrototypalSchema
     [Pure]
     public sealed override int GetStartOfYear(int y)
     {
-        // TODO(code): caching.
-        // Currently, we just copied the cache class from NodaTime.
+        // TODO(code): currently, we just copy the cache class from NodaTime.
         // https://github.com/bitfaster/BitFaster.Caching
 
         int index = StartOfYearCache.GetIndex(y);
