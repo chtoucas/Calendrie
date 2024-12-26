@@ -16,6 +16,11 @@ open Xunit
 
 let private chr = WorldCalendar.Instance
 
+module Prelude =
+    [<Fact>]
+    let ``Value of WorldCalendar.MinDaysSinceEpoch`` () =
+        WorldCalendar.Instance.MinDaysSinceEpoch === 0
+
 module Methods =
     let dateInfoData = WorldDataSet.Instance.DateInfoData
     let moreMonthInfoData = WorldDataSet.MoreMonthInfoData

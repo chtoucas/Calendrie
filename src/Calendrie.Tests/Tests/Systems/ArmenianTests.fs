@@ -12,6 +12,15 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
+module Prelude =
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MinDaysSinceEpoch`` () =
+        ArmenianCalendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of Armenian13Calendar.MinDaysSinceEpoch`` () =
+        Armenian13Calendar.Instance.MinDaysSinceEpoch === 0
+
 module Bundles =
     let private chr = ArmenianCalendar.Instance
 

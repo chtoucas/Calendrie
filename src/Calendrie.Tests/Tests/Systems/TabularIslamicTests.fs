@@ -12,6 +12,11 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
+module Prelude =
+    [<Fact>]
+    let ``Value of TabularIslamicCalendar.MinDaysSinceEpoch`` () =
+        TabularIslamicCalendar.Instance.MinDaysSinceEpoch === 0
+
 module Bundles =
     let private chr = TabularIslamicCalendar.Instance
 
