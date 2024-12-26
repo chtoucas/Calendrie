@@ -42,7 +42,7 @@ public partial class CalendarTemplate : CSharpTemplate
     public string MaxDaysSinceEpoch { get; set; } = "MaxDaysSinceEpoch";
     public string MaxDaysSinceEpochValue { get; }
 
-    public bool EnableIsSupplimentary { get; set; } = true;
+    public bool EnableIsSupplementary { get; set; } = true;
 
     public bool EnablePragmas { get; set; }
     public bool EnableMicroOptimizations { get; set; } = true;

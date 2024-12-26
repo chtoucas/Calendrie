@@ -8,9 +8,6 @@ public sealed class JulianTemplate : CalendarTemplate
     public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema", "DayZero.OldStyle", "")
     {
         ScopeClass = "JulianScope";
-
-        MinDaysSinceEpoch = "MinDaysSinceEpoch";
-        MaxDaysSinceEpoch = "MaxDaysSinceEpoch";
     }
 
     protected override string EpochDaysSinceZero =>

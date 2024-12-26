@@ -3,7 +3,7 @@
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
 <#= new CalendarTemplate(this, "JulianSchema", "DayZero.OldStyle", "3_651_769")
     {
-        EnableIsSupplimentary = false,
+        EnableIsSupplementary = false,
         EnableMicroOptimizations = false,
         EnablePragmas = true,
         ImportCalendrieSystemsNamespace = true

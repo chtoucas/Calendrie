@@ -188,7 +188,7 @@ public partial struct <#= Prefix #>Date // Preamble
         }
     }
 
-<#+ if (EnableIsSupplimentary) { #>
+<#+ if (EnableIsSupplementary) { #>
     /// <inheritdoc />
     public bool IsSupplementary
     {

@@ -9,9 +9,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
     {
         ScopeClass = "CivilScope";
 
-        EnableIsSupplimentary = false;
-        MinDaysSinceEpoch = "MinDaysSinceZero";
-        MaxDaysSinceEpoch = "MaxDaysSinceZero";
+        EnableIsSupplementary = false;
     }
 
     protected sealed override void EmitUsings()

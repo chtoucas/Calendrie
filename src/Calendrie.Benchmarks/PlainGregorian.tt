@@ -3,7 +3,7 @@
 <#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
 <#= new ZeroCalendarTemplate(this, "GregorianSchema", "3_652_058")
     {
-        EnableIsSupplimentary = false,
+        EnableIsSupplementary = false,
         EnableMicroOptimizations = false,
         EnablePragmas = true,
         ImportCalendrieSystemsNamespace = true

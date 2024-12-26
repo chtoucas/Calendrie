@@ -9,9 +9,7 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
     {
         ScopeClass = "GregorianScope";
 
-        EnableIsSupplimentary = false;
-        MinDaysSinceEpoch = "MinDaysSinceZero";
-        MaxDaysSinceEpoch = "MaxDaysSinceZero";
+        EnableIsSupplementary = false;
     }
 
     protected sealed override void EmitUsings()
