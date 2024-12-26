@@ -18,8 +18,16 @@ module Prelude =
         ZoroastrianCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
+    let ``Value of ZoroastrianCalendar.MaxDaysSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
+
+    [<Fact>]
     let ``Value of Zoroastrian13Calendar.MinDaysSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of Zoroastrian13Calendar.MaxDaysSinceEpoch`` () =
+        Zoroastrian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
 
 module Bundles =
     let private chr = ZoroastrianCalendar.Instance

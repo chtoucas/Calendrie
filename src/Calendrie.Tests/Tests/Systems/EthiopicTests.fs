@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Systems.Ethiopic12Tests
+module Calendrie.Tests.Systems.EthiopicTests
 
 open Calendrie
 open Calendrie.Systems
@@ -18,8 +18,16 @@ module Prelude =
         EthiopicCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
+    let ``Value of EthiopicCalendar.MaxDaysSinceEpoch`` () =
+        EthiopicCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
+
+    [<Fact>]
     let ``Value of Ethiopic13Calendar.MinDaysSinceEpoch`` () =
         Ethiopic13Calendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of Ethiopic13Calendar.MaxDaysSinceEpoch`` () =
+        Ethiopic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134
 
 module Bundles =
     let private chr = EthiopicCalendar.Instance

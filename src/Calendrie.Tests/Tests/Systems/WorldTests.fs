@@ -21,6 +21,10 @@ module Prelude =
     let ``Value of WorldCalendar.MinDaysSinceEpoch`` () =
         WorldCalendar.Instance.MinDaysSinceEpoch === 0
 
+    [<Fact>]
+    let ``Value of WorldCalendar.MaxDaysSinceEpoch`` () =
+        WorldCalendar.Instance.MaxDaysSinceEpoch === 3_652_058
+
 module Methods =
     let dateInfoData = WorldDataSet.Instance.DateInfoData
     let moreMonthInfoData = WorldDataSet.MoreMonthInfoData

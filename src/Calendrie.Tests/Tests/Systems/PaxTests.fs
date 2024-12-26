@@ -20,6 +20,10 @@ module Prelude =
     let ``Value of PaxCalendar.MinDaysSinceEpoch`` () =
         PaxCalendar.Instance.MinDaysSinceEpoch === 0
 
+    [<Fact>]
+    let ``Value of PaxCalendar.MaxDaysSinceEpoch`` () =
+        PaxCalendar.Instance.MaxDaysSinceEpoch === 3_652_060
+
 module Bundles =
     let dateInfoData = PaxDataSet.Instance.DateInfoData
     let moreMonthInfoData = PaxDataSet.MoreMonthInfoData

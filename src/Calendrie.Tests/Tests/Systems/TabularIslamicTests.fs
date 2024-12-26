@@ -17,6 +17,10 @@ module Prelude =
     let ``Value of TabularIslamicCalendar.MinDaysSinceEpoch`` () =
         TabularIslamicCalendar.Instance.MinDaysSinceEpoch === 0
 
+    [<Fact>]
+    let ``Value of TabularIslamicCalendar.MaxDaysSinceEpoch`` () =
+        TabularIslamicCalendar.Instance.MaxDaysSinceEpoch === 3_543_311
+
 module Bundles =
     let private chr = TabularIslamicCalendar.Instance
 

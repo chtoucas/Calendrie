@@ -18,8 +18,16 @@ module Prelude =
         CopticCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
+    let ``Value of CopticCalendar.MaxDaysSinceEpoch`` () =
+        CopticCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
+
+    [<Fact>]
     let ``Value of Coptic13Calendar.MinDaysSinceEpoch`` () =
         Coptic13Calendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of Coptic13Calendar.MaxDaysSinceEpoch`` () =
+        Coptic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134
 
 module Bundles =
     let private chr = CopticCalendar.Instance
