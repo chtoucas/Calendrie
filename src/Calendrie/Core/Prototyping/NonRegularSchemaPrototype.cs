@@ -76,7 +76,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
     [Pure]
     public override int CountDaysInYearBeforeMonth(int y, int m)
     {
-        // Max number of iterations = MaxMonthsInYear, ie 12 or 13, at most 14.
+        // Max nb of iterations = MaxMonthsInYear - 1, ie 11 or 12, at most 13.
         int count = 0;
         for (int i = 1; i < m; i++)
         {
@@ -174,7 +174,7 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
         int m = 1;
         int daysInYearBeforeMonth = 0;
 
-        // Max number of iterations = MaxMonthsInYear, ie 12 or 13, at most 14.
+        // Max nb of iterations = MaxMonthsInYear - 1, ie 11 or 12, at most 13.
         int monthsInYear = CountMonthsInYear(y);
         while (m < monthsInYear)
         {
