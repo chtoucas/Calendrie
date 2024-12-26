@@ -4,7 +4,6 @@
 namespace Calendrie.Hemerology.Arithmetic;
 
 using Calendrie.Core;
-using Calendrie.Core.Validation;
 
 /// <summary>
 /// Provides a reference implementation for <see cref="NakedArithmetic"/>.

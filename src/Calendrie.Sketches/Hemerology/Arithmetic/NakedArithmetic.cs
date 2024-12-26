@@ -29,8 +29,8 @@ public abstract partial class NakedArithmetic
         Schema = segment.Schema;
         PartsAdapter = new PartsAdapter(Schema);
 
-        DaysValidator = new DaysValidator(segment.SupportedDays);
-        MonthsValidator = new MonthsValidator(segment.SupportedMonths);
+        DaysValidator = new RangeValidator(segment.SupportedDays);
+        MonthsValidator = new RangeValidator(segment.SupportedMonths);
         YearsValidator = new YearsValidator(segment.SupportedYears);
     }
 
@@ -52,17 +52,17 @@ public abstract partial class NakedArithmetic
     /// <summary>
     /// Gets the validator for the range of supported days.
     /// </summary>
-    protected DaysValidator DaysValidator { get; }
+    protected RangeValidator DaysValidator { get; }
 
     /// <summary>
     /// Gets the validator for the range of supported months.
     /// </summary>
-    protected MonthsValidator MonthsValidator { get; }
+    protected RangeValidator MonthsValidator { get; }
 
     /// <summary>
     /// Gets the validator for the range of supported years.
     /// </summary>
-    protected IYearsValidator YearsValidator { get; }
+    protected IYearsValidator YearsValidator { get; init; }
 
     /// <summary>
     /// Creates the default arithmetic object for the specified schema and range
