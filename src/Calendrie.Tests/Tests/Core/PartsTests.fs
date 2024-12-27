@@ -594,11 +594,11 @@ module Yemo =
             ym.GetDayOfMonth(d) === ymd
 
         [<Property>]
-        let ``GetDayOfMonthUnchecked()`` (YearField y) (MonthField m) (DayField d) =
+        let ``GetDayOfMonthUnsafe()`` (YearField y) (MonthField m) (DayField d) =
             let ym = Yemo.Create(y, m)
             let ymd = Yemoda.Create(y, m, d)
 
-            ym.GetDayOfMonthUnchecked(d) === ymd
+            ym.GetDayOfMonthUnsafe(d) === ymd
 
     module Serialization =
         // We rely on the fact that the prop Yemo unset the day bits.

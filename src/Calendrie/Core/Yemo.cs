@@ -204,7 +204,7 @@ public readonly partial struct Yemo :
     /// <para>See also <see cref="StartOfMonth"/>.</para>
     /// </summary>
     [Pure]
-    internal Yemoda GetDayOfMonthUnchecked(int d)
+    internal Yemoda GetDayOfMonthUnsafe(int d)
     {
         Debug.Assert(Yemoda.MinDay <= d);
         Debug.Assert(d <= Yemoda.MaxDay);
