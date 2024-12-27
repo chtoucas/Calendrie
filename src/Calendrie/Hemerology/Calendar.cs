@@ -3,8 +3,6 @@
 
 namespace Calendrie.Hemerology;
 
-using Calendrie.Core;
-
 #region Developer Notes
 
 // Standard calendar: year/month/day subdivision of time, a single era,
@@ -192,7 +190,6 @@ public abstract partial class Calendar
         Scope = scope;
 
         Epoch = scope.Epoch;
-        Schema = scope.Schema;
     }
 
     /// <summary>
@@ -209,29 +206,24 @@ public abstract partial class Calendar
     /// Gets the calendrical algorithm: arithmetical, astronomical or
     /// observational.
     /// </summary>
-    public CalendricalAlgorithm Algorithm => Schema.Algorithm;
+    public CalendricalAlgorithm Algorithm => Scope.Schema.Algorithm;
 
     /// <summary>
     /// Gets the calendrical family, determined by the astronomical cycle: solar,
     /// lunar, lunisolar...
     /// </summary>
-    public CalendricalFamily Family => Schema.Family;
+    public CalendricalFamily Family => Scope.Schema.Family;
 
     /// <summary>
     /// Gets the method employed at regular intervals in order to synchronise
     /// the two main cycles, lunar and solar.
     /// </summary>
-    public CalendricalAdjustments PeriodicAdjustments => Schema.PeriodicAdjustments;
+    public CalendricalAdjustments PeriodicAdjustments => Scope.Schema.PeriodicAdjustments;
 
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
     protected internal CalendarScope Scope { get; }
-
-    /// <summary>
-    /// Gets the underlying schema.
-    /// </summary>
-    protected internal ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -253,8 +245,9 @@ public partial class Calendar // Year and month infos
     [Pure]
     public bool IsLeapYear(int year)
     {
-        Scope.ValidateYear(year);
-        return Schema.IsLeapYear(year);
+        var scope = Scope;
+        scope.ValidateYear(year);
+        return scope.Schema.IsLeapYear(year);
     }
 
     /// <summary>
@@ -265,8 +258,9 @@ public partial class Calendar // Year and month infos
     [Pure]
     public bool IsIntercalaryMonth(int year, int month)
     {
-        Scope.ValidateYearMonth(year, month);
-        return Schema.IsIntercalaryMonth(year, month);
+        var scope = Scope;
+        scope.ValidateYearMonth(year, month);
+        return scope.Schema.IsIntercalaryMonth(year, month);
     }
 
     // Les méthodes suivantes sont abstraites car une année ou un mois peut être

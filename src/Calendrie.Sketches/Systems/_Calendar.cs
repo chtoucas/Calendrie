@@ -11,6 +11,6 @@ public partial class PaxCalendar // Complements
     public int CountWeeksInYear(int year)
     {
         Scope.ValidateYear(year);
-        return UnderlyingSchema.CountWeeksInYear(year);
+        return Schema.CountWeeksInYear(year);
     }
 }

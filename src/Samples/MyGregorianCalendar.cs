@@ -3,6 +3,7 @@
 
 namespace Samples;
 
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +12,7 @@ using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
-public sealed partial class MyGregorianCalendar : Calendar, IDateProvider<MyGregorianDate>
+public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<MyGregorianDate>
 {
     internal const string DisplayName = "Gregorian";
 
@@ -19,6 +20,8 @@ public sealed partial class MyGregorianCalendar : Calendar, IDateProvider<MyGreg
         : base(DisplayName,
             MinMaxYearScope.CreateMaximalOnOrAfterYear1<GregorianSchema>(DayZero.NewStyle))
     {
+        Debug.Assert(Scope != null);
+
         (MinYear, MaxYear) = Scope.Segment.SupportedYears.Endpoints;
         (MinDaysSinceEpoch, MaxDaysSinceEpoch) = Scope.Segment.SupportedDays.Endpoints;
         // Cache the pre-validator which is a computed prop.

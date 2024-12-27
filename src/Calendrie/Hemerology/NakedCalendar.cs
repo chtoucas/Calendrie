@@ -18,8 +18,15 @@ public abstract class NakedCalendar : Calendar
     /// <see langword="null"/>.</exception>
     protected NakedCalendar(string name, CalendarScope scope) : base(name, scope)
     {
-        PartsAdapter = new PartsAdapter(Schema);
+        Debug.Assert(scope != null);
+        Schema = scope.Schema;
+        PartsAdapter = new PartsAdapter(Scope.Schema);
     }
+
+    /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
+    protected internal ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Gets the adapter for the calendrical parts.

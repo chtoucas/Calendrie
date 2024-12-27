@@ -26,7 +26,7 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
 
     private JulianCalendar(JulianSchema schema) : base("Julian", new JulianScope(schema))
     {
-        UnderlyingSchema = schema;
+        Schema = schema;
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     public static int MaxYear => JulianScope.MaxYear;
 
     /// <summary>
-    /// Gets the schema.
+    /// Gets the underlying schema.
     /// </summary>
-    internal JulianSchema UnderlyingSchema { get; }
+    internal JulianSchema Schema { get; }
 }

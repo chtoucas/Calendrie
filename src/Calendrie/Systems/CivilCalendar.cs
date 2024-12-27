@@ -26,7 +26,7 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
 
     private CivilCalendar(CivilSchema schema) : base("Civil", new CivilScope(schema))
     {
-        UnderlyingSchema = schema;
+        Schema = schema;
     }
 
     /// <summary>
@@ -48,9 +48,5 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// <summary>
     /// Gets the schema.
     /// </summary>
-    //
-    // Because I don't want Calendar to be generic [Calendar<TSchema>], we lose
-    // the actual schema type; we only get an ICalendricalSchema. This property
-    // is here to circumvent this problem.
-    internal CivilSchema UnderlyingSchema { get; }
+    internal CivilSchema Schema { get; }
 }

@@ -65,16 +65,18 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     [Pure]
     public sealed override int CountDaysInYear(int year)
     {
-        Scope.ValidateYear(year);
-        return Schema.CountDaysInYear(year);
+        var scope = Scope;
+        scope.ValidateYear(year);
+        return scope.Schema.CountDaysInYear(year);
     }
 
     /// <inheritdoc/>
     [Pure]
     public sealed override int CountDaysInMonth(int year, int month)
     {
-        Scope.ValidateYearMonth(year, month);
-        return Schema.CountDaysInMonth(year, month);
+        var scope = Scope;
+        scope.ValidateYearMonth(year, month);
+        return scope.Schema.CountDaysInMonth(year, month);
     }
 }
 
@@ -84,10 +86,13 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public IEnumerable<TDate> GetDaysInYear(int year)
     {
-        Scope.ValidateYear(year);
+        var scope = Scope;
+        var sch = Scope.Schema;
 
-        int startOfYear = Schema.GetStartOfYear(year);
-        int daysInYear = Schema.CountDaysInYear(year);
+        scope.ValidateYear(year);
+
+        int startOfYear = sch.GetStartOfYear(year);
+        int daysInYear = sch.CountDaysInYear(year);
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
@@ -98,10 +103,13 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public IEnumerable<TDate> GetDaysInMonth(int year, int month)
     {
-        Scope.ValidateYearMonth(year, month);
+        var scope = Scope;
+        var sch = Scope.Schema;
 
-        int startOfMonth = Schema.GetStartOfMonth(year, month);
-        int daysInMonth = Schema.CountDaysInMonth(year, month);
+        scope.ValidateYearMonth(year, month);
+
+        int startOfMonth = sch.GetStartOfMonth(year, month);
+        int daysInMonth = sch.CountDaysInMonth(year, month);
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
@@ -112,8 +120,9 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public TDate GetStartOfYear(int year)
     {
-        Scope.ValidateYear(year);
-        int daysSinceEpoch = Schema.GetStartOfYear(year);
+        var scope = Scope;
+        scope.ValidateYear(year);
+        int daysSinceEpoch = scope.Schema.GetStartOfYear(year);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -121,8 +130,9 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public TDate GetEndOfYear(int year)
     {
-        Scope.ValidateYear(year);
-        int daysSinceEpoch = Schema.GetEndOfYear(year);
+        var scope = Scope;
+        scope.ValidateYear(year);
+        int daysSinceEpoch = Scope.Schema.GetEndOfYear(year);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -130,8 +140,9 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public TDate GetStartOfMonth(int year, int month)
     {
-        Scope.ValidateYearMonth(year, month);
-        int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
+        var scope = Scope;
+        scope.ValidateYearMonth(year, month);
+        int daysSinceEpoch = scope.Schema.GetStartOfMonth(year, month);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -139,8 +150,9 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     [Pure]
     public TDate GetEndOfMonth(int year, int month)
     {
-        Scope.ValidateYearMonth(year, month);
-        int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
+        var scope = Scope;
+        scope.ValidateYearMonth(year, month);
+        int daysSinceEpoch = scope.Schema.GetEndOfMonth(year, month);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }
@@ -153,7 +165,7 @@ public partial class CalendarSystem<TDate>
     [Pure]
     public TDate GetStartOfYear(TDate date)
     {
-        int daysSinceEpoch = Schema.GetStartOfYear(date.Year);
+        int daysSinceEpoch = Scope.Schema.GetStartOfYear(date.Year);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -163,7 +175,7 @@ public partial class CalendarSystem<TDate>
     [Pure]
     public TDate GetEndOfYear(TDate date)
     {
-        int daysSinceEpoch = Schema.GetEndOfYear(date.Year);
+        int daysSinceEpoch = Scope.Schema.GetEndOfYear(date.Year);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -174,7 +186,7 @@ public partial class CalendarSystem<TDate>
     public TDate GetStartOfMonth(TDate date)
     {
         var (y, m, _) = date;
-        int daysSinceEpoch = Schema.GetStartOfMonth(y, m);
+        int daysSinceEpoch = Scope.Schema.GetStartOfMonth(y, m);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -185,7 +197,7 @@ public partial class CalendarSystem<TDate>
     public TDate GetEndOfMonth(TDate date)
     {
         var (y, m, _) = date;
-        int daysSinceEpoch = Schema.GetEndOfMonth(y, m);
+        int daysSinceEpoch = Scope.Schema.GetEndOfMonth(y, m);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }

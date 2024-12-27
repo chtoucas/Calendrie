@@ -48,23 +48,19 @@ public partial struct GregorianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() =>
-        Calendar.UnderlyingSchema.CountDaysInYearBefore(_daysSinceZero);
+    public int CountElapsedDaysInYear() => Calendar.Schema.CountDaysInYearBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() =>
-        Calendar.UnderlyingSchema.CountDaysInYearAfter(_daysSinceZero);
+    public int CountRemainingDaysInYear() => Calendar.Schema.CountDaysInYearAfter(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() =>
-        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_daysSinceZero);
+    public int CountElapsedDaysInMonth() => Calendar.Schema.CountDaysInMonthBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() =>
-        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceZero);
+    public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
 public partial struct GregorianDate // Adjustments

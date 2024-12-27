@@ -17,6 +17,7 @@ using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
+using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -38,7 +39,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     private PlainGregorianCalendar(GregorianSchema schema)
         : base("PlainGregorian", new StandardScope(schema, DayZero.NewStyle))
     {
-        UnderlyingSchema = schema;
+        Schema = schema;
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// <summary>
     /// Gets the schema.
     /// </summary>
-    internal GregorianSchema UnderlyingSchema { get; }
+    internal GregorianSchema Schema { get; }
 }
 
 /// <summary>
@@ -251,23 +252,19 @@ public partial struct PlainGregorianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() =>
-        Calendar.UnderlyingSchema.CountDaysInYearBefore(_daysSinceZero);
+    public int CountElapsedDaysInYear() => Calendar.Schema.CountDaysInYearBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() =>
-        Calendar.UnderlyingSchema.CountDaysInYearAfter(_daysSinceZero);
+    public int CountRemainingDaysInYear() => Calendar.Schema.CountDaysInYearAfter(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() =>
-        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_daysSinceZero);
+    public int CountElapsedDaysInMonth() => Calendar.Schema.CountDaysInMonthBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() =>
-        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_daysSinceZero);
+    public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
 public partial struct PlainGregorianDate // Adjustments

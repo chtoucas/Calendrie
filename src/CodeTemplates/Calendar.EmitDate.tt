@@ -254,23 +254,19 @@ public partial struct <#= Prefix #>Date // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() =>
-        Calendar.UnderlyingSchema.CountDaysInYearBefore(_<#= DaysSinceEpochVar #>);
+    public int CountElapsedDaysInYear() => Calendar.Schema.CountDaysInYearBefore(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() =>
-        Calendar.UnderlyingSchema.CountDaysInYearAfter(_<#= DaysSinceEpochVar #>);
+    public int CountRemainingDaysInYear() => Calendar.Schema.CountDaysInYearAfter(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() =>
-        Calendar.UnderlyingSchema.CountDaysInMonthBefore(_<#= DaysSinceEpochVar #>);
+    public int CountElapsedDaysInMonth() => Calendar.Schema.CountDaysInMonthBefore(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() =>
-        Calendar.UnderlyingSchema.CountDaysInMonthAfter(_<#= DaysSinceEpochVar #>);
+    public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitDateCounting()

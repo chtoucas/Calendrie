@@ -95,6 +95,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 
 using Calendrie;
+using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -130,7 +131,7 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     private <#= Prefix #>Calendar(<#= SchemaClass #> schema)
         : base("<#= DisplayName #>", new <#= ScopeClass #>(schema, <#= Epoch #>))
     {
-        UnderlyingSchema = schema;
+        Schema = schema;
     }
 
     /// <summary>
@@ -152,7 +153,7 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// <summary>
     /// Gets the schema.
     /// </summary>
-    internal <#= SchemaClass #> UnderlyingSchema { get; }
+    internal <#= SchemaClass #> Schema { get; }
 }
 <#+
     } // T4: End of EmitCalendar()

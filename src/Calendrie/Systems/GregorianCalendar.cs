@@ -26,7 +26,7 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
 
     private GregorianCalendar(GregorianSchema schema) : base("Gregorian", new GregorianScope(schema))
     {
-        UnderlyingSchema = schema;
+        Schema = schema;
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     public static int MaxYear => GregorianScope.MaxYear;
 
     /// <summary>
-    /// Gets the schema.
+    /// Gets the underlying schema.
     /// </summary>
-    internal GregorianSchema UnderlyingSchema { get; }
+    internal GregorianSchema Schema { get; }
 }

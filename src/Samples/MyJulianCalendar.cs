@@ -12,7 +12,7 @@ using Calendrie.Hemerology;
 
 using Range_ = Calendrie.Core.Intervals.Range;
 
-public sealed partial class MyJulianCalendar : Calendar
+public sealed partial class MyJulianCalendar : UserCalendar
 {
     internal const string DisplayName = "Julien";
 

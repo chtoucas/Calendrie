@@ -13,7 +13,7 @@ public partial struct ArmenianDate : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
@@ -27,7 +27,7 @@ public partial struct Armenian13Date : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
@@ -41,7 +41,7 @@ public partial struct CopticDate : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
@@ -55,7 +55,7 @@ public partial struct Coptic13Date : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
@@ -69,7 +69,7 @@ public partial struct EthiopicDate : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
@@ -83,7 +83,7 @@ public partial struct Ethiopic13Date : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
@@ -103,7 +103,7 @@ public partial struct WorldDate : IBlankDay // Complements
     {
         get
         {
-            var sch = Calendar.UnderlyingSchema;
+            var sch = Calendar.Schema;
             sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
             return sch.IsBlankDay(y, m, d);
         }
@@ -118,7 +118,7 @@ public partial struct ZoroastrianDate : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
@@ -132,7 +132,7 @@ public partial struct Zoroastrian13Date : IEpagomenalDay // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.UnderlyingSchema;
+        var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
