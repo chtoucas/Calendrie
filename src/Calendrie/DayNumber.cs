@@ -6,12 +6,13 @@ namespace Calendrie;
 using System.Globalization;
 using System.Numerics;
 
-using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Core.Validation;
 using Calendrie.Hemerology;
+
+using static Calendrie.Core.CalendricalConstants;
 
 #region Developer Notes
 
@@ -143,9 +144,7 @@ public readonly partial struct DayNumber :
     /// </summary>
     public DayOfWeek DayOfWeek =>
         // Zero is a Monday.
-        (DayOfWeek)MathZ.Modulo(
-            (int)DayOfWeek.Monday + _daysSinceZero,
-            CalendricalConstants.DaysInWeek);
+        (DayOfWeek)MathZ.Modulo((int)DayOfWeek.Monday + _daysSinceZero, DaysInWeek);
 
     DayNumber IAbsoluteDate.DayNumber => this;
 
@@ -408,7 +407,7 @@ public partial struct DayNumber // Adjust the day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return this + (δ >= 0 ? δ - CalendricalConstants.DaysInWeek : δ);
+        return this + (δ >= 0 ? δ - DaysInWeek : δ);
     }
 
     /// <inheritdoc/>
@@ -418,7 +417,7 @@ public partial struct DayNumber // Adjust the day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return δ == 0 ? this : this + (δ > 0 ? δ - CalendricalConstants.DaysInWeek : δ);
+        return δ == 0 ? this : this + (δ > 0 ? δ - DaysInWeek : δ);
     }
 
     /// <inheritdoc/>
@@ -438,7 +437,7 @@ public partial struct DayNumber // Adjust the day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return δ == 0 ? this : this + (δ < 0 ? δ + CalendricalConstants.DaysInWeek : δ);
+        return δ == 0 ? this : this + (δ < 0 ? δ + DaysInWeek : δ);
     }
 
     /// <inheritdoc/>
@@ -448,7 +447,7 @@ public partial struct DayNumber // Adjust the day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return this + (δ <= 0 ? δ + CalendricalConstants.DaysInWeek : δ);
+        return this + (δ <= 0 ? δ + DaysInWeek : δ);
     }
 
     //
@@ -470,10 +469,8 @@ public partial struct DayNumber // Adjust the day of the week
         {
             daysSinceZero = dayNumber.DaysSinceZero + dayShift;
             // DayNumber.Zero is a Monday.
-            daysSinceZero -= MathZ.Modulo(
-                daysSinceZero + (DayOfWeek.Monday - dayOfWeek),
-                CalendricalConstants.DaysInWeek);
-            daysSinceZero -= CalendricalConstants.DaysInWeek * weeks;
+            daysSinceZero -= MathZ.Modulo(daysSinceZero + (DayOfWeek.Monday - dayOfWeek), DaysInWeek);
+            daysSinceZero -= DaysInWeek * weeks;
         }
 
         return Zero + daysSinceZero;
@@ -494,10 +491,8 @@ public partial struct DayNumber // Adjust the day of the week
         {
             daysSinceZero = dayNumber.DaysSinceZero + dayShift;
             // DayNumber.Zero is a Monday.
-            daysSinceZero += MathZ.Modulo(
-                -daysSinceZero - (DayOfWeek.Monday - dayOfWeek),
-                CalendricalConstants.DaysInWeek);
-            daysSinceZero += CalendricalConstants.DaysInWeek * weeks;
+            daysSinceZero += MathZ.Modulo(-daysSinceZero - (DayOfWeek.Monday - dayOfWeek), DaysInWeek);
+            daysSinceZero += DaysInWeek * weeks;
         }
 
         return Zero + daysSinceZero;
