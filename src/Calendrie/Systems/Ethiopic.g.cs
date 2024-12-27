@@ -10,13 +10,13 @@
 
 namespace Calendrie.Systems;
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
 using Calendrie;
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -37,6 +37,7 @@ public sealed partial class EthiopicCalendar : CalendarSystem<EthiopicDate>
     private EthiopicCalendar(Coptic12Schema schema)
         : base("Ethiopic", new StandardScope(schema, DayZero.Ethiopic))
     {
+        Debug.Assert(schema != null);
         Schema = schema;
     }
 

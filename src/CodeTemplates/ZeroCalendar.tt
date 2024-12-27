@@ -19,12 +19,12 @@ public class ZeroCalendarTemplate : CalendarTemplate
     {
         WriteLine();
 #>
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;

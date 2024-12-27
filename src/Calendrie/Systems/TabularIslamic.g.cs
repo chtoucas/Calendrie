@@ -10,13 +10,13 @@
 
 namespace Calendrie.Systems;
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
 using Calendrie;
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -37,6 +37,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     private TabularIslamicCalendar(TabularIslamicSchema schema)
         : base("Tabular Islamic", new StandardScope(schema, DayZero.TabularIslamic))
     {
+        Debug.Assert(schema != null);
         Schema = schema;
     }
 

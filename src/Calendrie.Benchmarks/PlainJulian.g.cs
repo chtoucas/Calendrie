@@ -12,13 +12,13 @@
 
 namespace Benchmarks;
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
 using Calendrie;
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -40,6 +40,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     private PlainJulianCalendar(JulianSchema schema)
         : base("PlainJulian", new StandardScope(schema, DayZero.OldStyle))
     {
+        Debug.Assert(schema != null);
         Schema = schema;
     }
 

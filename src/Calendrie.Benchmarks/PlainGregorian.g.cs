@@ -12,12 +12,12 @@
 
 namespace Benchmarks;
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
-using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -39,6 +39,7 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     private PlainGregorianCalendar(GregorianSchema schema)
         : base("PlainGregorian", new StandardScope(schema, DayZero.NewStyle))
     {
+        Debug.Assert(schema != null);
         Schema = schema;
     }
 
