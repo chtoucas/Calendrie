@@ -22,9 +22,11 @@ public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<My
     {
         Debug.Assert(Scope != null);
 
-        (MinYear, MaxYear) = Scope.Segment.SupportedYears.Endpoints;
-        (MinDaysSinceEpoch, MaxDaysSinceEpoch) = Scope.Segment.SupportedDays.Endpoints;
-        // Cache the pre-validator which is a computed prop.
+        var seg = Scope.Segment;
+        (MinYear, MaxYear) = seg.SupportedYears.Endpoints;
+        (MinDaysSinceEpoch, MaxDaysSinceEpoch) = seg.SupportedDays.Endpoints;
+
+        // Cache the computed property pre-validator.
         PreValidator = Schema.PreValidator;
     }
 

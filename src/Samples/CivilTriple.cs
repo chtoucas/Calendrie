@@ -27,7 +27,7 @@ internal static class CivilTripleScope
 
     public static readonly ICalendricalSchema Schema = new CivilPrototype();
 
-    // Cache the pre-validator which is a computed property.
+    // Cache the computed property pre-validator.
     public static readonly ICalendricalPreValidator PreValidator = Schema.PreValidator;
 
     public static readonly CalendricalSegment Segment =

@@ -27,7 +27,7 @@ public abstract partial class CalendarScope
         Segment = segment;
         Schema = segment.Schema;
 
-        // Cache the pre-validator which is a computed prop.
+        // Cache the computed property pre-validator.
         PreValidator = Schema.PreValidator;
 
         Epoch = epoch;

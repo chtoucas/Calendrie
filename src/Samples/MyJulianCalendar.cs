@@ -28,7 +28,7 @@ public sealed partial class MyJulianCalendar : UserCalendar
         (MinDateParts, MaxDateParts) =
             Scope.Segment.MinMaxDateParts.Select(x => Yemoda.Create(x.Year, x.Month, x.Day));
 
-        // Cache the pre-validator which is a computed prop.
+        // Cache the computed property pre-validator.
         PreValidator = Schema.PreValidator;
     }
 
