@@ -1,7 +1,7 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
-<#= new CalendarTemplate(this, "TabularIslamicSchema", "DayZero.TabularIslamic", "3_543_311")
+<#= new CalendarTemplate(this, "TabularIslamicSchema", "DayZero.TabularIslamic", "227_014", "3_543_311")
     {
         DisplayName = "Tabular Islamic",
         EnableIsSupplementary = false

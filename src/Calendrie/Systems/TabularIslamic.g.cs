@@ -78,11 +78,14 @@ public readonly partial struct TabularIslamicDate :
 
 public partial struct TabularIslamicDate // Preamble
 {
+    /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
+    /// for the epoch <see cref="DayZero.TabularIslamic"/>.
+    /// <para>This field is a constant equal to 227_014.</para></summary>
+    private const int EpochDaysSinceZero = 227_014;
+
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_543_311.</para></summary>
     private const int MaxDaysSinceEpoch = 3_543_311;
-
-    private static readonly int s_EpochDaysSinceZero = TabularIslamicCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.TabularIslamic"/>.
@@ -148,7 +151,7 @@ public partial struct TabularIslamicDate // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(s_EpochDaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -245,9 +248,9 @@ public partial struct TabularIslamicDate // Factories & conversions
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 
-        //int daysSinceEpoch = dayNumber.DaysSinceZero - s_EpochDaysSinceZero;
+        //int daysSinceEpoch = dayNumber.DaysSinceZero - EpochDaysSinceZero;
 
         //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
         //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
@@ -375,7 +378,7 @@ public partial struct TabularIslamicDate // Find close by day of the week
     public TabularIslamicDate Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
-        int daysSinceEpoch = nearest.DaysSinceZero - s_EpochDaysSinceZero;
+        int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }

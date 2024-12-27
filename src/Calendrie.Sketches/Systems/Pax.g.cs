@@ -78,11 +78,14 @@ public readonly partial struct PaxDate :
 
 public partial struct PaxDate // Preamble
 {
+    /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
+    /// for the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
+    /// <para>This field is a constant equal to -1.</para></summary>
+    private const int EpochDaysSinceZero = -1;
+
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_652_060.</para></summary>
     private const int MaxDaysSinceEpoch = 3_652_060;
-
-    private static readonly int s_EpochDaysSinceZero = PaxCalendar.Instance.Epoch.DaysSinceZero;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
@@ -148,7 +151,7 @@ public partial struct PaxDate // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(s_EpochDaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -254,9 +257,9 @@ public partial struct PaxDate // Factories & conversions
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_EpochDaysSinceZero);
+        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 
-        //int daysSinceEpoch = dayNumber.DaysSinceZero - s_EpochDaysSinceZero;
+        //int daysSinceEpoch = dayNumber.DaysSinceZero - EpochDaysSinceZero;
 
         //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
         //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
@@ -384,7 +387,7 @@ public partial struct PaxDate // Find close by day of the week
     public PaxDate Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
-        int daysSinceEpoch = nearest.DaysSinceZero - s_EpochDaysSinceZero;
+        int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }

@@ -10,6 +10,7 @@ public partial class CalendarTemplate : CSharpTemplate
         TextTransformation parent,
         string schemaClass,
         string epoch,
+        string epochDaysSinceZeroValue,
         string maxDaysSinceEpochValue) : base(parent)
     {
         if (String.IsNullOrWhiteSpace(schemaClass))
@@ -20,6 +21,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
         SchemaClass = schemaClass;
         Epoch = epoch;
+        EpochDaysSinceZeroValue = epochDaysSinceZeroValue;
         DisplayName = Name;
         Prefix = Name;
         MaxDaysSinceEpochValue = maxDaysSinceEpochValue;
@@ -27,6 +29,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public string SchemaClass { get; }
     public string Epoch { get; }
+    public string EpochDaysSinceZeroValue { get; }
     public string ScopeClass { get; set; } = "StandardScope";
 
     // NB: we don't check the setter because these are design time templates:
@@ -45,7 +48,6 @@ public partial class CalendarTemplate : CSharpTemplate
     public bool EnableIsSupplementary { get; set; } = true;
 
     public bool EnablePragmas { get; set; }
-    public bool EnableMicroOptimizations { get; set; } = true;
     public bool ImportCalendrieSystemsNamespace { get; set; }
 
     // Temporary property until we decide what to do with clocks.

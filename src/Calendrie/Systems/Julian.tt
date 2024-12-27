@@ -5,13 +5,10 @@
 
 public sealed class JulianTemplate : CalendarTemplate
 {
-    public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema", "DayZero.OldStyle", "")
+    public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema", "DayZero.OldStyle", "", "")
     {
         ScopeClass = "JulianScope";
     }
-
-    protected override string EpochDaysSinceZero =>
-        EnableMicroOptimizations ? "EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
 
     protected sealed override void EmitUsings()
     {

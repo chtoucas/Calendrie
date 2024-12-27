@@ -7,7 +7,7 @@
 public class ZeroCalendarTemplate : CalendarTemplate
 {
     public ZeroCalendarTemplate(TextTransformation parent, string schema, string maxDaysSinceEpochValue) :
-        base(parent, schema, "DayZero.NewStyle", maxDaysSinceEpochValue)
+        base(parent, schema, "DayZero.NewStyle", "0", maxDaysSinceEpochValue)
     {
         DaysSinceEpochVar = "daysSinceZero";
         DaysSinceEpochSuffix = "DaysSinceZero";

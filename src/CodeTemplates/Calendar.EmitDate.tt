@@ -2,9 +2,6 @@
 
 public partial class CalendarTemplate
 {
-    protected virtual string EpochDaysSinceZero =>
-        EnableMicroOptimizations ? "s_EpochDaysSinceZero" : "s_Epoch.DaysSinceZero";
-
     protected virtual void EmitDate()
     {
         EmitDateDecl();
@@ -42,16 +39,14 @@ public readonly partial struct <#= Prefix #>Date :
 #>
 public partial struct <#= Prefix #>Date // Preamble
 {
+    /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
+    /// for the epoch <see cref="<#= Epoch #>"/>.
+    /// <para>This field is a constant equal to <#= EpochDaysSinceZeroValue #>.</para></summary>
+    private const int EpochDaysSinceZero = <#= EpochDaysSinceZeroValue #>;
+
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.
     /// <para>This field is a constant equal to <#= MaxDaysSinceEpochValue #>.</para></summary>
     private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
-
-<#+ if (EnableMicroOptimizations) { #>
-    private static readonly int s_EpochDaysSinceZero = <#= Prefix #>Calendar.Instance.Epoch.DaysSinceZero;
-<#+ } else { #>
-    /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = <#= Prefix #>Calendar.Instance.Epoch;
-<#+ } #>
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="<#= Epoch #>"/>.
@@ -117,7 +112,7 @@ public partial struct <#= Prefix #>Date // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _<#= DaysSinceEpochVar #>;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(<#= EpochDaysSinceZero #> + _<#= DaysSinceEpochVar #>);
+    public DayNumber DayNumber => new(EpochDaysSinceZero + _<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _<#= DaysSinceEpochVar #>;
@@ -233,9 +228,9 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - <#= EpochDaysSinceZero #>);
+        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 
-        //int <#= DaysSinceEpochVar #> = dayNumber.DaysSinceZero - <#= EpochDaysSinceZero #>;
+        //int <#= DaysSinceEpochVar #> = dayNumber.DaysSinceZero - EpochDaysSinceZero;
 
         //if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>)
         //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
@@ -381,7 +376,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
-        int <#= DaysSinceEpochVar #> = nearest.DaysSinceZero - <#= EpochDaysSinceZero #>;
+        int <#= DaysSinceEpochVar #> = nearest.DaysSinceZero - EpochDaysSinceZero;
         if ((uint)<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
         return new(<#= DaysSinceEpochVar #>);
     }

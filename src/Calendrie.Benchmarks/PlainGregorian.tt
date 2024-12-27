@@ -4,7 +4,6 @@
 <#= new ZeroCalendarTemplate(this, "GregorianSchema", "3_652_058")
     {
         EnableIsSupplementary = false,
-        EnableMicroOptimizations = false,
         EnablePragmas = true,
         ImportCalendrieSystemsNamespace = true
     }.Execute() #>

@@ -1,10 +1,9 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
-<#= new CalendarTemplate(this, "JulianSchema", "DayZero.OldStyle", "3_651_769")
+<#= new CalendarTemplate(this, "JulianSchema", "DayZero.OldStyle", "-2", "3_651_769")
     {
         EnableIsSupplementary = false,
-        EnableMicroOptimizations = false,
         EnablePragmas = true,
         ImportCalendrieSystemsNamespace = true
     }.Execute() #>

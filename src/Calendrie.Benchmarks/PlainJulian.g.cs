@@ -81,12 +81,14 @@ public readonly partial struct PlainJulianDate :
 
 public partial struct PlainJulianDate // Preamble
 {
+    /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
+    /// for the epoch <see cref="DayZero.OldStyle"/>.
+    /// <para>This field is a constant equal to -2.</para></summary>
+    private const int EpochDaysSinceZero = -2;
+
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_651_769.</para></summary>
     private const int MaxDaysSinceEpoch = 3_651_769;
-
-    /// <summary>Represents the epoch of the associated calendar.</summary>
-    private static readonly DayNumber s_Epoch = PlainJulianCalendar.Instance.Epoch;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.OldStyle"/>.
@@ -152,7 +154,7 @@ public partial struct PlainJulianDate // Preamble
     // We already know that the resulting day number is valid so instead of
     // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
-    public DayNumber DayNumber => new(s_Epoch.DaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
@@ -249,9 +251,9 @@ public partial struct PlainJulianDate // Factories & conversions
 
         // We know that the subtraction won't overflow
         // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero);
+        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 
-        //int daysSinceEpoch = dayNumber.DaysSinceZero - s_Epoch.DaysSinceZero;
+        //int daysSinceEpoch = dayNumber.DaysSinceZero - EpochDaysSinceZero;
 
         //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
         //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
@@ -379,7 +381,7 @@ public partial struct PlainJulianDate // Find close by day of the week
     public PlainJulianDate Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
-        int daysSinceEpoch = nearest.DaysSinceZero - s_Epoch.DaysSinceZero;
+        int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
