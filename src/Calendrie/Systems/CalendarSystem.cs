@@ -46,8 +46,9 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     }
 
 #if DEBUG
-    // When creating a new type, these properties are useful to determine the
-    // actual value of MaxDaysSinceEpoch to be used by the T4 template.
+    // While creating a new type, these properties prove to be useful in
+    // determining the actual value of MaxDaysSinceEpoch to be used by the T4
+    // template.
     // For "standard" calendars, MinDaysSinceEpoch = 0.
 
     /// <summary>

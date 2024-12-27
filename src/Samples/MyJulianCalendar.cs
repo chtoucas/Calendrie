@@ -16,9 +16,6 @@ public sealed partial class MyJulianCalendar : UserCalendar
 {
     internal const string DisplayName = "Julien";
 
-    public const int MinYear = 1;
-    public const int MaxYear = 9999;
-
     public MyJulianCalendar()
         : base(DisplayName,
             MinMaxYearScope.Create<JulianSchema>(DayZero.OldStyle, Range_.Create(MinYear, MaxYear)))
@@ -31,6 +28,9 @@ public sealed partial class MyJulianCalendar : UserCalendar
         // Cache the computed property pre-validator.
         PreValidator = Schema.PreValidator;
     }
+
+    public static int MinYear => 1;
+    public static int MaxYear => 9999;
 
     internal static MyJulianCalendar Instance { get; } = new();
 
