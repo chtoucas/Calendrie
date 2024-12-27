@@ -15,8 +15,6 @@ using System.Numerics;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-using static Calendrie.Core.CalendricalConstants;
-
 /// <summary>
 /// Represents the Julian date.
 /// <para><see cref="JulianDate"/> is an immutable struct.</para>
@@ -28,6 +26,32 @@ public readonly partial struct JulianDate :
     IDateFactory<JulianDate>,
     ISubtractionOperators<JulianDate, JulianDate, int>
 { }
+
+public partial struct JulianDate // Factories & conversions
+{
+    /// <inheritdoc />
+    [Pure]
+    public static JulianDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+
+        // We know that the subtraction won't overflow
+        // > return new(dayNumber - s_Epoch);
+        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+
+        //int daysSinceEpoch = dayNumber.DaysSinceZero - EpochDaysSinceZero;
+
+        //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
+        //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        //return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static JulianDate IDateFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+}
 
 public partial struct JulianDate // Counting
 {

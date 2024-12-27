@@ -26,6 +26,7 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
 
     private GregorianCalendar(GregorianSchema schema) : base("Gregorian", new GregorianScope(schema))
     {
+        Debug.Assert(schema != null);
         Schema = schema;
     }
 

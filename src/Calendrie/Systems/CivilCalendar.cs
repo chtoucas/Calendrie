@@ -26,6 +26,7 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
 
     private CivilCalendar(CivilSchema schema) : base("Civil", new CivilScope(schema))
     {
+        Debug.Assert(schema != null);
         Schema = schema;
     }
 

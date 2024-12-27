@@ -166,25 +166,6 @@ public partial struct JulianDate // Preamble
         year = JulianFormulae.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct JulianDate // Factories & conversions
-{
-    /// <inheritdoc />
-    [Pure]
-    public static JulianDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // We know that the subtraction won't overflow
-        // > return new(dayNumber - s_Epoch);
-        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static JulianDate IDateFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
-}
-
 public partial struct JulianDate // Find close by day of the week
 {
     /// <inheritdoc />

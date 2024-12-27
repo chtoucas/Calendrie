@@ -26,6 +26,7 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
 
     private JulianCalendar(JulianSchema schema) : base("Julian", new JulianScope(schema))
     {
+        Debug.Assert(schema != null);
         Schema = schema;
     }
 
