@@ -362,8 +362,6 @@ public partial struct Yemoda // Binary data helpers
     [Pure]
     public static Yemoda FromBinary(int data) => new(data);
 
-    // REVIEW(code): ext. ser. w/ other data types.
-
     /// <summary>
     /// Deserializes a 64-bit binary value and recreates an original serialized
     /// <see cref="Yemoda"/> object.
