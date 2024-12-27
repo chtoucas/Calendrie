@@ -32,7 +32,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
-    where TDate : struct, IDateable, IDateFactory<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
@@ -185,8 +185,9 @@ public partial class CalendarSystem<TDate>
     [Pure]
     public TDate GetStartOfMonth(TDate date)
     {
-        var (y, m, _) = date;
-        int daysSinceEpoch = Scope.Schema.GetStartOfMonth(y, m);
+        var sch = Scope.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
+        int daysSinceEpoch = sch.GetStartOfMonth(y, m);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -196,8 +197,9 @@ public partial class CalendarSystem<TDate>
     [Pure]
     public TDate GetEndOfMonth(TDate date)
     {
-        var (y, m, _) = date;
-        int daysSinceEpoch = Scope.Schema.GetEndOfMonth(y, m);
+        var sch = Scope.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
+        int daysSinceEpoch = sch.GetEndOfMonth(y, m);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }
