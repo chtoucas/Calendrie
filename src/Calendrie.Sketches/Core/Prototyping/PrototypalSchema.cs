@@ -311,7 +311,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     {
         // Faster alternatives:
         // - Use a purely computational formula.
-        // - Start with an approximation of the result, see ArchetypalSchema.
+        // - Start with an approximation of the result, see PrototypalSchemaSlim.
 
         // Find the year for which (daysSinceEpoch - startOfYear) = d0y
         // has the smallest value >= 0.
@@ -357,7 +357,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     {
         // Faster alternatives:
         // - Use a purely computational formula.
-        // - Start with an approximation of the result, see ArchetypalSchema.
+        // - Start with an approximation of the result, see PrototypalSchemaSlim.
 
         int m = 1;
         int daysInYearBeforeMonth = 0;
@@ -383,6 +383,10 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     [Pure]
     public virtual int GetStartOfYearInMonths(int y)
     {
+        // Faster alternatives:
+        // - Use a purely computational formula.
+        // - Cache the result.
+
         int monthsSinceEpoch = 0;
 
         if (y < 1)
@@ -411,7 +415,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     {
         // Faster alternatives:
         // - Use a purely computational formula.
-        // - Cache the result, see ArchetypalSchema.
+        // - Cache the result.
 
         int daysSinceEpoch = 0;
 

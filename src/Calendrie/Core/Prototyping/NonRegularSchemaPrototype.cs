@@ -191,7 +191,8 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
 
     /// <inheritdoc />
     /// <remarks>For performance reasons, a derived class <b>OUGHT TO</b>
-    /// override this method.</remarks>
+    /// override this method. Fortunately, a purely computational formula is
+    /// usually rather easy to find.</remarks>
     [Pure]
     public override int GetStartOfYearInMonths(int y)
     {
@@ -218,7 +219,8 @@ public partial class NonRegularSchemaPrototype // Prototypal methods
 
     /// <inheritdoc />
     /// <remarks>For performance reasons, a derived class <b>OUGHT TO</b>
-    /// override this method.</remarks>
+    /// override this method. Fortunately, a purely computational formula is
+    /// usually rather easy to find.</remarks>
     [Pure]
     public override int GetStartOfYear(int y)
     {
