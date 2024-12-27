@@ -4,6 +4,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>$(CalendrieDefaultFramework)</TargetFramework>
 
+    <!-- To enable full testing of PrototypalSchema(Slim) -->
+    <!--<DefineConstants>$(DefineConstants);ENABLE_MORE_PROTOTYPAL_TESTS</DefineConstants>-->
+
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
 

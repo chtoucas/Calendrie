@@ -10,7 +10,8 @@
     <DefineConstants Condition=" '$(HideInternals)' == 'true' ">$(DefineConstants);__HIDE_INTERNALS__</DefineConstants>
     <DefineConstants Condition=" '$(EnablePreviewFeatures)' == 'true' ">$(DefineConstants);__ENABLE_PREVIEW_FEATURES__</DefineConstants>
 
-    <DefineConstants>$(DefineConstants);__PATCH_DIVREM__</DefineConstants>
+    <DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);__PATCH_DIVREM__</DefineConstants>
+    <DefineConstants Condition=" '$(DefineConstants)' == '' ">__PATCH_DIVREM__</DefineConstants>
   </PropertyGroup>
 
   <Target Name="PrintSettingsBeforeCompile" BeforeTargets="Compile"

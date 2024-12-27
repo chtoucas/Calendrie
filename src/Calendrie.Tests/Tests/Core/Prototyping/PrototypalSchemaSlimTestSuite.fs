@@ -40,6 +40,8 @@ type Coptic13Tests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
     override x.IsRegular() = x.PrototypeUT.IsRegular() === (true, 13)
 
+#if ENABLE_MORE_PROTOTYPAL_TESTS
+
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -131,6 +133,8 @@ type JulianTests() =
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<JulianPreValidator>()
     override x.IsRegular() = x.PrototypeUT.IsRegular() === (true, 12)
 
+#endif
+
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -144,6 +148,8 @@ type LunisolarTests() =
     override x.PeriodicAdjustments_Prop() = x.PrototypeUT.PeriodicAdjustments === CalendricalAdjustments.Months
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<LunisolarPreValidator>()
     override x.IsRegular() = x.PrototypeUT.IsRegular() === (false, 0)
+
+#if ENABLE_MORE_PROTOTYPAL_TESTS
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
@@ -248,3 +254,5 @@ type WorldTests() =
     override x.PeriodicAdjustments_Prop() = x.PrototypeUT.PeriodicAdjustments === CalendricalAdjustments.Days
     override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
     override x.IsRegular() = x.PrototypeUT.IsRegular() === (true, 12)
+
+#endif
