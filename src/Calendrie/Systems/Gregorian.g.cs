@@ -40,7 +40,7 @@ public partial struct GregorianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static GregorianDate IDateFactory<GregorianDate>.CreateUnchecked(int daysSinceEpoch) =>
+    static GregorianDate IDateFactory<GregorianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

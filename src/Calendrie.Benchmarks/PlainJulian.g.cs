@@ -260,7 +260,7 @@ public partial struct PlainJulianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainJulianDate IDateFactory<PlainJulianDate>.CreateUnchecked(int daysSinceEpoch) =>
+    static PlainJulianDate IDateFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

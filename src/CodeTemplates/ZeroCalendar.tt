@@ -284,7 +284,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.CreateUnchecked(int daysSinceEpoch) =>
+    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 <#+

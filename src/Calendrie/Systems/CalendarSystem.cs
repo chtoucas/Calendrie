@@ -46,10 +46,9 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     }
 
 #if DEBUG
-    // The next internal properties are only meant to be used by the date type.
-    // For "standard" calendars, MinDaysSinceEpoch = 0.
     // When creating a new type, these properties are useful to determine the
     // actual value of MaxDaysSinceEpoch to be used by the T4 template.
+    // For "standard" calendars, MinDaysSinceEpoch = 0.
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.
@@ -92,7 +91,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select TDate.CreateUnchecked(daysSinceEpoch);
+               select TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -106,7 +105,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select TDate.CreateUnchecked(daysSinceEpoch);
+               select TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -115,7 +114,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetStartOfYear(year);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -124,7 +123,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetEndOfYear(year);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -133,7 +132,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc/>
@@ -142,7 +141,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 
@@ -155,7 +154,7 @@ public partial class CalendarSystem<TDate>
     public TDate GetStartOfYear(TDate date)
     {
         int daysSinceEpoch = Schema.GetStartOfYear(date.Year);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -165,7 +164,7 @@ public partial class CalendarSystem<TDate>
     public TDate GetEndOfYear(TDate date)
     {
         int daysSinceEpoch = Schema.GetEndOfYear(date.Year);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -176,7 +175,7 @@ public partial class CalendarSystem<TDate>
     {
         var (y, m, _) = date;
         int daysSinceEpoch = Schema.GetStartOfMonth(y, m);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -187,6 +186,6 @@ public partial class CalendarSystem<TDate>
     {
         var (y, m, _) = date;
         int daysSinceEpoch = Schema.GetEndOfMonth(y, m);
-        return TDate.CreateUnchecked(daysSinceEpoch);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }

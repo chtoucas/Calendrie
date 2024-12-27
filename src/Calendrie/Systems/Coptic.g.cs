@@ -266,7 +266,7 @@ public partial struct CopticDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CopticDate IDateFactory<CopticDate>.CreateUnchecked(int daysSinceEpoch) =>
+    static CopticDate IDateFactory<CopticDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

@@ -181,7 +181,7 @@ public partial struct JulianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static JulianDate IDateFactory<JulianDate>.CreateUnchecked(int daysSinceEpoch) =>
+    static JulianDate IDateFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

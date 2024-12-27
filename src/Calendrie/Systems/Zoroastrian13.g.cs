@@ -266,7 +266,7 @@ public partial struct Zoroastrian13Date // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static Zoroastrian13Date IDateFactory<Zoroastrian13Date>.CreateUnchecked(int daysSinceEpoch) =>
+    static Zoroastrian13Date IDateFactory<Zoroastrian13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

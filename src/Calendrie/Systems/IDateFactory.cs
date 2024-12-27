@@ -22,5 +22,5 @@ public interface IDateFactory<TDate>
     /// the specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    [Pure] internal static abstract TDate CreateUnchecked(int daysSinceEpoch);
+    [Pure] internal static abstract TDate UnsafeCreate(int daysSinceEpoch);
 }

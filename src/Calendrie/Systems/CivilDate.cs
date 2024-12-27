@@ -192,6 +192,6 @@ public partial struct CivilDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CivilDate IDateFactory<CivilDate>.CreateUnchecked(int daysSinceEpoch) =>
+    static CivilDate IDateFactory<CivilDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }

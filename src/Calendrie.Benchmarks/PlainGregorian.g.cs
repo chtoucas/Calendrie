@@ -243,7 +243,7 @@ public partial struct PlainGregorianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainGregorianDate IDateFactory<PlainGregorianDate>.CreateUnchecked(int daysSinceEpoch) =>
+    static PlainGregorianDate IDateFactory<PlainGregorianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 
