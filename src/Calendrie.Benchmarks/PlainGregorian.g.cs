@@ -36,13 +36,16 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     public PlainGregorianCalendar() : this(new GregorianSchema()) { }
 
     private PlainGregorianCalendar(GregorianSchema schema)
-        : this(schema, new StandardScope(schema, DayZero.NewStyle)) { }
-
-    private PlainGregorianCalendar(GregorianSchema schema, StandardScope scope)
-        : base("PlainGregorian", scope)
+        : base("PlainGregorian", new StandardScope(schema, DayZero.NewStyle))
     {
         UnderlyingSchema = schema;
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
+    /// <para>See <see cref="PlainGregorianDate.Calendar"/>.</para>
+    /// </summary>
+    internal static PlainGregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -53,12 +56,6 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
-    /// <para>See <see cref="PlainGregorianDate.Calendar"/>.</para>
-    /// </summary>
-    internal static PlainGregorianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

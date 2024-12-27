@@ -34,13 +34,16 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     public ArmenianCalendar() : this(new Egyptian12Schema()) { }
 
     private ArmenianCalendar(Egyptian12Schema schema)
-        : this(schema, new StandardScope(schema, DayZero.Armenian)) { }
-
-    private ArmenianCalendar(Egyptian12Schema schema, StandardScope scope)
-        : base("Armenian", scope)
+        : base("Armenian", new StandardScope(schema, DayZero.Armenian))
     {
         UnderlyingSchema = schema;
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="ArmenianCalendar"/> class.
+    /// <para>See <see cref="ArmenianDate.Calendar"/>.</para>
+    /// </summary>
+    internal static ArmenianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -51,12 +54,6 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets a singleton instance of the <see cref="ArmenianCalendar"/> class.
-    /// <para>See <see cref="ArmenianDate.Calendar"/>.</para>
-    /// </summary>
-    internal static ArmenianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

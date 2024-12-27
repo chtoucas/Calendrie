@@ -34,13 +34,16 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     public PaxCalendar() : this(new PaxSchema()) { }
 
     private PaxCalendar(PaxSchema schema)
-        : this(schema, new StandardScope(schema, DayZero.SundayBeforeGregorian)) { }
-
-    private PaxCalendar(PaxSchema schema, StandardScope scope)
-        : base("Pax", scope)
+        : base("Pax", new StandardScope(schema, DayZero.SundayBeforeGregorian))
     {
         UnderlyingSchema = schema;
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="PaxCalendar"/> class.
+    /// <para>See <see cref="PaxDate.Calendar"/>.</para>
+    /// </summary>
+    internal static PaxCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -51,12 +54,6 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets a singleton instance of the <see cref="PaxCalendar"/> class.
-    /// <para>See <see cref="PaxDate.Calendar"/>.</para>
-    /// </summary>
-    internal static PaxCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

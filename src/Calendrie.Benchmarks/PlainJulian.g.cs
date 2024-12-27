@@ -37,13 +37,16 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     public PlainJulianCalendar() : this(new JulianSchema()) { }
 
     private PlainJulianCalendar(JulianSchema schema)
-        : this(schema, new StandardScope(schema, DayZero.OldStyle)) { }
-
-    private PlainJulianCalendar(JulianSchema schema, StandardScope scope)
-        : base("PlainJulian", scope)
+        : base("PlainJulian", new StandardScope(schema, DayZero.OldStyle))
     {
         UnderlyingSchema = schema;
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
+    /// <para>See <see cref="PlainJulianDate.Calendar"/>.</para>
+    /// </summary>
+    internal static PlainJulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -54,12 +57,6 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
-    /// <para>See <see cref="PlainJulianDate.Calendar"/>.</para>
-    /// </summary>
-    internal static PlainJulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

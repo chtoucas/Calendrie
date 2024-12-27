@@ -34,13 +34,16 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     public WorldCalendar() : this(new WorldSchema()) { }
 
     private WorldCalendar(WorldSchema schema)
-        : this(schema, new StandardScope(schema, DayZero.SundayBeforeGregorian)) { }
-
-    private WorldCalendar(WorldSchema schema, StandardScope scope)
-        : base("World", scope)
+        : base("World", new StandardScope(schema, DayZero.SundayBeforeGregorian))
     {
         UnderlyingSchema = schema;
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
+    /// <para>See <see cref="WorldDate.Calendar"/>.</para>
+    /// </summary>
+    internal static WorldCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -51,12 +54,6 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets a singleton instance of the <see cref="WorldCalendar"/> class.
-    /// <para>See <see cref="WorldDate.Calendar"/>.</para>
-    /// </summary>
-    internal static WorldCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.

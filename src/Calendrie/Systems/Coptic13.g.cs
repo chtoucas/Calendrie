@@ -34,13 +34,16 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     public Coptic13Calendar() : this(new Coptic13Schema()) { }
 
     private Coptic13Calendar(Coptic13Schema schema)
-        : this(schema, new StandardScope(schema, DayZero.Coptic)) { }
-
-    private Coptic13Calendar(Coptic13Schema schema, StandardScope scope)
-        : base("Coptic", scope)
+        : base("Coptic", new StandardScope(schema, DayZero.Coptic))
     {
         UnderlyingSchema = schema;
     }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="Coptic13Calendar"/> class.
+    /// <para>See <see cref="Coptic13Date.Calendar"/>.</para>
+    /// </summary>
+    internal static Coptic13Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -51,12 +54,6 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
     /// Gets the latest supported year.
     /// </summary>
     public static int MaxYear => StandardScope.MaxYear;
-
-    /// <summary>
-    /// Gets a singleton instance of the <see cref="Coptic13Calendar"/> class.
-    /// <para>See <see cref="Coptic13Date.Calendar"/>.</para>
-    /// </summary>
-    internal static Coptic13Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the schema.
