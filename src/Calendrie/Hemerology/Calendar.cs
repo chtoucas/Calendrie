@@ -233,11 +233,6 @@ public abstract partial class Calendar
     /// </summary>
     protected internal ICalendricalSchema Schema { get; }
 
-#if DEBUG // Only for testing (search for C# protected internal in the test project)
-    // FS0405: F# doesn't cope well with "protected internal".
-    internal CalendricalSegment Segment => Scope.Segment;
-#endif
-
     /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.

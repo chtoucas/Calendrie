@@ -1,20 +1,20 @@
 Summary
-  Generated on: 25/12/2024 - 20:29:30
+  Generated on: 27/12/2024 - 01:48:39
   Parser: OpenCover
   Assemblies: 2
-  Classes: 143
-  Files: 139
-  Line coverage: 95.1%
-  Covered lines: 6564
-  Uncovered lines: 334
-  Coverable lines: 6898
-  Total lines: 26387
-  Branch coverage: 97.2% (1886 of 1939)
-  Covered branches: 1886
-  Total branches: 1939
-  Method coverage: 94.7% (2299 of 2427)
-  Covered methods: 2299
-  Total methods: 2427
+  Classes: 147
+  Files: 143
+  Line coverage: 92%
+  Covered lines: 6496
+  Uncovered lines: 560
+  Coverable lines: 7056
+  Total lines: 27122
+  Branch coverage: 93% (1841 of 1979)
+  Covered branches: 1841
+  Total branches: 1979
+  Method coverage: 92.7% (2290 of 2469)
+  Covered methods: 2290
+  Total methods: 2469
 
 Calendrie                                                99.8%
   Calendrie.Core.CalendricalSchema                        100%
@@ -128,7 +128,7 @@ Calendrie                                                99.8%
   Calendrie.Systems.ZoroastrianDate                       100%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Sketches                                       74.3%
+Calendrie.Sketches                                         63%
   Calendrie.AdditionRuleset                               100%
   Calendrie.Core.DoomsdayRule                             100%
   Calendrie.Core.Intervals.IntervalExtra                  100%
@@ -137,7 +137,7 @@ Calendrie.Sketches                                       74.3%
   Calendrie.Core.OffsettedSchema                            0%
   Calendrie.Core.OffsettedSchema<T>                         0%
   Calendrie.Core.Prototyping.PrototypalSchema            97.7%
-  Calendrie.Core.Prototyping.PrototypalSchemaSlim         100%
+  Calendrie.Core.Prototyping.PrototypalSchemaSlim        96.4%
   Calendrie.Core.Schemas.GregorianFormulae2               100%
   Calendrie.Core.Schemas.JulianFormulae2                  100%
   Calendrie.Core.Schemas.PaxSchema                       85.1%
@@ -145,10 +145,14 @@ Calendrie.Sketches                                       74.3%
   Calendrie.Core.Utilities.RequiresEx                     100%
   Calendrie.Core.Validation.GregorianPreValidator2        100%
   Calendrie.Core.Validation.JulianPreValidator2           100%
+  Calendrie.Core.Validation.RangeValidator                  0%
   Calendrie.Extensions.CivilDateExtensions                100%
   Calendrie.Extensions.DayNumberExtensions                 20%
   Calendrie.Extensions.GregorianDateExtensions            100%
   Calendrie.Extensions.JulianDateExtensions               100%
+  Calendrie.Hemerology.Arithmetic.NakedArithmetic           0%
+  Calendrie.Hemerology.Arithmetic.PlainArithmetic           0%
+  Calendrie.Hemerology.Arithmetic.RegularArithmetic         0%
   Calendrie.Hemerology.BoundedBelowCalendar              94.4%
   Calendrie.Hemerology.BoundedBelowDayNumberProvider     12.8%
   Calendrie.Hemerology.BoundedBelowScope                 92.5%

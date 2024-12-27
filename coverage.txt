@@ -1,20 +1,20 @@
 Summary
-  Generated on: 25/12/2024 - 17:51:09
+  Generated on: 27/12/2024 - 01:47:47
   Parser: OpenCover
   Assemblies: 1
   Classes: 110
   Files: 106
   Line coverage: 99.8%
-  Covered lines: 5620
+  Covered lines: 5557
   Uncovered lines: 9
-  Coverable lines: 5629
-  Total lines: 21722
-  Branch coverage: 100% (1649 of 1649)
-  Covered branches: 1649
-  Total branches: 1649
-  Method coverage: 99.8% (2013 of 2016)
-  Covered methods: 2013
-  Total methods: 2016
+  Coverable lines: 5566
+  Total lines: 21742
+  Branch coverage: 100% (1609 of 1609)
+  Covered branches: 1609
+  Total branches: 1609
+  Method coverage: 99.8% (2004 of 2007)
+  Covered methods: 2004
+  Total methods: 2007
 
 Calendrie                                                99.8%
   Calendrie.Core.CalendricalSchema                        100%
