@@ -402,7 +402,6 @@ Calendrie.Hemerology.Calendar.IsIntercalaryMonth(int year, int month) -> bool
 Calendrie.Hemerology.Calendar.IsLeapYear(int year) -> bool
 Calendrie.Hemerology.Calendar.Name.get -> string!
 Calendrie.Hemerology.Calendar.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-Calendrie.Hemerology.Calendar.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Hemerology.Calendar.Scope.get -> Calendrie.Hemerology.CalendarScope!
 Calendrie.Hemerology.CalendarScope
 Calendrie.Hemerology.CalendarScope.CalendarScope(Calendrie.Core.CalendricalSegment! segment, Calendrie.DayNumber epoch) -> void
@@ -481,6 +480,7 @@ Calendrie.Hemerology.NakedCalendar.IsRegular(out int monthsInYear) -> bool
 Calendrie.Hemerology.NakedCalendar.IsSupplementaryDay(int year, int month, int day) -> bool
 Calendrie.Hemerology.NakedCalendar.NakedCalendar(string! name, Calendrie.Hemerology.CalendarScope! scope) -> void
 Calendrie.Hemerology.NakedCalendar.PartsAdapter.get -> Calendrie.Core.PartsAdapter!
+Calendrie.Hemerology.NakedCalendar.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
