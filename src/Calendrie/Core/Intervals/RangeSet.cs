@@ -90,16 +90,6 @@ public readonly partial struct RangeSet<T> :
     IEquatable<RangeSet<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
-    /// <summary>
-    /// Represents the empty range.
-    /// <para>The empty range is both an intersection absorber and a span
-    /// identity.</para>
-    /// </summary>
-#pragma warning disable CS0649 // Field 'field' is never assigned to, and will always have its default value 'value'
-    // TODO(code): CS0649 when /p:HideInternals=true
-    internal static readonly RangeSet<T> Empty;
-#pragma warning restore CS0649
-
     // Default value = empty set, _isInhabited = false and _endpoints = (default(T), default(T)).
 
     /// <summary>
@@ -134,6 +124,13 @@ public readonly partial struct RangeSet<T> :
         _endpoints = endpoints;
         _isInhabited = true;
     }
+
+    /// <summary>
+    /// Represents the empty range.
+    /// <para>The empty range is both an intersection absorber and a span
+    /// identity.</para>
+    /// </summary>
+    internal static RangeSet<T> Empty { get; }
 
     /// <summary>
     /// Returns <see langword="true"/> if this range is empty; otherwise returns
