@@ -15,6 +15,8 @@ using System.Numerics;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Represents the Civil date.
 /// <para><see cref="CivilDate"/> is an immutable struct.</para>
@@ -109,6 +111,68 @@ public partial struct CivilDate // Adjustments
     }
 }
 
+public partial struct CivilDate // Find close by day of the week
+{
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
+        if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate Nearest(DayOfWeek dayOfWeek)
+    {
+        int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
+        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
+    }
+}
+
 public partial struct CivilDate // IEquatable
 {
     /// <inheritdoc />
@@ -168,4 +232,83 @@ public partial struct CivilDate // IComparable
         obj is null ? 1
         : obj is CivilDate date ? CompareTo(date)
         : ThrowHelpers.ThrowNonComparable(typeof(CivilDate), obj);
+}
+
+public partial struct CivilDate // Math
+{
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
+    public static int operator -(CivilDate left, CivilDate right) => left.CountDaysSince(right);
+
+    /// <summary>
+    /// Adds a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
+    public static CivilDate operator +(CivilDate value, int days) => value.AddDays(days);
+
+    /// <summary>
+    /// Subtracts a number of days to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
+    public static CivilDate operator -(CivilDate value, int days) => value.AddDays(-days);
+
+    /// <summary>
+    /// Adds one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
+    public static CivilDate operator ++(CivilDate value) => value.NextDay();
+
+    /// <summary>
+    /// Subtracts one day to the specified date, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
+    public static CivilDate operator --(CivilDate value) => value.PreviousDay();
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDaysSince(CivilDate other) =>
+        // No need to use a checked context here.
+        _daysSinceZero - other._daysSinceZero;
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate AddDays(int days)
+    {
+        int daysSinceZero = checked(_daysSinceZero + days);
+
+        // Don't write (the addition may also overflow...):
+        // > Scope.CheckOverflow(Epoch + daysSinceZero);
+        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate NextDay()
+    {
+        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceZero + 1);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate PreviousDay()
+    {
+        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceZero - 1);
+    }
 }

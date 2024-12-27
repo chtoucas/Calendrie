@@ -363,8 +363,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
     [Pure]
     public PlainGregorianDate Nearest(DayOfWeek dayOfWeek)
     {
-        var nearest = DayNumber.Nearest(dayOfWeek);
-        int daysSinceZero = nearest.DaysSinceZero - s_Epoch.DaysSinceZero;
+        int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }

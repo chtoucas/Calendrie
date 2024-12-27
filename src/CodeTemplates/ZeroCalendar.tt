@@ -289,6 +289,75 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 }
 <#+
     } // T4: End of EmitDateFactories()
+
+    protected override void EmitCloseByDayOfWeek()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Date // Find close by day of the week
+{
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Previous(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (<#= DaysSinceEpochVar #> < 0) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date PreviousOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ > 0 ? δ - DaysInWeek : δ);
+        if (<#= DaysSinceEpochVar #> < 0) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
+    {
+        int <#= DaysSinceEpochVar #> = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
+        if ((uint)<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date NextOrSame(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        if (δ == 0) return this;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ < 0 ? δ + DaysInWeek : δ);
+        if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date Next(DayOfWeek dayOfWeek)
+    {
+        Requires.Defined(dayOfWeek);
+
+        int δ = dayOfWeek - DayOfWeek;
+        int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        return new(<#= DaysSinceEpochVar #>);
+    }
+}
+<#+
+    } // T4: End of EmitCloseByDayOfWeek()
+
 } // T4: End of ZeroCalendarTemplate
 
 #>

@@ -13,11 +13,6 @@ using static Calendrie.Core.CalendricalConstants;
 /// supported.</remarks>
 public partial struct GregorianDate // Preamble
 {
-    // TODO(code): EpochDaysSinceZero instead of s_EpochDaysSinceZero; idem w/ PlainGregorian.
-#pragma warning disable IDE1006 // Naming Styles
-    private const int s_EpochDaysSinceZero = 0;
-#pragma warning restore IDE1006
-
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to -365_242_135.</para></summary>
     private const int MinDaysSinceZero = -365_242_135;
@@ -212,8 +207,7 @@ public partial struct GregorianDate // Find close by day of the week
     [Pure]
     public GregorianDate Nearest(DayOfWeek dayOfWeek)
     {
-        var nearest = DayNumber.Nearest(dayOfWeek);
-        int daysSinceZero = nearest.DaysSinceZero - s_EpochDaysSinceZero;
+        int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
