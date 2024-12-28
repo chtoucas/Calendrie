@@ -80,7 +80,7 @@ public abstract partial class LimitSchema : CalendricalSchema
     private protected LimitSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
-        if (!supportedYears.IsSubsetOf(Yemoda.SupportedYears))
+        if (!supportedYears.IsSubsetOf(MaxSupportedYears))
             throw new ArgumentOutOfRangeException(nameof(supportedYears));
     }
 

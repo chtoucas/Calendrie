@@ -24,7 +24,9 @@ public abstract partial class NakedArithmetic
     /// null.</exception>
     protected NakedArithmetic(CalendricalSegment segment)
     {
-        Segment = segment ?? throw new ArgumentNullException(nameof(segment));
+        ArgumentNullException.ThrowIfNull(segment);
+
+        Segment = segment;
 
         Schema = segment.Schema;
         PartsAdapter = new PartsAdapter(Schema);
