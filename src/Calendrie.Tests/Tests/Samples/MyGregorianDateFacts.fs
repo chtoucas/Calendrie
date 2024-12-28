@@ -10,6 +10,8 @@ open Calendrie.Testing.Facts.Hemerology
 
 open Samples
 
+// Test IAbsolute static methods.
+
 let domain = Range.Create(MyGregorianDate.MinValue.DayNumber, MyGregorianDate.MaxValue.DayNumber)
 
 [<Sealed>]
