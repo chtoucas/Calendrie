@@ -12,7 +12,7 @@ open Xunit
 
 // TODO(fact): Pax (unfinished), Positivist (unfinished), lunisolar (fake), World (unfinished).
 
-let private test = DaysInMonthDistributionFacts.Test
+let private test = IDaysInMonthsFacts.Test
 
 [<Fact>]
 let Coptic12Tests () =

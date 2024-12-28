@@ -14,7 +14,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <summary>
 /// Represents a <b>fake</b> lunisolar schema.
 /// </summary>
-public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonthDistribution
+public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonths
 {
     public const int MonthsPer4YearCycle = 49;
     public const int DaysPer4YearCycle = 1446;
@@ -27,15 +27,15 @@ public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonthDistribution
 
     public FauxLunisolarSchema() : base(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth) { }
 
-    internal static ReadOnlySpan<byte> DaysInMonth =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
 
-    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
         [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30];
 
     [Pure]
-    static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap ? DaysInMonthLeapYear : DaysInMonth;
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     public sealed override CalendricalFamily Family => CalendricalFamily.Lunisolar;
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Months;

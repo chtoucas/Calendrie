@@ -250,7 +250,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
         // Faster alternatives:
         // - Use a purely computational formula.
         // - Pre-compute the result and use an array lookup.
-        //   A quick improvement would be to use GetDaysInMonthDistribution(leap)
+        //   A quick improvement would be to use GetDaysInMonths(leapYear)
         //   from IDaysInMonthDistribution which would avoid the repeated
         //   calls to CountDaysInMonth(y, m).
 

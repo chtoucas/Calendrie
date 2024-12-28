@@ -25,7 +25,7 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class InternationalFixedSchema :
     LimitSchema,
     IBlankDayFeaturette,
-    IDaysInMonthDistribution,
+    IDaysInMonths,
     ISchemaActivator<InternationalFixedSchema>
 {
     /// <summary>
@@ -76,20 +76,20 @@ public sealed partial class InternationalFixedSchema :
     /// Gets the number of days in each month of a common year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonth =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29];
 
     /// <summary>
     /// Gets the number of days in each month of a leap year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
         [28, 28, 28, 28, 28, 29, 28, 28, 28, 28, 28, 28, 29];
 
     /// <inheritdoc />
     [Pure]
-    static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap ? DaysInMonthLeapYear : DaysInMonth;
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     /// <inheritdoc />
     [Pure]

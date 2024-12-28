@@ -13,7 +13,7 @@ using Calendrie.Core.Utilities;
 /// </summary>
 public sealed partial class TropicaliaSchema :
     TropicalistaSchema,
-    IDaysInMonthDistribution,
+    IDaysInMonths,
     ISchemaActivator<TropicaliaSchema>
 {
     /// <summary>
@@ -33,20 +33,20 @@ public sealed partial class TropicaliaSchema :
     /// Gets the number of days in each month of a common year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonth =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     /// <summary>
     /// Gets the number of days in each month of a leap year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
         [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     /// <inheritdoc />
     [Pure]
-    static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap ? DaysInMonthLeapYear : DaysInMonth;
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     /// <inheritdoc />
     [Pure]

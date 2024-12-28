@@ -11,7 +11,7 @@ namespace Calendrie.Core.Schemas;
 public sealed partial class Coptic12Schema :
     CopticSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution,
+    IDaysInMonths,
     ISchemaActivator<Coptic12Schema>
 {
     /// <summary>
@@ -29,20 +29,20 @@ public sealed partial class Coptic12Schema :
     /// Gets the number of days in each month of a common year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonth =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
 
     /// <summary>
     /// Gets the number of days in each month of a leap year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
         [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 36];
 
     /// <inheritdoc />
     [Pure]
-    static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap ? DaysInMonthLeapYear : DaysInMonth;
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     /// <inheritdoc />
     [Pure]

@@ -15,9 +15,9 @@ public sealed class GregorianKernel : ICalendricalCore
     public const int DaysInCommonYear = 365;
     public const int DaysInLeapYear = 366;
 
-    private static ReadOnlySpan<byte> DaysInMonthOfCommonYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    private static ReadOnlySpan<byte> DaysInMonthOfLeapYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
         [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     public static ICalendricalSchema CreatePrototypalSchema() =>
@@ -52,5 +52,5 @@ public sealed class GregorianKernel : ICalendricalCore
     // 3. Use a purely computational formula.
     public int CountDaysInMonth(int y, int m) =>
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
-        (IsLeapYear(y) ? DaysInMonthOfLeapYear : DaysInMonthOfCommonYear)[m - 1];
+        (IsLeapYear(y) ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear)[m - 1];
 }

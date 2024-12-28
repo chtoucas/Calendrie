@@ -21,7 +21,7 @@ using Ptolemaic13 = PtolemaicSchema.Thirteen;
 public sealed partial class Egyptian13Schema :
     EgyptianSchema,
     IEpagomenalDayFeaturette,
-    IDaysInMonthDistribution,
+    IDaysInMonths,
     ISchemaActivator<Egyptian13Schema>
 {
     /// <summary>
@@ -51,7 +51,7 @@ public sealed partial class Egyptian13Schema :
 
     /// <inheritdoc />
     [Pure]
-    static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
         DaysInMonth;
 
     /// <inheritdoc />

@@ -14,7 +14,7 @@ using Calendrie.Core.Utilities;
 /// </summary>
 public sealed partial class TabularIslamicSchema :
     LimitSchema,
-    IDaysInMonthDistribution,
+    IDaysInMonths,
     ISchemaActivator<TabularIslamicSchema>
 {
     /// <summary>
@@ -67,20 +67,20 @@ public sealed partial class TabularIslamicSchema :
     /// Gets the number of days in each month of a common year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonth =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
 
     /// <summary>
     /// Gets the number of days in each month of a leap year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
-    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
         [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 30];
 
     /// <inheritdoc />
     [Pure]
-    static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap ? DaysInMonthLeapYear : DaysInMonth;
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     /// <inheritdoc />
     [Pure]

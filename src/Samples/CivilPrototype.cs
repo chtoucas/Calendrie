@@ -14,14 +14,14 @@ public sealed partial class CivilPrototype : RegularSchemaPrototype
     public const int DaysInLeapYear = 366;
     public const int DaysPer400YearCycle = 400 * DaysInCommonYear + 97;
 
-    private static ReadOnlySpan<byte> DaysInMonthOfCommonYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    private static ReadOnlySpan<byte> DaysInMonthOfLeapYear =>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
         [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    private static ReadOnlySpan<int> DaysInYearBeforeMonthOfCommonYear =>
+    private static ReadOnlySpan<int> DaysInYearBeforeMonthsOfCommonYear =>
         [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    private static ReadOnlySpan<int> DaysInYearBeforeMonthOfLeapYear =>
+    private static ReadOnlySpan<int> DaysInYearBeforeMonthsOfLeapYear =>
         [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
 
     // Public for testing.
@@ -33,8 +33,8 @@ public sealed partial class CivilPrototype : RegularSchemaPrototype
     {
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
         return (IsLeapYear(y)
-            ? DaysInYearBeforeMonthOfLeapYear
-            : DaysInYearBeforeMonthOfCommonYear
+            ? DaysInYearBeforeMonthsOfLeapYear
+            : DaysInYearBeforeMonthsOfCommonYear
         )[m - 1];
     }
 
@@ -71,7 +71,7 @@ public partial class CivilPrototype // ICalendricalCore
     // 3. Use a purely computational formula.
     public override int CountDaysInMonth(int y, int m) =>
         // This method throws an IndexOutOfRangeException if m < 1 or m > 12.
-        (IsLeapYear(y) ? DaysInMonthOfLeapYear : DaysInMonthOfCommonYear)[m - 1];
+        (IsLeapYear(y) ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear)[m - 1];
 
     public override bool IsLeapYear(int y) => (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
 
