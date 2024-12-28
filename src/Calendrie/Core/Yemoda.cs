@@ -9,8 +9,6 @@ using System.Numerics;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(code): check code and update doc.
-
 #region Developer Notes
 
 // Yemoda = YEar-MOnth-DAy
@@ -38,29 +36,13 @@ using Calendrie.Core.Utilities;
 // instance, we assume that the last day of a month matches the number of
 // days in the month).
 //
-// To ensure that default(Yemoda) returns a well-formed "date", we
-// subtract 1 to all fields; it represents the 01/01/0001. Notice
-// the year 0. This might be problematic for real date structs for which the
-// year 0 is not valid. The binary value of the theoretical zero (01/01/0001,
-// see StartOfYear1) is not equal to zero but to (1 << 11) = 2048. Read also
-// the comments further below; see the method Pack().
+// We ensure that default(Yemoda) returns a well-formed "date", we subtract 1 to
+// all fields; it represents the epoch 01/01/0001. Notice that the epoch is not
+// considered valid in some calendars. It marks a theoretical origin, not the
+// first genuine date from which the calendar has been in use.
 //
-// WARNING: do not use (y - 1) to ensure that default(Yemoda) =
-// 01/01/0001. This will increase the code size of Unpack() and
-// reduces the chances for it to be inlined. Anyway, even if
-// 01/01/0001 has a special meaning, it is no better than
-// 01/01/0000 as a default value --- the epoch is not even
-// considered valid in some calendars, it marks a theoretical
-// origin, not the first genuine date from which the calendar
-// has been in use. This would have been a different
-// story if the year zero was not legal, but most calendars in
-// this project being proleptic, I stick with default(Yemoda) =
-// 01/01/0000. See CivilDate for an example where the year 0 is
-// not legal.
-//
-// We do NOT inherit IMinMaxValue<>: comparison is not calendrical which
-// means that most values are invalid in the context they are meant to be
-// used, that is a calendar.
+// Comparison is not calendrical which means that most values are invalid in the
+// context they are meant to be used, that is a calendar.
 
 #endregion
 
