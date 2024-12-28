@@ -13,6 +13,7 @@ param(
     [ValidateSet('Debug', 'Release')]
     [Alias('c')] [string] $Configuration = 'Debug',
 
+    [Alias('X')] [switch] $Extras,
                  [switch] $NoBuild,
 
     [Alias('h')] [switch] $Help
@@ -29,6 +30,9 @@ Run the test suite.
 
 Usage: test.ps1 [arguments]
      -Plan           specify the test plan. Default = "default"
+  -X|-Extras         enable even more tests. Only effective if -NoBuild is not
+                     enabled. Notice that it does not change the test plans
+                     "default" and "regular".
   -c|-Configuration  configuration to test the solution for. Default = "Debug"
      -NoBuild        do NOT build the test suite?
   -h|-Help           print this help then exit
@@ -66,6 +70,7 @@ try {
 
     $args = @("-c:$configuration")
     if ($NoBuild) { $args += '--no-build' }
+    elseif ($Extras) { $args += "/p:EnableMorePrototypalTests=true" }
 
     switch ($Plan) {
         'default' {

@@ -10,7 +10,9 @@ open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
+#if ENABLE_MORE_PROTOTYPAL_TESTS
 open Calendrie.Testing.Faux
+#endif
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
