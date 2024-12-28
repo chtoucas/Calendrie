@@ -17,11 +17,11 @@ public static partial class CivilDateExtensions { }
 //
 public partial class CivilDateExtensions
 {
-    public static CivilDate AddWeeks(this CivilDate date, int weeks) => date.AddDays(DaysInWeek * weeks);
+    public static CivilDate AddWeeks(this CivilDate date, int weeks) => date.PlusDays(DaysInWeek * weeks);
 
-    public static CivilDate NextWeek(this CivilDate date) => date.AddDays(DaysInWeek);
+    public static CivilDate NextWeek(this CivilDate date) => date.PlusDays(DaysInWeek);
 
-    public static CivilDate PreviousWeek(this CivilDate date) => date.AddDays(-DaysInWeek);
+    public static CivilDate PreviousWeek(this CivilDate date) => date.PlusDays(-DaysInWeek);
 }
 
 // Interconversion

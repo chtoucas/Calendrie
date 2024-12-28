@@ -8,16 +8,16 @@ using Calendrie.Systems;
 
 using NodaTime;
 
-public class AddDaysTests : JulianDateComparisons
+public class PlusDaysTests : JulianDateComparisons
 {
     [Benchmark(Description = "DayNumber")]
-    public DayNumber WithDayNumber31() => dayNumber.AddDays(31);
+    public DayNumber WithDayNumber31() => dayNumber.PlusDays(31);
 
     [Benchmark(Description = "JulianDate")]
-    public JulianDate WithJulianDate31() => julianDate.AddDays(31);
+    public JulianDate WithJulianDate31() => julianDate.PlusDays(31);
 
     [Benchmark(Description = "JulianDate_Plain")]
-    public PlainJulianDate WithPlainJulianDate31() => plainJulianDate.AddDays(31);
+    public PlainJulianDate WithPlainJulianDate31() => plainJulianDate.PlusDays(31);
 
     [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate31() => localDate.PlusDays(31);

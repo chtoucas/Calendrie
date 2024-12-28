@@ -42,7 +42,7 @@ public interface IDayArithmetic<TSelf> :
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [Pure] TSelf AddDays(int days);
+    [Pure] TSelf PlusDays(int days);
 
     /// <summary>
     /// Obtains the day after this date instance.

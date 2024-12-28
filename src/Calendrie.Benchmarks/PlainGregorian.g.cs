@@ -465,8 +465,8 @@ public partial struct PlainGregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
-    public static PlainGregorianDate operator +(PlainGregorianDate value, int days) => value.AddDays(days);
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
+    public static PlainGregorianDate operator +(PlainGregorianDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -474,8 +474,8 @@ public partial struct PlainGregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
-    public static PlainGregorianDate operator -(PlainGregorianDate value, int days) => value.AddDays(-days);
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
+    public static PlainGregorianDate operator -(PlainGregorianDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -501,7 +501,7 @@ public partial struct PlainGregorianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate AddDays(int days)
+    public PlainGregorianDate PlusDays(int days)
     {
         int daysSinceZero = checked(_daysSinceZero + days);
 

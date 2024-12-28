@@ -489,8 +489,8 @@ public partial struct EthiopicDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
-    public static EthiopicDate operator +(EthiopicDate value, int days) => value.AddDays(days);
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
+    public static EthiopicDate operator +(EthiopicDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -498,8 +498,8 @@ public partial struct EthiopicDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
-    public static EthiopicDate operator -(EthiopicDate value, int days) => value.AddDays(-days);
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
+    public static EthiopicDate operator -(EthiopicDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -525,7 +525,7 @@ public partial struct EthiopicDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public EthiopicDate AddDays(int days)
+    public EthiopicDate PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
 

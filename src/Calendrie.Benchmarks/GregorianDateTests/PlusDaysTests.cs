@@ -10,7 +10,7 @@ using NodaTime;
 
 [CategoriesColumn]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
-public class AddDaysTests : GregorianDateComparisons
+public class PlusDaysTests : GregorianDateComparisons
 {
     //
     // No change of month
@@ -18,15 +18,15 @@ public class AddDaysTests : GregorianDateComparisons
 
     [BenchmarkCategory("+7")]
     [Benchmark(Description = "DayNumber")]
-    public DayNumber WithDayNumber7() => dayNumber.AddDays(7);
+    public DayNumber WithDayNumber7() => dayNumber.PlusDays(7);
 
     [BenchmarkCategory("+7")]
     [Benchmark(Description = "CivilDate")]
-    public CivilDate WithCivilDate7() => civilDate.AddDays(7);
+    public CivilDate WithCivilDate7() => civilDate.PlusDays(7);
 
     [BenchmarkCategory("+7")]
     [Benchmark(Description = "GregorianDate")]
-    public GregorianDate WithGregorianDate7() => gregorianDate.AddDays(7);
+    public GregorianDate WithGregorianDate7() => gregorianDate.PlusDays(7);
 
     [BenchmarkCategory("+7")]
     [Benchmark(Description = "LocalDate_NodaTime")]
@@ -46,15 +46,15 @@ public class AddDaysTests : GregorianDateComparisons
 
     [BenchmarkCategory("+31")]
     [Benchmark(Description = "DayNumber")]
-    public DayNumber WithDayNumber31() => dayNumber.AddDays(31);
+    public DayNumber WithDayNumber31() => dayNumber.PlusDays(31);
 
     [BenchmarkCategory("+31")]
     [Benchmark(Description = "CivilDate")]
-    public CivilDate WithCivilDate31() => civilDate.AddDays(31);
+    public CivilDate WithCivilDate31() => civilDate.PlusDays(31);
 
     [BenchmarkCategory("+31")]
     [Benchmark(Description = "GregorianDate")]
-    public GregorianDate WithGregorianDate31() => gregorianDate.AddDays(31);
+    public GregorianDate WithGregorianDate31() => gregorianDate.PlusDays(31);
 
     [BenchmarkCategory("+31")]
     [Benchmark(Description = "LocalDate_NodaTime")]
@@ -74,15 +74,15 @@ public class AddDaysTests : GregorianDateComparisons
 
     [BenchmarkCategory("+401")]
     [Benchmark(Description = "DayNumber")]
-    public DayNumber WithDayNumber401() => dayNumber.AddDays(401);
+    public DayNumber WithDayNumber401() => dayNumber.PlusDays(401);
 
     [BenchmarkCategory("+401")]
     [Benchmark(Description = "CivilDate")]
-    public CivilDate WithCivilDate401() => civilDate.AddDays(401);
+    public CivilDate WithCivilDate401() => civilDate.PlusDays(401);
 
     [BenchmarkCategory("+401")]
     [Benchmark(Description = "GregorianDate")]
-    public GregorianDate WithGregorianDate401() => gregorianDate.AddDays(401);
+    public GregorianDate WithGregorianDate401() => gregorianDate.PlusDays(401);
 
     [BenchmarkCategory("+401")]
     [Benchmark(Description = "LocalDate_NodaTime")]

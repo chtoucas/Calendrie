@@ -204,8 +204,8 @@ public partial struct CivilTriple // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
     public static int operator -(CivilTriple left, CivilTriple right) => left.CountDaysSince(right);
-    public static CivilTriple operator +(CivilTriple value, int days) => value.AddDays(days);
-    public static CivilTriple operator -(CivilTriple value, int days) => value.AddDays(-days);
+    public static CivilTriple operator +(CivilTriple value, int days) => value.PlusDays(days);
+    public static CivilTriple operator -(CivilTriple value, int days) => value.PlusDays(-days);
     public static CivilTriple operator ++(CivilTriple value) => value.NextDay();
     public static CivilTriple operator --(CivilTriple value) => value.PreviousDay();
 
@@ -213,7 +213,7 @@ public partial struct CivilTriple // Math
 
     public int CountDaysSince(CivilTriple other) => _daysSinceEpoch - other._daysSinceEpoch;
 
-    public CivilTriple AddDays(int days)
+    public CivilTriple PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
 

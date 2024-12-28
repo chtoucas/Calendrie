@@ -175,8 +175,8 @@ public partial struct MyGregorianDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
     public static int operator -(MyGregorianDate left, MyGregorianDate right) => left.CountDaysSince(right);
-    public static MyGregorianDate operator +(MyGregorianDate value, int days) => value.AddDays(days);
-    public static MyGregorianDate operator -(MyGregorianDate value, int days) => value.AddDays(-days);
+    public static MyGregorianDate operator +(MyGregorianDate value, int days) => value.PlusDays(days);
+    public static MyGregorianDate operator -(MyGregorianDate value, int days) => value.PlusDays(-days);
     public static MyGregorianDate operator ++(MyGregorianDate value) => value.NextDay();
     public static MyGregorianDate operator --(MyGregorianDate value) => value.PreviousDay();
 
@@ -184,7 +184,7 @@ public partial struct MyGregorianDate // Math
 
     public int CountDaysSince(MyGregorianDate other) => _daysSinceEpoch - other._daysSinceEpoch;
 
-    public MyGregorianDate AddDays(int days)
+    public MyGregorianDate PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
 

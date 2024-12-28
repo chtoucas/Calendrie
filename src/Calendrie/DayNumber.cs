@@ -582,7 +582,7 @@ public partial struct DayNumber // Math ops
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest or the latest supported day numbers.</exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
     public static DayNumber operator +(DayNumber value, int days)
     {
         int newDays = checked(value._daysSinceZero + days);
@@ -597,7 +597,7 @@ public partial struct DayNumber // Math ops
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest or the latest supported day numbers.</exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
     public static DayNumber operator -(DayNumber value, int days)
     {
         int newDays = checked(value._daysSinceZero - days);
@@ -637,7 +637,7 @@ public partial struct DayNumber // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest or the latest supported day numbers.</exception>
     [Pure]
-    public DayNumber AddDays(int days) => this + days;
+    public DayNumber PlusDays(int days) => this + days;
 
     /// <summary>
     /// Obtains the day number following this instance.

@@ -147,15 +147,15 @@ public partial struct MyJulianDate // Math
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
     public static int operator -(MyJulianDate left, MyJulianDate right) => left.CountDaysSince(right);
-    public static MyJulianDate operator +(MyJulianDate value, int days) => value.AddDays(days);
-    public static MyJulianDate operator -(MyJulianDate value, int days) => value.AddDays(-days);
+    public static MyJulianDate operator +(MyJulianDate value, int days) => value.PlusDays(days);
+    public static MyJulianDate operator -(MyJulianDate value, int days) => value.PlusDays(-days);
     public static MyJulianDate operator ++(MyJulianDate value) => value.NextDay();
     public static MyJulianDate operator --(MyJulianDate value) => value.PreviousDay();
 
 #pragma warning restore CA2225 // Operator overloads have named alternates
 
     public int CountDaysSince(MyJulianDate other) => Calendar.CountDaysBetween(other._bin, _bin);
-    public MyJulianDate AddDays(int days) => new(Calendar.AddDays(_bin, days));
+    public MyJulianDate PlusDays(int days) => new(Calendar.AddDays(_bin, days));
     public MyJulianDate NextDay() => new(Calendar.NextDay(_bin));
     public MyJulianDate PreviousDay() => new(Calendar.PreviousDay(_bin));
 }

@@ -245,8 +245,8 @@ public partial struct CivilDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
-    public static CivilDate operator +(CivilDate value, int days) => value.AddDays(days);
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
+    public static CivilDate operator +(CivilDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -254,8 +254,8 @@ public partial struct CivilDate // Math
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See AddDays()")]
-    public static CivilDate operator -(CivilDate value, int days) => value.AddDays(-days);
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
+    public static CivilDate operator -(CivilDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -281,7 +281,7 @@ public partial struct CivilDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public CivilDate AddDays(int days)
+    public CivilDate PlusDays(int days)
     {
         int daysSinceZero = checked(_daysSinceZero + days);
 

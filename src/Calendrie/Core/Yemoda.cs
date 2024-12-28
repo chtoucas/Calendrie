@@ -17,7 +17,7 @@ using Calendrie.Core.Utilities;
 //
 // We pack the date parts into a single 32-bit word.
 // From left to right, we have
-// Year: 22-bit two's complement signed integer.
+// Year: 22-bit two's complement signed integer (or rather Year - 1).
 // Month: 4-bit unsigned integer (or rather Month - 1).
 //   Ne convient pas aux calendriers qui ne rendent pas compte des cycles
 //   lunaires et peuvent donc utiliser des cycles de mois plus longs, comme
@@ -39,7 +39,7 @@ using Calendrie.Core.Utilities;
 // days in the month).
 //
 // To ensure that default(Yemoda) returns a well-formed "date", we
-// subtract 1 to both Day and Month; it represents the 01/01/0000. Notice
+// subtract 1 to all fields; it represents the 01/01/0001. Notice
 // the year 0. This might be problematic for real date structs for which the
 // year 0 is not valid. The binary value of the theoretical zero (01/01/0001,
 // see StartOfYear1) is not equal to zero but to (1 << 11) = 2048. Read also
