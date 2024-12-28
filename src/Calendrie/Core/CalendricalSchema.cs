@@ -7,7 +7,7 @@ using Calendrie.Core.Intervals;
 
 using static Calendrie.Core.CalendricalConstants;
 
-// WARNING: a schema should avoid public static methods since it does not valid
+// WARNING: a schema should avoid public static methods since it does not validate
 // the input parameters of a method. For the same reason, prefer computational
 // formulae to arrays or spans.
 
