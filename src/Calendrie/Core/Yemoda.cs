@@ -9,12 +9,7 @@ using System.Numerics;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// FIXME(code): default value and IMinMaxValue<>, update doc accordingly.
-// Default value: when used as a binary repr for a struct date type, one
-// would expect that default(Yemoda) = epoch that is 01/01/0001.
-// With default(Yemoda) = 01/01/0000, Yemoda can no longer be used with
-// a calendar supporting only dates >= epoch. In other words, it puts an
-// unusual constraint on the calendar scope.
+// TODO(code): check code and update doc.
 
 #region Developer Notes
 
@@ -74,10 +69,12 @@ using Calendrie.Core.Utilities;
 /// <para><see cref="Yemoda"/> is an immutable struct.</para>
 /// </summary>
 /// <remarks>
-/// <para>This type uses the lexicographic order on triples (Year, Month, Day).</para>
-/// <para>A <see cref="Yemoda"/> value is NOT a date since it is not attached to any calendar.
-/// As such, comparison between two instances is NOT calendrical. Still, it uses an order that
-/// most of the time matches the calendrical one.</para>
+/// <para>This type uses the lexicographic order on triples (Year, Month, Day).
+/// </para>
+/// <para>A <see cref="Yemoda"/> value is NOT a date since it is not attached to
+/// any calendar. As such, comparison between two instances is NOT calendrical.
+/// Still, it uses an order that most of the time matches the calendrical one.
+/// </para>
 /// </remarks>
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yemoda :
@@ -206,8 +203,8 @@ public readonly partial struct Yemoda :
     private readonly int _bin;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Yemoda"/> struct from the specified year,
-    /// month and day.
+    /// Initializes a new instance of the <see cref="Yemoda"/> struct from the
+    /// specified year, month and day.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
     internal Yemoda(int y, int m, int d)
@@ -223,8 +220,8 @@ public readonly partial struct Yemoda :
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Yemoda"/> struct directly from the
-    /// specified binary data.
+    /// Initializes a new instance of the <see cref="Yemoda"/> struct directly
+    /// from the specified binary data.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
     internal Yemoda(int bin)
@@ -266,12 +263,14 @@ public readonly partial struct Yemoda :
     public int Day => unchecked(1 + (_bin & DayMask));
 
     /// <summary>
-    /// Gets the date parts for the first day of the year to which belongs this instance.
+    /// Gets the date parts for the first day of the year to which belongs this
+    /// instance.
     /// </summary>
     public Yemoda StartOfYear => new(unchecked(_bin & UnsetMonthDayMask));
 
     /// <summary>
-    /// Gets the date parts for the first day of the month to which belongs this instance.
+    /// Gets the date parts for the first day of the month to which belongs this
+    /// instance.
     /// </summary>
     public Yemoda StartOfMonth => new(unchecked(_bin & UnsetDayMask));
 
@@ -289,7 +288,8 @@ public readonly partial struct Yemoda :
     private string DebuggerDisplay => Convert.ToString(_bin, 2);
 
     /// <summary>
-    /// Returns a culture-independent string representation of the current instance.
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString()
@@ -305,7 +305,8 @@ public readonly partial struct Yemoda :
         Unpack(out year, out month, out day);
 
     /// <summary>
-    /// Creates a new instance of <see cref="Yemoda"/> from the specified year, month and day.
+    /// Creates a new instance of <see cref="Yemoda"/> from the specified year,
+    /// month and day.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified triple is
     /// not representable; one of the value is too large to be handled by the
@@ -321,8 +322,8 @@ public readonly partial struct Yemoda :
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="Yemoda"/> representing the first day of the
-    /// specified year.
+    /// Creates a new instance of <see cref="Yemoda"/> representing the first
+    /// day of the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure]
@@ -336,8 +337,8 @@ public readonly partial struct Yemoda :
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="Yemoda"/> representing the first day of the
-    /// specified month.
+    /// Creates a new instance of <see cref="Yemoda"/> representing the first
+    /// day of the specified month.
     /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure]
@@ -380,15 +381,17 @@ public partial struct Yemoda // Binary data helpers
     }
 
     /// <summary>
-    /// Serializes the current <see cref="Yemoda"/> object to a 32-bit binary value that
-    /// subsequently can be used to recreate the <see cref="Yemoda"/> object.
+    /// Serializes the current <see cref="Yemoda"/> object to a 32-bit binary
+    /// value that subsequently can be used to recreate the <see cref="Yemoda"/>
+    /// object.
     /// </summary>
     [Pure]
     public int ToBinary() => _bin;
 
     /// <summary>
-    /// Serializes the current <see cref="Yemoda"/> object to a 64-bit binary value that
-    /// subsequently can be used to recreate the <see cref="Yemoda"/> object.
+    /// Serializes the current <see cref="Yemoda"/> object to a 64-bit binary
+    /// value that subsequently can be used to recreate the <see cref="Yemoda"/>
+    /// object.
     /// </summary>
     [Pure]
     [CLSCompliant(false)]
@@ -450,12 +453,14 @@ public partial struct Yemoda // Binary data helpers
 public partial struct Yemoda // IEquatable
 {
     /// <summary>
-    /// Determines whether two specified instances of <see cref="Yemoda"/> are equal.
+    /// Determines whether two specified instances of <see cref="Yemoda"/> are
+    /// equal.
     /// </summary>
     public static bool operator ==(Yemoda left, Yemoda right) => left._bin == right._bin;
 
     /// <summary>
-    /// Determines whether two specified instances of <see cref="Yemoda"/> are not equal.
+    /// Determines whether two specified instances of <see cref="Yemoda"/> are
+    /// not equal.
     /// </summary>
     public static bool operator !=(Yemoda left, Yemoda right) => left._bin != right._bin;
 
@@ -476,40 +481,40 @@ public partial struct Yemoda // IEquatable
 public partial struct Yemoda // IComparable
 {
     /// <summary>
-    /// Compares the two specified instances to see if the left one is strictly earlier than the
-    /// right one.
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// <para>The comparison is done using the lexicographic order on triples
+    /// (Year, Month, Day).</para>
     /// </summary>
-    /// <remarks>The comparison is done using the lexicographic order on triples (Year, Month, Day).
-    /// </remarks>
     public static bool operator <(Yemoda left, Yemoda right) => left._bin < right._bin;
 
     /// <summary>
-    /// Compares the two specified instances to see if the left one is earlier than or equal to
-    /// the right one.
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// <para>The comparison is done using the lexicographic order on triples
+    /// (Year, Month, Day).</para>
     /// </summary>
-    /// <remarks>The comparison is done using the lexicographic order on triples (Year, Month, Day).
-    /// </remarks>
     public static bool operator <=(Yemoda left, Yemoda right) => left._bin <= right._bin;
 
     /// <summary>
-    /// Compares the two specified instances to see if the left one is strictly later than the
-    /// right one.
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// <para>The comparison is done using the lexicographic order on triples
+    /// (Year, Month, Day).</para>
     /// </summary>
-    /// <remarks>The comparison is done using the lexicographic order on triples (Year, Month, Day).
-    /// </remarks>
     public static bool operator >(Yemoda left, Yemoda right) => left._bin > right._bin;
 
     /// <summary>
-    /// Compares the two specified instances to see if the left one is later than or equal to
-    /// the right one.
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// <para>The comparison is done using the lexicographic order on triples
+    /// (Year, Month, Day).</para>
     /// </summary>
-    /// <remarks>The comparison is done using the lexicographic order on triples (Year, Month, Day).
-    /// </remarks>
     public static bool operator >=(Yemoda left, Yemoda right) => left._bin >= right._bin;
 
     /// <inheritdoc />
-    /// <remarks>The comparison is done using the lexicographic order on triples (Year, Month, Day).
-    /// </remarks>
+    /// <remarks>The comparison is done using the lexicographic order on triples
+    /// (Year, Month, Day).</remarks>
     [Pure]
     public int CompareTo(Yemoda other) => _bin.CompareTo(other._bin);
 

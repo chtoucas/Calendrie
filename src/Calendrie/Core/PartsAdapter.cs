@@ -120,8 +120,7 @@ public partial class PartsAdapter // Dates in a given year or month
     /// Obtains the ordinal date parts for the first day of the specified year.
     /// </summary>
     [Pure, ExcludeFromCodeCoverage]
-    public static OrdinalParts GetOrdinalPartsAtStartOfYear(int y) =>
-        OrdinalParts.AtStartOfYear(y);
+    public static OrdinalParts GetOrdinalPartsAtStartOfYear(int y) => OrdinalParts.AtStartOfYear(y);
 #endif
 
     /// <summary>
