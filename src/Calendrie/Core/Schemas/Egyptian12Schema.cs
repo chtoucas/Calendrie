@@ -28,11 +28,18 @@ public sealed partial class Egyptian12Schema :
     /// <summary>Initializes a new instance of the <see cref="Egyptian12Schema"/> class.</summary>
     internal Egyptian12Schema() : base(30) { }
 
+    /// <summary>
+    /// Gets the number of days in each month of a year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonth =>
+        // No leap years.
+        [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
+
     /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        // No leap years.
-        [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
+        DaysInMonth;
 
     /// <inheritdoc />
     [Pure]

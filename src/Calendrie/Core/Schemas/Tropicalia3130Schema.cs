@@ -20,12 +20,24 @@ public sealed partial class Tropicalia3130Schema :
     /// </summary>
     internal Tropicalia3130Schema() : base(29) { }
 
+    /// <summary>
+    /// Gets the number of days in each month of a common year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonth =>
+        [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 29];
+
+    /// <summary>
+    /// Gets the number of days in each month of a leap year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+        [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30];
+
     /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap
-        ? [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30]
-        : [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 29];
+        leap ? DaysInMonthLeapYear : DaysInMonth;
 
     /// <inheritdoc />
     [Pure]

@@ -27,11 +27,15 @@ public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonthDistribution
 
     public FauxLunisolarSchema() : base(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth) { }
 
+    internal static ReadOnlySpan<byte> DaysInMonth =>
+        [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
+
+    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+        [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30];
+
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap
-        ? [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30]
-        : [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
+        leap ? DaysInMonthLeapYear : DaysInMonth;
 
     public sealed override CalendricalFamily Family => CalendricalFamily.Lunisolar;
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Months;

@@ -72,12 +72,24 @@ public sealed partial class InternationalFixedSchema :
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
+    /// <summary>
+    /// Gets the number of days in each month of a common year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonth =>
+        [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29];
+
+    /// <summary>
+    /// Gets the number of days in each month of a leap year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonthLeapYear =>
+        [28, 28, 28, 28, 28, 29, 28, 28, 28, 28, 28, 28, 29];
+
     /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        leap
-        ? [28, 28, 28, 28, 28, 29, 28, 28, 28, 28, 28, 28, 29]
-        : [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29];
+        leap ? DaysInMonthLeapYear : DaysInMonth;
 
     /// <inheritdoc />
     [Pure]

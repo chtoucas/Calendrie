@@ -41,11 +41,18 @@ public sealed partial class Egyptian13Schema :
     /// </summary>
     internal Egyptian13Schema() : base(5) { }
 
+    /// <summary>
+    /// Gets the number of days in each month of a year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    internal static ReadOnlySpan<byte> DaysInMonth =>
+        // No leap years.
+        [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
+
     /// <inheritdoc />
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonthDistribution.GetDaysInMonthDistribution(bool leap) =>
-        // No leap years.
-        [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
+        DaysInMonth;
 
     /// <inheritdoc />
     [Pure]
