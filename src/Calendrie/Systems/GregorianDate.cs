@@ -173,7 +173,25 @@ public partial struct GregorianDate // Factories & conversions
     /// the specified <see cref="CivilDate"/> value.
     /// <para>See also <see cref="CivilDate.ToGregorianDate()"/></para>
     /// </summary>
+    [Pure]
     public static GregorianDate FromCivilDate(CivilDate date) => new(date.DaysSinceZero);
+
+    /// <inheritdoc />
+    [Pure]
+    public static GregorianDate FromDayNumber(DayNumber dayNumber)
+    {
+        int daysSinceZero = dayNumber.DaysSinceZero;
+
+        if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
+            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static GregorianDate IDateFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
+        new(daysSinceZero);
 }
 
 public partial struct GregorianDate // Find close by day of the week

@@ -27,23 +27,6 @@ public readonly partial struct GregorianDate :
     ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
 
-public partial struct GregorianDate // Factories & conversions
-{
-    /// <inheritdoc />
-    [Pure]
-    public static GregorianDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        return new(dayNumber.DaysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static GregorianDate IDateFactory<GregorianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
-}
-
 public partial struct GregorianDate // Counting
 {
     /// <inheritdoc />
@@ -75,8 +58,8 @@ public partial struct GregorianDate // Adjustments
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />

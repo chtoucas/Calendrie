@@ -226,8 +226,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     {
         Calendar.Scope.Validate(dayNumber);
 
-        // We know that the subtraction won't overflow
-        // > return new(dayNumber - s_Epoch);
+        // NB: the subtraction won't overflow
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 
         //int <#= DaysSinceEpochVar #> = dayNumber.DaysSinceZero - EpochDaysSinceZero;
@@ -287,8 +286,8 @@ public partial struct <#= Prefix #>Date // Adjustments
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
