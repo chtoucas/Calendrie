@@ -374,7 +374,7 @@ public partial struct TabularIslamicDate // Find close by day of the week
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
-        if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
+        if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -511,8 +511,8 @@ public partial struct TabularIslamicDate // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(TabularIslamicDate other) =>
-        // No need to use a checked context here. Indeed,
-        // MaxDaysSinceEpoch - MinDaysSinceEpoch = MaxDaysSinceEpoch
+        // No need to use a checked context here. Indeed, the result is at most
+        // equal to (MaxDaysSinceEpoch - MinDaysSinceEpoch) ie MaxDaysSinceEpoch.
         _daysSinceEpoch - other._daysSinceEpoch;
 
     /// <inheritdoc />
@@ -520,11 +520,7 @@ public partial struct TabularIslamicDate // Math
     public TabularIslamicDate PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
-
-        // Don't write (the addition may also overflow...):
-        // > Scope.CheckOverflow(Epoch + daysSinceEpoch);
-        if ((uint)daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-
+        if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceEpoch);
     }
 
@@ -540,7 +536,6 @@ public partial struct TabularIslamicDate // Math
     [Pure]
     public TabularIslamicDate PreviousDay()
     {
-        // NB: MinDaysSinceEpoch = 0.
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }

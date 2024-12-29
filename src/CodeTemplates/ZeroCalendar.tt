@@ -327,7 +327,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
     public <#= Prefix #>Date Nearest(DayOfWeek dayOfWeek)
     {
         int <#= DaysSinceEpochVar #> = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
-        if ((uint)<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
         return new(<#= DaysSinceEpochVar #>);
     }
 

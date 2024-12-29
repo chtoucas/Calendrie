@@ -139,7 +139,7 @@ public partial struct CivilDate // Find close by day of the week
     public CivilDate Nearest(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
-        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -276,8 +276,8 @@ public partial struct CivilDate // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(CivilDate other) =>
-        // No need to use a checked context here. Indeed,
-        // MaxDaysSinceZero - MinDaysSinceZero = MaxDaysSinceZero
+        // No need to use a checked context here. Indeed, the result is at most
+        // equal to (MaxDaysSinceZero - MinDaysSinceZero) ie MaxDaysSinceZero.
         _daysSinceZero - other._daysSinceZero;
 
     /// <inheritdoc />
@@ -285,11 +285,7 @@ public partial struct CivilDate // Math
     public CivilDate PlusDays(int days)
     {
         int daysSinceZero = checked(_daysSinceZero + days);
-
-        // Don't write (the addition may also overflow...):
-        // > Scope.CheckOverflow(Epoch + daysSinceZero);
-        if ((uint)daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(daysSinceZero);
     }
 
@@ -305,7 +301,6 @@ public partial struct CivilDate // Math
     [Pure]
     public CivilDate PreviousDay()
     {
-        // NB: MinDaysSinceZero = 0.
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }

@@ -373,7 +373,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int <#= DaysSinceEpochVar #> = nearest.DaysSinceZero - EpochDaysSinceZero;
-        if ((uint)<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
+        if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
         return new(<#= DaysSinceEpochVar #>);
     }
 
@@ -528,8 +528,8 @@ public partial struct <#= Prefix #>Date // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(<#= Prefix #>Date other) =>
-        // No need to use a checked context here. Indeed,
-        // <#= MaxDaysSinceEpoch #> - <#= MinDaysSinceEpoch #> = <#= MaxDaysSinceEpoch #>
+        // No need to use a checked context here. Indeed, the result is at most
+        // equal to (<#= MaxDaysSinceEpoch #> - <#= MinDaysSinceEpoch #>) ie <#= MaxDaysSinceEpoch #>.
         _<#= DaysSinceEpochVar #> - other._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
@@ -537,11 +537,7 @@ public partial struct <#= Prefix #>Date // Math
     public <#= Prefix #>Date PlusDays(int days)
     {
         int <#= DaysSinceEpochVar #> = checked(_<#= DaysSinceEpochVar #> + days);
-
-        // Don't write (the addition may also overflow...):
-        // > Scope.CheckOverflow(Epoch + <#= DaysSinceEpochVar #>);
-        if ((uint)<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-
+        if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
         return new(<#= DaysSinceEpochVar #>);
     }
 
@@ -557,7 +553,6 @@ public partial struct <#= Prefix #>Date // Math
     [Pure]
     public <#= Prefix #>Date PreviousDay()
     {
-        // NB: <#= MinDaysSinceEpoch #> = 0.
         if (_<#= DaysSinceEpochVar #> == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_<#= DaysSinceEpochVar #> - 1);
     }
