@@ -35,16 +35,8 @@ public partial struct JulianDate // Factories & conversions
     {
         Calendar.Scope.Validate(dayNumber);
 
-        // We know that the subtraction won't overflow
-        // > return new(dayNumber - s_Epoch);
+        // NB: the subtraction won't overflow.
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-
-        //int daysSinceEpoch = dayNumber.DaysSinceZero - EpochDaysSinceZero;
-
-        //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
-        //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
-
-        //return new(daysSinceEpoch);
     }
 
     /// <inheritdoc />

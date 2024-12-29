@@ -151,7 +151,7 @@ public partial struct PlainJulianDate // Preamble
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
-    // > public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
+    // > public DayNumber DayNumber => Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
@@ -248,16 +248,8 @@ public partial struct PlainJulianDate // Factories & conversions
     {
         Calendar.Scope.Validate(dayNumber);
 
-        // We know that the subtraction won't overflow
-        // > return new(dayNumber - s_Epoch);
+        // NB: the subtraction won't overflow.
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-
-        //int daysSinceEpoch = dayNumber.DaysSinceZero - EpochDaysSinceZero;
-
-        //if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch)
-        //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
-
-        //return new(daysSinceEpoch);
     }
 
     /// <inheritdoc />

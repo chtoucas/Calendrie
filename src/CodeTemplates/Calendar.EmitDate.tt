@@ -110,7 +110,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <inheritdoc />
     //
     // We already know that the resulting day number is valid so instead of
-    // > public DayNumber DayNumber => s_Epoch + _<#= DaysSinceEpochVar #>;
+    // > public DayNumber DayNumber => Epoch + _<#= DaysSinceEpochVar #>;
     // we can use an unchecked addition
     public DayNumber DayNumber => new(EpochDaysSinceZero + _<#= DaysSinceEpochVar #>);
 
@@ -226,15 +226,8 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     {
         Calendar.Scope.Validate(dayNumber);
 
-        // NB: the subtraction won't overflow
+        // NB: the subtraction won't overflow.
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-
-        //int <#= DaysSinceEpochVar #> = dayNumber.DaysSinceZero - EpochDaysSinceZero;
-
-        //if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>)
-        //    throw new ArgumentOutOfRangeException(nameof(dayNumber));
-
-        //return new(daysSinceEpoch);
     }
 
     /// <inheritdoc />
