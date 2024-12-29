@@ -60,8 +60,8 @@ public partial struct CivilDate // Adjustments
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />

@@ -10,7 +10,6 @@ public class ZeroCalendarTemplate : CalendarTemplate
         base(parent, schema, "DayZero.NewStyle", "0", maxDaysSinceEpochValue)
     {
         DaysSinceEpochVar = "daysSinceZero";
-        DaysSinceEpochSuffix = "DaysSinceZero";
         MinDaysSinceEpoch = "MinDaysSinceZero";
         MaxDaysSinceEpoch = "MaxDaysSinceZero";
     }
@@ -278,15 +277,18 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
-        Calendar.Scope.Validate(dayNumber);
+        int <#= DaysSinceEpochVar #> = dayNumber.DaysSinceZero;
 
-        return new(dayNumber.DaysSinceZero);
+        if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>)
+            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        return new(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
+        new(<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitDateFactories()

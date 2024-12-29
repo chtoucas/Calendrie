@@ -40,7 +40,6 @@ public partial class CalendarTemplate : CSharpTemplate
     public string Prefix { get; set; }
 
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
-    public string DaysSinceEpochSuffix { get; set; } = "DaysSinceEpoch";
     public string MinDaysSinceEpoch { get; set; } = "MinDaysSinceEpoch";
     public string MaxDaysSinceEpoch { get; set; } = "MaxDaysSinceEpoch";
     public string MaxDaysSinceEpochValue { get; }

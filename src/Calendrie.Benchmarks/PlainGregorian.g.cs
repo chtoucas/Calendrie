@@ -238,15 +238,18 @@ public partial struct PlainGregorianDate // Factories & conversions
     [Pure]
     public static PlainGregorianDate FromDayNumber(DayNumber dayNumber)
     {
-        Calendar.Scope.Validate(dayNumber);
+        int daysSinceZero = dayNumber.DaysSinceZero;
 
-        return new(dayNumber.DaysSinceZero);
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
+            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainGregorianDate IDateFactory<PlainGregorianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+    static PlainGregorianDate IDateFactory<PlainGregorianDate>.UnsafeCreate(int daysSinceZero) =>
+        new(daysSinceZero);
 }
 
 public partial struct PlainGregorianDate // Counting
@@ -280,8 +283,8 @@ public partial struct PlainGregorianDate // Adjustments
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />

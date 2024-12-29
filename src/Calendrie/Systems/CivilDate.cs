@@ -176,6 +176,7 @@ public partial struct CivilDate // Factories & conversions
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// <para>See also <see cref="GregorianDate.FromCivilDate(CivilDate)"/></para>
     /// </summary>
+    [Pure]
     public GregorianDate ToGregorianDate() => new(_daysSinceZero);
 
     /// <inheritdoc />
@@ -192,6 +193,6 @@ public partial struct CivilDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CivilDate IDateFactory<CivilDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+    static CivilDate IDateFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
+        new(daysSinceZero);
 }
