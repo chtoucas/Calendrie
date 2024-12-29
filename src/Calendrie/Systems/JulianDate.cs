@@ -276,7 +276,10 @@ public partial struct JulianDate // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(JulianDate other) =>
-        // No need to use a checked context here.
+        // No need to use a checked context here. Indeed,
+        // MaxDaysSinceEpoch - MinDaysSinceEpoch
+        //   = 365_249_633 - (-365_249_635)
+        //   = 730_499_268 < int.MaxValue = 2_147_483_647
         _daysSinceEpoch - other._daysSinceEpoch;
 
     /// <inheritdoc />
@@ -295,7 +298,7 @@ public partial struct JulianDate // Math
     [Pure]
     public JulianDate NextDay()
     {
-        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -303,7 +306,7 @@ public partial struct JulianDate // Math
     [Pure]
     public JulianDate PreviousDay()
     {
-        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (_daysSinceEpoch == MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

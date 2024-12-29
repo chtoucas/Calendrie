@@ -511,7 +511,8 @@ public partial struct TabularIslamicDate // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(TabularIslamicDate other) =>
-        // No need to use a checked context here.
+        // No need to use a checked context here. Indeed,
+        // MaxDaysSinceEpoch - MinDaysSinceEpoch = MaxDaysSinceEpoch
         _daysSinceEpoch - other._daysSinceEpoch;
 
     /// <inheritdoc />
@@ -531,7 +532,7 @@ public partial struct TabularIslamicDate // Math
     [Pure]
     public TabularIslamicDate NextDay()
     {
-        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -539,7 +540,8 @@ public partial struct TabularIslamicDate // Math
     [Pure]
     public TabularIslamicDate PreviousDay()
     {
-        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
+        // NB: MinDaysSinceEpoch = 0.
+        if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

@@ -285,7 +285,10 @@ public partial struct GregorianDate // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(GregorianDate other) =>
-        // No need to use a checked context here.
+        // No need to use a checked context here. Indeed,
+        // MaxDaysSinceZero - MinDaysSinceZero
+        //   = 365_242_133 - (-365_242_135)
+        //   = 730_484_268 < int.MaxValue = 2_147_483_647
         _daysSinceZero - other._daysSinceZero;
 
     /// <inheritdoc />
@@ -304,7 +307,7 @@ public partial struct GregorianDate // Math
     [Pure]
     public GregorianDate NextDay()
     {
-        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero + 1);
     }
 
@@ -312,7 +315,7 @@ public partial struct GregorianDate // Math
     [Pure]
     public GregorianDate PreviousDay()
     {
-        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
+        if (_daysSinceZero == MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
 }

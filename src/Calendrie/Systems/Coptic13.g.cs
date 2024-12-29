@@ -520,7 +520,8 @@ public partial struct Coptic13Date // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(Coptic13Date other) =>
-        // No need to use a checked context here.
+        // No need to use a checked context here. Indeed,
+        // MaxDaysSinceEpoch - MinDaysSinceEpoch = MaxDaysSinceEpoch
         _daysSinceEpoch - other._daysSinceEpoch;
 
     /// <inheritdoc />
@@ -540,7 +541,7 @@ public partial struct Coptic13Date // Math
     [Pure]
     public Coptic13Date NextDay()
     {
-        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
     }
 
@@ -548,7 +549,8 @@ public partial struct Coptic13Date // Math
     [Pure]
     public Coptic13Date PreviousDay()
     {
-        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
+        // NB: MinDaysSinceEpoch = 0.
+        if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
 }

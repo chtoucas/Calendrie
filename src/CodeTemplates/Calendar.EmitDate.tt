@@ -528,7 +528,8 @@ public partial struct <#= Prefix #>Date // Math
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(<#= Prefix #>Date other) =>
-        // No need to use a checked context here.
+        // No need to use a checked context here. Indeed,
+        // <#= MaxDaysSinceEpoch #> - <#= MinDaysSinceEpoch #> = <#= MaxDaysSinceEpoch #>
         _<#= DaysSinceEpochVar #> - other._<#= DaysSinceEpochVar #>;
 
     /// <inheritdoc />
@@ -548,7 +549,7 @@ public partial struct <#= Prefix #>Date // Math
     [Pure]
     public <#= Prefix #>Date NextDay()
     {
-        if (this == MaxValue) ThrowHelpers.ThrowDateOverflow();
+        if (_<#= DaysSinceEpochVar #> == <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
         return new(_<#= DaysSinceEpochVar #> + 1);
     }
 
@@ -556,7 +557,8 @@ public partial struct <#= Prefix #>Date // Math
     [Pure]
     public <#= Prefix #>Date PreviousDay()
     {
-        if (this == MinValue) ThrowHelpers.ThrowDateOverflow();
+        // NB: <#= MinDaysSinceEpoch #> = 0.
+        if (_<#= DaysSinceEpochVar #> == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_<#= DaysSinceEpochVar #> - 1);
     }
 }
