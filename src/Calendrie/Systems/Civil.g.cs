@@ -29,6 +29,26 @@ public readonly partial struct CivilDate :
     ISubtractionOperators<CivilDate, CivilDate, int>
 { }
 
+public partial struct CivilDate // Factories & conversions
+{
+    /// <inheritdoc />
+    [Pure]
+    public static CivilDate FromDayNumber(DayNumber dayNumber)
+    {
+        int daysSinceZero = dayNumber.DaysSinceZero;
+
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
+            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static CivilDate IDateFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
+        new(daysSinceZero);
+}
+
 public partial struct CivilDate // Counting
 {
     /// <inheritdoc />

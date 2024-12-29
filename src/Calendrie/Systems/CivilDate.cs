@@ -178,21 +178,4 @@ public partial struct CivilDate // Factories & conversions
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => new(_daysSinceZero);
-
-    /// <inheritdoc />
-    [Pure]
-    public static CivilDate FromDayNumber(DayNumber dayNumber)
-    {
-        int daysSinceZero = dayNumber.DaysSinceZero;
-
-        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
-            throw new ArgumentOutOfRangeException(nameof(dayNumber));
-
-        return new(daysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static CivilDate IDateFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
-        new(daysSinceZero);
 }
