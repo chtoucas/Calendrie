@@ -26,28 +26,28 @@ using Calendrie.Systems;
 using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
-/// Represents the PlainGregorian calendar.
+/// Represents the Plain Civil calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregorianDate>
+public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainGregorianCalendar"/> class.
+    /// Initializes a new instance of the <see cref="PlainCivilCalendar"/> class.
     /// </summary>
-    public PlainGregorianCalendar() : this(new GregorianSchema()) { }
+    public PlainCivilCalendar() : this(new GregorianSchema()) { }
 
-    private PlainGregorianCalendar(GregorianSchema schema)
-        : base("PlainGregorian", new StandardScope(schema, DayZero.NewStyle))
+    private PlainCivilCalendar(GregorianSchema schema)
+        : base("Plain Civil", new StandardScope(schema, DayZero.NewStyle))
     {
         Debug.Assert(schema != null);
         Schema = schema;
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="PlainGregorianCalendar"/> class.
-    /// <para>See <see cref="PlainGregorianDate.Calendar"/>.</para>
+    /// Gets a singleton instance of the <see cref="PlainCivilCalendar"/> class.
+    /// <para>See <see cref="PlainCivilDate.Calendar"/>.</para>
     /// </summary>
-    internal static PlainGregorianCalendar Instance { get; } = new();
+    internal static PlainCivilCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -66,18 +66,18 @@ public sealed partial class PlainGregorianCalendar : CalendarSystem<PlainGregori
 }
 
 /// <summary>
-/// Represents the PlainGregorian date.
-/// <para><see cref="PlainGregorianDate"/> is an immutable struct.</para>
+/// Represents the Plain Civil date.
+/// <para><see cref="PlainCivilDate"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct PlainGregorianDate :
+public readonly partial struct PlainCivilDate :
     IDateable,
-    IAbsoluteDate<PlainGregorianDate>,
-    IAdjustableDate<PlainGregorianDate>,
-    IDateFactory<PlainGregorianDate>,
-    ISubtractionOperators<PlainGregorianDate, PlainGregorianDate, int>
+    IAbsoluteDate<PlainCivilDate>,
+    IAdjustableDate<PlainCivilDate>,
+    IDateFactory<PlainCivilDate>,
+    ISubtractionOperators<PlainCivilDate, PlainCivilDate, int>
 { }
 
-public partial struct PlainGregorianDate // Preamble
+public partial struct PlainCivilDate // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 3_652_058.</para></summary>
@@ -91,30 +91,30 @@ public partial struct PlainGregorianDate // Preamble
     private readonly int _daysSinceZero;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainGregorianDate"/> struct
+    /// Initializes a new instance of the <see cref="PlainCivilDate"/> struct
     /// to the specified date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid date or <paramref name="year"/> is outside the range
     /// of supported years.</exception>
-    public PlainGregorianDate(int year, int month, int day)
+    public PlainCivilDate(int year, int month, int day)
     {
-        var chr = PlainGregorianCalendar.Instance;
+        var chr = PlainCivilCalendar.Instance;
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainGregorianDate"/> struct
+    /// Initializes a new instance of the <see cref="PlainCivilDate"/> struct
     /// to the specified ordinal date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid ordinal date or <paramref name="year"/> is outside
     /// the range of supported years.</exception>
-    public PlainGregorianDate(int year, int dayOfYear)
+    public PlainCivilDate(int year, int dayOfYear)
     {
-        var chr = PlainGregorianCalendar.Instance;
+        var chr = PlainCivilCalendar.Instance;
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -123,24 +123,24 @@ public partial struct PlainGregorianDate // Preamble
     /// <summary>
     /// This constructor does NOT validate its parameter.
     /// </summary>
-    internal PlainGregorianDate(int daysSinceZero)
+    internal PlainCivilDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
     }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static PlainGregorianDate MinValue { get; }
+    public static PlainCivilDate MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static PlainGregorianDate MaxValue { get; } = new(MaxDaysSinceZero);
+    public static PlainCivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainGregorianCalendar Calendar => PlainGregorianCalendar.Instance;
+    public static PlainCivilCalendar Calendar => PlainCivilCalendar.Instance;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
@@ -232,11 +232,11 @@ public partial struct PlainGregorianDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct PlainGregorianDate // Factories & conversions
+public partial struct PlainCivilDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static PlainGregorianDate FromDayNumber(DayNumber dayNumber)
+    public static PlainCivilDate FromDayNumber(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
 
@@ -248,11 +248,11 @@ public partial struct PlainGregorianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static PlainGregorianDate IDateFactory<PlainGregorianDate>.UnsafeCreate(int daysSinceZero) =>
+    static PlainCivilDate IDateFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }
 
-public partial struct PlainGregorianDate // Counting
+public partial struct PlainCivilDate // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -271,11 +271,11 @@ public partial struct PlainGregorianDate // Counting
     public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
-public partial struct PlainGregorianDate // Adjustments
+public partial struct PlainCivilDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithYear(int newYear)
+    public PlainCivilDate WithYear(int newYear)
     {
         var (_, m, d) = this;
 
@@ -289,7 +289,7 @@ public partial struct PlainGregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithMonth(int newMonth)
+    public PlainCivilDate WithMonth(int newMonth)
     {
         var (y, _, d) = this;
 
@@ -303,7 +303,7 @@ public partial struct PlainGregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithDay(int newDay)
+    public PlainCivilDate WithDay(int newDay)
     {
         var (y, m, _) = this;
 
@@ -317,7 +317,7 @@ public partial struct PlainGregorianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate WithDayOfYear(int newDayOfYear)
+    public PlainCivilDate WithDayOfYear(int newDayOfYear)
     {
         int y = Year;
 
@@ -330,11 +330,11 @@ public partial struct PlainGregorianDate // Adjustments
     }
 }
 
-public partial struct PlainGregorianDate // Find close by day of the week
+public partial struct PlainCivilDate // Find close by day of the week
 {
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Previous(DayOfWeek dayOfWeek)
+    public PlainCivilDate Previous(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -346,7 +346,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    public PlainCivilDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -359,7 +359,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Nearest(DayOfWeek dayOfWeek)
+    public PlainCivilDate Nearest(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
@@ -368,7 +368,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate NextOrSame(DayOfWeek dayOfWeek)
+    public PlainCivilDate NextOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -381,7 +381,7 @@ public partial struct PlainGregorianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate Next(DayOfWeek dayOfWeek)
+    public PlainCivilDate Next(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -392,75 +392,75 @@ public partial struct PlainGregorianDate // Find close by day of the week
     }
 }
 
-public partial struct PlainGregorianDate // IEquatable
+public partial struct PlainCivilDate // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PlainGregorianDate left, PlainGregorianDate right) =>
+    public static bool operator ==(PlainCivilDate left, PlainCivilDate right) =>
         left._daysSinceZero == right._daysSinceZero;
 
     /// <inheritdoc />
-    public static bool operator !=(PlainGregorianDate left, PlainGregorianDate right) =>
+    public static bool operator !=(PlainCivilDate left, PlainCivilDate right) =>
         left._daysSinceZero != right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainGregorianDate other) => _daysSinceZero == other._daysSinceZero;
+    public bool Equals(PlainCivilDate other) => _daysSinceZero == other._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is PlainGregorianDate date && Equals(date);
+        obj is PlainCivilDate date && Equals(date);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _daysSinceZero;
 }
 
-public partial struct PlainGregorianDate // IComparable
+public partial struct PlainCivilDate // IComparable
 {
     /// <inheritdoc />
-    public static bool operator <(PlainGregorianDate left, PlainGregorianDate right) =>
+    public static bool operator <(PlainCivilDate left, PlainCivilDate right) =>
         left._daysSinceZero < right._daysSinceZero;
 
     /// <inheritdoc />
-    public static bool operator <=(PlainGregorianDate left, PlainGregorianDate right) =>
+    public static bool operator <=(PlainCivilDate left, PlainCivilDate right) =>
         left._daysSinceZero <= right._daysSinceZero;
 
     /// <inheritdoc />
-    public static bool operator >(PlainGregorianDate left, PlainGregorianDate right) =>
+    public static bool operator >(PlainCivilDate left, PlainCivilDate right) =>
         left._daysSinceZero > right._daysSinceZero;
 
     /// <inheritdoc />
-    public static bool operator >=(PlainGregorianDate left, PlainGregorianDate right) =>
+    public static bool operator >=(PlainCivilDate left, PlainCivilDate right) =>
         left._daysSinceZero >= right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainGregorianDate Min(PlainGregorianDate x, PlainGregorianDate y) => x < y ? x : y;
+    public static PlainCivilDate Min(PlainCivilDate x, PlainCivilDate y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainGregorianDate Max(PlainGregorianDate x, PlainGregorianDate y) => x > y ? x : y;
+    public static PlainCivilDate Max(PlainCivilDate x, PlainCivilDate y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainGregorianDate other) => _daysSinceZero.CompareTo(other._daysSinceZero);
+    public int CompareTo(PlainCivilDate other) => _daysSinceZero.CompareTo(other._daysSinceZero);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is PlainGregorianDate date ? CompareTo(date)
-        : ThrowHelpers.ThrowNonComparable(typeof(PlainGregorianDate), obj);
+        : obj is PlainCivilDate date ? CompareTo(date)
+        : ThrowHelpers.ThrowNonComparable(typeof(PlainCivilDate), obj);
 }
 
-public partial struct PlainGregorianDate // Math
+public partial struct PlainCivilDate // Math
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
-    public static int operator -(PlainGregorianDate left, PlainGregorianDate right) => left.CountDaysSince(right);
+    public static int operator -(PlainCivilDate left, PlainCivilDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
@@ -469,7 +469,7 @@ public partial struct PlainGregorianDate // Math
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static PlainGregorianDate operator +(PlainGregorianDate value, int days) => value.PlusDays(days);
+    public static PlainCivilDate operator +(PlainCivilDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -478,7 +478,7 @@ public partial struct PlainGregorianDate // Math
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static PlainGregorianDate operator -(PlainGregorianDate value, int days) => value.PlusDays(-days);
+    public static PlainCivilDate operator -(PlainCivilDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -486,7 +486,7 @@ public partial struct PlainGregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
-    public static PlainGregorianDate operator ++(PlainGregorianDate value) => value.NextDay();
+    public static PlainCivilDate operator ++(PlainCivilDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
@@ -494,18 +494,18 @@ public partial struct PlainGregorianDate // Math
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
-    public static PlainGregorianDate operator --(PlainGregorianDate value) => value.PreviousDay();
+    public static PlainCivilDate operator --(PlainCivilDate value) => value.PreviousDay();
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysSince(PlainGregorianDate other) =>
+    public int CountDaysSince(PlainCivilDate other) =>
         // No need to use a checked context here. Indeed, the result is at most
         // equal to (MaxDaysSinceZero - MinDaysSinceZero) ie MaxDaysSinceZero.
         _daysSinceZero - other._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate PlusDays(int days)
+    public PlainCivilDate PlusDays(int days)
     {
         int daysSinceZero = checked(_daysSinceZero + days);
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
@@ -514,7 +514,7 @@ public partial struct PlainGregorianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate NextDay()
+    public PlainCivilDate NextDay()
     {
         if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero + 1);
@@ -522,7 +522,7 @@ public partial struct PlainGregorianDate // Math
 
     /// <inheritdoc />
     [Pure]
-    public PlainGregorianDate PreviousDay()
+    public PlainCivilDate PreviousDay()
     {
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);

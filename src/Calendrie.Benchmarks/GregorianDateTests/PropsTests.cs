@@ -57,10 +57,10 @@ public class PropsTests : GregorianDateComparisons
         Consume(in dayOfYear);
     }
 
-    [Benchmark(Description = "GregorianDate_Plain")]
-    public void WithPlainGregorianDate()
+    [Benchmark(Description = "CivilDate_Plain")]
+    public void WithPlainCivilDate()
     {
-        var date = plainGregorianDate;
+        var date = plainCivilDate;
 
         var (y, m, d) = date;
         var dayOfWeek = date.DayOfWeek;

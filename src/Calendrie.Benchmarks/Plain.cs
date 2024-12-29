@@ -7,7 +7,7 @@ using Calendrie.Core.Schemas;
 
 /// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
 /// of years.</remarks>
-public partial class PlainGregorianCalendar
+public partial class PlainCivilCalendar
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -29,7 +29,7 @@ public partial class PlainJulianCalendar
 
 /// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
 /// </remarks>
-public partial struct PlainGregorianDate { }
+public partial struct PlainCivilDate { }
 
 /// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
 /// </remarks>

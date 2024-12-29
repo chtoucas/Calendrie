@@ -27,7 +27,7 @@ using Calendrie.Systems;
 using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
-/// Represents the PlainJulian calendar.
+/// Represents the Plain Julian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate>
@@ -38,7 +38,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     public PlainJulianCalendar() : this(new JulianSchema()) { }
 
     private PlainJulianCalendar(JulianSchema schema)
-        : base("PlainJulian", new StandardScope(schema, DayZero.OldStyle))
+        : base("Plain Julian", new StandardScope(schema, DayZero.OldStyle))
     {
         Debug.Assert(schema != null);
         Schema = schema;
@@ -67,7 +67,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 }
 
 /// <summary>
-/// Represents the PlainJulian date.
+/// Represents the Plain Julian date.
 /// <para><see cref="PlainJulianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainJulianDate :

@@ -33,10 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="PlainGregorian.g.cs">
+    <Compile Update="PlainCivil.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>PlainGregorian.tt</DependentUpon>
+      <DependentUpon>PlainCivil.tt</DependentUpon>
     </Compile>
     <Compile Update="PlainJulian.g.cs">
       <DesignTime>True</DesignTime>
