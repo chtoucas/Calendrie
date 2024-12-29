@@ -51,6 +51,7 @@ internal sealed class GregorianScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ValidateYearMonthImpl(int year, int month, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)
@@ -64,6 +65,7 @@ internal sealed class GregorianScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ValidateYearMonthDayImpl(int year, int month, int day, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)
@@ -83,6 +85,7 @@ internal sealed class GregorianScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ValidateOrdinalImpl(int year, int dayOfYear, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)

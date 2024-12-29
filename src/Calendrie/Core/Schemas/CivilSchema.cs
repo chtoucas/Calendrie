@@ -39,6 +39,8 @@ public partial class CivilSchema // Conversions
     [Pure]
     public sealed override int CountDaysSinceEpoch(int y, int m, int d)
     {
+        Debug.Assert(y > 0);
+
         if (m < 3)
         {
             y--;
@@ -60,6 +62,8 @@ public partial class CivilSchema // Conversions
     /// <inheritdoc />
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
+        Debug.Assert(daysSinceEpoch > 0);
+
         daysSinceEpoch += DaysInYearAfterFebruary;
 
         int C = (int)((uint)((daysSinceEpoch << 2) + 3) / GregorianSchema.DaysPer400YearCycle);
@@ -88,6 +92,8 @@ public partial class CivilSchema // Conversions
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch)
     {
+        Debug.Assert(daysSinceEpoch > 0);
+
         int y = (int)(400L * (daysSinceEpoch + 2) / GregorianSchema.DaysPer400YearCycle);
         int c = y / 100;
         int startOfYearAfter = DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
@@ -102,6 +108,8 @@ public partial class CivilSchema // Counting months and days since the epoch
     [Pure]
     public sealed override int GetStartOfYear(int y)
     {
+        Debug.Assert(y > 0);
+
         y--;
         int c = y / 100;
         return DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
