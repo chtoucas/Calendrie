@@ -8,6 +8,9 @@
 
     <DefineConstants>$(DefineConstants);__PATCH_DIVREM__</DefineConstants>
 
+    <!-- Trying to understand why DateTime ctor is faster -->
+    <!--<DefineConstants>$(DefineConstants);TEMP_BCL_CODE</DefineConstants>-->
+
     <DefineConstants Condition=" '$(EnableMorePrototypalTests)' == 'true' ">$(DefineConstants);ENABLE_MORE_PROTOTYPAL_TESTS</DefineConstants>
 
     <DefineConstants Condition=" '$(SignAssembly)' == 'true' ">$(DefineConstants);__SIGN_ASSEMBLY__</DefineConstants>

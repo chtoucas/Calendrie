@@ -3,10 +3,14 @@
 
 namespace Benchmarks.GregorianDateTests;
 
+#if TEMP_BCL_CODE
+using Calendrie.Systems;
+#else
 using Calendrie;
 using Calendrie.Systems;
 
 using NodaTime;
+#endif
 
 [CategoriesColumn]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
@@ -26,14 +30,17 @@ public class CtorTests
     // Fast track
     //
 
+#if !TEMP_BCL_CODE
     [BenchmarkCategory("Fast")]
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumberFast() => DayNumber.FromGregorianParts(_yearFast, _monthFast, _dayFast);
+#endif
 
     [BenchmarkCategory("Fast")]
     [Benchmark(Description = "CivilDate")]
     public CivilDate WithCivilDateFast() => new(_yearFast, _monthFast, _dayFast);
 
+#if !TEMP_BCL_CODE
     [BenchmarkCategory("Fast")]
     [Benchmark(Description = "CivilDate_Plain")]
     public PlainCivilDate WithPlainCivilDateFast() => new(_yearFast, _monthFast, _dayFast);
@@ -49,15 +56,21 @@ public class CtorTests
     [BenchmarkCategory("Fast")]
     [Benchmark(Description = "DateOnly_BCL", Baseline = true)]
     public DateOnly WithDateOnlyFast() => new(_yearFast, _monthFast, _dayFast);
+#endif
 
     [BenchmarkCategory("Fast")]
+#if TEMP_BCL_CODE
+    [Benchmark(Description = "DateTime_BCL", Baseline = true)]
+#else
     [Benchmark(Description = "DateTime_BCL")]
+#endif
     public DateTime WithDateTimeFast() => new(_yearFast, _monthFast, _dayFast);
 
     //
     // Slow track
     //
 
+#if !TEMP_BCL_CODE
     [BenchmarkCategory("Slow")]
     [Benchmark(Description = "DayNumber")]
     public DayNumber WithDayNumberSlow() => DayNumber.FromGregorianParts(_yearSlow, _monthSlow, _daySlow);
@@ -85,4 +98,5 @@ public class CtorTests
     [BenchmarkCategory("Slow")]
     [Benchmark(Description = "DateTime_BCL")]
     public DateTime WithDateTimeSlow() => new(_yearSlow, _monthSlow, _daySlow);
+#endif
 }

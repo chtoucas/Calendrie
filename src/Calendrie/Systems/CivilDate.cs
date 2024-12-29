@@ -30,10 +30,43 @@ public partial struct CivilDate // Preamble
     /// of supported years.</exception>
     public CivilDate(int year, int month, int day)
     {
+#if TEMP_BCL_CODE
+        _daysSinceZero = CountDaysSinceEpoch(year, month, day);
+#else
         CivilScope.ValidateYearMonthDayImpl(year, month, day);
 
         _daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, month, day);
+#endif
     }
+
+#if TEMP_BCL_CODE
+    private static ReadOnlySpan<short> DaysToMonth365 =>
+        [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365];
+    private static ReadOnlySpan<short> DaysToMonth366 =>
+        [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366];
+
+    private static int CountDaysSinceEpoch(int y, int m, int d)
+    {
+        if (y < StandardScope.MinYear || y > StandardScope.MaxYear || m < 1 || m > 12 || d < 1)
+            throwAoorException();
+
+        var days = IsLeapYear(y) ? DaysToMonth366 : DaysToMonth365;
+
+        if (d > days[m] - days[m - 1]) throwAoorException();
+
+        int y0 = y - 1;
+        int c = y0 / 100;
+        return (1461 * y0 >> 2) - c + (c >> 2) + days[m - 1] + d - 1;
+
+        [DoesNotReturn]
+        static void throwAoorException() =>
+            throw new ArgumentOutOfRangeException(null, "Date was out of range.");
+    }
+
+    private static bool IsLeapYear(int y) =>
+        //(y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
+        (y & 3) == 0 && ((y & 15) == 0 || (uint)y % 25 != 0);
+#endif
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilDate"/> struct to the
