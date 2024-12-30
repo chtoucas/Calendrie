@@ -6,6 +6,9 @@ namespace Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
 // year > 0 but SupportedYearsCore is still equal to Maximal32.
+// Do NOT add Debug.Assert() to check that y > 0 or daysSinceEpoch >= 0. It is
+// currently not compatible with our automated tests at the limit (I have yet to
+// check why).
 
 /// <summary>
 /// Represents the Gregorian schema (year > 0).

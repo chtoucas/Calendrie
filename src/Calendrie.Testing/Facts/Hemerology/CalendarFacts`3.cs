@@ -40,7 +40,6 @@ public partial class CalendarFacts<TDate, TCalendar, TDataSet> // Factories
 {
     #region Factory(y, m, d)
 
-#if !TEMP_BCL_CODE
     [Fact]
     public void Factory_InvalidYear() =>
         SupportedYearsTester.TestInvalidYear(y => GetDate(y, 1, 1));
@@ -52,7 +51,6 @@ public partial class CalendarFacts<TDate, TCalendar, TDataSet> // Factories
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public void Factory_InvalidDay(int y, int m, int d) =>
         AssertEx.ThrowsAoorexn("day", () => GetDate(y, m, d));
-#endif
 
     [Theory, MemberData(nameof(DateInfoData))]
     public void Factory(DateInfo info)

@@ -78,6 +78,12 @@ Code C#
   - propriétés et méthodes surchargées ("override"), tout particulièrement
     la méthode ToString()
 - attribut "Pure"
+- usage de "checked" ou "unchecked"
+  - mode Debug : CheckForOverflowUnderflow = true
+  - mode Release : CheckForOverflowUnderflow = false
+  - on utilise systématiquement "checked" quand une opération peut entraîner un
+    dépassement arithmétique
+  - on utilise "unchecked" uniquement si nécessaire
 
 ### Code Analysis
 
