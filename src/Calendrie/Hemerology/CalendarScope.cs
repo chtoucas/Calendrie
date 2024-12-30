@@ -58,9 +58,9 @@ public abstract partial class CalendarScope
     protected IYearsValidator YearsValidator { get; private protected init; }
 
     /// <summary>
-    /// Gets the pre-validator.
+    /// Gets the (cached) pre-validator.
     /// </summary>
-    protected ICalendricalPreValidator PreValidator { get; }
+    protected internal ICalendricalPreValidator PreValidator { get; }
 
     /// <summary>
     /// Gets the underlying schema.

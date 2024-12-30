@@ -293,11 +293,11 @@ public partial struct PlainCivilDate // Adjustments
     {
         var (y, _, d) = this;
 
-        var sch = Calendar.Schema;
+        var chr = Calendar;
         // We only need to validate "newMonth" and "d".
-        sch.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+        chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, newMonth, d);
         return new(daysSinceZero);
     }
 
@@ -307,11 +307,11 @@ public partial struct PlainCivilDate // Adjustments
     {
         var (y, m, _) = this;
 
-        var sch = Calendar.Schema;
+        var chr = Calendar;
         // We only need to validate "newDay".
-        sch.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, newDay);
         return new(daysSinceZero);
     }
 
@@ -321,11 +321,11 @@ public partial struct PlainCivilDate // Adjustments
     {
         int y = Year;
 
-        var sch = Calendar.Schema;
+        var chr = Calendar;
         // We only need to validate "newDayOfYear".
-        sch.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+        chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceZero);
     }
 }
