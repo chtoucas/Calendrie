@@ -5,9 +5,6 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-// REVIEW(code): ISetComparable<> with other interval types.
-// Idem for the other interval types.
-
 /// <summary>
 /// Represents a right-bounded closed ray; it has a maximum and no lower bound.
 /// <para>This type has been designed with discrete intervals in mind,

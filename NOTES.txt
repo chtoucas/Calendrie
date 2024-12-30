@@ -104,3 +104,10 @@ Tests
 
 Ne pas utiliser "." dans les noms de test car Test Explorer n’aime pas ça.
 On utilise ":" ou "::" à la place.
+
+Conception d'un nouveau type de calendrier
+------------------------------------------
+
+- nombre fixe de mois (régulier)
+- la règle pour déterminer si une année est bissextile ou pas devrait être la
+  plus simple possible

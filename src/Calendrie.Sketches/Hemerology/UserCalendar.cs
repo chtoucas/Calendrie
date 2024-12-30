@@ -5,6 +5,9 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
 
+/// <summary>
+/// Represents a user-defined calendar and provides a base for derived classes.
+/// </summary>
 public abstract class UserCalendar : Calendar
 {
     protected UserCalendar(string name, CalendarScope scope) : base(name, scope)

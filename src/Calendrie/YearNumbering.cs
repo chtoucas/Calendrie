@@ -5,11 +5,6 @@ namespace Calendrie;
 
 using Calendrie.Core.Utilities;
 
-// REVIEW(code): cycles of arbitrary fixed length and with a known starting
-// point, for instance
-//   GetCycle(int year, int len, int startYear, out int yearOfCycle)
-// We could also not restrict this to years (cycles of days for instance).
-
 /// <summary>
 /// Provides static methods for common operations related to decades, centuries,
 /// millennia and eras.
