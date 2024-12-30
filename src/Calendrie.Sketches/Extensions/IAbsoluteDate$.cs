@@ -5,7 +5,7 @@ namespace Calendrie.Extensions;
 
 using Calendrie.Hemerology;
 
-public static class Interconversion
+public static class IAbsoluteDateExtensions
 {
     /// <summary>
     /// Converts the specified date to a <typeparamref name="TResult"/> value.
