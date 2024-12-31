@@ -3,6 +3,7 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -11,7 +12,8 @@ using Calendrie.Hemerology;
 /// </summary>
 public abstract class CalendarMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
+    where TDate :
+        struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>, ICalendarBound<TCalendar>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -25,6 +27,8 @@ public abstract class CalendarMath<TCalendar, TDate>
 
         Calendar = calendar;
         AdditionRuleset = additionRuleset;
+
+        Arithmetic = CalendricalArithmetic.CreateDefault(calendar.Scope.Segment);
     }
 
     /// <summary>
@@ -36,6 +40,11 @@ public abstract class CalendarMath<TCalendar, TDate>
     /// Gets the strategy employed to resolve ambiguities.
     /// </summary>
     public AdditionRuleset AdditionRuleset { get; }
+
+    /// <summary>
+    /// Gets the calendrical arithmetic.
+    /// </summary>
+    protected CalendricalArithmetic Arithmetic { get; }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date.
@@ -90,7 +99,7 @@ public abstract class CalendarMath<TCalendar, TDate>
     [Pure]
     public int CountMonthsBetween(TDate start, TDate end, out TDate newStart)
     {
-        int months = CountMonthsBetween(start, end);
+        int months = Arithmetic.CountMonthsBetween(convertToYemo(start), convertToYemo(end));
         newStart = AddMonths(start, months);
 
         if (start < end)
@@ -111,9 +120,12 @@ public abstract class CalendarMath<TCalendar, TDate>
         }
 
         return months;
-    }
 
-    [Pure]
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "F# & VB.NET End statement.")]
-    protected abstract int CountMonthsBetween(TDate start, TDate end);
+        [Pure]
+        static Yemo convertToYemo(TDate date)
+        {
+            var (y, m, _) = date;
+            return new Yemo(y, m);
+        }
+    }
 }
