@@ -63,8 +63,7 @@ public sealed class RangeValidator
     /// outside the range of supported values.</exception>
     public void CheckOverflow(int value)
     {
-        if (value < MinValue || value > MaxValue)
-            ThrowHelpers.ThrowDateOverflow();
+        if (value < MinValue || value > MaxValue) ThrowHelpers.ThrowDateOverflow();
     }
 
     /// <summary>

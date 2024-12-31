@@ -3,9 +3,10 @@
 
 namespace Calendrie.Core.Arithmetic;
 
+using Calendrie.Core.Intervals;
+
 /// <summary>
-/// Defines a plain implementation for <see cref="CalendricalArithmetic"/> and
-/// provides a base for derived classes.
+/// Provides a plain implementation of <see cref="CalendricalArithmetic"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 internal sealed class PlainArithmetic : CalendricalArithmetic
@@ -13,31 +14,13 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    public PlainArithmetic(CalendricalSegment segment) : base(segment) { }
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override Yemo AddMonths(Yemo ym, int months)
-    {
-        ym.Unpack(out int y, out int m);
-
-        int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
-        //MonthsValidator.CheckOverflow(monthsSinceEpoch);
-
-        return Schema.GetMonthParts(monthsSinceEpoch);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsBetween(Yemo start, Yemo end)
-    {
-        start.Unpack(out int y0, out int m0);
-        end.Unpack(out int y1, out int m1);
-
-        return Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0);
-    }
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
+    /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
+    /// </exception>
+    public PlainArithmetic(LimitSchema schema, Range<int> supportedYears)
+        : base(schema, supportedYears) { }
 
     /// <inheritdoc />
     [Pure]
@@ -87,5 +70,27 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         int daysInMonth = Schema.CountDaysInMonth(y, m);
         roundoff = Math.Max(0, d - daysInMonth);
         return new Yemoda(y, m, roundoff > 0 ? daysInMonth : d);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override Yemo AddMonths(Yemo ym, int months)
+    {
+        ym.Unpack(out int y, out int m);
+
+        int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
+        MonthsValidator.CheckOverflow(monthsSinceEpoch);
+
+        return Schema.GetMonthParts(monthsSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override int CountMonthsBetween(Yemo start, Yemo end)
+    {
+        start.Unpack(out int y0, out int m0);
+        end.Unpack(out int y1, out int m1);
+
+        return Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0);
     }
 }

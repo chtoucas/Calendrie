@@ -28,7 +28,10 @@ public abstract class CalendarMath<TCalendar, TDate>
         Calendar = calendar;
         AdditionRuleset = additionRuleset;
 
-        Arithmetic = CalendricalArithmetic.CreateDefault(calendar.Scope.Segment);
+        var scope = calendar.Scope;
+        Arithmetic = scope.Schema is LimitSchema sch
+            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
+            : throw new NotSupportedException();
     }
 
     /// <summary>

@@ -7,8 +7,11 @@ using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
-// TODO(doc): LimitSchema
-// Explain why we require complete years (SystemSegment).
+// TODO(doc): Explain why we require ranges of complete years.
+// YearsValidator, IYearsValidator or RangeValidator? Leaning towards
+// RangeValidator as the exn messages are not tied to Dates.
+// Improve PlainArithmetic.
+// Custom version for the Gregorian/Julian schema?
 
 #region Developer Notes
 
@@ -57,33 +60,21 @@ public abstract class CalendricalArithmetic
     /// Called from constructors in derived classes to initialize the
     /// <see cref="CalendricalArithmetic"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    protected CalendricalArithmetic(CalendricalSegment segment)
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
+    /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
+    /// </exception>
+    protected CalendricalArithmetic(LimitSchema schema, Range<int> supportedYears)
     {
-        ArgumentNullException.ThrowIfNull(segment);
+        ArgumentNullException.ThrowIfNull(schema);
 
-        Segment = segment;
-        Schema = (LimitSchema)segment.Schema;
+        Schema = schema;
+        var seg = CalendricalSegment.Create(schema, supportedYears);
 
-        //MonthsValidator = new MonthsValidator(segment.SupportedMonths);
-        YearsValidator = new YearsValidator(segment.SupportedYears);
+        YearsValidator = new RangeValidator(supportedYears);
+        MonthsValidator = new RangeValidator(seg.SupportedMonths);
     }
-
-    /// <summary>
-    /// Gets the segment of supported days.
-    /// </summary>
-    public CalendricalSegment Segment { get; }
-
-    ///// <summary>
-    ///// Gets the validator for the  range of supported months.
-    ///// </summary>
-    //protected MonthsValidator MonthsValidator { get; }
-
-    /// <summary>
-    /// Gets the validator for the  range of supported years.
-    /// </summary>
-    protected IYearsValidator YearsValidator { get; }
 
     /// <summary>
     /// Gets the underlying schema.
@@ -91,8 +82,18 @@ public abstract class CalendricalArithmetic
     protected LimitSchema Schema { get; }
 
     /// <summary>
-    /// Creates the default arithmetic object for the specified schema and range of supported
-    /// years.
+    /// Gets the validator for the  range of supported months.
+    /// </summary>
+    protected RangeValidator MonthsValidator { get; }
+
+    /// <summary>
+    /// Gets the validator for the  range of supported years.
+    /// </summary>
+    protected RangeValidator YearsValidator { get; }
+
+    /// <summary>
+    /// Creates the default arithmetic object for the specified schema and range
+    /// of supported years.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
@@ -100,52 +101,14 @@ public abstract class CalendricalArithmetic
     /// is NOT a subinterval of the range of supported years by <paramref name="schema"/>.
     /// </exception>
     [Pure]
-    public static CalendricalArithmetic CreateDefault(LimitSchema schema, Range<int> supportedYears) =>
-        CreateDefault(CalendricalSegment.Create(schema, supportedYears));
-
-    /// <summary>
-    /// Creates the default arithmetic object for the specified segment.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="segment"/> is
-    /// <see langword="null"/>.</exception>
-    [Pure]
-    public static CalendricalArithmetic CreateDefault(CalendricalSegment segment)
+    public static CalendricalArithmetic CreateDefault(LimitSchema schema, Range<int> supportedYears)
     {
-        ArgumentNullException.ThrowIfNull(segment);
+        ArgumentNullException.ThrowIfNull(schema);
 
-        var sch = (LimitSchema)segment.Schema;
-
-        return sch.Profile switch
-        {
-            CalendricalProfile.Solar12 => new Solar12Arithmetic(segment),
-            CalendricalProfile.Solar13 => new Solar13Arithmetic(segment),
-            CalendricalProfile.Lunar => new LunarArithmetic(segment),
-            CalendricalProfile.Lunisolar => new LunisolarArithmetic(segment),
-
-            CalendricalProfile.Other or _ => sch.IsRegular(out _)
-                ? new RegularArithmetic(segment)
-                : new PlainArithmetic(segment),
-        };
+        return schema.IsRegular(out _)
+            ? new RegularArithmetic(schema, supportedYears)
+            : new PlainArithmetic(schema, supportedYears);
     }
-
-    //
-    // Standard operations on Yemo
-    //
-
-    /// <summary>
-    /// Adds a number of months to the specified month, yielding a new month.
-    /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported values.</exception>
-    [Pure]
-    public abstract Yemo AddMonths(Yemo ym, int months);
-
-    /// <summary>
-    /// Counts the number of months between the two specified months.
-    /// </summary>
-    [Pure]
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "F# & VB.NET End statement.")]
-    public abstract int CountMonthsBetween(Yemo start, Yemo end);
 
     //
     // Non-standard operations on Yemoda
@@ -168,4 +131,21 @@ public abstract class CalendricalArithmetic
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported values.</exception>
     [Pure] public abstract Yemoda AddMonths(Yemoda ymd, int months, out int roundoff);
+
+    //
+    // Standard operations on Yemo
+    //
+
+    /// <summary>
+    /// Adds a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported values.</exception>
+    [Pure] public abstract Yemo AddMonths(Yemo ym, int months);
+
+    /// <summary>
+    /// Counts the number of months between the two specified months.
+    /// </summary>
+    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "F# & VB.NET End statement.")]
+    [Pure] public abstract int CountMonthsBetween(Yemo start, Yemo end);
 }
