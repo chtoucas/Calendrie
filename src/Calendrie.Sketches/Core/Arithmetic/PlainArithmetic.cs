@@ -26,35 +26,35 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     [Pure]
     public sealed override Yemoda AddYears(Yemoda ymd, int years, out int roundoff)
     {
-        ymd.Unpack(out int y0, out int m, out int d);
+        ymd.Unpack(out int y, out int m, out int d);
 
-        int y = checked(y0 + years);
-        YearsValidator.CheckOverflow(y);
+        int newY = checked(y + years);
+        YearsValidator.CheckOverflow(newY);
 
         var sch = Schema;
-        int monthsInYear = sch.CountMonthsInYear(y);
+        int monthsInYear = sch.CountMonthsInYear(newY);
         if (m > monthsInYear)
         {
-            // The target year y has less months than the year y0, we
+            // The target year newY has less months than the year y, we
             // return the end of the target year.
             // roundoff =
-            //   "days" after the end of (y0, monthsInYear) until (y0, m, d) included
-            //   + diff between end of (y0, monthsInYear) and (y, monthsInYear)
+            //   "days" after the end of (y, monthsInYear) until (y, m, d) included
+            //   + diff between end of (y, monthsInYear) and (newY, monthsInYear)
             roundoff = d;
             for (int i = monthsInYear + 1; i < m; i++)
             {
-                roundoff += sch.CountDaysInMonth(y0, i);
+                roundoff += sch.CountDaysInMonth(y, i);
             }
             m = monthsInYear;
-            int daysInMonth = sch.CountDaysInMonth(y, m);
+            int daysInMonth = sch.CountDaysInMonth(newY, m);
             roundoff += Math.Max(0, d - daysInMonth);
-            return new Yemoda(y, m, roundoff > 0 ? daysInMonth : d);
+            return new Yemoda(newY, m, roundoff > 0 ? daysInMonth : d);
         }
         else
         {
-            int daysInMonth = sch.CountDaysInMonth(y, m);
+            int daysInMonth = sch.CountDaysInMonth(newY, m);
             roundoff = Math.Max(0, d - daysInMonth);
-            return new Yemoda(y, m, roundoff > 0 ? daysInMonth : d);
+            return new Yemoda(newY, m, roundoff > 0 ? daysInMonth : d);
         }
     }
 

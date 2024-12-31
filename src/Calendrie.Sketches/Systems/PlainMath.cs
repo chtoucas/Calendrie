@@ -33,17 +33,14 @@ public sealed class PlainMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
         var scope = chr.Scope;
         var sch = scope.Schema;
 
+        // NB: AdditionRule.Truncate. Simpler not to use Arithmetic.AddYears(Yemoda).
         var (y, m, d) = date;
         y = checked(y + years);
-
         scope.YearsValidator.CheckOverflow(y);
-
-        // NB: AdditionRule.Truncate.
         m = Math.Min(m, sch.CountMonthsInYear(y));
         d = Math.Min(d, sch.CountDaysInMonth(y, m));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -55,16 +52,13 @@ public sealed class PlainMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
         var scope = chr.Scope;
         var sch = scope.Schema;
 
+        // NB: AdditionRule.Truncate. Simpler not to use Arithmetic.AddMonths(Yemoda).
         var (y, m, d) = date;
-        var yemo = new Yemo(y, m);
-
-        var (newY, newM) = Arithmetic.AddMonths(yemo, months);
-
-        // NB: AdditionRule.Truncate.
+        var (newY, newM) = Arithmetic.AddMonths(new Yemo(y, m), months);
+        scope.YearsValidator.CheckOverflow(newY);
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }

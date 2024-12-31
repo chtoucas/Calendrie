@@ -31,12 +31,12 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     [Pure]
     public sealed override TDate AddYears(TDate date, int years)
     {
-        var chr = TDate.Calendar;
-        var scope = chr.Scope;
-        var sch = scope.Schema;
+        var sch = TDate.Calendar.Scope.Schema;
 
         var (y, m, d) = date;
         var (newY, newM, newD) = Arithmetic.AddYears(new Yemoda(y, m, d), years, out int roundoff);
+        // No need to check the result with the scope, this has already been
+        // taken care of by Arithmetic.
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);
@@ -48,13 +48,12 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     [Pure]
     public sealed override TDate AddMonths(TDate date, int months)
     {
-        var chr = TDate.Calendar;
-        var scope = chr.Scope;
-        var sch = scope.Schema;
+        var sch = TDate.Calendar.Scope.Schema;
 
         var (y, m, d) = date;
-
         var (newY, newM, newD) = Arithmetic.AddMonths(new Yemoda(y, m, d), months, out int roundoff);
+        // No need to check the result with the scope, this has already been
+        // taken care of by Arithmetic.
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);
@@ -69,7 +68,7 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
         // le cas roundoff = 0 et retourner date (résultat exact).
         Debug.Assert(roundoff > 0);
 
-        // NB: according to CalendricalMath, ymd is the last day of the month.
+        // NB: according to CalendricalArithmetic, date is the last day of the month.
         return AdditionRuleset.DateRule switch
         {
             AdditionRule.Truncate => date,

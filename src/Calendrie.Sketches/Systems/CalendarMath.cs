@@ -102,7 +102,10 @@ public abstract class CalendarMath<TCalendar, TDate>
     [Pure]
     public int CountMonthsBetween(TDate start, TDate end, out TDate newStart)
     {
-        int months = Arithmetic.CountMonthsBetween(convertToYemo(start), convertToYemo(end));
+        var (y0, m0, _) = start;
+        var (y1, m1, _) = end;
+
+        int months = Arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
         newStart = AddMonths(start, months);
 
         if (start < end)
@@ -123,12 +126,5 @@ public abstract class CalendarMath<TCalendar, TDate>
         }
 
         return months;
-
-        [Pure]
-        static Yemo convertToYemo(TDate date)
-        {
-            var (y, m, _) = date;
-            return new Yemo(y, m);
-        }
     }
 }
