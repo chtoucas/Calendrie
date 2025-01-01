@@ -72,6 +72,52 @@ public sealed class PowerMath<TCalendar, TDate>
     }
 
     /// <summary>
+    /// Counts the number of years between the two specified dates.
+    /// </summary>
+    [Pure]
+    public int CountYearsBetween(TDate start, TDate end, out TDate newStart)
+    {
+        var sch = Calendar.Scope.Schema;
+        var (y0, m0, d0) = start;
+
+        // Exact difference between two years.
+        int years = end.Year - start.Year;
+
+        newStart = addYears(years);
+        if (start < end)
+        {
+            if (newStart > end)
+            {
+                years--;
+                newStart = addYears(years);
+            }
+        }
+        else
+        {
+            if (newStart < end)
+            {
+                years++;
+                newStart = addYears(years);
+            }
+        }
+
+        return years;
+
+        // AddYears(start, years);
+        [Pure]
+        TDate addYears(int years)
+        {
+            // NB: Arithmetic.AddYears() is validating.
+            var (newY, newM, newD) = _arithmetic.AddYears(y0, m0, d0, years, out int roundoff);
+
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
+            var newDate = TDate.UnsafeCreate(daysSinceEpoch);
+
+            return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+        }
+    }
+
+    /// <summary>
     /// Adds a number of months to the month field of the specified date.
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
@@ -92,51 +138,25 @@ public sealed class PowerMath<TCalendar, TDate>
     }
 
     /// <summary>
-    /// Counts the number of years between the two specified dates.
-    /// </summary>
-    [Pure]
-    public int CountYearsBetween(TDate start, TDate end, out TDate newStart)
-    {
-        int years = end.Year - start.Year;
-
-        newStart = AddYears(start, years);
-        if (start < end)
-        {
-            if (newStart > end)
-            {
-                years--;
-                newStart = AddYears(start, years);
-            }
-        }
-        else
-        {
-            if (newStart < end)
-            {
-                years++;
-                newStart = AddYears(start, years);
-            }
-        }
-
-        return years;
-    }
-
-    /// <summary>
     /// Counts the number of months between the two specified dates.
     /// </summary>
     [Pure]
     public int CountMonthsBetween(TDate start, TDate end, out TDate newStart)
     {
-        var (y0, m0, _) = start;
+        var sch = Calendar.Scope.Schema;
+        var (y0, m0, d0) = start;
         var (y1, m1, _) = end;
+
+        // Exact difference between two months.
         int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
 
-        newStart = AddMonths(start, months);
+        newStart = addMonths(months);
         if (start < end)
         {
             if (newStart > end)
             {
                 months--;
-                newStart = AddMonths(start, months);
+                newStart = addMonths(months);
             }
         }
         else
@@ -144,11 +164,24 @@ public sealed class PowerMath<TCalendar, TDate>
             if (newStart < end)
             {
                 months++;
-                newStart = AddMonths(start, months);
+                newStart = addMonths(months);
             }
         }
 
         return months;
+
+        // AddMonths(start, months);
+        [Pure]
+        TDate addMonths(int months)
+        {
+            // NB: Arithmetic.AddMonths() is validating.
+            var (newY, newM, newD) = _arithmetic.AddMonths(y0, m0, d0, months, out int roundoff);
+
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
+            var newDate = TDate.UnsafeCreate(daysSinceEpoch);
+
+            return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+        }
     }
 
     [Pure]
