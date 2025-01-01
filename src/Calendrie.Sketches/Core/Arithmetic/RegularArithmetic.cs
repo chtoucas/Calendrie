@@ -10,6 +10,7 @@ using Calendrie.Core.Utilities;
 /// Provides an implementation of <see cref="CalendricalArithmetic"/> for regular
 /// schemas.
 /// <para>This class cannot be inherited.</para>
+/// <para>See also <see cref="MonthsCalculator"/>.</para>
 /// </summary>
 internal sealed class RegularArithmetic : CalendricalArithmetic
 {
@@ -59,7 +60,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
 
         // On retranche 1 à "m" pour le rendre algébrique.
         m = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
-        y += y0;
+        y = checked(y + y0);
         YearsValidator.CheckOverflow(y);
 
         int daysInMonth = Schema.CountDaysInMonth(y, m);
@@ -74,7 +75,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
         ym.Unpack(out int y, out int m);
 
         m = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
-        y += y0;
+        y = checked(y + y0);
         YearsValidator.CheckOverflow(y);
 
         return new Yemo(y, m);
