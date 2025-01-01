@@ -218,6 +218,8 @@ public partial class CalendarSystem<TDate> // Transformers
 
 public partial class CalendarSystem<TDate> // Non-standard math ops
 {
+    // TODO(code): overflows? document them if any?
+
     /// <summary>
     /// Adds a number of years to the year field of the specified date.
     /// </summary>
@@ -289,12 +291,9 @@ public partial class CalendarSystem<TDate> // Non-standard math ops
         // Exact difference between two months.
         int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
 
-        // To avoid extracting (y0, m0, d0) again, which is quite expensive,
-        // we inline:
+        // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = AddMonths(start, months);
-        var (newY, newM, newD) = _arithmetic.AddMonths(y0, m0, d0, months);
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        var newStart = TDate.UnsafeCreate(daysSinceEpoch);
+        var newStart = startPlusMonths(months);
 
         if (start < end)
         {
@@ -306,5 +305,13 @@ public partial class CalendarSystem<TDate> // Non-standard math ops
         }
 
         return months;
+
+        [Pure]
+        TDate startPlusMonths(int months)
+        {
+            var (newY, newM, newD) = _arithmetic.AddMonths(y0, m0, d0, months);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
+            return TDate.UnsafeCreate(daysSinceEpoch);
+        }
     }
 }
