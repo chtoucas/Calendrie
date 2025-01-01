@@ -49,6 +49,18 @@ internal sealed class StandardScope : CalendarScope
         YearsValidator = new StandardYearsValidator();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StandardScope"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
+    /// <see langword="null"/>.</exception>
+    [Obsolete("You should use the ctor with a LimitSchema instead")]
+    public StandardScope(ICalendricalSchema schema, DayNumber epoch)
+        : base(CalendricalSegment.Create(schema, SupportedYears), epoch)
+    {
+        YearsValidator = new StandardYearsValidator();
+    }
+
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
     {
