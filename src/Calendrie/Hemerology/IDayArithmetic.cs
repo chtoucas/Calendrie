@@ -5,12 +5,13 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// For types implementing this interface, we should manually add
-// ISubtractionOperators<TSelf, TSelf, int>
-
 /// <summary>
 /// Defines the standard mathematical operations on a date, those related to the
 /// day unit.
+/// <para>A type implementing this interface SHOULD also implement
+/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
+/// <c>TOther</c> is <typeparamref name="TSelf"/> and
+/// <c>TResult</c> is <see cref="int"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IDayArithmetic<TSelf> :

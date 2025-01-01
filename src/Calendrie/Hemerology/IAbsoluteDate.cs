@@ -9,6 +9,17 @@ using Calendrie.Core.Utilities;
 
 using static Calendrie.Core.CalendricalConstants;
 
+// L'interface IAbsoluteDate<T> est prévue pour les dates fonctionnant avec une
+// __seule espèce de calendrier__, d'où le fait d'avoir choisi des propriétés et
+// méthodes statiques :
+// - IMinMaxValue<T>
+// - Calendar
+// - FromDayNumber()
+//
+// Pour des types date partagés par plusieurs calendriers, on utilisera plutôt
+// une propriété non-statique Calendar et on ajoutera une méthode
+// WithCalendar(newCalendar) pour l'interconversion.
+
 #region Developer Notes
 
 // TL;DR: Despite its flaws we'll use the CRTP.
