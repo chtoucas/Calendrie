@@ -3,19 +3,25 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides non-standard mathematical operations suitable for use with a given
-/// calendar.
+/// Defines the non-standard mathematical operations suitable for use with a
+/// given calendar.
 /// <para>This class allows to customize the <see cref="AdditionRuleset"/> used
 /// to resolve ambiguities.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
+public sealed class PowerMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
+    /// <summary>
+    /// Represents the calendrical arithmetic.
+    /// </summary>
+    private readonly CalendricalArithmetic _arithmetic;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="PowerMath{TCalendar, TDate}"/>
     /// class.
@@ -23,17 +29,41 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
     /// <see langword="null"/>.</exception>
     public PowerMath(CalendarSystem<TDate> calendar, AdditionRuleset additionRuleset)
-        : base(calendar, additionRuleset) { }
+    {
+        ArgumentNullException.ThrowIfNull(calendar);
 
-    /// <inheritdoc />
+        Calendar = calendar;
+        AdditionRuleset = additionRuleset;
+
+        var scope = calendar.Scope;
+        _arithmetic = scope.Schema is LimitSchema sch
+            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
+            : throw new NotSupportedException();
+    }
+
+    /// <summary>
+    /// Gets the calendar.
+    /// </summary>
+    public CalendarSystem<TDate> Calendar { get; }
+
+    /// <summary>
+    /// Gets the strategy employed to resolve ambiguities.
+    /// </summary>
+    public AdditionRuleset AdditionRuleset { get; }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public sealed override TDate AddYears(TDate date, int years)
+    public TDate AddYears(TDate date, int years)
     {
         var sch = Calendar.Scope.Schema;
 
         var (y, m, d) = date;
         // NB: Arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = Arithmetic.AddYears(y, m, d, years, out int roundoff);
+        var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years, out int roundoff);
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);
@@ -41,20 +71,84 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of months to the month field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public sealed override TDate AddMonths(TDate date, int months)
+    public TDate AddMonths(TDate date, int months)
     {
         var sch = Calendar.Scope.Schema;
 
         var (y, m, d) = date;
         // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = Arithmetic.AddMonths(y, m, d, months, out int roundoff);
+        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months, out int roundoff);
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);
 
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+    }
+
+    /// <summary>
+    /// Counts the number of years between the two specified dates.
+    /// </summary>
+    [Pure]
+    public int CountYearsBetween(TDate start, TDate end, out TDate newStart)
+    {
+        int years = end.Year - start.Year;
+
+        newStart = AddYears(start, years);
+        if (start < end)
+        {
+            if (newStart > end)
+            {
+                years--;
+                newStart = AddYears(start, years);
+            }
+        }
+        else
+        {
+            if (newStart < end)
+            {
+                years++;
+                newStart = AddYears(start, years);
+            }
+        }
+
+        return years;
+    }
+
+    /// <summary>
+    /// Counts the number of months between the two specified dates.
+    /// </summary>
+    [Pure]
+    public int CountMonthsBetween(TDate start, TDate end, out TDate newStart)
+    {
+        var (y0, m0, _) = start;
+        var (y1, m1, _) = end;
+        int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
+
+        newStart = AddMonths(start, months);
+        if (start < end)
+        {
+            if (newStart > end)
+            {
+                months--;
+                newStart = AddMonths(start, months);
+            }
+        }
+        else
+        {
+            if (newStart < end)
+            {
+                months++;
+                newStart = AddMonths(start, months);
+            }
+        }
+
+        return months;
     }
 
     [Pure]
