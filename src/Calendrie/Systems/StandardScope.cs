@@ -35,26 +35,14 @@ internal sealed class StandardScope : CalendarScope
     /// </summary>
     public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="StandardScope"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
-    /// <see langword="null"/>.</exception>
-    //
-    // LimitSchema rather than ICalendricalSchema, this is necessary for the math
-    // ops to work as they use Yemoda and Yemo.
-    public StandardScope(LimitSchema schema, DayNumber epoch)
-        : base(CalendricalSegment.Create(schema, SupportedYears), epoch)
-    {
-        YearsValidator = new StandardYearsValidator();
-    }
+    // TODO(code): LimitSchema rather than ICalendricalSchema, this is necessary
+    // for the math ops to work properly as they use Yemoda and Yemo.
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StandardScope"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    [Obsolete("You should use the ctor with a LimitSchema instead")]
     public StandardScope(ICalendricalSchema schema, DayNumber epoch)
         : base(CalendricalSegment.Create(schema, SupportedYears), epoch)
     {

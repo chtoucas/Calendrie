@@ -457,7 +457,7 @@ public partial struct TabularIslamicDate // IComparable
         : ThrowHelpers.ThrowNonComparable(typeof(TabularIslamicDate), obj);
 }
 
-public partial struct TabularIslamicDate // Math
+public partial struct TabularIslamicDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
@@ -531,5 +531,34 @@ public partial struct TabularIslamicDate // Math
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+}
+
+public partial struct TabularIslamicDate // Non-standard math ops
+{
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(TabularIslamicDate other) => Calendar.CountMonthsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    [Pure]
+    public TabularIslamicDate PlusMonths(int months) => Calendar.AddMonths(this, months);
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(TabularIslamicDate other) => Calendar.CountYearsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    [Pure]
+    public TabularIslamicDate PlusYears(int years) => Calendar.AddYears(this, years);
 }
 

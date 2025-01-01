@@ -183,3 +183,32 @@ public partial struct JulianDate // IComparable
         : obj is JulianDate date ? CompareTo(date)
         : ThrowHelpers.ThrowNonComparable(typeof(JulianDate), obj);
 }
+
+public partial struct JulianDate // Non-standard math ops
+{
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(JulianDate other) => Calendar.CountMonthsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    [Pure]
+    public JulianDate PlusMonths(int months) => Calendar.AddMonths(this, months);
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(JulianDate other) => Calendar.CountYearsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    [Pure]
+    public JulianDate PlusYears(int years) => Calendar.AddYears(this, years);
+}

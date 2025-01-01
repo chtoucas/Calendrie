@@ -293,7 +293,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 <#+
     } // T4: End of EmitDateFactories()
 
-    protected override void EmitCloseByDayOfWeek()
+    protected override void EmitDateCloseByDayOfWeek()
     {
         WriteLine();
 #>
@@ -359,7 +359,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
     }
 }
 <#+
-    } // T4: End of EmitCloseByDayOfWeek()
+    } // T4: End of EmitDateCloseByDayOfWeek()
 
 } // T4: End of ZeroCalendarTemplate
 

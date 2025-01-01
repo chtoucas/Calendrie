@@ -466,7 +466,7 @@ public partial struct ArmenianDate // IComparable
         : ThrowHelpers.ThrowNonComparable(typeof(ArmenianDate), obj);
 }
 
-public partial struct ArmenianDate // Math
+public partial struct ArmenianDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
@@ -540,5 +540,34 @@ public partial struct ArmenianDate // Math
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+}
+
+public partial struct ArmenianDate // Non-standard math ops
+{
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(ArmenianDate other) => Calendar.CountMonthsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    [Pure]
+    public ArmenianDate PlusMonths(int months) => Calendar.AddMonths(this, months);
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(ArmenianDate other) => Calendar.CountYearsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    [Pure]
+    public ArmenianDate PlusYears(int years) => Calendar.AddYears(this, years);
 }
 

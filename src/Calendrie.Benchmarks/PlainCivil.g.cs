@@ -453,7 +453,7 @@ public partial struct PlainCivilDate // IComparable
         : ThrowHelpers.ThrowNonComparable(typeof(PlainCivilDate), obj);
 }
 
-public partial struct PlainCivilDate // Math
+public partial struct PlainCivilDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
@@ -527,5 +527,34 @@ public partial struct PlainCivilDate // Math
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
+}
+
+public partial struct PlainCivilDate // Non-standard math ops
+{
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(PlainCivilDate other) => Calendar.CountMonthsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    [Pure]
+    public PlainCivilDate PlusMonths(int months) => Calendar.AddMonths(this, months);
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(PlainCivilDate other) => Calendar.CountYearsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    [Pure]
+    public PlainCivilDate PlusYears(int years) => Calendar.AddYears(this, years);
 }
 

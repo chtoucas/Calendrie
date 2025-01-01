@@ -27,7 +27,7 @@ using Calendrie.Horology;
     protected sealed override void EmitCalendar() { }
 
     protected sealed override void EmitDatePreamble() { }
-    protected sealed override void EmitCloseByDayOfWeek() { }
+    protected sealed override void EmitDateCloseByDayOfWeek() { }
     protected sealed override void EmitDateMath() { }
 }
 

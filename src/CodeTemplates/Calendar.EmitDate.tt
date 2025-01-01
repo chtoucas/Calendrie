@@ -9,10 +9,11 @@ public partial class CalendarTemplate
         EmitDateFactories();
         EmitDateCounting();
         EmitDateAdjustment();
-        EmitCloseByDayOfWeek();
+        EmitDateCloseByDayOfWeek();
         EmitDateEquatable();
         EmitDateComparable();
         EmitDateMath();
+        EmitDateMathNonStandard();
     }
 
     protected virtual void EmitDateDecl()
@@ -328,7 +329,7 @@ public partial struct <#= Prefix #>Date // Adjustments
 <#+
     } // T4: End of EmitDateAdjustment()
 
-    protected virtual void EmitCloseByDayOfWeek()
+    protected virtual void EmitDateCloseByDayOfWeek()
     {
         WriteLine();
 #>
@@ -395,7 +396,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
     }
 }
 <#+
-    } // T4: End of EmitCloseByDayOfWeek()
+    } // T4: End of EmitDateCloseByDayOfWeek()
 
     protected virtual void EmitDateEquatable()
     {
@@ -474,7 +475,7 @@ public partial struct <#= Prefix #>Date // IComparable
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Date // Math
+public partial struct <#= Prefix #>Date // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
@@ -551,6 +552,42 @@ public partial struct <#= Prefix #>Date // Math
 }
 <#+
     } // T4: End of EmitDateMath()
+
+    protected virtual void EmitDateMathNonStandard()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Date // Non-standard math ops
+{
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(<#= Prefix #>Date other) => Calendar.CountMonthsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    [Pure]
+    public <#= Prefix #>Date PlusMonths(int months) => Calendar.AddMonths(this, months);
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(<#= Prefix #>Date other) => Calendar.CountYearsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    [Pure]
+    public <#= Prefix #>Date PlusYears(int years) => Calendar.AddYears(this, years);
+}
+<#+
+    } // T4: End of EmitDateMathNonStandard()
+
 } // T4: End of CalendarTemplate
 
 #>

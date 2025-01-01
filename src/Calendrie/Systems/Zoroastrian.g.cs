@@ -466,7 +466,7 @@ public partial struct ZoroastrianDate // IComparable
         : ThrowHelpers.ThrowNonComparable(typeof(ZoroastrianDate), obj);
 }
 
-public partial struct ZoroastrianDate // Math
+public partial struct ZoroastrianDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
@@ -540,5 +540,34 @@ public partial struct ZoroastrianDate // Math
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+}
+
+public partial struct ZoroastrianDate // Non-standard math ops
+{
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(ZoroastrianDate other) => Calendar.CountMonthsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    [Pure]
+    public ZoroastrianDate PlusMonths(int months) => Calendar.AddMonths(this, months);
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(ZoroastrianDate other) => Calendar.CountYearsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    [Pure]
+    public ZoroastrianDate PlusYears(int years) => Calendar.AddYears(this, years);
 }
 
