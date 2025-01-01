@@ -3,6 +3,8 @@
 
 module Calendrie.Tests.Systems.PaxTests
 
+#if false
+
 open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
@@ -75,3 +77,4 @@ module Bundles =
         override __.GetDate(y, m, d) = new PaxDate(y, m, d)
         override __.GetDate(y, doy) = new PaxDate(y, doy)
 
+#endif

@@ -19,11 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Systems\Pax.g.cs">
+    <!--<Compile Update="Systems\Pax.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Pax.tt</DependentUpon>
-    </Compile>
+    </Compile>-->
   </ItemGroup>
 
   <ItemGroup>
