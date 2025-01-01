@@ -195,6 +195,9 @@ public sealed class PowerMath<TCalendar, TDate>
         return AdditionRuleset.DateRule switch
         {
             AdditionRule.Truncate => date,
+            // REVIEW(code): there is a slight inefficiency here. We know that
+            // the addition won't overflow. We could write
+            // > TDate.UnsafeCreate(date.DaysSinceEpoch + 1);
             AdditionRule.Overspill => date + 1,
             AdditionRule.Exact => date + roundoff,
             AdditionRule.Overflow => throw new OverflowException(),
