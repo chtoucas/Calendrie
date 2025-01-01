@@ -3,6 +3,7 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core;
 using Calendrie.Hemerology;
 
 // Reasons to keep the constructor internal (system calendars and adjusters):
@@ -35,6 +36,11 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
+    /// Represents the calendrical arithmetic.
+    /// </summary>
+    private readonly CalendricalArithmetic _arithmetic;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
     /// class.
     /// </summary>
@@ -42,7 +48,12 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// <see langword="null"/>.</exception>
     internal CalendarSystem(string name, CalendarScope scope) : base(name, scope)
     {
+        Debug.Assert(scope != null);
         Debug.Assert(scope.Segment.IsComplete);
+
+        _arithmetic = scope.Schema is LimitSchema sch
+            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
+            : throw new ArgumentException(null, nameof(scope));
     }
 
 #if DEBUG
@@ -158,7 +169,7 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
     }
 }
 
-public partial class CalendarSystem<TDate>
+public partial class CalendarSystem<TDate> // Transformers
 {
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
@@ -202,5 +213,88 @@ public partial class CalendarSystem<TDate>
         sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
         int daysSinceEpoch = sch.GetEndOfMonth(y, m);
         return TDate.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial class CalendarSystem<TDate> // Non-standard math ops
+{
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal TDate AddYears(TDate date, int years)
+    {
+        var sch = Scope.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
+
+        // NB: Arithmetic.AddYears() is validating.
+        var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years);
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return TDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the month field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal TDate AddMonths(TDate date, int months)
+    {
+        var sch = Scope.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
+
+        // NB: Arithmetic.AddMonths() is validating.
+        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months);
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return TDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Counts the number of years between the two specified dates.
+    /// </summary>
+    [Pure]
+    internal int CountYearsBetween(TDate start, TDate end)
+    {
+        int years = end.Year - start.Year;
+
+        var newStart = AddYears(start, years);
+        if (start < end)
+        {
+            if (newStart > end) years--;
+        }
+        else
+        {
+            if (newStart < end) years++;
+        }
+
+        return years;
+    }
+
+    /// <summary>
+    /// Counts the number of months between the two specified dates.
+    /// </summary>
+    [Pure]
+    internal int CountMonthsBetween(TDate start, TDate end)
+    {
+        var (y0, m0, _) = start;
+        var (y1, m1, _) = end;
+        int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
+
+        var newStart = AddMonths(start, months);
+        if (start < end)
+        {
+            if (newStart > end) months--;
+        }
+        else
+        {
+            if (newStart < end) months++;
+        }
+
+        return months;
     }
 }
