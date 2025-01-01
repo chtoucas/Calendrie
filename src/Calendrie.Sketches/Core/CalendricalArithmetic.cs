@@ -5,9 +5,6 @@ namespace Calendrie.Core;
 
 using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Validation;
-
-// TODO(code): replace RangeValidator by something simpler: we only need CheckOverflow()
 
 #region Developer Notes
 
@@ -68,8 +65,8 @@ public abstract class CalendricalArithmetic
         Schema = schema;
         var seg = CalendricalSegment.Create(schema, supportedYears);
 
-        YearsValidator = new RangeValidator(supportedYears);
-        MonthsSinceEpochValidator = new RangeValidator(seg.SupportedMonths);
+        YearsChecker = new OverflowChecker(supportedYears);
+        MonthsSinceEpochChecker = new OverflowChecker(seg.SupportedMonths);
     }
 
     /// <summary>
@@ -80,12 +77,12 @@ public abstract class CalendricalArithmetic
     /// <summary>
     /// Gets the validator for the  range of supported months.
     /// </summary>
-    protected RangeValidator MonthsSinceEpochValidator { get; }
+    protected OverflowChecker MonthsSinceEpochChecker { get; }
 
     /// <summary>
     /// Gets the validator for the  range of supported years.
     /// </summary>
-    protected RangeValidator YearsValidator { get; }
+    protected OverflowChecker YearsChecker { get; }
 
     /// <summary>
     /// Creates the default arithmetic object for the specified schema and range

@@ -26,7 +26,7 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years)
     {
         int newY = checked(y + years);
-        YearsValidator.CheckOverflow(newY);
+        YearsChecker.CheckOverflow(newY);
 
         // NB: AdditionRule.Truncate.
         int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
@@ -39,7 +39,7 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
-        YearsValidator.CheckOverflow(newY);
+        YearsChecker.CheckOverflow(newY);
 
         var sch = Schema;
         int monthsInYear = sch.CountMonthsInYear(newY);
@@ -72,7 +72,7 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     public sealed override Yemo AddMonths(int y, int m, int months)
     {
         int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
-        MonthsSinceEpochValidator.CheckOverflow(monthsSinceEpoch);
+        MonthsSinceEpochChecker.CheckOverflow(monthsSinceEpoch);
 
         return Schema.GetMonthParts(monthsSinceEpoch);
     }

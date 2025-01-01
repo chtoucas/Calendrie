@@ -27,7 +27,7 @@ public partial class PlainArithmetic // Operations on DateParts
     {
         var (y, m, d) = parts;
         int daysSinceEpoch = checked(Schema.CountDaysSinceEpoch(y, m, d) + days);
-        DaysSinceEpochValidator.CheckOverflow(daysSinceEpoch);
+        DaysSinceEpochChecker.CheckOverflow(daysSinceEpoch);
 
         return PartsAdapter.GetDateParts(daysSinceEpoch);
     }
@@ -49,7 +49,7 @@ public partial class PlainArithmetic // Operations on OrdinalParts
     {
         var (y, doy) = parts;
         int daysSinceEpoch = checked(Schema.CountDaysSinceEpoch(y, doy) + days);
-        DaysSinceEpochValidator.CheckOverflow(daysSinceEpoch);
+        DaysSinceEpochChecker.CheckOverflow(daysSinceEpoch);
 
         return PartsAdapter.GetOrdinalParts(daysSinceEpoch);
     }
@@ -71,7 +71,7 @@ public partial class PlainArithmetic // Operations on MonthParts
     {
         var (y, m) = parts;
         int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
-        MonthsSinceEpochValidator.CheckOverflow(monthsSinceEpoch);
+        MonthsSinceEpochChecker.CheckOverflow(monthsSinceEpoch);
 
         return PartsAdapter.GetMonthParts(monthsSinceEpoch);
     }

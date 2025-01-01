@@ -41,7 +41,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years)
     {
         int newY = checked(y + years);
-        YearsValidator.CheckOverflow(newY);
+        YearsChecker.CheckOverflow(newY);
 
         // NB: AdditionRule.Truncate.
         int newD = Math.Min(d, Schema.CountDaysInMonth(newY, m));
@@ -53,7 +53,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
-        YearsValidator.CheckOverflow(newY);
+        YearsChecker.CheckOverflow(newY);
 
         int daysInMonth = Schema.CountDaysInMonth(newY, m);
         roundoff = Math.Max(0, d - daysInMonth);
@@ -67,7 +67,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
         int newY = checked(y + y0);
-        YearsValidator.CheckOverflow(newY);
+        YearsChecker.CheckOverflow(newY);
 
         return new Yemo(newY, newM);
     }

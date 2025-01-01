@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Validation;
+namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
@@ -11,12 +11,12 @@ using Calendrie.Core.Utilities;
 /// <see cref="int"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class RangeValidator
+public sealed class OverflowChecker
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeValidator"/> class.
+    /// Initializes a new instance of the <see cref="OverflowChecker"/> class.
     /// </summary>
-    public RangeValidator(Range<int> range)
+    public OverflowChecker(Range<int> range)
     {
         Range = range;
         (MinValue, MaxValue) = range.Endpoints;
@@ -45,17 +45,6 @@ public sealed class RangeValidator
     public sealed override string ToString() => Range.ToString();
 
     /// <summary>
-    /// Validates the specified value.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
-    /// </exception>
-    public void Validate(int value, string? paramName = null)
-    {
-        if (value < MinValue || value > MaxValue)
-            throw new ArgumentOutOfRangeException(paramName ?? nameof(value));
-    }
-
-    /// <summary>
     /// Checks whether the specified value is outside the range of supported
     /// values or not.
     /// </summary>
@@ -63,28 +52,29 @@ public sealed class RangeValidator
     /// outside the range of supported values.</exception>
     public void CheckOverflow(int value)
     {
+        // TODO(code): throw with a generic message.
         if (value < MinValue || value > MaxValue) ThrowHelpers.ThrowDateOverflow();
     }
 
-    /// <summary>
-    /// Checks whether the specified value is greater than the upper bound of
-    /// the range of supported values or not.
-    /// </summary>
-    /// <exception cref="OverflowException"><paramref name="value"/> is
-    /// greater than the upper bound of the range of supported values.</exception>
-    public void CheckUpperBound(int value)
-    {
-        if (value > MaxValue) ThrowHelpers.ThrowDateOverflow();
-    }
+    ///// <summary>
+    ///// Checks whether the specified value is greater than the upper bound of
+    ///// the range of supported values or not.
+    ///// </summary>
+    ///// <exception cref="OverflowException"><paramref name="value"/> is
+    ///// greater than the upper bound of the range of supported values.</exception>
+    //public void CheckUpperBound(int value)
+    //{
+    //    if (value > MaxValue) ThrowHelpers.ThrowDateOverflow();
+    //}
 
-    /// <summary>
-    /// Checks whether the specified value is less than the lower bound of the
-    /// range of supported values or not.
-    /// </summary>
-    /// <exception cref="OverflowException"><paramref name="value"/> is
-    /// less than the lower bound of the range of supported values.</exception>
-    public void CheckLowerBound(int value)
-    {
-        if (value < MinValue) ThrowHelpers.ThrowDateOverflow();
-    }
+    ///// <summary>
+    ///// Checks whether the specified value is less than the lower bound of the
+    ///// range of supported values or not.
+    ///// </summary>
+    ///// <exception cref="OverflowException"><paramref name="value"/> is
+    ///// less than the lower bound of the range of supported values.</exception>
+    //public void CheckLowerBound(int value)
+    //{
+    //    if (value < MinValue) ThrowHelpers.ThrowDateOverflow();
+    //}
 }

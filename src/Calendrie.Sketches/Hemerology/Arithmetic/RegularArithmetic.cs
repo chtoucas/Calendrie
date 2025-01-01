@@ -102,7 +102,7 @@ public partial class RegularArithmetic // Operations on DateParts
 
         // Slow track.
         int daysSinceEpoch = checked(Schema.CountDaysSinceEpoch(y, m, d) + days);
-        DaysSinceEpochValidator.CheckOverflow(daysSinceEpoch);
+        DaysSinceEpochChecker.CheckOverflow(daysSinceEpoch);
 
         return PartsAdapter.GetDateParts(daysSinceEpoch);
     }
@@ -150,7 +150,7 @@ public partial class RegularArithmetic // Operations on OrdinalParts
 
         // Slow track.
         int daysSinceEpoch = checked(Schema.CountDaysSinceEpoch(y, doy) + days);
-        DaysSinceEpochValidator.CheckOverflow(daysSinceEpoch);
+        DaysSinceEpochChecker.CheckOverflow(daysSinceEpoch);
 
         return PartsAdapter.GetOrdinalParts(daysSinceEpoch);
     }
