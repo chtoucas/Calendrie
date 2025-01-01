@@ -12,33 +12,35 @@ using Calendrie.Hemerology;
 /// ambiguities.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class PlainMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
+public sealed class DefaultMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainMath{TCalendar, TDate}"/>
+    /// Initializes a new instance of the <see cref="DefaultMath{TCalendar, TDate}"/>
     /// class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
     /// <see langword="null"/>.</exception>
-    public PlainMath(CalendarSystem<TDate> calendar) : base(calendar, default) { }
+    public DefaultMath(CalendarSystem<TDate> calendar) : base(calendar, default)
+    {
+        Debug.Assert(calendar != null);
+        if (!calendar.Scope.Schema.IsRegular(out _))
+            throw new ArgumentException(null, nameof(calendar));
+    }
 
     /// <inheritdoc />
     [Pure]
     public sealed override TDate AddYears(TDate date, int years)
     {
-        var scope = Calendar.Scope;
-        var sch = scope.Schema;
+        var sch = Calendar.Scope.Schema;
 
-        // NB: AdditionRule.Truncate. Simpler not to use Arithmetic.AddYears(Yemoda).
         var (y, m, d) = date;
-        y = checked(y + years);
-        scope.YearsValidator.CheckOverflow(y);
-        m = Math.Min(m, sch.CountMonthsInYear(y));
-        d = Math.Min(d, sch.CountDaysInMonth(y, m));
+        var (newY, newM, newD) = Arithmetic.AddYears(new Yemoda(y, m, d), years);
+        // No need to check the result with Scope, this has already been taken
+        // care of by Arithmetic.
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -46,14 +48,12 @@ public sealed class PlainMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     [Pure]
     public sealed override TDate AddMonths(TDate date, int months)
     {
-        var scope = Calendar.Scope;
-        var sch = scope.Schema;
+        var sch = Calendar.Scope.Schema;
 
-        // NB: AdditionRule.Truncate. Simpler not to use Arithmetic.AddMonths(Yemoda).
         var (y, m, d) = date;
-        var (newY, newM) = Arithmetic.AddMonths(new Yemo(y, m), months);
-        scope.YearsValidator.CheckOverflow(newY);
-        int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
+        var (newY, newM, newD) = Arithmetic.AddMonths(new Yemoda(y, m, d), months);
+        // No need to check the result with Scope, this has already been taken
+        // care of by Arithmetic.
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);

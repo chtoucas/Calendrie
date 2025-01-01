@@ -9,6 +9,7 @@ using Calendrie.Hemerology;
 // FIXME(code): math
 // - CalendarScope.YearsValidator (public)
 // - Calendar.IsRegular()
+// - Replace RangeValidator by something simpler: we only need CheckOverflow()
 
 /// <summary>
 /// Defines the non-standard mathematical operations suitable for use with a

@@ -114,6 +114,9 @@ public abstract class CalendricalArithmetic
     // Non-standard operations on Yemoda
     //
 
+
+    [Pure] public abstract Yemoda AddYears(Yemoda ymd, int years);
+
     /// <summary>
     /// Adds a number of years to the year field of the specified date.
     /// </summary>
@@ -122,6 +125,8 @@ public abstract class CalendricalArithmetic
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported values.</exception>
     [Pure] public abstract Yemoda AddYears(Yemoda ymd, int years, out int roundoff);
+
+    [Pure] public abstract Yemoda AddMonths(Yemoda ymd, int months);
 
     /// <summary>
     /// Adds a number of months to the specified date.

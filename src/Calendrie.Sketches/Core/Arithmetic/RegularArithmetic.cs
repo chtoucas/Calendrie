@@ -37,6 +37,18 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
         _monthsInYear = monthsInYear;
     }
 
+    [Pure]
+    public sealed override Yemoda AddYears(Yemoda ymd, int years)
+    {
+        ymd.Unpack(out int y, out int m, out int d);
+
+        y = checked(y + years);
+        YearsValidator.CheckOverflow(y);
+        // NB: AdditionRule.Truncate.
+        d = Math.Min(d, Schema.CountDaysInMonth(y, m));
+        return new Yemoda(y, m, d);
+    }
+
     /// <inheritdoc />
     [Pure]
     public sealed override Yemoda AddYears(Yemoda ymd, int years, out int roundoff)
@@ -50,6 +62,20 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
         roundoff = Math.Max(0, d - daysInMonth);
         // On retourne le dernier jour du mois si d > daysInMonth.
         return new Yemoda(y, m, roundoff > 0 ? daysInMonth : d);
+    }
+
+    [Pure]
+    public sealed override Yemoda AddMonths(Yemoda ymd, int months)
+    {
+        ymd.Unpack(out int y, out int m, out int d);
+
+        // On retranche 1 à "m" pour le rendre algébrique.
+        m = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
+        y = checked(y + y0);
+        YearsValidator.CheckOverflow(y);
+        // NB: AdditionRule.Truncate.
+        d = Math.Min(d, Schema.CountDaysInMonth(y, m));
+        return new Yemoda(y, m, d);
     }
 
     /// <inheritdoc />
