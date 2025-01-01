@@ -83,13 +83,13 @@ public sealed class PowerMath<TCalendar, TDate>
         // Exact difference between two years.
         int years = end.Year - start.Year;
 
-        newStart = addYears(years);
+        newStart = startPlusYears(years);
         if (start < end)
         {
             if (newStart > end)
             {
                 years--;
-                newStart = addYears(years);
+                newStart = startPlusYears(years);
             }
         }
         else
@@ -97,15 +97,15 @@ public sealed class PowerMath<TCalendar, TDate>
             if (newStart < end)
             {
                 years++;
-                newStart = addYears(years);
+                newStart = startPlusYears(years);
             }
         }
 
         return years;
 
-        // AddYears(start, years);
+        // AddYears(start, years)
         [Pure]
-        TDate addYears(int years)
+        TDate startPlusYears(int years)
         {
             // NB: Arithmetic.AddYears() is validating.
             var (newY, newM, newD) = _arithmetic.AddYears(y0, m0, d0, years, out int roundoff);
@@ -150,13 +150,13 @@ public sealed class PowerMath<TCalendar, TDate>
         // Exact difference between two months.
         int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
 
-        newStart = addMonths(months);
+        newStart = startPlusMonths(months);
         if (start < end)
         {
             if (newStart > end)
             {
                 months--;
-                newStart = addMonths(months);
+                newStart = startPlusMonths(months);
             }
         }
         else
@@ -164,15 +164,15 @@ public sealed class PowerMath<TCalendar, TDate>
             if (newStart < end)
             {
                 months++;
-                newStart = addMonths(months);
+                newStart = startPlusMonths(months);
             }
         }
 
         return months;
 
-        // AddMonths(start, months);
+        // AddMonths(start, months)
         [Pure]
-        TDate addMonths(int months)
+        TDate startPlusMonths(int months)
         {
             // NB: Arithmetic.AddMonths() is validating.
             var (newY, newM, newD) = _arithmetic.AddMonths(y0, m0, d0, months, out int roundoff);
