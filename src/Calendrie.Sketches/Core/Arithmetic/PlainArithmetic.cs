@@ -76,8 +76,8 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     {
         int d = ymd.Day;
 
+        // NB: AddMonths() is validating.
         var (y, m) = AddMonths(ymd.Yemo, months);
-        //YearsValidator.CheckOverflow(y);
         // NB: AdditionRule.Truncate.
         d = Math.Min(d, Schema.CountDaysInMonth(y, m));
         return new Yemoda(y, m, d);
@@ -89,9 +89,8 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     {
         int d = ymd.Day;
 
+        // NB: AddMonths() is validating.
         var (y, m) = AddMonths(ymd.Yemo, months);
-        //YearsValidator.CheckOverflow(y);
-
         int daysInMonth = Schema.CountDaysInMonth(y, m);
         roundoff = Math.Max(0, d - daysInMonth);
         return new Yemoda(y, m, roundoff > 0 ? daysInMonth : d);

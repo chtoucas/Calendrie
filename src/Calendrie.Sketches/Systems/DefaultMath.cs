@@ -36,9 +36,8 @@ public sealed class DefaultMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
         var sch = Calendar.Scope.Schema;
 
         var (y, m, d) = date;
+        // NB: Arithmetic.AddYears() is validating.
         var (newY, newM, newD) = Arithmetic.AddYears(new Yemoda(y, m, d), years);
-        // No need to check the result with Scope, this has already been taken
-        // care of by Arithmetic.
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
@@ -51,9 +50,8 @@ public sealed class DefaultMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
         var sch = Calendar.Scope.Schema;
 
         var (y, m, d) = date;
+        // NB: Arithmetic.AddMonths() is validating.
         var (newY, newM, newD) = Arithmetic.AddMonths(new Yemoda(y, m, d), months);
-        // No need to check the result with Scope, this has already been taken
-        // care of by Arithmetic.
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);

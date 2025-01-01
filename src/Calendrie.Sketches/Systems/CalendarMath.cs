@@ -78,8 +78,8 @@ public abstract class CalendarMath<TCalendar, TDate>
     public int CountYearsBetween(TDate start, TDate end, out TDate newStart)
     {
         int years = end.Year - start.Year;
-        newStart = AddYears(start, years);
 
+        newStart = AddYears(start, years);
         if (start < end)
         {
             if (newStart > end)
@@ -108,10 +108,9 @@ public abstract class CalendarMath<TCalendar, TDate>
     {
         var (y0, m0, _) = start;
         var (y1, m1, _) = end;
-
         int months = Arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
-        newStart = AddMonths(start, months);
 
+        newStart = AddMonths(start, months);
         if (start < end)
         {
             if (newStart > end)
