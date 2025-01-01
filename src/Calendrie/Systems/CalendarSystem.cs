@@ -229,26 +229,8 @@ public partial class CalendarSystem<TDate> // Non-standard math ops
         var sch = Scope.Schema;
         sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
 
-        // NB: Arithmetic.AddYears() is validating.
+        // NB: _arithmetic.AddYears() is validating.
         var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years);
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return TDate.UnsafeCreate(daysSinceEpoch);
-    }
-
-    /// <summary>
-    /// Adds a number of months to the month field of the specified date.
-    /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    internal TDate AddMonths(TDate date, int months)
-    {
-        var sch = Scope.Schema;
-        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
-
-        // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months);
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
@@ -260,6 +242,7 @@ public partial class CalendarSystem<TDate> // Non-standard math ops
     [Pure]
     internal int CountYearsBetween(TDate start, TDate end)
     {
+        // Exact difference between two years.
         int years = end.Year - start.Year;
 
         var newStart = AddYears(start, years);
@@ -276,16 +259,43 @@ public partial class CalendarSystem<TDate> // Non-standard math ops
     }
 
     /// <summary>
+    /// Adds a number of months to the month field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal TDate AddMonths(TDate date, int months)
+    {
+        var sch = Scope.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
+
+        // NB: _arithmetic.AddMonths() is validating.
+        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months);
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return TDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
     /// Counts the number of months between the two specified dates.
     /// </summary>
     [Pure]
     internal int CountMonthsBetween(TDate start, TDate end)
     {
-        var (y0, m0, _) = start;
-        var (y1, m1, _) = end;
+        var sch = Scope.Schema;
+        sch.GetDateParts(start.DaysSinceEpoch, out int y0, out int m0, out int d0);
+        sch.GetDateParts(end.DaysSinceEpoch, out int y1, out int m1, out _);
+
+        // Exact difference between two months.
         int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
 
-        var newStart = AddMonths(start, months);
+        // To avoid extracting (y0, m0, d0) again, which is quite expensive,
+        // we inline:
+        // > var newStart = AddMonths(start, months);
+        var (newY, newM, newD) = _arithmetic.AddMonths(y0, m0, d0, months);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
+        var newStart = TDate.UnsafeCreate(daysSinceEpoch);
+
         if (start < end)
         {
             if (newStart > end) months--;
