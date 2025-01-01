@@ -55,7 +55,7 @@ public abstract partial class CalendarScope
     /// <summary>
     /// Gets the validator for the range of supported years.
     /// </summary>
-    protected internal IYearsValidator YearsValidator { get; private protected init; }
+    protected IYearsValidator YearsValidator { get; private protected init; }
 
     /// <summary>
     /// Gets the (cached) pre-validator.

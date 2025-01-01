@@ -7,6 +7,8 @@ using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
+// TODO(code): replace RangeValidator by something simpler: we only need CheckOverflow()
+
 #region Developer Notes
 
 // Types Derived from SystemArithmetic
