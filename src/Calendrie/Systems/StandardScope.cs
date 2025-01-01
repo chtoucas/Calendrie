@@ -40,7 +40,10 @@ internal sealed class StandardScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    public StandardScope(ICalendricalSchema schema, DayNumber epoch)
+    //
+    // LimitSchema rather than ICalendricalSchema, this is necessary for the math
+    // ops to work as they use Yemoda and Yemo.
+    public StandardScope(LimitSchema schema, DayNumber epoch)
         : base(CalendricalSegment.Create(schema, SupportedYears), epoch)
     {
         YearsValidator = new StandardYearsValidator();
