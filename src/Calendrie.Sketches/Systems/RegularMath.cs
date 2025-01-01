@@ -32,8 +32,7 @@ public sealed class RegularMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
     [Pure]
     public sealed override TDate AddYears(TDate date, int years)
     {
-        var chr = Calendar;
-        var scope = chr.Scope;
+        var scope = Calendar.Scope;
         var sch = scope.Schema;
 
         // NB: AdditionRule.Truncate. Simpler not to use Arithmetic.AddYears(Yemoda).
@@ -50,8 +49,7 @@ public sealed class RegularMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
     [Pure]
     public sealed override TDate AddMonths(TDate date, int months)
     {
-        var chr = Calendar;
-        var scope = chr.Scope;
+        var scope = Calendar.Scope;
         var sch = scope.Schema;
 
         // NB: AdditionRule.Truncate. Simpler not to use Arithmetic.AddMonths(Yemoda).
