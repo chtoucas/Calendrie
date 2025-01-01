@@ -3,7 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Core;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -34,12 +33,12 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
 
         var (y, m, d) = date;
         // NB: Arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = Arithmetic.AddYears(new Yemoda(y, m, d), years, out int roundoff);
+        var (newY, newM, newD) = Arithmetic.AddYears(y, m, d, years, out int roundoff);
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);
 
-        return roundoff > 0 ? Adjust(newDate, roundoff) : newDate;
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
     }
 
     /// <inheritdoc />
@@ -50,12 +49,12 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
 
         var (y, m, d) = date;
         // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = Arithmetic.AddMonths(new Yemoda(y, m, d), months, out int roundoff);
+        var (newY, newM, newD) = Arithmetic.AddMonths(y, m, d, months, out int roundoff);
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);
 
-        return roundoff > 0 ? Adjust(newDate, roundoff) : newDate;
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
     }
 
     [Pure]
@@ -73,7 +72,7 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
             AdditionRule.Exact => date + roundoff,
             AdditionRule.Overflow => throw new OverflowException(),
 
-            _ => throw new InvalidOperationException(),
+            _ => throw new NotSupportedException(),
         };
     }
 }

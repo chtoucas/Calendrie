@@ -23,24 +23,21 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         : base(schema, supportedYears) { }
 
     [Pure]
-    public sealed override Yemoda AddYears(Yemoda ymd, int years)
+    public sealed override Yemoda AddYears(int y, int m, int d, int years)
     {
-        ymd.Unpack(out int y, out int m, out int d);
+        int newY = checked(y + years);
+        YearsValidator.CheckOverflow(newY);
 
-        y = checked(y + years);
-        YearsValidator.CheckOverflow(y);
         // NB: AdditionRule.Truncate.
-        m = Math.Min(m, Schema.CountMonthsInYear(y));
-        d = Math.Min(d, Schema.CountDaysInMonth(y, m));
-        return new Yemoda(y, m, d);
+        int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
+        int newD = Math.Min(d, Schema.CountDaysInMonth(newY, newM));
+        return new Yemoda(newY, newM, newD);
     }
 
     /// <inheritdoc />
     [Pure]
-    public sealed override Yemoda AddYears(Yemoda ymd, int years, out int roundoff)
+    public sealed override Yemoda AddYears(int y, int m, int d, int years, out int roundoff)
     {
-        ymd.Unpack(out int y, out int m, out int d);
-
         int newY = checked(y + years);
         YearsValidator.CheckOverflow(newY);
 
@@ -58,50 +55,22 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
             {
                 roundoff += sch.CountDaysInMonth(y, i);
             }
-            m = monthsInYear;
-            int daysInMonth = sch.CountDaysInMonth(newY, m);
+            int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
             roundoff += Math.Max(0, d - daysInMonth);
-            return new Yemoda(newY, m, roundoff > 0 ? daysInMonth : d);
+            return new Yemoda(newY, monthsInYear, roundoff == 0 ? d : daysInMonth);
         }
         else
         {
             int daysInMonth = sch.CountDaysInMonth(newY, m);
             roundoff = Math.Max(0, d - daysInMonth);
-            return new Yemoda(newY, m, roundoff > 0 ? daysInMonth : d);
+            return new Yemoda(newY, m, roundoff == 0 ? d : daysInMonth);
         }
     }
 
-    [Pure]
-    public sealed override Yemoda AddMonths(Yemoda ymd, int months)
-    {
-        int d = ymd.Day;
-
-        // NB: AddMonths() is validating.
-        var (y, m) = AddMonths(ymd.Yemo, months);
-        // NB: AdditionRule.Truncate.
-        d = Math.Min(d, Schema.CountDaysInMonth(y, m));
-        return new Yemoda(y, m, d);
-    }
-
     /// <inheritdoc />
     [Pure]
-    public sealed override Yemoda AddMonths(Yemoda ymd, int months, out int roundoff)
+    public sealed override Yemo AddMonths(int y, int m, int months)
     {
-        int d = ymd.Day;
-
-        // NB: AddMonths() is validating.
-        var (y, m) = AddMonths(ymd.Yemo, months);
-        int daysInMonth = Schema.CountDaysInMonth(y, m);
-        roundoff = Math.Max(0, d - daysInMonth);
-        return new Yemoda(y, m, roundoff > 0 ? daysInMonth : d);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override Yemo AddMonths(Yemo ym, int months)
-    {
-        ym.Unpack(out int y, out int m);
-
         int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
         MonthsSinceEpochValidator.CheckOverflow(monthsSinceEpoch);
 
@@ -115,6 +84,9 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         start.Unpack(out int y0, out int m0);
         end.Unpack(out int y1, out int m1);
 
-        return Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0);
+        checked
+        {
+            return Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0);
+        }
     }
 }

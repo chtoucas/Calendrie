@@ -114,28 +114,61 @@ public abstract class CalendricalArithmetic
     // Non-standard operations on Yemoda
     //
 
-
-    [Pure] public abstract Yemoda AddYears(Yemoda ymd, int years);
-
     /// <summary>
-    /// Adds a number of years to the year field of the specified date.
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
     /// </summary>
     /// <returns>The end of the target month (resp. year) when the naive result
     /// is not a valid day (resp. month).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported values.</exception>
-    [Pure] public abstract Yemoda AddYears(Yemoda ymd, int years, out int roundoff);
-
-    [Pure] public abstract Yemoda AddMonths(Yemoda ymd, int months);
+    [Pure] public abstract Yemoda AddYears(int y, int m, int d, int years);
 
     /// <summary>
-    /// Adds a number of months to the specified date.
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
+    /// </summary>
+    /// <returns>The end of the target month (resp. year) when the naive result
+    /// is not a valid day (resp. month).</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported values.</exception>
+    [Pure] public abstract Yemoda AddYears(int y, int m, int d, int years, out int roundoff);
+
+    /// <summary>
+    /// Adds a number of months to the specified date, yielding a new date.
     /// </summary>
     /// <returns>The last day of the month when the naive result is not a valid
     /// day (roundoff > 0).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported values.</exception>
-    [Pure] public abstract Yemoda AddMonths(Yemoda ymd, int months, out int roundoff);
+    [Pure]
+    public Yemoda AddMonths(int y, int m, int d, int months)
+    {
+        // NB: AddMonths() is validating.
+        var (newY, newM) = AddMonths(y, m, months);
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, Schema.CountDaysInMonth(newY, newM));
+        return new Yemoda(newY, newM, newD);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the specified date, yielding a new date.
+    /// </summary>
+    /// <returns>The last day of the month when the naive result is not a valid
+    /// day (roundoff > 0).</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported values.</exception>
+    [Pure]
+    public Yemoda AddMonths(int y, int m, int d, int months, out int roundoff)
+    {
+        // NB: AddMonths() is validating.
+        var (newY, newM) = AddMonths(y, m, months);
+
+        int daysInMonth = Schema.CountDaysInMonth(newY, newM);
+        roundoff = Math.Max(0, d - daysInMonth);
+        return new Yemoda(newY, newM, roundoff == 0 ? d : daysInMonth);
+    }
 
     //
     // Standard operations on Yemo
@@ -146,7 +179,7 @@ public abstract class CalendricalArithmetic
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported values.</exception>
-    [Pure] public abstract Yemo AddMonths(Yemo ym, int months);
+    [Pure] public abstract Yemo AddMonths(int y, int m, int months);
 
     /// <summary>
     /// Counts the number of months between the two specified months.

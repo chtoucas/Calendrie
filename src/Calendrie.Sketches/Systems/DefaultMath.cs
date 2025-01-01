@@ -3,7 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Core;
 using Calendrie.Hemerology;
 
 /// <summary>
@@ -37,7 +36,7 @@ public sealed class DefaultMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
 
         var (y, m, d) = date;
         // NB: Arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = Arithmetic.AddYears(new Yemoda(y, m, d), years);
+        var (newY, newM, newD) = Arithmetic.AddYears(y, m, d, years);
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
@@ -51,7 +50,7 @@ public sealed class DefaultMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
 
         var (y, m, d) = date;
         // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = Arithmetic.AddMonths(new Yemoda(y, m, d), months);
+        var (newY, newM, newD) = Arithmetic.AddMonths(y, m, d, months);
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
