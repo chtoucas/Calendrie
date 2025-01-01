@@ -79,7 +79,7 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         ym.Unpack(out int y, out int m);
 
         int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
-        MonthsValidator.CheckOverflow(monthsSinceEpoch);
+        MonthsSinceEpochValidator.CheckOverflow(monthsSinceEpoch);
 
         return Schema.GetMonthParts(monthsSinceEpoch);
     }

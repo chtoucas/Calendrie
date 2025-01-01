@@ -31,8 +31,8 @@ public abstract partial class NakedArithmetic
         Schema = segment.Schema;
         PartsAdapter = new PartsAdapter(Schema);
 
-        DaysValidator = new RangeValidator(segment.SupportedDays);
-        MonthsValidator = new RangeValidator(segment.SupportedMonths);
+        DaysSinceEpochValidator = new RangeValidator(segment.SupportedDays);
+        MonthsSinceEpochValidator = new RangeValidator(segment.SupportedMonths);
         YearsValidator = new YearsValidator(segment.SupportedYears);
     }
 
@@ -54,12 +54,12 @@ public abstract partial class NakedArithmetic
     /// <summary>
     /// Gets the validator for the range of supported days.
     /// </summary>
-    protected RangeValidator DaysValidator { get; }
+    protected RangeValidator DaysSinceEpochValidator { get; }
 
     /// <summary>
     /// Gets the validator for the range of supported months.
     /// </summary>
-    protected RangeValidator MonthsValidator { get; }
+    protected RangeValidator MonthsSinceEpochValidator { get; }
 
     /// <summary>
     /// Gets the validator for the range of supported years.

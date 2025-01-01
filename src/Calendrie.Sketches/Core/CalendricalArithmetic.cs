@@ -73,7 +73,7 @@ public abstract class CalendricalArithmetic
         var seg = CalendricalSegment.Create(schema, supportedYears);
 
         YearsValidator = new RangeValidator(supportedYears);
-        MonthsValidator = new RangeValidator(seg.SupportedMonths);
+        MonthsSinceEpochValidator = new RangeValidator(seg.SupportedMonths);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public abstract class CalendricalArithmetic
     /// <summary>
     /// Gets the validator for the  range of supported months.
     /// </summary>
-    protected RangeValidator MonthsValidator { get; }
+    protected RangeValidator MonthsSinceEpochValidator { get; }
 
     /// <summary>
     /// Gets the validator for the  range of supported years.
