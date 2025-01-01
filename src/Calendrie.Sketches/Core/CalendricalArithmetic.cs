@@ -7,12 +7,6 @@ using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
 
-// TODO(doc): Explain why we require ranges of complete years.
-// YearsValidator, IYearsValidator or RangeValidator? Leaning towards
-// RangeValidator as the exn messages are not tied to Dates.
-// Improve PlainArithmetic.
-// Custom version for the Gregorian/Julian schema?
-
 #region Developer Notes
 
 // Types Derived from SystemArithmetic
