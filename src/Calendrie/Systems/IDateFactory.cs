@@ -11,8 +11,6 @@ namespace Calendrie.Systems;
 /// Defines static factory methods for the <typeparamref name="TDate"/> type.
 /// <para>This interface can ONLY be implemented from within friend assemblies.
 /// </para>
-/// <para>This interface SHOULD NOT be implemented by date types participating
-/// in a poly-calendar system.</para>
 /// </summary>
 /// <typeparam name="TDate">The date type.</typeparam>
 public interface IDateFactory<TDate>

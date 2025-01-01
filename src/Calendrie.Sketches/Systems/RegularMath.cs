@@ -14,8 +14,7 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed class RegularMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
-    where TDate :
-        struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>, ICalendarBound<TCalendar>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="RegularMath{TCalendar, TDate}"/>
@@ -33,7 +32,7 @@ public sealed class RegularMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
     [Pure]
     public sealed override TDate AddYears(TDate date, int years)
     {
-        var chr = TDate.Calendar;
+        var chr = Calendar;
         var scope = chr.Scope;
         var sch = scope.Schema;
 
@@ -51,7 +50,7 @@ public sealed class RegularMath<TCalendar, TDate> : CalendarMath<TCalendar, TDat
     [Pure]
     public sealed override TDate AddMonths(TDate date, int months)
     {
-        var chr = TDate.Calendar;
+        var chr = Calendar;
         var scope = chr.Scope;
         var sch = scope.Schema;
 

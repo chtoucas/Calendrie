@@ -15,8 +15,7 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
-    where TDate :
-        struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>, ICalendarBound<TCalendar>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PowerMath{TCalendar, TDate}"/>
@@ -31,7 +30,7 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     [Pure]
     public sealed override TDate AddYears(TDate date, int years)
     {
-        var sch = TDate.Calendar.Scope.Schema;
+        var sch = Calendar.Scope.Schema;
 
         var (y, m, d) = date;
         var (newY, newM, newD) = Arithmetic.AddYears(new Yemoda(y, m, d), years, out int roundoff);
@@ -48,7 +47,7 @@ public sealed class PowerMath<TCalendar, TDate> : CalendarMath<TCalendar, TDate>
     [Pure]
     public sealed override TDate AddMonths(TDate date, int months)
     {
-        var sch = TDate.Calendar.Scope.Schema;
+        var sch = Calendar.Scope.Schema;
 
         var (y, m, d) = date;
         var (newY, newM, newD) = Arithmetic.AddMonths(new Yemoda(y, m, d), months, out int roundoff);

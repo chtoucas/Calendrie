@@ -5,18 +5,17 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-// FIXME(code): math
-// - ICalendarBound (naming)
-// - CivilDate (interface)
-// - CalendarScope.YearsValidator (public)
-// - Calendar.IsRegular()
-
 /// <summary>
-/// Defines a type with a companion calendar system.
+/// Defines a date type.
 /// </summary>
+/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 /// <typeparam name="TCalendar">The companion calendar type.</typeparam>
-public interface ICalendarBound<TCalendar>
+public interface IDate<TSelf, out TCalendar> :
+    IDateable,
+    IAbsoluteDate<TSelf>,
+    IDateFactory<TSelf>
     where TCalendar : Calendar
+    where TSelf : IDate<TSelf, TCalendar>
 {
     /// <summary>
     /// Gets the calendar to which belongs the current date type.

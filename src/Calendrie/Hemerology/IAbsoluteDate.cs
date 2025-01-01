@@ -19,6 +19,8 @@ using static Calendrie.Core.CalendricalConstants;
 // Pour des types date partagés par plusieurs calendriers, on utilisera plutôt
 // une propriété non-statique Calendar et on ajoutera une méthode
 // WithCalendar(newCalendar) pour l'interconversion.
+// Si ça devait se faire, on pourrait créer une interface intermédiaire
+// IAbsoluteDateBase<TSelf>.
 
 #region Developer Notes
 
@@ -290,7 +292,7 @@ public interface IAbsoluteDate
 /// Defines a absolute date type.
 /// <para>A date is said to be <i>absolute</i> if it's attached to a global
 /// timeline. In this project, it means that it can be mapped to a
-/// <see cref="Calendrie.DayNumber"/>.
+/// <see cref="DayNumber"/>.
 /// </para>
 /// </summary>
 /// <typeparam name="TSelf">The date type that implements this interface.

@@ -6,14 +6,17 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
+// FIXME(code): math
+// - CalendarScope.YearsValidator (public)
+// - Calendar.IsRegular()
+
 /// <summary>
 /// Defines the non-standard mathematical operations suitable for use with a
 /// given calendar and provides a base for derived classes.
 /// </summary>
 public abstract class CalendarMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
-    where TDate :
-        struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>, ICalendarBound<TCalendar>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
