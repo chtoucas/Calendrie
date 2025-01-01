@@ -1,4 +1,8 @@
 ﻿#nullable enable
+abstract Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int months) -> Calendrie.Core.Yemo
+abstract Calendrie.Core.CalendricalArithmetic.AddYears(int y, int m, int d, int years) -> Calendrie.Core.Yemoda
+abstract Calendrie.Core.CalendricalArithmetic.AddYears(int y, int m, int d, int years, out int roundoff) -> Calendrie.Core.Yemoda
+abstract Calendrie.Core.CalendricalArithmetic.CountMonthsBetween(Calendrie.Core.Yemo start, Calendrie.Core.Yemo end) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInMonth(int y, int m) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInYear(int y) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
@@ -39,6 +43,13 @@ Calendrie.CalendricalFamily.Lunar = 3 -> Calendrie.CalendricalFamily
 Calendrie.CalendricalFamily.Lunisolar = 4 -> Calendrie.CalendricalFamily
 Calendrie.CalendricalFamily.Other = 0 -> Calendrie.CalendricalFamily
 Calendrie.CalendricalFamily.Solar = 2 -> Calendrie.CalendricalFamily
+Calendrie.Core.CalendricalArithmetic
+Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months) -> Calendrie.Core.Yemoda
+Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months, out int roundoff) -> Calendrie.Core.Yemoda
+Calendrie.Core.CalendricalArithmetic.CalendricalArithmetic(Calendrie.Core.LimitSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> void
+Calendrie.Core.CalendricalArithmetic.MonthsSinceEpochChecker.get -> Calendrie.Core.OverflowChecker!
+Calendrie.Core.CalendricalArithmetic.Schema.get -> Calendrie.Core.LimitSchema!
+Calendrie.Core.CalendricalArithmetic.YearsChecker.get -> Calendrie.Core.OverflowChecker!
 Calendrie.Core.CalendricalConstants
 Calendrie.Core.CalendricalSchema
 Calendrie.Core.CalendricalSchema.Algorithm.get -> Calendrie.CalendricalAlgorithm
@@ -270,6 +281,12 @@ Calendrie.Core.LimitSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.Y
 Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
 Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
 Calendrie.Core.LimitSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
+Calendrie.Core.OverflowChecker
+Calendrie.Core.OverflowChecker.CheckOverflow(int value) -> void
+Calendrie.Core.OverflowChecker.MaxValue.get -> int
+Calendrie.Core.OverflowChecker.MinValue.get -> int
+Calendrie.Core.OverflowChecker.OverflowChecker(Calendrie.Core.Intervals.Range<int> range) -> void
+Calendrie.Core.OverflowChecker.Range.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.PartsAdapter
 Calendrie.Core.PartsAdapter.GetDateParts(int daysSinceEpoch) -> Calendrie.DateParts
 Calendrie.Core.PartsAdapter.GetDateParts(int y, int doy) -> Calendrie.DateParts
@@ -507,8 +524,10 @@ Calendrie.Systems.Armenian13Date.CompareTo(Calendrie.Systems.Armenian13Date othe
 Calendrie.Systems.Armenian13Date.CountDaysSince(Calendrie.Systems.Armenian13Date other) -> int
 Calendrie.Systems.Armenian13Date.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.Armenian13Date.CountElapsedDaysInYear() -> int
+Calendrie.Systems.Armenian13Date.CountMonthsSince(Calendrie.Systems.Armenian13Date other) -> int
 Calendrie.Systems.Armenian13Date.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.Armenian13Date.CountRemainingDaysInYear() -> int
+Calendrie.Systems.Armenian13Date.CountYearsSince(Calendrie.Systems.Armenian13Date other) -> int
 Calendrie.Systems.Armenian13Date.Day.get -> int
 Calendrie.Systems.Armenian13Date.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.Armenian13Date.DayOfWeek.get -> System.DayOfWeek
@@ -526,6 +545,8 @@ Calendrie.Systems.Armenian13Date.Next(System.DayOfWeek dayOfWeek) -> Calendrie.S
 Calendrie.Systems.Armenian13Date.NextDay() -> Calendrie.Systems.Armenian13Date
 Calendrie.Systems.Armenian13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Armenian13Date
 Calendrie.Systems.Armenian13Date.PlusDays(int days) -> Calendrie.Systems.Armenian13Date
+Calendrie.Systems.Armenian13Date.PlusMonths(int months) -> Calendrie.Systems.Armenian13Date
+Calendrie.Systems.Armenian13Date.PlusYears(int years) -> Calendrie.Systems.Armenian13Date
 Calendrie.Systems.Armenian13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Armenian13Date
 Calendrie.Systems.Armenian13Date.PreviousDay() -> Calendrie.Systems.Armenian13Date
 Calendrie.Systems.Armenian13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Armenian13Date
@@ -548,8 +569,10 @@ Calendrie.Systems.ArmenianDate.CompareTo(Calendrie.Systems.ArmenianDate other) -
 Calendrie.Systems.ArmenianDate.CountDaysSince(Calendrie.Systems.ArmenianDate other) -> int
 Calendrie.Systems.ArmenianDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.ArmenianDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.ArmenianDate.CountMonthsSince(Calendrie.Systems.ArmenianDate other) -> int
 Calendrie.Systems.ArmenianDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.ArmenianDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.ArmenianDate.CountYearsSince(Calendrie.Systems.ArmenianDate other) -> int
 Calendrie.Systems.ArmenianDate.Day.get -> int
 Calendrie.Systems.ArmenianDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.ArmenianDate.DayOfWeek.get -> System.DayOfWeek
@@ -567,6 +590,8 @@ Calendrie.Systems.ArmenianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Sys
 Calendrie.Systems.ArmenianDate.NextDay() -> Calendrie.Systems.ArmenianDate
 Calendrie.Systems.ArmenianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.ArmenianDate
 Calendrie.Systems.ArmenianDate.PlusDays(int days) -> Calendrie.Systems.ArmenianDate
+Calendrie.Systems.ArmenianDate.PlusMonths(int months) -> Calendrie.Systems.ArmenianDate
+Calendrie.Systems.ArmenianDate.PlusYears(int years) -> Calendrie.Systems.ArmenianDate
 Calendrie.Systems.ArmenianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.ArmenianDate
 Calendrie.Systems.ArmenianDate.PreviousDay() -> Calendrie.Systems.ArmenianDate
 Calendrie.Systems.ArmenianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.ArmenianDate
@@ -600,8 +625,10 @@ Calendrie.Systems.CivilDate.CompareTo(Calendrie.Systems.CivilDate other) -> int
 Calendrie.Systems.CivilDate.CountDaysSince(Calendrie.Systems.CivilDate other) -> int
 Calendrie.Systems.CivilDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.CivilDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.CivilDate.CountMonthsSince(Calendrie.Systems.CivilDate other) -> int
 Calendrie.Systems.CivilDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.CivilDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.CivilDate.CountYearsSince(Calendrie.Systems.CivilDate other) -> int
 Calendrie.Systems.CivilDate.Day.get -> int
 Calendrie.Systems.CivilDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.CivilDate.DayOfWeek.get -> System.DayOfWeek
@@ -617,6 +644,8 @@ Calendrie.Systems.CivilDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.System
 Calendrie.Systems.CivilDate.NextDay() -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PlusDays(int days) -> Calendrie.Systems.CivilDate
+Calendrie.Systems.CivilDate.PlusMonths(int months) -> Calendrie.Systems.CivilDate
+Calendrie.Systems.CivilDate.PlusYears(int years) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PreviousDay() -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CivilDate
@@ -640,8 +669,10 @@ Calendrie.Systems.Coptic13Date.Coptic13Date(int year, int month, int day) -> voi
 Calendrie.Systems.Coptic13Date.CountDaysSince(Calendrie.Systems.Coptic13Date other) -> int
 Calendrie.Systems.Coptic13Date.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.Coptic13Date.CountElapsedDaysInYear() -> int
+Calendrie.Systems.Coptic13Date.CountMonthsSince(Calendrie.Systems.Coptic13Date other) -> int
 Calendrie.Systems.Coptic13Date.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.Coptic13Date.CountRemainingDaysInYear() -> int
+Calendrie.Systems.Coptic13Date.CountYearsSince(Calendrie.Systems.Coptic13Date other) -> int
 Calendrie.Systems.Coptic13Date.Day.get -> int
 Calendrie.Systems.Coptic13Date.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.Coptic13Date.DayOfWeek.get -> System.DayOfWeek
@@ -659,6 +690,8 @@ Calendrie.Systems.Coptic13Date.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Sys
 Calendrie.Systems.Coptic13Date.NextDay() -> Calendrie.Systems.Coptic13Date
 Calendrie.Systems.Coptic13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Coptic13Date
 Calendrie.Systems.Coptic13Date.PlusDays(int days) -> Calendrie.Systems.Coptic13Date
+Calendrie.Systems.Coptic13Date.PlusMonths(int months) -> Calendrie.Systems.Coptic13Date
+Calendrie.Systems.Coptic13Date.PlusYears(int years) -> Calendrie.Systems.Coptic13Date
 Calendrie.Systems.Coptic13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Coptic13Date
 Calendrie.Systems.Coptic13Date.PreviousDay() -> Calendrie.Systems.Coptic13Date
 Calendrie.Systems.Coptic13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Coptic13Date
@@ -681,8 +714,10 @@ Calendrie.Systems.CopticDate.CopticDate(int year, int month, int day) -> void
 Calendrie.Systems.CopticDate.CountDaysSince(Calendrie.Systems.CopticDate other) -> int
 Calendrie.Systems.CopticDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.CopticDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.CopticDate.CountMonthsSince(Calendrie.Systems.CopticDate other) -> int
 Calendrie.Systems.CopticDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.CopticDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.CopticDate.CountYearsSince(Calendrie.Systems.CopticDate other) -> int
 Calendrie.Systems.CopticDate.Day.get -> int
 Calendrie.Systems.CopticDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.CopticDate.DayOfWeek.get -> System.DayOfWeek
@@ -700,6 +735,8 @@ Calendrie.Systems.CopticDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Syste
 Calendrie.Systems.CopticDate.NextDay() -> Calendrie.Systems.CopticDate
 Calendrie.Systems.CopticDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CopticDate
 Calendrie.Systems.CopticDate.PlusDays(int days) -> Calendrie.Systems.CopticDate
+Calendrie.Systems.CopticDate.PlusMonths(int months) -> Calendrie.Systems.CopticDate
+Calendrie.Systems.CopticDate.PlusYears(int years) -> Calendrie.Systems.CopticDate
 Calendrie.Systems.CopticDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CopticDate
 Calendrie.Systems.CopticDate.PreviousDay() -> Calendrie.Systems.CopticDate
 Calendrie.Systems.CopticDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CopticDate
@@ -719,8 +756,10 @@ Calendrie.Systems.Ethiopic13Date.CompareTo(Calendrie.Systems.Ethiopic13Date othe
 Calendrie.Systems.Ethiopic13Date.CountDaysSince(Calendrie.Systems.Ethiopic13Date other) -> int
 Calendrie.Systems.Ethiopic13Date.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.Ethiopic13Date.CountElapsedDaysInYear() -> int
+Calendrie.Systems.Ethiopic13Date.CountMonthsSince(Calendrie.Systems.Ethiopic13Date other) -> int
 Calendrie.Systems.Ethiopic13Date.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.Ethiopic13Date.CountRemainingDaysInYear() -> int
+Calendrie.Systems.Ethiopic13Date.CountYearsSince(Calendrie.Systems.Ethiopic13Date other) -> int
 Calendrie.Systems.Ethiopic13Date.Day.get -> int
 Calendrie.Systems.Ethiopic13Date.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.Ethiopic13Date.DayOfWeek.get -> System.DayOfWeek
@@ -741,6 +780,8 @@ Calendrie.Systems.Ethiopic13Date.Next(System.DayOfWeek dayOfWeek) -> Calendrie.S
 Calendrie.Systems.Ethiopic13Date.NextDay() -> Calendrie.Systems.Ethiopic13Date
 Calendrie.Systems.Ethiopic13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Ethiopic13Date
 Calendrie.Systems.Ethiopic13Date.PlusDays(int days) -> Calendrie.Systems.Ethiopic13Date
+Calendrie.Systems.Ethiopic13Date.PlusMonths(int months) -> Calendrie.Systems.Ethiopic13Date
+Calendrie.Systems.Ethiopic13Date.PlusYears(int years) -> Calendrie.Systems.Ethiopic13Date
 Calendrie.Systems.Ethiopic13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Ethiopic13Date
 Calendrie.Systems.Ethiopic13Date.PreviousDay() -> Calendrie.Systems.Ethiopic13Date
 Calendrie.Systems.Ethiopic13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Ethiopic13Date
@@ -760,8 +801,10 @@ Calendrie.Systems.EthiopicDate.CompareTo(Calendrie.Systems.EthiopicDate other) -
 Calendrie.Systems.EthiopicDate.CountDaysSince(Calendrie.Systems.EthiopicDate other) -> int
 Calendrie.Systems.EthiopicDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.EthiopicDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.EthiopicDate.CountMonthsSince(Calendrie.Systems.EthiopicDate other) -> int
 Calendrie.Systems.EthiopicDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.EthiopicDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.EthiopicDate.CountYearsSince(Calendrie.Systems.EthiopicDate other) -> int
 Calendrie.Systems.EthiopicDate.Day.get -> int
 Calendrie.Systems.EthiopicDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.EthiopicDate.DayOfWeek.get -> System.DayOfWeek
@@ -782,6 +825,8 @@ Calendrie.Systems.EthiopicDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Sys
 Calendrie.Systems.EthiopicDate.NextDay() -> Calendrie.Systems.EthiopicDate
 Calendrie.Systems.EthiopicDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.EthiopicDate
 Calendrie.Systems.EthiopicDate.PlusDays(int days) -> Calendrie.Systems.EthiopicDate
+Calendrie.Systems.EthiopicDate.PlusMonths(int months) -> Calendrie.Systems.EthiopicDate
+Calendrie.Systems.EthiopicDate.PlusYears(int years) -> Calendrie.Systems.EthiopicDate
 Calendrie.Systems.EthiopicDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.EthiopicDate
 Calendrie.Systems.EthiopicDate.PreviousDay() -> Calendrie.Systems.EthiopicDate
 Calendrie.Systems.EthiopicDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.EthiopicDate
@@ -801,8 +846,10 @@ Calendrie.Systems.GregorianDate.CompareTo(Calendrie.Systems.GregorianDate other)
 Calendrie.Systems.GregorianDate.CountDaysSince(Calendrie.Systems.GregorianDate other) -> int
 Calendrie.Systems.GregorianDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.GregorianDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.GregorianDate.CountMonthsSince(Calendrie.Systems.GregorianDate other) -> int
 Calendrie.Systems.GregorianDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.GregorianDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.GregorianDate.CountYearsSince(Calendrie.Systems.GregorianDate other) -> int
 Calendrie.Systems.GregorianDate.Day.get -> int
 Calendrie.Systems.GregorianDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.GregorianDate.DayOfWeek.get -> System.DayOfWeek
@@ -821,6 +868,8 @@ Calendrie.Systems.GregorianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Sy
 Calendrie.Systems.GregorianDate.NextDay() -> Calendrie.Systems.GregorianDate
 Calendrie.Systems.GregorianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.GregorianDate
 Calendrie.Systems.GregorianDate.PlusDays(int days) -> Calendrie.Systems.GregorianDate
+Calendrie.Systems.GregorianDate.PlusMonths(int months) -> Calendrie.Systems.GregorianDate
+Calendrie.Systems.GregorianDate.PlusYears(int years) -> Calendrie.Systems.GregorianDate
 Calendrie.Systems.GregorianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.GregorianDate
 Calendrie.Systems.GregorianDate.PreviousDay() -> Calendrie.Systems.GregorianDate
 Calendrie.Systems.GregorianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.GregorianDate
@@ -841,8 +890,10 @@ Calendrie.Systems.JulianDate.CompareTo(Calendrie.Systems.JulianDate other) -> in
 Calendrie.Systems.JulianDate.CountDaysSince(Calendrie.Systems.JulianDate other) -> int
 Calendrie.Systems.JulianDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.JulianDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.JulianDate.CountMonthsSince(Calendrie.Systems.JulianDate other) -> int
 Calendrie.Systems.JulianDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.JulianDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.JulianDate.CountYearsSince(Calendrie.Systems.JulianDate other) -> int
 Calendrie.Systems.JulianDate.Day.get -> int
 Calendrie.Systems.JulianDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.JulianDate.DayOfWeek.get -> System.DayOfWeek
@@ -861,6 +912,8 @@ Calendrie.Systems.JulianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.Syste
 Calendrie.Systems.JulianDate.NextDay() -> Calendrie.Systems.JulianDate
 Calendrie.Systems.JulianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.JulianDate
 Calendrie.Systems.JulianDate.PlusDays(int days) -> Calendrie.Systems.JulianDate
+Calendrie.Systems.JulianDate.PlusMonths(int months) -> Calendrie.Systems.JulianDate
+Calendrie.Systems.JulianDate.PlusYears(int years) -> Calendrie.Systems.JulianDate
 Calendrie.Systems.JulianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.JulianDate
 Calendrie.Systems.JulianDate.PreviousDay() -> Calendrie.Systems.JulianDate
 Calendrie.Systems.JulianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.JulianDate
@@ -880,8 +933,10 @@ Calendrie.Systems.TabularIslamicDate.CompareTo(Calendrie.Systems.TabularIslamicD
 Calendrie.Systems.TabularIslamicDate.CountDaysSince(Calendrie.Systems.TabularIslamicDate other) -> int
 Calendrie.Systems.TabularIslamicDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.TabularIslamicDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.TabularIslamicDate.CountMonthsSince(Calendrie.Systems.TabularIslamicDate other) -> int
 Calendrie.Systems.TabularIslamicDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.TabularIslamicDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.TabularIslamicDate.CountYearsSince(Calendrie.Systems.TabularIslamicDate other) -> int
 Calendrie.Systems.TabularIslamicDate.Day.get -> int
 Calendrie.Systems.TabularIslamicDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.TabularIslamicDate.DayOfWeek.get -> System.DayOfWeek
@@ -897,6 +952,8 @@ Calendrie.Systems.TabularIslamicDate.Next(System.DayOfWeek dayOfWeek) -> Calendr
 Calendrie.Systems.TabularIslamicDate.NextDay() -> Calendrie.Systems.TabularIslamicDate
 Calendrie.Systems.TabularIslamicDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.TabularIslamicDate
 Calendrie.Systems.TabularIslamicDate.PlusDays(int days) -> Calendrie.Systems.TabularIslamicDate
+Calendrie.Systems.TabularIslamicDate.PlusMonths(int months) -> Calendrie.Systems.TabularIslamicDate
+Calendrie.Systems.TabularIslamicDate.PlusYears(int years) -> Calendrie.Systems.TabularIslamicDate
 Calendrie.Systems.TabularIslamicDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.TabularIslamicDate
 Calendrie.Systems.TabularIslamicDate.PreviousDay() -> Calendrie.Systems.TabularIslamicDate
 Calendrie.Systems.TabularIslamicDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.TabularIslamicDate
@@ -920,8 +977,10 @@ Calendrie.Systems.WorldDate.CompareTo(Calendrie.Systems.WorldDate other) -> int
 Calendrie.Systems.WorldDate.CountDaysSince(Calendrie.Systems.WorldDate other) -> int
 Calendrie.Systems.WorldDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.WorldDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.WorldDate.CountMonthsSince(Calendrie.Systems.WorldDate other) -> int
 Calendrie.Systems.WorldDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.WorldDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.WorldDate.CountYearsSince(Calendrie.Systems.WorldDate other) -> int
 Calendrie.Systems.WorldDate.Day.get -> int
 Calendrie.Systems.WorldDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.WorldDate.DayOfWeek.get -> System.DayOfWeek
@@ -939,6 +998,8 @@ Calendrie.Systems.WorldDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.System
 Calendrie.Systems.WorldDate.NextDay() -> Calendrie.Systems.WorldDate
 Calendrie.Systems.WorldDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.WorldDate
 Calendrie.Systems.WorldDate.PlusDays(int days) -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldDate.PlusMonths(int months) -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldDate.PlusYears(int years) -> Calendrie.Systems.WorldDate
 Calendrie.Systems.WorldDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.WorldDate
 Calendrie.Systems.WorldDate.PreviousDay() -> Calendrie.Systems.WorldDate
 Calendrie.Systems.WorldDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.WorldDate
@@ -961,8 +1022,10 @@ Calendrie.Systems.Zoroastrian13Date.CompareTo(Calendrie.Systems.Zoroastrian13Dat
 Calendrie.Systems.Zoroastrian13Date.CountDaysSince(Calendrie.Systems.Zoroastrian13Date other) -> int
 Calendrie.Systems.Zoroastrian13Date.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.Zoroastrian13Date.CountElapsedDaysInYear() -> int
+Calendrie.Systems.Zoroastrian13Date.CountMonthsSince(Calendrie.Systems.Zoroastrian13Date other) -> int
 Calendrie.Systems.Zoroastrian13Date.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.Zoroastrian13Date.CountRemainingDaysInYear() -> int
+Calendrie.Systems.Zoroastrian13Date.CountYearsSince(Calendrie.Systems.Zoroastrian13Date other) -> int
 Calendrie.Systems.Zoroastrian13Date.Day.get -> int
 Calendrie.Systems.Zoroastrian13Date.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.Zoroastrian13Date.DayOfWeek.get -> System.DayOfWeek
@@ -980,6 +1043,8 @@ Calendrie.Systems.Zoroastrian13Date.Next(System.DayOfWeek dayOfWeek) -> Calendri
 Calendrie.Systems.Zoroastrian13Date.NextDay() -> Calendrie.Systems.Zoroastrian13Date
 Calendrie.Systems.Zoroastrian13Date.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Zoroastrian13Date
 Calendrie.Systems.Zoroastrian13Date.PlusDays(int days) -> Calendrie.Systems.Zoroastrian13Date
+Calendrie.Systems.Zoroastrian13Date.PlusMonths(int months) -> Calendrie.Systems.Zoroastrian13Date
+Calendrie.Systems.Zoroastrian13Date.PlusYears(int years) -> Calendrie.Systems.Zoroastrian13Date
 Calendrie.Systems.Zoroastrian13Date.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Zoroastrian13Date
 Calendrie.Systems.Zoroastrian13Date.PreviousDay() -> Calendrie.Systems.Zoroastrian13Date
 Calendrie.Systems.Zoroastrian13Date.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.Zoroastrian13Date
@@ -1002,8 +1067,10 @@ Calendrie.Systems.ZoroastrianDate.CompareTo(Calendrie.Systems.ZoroastrianDate ot
 Calendrie.Systems.ZoroastrianDate.CountDaysSince(Calendrie.Systems.ZoroastrianDate other) -> int
 Calendrie.Systems.ZoroastrianDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.ZoroastrianDate.CountElapsedDaysInYear() -> int
+Calendrie.Systems.ZoroastrianDate.CountMonthsSince(Calendrie.Systems.ZoroastrianDate other) -> int
 Calendrie.Systems.ZoroastrianDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.ZoroastrianDate.CountRemainingDaysInYear() -> int
+Calendrie.Systems.ZoroastrianDate.CountYearsSince(Calendrie.Systems.ZoroastrianDate other) -> int
 Calendrie.Systems.ZoroastrianDate.Day.get -> int
 Calendrie.Systems.ZoroastrianDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.ZoroastrianDate.DayOfWeek.get -> System.DayOfWeek
@@ -1021,6 +1088,8 @@ Calendrie.Systems.ZoroastrianDate.Next(System.DayOfWeek dayOfWeek) -> Calendrie.
 Calendrie.Systems.ZoroastrianDate.NextDay() -> Calendrie.Systems.ZoroastrianDate
 Calendrie.Systems.ZoroastrianDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.ZoroastrianDate
 Calendrie.Systems.ZoroastrianDate.PlusDays(int days) -> Calendrie.Systems.ZoroastrianDate
+Calendrie.Systems.ZoroastrianDate.PlusMonths(int months) -> Calendrie.Systems.ZoroastrianDate
+Calendrie.Systems.ZoroastrianDate.PlusYears(int years) -> Calendrie.Systems.ZoroastrianDate
 Calendrie.Systems.ZoroastrianDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.ZoroastrianDate
 Calendrie.Systems.ZoroastrianDate.PreviousDay() -> Calendrie.Systems.ZoroastrianDate
 Calendrie.Systems.ZoroastrianDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.ZoroastrianDate
@@ -1214,6 +1283,7 @@ override Calendrie.Systems.ZoroastrianDate.Equals(object? obj) -> bool
 override Calendrie.Systems.ZoroastrianDate.GetHashCode() -> int
 override Calendrie.Systems.ZoroastrianDate.ToString() -> string!
 override sealed Calendrie.Core.CalendricalSegment.ToString() -> string!
+override sealed Calendrie.Core.OverflowChecker.ToString() -> string!
 override sealed Calendrie.Core.Prototyping.NonRegularSchemaPrototype.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.RegularSchema.CountMonthsInYear(int y) -> int
 override sealed Calendrie.Core.RegularSchema.CountMonthsSinceEpoch(int y, int m) -> int
@@ -1483,6 +1553,7 @@ override sealed Calendrie.Core.Schemas.WorldSchema.IsSupplementaryDay(int y, int
 override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Systems.CalendarSystem<TDate>.CountDaysInMonth(int year, int month) -> int
 override sealed Calendrie.Systems.CalendarSystem<TDate>.CountDaysInYear(int year) -> int
+static Calendrie.Core.CalendricalArithmetic.CreateDefault(Calendrie.Core.LimitSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalArithmetic!
 static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.Create<TSchema>(Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
