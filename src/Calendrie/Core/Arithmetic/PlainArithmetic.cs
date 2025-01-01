@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Arithmetic;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Provides a plain implementation of <see cref="CalendricalArithmetic"/>.
@@ -26,7 +27,7 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years)
     {
         int newY = checked(y + years);
-        YearsChecker.CheckOverflow(newY);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
         // NB: AdditionRule.Truncate.
         int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
@@ -39,7 +40,7 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
-        YearsChecker.CheckOverflow(newY);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
         var sch = Schema;
         int monthsInYear = sch.CountMonthsInYear(newY);
@@ -72,7 +73,8 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     public sealed override Yemo AddMonths(int y, int m, int months)
     {
         int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
-        MonthsSinceEpochChecker.CheckOverflow(monthsSinceEpoch);
+        if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
 
         return Schema.GetMonthParts(monthsSinceEpoch);
     }

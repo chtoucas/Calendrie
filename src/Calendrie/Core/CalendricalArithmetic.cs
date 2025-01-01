@@ -6,40 +6,6 @@ namespace Calendrie.Core;
 using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 
-#region Developer Notes
-
-// Types Derived from SystemArithmetic
-// -----------------------------------
-//
-// SystemArithmetic [A]  (SystemSchema)
-// ├─ GregorianSystemArithmetic     (GregorianSchema)
-// ├─ LunarSystemArithmetic         (-)
-// ├─ LunisolarSystemArithmetic     (-)
-// ├─ PlainSystemArithmetic         (-)
-// ├─ RegularSystemArithmetic       (-)
-// └─ SolarSystemArithmetic [A]     (-)
-//    ├─ Solar12SystemArithmetic    (-)
-//    └─ Solar13SystemArithmetic    (-)
-//
-// Annotation: [A] = abstract
-//
-// Comments
-// --------
-// SystemArithmetic is more naturally part of SystemSchema but
-// the code being the same for very different types of schemas, adding the
-// members of this interface to SystemSchema would lead to a lot of
-// duplications. Therefore this is just an implementation detail and one
-// should really use the public property ICalendricalSchema.Arithmetic.
-//
-// An implementation of SystemArithmetic should follow the rules of
-// ICalendricalSchema: no overflow, lenient methods, same range of years,
-// etc.
-//
-// All methods assume that a Yemoda (Yemo, or Yedoy) input forms a valid
-// object for the underlying schema.
-
-#endregion
-
 /// <summary>
 /// Defines the core mathematical operations on dates and months, and provides
 /// a base for derived classes.
@@ -63,10 +29,11 @@ public abstract class CalendricalArithmetic
         ArgumentNullException.ThrowIfNull(schema);
 
         Schema = schema;
-        var seg = CalendricalSegment.Create(schema, supportedYears);
 
-        YearsChecker = new OverflowChecker(supportedYears);
-        MonthsSinceEpochChecker = new OverflowChecker(seg.SupportedMonths);
+        (MinYear, MaxYear) = supportedYears.Endpoints;
+
+        var seg = CalendricalSegment.Create(schema, supportedYears);
+        (MinMonthsSinceEpoch, MaxMonthsSinceEpoch) = seg.SupportedMonths.Endpoints;
     }
 
     /// <summary>
@@ -75,14 +42,24 @@ public abstract class CalendricalArithmetic
     protected LimitSchema Schema { get; }
 
     /// <summary>
-    /// Gets the validator for the  range of supported months.
+    /// Gets the earliest supported year.
     /// </summary>
-    protected OverflowChecker MonthsSinceEpochChecker { get; }
+    protected int MinYear { get; }
 
     /// <summary>
-    /// Gets the validator for the  range of supported years.
+    /// Gets the latest supported year.
     /// </summary>
-    protected OverflowChecker YearsChecker { get; }
+    protected int MaxYear { get; }
+
+    /// <summary>
+    /// Gets the earliest supported month.
+    /// </summary>
+    protected int MinMonthsSinceEpoch { get; }
+
+    /// <summary>
+    /// Gets the latest supported month.
+    /// </summary>
+    protected int MaxMonthsSinceEpoch { get; }
 
     /// <summary>
     /// Creates the default arithmetic object for the specified schema and range
@@ -137,7 +114,7 @@ public abstract class CalendricalArithmetic
     [Pure]
     public Yemoda AddMonths(int y, int m, int d, int months)
     {
-        // NB: AddMonths() is validating.
+        // NB: AddMonths(Yemo, months) is validating and exact.
         var (newY, newM) = AddMonths(y, m, months);
 
         // NB: AdditionRule.Truncate.
@@ -155,7 +132,7 @@ public abstract class CalendricalArithmetic
     [Pure]
     public Yemoda AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        // NB: AddMonths() is validating.
+        // NB: AddMonths(Yemo, months) is validating and exact.
         var (newY, newM) = AddMonths(y, m, months);
 
         int daysInMonth = Schema.CountDaysInMonth(newY, newM);

@@ -14,6 +14,9 @@ using Calendrie.Core.Utilities;
 /// </summary>
 internal sealed class RegularArithmetic : CalendricalArithmetic
 {
+    /// <summary>
+    /// Represents the number of months in a year.
+    /// </summary>
     private readonly int _monthsInYear;
 
     /// <summary>
@@ -41,7 +44,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years)
     {
         int newY = checked(y + years);
-        YearsChecker.CheckOverflow(newY);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
         // NB: AdditionRule.Truncate.
         int newD = Math.Min(d, Schema.CountDaysInMonth(newY, m));
@@ -53,7 +56,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     public sealed override Yemoda AddYears(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
-        YearsChecker.CheckOverflow(newY);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
         int daysInMonth = Schema.CountDaysInMonth(newY, m);
         roundoff = Math.Max(0, d - daysInMonth);
@@ -67,7 +70,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
         int newY = checked(y + y0);
-        YearsChecker.CheckOverflow(newY);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
         return new Yemo(newY, newM);
     }

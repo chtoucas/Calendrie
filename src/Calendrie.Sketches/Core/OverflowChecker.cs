@@ -18,14 +18,8 @@ public sealed class OverflowChecker
     /// </summary>
     public OverflowChecker(Range<int> range)
     {
-        Range = range;
         (MinValue, MaxValue) = range.Endpoints;
     }
-
-    /// <summary>
-    /// Gets the range of supported values.
-    /// </summary>
-    public Range<int> Range { get; }
 
     /// <summary>
     /// Gets the minimum number of consecutive days from the epoch.
@@ -36,13 +30,6 @@ public sealed class OverflowChecker
     /// Gets the maximum number of consecutive days from the epoch.
     /// </summary>
     public int MaxValue { get; }
-
-    /// <summary>
-    /// Returns a culture-independent string representation of the current
-    /// instance.
-    /// </summary>
-    [Pure]
-    public sealed override string ToString() => Range.ToString();
 
     /// <summary>
     /// Checks whether the specified value is outside the range of supported

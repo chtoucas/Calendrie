@@ -47,9 +47,7 @@ Calendrie.Core.CalendricalArithmetic
 Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months) -> Calendrie.Core.Yemoda
 Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months, out int roundoff) -> Calendrie.Core.Yemoda
 Calendrie.Core.CalendricalArithmetic.CalendricalArithmetic(Calendrie.Core.LimitSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> void
-Calendrie.Core.CalendricalArithmetic.MonthsSinceEpochChecker.get -> Calendrie.Core.OverflowChecker!
 Calendrie.Core.CalendricalArithmetic.Schema.get -> Calendrie.Core.LimitSchema!
-Calendrie.Core.CalendricalArithmetic.YearsChecker.get -> Calendrie.Core.OverflowChecker!
 Calendrie.Core.CalendricalConstants
 Calendrie.Core.CalendricalSchema
 Calendrie.Core.CalendricalSchema.Algorithm.get -> Calendrie.CalendricalAlgorithm
@@ -281,12 +279,6 @@ Calendrie.Core.LimitSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.Y
 Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
 Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
 Calendrie.Core.LimitSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.OverflowChecker
-Calendrie.Core.OverflowChecker.CheckOverflow(int value) -> void
-Calendrie.Core.OverflowChecker.MaxValue.get -> int
-Calendrie.Core.OverflowChecker.MinValue.get -> int
-Calendrie.Core.OverflowChecker.OverflowChecker(Calendrie.Core.Intervals.Range<int> range) -> void
-Calendrie.Core.OverflowChecker.Range.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.PartsAdapter
 Calendrie.Core.PartsAdapter.GetDateParts(int daysSinceEpoch) -> Calendrie.DateParts
 Calendrie.Core.PartsAdapter.GetDateParts(int y, int doy) -> Calendrie.DateParts
@@ -1283,7 +1275,6 @@ override Calendrie.Systems.ZoroastrianDate.Equals(object? obj) -> bool
 override Calendrie.Systems.ZoroastrianDate.GetHashCode() -> int
 override Calendrie.Systems.ZoroastrianDate.ToString() -> string!
 override sealed Calendrie.Core.CalendricalSegment.ToString() -> string!
-override sealed Calendrie.Core.OverflowChecker.ToString() -> string!
 override sealed Calendrie.Core.Prototyping.NonRegularSchemaPrototype.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.RegularSchema.CountMonthsInYear(int y) -> int
 override sealed Calendrie.Core.RegularSchema.CountMonthsSinceEpoch(int y, int m) -> int
