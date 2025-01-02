@@ -340,28 +340,109 @@ public partial struct GregorianDate // Math
 public partial struct GregorianDate // Non-standard math ops
 {
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
     /// </summary>
     [Pure]
-    public int CountMonthsSince(GregorianDate other) => GregorianCalendar.CountMonthsBetween(other, this);
+    public GregorianDate PlusYears(int years)
+    {
+        var (y, m, d) = this;
+        return AddYears(y, m, d, years);
+    }
 
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
     /// </summary>
     [Pure]
-    public GregorianDate PlusMonths(int months) => GregorianCalendar.AddMonths(this, months);
+    public GregorianDate PlusMonths(int months)
+    {
+        var (y, m, d) = this;
+        return AddMonths(y, m, d, months);
+    }
 
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountYearsSince(GregorianDate other) => GregorianCalendar.CountYearsBetween(other, this);
+    public int CountYearsSince(GregorianDate other)
+    {
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar years.
+        int years = Year - y0;
+
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusYears(years);
+        var newStart = AddYears(y0, m0, d0, years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
 
     /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
-    /// a new date.
+    /// Counts the number of months elapsed since the specified date.
     /// </summary>
     [Pure]
-    public GregorianDate PlusYears(int years) => GregorianCalendar.AddYears(this, years);
+    public int CountMonthsSince(GregorianDate other)
+    {
+        var (y, m, _) = this;
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar months.
+        int months = checked(GJSchema.MonthsInYear * (y - y0) + m - m0);
+
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusMonths(months);
+        var newStart = AddMonths(y0, m0, d0, months);
+
+        if (other < this)
+        {
+            if (newStart > this) months--;
+        }
+        else
+        {
+            if (newStart < this) months++;
+        }
+
+        return months;
+    }
+
+    [Pure]
+    private static GregorianDate AddYears(int y, int m, int d, int years)
+    {
+        int newY = checked(y + years);
+        if (newY < GregorianScope.MinYear || newY > GregorianScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, GregorianFormulae.CountDaysInMonth(newY, m));
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(newY, m, newD);
+        return new GregorianDate(daysSinceZero);
+    }
+
+    [Pure]
+    private static GregorianDate AddMonths(int y, int m, int d, int months)
+    {
+        // Exact months addition to a calendar month.
+        int newM = 1 + MathZ.Modulo(
+            checked(m - 1 + months), GJSchema.MonthsInYear, out int y0);
+        int newY = checked(y + y0);
+        if (newY < GregorianScope.MinYear || newY > GregorianScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, GregorianFormulae.CountDaysInMonth(newY, newM));
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(newY, newM, newD);
+        return new GregorianDate(daysSinceZero);
+    }
 }
