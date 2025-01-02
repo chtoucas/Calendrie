@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
@@ -183,29 +184,126 @@ public partial struct CivilDate // Factories & conversions
 public partial struct CivilDate // Non-standard math ops
 {
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public int CountMonthsSince(CivilDate other) => CivilCalendar.CountMonthsBetween(other, this);
+    public CivilDate PlusYears(int years)
+    {
+        var (y, m, d) = this;
+        return AddYears(y, m, d, years);
+    }
 
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public CivilDate PlusMonths(int months) => CivilCalendar.AddMonths(this, months);
+    public CivilDate PlusMonths(int months)
+    {
+        var (y, m, d) = this;
+        return AddMonths(y, m, d, months);
+    }
 
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountYearsSince(CivilDate other) => CivilCalendar.CountYearsBetween(other, this);
+    public int CountYearsSince(CivilDate other)
+    {
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar years.
+        int years = Year - y0;
+
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusYears(years);
+        var newStart = AddYears(y0, m0, d0, years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
+
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(CivilDate other)
+    {
+        var (y, m, _) = this;
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar months.
+        int months = checked(GJSchema.MonthsInYear * (y - y0) + m - m0);
+
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusMonths(months);
+        var newStart = AddMonths(y0, m0, d0, months);
+
+        if (other < this)
+        {
+            if (newStart > this) months--;
+        }
+        else
+        {
+            if (newStart < this) months++;
+        }
+
+        return months;
+    }
 
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public CivilDate PlusYears(int years) => CivilCalendar.AddYears(this, years);
+    private static CivilDate AddYears(int y, int m, int d, int years)
+    {
+        int newY = checked(y + years);
+        if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, GregorianFormulae.CountDaysInMonth(newY, m));
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(newY, m, newD);
+        return new CivilDate(daysSinceZero);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private static CivilDate AddMonths(int y, int m, int d, int months)
+    {
+        // Exact addition of months to a calendar month.
+        int newM = 1 + MathZ.Modulo(
+            checked(m - 1 + months), GJSchema.MonthsInYear, out int y0);
+        int newY = checked(y + y0);
+        if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, GregorianFormulae.CountDaysInMonth(newY, newM));
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(newY, newM, newD);
+        return new CivilDate(daysSinceZero);
+    }
 }
 

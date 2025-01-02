@@ -343,6 +343,8 @@ public partial struct GregorianDate // Non-standard math ops
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
     public GregorianDate PlusYears(int years)
     {
@@ -354,6 +356,8 @@ public partial struct GregorianDate // Non-standard math ops
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
     public GregorianDate PlusMonths(int months)
     {
@@ -415,6 +419,12 @@ public partial struct GregorianDate // Non-standard math ops
         return months;
     }
 
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
     private static GregorianDate AddYears(int y, int m, int d, int years)
     {
@@ -429,10 +439,16 @@ public partial struct GregorianDate // Non-standard math ops
         return new GregorianDate(daysSinceZero);
     }
 
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
     private static GregorianDate AddMonths(int y, int m, int d, int months)
     {
-        // Exact months addition to a calendar month.
+        // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(
             checked(m - 1 + months), GJSchema.MonthsInYear, out int y0);
         int newY = checked(y + y0);
