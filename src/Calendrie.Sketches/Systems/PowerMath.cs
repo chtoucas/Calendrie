@@ -22,7 +22,7 @@ public sealed class PowerMath<TCalendar, TDate>
     /// <summary>
     /// Represents the calendrical arithmetic.
     /// </summary>
-    private readonly ICalendricalArithmetic _arithmetic;
+    private readonly CalendricalArithmetic _arithmetic;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PowerMath{TCalendar, TDate}"/>
@@ -39,7 +39,7 @@ public sealed class PowerMath<TCalendar, TDate>
 
         var scope = calendar.Scope;
         _arithmetic = scope.Schema is LimitSchema sch
-            ? Arithmetic.CalendricalArithmetic.CreateDefault(sch)
+            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
             : throw new NotSupportedException();
     }
 
