@@ -23,7 +23,7 @@ public sealed class DefaultMath<TCalendar, TDate>
     /// <summary>
     /// Represents the calendrical arithmetic.
     /// </summary>
-    private readonly CalendricalArithmetic _arithmetic;
+    private readonly ICalendricalArithmetic _arithmetic;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DefaultMath{TCalendar, TDate}"/>
@@ -39,7 +39,7 @@ public sealed class DefaultMath<TCalendar, TDate>
 
         var scope = calendar.Scope;
         _arithmetic = scope.Schema is LimitSchema sch
-            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
+            ? Arithmetic.CalendricalArithmetic.CreateDefault(sch)
             : throw new NotSupportedException();
     }
 

@@ -6,6 +6,8 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
+// FIXME(code): no longer works with Gregorian/Julian calendars.
+
 /// <summary>
 /// Defines the non-standard mathematical operations suitable for use with a
 /// given calendar.
@@ -20,7 +22,7 @@ public sealed class PowerMath<TCalendar, TDate>
     /// <summary>
     /// Represents the calendrical arithmetic.
     /// </summary>
-    private readonly CalendricalArithmetic _arithmetic;
+    private readonly ICalendricalArithmetic _arithmetic;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PowerMath{TCalendar, TDate}"/>
@@ -37,7 +39,7 @@ public sealed class PowerMath<TCalendar, TDate>
 
         var scope = calendar.Scope;
         _arithmetic = scope.Schema is LimitSchema sch
-            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
+            ? Arithmetic.CalendricalArithmetic.CreateDefault(sch)
             : throw new NotSupportedException();
     }
 

@@ -4,7 +4,9 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core;
+using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
+using Calendrie.Systems.Arithmetic;
 
 // Reasons to keep the constructor internal (system calendars and adjusters):
 // - the scope must be of type "MinMaxYearScope" but we don't enforce this
@@ -38,7 +40,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// <summary>
     /// Represents the calendrical arithmetic.
     /// </summary>
-    private readonly CalendricalArithmetic _arithmetic;
+    private readonly ICalendricalArithmetic _arithmetic;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
@@ -51,8 +53,12 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
         Debug.Assert(scope != null);
         Debug.Assert(scope.Segment.IsComplete);
 
-        _arithmetic = scope.Schema is LimitSchema sch
-            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
+        var schema = scope.Schema;
+
+        _arithmetic =
+            schema is GregorianSchema ? new GregorianArithmetic()
+            : schema is JulianSchema ? new JulianArithmetic()
+            : schema is LimitSchema sch ? CalendricalArithmetic.CreateDefault(sch)
             : throw new ArgumentException(null, nameof(scope));
     }
 

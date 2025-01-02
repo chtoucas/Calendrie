@@ -6,14 +6,6 @@ namespace Calendrie.Core;
 using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 
-// TODO(code): CalendricalArithmetic
-// - NextMonth(), PreviousMonth() & co?
-// - Move ajdustments methods StartOfYear & co to teh date type
-// - PlusYears() & other math ops should be part of an interface
-// - Optimisations here:
-//   - MinYear or MinMonthsSinceEpoch = 0 -> uint for range checks
-//   -
-
 /// <summary>
 /// Defines the core mathematical operations on dates and months, and provides
 /// a base for derived classes.
