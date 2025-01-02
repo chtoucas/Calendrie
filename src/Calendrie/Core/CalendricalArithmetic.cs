@@ -6,6 +6,14 @@ namespace Calendrie.Core;
 using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 
+// TODO(code): CalendricalArithmetic
+// - NextMonth(), PreviousMonth() & co?
+// - Move ajdustments methods StartOfYear & co to teh date type
+// - PlusYears() & other math ops should be part of an interface
+// - Optimisations here:
+//   - MinYear or MinMonthsSinceEpoch = 0 -> uint for range checks
+//   -
+
 /// <summary>
 /// Defines the core mathematical operations on dates and months, and provides
 /// a base for derived classes.
@@ -81,8 +89,18 @@ public abstract class CalendricalArithmetic
     }
 
     //
-    // Non-standard operations on Yemoda
+    // Operations on "Yemoda"
     //
+    // Non-standard ops, those using the year or month units:
+    // - AddYears(Yemoda, years)
+    // - AddYears(Yemoda, years, out roundoff)
+    // - AddMonths(Yemoda, months)
+    // - AddMonths(Yemoda, months, out roundoff)
+    // Of course, one can also implement the standard ops:
+    // - AddDays(Yemoda, days)
+    // - CountDaysBetween(Yemoda, Yemoda)
+    // but we don't do it here because all our date types are based on the count
+    // of days since the epoch (daysSinceEpoch) for which these ops are trivial.
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
@@ -91,7 +109,7 @@ public abstract class CalendricalArithmetic
     /// <returns>The end of the target month (resp. year) when the naive result
     /// is not a valid day (resp. month).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported values.</exception>
+    /// range of supported dates.</exception>
     [Pure] public abstract Yemoda AddYears(int y, int m, int d, int years);
 
     /// <summary>
@@ -101,7 +119,7 @@ public abstract class CalendricalArithmetic
     /// <returns>The end of the target month (resp. year) when the naive result
     /// is not a valid day (resp. month).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported values.</exception>
+    /// range of supported dates.</exception>
     [Pure] public abstract Yemoda AddYears(int y, int m, int d, int years, out int roundoff);
 
     /// <summary>
@@ -110,7 +128,7 @@ public abstract class CalendricalArithmetic
     /// <returns>The last day of the month when the naive result is not a valid
     /// day (roundoff > 0).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported values.</exception>
+    /// range of supported dates.</exception>
     [Pure]
     public Yemoda AddMonths(int y, int m, int d, int months)
     {
@@ -128,7 +146,7 @@ public abstract class CalendricalArithmetic
     /// <returns>The last day of the month when the naive result is not a valid
     /// day (roundoff > 0).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported values.</exception>
+    /// range of supported dates.</exception>
     [Pure]
     public Yemoda AddMonths(int y, int m, int d, int months, out int roundoff)
     {
@@ -141,19 +159,24 @@ public abstract class CalendricalArithmetic
     }
 
     //
-    // Standard operations on Yemo
+    // Operations on "Yemo"
     //
+    // The standard ops, those based on the month unit:
+    // - AddMonths(Yemo, months)
+    // - CountMonthsBetween(Yemo, Yemo)
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported values.</exception>
+    /// range of supported calendar months.</exception>
     [Pure] public abstract Yemo AddMonths(int y, int m, int months);
 
     /// <summary>
     /// Counts the number of months between the two specified months.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported calendar months.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "F# & VB.NET End statement.")]
     [Pure] public abstract int CountMonthsBetween(Yemo start, Yemo end);
 }

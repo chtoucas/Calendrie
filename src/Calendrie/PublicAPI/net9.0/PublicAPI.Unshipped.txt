@@ -47,6 +47,10 @@ Calendrie.Core.CalendricalArithmetic
 Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months) -> Calendrie.Core.Yemoda
 Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months, out int roundoff) -> Calendrie.Core.Yemoda
 Calendrie.Core.CalendricalArithmetic.CalendricalArithmetic(Calendrie.Core.LimitSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> void
+Calendrie.Core.CalendricalArithmetic.MaxMonthsSinceEpoch.get -> int
+Calendrie.Core.CalendricalArithmetic.MaxYear.get -> int
+Calendrie.Core.CalendricalArithmetic.MinMonthsSinceEpoch.get -> int
+Calendrie.Core.CalendricalArithmetic.MinYear.get -> int
 Calendrie.Core.CalendricalArithmetic.Schema.get -> Calendrie.Core.LimitSchema!
 Calendrie.Core.CalendricalConstants
 Calendrie.Core.CalendricalSchema

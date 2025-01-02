@@ -40,6 +40,10 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
         _monthsInYear = monthsInYear;
     }
 
+    //
+    // Operations on "Yemoda"
+    //
+
     [Pure]
     public sealed override Yemoda AddYears(int y, int m, int d, int years)
     {
@@ -64,13 +68,17 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
         return new Yemoda(newY, m, roundoff == 0 ? d : daysInMonth);
     }
 
+    //
+    // Operations on "Yemo"
+    //
+
     /// <inheritdoc />
     [Pure]
     public sealed override Yemo AddMonths(int y, int m, int months)
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
         int newY = checked(y + y0);
-        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
 
         return new Yemo(newY, newM);
     }

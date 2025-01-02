@@ -23,6 +23,10 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     public PlainArithmetic(LimitSchema schema, Range<int> supportedYears)
         : base(schema, supportedYears) { }
 
+    //
+    // Operations on "Yemoda"
+    //
+
     [Pure]
     public sealed override Yemoda AddYears(int y, int m, int d, int years)
     {
@@ -68,13 +72,17 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         }
     }
 
+    //
+    // Operations on "Yemo"
+    //
+
     /// <inheritdoc />
     [Pure]
     public sealed override Yemo AddMonths(int y, int m, int months)
     {
         int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
         if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowDateOverflow();
+            ThrowHelpers.ThrowMonthOverflow();
 
         return Schema.GetMonthParts(monthsSinceEpoch);
     }
@@ -86,9 +94,6 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         start.Unpack(out int y0, out int m0);
         end.Unpack(out int y1, out int m1);
 
-        checked
-        {
-            return Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0);
-        }
+        return checked(Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0));
     }
 }
