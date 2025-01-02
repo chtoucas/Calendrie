@@ -24,13 +24,13 @@ public sealed partial class JulianCalendar : CalendarSystem<JulianDate>
     /// Represents the earliest supported year.
     /// <para>This field is a constant equal to -999_998.</para>
     /// </summary>
-    private const int MinYear_ = ProlepticScope.MinYear;
+    private const int MinYear_ = JulianScope.MinYear;
 
     /// <summary>
     /// Represents the latest supported year.
     /// <para>This field is a constant equal to 999_999.</para>
     /// </summary>
-    private const int MaxYear_ = ProlepticScope.MaxYear;
+    private const int MaxYear_ = JulianScope.MaxYear;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/> class.
