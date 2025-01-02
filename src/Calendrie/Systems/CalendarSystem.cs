@@ -64,10 +64,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
 #if ENABLE_MATH_OPS
         var schema = scope.Schema;
 
-        _arithmetic =
-            schema is GregorianSchema ? new GregorianArithmetic()
-            : schema is JulianSchema ? new JulianArithmetic()
-            : schema is LimitSchema sch ? CalendricalArithmetic.CreateDefault(sch)
+        _arithmetic = schema is LimitSchema sch ? CalendricalArithmetic.CreateDefault(sch)
             : throw new ArgumentException(null, nameof(scope));
 #endif
     }
