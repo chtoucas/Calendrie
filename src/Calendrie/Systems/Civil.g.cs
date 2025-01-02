@@ -325,32 +325,3 @@ public partial struct CivilDate // Standard math ops
         return new(_daysSinceZero - 1);
     }
 }
-
-public partial struct CivilDate // Non-standard math ops
-{
-    /// <summary>
-    /// Counts the number of months elapsed since the specified date.
-    /// </summary>
-    [Pure]
-    public int CountMonthsSince(CivilDate other) => Calendar.CountMonthsBetween(other, this);
-
-    /// <summary>
-    /// Adds a number of months to the month field of this date instance,
-    /// yielding a new date.
-    /// </summary>
-    [Pure]
-    public CivilDate PlusMonths(int months) => Calendar.AddMonths(this, months);
-
-    /// <summary>
-    /// Counts the number of years elapsed since the specified date.
-    /// </summary>
-    [Pure]
-    public int CountYearsSince(CivilDate other) => Calendar.CountYearsBetween(other, this);
-
-    /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
-    /// a new date.
-    /// </summary>
-    [Pure]
-    public CivilDate PlusYears(int years) => Calendar.AddYears(this, years);
-}

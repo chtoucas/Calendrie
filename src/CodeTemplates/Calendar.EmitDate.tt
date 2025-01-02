@@ -13,7 +13,7 @@ public partial class CalendarTemplate
         EmitDateEquatable();
         EmitDateComparable();
         EmitDateMath();
-        EmitDateMathNonStandard();
+        //EmitDateMathNonStandard();
     }
 
     protected virtual void EmitDateDecl()

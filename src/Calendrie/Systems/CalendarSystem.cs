@@ -1,12 +1,18 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+//#define ENABLE_MATH_OPS
+
 namespace Calendrie.Systems;
 
+#if ENABLE_MATH_OPS
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 using Calendrie.Systems.Arithmetic;
+#else
+using Calendrie.Hemerology;
+#endif
 
 // Reasons to keep the constructor internal (system calendars and adjusters):
 // - the scope must be of type "MinMaxYearScope" but we don't enforce this
@@ -37,10 +43,12 @@ using Calendrie.Systems.Arithmetic;
 public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
+#if ENABLE_MATH_OPS
     /// <summary>
     /// Represents the calendrical arithmetic.
     /// </summary>
     private readonly ICalendricalArithmetic _arithmetic;
+#endif
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
@@ -53,6 +61,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
         Debug.Assert(scope != null);
         Debug.Assert(scope.Segment.IsComplete);
 
+#if ENABLE_MATH_OPS
         var schema = scope.Schema;
 
         _arithmetic =
@@ -60,6 +69,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
             : schema is JulianSchema ? new JulianArithmetic()
             : schema is LimitSchema sch ? CalendricalArithmetic.CreateDefault(sch)
             : throw new ArgumentException(null, nameof(scope));
+#endif
     }
 
 #if DEBUG
@@ -226,6 +236,7 @@ public partial class CalendarSystem<TDate> // Non-standard math ops
 {
     // TODO(code): overflows? document them if any?
 
+#if ENABLE_MATH_OPS
     /// <summary>
     /// Adds a number of years to the year field of the specified date.
     /// </summary>
@@ -320,4 +331,5 @@ public partial class CalendarSystem<TDate> // Non-standard math ops
             return TDate.UnsafeCreate(daysSinceEpoch);
         }
     }
+#endif
 }

@@ -24,28 +24,28 @@ using Calendrie.Hemerology;
 using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
-/// Represents the Armenian calendar.
+/// Represents the Pax calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
+public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianCalendar"/> class.
+    /// Initializes a new instance of the <see cref="PaxCalendar"/> class.
     /// </summary>
-    public ArmenianCalendar() : this(new Egyptian12Schema()) { }
+    public PaxCalendar() : this(new PaxSchema()) { }
 
-    private ArmenianCalendar(Egyptian12Schema schema)
-        : base("Armenian", new StandardScope(schema, DayZero.Armenian))
+    private PaxCalendar(PaxSchema schema)
+        : base("Pax", new StandardScope(schema, DayZero.SundayBeforeGregorian))
     {
         Debug.Assert(schema != null);
         Schema = schema;
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="ArmenianCalendar"/> class.
-    /// <para>See <see cref="ArmenianDate.Calendar"/>.</para>
+    /// Gets a singleton instance of the <see cref="PaxCalendar"/> class.
+    /// <para>See <see cref="PaxDate.Calendar"/>.</para>
     /// </summary>
-    internal static ArmenianCalendar Instance { get; } = new();
+    internal static PaxCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -60,64 +60,64 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     /// <summary>
     /// Gets the schema.
     /// </summary>
-    internal Egyptian12Schema Schema { get; }
+    internal PaxSchema Schema { get; }
 }
 
 /// <summary>
-/// Represents the Armenian date.
-/// <para><see cref="ArmenianDate"/> is an immutable struct.</para>
+/// Represents the Pax date.
+/// <para><see cref="PaxDate"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct ArmenianDate :
+public readonly partial struct PaxDate :
     IDateable,
-    IAbsoluteDate<ArmenianDate>,
-    IAdjustableDate<ArmenianDate>,
-    IDateFactory<ArmenianDate>,
-    ISubtractionOperators<ArmenianDate, ArmenianDate, int>
+    IAbsoluteDate<PaxDate>,
+    IAdjustableDate<PaxDate>,
+    IDateFactory<PaxDate>,
+    ISubtractionOperators<PaxDate, PaxDate, int>
 { }
 
-public partial struct ArmenianDate // Preamble
+public partial struct PaxDate // Preamble
 {
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
-    /// for the epoch <see cref="DayZero.Armenian"/>.
-    /// <para>This field is a constant equal to 201_442.</para></summary>
-    private const int EpochDaysSinceZero = 201_442;
+    /// for the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
+    /// <para>This field is a constant equal to -1.</para></summary>
+    private const int EpochDaysSinceZero = -1;
 
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
-    /// <para>This field is a constant equal to 3_649_634.</para></summary>
-    private const int MaxDaysSinceEpoch = 3_649_634;
+    /// <para>This field is a constant equal to 3_652_060.</para></summary>
+    private const int MaxDaysSinceEpoch = 3_652_060;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.Armenian"/>.
+    /// Represents the count of consecutive days since the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>
     private readonly int _daysSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianDate"/> struct
+    /// Initializes a new instance of the <see cref="PaxDate"/> struct
     /// to the specified date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid date or <paramref name="year"/> is outside the range
     /// of supported years.</exception>
-    public ArmenianDate(int year, int month, int day)
+    public PaxDate(int year, int month, int day)
     {
-        var chr = ArmenianCalendar.Instance;
+        var chr = PaxCalendar.Instance;
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianDate"/> struct
+    /// Initializes a new instance of the <see cref="PaxDate"/> struct
     /// to the specified ordinal date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid ordinal date or <paramref name="year"/> is outside
     /// the range of supported years.</exception>
-    public ArmenianDate(int year, int dayOfYear)
+    public PaxDate(int year, int dayOfYear)
     {
-        var chr = ArmenianCalendar.Instance;
+        var chr = PaxCalendar.Instance;
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
@@ -126,24 +126,24 @@ public partial struct ArmenianDate // Preamble
     /// <summary>
     /// This constructor does NOT validate its parameter.
     /// </summary>
-    internal ArmenianDate(int daysSinceEpoch)
+    internal PaxDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static ArmenianDate MinValue { get; }
+    public static PaxDate MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static ArmenianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
+    public static PaxDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static ArmenianCalendar Calendar => ArmenianCalendar.Instance;
+    public static PaxCalendar Calendar => PaxCalendar.Instance;
 
     /// <inheritdoc />
     //
@@ -246,11 +246,11 @@ public partial struct ArmenianDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct ArmenianDate // Factories & conversions
+public partial struct PaxDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static ArmenianDate FromDayNumber(DayNumber dayNumber)
+    public static PaxDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
 
@@ -260,11 +260,11 @@ public partial struct ArmenianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static ArmenianDate IDateFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static PaxDate IDateFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 
-public partial struct ArmenianDate // Counting
+public partial struct PaxDate // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -283,11 +283,11 @@ public partial struct ArmenianDate // Counting
     public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
-public partial struct ArmenianDate // Adjustments
+public partial struct PaxDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate WithYear(int newYear)
+    public PaxDate WithYear(int newYear)
     {
         var (_, m, d) = this;
 
@@ -301,7 +301,7 @@ public partial struct ArmenianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate WithMonth(int newMonth)
+    public PaxDate WithMonth(int newMonth)
     {
         var (y, _, d) = this;
 
@@ -315,7 +315,7 @@ public partial struct ArmenianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate WithDay(int newDay)
+    public PaxDate WithDay(int newDay)
     {
         var (y, m, _) = this;
 
@@ -329,7 +329,7 @@ public partial struct ArmenianDate // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate WithDayOfYear(int newDayOfYear)
+    public PaxDate WithDayOfYear(int newDayOfYear)
     {
         int y = Year;
 
@@ -342,11 +342,11 @@ public partial struct ArmenianDate // Adjustments
     }
 }
 
-public partial struct ArmenianDate // Find close by day of the week
+public partial struct PaxDate // Find close by day of the week
 {
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate Previous(DayOfWeek dayOfWeek)
+    public PaxDate Previous(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -358,7 +358,7 @@ public partial struct ArmenianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    public PaxDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -371,7 +371,7 @@ public partial struct ArmenianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate Nearest(DayOfWeek dayOfWeek)
+    public PaxDate Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
@@ -381,7 +381,7 @@ public partial struct ArmenianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate NextOrSame(DayOfWeek dayOfWeek)
+    public PaxDate NextOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -394,7 +394,7 @@ public partial struct ArmenianDate // Find close by day of the week
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate Next(DayOfWeek dayOfWeek)
+    public PaxDate Next(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -405,75 +405,75 @@ public partial struct ArmenianDate // Find close by day of the week
     }
 }
 
-public partial struct ArmenianDate // IEquatable
+public partial struct PaxDate // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(ArmenianDate left, ArmenianDate right) =>
+    public static bool operator ==(PaxDate left, PaxDate right) =>
         left._daysSinceEpoch == right._daysSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(ArmenianDate left, ArmenianDate right) =>
+    public static bool operator !=(PaxDate left, PaxDate right) =>
         left._daysSinceEpoch != right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(ArmenianDate other) => _daysSinceEpoch == other._daysSinceEpoch;
+    public bool Equals(PaxDate other) => _daysSinceEpoch == other._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is ArmenianDate date && Equals(date);
+        obj is PaxDate date && Equals(date);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _daysSinceEpoch;
 }
 
-public partial struct ArmenianDate // IComparable
+public partial struct PaxDate // IComparable
 {
     /// <inheritdoc />
-    public static bool operator <(ArmenianDate left, ArmenianDate right) =>
+    public static bool operator <(PaxDate left, PaxDate right) =>
         left._daysSinceEpoch < right._daysSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator <=(ArmenianDate left, ArmenianDate right) =>
+    public static bool operator <=(PaxDate left, PaxDate right) =>
         left._daysSinceEpoch <= right._daysSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator >(ArmenianDate left, ArmenianDate right) =>
+    public static bool operator >(PaxDate left, PaxDate right) =>
         left._daysSinceEpoch > right._daysSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator >=(ArmenianDate left, ArmenianDate right) =>
+    public static bool operator >=(PaxDate left, PaxDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static ArmenianDate Min(ArmenianDate x, ArmenianDate y) => x < y ? x : y;
+    public static PaxDate Min(PaxDate x, PaxDate y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static ArmenianDate Max(ArmenianDate x, ArmenianDate y) => x > y ? x : y;
+    public static PaxDate Max(PaxDate x, PaxDate y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(ArmenianDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
+    public int CompareTo(PaxDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is ArmenianDate date ? CompareTo(date)
-        : ThrowHelpers.ThrowNonComparable(typeof(ArmenianDate), obj);
+        : obj is PaxDate date ? CompareTo(date)
+        : ThrowHelpers.ThrowNonComparable(typeof(PaxDate), obj);
 }
 
-public partial struct ArmenianDate // Standard math ops
+public partial struct PaxDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
-    public static int operator -(ArmenianDate left, ArmenianDate right) => left.CountDaysSince(right);
+    public static int operator -(PaxDate left, PaxDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
@@ -482,7 +482,7 @@ public partial struct ArmenianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static ArmenianDate operator +(ArmenianDate value, int days) => value.PlusDays(days);
+    public static PaxDate operator +(PaxDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -491,7 +491,7 @@ public partial struct ArmenianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static ArmenianDate operator -(ArmenianDate value, int days) => value.PlusDays(-days);
+    public static PaxDate operator -(PaxDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -499,7 +499,7 @@ public partial struct ArmenianDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
-    public static ArmenianDate operator ++(ArmenianDate value) => value.NextDay();
+    public static PaxDate operator ++(PaxDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
@@ -507,18 +507,18 @@ public partial struct ArmenianDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
-    public static ArmenianDate operator --(ArmenianDate value) => value.PreviousDay();
+    public static PaxDate operator --(PaxDate value) => value.PreviousDay();
 
     /// <inheritdoc />
     [Pure]
-    public int CountDaysSince(ArmenianDate other) =>
+    public int CountDaysSince(PaxDate other) =>
         // No need to use a checked context here. Indeed, the result is at most
         // equal to (MaxDaysSinceEpoch - MinDaysSinceEpoch) ie MaxDaysSinceEpoch.
         _daysSinceEpoch - other._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate PlusDays(int days)
+    public PaxDate PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
@@ -527,7 +527,7 @@ public partial struct ArmenianDate // Standard math ops
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate NextDay()
+    public PaxDate NextDay()
     {
         if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch + 1);
@@ -535,7 +535,7 @@ public partial struct ArmenianDate // Standard math ops
 
     /// <inheritdoc />
     [Pure]
-    public ArmenianDate PreviousDay()
+    public PaxDate PreviousDay()
     {
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);

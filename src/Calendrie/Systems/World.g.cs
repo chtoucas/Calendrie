@@ -542,32 +542,3 @@ public partial struct WorldDate // Standard math ops
     }
 }
 
-public partial struct WorldDate // Non-standard math ops
-{
-    /// <summary>
-    /// Counts the number of months elapsed since the specified date.
-    /// </summary>
-    [Pure]
-    public int CountMonthsSince(WorldDate other) => Calendar.CountMonthsBetween(other, this);
-
-    /// <summary>
-    /// Adds a number of months to the month field of this date instance,
-    /// yielding a new date.
-    /// </summary>
-    [Pure]
-    public WorldDate PlusMonths(int months) => Calendar.AddMonths(this, months);
-
-    /// <summary>
-    /// Counts the number of years elapsed since the specified date.
-    /// </summary>
-    [Pure]
-    public int CountYearsSince(WorldDate other) => Calendar.CountYearsBetween(other, this);
-
-    /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
-    /// a new date.
-    /// </summary>
-    [Pure]
-    public WorldDate PlusYears(int years) => Calendar.AddYears(this, years);
-}
-
