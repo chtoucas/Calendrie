@@ -179,3 +179,33 @@ public partial struct CivilDate // Factories & conversions
     [Pure]
     public GregorianDate ToGregorianDate() => new(_daysSinceZero);
 }
+
+public partial struct CivilDate // Non-standard math ops
+{
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(CivilDate other) => CivilCalendar.CountMonthsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    [Pure]
+    public CivilDate PlusMonths(int months) => CivilCalendar.AddMonths(this, months);
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(CivilDate other) => CivilCalendar.CountYearsBetween(other, this);
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    [Pure]
+    public CivilDate PlusYears(int years) => CivilCalendar.AddYears(this, years);
+}
+

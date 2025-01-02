@@ -90,4 +90,5 @@ Les méthodes suivantes doivent être désactivées :
 - EmitDatePreamble
 - EmitCloseByDayOfWeek
 - EmitDateMath
+- EmitDateMathNonStandard
 Voir Gregorian.tt ou Julian.tt
