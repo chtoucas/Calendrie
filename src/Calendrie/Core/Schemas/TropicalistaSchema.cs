@@ -47,7 +47,8 @@ public abstract partial class TropicalistaSchema : LimitSchema
     /// Called from constructors in derived classes to initialize the
     /// <see cref="TropicalistaSchema"/> class.
     /// </summary>
-    private protected TropicalistaSchema(int minDaysInMonth) : base(DaysInCommonYear, minDaysInMonth) { }
+    private protected TropicalistaSchema(int minDaysInMonth)
+        : base(DaysInCommonYear, minDaysInMonth) { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;

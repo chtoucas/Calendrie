@@ -43,6 +43,9 @@ public class CtorTests
     [Benchmark(Description = "TabularIslamicDate")]
     public TabularIslamicDate WithTabularIslamicDate() => new(_year, _month, _day);
 
+    [Benchmark(Description = "TropicaliaDate")]
+    public TropicaliaDate WithTropicaliaDate() => new(_year, _month, _day);
+
     [Benchmark(Description = "WorldDate")]
     public WorldDate WithWorldDate() => new(_year, _month, _day);
 
