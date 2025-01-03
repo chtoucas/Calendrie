@@ -25,7 +25,7 @@ internal abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     public TCalendar Calendar { get; }
 
     [Fact]
-    public void ToString_InvariantCulture()
+    public virtual void ToString_InvariantCulture()
     {
         var date = GetDate(1, 1, 1);
         string str = FormattableString.Invariant($"01/01/0001 ({Calendar})");

@@ -86,6 +86,26 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new JulianDate(y, m, d)
 
+        override x.ToString_InvariantCulture () =
+            let date = x.GetDate(1, 1, 1);
+            let exp = FormattableString.Invariant($"01/01/0001 ({chr})");
+            date.ToString() === exp
+
+        member x.ToString_InvariantCulture2 () =
+            let date = x.GetDate(999_999, 1, 1);
+            let exp = FormattableString.Invariant($"01/01/999999 ({chr})");
+            date.ToString() === exp
+
+        member x.ToString_InvariantCulture3 () =
+            let date = x.GetDate(0, 1, 1);
+            let exp = FormattableString.Invariant($"01/01/1 BCE ({chr})");
+            date.ToString() === exp
+
+        member x.ToString_InvariantCulture4 () =
+            let date = x.GetDate(-999_998, 1, 1);
+            let exp = FormattableString.Invariant($"01/01/999999 BCE ({chr})");
+            date.ToString() === exp
+
         [<Fact>]
         static member Calendar_Prop() = JulianDate.Calendar |> isnotnull
 
