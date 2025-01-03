@@ -1,8 +1,4 @@
 ﻿#nullable enable
-abstract Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int months) -> Calendrie.Core.Yemo
-abstract Calendrie.Core.CalendricalArithmetic.AddYears(int y, int m, int d, int years) -> Calendrie.Core.Yemoda
-abstract Calendrie.Core.CalendricalArithmetic.AddYears(int y, int m, int d, int years, out int roundoff) -> Calendrie.Core.Yemoda
-abstract Calendrie.Core.CalendricalArithmetic.CountMonthsBetween(Calendrie.Core.Yemo start, Calendrie.Core.Yemo end) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInMonth(int y, int m) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInYear(int y) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
@@ -43,15 +39,6 @@ Calendrie.CalendricalFamily.Lunar = 3 -> Calendrie.CalendricalFamily
 Calendrie.CalendricalFamily.Lunisolar = 4 -> Calendrie.CalendricalFamily
 Calendrie.CalendricalFamily.Other = 0 -> Calendrie.CalendricalFamily
 Calendrie.CalendricalFamily.Solar = 2 -> Calendrie.CalendricalFamily
-Calendrie.Core.CalendricalArithmetic
-Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months) -> Calendrie.Core.Yemoda
-Calendrie.Core.CalendricalArithmetic.AddMonths(int y, int m, int d, int months, out int roundoff) -> Calendrie.Core.Yemoda
-Calendrie.Core.CalendricalArithmetic.CalendricalArithmetic(Calendrie.Core.LimitSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> void
-Calendrie.Core.CalendricalArithmetic.MaxMonthsSinceEpoch.get -> int
-Calendrie.Core.CalendricalArithmetic.MaxYear.get -> int
-Calendrie.Core.CalendricalArithmetic.MinMonthsSinceEpoch.get -> int
-Calendrie.Core.CalendricalArithmetic.MinYear.get -> int
-Calendrie.Core.CalendricalArithmetic.Schema.get -> Calendrie.Core.LimitSchema!
 Calendrie.Core.CalendricalConstants
 Calendrie.Core.CalendricalSchema
 Calendrie.Core.CalendricalSchema.Algorithm.get -> Calendrie.CalendricalAlgorithm
@@ -1548,7 +1535,6 @@ override sealed Calendrie.Core.Schemas.WorldSchema.IsSupplementaryDay(int y, int
 override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Systems.CalendarSystem<TDate>.CountDaysInMonth(int year, int month) -> int
 override sealed Calendrie.Systems.CalendarSystem<TDate>.CountDaysInYear(int year) -> int
-static Calendrie.Core.CalendricalArithmetic.CreateDefault(Calendrie.Core.LimitSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalArithmetic!
 static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.Create<TSchema>(Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
