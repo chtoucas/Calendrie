@@ -54,7 +54,6 @@ module Methods =
 
 module Bundles =
     let dateInfoData = WorldDataSet.Instance.DateInfoData
-    let moreMonthInfoData = WorldDataSet.MoreMonthInfoData
 
     [<Sealed>]
     type CalendaTests() =

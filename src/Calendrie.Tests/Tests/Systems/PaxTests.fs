@@ -44,7 +44,6 @@ module Prelude =
 
 module Bundles =
     let dateInfoData = PaxDataSet.Instance.DateInfoData
-    let moreMonthInfoData = PaxDataSet.MoreMonthInfoData
 
     [<Sealed>]
     type CalendaTests() =
