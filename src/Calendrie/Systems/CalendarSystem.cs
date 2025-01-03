@@ -73,7 +73,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     // While creating a new type, these properties prove to be useful in
     // determining the actual value of MaxDaysSinceEpoch to be used by the T4
     // template.
-    // For "standard" calendars, MinDaysSinceEpoch = 0.
+    // For "standard" calendars, MinDaysSinceEpoch and MinMonthsSinceEpoch = 0.
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.
@@ -84,6 +84,16 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// Gets the maximum value for the number of consecutive days from the epoch.
     /// </summary>
     internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
+
+    /// <summary>
+    /// Gets the minimum value for the number of consecutive months from the epoch.
+    /// </summary>
+    internal int MinMonthsSinceEpoch => Scope.Segment.SupportedMonths.Min;
+
+    /// <summary>
+    /// Gets the maximum value for the number of consecutive months from the epoch.
+    /// </summary>
+    internal int MaxMonthsSinceEpoch => Scope.Segment.SupportedMonths.Max;
 #endif
 
     /// <inheritdoc/>

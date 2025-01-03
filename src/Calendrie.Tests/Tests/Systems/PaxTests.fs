@@ -3,8 +3,6 @@
 
 module Calendrie.Tests.Systems.PaxTests
 
-#if false
-
 open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
@@ -34,6 +32,14 @@ module Prelude =
     [<Fact>]
     let ``Value of PaxCalendar.MaxDaysSinceEpoch`` () =
         PaxCalendar.Instance.MaxDaysSinceEpoch === 3_652_060
+
+    [<Fact>]
+    let ``Value of PaxCalendar.MinMonthsSinceEpoch`` () =
+        PaxCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of PaxCalendar.MaxMonthsSinceEpoch`` () =
+        PaxCalendar.Instance.MaxMonthsSinceEpoch === 131_761
 #endif
 
 module Bundles =
@@ -76,5 +82,3 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new PaxDate(y, m, d)
         override __.GetDate(y, doy) = new PaxDate(y, doy)
-
-#endif
