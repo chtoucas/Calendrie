@@ -3,6 +3,7 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
 public partial class PaxCalendar // Complements
@@ -38,6 +39,11 @@ public partial struct PaxDate // Complements
 
 public partial struct PaxDate // Non-standard math ops
 {
+    /// <summary>Represents the maximum value for the number of consecutive
+    /// months from the epoch..
+    /// <para>This field is a constant equal to 131_761.</para></summary>
+    private const int MaxMonthsSinceEpoch = 131_761;
+
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.
@@ -47,8 +53,9 @@ public partial struct PaxDate // Non-standard math ops
     [Pure]
     public PaxDate PlusYears(int years)
     {
-        var (y, m, d) = this;
-        return AddYears(y, m, d, years);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return AddYears(sch, y, m, d, years);
     }
 
     /// <summary>
@@ -60,8 +67,9 @@ public partial struct PaxDate // Non-standard math ops
     [Pure]
     public PaxDate PlusMonths(int months)
     {
-        var (y, m, d) = this;
-        return AddMonths(y, m, d, months);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return AddMonths(sch, y, m, d, months);
     }
 
     /// <summary>
@@ -70,14 +78,15 @@ public partial struct PaxDate // Non-standard math ops
     [Pure]
     public int CountYearsSince(PaxDate other)
     {
-        var (y0, m0, d0) = other;
+        var sch = Calendar.Schema;
+        sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(y0, m0, d0, years);
+        var newStart = AddYears(sch, y0, m0, d0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -98,15 +107,15 @@ public partial struct PaxDate // Non-standard math ops
     {
         var sch = Calendar.Schema;
 
-        var (y, m, _) = this;
-        var (y0, m0, d0) = other;
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
+        sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
         int months = checked(sch.CountMonthsSinceEpoch(y, m) - sch.CountMonthsSinceEpoch(y0, m0));
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
-        var newStart = AddMonths(y0, m0, d0, months);
+        var newStart = AddMonths(sch, y0, m0, d0, months);
 
         if (other < this)
         {
@@ -127,10 +136,8 @@ public partial struct PaxDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PaxDate AddYears(int y, int m, int d, int years)
+    private static PaxDate AddYears(PaxSchema sch, int y, int m, int d, int years)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
@@ -151,16 +158,11 @@ public partial struct PaxDate // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PaxDate AddMonths(int y, int m, int d, int months)
+    private static PaxDate AddMonths(PaxSchema sch, int y, int m, int d, int months)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of months to a calendar month.
         int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
-        // FIXME(code): validation of monthsSinceEpoch.
-        var (minMonthsSinceEpoch, maxMonthsSinceEpoch) =
-            Calendar.Scope.Segment.SupportedMonths.Endpoints;
-        if (monthsSinceEpoch < minMonthsSinceEpoch || monthsSinceEpoch > maxMonthsSinceEpoch)
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 
         sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
