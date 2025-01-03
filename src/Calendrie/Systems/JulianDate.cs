@@ -168,7 +168,9 @@ public partial struct JulianDate // Preamble
     public override string ToString()
     {
         JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
+        return y > 9999 ? FormattableString.Invariant($"{d:D2}/{m:D2}/{y} CE ({Calendar})")
+            : y > 0 ? FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} CE ({Calendar})")
+            : FormattableString.Invariant($"{d:D2}/{m:D2}/{Ord.FromInt32(y)} BCE ({Calendar})");
     }
 
     /// <inheritdoc />

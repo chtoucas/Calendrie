@@ -20,6 +20,10 @@ internal sealed class GregorianScope : CalendarScope
 {
     // Even if this class becomes public, these constants MUST stay internal
     // in case we change their values in the future.
+    //
+    // WARNING: if you change these values, verify that it's compatible with
+    // XXXDate.ToString() which expects years to be |year| < 1_000_000, ie
+    // length <= 6.
 
     /// <summary>
     /// Represents the earliest supported year.
