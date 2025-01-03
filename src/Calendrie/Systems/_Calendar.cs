@@ -44,7 +44,7 @@ public partial class WorldCalendar // Complements
     public int CountDaysInWorldMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
-        return WorldSchema.CountDaysInWorldMonth(month);
+        return WorldSchema.CountDaysInWorldMonthImpl(month);
     }
 }
 

@@ -239,10 +239,13 @@ module TropicalistaCase =
         TropicalistaSchema.IsLeapYearImpl(Int32.MaxValue) |> ignore
 
 module WorldCase =
+    let private sch = new WorldSchema()
+
     let moreMonthInfoData = WorldDataSet.MoreMonthInfoData
 
     [<Theory; MemberData(nameof(moreMonthInfoData))>]
     let CountDaysInWorldMonth (info: YemoAnd<int>) =
-        let (_, m, daysInMonth) = info.Deconstruct()
+        let (y, m, daysInMonth) = info.Deconstruct()
 
-        WorldSchema.CountDaysInWorldMonth(m) === daysInMonth
+        sch.CountDaysInWorldMonth(y, m) === daysInMonth
+        WorldSchema.CountDaysInWorldMonthImpl(m) === daysInMonth

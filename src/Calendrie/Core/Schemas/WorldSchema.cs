@@ -72,7 +72,16 @@ public sealed partial class WorldSchema :
     [Pure]
     static WorldSchema ISchemaActivator<WorldSchema>.CreateInstance() => new();
 
-    // REVIEW(code): CountDaysInWorldMonth(), static or not?
+    /// <summary>
+    /// Obtains the genuine number of days in a month (excluding the blank days that are
+    /// formally outside any month).
+    /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
+    /// </summary>
+    [Pure]
+    internal static int CountDaysInWorldMonthImpl(int m) =>
+        // m = 1, 4, 7, 10              -> 31 days
+        // m = 2, 3, 5, 6, 8, 9, 11, 12 -> 30 days
+        (m - 1) % 3 == 0 ? 31 : 30;
 
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days that are
@@ -80,10 +89,9 @@ public sealed partial class WorldSchema :
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
     [Pure]
-    internal static int CountDaysInWorldMonth(int m) =>
-        // m = 1, 4, 7, 10              -> 31 days
-        // m = 2, 3, 5, 6, 8, 9, 11, 12 -> 30 days
-        (m - 1) % 3 == 0 ? 31 : 30;
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
+    public int CountDaysInWorldMonth(int y, int m) => CountDaysInWorldMonthImpl(m);
 
     /// <inheritdoc />
     [Pure]
