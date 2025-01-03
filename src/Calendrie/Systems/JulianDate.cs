@@ -335,7 +335,7 @@ public partial struct JulianDate // Non-standard math ops
     [Pure]
     public JulianDate PlusYears(int years)
     {
-        var (y, m, d) = this;
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return AddYears(y, m, d, years);
     }
 
@@ -348,7 +348,7 @@ public partial struct JulianDate // Non-standard math ops
     [Pure]
     public JulianDate PlusMonths(int months)
     {
-        var (y, m, d) = this;
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return AddMonths(y, m, d, months);
     }
 
@@ -358,7 +358,7 @@ public partial struct JulianDate // Non-standard math ops
     [Pure]
     public int CountYearsSince(JulianDate other)
     {
-        var (y0, m0, d0) = other;
+        JulianFormulae.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
@@ -384,8 +384,8 @@ public partial struct JulianDate // Non-standard math ops
     [Pure]
     public int CountMonthsSince(JulianDate other)
     {
-        var (y, m, _) = this;
-        var (y0, m0, d0) = other;
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
+        JulianFormulae.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
         int months = checked(GJSchema.MonthsInYear * (y - y0) + m - m0);
