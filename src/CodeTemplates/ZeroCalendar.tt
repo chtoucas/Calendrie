@@ -11,6 +11,9 @@ public class ZeroCalendarTemplate : CalendarTemplate
     {
         DaysSinceEpochVar = "daysSinceZero";
         MaxDaysSinceEpoch = "MaxDaysSinceZero";
+
+        MonthsSinceEpochVar = "monthsSinceEpoch";
+        MaxMonthsSinceEpoch = "MaxMonthsSinceZero";
     }
 
     protected override void EmitUsings()

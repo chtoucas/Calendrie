@@ -18,6 +18,10 @@ public partial class CalendarTemplate
         {
             EmitDateMathNonStandardRegular();
         }
+        else
+        {
+            EmitDateMathNonStandardNonRegular();
+        }
     }
 
     protected virtual void EmitDateDecl()
@@ -702,6 +706,148 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 }
 <#+
     } // T4: End of EmitDateMathNonStandardRegular
+
+    protected virtual void EmitDateMathNonStandardNonRegular()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Date // Non-standard math ops
+{
+    /// <summary>Represents the maximum value for the number of consecutive
+    /// months from the epoch.
+    /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para></summary>
+    private const int <#= MaxMonthsSinceEpoch #> = <#= MaxMonthsSinceEpochValue #>;
+
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public <#= Prefix #>Date PlusYears(int years)
+    {
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return AddYears(sch, y, m, d, years);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance,
+    /// yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public <#= Prefix #>Date PlusMonths(int months)
+    {
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return AddMonths(sch, y, m, d, months);
+    }
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(<#= Prefix #>Date other)
+    {
+        var sch = Calendar.Schema;
+        sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
+
+        // Exact difference between two calendar years.
+        int years = Year - y0;
+
+        // To avoid extracting y0 twice, we inline:
+        // > var newStart = other.PlusYears(years);
+        var newStart = AddYears(sch, y0, m0, d0, years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
+
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(<#= Prefix #>Date other)
+    {
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out _);
+        sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
+
+        // Exact difference between two calendar months.
+        int months = checked(sch.CountMonthsSinceEpoch(y, m) - sch.CountMonthsSinceEpoch(y0, m0));
+
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusMonths(months);
+        var newStart = AddMonths(sch, y0, m0, d0, months);
+
+        if (other < this)
+        {
+            if (newStart > this) months--;
+        }
+        else
+        {
+            if (newStart < this) months++;
+        }
+
+        return months;
+    }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private static <#= Prefix #>Date AddYears(<#= SchemaClass #> sch, int y, int m, int d, int years)
+    {
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
+        int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
+
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the month field of the specified date,
+    /// yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private static <#= Prefix #>Date AddMonths(<#= SchemaClass #> sch, int y, int m, int d, int months)
+    {
+        // Exact addition of months to a calendar month.
+        int <#= MonthsSinceEpochVar #> = checked(sch.CountMonthsSinceEpoch(y, m) + months);
+        if (unchecked((uint)<#= MonthsSinceEpochVar #>) > <#= MaxMonthsSinceEpoch #>)
+            ThrowHelpers.ThrowDateOverflow();
+
+        sch.GetMonthParts(<#= MonthsSinceEpochVar #>, out int newY, out int newM);
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
+
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+    }
+}
+<#+
+    } // T4: End of EmitDateMathNonStandardNonRegular
 
 } // T4: End of CalendarTemplate
 

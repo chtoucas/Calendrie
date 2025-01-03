@@ -1,4 +1,7 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
-<#= new CalendarTemplate(this, "PaxSchema", "DayZero.SundayBeforeGregorian", "-1", "3_652_060", regular: false).Execute() #>
+<#= new CalendarTemplate(this, "PaxSchema", "DayZero.SundayBeforeGregorian", "-1", "3_652_060", regular: false)
+    {
+        MaxMonthsSinceEpochValue = "131_761"
+    }.Execute() #>
