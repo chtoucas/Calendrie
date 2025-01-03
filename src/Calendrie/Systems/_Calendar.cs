@@ -15,7 +15,7 @@ using Calendrie.Core.Schemas;
 [Pure]
 public int CountMonthsInYear(int year)
 {
-    YearsValidator.Validate(year);
+    Scope.ValidateYear(year);
     return Schema.CountMonthsInYear(year);
 }
 #endif
