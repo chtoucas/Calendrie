@@ -53,6 +53,8 @@ alors à jour le modèle comme suit :
 Attention : ce constructeur suppose que le calendrier est régulier --- pour un
 calendrier non-régulier, utiliser l'option "regular: false". Quand le calendrier
 est régulier ne pas oublier de préciser la valeur de la propriété MonthsInYear.
+On suppose que le schéma sous-jacent définit une constante MonthsInYear ayant la
+même valeur (!).
 
 Options disponibles
 -------------------

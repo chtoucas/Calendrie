@@ -72,6 +72,8 @@ public sealed partial class WorldSchema :
     [Pure]
     static WorldSchema ISchemaActivator<WorldSchema>.CreateInstance() => new();
 
+    // REVIEW(code): CountDaysInWorldMonth(), static or not?
+
     /// <summary>
     /// Obtains the genuine number of days in a month (excluding the blank days that are
     /// formally outside any month).
