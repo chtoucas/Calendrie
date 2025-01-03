@@ -25,6 +25,8 @@ using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
 /// Represents the Zoroastrian calendar.
+/// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
+/// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate>

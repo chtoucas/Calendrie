@@ -20,8 +20,6 @@ public int CountMonthsInYear(int year)
 }
 #endif
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class ArmenianCalendar // Complements
 {
     /// <summary>
@@ -31,8 +29,6 @@ public partial class ArmenianCalendar // Complements
     public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class Armenian13Calendar // Complements
 {
     /// <summary>
@@ -48,8 +44,6 @@ public partial class Armenian13Calendar // Complements
     public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class CopticCalendar // Complements
 {
     /// <summary>
@@ -59,8 +53,6 @@ public partial class CopticCalendar // Complements
     public const int MonthsInYear = Coptic12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class Coptic13Calendar // Complements
 {
     /// <summary>
@@ -76,8 +68,6 @@ public partial class Coptic13Calendar // Complements
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class EthiopicCalendar // Complements
 {
     /// <summary>
@@ -87,8 +77,6 @@ public partial class EthiopicCalendar // Complements
     public const int MonthsInYear = Coptic12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class Ethiopic13Calendar // Complements
 {
     /// <summary>
@@ -104,8 +92,6 @@ public partial class Ethiopic13Calendar // Complements
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class TabularIslamicCalendar // Complements
 {
     /// <summary>
@@ -115,8 +101,6 @@ public partial class TabularIslamicCalendar // Complements
     public const int MonthsInYear = TabularIslamicSchema.MonthsInYear;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class WorldCalendar // Complements
 {
     /// <summary>
@@ -139,8 +123,6 @@ public partial class WorldCalendar // Complements
     }
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class ZoroastrianCalendar // Complements
 {
     /// <summary>
@@ -150,8 +132,6 @@ public partial class ZoroastrianCalendar // Complements
     public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 }
 
-/// <remarks>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
-/// within the range [1..9999] of years.</remarks>
 public partial class Zoroastrian13Calendar // Complements
 {
     /// <summary>

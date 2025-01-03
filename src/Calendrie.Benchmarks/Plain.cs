@@ -5,8 +5,6 @@ namespace Benchmarks;
 
 using Calendrie.Core.Schemas;
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
 public partial class PlainCivilCalendar
 {
     /// <summary>
@@ -16,8 +14,6 @@ public partial class PlainCivilCalendar
     public const int MonthsInYear = GJSchema.MonthsInYear;
 }
 
-/// <remarks>This calendar supports <i>all</i> dates within the range [1..9999]
-/// of years.</remarks>
 public partial class PlainJulianCalendar
 {
     /// <summary>
