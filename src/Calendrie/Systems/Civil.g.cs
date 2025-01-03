@@ -306,8 +306,8 @@ public partial struct CivilDate // Standard math ops
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(CivilDate other) =>
-        // No need to use a checked context here. Indeed, the result is at most
-        // equal to (MaxDaysSinceZero - MinDaysSinceZero) ie MaxDaysSinceZero.
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to MaxDaysSinceZero.
         _daysSinceZero - other._daysSinceZero;
 
     /// <inheritdoc />

@@ -521,8 +521,8 @@ public partial struct TabularIslamicDate // Standard math ops
     /// <inheritdoc />
     [Pure]
     public int CountDaysSince(TabularIslamicDate other) =>
-        // No need to use a checked context here. Indeed, the result is at most
-        // equal to (MaxDaysSinceEpoch - MinDaysSinceEpoch) ie MaxDaysSinceEpoch.
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to MaxDaysSinceEpoch.
         _daysSinceEpoch - other._daysSinceEpoch;
 
     /// <inheritdoc />

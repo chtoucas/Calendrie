@@ -10,7 +10,6 @@ public class ZeroCalendarTemplate : CalendarTemplate
         base(parent, schema, "DayZero.NewStyle", "0", maxDaysSinceEpochValue)
     {
         DaysSinceEpochVar = "daysSinceZero";
-        MinDaysSinceEpoch = "MinDaysSinceZero";
         MaxDaysSinceEpoch = "MaxDaysSinceZero";
     }
 
