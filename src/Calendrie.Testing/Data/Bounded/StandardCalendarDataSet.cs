@@ -211,6 +211,23 @@ public sealed class StandardTabularIslamicDataSet :
 }
 
 /// <summary>
+/// Provides test data for the Tropicalia calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardTropicaliaDataSet :
+    StandardCalendarDataSet<UnboundedTropicaliaDataSet>, ISingleton<StandardTropicaliaDataSet>
+{
+    private StandardTropicaliaDataSet() : base(UnboundedTropicaliaDataSet.Instance) { }
+
+    public static StandardTropicaliaDataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardTropicaliaDataSet Instance = new();
+        static Singleton() { }
+    }
+}
+
+/// <summary>
 /// Provides test data for the Zoroastrian calendar with years within the range [1..9999].
 /// </summary>
 public sealed class StandardZoroastrian12DataSet :

@@ -24,6 +24,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Pax.tt</DependentUpon>
     </Compile>
+    <Compile Update="Systems\Tropicalia.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Tropicalia.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
