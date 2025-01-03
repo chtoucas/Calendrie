@@ -26,8 +26,7 @@ internal static partial class GregorianFormulae
     /// <summary>
     /// Determines whether the specified year is leap or not.
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(int y) =>
         (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
 

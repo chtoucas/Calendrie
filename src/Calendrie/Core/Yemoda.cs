@@ -308,8 +308,7 @@ public readonly partial struct Yemoda :
     /// day of the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yemoda AtStartOfYear(int y)
     {
         Debug.Assert(MinYear <= y);
@@ -323,8 +322,7 @@ public readonly partial struct Yemoda :
     /// day of the specified month.
     /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yemoda AtStartOfMonth(int y, int m)
     {
         Debug.Assert(MinYear <= y);
@@ -387,8 +385,7 @@ public partial struct Yemoda // Binary data helpers
     /// <summary>
     /// Packs the specified date parts into a single 32-bit word.
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int Pack(int y, int m, int d)
     {
         unchecked

@@ -191,8 +191,7 @@ public readonly partial struct Yedoy :
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yedoy AtStartOfYear(int y)
     {
         Debug.Assert(MinYear <= y);
@@ -220,8 +219,7 @@ public partial struct Yedoy // Binary data helpers
     /// <summary>
     /// Packs the specified ordinal date parts into a single 32-bit word.
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int Pack(int y, int doy)
     {
         unchecked

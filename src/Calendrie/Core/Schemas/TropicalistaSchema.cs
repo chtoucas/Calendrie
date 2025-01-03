@@ -70,8 +70,7 @@ public partial class TropicalistaSchema // Year, month or day infos
     /// <summary>
     /// Determines whether the specified year is leap or not.
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // NB: year zero is not leap.
     internal static bool IsLeapYearImpl(int y) => (y & 3) == 0 && (y & 127) != 0;
 

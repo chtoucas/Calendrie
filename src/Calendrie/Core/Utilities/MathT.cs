@@ -3,8 +3,10 @@
 
 namespace Calendrie.Core.Utilities;
 
-/// <summary>Provides static methods for generic mathematical operations.</summary>
-/// <remarks>This class cannot be inherited.</remarks>
+/// <summary>
+/// Provides static methods for generic mathematical operations.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 internal static class MathT
 {
     /// <summary>Returns the larger of two values.</summary>

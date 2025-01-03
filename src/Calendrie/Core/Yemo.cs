@@ -176,8 +176,7 @@ public readonly partial struct Yemo :
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static Yemo AtStartOfYear(int y)
     {
         Debug.Assert(MinYear <= y);
@@ -237,8 +236,7 @@ public partial struct Yemo // Binary data helpers
     /// <summary>
     /// Packs the specified month parts into a single 32-bit word.
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int Pack(int y, int m)
     {
         unchecked

@@ -21,8 +21,7 @@ internal static partial class JulianFormulae
     /// <summary>
     /// Determines whether the specified year is leap or not.
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsLeapYear(int y) => (y & 3) == 0;
 
     /// <summary>

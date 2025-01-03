@@ -135,8 +135,7 @@ public partial class LimitSchema // Conversions
     /// Obtains the date parts for the specified month count (the number of
     /// consecutive months from the epoch to a date).
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yemo GetMonthParts(int monthsSinceEpoch)
     {
         GetMonthParts(monthsSinceEpoch, out int y, out int m);
@@ -150,8 +149,7 @@ public partial class LimitSchema // Conversions
     /// <seealso cref="ICalendricalSchema.GetDateParts(int, out int, out int, out int)"/>.
     /// </para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yemoda GetDateParts(int daysSinceEpoch)
     {
         GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
@@ -164,8 +162,7 @@ public partial class LimitSchema // Conversions
     /// <para>See also <seealso cref="ICalendricalSchema.GetYear(int, out int)"/>.
     /// </para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yedoy GetOrdinalParts(int daysSinceEpoch)
     {
         int y = GetYear(daysSinceEpoch, out int doy);
@@ -176,8 +173,7 @@ public partial class LimitSchema // Conversions
     /// Creates a new instance of the <see cref="Yemoda"/> struct from the
     /// specified year, month and day.
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public Yemoda GetDateParts(int y, int m, int d) => new(y, m, d);
 
@@ -186,8 +182,7 @@ public partial class LimitSchema // Conversions
     /// <para>See also
     /// <seealso cref="ICalendricalSchema.GetMonth(int, int, out int)"/>.</para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yemoda GetDateParts(int y, int doy)
     {
         int m = GetMonth(y, doy, out int d);
@@ -197,7 +192,7 @@ public partial class LimitSchema // Conversions
     /// <summary>
     /// Obtains the ordinal date parts for the specified date.
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Yedoy GetOrdinalParts(int y, int m, int d)
     {
         int doy = GetDayOfYear(y, m, d);

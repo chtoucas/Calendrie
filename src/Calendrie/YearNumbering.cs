@@ -18,16 +18,14 @@ public partial class YearNumbering
     /// Obtains the century from the specified year.
     /// <para>The first century starts at the onset of year 1.</para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int GetCentury(int year) => MathZ.AdjustedDivide(year, 100);
 
     /// <summary>
     /// Obtains the year of the century from the specified year.
     /// <para>The first century starts at the onset of year 1.</para>
     /// </summary>
-    [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int GetYearOfCentury(int year) => MathZ.AdjustedModulo(year, 100);
 }
 

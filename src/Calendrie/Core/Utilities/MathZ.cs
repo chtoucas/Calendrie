@@ -17,8 +17,10 @@ namespace Calendrie.Core.Utilities;
 // https://github.com/dotnet/runtime/issues/4155
 // https://source.dot.net/#System.Private.CoreLib/Math.cs,368
 
-/// <summary>Provides static methods for common mathematical operations in ℤ.</summary>
-/// <remarks>This class cannot be inherited.</remarks>
+/// <summary>
+/// Provides static methods for common mathematical operations in ℤ.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
 internal static partial class MathZ { }
 
 // CIL code sizes are given for when __PATCH_DIVREM__ is set.
@@ -87,12 +89,13 @@ internal static partial class MathZ { }
 
 internal partial class MathZ // Divide
 {
-    /// <summary>Calculates the Euclidian quotient of a 32-bit signed integer by a strictly positive
-    /// 32-bit signed integer.</summary>
-    /// <remarks>This method does NOT validate its parameters.</remarks>
-    [Pure]
+    /// <summary>
+    /// Calculates the Euclidian quotient of a 32-bit signed integer by a
+    /// strictly positive 32-bit signed integer.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 23 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Divide(int m, int n)
     {
         Debug.Assert(n > 0);
@@ -106,16 +109,16 @@ internal partial class MathZ // Divide
 #endif
     }
 
-    /// <summary>Calculates the Euclidian quotient of a 32-bit signed integer by a strictly positive
-    /// 32-bit signed integer and also returns the remainder in an output parameter.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the Euclidian quotient of a 32-bit signed integer by a
+    /// strictly positive 32-bit signed integer and also returns the remainder
+    /// in an output parameter.
     /// <para>This method does NOT validate its parameters.</para>
     /// <para>The remainder <paramref name="r"/> is in the range from 0 to
     /// (<paramref name="n"/> - 1), both included.</para>
-    /// </remarks>
-    [Pure]
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 31 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Divide(int m, int n, out int r)
     {
         Debug.Assert(n > 0);
@@ -140,12 +143,13 @@ internal partial class MathZ // Divide
 
 internal partial class MathZ // Divide (long)
 {
-    /// <summary>Calculates the Euclidian quotient of a 64-bit signed integer by a strictly positive
-    /// 64-bit signed integer.</summary>
-    /// <remarks>This method does NOT validate its parameters.</remarks>
-    [Pure]
+    /// <summary>
+    /// Calculates the Euclidian quotient of a 64-bit signed integer by a
+    /// strictly positive 64-bit signed integer.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 25 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long Divide(long m, long n)
     {
         Debug.Assert(n > 0);
@@ -159,16 +163,16 @@ internal partial class MathZ // Divide (long)
 #endif
     }
 
-    /// <summary>Calculates the Euclidian quotient of a 64-bit signed integer by a strictly positive
-    /// 64-bit signed and also returns the remainder in an output parameter.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the Euclidian quotient of a 64-bit signed integer by a
+    /// strictly positive 64-bit signed and also returns the remainder in an
+    /// output parameter.
     /// <para>This method does NOT validate its parameters.</para>
     /// <para>The remainder <paramref name="r"/> is in the range from 0 to
     /// (<paramref name="n"/> - 1), both included.</para>
-    /// </remarks>
-    [Pure]
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 33 bytes, can be > 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long Divide(long m, long n, out long r)
     {
         Debug.Assert(n > 0);
@@ -193,16 +197,15 @@ internal partial class MathZ // Divide (long)
 
 internal partial class MathZ // Modulo
 {
-    /// <summary>Calculates the remainder of the Euclidian division of a 32-bit signed integer by a
-    /// strictly positive 32-bit signed integer.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the remainder of the Euclidian division of a 32-bit signed
+    /// integer by a strictly positive 32-bit signed integer.
     /// <para>This method does NOT validate its parameters.</para>
-    /// <para>The remainder is in the range from 0 to (<paramref name="n"/> - 1), both included.
-    /// </para>
-    /// </remarks>
-    [Pure]
+    /// <para>The remainder is in the range from 0 to (<paramref name="n"/> - 1),
+    /// both included.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 14 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Modulo(int m, int n)
     {
         Debug.Assert(n > 0);
@@ -211,17 +214,16 @@ internal partial class MathZ // Modulo
         return r >= 0 ? r : (r + n);
     }
 
-    /// <summary>Calculates the remainder of the Euclidian division of a 32-bit signed integer by a
-    /// strictly positive 32-bit signed integer and also returns the quotient in an output parameter.
-    /// </summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the remainder of the Euclidian division of a 32-bit signed
+    /// integer by a strictly positive 32-bit signed integer and also returns
+    /// the quotient in an output parameter.
     /// <para>This method does NOT validate its parameters.</para>
-    /// <para>This is equivalent to <see cref="Divide(int, int, out int)"/> but sometimes it just
-    /// feels more natural to use a modulo.</para>
-    /// </remarks>
-    [Pure]
+    /// <para>This is equivalent to <see cref="Divide(int, int, out int)"/> but
+    /// sometimes it just feels more natural to use a modulo.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 31 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Modulo(int i, int n, out int q)
     {
         Debug.Assert(n > 0);
@@ -243,16 +245,15 @@ internal partial class MathZ // Modulo
 
 internal partial class MathZ // Modulo (long)
 {
-    /// <summary>Calculates the remainder of the Euclidian division of a 64-bit signed integer by a
-    /// strictly positive 64-bit signed integer.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the remainder of the Euclidian division of a 64-bit signed
+    /// integer by a strictly positive 64-bit signed integer.
     /// <para>This method does NOT validate its parameters.</para>
-    /// <para>The remainder is in the range from 0 to (<paramref name="n"/> - 1), both included.
-    /// </para>
-    /// </remarks>
-    [Pure]
+    /// <para>The remainder is in the range from 0 to (<paramref name="n"/> - 1),
+    /// both included.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 15 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long Modulo(long m, long n)
     {
         Debug.Assert(n > 0);
@@ -264,12 +265,13 @@ internal partial class MathZ // Modulo (long)
 
 internal partial class MathZ // AdjustedDivide
 {
-    /// <summary>Calculates the adjusted Euclidian quotient of a 32-bit signed integer by a strictly
-    /// positive 32-bit signed integer.</summary>
-    /// <remarks>This method does NOT validate its parameters.</remarks>
-    [Pure]
+    /// <summary>
+    /// Calculates the adjusted Euclidian quotient of a 32-bit signed integer by
+    /// a strictly positive 32-bit signed integer.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 23 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AdjustedDivide(int m, int n)
     {
         Debug.Assert(n > 0);
@@ -283,17 +285,16 @@ internal partial class MathZ // AdjustedDivide
 #endif
     }
 
-    /// <summary>Calculates the adjusted Euclidian quotient of a 32-bit signed integer by a strictly
-    /// positive 32-bit signed integer and also returns the adjusted remainder in an output
-    /// parameter.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the adjusted Euclidian quotient of a 32-bit signed integer by
+    /// a strictly positive 32-bit signed integer and also returns the adjusted *
+    /// remainder in an output parameter.
     /// <para>This method does NOT validate its parameters.</para>
-    /// <para>The adjusted remainder <paramref name="r"/> is in the range from 1 to
-    /// <paramref name="n"/>, both included.</para>
-    /// </remarks>
-    [Pure]
+    /// <para>The adjusted remainder <paramref name="r"/> is in the range from 1
+    /// to <paramref name="n"/>, both included.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 31 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AdjustedDivide(int m, int n, out int r)
     {
         Debug.Assert(n > 0);
@@ -321,16 +322,15 @@ internal partial class MathZ // AdjustedModulo
 {
     // Opération modulo rectifiée ("adjusted").
 
-    /// <summary>Calculates the adjusted remainder of the Euclidian division of a 32-bit signed
-    /// integer by a strictly positive 32-bit signed integer.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the adjusted remainder of the Euclidian division of a 32-bit
+    /// signed integer by a strictly positive 32-bit signed integer.
     /// <para>This method does NOT validate its parameters.</para>
-    /// <para>The adjusted remainder is in the range from 1 to <paramref name="n"/>, both included.
-    /// </para>
-    /// </remarks>
-    [Pure]
+    /// <para>The adjusted remainder is in the range from 1 to <paramref name="n"/>,
+    /// both included.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 22 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AdjustedModulo(int m, int n)
     {
         Debug.Assert(n > 0);
@@ -343,16 +343,15 @@ internal partial class MathZ // AdjustedModulo
 
 internal partial class MathZ // AdjustedModulo (long)
 {
-    /// <summary>Calculates the adjusted remainder of the Euclidian division of a 64-bit signed
-    /// integer by a strictly positive 64-bit signed integer.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the adjusted remainder of the Euclidian division of a 64-bit
+    /// signed integer by a strictly positive 64-bit signed integer.
     /// <para>This method does NOT validate its parameters.</para>
     /// <para>The adjusted remainder is in the range from 1 to
     /// <paramref name="n"/>, both included.</para>
-    /// </remarks>
-    [Pure]
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 23 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long AdjustedModulo(long m, long n)
     {
         Debug.Assert(n > 0);
@@ -365,12 +364,13 @@ internal partial class MathZ // AdjustedModulo (long)
 
 internal partial class MathZ // AugmentedDivide
 {
-    /// <summary>Calculates the Euclidian quotient augmented by 1 of a 32-bit signed integer by a
-    /// strictly positive 32-bit signed integer.</summary>
-    /// <remarks>This method does NOT validate its parameters.</remarks>
-    [Pure]
+    /// <summary>
+    /// Calculates the Euclidian quotient augmented by 1 of a 32-bit signed
+    /// integer by a strictly positive 32-bit signed integer.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 23 bytes <= 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AugmentedDivide(int m, int n)
     {
         Debug.Assert(n > 0);
@@ -384,17 +384,16 @@ internal partial class MathZ // AugmentedDivide
 #endif
     }
 
-    /// <summary>Calculates the Euclidian quotient augmented by 1 of a 32-bit signed integer by a
-    /// strictly positive 32-bit signed integer and also returns the remainder augmented by 1 in an
-    /// output parameter.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Calculates the Euclidian quotient augmented by 1 of a 32-bit signed
+    /// integer by a strictly positive 32-bit signed integer and also returns
+    /// the remainder augmented by 1 in an output parameter.
     /// <para>This method does NOT validate its parameters.</para>
     /// <para>The augmented remainder <paramref name="r"/> is in the range from 1 to
     /// (<paramref name="n"/>), both included.</para>
-    /// </remarks>
-    [Pure]
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     // CIL code size = 34 bytes > 32 bytes.
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int AugmentedDivide(int m, int n, out int r)
     {
         Debug.Assert(n > 0);
