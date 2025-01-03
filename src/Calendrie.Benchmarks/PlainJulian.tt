@@ -5,7 +5,7 @@
     {
         DisplayName = "Plain Julian",
         EnableIsSupplementary = false,
-        EnablePragmas = true,
+        EnableNullable = true,
         ImportCalendrieSystemsNamespace = true,
         MonthsInYear = 12
     }.Execute() #>

@@ -83,7 +83,7 @@ Options disponibles
 Pour les calendriers produits en dehors des deux projets principaux, les deux
 options suivantes peuvent se révéler être utiles.
 
-- EnablePragmas : quand cette propriété retourne "true", rajoute la ligne
+- EnableNullable : quand cette propriété retourne "true", rajoute la ligne
   suivante
   > #nullable enable
   Valeur par défaut = false

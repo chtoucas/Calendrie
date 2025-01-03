@@ -56,6 +56,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public bool EnableIsSupplementary { get; set; } = true;
 
+    public bool EnableNullable { get; set; }
     public bool EnablePragmas { get; set; }
     public bool ImportCalendrieSystemsNamespace { get; set; }
 
@@ -66,7 +67,8 @@ public partial class CalendarTemplate : CSharpTemplate
     {
         // May be necessary, depends on the Code Analysis settings regarding
         // generated files.
-        if (EnablePragmas) EmitPragmas();
+        if (EnableNullable) EmitNullable();
+        if (EnablePragmas)  EmitPragmas();
 
         EmitNamespace();
         EmitUsings();
@@ -78,11 +80,19 @@ public partial class CalendarTemplate : CSharpTemplate
         EmitDate();
     } // T4: End of WriteContent()
 
-    protected virtual void EmitPragmas()
+    protected virtual void EmitNullable()
     {
         WriteLine();
 #>
 #nullable enable
+<#+
+    } // T4: End of EmitNullable()
+
+    protected virtual void EmitPragmas()
+    {
+        WriteLine();
+#>
+#pragma warning disable IDE0002 // Simplify Member Access (Style) ✓
 <#+
     } // T4: End of EmitPragmas()
 
@@ -102,7 +112,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 
 using Calendrie;
 using Calendrie.Core.Schemas;
