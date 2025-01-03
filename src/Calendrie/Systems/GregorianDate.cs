@@ -271,7 +271,7 @@ public partial struct GregorianDate // Find close by day of the week
     }
 }
 
-public partial struct GregorianDate // Math
+public partial struct GregorianDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
@@ -434,7 +434,7 @@ public partial struct GregorianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
+    /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
@@ -455,7 +455,7 @@ public partial struct GregorianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of months to the month field of this date instance,
+    /// Adds a number of months to the month field of the specified date,
     /// yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the

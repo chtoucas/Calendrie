@@ -264,7 +264,7 @@ public partial struct CivilDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
+    /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
@@ -285,7 +285,7 @@ public partial struct CivilDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of months to the month field of this date instance,
+    /// Adds a number of months to the month field of the specified date,
     /// yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the

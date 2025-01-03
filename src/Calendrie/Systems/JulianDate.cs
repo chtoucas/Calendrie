@@ -244,7 +244,7 @@ public partial struct JulianDate // Find close by day of the week
     }
 }
 
-public partial struct JulianDate // Math
+public partial struct JulianDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
@@ -407,7 +407,8 @@ public partial struct JulianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified date.
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -426,6 +427,12 @@ public partial struct JulianDate // Non-standard math ops
         return new JulianDate(daysSinceEpoch);
     }
 
+    /// <summary>
+    /// Adds a number of months to the month field of the specified date,
+    /// yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
     private static JulianDate AddMonths(int y, int m, int d, int months)
     {
