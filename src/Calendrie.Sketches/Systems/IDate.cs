@@ -5,12 +5,14 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
+// Keep this interface internal, it was created only to simplify testing.
+
 /// <summary>
 /// Defines a date type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 /// <typeparam name="TCalendar">The companion calendar type.</typeparam>
-public interface IDate<TSelf, out TCalendar> :
+internal interface IDate<TSelf, out TCalendar> :
     IDateable,
     IAbsoluteDate<TSelf>,
     IDateFactory<TSelf>
