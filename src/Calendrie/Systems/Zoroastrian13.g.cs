@@ -14,7 +14,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 
 using Calendrie;
 using Calendrie.Core.Schemas;
