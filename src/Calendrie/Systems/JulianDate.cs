@@ -313,28 +313,118 @@ public partial struct JulianDate // Math
 public partial struct JulianDate // Non-standard math ops
 {
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public int CountMonthsSince(JulianDate other) => JulianCalendar.CountMonthsBetween(other, this);
+    public JulianDate PlusYears(int years)
+    {
+        var (y, m, d) = this;
+        return AddYears(y, m, d, years);
+    }
 
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public JulianDate PlusMonths(int months) => JulianCalendar.AddMonths(this, months);
+    public JulianDate PlusMonths(int months)
+    {
+        var (y, m, d) = this;
+        return AddMonths(y, m, d, months);
+    }
 
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountYearsSince(JulianDate other) => JulianCalendar.CountYearsBetween(other, this);
+    public int CountYearsSince(JulianDate other)
+    {
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar years.
+        int years = Year - y0;
+
+        // To avoid extracting y0 twice, we inline:
+        // > var newStart = other.PlusYears(years);
+        var newStart = AddYears(y0, m0, d0, years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
 
     /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
-    /// a new date.
+    /// Counts the number of months elapsed since the specified date.
     /// </summary>
     [Pure]
-    public JulianDate PlusYears(int years) => JulianCalendar.AddYears(this, years);
+    public int CountMonthsSince(JulianDate other)
+    {
+        var (y, m, _) = this;
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar months.
+        int months = checked(GJSchema.MonthsInYear * (y - y0) + m - m0);
+
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusMonths(months);
+        var newStart = AddMonths(y0, m0, d0, months);
+
+        if (other < this)
+        {
+            if (newStart > this) months--;
+        }
+        else
+        {
+            if (newStart < this) months++;
+        }
+
+        return months;
+    }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private static JulianDate AddYears(int y, int m, int d, int years)
+    {
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < JulianScope.MinYear || newY > JulianScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, JulianFormulae.CountDaysInMonth(newY, m));
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(newY, m, newD);
+        return new JulianDate(daysSinceEpoch);
+    }
+
+    [Pure]
+    private static JulianDate AddMonths(int y, int m, int d, int months)
+    {
+        // Exact addition of months to a calendar month.
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), GJSchema.MonthsInYear, out int y0);
+        int newY = checked(y + y0);
+        if (newY < JulianScope.MinYear || newY > JulianScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, JulianFormulae.CountDaysInMonth(newY, newM));
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(newY, newM, newD);
+        return new JulianDate(daysSinceEpoch);
+    }
 }

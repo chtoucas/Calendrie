@@ -376,7 +376,7 @@ public partial struct GregorianDate // Non-standard math ops
         // Exact difference between two calendar years.
         int years = Year - y0;
 
-        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
         var newStart = AddYears(y0, m0, d0, years);
         if (other < this)
@@ -428,6 +428,7 @@ public partial struct GregorianDate // Non-standard math ops
     [Pure]
     private static GregorianDate AddYears(int y, int m, int d, int years)
     {
+        // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < GregorianScope.MinYear || newY > GregorianScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
@@ -453,7 +454,7 @@ public partial struct GregorianDate // Non-standard math ops
             checked(m - 1 + months), GJSchema.MonthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < GregorianScope.MinYear || newY > GregorianScope.MaxYear)
-            ThrowHelpers.ThrowMonthOverflow();
+            ThrowHelpers.ThrowDateOverflow();
 
         // NB: AdditionRule.Truncate.
         int newD = Math.Min(d, GregorianFormulae.CountDaysInMonth(newY, newM));
