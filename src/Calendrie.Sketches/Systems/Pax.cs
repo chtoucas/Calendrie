@@ -21,7 +21,7 @@ public partial class PaxCalendar // Complements
     }
 }
 
-public partial struct PaxDate // Non-standard math ops
+public partial struct PaxDate : IDate<PaxDate, PaxCalendar>
 {
     /// <summary>Represents the maximum value for the number of consecutive
     /// months from the epoch..
