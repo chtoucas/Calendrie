@@ -181,6 +181,61 @@ public partial struct CivilDate // Factories & conversions
     public GregorianDate ToGregorianDate() => new(_daysSinceZero);
 }
 
+public partial struct CivilDate // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithYear(int newYear)
+    {
+        CivilFormulae.GetDateParts(_daysSinceZero, out _, out int m, out int d);
+
+        // We MUST re-validate the entire date.
+        CivilScope.ValidateYearMonthDayImpl(newYear, m, d, nameof(newYear));
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithMonth(int newMonth)
+    {
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y, out _, out int d);
+
+        // We only need to validate "newMonth" and "d".
+        Calendar.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithDay(int newDay)
+    {
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out _);
+
+        // We only need to validate "newDay".
+        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate WithDayOfYear(int newDayOfYear)
+    {
+        int y = CivilFormulae.GetYear(_daysSinceZero);
+
+        // We only need to validate "newDayOfYear".
+        Calendar.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceZero);
+    }
+}
+
 public partial struct CivilDate // Non-standard math ops
 {
     /// <summary>

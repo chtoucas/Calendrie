@@ -180,6 +180,61 @@ public partial struct JulianDate // Preamble
         year = JulianFormulae.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
+public partial struct JulianDate // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate WithYear(int newYear)
+    {
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+
+        // We MUST re-validate the entire date.
+        JulianScope.ValidateYearMonthDayImpl(newYear, m, d, nameof(newYear));
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate WithMonth(int newMonth)
+    {
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out _, out int d);
+
+        // We only need to validate "newMonth" and "d".
+        Calendar.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate WithDay(int newDay)
+    {
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
+
+        // We only need to validate "newDay".
+        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianDate WithDayOfYear(int newDayOfYear)
+    {
+        int y = JulianFormulae.GetYear(_daysSinceEpoch);
+
+        // We only need to validate "newDayOfYear".
+        Calendar.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceEpoch);
+    }
+}
+
 public partial struct JulianDate // Find close by day of the week
 {
     /// <inheritdoc />

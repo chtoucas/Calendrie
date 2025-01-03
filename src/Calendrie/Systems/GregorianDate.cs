@@ -208,6 +208,61 @@ public partial struct GregorianDate // Factories & conversions
         new(daysSinceZero);
 }
 
+public partial struct GregorianDate // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public GregorianDate WithYear(int newYear)
+    {
+        GregorianFormulae.GetDateParts(_daysSinceZero, out _, out int m, out int d);
+
+        // We MUST re-validate the entire date.
+        GregorianScope.ValidateYearMonthDayImpl(newYear, m, d, nameof(newYear));
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public GregorianDate WithMonth(int newMonth)
+    {
+        GregorianFormulae.GetDateParts(_daysSinceZero, out int y, out _, out int d);
+
+        // We only need to validate "newMonth" and "d".
+        Calendar.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public GregorianDate WithDay(int newDay)
+    {
+        GregorianFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out _);
+
+        // We only need to validate "newDay".
+        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public GregorianDate WithDayOfYear(int newDayOfYear)
+    {
+        int y = GregorianFormulae.GetYear(_daysSinceZero);
+
+        // We only need to validate "newDayOfYear".
+        Calendar.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceZero);
+    }
+}
+
 public partial struct GregorianDate // Find close by day of the week
 {
     /// <inheritdoc />
