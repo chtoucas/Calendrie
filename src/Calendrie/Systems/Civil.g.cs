@@ -46,7 +46,7 @@ public partial struct CivilDate // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static CivilDate IDateFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }

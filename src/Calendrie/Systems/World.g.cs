@@ -269,7 +269,7 @@ public partial struct WorldDate // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static WorldDate IDateFactory<WorldDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }

@@ -269,7 +269,7 @@ public partial struct Ethiopic13Date // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static Ethiopic13Date IDateFactory<Ethiopic13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }

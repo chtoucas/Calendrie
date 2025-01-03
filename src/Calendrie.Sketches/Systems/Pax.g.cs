@@ -275,7 +275,7 @@ public partial struct PaxDate // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static PaxDate IDateFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }

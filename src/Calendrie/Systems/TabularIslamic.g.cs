@@ -260,7 +260,7 @@ public partial struct TabularIslamicDate // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static TabularIslamicDate IDateFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }

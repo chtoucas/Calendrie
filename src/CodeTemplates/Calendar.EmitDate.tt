@@ -242,7 +242,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
         new(<#= DaysSinceEpochVar #>);
 }

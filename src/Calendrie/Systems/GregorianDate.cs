@@ -202,8 +202,11 @@ public partial struct GregorianDate // Factories & conversions
         return new(daysSinceZero);
     }
 
+    // REVIEW(code): inlining.
+
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
+    //[Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static GregorianDate IDateFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }

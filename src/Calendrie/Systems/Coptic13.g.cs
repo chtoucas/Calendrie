@@ -269,7 +269,7 @@ public partial struct Coptic13Date // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static Coptic13Date IDateFactory<Coptic13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }

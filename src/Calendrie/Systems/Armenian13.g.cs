@@ -269,7 +269,7 @@ public partial struct Armenian13Date // Factories & conversions
     }
 
     /// <inheritdoc />
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [Pure]
     static Armenian13Date IDateFactory<Armenian13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
