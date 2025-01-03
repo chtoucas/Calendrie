@@ -15,6 +15,7 @@ using Calendrie.Hemerology;
 /// ambiguities.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
+[Obsolete("Use the date methods PlusYears() and co.")]
 [ExcludeFromCodeCoverage]
 public sealed class DefaultMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
@@ -38,15 +39,23 @@ public sealed class DefaultMath<TCalendar, TDate>
         Calendar = calendar;
 
         var scope = calendar.Scope;
-        _arithmetic = scope.Schema is LimitSchema sch
-            ? CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears)
-            : throw new NotSupportedException();
+        if (scope.Schema is LimitSchema sch)
+        {
+            _arithmetic = CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears);
+            Schema = sch;
+        }
+        else
+        {
+            throw new ArgumentException(null, nameof(calendar));
+        }
     }
 
     /// <summary>
     /// Gets the calendar.
     /// </summary>
     public CalendarSystem<TDate> Calendar { get; }
+
+    private LimitSchema Schema { get; }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date.
@@ -56,14 +65,8 @@ public sealed class DefaultMath<TCalendar, TDate>
     [Pure]
     public TDate AddYears(TDate date, int years)
     {
-        var sch = Calendar.Scope.Schema;
-
         var (y, m, d) = date;
-        // NB: Arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years);
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return TDate.UnsafeCreate(daysSinceEpoch);
+        return AddYears(y, m, d, years);
     }
 
     /// <summary>
@@ -74,14 +77,8 @@ public sealed class DefaultMath<TCalendar, TDate>
     [Pure]
     public TDate AddMonths(TDate date, int months)
     {
-        var sch = Calendar.Scope.Schema;
-
         var (y, m, d) = date;
-        // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months);
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return TDate.UnsafeCreate(daysSinceEpoch);
+        return AddMonths(y, m, d, months);
     }
 
     /// <summary>
@@ -90,9 +87,14 @@ public sealed class DefaultMath<TCalendar, TDate>
     [Pure]
     public int CountYearsBetween(TDate start, TDate end)
     {
-        int years = end.Year - start.Year;
+        var (y0, m0, d0) = start;
 
-        var newStart = AddYears(start, years);
+        // Exact difference between two years.
+        int years = end.Year - y0;
+
+        // To avoid extracting y0 twice, we inline:
+        // > var newStart = AddYears(start, years);
+        var newStart = AddYears(y0, m0, d0, years);
         if (start < end)
         {
             if (newStart > end) years--;
@@ -111,11 +113,15 @@ public sealed class DefaultMath<TCalendar, TDate>
     [Pure]
     public int CountMonthsBetween(TDate start, TDate end)
     {
-        var (y0, m0, _) = start;
+        var (y0, m0, d0) = start;
         var (y1, m1, _) = end;
+
+        // Exact difference between two months.
         int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
 
-        var newStart = AddMonths(start, months);
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusMonths(months);
+        var newStart = AddMonths(y0, m0, d0, months);
         if (start < end)
         {
             if (newStart > end) months--;
@@ -126,5 +132,35 @@ public sealed class DefaultMath<TCalendar, TDate>
         }
 
         return months;
+    }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private TDate AddYears(int y, int m, int d, int years)
+    {
+        // NB: Arithmetic.AddYears() is validating.
+        var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years);
+
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        return TDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the month field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private TDate AddMonths(int y, int m, int d, int months)
+    {
+        // NB: Arithmetic.AddMonths() is validating.
+        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months);
+
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }
