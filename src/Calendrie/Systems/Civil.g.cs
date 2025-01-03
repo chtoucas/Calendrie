@@ -19,6 +19,8 @@ using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
 /// Represents the Civil date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="CivilDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CivilDate :

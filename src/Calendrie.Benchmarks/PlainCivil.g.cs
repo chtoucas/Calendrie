@@ -69,6 +69,8 @@ public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
 
 /// <summary>
 /// Represents the Plain Civil date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="PlainCivilDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainCivilDate :

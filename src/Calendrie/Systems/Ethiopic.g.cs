@@ -67,6 +67,8 @@ public sealed partial class EthiopicCalendar : CalendarSystem<EthiopicDate>
 
 /// <summary>
 /// Represents the Ethiopic date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="EthiopicDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct EthiopicDate :

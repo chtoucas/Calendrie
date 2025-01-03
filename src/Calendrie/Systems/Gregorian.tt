@@ -16,10 +16,7 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
     {
         WriteLine();
 #>
-using System.Numerics;
-
 using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>
@@ -28,6 +25,7 @@ using Calendrie.Horology;
 
     protected sealed override void EmitCalendar() { }
 
+    protected sealed override void EmitDateDecl() { }
     protected sealed override void EmitDatePreamble() { }
     protected sealed override void EmitDateFactories() { }
     protected sealed override void EmitDateCloseByDayOfWeek() { }

@@ -3,14 +3,28 @@
 
 namespace Calendrie.Systems;
 
+using System.Numerics;
+
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
 
-/// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
-/// supported.</remarks>
+/// <summary>
+/// Represents the Gregorian date.
+/// <para><i>All</i> dates within the range [-999_998..999_999] of years are
+/// supported.</para>
+/// <para><see cref="GregorianDate"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct GregorianDate :
+    IDateable,
+    IAbsoluteDate<GregorianDate>,
+    IAdjustableDate<GregorianDate>,
+    IDateFactory<GregorianDate>,
+    ISubtractionOperators<GregorianDate, GregorianDate, int>
+{ }
+
 public partial struct GregorianDate // Preamble
 {
     /// <summary>Represents the minimum value of <see cref="_daysSinceZero"/>.

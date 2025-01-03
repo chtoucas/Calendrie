@@ -5,8 +5,6 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct ArmenianDate : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
@@ -19,8 +17,6 @@ public partial struct ArmenianDate : IEpagomenalDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct Armenian13Date : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
@@ -33,8 +29,6 @@ public partial struct Armenian13Date : IEpagomenalDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct CopticDate : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
@@ -47,8 +41,6 @@ public partial struct CopticDate : IEpagomenalDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct Coptic13Date : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
@@ -61,8 +53,6 @@ public partial struct Coptic13Date : IEpagomenalDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct EthiopicDate : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
@@ -75,8 +65,6 @@ public partial struct EthiopicDate : IEpagomenalDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct Ethiopic13Date : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
@@ -89,13 +77,9 @@ public partial struct Ethiopic13Date : IEpagomenalDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct TabularIslamicDate // Complements
 { }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct WorldDate : IBlankDay // Complements
 {
     /// <inheritdoc />
@@ -110,8 +94,6 @@ public partial struct WorldDate : IBlankDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct ZoroastrianDate : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
@@ -124,8 +106,6 @@ public partial struct ZoroastrianDate : IEpagomenalDay // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct Zoroastrian13Date : IEpagomenalDay // Complements
 {
     /// <inheritdoc />

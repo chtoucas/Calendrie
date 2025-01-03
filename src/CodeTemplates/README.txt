@@ -87,8 +87,10 @@ modèle "ZeroCalendarTemplate" :
 
 Les modèles T4 disponibles ne sont pas adaptés aux calendriers "proleptiques".
 Les méthodes suivantes doivent être désactivées :
-- EmitDatePreamble
-- EmitCloseByDayOfWeek
-- EmitDateMath
-- EmitDateMathNonStandard
+- EmitCalendar() ; la documentation XML n'est pas adaptée
+- EmitDateDecl() ; la documentation XML n'est pas adaptée
+- EmitDatePreamble()
+- EmitCloseByDayOfWeek()
+- EmitDateMath()
+- EmitDateMathNonStandard()
 Voir Gregorian.tt ou Julian.tt

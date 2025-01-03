@@ -10,22 +10,7 @@
 
 namespace Calendrie.Systems;
 
-using System.Numerics;
-
 using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
-
-/// <summary>
-/// Represents the Julian date.
-/// <para><see cref="JulianDate"/> is an immutable struct.</para>
-/// </summary>
-public readonly partial struct JulianDate :
-    IDateable,
-    IAbsoluteDate<JulianDate>,
-    IAdjustableDate<JulianDate>,
-    IDateFactory<JulianDate>,
-    ISubtractionOperators<JulianDate, JulianDate, int>
-{ }
 
 public partial struct JulianDate // Factories & conversions
 {

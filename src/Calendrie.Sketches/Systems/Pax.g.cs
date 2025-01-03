@@ -67,6 +67,8 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
 
 /// <summary>
 /// Represents the Pax date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="PaxDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PaxDate :

@@ -67,6 +67,8 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 
 /// <summary>
 /// Represents the World date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="WorldDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct WorldDate :

@@ -67,6 +67,8 @@ public sealed partial class CopticCalendar : CalendarSystem<CopticDate>
 
 /// <summary>
 /// Represents the Coptic date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="CopticDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CopticDate :

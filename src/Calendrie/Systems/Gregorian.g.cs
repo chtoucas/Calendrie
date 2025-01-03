@@ -10,22 +10,7 @@
 
 namespace Calendrie.Systems;
 
-using System.Numerics;
-
 using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
-
-/// <summary>
-/// Represents the Gregorian date.
-/// <para><see cref="GregorianDate"/> is an immutable struct.</para>
-/// </summary>
-public readonly partial struct GregorianDate :
-    IDateable,
-    IAbsoluteDate<GregorianDate>,
-    IAdjustableDate<GregorianDate>,
-    IDateFactory<GregorianDate>,
-    ISubtractionOperators<GregorianDate, GregorianDate, int>
-{ }
 
 public partial struct GregorianDate // Counting
 {

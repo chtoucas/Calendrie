@@ -70,6 +70,8 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 
 /// <summary>
 /// Represents the Plain Julian date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="PlainJulianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainJulianDate :

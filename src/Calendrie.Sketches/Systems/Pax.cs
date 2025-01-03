@@ -13,8 +13,6 @@ public partial class PaxCalendar // Complements
     }
 }
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct PaxDate // Complements
 {
 }

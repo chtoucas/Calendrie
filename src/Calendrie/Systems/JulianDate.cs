@@ -3,14 +3,28 @@
 
 namespace Calendrie.Systems;
 
+using System.Numerics;
+
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
 
-/// <remarks><i>All</i> dates within the range [-999_998..999_999] of years are
-/// supported.</remarks>
+/// <summary>
+/// Represents the Julian date.
+/// <para><i>All</i> dates within the range [-999_998..999_999] of years are
+/// supported.</para>
+/// <para><see cref="JulianDate"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct JulianDate :
+    IDateable,
+    IAbsoluteDate<JulianDate>,
+    IAdjustableDate<JulianDate>,
+    IDateFactory<JulianDate>,
+    ISubtractionOperators<JulianDate, JulianDate, int>
+{ }
+
 public partial struct JulianDate // Preamble
 {
     private const int EpochDaysSinceZero = -2;

@@ -67,6 +67,8 @@ public sealed partial class Armenian13Calendar : CalendarSystem<Armenian13Date>
 
 /// <summary>
 /// Represents the Armenian date.
+/// <para><i>All</i> dates within the range [1..9999] of years are supported.
+/// </para>
 /// <para><see cref="Armenian13Date"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Armenian13Date :
