@@ -107,4 +107,12 @@ internal partial class ThrowHelpers // OverflowException
     [DoesNotReturn]
     public static void ThrowMonthOverflow() =>
         throw new OverflowException("The computation would overflow the range of supported months.");
+
+    /// <summary>
+    /// The operation would overflow the range of supported years.
+    /// </summary>
+    /// <exception cref="OverflowException"/>
+    [DoesNotReturn]
+    public static void ThrowYearOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported years.");
 }

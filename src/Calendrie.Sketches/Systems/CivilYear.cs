@@ -8,9 +8,8 @@ using System.Numerics;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// FIXME(code): default(CivilYear) is not valid
-// - validation
-// - GetAllMonths/Days use the first day and add 1 to monthsSinceEpoch.
+// FIXME(code): validation, FirstDay, FirstMonth & co
+// - IEnumerable<CivilDate>, IEnumerable<CivilMonth>
 
 /// <summary>
 /// Represents a Civil year.
@@ -36,6 +35,17 @@ public readonly partial struct CivilYear :
 
 public partial struct CivilYear // Preamble
 {
+    /// <summary>Represents the maximum value of <see cref="_year0"/>.
+    /// <para>This field is a constant equal to 9998.</para></summary>
+    private const int MaxYear0 = StandardScope.MaxYear - 1;
+
+    /// <summary>
+    /// Represents the count of consecutive years since <see cref="DayZero.NewStyle"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxYear0"/>.
+    /// </para>
+    /// </summary>
+    private readonly int _year0;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilYear"/> struct to the
     /// specified year.
@@ -48,12 +58,14 @@ public partial struct CivilYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             throw new ArgumentOutOfRangeException(nameof(year));
 
-        Year = year;
+        _year0 = year - 1;
     }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    public static CivilYear MinValue { get; } = new(StandardScope.MinYear);
+    //
+    // MinValue = new(1) = new() = default(CivilYear)
+    public static CivilYear MinValue { get; }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
@@ -89,7 +101,7 @@ public partial struct CivilYear // Preamble
     /// <summary>
     /// Gets the (algebraic) year number.
     /// </summary>
-    public int Year { get; }
+    public int Year => _year0 + 1;
 
     /// <summary>
     /// Returns <see langword="true"/> if the current instance is a leap year;
@@ -131,13 +143,13 @@ public partial struct CivilYear // Conversions
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<CivilDate> ToRange() => Range.Create(FirstDay, LastDay);
+    public Range<CivilDate> ToRangeOfDays() => Range.Create(FirstDay, LastDay);
 
     /// <summary>
     /// Converts the current instance to a range of months.
     /// </summary>
     [Pure]
-    public Range<CivilMonth> ToMonthRange() => Range.Create(FirstMonth, LastMonth);
+    public Range<CivilMonth> ToRangeofMonths() => Range.Create(FirstMonth, LastMonth);
 }
 
 public partial struct CivilYear // Counting
@@ -178,12 +190,12 @@ public partial struct CivilYear // Days within the year & "membership"
     [Pure]
     public IEnumerable<CivilMonth> GetAllMonths()
     {
-        int y = Year;
+        int startOfYear = FirstMonth.MonthsSinceEpoch;
         int monthsInYear = CountMonths();
-        for (int m = 1; m <= monthsInYear; m++)
-        {
-            yield return new CivilMonth(y, m);
-        }
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, monthsInYear)
+               select new CivilMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -206,12 +218,12 @@ public partial struct CivilYear // Days within the year & "membership"
     [Pure]
     public IEnumerable<CivilDate> GetAllDays()
     {
-        int y = Year;
+        int startOfYear = FirstDay.DaysSinceZero;
         int daysInYear = CountDays();
-        for (int doy = 1; doy <= daysInYear; doy++)
-        {
-            yield return new CivilDate(y, doy);
-        }
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfYear, daysInYear)
+               select new CivilDate(daysSinceEpoch);
     }
 
     //
@@ -236,14 +248,14 @@ public partial struct CivilYear // Days within the year & "membership"
 public partial struct CivilYear // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(CivilYear left, CivilYear right) => left.Year == right.Year;
+    public static bool operator ==(CivilYear left, CivilYear right) => left._year0 == right._year0;
 
     /// <inheritdoc />
-    public static bool operator !=(CivilYear left, CivilYear right) => left.Year != right.Year;
+    public static bool operator !=(CivilYear left, CivilYear right) => left._year0 != right._year0;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(CivilYear other) => Year == other.Year;
+    public bool Equals(CivilYear other) => _year0 == other._year0;
 
     /// <inheritdoc />
     [Pure]
@@ -252,7 +264,7 @@ public partial struct CivilYear // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => Year;
+    public override int GetHashCode() => _year0;
 }
 
 public partial struct CivilYear // IComparable
@@ -261,25 +273,25 @@ public partial struct CivilYear // IComparable
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(CivilYear left, CivilYear right) => left.Year < right.Year;
+    public static bool operator <(CivilYear left, CivilYear right) => left._year0 < right._year0;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(CivilYear left, CivilYear right) => left.Year <= right.Year;
+    public static bool operator <=(CivilYear left, CivilYear right) => left._year0 <= right._year0;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(CivilYear left, CivilYear right) => left.Year > right.Year;
+    public static bool operator >(CivilYear left, CivilYear right) => left._year0 > right._year0;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(CivilYear left, CivilYear right) => left.Year >= right.Year;
+    public static bool operator >=(CivilYear left, CivilYear right) => left._year0 >= right._year0;
 
     /// <summary>
     /// Obtains the earlier year of two specified years.
@@ -295,7 +307,7 @@ public partial struct CivilYear // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(CivilYear other) => Year.CompareTo(other.Year);
+    public int CompareTo(CivilYear other) => _year0.CompareTo(other._year0);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -352,7 +364,7 @@ public partial struct CivilYear // Standard math ops
     public int CountYearsSince(CivilYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        Year - other.Year;
+        _year0 - other._year0;
 
     /// <summary>
     /// Adds a number of years to this year instance, yielding a new year.
@@ -362,10 +374,9 @@ public partial struct CivilYear // Standard math ops
     [Pure]
     public CivilYear PlusYears(int years)
     {
-        int y = checked(Year + years);
-        if (y < StandardScope.MinYear || y > StandardScope.MaxYear)
-            throw new OverflowException();
-        return new CivilYear(y);
+        int y0 = checked(_year0 + years);
+        if (unchecked((uint)y0) > MaxYear0) ThrowHelpers.ThrowYearOverflow();
+        return new CivilYear(y0 + 1);
     }
 
     /// <summary>
@@ -376,7 +387,7 @@ public partial struct CivilYear // Standard math ops
     [Pure]
     public CivilYear NextYear()
     {
-        if (Year == StandardScope.MaxYear) throw new OverflowException();
+        if (_year0 == MaxYear0) ThrowHelpers.ThrowYearOverflow();
         return new(Year + 1);
     }
 
@@ -388,7 +399,7 @@ public partial struct CivilYear // Standard math ops
     [Pure]
     public CivilYear PreviousYear()
     {
-        if (Year == StandardScope.MinYear) throw new OverflowException();
+        if (_year0 == 0) ThrowHelpers.ThrowYearOverflow();
         return new(Year - 1);
     }
 }

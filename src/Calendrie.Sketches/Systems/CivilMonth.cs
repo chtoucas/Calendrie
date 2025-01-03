@@ -8,6 +8,8 @@ using System.Numerics;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
+// FIXME(code): GetAllDays(), FirstDay, LastDay, CalendarYear
+
 /// <summary>
 /// Represents a Civil month.
 /// <para><i>All</i> months within the range [1..9999] of years are supported.
@@ -57,7 +59,7 @@ public partial struct CivilMonth // Preamble
         var chr = CivilCalendar.Instance;
         chr.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceEpoch = CivilCalendar.Instance.Schema.CountMonthsSinceEpoch(year, month);
+        _monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
@@ -84,6 +86,12 @@ public partial struct CivilMonth // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
+
+    /// <summary>
+    /// Gets the count of months since the epoch of the calendar to which belongs
+    /// the current instance.
+    /// </summary>
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -138,8 +146,9 @@ public partial struct CivilMonth // Preamble
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-            return Calendar.Schema.IsIntercalaryMonth(y, m);
+            var sch = Calendar.Schema;
+            sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+            return sch.IsIntercalaryMonth(y, m);
         }
     }
 
@@ -300,6 +309,10 @@ public partial struct CivilMonth // Days within the month & "membership"
             yield return new CivilDate(y, m, d);
         }
     }
+
+    //
+    // "Membership"
+    //
 
     /// <summary>
     /// Determines whether the current instance contains the specified date or
