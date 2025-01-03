@@ -158,8 +158,10 @@ public partial struct PaxDate // Non-standard math ops
         // Exact addition of months to a calendar month.
         int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
         // FIXME(code): validation of monthsSinceEpoch.
-        //if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-        //    ThrowHelpers.ThrowDateOverflow();
+        var (minMonthsSinceEpoch, maxMonthsSinceEpoch) =
+            Calendar.Scope.Segment.SupportedMonths.Endpoints;
+        if (monthsSinceEpoch < minMonthsSinceEpoch || monthsSinceEpoch > maxMonthsSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
 
         sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
 
