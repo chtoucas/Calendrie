@@ -5,6 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 
+// TODO(code): auto-generate MonthsInYear and CountMonthsInYear()
 // For non-regular calendars, add the following method:
 #if false
 /// <summary>
