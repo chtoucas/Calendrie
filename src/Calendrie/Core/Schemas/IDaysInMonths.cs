@@ -7,6 +7,9 @@ namespace Calendrie.Core.Schemas;
 // This interface is expected to be implemented explicitely.
 // Cannot be part of ICalendricalSchema as it would require C# to support
 // "static abstract" methods in abstract classes.
+//
+// Do NOT change the parameter from "leapYear" to "year". The method is abstract
+// and we don't want to have to validate the input parameter.
 
 /// <summary>
 /// Defines support for a function returning the distribution of days in month.

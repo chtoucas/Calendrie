@@ -77,9 +77,6 @@ public partial struct Ethiopic13Date : IEpagomenalDay // Complements
     }
 }
 
-public partial struct TabularIslamicDate // Complements
-{ }
-
 public partial struct WorldDate : IBlankDay // Complements
 {
     /// <inheritdoc />
