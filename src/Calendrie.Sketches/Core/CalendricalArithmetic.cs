@@ -6,6 +6,24 @@ namespace Calendrie.Core;
 using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 
+// TODO(code): CalendricalArithmetic
+// - Move ICalendricalArithmetic to sketches (before that we need to rework
+//   the calendars)
+// - I don't like the ctor (its use of Segment)
+// - We could add more math ops
+//   - CountYearsBetween(Yemoda, Yemoda)
+//   - CountMonthsBetween(Yemoda, Yemoda)
+//   - Ops with Yedoy
+// - Date type in Calendrie.Systems:
+//   - NextMonth(), PreviousMonth() & co?
+//   - PlusYears() & other math ops should be part of an interface
+//   - Move adjustments methods Calendar.GetStartOfYear & co to the date type
+// - Testing:
+//   - I'm pretty sure that PlainArithmetic.AddYears(Yemoda, years, roundoff) is
+//     wrong
+// - Optimisations here:
+//   - MinYear or MinMonthsSinceEpoch = 0 -> uint for range checks
+
 /// <summary>
 /// Defines the core mathematical operations on dates and months, and provides
 /// a base for derived classes.
