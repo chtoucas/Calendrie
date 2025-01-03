@@ -13,7 +13,11 @@ public partial class CalendarTemplate
         EmitDateEquatable();
         EmitDateComparable();
         EmitDateMath();
-        //EmitDateMathNonStandard();
+
+        if (IsRegular)
+        {
+            EmitDateMathNonStandardRegular();
+        }
     }
 
     protected virtual void EmitDateDecl()
@@ -555,40 +559,141 @@ public partial struct <#= Prefix #>Date // Standard math ops
 <#+
     } // T4: End of EmitDateMath()
 
-    protected virtual void EmitDateMathNonStandard()
+    protected virtual void EmitDateMathNonStandardRegular()
     {
         WriteLine();
 #>
 public partial struct <#= Prefix #>Date // Non-standard math ops
 {
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Adds a number of years to the year field of this date instance, yielding
+    /// a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public int CountMonthsSince(<#= Prefix #>Date other) => Calendar.CountMonthsBetween(other, this);
+    public <#= Prefix #>Date PlusYears(int years)
+    {
+        var (y, m, d) = this;
+        return AddYears(y, m, d, years);
+    }
 
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
     /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
     [Pure]
-    public <#= Prefix #>Date PlusMonths(int months) => Calendar.AddMonths(this, months);
+    public <#= Prefix #>Date PlusMonths(int months)
+    {
+        var (y, m, d) = this;
+        return AddMonths(y, m, d, months);
+    }
 
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountYearsSince(<#= Prefix #>Date other) => Calendar.CountYearsBetween(other, this);
+    public int CountYearsSince(<#= Prefix #>Date other)
+    {
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar years.
+        int years = Year - y0;
+
+        // To avoid extracting y0 twice, we inline:
+        // > var newStart = other.PlusYears(years);
+        var newStart = AddYears(y0, m0, d0, years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
 
     /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
-    /// a new date.
+    /// Counts the number of months elapsed since the specified date.
     /// </summary>
     [Pure]
-    public <#= Prefix #>Date PlusYears(int years) => Calendar.AddYears(this, years);
+    public int CountMonthsSince(<#= Prefix #>Date other)
+    {
+        var (y, m, _) = this;
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar months.
+        int months = checked(<#= Prefix #>Calendar.MonthsInYear * (y - y0) + m - m0);
+
+        // To avoid extracting (y0, m0, d0) twice, we inline:
+        // > var newStart = other.PlusMonths(months);
+        var newStart = AddMonths(y0, m0, d0, months);
+
+        if (other < this)
+        {
+            if (newStart > this) months--;
+        }
+        else
+        {
+            if (newStart < this) months++;
+        }
+
+        return months;
+    }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private static <#= Prefix #>Date AddYears(int y, int m, int d, int years)
+    {
+        var sch = Calendar.Schema;
+
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
+
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, m, newD);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the month field of the specified date,
+    /// yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private static <#= Prefix #>Date AddMonths(int y, int m, int d, int months)
+    {
+        var sch = Calendar.Schema;
+
+        // Exact addition of months to a calendar month.
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), <#= Prefix #>Calendar.MonthsInYear, out int y0);
+        int newY = checked(y + y0);
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
+
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+    }
 }
 <#+
-    } // T4: End of EmitDateMathNonStandard()
+    } // T4: End of EmitDateMathNonStandardRegular
 
 } // T4: End of CalendarTemplate
 

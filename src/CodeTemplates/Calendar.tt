@@ -11,7 +11,8 @@ public partial class CalendarTemplate : CSharpTemplate
         string schemaClass,
         string epoch,
         string epochDaysSinceZeroValue,
-        string maxDaysSinceEpochValue) : base(parent)
+        string maxDaysSinceEpochValue,
+        bool regular = true) : base(parent)
     {
         if (String.IsNullOrWhiteSpace(schemaClass))
             throw new ArgumentException("The schema can not be null or blank.", nameof(schemaClass));
@@ -25,12 +26,16 @@ public partial class CalendarTemplate : CSharpTemplate
         DisplayName = Name;
         Prefix = Name;
         MaxDaysSinceEpochValue = maxDaysSinceEpochValue;
+
+        IsRegular = regular;
     }
 
     public string SchemaClass { get; }
     public string Epoch { get; }
     public string EpochDaysSinceZeroValue { get; }
     public string ScopeClass { get; set; } = "StandardScope";
+
+    public bool IsRegular { get; }
 
     // NB: we don't check the setter because these are design time templates:
     // if "value" is null or invalid, then the T4 transformation will fail right

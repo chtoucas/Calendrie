@@ -50,6 +50,18 @@ alors à jour le modèle comme suit :
 
 <#= new CalendarTemplate(this, "MonSchema", "MonEpoch", "397", "3_652_060").Execute() #>
 
+Attention : ce constructeur suppose que le calendrier est régulier --- pour un
+calendrier non-régulier, utiliser l'option "regular: false". Cela signifie qu'il
+faudra rajouter à la main dans _Calendar.cs quelque chose dans le genre :
+
+public partial class MonCalendar // Complements
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// </summary>
+    public const int MonthsInYear = MonSchema.MonthsInYear;
+}
+
 Options disponibles
 -------------------
 
@@ -58,7 +70,9 @@ Options disponibles
 
 - ScopeClass : pour utiliser un "scope" différent de StandarScope. Attention :
   les modèles T4 sont prévus pour des "scope" pour lesquels MinYear = 1,
-  garantissant ainsi que MinDaysSinceEpoch = 0.
+  garantissant ainsi que MinDaysSinceEpoch = 0. On suppose aussi que le "scope"
+  définit deux constantes MinYear (= 1) et MaxYear ; nécessaire pour que
+  l'arithmétique fonctionne.
 
 - EnableIsSupplementary : quand cette propriété retourne "false", la propriété
   IsSupplementary est rendue comme suit :
@@ -92,5 +106,5 @@ Les méthodes suivantes doivent être désactivées :
 - EmitDatePreamble()
 - EmitCloseByDayOfWeek()
 - EmitDateMath()
-- EmitDateMathNonStandard()
+- EmitDateMathNonStandardRegular()
 Voir Gregorian.tt ou Julian.tt
