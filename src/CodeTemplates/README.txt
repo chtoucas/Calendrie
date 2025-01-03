@@ -50,11 +50,18 @@ alors à jour le modèle comme suit :
 
 <#= new CalendarTemplate(this, "MonSchema", "MonEpoch", "397", "3_652_060").Execute() #>
 
-Attention : ce constructeur suppose que le calendrier est régulier --- pour un
-calendrier non-régulier, utiliser l'option "regular: false". Quand le calendrier
-est régulier ne pas oublier de préciser la valeur de la propriété MonthsInYear.
-On suppose que le schéma sous-jacent définit une constante MonthsInYear ayant la
-même valeur (!).
+Avertissements :
+
+On suppose que le "scope" de ScopeClass (voir plus bas) définit deux constantes
+MinYear et MaxYear.
+
+Le constructeur suppose que le calendrier est régulier, auquel cas ne pas oublier
+de préciser la valeur de la propriété T4 MonthsInYear. On suppose bien entendu
+que le schéma sous-jacent définit une constante MonthsInYear ayant la même valeur (!).
+
+Pour les calendriers non-réguliers, utiliser l'option "regular: false" du
+constructeur T4. Il conviendra de préciser la valeur de la propriété T4
+MaxMonthsSinceEpochValue.
 
 Options disponibles
 -------------------
@@ -101,4 +108,5 @@ Les méthodes suivantes doivent être désactivées :
 - EmitCloseByDayOfWeek()
 - EmitDateMath()
 - EmitDateMathNonStandardRegular()
+- EmitDateMathNonStandardNonRegular()
 Voir Gregorian.tt ou Julian.tt

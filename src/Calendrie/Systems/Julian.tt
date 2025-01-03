@@ -30,6 +30,8 @@ using Calendrie.Horology;
     protected sealed override void EmitDateCloseByDayOfWeek() { }
     protected sealed override void EmitDateMath() { }
     protected sealed override void EmitDateMathNonStandardRegular() { }
+    // NB : ce n'est pas nécessaire car le calendrier est régulier, mais bon...
+    protected sealed override void EmitDateMathNonStandardNonRegular() { }
 }
 
 #>
