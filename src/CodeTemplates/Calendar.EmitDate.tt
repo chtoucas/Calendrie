@@ -280,13 +280,15 @@ public partial struct <#= Prefix #>Date // Adjustments
     [Pure]
     public <#= Prefix #>Date WithYear(int newYear)
     {
-        var (_, m, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out int m, out int d);
+
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newYear, m, d);
         return new(<#= DaysSinceEpochVar #>);
     }
 
@@ -294,13 +296,15 @@ public partial struct <#= Prefix #>Date // Adjustments
     [Pure]
     public <#= Prefix #>Date WithMonth(int newMonth)
     {
-        var (y, _, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out _, out int d);
+
         // We only need to validate "newMonth" and "d".
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(y, newMonth, d);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, newMonth, d);
         return new(<#= DaysSinceEpochVar #>);
     }
 
@@ -308,13 +312,15 @@ public partial struct <#= Prefix #>Date // Adjustments
     [Pure]
     public <#= Prefix #>Date WithDay(int newDay)
     {
-        var (y, m, _) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out _);
+
         // We only need to validate "newDay".
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(y, m, newDay);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, newDay);
         return new(<#= DaysSinceEpochVar #>);
     }
 
@@ -322,13 +328,15 @@ public partial struct <#= Prefix #>Date // Adjustments
     [Pure]
     public <#= Prefix #>Date WithDayOfYear(int newDayOfYear)
     {
-        int y = Year;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        int y = sch.GetYear(_<#= DaysSinceEpochVar #>);
+
         // We only need to validate "newDayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(y, newDayOfYear);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(<#= DaysSinceEpochVar #>);
     }
 }
@@ -574,8 +582,9 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public <#= Prefix #>Date PlusYears(int years)
     {
-        var (y, m, d) = this;
-        return AddYears(y, m, d, years);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return AddYears(sch, y, m, d, years);
     }
 
     /// <summary>
@@ -587,8 +596,9 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public <#= Prefix #>Date PlusMonths(int months)
     {
-        var (y, m, d) = this;
-        return AddMonths(y, m, d, months);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return AddMonths(sch, y, m, d, months);
     }
 
     /// <summary>
@@ -597,14 +607,15 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public int CountYearsSince(<#= Prefix #>Date other)
     {
-        var (y0, m0, d0) = other;
+        var sch = Calendar.Schema;
+        sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(y0, m0, d0, years);
+        var newStart = AddYears(sch, y0, m0, d0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -623,15 +634,16 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public int CountMonthsSince(<#= Prefix #>Date other)
     {
-        var (y, m, _) = this;
-        var (y0, m0, d0) = other;
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out _);
+        sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
         int months = checked(<#= Prefix #>Calendar.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
-        var newStart = AddMonths(y0, m0, d0, months);
+        var newStart = AddMonths(sch, y0, m0, d0, months);
 
         if (other < this)
         {
@@ -652,10 +664,8 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static <#= Prefix #>Date AddYears(int y, int m, int d, int years)
+    private static <#= Prefix #>Date AddYears(<#= SchemaClass #> sch, int y, int m, int d, int years)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
@@ -675,10 +685,8 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static <#= Prefix #>Date AddMonths(int y, int m, int d, int months)
+    private static <#= Prefix #>Date AddMonths(<#= SchemaClass #> sch, int y, int m, int d, int months)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), <#= Prefix #>Calendar.MonthsInYear, out int y0);
         int newY = checked(y + y0);

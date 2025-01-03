@@ -3,5 +3,6 @@
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
 <#= new CalendarTemplate(this, "Egyptian13Schema", "DayZero.Zoroastrian", "230_637", "3_649_634")
     {
-        DisplayName = "Zoroastrian"
+        DisplayName = "Zoroastrian",
+        MonthsInYear = 13
     }.Execute() #>

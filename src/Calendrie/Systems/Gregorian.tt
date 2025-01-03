@@ -10,6 +10,7 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
         ScopeClass = "GregorianScope";
 
         EnableIsSupplementary = false;
+        MonthsInYear = 12;
     }
 
     protected sealed override void EmitUsings()

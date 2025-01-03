@@ -4,5 +4,6 @@
 <#= new CalendarTemplate(this, "TabularIslamicSchema", "DayZero.TabularIslamic", "227_014", "3_543_311")
     {
         DisplayName = "Tabular Islamic",
-        EnableIsSupplementary = false
+        EnableIsSupplementary = false,
+        MonthsInYear = 12
     }.Execute() #>

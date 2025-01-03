@@ -63,6 +63,18 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     /// Gets the schema.
     /// </summary>
     internal PaxSchema Schema { get; }
+
+    /// <summary>
+    /// Obtains the number of months in the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public int CountMonthsInYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return Schema.CountMonthsInYear(year);
+    }
 }
 
 /// <summary>
@@ -293,13 +305,15 @@ public partial struct PaxDate // Adjustments
     [Pure]
     public PaxDate WithYear(int newYear)
     {
-        var (_, m, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);
         return new(daysSinceEpoch);
     }
 
@@ -307,13 +321,15 @@ public partial struct PaxDate // Adjustments
     [Pure]
     public PaxDate WithMonth(int newMonth)
     {
-        var (y, _, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceEpoch, out int y, out _, out int d);
+
         // We only need to validate "newMonth" and "d".
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, newMonth, d);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
         return new(daysSinceEpoch);
     }
 
@@ -321,13 +337,15 @@ public partial struct PaxDate // Adjustments
     [Pure]
     public PaxDate WithDay(int newDay)
     {
-        var (y, m, _) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
+
         // We only need to validate "newDay".
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
         return new(daysSinceEpoch);
     }
 
@@ -335,13 +353,15 @@ public partial struct PaxDate // Adjustments
     [Pure]
     public PaxDate WithDayOfYear(int newDayOfYear)
     {
-        int y = Year;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        int y = sch.GetYear(_daysSinceEpoch);
+
         // We only need to validate "newDayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, newDayOfYear);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
 }

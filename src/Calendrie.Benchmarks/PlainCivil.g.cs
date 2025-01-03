@@ -34,6 +34,12 @@ using static Calendrie.Core.CalendricalConstants;
 public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
 {
     /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is a constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = GregorianSchema.MonthsInYear;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PlainCivilCalendar"/> class.
     /// </summary>
     public PlainCivilCalendar() : this(new GregorianSchema()) { }
@@ -281,13 +287,15 @@ public partial struct PlainCivilDate // Adjustments
     [Pure]
     public PlainCivilDate WithYear(int newYear)
     {
-        var (_, m, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceZero, out _, out int m, out int d);
+
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        int daysSinceZero = sch.CountDaysSinceEpoch(newYear, m, d);
         return new(daysSinceZero);
     }
 
@@ -295,13 +303,15 @@ public partial struct PlainCivilDate // Adjustments
     [Pure]
     public PlainCivilDate WithMonth(int newMonth)
     {
-        var (y, _, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceZero, out int y, out _, out int d);
+
         // We only need to validate "newMonth" and "d".
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, newMonth, d);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
         return new(daysSinceZero);
     }
 
@@ -309,13 +319,15 @@ public partial struct PlainCivilDate // Adjustments
     [Pure]
     public PlainCivilDate WithDay(int newDay)
     {
-        var (y, m, _) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out _);
+
         // We only need to validate "newDay".
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
         return new(daysSinceZero);
     }
 
@@ -323,13 +335,15 @@ public partial struct PlainCivilDate // Adjustments
     [Pure]
     public PlainCivilDate WithDayOfYear(int newDayOfYear)
     {
-        int y = Year;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        int y = sch.GetYear(_daysSinceZero);
+
         // We only need to validate "newDayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, newDayOfYear);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceZero);
     }
 }
@@ -544,8 +558,9 @@ public partial struct PlainCivilDate // Non-standard math ops
     [Pure]
     public PlainCivilDate PlusYears(int years)
     {
-        var (y, m, d) = this;
-        return AddYears(y, m, d, years);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+        return AddYears(sch, y, m, d, years);
     }
 
     /// <summary>
@@ -557,8 +572,9 @@ public partial struct PlainCivilDate // Non-standard math ops
     [Pure]
     public PlainCivilDate PlusMonths(int months)
     {
-        var (y, m, d) = this;
-        return AddMonths(y, m, d, months);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+        return AddMonths(sch, y, m, d, months);
     }
 
     /// <summary>
@@ -567,14 +583,15 @@ public partial struct PlainCivilDate // Non-standard math ops
     [Pure]
     public int CountYearsSince(PlainCivilDate other)
     {
-        var (y0, m0, d0) = other;
+        var sch = Calendar.Schema;
+        sch.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(y0, m0, d0, years);
+        var newStart = AddYears(sch, y0, m0, d0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -593,15 +610,16 @@ public partial struct PlainCivilDate // Non-standard math ops
     [Pure]
     public int CountMonthsSince(PlainCivilDate other)
     {
-        var (y, m, _) = this;
-        var (y0, m0, d0) = other;
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out _);
+        sch.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
         int months = checked(PlainCivilCalendar.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
-        var newStart = AddMonths(y0, m0, d0, months);
+        var newStart = AddMonths(sch, y0, m0, d0, months);
 
         if (other < this)
         {
@@ -622,10 +640,8 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PlainCivilDate AddYears(int y, int m, int d, int years)
+    private static PlainCivilDate AddYears(GregorianSchema sch, int y, int m, int d, int years)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
@@ -645,10 +661,8 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PlainCivilDate AddMonths(int y, int m, int d, int months)
+    private static PlainCivilDate AddMonths(GregorianSchema sch, int y, int m, int d, int months)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), PlainCivilCalendar.MonthsInYear, out int y0);
         int newY = checked(y + y0);

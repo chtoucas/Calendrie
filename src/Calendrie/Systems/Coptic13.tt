@@ -3,5 +3,6 @@
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
 <#= new CalendarTemplate(this, "Coptic13Schema", "DayZero.Coptic", "103_604", "3_652_134")
     {
-        DisplayName = "Coptic"
+        DisplayName = "Coptic",
+        MonthsInYear = 13
     }.Execute() #>

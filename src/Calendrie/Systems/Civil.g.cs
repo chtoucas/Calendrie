@@ -76,13 +76,15 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate WithYear(int newYear)
     {
-        var (_, m, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceZero, out _, out int m, out int d);
+
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        int daysSinceZero = sch.CountDaysSinceEpoch(newYear, m, d);
         return new(daysSinceZero);
     }
 
@@ -90,13 +92,15 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate WithMonth(int newMonth)
     {
-        var (y, _, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceZero, out int y, out _, out int d);
+
         // We only need to validate "newMonth" and "d".
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, newMonth, d);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
         return new(daysSinceZero);
     }
 
@@ -104,13 +108,15 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate WithDay(int newDay)
     {
-        var (y, m, _) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out _);
+
         // We only need to validate "newDay".
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
         return new(daysSinceZero);
     }
 
@@ -118,13 +124,15 @@ public partial struct CivilDate // Adjustments
     [Pure]
     public CivilDate WithDayOfYear(int newDayOfYear)
     {
-        int y = Year;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        int y = sch.GetYear(_daysSinceZero);
+
         // We only need to validate "newDayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, newDayOfYear);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceZero);
     }
 }

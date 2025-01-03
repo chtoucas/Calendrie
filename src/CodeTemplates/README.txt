@@ -51,16 +51,8 @@ alors à jour le modèle comme suit :
 <#= new CalendarTemplate(this, "MonSchema", "MonEpoch", "397", "3_652_060").Execute() #>
 
 Attention : ce constructeur suppose que le calendrier est régulier --- pour un
-calendrier non-régulier, utiliser l'option "regular: false". Cela signifie qu'il
-faudra rajouter à la main dans _Calendar.cs quelque chose dans le genre :
-
-public partial class MonCalendar // Complements
-{
-    /// <summary>
-    /// Represents the total number of months in a year.
-    /// </summary>
-    public const int MonthsInYear = MonSchema.MonthsInYear;
-}
+calendrier non-régulier, utiliser l'option "regular: false". Quand le calendrier
+est régulier ne pas oublier de préciser la valeur de la propriété MonthsInYear.
 
 Options disponibles
 -------------------

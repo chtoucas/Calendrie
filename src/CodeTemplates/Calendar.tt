@@ -36,6 +36,7 @@ public partial class CalendarTemplate : CSharpTemplate
     public string ScopeClass { get; set; } = "StandardScope";
 
     public bool IsRegular { get; }
+    public int MonthsInYear { get; set; }
 
     // NB: we don't check the setter because these are design time templates:
     // if "value" is null or invalid, then the T4 transformation will fail right
@@ -129,6 +130,14 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>Date>
 {
+<#+ if (IsRegular && MonthsInYear > 0) { #>
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is a constant equal to <#= MonthsInYear #>.</para>
+    /// </summary>
+    public const int MonthsInYear = <#= SchemaClass #>.MonthsInYear;
+
+<#+ } #>
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
     /// </summary>
@@ -161,6 +170,20 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// Gets the schema.
     /// </summary>
     internal <#= SchemaClass #> Schema { get; }
+<#+ if (!IsRegular) { #>
+
+    /// <summary>
+    /// Obtains the number of months in the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public int CountMonthsInYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return Schema.CountMonthsInYear(year);
+    }
+<#+ } #>
 }
 <#+
     } // T4: End of EmitCalendar()

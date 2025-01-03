@@ -1,4 +1,7 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
-<#= new CalendarTemplate(this, "Egyptian12Schema", "DayZero.Zoroastrian", "230_637", "3_649_634").Execute() #>
+<#= new CalendarTemplate(this, "Egyptian12Schema", "DayZero.Zoroastrian", "230_637", "3_649_634")
+    {
+        MonthsInYear = 12
+    }.Execute() #>

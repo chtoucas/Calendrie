@@ -32,6 +32,12 @@ using static Calendrie.Core.CalendricalConstants;
 public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslamicDate>
 {
     /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is a constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = TabularIslamicSchema.MonthsInYear;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// </summary>
     public TabularIslamicCalendar() : this(new TabularIslamicSchema()) { }
@@ -284,13 +290,15 @@ public partial struct TabularIslamicDate // Adjustments
     [Pure]
     public TabularIslamicDate WithYear(int newYear)
     {
-        var (_, m, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(newYear, m, d);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);
         return new(daysSinceEpoch);
     }
 
@@ -298,13 +306,15 @@ public partial struct TabularIslamicDate // Adjustments
     [Pure]
     public TabularIslamicDate WithMonth(int newMonth)
     {
-        var (y, _, d) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceEpoch, out int y, out _, out int d);
+
         // We only need to validate "newMonth" and "d".
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, newMonth, d);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
         return new(daysSinceEpoch);
     }
 
@@ -312,13 +322,15 @@ public partial struct TabularIslamicDate // Adjustments
     [Pure]
     public TabularIslamicDate WithDay(int newDay)
     {
-        var (y, m, _) = this;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
+
         // We only need to validate "newDay".
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, newDay);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
         return new(daysSinceEpoch);
     }
 
@@ -326,13 +338,15 @@ public partial struct TabularIslamicDate // Adjustments
     [Pure]
     public TabularIslamicDate WithDayOfYear(int newDayOfYear)
     {
-        int y = Year;
-
         var chr = Calendar;
+        var sch = Calendar.Schema;
+
+        int y = sch.GetYear(_daysSinceEpoch);
+
         // We only need to validate "newDayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, newDayOfYear);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
 }
@@ -548,8 +562,9 @@ public partial struct TabularIslamicDate // Non-standard math ops
     [Pure]
     public TabularIslamicDate PlusYears(int years)
     {
-        var (y, m, d) = this;
-        return AddYears(y, m, d, years);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return AddYears(sch, y, m, d, years);
     }
 
     /// <summary>
@@ -561,8 +576,9 @@ public partial struct TabularIslamicDate // Non-standard math ops
     [Pure]
     public TabularIslamicDate PlusMonths(int months)
     {
-        var (y, m, d) = this;
-        return AddMonths(y, m, d, months);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return AddMonths(sch, y, m, d, months);
     }
 
     /// <summary>
@@ -571,14 +587,15 @@ public partial struct TabularIslamicDate // Non-standard math ops
     [Pure]
     public int CountYearsSince(TabularIslamicDate other)
     {
-        var (y0, m0, d0) = other;
+        var sch = Calendar.Schema;
+        sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(y0, m0, d0, years);
+        var newStart = AddYears(sch, y0, m0, d0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -597,15 +614,16 @@ public partial struct TabularIslamicDate // Non-standard math ops
     [Pure]
     public int CountMonthsSince(TabularIslamicDate other)
     {
-        var (y, m, _) = this;
-        var (y0, m0, d0) = other;
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
+        sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
         int months = checked(TabularIslamicCalendar.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
-        var newStart = AddMonths(y0, m0, d0, months);
+        var newStart = AddMonths(sch, y0, m0, d0, months);
 
         if (other < this)
         {
@@ -626,10 +644,8 @@ public partial struct TabularIslamicDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static TabularIslamicDate AddYears(int y, int m, int d, int years)
+    private static TabularIslamicDate AddYears(TabularIslamicSchema sch, int y, int m, int d, int years)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
@@ -649,10 +665,8 @@ public partial struct TabularIslamicDate // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static TabularIslamicDate AddMonths(int y, int m, int d, int months)
+    private static TabularIslamicDate AddMonths(TabularIslamicSchema sch, int y, int m, int d, int months)
     {
-        var sch = Calendar.Schema;
-
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), TabularIslamicCalendar.MonthsInYear, out int y0);
         int newY = checked(y + y0);

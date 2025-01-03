@@ -9,18 +9,6 @@ using Calendrie.Core.Utilities;
 public partial class PaxCalendar // Complements
 {
     /// <summary>
-    /// Obtains the number of months in the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
-    [Pure]
-    public int CountMonthsInYear(int year)
-    {
-        Scope.ValidateYear(year);
-        return Schema.CountMonthsInYear(year);
-    }
-
-    /// <summary>
     /// Obtains the number of weeks in the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The year is outside the
@@ -31,10 +19,6 @@ public partial class PaxCalendar // Complements
         Scope.ValidateYear(year);
         return Schema.CountWeeksInYear(year);
     }
-}
-
-public partial struct PaxDate // Complements
-{
 }
 
 public partial struct PaxDate // Non-standard math ops
@@ -106,7 +90,6 @@ public partial struct PaxDate // Non-standard math ops
     public int CountMonthsSince(PaxDate other)
     {
         var sch = Calendar.Schema;
-
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
         sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
