@@ -324,6 +324,7 @@ Calendrie.Core.Schemas.Tropicalia3130Schema
 Calendrie.Core.Schemas.TropicaliaSchema
 Calendrie.Core.Schemas.TropicalistaSchema
 Calendrie.Core.Schemas.WorldSchema
+Calendrie.Core.Schemas.WorldSchema.CountDaysInWorldMonth(int y, int m) -> int
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
 Calendrie.Core.Yedoy
 Calendrie.Core.Yedoy.CompareTo(Calendrie.Core.Yedoy other) -> int
@@ -1161,9 +1162,7 @@ const Calendrie.Core.Yemoda.MinDay = 1 -> int
 const Calendrie.Core.Yemoda.MinMonth = 1 -> int
 const Calendrie.Core.Yemoda.MinYear = -2097151 -> int
 const Calendrie.DayNumber.MaxDaysSinceZero = 2147483646 -> int
-const Calendrie.DayNumber.MaxSupportedYear = 5000000 -> int
 const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
-const Calendrie.DayNumber.MinSupportedYear = -4999999 -> int
 const Calendrie.Ord.MaxAlgebraicValue = 2147483647 -> int
 const Calendrie.Ord.MinAlgebraicValue = -2147483646 -> int
 const Calendrie.Systems.Armenian13Calendar.MonthsInYear = 13 -> int

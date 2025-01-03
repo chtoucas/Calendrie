@@ -77,12 +77,12 @@ public readonly partial struct DayNumber :
     /// Represents the earliest supported <i>Gregorian</i> or <i>Julian</i> year.
     /// <para>This field is a constant equal to -4_999_999.</para>
     /// </summary>
-    public const int MinSupportedYear = -4_999_999;
+    internal const int MinSupportedYear = -4_999_999;
     /// <summary>
     /// Represents the latest supported <i>Gregorian</i> or <i>Julian</i> year.
     /// <para>This field is a constant equal to 5_000_000.</para>
     /// </summary>
-    public const int MaxSupportedYear = 5_000_000;
+    internal const int MaxSupportedYear = 5_000_000;
 
     /// <summary>
     /// Represents the count of consecutive days since <see cref="Zero"/>.
