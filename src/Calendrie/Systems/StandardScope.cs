@@ -35,9 +35,6 @@ internal sealed class StandardScope : CalendarScope
     /// </summary>
     public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
-    // TODO(code): LimitSchema rather than ICalendricalSchema, this is necessary
-    // for the math ops to work properly as they use Yemoda and Yemo.
-
     /// <summary>
     /// Initializes a new instance of the <see cref="StandardScope"/> class.
     /// </summary>

@@ -1,18 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-//#define ENABLE_MATH_OPS
-
 namespace Calendrie.Systems;
 
-#if ENABLE_MATH_OPS
-using Calendrie.Core;
-using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
-using Calendrie.Systems.Arithmetic;
-#else
-using Calendrie.Hemerology;
-#endif
 
 // Reasons to keep the constructor internal (system calendars and adjusters):
 // - the scope must be of type "MinMaxYearScope" but we don't enforce this
@@ -43,13 +34,6 @@ using Calendrie.Hemerology;
 public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
 {
-#if ENABLE_MATH_OPS
-    /// <summary>
-    /// Represents the calendrical arithmetic.
-    /// </summary>
-    private readonly ICalendricalArithmetic _arithmetic;
-#endif
-
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
     /// class.
@@ -60,19 +44,12 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     {
         Debug.Assert(scope != null);
         Debug.Assert(scope.Segment.IsComplete);
-
-#if ENABLE_MATH_OPS
-        var schema = scope.Schema;
-
-        _arithmetic = schema is LimitSchema sch ? CalendricalArithmetic.CreateDefault(sch)
-            : throw new ArgumentException(null, nameof(scope));
-#endif
     }
 
 #if DEBUG
     // While creating a new type, these properties prove to be useful in
-    // determining the actual value of MaxDaysSinceEpoch to be used by the T4
-    // template.
+    // determining the actual value of MaxDaysSinceEpoch and MaxMonthsSinceEpoch
+    // to be used by the T4 template.
     // For "standard" calendars, MinDaysSinceEpoch and MinMonthsSinceEpoch = 0.
 
     /// <summary>
@@ -237,106 +214,4 @@ public partial class CalendarSystem<TDate> // Transformers
         int daysSinceEpoch = sch.GetEndOfMonth(y, m);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
-}
-
-public partial class CalendarSystem<TDate> // Non-standard math ops
-{
-    // TODO(code): overflows? document them if any?
-
-#if ENABLE_MATH_OPS
-    /// <summary>
-    /// Adds a number of years to the year field of the specified date.
-    /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    internal TDate AddYears(TDate date, int years)
-    {
-        var sch = Scope.Schema;
-        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
-
-        // NB: _arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years);
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return TDate.UnsafeCreate(daysSinceEpoch);
-    }
-
-    /// <summary>
-    /// Counts the number of years between the two specified dates.
-    /// </summary>
-    [Pure]
-    internal int CountYearsBetween(TDate start, TDate end)
-    {
-        // Exact difference between two years.
-        int years = end.Year - start.Year;
-
-        var newStart = AddYears(start, years);
-        if (start < end)
-        {
-            if (newStart > end) years--;
-        }
-        else
-        {
-            if (newStart < end) years++;
-        }
-
-        return years;
-    }
-
-    /// <summary>
-    /// Adds a number of months to the month field of the specified date.
-    /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    internal TDate AddMonths(TDate date, int months)
-    {
-        var sch = Scope.Schema;
-        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
-
-        // NB: _arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months);
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return TDate.UnsafeCreate(daysSinceEpoch);
-    }
-
-    /// <summary>
-    /// Counts the number of months between the two specified dates.
-    /// </summary>
-    [Pure]
-    internal int CountMonthsBetween(TDate start, TDate end)
-    {
-        var sch = Scope.Schema;
-        sch.GetDateParts(start.DaysSinceEpoch, out int y0, out int m0, out int d0);
-        sch.GetDateParts(end.DaysSinceEpoch, out int y1, out int m1, out _);
-
-        // Exact difference between two months.
-        int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
-
-        // To avoid extracting (y0, m0, d0) twice, we inline:
-        // > var newStart = AddMonths(start, months);
-        var newStart = startPlusMonths(months);
-
-        if (start < end)
-        {
-            if (newStart > end) months--;
-        }
-        else
-        {
-            if (newStart < end) months++;
-        }
-
-        return months;
-
-        [Pure]
-        TDate startPlusMonths(int months)
-        {
-            var (newY, newM, newD) = _arithmetic.AddMonths(y0, m0, d0, months);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-            return TDate.UnsafeCreate(daysSinceEpoch);
-        }
-    }
-#endif
 }
