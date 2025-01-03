@@ -8,6 +8,10 @@ using System.Numerics;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
+// FIXME(code): default(CivilYear) is not valid
+// - validation
+// - GetAllMonths/Days use the first day and add 1 to monthsSinceEpoch.
+
 /// <summary>
 /// Represents a Civil year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
@@ -40,16 +44,16 @@ public partial struct CivilYear // Preamble
     /// outside the range of years supported values.</exception>
     public CivilYear(int year)
     {
-        CivilCalendar.Instance.Scope.ValidateYear(year);
+        //CivilCalendar.Instance.Scope.ValidateYear(year);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            throw new ArgumentOutOfRangeException(nameof(year));
 
         Year = year;
     }
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
-    //
-    // MinValue = new(0) = new() = default(CivilYear)
-    public static CivilYear MinValue { get; }
+    public static CivilYear MinValue { get; } = new(StandardScope.MinYear);
 
     /// <inheritdoc />
     /// <remarks>This static property is thread-safe.</remarks>
@@ -101,7 +105,7 @@ public partial struct CivilYear // Preamble
     /// <summary>
     /// Gets the last month of this year instance.
     /// </summary>
-    public CivilMonth LastMonth => new(Year, CountMonthsInYear());
+    public CivilMonth LastMonth => new(Year, CountMonths());
 
     /// <summary>
     /// Gets the first day of this year instance.
@@ -111,7 +115,7 @@ public partial struct CivilYear // Preamble
     /// <summary>
     /// Gets the last day of this year instance.
     /// </summary>
-    public CivilDate LastDay => new(Year, CountMonthsInYear(), 1);
+    public CivilDate LastDay => new(Year, CountMonths(), 1);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -142,13 +146,13 @@ public partial struct CivilYear // Counting
     /// Obtains the number of months in this year instance.
     /// </summary>
     [Pure]
-    public int CountMonthsInYear() => Calendar.Schema.CountMonthsInYear(Year);
+    public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
 
     /// <summary>
     /// Obtains the number of days in this year instance.
     /// </summary>
     [Pure]
-    public int CountDaysInYear() => Calendar.Schema.CountDaysInYear(Year);
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 }
 
 public partial struct CivilYear // Days within the year & "membership"
@@ -175,7 +179,7 @@ public partial struct CivilYear // Days within the year & "membership"
     public IEnumerable<CivilMonth> GetAllMonths()
     {
         int y = Year;
-        int monthsInYear = CountMonthsInYear();
+        int monthsInYear = CountMonths();
         for (int m = 1; m <= monthsInYear; m++)
         {
             yield return new CivilMonth(y, m);
@@ -203,8 +207,7 @@ public partial struct CivilYear // Days within the year & "membership"
     public IEnumerable<CivilDate> GetAllDays()
     {
         int y = Year;
-        int daysInYear = CountDaysInYear();
-
+        int daysInYear = CountDays();
         for (int doy = 1; doy <= daysInYear; doy++)
         {
             yield return new CivilDate(y, doy);
