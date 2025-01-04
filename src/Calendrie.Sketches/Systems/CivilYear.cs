@@ -9,6 +9,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
 // REVIEW(code): IEnumerable<CivilDate> or IEnumerable<CivilMonth>? Idem with CivilMonth.
+// Optimize ToRange...(). Idem with CivilMonth.
 
 /// <summary>
 /// Represents a Civil year.
