@@ -104,16 +104,25 @@ public partial struct JulianDate // Preamble
     /// <inheritdoc />
     public int DaysSinceEpoch => _daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
     public Ord CenturyOfEra => Ord.FromInt32(Century);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
     public int Century => YearNumbering.GetCentury(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
     public Ord YearOfEra => Ord.FromInt32(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <inheritdoc />

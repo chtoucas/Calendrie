@@ -105,9 +105,8 @@ public interface IDateable
     /// <summary>
     /// Obtains the number of whole days in the year elapsed since the start of
     /// the year and before this date instance.
+    /// <para>Trivial (= DayOfYear - 1), only added for completeness.</para>
     /// </summary>
-    /// <remarks>Trivial (= DayOfYear - 1), only added for completeness.
-    /// </remarks>
     [Pure] int CountElapsedDaysInYear();
 
     /// <summary>
@@ -118,8 +117,8 @@ public interface IDateable
     /// <summary>
     /// Obtains the number of whole days in the year elapsed since the start of
     /// the month and before this date instance.
+    /// <para>Trivial (= Day - 1), only added for completeness.</para>
     /// </summary>
-    /// <remarks>Trivial (= Day - 1), only added for completeness.</remarks>
     [Pure] int CountElapsedDaysInMonth();
 
     /// <summary>
