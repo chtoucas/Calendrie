@@ -56,18 +56,6 @@ public interface IYear<TSelf> :
     /// </summary>
     bool IsLeap { get; }
 
-    /// <summary>
-    /// Obtains the number of months in this year instance.
-    /// </summary>
-    int CountMonths();
-
-    /// <summary>
-    /// Obtains the number of days in this year instance.
-    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
-    /// </para>
-    /// </summary>
-    int CountDays();
-
     //
     // Standard math ops
     //
@@ -99,7 +87,7 @@ public interface IYear<TSelf> :
     TSelf PreviousYear();
 }
 
-public interface IDaysOfYearProvider<TDate>
+public interface IYearOfDays<TDate>
     where TDate : struct, IEquatable<TDate>, IComparable<TDate>
 {
     /// <summary>
@@ -118,6 +106,13 @@ public interface IDaysOfYearProvider<TDate>
     /// </para>
     /// </summary>
     Range<TDate> ToRangeOfDays();
+
+    /// <summary>
+    /// Obtains the number of days in this year instance.
+    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// </para>
+    /// </summary>
+    int CountDays();
 
     /// <summary>
     /// Obtains the ordinal date corresponding to the specified day of this year
@@ -140,7 +135,7 @@ public interface IDaysOfYearProvider<TDate>
     bool Contains(TDate date);
 }
 
-public interface IMonthsOfYearProvider<TMonth>
+public interface IYearOfMonths<TMonth>
     where TMonth : struct, IEquatable<TMonth>, IComparable<TMonth>
 {
     /// <summary>
@@ -157,6 +152,11 @@ public interface IMonthsOfYearProvider<TMonth>
     /// Converts the current instance to a range of months.
     /// </summary>
     Range<TMonth> ToRangeOfMonths();
+
+    /// <summary>
+    /// Obtains the number of months in this year instance.
+    /// </summary>
+    int CountMonths();
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year

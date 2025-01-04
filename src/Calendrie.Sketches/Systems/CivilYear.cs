@@ -17,8 +17,8 @@ using Calendrie.Core.Utilities;
 /// </summary>
 public readonly partial struct CivilYear :
     IYear<CivilYear>,
-    IMonthsOfYearProvider<CivilMonth>,
-    IDaysOfYearProvider<CivilDate>
+    IYearOfMonths<CivilMonth>,
+    IYearOfDays<CivilDate>
 { }
 
 public partial struct CivilYear // Preamble
@@ -102,30 +102,6 @@ public partial struct CivilYear // Preamble
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
 
     /// <inheritdoc />
-    public CivilMonth FirstMonth
-    {
-        get
-        {
-            int monthsSinceZero = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
-            return new CivilMonth(monthsSinceZero);
-        }
-    }
-
-    /// <inheritdoc />
-    public CivilMonth LastMonth
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            int y = Year;
-            //int m = sch.CountMonthsInYear(y);
-            //int monthsSinceZero = sch.CountMonthsSinceEpoch(y, m);
-            int monthsSinceZero = sch.CountMonthsSinceEpoch(y, MonthsCount);
-            return new CivilMonth(monthsSinceZero);
-        }
-    }
-
-    /// <inheritdoc />
     public CivilDate FirstDay
     {
         get
@@ -156,25 +132,8 @@ public partial struct CivilYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct CivilYear // Factories & conversions
+public partial struct CivilYear // Range of months
 {
-    /// <summary>
-    /// Converts the current instance to a range of days.
-    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
-    /// </para>
-    /// </summary>
-    [Pure]
-    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(FirstDay, LastDay);
-
-    /// <inheritdoc />
-    [Pure]
-    public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(FirstMonth, LastMonth);
-}
-
-public partial struct CivilYear // Counting
-{
-    // TODO(code): CountMonths() and MonthsInYear.
-
     /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
@@ -182,20 +141,38 @@ public partial struct CivilYear // Counting
     public const int MonthsCount = CivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    [Pure]
-    public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
+    public CivilMonth FirstMonth
+    {
+        get
+        {
+            int monthsSinceZero = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
+            return new CivilMonth(monthsSinceZero);
+        }
+    }
 
-    /// <summary>
-    /// Obtains the number of days in this year instance.
-    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
-    /// </para>
-    /// </summary>
-    [Pure]
-    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
-}
+    /// <inheritdoc />
+    public CivilMonth LastMonth
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int y = Year;
+            //int m = sch.CountMonthsInYear(y);
+            //int monthsSinceZero = sch.CountMonthsSinceEpoch(y, m);
+            int monthsSinceZero = sch.CountMonthsSinceEpoch(y, MonthsCount);
+            return new CivilMonth(monthsSinceZero);
+        }
+    }
 
-public partial struct CivilYear // Days within the year & "membership"
-{
+    /// <inheritdoc />
+    [Pure]
+    public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(FirstMonth, LastMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    //public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
+    int IYearOfMonths<CivilMonth>.CountMonths() => MonthsCount;
+
     /// <inheritdoc />
     [Pure]
     public CivilMonth GetMonthOfYear(int month)
@@ -225,6 +202,21 @@ public partial struct CivilYear // Days within the year & "membership"
 
     /// <inheritdoc />
     [Pure]
+    public bool Contains(CivilMonth month) => month.Year == Year;
+}
+
+public partial struct CivilYear // Range of days
+{
+    /// <inheritdoc />
+    [Pure]
+    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(FirstDay, LastDay);
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
+    [Pure]
     public CivilDate GetDayOfYear(int dayOfYear)
     {
         var chr = Calendar;
@@ -248,14 +240,6 @@ public partial struct CivilYear // Days within the year & "membership"
                in Enumerable.Range(startOfYear, daysInYear)
                select new CivilDate(daysSinceZero);
     }
-
-    //
-    // "Membership"
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public bool Contains(CivilMonth month) => month.Year == Year;
 
     /// <inheritdoc />
     [Pure]
