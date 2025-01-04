@@ -69,8 +69,8 @@ public partial class GregorianSchema // Year, month or day infos
         // year is a multiple of 4 and, if it is a centennial year, only keep
         // those multiple of 400; a centennial year is common if it is not a
         // multiple of 400.
-        // REVIEW(code): compare to the BCL version
-        //   (y & 3) == 0 && ((y & 15) == 0 || (uint)y % 25 != 0);
+        // REVIEW(code): compare to the BCL version.
+        //(y & 3) == 0 && ((y & 15) == 0 || (uint)y % 25 != 0);
         (y & 3) == 0 && (y % 100 != 0 || y % 400 == 0);
 }
 

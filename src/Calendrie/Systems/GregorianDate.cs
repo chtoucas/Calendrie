@@ -211,7 +211,7 @@ public partial struct GregorianDate // Factories & conversions
         return new(daysSinceZero);
     }
 
-    // REVIEW(code): inlining.
+    // REVIEW(code): inlining? Same for the other date types.
 
     /// <inheritdoc />
     [Pure]
