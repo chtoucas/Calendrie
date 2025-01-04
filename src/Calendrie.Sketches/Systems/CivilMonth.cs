@@ -215,7 +215,8 @@ public partial struct CivilMonth // Conversions
 {
     /// <summary>
     /// Converts the current instance to a range of days.
-    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.</para>
+    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
+    /// </para>
     /// </summary>
     [Pure]
     public Range<CivilDate> ToRange() => Range.UnsafeCreate(FirstDay, LastDay);
@@ -518,15 +519,6 @@ public partial struct CivilMonth // Standard math ops
 public partial struct CivilMonth // Non-standard math ops
 {
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
-    /// </summary>
-    [Pure]
-    public int CountYearsSince(CivilMonth other)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
     /// </summary>
@@ -535,6 +527,27 @@ public partial struct CivilMonth // Non-standard math ops
     [Pure]
     public CivilMonth PlusYears(int years)
     {
-        throw new NotImplementedException();
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        int daysSinceZero = sch.CountMonthsSinceEpoch(newY, m);
+        return new CivilMonth(daysSinceZero);
+    }
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(CivilMonth other)
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceZero, out int y, out _);
+        sch.GetMonthParts(other._monthsSinceZero, out int y0, out _);
+        // NB: the calendar is regular and the subtraction never overflows.
+        return y - y0;
     }
 }

@@ -182,7 +182,8 @@ public partial struct CivilYear // Conversions
 {
     /// <summary>
     /// Converts the current instance to a range of days.
-    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.</para>
+    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
+    /// </para>
     /// </summary>
     [Pure]
     public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(FirstDay, LastDay);
