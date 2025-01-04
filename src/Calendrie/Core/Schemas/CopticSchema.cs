@@ -6,24 +6,30 @@ namespace Calendrie.Core.Schemas;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-/// <summary>Represents a Coptic schema and provides a base for derived classes.</summary>
-/// <remarks>This class can ONLY be inherited from within friend assemblies.</remarks>
+/// <summary>
+/// Represents a Coptic schema and provides a base for derived classes.
+/// <para>This class can ONLY be inherited from within friend assemblies.</para>
+/// </summary>
 public abstract partial class CopticSchema : PtolemaicSchema
 {
-    /// <summary>Represents the number of days per 4-year cycle.</summary>
-    /// <remarks>
+    /// <summary>
+    /// Represents the number of days per 4-year cycle.
     /// <para>This field is a constant equal to 1461.</para>
     /// <para>On average, a year is 365.25 days long.</para>
-    /// </remarks>
+    /// </summary>
     public const int DaysPer4YearCycle = CalendricalConstants.DaysPer4JulianYearCycle;
 
-    /// <summary>Represents the genuine number of days in a month (excluding the epagomenal days
-    /// that are not formally part of the twelfth month).</summary>
-    /// <remarks>This field is constant equal to 30.</remarks>
+    /// <summary>
+    /// Represents the genuine number of days in a month (excluding the
+    /// epagomenal days that are not formally part of the twelfth month).
+    /// <para>This field is constant equal to 30.</para>
+    /// </summary>
     public const int DaysInCopticMonth = 30;
 
-    /// <summary>Called from constructors in derived classes to initialize the
-    /// <see cref="CopticSchema"/> class.</summary>
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="CopticSchema"/> class.
+    /// </summary>
     private protected CopticSchema(int minDaysInMonth) : base(minDaysInMonth)
     {
         SupportedYearsCore = Range.EndingAt(int.MaxValue - 1);

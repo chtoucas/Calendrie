@@ -5,21 +5,29 @@ namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Utilities;
 
-/// <summary>Represents an Egyptian schema and provides a base for derived classes.</summary>
-/// <remarks>This class can ONLY be inherited from within friend assemblies.</remarks>
+/// <summary>
+/// Represents an Egyptian schema and provides a base for derived classes.
+/// <para>This class can ONLY be inherited from within friend assemblies.</para>
+/// </summary>
 public abstract partial class EgyptianSchema : LimitSchema
 {
-    /// <summary>Represents the number of days in a year.</summary>
-    /// <remarks>This field is constant equal to 365.</remarks>
+    /// <summary>
+    /// Represents the number of days in a year.
+    /// <para>This field is constant equal to 365.</para>
+    /// </summary>
     public const int DaysInYear = CalendricalConstants.DaysInWanderingYear;
 
-    /// <summary>Represents the genuine number of days in a month (excluding the epagomenal days
-    /// that are not formally part of the twelfth month).</summary>
-    /// <remarks>This field is constant equal to 30.</remarks>
+    /// <summary>
+    /// Represents the genuine number of days in a month (excluding the
+    /// epagomenal days that are not formally part of the twelfth month).
+    /// <para>This field is constant equal to 30.</para>
+    /// </summary>
     public const int DaysInEgyptianMonth = 30;
 
-    /// <summary>Called from constructors in derived classes to initialize the
-    /// <see cref="EgyptianSchema"/> class.</summary>
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="EgyptianSchema"/> class.
+    /// </summary>
     private protected EgyptianSchema(int minDaysInMonth) : base(DaysInYear, minDaysInMonth) { }
 
     /// <inheritdoc />
