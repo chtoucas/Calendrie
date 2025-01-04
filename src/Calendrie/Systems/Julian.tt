@@ -9,6 +9,9 @@ public sealed class JulianTemplate : CalendarTemplate
     {
         ScopeClass = "JulianScope";
 
+        EnableIsSupplementary = false;
+        //MinMonthsSinceEpochValue = "-11_999_988";
+        MaxMonthsSinceEpochValue = "11_999_987";
         MonthsInYear = 12;
     }
 

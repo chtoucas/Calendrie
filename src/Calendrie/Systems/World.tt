@@ -3,5 +3,6 @@
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
 <#= new CalendarTemplate(this, "WorldSchema", "DayZero.SundayBeforeGregorian", "-1", "3_652_058")
     {
+        MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12
     }.Execute() #>

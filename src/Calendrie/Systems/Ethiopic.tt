@@ -3,5 +3,6 @@
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
 <#= new CalendarTemplate(this, "Coptic12Schema", "DayZero.Ethiopic", "2795", "3_652_134")
     {
+        MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12
     }.Execute() #>

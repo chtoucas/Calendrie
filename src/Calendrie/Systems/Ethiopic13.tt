@@ -4,5 +4,6 @@
 <#= new CalendarTemplate(this, "Coptic13Schema", "DayZero.Ethiopic", "2795", "3_652_134")
     {
         DisplayName = "Ethiopic",
+        MaxMonthsSinceEpochValue = "129_986",
         MonthsInYear = 13
     }.Execute() #>

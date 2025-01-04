@@ -10,6 +10,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
         ScopeClass = "CivilScope";
 
         EnableIsSupplementary = false;
+        MaxMonthsSinceEpochValue = "119_987";
         MonthsInYear = 12;
     }
 
