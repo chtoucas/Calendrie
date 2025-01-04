@@ -41,7 +41,7 @@ public partial class Range // Factories
     /// <para>This factory method does NOT validate its parameters.</para>
     /// </summary>
     [Pure]
-    internal static Range<T> CreateLeniently<T>(T min, T max)
+    internal static Range<T> UnsafeCreate<T>(T min, T max)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return new(OrderedPair.FromOrderedValues(min, max));
@@ -55,7 +55,7 @@ public partial class Range // Factories
     public static Range<T> Singleton<T>(T value)
         where T : struct, IEquatable<T>, IComparable<T>
     {
-        return CreateLeniently(value, value);
+        return UnsafeCreate(value, value);
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public partial class Range // Factories
     public static Range<T> Maximal<T>()
         where T : struct, IEquatable<T>, IComparable<T>, IMinMaxValue<T>
     {
-        return CreateLeniently(T.MinValue, T.MaxValue);
+        return UnsafeCreate(T.MinValue, T.MaxValue);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public partial class Range // Factories
     public static Range<T> StartingAt<T>(T min)
         where T : struct, IEquatable<T>, IComparable<T>, IMinMaxValue<T>
     {
-        return CreateLeniently(min, T.MaxValue);
+        return UnsafeCreate(min, T.MaxValue);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public partial class Range // Factories
     public static Range<T> EndingAt<T>(T max)
         where T : struct, IEquatable<T>, IComparable<T>, IMinMaxValue<T>
     {
-        return CreateLeniently(T.MinValue, max);
+        return UnsafeCreate(T.MinValue, max);
     }
 
     /// <summary>

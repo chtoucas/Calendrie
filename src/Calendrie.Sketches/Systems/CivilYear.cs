@@ -136,8 +136,9 @@ public partial struct CivilYear // Preamble
         {
             var sch = Calendar.Schema;
             int y = Year;
-            int m = sch.CountMonthsInYear(y);
-            int monthsSinceZero = sch.CountMonthsSinceEpoch(y, m);
+            //int m = sch.CountMonthsInYear(y);
+            //int monthsSinceZero = sch.CountMonthsSinceEpoch(y, m);
+            int monthsSinceZero = sch.CountMonthsSinceEpoch(y, MonthsInYear);
             return new CivilMonth(monthsSinceZero);
         }
     }
@@ -181,19 +182,28 @@ public partial struct CivilYear // Conversions
 {
     /// <summary>
     /// Converts the current instance to a range of days.
+    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.</para>
     /// </summary>
     [Pure]
-    public Range<CivilDate> ToRangeOfDays() => Range.CreateLeniently(FirstDay, LastDay);
+    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(FirstDay, LastDay);
 
     /// <summary>
     /// Converts the current instance to a range of months.
     /// </summary>
     [Pure]
-    public Range<CivilMonth> ToRangeOfMonths() => Range.CreateLeniently(FirstMonth, LastMonth);
+    public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(FirstMonth, LastMonth);
 }
 
 public partial struct CivilYear // Counting
 {
+    // TODO(code): CountMonths() and MonthsInYear.
+
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsInYear = CivilCalendar.MonthsInYear;
+
     /// <summary>
     /// Obtains the number of months in this year instance.
     /// </summary>
@@ -202,6 +212,8 @@ public partial struct CivilYear // Counting
 
     /// <summary>
     /// Obtains the number of days in this year instance.
+    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// </para>
     /// </summary>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
@@ -235,10 +247,11 @@ public partial struct CivilYear // Days within the year & "membership"
         var sch = Calendar.Schema;
         int y = Year;
         int startOfYear = sch.CountMonthsSinceEpoch(y, 1);
-        int monthsInYear = sch.CountMonthsInYear(y);
+        //int monthsInYear = sch.CountMonthsInYear(y);
 
         return from monthsSinceZero
-               in Enumerable.Range(startOfYear, monthsInYear)
+               //in Enumerable.Range(startOfYear, monthsInYear)
+               in Enumerable.Range(startOfYear, MonthsInYear)
                select new CivilMonth(monthsSinceZero);
     }
 

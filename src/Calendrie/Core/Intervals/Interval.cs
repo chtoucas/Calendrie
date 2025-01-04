@@ -127,7 +127,7 @@ public partial class Interval // Convex hull
         var min = MathT.Min(x.Min, y.Min);
         var max = MathT.Max(x.Max, y.Max);
 
-        return Range.CreateLeniently(min, max);
+        return Range.UnsafeCreate(min, max);
     }
 
     /// <summary>

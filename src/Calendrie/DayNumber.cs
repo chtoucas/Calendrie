@@ -173,7 +173,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Range<DayNumber> GregorianDomain =>
-        Range.CreateLeniently<DayNumber>(
+        Range.UnsafeCreate<DayNumber>(
             new(MinGregorianDaysSinceZero),
             new(MaxGregorianDaysSinceZero));
 
@@ -273,7 +273,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Range<DayNumber> JulianDomain =>
-        Range.CreateLeniently<DayNumber>(
+        Range.UnsafeCreate<DayNumber>(
             new(MinJulianDaysSinceZero),
             new(MaxJulianDaysSinceZero));
 

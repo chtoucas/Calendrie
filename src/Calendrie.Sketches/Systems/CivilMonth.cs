@@ -215,9 +215,10 @@ public partial struct CivilMonth // Conversions
 {
     /// <summary>
     /// Converts the current instance to a range of days.
+    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.</para>
     /// </summary>
     [Pure]
-    public Range<CivilDate> ToRange() => Range.CreateLeniently(FirstDay, LastDay);
+    public Range<CivilDate> ToRange() => Range.UnsafeCreate(FirstDay, LastDay);
 }
 
 public partial struct CivilMonth // Counting
@@ -248,6 +249,8 @@ public partial struct CivilMonth // Counting
 
     /// <summary>
     /// Obtains the number of days in this month instance.
+    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
+    /// </para>
     /// </summary>
     [Pure]
     public int CountDays()
