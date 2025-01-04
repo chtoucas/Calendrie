@@ -60,7 +60,7 @@ public static class OrderedPair
     /// <para>This factory method does NOT validate its parameters.</para>
     /// </summary>
     [Pure]
-    internal static OrderedPair<T> FromOrderedValues<T>(T lowerValue, T upperValue)
+    internal static OrderedPair<T> UnsafeCreate<T>(T lowerValue, T upperValue)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return new(lowerValue, upperValue, true);

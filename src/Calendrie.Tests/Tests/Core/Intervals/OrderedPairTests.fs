@@ -85,14 +85,14 @@ module Factories =
         (pair.LowerValue, pair.UpperValue) = (i, i)
 
     [<Property>]
-    let ``FromOrderedValues()`` (x: Pair<int>) =
-        let pair = OrderedPair.FromOrderedValues(x.Min, x.Max)
+    let ``UnsafeCreate()`` (x: Pair<int>) =
+        let pair = OrderedPair.UnsafeCreate(x.Min, x.Max)
 
         (pair.LowerValue, pair.UpperValue) = (x.Min, x.Max)
 
     [<Property>]
-    let ``FromOrderedValues() when singleton`` (i: int) =
-        let pair = OrderedPair.FromOrderedValues(i, i)
+    let ``UnsafeCreate() when singleton`` (i: int) =
+        let pair = OrderedPair.UnsafeCreate(i, i)
 
         (pair.LowerValue, pair.UpperValue) = (i, i)
 

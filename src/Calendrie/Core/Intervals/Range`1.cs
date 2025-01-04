@@ -33,7 +33,7 @@ public readonly partial struct Range<T> :
     {
         if (max.CompareTo(min) < 0) throw new ArgumentOutOfRangeException(nameof(max));
 
-        Endpoints = OrderedPair.FromOrderedValues(min, max);
+        Endpoints = OrderedPair.UnsafeCreate(min, max);
     }
 
     /// <summary>
@@ -110,7 +110,7 @@ public partial struct Range<T> // Adjustments
         // to obtain the correct parameter name in the exception.
         if (min.CompareTo(Max) > 0) throw new ArgumentOutOfRangeException(nameof(min));
 
-        var endpoints = OrderedPair.FromOrderedValues(min, Max);
+        var endpoints = OrderedPair.UnsafeCreate(min, Max);
         return new(endpoints);
     }
 

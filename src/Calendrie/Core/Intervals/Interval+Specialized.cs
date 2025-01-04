@@ -97,7 +97,7 @@ public partial class Interval // Gap
     // Alternative impl but may overflow.
     // > int min = Math.Min(x.Max, y.Max) + 1;
     // > int max = Math.Max(x.Min, y.Min) - 1;
-    // > return min > max ? RangeSet<int>.Empty : RangeSet.CreateLeniently(min, max);
+    // > return min > max ? RangeSet<int>.Empty : RangeSet.UnsafeCreate(min, max);
 
     #region Int32
 
@@ -145,7 +145,7 @@ public partial class Interval // Gap
         int x = max + 1;
         int y = min - 1;
 
-        return x > y ? RangeSet<int>.Empty : RangeSet.CreateLeniently(x, y);
+        return x > y ? RangeSet<int>.Empty : RangeSet.UnsafeCreate(x, y);
     }
 
     #endregion
@@ -195,7 +195,7 @@ public partial class Interval // Gap
         var x = max + 1;
         var y = min - 1;
 
-        return x > y ? RangeSet<DayNumber>.Empty : RangeSet.CreateLeniently(x, y);
+        return x > y ? RangeSet<DayNumber>.Empty : RangeSet.UnsafeCreate(x, y);
     }
 
     #endregion

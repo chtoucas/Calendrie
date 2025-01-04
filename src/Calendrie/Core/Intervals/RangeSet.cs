@@ -52,10 +52,10 @@ public static class RangeSet
     /// <para>This factory method does NOT validate its parameters.</para>
     /// </summary>
     [Pure]
-    internal static RangeSet<T> CreateLeniently<T>(T min, T max)
+    internal static RangeSet<T> UnsafeCreate<T>(T min, T max)
         where T : struct, IEquatable<T>, IComparable<T>
     {
-        return new(OrderedPair.FromOrderedValues(min, max));
+        return new(OrderedPair.UnsafeCreate(min, max));
     }
 
     #endregion
@@ -110,7 +110,7 @@ public readonly partial struct RangeSet<T> :
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(max, min);
 
-        _endpoints = OrderedPair.FromOrderedValues(min, max);
+        _endpoints = OrderedPair.UnsafeCreate(min, max);
         _isInhabited = true;
     }
 

@@ -29,7 +29,7 @@ public partial class Interval // Intersection
         var min = MathT.Max(x.Min, y.Min);
         var max = MathT.Min(x.Max, y.Max);
 
-        return min.CompareTo(max) > 0 ? RangeSet<T>.Empty : RangeSet.CreateLeniently(min, max);
+        return min.CompareTo(max) > 0 ? RangeSet<T>.Empty : RangeSet.UnsafeCreate(min, max);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public partial class Interval // Intersection
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return x.Min.CompareTo(y.Max) > 0 ? RangeSet<T>.Empty
-            : RangeSet.CreateLeniently(x.Min, MathT.Min(x.Max, y.Max));
+            : RangeSet.UnsafeCreate(x.Min, MathT.Min(x.Max, y.Max));
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public partial class Interval // Intersection
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return y.Min.CompareTo(x.Max) > 0 ? RangeSet<T>.Empty
-            : RangeSet.CreateLeniently(MathT.Max(x.Min, y.Min), x.Max);
+            : RangeSet.UnsafeCreate(MathT.Max(x.Min, y.Min), x.Max);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public partial class Interval // Intersection
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return y.Min.CompareTo(x.Max) > 0 ? RangeSet<T>.Empty
-            : RangeSet.CreateLeniently(y.Min, x.Max);
+            : RangeSet.UnsafeCreate(y.Min, x.Max);
     }
 }
 

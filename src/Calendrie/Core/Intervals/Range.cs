@@ -44,7 +44,7 @@ public partial class Range // Factories
     internal static Range<T> UnsafeCreate<T>(T min, T max)
         where T : struct, IEquatable<T>, IComparable<T>
     {
-        return new(OrderedPair.FromOrderedValues(min, max));
+        return new(OrderedPair.UnsafeCreate(min, max));
     }
 
     /// <summary>

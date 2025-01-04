@@ -23,9 +23,9 @@ public sealed class CalendricalSegment
         SupportedMonths = Range.Create(min.MonthsSinceEpoch, max.MonthsSinceEpoch);
         SupportedYears = Range.Create(min.Year, max.Year);
 
-        MinMaxDateParts = OrderedPair.FromOrderedValues(min.DateParts, max.DateParts);
-        MinMaxOrdinalParts = OrderedPair.FromOrderedValues(min.OrdinalParts, max.OrdinalParts);
-        MinMaxMonthParts = OrderedPair.FromOrderedValues(min.MonthParts, max.MonthParts);
+        MinMaxDateParts = OrderedPair.UnsafeCreate(min.DateParts, max.DateParts);
+        MinMaxOrdinalParts = OrderedPair.UnsafeCreate(min.OrdinalParts, max.OrdinalParts);
+        MinMaxMonthParts = OrderedPair.UnsafeCreate(min.MonthParts, max.MonthParts);
     }
 
     /// <summary>
