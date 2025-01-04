@@ -7,8 +7,6 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-/// <remarks><i>All</i> dates within the range [1..9999] of years are supported.
-/// </remarks>
 public partial struct CivilDate // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
