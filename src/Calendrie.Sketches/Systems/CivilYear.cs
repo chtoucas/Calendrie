@@ -3,8 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using System.Numerics;
-
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
@@ -18,19 +16,9 @@ using Calendrie.Core.Utilities;
 /// <para><see cref="CivilYear"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CivilYear :
-    // Comparison
-    IEqualityOperators<CivilYear, CivilYear, bool>,
-    IEquatable<CivilYear>,
-    IComparisonOperators<CivilYear, CivilYear, bool>,
-    IComparable<CivilYear>,
-    IComparable,
-    IMinMaxValue<CivilYear>,
-    // Arithmetic
-    IAdditionOperators<CivilYear, int, CivilYear>,
-    ISubtractionOperators<CivilYear, int, CivilYear>,
-    ISubtractionOperators<CivilYear, CivilYear, int>,
-    IIncrementOperators<CivilYear>,
-    IDecrementOperators<CivilYear>
+    IYear<CivilYear>,
+    IMonthsOfYearProvider<CivilMonth>,
+    IDaysOfYearProvider<CivilDate>
 { }
 
 public partial struct CivilYear // Preamble
@@ -90,25 +78,16 @@ public partial struct CivilYear // Preamble
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
-    /// <summary>
-    /// Gets the century of the era.
-    /// </summary>
+    /// <inheritdoc />
     public Ord CenturyOfEra => Ord.FromInt32(Century);
 
-    /// <summary>
-    /// Gets the century number.
-    /// </summary>
+    /// <inheritdoc />
     public int Century => YearNumbering.GetCentury(Year);
 
-    /// <summary>
-    /// Gets the year of the era.
-    /// </summary>
+    /// <inheritdoc />
     public Ord YearOfEra => Ord.FromInt32(Year);
 
-    /// <summary>
-    /// Gets the year of the century.
-    /// <para>The result is in the range from 1 to 100.</para>
-    /// </summary>
+    /// <inheritdoc />
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
@@ -119,15 +98,10 @@ public partial struct CivilYear // Preamble
     /// </summary>
     public int Year => _year0 + 1;
 
-    /// <summary>
-    /// Returns <see langword="true"/> if the current instance is a leap year;
-    /// otherwise returns <see langword="false"/>.
-    /// </summary>
+    /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
 
-    /// <summary>
-    /// Gets the first month of this year instance.
-    /// </summary>
+    /// <inheritdoc />
     public CivilMonth FirstMonth
     {
         get
@@ -137,9 +111,7 @@ public partial struct CivilYear // Preamble
         }
     }
 
-    /// <summary>
-    /// Gets the last month of this year instance.
-    /// </summary>
+    /// <inheritdoc />
     public CivilMonth LastMonth
     {
         get
@@ -153,9 +125,7 @@ public partial struct CivilYear // Preamble
         }
     }
 
-    /// <summary>
-    /// Gets the first day of this year instance.
-    /// </summary>
+    /// <inheritdoc />
     public CivilDate FirstDay
     {
         get
@@ -165,9 +135,7 @@ public partial struct CivilYear // Preamble
         }
     }
 
-    /// <summary>
-    /// Gets the last day of this year instance.
-    /// </summary>
+    /// <inheritdoc />
     public CivilDate LastDay
     {
         get
@@ -198,9 +166,7 @@ public partial struct CivilYear // Factories & conversions
     [Pure]
     public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(FirstDay, LastDay);
 
-    /// <summary>
-    /// Converts the current instance to a range of months.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(FirstMonth, LastMonth);
 }
@@ -215,9 +181,7 @@ public partial struct CivilYear // Counting
     /// </summary>
     public const int MonthsCount = CivilCalendar.MonthsInYear;
 
-    /// <summary>
-    /// Obtains the number of months in this year instance.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
 
@@ -232,12 +196,7 @@ public partial struct CivilYear // Counting
 
 public partial struct CivilYear // Days within the year & "membership"
 {
-    /// <summary>
-    /// Obtains the month corresponding to the specified month of this year
-    /// instance.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
-    /// is outside the range of valid values.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilMonth GetMonthOfYear(int month)
     {
@@ -249,9 +208,7 @@ public partial struct CivilYear // Days within the year & "membership"
         return new CivilMonth(monthsSinceZero);
     }
 
-    /// <summary>
-    /// Obtains the sequence of all months in this year instance.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public IEnumerable<CivilMonth> GetAllMonths()
     {
@@ -266,12 +223,7 @@ public partial struct CivilYear // Days within the year & "membership"
                select new CivilMonth(monthsSinceZero);
     }
 
-    /// <summary>
-    /// Obtains the ordinal date corresponding to the specified day of this year
-    /// instance.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
-    /// is outside the range of valid values.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilDate GetDayOfYear(int dayOfYear)
     {
@@ -283,9 +235,7 @@ public partial struct CivilYear // Days within the year & "membership"
         return new CivilDate(daysSinceZero);
     }
 
-    /// <summary>
-    /// Obtains the sequence of all days in this year instance.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public IEnumerable<CivilDate> GetAllDays()
     {
@@ -303,17 +253,11 @@ public partial struct CivilYear // Days within the year & "membership"
     // "Membership"
     //
 
-    /// <summary>
-    /// Determines whether the current instance contains the specified month or
-    /// not.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public bool Contains(CivilMonth month) => month.Year == Year;
 
-    /// <summary>
-    /// Determines whether the current instance contains the specified date or
-    /// not.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public bool Contains(CivilDate date) => date.Year == Year;
 }
@@ -430,20 +374,14 @@ public partial struct CivilYear // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
     public static CivilYear operator --(CivilYear value) => value.PreviousYear();
 
-    /// <summary>
-    /// Counts the number of years elapsed since the specified year.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public int CountYearsSince(CivilYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
         _year0 - other._year0;
 
-    /// <summary>
-    /// Adds a number of years to this year instance, yielding a new year.
-    /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported years.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilYear PlusYears(int years)
     {
@@ -453,11 +391,7 @@ public partial struct CivilYear // Standard math ops
         return new CivilYear(y0 + 1, true);
     }
 
-    /// <summary>
-    /// Obtains the year after this year instance, yielding a new year.
-    /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// latest supported year.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilYear NextYear()
     {
@@ -465,11 +399,7 @@ public partial struct CivilYear // Standard math ops
         return new(Year + 1, true);
     }
 
-    /// <summary>
-    /// Obtains the year before this year instance, yielding a new year.
-    /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// earliest supported year.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilYear PreviousYear()
     {
