@@ -12,7 +12,7 @@ using Calendrie.Hemerology;
 //   In this project, we don't have an example based on IDateable but on
 //   IAbsoluteDate. Indeed, a DayNumber exists beyond the scope of a calendar
 //   and therefore could be used as a type argument.
-// - This impl is only interesting if NewDate() is non-validating, otherwise
+// - this impl is only interesting if NewDate() is non-validating, otherwise
 //   we should simply use the methods provided by a calendar.
 // - this class works best for date types based on the count of days since
 //   the epoch which is the case for all date types in Calendrie.Systems. For
