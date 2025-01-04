@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-// REVIEW(code): optimize ToRange...(). Idem with CivilMonth.
+// REVIEW(code): optimize ToRange...(). Interfaces. Idem with CivilMonth.
 
 /// <summary>
 /// Represents a Civil year.
@@ -121,7 +121,7 @@ public partial struct CivilYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct CivilYear // Range of months
+public partial struct CivilYear // IRangeOfMonths
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -155,12 +155,31 @@ public partial struct CivilYear // Range of months
 
     /// <inheritdoc />
     [Pure]
+    //public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
+    int IRangeOfMonths<CivilMonth>.CountMonths() => MonthsCount;
+
+    /// <inheritdoc />
+    [Pure]
     public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(MinMonth, MaxMonth);
 
     /// <inheritdoc />
     [Pure]
-    //public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
-    int IRangeOfMonths<CivilMonth>.CountMonths() => MonthsCount;
+    public IEnumerable<CivilMonth> EnumerateMonths()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountMonthsSinceEpoch(y, 1);
+        //int monthsInYear = sch.CountMonthsInYear(y);
+
+        return from monthsSinceZero
+               //in Enumerable.Range(startOfYear, monthsInYear)
+               in Enumerable.Range(startOfYear, MonthsCount)
+               select new CivilMonth(monthsSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(CivilMonth month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -178,28 +197,9 @@ public partial struct CivilYear // Range of months
         int monthsSinceZero = chr.Schema.CountMonthsSinceEpoch(y, month);
         return new CivilMonth(monthsSinceZero);
     }
-
-    /// <inheritdoc />
-    [Pure]
-    public IEnumerable<CivilMonth> GetAllMonths()
-    {
-        var sch = Calendar.Schema;
-        int y = Year;
-        int startOfYear = sch.CountMonthsSinceEpoch(y, 1);
-        //int monthsInYear = sch.CountMonthsInYear(y);
-
-        return from monthsSinceZero
-               //in Enumerable.Range(startOfYear, monthsInYear)
-               in Enumerable.Range(startOfYear, MonthsCount)
-               select new CivilMonth(monthsSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public bool Contains(CivilMonth month) => month.Year == Year;
 }
 
-public partial struct CivilYear // Range of days
+public partial struct CivilYear // IRangeOfDays
 {
     /// <inheritdoc />
     public CivilDate MinDay
@@ -225,16 +225,34 @@ public partial struct CivilYear // Range of days
     }
 
     /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// </remarks>
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(MinDay, MaxDay);
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
-    /// </remarks>
     [Pure]
-    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+    public IEnumerable<CivilDate> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
+        int daysInYear = sch.CountDaysInYear(y);
+
+        return from daysSinceZero
+               in Enumerable.Range(startOfYear, daysInYear)
+               select new CivilDate(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(CivilDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the ordinal date corresponding to the specified day of this year
@@ -252,24 +270,6 @@ public partial struct CivilYear // Range of days
         int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, dayOfYear);
         return new CivilDate(daysSinceZero);
     }
-
-    /// <inheritdoc />
-    [Pure]
-    public IEnumerable<CivilDate> GetAllDays()
-    {
-        var sch = Calendar.Schema;
-        int y = Year;
-        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
-        int daysInYear = sch.CountDaysInYear(y);
-
-        return from daysSinceZero
-               in Enumerable.Range(startOfYear, daysInYear)
-               select new CivilDate(daysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public bool Contains(CivilDate date) => date.Year == Year;
 }
 
 public partial struct CivilYear // IEquatable

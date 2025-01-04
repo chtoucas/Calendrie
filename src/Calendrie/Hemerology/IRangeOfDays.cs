@@ -25,22 +25,22 @@ public interface IRangeOfDays<TDate>
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    Range<TDate> ToRangeOfDays();
-
-    /// <summary>
-    /// Obtains the number of days in the current instance.
-    /// </summary>
-    int CountDays();
+    [Pure] Range<TDate> ToRangeOfDays();
 
     /// <summary>
     /// Obtains the sequence of all days in the current instance.
     /// </summary>
-    IEnumerable<TDate> GetAllDays();
+    [Pure] IEnumerable<TDate> EnumerateDays();
+
+    /// <summary>
+    /// Obtains the number of days in the current instance.
+    /// </summary>
+    [Pure] int CountDays();
 
     /// <summary>
     /// Determines whether the current instance contains the specified date or
     /// not.
     /// </summary>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
-    bool Contains(TDate date);
+    [Pure] bool Contains(TDate date);
 }

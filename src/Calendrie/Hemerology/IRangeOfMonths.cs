@@ -25,21 +25,21 @@ public interface IRangeOfMonths<TMonth>
     /// <summary>
     /// Converts the current instance to a range of months.
     /// </summary>
-    Range<TMonth> ToRangeOfMonths();
-
-    /// <summary>
-    /// Obtains the number of months in the current instance.
-    /// </summary>
-    int CountMonths();
+    [Pure] Range<TMonth> ToRangeOfMonths();
 
     /// <summary>
     /// Obtains the sequence of all months in the current instance.
     /// </summary>
-    IEnumerable<TMonth> GetAllMonths();
+    [Pure] IEnumerable<TMonth> EnumerateMonths();
+
+    /// <summary>
+    /// Obtains the number of months in the current instance.
+    /// </summary>
+    [Pure] int CountMonths();
 
     /// <summary>
     /// Determines whether the current instance contains the specified month or
     /// not.
     /// </summary>
-    bool Contains(TMonth month);
+    [Pure] bool Contains(TMonth month);
 }

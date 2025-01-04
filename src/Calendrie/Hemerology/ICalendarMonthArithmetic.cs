@@ -23,26 +23,26 @@ public interface ICalendarMonthArithmetic<TSelf> :
     /// <summary>
     /// Counts the number of months elapsed since the specified month.
     /// </summary>
-    int CountMonthsSince(TSelf other);
+    [Pure] int CountMonthsSince(TSelf other);
 
     /// <summary>
     /// Adds a number of months to this month instance, yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
-    TSelf PlusMonths(int months);
+    [Pure] TSelf PlusMonths(int months);
 
     /// <summary>
     /// Obtains the month after this month instance, yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
-    TSelf NextMonth();
+    [Pure] TSelf NextMonth();
 
     /// <summary>
     /// Obtains the month before this month instance, yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
-    TSelf PreviousMonth();
+    [Pure] TSelf PreviousMonth();
 }

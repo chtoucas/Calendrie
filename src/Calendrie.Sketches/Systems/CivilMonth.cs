@@ -227,7 +227,7 @@ public partial struct CivilMonth // Adjustments
     }
 }
 
-public partial struct CivilMonth // Range of days
+public partial struct CivilMonth // IRangeOfDays
 {
     /// <inheritdoc />
     public CivilDate MinDay
@@ -255,12 +255,6 @@ public partial struct CivilMonth // Range of days
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
-    /// </remarks>
-    [Pure]
-    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(MinDay, MaxDay);
-
-    /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
@@ -269,6 +263,46 @@ public partial struct CivilMonth // Range of days
         var sch = Calendar.Schema;
         sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
         return sch.CountDaysInMonth(y, m);
+    }
+
+    /// <summary>
+    /// Converts the current instance to a range of days.
+    /// </summary>
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
+    /// </remarks>
+    [Pure]
+    public Range<CivilDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+
+    [Pure]
+    Range<CivilDate> IRangeOfDays<CivilDate>.ToRangeOfDays() => ToRange();
+
+    /// <summary>
+    /// Returns an enumerable collection of all days in this month instance.
+    /// </summary>
+    [Pure]
+    public IEnumerable<CivilDate> ToEnumerable()
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+
+        return from daysSinceZero
+               in Enumerable.Range(startOfMonth, daysInMonth)
+               select new CivilDate(daysSinceZero);
+    }
+
+    [Pure]
+    IEnumerable<CivilDate> IRangeOfDays<CivilDate>.EnumerateDays() => ToEnumerable();
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(CivilDate date)
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        sch.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
+        return y1 == y && m1 == m;
     }
 
     /// <summary>
@@ -285,30 +319,6 @@ public partial struct CivilMonth // Range of days
         sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         return new CivilDate(y, m, dayOfMonth);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public IEnumerable<CivilDate> GetAllDays()
-    {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
-        int daysInMonth = sch.CountDaysInMonth(y, m);
-
-        return from daysSinceZero
-               in Enumerable.Range(startOfMonth, daysInMonth)
-               select new CivilDate(daysSinceZero);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public bool Contains(CivilDate date)
-    {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        sch.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
-        return y1 == y && m1 == m;
     }
 }
 

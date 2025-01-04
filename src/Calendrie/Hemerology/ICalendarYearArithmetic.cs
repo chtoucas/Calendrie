@@ -23,26 +23,26 @@ public interface ICalendarYearArithmetic<TSelf> :
     /// <summary>
     /// Counts the number of years elapsed since the specified year.
     /// </summary>
-    int CountYearsSince(TSelf other);
+    [Pure] int CountYearsSince(TSelf other);
 
     /// <summary>
     /// Adds a number of years to this year instance, yielding a new year.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported years.</exception>
-    TSelf PlusYears(int years);
+    [Pure] TSelf PlusYears(int years);
 
     /// <summary>
     /// Obtains the year after this year instance, yielding a new year.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
-    TSelf NextYear();
+    [Pure] TSelf NextYear();
 
     /// <summary>
     /// Obtains the year before this year instance, yielding a new year.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
-    TSelf PreviousYear();
+    [Pure] TSelf PreviousYear();
 }
