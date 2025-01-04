@@ -8,8 +8,7 @@ using System.Numerics;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// FIXME(code): validation, FirstDay, FirstMonth & co
-// - IEnumerable<CivilDate>, IEnumerable<CivilMonth>
+// REVIEW(code): IEnumerable<CivilDate> or IEnumerable<CivilMonth>? Idem with CivilMonth.
 
 /// <summary>
 /// Represents a Civil year.
@@ -60,14 +59,18 @@ public partial struct CivilYear // Preamble
         _year0 = year - 1;
     }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="CivilYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     //
     // MinValue = new(1) = new() = default(CivilYear)
     public static CivilYear MinValue { get; }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="CivilYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static CivilYear MaxValue { get; } = new(StandardScope.MaxYear);
 
     /// <summary>
@@ -98,7 +101,10 @@ public partial struct CivilYear // Preamble
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
-    /// Gets the (algebraic) year number.
+    /// Gets the year number.
+    /// <para>This property represents the algebraic year, but since it's greater
+    /// than 0, there is no difference between the algebraic year and the year
+    /// of the era.</para>
     /// </summary>
     public int Year => _year0 + 1;
 
@@ -111,22 +117,56 @@ public partial struct CivilYear // Preamble
     /// <summary>
     /// Gets the first month of this year instance.
     /// </summary>
-    public CivilMonth FirstMonth => new(Year, 1);
+    public CivilMonth FirstMonth
+    {
+        get
+        {
+            int monthsSinceZero = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
+            return new CivilMonth(monthsSinceZero);
+        }
+    }
 
     /// <summary>
     /// Gets the last month of this year instance.
     /// </summary>
-    public CivilMonth LastMonth => new(Year, CountMonths());
+    public CivilMonth LastMonth
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int y = Year;
+            int m = sch.CountMonthsInYear(y);
+            int monthsSinceZero = sch.CountMonthsSinceEpoch(y, m);
+            return new CivilMonth(monthsSinceZero);
+        }
+    }
 
     /// <summary>
     /// Gets the first day of this year instance.
     /// </summary>
-    public CivilDate FirstDay => new(Year, 1);
+    public CivilDate FirstDay
+    {
+        get
+        {
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return new CivilDate(daysSinceZero);
+        }
+    }
 
     /// <summary>
     /// Gets the last day of this year instance.
     /// </summary>
-    public CivilDate LastDay => new(Year, CountMonths(), 1);
+    public CivilDate LastDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int y = Year;
+            int doy = sch.CountDaysInYear(y);
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, doy);
+            return new CivilDate(daysSinceZero);
+        }
+    }
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -148,7 +188,7 @@ public partial struct CivilYear // Conversions
     /// Converts the current instance to a range of months.
     /// </summary>
     [Pure]
-    public Range<CivilMonth> ToRangeofMonths() => Range.CreateLeniently(FirstMonth, LastMonth);
+    public Range<CivilMonth> ToRangeOfMonths() => Range.CreateLeniently(FirstMonth, LastMonth);
 }
 
 public partial struct CivilYear // Counting
@@ -177,10 +217,12 @@ public partial struct CivilYear // Days within the year & "membership"
     [Pure]
     public CivilMonth GetMonthOfYear(int month)
     {
+        var chr = Calendar;
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
-        Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        return new CivilMonth(y, month);
+        chr.Scope.PreValidator.ValidateMonth(y, month);
+        int monthsSinceZero = chr.Schema.CountMonthsSinceEpoch(y, month);
+        return new CivilMonth(monthsSinceZero);
     }
 
     /// <summary>
@@ -189,12 +231,14 @@ public partial struct CivilYear // Days within the year & "membership"
     [Pure]
     public IEnumerable<CivilMonth> GetAllMonths()
     {
-        int startOfYear = FirstMonth.MonthsSinceEpoch;
-        int monthsInYear = CountMonths();
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountMonthsSinceEpoch(y, 1);
+        int monthsInYear = sch.CountMonthsInYear(y);
 
-        return from monthsSinceEpoch
+        return from monthsSinceZero
                in Enumerable.Range(startOfYear, monthsInYear)
-               select new CivilMonth(monthsSinceEpoch);
+               select new CivilMonth(monthsSinceZero);
     }
 
     /// <summary>
@@ -206,9 +250,12 @@ public partial struct CivilYear // Days within the year & "membership"
     [Pure]
     public CivilDate GetDayOfYear(int dayOfYear)
     {
+        var chr = Calendar;
         int y = Year;
-        Calendar.Scope.PreValidator.ValidateDayOfYear(y, dayOfYear);
-        return new CivilDate(y, dayOfYear);
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(y, dayOfYear);
+        int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, dayOfYear);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <summary>
@@ -217,12 +264,14 @@ public partial struct CivilYear // Days within the year & "membership"
     [Pure]
     public IEnumerable<CivilDate> GetAllDays()
     {
-        int startOfYear = FirstDay.DaysSinceZero;
-        int daysInYear = CountDays();
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
+        int daysInYear = sch.CountDaysInYear(y);
 
-        return from daysSinceEpoch
+        return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
-               select new CivilDate(daysSinceEpoch);
+               select new CivilDate(daysSinceZero);
     }
 
     //
