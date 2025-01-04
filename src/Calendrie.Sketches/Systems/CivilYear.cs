@@ -54,9 +54,8 @@ public partial struct CivilYear // Preamble
     /// outside the range of years supported values.</exception>
     public CivilYear(int year)
     {
-        //CivilCalendar.Instance.Scope.ValidateYear(year);
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            throw new ArgumentOutOfRangeException(nameof(year));
+            ThrowHelpers.ThrowYearOutOfRange(year);
 
         _year0 = year - 1;
     }
@@ -143,13 +142,13 @@ public partial struct CivilYear // Conversions
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<CivilDate> ToRangeOfDays() => Range.Create(FirstDay, LastDay);
+    public Range<CivilDate> ToRangeOfDays() => Range.CreateLeniently(FirstDay, LastDay);
 
     /// <summary>
     /// Converts the current instance to a range of months.
     /// </summary>
     [Pure]
-    public Range<CivilMonth> ToRangeofMonths() => Range.Create(FirstMonth, LastMonth);
+    public Range<CivilMonth> ToRangeofMonths() => Range.CreateLeniently(FirstMonth, LastMonth);
 }
 
 public partial struct CivilYear // Counting
