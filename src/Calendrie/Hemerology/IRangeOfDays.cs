@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 /// Defines a range of calendar dates.
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public interface IRangeOfDays<TDate>
+public interface IRangeOfDays<TDate> : ISetMembership<TDate>
     where TDate : struct, IEquatable<TDate>, IComparable<TDate>
 {
     /// <summary>
@@ -36,11 +36,4 @@ public interface IRangeOfDays<TDate>
     /// Obtains the number of days in the current instance.
     /// </summary>
     [Pure] int CountDays();
-
-    /// <summary>
-    /// Determines whether the current instance contains the specified date or
-    /// not.
-    /// </summary>
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "VB.NET Date.")]
-    [Pure] bool Contains(TDate date);
 }

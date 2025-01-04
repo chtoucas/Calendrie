@@ -501,14 +501,12 @@ Calendrie.Hemerology.IDayArithmetic<TSelf>.PreviousDay() -> TSelf
 Calendrie.Hemerology.IEpagomenalDay
 Calendrie.Hemerology.IEpagomenalDay.IsEpagomenal(out int epagomenalNumber) -> bool
 Calendrie.Hemerology.IRangeOfDays<TDate>
-Calendrie.Hemerology.IRangeOfDays<TDate>.Contains(TDate date) -> bool
 Calendrie.Hemerology.IRangeOfDays<TDate>.CountDays() -> int
 Calendrie.Hemerology.IRangeOfDays<TDate>.EnumerateDays() -> System.Collections.Generic.IEnumerable<TDate>!
 Calendrie.Hemerology.IRangeOfDays<TDate>.MaxDay.get -> TDate
 Calendrie.Hemerology.IRangeOfDays<TDate>.MinDay.get -> TDate
 Calendrie.Hemerology.IRangeOfDays<TDate>.ToRangeOfDays() -> Calendrie.Core.Intervals.Range<TDate>
 Calendrie.Hemerology.IRangeOfMonths<TMonth>
-Calendrie.Hemerology.IRangeOfMonths<TMonth>.Contains(TMonth month) -> bool
 Calendrie.Hemerology.IRangeOfMonths<TMonth>.CountMonths() -> int
 Calendrie.Hemerology.IRangeOfMonths<TMonth>.EnumerateMonths() -> System.Collections.Generic.IEnumerable<TMonth>!
 Calendrie.Hemerology.IRangeOfMonths<TMonth>.MaxMonth.get -> TMonth
