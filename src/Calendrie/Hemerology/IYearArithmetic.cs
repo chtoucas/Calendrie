@@ -3,46 +3,35 @@
 
 namespace Calendrie.Hemerology;
 
-using System.Numerics;
-
 /// <summary>
-/// Defines the mathematical operations on a calendar year.
-/// <para>A type implementing this interface SHOULD also implement
-/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
-/// <c>TOther</c> is <typeparamref name="TSelf"/> and
-/// <c>TResult</c> is <see cref="int"/>.</para>
+/// Defines the mathematical operations related to the year unit.
 /// </summary>
-/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface ICalendarYearArithmetic<TSelf> :
-    IAdditionOperators<TSelf, int, TSelf>,
-    ISubtractionOperators<TSelf, int, TSelf>,
-    IIncrementOperators<TSelf>,
-    IDecrementOperators<TSelf>
-    where TSelf : ICalendarYearArithmetic<TSelf>
+/// <typeparam name="T">The type that implements this interface.</typeparam>
+public interface IYearArithmetic<T>
 {
     /// <summary>
     /// Counts the number of years elapsed since the specified year.
     /// </summary>
-    [Pure] int CountYearsSince(TSelf other);
+    [Pure] int CountYearsSince(T other);
 
     /// <summary>
     /// Adds a number of years to this year instance, yielding a new year.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported years.</exception>
-    [Pure] TSelf PlusYears(int years);
+    [Pure] T PlusYears(int years);
 
     /// <summary>
     /// Obtains the year after this year instance, yielding a new year.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
-    [Pure] TSelf NextYear();
+    [Pure] T NextYear() => PlusYears(1);
 
     /// <summary>
     /// Obtains the year before this year instance, yielding a new year.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
-    [Pure] TSelf PreviousYear();
+    [Pure] T PreviousYear() => PlusYears(-1);
 }

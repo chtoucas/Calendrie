@@ -294,6 +294,10 @@ public interface IAbsoluteDate
 /// timeline. In this project, it means that it can be mapped to a
 /// <see cref="DayNumber"/>.
 /// </para>
+/// <para>A type implementing this interface SHOULD also implement
+/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
+/// <c>TOther</c> is <typeparamref name="TSelf"/> and
+/// <c>TResult</c> is <see cref="int"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The date type that implements this interface.
 /// </typeparam>
@@ -307,7 +311,11 @@ public interface IAbsoluteDate<TSelf> :
     IComparable,
     IMinMaxValue<TSelf>,
     // Arithmetic
-    IDayArithmetic<TSelf>
+    IDayArithmetic<TSelf>,
+    IAdditionOperators<TSelf, int, TSelf>,
+    ISubtractionOperators<TSelf, int, TSelf>,
+    IIncrementOperators<TSelf>,
+    IDecrementOperators<TSelf>
     where TSelf : IAbsoluteDate<TSelf>
 {
     /// <summary>
@@ -327,6 +335,13 @@ public interface IAbsoluteDate<TSelf> :
     /// Obtains the latest date between the two specified dates.
     /// </summary>
     [Pure] static abstract TSelf Max(TSelf x, TSelf y);
+
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
+    static abstract int operator -(TSelf left, TSelf right);
 
     //
     // Find close by day of the week

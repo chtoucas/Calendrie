@@ -71,6 +71,10 @@ public interface ICalendarYear
 
 /// <summary>
 /// Defines a calendar year type.
+/// <para>A type implementing this interface SHOULD also implement
+/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
+/// <c>TOther</c> is <typeparamref name="TSelf"/> and
+/// <c>TResult</c> is <see cref="int"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The year type that implements this interface.
 /// </typeparam>
@@ -84,7 +88,11 @@ public interface ICalendarYear<TSelf> :
     IComparable,
     IMinMaxValue<TSelf>,
     // Arithmetic
-    ICalendarYearArithmetic<TSelf>
+    IYearArithmetic<TSelf>,
+    IAdditionOperators<TSelf, int, TSelf>,
+    ISubtractionOperators<TSelf, int, TSelf>,
+    IIncrementOperators<TSelf>,
+    IDecrementOperators<TSelf>
     where TSelf : ICalendarYear<TSelf>
 {
     /// <summary>
@@ -96,4 +104,11 @@ public interface ICalendarYear<TSelf> :
     /// Obtains the latest year between the two specified years.
     /// </summary>
     [Pure] static abstract TSelf Max(TSelf x, TSelf y);
+
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
+    static abstract int operator -(TSelf left, TSelf right);
 }

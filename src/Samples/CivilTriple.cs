@@ -228,4 +228,12 @@ public partial struct CivilTriple // Math
 
     public CivilTriple PreviousDay() =>
         this == MinValue ? throw new OverflowException() : new(_daysSinceEpoch - 1);
+
+    public int CountMonthsSince(CivilTriple other) => throw new NotImplementedException();
+
+    public CivilTriple PlusMonths(int months) => throw new NotImplementedException();
+
+    public int CountYearsSince(CivilTriple other) => throw new NotImplementedException();
+
+    public CivilTriple PlusYears(int years) => throw new NotImplementedException();
 }

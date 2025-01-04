@@ -3,46 +3,35 @@
 
 namespace Calendrie.Hemerology;
 
-using System.Numerics;
-
 /// <summary>
-/// Defines the mathematical operations on a calendar month.
-/// <para>A type implementing this interface SHOULD also implement
-/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
-/// <c>TOther</c> is <typeparamref name="TSelf"/> and
-/// <c>TResult</c> is <see cref="int"/>.</para>
+/// Defines the mathematical operations related to the month unit.
 /// </summary>
-/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface ICalendarMonthArithmetic<TSelf> :
-    IAdditionOperators<TSelf, int, TSelf>,
-    ISubtractionOperators<TSelf, int, TSelf>,
-    IIncrementOperators<TSelf>,
-    IDecrementOperators<TSelf>
-    where TSelf : ICalendarMonthArithmetic<TSelf>
+/// <typeparam name="T">The type that implements this interface.</typeparam>
+public interface IMonthArithmetic<T>
 {
     /// <summary>
     /// Counts the number of months elapsed since the specified month.
     /// </summary>
-    [Pure] int CountMonthsSince(TSelf other);
+    [Pure] int CountMonthsSince(T other);
 
     /// <summary>
     /// Adds a number of months to this month instance, yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
-    [Pure] TSelf PlusMonths(int months);
+    [Pure] T PlusMonths(int months);
 
     /// <summary>
     /// Obtains the month after this month instance, yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
-    [Pure] TSelf NextMonth();
+    [Pure] T NextMonth() => PlusMonths(1);
 
     /// <summary>
     /// Obtains the month before this month instance, yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
-    [Pure] TSelf PreviousMonth();
+    [Pure] T PreviousMonth() => PlusMonths(-1);
 }

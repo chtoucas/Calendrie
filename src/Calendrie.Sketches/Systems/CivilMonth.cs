@@ -159,19 +159,14 @@ public partial struct CivilMonth // Preamble
         return FormattableString.Invariant($"{m:D2}/{y:D4} ({chr})");
     }
 
-    /// <summary>
-    /// Deconstructs the current instance into its components.
-    /// </summary>
+    /// <inheritdoc />
     public void Deconstruct(out int year, out int month) =>
         Calendar.Schema.GetMonthParts(_monthsSinceZero, out year, out month);
 }
 
 public partial struct CivilMonth // Counting
 {
-    /// <summary>
-    /// Obtains the number of whole days in the year elapsed since the start of
-    /// the year and before this month instance.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
     {
@@ -180,10 +175,7 @@ public partial struct CivilMonth // Counting
         return sch.CountDaysInYearBeforeMonth(y, m);
     }
 
-    /// <summary>
-    /// Obtains the number of whole days remaining after this month instance and
-    /// until the end of the year.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public int CountRemainingDaysInYear()
     {
@@ -195,12 +187,7 @@ public partial struct CivilMonth // Counting
 
 public partial struct CivilMonth // Adjustments
 {
-    /// <summary>
-    /// Adjusts the year field to the specified value, yielding a new month.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The specified month cannot
-    /// be converted into the new calendar, the resulting year would be outside
-    /// its range of years.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilMonth WithYear(int newYear)
     {
@@ -211,11 +198,7 @@ public partial struct CivilMonth // Adjustments
         return new CivilMonth(newYear, m);
     }
 
-    /// <summary>
-    /// Adjusts the month field to the specified value, yielding a new month.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The resulting month would
-    /// be invalid.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilMonth WithMonth(int newMonth)
     {

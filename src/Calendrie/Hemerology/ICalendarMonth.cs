@@ -78,10 +78,31 @@ public interface ICalendarMonth
     /// month; otherwise returns <see langword="false"/>.
     /// </summary>
     bool IsIntercalary { get; }
+
+    /// <summary>
+    /// Deconstructs the current instance into its components.
+    /// </summary>
+    void Deconstruct(out int year, out int month);
+
+    /// <summary>
+    /// Obtains the number of whole days in the year elapsed since the start of
+    /// the year and before this month instance.
+    /// </summary>
+    [Pure] int CountElapsedDaysInYear();
+
+    /// <summary>
+    /// Obtains the number of whole days remaining after this month instance and
+    /// until the end of the year.
+    /// </summary>
+    [Pure] int CountRemainingDaysInYear();
 }
 
 /// <summary>
 /// Defines a calendar month type.
+/// <para>A type implementing this interface SHOULD also implement
+/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
+/// <c>TOther</c> is <typeparamref name="TSelf"/> and
+/// <c>TResult</c> is <see cref="int"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The month type that implements this interface.
 /// </typeparam>
@@ -95,7 +116,12 @@ public interface ICalendarMonth<TSelf> :
     IComparable,
     IMinMaxValue<TSelf>,
     // Arithmetic
-    ICalendarMonthArithmetic<TSelf>
+    IMonthArithmetic<TSelf>,
+    IYearArithmetic<TSelf>,
+    IAdditionOperators<TSelf, int, TSelf>,
+    ISubtractionOperators<TSelf, int, TSelf>,
+    IIncrementOperators<TSelf>,
+    IDecrementOperators<TSelf>
     where TSelf : ICalendarMonth<TSelf>
 {
     /// <summary>
@@ -107,4 +133,26 @@ public interface ICalendarMonth<TSelf> :
     /// Obtains the latest month between the two specified months.
     /// </summary>
     [Pure] static abstract TSelf Max(TSelf x, TSelf y);
+
+    /// <summary>
+    /// Subtracts the two specified dates and returns the number of days between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
+    static abstract int operator -(TSelf left, TSelf right);
+
+    /// <summary>
+    /// Adjusts the year field to the specified value, yielding a new month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified month cannot
+    /// be converted into the new calendar, the resulting year would be outside
+    /// its range of years.</exception>
+    [Pure] TSelf WithYear(int newYear);
+
+    /// <summary>
+    /// Adjusts the month field to the specified value, yielding a new month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The resulting month would
+    /// be invalid.</exception>
+    [Pure] TSelf WithMonth(int newMonth);
 }
