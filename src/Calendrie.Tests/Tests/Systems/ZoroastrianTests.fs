@@ -41,6 +41,20 @@ module Prelude =
     [<Fact>]
     let ``Value of Zoroastrian13Calendar.MaxDaysSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
+
+    [<Fact>]
+    let ``Value of ZoroastrianCalendar.MinMonthsSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MinMonthsSinceEpoch === 0
+    [<Fact>]
+    let ``Value of Zoroastrian13Calendar.MinMonthsSinceEpoch`` () =
+        Zoroastrian13Calendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of ZoroastrianCalendar.MaxMonthsSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+    [<Fact>]
+    let ``Value of Zoroastrian13Calendar.MaxMonthsSinceEpoch`` () =
+        Zoroastrian13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
 module Bundles =

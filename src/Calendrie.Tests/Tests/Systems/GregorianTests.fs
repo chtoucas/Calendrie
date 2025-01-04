@@ -37,6 +37,14 @@ module Prelude =
     [<Fact>]
     let ``Value of GregorianCalendar.MaxDaysSinceEpoch`` () =
         GregorianCalendar.Instance.MaxDaysSinceEpoch === 365_242_133
+
+    [<Fact>]
+    let ``Value of GregorianCalendar.MinMonthsSinceEpoch`` () =
+        GregorianCalendar.Instance.MinMonthsSinceEpoch === -11_999_988
+
+    [<Fact>]
+    let ``Value of GregorianCalendar.MaxMonthsSinceEpoch`` () =
+        GregorianCalendar.Instance.MaxMonthsSinceEpoch === 11_999_987
 #endif
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]

@@ -293,13 +293,13 @@ public partial struct CivilYear // IComparable
     public static bool operator >=(CivilYear left, CivilYear right) => left._year0 >= right._year0;
 
     /// <summary>
-    /// Obtains the earlier year of two specified years.
+    /// Obtains the earliest year between the two specified years.
     /// </summary>
     [Pure]
     public static CivilYear Min(CivilYear x, CivilYear y) => x < y ? x : y;
 
     /// <summary>
-    /// Obtains the later year of two specified years.
+    /// Obtains the latest year between the two specified years.
     /// </summary>
     [Pure]
     public static CivilYear Max(CivilYear x, CivilYear y) => x > y ? x : y;
@@ -375,6 +375,7 @@ public partial struct CivilYear // Standard math ops
     {
         int y0 = checked(_year0 + years);
         if (unchecked((uint)y0) > MaxYear0) ThrowHelpers.ThrowYearOverflow();
+        // NB: we know that (y0 + 1) does NOT overflow.
         return new CivilYear(y0 + 1);
     }
 

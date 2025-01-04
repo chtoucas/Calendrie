@@ -40,6 +40,20 @@ module Prelude =
     [<Fact>]
     let ``Value of Coptic13Calendar.MaxDaysSinceEpoch`` () =
         Coptic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134
+
+    [<Fact>]
+    let ``Value of CopticCalendar.MinMonthsSinceEpoch`` () =
+        CopticCalendar.Instance.MinMonthsSinceEpoch === 0
+    [<Fact>]
+    let ``Value of Coptic13Calendar.MinMonthsSinceEpoch`` () =
+        Coptic13Calendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of CopticCalendar.MaxMonthsSinceEpoch`` () =
+        CopticCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+    [<Fact>]
+    let ``Value of Coptic13Calendar.MaxMonthsSinceEpoch`` () =
+        Coptic13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
 module Bundles =

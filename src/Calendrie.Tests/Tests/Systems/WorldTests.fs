@@ -33,6 +33,14 @@ module Prelude =
     [<Fact>]
     let ``Value of WorldCalendar.MaxDaysSinceEpoch`` () =
         WorldCalendar.Instance.MaxDaysSinceEpoch === 3_652_058
+
+    [<Fact>]
+    let ``Value of WorldCalendar.MinMonthsSinceEpoch`` () =
+        WorldCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of WorldCalendar.MaxMonthsSinceEpoch`` () =
+        WorldCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
 module Methods =

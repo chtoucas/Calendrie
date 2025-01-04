@@ -41,6 +41,20 @@ module Prelude =
     [<Fact>]
     let ``Value of Ethiopic13Calendar.MaxDaysSinceEpoch`` () =
         Ethiopic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134
+
+    [<Fact>]
+    let ``Value of EthiopicCalendar.MinMonthsSinceEpoch`` () =
+        EthiopicCalendar.Instance.MinMonthsSinceEpoch === 0
+    [<Fact>]
+    let ``Value of Ethiopic13Calendar.MinMonthsSinceEpoch`` () =
+        Ethiopic13Calendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of EthiopicCalendar.MaxMonthsSinceEpoch`` () =
+        EthiopicCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+    [<Fact>]
+    let ``Value of Ethiopic13Calendar.MaxMonthsSinceEpoch`` () =
+        Ethiopic13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
 module Bundles =

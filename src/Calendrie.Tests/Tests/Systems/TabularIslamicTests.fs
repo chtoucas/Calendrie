@@ -29,6 +29,14 @@ module Prelude =
     [<Fact>]
     let ``Value of TabularIslamicCalendar.MaxDaysSinceEpoch`` () =
         TabularIslamicCalendar.Instance.MaxDaysSinceEpoch === 3_543_311
+
+    [<Fact>]
+    let ``Value of TabularIslamicCalendar.MinMonthsSinceEpoch`` () =
+        TabularIslamicCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of TabularIslamicCalendar.MaxMonthsSinceEpoch`` () =
+        TabularIslamicCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
 module Bundles =

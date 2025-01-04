@@ -36,6 +36,14 @@ module Prelude =
     [<Fact>]
     let ``Value of JulianCalendar.MaxDaysSinceEpoch`` () =
         JulianCalendar.Instance.MaxDaysSinceEpoch === 365_249_633
+
+    [<Fact>]
+    let ``Value of JulianCalendar.MinMonthsSinceEpoch`` () =
+        JulianCalendar.Instance.MinMonthsSinceEpoch === -11_999_988
+
+    [<Fact>]
+    let ``Value of JulianCalendar.MaxMonthsSinceEpoch`` () =
+        JulianCalendar.Instance.MaxMonthsSinceEpoch === 11_999_987
 #endif
 
 module Extensions =

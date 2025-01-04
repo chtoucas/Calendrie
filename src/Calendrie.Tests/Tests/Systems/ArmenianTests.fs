@@ -41,6 +41,20 @@ module Prelude =
     [<Fact>]
     let ``Value of Armenian13Calendar.MaxDaysSinceEpoch`` () =
         Armenian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
+
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MinMonthsSinceEpoch`` () =
+        ArmenianCalendar.Instance.MinMonthsSinceEpoch === 0
+    [<Fact>]
+    let ``Value of Armenian13Calendar.MinMonthsSinceEpoch`` () =
+        Armenian13Calendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MaxMonthsSinceEpoch`` () =
+        ArmenianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+    [<Fact>]
+    let ``Value of Armenian13Calendar.MaxMonthsSinceEpoch`` () =
+        Armenian13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
 module Bundles =

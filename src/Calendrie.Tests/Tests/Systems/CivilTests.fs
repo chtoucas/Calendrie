@@ -43,6 +43,14 @@ module Prelude =
     [<Fact>]
     let ``Value of CivilCalendar.MaxDaysSinceEpoch`` () =
         CivilCalendar.Instance.MaxDaysSinceEpoch === 3_652_058
+
+    [<Fact>]
+    let ``Value of CivilCalendar.MinMonthsSinceEpoch`` () =
+        CivilCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of CivilCalendar.MaxMonthsSinceEpoch`` () =
+        CivilCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
