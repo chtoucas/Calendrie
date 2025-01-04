@@ -7,6 +7,7 @@ using System.Numerics;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 /// <summary>
 /// Represents a Civil month.
@@ -15,19 +16,8 @@ using Calendrie.Core.Utilities;
 /// <para><see cref="CivilMonth"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CivilMonth :
-    // Comparison
-    IEqualityOperators<CivilMonth, CivilMonth, bool>,
-    IEquatable<CivilMonth>,
-    IComparisonOperators<CivilMonth, CivilMonth, bool>,
-    IComparable<CivilMonth>,
-    IComparable,
-    IMinMaxValue<CivilMonth>,
-    // Arithmetic
-    IAdditionOperators<CivilMonth, int, CivilMonth>,
-    ISubtractionOperators<CivilMonth, int, CivilMonth>,
-    ISubtractionOperators<CivilMonth, CivilMonth, int>,
-    IIncrementOperators<CivilMonth>,
-    IDecrementOperators<CivilMonth>
+    ICalendarMonth<CivilMonth>,
+    ISubtractionOperators<CivilMonth, CivilMonth, int>
 { }
 
 public partial struct CivilMonth // Preamble
@@ -88,10 +78,11 @@ public partial struct CivilMonth // Preamble
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
     /// <summary>
-    /// Gets the count of months since the epoch of the calendar to which belongs
-    /// the current instance.
+    /// Gets the count of months since the Gregorian epoch.
     /// </summary>
     public int MonthsSinceZero => _monthsSinceZero;
+
+    int ICalendarMonth.MonthsSinceEpoch => _monthsSinceZero;
 
     /// <summary>
     /// Gets the century of the era.
@@ -129,9 +120,7 @@ public partial struct CivilMonth // Preamble
         }
     }
 
-    /// <summary>
-    /// Gets the month of the year.
-    /// </summary>
+    /// <inheritdoc />
     public int Month
     {
         get
@@ -141,12 +130,8 @@ public partial struct CivilMonth // Preamble
         }
     }
 
-    /// <summary>
-    /// Returns <see langword="true"/> if the current instance is an intercalary
-    /// month; otherwise returns <see langword="false"/>.
-    /// </summary>
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-    public bool IsIntercalary => false;
+    /// <inheritdoc />
+    bool ICalendarMonth.IsIntercalary => false;
     //{
     //    get
     //    {
@@ -160,35 +145,6 @@ public partial struct CivilMonth // Preamble
     /// Gets the calendar year.
     /// </summary>
     public CivilYear CalendarYear => new(Year, true);
-
-    /// <summary>
-    /// Gets the first day of this month instance.
-    /// </summary>
-    public CivilDate FirstDay
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-            int daysSinceZero = sch.CountDaysSinceEpoch(y, m, 1);
-            return new CivilDate(daysSinceZero);
-        }
-    }
-
-    /// <summary>
-    /// Obtains the last day of this month instance.
-    /// </summary>
-    public CivilDate LastDay
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-            int d = sch.CountDaysInMonth(y, m);
-            int daysSinceZero = sch.CountDaysSinceEpoch(y, m, d);
-            return new CivilDate(daysSinceZero);
-        }
-    }
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -207,17 +163,6 @@ public partial struct CivilMonth // Preamble
     /// </summary>
     public void Deconstruct(out int year, out int month) =>
         Calendar.Schema.GetMonthParts(_monthsSinceZero, out year, out month);
-}
-
-public partial struct CivilMonth // Factories & conversions
-{
-    /// <summary>
-    /// Converts the current instance to a range of days.
-    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
-    /// </para>
-    /// </summary>
-    [Pure]
-    public Range<CivilDate> ToRange() => Range.UnsafeCreate(FirstDay, LastDay);
 }
 
 public partial struct CivilMonth // Counting
@@ -244,19 +189,6 @@ public partial struct CivilMonth // Counting
         var sch = Calendar.Schema;
         sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
         return sch.CountDaysInYearAfterMonth(y, m);
-    }
-
-    /// <summary>
-    /// Obtains the number of days in this month instance.
-    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
-    /// </para>
-    /// </summary>
-    [Pure]
-    public int CountDays()
-    {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        return sch.CountDaysInMonth(y, m);
     }
 }
 
@@ -294,8 +226,58 @@ public partial struct CivilMonth // Adjustments
     }
 }
 
-public partial struct CivilMonth // Days within the month & "membership"
+public partial struct CivilMonth // Range of days
 {
+    /// <summary>
+    /// Gets the first day of this month instance.
+    /// </summary>
+    public CivilDate FirstDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+            int daysSinceZero = sch.CountDaysSinceEpoch(y, m, 1);
+            return new CivilDate(daysSinceZero);
+        }
+    }
+
+    /// <summary>
+    /// Obtains the last day of this month instance.
+    /// </summary>
+    public CivilDate LastDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+            int d = sch.CountDaysInMonth(y, m);
+            int daysSinceZero = sch.CountDaysSinceEpoch(y, m, d);
+            return new CivilDate(daysSinceZero);
+        }
+    }
+
+    /// <summary>
+    /// Converts the current instance to a range of days.
+    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
+    /// </para>
+    /// </summary>
+    [Pure]
+    public Range<CivilDate> ToRange() => Range.UnsafeCreate(FirstDay, LastDay);
+
+    /// <summary>
+    /// Obtains the number of days in this month instance.
+    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
+    /// </para>
+    /// </summary>
+    [Pure]
+    public int CountDays()
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        return sch.CountDaysInMonth(y, m);
+    }
+
     /// <summary>
     /// Obtains the date corresponding to the specified day of this month
     /// instance.
@@ -327,10 +309,6 @@ public partial struct CivilMonth // Days within the month & "membership"
                in Enumerable.Range(startOfMonth, daysInMonth)
                select new CivilDate(daysSinceZero);
     }
-
-    //
-    // "Membership"
-    //
 
     /// <summary>
     /// Determines whether the current instance contains the specified date or
@@ -400,15 +378,11 @@ public partial struct CivilMonth // IComparable
     public static bool operator >=(CivilMonth left, CivilMonth right) =>
         left._monthsSinceZero >= right._monthsSinceZero;
 
-    /// <summary>
-    /// Obtains the earliest month of two specified months.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static CivilMonth Min(CivilMonth x, CivilMonth y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest month of two specified months.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static CivilMonth Max(CivilMonth x, CivilMonth y) => x > y ? x : y;
 
@@ -466,20 +440,14 @@ public partial struct CivilMonth // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
     public static CivilMonth operator --(CivilMonth value) => value.PreviousMonth();
 
-    /// <summary>
-    /// Counts the number of months elapsed since the specified month.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public int CountMonthsSince(CivilMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceZero.
         _monthsSinceZero - other._monthsSinceZero;
 
-    /// <summary>
-    /// Adds a number of months to this month instance, yielding a new month.
-    /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported months.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilMonth PlusMonths(int months)
     {
@@ -489,11 +457,7 @@ public partial struct CivilMonth // Standard math ops
         return new(monthsSinceZero);
     }
 
-    /// <summary>
-    /// Obtains the month after this month instance, yielding a new month.
-    /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// latest supported month.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilMonth NextMonth()
     {
@@ -501,11 +465,7 @@ public partial struct CivilMonth // Standard math ops
         return new(_monthsSinceZero + 1);
     }
 
-    /// <summary>
-    /// Obtains the month before this month instance, yielding a new month.
-    /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// earliest supported month.</exception>
+    /// <inheritdoc />
     [Pure]
     public CivilMonth PreviousMonth()
     {

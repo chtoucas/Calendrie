@@ -3,8 +3,11 @@
 
 namespace Calendrie.Systems;
 
+using System.Numerics;
+
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 // REVIEW(code): IEnumerable<CivilDate> or IEnumerable<CivilMonth>? Idem with CivilMonth.
 // Optimize ToRange...(). Idem with CivilMonth.
@@ -16,9 +19,10 @@ using Calendrie.Core.Utilities;
 /// <para><see cref="CivilYear"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CivilYear :
-    IYear<CivilYear>,
-    IYearOfMonths<CivilMonth>,
-    IYearOfDays<CivilDate>
+    ICalendarYear<CivilYear>,
+    IYearMonthsView<CivilMonth>,
+    IYearDaysView<CivilDate>,
+    ISubtractionOperators<CivilYear, CivilYear, int>
 { }
 
 public partial struct CivilYear // Preamble
@@ -78,16 +82,25 @@ public partial struct CivilYear // Preamble
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
     public Ord CenturyOfEra => Ord.FromInt32(Century);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
     public int Century => YearNumbering.GetCentury(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
     public Ord YearOfEra => Ord.FromInt32(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
@@ -171,7 +184,7 @@ public partial struct CivilYear // Range of months
     /// <inheritdoc />
     [Pure]
     //public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
-    int IYearOfMonths<CivilMonth>.CountMonths() => MonthsCount;
+    int IYearMonthsView<CivilMonth>.CountMonths() => MonthsCount;
 
     /// <inheritdoc />
     [Pure]
@@ -208,10 +221,14 @@ public partial struct CivilYear // Range of months
 public partial struct CivilYear // Range of days
 {
     /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
+    /// </remarks>
     [Pure]
     public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(FirstDay, LastDay);
 
     /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// </remarks>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
@@ -294,15 +311,11 @@ public partial struct CivilYear // IComparable
     /// </summary>
     public static bool operator >=(CivilYear left, CivilYear right) => left._year0 >= right._year0;
 
-    /// <summary>
-    /// Obtains the earliest year between the two specified years.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static CivilYear Min(CivilYear x, CivilYear y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest year between the two specified years.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static CivilYear Max(CivilYear x, CivilYear y) => x > y ? x : y;
 

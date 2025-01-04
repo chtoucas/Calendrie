@@ -436,6 +436,38 @@ Calendrie.Hemerology.IAbsoluteDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -
 Calendrie.Hemerology.IAbsoluteDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
+Calendrie.Hemerology.ICalendarMonth
+Calendrie.Hemerology.ICalendarMonth.Century.get -> int
+Calendrie.Hemerology.ICalendarMonth.CenturyOfEra.get -> Calendrie.Ord
+Calendrie.Hemerology.ICalendarMonth.IsIntercalary.get -> bool
+Calendrie.Hemerology.ICalendarMonth.Month.get -> int
+Calendrie.Hemerology.ICalendarMonth.MonthsSinceEpoch.get -> int
+Calendrie.Hemerology.ICalendarMonth.Year.get -> int
+Calendrie.Hemerology.ICalendarMonth.YearOfCentury.get -> int
+Calendrie.Hemerology.ICalendarMonth.YearOfEra.get -> Calendrie.Ord
+Calendrie.Hemerology.ICalendarMonth<TSelf>
+Calendrie.Hemerology.ICalendarMonth<TSelf>.Max(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarMonth<TSelf>.Min(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarMonthArithmetic<TSelf>
+Calendrie.Hemerology.ICalendarMonthArithmetic<TSelf>.CountMonthsSince(TSelf other) -> int
+Calendrie.Hemerology.ICalendarMonthArithmetic<TSelf>.NextMonth() -> TSelf
+Calendrie.Hemerology.ICalendarMonthArithmetic<TSelf>.PlusMonths(int months) -> TSelf
+Calendrie.Hemerology.ICalendarMonthArithmetic<TSelf>.PreviousMonth() -> TSelf
+Calendrie.Hemerology.ICalendarYear
+Calendrie.Hemerology.ICalendarYear.Century.get -> int
+Calendrie.Hemerology.ICalendarYear.CenturyOfEra.get -> Calendrie.Ord
+Calendrie.Hemerology.ICalendarYear.IsLeap.get -> bool
+Calendrie.Hemerology.ICalendarYear.Year.get -> int
+Calendrie.Hemerology.ICalendarYear.YearOfCentury.get -> int
+Calendrie.Hemerology.ICalendarYear.YearOfEra.get -> Calendrie.Ord
+Calendrie.Hemerology.ICalendarYear<TSelf>
+Calendrie.Hemerology.ICalendarYear<TSelf>.Max(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarYear<TSelf>.Min(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarYearArithmetic<TSelf>
+Calendrie.Hemerology.ICalendarYearArithmetic<TSelf>.CountYearsSince(TSelf other) -> int
+Calendrie.Hemerology.ICalendarYearArithmetic<TSelf>.NextYear() -> TSelf
+Calendrie.Hemerology.ICalendarYearArithmetic<TSelf>.PlusYears(int years) -> TSelf
+Calendrie.Hemerology.ICalendarYearArithmetic<TSelf>.PreviousYear() -> TSelf
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
 Calendrie.Hemerology.IDateable.CenturyOfEra.get -> Calendrie.Ord
