@@ -78,12 +78,16 @@ public partial struct GregorianDate // Preamble
         _daysSinceZero = daysSinceZero;
     }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="GregorianDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static GregorianDate MinValue { get; } = new(MinDaysSinceZero);
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="GregorianDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static GregorianDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>

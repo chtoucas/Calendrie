@@ -158,27 +158,43 @@ public partial struct CivilDate // IEquatable
 
 public partial struct CivilDate // IComparable
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
     public static bool operator <(CivilDate left, CivilDate right) =>
         left._daysSinceZero < right._daysSinceZero;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
     public static bool operator <=(CivilDate left, CivilDate right) =>
         left._daysSinceZero <= right._daysSinceZero;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
     public static bool operator >(CivilDate left, CivilDate right) =>
         left._daysSinceZero > right._daysSinceZero;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
     public static bool operator >=(CivilDate left, CivilDate right) =>
         left._daysSinceZero >= right._daysSinceZero;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the earliest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static CivilDate Min(CivilDate x, CivilDate y) => x < y ? x : y;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the latest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static CivilDate Max(CivilDate x, CivilDate y) => x > y ? x : y;
 

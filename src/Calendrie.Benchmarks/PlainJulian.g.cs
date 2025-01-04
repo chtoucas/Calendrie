@@ -143,12 +143,18 @@ public partial struct PlainJulianDate // Preamble
         _daysSinceEpoch = daysSinceEpoch;
     }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="PlainJulianDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    //
+    // MinValue = new(0) = new() = default(PlainJulianDate)
     public static PlainJulianDate MinValue { get; }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="PlainJulianDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static PlainJulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
@@ -179,7 +185,12 @@ public partial struct PlainJulianDate // Preamble
     /// <inheritdoc />
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year number.
+    /// <para>This property represents the algebraic year, but since it's greater
+    /// than 0, there is no difference between the algebraic year and the year
+    /// of the era.</para>
+    /// </summary>
     public int Year => Calendar.Schema.GetYear(_daysSinceEpoch);
 
     /// <inheritdoc />
@@ -442,27 +453,43 @@ public partial struct PlainJulianDate // IEquatable
 
 public partial struct PlainJulianDate // IComparable
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
     public static bool operator <(PlainJulianDate left, PlainJulianDate right) =>
         left._daysSinceEpoch < right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
     public static bool operator <=(PlainJulianDate left, PlainJulianDate right) =>
         left._daysSinceEpoch <= right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
     public static bool operator >(PlainJulianDate left, PlainJulianDate right) =>
         left._daysSinceEpoch > right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
     public static bool operator >=(PlainJulianDate left, PlainJulianDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the earliest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static PlainJulianDate Min(PlainJulianDate x, PlainJulianDate y) => x < y ? x : y;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the latest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static PlainJulianDate Max(PlainJulianDate x, PlainJulianDate y) => x > y ? x : y;
 

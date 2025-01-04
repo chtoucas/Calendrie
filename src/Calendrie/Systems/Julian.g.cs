@@ -75,27 +75,43 @@ public partial struct JulianDate // IEquatable
 
 public partial struct JulianDate // IComparable
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
     public static bool operator <(JulianDate left, JulianDate right) =>
         left._daysSinceEpoch < right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
     public static bool operator <=(JulianDate left, JulianDate right) =>
         left._daysSinceEpoch <= right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
     public static bool operator >(JulianDate left, JulianDate right) =>
         left._daysSinceEpoch > right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
     public static bool operator >=(JulianDate left, JulianDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the earliest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static JulianDate Min(JulianDate x, JulianDate y) => x < y ? x : y;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the latest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static JulianDate Max(JulianDate x, JulianDate y) => x > y ? x : y;
 

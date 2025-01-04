@@ -150,12 +150,18 @@ public partial struct <#= Prefix #>Date // Preamble
         _<#= DaysSinceEpochVar #> = <#= DaysSinceEpochVar #>;
     }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="<#= Prefix #>Date"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    //
+    // MinValue = new(0) = new() = default(<#= Prefix #>Date)
     public static <#= Prefix #>Date MinValue { get; }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="<#= Prefix #>Date"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static <#= Prefix #>Date MaxValue { get; } = new(<#= MaxDaysSinceEpoch #>);
 
     /// <summary>
@@ -184,7 +190,12 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <inheritdoc />
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year number.
+    /// <para>This property represents the algebraic year, but since it's greater
+    /// than 0, there is no difference between the algebraic year and the year
+    /// of the era.</para>
+    /// </summary>
     public int Year => Calendar.Schema.GetYear(_<#= DaysSinceEpochVar #>);
 
     /// <inheritdoc />

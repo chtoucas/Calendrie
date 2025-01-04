@@ -140,12 +140,18 @@ public partial struct Zoroastrian13Date // Preamble
         _daysSinceEpoch = daysSinceEpoch;
     }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="Zoroastrian13Date"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    //
+    // MinValue = new(0) = new() = default(Zoroastrian13Date)
     public static Zoroastrian13Date MinValue { get; }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="Zoroastrian13Date"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Zoroastrian13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
@@ -176,7 +182,12 @@ public partial struct Zoroastrian13Date // Preamble
     /// <inheritdoc />
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year number.
+    /// <para>This property represents the algebraic year, but since it's greater
+    /// than 0, there is no difference between the algebraic year and the year
+    /// of the era.</para>
+    /// </summary>
     public int Year => Calendar.Schema.GetYear(_daysSinceEpoch);
 
     /// <inheritdoc />
@@ -448,27 +459,43 @@ public partial struct Zoroastrian13Date // IEquatable
 
 public partial struct Zoroastrian13Date // IComparable
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
     public static bool operator <(Zoroastrian13Date left, Zoroastrian13Date right) =>
         left._daysSinceEpoch < right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
     public static bool operator <=(Zoroastrian13Date left, Zoroastrian13Date right) =>
         left._daysSinceEpoch <= right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
     public static bool operator >(Zoroastrian13Date left, Zoroastrian13Date right) =>
         left._daysSinceEpoch > right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified dates to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
     public static bool operator >=(Zoroastrian13Date left, Zoroastrian13Date right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the earliest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static Zoroastrian13Date Min(Zoroastrian13Date x, Zoroastrian13Date y) => x < y ? x : y;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the latest date between the two specified dates.
+    /// </summary>
     [Pure]
     public static Zoroastrian13Date Max(Zoroastrian13Date x, Zoroastrian13Date y) => x > y ? x : y;
 

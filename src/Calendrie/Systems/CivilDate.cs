@@ -59,14 +59,18 @@ public partial struct CivilDate // Preamble
         _daysSinceZero = daysSinceZero;
     }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="CivilDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     //
     // MinValue = new(0) = new() = default(CivilDate)
     public static CivilDate MinValue { get; }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="CivilDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static CivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
@@ -97,7 +101,12 @@ public partial struct CivilDate // Preamble
     /// <inheritdoc />
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the year number.
+    /// <para>This property represents the algebraic year, but since it's greater
+    /// than 0, there is no difference between the algebraic year and the year
+    /// of the era.</para>
+    /// </summary>
     public int Year => CivilFormulae.GetYear(_daysSinceZero);
 
     /// <inheritdoc />

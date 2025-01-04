@@ -80,12 +80,16 @@ public partial struct JulianDate // Preamble
         _daysSinceEpoch = daysSinceEpoch;
     }
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="JulianDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static JulianDate MinValue { get; } = new(MinDaysSinceEpoch);
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="JulianDate"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static JulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
