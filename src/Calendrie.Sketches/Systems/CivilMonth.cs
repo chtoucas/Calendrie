@@ -156,12 +156,10 @@ public partial struct CivilMonth // Preamble
     //    }
     //}
 
-    // REVIEW(code): can we avoid the validation part?
-
     /// <summary>
     /// Gets the calendar year.
     /// </summary>
-    public CivilYear CalendarYear => new(Year);
+    public CivilYear CalendarYear => new(Year, true);
 
     /// <summary>
     /// Gets the first day of this month instance.
@@ -211,7 +209,7 @@ public partial struct CivilMonth // Preamble
         Calendar.Schema.GetMonthParts(_monthsSinceZero, out year, out month);
 }
 
-public partial struct CivilMonth // Conversions
+public partial struct CivilMonth // Factories & conversions
 {
     /// <summary>
     /// Converts the current instance to a range of days.

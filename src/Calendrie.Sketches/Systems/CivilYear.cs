@@ -61,6 +61,16 @@ public partial struct CivilYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="CivilYear"/> struct to the
+    /// specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    internal CivilYear(int year, bool _)
+    {
+        _year0 = year - 1;
+    }
+
+    /// <summary>
     /// Gets the earliest possible value of a <see cref="CivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
@@ -138,7 +148,7 @@ public partial struct CivilYear // Preamble
             int y = Year;
             //int m = sch.CountMonthsInYear(y);
             //int monthsSinceZero = sch.CountMonthsSinceEpoch(y, m);
-            int monthsSinceZero = sch.CountMonthsSinceEpoch(y, MonthsInYear);
+            int monthsSinceZero = sch.CountMonthsSinceEpoch(y, MonthsCount);
             return new CivilMonth(monthsSinceZero);
         }
     }
@@ -178,7 +188,7 @@ public partial struct CivilYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct CivilYear // Conversions
+public partial struct CivilYear // Factories & conversions
 {
     /// <summary>
     /// Converts the current instance to a range of days.
@@ -203,7 +213,7 @@ public partial struct CivilYear // Counting
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = CivilCalendar.MonthsInYear;
+    public const int MonthsCount = CivilCalendar.MonthsInYear;
 
     /// <summary>
     /// Obtains the number of months in this year instance.
@@ -252,7 +262,7 @@ public partial struct CivilYear // Days within the year & "membership"
 
         return from monthsSinceZero
                //in Enumerable.Range(startOfYear, monthsInYear)
-               in Enumerable.Range(startOfYear, MonthsInYear)
+               in Enumerable.Range(startOfYear, MonthsCount)
                select new CivilMonth(monthsSinceZero);
     }
 
@@ -440,7 +450,7 @@ public partial struct CivilYear // Standard math ops
         int y0 = checked(_year0 + years);
         if (unchecked((uint)y0) > MaxYear0) ThrowHelpers.ThrowYearOverflow();
         // NB: we know that (y0 + 1) does NOT overflow.
-        return new CivilYear(y0 + 1);
+        return new CivilYear(y0 + 1, true);
     }
 
     /// <summary>
@@ -452,7 +462,7 @@ public partial struct CivilYear // Standard math ops
     public CivilYear NextYear()
     {
         if (_year0 == MaxYear0) ThrowHelpers.ThrowYearOverflow();
-        return new(Year + 1);
+        return new(Year + 1, true);
     }
 
     /// <summary>
@@ -464,6 +474,6 @@ public partial struct CivilYear // Standard math ops
     public CivilYear PreviousYear()
     {
         if (_year0 == 0) ThrowHelpers.ThrowYearOverflow();
-        return new(Year - 1);
+        return new(Year - 1, true);
     }
 }
