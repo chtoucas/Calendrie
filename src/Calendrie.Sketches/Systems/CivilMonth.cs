@@ -17,6 +17,7 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct CivilMonth :
     ICalendarMonth<CivilMonth>,
+    IRangeOfDays<CivilDate>,
     ISubtractionOperators<CivilMonth, CivilMonth, int>
 { }
 
@@ -228,10 +229,8 @@ public partial struct CivilMonth // Adjustments
 
 public partial struct CivilMonth // Range of days
 {
-    /// <summary>
-    /// Gets the first day of this month instance.
-    /// </summary>
-    public CivilDate FirstDay
+    /// <inheritdoc />
+    public CivilDate MinDay
     {
         get
         {
@@ -242,10 +241,8 @@ public partial struct CivilMonth // Range of days
         }
     }
 
-    /// <summary>
-    /// Obtains the last day of this month instance.
-    /// </summary>
-    public CivilDate LastDay
+    /// <inheritdoc />
+    public CivilDate MaxDay
     {
         get
         {
@@ -257,19 +254,15 @@ public partial struct CivilMonth // Range of days
         }
     }
 
-    /// <summary>
-    /// Converts the current instance to a range of days.
-    /// <para>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
-    /// </para>
-    /// </summary>
+    /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
+    /// </remarks>
     [Pure]
-    public Range<CivilDate> ToRange() => Range.UnsafeCreate(FirstDay, LastDay);
+    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(MinDay, MaxDay);
 
-    /// <summary>
-    /// Obtains the number of days in this month instance.
-    /// <para>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
-    /// </para>
-    /// </summary>
+    /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
+    /// </remarks>
     [Pure]
     public int CountDays()
     {
@@ -294,9 +287,7 @@ public partial struct CivilMonth // Range of days
         return new CivilDate(y, m, dayOfMonth);
     }
 
-    /// <summary>
-    /// Obtains the sequence of all days in this month instance.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public IEnumerable<CivilDate> GetAllDays()
     {
@@ -310,10 +301,7 @@ public partial struct CivilMonth // Range of days
                select new CivilDate(daysSinceZero);
     }
 
-    /// <summary>
-    /// Determines whether the current instance contains the specified date or
-    /// not.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public bool Contains(CivilDate date)
     {

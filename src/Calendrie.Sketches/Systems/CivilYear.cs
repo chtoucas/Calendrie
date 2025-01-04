@@ -9,8 +9,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-// REVIEW(code): IEnumerable<CivilDate> or IEnumerable<CivilMonth>? Idem with CivilMonth.
-// Optimize ToRange...(). Idem with CivilMonth.
+// REVIEW(code): optimize ToRange...(). Idem with CivilMonth.
 
 /// <summary>
 /// Represents a Civil year.
@@ -20,8 +19,8 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct CivilYear :
     ICalendarYear<CivilYear>,
-    IYearMonthsView<CivilMonth>,
-    IYearDaysView<CivilDate>,
+    IRangeOfDays<CivilDate>,
+    IRangeOfMonths<CivilMonth>,
     ISubtractionOperators<CivilYear, CivilYear, int>
 { }
 
@@ -114,29 +113,6 @@ public partial struct CivilYear // Preamble
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
 
-    /// <inheritdoc />
-    public CivilDate FirstDay
-    {
-        get
-        {
-            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new CivilDate(daysSinceZero);
-        }
-    }
-
-    /// <inheritdoc />
-    public CivilDate LastDay
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            int y = Year;
-            int doy = sch.CountDaysInYear(y);
-            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, doy);
-            return new CivilDate(daysSinceZero);
-        }
-    }
-
     /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
@@ -154,7 +130,7 @@ public partial struct CivilYear // Range of months
     public const int MonthsCount = CivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public CivilMonth FirstMonth
+    public CivilMonth MinMonth
     {
         get
         {
@@ -164,7 +140,7 @@ public partial struct CivilYear // Range of months
     }
 
     /// <inheritdoc />
-    public CivilMonth LastMonth
+    public CivilMonth MaxMonth
     {
         get
         {
@@ -179,14 +155,19 @@ public partial struct CivilYear // Range of months
 
     /// <inheritdoc />
     [Pure]
-    public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(FirstMonth, LastMonth);
+    public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(MinMonth, MaxMonth);
 
     /// <inheritdoc />
     [Pure]
     //public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
-    int IYearMonthsView<CivilMonth>.CountMonths() => MonthsCount;
+    int IRangeOfMonths<CivilMonth>.CountMonths() => MonthsCount;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
     [Pure]
     public CivilMonth GetMonthOfYear(int month)
     {
@@ -221,10 +202,33 @@ public partial struct CivilYear // Range of months
 public partial struct CivilYear // Range of days
 {
     /// <inheritdoc />
+    public CivilDate MinDay
+    {
+        get
+        {
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return new CivilDate(daysSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    public CivilDate MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int y = Year;
+            int doy = sch.CountDaysInYear(y);
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, doy);
+            return new CivilDate(daysSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(FirstDay, LastDay);
+    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(MinDay, MaxDay);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
@@ -232,7 +236,12 @@ public partial struct CivilYear // Range of days
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the ordinal date corresponding to the specified day of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
     [Pure]
     public CivilDate GetDayOfYear(int dayOfYear)
     {
