@@ -99,7 +99,9 @@ public partial struct GregorianDate // Preamble
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 
-    /// <summary>Gets the count of days since the Gregorian epoch.</summary>
+    /// <summary>
+    /// Gets the count of days since the Gregorian epoch.
+    /// </summary>
     public int DaysSinceZero => _daysSinceZero;
 
     int IAbsoluteDate.DaysSinceEpoch => _daysSinceZero;

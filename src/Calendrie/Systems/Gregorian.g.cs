@@ -85,15 +85,11 @@ public partial struct GregorianDate // IComparable
     public static bool operator >=(GregorianDate left, GregorianDate right) =>
         left._daysSinceZero >= right._daysSinceZero;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static GregorianDate Min(GregorianDate x, GregorianDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static GregorianDate Max(GregorianDate x, GregorianDate y) => x > y ? x : y;
 

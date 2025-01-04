@@ -496,15 +496,11 @@ public partial struct ZoroastrianDate // IComparable
     public static bool operator >=(ZoroastrianDate left, ZoroastrianDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static ZoroastrianDate Min(ZoroastrianDate x, ZoroastrianDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static ZoroastrianDate Max(ZoroastrianDate x, ZoroastrianDate y) => x > y ? x : y;
 

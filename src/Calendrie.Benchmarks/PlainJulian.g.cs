@@ -490,15 +490,11 @@ public partial struct PlainJulianDate // IComparable
     public static bool operator >=(PlainJulianDate left, PlainJulianDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static PlainJulianDate Min(PlainJulianDate x, PlainJulianDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static PlainJulianDate Max(PlainJulianDate x, PlainJulianDate y) => x > y ? x : y;
 

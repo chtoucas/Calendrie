@@ -484,15 +484,11 @@ public partial struct PlainCivilDate // IComparable
     public static bool operator >=(PlainCivilDate left, PlainCivilDate right) =>
         left._daysSinceZero >= right._daysSinceZero;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static PlainCivilDate Min(PlainCivilDate x, PlainCivilDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static PlainCivilDate Max(PlainCivilDate x, PlainCivilDate y) => x > y ? x : y;
 

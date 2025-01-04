@@ -496,15 +496,11 @@ public partial struct WorldDate // IComparable
     public static bool operator >=(WorldDate left, WorldDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static WorldDate Min(WorldDate x, WorldDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static WorldDate Max(WorldDate x, WorldDate y) => x > y ? x : y;
 

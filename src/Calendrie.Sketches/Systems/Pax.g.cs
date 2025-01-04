@@ -502,15 +502,11 @@ public partial struct PaxDate // IComparable
     public static bool operator >=(PaxDate left, PaxDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static PaxDate Min(PaxDate x, PaxDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static PaxDate Max(PaxDate x, PaxDate y) => x > y ? x : y;
 

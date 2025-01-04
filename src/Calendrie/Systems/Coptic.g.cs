@@ -496,15 +496,11 @@ public partial struct CopticDate // IComparable
     public static bool operator >=(CopticDate left, CopticDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static CopticDate Min(CopticDate x, CopticDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static CopticDate Max(CopticDate x, CopticDate y) => x > y ? x : y;
 

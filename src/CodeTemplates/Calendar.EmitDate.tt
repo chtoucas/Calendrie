@@ -500,15 +500,11 @@ public partial struct <#= Prefix #>Date // IComparable
     public static bool operator >=(<#= Prefix #>Date left, <#= Prefix #>Date right) =>
         left._<#= DaysSinceEpochVar #> >= right._<#= DaysSinceEpochVar #>;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static <#= Prefix #>Date Min(<#= Prefix #>Date x, <#= Prefix #>Date y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static <#= Prefix #>Date Max(<#= Prefix #>Date x, <#= Prefix #>Date y) => x > y ? x : y;
 

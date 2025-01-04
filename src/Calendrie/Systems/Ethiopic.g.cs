@@ -496,15 +496,11 @@ public partial struct EthiopicDate // IComparable
     public static bool operator >=(EthiopicDate left, EthiopicDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static EthiopicDate Min(EthiopicDate x, EthiopicDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static EthiopicDate Max(EthiopicDate x, EthiopicDate y) => x > y ? x : y;
 

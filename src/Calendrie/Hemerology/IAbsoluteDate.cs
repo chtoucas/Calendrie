@@ -289,7 +289,7 @@ public interface IAbsoluteDate
 }
 
 /// <summary>
-/// Defines a absolute date type.
+/// Defines an absolute date type.
 /// <para>A date is said to be <i>absolute</i> if it's attached to a global
 /// timeline. In this project, it means that it can be mapped to a
 /// <see cref="DayNumber"/>.
@@ -319,12 +319,12 @@ public interface IAbsoluteDate<TSelf> :
     [Pure] static abstract TSelf FromDayNumber(DayNumber dayNumber);
 
     /// <summary>
-    /// Obtains the minimum of two specified values.
+    /// Obtains the earliest date between the two specified dates.
     /// </summary>
     [Pure] static abstract TSelf Min(TSelf x, TSelf y);
 
     /// <summary>
-    /// Obtains the maximum of two specified values.
+    /// Obtains the latest date between the two specified dates.
     /// </summary>
     [Pure] static abstract TSelf Max(TSelf x, TSelf y);
 

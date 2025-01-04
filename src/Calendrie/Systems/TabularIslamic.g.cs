@@ -487,15 +487,11 @@ public partial struct TabularIslamicDate // IComparable
     public static bool operator >=(TabularIslamicDate left, TabularIslamicDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static TabularIslamicDate Min(TabularIslamicDate x, TabularIslamicDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static TabularIslamicDate Max(TabularIslamicDate x, TabularIslamicDate y) => x > y ? x : y;
 

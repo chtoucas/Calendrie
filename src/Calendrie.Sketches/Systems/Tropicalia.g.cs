@@ -498,15 +498,11 @@ public partial struct TropicaliaDate // IComparable
     public static bool operator >=(TropicaliaDate left, TropicaliaDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
-    /// <summary>
-    /// Obtains the earliest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static TropicaliaDate Min(TropicaliaDate x, TropicaliaDate y) => x < y ? x : y;
 
-    /// <summary>
-    /// Obtains the latest date between the two specified dates.
-    /// </summary>
+    /// <inheritdoc />
     [Pure]
     public static TropicaliaDate Max(TropicaliaDate x, TropicaliaDate y) => x > y ? x : y;
 
