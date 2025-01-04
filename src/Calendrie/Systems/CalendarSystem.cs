@@ -50,7 +50,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     // While creating a new type, these properties prove to be useful in
     // determining the actual value of MaxDaysSinceEpoch and MaxMonthsSinceEpoch
     // to be used by the T4 template.
-    // For "standard" calendars, MinDaysSinceEpoch and MinMonthsSinceEpoch = 0.
+    // For non-proleptic calendars, MinDaysSinceEpoch and MinMonthsSinceEpoch = 0.
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.
@@ -171,6 +171,10 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 
 public partial class CalendarSystem<TDate> // Transformers
 {
+    // Compare to IDateProvider<>, we can bypass the validation.
+    //
+    // REVIEW(code): move transformers to the date type?
+
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
     /// </summary>

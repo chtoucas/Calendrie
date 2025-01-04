@@ -7,8 +7,6 @@ using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 
 // TODO(code): CalendricalArithmetic
-// - Move ICalendricalArithmetic to sketches (before that we need to rework
-//   the calendars)
 // - I don't like the ctor (its use of Segment)
 // - We could add more math ops
 //   - CountYearsBetween(Yemoda, Yemoda)
