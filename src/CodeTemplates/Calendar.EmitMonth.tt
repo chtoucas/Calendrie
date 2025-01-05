@@ -23,7 +23,8 @@ public partial class CalendarTemplate
         }
         else
         {
-            EmitMonthMathNonStandardNonRegular();
+            //EmitMonthMathNonStandardNonRegular();
+            throw new NotImplementedException();
         }
 #>
 
