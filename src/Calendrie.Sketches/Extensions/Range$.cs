@@ -4,42 +4,33 @@
 namespace Calendrie.Extensions;
 
 using Calendrie.Core.Intervals;
-using Calendrie.Hemerology;
 
-// TODO(code): same but with months. Interconversion of a range. ToEnumerable()
-// Les contraintes génériques sont à revoir.
+// TODO(code): specialized versions for years and months.
+// Interconversion of a range. ToEnumerable()
 // Range<Year>.Count(), ToEnumerable(), GetCalendar().
 
 public static partial class RangeExtensions { }
 
-public partial class RangeExtensions // Range<TYear>
+public partial class RangeExtensions // Range<T>
 {
-    /// <summary>
-    /// Converts the specified range of years to a range of days.
-    /// </summary>
     [Pure]
-    public static Range<TDate> ToRangeOfDays<TYear, TDate>(this Range<TYear> range)
-        where TYear : struct, IEquatable<TYear>, IComparable<TYear>, IRangeOfDays<TDate>
-        where TDate : struct, IEquatable<TDate>, IComparable<TDate>
+    public static Range<TItem> Flatten<T, TItem>(this Range<T> @this)
+        where T : struct, IEquatable<T>, IComparable<T>, ISegment<TItem>
+        where TItem : struct, IEquatable<TItem>, IComparable<TItem>
     {
-        var (min, max) = range.Endpoints;
-        return Range.UnsafeCreate(min.MinDay, max.MaxDay);
+        var (min, max) = @this.Endpoints;
+        return Range.UnsafeCreate(min.LowerEnd, max.UpperEnd);
     }
-}
 
-public partial class RangeExtensions // Range<TDate>
-{
-    /// <summary>
-    /// Determines whether the specified range of days is a superset of the
-    /// specified year or not.
-    /// </summary>
     [Pure]
-    public static bool IsSupersetOf<TDate, TYear>(this Range<TDate> range, TYear year)
-        where TDate : struct, IAbsoluteDate<TDate>
-        where TYear : IRangeOfDays<TDate>
+    public static bool IsSupersetOf<T, TRange>(this Range<T> @this, TRange range)
+        where T : struct, IEquatable<T>, IComparable<T>
+        where TRange : ISegment<T>
     {
         // Simpler (faster) version of
         // > range.IsSupersetOf(year.ToRangeOfDays());
-        return range.Min <= year.MinDay && year.MaxDay <= range.Max;
+        // when year is an IRangeOfDays<T>.
+        return @this.Min.CompareTo(range.LowerEnd) <= 0
+            && range.UpperEnd.CompareTo(@this.Max) <= 0;
     }
 }
