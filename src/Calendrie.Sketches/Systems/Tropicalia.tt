@@ -1,7 +1,7 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
-<#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
-<#= new CalendarTemplate(this, "TropicaliaSchema", "DayZero.NewStyle", "0", "3_652_055")
+<#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
+<#= new ZeroCalendarTemplate(this, "TropicaliaSchema", "3_652_055")
     {
         EnableMonth = true,
         EnablePragmas = true,

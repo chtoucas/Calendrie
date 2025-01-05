@@ -94,21 +94,16 @@ public readonly partial struct TropicaliaDate :
 
 public partial struct TropicaliaDate // Preamble
 {
-    /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
-    /// for the epoch <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is a constant equal to 0.</para></summary>
-    private const int EpochDaysSinceZero = 0;
-
-    /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
+    /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 3_652_055.</para></summary>
-    private const int MaxDaysSinceEpoch = 3_652_055;
+    private const int MaxDaysSinceZero = 3_652_055;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceZero"/>.
     /// </para>
     /// </summary>
-    private readonly int _daysSinceEpoch;
+    private readonly int _daysSinceZero;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaDate"/> struct
@@ -122,7 +117,7 @@ public partial struct TropicaliaDate // Preamble
         var chr = TropicaliaCalendar.Instance;
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
-        _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
+        _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
@@ -137,15 +132,15 @@ public partial struct TropicaliaDate // Preamble
         var chr = TropicaliaCalendar.Instance;
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
-        _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
+        _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
     /// This constructor does NOT validate its parameter.
     /// </summary>
-    internal TropicaliaDate(int daysSinceEpoch)
+    internal TropicaliaDate(int daysSinceZero)
     {
-        _daysSinceEpoch = daysSinceEpoch;
+        _daysSinceZero = daysSinceZero;
     }
 
     /// <summary>
@@ -160,7 +155,7 @@ public partial struct TropicaliaDate // Preamble
     /// Gets the latest possible value of a <see cref="TropicaliaDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static TropicaliaDate MaxValue { get; } = new(MaxDaysSinceEpoch);
+    public static TropicaliaDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -169,14 +164,12 @@ public partial struct TropicaliaDate // Preamble
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
 
     /// <inheritdoc />
-    //
-    // We already know that the resulting day number is valid so instead of
-    // > public DayNumber DayNumber => Epoch + _daysSinceEpoch;
-    // we can use an unchecked addition
-    public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
+    public DayNumber DayNumber => new(_daysSinceZero);
 
-    /// <inheritdoc />
-    public int DaysSinceEpoch => _daysSinceEpoch;
+    /// <summary>Gets the count of days since the Gregorian epoch.</summary>
+    public int DaysSinceZero => _daysSinceZero;
+
+    int IAbsoluteDate.DaysSinceEpoch => _daysSinceZero;
 
     /// <summary>
     /// Gets the century of the era.
@@ -205,14 +198,14 @@ public partial struct TropicaliaDate // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => Calendar.Schema.GetYear(_daysSinceEpoch);
+    public int Year => Calendar.Schema.GetYear(_daysSinceZero);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out _);
+            Calendar.Schema.GetDateParts(_daysSinceZero, out _, out int m, out _);
             return m;
         }
     }
@@ -222,7 +215,7 @@ public partial struct TropicaliaDate // Preamble
     {
         get
         {
-            _ = Calendar.Schema.GetYear(_daysSinceEpoch, out int doy);
+            _ = Calendar.Schema.GetYear(_daysSinceZero, out int doy);
             return doy;
         }
     }
@@ -232,7 +225,7 @@ public partial struct TropicaliaDate // Preamble
     {
         get
         {
-            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+            Calendar.Schema.GetDateParts(_daysSinceZero, out _, out _, out int d);
             return d;
         }
     }
@@ -246,7 +239,7 @@ public partial struct TropicaliaDate // Preamble
         get
         {
             var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
             return sch.IsIntercalaryDay(y, m, d);
         }
     }
@@ -257,7 +250,7 @@ public partial struct TropicaliaDate // Preamble
         get
         {
             var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
             return sch.IsSupplementaryDay(y, m, d);
         }
     }
@@ -270,17 +263,17 @@ public partial struct TropicaliaDate // Preamble
     public override string ToString()
     {
         var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        chr.Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
         return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month, out int day) =>
-        Calendar.Schema.GetDateParts(_daysSinceEpoch, out year, out month, out day);
+        Calendar.Schema.GetDateParts(_daysSinceZero, out year, out month, out day);
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
+        year = Calendar.Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
 public partial struct TropicaliaDate // Factories & conversions
@@ -289,35 +282,37 @@ public partial struct TropicaliaDate // Factories & conversions
     [Pure]
     public static TropicaliaDate FromDayNumber(DayNumber dayNumber)
     {
-        Calendar.Scope.Validate(dayNumber);
+        int daysSinceZero = dayNumber.DaysSinceZero;
 
-        // NB: the subtraction won't overflow.
-        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
+            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    static TropicaliaDate IUnsafeDateFactory<TropicaliaDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+    static TropicaliaDate IUnsafeDateFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
+        new(daysSinceZero);
 }
 
 public partial struct TropicaliaDate // Counting
 {
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInYear() => Calendar.Schema.CountDaysInYearBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInYear() => Calendar.Schema.CountDaysInYearBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInYear() => Calendar.Schema.CountDaysInYearAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInYear() => Calendar.Schema.CountDaysInYearAfter(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountElapsedDaysInMonth() => Calendar.Schema.CountDaysInMonthBefore(_daysSinceEpoch);
+    public int CountElapsedDaysInMonth() => Calendar.Schema.CountDaysInMonthBefore(_daysSinceZero);
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
 public partial struct TropicaliaDate // Adjustments
@@ -329,13 +324,13 @@ public partial struct TropicaliaDate // Adjustments
         var chr = Calendar;
         var sch = Calendar.Schema;
 
-        sch.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+        sch.GetDateParts(_daysSinceZero, out _, out int m, out int d);
 
         // We MUST re-validate the entire date.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(newYear, m, d);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -345,13 +340,13 @@ public partial struct TropicaliaDate // Adjustments
         var chr = Calendar;
         var sch = Calendar.Schema;
 
-        sch.GetDateParts(_daysSinceEpoch, out int y, out _, out int d);
+        sch.GetDateParts(_daysSinceZero, out int y, out _, out int d);
 
         // We only need to validate "newMonth" and "d".
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -361,13 +356,13 @@ public partial struct TropicaliaDate // Adjustments
         var chr = Calendar;
         var sch = Calendar.Schema;
 
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out _);
 
         // We only need to validate "newDay".
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -377,13 +372,13 @@ public partial struct TropicaliaDate // Adjustments
         var chr = Calendar;
         var sch = Calendar.Schema;
 
-        int y = sch.GetYear(_daysSinceEpoch);
+        int y = sch.GetYear(_daysSinceZero);
 
         // We only need to validate "newDayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
+        return new(daysSinceZero);
     }
 }
 
@@ -396,9 +391,9 @@ public partial struct TropicaliaDate // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
-        if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
+        if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -409,19 +404,18 @@ public partial struct TropicaliaDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
-        if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
+        if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
     public TropicaliaDate Nearest(DayOfWeek dayOfWeek)
     {
-        var nearest = DayNumber.Nearest(dayOfWeek);
-        int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
-        if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -432,9 +426,9 @@ public partial struct TropicaliaDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
-        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -444,9 +438,9 @@ public partial struct TropicaliaDate // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
-        if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
     }
 }
 
@@ -454,15 +448,15 @@ public partial struct TropicaliaDate // IEquatable
 {
     /// <inheritdoc />
     public static bool operator ==(TropicaliaDate left, TropicaliaDate right) =>
-        left._daysSinceEpoch == right._daysSinceEpoch;
+        left._daysSinceZero == right._daysSinceZero;
 
     /// <inheritdoc />
     public static bool operator !=(TropicaliaDate left, TropicaliaDate right) =>
-        left._daysSinceEpoch != right._daysSinceEpoch;
+        left._daysSinceZero != right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(TropicaliaDate other) => _daysSinceEpoch == other._daysSinceEpoch;
+    public bool Equals(TropicaliaDate other) => _daysSinceZero == other._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -471,7 +465,7 @@ public partial struct TropicaliaDate // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _daysSinceEpoch;
+    public override int GetHashCode() => _daysSinceZero;
 }
 
 public partial struct TropicaliaDate // IComparable
@@ -481,28 +475,28 @@ public partial struct TropicaliaDate // IComparable
     /// earlier than the right one.
     /// </summary>
     public static bool operator <(TropicaliaDate left, TropicaliaDate right) =>
-        left._daysSinceEpoch < right._daysSinceEpoch;
+        left._daysSinceZero < right._daysSinceZero;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
     public static bool operator <=(TropicaliaDate left, TropicaliaDate right) =>
-        left._daysSinceEpoch <= right._daysSinceEpoch;
+        left._daysSinceZero <= right._daysSinceZero;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// later than the right one.
     /// </summary>
     public static bool operator >(TropicaliaDate left, TropicaliaDate right) =>
-        left._daysSinceEpoch > right._daysSinceEpoch;
+        left._daysSinceZero > right._daysSinceZero;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
     public static bool operator >=(TropicaliaDate left, TropicaliaDate right) =>
-        left._daysSinceEpoch >= right._daysSinceEpoch;
+        left._daysSinceZero >= right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -514,7 +508,7 @@ public partial struct TropicaliaDate // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(TropicaliaDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
+    public int CompareTo(TropicaliaDate other) => _daysSinceZero.CompareTo(other._daysSinceZero);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -572,8 +566,8 @@ public partial struct TropicaliaDate // Standard math ops
     [Pure]
     public int CountDaysSince(TropicaliaDate other) =>
         // No need to use a checked context here. Indeed, the absolute value of
-        // the result is at most equal to MaxDaysSinceEpoch.
-        _daysSinceEpoch - other._daysSinceEpoch;
+        // the result is at most equal to MaxDaysSinceZero.
+        _daysSinceZero - other._daysSinceZero;
 
     /// <summary>
     /// Adds a number of days to the current instance, yielding a new date.
@@ -584,9 +578,9 @@ public partial struct TropicaliaDate // Standard math ops
     [Pure]
     public TropicaliaDate PlusDays(int days)
     {
-        int daysSinceEpoch = checked(_daysSinceEpoch + days);
-        if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        int daysSinceZero = checked(_daysSinceZero + days);
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(daysSinceZero);
     }
 
     /// <summary>
@@ -597,8 +591,8 @@ public partial struct TropicaliaDate // Standard math ops
     [Pure]
     public TropicaliaDate NextDay()
     {
-        if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch + 1);
+        if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceZero + 1);
     }
 
     /// <summary>
@@ -609,8 +603,8 @@ public partial struct TropicaliaDate // Standard math ops
     [Pure]
     public TropicaliaDate PreviousDay()
     {
-        if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch - 1);
+        if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
+        return new(_daysSinceZero - 1);
     }
 
     //
@@ -659,7 +653,7 @@ public partial struct TropicaliaDate // Non-standard math ops
     public TropicaliaDate PlusYears(int years)
     {
         var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
         return AddYears(sch, y, m, d, years);
     }
 
@@ -673,7 +667,7 @@ public partial struct TropicaliaDate // Non-standard math ops
     public TropicaliaDate PlusMonths(int months)
     {
         var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
         return AddMonths(sch, y, m, d, months);
     }
 
@@ -684,7 +678,7 @@ public partial struct TropicaliaDate // Non-standard math ops
     public int CountYearsSince(TropicaliaDate other)
     {
         var sch = Calendar.Schema;
-        sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
+        sch.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
@@ -711,8 +705,8 @@ public partial struct TropicaliaDate // Non-standard math ops
     public int CountMonthsSince(TropicaliaDate other)
     {
         var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
-        sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out _);
+        sch.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
         int months = checked(TropicaliaCalendar.MonthsInYear * (y - y0) + m - m0);
@@ -750,8 +744,8 @@ public partial struct TropicaliaDate // Non-standard math ops
         // NB: AdditionRule.Truncate.
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
-        return new TropicaliaDate(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(newY, m, newD);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <summary>
@@ -772,8 +766,8 @@ public partial struct TropicaliaDate // Non-standard math ops
         // NB: AdditionRule.Truncate.
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return new TropicaliaDate(daysSinceEpoch);
+        int daysSinceZero = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return new TropicaliaDate(daysSinceZero);
     }
 }
 
@@ -801,11 +795,11 @@ public partial struct TropicaliaMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
-    private const int MaxMonthsSinceEpoch = 119_987;
+    private const int MaxMonthsSinceZero = 119_987;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceZero"/>.
     /// </para>
     /// </summary>
     private readonly int _monthsSinceEpoch;
@@ -845,7 +839,7 @@ public partial struct TropicaliaMonth // Preamble
     /// Gets the latest possible value of a <see cref="TropicaliaMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static TropicaliaMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+    public static TropicaliaMonth MaxValue { get; } = new(MaxMonthsSinceZero);
 
     /// <summary>
     /// Gets the calendar to which belongs the current month type.
@@ -990,8 +984,8 @@ public partial struct TropicaliaMonth // IDaySegment
         get
         {
             var (y, m) = this;
-            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return new TropicaliaDate(daysSinceEpoch);
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
+            return new TropicaliaDate(daysSinceZero);
         }
     }
 
@@ -1003,8 +997,8 @@ public partial struct TropicaliaMonth // IDaySegment
             var (y, m) = this;
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-            return new TropicaliaDate(daysSinceEpoch);
+            int daysSinceZero = sch.CountDaysSinceEpoch(y, m, d);
+            return new TropicaliaDate(daysSinceZero);
         }
     }
 
@@ -1040,9 +1034,9 @@ public partial struct TropicaliaMonth // IDaySegment
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
 
-        return from daysSinceEpoch
+        return from daysSinceZero
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new TropicaliaDate(daysSinceEpoch);
+               select new TropicaliaDate(daysSinceZero);
     }
 
     [Pure]
@@ -1053,7 +1047,7 @@ public partial struct TropicaliaMonth // IDaySegment
     public bool Contains(TropicaliaDate date)
     {
         var (y, m) = this;
-        Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
+        Calendar.Schema.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
         return y1 == y && m1 == m;
     }
 
@@ -1194,7 +1188,7 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public int CountMonthsSince(TropicaliaMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
-        // the result is at most equal to MaxMonthsSinceEpoch.
+        // the result is at most equal to MaxMonthsSinceZero.
         _monthsSinceEpoch - other._monthsSinceEpoch;
 
     /// <summary>
@@ -1207,7 +1201,7 @@ public partial struct TropicaliaMonth // Standard math ops
     public TropicaliaMonth PlusMonths(int months)
     {
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceZero)
             ThrowHelpers.ThrowMonthOverflow();
         return new(monthsSinceEpoch);
     }
@@ -1220,7 +1214,7 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public TropicaliaMonth NextMonth()
     {
-        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        if (_monthsSinceEpoch == MaxMonthsSinceZero) ThrowHelpers.ThrowMonthOverflow();
         return new(_monthsSinceEpoch + 1);
     }
 
