@@ -291,6 +291,9 @@ public interface IAbsoluteDate
 /// <para>A date is said to be <i>absolute</i> if it's attached to a global
 /// timeline. In this project, it means that it can be mapped to a
 /// <see cref="DayNumber"/>.</para>
+/// <para>This interface SHOULD NOT be implemented by types participating in a
+/// poly-calendar system; see <see cref="IAbsoluteDateBase{TSelf}"/> for a more
+/// suitable interface.</para>
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface IAbsoluteDate<TSelf> :

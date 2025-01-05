@@ -97,6 +97,9 @@ public interface ICalendarMonth
 
 /// <summary>
 /// Defines a calendar month type.
+/// <para>This interface SHOULD NOT be implemented by types participating in a
+/// poly-calendar system; see <see cref="ICalendarMonthBase{TSelf}"/> for a more
+/// suitable interface.</para>
 /// </summary>
 /// <typeparam name="TSelf">The month type that implements this interface.
 /// </typeparam>

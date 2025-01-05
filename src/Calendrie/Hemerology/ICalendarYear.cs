@@ -69,6 +69,9 @@ public interface ICalendarYear
 
 /// <summary>
 /// Defines a calendar year type.
+/// <para>This interface SHOULD NOT be implemented by types participating in a
+/// poly-calendar system; see <see cref="ICalendarYearBase{TSelf}"/> for a more
+/// suitable interface.</para>
 /// </summary>
 /// <typeparam name="TSelf">The year type that implements this interface.
 /// </typeparam>
