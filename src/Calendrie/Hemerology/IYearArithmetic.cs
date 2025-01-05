@@ -7,7 +7,8 @@ namespace Calendrie.Hemerology;
 /// Defines the mathematical operations on the year field of a time-related type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IYearArithmetic<TSelf> where TSelf : IYearArithmetic<TSelf>
+public interface IYearArithmetic<TSelf>
+    where TSelf : IYearArithmetic<TSelf>
 {
     /// <summary>
     /// Counts the number of years elapsed since the specified value.

@@ -8,7 +8,7 @@ namespace Calendrie.Hemerology;
 /// <para>A blank day does not belong to any month and is kept outside the
 /// weekday cycle.</para>
 /// </summary>
-public interface IBlankDay : IDateable
+public interface IBlankDay
 {
     /// <summary>
     /// Returns <see langword="true"/> if the current instance is a blank day;

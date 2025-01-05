@@ -7,7 +7,8 @@ namespace Calendrie.Hemerology;
 /// Defines the mathematical operations on the month field of a time-related type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IMonthArithmetic<TSelf> where TSelf : IMonthArithmetic<TSelf>
+public interface IMonthArithmetic<TSelf>
+    where TSelf : IMonthArithmetic<TSelf>
 {
     /// <summary>
     /// Counts the number of months elapsed since the specified value.

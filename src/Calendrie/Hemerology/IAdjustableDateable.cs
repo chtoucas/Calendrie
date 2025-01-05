@@ -6,23 +6,23 @@ namespace Calendrie.Hemerology;
 /// <summary>
 /// Defines adjustment methods for a <see cref="IDateable"/> type.
 /// </summary>
-/// <typeparam name="TDate">The dateable type that implements this interface.
-/// </typeparam>
-public interface IAdjustableDateable<out TDate> where TDate : IDateable
+/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+public interface IAdjustableDateable<out TSelf>
+    where TSelf : IDateable, IAdjustableDateable<TSelf>
 {
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
-    [Pure] TDate WithYear(int newYear);
+    [Pure] TSelf WithYear(int newYear);
 
     /// <summary>
     /// Adjusts the month field to the specified value, yielding a new date.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
-    [Pure] TDate WithMonth(int newMonth);
+    [Pure] TSelf WithMonth(int newMonth);
 
     /// <summary>
     /// Adjusts the day of the month field to the specified value, yielding a
@@ -30,7 +30,7 @@ public interface IAdjustableDateable<out TDate> where TDate : IDateable
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
-    [Pure] TDate WithDay(int newDay);
+    [Pure] TSelf WithDay(int newDay);
 
     /// <summary>
     /// Adjusts the day of the year field to the specified value, yielding a new
@@ -38,5 +38,5 @@ public interface IAdjustableDateable<out TDate> where TDate : IDateable
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The resulting date would
     /// be invalid.</exception>
-    [Pure] TDate WithDayOfYear(int newDayOfYear);
+    [Pure] TSelf WithDayOfYear(int newDayOfYear);
 }
