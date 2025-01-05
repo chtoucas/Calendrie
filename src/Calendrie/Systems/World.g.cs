@@ -608,19 +608,32 @@ public partial struct WorldDate // Standard math ops
     // Math operations based on the week unit
     //
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Counts the number of weeks elapsed since the specified date.
+    /// </summary>
     [Pure]
     public int CountWeeksSince(WorldDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of weeks to the current instance, yielding a new value.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     [Pure]
     public WorldDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date after the current instance falling on the same day of
+    /// the week, yielding a new date.
+    /// </summary>
     [Pure]
     public WorldDate NextWeek() => PlusDays(DaysInWeek);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date before the current instance falling on the same day of
+    /// the week, yielding a new date.
+    /// </summary>
     [Pure]
     public WorldDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
