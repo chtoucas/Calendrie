@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeTemplates", "CodeTempla
 	ProjectSection(SolutionItems) = preProject
 		src\CodeTemplates\Calendar.EmitClock.tt = src\CodeTemplates\Calendar.EmitClock.tt
 		src\CodeTemplates\Calendar.EmitDate.tt = src\CodeTemplates\Calendar.EmitDate.tt
+		src\CodeTemplates\Calendar.EmitMonth.tt = src\CodeTemplates\Calendar.EmitMonth.tt
 		src\CodeTemplates\Calendar.tt = src\CodeTemplates\Calendar.tt
 		src\CodeTemplates\README.txt = src\CodeTemplates\README.txt
 		src\CodeTemplates\ZeroCalendar.tt = src\CodeTemplates\ZeroCalendar.tt

@@ -3,6 +3,7 @@
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
 <#= new CalendarTemplate(this, "TropicaliaSchema", "DayZero.NewStyle", "0", "3_652_055")
     {
+        EnableMonth = true,
         EnablePragmas = true,
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12

@@ -1,6 +1,7 @@
 ﻿<#@ assembly name="$(CalendrieT4Assembly)" #>
 <#@ include file="Calendar.EmitClock.tt" #>
 <#@ include file="Calendar.EmitDate.tt" #>
+<#@ include file="Calendar.EmitMonth.tt" #>
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
 <#@ import namespace="Calendrie.TextTemplating" #><#+
 
@@ -60,6 +61,7 @@ public partial class CalendarTemplate : CSharpTemplate
     public bool EnablePragmas { get; set; }
     public bool ImportCalendrieSystemsNamespace { get; set; }
 
+    public bool EnableMonth { get; set; }
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
 
@@ -78,6 +80,8 @@ public partial class CalendarTemplate : CSharpTemplate
         if (EnableClock) EmitClock();
 
         EmitDate();
+
+        if (EnableMonth) EmitMonth();
     } // T4: End of WriteContent()
 
     protected virtual void EmitNullable()
@@ -115,6 +119,9 @@ using System.Numerics;
 
 using Calendrie;
 using Calendrie.Core.Schemas;
+<#+ if (EnableMonth) { #>
+using Calendrie.Core.Intervals;
+<#+ } #>
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
@@ -135,6 +142,8 @@ using static Calendrie.Core.CalendricalConstants;
 
         WriteLine();
 #>
+#region <#= Prefix #>Calendar
+
 /// <summary>
 /// Represents the <#= DisplayName #> calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
@@ -198,6 +207,8 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     }
 <#+ } #>
 }
+
+#endregion
 <#+
     } // T4: End of EmitCalendar()
 } // T4: End of CalendarTemplate

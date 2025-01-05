@@ -4,6 +4,10 @@ public partial class CalendarTemplate
 {
     protected virtual void EmitDate()
     {
+#>
+
+#region <#= Prefix #>Date
+<#+
         EmitDateDecl();
         EmitDatePreamble();
         EmitDateFactories();
@@ -22,6 +26,10 @@ public partial class CalendarTemplate
         {
             EmitDateMathNonStandardNonRegular();
         }
+#>
+
+#endregion
+<#+
     }
 
     protected virtual void EmitDateDecl()

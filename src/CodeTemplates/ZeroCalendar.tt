@@ -44,6 +44,9 @@ using static Calendrie.Core.CalendricalConstants;
     {
         WriteLine();
 #>
+
+#region <#= Prefix #>Clock
+
 /// <summary>
 /// Represents a clock for the <#= DisplayName #> calendar.
 /// <para>This class cannot be inherited.</para>
@@ -92,6 +95,8 @@ public sealed partial class <#= Prefix #>Clock
     [Pure]
     public <#= Prefix #>Date GetCurrentDate() => new(_clock.Today().DaysSinceZero);
 }
+
+#endregion
 <#+
     } // T4: End of EmitClock()
 
