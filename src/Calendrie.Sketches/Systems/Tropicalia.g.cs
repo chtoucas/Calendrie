@@ -790,7 +790,7 @@ public readonly partial struct TropicaliaMonth :
 
 public partial struct TropicaliaMonth // Preamble
 {
-    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceZero"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
     private const int MaxMonthsSinceZero = 119_987;
 
@@ -799,7 +799,7 @@ public partial struct TropicaliaMonth // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceZero"/>.
     /// </para>
     /// </summary>
-    private readonly int _monthsSinceEpoch;
+    private readonly int _monthsSinceZero;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct to the
@@ -812,16 +812,16 @@ public partial struct TropicaliaMonth // Preamble
     {
         TropicaliaCalendar.Instance.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        _monthsSinceZero = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal TropicaliaMonth(int monthsSinceEpoch)
+    internal TropicaliaMonth(int monthsSinceZero)
     {
-        _monthsSinceEpoch = monthsSinceEpoch;
+        _monthsSinceZero = monthsSinceZero;
     }
 
     /// <summary>
@@ -845,7 +845,7 @@ public partial struct TropicaliaMonth // Preamble
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
 
     /// <inheritdoc />
-    public int MonthsSinceEpoch => _monthsSinceEpoch;
+    public int MonthsSinceEpoch => _monthsSinceZero;
 
     /// <summary>
     /// Gets the century of the era.
@@ -874,7 +874,7 @@ public partial struct TropicaliaMonth // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, TropicaliaCalendar.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceZero, TropicaliaCalendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
@@ -911,7 +911,7 @@ public partial struct TropicaliaMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceEpoch, TropicaliaCalendar.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceZero, TropicaliaCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 
@@ -1067,15 +1067,15 @@ public partial struct TropicaliaMonth // IEquatable
 {
     /// <inheritdoc />
     public static bool operator ==(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceEpoch == right._monthsSinceEpoch;
+        left._monthsSinceZero == right._monthsSinceZero;
 
     /// <inheritdoc />
     public static bool operator !=(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceEpoch != right._monthsSinceEpoch;
+        left._monthsSinceZero != right._monthsSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(TropicaliaMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+    public bool Equals(TropicaliaMonth other) => _monthsSinceZero == other._monthsSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -1084,7 +1084,7 @@ public partial struct TropicaliaMonth // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _monthsSinceEpoch;
+    public override int GetHashCode() => _monthsSinceZero;
 }
 
 public partial struct TropicaliaMonth // IComparable
@@ -1094,28 +1094,28 @@ public partial struct TropicaliaMonth // IComparable
     /// earlier than the right one.
     /// </summary>
     public static bool operator <(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceEpoch < right._monthsSinceEpoch;
+        left._monthsSinceZero < right._monthsSinceZero;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
     public static bool operator <=(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceEpoch <= right._monthsSinceEpoch;
+        left._monthsSinceZero <= right._monthsSinceZero;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
     public static bool operator >(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceEpoch > right._monthsSinceEpoch;
+        left._monthsSinceZero > right._monthsSinceZero;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
     public static bool operator >=(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceEpoch >= right._monthsSinceEpoch;
+        left._monthsSinceZero >= right._monthsSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -1127,7 +1127,7 @@ public partial struct TropicaliaMonth // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(TropicaliaMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+    public int CompareTo(TropicaliaMonth other) => _monthsSinceZero.CompareTo(other._monthsSinceZero);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -1186,7 +1186,7 @@ public partial struct TropicaliaMonth // Standard math ops
     public int CountMonthsSince(TropicaliaMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceZero.
-        _monthsSinceEpoch - other._monthsSinceEpoch;
+        _monthsSinceZero - other._monthsSinceZero;
 
     /// <summary>
     /// Adds a number of months to the current instance, yielding a new month.
@@ -1197,10 +1197,10 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public TropicaliaMonth PlusMonths(int months)
     {
-        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceZero)
+        int monthsSinceZero = checked(_monthsSinceZero + months);
+        if (unchecked((uint)monthsSinceZero) > MaxMonthsSinceZero)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new(monthsSinceZero);
     }
 
     /// <summary>
@@ -1211,8 +1211,8 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public TropicaliaMonth NextMonth()
     {
-        if (_monthsSinceEpoch == MaxMonthsSinceZero) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        if (_monthsSinceZero == MaxMonthsSinceZero) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceZero + 1);
     }
 
     /// <summary>
@@ -1223,8 +1223,8 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public TropicaliaMonth PreviousMonth()
     {
-        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        if (_monthsSinceZero == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceZero - 1);
     }
 }
 
@@ -1247,8 +1247,8 @@ public partial struct TropicaliaMonth // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
-        return new TropicaliaMonth(monthsSinceEpoch);
+        int monthsSinceZero = CountMonthsSinceEpoch(newY, m);
+        return new TropicaliaMonth(monthsSinceZero);
     }
 
     /// <summary>
@@ -1258,6 +1258,429 @@ public partial struct TropicaliaMonth // Non-standard math ops
     public int CountYearsSince(TropicaliaMonth other) =>
         // NB: this subtraction never overflows.
         Year - other.Year;
+}
+
+#endregion
+
+#region TropicaliaYear
+
+/// <summary>
+/// Represents a Tropicalia year.
+/// <para><i>All</i> years within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="TropicaliaYear"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct TropicaliaYear :
+    ICalendarYear<TropicaliaYear>,
+    ICalendarBound<TropicaliaCalendar>,
+    // A year viewed as a finite sequence of months
+    IMonthSegment<TropicaliaMonth>,
+    ISetMembership<TropicaliaMonth>,
+    // A year viewed as a finite sequence of days
+    IDaySegment<TropicaliaDate>,
+    ISetMembership<TropicaliaDate>,
+    // Arithmetic
+    ISubtractionOperators<TropicaliaYear, TropicaliaYear, int>
+{ }
+
+public partial struct TropicaliaYear // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_year0"/>.
+    /// <para>This field is a constant equal to 9998.</para></summary>
+    private const int MaxYear0 = StandardScope.MaxYear - 1;
+
+    /// <summary>
+    /// Represents the count of consecutive years since the epoch <see cref="DayZero.NewStyle"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxYear0"/>.
+    /// </para>
+    /// </summary>
+    private readonly int _year0;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct to the
+    /// specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    public TropicaliaYear(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        _year0 = year - 1;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct to the
+    /// specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    internal TropicaliaYear(int year, bool _)
+    {
+        _year0 = year - 1;
+    }
+
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="TropicaliaYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    //
+    // MinValue = new(1) = new() = default(TropicaliaYear)
+    public static TropicaliaYear MinValue { get; }
+
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="TropicaliaYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TropicaliaYear MaxValue { get; } = new(StandardScope.MaxYear);
+
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// <para>This property represents the algebraic year, but since it's greater
+    /// than 0, there is no difference between the algebraic year and the year
+    /// of the era.</para>
+    /// </summary>
+    public int Year => _year0 + 1;
+
+    /// <inheritdoc />
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceEpoch(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        MonthsCount * (y - 1) + m - 1;
+}
+
+public partial struct TropicaliaYear // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsCount = TropicaliaCalendar.MonthsInYear;
+
+    /// <inheritdoc />
+    public TropicaliaMonth MinMonth
+    {
+        get
+        {
+            int monthsSinceZero = CountMonthsSinceEpoch(Year, 1);
+            return new TropicaliaMonth(monthsSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    public TropicaliaMonth MaxMonth
+    {
+        get
+        {
+            int monthsSinceZero = CountMonthsSinceEpoch(Year, MonthsCount);
+            return new TropicaliaMonth(monthsSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<TropicaliaMonth>.CountMonths() => MonthsCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<TropicaliaMonth> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<TropicaliaMonth> EnumerateMonths()
+    {
+        int startOfYear = CountMonthsSinceEpoch(Year, 1);
+
+        return from monthsSinceZero
+               in Enumerable.Range(startOfYear, MonthsCount)
+               select new TropicaliaMonth(monthsSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(TropicaliaMonth month) => month.Year == Year;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public TropicaliaMonth GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        int y = Year;
+        Calendar.Scope.PreValidator.ValidateMonth(y, month);
+        int monthsSinceZero = CountMonthsSinceEpoch(y, month);
+        return new TropicaliaMonth(monthsSinceZero);
+    }
+}
+
+public partial struct TropicaliaYear // IDaySegment
+{
+    /// <inheritdoc />
+    public TropicaliaDate MinDay
+    {
+        get
+        {
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return new TropicaliaDate(daysSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    public TropicaliaDate MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int y = Year;
+            int doy = sch.CountDaysInYear(y);
+            int daysSinceZero = sch.CountDaysSinceEpoch(y, doy);
+            return new TropicaliaDate(daysSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// </remarks>
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
+    /// </remarks>
+    [Pure]
+    public Range<TropicaliaDate> ToDayRange() => Range.UnsafeCreate(MinDay, MaxDay);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<TropicaliaDate> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
+        int daysInYear = sch.CountDaysInYear(y);
+
+        return from daysSinceZero
+               in Enumerable.Range(startOfYear, daysInYear)
+               select new TropicaliaDate(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(TropicaliaDate date) => date.Year == Year;
+
+    /// <summary>
+    /// Obtains the ordinal date corresponding to the specified day of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public TropicaliaDate GetDayOfYear(int dayOfYear)
+    {
+        var chr = Calendar;
+        int y = Year;
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(y, dayOfYear);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, dayOfYear);
+        return new TropicaliaDate(daysSinceZero);
+    }
+}
+
+public partial struct TropicaliaYear // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(TropicaliaYear left, TropicaliaYear right) => left._year0 == right._year0;
+
+    /// <inheritdoc />
+    public static bool operator !=(TropicaliaYear left, TropicaliaYear right) => left._year0 != right._year0;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(TropicaliaYear other) => _year0 == other._year0;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is TropicaliaYear year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _year0;
+}
+
+public partial struct TropicaliaYear // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(TropicaliaYear left, TropicaliaYear right) => left._year0 < right._year0;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(TropicaliaYear left, TropicaliaYear right) => left._year0 <= right._year0;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(TropicaliaYear left, TropicaliaYear right) => left._year0 > right._year0;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(TropicaliaYear left, TropicaliaYear right) => left._year0 >= right._year0;
+
+    /// <inheritdoc />
+    [Pure]
+    public static TropicaliaYear Min(TropicaliaYear x, TropicaliaYear y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static TropicaliaYear Max(TropicaliaYear x, TropicaliaYear y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(TropicaliaYear other) => _year0.CompareTo(other._year0);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is TropicaliaYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(TropicaliaYear), obj);
+}
+
+public partial struct TropicaliaYear // Math ops
+{
+    /// <summary>
+    /// Subtracts the two specified years and returns the number of years between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
+    public static int operator -(TropicaliaYear left, TropicaliaYear right) => left.CountYearsSince(right);
+
+    /// <summary>
+    /// Adds a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static TropicaliaYear operator +(TropicaliaYear value, int years) => value.PlusYears(years);
+
+    /// <summary>
+    /// Subtracts a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the range
+    /// of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static TropicaliaYear operator -(TropicaliaYear value, int years) => value.PlusYears(-years);
+
+    /// <summary>
+    /// Adds one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
+    public static TropicaliaYear operator ++(TropicaliaYear value) => value.NextYear();
+
+    /// <summary>
+    /// Subtracts one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
+    public static TropicaliaYear operator --(TropicaliaYear value) => value.PreviousYear();
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified year.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(TropicaliaYear other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to (MaxYear - 1).
+        _year0 - other._year0;
+
+    /// <summary>
+    /// Adds a number of years to the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported years.
+    /// </exception>
+    [Pure]
+    public TropicaliaYear PlusYears(int years)
+    {
+        int y0 = checked(_year0 + years);
+        if (unchecked((uint)y0) > MaxYear0) ThrowHelpers.ThrowYearOverflow();
+        // NB: we know that (y0 + 1) does NOT overflow.
+        return new TropicaliaYear(y0 + 1, true);
+    }
+
+    /// <summary>
+    /// Obtains the year after the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [Pure]
+    public TropicaliaYear NextYear()
+    {
+        if (_year0 == MaxYear0) ThrowHelpers.ThrowYearOverflow();
+        return new(Year + 1, true);
+    }
+
+    /// <summary>
+    /// Obtains the year before the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [Pure]
+    public TropicaliaYear PreviousYear()
+    {
+        if (_year0 == 0) ThrowHelpers.ThrowYearOverflow();
+        return new(Year - 1, true);
+    }
 }
 
 #endregion

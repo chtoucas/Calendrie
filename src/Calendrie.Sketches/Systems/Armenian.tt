@@ -6,6 +6,7 @@
         EnableCalendar = false,
         EnableDate = false,
         EnableMonth = true,
+        EnableYear = true,
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12
     }.Execute() #>

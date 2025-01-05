@@ -4,6 +4,7 @@
 <#= new ZeroCalendarTemplate(this, "TropicaliaSchema", "3_652_055")
     {
         EnableMonth = true,
+        EnableYear = true,
         EnablePragmas = true,
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12

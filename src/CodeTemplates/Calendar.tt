@@ -2,6 +2,7 @@
 <#@ include file="Calendar.EmitClock.tt" #>
 <#@ include file="Calendar.EmitDate.tt" #>
 <#@ include file="Calendar.EmitMonth.tt" #>
+<#@ include file="Calendar.EmitYear.tt" #>
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
 <#@ import namespace="Calendrie.TextTemplating" #><#+
 
@@ -66,6 +67,7 @@ public partial class CalendarTemplate : CSharpTemplate
     public bool EnableCalendar { get; set; } = true;
     public bool EnableDate { get; set; } = true;
     public bool EnableMonth { get; set; }
+    public bool EnableYear { get; set; }
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
 
@@ -83,6 +85,7 @@ public partial class CalendarTemplate : CSharpTemplate
         if (EnableClock)    EmitClock();
         if (EnableDate)     EmitDate();
         if (EnableMonth)    EmitMonth();
+        if (EnableYear)     EmitYear();
     } // T4: End of WriteContent()
 
     protected virtual void EmitNullable()
