@@ -451,8 +451,8 @@ Calendrie.Hemerology.ICalendarDateBase<TSelf>
 Calendrie.Hemerology.ICalendarMonth
 Calendrie.Hemerology.ICalendarMonth.Century.get -> int
 Calendrie.Hemerology.ICalendarMonth.CenturyOfEra.get -> Calendrie.Ord
-Calendrie.Hemerology.ICalendarMonth.CountElapsedDaysInYear() -> int
-Calendrie.Hemerology.ICalendarMonth.CountRemainingDaysInYear() -> int
+Calendrie.Hemerology.ICalendarMonth.CountElapsedMonthsInYear() -> int
+Calendrie.Hemerology.ICalendarMonth.CountRemainingMonthsInYear() -> int
 Calendrie.Hemerology.ICalendarMonth.Deconstruct(out int year, out int month) -> void
 Calendrie.Hemerology.ICalendarMonth.IsIntercalary.get -> bool
 Calendrie.Hemerology.ICalendarMonth.Month.get -> int
