@@ -5,9 +5,9 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// NB: contrary to an IDate, an affine date can only be linked to a single
-// calendar system, therefore we can provide unambigiously a factory method
-// FromDaysSinceEpoch(). IDate does not mandate the equivalent FromDayNumber().
+// NB: contrary to an ICalendarDate, an affine date can only be linked to a
+// single "calendar" system --- a schema actually since there is no epoch here ---,
+// therefore we can provide unambigiously a factory method FromDaysSinceEpoch().
 
 /// <summary>
 /// Defines an affine date.
