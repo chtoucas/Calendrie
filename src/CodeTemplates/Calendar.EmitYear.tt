@@ -155,7 +155,7 @@ public partial struct <#= Prefix #>Year // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
+    private static int Count<#= MonthsSinceEpochPC #>(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         MonthsCount * (y - 1) + m - 1;
 }
@@ -179,7 +179,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     {
         get
         {
-            int <#= MonthsSinceEpochVar #> = CountMonthsSinceEpoch(Year, 1);
+            int <#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(Year, 1);
             return new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
         }
     }
@@ -189,7 +189,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     {
         get
         {
-            int <#= MonthsSinceEpochVar #> = CountMonthsSinceEpoch(Year, MonthsCount);
+            int <#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(Year, MonthsCount);
             return new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
         }
     }
@@ -206,7 +206,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     [Pure]
     public IEnumerable<<#= Prefix #>Month> EnumerateMonths()
     {
-        int startOfYear = CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = Count<#= MonthsSinceEpochPC #>(Year, 1);
 
         return from <#= MonthsSinceEpochVar #>
                in Enumerable.Range(startOfYear, MonthsCount)
@@ -229,7 +229,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
         Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        int <#= MonthsSinceEpochVar #> = CountMonthsSinceEpoch(y, month);
+        int <#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(y, month);
         return new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
     }
 }

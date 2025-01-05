@@ -1380,7 +1380,7 @@ public partial struct TropicaliaYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
+    private static int CountMonthsSinceZero(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         MonthsCount * (y - 1) + m - 1;
 }
@@ -1398,7 +1398,7 @@ public partial struct TropicaliaYear // IMonthSegment
     {
         get
         {
-            int monthsSinceZero = CountMonthsSinceEpoch(Year, 1);
+            int monthsSinceZero = CountMonthsSinceZero(Year, 1);
             return new TropicaliaMonth(monthsSinceZero);
         }
     }
@@ -1408,7 +1408,7 @@ public partial struct TropicaliaYear // IMonthSegment
     {
         get
         {
-            int monthsSinceZero = CountMonthsSinceEpoch(Year, MonthsCount);
+            int monthsSinceZero = CountMonthsSinceZero(Year, MonthsCount);
             return new TropicaliaMonth(monthsSinceZero);
         }
     }
@@ -1425,7 +1425,7 @@ public partial struct TropicaliaYear // IMonthSegment
     [Pure]
     public IEnumerable<TropicaliaMonth> EnumerateMonths()
     {
-        int startOfYear = CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = CountMonthsSinceZero(Year, 1);
 
         return from monthsSinceZero
                in Enumerable.Range(startOfYear, MonthsCount)
@@ -1448,7 +1448,7 @@ public partial struct TropicaliaYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
         Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        int monthsSinceZero = CountMonthsSinceEpoch(y, month);
+        int monthsSinceZero = CountMonthsSinceZero(y, month);
         return new TropicaliaMonth(monthsSinceZero);
     }
 }

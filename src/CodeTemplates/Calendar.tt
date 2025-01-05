@@ -47,12 +47,13 @@ public partial class CalendarTemplate : CSharpTemplate
     public string DisplayName { get; set; }
     public string Prefix { get; set; }
 
-    public string DaysSinceEpochProp { get; set; } = "DaysSinceEpoch";
+    // PC = Pascal case
+    public string DaysSinceEpochPC { get; set; } = "DaysSinceEpoch";
     public string DaysSinceEpochVar { get; set; } = "daysSinceEpoch";
     public string MaxDaysSinceEpoch { get; set; } = "MaxDaysSinceEpoch";
     public string MaxDaysSinceEpochValue { get; }
 
-    public string MonthsSinceEpochProp { get; set; } = "MonthsSinceEpoch";
+    public string MonthsSinceEpochPC { get; set; } = "MonthsSinceEpoch";
     public string MonthsSinceEpochVar { get; set; } = "monthsSinceEpoch";
     public string MaxMonthsSinceEpoch { get; set; } = "MaxMonthsSinceEpoch";
     // Fake "integer" value, therefore if not set the T4 output will be invalid.

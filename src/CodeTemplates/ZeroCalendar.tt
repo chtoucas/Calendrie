@@ -9,11 +9,11 @@ public class ZeroCalendarTemplate : CalendarTemplate
     public ZeroCalendarTemplate(TextTransformation parent, string schema, string maxDaysSinceEpochValue) :
         base(parent, schema, "DayZero.NewStyle", "0", maxDaysSinceEpochValue)
     {
-        DaysSinceEpochProp = "DaysSinceZero";
+        DaysSinceEpochPC = "DaysSinceZero";
         DaysSinceEpochVar = "daysSinceZero";
         MaxDaysSinceEpoch = "MaxDaysSinceZero";
 
-        MonthsSinceEpochProp = "MonthsSinceZero";
+        MonthsSinceEpochPC = "MonthsSinceZero";
         MonthsSinceEpochVar = "monthsSinceZero";
         MaxMonthsSinceEpoch = "MaxMonthsSinceZero";
     }
