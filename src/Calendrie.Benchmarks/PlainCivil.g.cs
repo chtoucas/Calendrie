@@ -782,7 +782,7 @@ public readonly partial struct PlainCivilMonth :
 
 public partial struct PlainCivilMonth // Preamble
 {
-    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceZero"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
     private const int MaxMonthsSinceZero = 119_987;
 
@@ -791,7 +791,7 @@ public partial struct PlainCivilMonth // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceZero"/>.
     /// </para>
     /// </summary>
-    private readonly int _monthsSinceEpoch;
+    private readonly int _monthsSinceZero;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainCivilMonth"/> struct to the
@@ -804,16 +804,16 @@ public partial struct PlainCivilMonth // Preamble
     {
         PlainCivilCalendar.Instance.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        _monthsSinceZero = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainCivilMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal PlainCivilMonth(int monthsSinceEpoch)
+    internal PlainCivilMonth(int monthsSinceZero)
     {
-        _monthsSinceEpoch = monthsSinceEpoch;
+        _monthsSinceZero = monthsSinceZero;
     }
 
     /// <summary>
@@ -837,7 +837,7 @@ public partial struct PlainCivilMonth // Preamble
     public static PlainCivilCalendar Calendar => PlainCivilCalendar.Instance;
 
     /// <inheritdoc />
-    public int MonthsSinceEpoch => _monthsSinceEpoch;
+    public int MonthsSinceEpoch => _monthsSinceZero;
 
     /// <summary>
     /// Gets the century of the era.
@@ -866,7 +866,7 @@ public partial struct PlainCivilMonth // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, PlainCivilCalendar.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceZero, PlainCivilCalendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
@@ -903,7 +903,7 @@ public partial struct PlainCivilMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceEpoch, PlainCivilCalendar.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceZero, PlainCivilCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 
@@ -1059,15 +1059,15 @@ public partial struct PlainCivilMonth // IEquatable
 {
     /// <inheritdoc />
     public static bool operator ==(PlainCivilMonth left, PlainCivilMonth right) =>
-        left._monthsSinceEpoch == right._monthsSinceEpoch;
+        left._monthsSinceZero == right._monthsSinceZero;
 
     /// <inheritdoc />
     public static bool operator !=(PlainCivilMonth left, PlainCivilMonth right) =>
-        left._monthsSinceEpoch != right._monthsSinceEpoch;
+        left._monthsSinceZero != right._monthsSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainCivilMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+    public bool Equals(PlainCivilMonth other) => _monthsSinceZero == other._monthsSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -1076,7 +1076,7 @@ public partial struct PlainCivilMonth // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _monthsSinceEpoch;
+    public override int GetHashCode() => _monthsSinceZero;
 }
 
 public partial struct PlainCivilMonth // IComparable
@@ -1086,28 +1086,28 @@ public partial struct PlainCivilMonth // IComparable
     /// earlier than the right one.
     /// </summary>
     public static bool operator <(PlainCivilMonth left, PlainCivilMonth right) =>
-        left._monthsSinceEpoch < right._monthsSinceEpoch;
+        left._monthsSinceZero < right._monthsSinceZero;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
     public static bool operator <=(PlainCivilMonth left, PlainCivilMonth right) =>
-        left._monthsSinceEpoch <= right._monthsSinceEpoch;
+        left._monthsSinceZero <= right._monthsSinceZero;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
     public static bool operator >(PlainCivilMonth left, PlainCivilMonth right) =>
-        left._monthsSinceEpoch > right._monthsSinceEpoch;
+        left._monthsSinceZero > right._monthsSinceZero;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
     public static bool operator >=(PlainCivilMonth left, PlainCivilMonth right) =>
-        left._monthsSinceEpoch >= right._monthsSinceEpoch;
+        left._monthsSinceZero >= right._monthsSinceZero;
 
     /// <inheritdoc />
     [Pure]
@@ -1119,7 +1119,7 @@ public partial struct PlainCivilMonth // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainCivilMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+    public int CompareTo(PlainCivilMonth other) => _monthsSinceZero.CompareTo(other._monthsSinceZero);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -1178,7 +1178,7 @@ public partial struct PlainCivilMonth // Standard math ops
     public int CountMonthsSince(PlainCivilMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceZero.
-        _monthsSinceEpoch - other._monthsSinceEpoch;
+        _monthsSinceZero - other._monthsSinceZero;
 
     /// <summary>
     /// Adds a number of months to the current instance, yielding a new month.
@@ -1189,10 +1189,10 @@ public partial struct PlainCivilMonth // Standard math ops
     [Pure]
     public PlainCivilMonth PlusMonths(int months)
     {
-        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceZero)
+        int monthsSinceZero = checked(_monthsSinceZero + months);
+        if (unchecked((uint)monthsSinceZero) > MaxMonthsSinceZero)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new(monthsSinceZero);
     }
 
     /// <summary>
@@ -1203,8 +1203,8 @@ public partial struct PlainCivilMonth // Standard math ops
     [Pure]
     public PlainCivilMonth NextMonth()
     {
-        if (_monthsSinceEpoch == MaxMonthsSinceZero) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        if (_monthsSinceZero == MaxMonthsSinceZero) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceZero + 1);
     }
 
     /// <summary>
@@ -1215,8 +1215,8 @@ public partial struct PlainCivilMonth // Standard math ops
     [Pure]
     public PlainCivilMonth PreviousMonth()
     {
-        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        if (_monthsSinceZero == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceZero - 1);
     }
 }
 
@@ -1239,8 +1239,8 @@ public partial struct PlainCivilMonth // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
-        return new PlainCivilMonth(monthsSinceEpoch);
+        int monthsSinceZero = CountMonthsSinceEpoch(newY, m);
+        return new PlainCivilMonth(monthsSinceZero);
     }
 
     /// <summary>

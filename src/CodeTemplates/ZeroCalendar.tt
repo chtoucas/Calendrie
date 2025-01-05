@@ -13,8 +13,8 @@ public class ZeroCalendarTemplate : CalendarTemplate
         DaysSinceEpochVar = "daysSinceZero";
         MaxDaysSinceEpoch = "MaxDaysSinceZero";
 
-        MonthsSinceEpochProp = "MonthsSinceEpoch";
-        MonthsSinceEpochVar = "monthsSinceEpoch";
+        MonthsSinceEpochProp = "MonthsSinceZero";
+        MonthsSinceEpochVar = "monthsSinceZero";
         MaxMonthsSinceEpoch = "MaxMonthsSinceZero";
     }
 

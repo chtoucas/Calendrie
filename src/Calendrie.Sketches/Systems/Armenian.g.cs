@@ -632,7 +632,7 @@ public partial struct ArmenianYear // Preamble
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        ArmenianCalendar.MonthsInYear * (y - 1) + m - 1;
+        MonthsCount * (y - 1) + m - 1;
 }
 
 public partial struct ArmenianYear // IMonthSegment
