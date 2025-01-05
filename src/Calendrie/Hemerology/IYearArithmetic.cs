@@ -25,16 +25,16 @@ public interface IYearArithmetic<TSelf>
     [Pure] TSelf PlusYears(int years);
 
     /// <summary>
-    /// Returns the value obtained after adding one to the year field of the
-    /// current instance.
+    /// Returns the value obtained after adding one year to the year field of
+    /// the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported value.</exception>
     [Pure] TSelf NextYear() => PlusYears(1);
 
     /// <summary>
-    /// Returns the value obtained after adding minus one to the year field of
-    /// the current instance.
+    /// Returns the value obtained after subtracting one year to the year field
+    /// of the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported value.</exception>

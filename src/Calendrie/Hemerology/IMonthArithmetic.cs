@@ -25,16 +25,16 @@ public interface IMonthArithmetic<TSelf>
     [Pure] TSelf PlusMonths(int months);
 
     /// <summary>
-    /// Returns the value obtained after adding one to the month field of the
-    /// current instance.
+    /// Returns the value obtained after adding one month to the month field of
+    /// the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported value.</exception>
     [Pure] TSelf NextMonth() => PlusMonths(1);
 
     /// <summary>
-    /// Returns the value obtained after adding minus one to the month field of
-    /// the current instance.
+    /// Returns the value obtained after subtracting one month to the month field
+    /// of the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported value.</exception>

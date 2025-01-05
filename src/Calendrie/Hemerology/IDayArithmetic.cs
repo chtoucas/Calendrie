@@ -3,6 +3,10 @@
 
 namespace Calendrie.Hemerology;
 
+using Calendrie.Core.Utilities;
+
+using static Calendrie.Core.CalendricalConstants;
+
 /// <summary>
 /// Defines the mathematical operations on the day field of a time-related type.
 /// </summary>
@@ -25,7 +29,7 @@ public interface IDayArithmetic<TSelf>
     [Pure] TSelf PlusDays(int days);
 
     /// <summary>
-    /// Returns the value obtained after adding one to the day field of the
+    /// Returns the value obtained after adding one day to the day field of the
     /// current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
@@ -33,10 +37,48 @@ public interface IDayArithmetic<TSelf>
     [Pure] TSelf NextDay() => PlusDays(1);
 
     /// <summary>
-    /// Returns the value obtained after adding minus one to the day field of
+    /// Returns the value obtained after subtracting one day to the day field of
     /// the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported value.</exception>
     [Pure] TSelf PreviousDay() => PlusDays(1);
+
+    //
+    // Week operations
+    //
+    // Being default interface methods and types implementing this interface
+    // being most certainly value types, it should override them. Even for
+    // reference types, it's a good idea to implement them explicitely in order
+    // to make them available to all derived classes.
+
+    /// <summary>
+    /// Counts the number of weeks elapsed since the specified value.
+    /// </summary>
+    [Pure] int CountWeeksSince(TSelf other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <summary>
+    /// Adds a number of weeks to the day field of the current instance,
+    /// yielding a new value.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of the day field or the range of supported values.
+    /// </exception>
+    [Pure] TSelf AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <summary>
+    /// Returns the value obtained after adding seven days to the day field of
+    /// the current instance.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported value.</exception>
+    [Pure] TSelf NextWeek() => PlusDays(DaysInWeek);
+
+    /// <summary>
+    /// Returns the value obtained after subtracting seven days to the day field
+    /// of the current instance.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported value.</exception>
+    [Pure] TSelf PreviousWeek() => PlusDays(-DaysInWeek);
 }
