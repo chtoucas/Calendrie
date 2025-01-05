@@ -83,16 +83,32 @@ public interface ICalendarMonth
     void Deconstruct(out int year, out int month);
 
     /// <summary>
-    /// Obtains the number of whole days in the year elapsed since the start of
-    /// the year and before this month instance.
+    /// Obtains the number of whole months in the year elapsed since the start
+    /// of the year and before this month instance.
     /// </summary>
-    [Pure] int CountElapsedDaysInYear();
+    //
+    // Trivial, only added for completeness.
+    [Pure] int CountElapsedMonthsInYear() => Month - 1;
 
     /// <summary>
-    /// Obtains the number of whole days remaining after this month instance and
-    /// until the end of the year.
+    /// Obtains the number of whole months remaining after this month instance
+    /// and until the end of the year.
     /// </summary>
-    [Pure] int CountRemainingDaysInYear();
+    [Pure] int CountRemainingMonthsInYear();
+
+    // REVIEW(code): CountElapsedDaysInYear() and CountRemainingDaysInYear()?
+
+    ///// <summary>
+    ///// Obtains the number of whole days in the year elapsed since the start of
+    ///// the year and before this month instance.
+    ///// </summary>
+    //[Pure] int CountElapsedDaysInYear();
+
+    ///// <summary>
+    ///// Obtains the number of whole days remaining after this month instance and
+    ///// until the end of the year.
+    ///// </summary>
+    //[Pure] int CountRemainingDaysInYear();
 }
 
 /// <summary>

@@ -160,6 +160,15 @@ public partial struct ArmenianMonth // Counting
 {
     /// <inheritdoc />
     [Pure]
+    public int CountElapsedMonthsInYear() => Month - 1;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingMonthsInYear() => ArmenianCalendar.MonthsInYear - 1;
+
+#if false
+    /// <inheritdoc />
+    [Pure]
     public int CountElapsedDaysInYear()
     {
         var (y, m) = this;
@@ -173,6 +182,7 @@ public partial struct ArmenianMonth // Counting
         var (y, m) = this;
         return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
+#endif
 }
 
 public partial struct ArmenianMonth // Adjustments
@@ -181,7 +191,7 @@ public partial struct ArmenianMonth // Adjustments
     [Pure]
     public ArmenianMonth WithYear(int newYear)
     {
-        var (_, m) = this;
+        int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
         Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         return new ArmenianMonth(newYear, m);

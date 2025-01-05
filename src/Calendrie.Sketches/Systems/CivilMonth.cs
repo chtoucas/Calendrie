@@ -165,6 +165,15 @@ public partial struct CivilMonth // Counting
 {
     /// <inheritdoc />
     [Pure]
+    public int CountElapsedMonthsInYear() => Month - 1;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingMonthsInYear() => CivilCalendar.MonthsInYear - 1;
+
+#if false
+    /// <inheritdoc />
+    [Pure]
     public int CountElapsedDaysInYear()
     {
         var (y, m) = this;
@@ -178,6 +187,7 @@ public partial struct CivilMonth // Counting
         var (y, m) = this;
         return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
+#endif
 }
 
 public partial struct CivilMonth // Adjustments
@@ -186,7 +196,7 @@ public partial struct CivilMonth // Adjustments
     [Pure]
     public CivilMonth WithYear(int newYear)
     {
-        var (_, m) = this;
+        int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
         Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         return new CivilMonth(newYear, m);

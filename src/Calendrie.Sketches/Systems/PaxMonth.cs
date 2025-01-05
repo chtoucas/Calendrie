@@ -168,6 +168,15 @@ public partial struct PaxMonth // Counting
 {
     /// <inheritdoc />
     [Pure]
+    public int CountElapsedMonthsInYear() => Month - 1;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingMonthsInYear() => Calendar.Schema.CountMonthsInYear(Year) - 1;
+
+#if false
+    /// <inheritdoc />
+    [Pure]
     public int CountElapsedDaysInYear()
     {
         var sch = Calendar.Schema;
@@ -183,6 +192,7 @@ public partial struct PaxMonth // Counting
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         return sch.CountDaysInYearAfterMonth(y, m);
     }
+#endif
 }
 
 public partial struct PaxMonth // Adjustments
