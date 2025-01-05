@@ -546,14 +546,21 @@ public partial struct PlainCivilDate // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static PlainCivilDate operator --(PlainCivilDate value) => value.PreviousDay();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Counts the number of days elapsed since the specified date.
+    /// </summary>
     [Pure]
     public int CountDaysSince(PlainCivilDate other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxDaysSinceZero.
         _daysSinceZero - other._daysSinceZero;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of days to the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     [Pure]
     public PlainCivilDate PlusDays(int days)
     {
@@ -562,7 +569,11 @@ public partial struct PlainCivilDate // Standard math ops
         return new(daysSinceZero);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date after the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     [Pure]
     public PlainCivilDate NextDay()
     {
@@ -570,7 +581,11 @@ public partial struct PlainCivilDate // Standard math ops
         return new(_daysSinceZero + 1);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date before the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     [Pure]
     public PlainCivilDate PreviousDay()
     {

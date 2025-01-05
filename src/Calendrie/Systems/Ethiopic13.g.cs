@@ -558,14 +558,21 @@ public partial struct Ethiopic13Date // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static Ethiopic13Date operator --(Ethiopic13Date value) => value.PreviousDay();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Counts the number of days elapsed since the specified date.
+    /// </summary>
     [Pure]
     public int CountDaysSince(Ethiopic13Date other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxDaysSinceEpoch.
         _daysSinceEpoch - other._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of days to the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     [Pure]
     public Ethiopic13Date PlusDays(int days)
     {
@@ -574,7 +581,11 @@ public partial struct Ethiopic13Date // Standard math ops
         return new(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date after the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     [Pure]
     public Ethiopic13Date NextDay()
     {
@@ -582,7 +593,11 @@ public partial struct Ethiopic13Date // Standard math ops
         return new(_daysSinceEpoch + 1);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date before the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     [Pure]
     public Ethiopic13Date PreviousDay()
     {
