@@ -18,8 +18,10 @@ using Calendrie.Hemerology;
 public readonly partial struct CivilMonth :
     ICalendarMonth<CivilMonth>,
     ICalendarBound<CivilCalendar>,
-    IRangeOfDays<CivilDate>,
+    // A month viewed as a finite sequence of days
+    IDaySegment<CivilDate>,
     ISetMembership<CivilDate>,
+    // Arithmetic
     ISubtractionOperators<CivilMonth, CivilMonth, int>
 { }
 
@@ -212,7 +214,7 @@ public partial struct CivilMonth // Adjustments
     }
 }
 
-public partial struct CivilMonth // IRangeOfDays
+public partial struct CivilMonth // IDaySegment
 {
     /// <inheritdoc />
     public CivilDate MinDay
@@ -259,7 +261,7 @@ public partial struct CivilMonth // IRangeOfDays
     public Range<CivilDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
 
     [Pure]
-    Range<CivilDate> IRangeOfDays<CivilDate>.ToRangeOfDays() => ToRange();
+    Range<CivilDate> IDaySegment<CivilDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -278,7 +280,7 @@ public partial struct CivilMonth // IRangeOfDays
     }
 
     [Pure]
-    IEnumerable<CivilDate> IRangeOfDays<CivilDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<CivilDate> IDaySegment<CivilDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]

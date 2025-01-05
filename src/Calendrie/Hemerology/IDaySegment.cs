@@ -6,10 +6,10 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core.Intervals;
 
 /// <summary>
-/// Defines a range of calendar dates.
+/// Defines a finite sequence of consecutive days.
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public interface IRangeOfDays<TDate>
+public interface IDaySegment<TDate>
     where TDate : struct, IEquatable<TDate>, IComparable<TDate>
 {
     /// <summary>
@@ -25,7 +25,7 @@ public interface IRangeOfDays<TDate>
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    [Pure] Range<TDate> ToRangeOfDays();
+    [Pure] Range<TDate> ToDayRange();
 
     /// <summary>
     /// Obtains the sequence of all days in the current instance.

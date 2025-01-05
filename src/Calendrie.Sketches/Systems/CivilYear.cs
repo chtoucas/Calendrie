@@ -20,10 +20,13 @@ using Calendrie.Hemerology;
 public readonly partial struct CivilYear :
     ICalendarYear<CivilYear>,
     ICalendarBound<CivilCalendar>,
-    IRangeOfMonths<CivilMonth>,
+    // A year viewed as a finite sequence of months
+    IMonthSegment<CivilMonth>,
     ISetMembership<CivilMonth>,
-    IRangeOfDays<CivilDate>,
+    // A year viewed as a finite sequence of days
+    IDaySegment<CivilDate>,
     ISetMembership<CivilDate>,
+    // Arithmetic
     ISubtractionOperators<CivilYear, CivilYear, int>
 { }
 
@@ -124,7 +127,7 @@ public partial struct CivilYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct CivilYear // IRangeOfMonths
+public partial struct CivilYear // IMonthSegment
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -159,11 +162,11 @@ public partial struct CivilYear // IRangeOfMonths
     /// <inheritdoc />
     [Pure]
     //public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
-    int IRangeOfMonths<CivilMonth>.CountMonths() => MonthsCount;
+    int IMonthSegment<CivilMonth>.CountMonths() => MonthsCount;
 
     /// <inheritdoc />
     [Pure]
-    public Range<CivilMonth> ToRangeOfMonths() => Range.UnsafeCreate(MinMonth, MaxMonth);
+    public Range<CivilMonth> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
 
     /// <inheritdoc />
     [Pure]
@@ -202,7 +205,7 @@ public partial struct CivilYear // IRangeOfMonths
     }
 }
 
-public partial struct CivilYear // IRangeOfDays
+public partial struct CivilYear // IDaySegment
 {
     /// <inheritdoc />
     public CivilDate MinDay
@@ -237,7 +240,7 @@ public partial struct CivilYear // IRangeOfDays
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<CivilDate> ToRangeOfDays() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<CivilDate> ToDayRange() => Range.UnsafeCreate(MinDay, MaxDay);
 
     /// <inheritdoc />
     [Pure]

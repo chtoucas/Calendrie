@@ -6,10 +6,10 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core.Intervals;
 
 /// <summary>
-/// Defines a range of calendar months.
+/// Defines a finite sequence of consecutive (calendar) months.
 /// </summary>
 /// <typeparam name="TMonth">The type of month object.</typeparam>
-public interface IRangeOfMonths<TMonth>
+public interface IMonthSegment<TMonth>
     where TMonth : struct, IEquatable<TMonth>, IComparable<TMonth>
 {
     /// <summary>
@@ -25,7 +25,7 @@ public interface IRangeOfMonths<TMonth>
     /// <summary>
     /// Converts the current instance to a range of months.
     /// </summary>
-    [Pure] Range<TMonth> ToRangeOfMonths();
+    [Pure] Range<TMonth> ToMonthRange();
 
     /// <summary>
     /// Obtains the sequence of all months in the current instance.
