@@ -1,22 +1,22 @@
 Summary
-  Generated on: 03/01/2025 - 18:33:29
+  Generated on: 05/01/2025 - 08:39:37
   Parser: OpenCover
   Assemblies: 2
-  Classes: 153
-  Files: 149
-  Line coverage: 81.2%
-  Covered lines: 6551
-  Uncovered lines: 1510
-  Coverable lines: 8061
-  Total lines: 29582
-  Branch coverage: 79.8% (1845 of 2312)
-  Covered branches: 1845
-  Total branches: 2312
-  Method coverage: 88.7% (2303 of 2594)
-  Covered methods: 2303
-  Total methods: 2594
+  Classes: 161
+  Files: 156
+  Line coverage: 78.5%
+  Covered lines: 6737
+  Uncovered lines: 1840
+  Coverable lines: 8577
+  Total lines: 32001
+  Branch coverage: 78% (1887 of 2418)
+  Covered branches: 1887
+  Total branches: 2418
+  Method coverage: 85.3% (2370 of 2778)
+  Covered methods: 2370
+  Total methods: 2778
 
-Calendrie                                                88.4%
+Calendrie                                                88.3%
   Calendrie.Core.CalendricalSchema                        100%
   Calendrie.Core.CalendricalSegment                      84.4%
   Calendrie.Core.CalendricalSegmentBuilder                100%
@@ -70,7 +70,7 @@ Calendrie                                                88.4%
   Calendrie.Core.Utilities.MathT                          100%
   Calendrie.Core.Utilities.MathZ                          100%
   Calendrie.Core.Utilities.Requires                       100%
-  Calendrie.Core.Utilities.ThrowHelpers                  95.4%
+  Calendrie.Core.Utilities.ThrowHelpers                  91.3%
   Calendrie.Core.Validation.GregorianPreValidator         100%
   Calendrie.Core.Validation.JulianPreValidator            100%
   Calendrie.Core.Validation.LunarPreValidator             100%
@@ -88,6 +88,9 @@ Calendrie                                                88.4%
   Calendrie.Hemerology.Calendar                           100%
   Calendrie.Hemerology.CalendarScope                      100%
   Calendrie.Hemerology.IAbsoluteDate                      100%
+  Calendrie.Hemerology.IDayArithmetic<T>                    0%
+  Calendrie.Hemerology.IMonthArithmetic<T>                  0%
+  Calendrie.Hemerology.IYearArithmetic<T>                   0%
   Calendrie.MonthParts                                    100%
   Calendrie.Ord                                           100%
   Calendrie.OrdinalParts                                  100%
@@ -108,10 +111,10 @@ Calendrie                                                88.4%
   Calendrie.Systems.EthiopicCalendar                      100%
   Calendrie.Systems.EthiopicDate                         75.1%
   Calendrie.Systems.GregorianCalendar                     100%
-  Calendrie.Systems.GregorianDate                        74.2%
+  Calendrie.Systems.GregorianDate                          75%
   Calendrie.Systems.GregorianScope                        100%
   Calendrie.Systems.JulianCalendar                        100%
-  Calendrie.Systems.JulianDate                           74.2%
+  Calendrie.Systems.JulianDate                             75%
   Calendrie.Systems.JulianScope                           100%
   Calendrie.Systems.ProlepticScope                        100%
   Calendrie.Systems.ProlepticYearsValidator               100%
@@ -127,7 +130,7 @@ Calendrie                                                88.4%
   Calendrie.Systems.ZoroastrianDate                      75.1%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Sketches                                       55.8%
+Calendrie.Sketches                                       51.3%
   Calendrie.AdditionRuleset                               100%
   Calendrie.Core.Arithmetic.PlainArithmetic                 0%
   Calendrie.Core.Arithmetic.RegularArithmetic               0%
@@ -153,6 +156,7 @@ Calendrie.Sketches                                       55.8%
   Calendrie.Extensions.GregorianDateExtensions            100%
   Calendrie.Extensions.IAbsoluteDateExtensions              0%
   Calendrie.Extensions.JulianDateExtensions               100%
+  Calendrie.Extensions.RangeExtensions                      0%
   Calendrie.Hemerology.Arithmetic.NakedArithmetic           0%
   Calendrie.Hemerology.Arithmetic.PlainArithmetic           0%
   Calendrie.Hemerology.Arithmetic.RegularArithmetic         0%
@@ -166,9 +170,13 @@ Calendrie.Sketches                                       55.8%
   Calendrie.Hemerology.MinMaxYearScope                   81.2%
   Calendrie.Hemerology.NakedCalendar                      100%
   Calendrie.Hemerology.UserCalendar                       100%
+  Calendrie.Systems.CivilMonth                              0%
+  Calendrie.Systems.CivilYear                               0%
   Calendrie.Systems.GregorianReform                       100%
   Calendrie.Systems.OrthodoxKalendar                        0%
   Calendrie.Systems.PaxCalendar                          55.5%
   Calendrie.Systems.PaxDate                              74.2%
   Calendrie.Systems.PowerMath<T1, T2>                       0%
   Calendrie.Systems.RomanKalendar                        63.4%
+  Calendrie.Systems.TropicaliaCalendar                    100%
+  Calendrie.Systems.TropicaliaDate                       74.5%
