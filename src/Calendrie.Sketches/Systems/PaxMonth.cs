@@ -32,7 +32,8 @@ public partial struct PaxMonth // Preamble
     private const int MaxMonthsSinceEpoch = 131_761;
 
     /// <summary>
-    /// Represents the count of consecutive months since <see cref="DayZero.SundayBeforeGregorian"/>.
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.SundayBeforeGregorian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>
@@ -142,12 +143,10 @@ public partial struct PaxMonth // Preamble
         }
     }
 
-#if false
     /// <summary>
     /// Gets the calendar year.
     /// </summary>
     public PaxYear CalendarYear => new(Year, true);
-#endif
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
