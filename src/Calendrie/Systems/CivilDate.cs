@@ -14,7 +14,8 @@ public partial struct CivilDate // Preamble
     internal const int MaxDaysSinceZero = 3_652_058;
 
     /// <summary>
-    /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.NewStyle"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceZero"/>.
     /// </para>
     /// </summary>

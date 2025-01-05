@@ -33,7 +33,8 @@ public partial struct CivilMonth // Preamble
     private const int MaxMonthsSinceZero = 119_987;
 
     /// <summary>
-    /// Represents the count of consecutive months since <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.NewStyle"/>
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceZero"/>.
     /// </para>
     /// </summary>
