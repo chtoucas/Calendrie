@@ -331,7 +331,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     public bool Contains(<#= Prefix #>Date date)
     {
         var (y, m) = this;
-        Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
+        Calendar.Schema.GetDateParts(date.<#= DaysSinceEpochProp #>, out int y1, out int m1, out _);
         return y1 == y && m1 == m;
     }
 

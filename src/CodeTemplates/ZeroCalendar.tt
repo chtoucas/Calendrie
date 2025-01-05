@@ -9,9 +9,11 @@ public class ZeroCalendarTemplate : CalendarTemplate
     public ZeroCalendarTemplate(TextTransformation parent, string schema, string maxDaysSinceEpochValue) :
         base(parent, schema, "DayZero.NewStyle", "0", maxDaysSinceEpochValue)
     {
+        DaysSinceEpochProp = "DaysSinceZero";
         DaysSinceEpochVar = "daysSinceZero";
         MaxDaysSinceEpoch = "MaxDaysSinceZero";
 
+        MonthsSinceEpochProp = "MonthsSinceEpoch";
         MonthsSinceEpochVar = "monthsSinceEpoch";
         MaxMonthsSinceEpoch = "MaxMonthsSinceZero";
     }
@@ -27,6 +29,9 @@ using System.Numerics;
 
 using Calendrie;
 using Calendrie.Core.Schemas;
+<#+ if (EnableMonth) { #>
+using Calendrie.Core.Intervals;
+<#+ } #>
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
@@ -111,7 +116,7 @@ public partial struct <#= Prefix #>Date // Preamble
     private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
 
     /// <summary>
-    /// Represents the count of consecutive days since <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive days since the epoch <see cref="DayZero.NewStyle"/>.
     /// <para>This field is in the range from 0 to <see cref="<#= MaxDaysSinceEpoch #>"/>.
     /// </para>
     /// </summary>
