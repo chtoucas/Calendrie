@@ -82,7 +82,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 public readonly partial struct PlainJulianDate :
     ICalendarDate<PlainJulianDate>,
     ICalendarBound<PlainJulianCalendar>,
-    IDateFactory<PlainJulianDate>,
+    IUnsafeDateFactory<PlainJulianDate>,
     ISubtractionOperators<PlainJulianDate, PlainJulianDate, int>
 { }
 
@@ -282,7 +282,7 @@ public partial struct PlainJulianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    static PlainJulianDate IDateFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static PlainJulianDate IUnsafeDateFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

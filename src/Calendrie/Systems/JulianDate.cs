@@ -20,7 +20,7 @@ using static Calendrie.Core.CalendricalConstants;
 public readonly partial struct JulianDate :
     ICalendarDate<JulianDate>,
     ICalendarBound<JulianCalendar>,
-    IDateFactory<JulianDate>,
+    IUnsafeDateFactory<JulianDate>,
     ISubtractionOperators<JulianDate, JulianDate, int>
 { }
 

@@ -82,7 +82,7 @@ public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
 public readonly partial struct PlainCivilDate :
     ICalendarDate<PlainCivilDate>,
     ICalendarBound<PlainCivilCalendar>,
-    IDateFactory<PlainCivilDate>,
+    IUnsafeDateFactory<PlainCivilDate>,
     ISubtractionOperators<PlainCivilDate, PlainCivilDate, int>
 { }
 
@@ -277,7 +277,7 @@ public partial struct PlainCivilDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    static PlainCivilDate IDateFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
+    static PlainCivilDate IUnsafeDateFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }
 

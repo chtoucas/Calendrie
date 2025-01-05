@@ -79,7 +79,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 public readonly partial struct TabularIslamicDate :
     ICalendarDate<TabularIslamicDate>,
     ICalendarBound<TabularIslamicCalendar>,
-    IDateFactory<TabularIslamicDate>,
+    IUnsafeDateFactory<TabularIslamicDate>,
     ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>
 { }
 
@@ -279,7 +279,7 @@ public partial struct TabularIslamicDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    static TabularIslamicDate IDateFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static TabularIslamicDate IUnsafeDateFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

@@ -15,7 +15,7 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed class PowerMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
 {
     /// <summary>
     /// Represents the calendrical arithmetic.

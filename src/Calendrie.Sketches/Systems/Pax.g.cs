@@ -85,7 +85,7 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
 public readonly partial struct PaxDate :
     ICalendarDate<PaxDate>,
     ICalendarBound<PaxCalendar>,
-    IDateFactory<PaxDate>,
+    IUnsafeDateFactory<PaxDate>,
     ISubtractionOperators<PaxDate, PaxDate, int>
 { }
 
@@ -294,7 +294,7 @@ public partial struct PaxDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    static PaxDate IDateFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static PaxDate IUnsafeDateFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

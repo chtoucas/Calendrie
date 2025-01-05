@@ -8,12 +8,13 @@ namespace Calendrie.Systems;
 // type constraint by CalendarSystem and DateAdjuster.
 
 /// <summary>
-/// Defines static factory methods for the <typeparamref name="TDate"/> type.
+/// Defines an unsafe static factory method for the <typeparamref name="TDate"/>
+/// type.
 /// <para>This interface can ONLY be implemented from within friend assemblies.
 /// </para>
 /// </summary>
-/// <typeparam name="TDate">The date type.</typeparam>
-public interface IDateFactory<TDate>
+/// <typeparam name="TDate">The type of date object to create.</typeparam>
+public interface IUnsafeDateFactory<out TDate>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TDate"/> struct from

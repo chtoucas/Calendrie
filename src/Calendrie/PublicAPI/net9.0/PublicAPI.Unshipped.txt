@@ -427,16 +427,27 @@ Calendrie.Hemerology.IAbsoluteDate.Previous<TDate>(TDate date, System.DayOfWeek 
 Calendrie.Hemerology.IAbsoluteDate.PreviousOrSame<TDate>(TDate date, System.DayOfWeek dayOfWeek) -> TDate
 Calendrie.Hemerology.IAbsoluteDate<TSelf>
 Calendrie.Hemerology.IAbsoluteDate<TSelf>.FromDayNumber(Calendrie.DayNumber dayNumber) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Max(TSelf x, TSelf y) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Min(TSelf x, TSelf y) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Nearest(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Next(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.operator -(TSelf left, TSelf right) -> int
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
-Calendrie.Hemerology.IAbsoluteDate<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.Max(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.Min(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.Nearest(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.Next(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.NextOrSame(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.operator -(TSelf left, TSelf right) -> int
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.Previous(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAbsoluteDateBase<TSelf>.PreviousOrSame(System.DayOfWeek dayOfWeek) -> TSelf
+Calendrie.Hemerology.IAdjustableDateable<TSelf>
+Calendrie.Hemerology.IAdjustableDateable<TSelf>.WithDay(int newDay) -> TSelf
+Calendrie.Hemerology.IAdjustableDateable<TSelf>.WithDayOfYear(int newDayOfYear) -> TSelf
+Calendrie.Hemerology.IAdjustableDateable<TSelf>.WithMonth(int newMonth) -> TSelf
+Calendrie.Hemerology.IAdjustableDateable<TSelf>.WithYear(int newYear) -> TSelf
 Calendrie.Hemerology.IBlankDay
 Calendrie.Hemerology.IBlankDay.IsBlank.get -> bool
+Calendrie.Hemerology.ICalendarBound<TCalendar>
+Calendrie.Hemerology.ICalendarBound<TCalendar>.Calendar.get -> TCalendar
+Calendrie.Hemerology.ICalendarDate
+Calendrie.Hemerology.ICalendarDate<TSelf>
+Calendrie.Hemerology.ICalendarDateBase<TSelf>
 Calendrie.Hemerology.ICalendarMonth
 Calendrie.Hemerology.ICalendarMonth.Century.get -> int
 Calendrie.Hemerology.ICalendarMonth.CenturyOfEra.get -> Calendrie.Ord
@@ -450,11 +461,12 @@ Calendrie.Hemerology.ICalendarMonth.Year.get -> int
 Calendrie.Hemerology.ICalendarMonth.YearOfCentury.get -> int
 Calendrie.Hemerology.ICalendarMonth.YearOfEra.get -> Calendrie.Ord
 Calendrie.Hemerology.ICalendarMonth<TSelf>
-Calendrie.Hemerology.ICalendarMonth<TSelf>.Max(TSelf x, TSelf y) -> TSelf
-Calendrie.Hemerology.ICalendarMonth<TSelf>.Min(TSelf x, TSelf y) -> TSelf
-Calendrie.Hemerology.ICalendarMonth<TSelf>.operator -(TSelf left, TSelf right) -> int
-Calendrie.Hemerology.ICalendarMonth<TSelf>.WithMonth(int newMonth) -> TSelf
-Calendrie.Hemerology.ICalendarMonth<TSelf>.WithYear(int newYear) -> TSelf
+Calendrie.Hemerology.ICalendarMonthBase<TSelf>
+Calendrie.Hemerology.ICalendarMonthBase<TSelf>.Max(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarMonthBase<TSelf>.Min(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarMonthBase<TSelf>.operator -(TSelf left, TSelf right) -> int
+Calendrie.Hemerology.ICalendarMonthBase<TSelf>.WithMonth(int newMonth) -> TSelf
+Calendrie.Hemerology.ICalendarMonthBase<TSelf>.WithYear(int newYear) -> TSelf
 Calendrie.Hemerology.ICalendarYear
 Calendrie.Hemerology.ICalendarYear.Century.get -> int
 Calendrie.Hemerology.ICalendarYear.CenturyOfEra.get -> Calendrie.Ord
@@ -463,9 +475,10 @@ Calendrie.Hemerology.ICalendarYear.Year.get -> int
 Calendrie.Hemerology.ICalendarYear.YearOfCentury.get -> int
 Calendrie.Hemerology.ICalendarYear.YearOfEra.get -> Calendrie.Ord
 Calendrie.Hemerology.ICalendarYear<TSelf>
-Calendrie.Hemerology.ICalendarYear<TSelf>.Max(TSelf x, TSelf y) -> TSelf
-Calendrie.Hemerology.ICalendarYear<TSelf>.Min(TSelf x, TSelf y) -> TSelf
-Calendrie.Hemerology.ICalendarYear<TSelf>.operator -(TSelf left, TSelf right) -> int
+Calendrie.Hemerology.ICalendarYearBase<TSelf>
+Calendrie.Hemerology.ICalendarYearBase<TSelf>.Max(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarYearBase<TSelf>.Min(TSelf x, TSelf y) -> TSelf
+Calendrie.Hemerology.ICalendarYearBase<TSelf>.operator -(TSelf left, TSelf right) -> int
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
 Calendrie.Hemerology.IDateable.CenturyOfEra.get -> Calendrie.Ord
@@ -490,35 +503,35 @@ Calendrie.Hemerology.IDateProvider<TDate>.GetEndOfMonth(int year, int month) -> 
 Calendrie.Hemerology.IDateProvider<TDate>.GetEndOfYear(int year) -> TDate
 Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfMonth(int year, int month) -> TDate
 Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfYear(int year) -> TDate
-Calendrie.Hemerology.IDayArithmetic<T>
-Calendrie.Hemerology.IDayArithmetic<T>.CountDaysSince(T other) -> int
-Calendrie.Hemerology.IDayArithmetic<T>.NextDay() -> T
-Calendrie.Hemerology.IDayArithmetic<T>.PlusDays(int days) -> T
-Calendrie.Hemerology.IDayArithmetic<T>.PreviousDay() -> T
+Calendrie.Hemerology.IDayArithmetic<TSelf>
+Calendrie.Hemerology.IDayArithmetic<TSelf>.CountDaysSince(TSelf other) -> int
+Calendrie.Hemerology.IDayArithmetic<TSelf>.NextDay() -> TSelf
+Calendrie.Hemerology.IDayArithmetic<TSelf>.PlusDays(int days) -> TSelf
+Calendrie.Hemerology.IDayArithmetic<TSelf>.PreviousDay() -> TSelf
+Calendrie.Hemerology.IDaySegment<TDate>
+Calendrie.Hemerology.IDaySegment<TDate>.CountDays() -> int
+Calendrie.Hemerology.IDaySegment<TDate>.EnumerateDays() -> System.Collections.Generic.IEnumerable<TDate>!
+Calendrie.Hemerology.IDaySegment<TDate>.MaxDay.get -> TDate
+Calendrie.Hemerology.IDaySegment<TDate>.MinDay.get -> TDate
+Calendrie.Hemerology.IDaySegment<TDate>.ToDayRange() -> Calendrie.Core.Intervals.Range<TDate>
 Calendrie.Hemerology.IEpagomenalDay
 Calendrie.Hemerology.IEpagomenalDay.IsEpagomenal(out int epagomenalNumber) -> bool
-Calendrie.Hemerology.IMonthArithmetic<T>
-Calendrie.Hemerology.IMonthArithmetic<T>.CountMonthsSince(T other) -> int
-Calendrie.Hemerology.IMonthArithmetic<T>.NextMonth() -> T
-Calendrie.Hemerology.IMonthArithmetic<T>.PlusMonths(int months) -> T
-Calendrie.Hemerology.IMonthArithmetic<T>.PreviousMonth() -> T
-Calendrie.Hemerology.IRangeOfDays<TDate>
-Calendrie.Hemerology.IRangeOfDays<TDate>.CountDays() -> int
-Calendrie.Hemerology.IRangeOfDays<TDate>.EnumerateDays() -> System.Collections.Generic.IEnumerable<TDate>!
-Calendrie.Hemerology.IRangeOfDays<TDate>.MaxDay.get -> TDate
-Calendrie.Hemerology.IRangeOfDays<TDate>.MinDay.get -> TDate
-Calendrie.Hemerology.IRangeOfDays<TDate>.ToRangeOfDays() -> Calendrie.Core.Intervals.Range<TDate>
-Calendrie.Hemerology.IRangeOfMonths<TMonth>
-Calendrie.Hemerology.IRangeOfMonths<TMonth>.CountMonths() -> int
-Calendrie.Hemerology.IRangeOfMonths<TMonth>.EnumerateMonths() -> System.Collections.Generic.IEnumerable<TMonth>!
-Calendrie.Hemerology.IRangeOfMonths<TMonth>.MaxMonth.get -> TMonth
-Calendrie.Hemerology.IRangeOfMonths<TMonth>.MinMonth.get -> TMonth
-Calendrie.Hemerology.IRangeOfMonths<TMonth>.ToRangeOfMonths() -> Calendrie.Core.Intervals.Range<TMonth>
-Calendrie.Hemerology.IYearArithmetic<T>
-Calendrie.Hemerology.IYearArithmetic<T>.CountYearsSince(T other) -> int
-Calendrie.Hemerology.IYearArithmetic<T>.NextYear() -> T
-Calendrie.Hemerology.IYearArithmetic<T>.PlusYears(int years) -> T
-Calendrie.Hemerology.IYearArithmetic<T>.PreviousYear() -> T
+Calendrie.Hemerology.IMonthArithmetic<TSelf>
+Calendrie.Hemerology.IMonthArithmetic<TSelf>.CountMonthsSince(TSelf other) -> int
+Calendrie.Hemerology.IMonthArithmetic<TSelf>.NextMonth() -> TSelf
+Calendrie.Hemerology.IMonthArithmetic<TSelf>.PlusMonths(int months) -> TSelf
+Calendrie.Hemerology.IMonthArithmetic<TSelf>.PreviousMonth() -> TSelf
+Calendrie.Hemerology.IMonthSegment<TMonth>
+Calendrie.Hemerology.IMonthSegment<TMonth>.CountMonths() -> int
+Calendrie.Hemerology.IMonthSegment<TMonth>.EnumerateMonths() -> System.Collections.Generic.IEnumerable<TMonth>!
+Calendrie.Hemerology.IMonthSegment<TMonth>.MaxMonth.get -> TMonth
+Calendrie.Hemerology.IMonthSegment<TMonth>.MinMonth.get -> TMonth
+Calendrie.Hemerology.IMonthSegment<TMonth>.ToMonthRange() -> Calendrie.Core.Intervals.Range<TMonth>
+Calendrie.Hemerology.IYearArithmetic<TSelf>
+Calendrie.Hemerology.IYearArithmetic<TSelf>.CountYearsSince(TSelf other) -> int
+Calendrie.Hemerology.IYearArithmetic<TSelf>.NextYear() -> TSelf
+Calendrie.Hemerology.IYearArithmetic<TSelf>.PlusYears(int years) -> TSelf
+Calendrie.Hemerology.IYearArithmetic<TSelf>.PreviousYear() -> TSelf
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
@@ -915,7 +928,7 @@ Calendrie.Systems.GregorianDate.WithYear(int newYear) -> Calendrie.Systems.Grego
 Calendrie.Systems.GregorianDate.Year.get -> int
 Calendrie.Systems.GregorianDate.YearOfCentury.get -> int
 Calendrie.Systems.GregorianDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Systems.IDateFactory<TDate>
+Calendrie.Systems.IUnsafeDateFactory<TDate>
 Calendrie.Systems.JulianCalendar
 Calendrie.Systems.JulianCalendar.JulianCalendar() -> void
 Calendrie.Systems.JulianDate

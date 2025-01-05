@@ -19,7 +19,7 @@ using Calendrie.Hemerology;
 [ExcludeFromCodeCoverage]
 public sealed class DefaultMath<TCalendar, TDate>
     where TCalendar : CalendarSystem<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IDateFactory<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
 {
     /// <summary>
     /// Represents the calendrical arithmetic.

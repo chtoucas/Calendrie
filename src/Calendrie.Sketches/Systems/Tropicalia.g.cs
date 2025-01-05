@@ -81,7 +81,7 @@ public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
 public readonly partial struct TropicaliaDate :
     ICalendarDate<TropicaliaDate>,
     ICalendarBound<TropicaliaCalendar>,
-    IDateFactory<TropicaliaDate>,
+    IUnsafeDateFactory<TropicaliaDate>,
     ISubtractionOperators<TropicaliaDate, TropicaliaDate, int>
 { }
 
@@ -290,7 +290,7 @@ public partial struct TropicaliaDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    static TropicaliaDate IDateFactory<TropicaliaDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static TropicaliaDate IUnsafeDateFactory<TropicaliaDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

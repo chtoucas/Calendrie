@@ -20,7 +20,7 @@ using static Calendrie.Core.CalendricalConstants;
 public readonly partial struct GregorianDate :
     ICalendarDate<GregorianDate>,
     ICalendarBound<GregorianCalendar>,
-    IDateFactory<GregorianDate>,
+    IUnsafeDateFactory<GregorianDate>,
     ISubtractionOperators<GregorianDate, GregorianDate, int>
 { }
 
@@ -230,7 +230,7 @@ public partial struct GregorianDate // Factories & conversions
     /// <inheritdoc />
     [Pure]
     //[Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static GregorianDate IDateFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
+    static GregorianDate IUnsafeDateFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }
 

@@ -12,7 +12,7 @@ namespace Calendrie.Core;
 /// </para>
 /// </summary>
 /// <typeparam name="TSchema">The type of schema to be created.</typeparam>
-public interface ISchemaActivator<TSchema> where TSchema : ICalendricalSchema
+public interface ISchemaActivator<out TSchema> where TSchema : ICalendricalSchema
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSchema"/> class.

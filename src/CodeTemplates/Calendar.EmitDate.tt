@@ -37,7 +37,7 @@ public partial class CalendarTemplate
 public readonly partial struct <#= Prefix #>Date :
     ICalendarDate<<#= Prefix #>Date>,
     ICalendarBound<<#= Prefix #>Calendar>,
-    IDateFactory<<#= Prefix #>Date>,
+    IUnsafeDateFactory<<#= Prefix #>Date>,
     ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>
 { }
 <#+
@@ -262,7 +262,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    static <#= Prefix #>Date IDateFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
+    static <#= Prefix #>Date IUnsafeDateFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
         new(<#= DaysSinceEpochVar #>);
 }
 <#+
