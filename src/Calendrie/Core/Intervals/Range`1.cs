@@ -5,6 +5,8 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
+// FIXME(code): now that the BCL has a type Range, we should change the name. Segment?
+
 /// <summary>
 /// Represents a closed bounded interval.
 /// <para>This type has been designed with discrete intervals in mind,
