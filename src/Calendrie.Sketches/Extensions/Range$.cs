@@ -30,14 +30,16 @@ public partial class RangeExtensions // Range<TYear>
 public partial class RangeExtensions // Range<TDate>
 {
     /// <summary>
-    /// Determines whether the specified range of days contains the specified
-    /// year or not.
+    /// Determines whether the specified range of days is a superset of the
+    /// specified year or not.
     /// </summary>
     [Pure]
-    public static bool Contains<TDate, TYear>(this Range<TDate> range, TYear year)
+    public static bool IsSupersetOf<TDate, TYear>(this Range<TDate> range, TYear year)
         where TDate : struct, IAbsoluteDate<TDate>
         where TYear : IRangeOfDays<TDate>
     {
+        // Simpler (faster) version of
+        // > range.IsSupersetOf(year.ToRangeOfDays());
         return range.Min <= year.MinDay && year.MaxDay <= range.Max;
     }
 }
