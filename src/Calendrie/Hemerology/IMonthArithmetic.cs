@@ -4,34 +4,38 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Defines the mathematical operations related to the month unit.
+/// Defines the mathematical operations on the month field of a time-related type.
 /// </summary>
-/// <typeparam name="T">The type that implements this interface.</typeparam>
-public interface IMonthArithmetic<T>
+/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+public interface IMonthArithmetic<TSelf> where TSelf : IMonthArithmetic<TSelf>
 {
     /// <summary>
-    /// Counts the number of months elapsed since the specified month.
+    /// Counts the number of months elapsed since the specified value.
     /// </summary>
-    [Pure] int CountMonthsSince(T other);
+    [Pure] int CountMonthsSince(TSelf other);
 
     /// <summary>
-    /// Adds a number of months to this month instance, yielding a new month.
+    /// Adds a number of months to the month field of the current instance,
+    /// yielding a new value.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported months.</exception>
-    [Pure] T PlusMonths(int months);
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of the month field or the range of supported values.
+    /// </exception>
+    [Pure] TSelf PlusMonths(int months);
 
     /// <summary>
-    /// Obtains the month after this month instance, yielding a new month.
+    /// Returns the value obtained after adding one to the month field of the
+    /// current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// latest supported month.</exception>
-    [Pure] T NextMonth() => PlusMonths(1);
+    /// latest supported value.</exception>
+    [Pure] TSelf NextMonth() => PlusMonths(1);
 
     /// <summary>
-    /// Obtains the month before this month instance, yielding a new month.
+    /// Returns the value obtained after adding minus one to the month field of
+    /// the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// earliest supported month.</exception>
-    [Pure] T PreviousMonth() => PlusMonths(-1);
+    /// earliest supported value.</exception>
+    [Pure] TSelf PreviousMonth() => PlusMonths(-1);
 }

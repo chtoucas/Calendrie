@@ -4,39 +4,38 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Defines the standard mathematical operations related to the day unit.
+/// Defines the mathematical operations on the day field of a time-related type.
 /// </summary>
-/// <typeparam name="T">The type that implements this interface.</typeparam>
-public interface IDayArithmetic<T>
+/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+public interface IDayArithmetic<TSelf> where TSelf : IDayArithmetic<TSelf>
 {
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of days elapsed since the specified value.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="other"/> is
-    /// <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="other"/> does not
-    /// belong to the calendar of the current instance.</exception>
-    [Pure] int CountDaysSince(T other);
+    [Pure] int CountDaysSince(TSelf other);
 
     /// <summary>
-    /// Adds a number of days to this date instance, yielding a new date.
+    /// Adds a number of days to the day field of the current instance,
+    /// yielding a new value.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
-    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// the capacity of the day field or the range of supported values.
     /// </exception>
-    [Pure] T PlusDays(int days);
+    [Pure] TSelf PlusDays(int days);
 
     /// <summary>
-    /// Obtains the day after this date instance.
+    /// Returns the value obtained after adding one to the day field of the
+    /// current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// latest supported date.</exception>
-    [Pure] T NextDay() => PlusDays(1);
+    /// latest supported value.</exception>
+    [Pure] TSelf NextDay() => PlusDays(1);
 
     /// <summary>
-    /// Obtains the day before this date instance.
+    /// Returns the value obtained after adding minus one to the day field of
+    /// the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// earliest supported date.</exception>
-    [Pure] T PreviousDay() => PlusDays(1);
+    /// earliest supported value.</exception>
+    [Pure] TSelf PreviousDay() => PlusDays(1);
 }

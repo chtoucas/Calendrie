@@ -380,14 +380,21 @@ public partial struct CivilYear // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
     public static CivilYear operator --(CivilYear value) => value.PreviousYear();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Counts the number of years elapsed since the specified year.
+    /// </summary>
     [Pure]
     public int CountYearsSince(CivilYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
         _year0 - other._year0;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of years to the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported years.
+    /// </exception>
     [Pure]
     public CivilYear PlusYears(int years)
     {
@@ -397,7 +404,11 @@ public partial struct CivilYear // Standard math ops
         return new CivilYear(y0 + 1, true);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the year after the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
     [Pure]
     public CivilYear NextYear()
     {
@@ -405,7 +416,11 @@ public partial struct CivilYear // Standard math ops
         return new(Year + 1, true);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the year before the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
     [Pure]
     public CivilYear PreviousYear()
     {

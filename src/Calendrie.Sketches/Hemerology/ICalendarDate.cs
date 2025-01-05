@@ -10,7 +10,6 @@ namespace Calendrie.Hemerology;
 public interface ICalendarDate<TSelf> :
     IDateable,
     IAbsoluteDate<TSelf>,
-    // Non-standard math ops
     IMonthArithmetic<TSelf>,
     IYearArithmetic<TSelf>
     where TSelf : ICalendarDate<TSelf>

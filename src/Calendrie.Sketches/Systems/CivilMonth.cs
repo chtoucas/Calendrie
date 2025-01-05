@@ -73,7 +73,7 @@ public partial struct CivilMonth // Preamble
     public static CivilMonth MaxValue { get; } = new(MaxMonthsSinceZero);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the calendar to which belongs the current month type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
@@ -421,14 +421,21 @@ public partial struct CivilMonth // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
     public static CivilMonth operator --(CivilMonth value) => value.PreviousMonth();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Counts the number of months elapsed since the specified month.
+    /// </summary>
     [Pure]
     public int CountMonthsSince(CivilMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceZero.
         _monthsSinceZero - other._monthsSinceZero;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of months to the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
     [Pure]
     public CivilMonth PlusMonths(int months)
     {
@@ -438,7 +445,11 @@ public partial struct CivilMonth // Standard math ops
         return new(monthsSinceZero);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the month after the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
     [Pure]
     public CivilMonth NextMonth()
     {
@@ -446,7 +457,11 @@ public partial struct CivilMonth // Standard math ops
         return new(_monthsSinceZero + 1);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the month before the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
     [Pure]
     public CivilMonth PreviousMonth()
     {

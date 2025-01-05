@@ -4,34 +4,38 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Defines the mathematical operations related to the year unit.
+/// Defines the mathematical operations on the year field of a time-related type.
 /// </summary>
-/// <typeparam name="T">The type that implements this interface.</typeparam>
-public interface IYearArithmetic<T>
+/// <typeparam name="TSelf">The type that implements this interface.</typeparam>
+public interface IYearArithmetic<TSelf> where TSelf : IYearArithmetic<TSelf>
 {
     /// <summary>
-    /// Counts the number of years elapsed since the specified year.
+    /// Counts the number of years elapsed since the specified value.
     /// </summary>
-    [Pure] int CountYearsSince(T other);
+    [Pure] int CountYearsSince(TSelf other);
 
     /// <summary>
-    /// Adds a number of years to this year instance, yielding a new year.
+    /// Adds a number of years to the year field of the current instance,
+    /// yielding a new value.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported years.</exception>
-    [Pure] T PlusYears(int years);
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of the year field or the range of supported values.
+    /// </exception>
+    [Pure] TSelf PlusYears(int years);
 
     /// <summary>
-    /// Obtains the year after this year instance, yielding a new year.
+    /// Returns the value obtained after adding one to the year field of the
+    /// current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// latest supported year.</exception>
-    [Pure] T NextYear() => PlusYears(1);
+    /// latest supported value.</exception>
+    [Pure] TSelf NextYear() => PlusYears(1);
 
     /// <summary>
-    /// Obtains the year before this year instance, yielding a new year.
+    /// Returns the value obtained after adding minus one to the year field of
+    /// the current instance.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// earliest supported year.</exception>
-    [Pure] T PreviousYear() => PlusYears(-1);
+    /// earliest supported value.</exception>
+    [Pure] TSelf PreviousYear() => PlusYears(-1);
 }
