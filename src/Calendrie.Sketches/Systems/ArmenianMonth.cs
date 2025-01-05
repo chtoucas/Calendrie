@@ -47,10 +47,9 @@ public partial struct ArmenianMonth // Preamble
     /// range of years.</exception>
     public ArmenianMonth(int year, int month)
     {
-        var chr = ArmenianCalendar.Instance;
-        chr.Scope.ValidateYearMonth(year, month);
+        ArmenianCalendar.Instance.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
+        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
@@ -112,21 +111,14 @@ public partial struct ArmenianMonth // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year
-    {
-        get
-        {
-            Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out _);
-            return y;
-        }
-    }
+    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out _, out int m);
+            var (_, m) = this;
             return m;
         }
     }
@@ -146,14 +138,22 @@ public partial struct ArmenianMonth // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({chr})");
+        var (y, m) = this;
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />
-    public void Deconstruct(out int year, out int month) =>
-        Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out year, out month);
+    public void Deconstruct(out int year, out int month)
+    {
+        // See RegularSchema.GetMonthParts().
+        year = 1 + MathZ.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear, out int m0);
+        month = 1 + m0;
+    }
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceEpoch(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        ArmenianCalendar.MonthsInYear * (y - 1) + m - 1;
 }
 
 public partial struct ArmenianMonth // Counting
@@ -162,18 +162,16 @@ public partial struct ArmenianMonth // Counting
     [Pure]
     public int CountElapsedDaysInYear()
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return sch.CountDaysInYearBeforeMonth(y, m);
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearBeforeMonth(y, m);
     }
 
     /// <inheritdoc />
     [Pure]
     public int CountRemainingDaysInYear()
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return sch.CountDaysInYearAfterMonth(y, m);
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
 }
 
@@ -183,10 +181,9 @@ public partial struct ArmenianMonth // Adjustments
     [Pure]
     public ArmenianMonth WithYear(int newYear)
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out _, out int m);
+        var (_, m) = this;
         // Even when "newYear" is valid, we must re-check "m".
-        chr.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         return new ArmenianMonth(newYear, m);
     }
 
@@ -194,10 +191,9 @@ public partial struct ArmenianMonth // Adjustments
     [Pure]
     public ArmenianMonth WithMonth(int newMonth)
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out _);
+        int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
-        chr.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
         return new ArmenianMonth(y, newMonth);
     }
 }
@@ -209,9 +205,8 @@ public partial struct ArmenianMonth // IDaySegment
     {
         get
         {
-            var sch = Calendar.Schema;
-            sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, 1);
+            var (y, m) = this;
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
             return new ArmenianDate(daysSinceEpoch);
         }
     }
@@ -221,8 +216,8 @@ public partial struct ArmenianMonth // IDaySegment
     {
         get
         {
+            var (y, m) = this;
             var sch = Calendar.Schema;
-            sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
             return new ArmenianDate(daysSinceEpoch);
@@ -235,9 +230,8 @@ public partial struct ArmenianMonth // IDaySegment
     [Pure]
     public int CountDays()
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return sch.CountDaysInMonth(y, m);
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInMonth(y, m);
     }
 
     /// <summary>
@@ -257,8 +251,8 @@ public partial struct ArmenianMonth // IDaySegment
     [Pure]
     public IEnumerable<ArmenianDate> ToEnumerable()
     {
+        var (y, m) = this;
         var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
 
@@ -274,9 +268,8 @@ public partial struct ArmenianMonth // IDaySegment
     [Pure]
     public bool Contains(ArmenianDate date)
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        sch.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
+        var (y, m) = this;
+        Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
         return y1 == y && m1 == m;
     }
 
@@ -289,10 +282,8 @@ public partial struct ArmenianMonth // IDaySegment
     [Pure]
     public ArmenianDate GetDayOfMonth(int dayOfMonth)
     {
-        var chr = Calendar;
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        var (y, m) = this;
+        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         return new ArmenianDate(y, m, dayOfMonth);
     }
 }
@@ -464,6 +455,8 @@ public partial struct ArmenianMonth // Standard math ops
 
 public partial struct ArmenianMonth // Non-standard math ops
 {
+    // For regular calendars, the next operations are unambiguous.
+
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
@@ -473,14 +466,13 @@ public partial struct ArmenianMonth // Non-standard math ops
     [Pure]
     public ArmenianMonth PlusYears(int years)
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        var (y, m) = this;
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, m);
+        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
         return new ArmenianMonth(monthsSinceEpoch);
     }
 
@@ -488,12 +480,7 @@ public partial struct ArmenianMonth // Non-standard math ops
     /// Counts the number of years elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountYearsSince(ArmenianMonth other)
-    {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out _);
-        sch.GetMonthParts(other._monthsSinceEpoch, out int y0, out _);
-        // NB: the calendar is regular and the subtraction never overflows.
-        return y - y0;
-    }
+    public int CountYearsSince(ArmenianMonth other) =>
+        // NB: this subtraction never overflows.
+        Year - other.Year;
 }

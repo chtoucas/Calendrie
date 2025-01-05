@@ -50,7 +50,7 @@ public partial struct CivilMonth // Preamble
     {
         CivilScope.ValidateYearMonthImpl(year, month);
 
-        _monthsSinceZero = CivilCalendar.Instance.Schema.CountMonthsSinceEpoch(year, month);
+        _monthsSinceZero = CountMonthsSinceZero(year, month);
     }
 
     /// <summary>
@@ -116,21 +116,14 @@ public partial struct CivilMonth // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year
-    {
-        get
-        {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out _);
-            return y;
-        }
-    }
+    public int Year => 1 + MathZ.Divide(_monthsSinceZero, CivilCalendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out _, out int m);
+            var (_, m) = this;
             return m;
         }
     }
@@ -150,14 +143,22 @@ public partial struct CivilMonth // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({chr})");
+        var (y, m) = this;
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Calendar})");
     }
 
     /// <inheritdoc />
-    public void Deconstruct(out int year, out int month) =>
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out year, out month);
+    public void Deconstruct(out int year, out int month)
+    {
+        // See RegularSchema.GetMonthParts().
+        year = 1 + MathZ.Divide(_monthsSinceZero, CivilCalendar.MonthsInYear, out int m0);
+        month = 1 + m0;
+    }
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceZero(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        CivilCalendar.MonthsInYear * (y - 1) + m - 1;
 }
 
 public partial struct CivilMonth // Counting
@@ -166,18 +167,16 @@ public partial struct CivilMonth // Counting
     [Pure]
     public int CountElapsedDaysInYear()
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        return sch.CountDaysInYearBeforeMonth(y, m);
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearBeforeMonth(y, m);
     }
 
     /// <inheritdoc />
     [Pure]
     public int CountRemainingDaysInYear()
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        return sch.CountDaysInYearAfterMonth(y, m);
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
 }
 
@@ -187,10 +186,9 @@ public partial struct CivilMonth // Adjustments
     [Pure]
     public CivilMonth WithYear(int newYear)
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceZero, out _, out int m);
+        var (_, m) = this;
         // Even when "newYear" is valid, we must re-check "m".
-        chr.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         return new CivilMonth(newYear, m);
     }
 
@@ -198,10 +196,9 @@ public partial struct CivilMonth // Adjustments
     [Pure]
     public CivilMonth WithMonth(int newMonth)
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceZero, out int y, out _);
+        int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
-        chr.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
         return new CivilMonth(y, newMonth);
     }
 }
@@ -213,7 +210,7 @@ public partial struct CivilMonth // IDaySegment
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
+            var (y, m) = this;
             int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
             return new CivilDate(daysSinceZero);
         }
@@ -224,7 +221,7 @@ public partial struct CivilMonth // IDaySegment
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
+            var (y, m) = this;
             int d = GregorianFormulae.CountDaysInMonth(y, m);
             int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, d);
             return new CivilDate(daysSinceZero);
@@ -237,7 +234,7 @@ public partial struct CivilMonth // IDaySegment
     [Pure]
     public int CountDays()
     {
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        var (y, m) = this;
         return GregorianFormulae.CountDaysInMonth(y, m);
     }
 
@@ -258,7 +255,7 @@ public partial struct CivilMonth // IDaySegment
     [Pure]
     public IEnumerable<CivilDate> ToEnumerable()
     {
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        var (y, m) = this;
         int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
 
@@ -274,7 +271,7 @@ public partial struct CivilMonth // IDaySegment
     [Pure]
     public bool Contains(CivilDate date)
     {
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        var (y, m) = this;
         GregorianFormulae.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
         return y1 == y && m1 == m;
     }
@@ -288,10 +285,8 @@ public partial struct CivilMonth // IDaySegment
     [Pure]
     public CivilDate GetDayOfMonth(int dayOfMonth)
     {
-        var chr = Calendar;
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        var (y, m) = this;
+        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         return new CivilDate(y, m, dayOfMonth);
     }
 }
@@ -472,14 +467,13 @@ public partial struct CivilMonth // Non-standard math ops
     [Pure]
     public CivilMonth PlusYears(int years)
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        var (y, m) = this;
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceZero = sch.CountMonthsSinceEpoch(newY, m);
+        int monthsSinceZero = CountMonthsSinceZero(newY, m);
         return new CivilMonth(monthsSinceZero);
     }
 
@@ -487,12 +481,7 @@ public partial struct CivilMonth // Non-standard math ops
     /// Counts the number of years elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountYearsSince(CivilMonth other)
-    {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out _);
-        sch.GetMonthParts(other._monthsSinceZero, out int y0, out _);
-        // NB: the calendar is regular and the subtraction never overflows.
-        return y - y0;
-    }
+    public int CountYearsSince(CivilMonth other) =>
+        // NB: this subtraction never overflows.
+        Year - other.Year;
 }
