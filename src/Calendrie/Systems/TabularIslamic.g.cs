@@ -10,9 +10,6 @@
 
 namespace Calendrie.Systems;
 
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
@@ -21,6 +18,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
+
+#region TabularIslamicCalendar
 
 /// <summary>
 /// Represents the Tabular Islamic calendar.
@@ -69,6 +68,10 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     /// </summary>
     internal TabularIslamicSchema Schema { get; }
 }
+
+#endregion
+
+#region TabularIslamicDate
 
 /// <summary>
 /// Represents the Tabular Islamic date.
@@ -758,4 +761,6 @@ public partial struct TabularIslamicDate // Non-standard math ops
         return new TabularIslamicDate(daysSinceEpoch);
     }
 }
+
+#endregion
 

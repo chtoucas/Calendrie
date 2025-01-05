@@ -10,9 +10,6 @@
 
 namespace Calendrie.Systems;
 
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
@@ -21,6 +18,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
+
+#region PaxCalendar
 
 /// <summary>
 /// Represents the Pax calendar.
@@ -75,6 +74,10 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
         return Schema.CountMonthsInYear(year);
     }
 }
+
+#endregion
+
+#region PaxDate
 
 /// <summary>
 /// Represents the Pax date.
@@ -779,4 +782,6 @@ public partial struct PaxDate // Non-standard math ops
         return new PaxDate(daysSinceEpoch);
     }
 }
+
+#endregion
 

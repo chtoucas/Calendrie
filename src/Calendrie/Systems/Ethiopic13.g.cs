@@ -10,9 +10,6 @@
 
 namespace Calendrie.Systems;
 
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
@@ -21,6 +18,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
+
+#region Ethiopic13Calendar
 
 /// <summary>
 /// Represents the Ethiopic calendar.
@@ -69,6 +68,10 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// </summary>
     internal Coptic13Schema Schema { get; }
 }
+
+#endregion
+
+#region Ethiopic13Date
 
 /// <summary>
 /// Represents the Ethiopic date.
@@ -767,4 +770,6 @@ public partial struct Ethiopic13Date // Non-standard math ops
         return new Ethiopic13Date(daysSinceEpoch);
     }
 }
+
+#endregion
 

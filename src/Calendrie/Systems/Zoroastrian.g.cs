@@ -10,9 +10,6 @@
 
 namespace Calendrie.Systems;
 
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
@@ -21,6 +18,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
+
+#region ZoroastrianCalendar
 
 /// <summary>
 /// Represents the Zoroastrian calendar.
@@ -69,6 +68,10 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     /// </summary>
     internal Egyptian12Schema Schema { get; }
 }
+
+#endregion
+
+#region ZoroastrianDate
 
 /// <summary>
 /// Represents the Zoroastrian date.
@@ -767,4 +770,6 @@ public partial struct ZoroastrianDate // Non-standard math ops
         return new ZoroastrianDate(daysSinceEpoch);
     }
 }
+
+#endregion
 

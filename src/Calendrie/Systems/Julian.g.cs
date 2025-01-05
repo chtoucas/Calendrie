@@ -12,6 +12,8 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Utilities;
 
+#region JulianDate
+
 public partial struct JulianDate // Factories & conversions
 {
     /// <inheritdoc />
@@ -121,3 +123,5 @@ public partial struct JulianDate // IComparable
         : obj is JulianDate date ? CompareTo(date)
         : ThrowHelpers.ThrowNonComparable(typeof(JulianDate), obj);
 }
+
+#endregion

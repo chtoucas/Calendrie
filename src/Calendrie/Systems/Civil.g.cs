@@ -17,6 +17,8 @@ using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
 
+#region CivilDate
+
 /// <summary>
 /// Represents the Civil date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
@@ -327,3 +329,5 @@ public partial struct CivilDate // Standard math ops
     [Pure]
     public CivilDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
+
+#endregion

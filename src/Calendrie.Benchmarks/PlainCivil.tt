@@ -5,8 +5,9 @@
     {
         DisplayName = "Plain Civil",
         EnableIsSupplementary = false,
+        EnableMonth = true,
         EnableNullable = true,
         ImportCalendrieSystemsNamespace = true,
-        //MaxMonthsSinceEpochValue = "119_987", // Should be OK but haven't checked yet
+        MaxMonthsSinceEpochValue = "119_987", // Should be OK but haven't checked yet
         MonthsInYear = 12
     }.Execute() #>

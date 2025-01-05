@@ -112,10 +112,16 @@ namespace <#= Namespace #>;
     protected virtual void EmitUsings()
     {
         WriteLine();
+
+        // Assumption: we import globally the follwing namespaces
+        // - System
+        // - System.Collections.Generic
+        // - System.Diagnostics
+        // - System.Diagnostics.CodeAnalysis
+        // - System.Diagnostics.Contracts
+        // - System.Linq
+        // - System.Runtime.CompilerServices
 #>
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;

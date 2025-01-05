@@ -12,6 +12,8 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Utilities;
 
+#region GregorianDate
+
 public partial struct GregorianDate // Counting
 {
     /// <inheritdoc />
@@ -103,3 +105,5 @@ public partial struct GregorianDate // IComparable
         : obj is GregorianDate date ? CompareTo(date)
         : ThrowHelpers.ThrowNonComparable(typeof(GregorianDate), obj);
 }
+
+#endregion

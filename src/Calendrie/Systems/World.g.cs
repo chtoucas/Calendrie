@@ -10,9 +10,6 @@
 
 namespace Calendrie.Systems;
 
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Numerics;
 
 using Calendrie;
@@ -21,6 +18,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
+
+#region WorldCalendar
 
 /// <summary>
 /// Represents the World calendar.
@@ -69,6 +68,10 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     /// </summary>
     internal WorldSchema Schema { get; }
 }
+
+#endregion
+
+#region WorldDate
 
 /// <summary>
 /// Represents the World date.
@@ -767,4 +770,6 @@ public partial struct WorldDate // Non-standard math ops
         return new WorldDate(daysSinceEpoch);
     }
 }
+
+#endregion
 
