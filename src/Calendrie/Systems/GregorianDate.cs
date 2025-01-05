@@ -395,7 +395,9 @@ public partial struct GregorianDate // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static GregorianDate operator --(GregorianDate value) => value.PreviousDay();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Counts the number of days elapsed since the specified date.
+    /// </summary>
     [Pure]
     public int CountDaysSince(GregorianDate other) =>
         // No need to use a checked context here. Indeed, the result is at most
@@ -405,7 +407,12 @@ public partial struct GregorianDate // Standard math ops
         //     = 730_484_268 <= int.MaxValue
         _daysSinceZero - other._daysSinceZero;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of days to the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     [Pure]
     public GregorianDate PlusDays(int days)
     {
@@ -415,7 +422,11 @@ public partial struct GregorianDate // Standard math ops
         return new(daysSinceZero);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date after the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     [Pure]
     public GregorianDate NextDay()
     {
@@ -423,13 +434,50 @@ public partial struct GregorianDate // Standard math ops
         return new(_daysSinceZero + 1);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date before the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     [Pure]
     public GregorianDate PreviousDay()
     {
         if (_daysSinceZero == MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <summary>
+    /// Counts the number of weeks elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountWeeksSince(GregorianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <summary>
+    /// Adds a number of weeks to the current instance, yielding a new value.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    [Pure]
+    public GregorianDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <summary>
+    /// Obtains the date after the current instance falling on the same day of
+    /// the week, yielding a new date.
+    /// </summary>
+    [Pure]
+    public GregorianDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <summary>
+    /// Obtains the date before the current instance falling on the same day of
+    /// the week, yielding a new date.
+    /// </summary>
+    [Pure]
+    public GregorianDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct GregorianDate // Non-standard math ops

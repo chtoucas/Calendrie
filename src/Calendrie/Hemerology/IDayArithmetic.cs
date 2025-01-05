@@ -52,8 +52,6 @@ public interface IDayArithmetic<TSelf>
     // reference types, it's a good idea to implement them explicitely in order
     // to make them available to all derived classes.
 
-    // TODO(code): explicit impl of week ops
-
     /// <summary>
     /// Counts the number of weeks elapsed since the specified value.
     /// </summary>

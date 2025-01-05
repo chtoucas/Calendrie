@@ -363,7 +363,9 @@ public partial struct JulianDate // Standard math ops
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
     public static JulianDate operator --(JulianDate value) => value.PreviousDay();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Counts the number of days elapsed since the specified date.
+    /// </summary>
     [Pure]
     public int CountDaysSince(JulianDate other) =>
         // No need to use a checked context here. Indeed, the result is at most
@@ -373,7 +375,12 @@ public partial struct JulianDate // Standard math ops
         //     = 730_499_268 <= int.MaxValue
         _daysSinceEpoch - other._daysSinceEpoch;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Adds a number of days to the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     [Pure]
     public JulianDate PlusDays(int days)
     {
@@ -383,7 +390,11 @@ public partial struct JulianDate // Standard math ops
         return new(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date after the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported date.</exception>
     [Pure]
     public JulianDate NextDay()
     {
@@ -391,13 +402,50 @@ public partial struct JulianDate // Standard math ops
         return new(_daysSinceEpoch + 1);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the date before the current instance, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported date.</exception>
     [Pure]
     public JulianDate PreviousDay()
     {
         if (_daysSinceEpoch == MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <summary>
+    /// Counts the number of weeks elapsed since the specified date.
+    /// </summary>
+    [Pure]
+    public int CountWeeksSince(JulianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <summary>
+    /// Adds a number of weeks to the current instance, yielding a new value.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    [Pure]
+    public JulianDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <summary>
+    /// Obtains the date after the current instance falling on the same day of
+    /// the week, yielding a new date.
+    /// </summary>
+    [Pure]
+    public JulianDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <summary>
+    /// Obtains the date before the current instance falling on the same day of
+    /// the week, yielding a new date.
+    /// </summary>
+    [Pure]
+    public JulianDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct JulianDate // Non-standard math ops
