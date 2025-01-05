@@ -101,12 +101,4 @@ modèle "ZeroCalendarTemplate" :
 <#= new ZeroCalendarTemplate(this, "MonSchema", "3_652_060").Execute() #>
 
 Les modèles T4 disponibles ne sont pas adaptés aux calendriers "proleptiques".
-Les méthodes suivantes doivent être désactivées :
-- EmitCalendar() ; la documentation XML n'est pas adaptée
-- EmitDateDecl() ; la documentation XML n'est pas adaptée
-- EmitDatePreamble()
-- EmitCloseByDayOfWeek()
-- EmitDateMath()
-- EmitDateMathNonStandardRegular()
-- EmitDateMathNonStandardNonRegular()
-Voir Gregorian.tt ou Julian.tt
+La plupart des méthodes doivent être désactivées. Voir Gregorian.tt ou Julian.tt.

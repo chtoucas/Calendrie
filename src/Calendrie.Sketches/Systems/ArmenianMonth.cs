@@ -6,88 +6,84 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents a Civil month.
+/// Represents a Armenian month.
 /// <para><i>All</i> months within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="CivilMonth"/> is an immutable struct.</para>
+/// <para><see cref="ArmenianMonth"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct CivilMonth :
-    ICalendarMonth<CivilMonth>,
-    ICalendarBound<CivilCalendar>,
+public readonly partial struct ArmenianMonth :
+    ICalendarMonth<ArmenianMonth>,
+    ICalendarBound<ArmenianCalendar>,
     // A month viewed as a finite sequence of days
-    IDaySegment<CivilDate>,
-    ISetMembership<CivilDate>,
+    IDaySegment<ArmenianDate>,
+    ISetMembership<ArmenianDate>,
     // Arithmetic
-    ISubtractionOperators<CivilMonth, CivilMonth, int>
+    ISubtractionOperators<ArmenianMonth, ArmenianMonth, int>
 { }
 
-public partial struct CivilMonth // Preamble
+public partial struct ArmenianMonth // Preamble
 {
-    /// <summary>Represents the maximum value of <see cref="_monthsSinceZero"/>.
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
-    private const int MaxMonthsSinceZero = 119_987;
+    private const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
-    /// Represents the count of consecutive months since <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceZero"/>.
+    /// Represents the count of consecutive months since <see cref="DayZero.Armenian"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly int _monthsSinceZero;
+    private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CivilMonth"/> struct to the
+    /// Initializes a new instance of the <see cref="ArmenianMonth"/> struct to the
     /// specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
     /// range of years.</exception>
-    public CivilMonth(int year, int month)
+    public ArmenianMonth(int year, int month)
     {
-        CivilScope.ValidateYearMonthImpl(year, month);
+        var chr = ArmenianCalendar.Instance;
+        chr.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceZero = CivilCalendar.Instance.Schema.CountMonthsSinceEpoch(year, month);
+        _monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CivilMonth"/> struct.
+    /// Initializes a new instance of the <see cref="ArmenianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal CivilMonth(int monthsSinceZero)
+    internal ArmenianMonth(int monthsSinceEpoch)
     {
-        _monthsSinceZero = monthsSinceZero;
+        _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="CivilMonth"/>.
+    /// Gets the earliest possible value of a <see cref="ArmenianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // MinValue = new(0) = new() = default(CivilMonth)
-    public static CivilMonth MinValue { get; }
+    // MinValue = new(0) = new() = default(ArmenianMonth)
+    public static ArmenianMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="CivilMonth"/>.
+    /// Gets the latest possible value of a <see cref="ArmenianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CivilMonth MaxValue { get; } = new(MaxMonthsSinceZero);
+    public static ArmenianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current month type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CivilCalendar Calendar => CivilCalendar.Instance;
+    public static ArmenianCalendar Calendar => ArmenianCalendar.Instance;
 
-    /// <summary>
-    /// Gets the count of months since the Gregorian epoch.
-    /// </summary>
-    public int MonthsSinceZero => _monthsSinceZero;
-
-    int ICalendarMonth.MonthsSinceEpoch => _monthsSinceZero;
+    /// <inheritdoc />
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -120,7 +116,7 @@ public partial struct CivilMonth // Preamble
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out _);
+            Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out _);
             return y;
         }
     }
@@ -130,7 +126,7 @@ public partial struct CivilMonth // Preamble
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out _, out int m);
+            Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out _, out int m);
             return m;
         }
     }
@@ -151,23 +147,23 @@ public partial struct CivilMonth // Preamble
     public override string ToString()
     {
         var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         return FormattableString.Invariant($"{m:D2}/{y:D4} ({chr})");
     }
 
     /// <inheritdoc />
     public void Deconstruct(out int year, out int month) =>
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out year, out month);
+        Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out year, out month);
 }
 
-public partial struct CivilMonth // Counting
+public partial struct ArmenianMonth // Counting
 {
     /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
     {
         var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         return sch.CountDaysInYearBeforeMonth(y, m);
     }
 
@@ -176,58 +172,60 @@ public partial struct CivilMonth // Counting
     public int CountRemainingDaysInYear()
     {
         var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         return sch.CountDaysInYearAfterMonth(y, m);
     }
 }
 
-public partial struct CivilMonth // Adjustments
+public partial struct ArmenianMonth // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public CivilMonth WithYear(int newYear)
+    public ArmenianMonth WithYear(int newYear)
     {
         var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceZero, out _, out int m);
+        chr.Schema.GetMonthParts(_monthsSinceEpoch, out _, out int m);
         // Even when "newYear" is valid, we must re-check "m".
         chr.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        return new CivilMonth(newYear, m);
+        return new ArmenianMonth(newYear, m);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CivilMonth WithMonth(int newMonth)
+    public ArmenianMonth WithMonth(int newMonth)
     {
         var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceZero, out int y, out _);
+        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out _);
         // We already know that "y" is valid, we only need to check "newMonth".
         chr.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        return new CivilMonth(y, newMonth);
+        return new ArmenianMonth(y, newMonth);
     }
 }
 
-public partial struct CivilMonth // IDaySegment
+public partial struct ArmenianMonth // IDaySegment
 {
     /// <inheritdoc />
-    public CivilDate MinDay
+    public ArmenianDate MinDay
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
-            return new CivilDate(daysSinceZero);
+            var sch = Calendar.Schema;
+            sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, 1);
+            return new ArmenianDate(daysSinceEpoch);
         }
     }
 
     /// <inheritdoc />
-    public CivilDate MaxDay
+    public ArmenianDate MaxDay
     {
         get
         {
-            Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
-            int d = GregorianFormulae.CountDaysInMonth(y, m);
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, d);
-            return new CivilDate(daysSinceZero);
+            var sch = Calendar.Schema;
+            sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+            int d = sch.CountDaysInMonth(y, m);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
+            return new ArmenianDate(daysSinceEpoch);
         }
     }
 
@@ -237,8 +235,9 @@ public partial struct CivilMonth // IDaySegment
     [Pure]
     public int CountDays()
     {
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        return GregorianFormulae.CountDaysInMonth(y, m);
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        return sch.CountDaysInMonth(y, m);
     }
 
     /// <summary>
@@ -247,35 +246,37 @@ public partial struct CivilMonth // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<CivilDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<ArmenianDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
 
     [Pure]
-    Range<CivilDate> IDaySegment<CivilDate>.ToDayRange() => ToRange();
+    Range<ArmenianDate> IDaySegment<ArmenianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
     /// </summary>
     [Pure]
-    public IEnumerable<CivilDate> ToEnumerable()
+    public IEnumerable<ArmenianDate> ToEnumerable()
     {
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
-        int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
 
-        return from daysSinceZero
+        return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new CivilDate(daysSinceZero);
+               select new ArmenianDate(daysSinceEpoch);
     }
 
     [Pure]
-    IEnumerable<CivilDate> IDaySegment<CivilDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<ArmenianDate> IDaySegment<ArmenianDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(CivilDate date)
+    public bool Contains(ArmenianDate date)
     {
-        Calendar.Schema.GetMonthParts(_monthsSinceZero, out int y, out int m);
-        GregorianFormulae.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        sch.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
         return y1 == y && m1 == m;
     }
 
@@ -286,97 +287,97 @@ public partial struct CivilMonth // IDaySegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public CivilDate GetDayOfMonth(int dayOfMonth)
+    public ArmenianDate GetDayOfMonth(int dayOfMonth)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new CivilDate(y, m, dayOfMonth);
+        return new ArmenianDate(y, m, dayOfMonth);
     }
 }
 
-public partial struct CivilMonth // IEquatable
+public partial struct ArmenianMonth // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(CivilMonth left, CivilMonth right) =>
-        left._monthsSinceZero == right._monthsSinceZero;
+    public static bool operator ==(ArmenianMonth left, ArmenianMonth right) =>
+        left._monthsSinceEpoch == right._monthsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(CivilMonth left, CivilMonth right) =>
-        left._monthsSinceZero != right._monthsSinceZero;
+    public static bool operator !=(ArmenianMonth left, ArmenianMonth right) =>
+        left._monthsSinceEpoch != right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(CivilMonth other) => _monthsSinceZero == other._monthsSinceZero;
+    public bool Equals(ArmenianMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is CivilMonth month && Equals(month);
+        obj is ArmenianMonth month && Equals(month);
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _monthsSinceZero;
+    public override int GetHashCode() => _monthsSinceEpoch;
 }
 
-public partial struct CivilMonth // IComparable
+public partial struct ArmenianMonth // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(CivilMonth left, CivilMonth right) =>
-        left._monthsSinceZero < right._monthsSinceZero;
+    public static bool operator <(ArmenianMonth left, ArmenianMonth right) =>
+        left._monthsSinceEpoch < right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(CivilMonth left, CivilMonth right) =>
-        left._monthsSinceZero <= right._monthsSinceZero;
+    public static bool operator <=(ArmenianMonth left, ArmenianMonth right) =>
+        left._monthsSinceEpoch <= right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(CivilMonth left, CivilMonth right) =>
-        left._monthsSinceZero > right._monthsSinceZero;
+    public static bool operator >(ArmenianMonth left, ArmenianMonth right) =>
+        left._monthsSinceEpoch > right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(CivilMonth left, CivilMonth right) =>
-        left._monthsSinceZero >= right._monthsSinceZero;
+    public static bool operator >=(ArmenianMonth left, ArmenianMonth right) =>
+        left._monthsSinceEpoch >= right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static CivilMonth Min(CivilMonth x, CivilMonth y) => x < y ? x : y;
+    public static ArmenianMonth Min(ArmenianMonth x, ArmenianMonth y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static CivilMonth Max(CivilMonth x, CivilMonth y) => x > y ? x : y;
+    public static ArmenianMonth Max(ArmenianMonth x, ArmenianMonth y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(CivilMonth other) => _monthsSinceZero.CompareTo(other._monthsSinceZero);
+    public int CompareTo(ArmenianMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is CivilMonth month ? CompareTo(month)
-        : ThrowHelpers.ThrowNonComparable(typeof(CivilMonth), obj);
+        : obj is ArmenianMonth month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(ArmenianMonth), obj);
 }
 
-public partial struct CivilMonth // Standard math ops
+public partial struct ArmenianMonth // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified months and returns the number of months
     /// between them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
-    public static int operator -(CivilMonth left, CivilMonth right) => left.CountMonthsSince(right);
+    public static int operator -(ArmenianMonth left, ArmenianMonth right) => left.CountMonthsSince(right);
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.
@@ -385,7 +386,7 @@ public partial struct CivilMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static CivilMonth operator +(CivilMonth value, int months) => value.PlusMonths(months);
+    public static ArmenianMonth operator +(ArmenianMonth value, int months) => value.PlusMonths(months);
 
     /// <summary>
     /// Subtracts a number of months to the specified month, yielding a new month.
@@ -394,7 +395,7 @@ public partial struct CivilMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static CivilMonth operator -(CivilMonth value, int months) => value.PlusMonths(-months);
+    public static ArmenianMonth operator -(ArmenianMonth value, int months) => value.PlusMonths(-months);
 
     /// <summary>
     /// Adds one month to the specified month, yielding a new month.
@@ -402,7 +403,7 @@ public partial struct CivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
-    public static CivilMonth operator ++(CivilMonth value) => value.NextMonth();
+    public static ArmenianMonth operator ++(ArmenianMonth value) => value.NextMonth();
 
     /// <summary>
     /// Subtracts one month to the specified month, yielding a new month.
@@ -410,16 +411,16 @@ public partial struct CivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
-    public static CivilMonth operator --(CivilMonth value) => value.PreviousMonth();
+    public static ArmenianMonth operator --(ArmenianMonth value) => value.PreviousMonth();
 
     /// <summary>
     /// Counts the number of months elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountMonthsSince(CivilMonth other) =>
+    public int CountMonthsSince(ArmenianMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
-        // the result is at most equal to MaxMonthsSinceZero.
-        _monthsSinceZero - other._monthsSinceZero;
+        // the result is at most equal to MaxMonthsSinceEpoch.
+        _monthsSinceEpoch - other._monthsSinceEpoch;
 
     /// <summary>
     /// Adds a number of months to the current instance, yielding a new month.
@@ -428,12 +429,12 @@ public partial struct CivilMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    public CivilMonth PlusMonths(int months)
+    public ArmenianMonth PlusMonths(int months)
     {
-        int monthsSinceZero = checked(_monthsSinceZero + months);
-        if (unchecked((uint)monthsSinceZero) > MaxMonthsSinceZero)
+        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceZero);
+        return new(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -442,10 +443,10 @@ public partial struct CivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [Pure]
-    public CivilMonth NextMonth()
+    public ArmenianMonth NextMonth()
     {
-        if (_monthsSinceZero == MaxMonthsSinceZero) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceZero + 1);
+        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -454,14 +455,14 @@ public partial struct CivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [Pure]
-    public CivilMonth PreviousMonth()
+    public ArmenianMonth PreviousMonth()
     {
-        if (_monthsSinceZero == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceZero - 1);
+        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceEpoch - 1);
     }
 }
 
-public partial struct CivilMonth // Non-standard math ops
+public partial struct ArmenianMonth // Non-standard math ops
 {
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
@@ -470,28 +471,28 @@ public partial struct CivilMonth // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
     [Pure]
-    public CivilMonth PlusYears(int years)
+    public ArmenianMonth PlusYears(int years)
     {
         var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out int m);
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceZero = sch.CountMonthsSinceEpoch(newY, m);
-        return new CivilMonth(monthsSinceZero);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, m);
+        return new ArmenianMonth(monthsSinceEpoch);
     }
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountYearsSince(CivilMonth other)
+    public int CountYearsSince(ArmenianMonth other)
     {
         var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceZero, out int y, out _);
-        sch.GetMonthParts(other._monthsSinceZero, out int y0, out _);
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out _);
+        sch.GetMonthParts(other._monthsSinceEpoch, out int y0, out _);
         // NB: the calendar is regular and the subtraction never overflows.
         return y - y0;
     }
