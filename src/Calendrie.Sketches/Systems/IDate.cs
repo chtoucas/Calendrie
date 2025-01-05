@@ -5,8 +5,6 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-// Keep this interface internal, it was created only to simplify testing.
-
 /// <summary>
 /// Defines a date type.
 /// </summary>

@@ -292,12 +292,7 @@ public interface IAbsoluteDate
 /// Defines an absolute date type.
 /// <para>A date is said to be <i>absolute</i> if it's attached to a global
 /// timeline. In this project, it means that it can be mapped to a
-/// <see cref="DayNumber"/>.
-/// </para>
-/// <para>A type implementing this interface SHOULD also implement
-/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
-/// <c>TOther</c> is <typeparamref name="TSelf"/> and
-/// <c>TResult</c> is <see cref="int"/>.</para>
+/// <see cref="DayNumber"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The date type that implements this interface.
 /// </typeparam>
@@ -312,6 +307,7 @@ public interface IAbsoluteDate<TSelf> :
     IMinMaxValue<TSelf>,
     // Arithmetic
     IDayArithmetic<TSelf>,
+    //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,

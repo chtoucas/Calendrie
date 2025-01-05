@@ -29,10 +29,6 @@ public interface IAffineDate
 /// <para>No epoch means no interconversion with other calendars and no day of
 /// the week. The weaker DaysSinceEpoch (the number of consecutive days since
 /// the epoch) is still available which allows for arithmetical operations.</para>
-/// <para>A type implementing this interface SHOULD also implement
-/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
-/// <c>TOther</c> is <typeparamref name="TSelf"/> and
-/// <c>TResult</c> is <see cref="int"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The date type that implements this interface.
 /// </typeparam>
@@ -47,12 +43,14 @@ public interface IAffineDate<TSelf> :
     IMinMaxValue<TSelf>,
     // Arithmetic
     IDayArithmetic<TSelf>,
-    IMonthArithmetic<TSelf>,
-    IYearArithmetic<TSelf>,
+    //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
-    IDecrementOperators<TSelf>
+    IDecrementOperators<TSelf>,
+    // Non-standard math ops
+    IMonthArithmetic<TSelf>,
+    IYearArithmetic<TSelf>
     where TSelf : IAffineDate<TSelf>
 {
     /// <summary>

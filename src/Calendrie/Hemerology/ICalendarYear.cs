@@ -71,10 +71,6 @@ public interface ICalendarYear
 
 /// <summary>
 /// Defines a calendar year type.
-/// <para>A type implementing this interface SHOULD also implement
-/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
-/// <c>TOther</c> is <typeparamref name="TSelf"/> and
-/// <c>TResult</c> is <see cref="int"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The year type that implements this interface.
 /// </typeparam>
@@ -89,6 +85,7 @@ public interface ICalendarYear<TSelf> :
     IMinMaxValue<TSelf>,
     // Arithmetic
     IYearArithmetic<TSelf>,
+    //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,

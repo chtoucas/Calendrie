@@ -99,10 +99,6 @@ public interface ICalendarMonth
 
 /// <summary>
 /// Defines a calendar month type.
-/// <para>A type implementing this interface SHOULD also implement
-/// <see cref="ISubtractionOperators{TSelf, TOther, TResult}"/> where
-/// <c>TOther</c> is <typeparamref name="TSelf"/> and
-/// <c>TResult</c> is <see cref="int"/>.</para>
 /// </summary>
 /// <typeparam name="TSelf">The month type that implements this interface.
 /// </typeparam>
@@ -117,11 +113,13 @@ public interface ICalendarMonth<TSelf> :
     IMinMaxValue<TSelf>,
     // Arithmetic
     IMonthArithmetic<TSelf>,
-    IYearArithmetic<TSelf>,
+    //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
-    IDecrementOperators<TSelf>
+    IDecrementOperators<TSelf>,
+    // Non-standard math ops
+    IYearArithmetic<TSelf>
     where TSelf : ICalendarMonth<TSelf>
 {
     /// <summary>

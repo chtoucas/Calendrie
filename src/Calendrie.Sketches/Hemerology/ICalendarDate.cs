@@ -4,12 +4,18 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
+/// Defines a date.
+/// </summary>
+public interface ICalendarDate : IDateable, IAbsoluteDate { }
+
+/// <summary>
 /// Defines a date type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface ICalendarDate<TSelf> :
-    IDateable,
+    ICalendarDate,
     IAbsoluteDate<TSelf>,
+    // Non-standard math ops
     IMonthArithmetic<TSelf>,
     IYearArithmetic<TSelf>
     where TSelf : ICalendarDate<TSelf>
