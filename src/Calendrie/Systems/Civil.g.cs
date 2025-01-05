@@ -24,9 +24,8 @@ using static Calendrie.Core.CalendricalConstants;
 /// <para><see cref="CivilDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CivilDate :
-    IDateable,
-    IAbsoluteDate<CivilDate>,
-    IAdjustableDate<CivilDate>,
+    ICalendarDate<CivilDate>,
+    ICalendarBound<CivilCalendar>,
     IDateFactory<CivilDate>,
     ISubtractionOperators<CivilDate, CivilDate, int>
 { }

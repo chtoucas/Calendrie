@@ -3,7 +3,6 @@
 
 namespace Calendrie.Testing.Faux;
 
-using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Prototyping;

@@ -3,8 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Hemerology;
-
 public partial class PaxCalendar // Complements
 {
     /// <summary>
@@ -19,6 +17,3 @@ public partial class PaxCalendar // Complements
         return Schema.CountWeeksInYear(year);
     }
 }
-
-public partial struct PaxDate : ICalendarDate<PaxDate>, ICalendarBound<PaxCalendar>
-{ }

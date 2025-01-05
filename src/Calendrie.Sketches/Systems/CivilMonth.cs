@@ -17,7 +17,9 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct CivilMonth :
     ICalendarMonth<CivilMonth>,
+    ICalendarBound<CivilCalendar>,
     IRangeOfDays<CivilDate>,
+    ISetMembership<CivilDate>,
     ISubtractionOperators<CivilMonth, CivilMonth, int>
 { }
 

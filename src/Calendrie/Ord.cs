@@ -78,12 +78,16 @@ public readonly partial struct Ord :
     /// </summary>
     public static Ord First { get; } = new(1);
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the minimum value of an <see cref="Ord"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Ord MinValue { get; } = new(MinAlgebraicValue);
 
-    /// <inheritdoc />
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the maximum value of an <see cref="Ord"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static Ord MaxValue { get; } = new(MaxAlgebraicValue);
 
     /// <summary>

@@ -112,12 +112,16 @@ public readonly partial struct DayNumber :
     /// </summary>
     public static DayNumber Zero { get; }
 
-    /// <inheritdoc/>
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the minimum value of a <see cref="DayNumber"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static DayNumber MinValue { get; } = new(MinDaysSinceZero);
 
-    /// <inheritdoc/>
-    /// <remarks>This static property is thread-safe.</remarks>
+    /// <summary>
+    /// Gets the maximum value of a <see cref="DayNumber"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static DayNumber MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>

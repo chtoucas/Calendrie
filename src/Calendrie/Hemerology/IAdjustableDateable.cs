@@ -1,18 +1,14 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Systems;
-
-using Calendrie.Hemerology;
-
-// Keep this interface internal, it was created only to simplify testing.
+namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Defines adjustment methods.
+/// Defines adjustment methods for a <see cref="IDateable"/> type.
 /// </summary>
-/// <typeparam name="TDate">The date type that implements this interface.
+/// <typeparam name="TDate">The dateable type that implements this interface.
 /// </typeparam>
-internal interface IAdjustableDate<out TDate> where TDate : IDateable
+public interface IAdjustableDateable<out TDate> where TDate : IDateable
 {
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.

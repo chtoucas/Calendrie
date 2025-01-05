@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 /// Defines a range of calendar months.
 /// </summary>
 /// <typeparam name="TMonth">The type of month object.</typeparam>
-public interface IRangeOfMonths<TMonth> : ISetMembership<TMonth>
+public interface IRangeOfMonths<TMonth>
     where TMonth : struct, IEquatable<TMonth>, IComparable<TMonth>
 {
     /// <summary>

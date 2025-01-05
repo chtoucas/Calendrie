@@ -77,9 +77,8 @@ public sealed partial class EthiopicCalendar : CalendarSystem<EthiopicDate>
 /// <para><see cref="EthiopicDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct EthiopicDate :
-    IDateable,
-    IAbsoluteDate<EthiopicDate>,
-    IAdjustableDate<EthiopicDate>,
+    ICalendarDate<EthiopicDate>,
+    ICalendarBound<EthiopicCalendar>,
     IDateFactory<EthiopicDate>,
     ISubtractionOperators<EthiopicDate, EthiopicDate, int>
 { }

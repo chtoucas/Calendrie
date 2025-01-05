@@ -79,9 +79,8 @@ public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
 /// <para><see cref="TropicaliaDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct TropicaliaDate :
-    IDateable,
-    IAbsoluteDate<TropicaliaDate>,
-    IAdjustableDate<TropicaliaDate>,
+    ICalendarDate<TropicaliaDate>,
+    ICalendarBound<TropicaliaCalendar>,
     IDateFactory<TropicaliaDate>,
     ISubtractionOperators<TropicaliaDate, TropicaliaDate, int>
 { }

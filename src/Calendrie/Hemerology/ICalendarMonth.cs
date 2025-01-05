@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-using Calendrie;
-
 /// <summary>
 /// Defines a calendar month.
 /// </summary>

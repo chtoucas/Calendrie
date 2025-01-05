@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 /// Defines a range of calendar dates.
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public interface IRangeOfDays<TDate> : ISetMembership<TDate>
+public interface IRangeOfDays<TDate>
     where TDate : struct, IEquatable<TDate>, IComparable<TDate>
 {
     /// <summary>

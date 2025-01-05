@@ -83,9 +83,8 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
 /// <para><see cref="PaxDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PaxDate :
-    IDateable,
-    IAbsoluteDate<PaxDate>,
-    IAdjustableDate<PaxDate>,
+    ICalendarDate<PaxDate>,
+    ICalendarBound<PaxCalendar>,
     IDateFactory<PaxDate>,
     ISubtractionOperators<PaxDate, PaxDate, int>
 { }
