@@ -3,6 +3,10 @@
 
 namespace Calendrie.Hemerology;
 
+/// <summary>
+/// Defines a type bound to a single calendar type.
+/// </summary>
+/// <typeparam name="TCalendar">The companion calendar type.</typeparam>
 public interface ICalendarBound<out TCalendar>
 {
     /// <summary>
