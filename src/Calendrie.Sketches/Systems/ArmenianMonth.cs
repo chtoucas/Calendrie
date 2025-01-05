@@ -111,7 +111,7 @@ public partial struct ArmenianMonth // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, ArmenianCalendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
@@ -126,10 +126,13 @@ public partial struct ArmenianMonth // Preamble
     /// <inheritdoc />
     bool ICalendarMonth.IsIntercalary => false;
 
+    // TODO(code): ArmenianYear, idem with the other types.
+#if false
     /// <summary>
     /// Gets the calendar year.
     /// </summary>
-    public CivilYear CalendarYear => new(Year, true);
+    public ArmenianYear CalendarYear => new(Year, true);
+#endif
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -146,7 +149,7 @@ public partial struct ArmenianMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceEpoch, ArmenianCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 

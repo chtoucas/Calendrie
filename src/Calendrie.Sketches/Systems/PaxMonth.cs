@@ -142,10 +142,12 @@ public partial struct PaxMonth // Preamble
         }
     }
 
+#if false
     /// <summary>
     /// Gets the calendar year.
     /// </summary>
-    public CivilYear CalendarYear => new(Year, true);
+    public PaxYear CalendarYear => new(Year, true);
+#endif
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
