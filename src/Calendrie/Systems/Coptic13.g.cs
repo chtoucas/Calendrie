@@ -603,6 +603,26 @@ public partial struct Coptic13Date // Standard math ops
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(Coptic13Date other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public Coptic13Date AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public Coptic13Date NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public Coptic13Date PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct Coptic13Date // Non-standard math ops

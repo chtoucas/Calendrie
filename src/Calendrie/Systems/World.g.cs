@@ -603,6 +603,26 @@ public partial struct WorldDate // Standard math ops
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(WorldDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public WorldDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public WorldDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public WorldDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct WorldDate // Non-standard math ops

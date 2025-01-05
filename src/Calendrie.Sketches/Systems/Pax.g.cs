@@ -609,6 +609,26 @@ public partial struct PaxDate // Standard math ops
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(PaxDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public PaxDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public PaxDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public PaxDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct PaxDate // Non-standard math ops

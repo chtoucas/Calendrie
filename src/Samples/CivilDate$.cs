@@ -5,24 +5,11 @@ namespace Samples;
 
 using Calendrie.Systems;
 
-using static Calendrie.Core.CalendricalConstants;
-
 /// <summary>
 /// Provides static helpers and extension methods for <see cref="CivilDate"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public static partial class CivilDateExtensions { }
-
-// Math
-//
-public partial class CivilDateExtensions
-{
-    public static CivilDate AddWeeks(this CivilDate date, int weeks) => date.PlusDays(DaysInWeek * weeks);
-
-    public static CivilDate NextWeek(this CivilDate date) => date.PlusDays(DaysInWeek);
-
-    public static CivilDate PreviousWeek(this CivilDate date) => date.PlusDays(-DaysInWeek);
-}
 
 // Interconversion
 //

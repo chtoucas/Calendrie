@@ -597,6 +597,26 @@ public partial struct PlainJulianDate // Standard math ops
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(PlainJulianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainJulianDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainJulianDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainJulianDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct PlainJulianDate // Non-standard math ops

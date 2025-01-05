@@ -613,6 +613,26 @@ public partial struct <#= Prefix #>Date // Standard math ops
         if (_<#= DaysSinceEpochVar #> == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_<#= DaysSinceEpochVar #> - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(<#= Prefix #>Date other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public <#= Prefix #>Date PreviousWeek() => PlusDays(-DaysInWeek);
 }
 <#+
     } // T4: End of EmitDateMath()

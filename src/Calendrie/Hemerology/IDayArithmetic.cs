@@ -45,7 +45,7 @@ public interface IDayArithmetic<TSelf>
     [Pure] TSelf PreviousDay() => PlusDays(1);
 
     //
-    // Week operations
+    // Math operations based on the week unit
     //
     // Being default interface methods and types implementing this interface
     // being most certainly value types, it should override them. Even for

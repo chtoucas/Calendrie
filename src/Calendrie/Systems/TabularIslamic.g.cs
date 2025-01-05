@@ -594,6 +594,26 @@ public partial struct TabularIslamicDate // Standard math ops
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceEpoch - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(TabularIslamicDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public TabularIslamicDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public TabularIslamicDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public TabularIslamicDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct TabularIslamicDate // Non-standard math ops

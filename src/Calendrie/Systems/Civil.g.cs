@@ -293,4 +293,24 @@ public partial struct CivilDate // Standard math ops
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(CivilDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public CivilDate PreviousWeek() => PlusDays(-DaysInWeek);
 }

@@ -591,6 +591,26 @@ public partial struct PlainCivilDate // Standard math ops
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
         return new(_daysSinceZero - 1);
     }
+
+    //
+    // Math operations based on the week unit
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountWeeksSince(PlainCivilDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainCivilDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainCivilDate NextWeek() => PlusDays(DaysInWeek);
+
+    /// <inheritdoc />
+    [Pure]
+    public PlainCivilDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
 public partial struct PlainCivilDate // Non-standard math ops
