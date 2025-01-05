@@ -73,37 +73,7 @@ public interface ICalendarYear
 /// <typeparam name="TSelf">The year type that implements this interface.
 /// </typeparam>
 public interface ICalendarYear<TSelf> :
-    ICalendarYear,
-    // Comparison
-    IEqualityOperators<TSelf, TSelf, bool>,
-    IEquatable<TSelf>,
-    IComparisonOperators<TSelf, TSelf, bool>,
-    IComparable<TSelf>,
-    IComparable,
-    IMinMaxValue<TSelf>,
-    // Arithmetic
-    IYearArithmetic<TSelf>,
-    //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
-    IAdditionOperators<TSelf, int, TSelf>,
-    ISubtractionOperators<TSelf, int, TSelf>,
-    IIncrementOperators<TSelf>,
-    IDecrementOperators<TSelf>
+    ICalendarYearBase<TSelf>,
+    IMinMaxValue<TSelf>
     where TSelf : ICalendarYear<TSelf>
-{
-    /// <summary>
-    /// Obtains the earliest year between the two specified years.
-    /// </summary>
-    [Pure] static abstract TSelf Min(TSelf x, TSelf y);
-
-    /// <summary>
-    /// Obtains the latest year between the two specified years.
-    /// </summary>
-    [Pure] static abstract TSelf Max(TSelf x, TSelf y);
-
-    /// <summary>
-    /// Subtracts the two specified dates and returns the number of days between
-    /// them.
-    /// </summary>
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
-    static abstract int operator -(TSelf left, TSelf right);
-}
+{ }

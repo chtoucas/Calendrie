@@ -13,11 +13,7 @@ public interface ICalendarDate : IDateable, IAbsoluteDate { }
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
 public interface ICalendarDate<TSelf> :
-    ICalendarDate,
-    IAbsoluteDate<TSelf>,
-    IAdjustableDateable<TSelf>,
-    // Non-standard math ops
-    IMonthArithmetic<TSelf>,
-    IYearArithmetic<TSelf>
+    ICalendarDateBase<TSelf>,
+    IAbsoluteDate<TSelf>
     where TSelf : ICalendarDate<TSelf>
 { }
