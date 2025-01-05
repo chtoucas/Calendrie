@@ -6,6 +6,7 @@
         DisplayName = "Plain Julian",
         EnableIsSupplementary = false,
         EnableMonth = true,
+        EnableYear = true,
         EnableNullable = true,
         ImportCalendrieSystemsNamespace = true,
         MaxMonthsSinceEpochValue = "119_987", // Should be OK but haven't checked yet

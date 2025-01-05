@@ -804,7 +804,7 @@ public partial struct PlainCivilMonth // Preamble
     {
         PlainCivilCalendar.Instance.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceZero = CountMonthsSinceEpoch(year, month);
+        _monthsSinceZero = CountMonthsSinceZero(year, month);
     }
 
     /// <summary>
@@ -881,12 +881,10 @@ public partial struct PlainCivilMonth // Preamble
     /// <inheritdoc />
     bool ICalendarMonth.IsIntercalary => false;
 
-#if false
     /// <summary>
     /// Gets the calendar year.
     /// </summary>
     public PlainCivilYear CalendarYear => new(Year, true);
-#endif
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -908,7 +906,7 @@ public partial struct PlainCivilMonth // Preamble
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
+    private static int CountMonthsSinceZero(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         PlainCivilCalendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -1239,7 +1237,7 @@ public partial struct PlainCivilMonth // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceZero = CountMonthsSinceEpoch(newY, m);
+        int monthsSinceZero = CountMonthsSinceZero(newY, m);
         return new PlainCivilMonth(monthsSinceZero);
     }
 
@@ -1250,6 +1248,429 @@ public partial struct PlainCivilMonth // Non-standard math ops
     public int CountYearsSince(PlainCivilMonth other) =>
         // NB: this subtraction never overflows.
         Year - other.Year;
+}
+
+#endregion
+
+#region PlainCivilYear
+
+/// <summary>
+/// Represents a PlainCivil year.
+/// <para><i>All</i> years within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="PlainCivilYear"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct PlainCivilYear :
+    ICalendarYear<PlainCivilYear>,
+    ICalendarBound<PlainCivilCalendar>,
+    // A year viewed as a finite sequence of months
+    IMonthSegment<PlainCivilMonth>,
+    ISetMembership<PlainCivilMonth>,
+    // A year viewed as a finite sequence of days
+    IDaySegment<PlainCivilDate>,
+    ISetMembership<PlainCivilDate>,
+    // Arithmetic
+    ISubtractionOperators<PlainCivilYear, PlainCivilYear, int>
+{ }
+
+public partial struct PlainCivilYear // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_year0"/>.
+    /// <para>This field is a constant equal to 9998.</para></summary>
+    private const int MaxYear0 = StandardScope.MaxYear - 1;
+
+    /// <summary>
+    /// Represents the count of consecutive years since the epoch <see cref="DayZero.NewStyle"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxYear0"/>.
+    /// </para>
+    /// </summary>
+    private readonly int _year0;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct to the
+    /// specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    public PlainCivilYear(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        _year0 = year - 1;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct to the
+    /// specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    internal PlainCivilYear(int year, bool _)
+    {
+        _year0 = year - 1;
+    }
+
+    /// <summary>
+    /// Gets the earliest possible value of a <see cref="PlainCivilYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    //
+    // MinValue = new(1) = new() = default(PlainCivilYear)
+    public static PlainCivilYear MinValue { get; }
+
+    /// <summary>
+    /// Gets the latest possible value of a <see cref="PlainCivilYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static PlainCivilYear MaxValue { get; } = new(StandardScope.MaxYear);
+
+    /// <summary>
+    /// Gets the calendar to which belongs the current date type.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static PlainCivilCalendar Calendar => PlainCivilCalendar.Instance;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// <para>This property represents the algebraic year, but since it's greater
+    /// than 0, there is no difference between the algebraic year and the year
+    /// of the era.</para>
+    /// </summary>
+    public int Year => _year0 + 1;
+
+    /// <inheritdoc />
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceZero(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        MonthsCount * (y - 1) + m - 1;
+}
+
+public partial struct PlainCivilYear // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthsCount = PlainCivilCalendar.MonthsInYear;
+
+    /// <inheritdoc />
+    public PlainCivilMonth MinMonth
+    {
+        get
+        {
+            int monthsSinceZero = CountMonthsSinceZero(Year, 1);
+            return new PlainCivilMonth(monthsSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    public PlainCivilMonth MaxMonth
+    {
+        get
+        {
+            int monthsSinceZero = CountMonthsSinceZero(Year, MonthsCount);
+            return new PlainCivilMonth(monthsSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<PlainCivilMonth>.CountMonths() => MonthsCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<PlainCivilMonth> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<PlainCivilMonth> EnumerateMonths()
+    {
+        int startOfYear = CountMonthsSinceZero(Year, 1);
+
+        return from monthsSinceZero
+               in Enumerable.Range(startOfYear, MonthsCount)
+               select new PlainCivilMonth(monthsSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(PlainCivilMonth month) => month.Year == Year;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public PlainCivilMonth GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        int y = Year;
+        Calendar.Scope.PreValidator.ValidateMonth(y, month);
+        int monthsSinceZero = CountMonthsSinceZero(y, month);
+        return new PlainCivilMonth(monthsSinceZero);
+    }
+}
+
+public partial struct PlainCivilYear // IDaySegment
+{
+    /// <inheritdoc />
+    public PlainCivilDate MinDay
+    {
+        get
+        {
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return new PlainCivilDate(daysSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    public PlainCivilDate MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int y = Year;
+            int doy = sch.CountDaysInYear(y);
+            int daysSinceZero = sch.CountDaysSinceEpoch(y, doy);
+            return new PlainCivilDate(daysSinceZero);
+        }
+    }
+
+    /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// </remarks>
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
+    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
+    /// </remarks>
+    [Pure]
+    public Range<PlainCivilDate> ToDayRange() => Range.UnsafeCreate(MinDay, MaxDay);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<PlainCivilDate> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
+        int daysInYear = sch.CountDaysInYear(y);
+
+        return from daysSinceZero
+               in Enumerable.Range(startOfYear, daysInYear)
+               select new PlainCivilDate(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(PlainCivilDate date) => date.Year == Year;
+
+    /// <summary>
+    /// Obtains the ordinal date corresponding to the specified day of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public PlainCivilDate GetDayOfYear(int dayOfYear)
+    {
+        var chr = Calendar;
+        int y = Year;
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(y, dayOfYear);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, dayOfYear);
+        return new PlainCivilDate(daysSinceZero);
+    }
+}
+
+public partial struct PlainCivilYear // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(PlainCivilYear left, PlainCivilYear right) => left._year0 == right._year0;
+
+    /// <inheritdoc />
+    public static bool operator !=(PlainCivilYear left, PlainCivilYear right) => left._year0 != right._year0;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(PlainCivilYear other) => _year0 == other._year0;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is PlainCivilYear year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _year0;
+}
+
+public partial struct PlainCivilYear // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(PlainCivilYear left, PlainCivilYear right) => left._year0 < right._year0;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(PlainCivilYear left, PlainCivilYear right) => left._year0 <= right._year0;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(PlainCivilYear left, PlainCivilYear right) => left._year0 > right._year0;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(PlainCivilYear left, PlainCivilYear right) => left._year0 >= right._year0;
+
+    /// <inheritdoc />
+    [Pure]
+    public static PlainCivilYear Min(PlainCivilYear x, PlainCivilYear y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static PlainCivilYear Max(PlainCivilYear x, PlainCivilYear y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(PlainCivilYear other) => _year0.CompareTo(other._year0);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is PlainCivilYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(PlainCivilYear), obj);
+}
+
+public partial struct PlainCivilYear // Math ops
+{
+    /// <summary>
+    /// Subtracts the two specified years and returns the number of years between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
+    public static int operator -(PlainCivilYear left, PlainCivilYear right) => left.CountYearsSince(right);
+
+    /// <summary>
+    /// Adds a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static PlainCivilYear operator +(PlainCivilYear value, int years) => value.PlusYears(years);
+
+    /// <summary>
+    /// Subtracts a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the range
+    /// of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static PlainCivilYear operator -(PlainCivilYear value, int years) => value.PlusYears(-years);
+
+    /// <summary>
+    /// Adds one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
+    public static PlainCivilYear operator ++(PlainCivilYear value) => value.NextYear();
+
+    /// <summary>
+    /// Subtracts one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
+    public static PlainCivilYear operator --(PlainCivilYear value) => value.PreviousYear();
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified year.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(PlainCivilYear other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to (MaxYear - 1).
+        _year0 - other._year0;
+
+    /// <summary>
+    /// Adds a number of years to the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported years.
+    /// </exception>
+    [Pure]
+    public PlainCivilYear PlusYears(int years)
+    {
+        int y0 = checked(_year0 + years);
+        if (unchecked((uint)y0) > MaxYear0) ThrowHelpers.ThrowYearOverflow();
+        // NB: we know that (y0 + 1) does NOT overflow.
+        return new PlainCivilYear(y0 + 1, true);
+    }
+
+    /// <summary>
+    /// Obtains the year after the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [Pure]
+    public PlainCivilYear NextYear()
+    {
+        if (_year0 == MaxYear0) ThrowHelpers.ThrowYearOverflow();
+        return new(Year + 1, true);
+    }
+
+    /// <summary>
+    /// Obtains the year before the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [Pure]
+    public PlainCivilYear PreviousYear()
+    {
+        if (_year0 == 0) ThrowHelpers.ThrowYearOverflow();
+        return new(Year - 1, true);
+    }
 }
 
 #endregion

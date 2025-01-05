@@ -812,7 +812,7 @@ public partial struct TropicaliaMonth // Preamble
     {
         TropicaliaCalendar.Instance.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceZero = CountMonthsSinceEpoch(year, month);
+        _monthsSinceZero = CountMonthsSinceZero(year, month);
     }
 
     /// <summary>
@@ -889,12 +889,10 @@ public partial struct TropicaliaMonth // Preamble
     /// <inheritdoc />
     bool ICalendarMonth.IsIntercalary => false;
 
-#if false
     /// <summary>
     /// Gets the calendar year.
     /// </summary>
     public TropicaliaYear CalendarYear => new(Year, true);
-#endif
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -916,7 +914,7 @@ public partial struct TropicaliaMonth // Preamble
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
+    private static int CountMonthsSinceZero(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         TropicaliaCalendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -1247,7 +1245,7 @@ public partial struct TropicaliaMonth // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceZero = CountMonthsSinceEpoch(newY, m);
+        int monthsSinceZero = CountMonthsSinceZero(newY, m);
         return new TropicaliaMonth(monthsSinceZero);
     }
 

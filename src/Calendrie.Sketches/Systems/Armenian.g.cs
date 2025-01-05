@@ -139,12 +139,10 @@ public partial struct ArmenianMonth // Preamble
     /// <inheritdoc />
     bool ICalendarMonth.IsIntercalary => false;
 
-#if false
     /// <summary>
     /// Gets the calendar year.
     /// </summary>
     public ArmenianYear CalendarYear => new(Year, true);
-#endif
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
