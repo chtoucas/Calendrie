@@ -18,30 +18,6 @@ public class ZeroCalendarTemplate : CalendarTemplate
         MaxMonthsSinceEpoch = "MaxMonthsSinceZero";
     }
 
-    protected override void EmitUsings()
-    {
-        WriteLine();
-#>
-using System.Numerics;
-
-using Calendrie;
-using Calendrie.Core.Schemas;
-<#+ if (EnableMonth) { #>
-using Calendrie.Core.Intervals;
-<#+ } #>
-using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
-<#+ if (EnableClock) { #>
-using Calendrie.Horology;
-<#+ } #>
-<#+ if (ImportCalendrieSystemsNamespace) { #>
-using Calendrie.Systems;
-<#+ } #>
-
-using static Calendrie.Core.CalendricalConstants;
-<#+
-    } // T4: End of EmitUsings()
-
     protected override void EmitClock()
     {
         WriteLine();
