@@ -92,6 +92,8 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     }
 }
 
+// TODO(code): if we enable the year and month types, we should remove these methods
+
 public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {
     /// <inheritdoc/>
