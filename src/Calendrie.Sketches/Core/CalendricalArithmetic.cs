@@ -172,6 +172,9 @@ public abstract class CalendricalArithmetic
     // The standard ops, those based on the month unit:
     // - AddMonths(Yemo, months)
     // - CountMonthsBetween(Yemo, Yemo)
+    // The non-standard ops:
+    // - AddYears(Yemo, years)
+    // - AddYears(Yemo, years, out roundoff)
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.

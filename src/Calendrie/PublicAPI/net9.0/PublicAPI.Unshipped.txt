@@ -504,10 +504,14 @@ Calendrie.Hemerology.IDateProvider<TDate>.GetEndOfYear(int year) -> TDate
 Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfMonth(int year, int month) -> TDate
 Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfYear(int year) -> TDate
 Calendrie.Hemerology.IDayArithmetic<TSelf>
+Calendrie.Hemerology.IDayArithmetic<TSelf>.AddWeeks(int weeks) -> TSelf
 Calendrie.Hemerology.IDayArithmetic<TSelf>.CountDaysSince(TSelf other) -> int
+Calendrie.Hemerology.IDayArithmetic<TSelf>.CountWeeksSince(TSelf other) -> int
 Calendrie.Hemerology.IDayArithmetic<TSelf>.NextDay() -> TSelf
+Calendrie.Hemerology.IDayArithmetic<TSelf>.NextWeek() -> TSelf
 Calendrie.Hemerology.IDayArithmetic<TSelf>.PlusDays(int days) -> TSelf
 Calendrie.Hemerology.IDayArithmetic<TSelf>.PreviousDay() -> TSelf
+Calendrie.Hemerology.IDayArithmetic<TSelf>.PreviousWeek() -> TSelf
 Calendrie.Hemerology.IDaySegment<TDate>
 Calendrie.Hemerology.IDaySegment<TDate>.CountDays() -> int
 Calendrie.Hemerology.IDaySegment<TDate>.EnumerateDays() -> System.Collections.Generic.IEnumerable<TDate>!
