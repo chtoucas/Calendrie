@@ -131,7 +131,7 @@ public partial struct CivilYear // Preamble
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceZero(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        CivilCalendar.MonthsInYear * (y - 1) + m - 1;
+        MonthsCount * (y - 1) + m - 1;
 }
 
 public partial struct CivilYear // IMonthSegment
