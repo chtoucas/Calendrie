@@ -63,6 +63,8 @@ public partial class CalendarTemplate : CSharpTemplate
     public bool EnablePragmas { get; set; }
     public bool ImportCalendrieSystemsNamespace { get; set; }
 
+    public bool EnableCalendar { get; set; } = true;
+    public bool EnableDate { get; set; } = true;
     public bool EnableMonth { get; set; }
     // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
@@ -77,13 +79,10 @@ public partial class CalendarTemplate : CSharpTemplate
         EmitNamespace();
         EmitUsings();
 
-        EmitCalendar();
-
-        if (EnableClock) EmitClock();
-
-        EmitDate();
-
-        if (EnableMonth) EmitMonth();
+        if (EnableCalendar) EmitCalendar();
+        if (EnableClock)    EmitClock();
+        if (EnableDate)     EmitDate();
+        if (EnableMonth)    EmitMonth();
     } // T4: End of WriteContent()
 
     protected virtual void EmitNullable()

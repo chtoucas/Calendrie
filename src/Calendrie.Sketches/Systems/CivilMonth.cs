@@ -11,7 +11,7 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents a Civil month.
+/// Represents the Civil month.
 /// <para><i>All</i> months within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="CivilMonth"/> is an immutable struct.</para>
