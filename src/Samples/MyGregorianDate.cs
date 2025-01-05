@@ -11,8 +11,8 @@ using Calendrie;
 using Calendrie.Hemerology;
 
 public readonly partial struct MyGregorianDate :
-    IDateable,
-    IAbsoluteDate<MyGregorianDate>,
+    ICalendarDate<MyGregorianDate>,
+    ICalendarBound<MyGregorianCalendar>,
     ISubtractionOperators<MyGregorianDate, MyGregorianDate, int>
 {
     private static readonly DayNumber s_Epoch = MyGregorianCalendar.Instance.Epoch;
@@ -199,4 +199,9 @@ public partial struct MyGregorianDate // Math
 
     public MyGregorianDate PreviousDay() =>
         this == MinValue ? throw new OverflowException() : new(_daysSinceEpoch - 1);
+
+    public MyGregorianDate PlusYears(int years) => throw new NotImplementedException();
+    public MyGregorianDate PlusMonths(int months) => throw new NotImplementedException();
+    public int CountYearsSince(MyGregorianDate other) => throw new NotImplementedException();
+    public int CountMonthsSince(MyGregorianDate other) => throw new NotImplementedException();
 }

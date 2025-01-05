@@ -14,8 +14,8 @@ using Calendrie.Hemerology;
 using static Calendrie.Core.CalendricalConstants;
 
 public readonly partial struct MyJulianDate :
-    IDateable,
-    IAbsoluteDate<MyJulianDate>,
+    ICalendarDate<MyJulianDate>,
+    ICalendarBound<MyJulianCalendar>,
     ISubtractionOperators<MyJulianDate, MyJulianDate, int>
 {
     private static readonly DayNumber s_Epoch = MyJulianCalendar.Instance.Epoch;
@@ -158,4 +158,9 @@ public partial struct MyJulianDate // Math
     public MyJulianDate PlusDays(int days) => new(Calendar.AddDays(_bin, days));
     public MyJulianDate NextDay() => new(Calendar.NextDay(_bin));
     public MyJulianDate PreviousDay() => new(Calendar.PreviousDay(_bin));
+
+    public MyJulianDate PlusYears(int years) => throw new NotImplementedException();
+    public MyJulianDate PlusMonths(int months) => throw new NotImplementedException();
+    public int CountYearsSince(MyJulianDate other) => throw new NotImplementedException();
+    public int CountMonthsSince(MyJulianDate other) => throw new NotImplementedException();
 }
