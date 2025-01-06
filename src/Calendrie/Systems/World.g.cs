@@ -289,7 +289,6 @@ public partial struct WorldDate // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static WorldDate IUnsafeDateFactory<WorldDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

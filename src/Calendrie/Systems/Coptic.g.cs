@@ -289,7 +289,6 @@ public partial struct CopticDate // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static CopticDate IUnsafeDateFactory<CopticDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

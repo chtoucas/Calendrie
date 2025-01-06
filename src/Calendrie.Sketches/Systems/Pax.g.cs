@@ -295,7 +295,6 @@ public partial struct PaxDate // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static PaxDate IUnsafeDateFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

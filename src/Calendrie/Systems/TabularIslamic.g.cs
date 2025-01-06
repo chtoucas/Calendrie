@@ -280,7 +280,6 @@ public partial struct TabularIslamicDate // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static TabularIslamicDate IUnsafeDateFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

@@ -289,7 +289,6 @@ public partial struct Zoroastrian13Date // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static Zoroastrian13Date IUnsafeDateFactory<Zoroastrian13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

@@ -46,7 +46,6 @@ public partial struct CivilDate // Factories & conversions
         return new(daysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static CivilDate IUnsafeDateFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);

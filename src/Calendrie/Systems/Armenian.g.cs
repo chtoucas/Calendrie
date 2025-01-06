@@ -289,7 +289,6 @@ public partial struct ArmenianDate // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static ArmenianDate IUnsafeDateFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

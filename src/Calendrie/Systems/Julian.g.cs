@@ -26,7 +26,6 @@ public partial struct JulianDate // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static JulianDate IUnsafeDateFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
