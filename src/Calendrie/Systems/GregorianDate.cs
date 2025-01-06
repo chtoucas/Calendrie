@@ -223,7 +223,7 @@ public partial struct GregorianDate // Factories & conversions
         if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
             throw new ArgumentOutOfRangeException(nameof(dayNumber));
 
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     // REVIEW(code): inlining? Same for the other date types.
@@ -247,7 +247,7 @@ public partial struct GregorianDate // Adjustments
         GregorianScope.ValidateYearMonthDayImpl(newYear, m, d, nameof(newYear));
 
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -260,7 +260,7 @@ public partial struct GregorianDate // Adjustments
         Calendar.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -273,7 +273,7 @@ public partial struct GregorianDate // Adjustments
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -286,7 +286,7 @@ public partial struct GregorianDate // Adjustments
         Calendar.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 }
 
@@ -301,7 +301,7 @@ public partial struct GregorianDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -314,7 +314,7 @@ public partial struct GregorianDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
         if (daysSinceZero < MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -324,7 +324,7 @@ public partial struct GregorianDate // Find close by day of the week
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -337,7 +337,7 @@ public partial struct GregorianDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -349,7 +349,7 @@ public partial struct GregorianDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 }
 
@@ -420,7 +420,7 @@ public partial struct GregorianDate // Standard math ops
         int daysSinceZero = checked(_daysSinceZero + days);
         if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
             ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new GregorianDate(daysSinceZero);
     }
 
     /// <summary>
@@ -432,7 +432,7 @@ public partial struct GregorianDate // Standard math ops
     public GregorianDate NextDay()
     {
         if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero + 1);
+        return new GregorianDate(_daysSinceZero + 1);
     }
 
     /// <summary>
@@ -444,7 +444,7 @@ public partial struct GregorianDate // Standard math ops
     public GregorianDate PreviousDay()
     {
         if (_daysSinceZero == MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero - 1);
+        return new GregorianDate(_daysSinceZero - 1);
     }
 
     //

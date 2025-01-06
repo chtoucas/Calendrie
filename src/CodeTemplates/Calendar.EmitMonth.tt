@@ -212,7 +212,7 @@ public partial struct <#= Prefix #>Month // Factories
     internal static <#= Prefix #>Month UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new(monthsSinceEpoch);
+        return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -536,7 +536,7 @@ public partial struct <#= Prefix #>Month // Standard math ops
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -548,7 +548,7 @@ public partial struct <#= Prefix #>Month // Standard math ops
     public <#= Prefix #>Month NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        return new <#= Prefix #>Month(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -560,7 +560,7 @@ public partial struct <#= Prefix #>Month // Standard math ops
     public <#= Prefix #>Month PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        return new <#= Prefix #>Month(_monthsSinceEpoch - 1);
     }
 }
 <#+

@@ -266,7 +266,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
         Calendar.Scope.Validate(dayNumber);
 
         // NB: the subtraction won't overflow.
-        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+        return new <#= Prefix #>Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
     [Pure]
@@ -320,7 +320,7 @@ public partial struct <#= Prefix #>Date // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -336,7 +336,7 @@ public partial struct <#= Prefix #>Date // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -352,7 +352,7 @@ public partial struct <#= Prefix #>Date // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -368,7 +368,7 @@ public partial struct <#= Prefix #>Date // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 }
 <#+
@@ -389,7 +389,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ >= 0 ? δ - DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -402,7 +402,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         if (δ == 0) return this;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ > 0 ? δ - DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -412,7 +412,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         var nearest = DayNumber.Nearest(dayOfWeek);
         int <#= DaysSinceEpochVar #> = nearest.DaysSinceZero - EpochDaysSinceZero;
         if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -425,7 +425,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         if (δ == 0) return this;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ < 0 ? δ + DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -437,7 +437,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ <= 0 ? δ + DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 }
 <#+
@@ -595,7 +595,7 @@ public partial struct <#= Prefix #>Date // Standard math ops
     {
         int <#= DaysSinceEpochVar #> = checked(_<#= DaysSinceEpochVar #> + days);
         if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <summary>
@@ -607,7 +607,7 @@ public partial struct <#= Prefix #>Date // Standard math ops
     public <#= Prefix #>Date NextDay()
     {
         if (_<#= DaysSinceEpochVar #> == <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(_<#= DaysSinceEpochVar #> + 1);
+        return new <#= Prefix #>Date(_<#= DaysSinceEpochVar #> + 1);
     }
 
     /// <summary>
@@ -619,7 +619,7 @@ public partial struct <#= Prefix #>Date // Standard math ops
     public <#= Prefix #>Date PreviousDay()
     {
         if (_<#= DaysSinceEpochVar #> == 0) ThrowHelpers.ThrowDateOverflow();
-        return new(_<#= DaysSinceEpochVar #> - 1);
+        return new <#= Prefix #>Date(_<#= DaysSinceEpochVar #> - 1);
     }
 
     //

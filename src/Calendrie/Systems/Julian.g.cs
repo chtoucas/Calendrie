@@ -23,7 +23,7 @@ public partial struct JulianDate // Factories & conversions
         Calendar.Scope.Validate(dayNumber);
 
         // NB: the subtraction won't overflow.
-        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+        return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
     [Pure]

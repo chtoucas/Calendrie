@@ -185,7 +185,7 @@ public partial struct ArmenianMonth // Factories
     internal static ArmenianMonth UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new(monthsSinceEpoch);
+        return new ArmenianMonth(monthsSinceEpoch);
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -473,7 +473,7 @@ public partial struct ArmenianMonth // Standard math ops
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new ArmenianMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -485,7 +485,7 @@ public partial struct ArmenianMonth // Standard math ops
     public ArmenianMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        return new ArmenianMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -497,7 +497,7 @@ public partial struct ArmenianMonth // Standard math ops
     public ArmenianMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        return new ArmenianMonth(_monthsSinceEpoch - 1);
     }
 }
 

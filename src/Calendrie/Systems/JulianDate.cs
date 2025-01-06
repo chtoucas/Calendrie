@@ -214,7 +214,7 @@ public partial struct JulianDate // Adjustments
         JulianScope.ValidateYearMonthDayImpl(newYear, m, d, nameof(newYear));
 
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -227,7 +227,7 @@ public partial struct JulianDate // Adjustments
         Calendar.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -240,7 +240,7 @@ public partial struct JulianDate // Adjustments
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -253,7 +253,7 @@ public partial struct JulianDate // Adjustments
         Calendar.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 }
 
@@ -268,7 +268,7 @@ public partial struct JulianDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceEpoch < MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -281,7 +281,7 @@ public partial struct JulianDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
         if (daysSinceEpoch < MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -292,7 +292,7 @@ public partial struct JulianDate // Find close by day of the week
         int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -305,7 +305,7 @@ public partial struct JulianDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -317,7 +317,7 @@ public partial struct JulianDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 }
 
@@ -388,7 +388,7 @@ public partial struct JulianDate // Standard math ops
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -400,7 +400,7 @@ public partial struct JulianDate // Standard math ops
     public JulianDate NextDay()
     {
         if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch + 1);
+        return new JulianDate(_daysSinceEpoch + 1);
     }
 
     /// <summary>
@@ -412,7 +412,7 @@ public partial struct JulianDate // Standard math ops
     public JulianDate PreviousDay()
     {
         if (_daysSinceEpoch == MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch - 1);
+        return new JulianDate(_daysSinceEpoch - 1);
     }
 
     //

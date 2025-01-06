@@ -285,7 +285,7 @@ public partial struct TropicaliaDate // Factories & conversions
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
             throw new ArgumentOutOfRangeException(nameof(dayNumber));
 
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     [Pure]
@@ -327,7 +327,7 @@ public partial struct TropicaliaDate // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -343,7 +343,7 @@ public partial struct TropicaliaDate // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -359,7 +359,7 @@ public partial struct TropicaliaDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -375,7 +375,7 @@ public partial struct TropicaliaDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 }
 
@@ -390,7 +390,7 @@ public partial struct TropicaliaDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -403,7 +403,7 @@ public partial struct TropicaliaDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -412,7 +412,7 @@ public partial struct TropicaliaDate // Find close by day of the week
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -425,7 +425,7 @@ public partial struct TropicaliaDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -437,7 +437,7 @@ public partial struct TropicaliaDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 }
 
@@ -577,7 +577,7 @@ public partial struct TropicaliaDate // Standard math ops
     {
         int daysSinceZero = checked(_daysSinceZero + days);
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new TropicaliaDate(daysSinceZero);
     }
 
     /// <summary>
@@ -589,7 +589,7 @@ public partial struct TropicaliaDate // Standard math ops
     public TropicaliaDate NextDay()
     {
         if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero + 1);
+        return new TropicaliaDate(_daysSinceZero + 1);
     }
 
     /// <summary>
@@ -601,7 +601,7 @@ public partial struct TropicaliaDate // Standard math ops
     public TropicaliaDate PreviousDay()
     {
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero - 1);
+        return new TropicaliaDate(_daysSinceZero - 1);
     }
 
     //
@@ -935,7 +935,7 @@ public partial struct TropicaliaMonth // Factories
     internal static TropicaliaMonth UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new(monthsSinceEpoch);
+        return new TropicaliaMonth(monthsSinceEpoch);
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1223,7 +1223,7 @@ public partial struct TropicaliaMonth // Standard math ops
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new TropicaliaMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1235,7 +1235,7 @@ public partial struct TropicaliaMonth // Standard math ops
     public TropicaliaMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        return new TropicaliaMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1247,7 +1247,7 @@ public partial struct TropicaliaMonth // Standard math ops
     public TropicaliaMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        return new TropicaliaMonth(_monthsSinceEpoch - 1);
     }
 }
 

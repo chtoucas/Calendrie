@@ -277,7 +277,7 @@ public partial struct PlainCivilDate // Factories & conversions
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
             throw new ArgumentOutOfRangeException(nameof(dayNumber));
 
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     [Pure]
@@ -319,7 +319,7 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -335,7 +335,7 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -351,7 +351,7 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -367,7 +367,7 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 }
 
@@ -382,7 +382,7 @@ public partial struct PlainCivilDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -395,7 +395,7 @@ public partial struct PlainCivilDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -404,7 +404,7 @@ public partial struct PlainCivilDate // Find close by day of the week
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -417,7 +417,7 @@ public partial struct PlainCivilDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -429,7 +429,7 @@ public partial struct PlainCivilDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 }
 
@@ -569,7 +569,7 @@ public partial struct PlainCivilDate // Standard math ops
     {
         int daysSinceZero = checked(_daysSinceZero + days);
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new PlainCivilDate(daysSinceZero);
     }
 
     /// <summary>
@@ -581,7 +581,7 @@ public partial struct PlainCivilDate // Standard math ops
     public PlainCivilDate NextDay()
     {
         if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero + 1);
+        return new PlainCivilDate(_daysSinceZero + 1);
     }
 
     /// <summary>
@@ -593,7 +593,7 @@ public partial struct PlainCivilDate // Standard math ops
     public PlainCivilDate PreviousDay()
     {
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero - 1);
+        return new PlainCivilDate(_daysSinceZero - 1);
     }
 
     //
@@ -927,7 +927,7 @@ public partial struct PlainCivilMonth // Factories
     internal static PlainCivilMonth UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new(monthsSinceEpoch);
+        return new PlainCivilMonth(monthsSinceEpoch);
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1215,7 +1215,7 @@ public partial struct PlainCivilMonth // Standard math ops
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new PlainCivilMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1227,7 +1227,7 @@ public partial struct PlainCivilMonth // Standard math ops
     public PlainCivilMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        return new PlainCivilMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1239,7 +1239,7 @@ public partial struct PlainCivilMonth // Standard math ops
     public PlainCivilMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        return new PlainCivilMonth(_monthsSinceEpoch - 1);
     }
 }
 

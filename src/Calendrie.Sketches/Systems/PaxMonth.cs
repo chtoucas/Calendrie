@@ -171,7 +171,7 @@ public partial struct PaxMonth // Factories
     {
         var (y, m, _) = date;
         int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(y, m);
-        return new(monthsSinceEpoch);
+        return new PaxMonth(monthsSinceEpoch);
     }
 }
 
@@ -463,7 +463,7 @@ public partial struct PaxMonth // Standard math ops
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new PaxMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -475,7 +475,7 @@ public partial struct PaxMonth // Standard math ops
     public PaxMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        return new PaxMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -487,7 +487,7 @@ public partial struct PaxMonth // Standard math ops
     public PaxMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        return new PaxMonth(_monthsSinceEpoch - 1);
     }
 }
 

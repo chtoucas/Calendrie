@@ -287,7 +287,7 @@ public partial struct Armenian13Date // Factories & conversions
         Calendar.Scope.Validate(dayNumber);
 
         // NB: the subtraction won't overflow.
-        return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+        return new Armenian13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
     [Pure]
@@ -329,7 +329,7 @@ public partial struct Armenian13Date // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -345,7 +345,7 @@ public partial struct Armenian13Date // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -361,7 +361,7 @@ public partial struct Armenian13Date // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -377,7 +377,7 @@ public partial struct Armenian13Date // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 }
 
@@ -392,7 +392,7 @@ public partial struct Armenian13Date // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -405,7 +405,7 @@ public partial struct Armenian13Date // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -415,7 +415,7 @@ public partial struct Armenian13Date // Find close by day of the week
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -428,7 +428,7 @@ public partial struct Armenian13Date // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -440,7 +440,7 @@ public partial struct Armenian13Date // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 }
 
@@ -580,7 +580,7 @@ public partial struct Armenian13Date // Standard math ops
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceEpoch);
+        return new Armenian13Date(daysSinceEpoch);
     }
 
     /// <summary>
@@ -592,7 +592,7 @@ public partial struct Armenian13Date // Standard math ops
     public Armenian13Date NextDay()
     {
         if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch + 1);
+        return new Armenian13Date(_daysSinceEpoch + 1);
     }
 
     /// <summary>
@@ -604,7 +604,7 @@ public partial struct Armenian13Date // Standard math ops
     public Armenian13Date PreviousDay()
     {
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceEpoch - 1);
+        return new Armenian13Date(_daysSinceEpoch - 1);
     }
 
     //

@@ -210,7 +210,7 @@ public partial struct CivilDate // Adjustments
         CivilScope.ValidateYearMonthDayImpl(newYear, m, d, nameof(newYear));
 
         int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(newYear, m, d);
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -223,7 +223,7 @@ public partial struct CivilDate // Adjustments
         Calendar.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, newMonth, d);
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -236,7 +236,7 @@ public partial struct CivilDate // Adjustments
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, newDay);
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -249,7 +249,7 @@ public partial struct CivilDate // Adjustments
         Calendar.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, newDayOfYear);
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 }
 

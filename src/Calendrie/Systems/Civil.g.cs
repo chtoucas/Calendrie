@@ -43,7 +43,7 @@ public partial struct CivilDate // Factories & conversions
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
             throw new ArgumentOutOfRangeException(nameof(dayNumber));
 
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     [Pure]
@@ -81,7 +81,7 @@ public partial struct CivilDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -94,7 +94,7 @@ public partial struct CivilDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -103,7 +103,7 @@ public partial struct CivilDate // Find close by day of the week
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -116,7 +116,7 @@ public partial struct CivilDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -128,7 +128,7 @@ public partial struct CivilDate // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 }
 
@@ -268,7 +268,7 @@ public partial struct CivilDate // Standard math ops
     {
         int daysSinceZero = checked(_daysSinceZero + days);
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(daysSinceZero);
+        return new CivilDate(daysSinceZero);
     }
 
     /// <summary>
@@ -280,7 +280,7 @@ public partial struct CivilDate // Standard math ops
     public CivilDate NextDay()
     {
         if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero + 1);
+        return new CivilDate(_daysSinceZero + 1);
     }
 
     /// <summary>
@@ -292,7 +292,7 @@ public partial struct CivilDate // Standard math ops
     public CivilDate PreviousDay()
     {
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
-        return new(_daysSinceZero - 1);
+        return new CivilDate(_daysSinceZero - 1);
     }
 
     //

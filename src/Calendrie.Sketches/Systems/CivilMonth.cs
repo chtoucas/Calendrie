@@ -173,7 +173,7 @@ public partial struct CivilMonth // Factories
     internal static CivilMonth UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new(monthsSinceEpoch);
+        return new CivilMonth(monthsSinceEpoch);
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -459,7 +459,7 @@ public partial struct CivilMonth // Standard math ops
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceEpoch);
+        return new CivilMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -471,7 +471,7 @@ public partial struct CivilMonth // Standard math ops
     public CivilMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch + 1);
+        return new CivilMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -483,7 +483,7 @@ public partial struct CivilMonth // Standard math ops
     public CivilMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceEpoch - 1);
+        return new CivilMonth(_monthsSinceEpoch - 1);
     }
 }
 

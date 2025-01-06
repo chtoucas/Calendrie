@@ -284,7 +284,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
         if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>)
             throw new ArgumentOutOfRangeException(nameof(dayNumber));
 
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     [Pure]
@@ -309,7 +309,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ >= 0 ? δ - DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -322,7 +322,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         if (δ == 0) return this;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ > 0 ? δ - DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> < 0) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -331,7 +331,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
     {
         int <#= DaysSinceEpochVar #> = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -344,7 +344,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         if (δ == 0) return this;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ < 0 ? δ + DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     /// <inheritdoc />
@@ -356,7 +356,7 @@ public partial struct <#= Prefix #>Date // Find close by day of the week
         int δ = dayOfWeek - DayOfWeek;
         int <#= DaysSinceEpochVar #> = _<#= DaysSinceEpochVar #> + (δ <= 0 ? δ + DaysInWeek : δ);
         if (<#= DaysSinceEpochVar #> > <#= MaxDaysSinceEpoch #>) ThrowHelpers.ThrowDateOverflow();
-        return new(<#= DaysSinceEpochVar #>);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 }
 <#+
