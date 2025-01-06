@@ -114,7 +114,7 @@ public partial struct CivilMonth // Preamble
     /// of the era.</para>
     /// </summary>
     public int Year =>
-        // NB: both dividend and divisor >= 0.
+        // NB: both dividend and divisor are >= 0.
         1 + _monthsSinceEpoch / CivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
@@ -145,7 +145,7 @@ public partial struct CivilMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        // NB: both dividend and divisor >= 0.
+        // NB: both dividend and divisor are >= 0.
         year = 1 + MathN.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
