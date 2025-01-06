@@ -660,7 +660,7 @@ public partial struct ArmenianYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct ArmenianYear // IMonthSegment
+public partial struct ArmenianYear // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the

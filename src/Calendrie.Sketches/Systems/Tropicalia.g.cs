@@ -1410,7 +1410,7 @@ public partial struct TropicaliaYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct TropicaliaYear // IMonthSegment
+public partial struct TropicaliaYear // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the

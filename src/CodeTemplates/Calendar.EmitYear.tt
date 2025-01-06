@@ -9,21 +9,21 @@ public partial class CalendarTemplate
 #region <#= Prefix #>Year
 <#+
         EmitYearDecl();
+        EmitYearPreamble();
+        EmitYearFactories();
 
         if (IsRegular)
         {
-            EmitYearPreamble();
-            EmitYearFactories();
             EmitYearMonthSegment();
-            EmitYearDaySegment();
-            EmitYearEquatable();
-            EmitYearComparable();
-            EmitYearMath();
         }
         else
         {
-            throw new NotImplementedException();
         }
+
+        EmitYearDaySegment();
+        EmitYearEquatable();
+        EmitYearComparable();
+        EmitYearMath();
 #>
 
 #endregion
@@ -169,7 +169,7 @@ public partial struct <#= Prefix #>Year // Preamble
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Year // IMonthSegment
+public partial struct <#= Prefix #>Year // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct from the

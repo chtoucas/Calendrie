@@ -1408,7 +1408,7 @@ public partial struct PlainJulianYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct PlainJulianYear // IMonthSegment
+public partial struct PlainJulianYear // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianYear"/> struct from the
