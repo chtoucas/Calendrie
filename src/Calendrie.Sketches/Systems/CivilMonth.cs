@@ -129,11 +129,6 @@ public partial struct CivilMonth // Preamble
     bool ICalendarMonth.IsIntercalary => false;
 
     /// <summary>
-    /// Gets the calendar year.
-    /// </summary>
-    public CivilYear CalendarYear => CivilYear.UnsafeCreate(Year);
-
-    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>

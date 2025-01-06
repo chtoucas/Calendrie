@@ -144,11 +144,6 @@ public partial struct PaxMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the calendar year.
-    /// </summary>
-    public PaxYear CalendarYear => new(Year, true);
-
-    /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
