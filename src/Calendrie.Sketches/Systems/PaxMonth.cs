@@ -160,6 +160,21 @@ public partial struct PaxMonth // Preamble
         Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out year, out month);
 }
 
+public partial struct PaxMonth // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxMonth"/> struct from the
+    /// specified date value.
+    /// </summary>
+    [Pure]
+    public static PaxMonth Create(CivilDate date)
+    {
+        var (y, m, _) = date;
+        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(y, m);
+        return new(monthsSinceEpoch);
+    }
+}
+
 public partial struct PaxMonth // Counting
 {
     /// <inheritdoc />

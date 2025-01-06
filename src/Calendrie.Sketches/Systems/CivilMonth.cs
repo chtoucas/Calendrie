@@ -152,6 +152,17 @@ public partial struct CivilMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="CivilMonth"/> struct from the
+    /// specified date value.
+    /// </summary>
+    [Pure]
+    public static CivilMonth Create(CivilDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilMonth"/> struct from the
     /// specified month components.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>

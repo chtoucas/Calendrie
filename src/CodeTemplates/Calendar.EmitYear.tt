@@ -169,14 +169,14 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     /// specified month value.
     /// </summary>
     [Pure]
-    public static <#= Prefix #>Year FromMonth(<#= Prefix #>Month month) => UnsafeCreate(month.Year);
+    public static <#= Prefix #>Year Create(<#= Prefix #>Month month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct from the
     /// specified date value.
     /// </summary>
     [Pure]
-    public static <#= Prefix #>Year FromDate(<#= Prefix #>Date date) => UnsafeCreate(date.Year);
+    public static <#= Prefix #>Year Create(<#= Prefix #>Date date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct from the

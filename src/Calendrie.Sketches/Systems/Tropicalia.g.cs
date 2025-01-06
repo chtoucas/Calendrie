@@ -911,6 +911,17 @@ public partial struct TropicaliaMonth // Preamble
 public partial struct TropicaliaMonth // Factories
 {
     /// <summary>
+    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct from the
+    /// specified date value.
+    /// </summary>
+    [Pure]
+    public static TropicaliaMonth Create(TropicaliaDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
     /// from the specified month components.
     /// <para>This method does NOT validate its parameter.</para>
@@ -1394,14 +1405,14 @@ public partial struct TropicaliaYear // IMonthSegment
     /// specified month value.
     /// </summary>
     [Pure]
-    public static TropicaliaYear FromMonth(TropicaliaMonth month) => UnsafeCreate(month.Year);
+    public static TropicaliaYear Create(TropicaliaMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the
     /// specified date value.
     /// </summary>
     [Pure]
-    public static TropicaliaYear FromDate(TropicaliaDate date) => UnsafeCreate(date.Year);
+    public static TropicaliaYear Create(TropicaliaDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the

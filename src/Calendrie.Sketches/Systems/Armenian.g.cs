@@ -162,6 +162,17 @@ public partial struct ArmenianMonth // Preamble
 public partial struct ArmenianMonth // Factories
 {
     /// <summary>
+    /// Creates a new instance of the <see cref="ArmenianMonth"/> struct from the
+    /// specified date value.
+    /// </summary>
+    [Pure]
+    public static ArmenianMonth Create(ArmenianDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="ArmenianMonth"/> struct
     /// from the specified month components.
     /// <para>This method does NOT validate its parameter.</para>
@@ -645,14 +656,14 @@ public partial struct ArmenianYear // IMonthSegment
     /// specified month value.
     /// </summary>
     [Pure]
-    public static ArmenianYear FromMonth(ArmenianMonth month) => UnsafeCreate(month.Year);
+    public static ArmenianYear Create(ArmenianMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the
     /// specified date value.
     /// </summary>
     [Pure]
-    public static ArmenianYear FromDate(ArmenianDate date) => UnsafeCreate(date.Year);
+    public static ArmenianYear Create(ArmenianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the

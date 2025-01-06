@@ -137,14 +137,14 @@ public partial struct CivilYear // Factories
     /// specified month value.
     /// </summary>
     [Pure]
-    public static CivilYear FromMonth(CivilMonth month) => UnsafeCreate(month.Year);
+    public static CivilYear Create(CivilMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="CivilYear"/> struct from the
     /// specified date value.
     /// </summary>
     [Pure]
-    public static CivilYear FromDate(CivilDate date) => UnsafeCreate(date.Year);
+    public static CivilYear Create(CivilDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="CivilYear"/> struct from the
@@ -173,17 +173,17 @@ public partial struct CivilYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsCount = CivilCalendar.MonthsInYear;
+    public const int MonthCount = CivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
     public CivilMonth MinMonth => CivilMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public CivilMonth MaxMonth => CivilMonth.UnsafeCreate(Year, MonthsCount);
+    public CivilMonth MaxMonth => CivilMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    int IMonthSegment<CivilMonth>.CountMonths() => MonthsCount;
+    int IMonthSegment<CivilMonth>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
@@ -196,7 +196,7 @@ public partial struct CivilYear // IMonthSegment
         int startOfYear = CivilMonth.CountMonthsSinceEpoch(Year, 1);
 
         return from monthsSinceEpoch
-               in Enumerable.Range(startOfYear, MonthsCount)
+               in Enumerable.Range(startOfYear, MonthCount)
                select new CivilMonth(monthsSinceEpoch);
     }
 

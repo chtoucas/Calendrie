@@ -909,6 +909,17 @@ public partial struct PlainJulianMonth // Preamble
 public partial struct PlainJulianMonth // Factories
 {
     /// <summary>
+    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct from the
+    /// specified date value.
+    /// </summary>
+    [Pure]
+    public static PlainJulianMonth Create(PlainJulianDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
     /// from the specified month components.
     /// <para>This method does NOT validate its parameter.</para>
@@ -1392,14 +1403,14 @@ public partial struct PlainJulianYear // IMonthSegment
     /// specified month value.
     /// </summary>
     [Pure]
-    public static PlainJulianYear FromMonth(PlainJulianMonth month) => UnsafeCreate(month.Year);
+    public static PlainJulianYear Create(PlainJulianMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianYear"/> struct from the
     /// specified date value.
     /// </summary>
     [Pure]
-    public static PlainJulianYear FromDate(PlainJulianDate date) => UnsafeCreate(date.Year);
+    public static PlainJulianYear Create(PlainJulianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianYear"/> struct from the
