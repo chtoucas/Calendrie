@@ -1692,10 +1692,9 @@ public partial struct TropicaliaYear // Math ops
     [Pure]
     public TropicaliaYear PlusYears(int years)
     {
-        int yearsSinceEpoch = checked(YearsSinceEpoch + years);
-        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        // NB: we know that (yearsSinceEpoch + 1) does NOT overflow.
-        return UnsafeCreate(yearsSinceEpoch + 1);
+        uint yearsSinceEpoch = unchecked((uint)checked(YearsSinceEpoch + years));
+        if (yearsSinceEpoch > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new TropicaliaYear(yearsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1707,7 +1706,7 @@ public partial struct TropicaliaYear // Math ops
     public TropicaliaYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return UnsafeCreate(Year + 1);
+        return new TropicaliaYear(_yearsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1719,7 +1718,7 @@ public partial struct TropicaliaYear // Math ops
     public TropicaliaYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return UnsafeCreate(Year - 1);
+        return new TropicaliaYear(_yearsSinceEpoch - 1);
     }
 }
 

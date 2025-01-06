@@ -416,10 +416,9 @@ public partial struct CivilYear // Math ops
     [Pure]
     public CivilYear PlusYears(int years)
     {
-        int yearsSinceEpoch = checked(YearsSinceEpoch + years);
-        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        // NB: we know that (yearsSinceEpoch + 1) does NOT overflow.
-        return UnsafeCreate(yearsSinceEpoch + 1);
+        uint yearsSinceEpoch = unchecked((uint)checked(YearsSinceEpoch + years));
+        if (yearsSinceEpoch > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new CivilYear(yearsSinceEpoch);
     }
 
     /// <summary>
@@ -431,7 +430,7 @@ public partial struct CivilYear // Math ops
     public CivilYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return UnsafeCreate(Year + 1);
+        return new CivilYear(_yearsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -443,6 +442,6 @@ public partial struct CivilYear // Math ops
     public CivilYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return UnsafeCreate(Year - 1);
+        return new CivilYear(_yearsSinceEpoch - 1);
     }
 }

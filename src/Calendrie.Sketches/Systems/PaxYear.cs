@@ -431,10 +431,9 @@ public partial struct PaxYear // Math ops
     [Pure]
     public PaxYear PlusYears(int years)
     {
-        int yearsSinceEpoch = checked(YearsSinceEpoch + years);
-        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        // NB: we know that (yearsSinceEpoch + 1) does NOT overflow.
-        return UnsafeCreate(yearsSinceEpoch + 1);
+        uint yearsSinceEpoch = unchecked((uint)checked(YearsSinceEpoch + years));
+        if (yearsSinceEpoch > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new PaxYear(yearsSinceEpoch);
     }
 
     /// <summary>
@@ -446,7 +445,7 @@ public partial struct PaxYear // Math ops
     public PaxYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return UnsafeCreate(Year + 1);
+        return new PaxYear(_yearsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -458,6 +457,6 @@ public partial struct PaxYear // Math ops
     public PaxYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return UnsafeCreate(Year - 1);
+        return new PaxYear(_yearsSinceEpoch - 1);
     }
 }
