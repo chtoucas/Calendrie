@@ -1039,7 +1039,14 @@ public partial struct TropicaliaMonth // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<TropicaliaDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<TropicaliaDate> ToRange()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(new TropicaliaDate(startOfMonth), daysInMonth);
+    }
 
     [Pure]
     Range<TropicaliaDate> IDaySegment<TropicaliaDate>.ToDayRange() => ToRange();
@@ -1454,7 +1461,7 @@ public partial struct TropicaliaYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<TropicaliaMonth> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
+    public Range<TropicaliaMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1522,7 +1529,14 @@ public partial struct TropicaliaYear // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<TropicaliaDate> ToDayRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<TropicaliaDate> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
+        int daysInYear = sch.CountDaysInYear(y);
+        return Range.StartingAt(new TropicaliaDate(startOfYear), daysInYear);
+    }
 
     /// <inheritdoc />
     [Pure]

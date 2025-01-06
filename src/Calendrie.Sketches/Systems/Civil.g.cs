@@ -381,7 +381,7 @@ public partial struct CivilYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<CivilMonth> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
+    public Range<CivilMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]

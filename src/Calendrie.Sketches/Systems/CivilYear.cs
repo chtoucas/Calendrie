@@ -7,8 +7,6 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
-// REVIEW(code): optimize ToRange...(). Idem with CivilMonth.
-
 public partial struct CivilYear // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
@@ -145,7 +143,11 @@ public partial struct CivilYear // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<CivilDate> ToDayRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<CivilDate> ToDayRange()
+    {
+        int daysInYear = GregorianFormulae.CountDaysInYear(Year);
+        return Range.StartingAt(MinDay, daysInYear);
+    }
 
     /// <inheritdoc />
     [Pure]

@@ -575,7 +575,14 @@ public partial struct <#= Prefix #>Month // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<<#= Prefix #>Date> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<<#= Prefix #>Date> ToRange()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(new <#= Prefix #>Date(startOfMonth), daysInMonth);
+    }
 
     [Pure]
     Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
@@ -640,8 +647,8 @@ public partial struct <#= Prefix #>Month // IDaySegment
         {
             var sch = Calendar.Schema;
             sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, 1);
-            return new <#= Prefix #>Date(daysSinceEpoch);
+            int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, 1);
+            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -653,8 +660,8 @@ public partial struct <#= Prefix #>Month // IDaySegment
             var sch = Calendar.Schema;
             sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
             int d = sch.CountDaysInMonth(y, m);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-            return new <#= Prefix #>Date(daysSinceEpoch);
+            int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, d);
+            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -675,7 +682,14 @@ public partial struct <#= Prefix #>Month // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<<#= Prefix #>Date> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<<#= Prefix #>Date> ToRange()
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(new <#= Prefix #>Date(startOfMonth), daysInMonth);
+    }
 
     [Pure]
     Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
@@ -691,9 +705,9 @@ public partial struct <#= Prefix #>Month // IDaySegment
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
 
-        return from daysSinceEpoch
+        return from <#= DaysSinceEpochVar #>
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new <#= Prefix #>Date(daysSinceEpoch);
+               select new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
     [Pure]

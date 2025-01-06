@@ -175,7 +175,12 @@ public partial struct CivilMonth // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<CivilDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<CivilDate> ToRange()
+    {
+        var (y, m) = this;
+        int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
+        return Range.StartingAt(MinDay, daysInMonth);
+    }
 
     [Pure]
     Range<CivilDate> IDaySegment<CivilDate>.ToDayRange() => ToRange();

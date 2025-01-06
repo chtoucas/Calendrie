@@ -1031,7 +1031,14 @@ public partial struct PlainCivilMonth // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PlainCivilDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<PlainCivilDate> ToRange()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(new PlainCivilDate(startOfMonth), daysInMonth);
+    }
 
     [Pure]
     Range<PlainCivilDate> IDaySegment<PlainCivilDate>.ToDayRange() => ToRange();
@@ -1446,7 +1453,7 @@ public partial struct PlainCivilYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<PlainCivilMonth> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
+    public Range<PlainCivilMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1514,7 +1521,14 @@ public partial struct PlainCivilYear // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PlainCivilDate> ToDayRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<PlainCivilDate> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
+        int daysInYear = sch.CountDaysInYear(y);
+        return Range.StartingAt(new PlainCivilDate(startOfYear), daysInYear);
+    }
 
     /// <inheritdoc />
     [Pure]

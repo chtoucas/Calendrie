@@ -1059,7 +1059,14 @@ public partial struct PaxMonth // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PaxDate> ToRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<PaxDate> ToRange()
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(new PaxDate(startOfMonth), daysInMonth);
+    }
 
     [Pure]
     Range<PaxDate> IDaySegment<PaxDate>.ToDayRange() => ToRange();
@@ -1521,7 +1528,14 @@ public partial struct PaxYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<PaxMonth> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
+    public Range<PaxMonth> ToMonthRange()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountMonthsSinceEpoch(y, 1);
+        int monthsInYear = sch.CountMonthsInYear(y);
+        return Range.StartingAt(new PaxMonth(startOfYear), monthsInYear);
+    }
 
     /// <inheritdoc />
     [Pure]
@@ -1594,7 +1608,14 @@ public partial struct PaxYear // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PaxDate> ToDayRange() => Range.UnsafeCreate(MinDay, MaxDay);
+    public Range<PaxDate> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
+        int daysInYear = sch.CountDaysInYear(y);
+        return Range.StartingAt(new PaxDate(startOfYear), daysInYear);
+    }
 
     /// <inheritdoc />
     [Pure]
