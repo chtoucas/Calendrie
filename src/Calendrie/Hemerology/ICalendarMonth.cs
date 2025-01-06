@@ -5,6 +5,10 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
+// No IAbsoluteMonth or IAffineMonth. A month type is always "affine".
+// Interconversion can only be achieved after converting a month to a range of
+// days.
+
 /// <summary>
 /// Defines a calendar month.
 /// </summary>
