@@ -1081,8 +1081,10 @@ public partial struct PlainJulianMonth // IDaySegment
     public PlainJulianDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
-        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new PlainJulianDate(y, m, dayOfMonth);
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new PlainJulianDate(daysSinceEpoch);
     }
 }
 

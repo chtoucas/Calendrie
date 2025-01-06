@@ -1103,7 +1103,8 @@ public partial struct PaxMonth // IDaySegment
         var sch = Calendar.Schema;
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new PaxDate(y, m, dayOfMonth);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new PaxDate(daysSinceEpoch);
     }
 }
 

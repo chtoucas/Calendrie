@@ -333,8 +333,10 @@ public partial struct ArmenianMonth // IDaySegment
     public ArmenianDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
-        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new ArmenianDate(y, m, dayOfMonth);
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new ArmenianDate(daysSinceEpoch);
     }
 }
 

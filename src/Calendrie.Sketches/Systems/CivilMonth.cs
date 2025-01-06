@@ -321,7 +321,8 @@ public partial struct CivilMonth // IDaySegment
     {
         var (y, m) = this;
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new CivilDate(y, m, dayOfMonth);
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new CivilDate(daysSinceZero);
     }
 }
 

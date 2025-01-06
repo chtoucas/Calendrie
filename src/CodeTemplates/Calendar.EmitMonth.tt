@@ -617,8 +617,10 @@ public partial struct <#= Prefix #>Month // IDaySegment
     public <#= Prefix #>Date GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
-        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new <#= Prefix #>Date(y, m, dayOfMonth);
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 }
 <#+
@@ -719,7 +721,8 @@ public partial struct <#= Prefix #>Month // IDaySegment
         var sch = Calendar.Schema;
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new <#= Prefix #>Date(y, m, dayOfMonth);
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 }
 <#+

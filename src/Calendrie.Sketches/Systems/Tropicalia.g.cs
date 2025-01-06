@@ -1084,8 +1084,10 @@ public partial struct TropicaliaMonth // IDaySegment
     public TropicaliaDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
-        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new TropicaliaDate(y, m, dayOfMonth);
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new TropicaliaDate(daysSinceZero);
     }
 }
 

@@ -1076,8 +1076,10 @@ public partial struct PlainCivilMonth // IDaySegment
     public PlainCivilDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
-        Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        return new PlainCivilDate(y, m, dayOfMonth);
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new PlainCivilDate(daysSinceZero);
     }
 }
 
