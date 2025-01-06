@@ -64,9 +64,9 @@ public partial struct CivilYear // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    internal CivilYear(int year, bool _)
+    private CivilYear(YearsSinceEpoch year0)
     {
-        _year0 = year - 1;
+        _year0 = year0.Value;
     }
 
     /// <summary>
@@ -127,11 +127,43 @@ public partial struct CivilYear // Preamble
     /// </summary>
     [Pure]
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+}
 
+public partial struct CivilYear // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilYear"/> struct from the
+    /// specified month value.
+    /// </summary>
+    [Pure]
+    public static CivilYear FromMonth(CivilMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilYear"/> struct from the
+    /// specified date value.
+    /// </summary>
+    [Pure]
+    public static CivilYear FromDate(CivilDate date) => UnsafeCreate(date.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilYear"/> struct from the
+    /// specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceZero(int y, int m) =>
-        // See RegularSchema.CountMonthsSinceEpoch().
-        MonthsCount * (y - 1) + m - 1;
+    internal static CivilYear UnsafeCreate(int year) => new(new YearsSinceEpoch(year));
+
+    private readonly struct YearsSinceEpoch
+    {
+        private readonly int _value;
+
+        public YearsSinceEpoch(int y)
+        {
+            _value = y - 1;
+        }
+
+        public int Value => _value - 1;
+    }
 }
 
 public partial struct CivilYear // IMonthSegment
@@ -143,25 +175,10 @@ public partial struct CivilYear // IMonthSegment
     public const int MonthsCount = CivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public CivilMonth MinMonth
-    {
-        get
-        {
-            int monthsSinceZero = CountMonthsSinceZero(Year, 1);
-            return new CivilMonth(monthsSinceZero);
-        }
-    }
+    public CivilMonth MinMonth => CivilMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public CivilMonth MaxMonth
-    {
-        get
-        {
-            int y = Year;
-            int monthsSinceZero = CountMonthsSinceZero(y, MonthsCount);
-            return new CivilMonth(monthsSinceZero);
-        }
-    }
+    public CivilMonth MaxMonth => CivilMonth.UnsafeCreate(Year, MonthsCount);
 
     /// <inheritdoc />
     [Pure]
@@ -175,11 +192,11 @@ public partial struct CivilYear // IMonthSegment
     [Pure]
     public IEnumerable<CivilMonth> EnumerateMonths()
     {
-        int startOfYear = CountMonthsSinceZero(Year, 1);
+        int startOfYear = CivilMonth.CountMonthsSinceEpoch(Year, 1);
 
-        return from monthsSinceZero
+        return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthsCount)
-               select new CivilMonth(monthsSinceZero);
+               select new CivilMonth(monthsSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -198,8 +215,7 @@ public partial struct CivilYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
         Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        int monthsSinceZero = CountMonthsSinceZero(y, month);
-        return new CivilMonth(monthsSinceZero);
+        return CivilMonth.UnsafeCreate(y, month);
     }
 }
 
@@ -402,7 +418,7 @@ public partial struct CivilYear // Math ops
         int y0 = checked(_year0 + years);
         if (unchecked((uint)y0) > MaxYear0) ThrowHelpers.ThrowYearOverflow();
         // NB: we know that (y0 + 1) does NOT overflow.
-        return new CivilYear(y0 + 1, true);
+        return UnsafeCreate(y0 + 1);
     }
 
     /// <summary>
@@ -414,7 +430,7 @@ public partial struct CivilYear // Math ops
     public CivilYear NextYear()
     {
         if (_year0 == MaxYear0) ThrowHelpers.ThrowYearOverflow();
-        return new(Year + 1, true);
+        return UnsafeCreate(Year + 1);
     }
 
     /// <summary>
@@ -426,6 +442,6 @@ public partial struct CivilYear // Math ops
     public CivilYear PreviousYear()
     {
         if (_year0 == 0) ThrowHelpers.ThrowYearOverflow();
-        return new(Year - 1, true);
+        return UnsafeCreate(Year - 1);
     }
 }

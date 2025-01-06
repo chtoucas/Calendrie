@@ -287,7 +287,6 @@ public partial struct TropicaliaDate // Factories & conversions
         return new(daysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static TropicaliaDate IUnsafeDateFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
@@ -790,16 +789,16 @@ public readonly partial struct TropicaliaMonth :
 
 public partial struct TropicaliaMonth // Preamble
 {
-    /// <summary>Represents the maximum value of <see cref="_monthsSinceZero"/>.
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
-    private const int MaxMonthsSinceZero = 119_987;
+    private const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch <see cref="DayZero.NewStyle"/>.
-    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceZero"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly int _monthsSinceZero;
+    private readonly int _monthsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct to the
@@ -812,16 +811,16 @@ public partial struct TropicaliaMonth // Preamble
     {
         TropicaliaCalendar.Instance.Scope.ValidateYearMonth(year, month);
 
-        _monthsSinceZero = CountMonthsSinceZero(year, month);
+        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal TropicaliaMonth(int monthsSinceZero)
+    internal TropicaliaMonth(int monthsSinceEpoch)
     {
-        _monthsSinceZero = monthsSinceZero;
+        _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
@@ -836,7 +835,7 @@ public partial struct TropicaliaMonth // Preamble
     /// Gets the latest possible value of a <see cref="TropicaliaMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static TropicaliaMonth MaxValue { get; } = new(MaxMonthsSinceZero);
+    public static TropicaliaMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current month type.
@@ -845,7 +844,7 @@ public partial struct TropicaliaMonth // Preamble
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
 
     /// <inheritdoc />
-    public int MonthsSinceEpoch => _monthsSinceZero;
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -874,7 +873,7 @@ public partial struct TropicaliaMonth // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceZero, TropicaliaCalendar.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, TropicaliaCalendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
@@ -909,12 +908,27 @@ public partial struct TropicaliaMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceZero, TropicaliaCalendar.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceEpoch, TropicaliaCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
+    }
+}
+
+public partial struct TropicaliaMonth // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static TropicaliaMonth UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new(monthsSinceEpoch);
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceZero(int y, int m) =>
+    internal static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         TropicaliaCalendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -1065,15 +1079,15 @@ public partial struct TropicaliaMonth // IEquatable
 {
     /// <inheritdoc />
     public static bool operator ==(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceZero == right._monthsSinceZero;
+        left._monthsSinceEpoch == right._monthsSinceEpoch;
 
     /// <inheritdoc />
     public static bool operator !=(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceZero != right._monthsSinceZero;
+        left._monthsSinceEpoch != right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(TropicaliaMonth other) => _monthsSinceZero == other._monthsSinceZero;
+    public bool Equals(TropicaliaMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -1082,7 +1096,7 @@ public partial struct TropicaliaMonth // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _monthsSinceZero;
+    public override int GetHashCode() => _monthsSinceEpoch;
 }
 
 public partial struct TropicaliaMonth // IComparable
@@ -1092,28 +1106,28 @@ public partial struct TropicaliaMonth // IComparable
     /// earlier than the right one.
     /// </summary>
     public static bool operator <(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceZero < right._monthsSinceZero;
+        left._monthsSinceEpoch < right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
     public static bool operator <=(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceZero <= right._monthsSinceZero;
+        left._monthsSinceEpoch <= right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
     public static bool operator >(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceZero > right._monthsSinceZero;
+        left._monthsSinceEpoch > right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
     public static bool operator >=(TropicaliaMonth left, TropicaliaMonth right) =>
-        left._monthsSinceZero >= right._monthsSinceZero;
+        left._monthsSinceEpoch >= right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -1125,7 +1139,7 @@ public partial struct TropicaliaMonth // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(TropicaliaMonth other) => _monthsSinceZero.CompareTo(other._monthsSinceZero);
+    public int CompareTo(TropicaliaMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -1183,8 +1197,8 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public int CountMonthsSince(TropicaliaMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
-        // the result is at most equal to MaxMonthsSinceZero.
-        _monthsSinceZero - other._monthsSinceZero;
+        // the result is at most equal to MaxMonthsSinceEpoch.
+        _monthsSinceEpoch - other._monthsSinceEpoch;
 
     /// <summary>
     /// Adds a number of months to the current instance, yielding a new month.
@@ -1195,10 +1209,10 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public TropicaliaMonth PlusMonths(int months)
     {
-        int monthsSinceZero = checked(_monthsSinceZero + months);
-        if (unchecked((uint)monthsSinceZero) > MaxMonthsSinceZero)
+        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(monthsSinceZero);
+        return new(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1209,8 +1223,8 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public TropicaliaMonth NextMonth()
     {
-        if (_monthsSinceZero == MaxMonthsSinceZero) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceZero + 1);
+        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1221,8 +1235,8 @@ public partial struct TropicaliaMonth // Standard math ops
     [Pure]
     public TropicaliaMonth PreviousMonth()
     {
-        if (_monthsSinceZero == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_monthsSinceZero - 1);
+        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceEpoch - 1);
     }
 }
 
@@ -1245,8 +1259,8 @@ public partial struct TropicaliaMonth // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceZero = CountMonthsSinceZero(newY, m);
-        return new TropicaliaMonth(monthsSinceZero);
+        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
+        return new TropicaliaMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1376,11 +1390,6 @@ public partial struct TropicaliaYear // Preamble
     /// </summary>
     [Pure]
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceZero(int y, int m) =>
-        // See RegularSchema.CountMonthsSinceEpoch().
-        MonthsCount * (y - 1) + m - 1;
 }
 
 public partial struct TropicaliaYear // IMonthSegment
@@ -1389,31 +1398,17 @@ public partial struct TropicaliaYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsCount = TropicaliaCalendar.MonthsInYear;
+    public const int MonthCount = TropicaliaCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public TropicaliaMonth MinMonth
-    {
-        get
-        {
-            int monthsSinceZero = CountMonthsSinceZero(Year, 1);
-            return new TropicaliaMonth(monthsSinceZero);
-        }
-    }
+    public TropicaliaMonth MinMonth => TropicaliaMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public TropicaliaMonth MaxMonth
-    {
-        get
-        {
-            int monthsSinceZero = CountMonthsSinceZero(Year, MonthsCount);
-            return new TropicaliaMonth(monthsSinceZero);
-        }
-    }
+    public TropicaliaMonth MaxMonth => TropicaliaMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    int IMonthSegment<TropicaliaMonth>.CountMonths() => MonthsCount;
+    int IMonthSegment<TropicaliaMonth>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
@@ -1423,11 +1418,11 @@ public partial struct TropicaliaYear // IMonthSegment
     [Pure]
     public IEnumerable<TropicaliaMonth> EnumerateMonths()
     {
-        int startOfYear = CountMonthsSinceZero(Year, 1);
+        int startOfYear = TropicaliaMonth.CountMonthsSinceEpoch(Year, 1);
 
-        return from monthsSinceZero
-               in Enumerable.Range(startOfYear, MonthsCount)
-               select new TropicaliaMonth(monthsSinceZero);
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select new TropicaliaMonth(monthsSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -1446,8 +1441,7 @@ public partial struct TropicaliaYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
         Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        int monthsSinceZero = CountMonthsSinceZero(y, month);
-        return new TropicaliaMonth(monthsSinceZero);
+        return TropicaliaMonth.UnsafeCreate(y, month);
     }
 }
 

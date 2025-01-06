@@ -13,6 +13,7 @@ public partial class CalendarTemplate
         if (IsRegular)
         {
             EmitMonthPreamble();
+            EmitMonthFactories();
             EmitMonthCounting();
             EmitMonthAdjustment();
             EmitMonthDaySegment();
@@ -60,16 +61,16 @@ public readonly partial struct <#= Prefix #>Month :
 #>
 public partial struct <#= Prefix #>Month // Preamble
 {
-    /// <summary>Represents the maximum value of <see cref="_<#= MonthsSinceEpochVar #>"/>.
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para></summary>
-    private const int <#= MaxMonthsSinceEpoch #> = <#= MaxMonthsSinceEpochValue #>;
+    private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch <see cref="<#= Epoch #>"/>.
-    /// <para>This field is in the range from 0 to <see cref="<#= MaxMonthsSinceEpoch #>"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly int _<#= MonthsSinceEpochVar #>;
+    private readonly int _monthsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Month"/> struct to the
@@ -82,16 +83,16 @@ public partial struct <#= Prefix #>Month // Preamble
     {
         <#= Prefix #>Calendar.Instance.Scope.ValidateYearMonth(year, month);
 
-        _<#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(year, month);
+        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Month"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal <#= Prefix #>Month(int <#= MonthsSinceEpochVar #>)
+    internal <#= Prefix #>Month(int monthsSinceEpoch)
     {
-        _<#= MonthsSinceEpochVar #> = <#= MonthsSinceEpochVar #>;
+        _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
@@ -106,7 +107,7 @@ public partial struct <#= Prefix #>Month // Preamble
     /// Gets the latest possible value of a <see cref="<#= Prefix #>Month"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static <#= Prefix #>Month MaxValue { get; } = new(<#= MaxMonthsSinceEpoch #>);
+    public static <#= Prefix #>Month MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current month type.
@@ -115,7 +116,7 @@ public partial struct <#= Prefix #>Month // Preamble
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
 
     /// <inheritdoc />
-    public int MonthsSinceEpoch => _<#= MonthsSinceEpochVar #>;
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -144,7 +145,7 @@ public partial struct <#= Prefix #>Month // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_<#= MonthsSinceEpochVar #>, <#= Prefix #>Calendar.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, <#= Prefix #>Calendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
@@ -181,17 +182,38 @@ public partial struct <#= Prefix #>Month // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_<#= MonthsSinceEpochVar #>, <#= Prefix #>Calendar.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceEpoch, <#= Prefix #>Calendar.MonthsInYear, out int m0);
         month = 1 + m0;
+    }
+}
+<#+
+    } // T4: End of EmitMonthPreamble()
+
+    protected virtual void EmitMonthFactories()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Month // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static <#= Prefix #>Month UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new(monthsSinceEpoch);
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int Count<#= MonthsSinceEpochPC #>(int y, int m) =>
+    internal static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         <#= Prefix #>Calendar.MonthsInYear * (y - 1) + m - 1;
 }
 <#+
-    } // T4: End of EmitMonthPreamble()
+    } // T4: End of EmitMonthFactories()
 
     protected virtual void EmitMonthCounting()
     {
@@ -361,15 +383,15 @@ public partial struct <#= Prefix #>Month // IEquatable
 {
     /// <inheritdoc />
     public static bool operator ==(<#= Prefix #>Month left, <#= Prefix #>Month right) =>
-        left._<#= MonthsSinceEpochVar #> == right._<#= MonthsSinceEpochVar #>;
+        left._monthsSinceEpoch == right._monthsSinceEpoch;
 
     /// <inheritdoc />
     public static bool operator !=(<#= Prefix #>Month left, <#= Prefix #>Month right) =>
-        left._<#= MonthsSinceEpochVar #> != right._<#= MonthsSinceEpochVar #>;
+        left._monthsSinceEpoch != right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(<#= Prefix #>Month other) => _<#= MonthsSinceEpochVar #> == other._<#= MonthsSinceEpochVar #>;
+    public bool Equals(<#= Prefix #>Month other) => _monthsSinceEpoch == other._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -378,7 +400,7 @@ public partial struct <#= Prefix #>Month // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _<#= MonthsSinceEpochVar #>;
+    public override int GetHashCode() => _monthsSinceEpoch;
 }
 <#+
     } // T4: End of EmitMonthEquatable()
@@ -394,28 +416,28 @@ public partial struct <#= Prefix #>Month // IComparable
     /// earlier than the right one.
     /// </summary>
     public static bool operator <(<#= Prefix #>Month left, <#= Prefix #>Month right) =>
-        left._<#= MonthsSinceEpochVar #> < right._<#= MonthsSinceEpochVar #>;
+        left._monthsSinceEpoch < right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
     public static bool operator <=(<#= Prefix #>Month left, <#= Prefix #>Month right) =>
-        left._<#= MonthsSinceEpochVar #> <= right._<#= MonthsSinceEpochVar #>;
+        left._monthsSinceEpoch <= right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
     public static bool operator >(<#= Prefix #>Month left, <#= Prefix #>Month right) =>
-        left._<#= MonthsSinceEpochVar #> > right._<#= MonthsSinceEpochVar #>;
+        left._monthsSinceEpoch > right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
     public static bool operator >=(<#= Prefix #>Month left, <#= Prefix #>Month right) =>
-        left._<#= MonthsSinceEpochVar #> >= right._<#= MonthsSinceEpochVar #>;
+        left._monthsSinceEpoch >= right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -427,7 +449,7 @@ public partial struct <#= Prefix #>Month // IComparable
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(<#= Prefix #>Month other) => _<#= MonthsSinceEpochVar #>.CompareTo(other._<#= MonthsSinceEpochVar #>);
+    public int CompareTo(<#= Prefix #>Month other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
@@ -491,8 +513,8 @@ public partial struct <#= Prefix #>Month // Standard math ops
     [Pure]
     public int CountMonthsSince(<#= Prefix #>Month other) =>
         // No need to use a checked context here. Indeed, the absolute value of
-        // the result is at most equal to <#= MaxMonthsSinceEpoch #>.
-        _<#= MonthsSinceEpochVar #> - other._<#= MonthsSinceEpochVar #>;
+        // the result is at most equal to MaxMonthsSinceEpoch.
+        _monthsSinceEpoch - other._monthsSinceEpoch;
 
     /// <summary>
     /// Adds a number of months to the current instance, yielding a new month.
@@ -503,10 +525,10 @@ public partial struct <#= Prefix #>Month // Standard math ops
     [Pure]
     public <#= Prefix #>Month PlusMonths(int months)
     {
-        int <#= MonthsSinceEpochVar #> = checked(_<#= MonthsSinceEpochVar #> + months);
-        if (unchecked((uint)<#= MonthsSinceEpochVar #>) > <#= MaxMonthsSinceEpoch #>)
+        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new(<#= MonthsSinceEpochVar #>);
+        return new(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -517,8 +539,8 @@ public partial struct <#= Prefix #>Month // Standard math ops
     [Pure]
     public <#= Prefix #>Month NextMonth()
     {
-        if (_<#= MonthsSinceEpochVar #> == <#= MaxMonthsSinceEpoch #>) ThrowHelpers.ThrowMonthOverflow();
-        return new(_<#= MonthsSinceEpochVar #> + 1);
+        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -529,8 +551,8 @@ public partial struct <#= Prefix #>Month // Standard math ops
     [Pure]
     public <#= Prefix #>Month PreviousMonth()
     {
-        if (_<#= MonthsSinceEpochVar #> == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new(_<#= MonthsSinceEpochVar #> - 1);
+        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new(_monthsSinceEpoch - 1);
     }
 }
 <#+
@@ -559,8 +581,8 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int <#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(newY, m);
-        return new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
+        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
+        return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
     /// <summary>

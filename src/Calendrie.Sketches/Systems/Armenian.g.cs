@@ -162,9 +162,24 @@ public partial struct ArmenianMonth // Preamble
         year = 1 + MathZ.Divide(_monthsSinceEpoch, ArmenianCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
+}
+
+public partial struct ArmenianMonth // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="ArmenianMonth"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static ArmenianMonth UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new(monthsSinceEpoch);
+    }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
+    internal static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         ArmenianCalendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -626,11 +641,6 @@ public partial struct ArmenianYear // Preamble
     /// </summary>
     [Pure]
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
-        // See RegularSchema.CountMonthsSinceEpoch().
-        MonthsCount * (y - 1) + m - 1;
 }
 
 public partial struct ArmenianYear // IMonthSegment
@@ -639,31 +649,17 @@ public partial struct ArmenianYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsCount = ArmenianCalendar.MonthsInYear;
+    public const int MonthCount = ArmenianCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public ArmenianMonth MinMonth
-    {
-        get
-        {
-            int monthsSinceEpoch = CountMonthsSinceEpoch(Year, 1);
-            return new ArmenianMonth(monthsSinceEpoch);
-        }
-    }
+    public ArmenianMonth MinMonth => ArmenianMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public ArmenianMonth MaxMonth
-    {
-        get
-        {
-            int monthsSinceEpoch = CountMonthsSinceEpoch(Year, MonthsCount);
-            return new ArmenianMonth(monthsSinceEpoch);
-        }
-    }
+    public ArmenianMonth MaxMonth => ArmenianMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    int IMonthSegment<ArmenianMonth>.CountMonths() => MonthsCount;
+    int IMonthSegment<ArmenianMonth>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
@@ -673,10 +669,10 @@ public partial struct ArmenianYear // IMonthSegment
     [Pure]
     public IEnumerable<ArmenianMonth> EnumerateMonths()
     {
-        int startOfYear = CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = ArmenianMonth.CountMonthsSinceEpoch(Year, 1);
 
         return from monthsSinceEpoch
-               in Enumerable.Range(startOfYear, MonthsCount)
+               in Enumerable.Range(startOfYear, MonthCount)
                select new ArmenianMonth(monthsSinceEpoch);
     }
 
@@ -696,8 +692,7 @@ public partial struct ArmenianYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
         Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        int monthsSinceEpoch = CountMonthsSinceEpoch(y, month);
-        return new ArmenianMonth(monthsSinceEpoch);
+        return ArmenianMonth.UnsafeCreate(y, month);
     }
 }
 

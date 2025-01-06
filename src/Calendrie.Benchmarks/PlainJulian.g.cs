@@ -284,7 +284,6 @@ public partial struct PlainJulianDate // Factories & conversions
         return new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <inheritdoc />
     [Pure]
     static PlainJulianDate IUnsafeDateFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
@@ -910,9 +909,24 @@ public partial struct PlainJulianMonth // Preamble
         year = 1 + MathZ.Divide(_monthsSinceEpoch, PlainJulianCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
+}
+
+public partial struct PlainJulianMonth // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static PlainJulianMonth UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new(monthsSinceEpoch);
+    }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
+    internal static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         PlainJulianCalendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -1374,11 +1388,6 @@ public partial struct PlainJulianYear // Preamble
     /// </summary>
     [Pure]
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int CountMonthsSinceEpoch(int y, int m) =>
-        // See RegularSchema.CountMonthsSinceEpoch().
-        MonthsCount * (y - 1) + m - 1;
 }
 
 public partial struct PlainJulianYear // IMonthSegment
@@ -1387,31 +1396,17 @@ public partial struct PlainJulianYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthsCount = PlainJulianCalendar.MonthsInYear;
+    public const int MonthCount = PlainJulianCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public PlainJulianMonth MinMonth
-    {
-        get
-        {
-            int monthsSinceEpoch = CountMonthsSinceEpoch(Year, 1);
-            return new PlainJulianMonth(monthsSinceEpoch);
-        }
-    }
+    public PlainJulianMonth MinMonth => PlainJulianMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public PlainJulianMonth MaxMonth
-    {
-        get
-        {
-            int monthsSinceEpoch = CountMonthsSinceEpoch(Year, MonthsCount);
-            return new PlainJulianMonth(monthsSinceEpoch);
-        }
-    }
+    public PlainJulianMonth MaxMonth => PlainJulianMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    int IMonthSegment<PlainJulianMonth>.CountMonths() => MonthsCount;
+    int IMonthSegment<PlainJulianMonth>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
@@ -1421,10 +1416,10 @@ public partial struct PlainJulianYear // IMonthSegment
     [Pure]
     public IEnumerable<PlainJulianMonth> EnumerateMonths()
     {
-        int startOfYear = CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = PlainJulianMonth.CountMonthsSinceEpoch(Year, 1);
 
         return from monthsSinceEpoch
-               in Enumerable.Range(startOfYear, MonthsCount)
+               in Enumerable.Range(startOfYear, MonthCount)
                select new PlainJulianMonth(monthsSinceEpoch);
     }
 
@@ -1444,8 +1439,7 @@ public partial struct PlainJulianYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
         Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        int monthsSinceEpoch = CountMonthsSinceEpoch(y, month);
-        return new PlainJulianMonth(monthsSinceEpoch);
+        return PlainJulianMonth.UnsafeCreate(y, month);
     }
 }
 

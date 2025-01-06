@@ -290,7 +290,6 @@ public partial struct <#= Prefix #>Date // Factories & conversions
         return new(<#= DaysSinceEpochVar #>);
     }
 
-    /// <inheritdoc />
     [Pure]
     static <#= Prefix #>Date IUnsafeDateFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
         new(<#= DaysSinceEpochVar #>);

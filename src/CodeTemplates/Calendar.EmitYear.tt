@@ -153,11 +153,6 @@ public partial struct <#= Prefix #>Year // Preamble
     /// </summary>
     [Pure]
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
-
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int Count<#= MonthsSinceEpochPC #>(int y, int m) =>
-        // See RegularSchema.CountMonthsSinceEpoch().
-        MonthsCount * (y - 1) + m - 1;
 }
 <#+
     } // T4: End of EmitYearPreamble()
@@ -172,31 +167,17 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to <#= MonthsInYear #>.</para>
     /// </summary>
-    public const int MonthsCount = <#= Prefix #>Calendar.MonthsInYear;
+    public const int MonthCount = <#= Prefix #>Calendar.MonthsInYear;
 
     /// <inheritdoc />
-    public <#= Prefix #>Month MinMonth
-    {
-        get
-        {
-            int <#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(Year, 1);
-            return new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
-        }
-    }
+    public <#= Prefix #>Month MinMonth => <#= Prefix #>Month.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public <#= Prefix #>Month MaxMonth
-    {
-        get
-        {
-            int <#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(Year, MonthsCount);
-            return new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
-        }
-    }
+    public <#= Prefix #>Month MaxMonth => <#= Prefix #>Month.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    int IMonthSegment<<#= Prefix #>Month>.CountMonths() => MonthsCount;
+    int IMonthSegment<<#= Prefix #>Month>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
@@ -206,11 +187,11 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     [Pure]
     public IEnumerable<<#= Prefix #>Month> EnumerateMonths()
     {
-        int startOfYear = Count<#= MonthsSinceEpochPC #>(Year, 1);
+        int startOfYear = <#= Prefix #>Month.CountMonthsSinceEpoch(Year, 1);
 
-        return from <#= MonthsSinceEpochVar #>
-               in Enumerable.Range(startOfYear, MonthsCount)
-               select new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -229,8 +210,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         int y = Year;
         Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        int <#= MonthsSinceEpochVar #> = Count<#= MonthsSinceEpochPC #>(y, month);
-        return new <#= Prefix #>Month(<#= MonthsSinceEpochVar #>);
+        return <#= Prefix #>Month.UnsafeCreate(y, month);
     }
 }
 <#+
