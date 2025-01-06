@@ -125,7 +125,7 @@ public partial struct ArmenianMonth // Preamble
     /// of the era.</para>
     /// </summary>
     public int Year =>
-        // NB: both dividend and divisor >= 0.
+        // NB: both dividend and divisor are >= 0.
         1 + _monthsSinceEpoch / ArmenianCalendar.MonthsInYear;
 
     /// <inheritdoc />
@@ -156,7 +156,7 @@ public partial struct ArmenianMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        // NB: both dividend and divisor >= 0.
+        // NB: both dividend and divisor are >= 0.
         year = 1 + MathN.Divide(_monthsSinceEpoch, ArmenianCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
@@ -562,11 +562,12 @@ public partial struct ArmenianYear // Preamble
     private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
 
     /// <summary>
-    /// Represents the count of consecutive years since the epoch <see cref="DayZero.Armenian"/>.
+    /// Represents the count of consecutive years since the epoch
+    /// <see cref="DayZero.Armenian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly int _yearsSinceEpoch;
+    private readonly uint _yearsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianYear"/> struct to the
@@ -579,7 +580,7 @@ public partial struct ArmenianYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = year - 1;
+        _yearsSinceEpoch = unchecked((uint)(year - 1));
     }
 
     /// <summary>
@@ -587,9 +588,9 @@ public partial struct ArmenianYear // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private ArmenianYear(YearsSinceEpoch yearsSinceEpoch)
+    private ArmenianYear(uint yearsSinceEpoch)
     {
-        _yearsSinceEpoch = yearsSinceEpoch.Value;
+        _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
@@ -639,10 +640,16 @@ public partial struct ArmenianYear // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => _yearsSinceEpoch + 1;
+    public int Year => YearsSinceEpoch + 1;
 
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+
+    /// <summary>
+    /// Gets the count of consecutive years since the epoch
+    /// <see cref="DayZero.Armenian"/>.
+    /// </summary>
+    private int YearsSinceEpoch => unchecked((int)_yearsSinceEpoch);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -674,19 +681,7 @@ public partial struct ArmenianYear // IMonthSegment
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static ArmenianYear UnsafeCreate(int year) => new(new YearsSinceEpoch(year));
-
-    private readonly struct YearsSinceEpoch
-    {
-        private readonly int _value;
-
-        public YearsSinceEpoch(int y)
-        {
-            _value = y - 1;
-        }
-
-        public int Value => _value - 1;
-    }
+    internal static ArmenianYear UnsafeCreate(int year) => new(unchecked((uint)(year - 1)));
 }
 
 public partial struct ArmenianYear // IMonthSegment
@@ -836,7 +831,7 @@ public partial struct ArmenianYear // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _yearsSinceEpoch;
+    public override int GetHashCode() => YearsSinceEpoch;
 }
 
 public partial struct ArmenianYear // IComparable
@@ -937,7 +932,7 @@ public partial struct ArmenianYear // Math ops
     public int CountYearsSince(ArmenianYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        _yearsSinceEpoch - other._yearsSinceEpoch;
+        YearsSinceEpoch - other.YearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
@@ -948,7 +943,7 @@ public partial struct ArmenianYear // Math ops
     [Pure]
     public ArmenianYear PlusYears(int years)
     {
-        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        int yearsSinceEpoch = checked(YearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
         // NB: we know that (yearsSinceEpoch + 1) does NOT overflow.
         return UnsafeCreate(yearsSinceEpoch + 1);

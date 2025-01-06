@@ -44,7 +44,7 @@ public partial struct CivilYear // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly int _yearsSinceEpoch;
+    private readonly uint _yearsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilYear"/> struct to the
@@ -57,7 +57,7 @@ public partial struct CivilYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = year - 1;
+        _yearsSinceEpoch = unchecked((uint)(year - 1));
     }
 
     /// <summary>
@@ -65,9 +65,9 @@ public partial struct CivilYear // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private CivilYear(YearsSinceEpoch yearsSinceEpoch)
+    private CivilYear(uint yearsSinceEpoch)
     {
-        _yearsSinceEpoch = yearsSinceEpoch.Value;
+        _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
@@ -117,10 +117,16 @@ public partial struct CivilYear // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => _yearsSinceEpoch + 1;
+    public int Year => YearsSinceEpoch + 1;
 
     /// <inheritdoc />
     public bool IsLeap => GregorianFormulae.IsLeapYear(Year);
+
+    /// <summary>
+    /// Gets the count of consecutive years since the epoch
+    /// <see cref="DayZero.NewStyle"/>.
+    /// </summary>
+    private int YearsSinceEpoch => unchecked((int)_yearsSinceEpoch);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -152,19 +158,7 @@ public partial struct CivilYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static CivilYear UnsafeCreate(int year) => new(new YearsSinceEpoch(year));
-
-    private readonly struct YearsSinceEpoch
-    {
-        private readonly int _value;
-
-        public YearsSinceEpoch(int y)
-        {
-            _value = y - 1;
-        }
-
-        public int Value => _value - 1;
-    }
+    internal static CivilYear UnsafeCreate(int year) => new(unchecked((uint)(year - 1)));
 }
 
 public partial struct CivilYear // IMonthSegment
@@ -293,10 +287,12 @@ public partial struct CivilYear // IDaySegment
 public partial struct CivilYear // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(CivilYear left, CivilYear right) => left._yearsSinceEpoch == right._yearsSinceEpoch;
+    public static bool operator ==(CivilYear left, CivilYear right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(CivilYear left, CivilYear right) => left._yearsSinceEpoch != right._yearsSinceEpoch;
+    public static bool operator !=(CivilYear left, CivilYear right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -309,7 +305,7 @@ public partial struct CivilYear // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _yearsSinceEpoch;
+    public override int GetHashCode() => YearsSinceEpoch;
 }
 
 public partial struct CivilYear // IComparable
@@ -318,25 +314,29 @@ public partial struct CivilYear // IComparable
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(CivilYear left, CivilYear right) => left._yearsSinceEpoch < right._yearsSinceEpoch;
+    public static bool operator <(CivilYear left, CivilYear right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(CivilYear left, CivilYear right) => left._yearsSinceEpoch <= right._yearsSinceEpoch;
+    public static bool operator <=(CivilYear left, CivilYear right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(CivilYear left, CivilYear right) => left._yearsSinceEpoch > right._yearsSinceEpoch;
+    public static bool operator >(CivilYear left, CivilYear right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(CivilYear left, CivilYear right) => left._yearsSinceEpoch >= right._yearsSinceEpoch;
+    public static bool operator >=(CivilYear left, CivilYear right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -405,7 +405,7 @@ public partial struct CivilYear // Math ops
     public int CountYearsSince(CivilYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        _yearsSinceEpoch - other._yearsSinceEpoch;
+        YearsSinceEpoch - YearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
@@ -416,7 +416,7 @@ public partial struct CivilYear // Math ops
     [Pure]
     public CivilYear PlusYears(int years)
     {
-        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        int yearsSinceEpoch = checked(YearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
         // NB: we know that (yearsSinceEpoch + 1) does NOT overflow.
         return UnsafeCreate(yearsSinceEpoch + 1);

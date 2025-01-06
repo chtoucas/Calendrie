@@ -40,7 +40,7 @@ public partial struct PaxYear // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly int _yearsSinceEpoch;
+    private readonly uint _yearsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PaxYear"/> struct to the
@@ -53,7 +53,7 @@ public partial struct PaxYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = year - 1;
+        _yearsSinceEpoch = unchecked((uint)(year - 1));
     }
 
     /// <summary>
@@ -61,9 +61,9 @@ public partial struct PaxYear // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private PaxYear(YearsSinceEpoch yearsSinceEpoch)
+    private PaxYear(uint yearsSinceEpoch)
     {
-        _yearsSinceEpoch = yearsSinceEpoch.Value;
+        _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
@@ -113,10 +113,16 @@ public partial struct PaxYear // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => _yearsSinceEpoch + 1;
+    public int Year => YearsSinceEpoch + 1;
 
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+
+    /// <summary>
+    /// Gets the count of consecutive years since the epoch
+    /// <see cref="DayZero.SundayBeforeGregorian"/>.
+    /// </summary>
+    private int YearsSinceEpoch => unchecked((int)_yearsSinceEpoch);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -148,19 +154,7 @@ public partial struct PaxYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PaxYear UnsafeCreate(int year) => new(new YearsSinceEpoch(year));
-
-    private readonly struct YearsSinceEpoch
-    {
-        private readonly int _value;
-
-        public YearsSinceEpoch(int y)
-        {
-            _value = y - 1;
-        }
-
-        public int Value => _value - 1;
-    }
+    internal static PaxYear UnsafeCreate(int year) => new(unchecked((uint)(year - 1)));
 }
 
 public partial struct PaxYear // IMonthSegment
@@ -308,10 +302,12 @@ public partial struct PaxYear // IDaySegment
 public partial struct PaxYear // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PaxYear left, PaxYear right) => left._yearsSinceEpoch == right._yearsSinceEpoch;
+    public static bool operator ==(PaxYear left, PaxYear right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(PaxYear left, PaxYear right) => left._yearsSinceEpoch != right._yearsSinceEpoch;
+    public static bool operator !=(PaxYear left, PaxYear right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -324,7 +320,7 @@ public partial struct PaxYear // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => _yearsSinceEpoch;
+    public override int GetHashCode() => YearsSinceEpoch;
 }
 
 public partial struct PaxYear // IComparable
@@ -333,25 +329,29 @@ public partial struct PaxYear // IComparable
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(PaxYear left, PaxYear right) => left._yearsSinceEpoch < right._yearsSinceEpoch;
+    public static bool operator <(PaxYear left, PaxYear right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(PaxYear left, PaxYear right) => left._yearsSinceEpoch <= right._yearsSinceEpoch;
+    public static bool operator <=(PaxYear left, PaxYear right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(PaxYear left, PaxYear right) => left._yearsSinceEpoch > right._yearsSinceEpoch;
+    public static bool operator >(PaxYear left, PaxYear right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(PaxYear left, PaxYear right) => left._yearsSinceEpoch >= right._yearsSinceEpoch;
+    public static bool operator >=(PaxYear left, PaxYear right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
@@ -420,7 +420,7 @@ public partial struct PaxYear // Math ops
     public int CountYearsSince(PaxYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        _yearsSinceEpoch - other._yearsSinceEpoch;
+        YearsSinceEpoch - other.YearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
@@ -431,7 +431,7 @@ public partial struct PaxYear // Math ops
     [Pure]
     public PaxYear PlusYears(int years)
     {
-        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        int yearsSinceEpoch = checked(YearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
         // NB: we know that (yearsSinceEpoch + 1) does NOT overflow.
         return UnsafeCreate(yearsSinceEpoch + 1);
