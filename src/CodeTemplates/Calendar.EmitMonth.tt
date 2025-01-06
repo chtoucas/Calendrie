@@ -190,7 +190,7 @@ public partial struct <#= Prefix #>Month // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct from the
-    /// specified date value.
+    /// specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
     [Pure]
     public static <#= Prefix #>Month Create(<#= Prefix #>Date date)

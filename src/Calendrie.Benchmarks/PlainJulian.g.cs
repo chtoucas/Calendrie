@@ -910,7 +910,7 @@ public partial struct PlainJulianMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct from the
-    /// specified date value.
+    /// specified <see cref="PlainJulianDate"/> value.
     /// </summary>
     [Pure]
     public static PlainJulianMonth Create(PlainJulianDate date)
@@ -1400,14 +1400,14 @@ public partial struct PlainJulianYear // IMonthSegment
 {
     /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianYear"/> struct from the
-    /// specified month value.
+    /// specified <see cref="PlainJulianMonth"/> value.
     /// </summary>
     [Pure]
     public static PlainJulianYear Create(PlainJulianMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianYear"/> struct from the
-    /// specified date value.
+    /// specified <see cref="PlainJulianDate"/> value.
     /// </summary>
     [Pure]
     public static PlainJulianYear Create(PlainJulianDate date) => UnsafeCreate(date.Year);

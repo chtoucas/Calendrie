@@ -912,7 +912,7 @@ public partial struct TropicaliaMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct from the
-    /// specified date value.
+    /// specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
     public static TropicaliaMonth Create(TropicaliaDate date)
@@ -1402,14 +1402,14 @@ public partial struct TropicaliaYear // IMonthSegment
 {
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the
-    /// specified month value.
+    /// specified <see cref="TropicaliaMonth"/> value.
     /// </summary>
     [Pure]
     public static TropicaliaYear Create(TropicaliaMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the
-    /// specified date value.
+    /// specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
     public static TropicaliaYear Create(TropicaliaDate date) => UnsafeCreate(date.Year);

@@ -134,14 +134,14 @@ public partial struct CivilYear // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="CivilYear"/> struct from the
-    /// specified month value.
+    /// specified <see cref="CivilMonth"/> value.
     /// </summary>
     [Pure]
     public static CivilYear Create(CivilMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="CivilYear"/> struct from the
-    /// specified date value.
+    /// specified <see cref="CivilDate"/> value.
     /// </summary>
     [Pure]
     public static CivilYear Create(CivilDate date) => UnsafeCreate(date.Year);

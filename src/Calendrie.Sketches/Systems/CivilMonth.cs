@@ -152,7 +152,7 @@ public partial struct CivilMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="CivilMonth"/> struct from the
-    /// specified date value.
+    /// specified <see cref="CivilDate"/> value.
     /// </summary>
     [Pure]
     public static CivilMonth Create(CivilDate date)

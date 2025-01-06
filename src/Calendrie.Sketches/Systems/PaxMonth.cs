@@ -164,10 +164,10 @@ public partial struct PaxMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="PaxMonth"/> struct from the
-    /// specified date value.
+    /// specified <see cref="PaxDate"/> value.
     /// </summary>
     [Pure]
-    public static PaxMonth Create(CivilDate date)
+    public static PaxMonth Create(PaxDate date)
     {
         var (y, m, _) = date;
         int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(y, m);

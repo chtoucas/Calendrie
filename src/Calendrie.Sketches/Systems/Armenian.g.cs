@@ -163,7 +163,7 @@ public partial struct ArmenianMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="ArmenianMonth"/> struct from the
-    /// specified date value.
+    /// specified <see cref="ArmenianDate"/> value.
     /// </summary>
     [Pure]
     public static ArmenianMonth Create(ArmenianDate date)
@@ -653,14 +653,14 @@ public partial struct ArmenianYear // IMonthSegment
 {
     /// <summary>
     /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the
-    /// specified month value.
+    /// specified <see cref="ArmenianMonth"/> value.
     /// </summary>
     [Pure]
     public static ArmenianYear Create(ArmenianMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
     /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the
-    /// specified date value.
+    /// specified <see cref="ArmenianDate"/> value.
     /// </summary>
     [Pure]
     public static ArmenianYear Create(ArmenianDate date) => UnsafeCreate(date.Year);
