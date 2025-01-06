@@ -53,9 +53,6 @@ public partial class CalendarTemplate : CSharpTemplate
     public string MaxDaysSinceEpoch { get; set; } = "MaxDaysSinceEpoch";
     public string MaxDaysSinceEpochValue { get; }
 
-    public string MonthsSinceEpochPC { get; set; } = "MonthsSinceEpoch";
-    public string MonthsSinceEpochVar { get; set; } = "monthsSinceEpoch";
-    public string MaxMonthsSinceEpoch { get; set; } = "MaxMonthsSinceEpoch";
     // Fake "integer" value, therefore if not set the T4 output will be invalid.
     public string MaxMonthsSinceEpochValue { get; set; } = "XXX";
 

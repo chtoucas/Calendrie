@@ -802,7 +802,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     /// <summary>Represents the maximum value for the number of consecutive
     /// months from the epoch.
     /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para></summary>
-    private const int <#= MaxMonthsSinceEpoch #> = <#= MaxMonthsSinceEpochValue #>;
+    private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
 
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
@@ -919,11 +919,11 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     private static <#= Prefix #>Date AddMonths(<#= SchemaClass #> sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int <#= MonthsSinceEpochVar #> = checked(sch.CountMonthsSinceEpoch(y, m) + months);
-        if (unchecked((uint)<#= MonthsSinceEpochVar #>) > <#= MaxMonthsSinceEpoch #>)
+        int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 
-        sch.GetMonthParts(<#= MonthsSinceEpochVar #>, out int newY, out int newM);
+        sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
 
         // NB: AdditionRule.Truncate.
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));

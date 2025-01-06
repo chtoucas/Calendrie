@@ -12,10 +12,6 @@ public class ZeroCalendarTemplate : CalendarTemplate
         DaysSinceEpochPC = "DaysSinceZero";
         DaysSinceEpochVar = "daysSinceZero";
         MaxDaysSinceEpoch = "MaxDaysSinceZero";
-
-        MonthsSinceEpochPC = "MonthsSinceZero";
-        MonthsSinceEpochVar = "monthsSinceZero";
-        MaxMonthsSinceEpoch = "MaxMonthsSinceZero";
     }
 
     protected override void EmitClock()
