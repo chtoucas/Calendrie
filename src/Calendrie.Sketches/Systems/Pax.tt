@@ -3,5 +3,7 @@
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
 <#= new CalendarTemplate(this, "PaxSchema", "DayZero.SundayBeforeGregorian", "-1", "3_652_060", regular: false)
     {
+        EnableMonth = true,
+        EnableYear = true,
         MaxMonthsSinceEpochValue = "131_761"
     }.Execute() #>

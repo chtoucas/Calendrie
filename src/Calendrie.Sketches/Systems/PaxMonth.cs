@@ -3,27 +3,9 @@
 
 namespace Calendrie.Systems;
 
-using System.Numerics;
-
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
-
-/// <summary>
-/// Represents the Pax month.
-/// <para><i>All</i> months within the range [1..9999] of years are supported.
-/// </para>
-/// <para><see cref="PaxMonth"/> is an immutable struct.</para>
-/// </summary>
-public readonly partial struct PaxMonth :
-    ICalendarMonth<PaxMonth>,
-    ICalendarBound<PaxCalendar>,
-    // A month viewed as a finite sequence of days
-    IDaySegment<PaxDate>,
-    ISetMembership<PaxDate>,
-    // Arithmetic
-    ISubtractionOperators<PaxMonth, PaxMonth, int>
-{ }
 
 public partial struct PaxMonth // Preamble
 {

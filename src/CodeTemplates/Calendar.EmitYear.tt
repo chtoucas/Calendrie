@@ -14,10 +14,11 @@ public partial class CalendarTemplate
 
         if (IsRegular)
         {
-            EmitYearMonthSegment();
+            EmitYearMonthSegmentRegular();
         }
         else
         {
+            EmitYearMonthSegmentNonRegular();
         }
 
         EmitYearDaySegment();
@@ -196,7 +197,7 @@ public partial struct <#= Prefix #>Year // Factories
 <#+
     } // T4: End of EmitYearFactories()
 
-    protected virtual void EmitYearMonthSegment()
+    protected virtual void EmitYearMonthSegmentRegular()
     {
         WriteLine();
 #>
@@ -253,7 +254,82 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     }
 }
 <#+
-    } // T4: End of EmitYearMonthSegment()
+    } // T4: End of EmitYearMonthSegmentRegular()
+
+    protected virtual void EmitYearMonthSegmentNonRegular()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Year // IMonthSegment
+{
+    /// <inheritdoc />
+    public <#= Prefix #>Month MinMonth
+    {
+        get
+        {
+            int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
+            return new <#= Prefix #>Month(monthsSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    public <#= Prefix #>Month MaxMonth
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int y = Year;
+            int m = sch.CountMonthsInYear(y);
+            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
+            return new <#= Prefix #>Month(monthsSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<<#= Prefix #>Month> ToMonthRange() => Range.UnsafeCreate(MinMonth, MaxMonth);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<<#= Prefix #>Month> EnumerateMonths()
+    {
+        var sch = Calendar.Schema;
+        int y = Year;
+        int startOfYear = sch.CountMonthsSinceEpoch(y, 1);
+        int monthsInYear = sch.CountMonthsInYear(y);
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, monthsInYear)
+               select new <#= Prefix #>Month(monthsSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(<#= Prefix #>Month month) => month.Year == Year;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public <#= Prefix #>Month GetMonthOfYear(int month)
+    {
+        var chr = Calendar;
+        // We already know that "y" is valid, we only need to check "month".
+        int y = Year;
+        chr.Scope.PreValidator.ValidateMonth(y, month);
+        int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(y, month);
+        return new <#= Prefix #>Month(monthsSinceEpoch);
+    }
+}
+<#+
+    } // T4: End of EmitYearMonthSegmentNonRegular()
 
     protected virtual void EmitYearDaySegment()
     {
