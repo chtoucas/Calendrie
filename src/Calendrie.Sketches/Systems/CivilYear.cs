@@ -405,7 +405,7 @@ public partial struct CivilYear // Math ops
     public int CountYearsSince(CivilYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        YearsSinceEpoch - YearsSinceEpoch;
+        YearsSinceEpoch - other.YearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
