@@ -165,8 +165,8 @@ public interface IAbsoluteDate
     DayNumber DayNumber { get; }
 
     /// <summary>
-    /// Gets the count of days since the epoch of the calendar to which belongs
-    /// the current instance.
+    /// Gets the count of consecutive days since the epoch of the calendar to
+    /// which belongs the current instance.
     /// </summary>
     int DaysSinceEpoch { get; }
 

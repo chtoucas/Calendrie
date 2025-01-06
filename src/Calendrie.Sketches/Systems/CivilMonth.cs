@@ -33,8 +33,7 @@ public partial struct CivilMonth // Preamble
     private const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
-    /// Represents the count of consecutive months since the epoch
-    /// <see cref="DayZero.NewStyle"/>
+    /// Represents the count of consecutive months since the Gregorian epoch.
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>
@@ -83,7 +82,9 @@ public partial struct CivilMonth // Preamble
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the count of consecutive months since the Gregorian epoch.
+    /// </summary>
     public int MonthsSinceEpoch => _monthsSinceEpoch;
 
     /// <summary>

@@ -81,7 +81,7 @@ public partial struct CivilDate // Preamble
     public DayNumber DayNumber => new(_daysSinceZero);
 
     /// <summary>
-    /// Gets the count of days since the Gregorian epoch.
+    /// Gets the count of consecutive days since the Gregorian epoch.
     /// </summary>
     public int DaysSinceZero => _daysSinceZero;
 

@@ -10,7 +10,7 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-// REVIEW(code): optimize ToRange...(). Interfaces. Idem with CivilMonth.
+// REVIEW(code): optimize ToRange...(). Idem with CivilMonth.
 
 /// <summary>
 /// Represents the Civil year.
@@ -38,8 +38,7 @@ public partial struct CivilYear // Preamble
     private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
 
     /// <summary>
-    /// Represents the count of consecutive years since the epoch
-    /// <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive years since the Gregorian epoch.
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
@@ -89,7 +88,9 @@ public partial struct CivilYear // Preamble
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the count of consecutive years since the Gregorian epoch.
+    /// </summary>
     public int YearsSinceEpoch => _yearsSinceEpoch;
 
     /// <summary>

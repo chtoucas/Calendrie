@@ -15,8 +15,8 @@ using System.Numerics;
 public interface ICalendarMonth
 {
     /// <summary>
-    /// Gets the count of months since the epoch of the calendar to which belongs
-    /// the current instance.
+    /// Gets the count of consecutive months since the epoch of the calendar to
+    /// which belongs the current instance.
     /// </summary>
     int MonthsSinceEpoch { get; }
 

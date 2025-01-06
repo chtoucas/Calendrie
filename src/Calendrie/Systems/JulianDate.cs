@@ -101,7 +101,7 @@ public partial struct JulianDate // Preamble
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
     /// <summary>
-    /// Gets the count of days since the Julian epoch.
+    /// Gets the count of consecutive days since the Julian epoch.
     /// </summary>
     public int DaysSinceEpoch => _daysSinceEpoch;
 
