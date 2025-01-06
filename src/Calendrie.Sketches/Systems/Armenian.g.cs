@@ -737,9 +737,8 @@ public partial struct ArmenianYear // IMonthSegment
     public ArmenianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        int y = Year;
-        Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        return ArmenianMonth.UnsafeCreate(y, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        return ArmenianMonth.UnsafeCreate(Year, month);
     }
 }
 
@@ -761,9 +760,8 @@ public partial struct ArmenianYear // IDaySegment
         get
         {
             var sch = Calendar.Schema;
-            int y = Year;
-            int doy = sch.CountDaysInYear(y);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, doy);
+            int doy = sch.CountDaysInYear(Year);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
             return new ArmenianDate(daysSinceEpoch);
         }
     }
@@ -781,9 +779,8 @@ public partial struct ArmenianYear // IDaySegment
     public Range<ArmenianDate> ToDayRange()
     {
         var sch = Calendar.Schema;
-        int y = Year;
-        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
-        int daysInYear = sch.CountDaysInYear(y);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
         return Range.StartingAt(new ArmenianDate(startOfYear), daysInYear);
     }
 
@@ -792,9 +789,8 @@ public partial struct ArmenianYear // IDaySegment
     public IEnumerable<ArmenianDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
-        int y = Year;
-        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
-        int daysInYear = sch.CountDaysInYear(y);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
@@ -815,10 +811,9 @@ public partial struct ArmenianYear // IDaySegment
     public ArmenianDate GetDayOfYear(int dayOfYear)
     {
         var chr = Calendar;
-        int y = Year;
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        chr.Scope.PreValidator.ValidateDayOfYear(y, dayOfYear);
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, dayOfYear);
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
         return new ArmenianDate(daysSinceEpoch);
     }
 }

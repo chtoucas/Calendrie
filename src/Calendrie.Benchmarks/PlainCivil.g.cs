@@ -1480,9 +1480,8 @@ public partial struct PlainCivilYear // IMonthSegment
     public PlainCivilMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        int y = Year;
-        Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        return PlainCivilMonth.UnsafeCreate(y, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        return PlainCivilMonth.UnsafeCreate(Year, month);
     }
 }
 
@@ -1504,9 +1503,8 @@ public partial struct PlainCivilYear // IDaySegment
         get
         {
             var sch = Calendar.Schema;
-            int y = Year;
-            int doy = sch.CountDaysInYear(y);
-            int daysSinceZero = sch.CountDaysSinceEpoch(y, doy);
+            int doy = sch.CountDaysInYear(Year);
+            int daysSinceZero = sch.CountDaysSinceEpoch(Year, doy);
             return new PlainCivilDate(daysSinceZero);
         }
     }
@@ -1524,9 +1522,8 @@ public partial struct PlainCivilYear // IDaySegment
     public Range<PlainCivilDate> ToDayRange()
     {
         var sch = Calendar.Schema;
-        int y = Year;
-        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
-        int daysInYear = sch.CountDaysInYear(y);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
         return Range.StartingAt(new PlainCivilDate(startOfYear), daysInYear);
     }
 
@@ -1535,9 +1532,8 @@ public partial struct PlainCivilYear // IDaySegment
     public IEnumerable<PlainCivilDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
-        int y = Year;
-        int startOfYear = sch.CountDaysSinceEpoch(y, 1);
-        int daysInYear = sch.CountDaysInYear(y);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
@@ -1558,10 +1554,9 @@ public partial struct PlainCivilYear // IDaySegment
     public PlainCivilDate GetDayOfYear(int dayOfYear)
     {
         var chr = Calendar;
-        int y = Year;
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        chr.Scope.PreValidator.ValidateDayOfYear(y, dayOfYear);
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, dayOfYear);
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
         return new PlainCivilDate(daysSinceZero);
     }
 }

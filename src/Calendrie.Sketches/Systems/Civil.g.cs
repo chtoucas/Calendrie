@@ -408,9 +408,8 @@ public partial struct CivilYear // IMonthSegment
     public CivilMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        int y = Year;
-        Calendar.Scope.PreValidator.ValidateMonth(y, month);
-        return CivilMonth.UnsafeCreate(y, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        return CivilMonth.UnsafeCreate(Year, month);
     }
 }
 
