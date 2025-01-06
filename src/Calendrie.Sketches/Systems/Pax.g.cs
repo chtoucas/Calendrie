@@ -1272,6 +1272,67 @@ public partial struct PaxMonth // Standard math ops
 
 public partial struct PaxMonth // Non-standard math ops
 {
+    /// <summary>
+    /// Adds a number of years to the year field of this month instance, yielding
+    /// a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported months.</exception>
+    [Pure]
+    public PaxMonth PlusYears(int years)
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        return AddYears(sch, y, m, years);
+    }
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(PaxMonth other)
+    {
+        var sch = Calendar.Schema;
+        sch.GetMonthParts(other._monthsSinceEpoch, out int y0, out int m0);
+
+        // Exact difference between two calendar years.
+        int years = Year - y0;
+
+        // To avoid extracting y0 twice, we inline:
+        // > var newStart = other.PlusYears(years);
+        var newStart = AddYears(sch, y0, m0, years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    private static PaxMonth AddYears(PaxSchema sch, int y, int m, int years)
+    {
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
+
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
+        return new PaxMonth(monthsSinceEpoch);
+    }
 }
 
 #endregion
