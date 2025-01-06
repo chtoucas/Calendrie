@@ -21,6 +21,8 @@ internal sealed class StandardScope : CalendarScope
     // WARNING: if you change these values, verify that it's compatible with
     // XXXDate.ToString() which expects years to be > 0 and < 10_000, ie
     // length <= 4 and no negative values.
+    // More importantly, all year types for non-proleptic calendars expect the
+    // year value to fit into an unsigned short.
 
     /// <summary>
     /// Represents the earliest supported year.

@@ -36,8 +36,7 @@ public partial struct JulianDate // Preamble
     private const int MaxDaysSinceEpoch = 365_249_633;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch
-    /// <see cref="DayZero.OldStyle"/>.
+    /// Represents the count of consecutive days since the Julian epoch.
     /// <para>This field is in the range from <see cref="MinDaysSinceEpoch"/>
     /// to <see cref="MaxDaysSinceEpoch"/>.</para>
     /// </summary>
@@ -101,7 +100,9 @@ public partial struct JulianDate // Preamble
     /// <inheritdoc />
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the count of days since the Julian epoch.
+    /// </summary>
     public int DaysSinceEpoch => _daysSinceEpoch;
 
     /// <summary>

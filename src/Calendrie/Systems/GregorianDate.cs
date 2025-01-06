@@ -34,8 +34,7 @@ public partial struct GregorianDate // Preamble
     private const int MaxDaysSinceZero = 365_242_133;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch
-    /// <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive days since the Gregorian epoch.
     /// <para>This field is in the range from <see cref="MinDaysSinceZero"/>
     /// to <see cref="MaxDaysSinceZero"/>.</para>
     /// </summary>
