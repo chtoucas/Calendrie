@@ -946,7 +946,7 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
         var (y, m) = this;
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
         return UnsafeCreate(newY, m);
@@ -1021,7 +1021,7 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
         // NB: AdditionRule.Truncate.

@@ -11,7 +11,7 @@ public partial struct CivilYear // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to 9998.</para></summary>
-    private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
+    private const int MaxYearsSinceEpoch = CivilScope.MaxYear - 1;
 
     /// <summary>
     /// Represents the count of consecutive years since the Gregorian epoch.
@@ -28,7 +28,7 @@ public partial struct CivilYear // Preamble
     /// outside the range of years supported values.</exception>
     public CivilYear(int year)
     {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+        if (year < CivilScope.MinYear || year > CivilScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
         _yearsSinceEpoch = (ushort)(year - 1);

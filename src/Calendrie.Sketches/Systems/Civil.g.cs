@@ -298,7 +298,7 @@ public partial struct CivilMonth // Non-standard math ops
         var (y, m) = this;
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+        if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
         return UnsafeCreate(newY, m);
