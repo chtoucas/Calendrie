@@ -11,6 +11,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 // REVIEW(code): optimize ToRange...(). Idem with CivilMonth.
+// CivilMonth: unsafe factory methods for math ops.
+// CivilYear: MaxValue ctor
 
 /// <summary>
 /// Represents the Civil year.
