@@ -948,8 +948,9 @@ public partial struct PaxMonth // Factories
     [Pure]
     public static PaxMonth Create(PaxDate date)
     {
-        var (y, m, _) = date;
-        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(y, m);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
         return new PaxMonth(monthsSinceEpoch);
     }
 }
