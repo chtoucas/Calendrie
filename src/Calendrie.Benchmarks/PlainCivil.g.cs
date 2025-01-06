@@ -932,7 +932,7 @@ public partial struct PlainCivilMonth // Factories
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static int CountMonthsSinceEpoch(int y, int m) =>
+    private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         PlainCivilCalendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -975,8 +975,7 @@ public partial struct PlainCivilMonth // Adjustments
         int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
         Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newYear, m);
-        return new PlainCivilMonth(monthsSinceEpoch);
+        return UnsafeCreate(newYear, m);
     }
 
     /// <inheritdoc />
@@ -986,8 +985,7 @@ public partial struct PlainCivilMonth // Adjustments
         int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
         Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        int monthsSinceEpoch = CountMonthsSinceEpoch(y, newMonth);
-        return new PlainCivilMonth(monthsSinceEpoch);
+        return UnsafeCreate(y, newMonth);
     }
 }
 
@@ -1267,8 +1265,7 @@ public partial struct PlainCivilMonth // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
-        return new PlainCivilMonth(monthsSinceEpoch);
+        return UnsafeCreate(newY, m);
     }
 
     /// <summary>
@@ -1455,7 +1452,7 @@ public partial struct PlainCivilYear // IMonthSegment
     [Pure]
     public IEnumerable<PlainCivilMonth> EnumerateMonths()
     {
-        int startOfYear = PlainCivilMonth.CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = PlainCivilMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)

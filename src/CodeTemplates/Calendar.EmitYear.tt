@@ -224,7 +224,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     [Pure]
     public IEnumerable<<#= Prefix #>Month> EnumerateMonths()
     {
-        int startOfYear = <#= Prefix #>Month.CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = <#= Prefix #>Month.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)

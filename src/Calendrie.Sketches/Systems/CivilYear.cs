@@ -185,7 +185,7 @@ public partial struct CivilYear // IMonthSegment
     [Pure]
     public IEnumerable<CivilMonth> EnumerateMonths()
     {
-        int startOfYear = CivilMonth.CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = CivilMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)

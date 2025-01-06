@@ -993,10 +993,11 @@ public partial struct PaxMonth // Adjustments
     public PaxMonth WithYear(int newYear)
     {
         var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out _, out int m);
+        var sch = chr.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out _, out int m);
         // Even when "newYear" is valid, we must re-check "m".
         chr.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(newYear, m);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newYear, m);
         return new PaxMonth(monthsSinceEpoch);
     }
 
@@ -1005,10 +1006,11 @@ public partial struct PaxMonth // Adjustments
     public PaxMonth WithMonth(int newMonth)
     {
         var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out _);
+        var sch = chr.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out _);
         // We already know that "y" is valid, we only need to check "newMonth".
         chr.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(y, newMonth);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, newMonth);
         return new PaxMonth(monthsSinceEpoch);
     }
 }

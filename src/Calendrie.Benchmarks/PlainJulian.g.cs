@@ -937,7 +937,7 @@ public partial struct PlainJulianMonth // Factories
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static int CountMonthsSinceEpoch(int y, int m) =>
+    private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         PlainJulianCalendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -980,8 +980,7 @@ public partial struct PlainJulianMonth // Adjustments
         int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
         Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newYear, m);
-        return new PlainJulianMonth(monthsSinceEpoch);
+        return UnsafeCreate(newYear, m);
     }
 
     /// <inheritdoc />
@@ -991,8 +990,7 @@ public partial struct PlainJulianMonth // Adjustments
         int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
         Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        int monthsSinceEpoch = CountMonthsSinceEpoch(y, newMonth);
-        return new PlainJulianMonth(monthsSinceEpoch);
+        return UnsafeCreate(y, newMonth);
     }
 }
 
@@ -1272,8 +1270,7 @@ public partial struct PlainJulianMonth // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
-        return new PlainJulianMonth(monthsSinceEpoch);
+        return UnsafeCreate(newY, m);
     }
 
     /// <summary>
@@ -1460,7 +1457,7 @@ public partial struct PlainJulianYear // IMonthSegment
     [Pure]
     public IEnumerable<PlainJulianMonth> EnumerateMonths()
     {
-        int startOfYear = PlainJulianMonth.CountMonthsSinceEpoch(Year, 1);
+        int startOfYear = PlainJulianMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)

@@ -364,7 +364,7 @@ public partial struct <#= Prefix #>Month // Factories
     }
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static int CountMonthsSinceEpoch(int y, int m) =>
+    private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         <#= Prefix #>Calendar.MonthsInYear * (y - 1) + m - 1;
 }
@@ -478,8 +478,7 @@ public partial struct <#= Prefix #>Month // Adjustments
         int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
         Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newYear, m);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
+        return UnsafeCreate(newYear, m);
     }
 
     /// <inheritdoc />
@@ -489,8 +488,7 @@ public partial struct <#= Prefix #>Month // Adjustments
         int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
         Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        int monthsSinceEpoch = CountMonthsSinceEpoch(y, newMonth);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
+        return UnsafeCreate(y, newMonth);
     }
 }
 <#+
@@ -507,10 +505,11 @@ public partial struct <#= Prefix #>Month // Adjustments
     public <#= Prefix #>Month WithYear(int newYear)
     {
         var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out _, out int m);
+        var sch = chr.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out _, out int m);
         // Even when "newYear" is valid, we must re-check "m".
         chr.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(newYear, m);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newYear, m);
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
@@ -519,10 +518,11 @@ public partial struct <#= Prefix #>Month // Adjustments
     public <#= Prefix #>Month WithMonth(int newMonth)
     {
         var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out _);
+        var sch = chr.Schema;
+        sch.GetMonthParts(_monthsSinceEpoch, out int y, out _);
         // We already know that "y" is valid, we only need to check "newMonth".
         chr.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(y, newMonth);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, newMonth);
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 }
@@ -935,8 +935,7 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        int monthsSinceEpoch = CountMonthsSinceEpoch(newY, m);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
+        return UnsafeCreate(newY, m);
     }
 
     /// <summary>
