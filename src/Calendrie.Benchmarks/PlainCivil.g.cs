@@ -97,8 +97,7 @@ public partial struct PlainCivilDate // Preamble
     private const int MaxDaysSinceZero = 3_652_058;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch
-    /// <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive days since the Gregorian epoch.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceZero"/>.
     /// </para>
     /// </summary>
@@ -165,7 +164,9 @@ public partial struct PlainCivilDate // Preamble
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 
-    /// <summary>Gets the count of days since the Gregorian epoch.</summary>
+    /// <summary>
+    /// Gets the count of days since the Gregorian epoch.
+    /// </summary>
     public int DaysSinceZero => _daysSinceZero;
 
     int IAbsoluteDate.DaysSinceEpoch => _daysSinceZero;
@@ -1310,7 +1311,7 @@ public partial struct PlainCivilYear // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly uint _yearsSinceEpoch;
+    private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct to the
@@ -1323,7 +1324,7 @@ public partial struct PlainCivilYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = unchecked((uint)(year - 1));
+        _yearsSinceEpoch = unchecked((ushort)(year - 1));
     }
 
     /// <summary>
@@ -1331,7 +1332,7 @@ public partial struct PlainCivilYear // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private PlainCivilYear(uint yearsSinceEpoch)
+    private PlainCivilYear(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
@@ -1355,6 +1356,9 @@ public partial struct PlainCivilYear // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PlainCivilCalendar Calendar => PlainCivilCalendar.Instance;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -1383,16 +1387,10 @@ public partial struct PlainCivilYear // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => YearsSinceEpoch + 1;
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
-
-    /// <summary>
-    /// Gets the count of consecutive years since the epoch
-    /// <see cref="DayZero.NewStyle"/>.
-    /// </summary>
-    private int YearsSinceEpoch => unchecked((int)_yearsSinceEpoch);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -1424,7 +1422,7 @@ public partial struct PlainCivilYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PlainCivilYear UnsafeCreate(int year) => new(unchecked((uint)(year - 1)));
+    internal static PlainCivilYear UnsafeCreate(int year) => new(unchecked((ushort)(year - 1)));
 }
 
 public partial struct PlainCivilYear // IMonthSegment
@@ -1574,7 +1572,7 @@ public partial struct PlainCivilYear // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => YearsSinceEpoch;
+    public override int GetHashCode() => _yearsSinceEpoch;
 }
 
 public partial struct PlainCivilYear // IComparable
@@ -1675,7 +1673,7 @@ public partial struct PlainCivilYear // Math ops
     public int CountYearsSince(PlainCivilYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        YearsSinceEpoch - other.YearsSinceEpoch;
+        _yearsSinceEpoch - other._yearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
@@ -1686,9 +1684,9 @@ public partial struct PlainCivilYear // Math ops
     [Pure]
     public PlainCivilYear PlusYears(int years)
     {
-        uint yearsSinceEpoch = unchecked((uint)checked(YearsSinceEpoch + years));
-        if (yearsSinceEpoch > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear(yearsSinceEpoch + 1);
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new PlainCivilYear(unchecked((ushort)yearsSinceEpoch));
     }
 
     /// <summary>
@@ -1700,7 +1698,7 @@ public partial struct PlainCivilYear // Math ops
     public PlainCivilYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear(_yearsSinceEpoch + 1);
+        return new PlainCivilYear(unchecked((ushort)(_yearsSinceEpoch + 1)));
     }
 
     /// <summary>
@@ -1712,7 +1710,7 @@ public partial struct PlainCivilYear // Math ops
     public PlainCivilYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear(_yearsSinceEpoch - 1);
+        return new PlainCivilYear(unchecked((ushort)(_yearsSinceEpoch - 1)));
     }
 }
 

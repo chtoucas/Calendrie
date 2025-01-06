@@ -85,8 +85,7 @@ public partial struct <#= Prefix #>Date // Preamble
     private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch
-    /// <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive days since the Gregorian epoch.
     /// <para>This field is in the range from 0 to <see cref="<#= MaxDaysSinceEpoch #>"/>.
     /// </para>
     /// </summary>
@@ -153,7 +152,9 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <inheritdoc />
     public DayNumber DayNumber => new(_<#= DaysSinceEpochVar #>);
 
-    /// <summary>Gets the count of days since the Gregorian epoch.</summary>
+    /// <summary>
+    /// Gets the count of days since the Gregorian epoch.
+    /// </summary>
     public int DaysSinceZero => _<#= DaysSinceEpochVar #>;
 
     int IAbsoluteDate.DaysSinceEpoch => _<#= DaysSinceEpochVar #>;

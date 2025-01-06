@@ -15,6 +15,12 @@ using System.Numerics;
 public interface ICalendarYear
 {
     /// <summary>
+    /// Gets the count of months since the epoch of the calendar to which belongs
+    /// the current instance.
+    /// </summary>
+    int YearsSinceEpoch { get; }
+
+    /// <summary>
     /// Gets the century of the era.
     /// </summary>
     /// <remarks>

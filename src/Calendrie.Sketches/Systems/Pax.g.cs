@@ -1309,7 +1309,7 @@ public partial struct PaxYear // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly uint _yearsSinceEpoch;
+    private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PaxYear"/> struct to the
@@ -1322,7 +1322,7 @@ public partial struct PaxYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = unchecked((uint)(year - 1));
+        _yearsSinceEpoch = unchecked((ushort)(year - 1));
     }
 
     /// <summary>
@@ -1330,7 +1330,7 @@ public partial struct PaxYear // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private PaxYear(uint yearsSinceEpoch)
+    private PaxYear(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
@@ -1354,6 +1354,9 @@ public partial struct PaxYear // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxCalendar Calendar => PaxCalendar.Instance;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -1382,16 +1385,10 @@ public partial struct PaxYear // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => YearsSinceEpoch + 1;
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
-
-    /// <summary>
-    /// Gets the count of consecutive years since the epoch
-    /// <see cref="DayZero.SundayBeforeGregorian"/>.
-    /// </summary>
-    private int YearsSinceEpoch => unchecked((int)_yearsSinceEpoch);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -1423,7 +1420,7 @@ public partial struct PaxYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PaxYear UnsafeCreate(int year) => new(unchecked((uint)(year - 1)));
+    internal static PaxYear UnsafeCreate(int year) => new(unchecked((ushort)(year - 1)));
 }
 
 public partial struct PaxYear // IMonthSegment
@@ -1589,7 +1586,7 @@ public partial struct PaxYear // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => YearsSinceEpoch;
+    public override int GetHashCode() => _yearsSinceEpoch;
 }
 
 public partial struct PaxYear // IComparable
@@ -1690,7 +1687,7 @@ public partial struct PaxYear // Math ops
     public int CountYearsSince(PaxYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        YearsSinceEpoch - other.YearsSinceEpoch;
+        _yearsSinceEpoch - other._yearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
@@ -1701,9 +1698,9 @@ public partial struct PaxYear // Math ops
     [Pure]
     public PaxYear PlusYears(int years)
     {
-        uint yearsSinceEpoch = unchecked((uint)checked(YearsSinceEpoch + years));
-        if (yearsSinceEpoch > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PaxYear(yearsSinceEpoch + 1);
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new PaxYear(unchecked((ushort)yearsSinceEpoch));
     }
 
     /// <summary>
@@ -1715,7 +1712,7 @@ public partial struct PaxYear // Math ops
     public PaxYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PaxYear(_yearsSinceEpoch + 1);
+        return new PaxYear(unchecked((ushort)(_yearsSinceEpoch + 1)));
     }
 
     /// <summary>
@@ -1727,7 +1724,7 @@ public partial struct PaxYear // Math ops
     public PaxYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new PaxYear(_yearsSinceEpoch - 1);
+        return new PaxYear(unchecked((ushort)(_yearsSinceEpoch - 1)));
     }
 }
 

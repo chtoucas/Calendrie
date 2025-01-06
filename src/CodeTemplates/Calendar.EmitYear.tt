@@ -72,7 +72,7 @@ public partial struct <#= Prefix #>Year // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly uint _yearsSinceEpoch;
+    private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Year"/> struct to the
@@ -85,7 +85,7 @@ public partial struct <#= Prefix #>Year // Preamble
         if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = unchecked((uint)(year - 1));
+        _yearsSinceEpoch = unchecked((ushort)(year - 1));
     }
 
     /// <summary>
@@ -93,7 +93,7 @@ public partial struct <#= Prefix #>Year // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private <#= Prefix #>Year(uint yearsSinceEpoch)
+    private <#= Prefix #>Year(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
@@ -117,6 +117,9 @@ public partial struct <#= Prefix #>Year // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -145,16 +148,10 @@ public partial struct <#= Prefix #>Year // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => YearsSinceEpoch + 1;
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
-
-    /// <summary>
-    /// Gets the count of consecutive years since the epoch
-    /// <see cref="<#= Epoch #>"/>.
-    /// </summary>
-    private int YearsSinceEpoch => unchecked((int)_yearsSinceEpoch);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -192,7 +189,7 @@ public partial struct <#= Prefix #>Year // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static <#= Prefix #>Year UnsafeCreate(int year) => new(unchecked((uint)(year - 1)));
+    internal static <#= Prefix #>Year UnsafeCreate(int year) => new(unchecked((ushort)(year - 1)));
 }
 <#+
     } // T4: End of EmitYearFactories()
@@ -435,7 +432,7 @@ public partial struct <#= Prefix #>Year // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => YearsSinceEpoch;
+    public override int GetHashCode() => _yearsSinceEpoch;
 }
 <#+
     } // T4: End of EmitYearEquatable()
@@ -548,7 +545,7 @@ public partial struct <#= Prefix #>Year // Math ops
     public int CountYearsSince(<#= Prefix #>Year other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        YearsSinceEpoch - other.YearsSinceEpoch;
+        _yearsSinceEpoch - other._yearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
@@ -559,9 +556,9 @@ public partial struct <#= Prefix #>Year // Math ops
     [Pure]
     public <#= Prefix #>Year PlusYears(int years)
     {
-        uint yearsSinceEpoch = unchecked((uint)checked(YearsSinceEpoch + years));
-        if (yearsSinceEpoch > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new <#= Prefix #>Year(yearsSinceEpoch + 1);
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new <#= Prefix #>Year(unchecked((ushort)yearsSinceEpoch));
     }
 
     /// <summary>
@@ -573,7 +570,7 @@ public partial struct <#= Prefix #>Year // Math ops
     public <#= Prefix #>Year NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new <#= Prefix #>Year(_yearsSinceEpoch + 1);
+        return new <#= Prefix #>Year(unchecked((ushort)(_yearsSinceEpoch + 1)));
     }
 
     /// <summary>
@@ -585,7 +582,7 @@ public partial struct <#= Prefix #>Year // Math ops
     public <#= Prefix #>Year PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new <#= Prefix #>Year(_yearsSinceEpoch - 1);
+        return new <#= Prefix #>Year(unchecked((ushort)(_yearsSinceEpoch - 1)));
     }
 }
 <#+

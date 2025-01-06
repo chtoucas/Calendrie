@@ -1316,7 +1316,7 @@ public partial struct PlainJulianYear // Preamble
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
-    private readonly uint _yearsSinceEpoch;
+    private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianYear"/> struct to the
@@ -1329,7 +1329,7 @@ public partial struct PlainJulianYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = unchecked((uint)(year - 1));
+        _yearsSinceEpoch = unchecked((ushort)(year - 1));
     }
 
     /// <summary>
@@ -1337,7 +1337,7 @@ public partial struct PlainJulianYear // Preamble
     /// specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private PlainJulianYear(uint yearsSinceEpoch)
+    private PlainJulianYear(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
@@ -1361,6 +1361,9 @@ public partial struct PlainJulianYear // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PlainJulianCalendar Calendar => PlainJulianCalendar.Instance;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
 
     /// <summary>
     /// Gets the century of the era.
@@ -1389,16 +1392,10 @@ public partial struct PlainJulianYear // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => YearsSinceEpoch + 1;
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
-
-    /// <summary>
-    /// Gets the count of consecutive years since the epoch
-    /// <see cref="DayZero.OldStyle"/>.
-    /// </summary>
-    private int YearsSinceEpoch => unchecked((int)_yearsSinceEpoch);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -1430,7 +1427,7 @@ public partial struct PlainJulianYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PlainJulianYear UnsafeCreate(int year) => new(unchecked((uint)(year - 1)));
+    internal static PlainJulianYear UnsafeCreate(int year) => new(unchecked((ushort)(year - 1)));
 }
 
 public partial struct PlainJulianYear // IMonthSegment
@@ -1580,7 +1577,7 @@ public partial struct PlainJulianYear // IEquatable
 
     /// <inheritdoc />
     [Pure]
-    public override int GetHashCode() => YearsSinceEpoch;
+    public override int GetHashCode() => _yearsSinceEpoch;
 }
 
 public partial struct PlainJulianYear // IComparable
@@ -1681,7 +1678,7 @@ public partial struct PlainJulianYear // Math ops
     public int CountYearsSince(PlainJulianYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
-        YearsSinceEpoch - other.YearsSinceEpoch;
+        _yearsSinceEpoch - other._yearsSinceEpoch;
 
     /// <summary>
     /// Adds a number of years to the current instance, yielding a new year.
@@ -1692,9 +1689,9 @@ public partial struct PlainJulianYear // Math ops
     [Pure]
     public PlainJulianYear PlusYears(int years)
     {
-        uint yearsSinceEpoch = unchecked((uint)checked(YearsSinceEpoch + years));
-        if (yearsSinceEpoch > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainJulianYear(yearsSinceEpoch + 1);
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new PlainJulianYear(unchecked((ushort)yearsSinceEpoch));
     }
 
     /// <summary>
@@ -1706,7 +1703,7 @@ public partial struct PlainJulianYear // Math ops
     public PlainJulianYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainJulianYear(_yearsSinceEpoch + 1);
+        return new PlainJulianYear(unchecked((ushort)(_yearsSinceEpoch + 1)));
     }
 
     /// <summary>
@@ -1718,7 +1715,7 @@ public partial struct PlainJulianYear // Math ops
     public PlainJulianYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new PlainJulianYear(_yearsSinceEpoch - 1);
+        return new PlainJulianYear(unchecked((ushort)(_yearsSinceEpoch - 1)));
     }
 }
 
