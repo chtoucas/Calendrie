@@ -474,6 +474,7 @@ Calendrie.Hemerology.ICalendarYear.IsLeap.get -> bool
 Calendrie.Hemerology.ICalendarYear.Year.get -> int
 Calendrie.Hemerology.ICalendarYear.YearOfCentury.get -> int
 Calendrie.Hemerology.ICalendarYear.YearOfEra.get -> Calendrie.Ord
+Calendrie.Hemerology.ICalendarYear.YearsSinceEpoch.get -> int
 Calendrie.Hemerology.ICalendarYear<TSelf>
 Calendrie.Hemerology.ICalendarYearBase<TSelf>
 Calendrie.Hemerology.ICalendarYearBase<TSelf>.Max(TSelf x, TSelf y) -> TSelf
