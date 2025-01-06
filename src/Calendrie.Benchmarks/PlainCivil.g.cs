@@ -1280,7 +1280,7 @@ public partial struct PlainCivilMonth // Non-standard math ops
 #region PlainCivilYear
 
 /// <summary>
-/// Represents a PlainCivil year.
+/// Represents the PlainCivil year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="PlainCivilYear"/> is an immutable struct.</para>

@@ -10,7 +10,7 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents a Pax year.
+/// Represents the Pax year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="PaxYear"/> is an immutable struct.</para>

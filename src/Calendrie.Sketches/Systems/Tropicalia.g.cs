@@ -1288,7 +1288,7 @@ public partial struct TropicaliaMonth // Non-standard math ops
 #region TropicaliaYear
 
 /// <summary>
-/// Represents a Tropicalia year.
+/// Represents the Tropicalia year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="TropicaliaYear"/> is an immutable struct.</para>

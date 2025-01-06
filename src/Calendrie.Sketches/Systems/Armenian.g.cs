@@ -538,7 +538,7 @@ public partial struct ArmenianMonth // Non-standard math ops
 #region ArmenianYear
 
 /// <summary>
-/// Represents a Armenian year.
+/// Represents the Armenian year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="ArmenianYear"/> is an immutable struct.</para>

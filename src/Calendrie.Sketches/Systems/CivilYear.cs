@@ -11,10 +11,9 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 // REVIEW(code): optimize ToRange...(). Interfaces. Idem with CivilMonth.
-// TODO(code): Year ctors and factories. Month.CalendarYear prop
 
 /// <summary>
-/// Represents a Civil year.
+/// Represents the Civil year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="CivilYear"/> is an immutable struct.</para>

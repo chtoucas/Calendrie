@@ -1286,7 +1286,7 @@ public partial struct PlainJulianMonth // Non-standard math ops
 #region PlainJulianYear
 
 /// <summary>
-/// Represents a PlainJulian year.
+/// Represents the PlainJulian year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="PlainJulianYear"/> is an immutable struct.</para>
