@@ -24,6 +24,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Armenian.tt</DependentUpon>
     </Compile>
+    <Compile Update="Systems\Civil.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Civil.tt</DependentUpon>
+    </Compile>
     <Compile Update="Systems\Pax.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

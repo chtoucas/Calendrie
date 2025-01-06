@@ -1,0 +1,51 @@
+﻿<#@ template hostspecific="true" #>
+<#@ output extension=".g.cs" #>
+<#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
+<#= new CivilTemplate(this).Execute() #><#+
+
+public sealed class CivilTemplate : ZeroCalendarTemplate
+{
+    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema", "3_652_058")
+    {
+        ScopeClass = "CivilScope";
+
+        EnableCalendar = false;
+        EnableDate = false;
+        EnableMonth = true;
+        EnableYear = true;
+        EnableIsSupplementary = false;
+        MaxMonthsSinceEpochValue = "119_987";
+        MonthsInYear = 12;
+    }
+
+    protected sealed override void EmitUsings()
+    {
+        WriteLine();
+#>
+using System.Numerics;
+
+using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
+<#+ if (EnableClock) { #>
+using Calendrie.Horology;
+<#+ } #>
+<#+
+    } // T4: End of EmitUsings()
+
+    protected sealed override void EmitCalendar() { }
+
+    protected sealed override void EmitDatePreamble() { }
+    protected sealed override void EmitDateAdjustments() { }
+    protected sealed override void EmitDateMathNonStandardRegular() { }
+
+    // Month type
+    protected sealed override void EmitMonthPreambleRegular() { }
+    protected sealed override void EmitMonthDaySegmentRegular() { }
+
+    // Year type
+    protected sealed override void EmitYearPreamble() { }
+    protected sealed override void EmitYearDaySegment() { }
+}
+
+#>
