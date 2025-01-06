@@ -113,7 +113,9 @@ public partial struct CivilMonth // Preamble
     /// than 0, there is no difference between the algebraic year and the year
     /// of the era.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear);
+    public int Year =>
+        // NB: both dividend and divisor >= 0.
+        1 + _monthsSinceEpoch / CivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
     public int Month
@@ -143,7 +145,8 @@ public partial struct CivilMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear, out int m0);
+        // NB: both dividend and divisor >= 0.
+        year = 1 + MathN.Divide(_monthsSinceEpoch, CivilCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 }
