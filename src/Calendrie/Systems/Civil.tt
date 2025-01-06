@@ -33,7 +33,7 @@ using static Calendrie.Core.CalendricalConstants;
     protected sealed override void EmitCalendar() { }
 
     protected sealed override void EmitDatePreamble() { }
-    protected sealed override void EmitDateAdjustment() { }
+    protected sealed override void EmitDateAdjustments() { }
     protected sealed override void EmitDateMathNonStandardRegular() { }
 }
 

@@ -12,7 +12,7 @@ public partial class CalendarTemplate
         EmitDatePreamble();
         EmitDateFactories();
         EmitDateCounting();
-        EmitDateAdjustment();
+        EmitDateAdjustments();
         EmitDateCloseByDayOfWeek();
         EmitDateEquatable();
         EmitDateComparable();
@@ -301,7 +301,7 @@ public partial struct <#= Prefix #>Date // Counting
 <#+
     } // T4: End of EmitDateCounting()
 
-    protected virtual void EmitDateAdjustment()
+    protected virtual void EmitDateAdjustments()
     {
         WriteLine();
 #>
@@ -372,7 +372,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     }
 }
 <#+
-    } // T4: End of EmitDateAdjustment()
+    } // T4: End of EmitDateAdjustments()
 
     protected virtual void EmitDateCloseByDayOfWeek()
     {
