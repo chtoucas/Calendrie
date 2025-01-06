@@ -975,7 +975,8 @@ public partial struct PlainCivilMonth // Adjustments
         int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
         Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        return new PlainCivilMonth(newYear, m);
+        int monthsSinceEpoch = CountMonthsSinceEpoch(newYear, m);
+        return new PlainCivilMonth(monthsSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -985,7 +986,8 @@ public partial struct PlainCivilMonth // Adjustments
         int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
         Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        return new PlainCivilMonth(y, newMonth);
+        int monthsSinceEpoch = CountMonthsSinceEpoch(y, newMonth);
+        return new PlainCivilMonth(monthsSinceEpoch);
     }
 }
 
@@ -1324,7 +1326,7 @@ public partial struct PlainCivilYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = unchecked((ushort)(year - 1));
+        _yearsSinceEpoch = (ushort)(year - 1);
     }
 
     /// <summary>
@@ -1349,7 +1351,7 @@ public partial struct PlainCivilYear // Preamble
     /// Gets the latest possible value of a <see cref="PlainCivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainCivilYear MaxValue { get; } = new(StandardScope.MaxYear);
+    public static PlainCivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -1422,7 +1424,7 @@ public partial struct PlainCivilYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PlainCivilYear UnsafeCreate(int year) => new(unchecked((ushort)(year - 1)));
+    internal static PlainCivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
 }
 
 public partial struct PlainCivilYear // IMonthSegment
@@ -1686,7 +1688,7 @@ public partial struct PlainCivilYear // Math ops
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear(unchecked((ushort)yearsSinceEpoch));
+        return new PlainCivilYear((ushort)yearsSinceEpoch);
     }
 
     /// <summary>
@@ -1698,7 +1700,7 @@ public partial struct PlainCivilYear // Math ops
     public PlainCivilYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear(unchecked((ushort)(_yearsSinceEpoch + 1)));
+        return new PlainCivilYear((ushort)(_yearsSinceEpoch + 1));
     }
 
     /// <summary>
@@ -1710,7 +1712,7 @@ public partial struct PlainCivilYear // Math ops
     public PlainCivilYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear(unchecked((ushort)(_yearsSinceEpoch - 1)));
+        return new PlainCivilYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 

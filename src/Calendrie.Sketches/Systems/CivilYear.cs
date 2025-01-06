@@ -12,7 +12,6 @@ using Calendrie.Hemerology;
 
 // REVIEW(code): optimize ToRange...(). Idem with CivilMonth.
 // CivilMonth: unsafe factory methods for math ops.
-// CivilYear: MaxValue ctor
 
 /// <summary>
 /// Represents the Civil year.
@@ -57,7 +56,7 @@ public partial struct CivilYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = unchecked((ushort)(year - 1));
+        _yearsSinceEpoch = (ushort)(year - 1);
     }
 
     /// <summary>
@@ -82,7 +81,7 @@ public partial struct CivilYear // Preamble
     /// Gets the latest possible value of a <see cref="CivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CivilYear MaxValue { get; } = new(StandardScope.MaxYear);
+    public static CivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -157,7 +156,7 @@ public partial struct CivilYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static CivilYear UnsafeCreate(int year) => new(unchecked((ushort)(year - 1)));
+    internal static CivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
 }
 
 public partial struct CivilYear // IMonthSegment
@@ -417,7 +416,7 @@ public partial struct CivilYear // Math ops
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new CivilYear(unchecked((ushort)yearsSinceEpoch));
+        return new CivilYear((ushort)yearsSinceEpoch);
     }
 
     /// <summary>
@@ -429,7 +428,7 @@ public partial struct CivilYear // Math ops
     public CivilYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new CivilYear(unchecked((ushort)(_yearsSinceEpoch + 1)));
+        return new CivilYear((ushort)(_yearsSinceEpoch + 1));
     }
 
     /// <summary>
@@ -441,6 +440,6 @@ public partial struct CivilYear // Math ops
     public CivilYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new CivilYear(unchecked((ushort)(_yearsSinceEpoch - 1)));
+        return new CivilYear((ushort)(_yearsSinceEpoch - 1));
     }
 }

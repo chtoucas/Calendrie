@@ -221,7 +221,8 @@ public partial struct CivilMonth // Adjustments
         int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
         Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        return new CivilMonth(newYear, m);
+        int monthsSinceEpoch = CountMonthsSinceEpoch(newYear, m);
+        return new CivilMonth(monthsSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -231,7 +232,8 @@ public partial struct CivilMonth // Adjustments
         int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
         Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        return new CivilMonth(y, newMonth);
+        int monthsSinceEpoch = CountMonthsSinceEpoch(y, newMonth);
+        return new CivilMonth(monthsSinceEpoch);
     }
 }
 

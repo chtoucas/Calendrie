@@ -995,7 +995,8 @@ public partial struct PaxMonth // Adjustments
         chr.Schema.GetMonthParts(_monthsSinceEpoch, out _, out int m);
         // Even when "newYear" is valid, we must re-check "m".
         chr.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
-        return new PaxMonth(newYear, m);
+        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(newYear, m);
+        return new PaxMonth(monthsSinceEpoch);
     }
 
     /// <inheritdoc />
@@ -1006,7 +1007,8 @@ public partial struct PaxMonth // Adjustments
         chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out _);
         // We already know that "y" is valid, we only need to check "newMonth".
         chr.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        return new PaxMonth(y, newMonth);
+        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(y, newMonth);
+        return new PaxMonth(monthsSinceEpoch);
     }
 }
 
@@ -1383,7 +1385,7 @@ public partial struct PaxYear // Preamble
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
-        _yearsSinceEpoch = unchecked((ushort)(year - 1));
+        _yearsSinceEpoch = (ushort)(year - 1);
     }
 
     /// <summary>
@@ -1408,7 +1410,7 @@ public partial struct PaxYear // Preamble
     /// Gets the latest possible value of a <see cref="PaxYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PaxYear MaxValue { get; } = new(StandardScope.MaxYear);
+    public static PaxYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
@@ -1481,7 +1483,7 @@ public partial struct PaxYear // Factories
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PaxYear UnsafeCreate(int year) => new(unchecked((ushort)(year - 1)));
+    internal static PaxYear UnsafeCreate(int year) => new((ushort)(year - 1));
 }
 
 public partial struct PaxYear // IMonthSegment
@@ -1761,7 +1763,7 @@ public partial struct PaxYear // Math ops
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PaxYear(unchecked((ushort)yearsSinceEpoch));
+        return new PaxYear((ushort)yearsSinceEpoch);
     }
 
     /// <summary>
@@ -1773,7 +1775,7 @@ public partial struct PaxYear // Math ops
     public PaxYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PaxYear(unchecked((ushort)(_yearsSinceEpoch + 1)));
+        return new PaxYear((ushort)(_yearsSinceEpoch + 1));
     }
 
     /// <summary>
@@ -1785,7 +1787,7 @@ public partial struct PaxYear // Math ops
     public PaxYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new PaxYear(unchecked((ushort)(_yearsSinceEpoch - 1)));
+        return new PaxYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 
