@@ -85,7 +85,8 @@ public partial struct <#= Prefix #>Date // Preamble
     private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.NewStyle"/>.
     /// <para>This field is in the range from 0 to <see cref="<#= MaxDaysSinceEpoch #>"/>.
     /// </para>
     /// </summary>

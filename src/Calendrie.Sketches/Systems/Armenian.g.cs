@@ -45,7 +45,8 @@ public partial struct ArmenianMonth // Preamble
     private const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
-    /// Represents the count of consecutive months since the epoch <see cref="DayZero.Armenian"/>.
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.Armenian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>

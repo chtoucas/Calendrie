@@ -98,7 +98,8 @@ public partial struct ArmenianDate // Preamble
     private const int MaxDaysSinceEpoch = 3_649_634;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.Armenian"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.Armenian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>

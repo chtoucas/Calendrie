@@ -102,7 +102,8 @@ public partial struct PlainJulianDate // Preamble
     private const int MaxDaysSinceEpoch = 3_651_769;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.OldStyle"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.OldStyle"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>
@@ -792,7 +793,8 @@ public partial struct PlainJulianMonth // Preamble
     private const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
-    /// Represents the count of consecutive months since the epoch <see cref="DayZero.OldStyle"/>.
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.OldStyle"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>

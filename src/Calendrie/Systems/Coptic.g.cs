@@ -98,7 +98,8 @@ public partial struct CopticDate // Preamble
     private const int MaxDaysSinceEpoch = 3_652_134;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.Coptic"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.Coptic"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>

@@ -98,7 +98,8 @@ public partial struct ZoroastrianDate // Preamble
     private const int MaxDaysSinceEpoch = 3_649_634;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.Zoroastrian"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.Zoroastrian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>

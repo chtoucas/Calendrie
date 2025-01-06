@@ -97,7 +97,8 @@ public partial struct PlainCivilDate // Preamble
     private const int MaxDaysSinceZero = 3_652_058;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.NewStyle"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceZero"/>.
     /// </para>
     /// </summary>
@@ -786,7 +787,8 @@ public partial struct PlainCivilMonth // Preamble
     private const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
-    /// Represents the count of consecutive months since the epoch <see cref="DayZero.NewStyle"/>.
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.NewStyle"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>

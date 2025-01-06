@@ -98,7 +98,8 @@ public partial struct TabularIslamicDate // Preamble
     private const int MaxDaysSinceEpoch = 3_543_311;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.TabularIslamic"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.TabularIslamic"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>

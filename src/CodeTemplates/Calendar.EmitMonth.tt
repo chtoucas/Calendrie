@@ -66,7 +66,8 @@ public partial struct <#= Prefix #>Month // Preamble
     private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
 
     /// <summary>
-    /// Represents the count of consecutive months since the epoch <see cref="<#= Epoch #>"/>.
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="<#= Epoch #>"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>

@@ -98,7 +98,8 @@ public partial struct WorldDate // Preamble
     private const int MaxDaysSinceEpoch = 3_652_058;
 
     /// <summary>
-    /// Represents the count of consecutive days since the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
+    /// Represents the count of consecutive days since the epoch
+    /// <see cref="DayZero.SundayBeforeGregorian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>
