@@ -1376,6 +1376,21 @@ public partial struct PaxMonth // Non-standard math ops
 
 #endregion
 
+#region PaxMonthMath
+
+/// <summary>
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <see cref="PaxMonth"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
+/// to resolve ambiguities.</para>
+/// </summary>
+public sealed class PaxMonthMath : MonthMathPlain<PaxMonth, PaxCalendar>
+{
+    public PaxMonthMath(AdditionRule rule) : base(rule) { }
+}
+
+#endregion
+
 #region PaxYear
 
 /// <summary>
