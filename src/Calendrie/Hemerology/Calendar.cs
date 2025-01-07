@@ -231,6 +231,20 @@ public abstract partial class Calendar
     /// </summary>
     [Pure]
     public override string ToString() => Name;
+
+    //
+    // Characteristics
+    //
+
+    /// <summary>
+    /// Returns <see langword="true"/> if this calendar is regular; otherwise
+    /// returns <see langword="false"/>.
+    /// <para>The number of months is given in an output parameter; if this
+    /// calendar is not regular <paramref name="monthsInYear"/> is set to 0.
+    /// </para>
+    /// </summary>
+    [Pure]
+    public bool IsRegular(out int monthsInYear) => Scope.Schema.IsRegular(out monthsInYear);
 }
 
 public partial class Calendar // Year and month infos

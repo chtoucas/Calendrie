@@ -6,49 +6,51 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
-// TODO(code): months
 // REVIEW(code): move these methods to CalendarSystem (create RegularSystem and
 // NonRegularSystem) and offer the possibility to change the ruleset.
+//
+// AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
+// utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser
+// la même règle AdditionRule. Pour simplifier, on utilise une règle commune
+// définie à la construction de PowerMath. Une autre manière de procéder aurait
+// été de définir des méthodes AddYears(TDate date, int years, AdditionRule rule)
+// et CountYearsBetween(TDate start, TDate end, AdditionRule rule).
 
-public static class PowerMath
+public static class DateMath
 {
-    public static PowerMath<TDate> Create<TCalendar, TDate>(
-        CalendarSystem<TDate> calendar, AdditionRuleset additionRuleset)
-        where TCalendar : CalendarSystem<TDate>
-        where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
+    public static DateMath<TDate, TCalendar> Create<TDate, TCalendar>(AdditionRule additionRule)
+        where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
+        where TCalendar : Calendar
     {
-        ArgumentNullException.ThrowIfNull(calendar);
-
-        var scope = calendar.Scope;
-        var sch = scope.Schema;
-
-        return sch.IsRegular(out int monthsInYear)
-            ? new RegularPowerMath<TDate>(scope, additionRuleset, monthsInYear)
-            : new PlainPowerMath<TDate>(scope, additionRuleset);
+        return TDate.Calendar.IsRegular(out int monthsInYear)
+            ? new DateMathRegular<TDate, TCalendar>(additionRule, monthsInYear)
+            : new DateMathPlain<TDate, TCalendar>(additionRule);
     }
 }
 
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with a
-/// given calendar.
-/// <para>This class allows to customize the <see cref="AdditionRuleset"/> used
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <typeparamref name="TDate"/> type and provides a base for derived classes.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
 /// to resolve ambiguities.</para>
-/// <para>This class cannot be inherited.</para>
 /// </summary>
-public abstract class PowerMath<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
+public abstract class DateMath<TDate, TCalendar>
+    where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>
+    where TCalendar : Calendar
+    // Actually, instead of ICalendarDate, we could just use
+    // - IDateable
+    // - IAdditionOperators<TDate, int, TDate>
+    // - IComparisonOperators<TDate, TDate, bool>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PowerMath{TDate}"/>
-    /// class.
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="DateMath{TDate, TCalendar}"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
-    /// <see langword="null"/>.</exception>
-    private protected PowerMath(CalendarScope scope, AdditionRuleset additionRuleset)
+    private protected DateMath(AdditionRule additionRule)
     {
-        Debug.Assert(scope != null);
+        var scope = TDate.Calendar.Scope;
 
-        AdditionRuleset = additionRuleset;
+        AdditionRule = additionRule;
 
         Schema = scope.Schema;
 
@@ -56,6 +58,11 @@ public abstract class PowerMath<TDate>
         (MinYear, MaxYear) = seg.SupportedYears.Endpoints;
         (MinMonthsSinceEpoch, MaxMonthsSinceEpoch) = seg.SupportedMonths.Endpoints;
     }
+
+    /// <summary>
+    /// Gets the strategy employed to resolve ambiguities.
+    /// </summary>
+    public AdditionRule AdditionRule { get; }
 
     /// <summary>
     /// Gets the schema.
@@ -83,11 +90,6 @@ public abstract class PowerMath<TDate>
     protected int MaxMonthsSinceEpoch { get; }
 
     /// <summary>
-    /// Gets the strategy employed to resolve ambiguities.
-    /// </summary>
-    public AdditionRuleset AdditionRuleset { get; }
-
-    /// <summary>
     /// Adds a number of years to the year field of the specified date.
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
@@ -113,13 +115,19 @@ public abstract class PowerMath<TDate>
 
     /// <summary>
     /// Counts the number of years between the two specified dates.
+    /// <para><paramref name="newStart"/> is the result of adding the found
+    /// number (of years) to <paramref name="start"/>.</para>
+    /// <para>If <paramref name="start"/> &lt;= <paramref name="end"/>, then
+    /// <paramref name="start"/> &lt;= <paramref name="newStart"/> &lt;= <paramref name="end"/></para>
+    /// <para>If <paramref name="start"/> &gt;= <paramref name="end"/>, then
+    /// <paramref name="start"/> &gt;= <paramref name="newStart"/> &gt;= <paramref name="end"/></para>
     /// </summary>
     [Pure]
     public int CountYearsBetween(TDate start, TDate end, out TDate newStart)
     {
         var (y0, m0, d0) = start;
 
-        // Exact difference between two years.
+        // Exact difference between two calendar years.
         int years = end.Year - y0;
 
         // To avoid extracting y0 more than once, we inline:
@@ -139,6 +147,12 @@ public abstract class PowerMath<TDate>
 
     /// <summary>
     /// Counts the number of months between the two specified dates.
+    /// <para><paramref name="newStart"/> is the result of adding the found
+    /// number (of months) to <paramref name="start"/>.</para>
+    /// <para>If <paramref name="start"/> &lt;= <paramref name="end"/>, then
+    /// <paramref name="start"/> &lt;= <paramref name="newStart"/> &lt;= <paramref name="end"/></para>
+    /// <para>If <paramref name="start"/> &gt;= <paramref name="end"/>, then
+    /// <paramref name="start"/> &gt;= <paramref name="newStart"/> &gt;= <paramref name="end"/></para>
     /// </summary>
     [Pure]
     public int CountMonthsBetween(TDate start, TDate end, out TDate newStart)
@@ -146,7 +160,7 @@ public abstract class PowerMath<TDate>
         var (y0, m0, d0) = start;
         var (y1, m1, _) = end;
 
-        // Exact difference between two months.
+        // Exact difference between two calendar months.
         // REVIEW(code): would be easier if we had a property TDate.CalendarMonth
         // then we could write: end.CalendarMonth - start.CalendarMonth
         int months = CountMonthsBetween(y0, m0, y1, m1);
@@ -204,7 +218,7 @@ public abstract class PowerMath<TDate>
         Debug.Assert(roundoff > 0);
 
         // NB: according to CalendricalArithmetic, date is the last day of the month.
-        return AdditionRuleset.DateRule switch
+        return AdditionRule switch
         {
             AdditionRule.Truncate => date,
             // REVIEW(code): there is a slight inefficiency here. We know that

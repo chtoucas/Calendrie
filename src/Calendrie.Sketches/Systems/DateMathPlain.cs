@@ -6,12 +6,15 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-internal sealed class PlainPowerMath<TDate> : PowerMath<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
+internal sealed class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
+    where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
+    where TCalendar : Calendar
 {
-    public PlainPowerMath(CalendarScope scope, AdditionRuleset additionRuleset)
-        : base(scope, additionRuleset)
-    { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateMathPlain{TCalendar, TDate}"/>
+    /// class.
+    /// </summary>
+    public DateMathPlain(AdditionRule additionRule) : base(additionRule) { }
 
     /// <inheritdoc />
     [Pure]

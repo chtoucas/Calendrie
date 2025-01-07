@@ -6,16 +6,20 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-internal sealed class RegularPowerMath<TDate> : PowerMath<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
+internal sealed class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
+    where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
+    where TCalendar : Calendar
 {
     /// <summary>
     /// Represents the number of months in a year.
     /// </summary>
     private readonly int _monthsInYear;
 
-    public RegularPowerMath(CalendarScope scope, AdditionRuleset additionRuleset, int monthsInYear)
-        : base(scope, additionRuleset)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateMathRegular{TDate, TCalendar}"/>
+    /// class.
+    /// </summary>
+    public DateMathRegular(AdditionRule additionRule, int monthsInYear) : base(additionRule)
     {
         Debug.Assert(Schema != null);
         Debug.Assert(Schema.IsRegular(out _));
