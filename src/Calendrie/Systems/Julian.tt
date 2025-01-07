@@ -22,7 +22,6 @@ public sealed class JulianTemplate : CalendarTemplate
         WriteLine();
 #>
 using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>
