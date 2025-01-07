@@ -17,3 +17,13 @@ public partial class PaxCalendar // Complements
         return Schema.CountWeeksInYear(year);
     }
 }
+
+public sealed class PaxDateMath : DateMathPlain<PaxDate, PaxCalendar>
+{
+    public PaxDateMath(AdditionRule rule) : base(rule) { }
+}
+
+public sealed class PaxMonthMath : MonthMathPlain<PaxMonth, PaxCalendar>
+{
+    public PaxMonthMath(AdditionRule rule) : base(rule) { }
+}

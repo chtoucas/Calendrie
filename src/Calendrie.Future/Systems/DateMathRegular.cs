@@ -6,7 +6,7 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-internal sealed class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
+public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
@@ -19,7 +19,7 @@ internal sealed class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalen
     /// Initializes a new instance of the <see cref="DateMathRegular{TDate, TCalendar}"/>
     /// class.
     /// </summary>
-    public DateMathRegular(AdditionRule rule, int monthsInYear) : base(rule)
+    internal DateMathRegular(AdditionRule rule, int monthsInYear) : base(rule)
     {
         Debug.Assert(Schema != null);
         Debug.Assert(Schema.IsRegular(out _));

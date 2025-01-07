@@ -6,7 +6,7 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-internal sealed class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
+public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
@@ -14,7 +14,7 @@ internal sealed class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalenda
     /// Initializes a new instance of the <see cref="DateMathPlain{TCalendar, TDate}"/>
     /// class.
     /// </summary>
-    public DateMathPlain(AdditionRule rule) : base(rule) { }
+    internal DateMathPlain(AdditionRule rule) : base(rule) { }
 
     /// <inheritdoc />
     [Pure]
