@@ -8,7 +8,8 @@ param(
     [ValidateSet('Debug', 'Release')]
     [Alias('c')] [string] $Configuration = 'Debug',
 
-    [Alias('a')] [switch] $All,
+                 [switch] $Future,
+                 [switch] $All,
                  [switch] $Slow,
                  [switch] $NoBuild,
                  [switch] $NoTest,
@@ -28,7 +29,8 @@ Code coverage script.
 
 Usage: cover.ps1 [arguments]
   -c|-Configuration  the configuration to test the solution for. Default = "Debug".
-  -a|-All            include the project Calendrie.Future
+     -Future         include the project Calendrie.Future
+     -All            include the project Calendrie.Future and Calendrie.Sketches
      -Slow           include slow tests (necessary for "full" test coverage)
      -NoBuild        do NOT build the test suite?
      -NoTest         do NOT execute the test suite? Implies -NoBuild
@@ -52,12 +54,16 @@ if ($Help) { Print-Help ; exit }
 try {
     pushd $RootDir
 
-    $assemblyName = 'Calendrie'
-    $otherAssemblyName = 'Calendrie.Future'
     $format = 'opencover'
 
+    $mainAssemblyName     = 'Calendrie'
+    $futureAssemblyName   = 'Calendrie.Future'
+    $sketchesAssemblyName = 'Calendrie.Sketches'
+
+    if ($All) { $Future = $true }
+
     $outName  = 'coverage'
-    if ($All) { $outName += "-all" }
+    if ($All) { $outName += "-all" } elseif ($Future) { $outName += "-future" }
     $outName += "-$configuration"
     $outDir   = Join-Path $ArtifactsDir $outName.ToLowerInvariant()
     $output   = Join-Path $outDir "$format.xml"
@@ -65,11 +71,15 @@ try {
     $rgOutput = Join-Path $outDir 'html'
 
     # Filters: https://github.com/Microsoft/vstest-docs/blob/main/docs/filter.md
-    $includes = @("[$assemblyName]*")
-    $excludes = @("[$assemblyName]System.*")
+    $includes = @("[$mainAssemblyName]*")
+    $excludes = @("[$mainAssemblyName]System.*")
+    if ($Future) {
+        $includes += "[$futureAssemblyName]*"
+        $excludes += "[$futureAssemblyName]System.*"
+    }
     if ($All) {
-        $includes += "[$otherAssemblyName]*"
-        $excludes += "[$otherAssemblyName]System.*"
+        $includes += "[$sketchesAssemblyName]*"
+        $excludes += "[$sketchesAssemblyName]System.*"
     }
     $include  = '"' + ($includes -join '%2c') + '"'
     $exclude  = '"' + ($excludes -join '%2c') + '"'
@@ -110,7 +120,7 @@ try {
             Remove-Item $rgOutput -Force -Recurse
         }
 
-        $riskhotspotassemblyfilters = "-$otherAssemblyName"
+        $riskhotspotassemblyfilters = "-$futureAssemblyName;-$sketchesAssemblyName"
         $reporttypes = 'Html;TextSummary'
 
         say 'Creating the reports...'
