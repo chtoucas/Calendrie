@@ -48,7 +48,7 @@ public readonly partial struct <#= Prefix #>Year :
     IMonthSegment<<#= Prefix #>Month>,
     ISetMembership<<#= Prefix #>Month>,
     // A year viewed as a finite sequence of days
-    IDaySegment<<#= Prefix #>Date>,
+    IDateSegment<<#= Prefix #>Date>,
     ISetMembership<<#= Prefix #>Date>,
     // Arithmetic
     ISubtractionOperators<<#= Prefix #>Year, <#= Prefix #>Year, int>
@@ -334,7 +334,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Year // IDaySegment
+public partial struct <#= Prefix #>Year // IDateSegment
 {
     /// <inheritdoc />
     public <#= Prefix #>Date MinDay

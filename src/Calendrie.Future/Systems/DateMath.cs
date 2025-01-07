@@ -6,9 +6,6 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
-// REVIEW(code): move these methods to CalendarSystem (create RegularSystem and
-// NonRegularSystem) and offer the possibility to change the ruleset.
-//
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
 // utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser
 // la même règle AdditionRule. Pour simplifier, on utilise une règle commune
@@ -16,6 +13,7 @@ using Calendrie.Hemerology;
 // été de définir des méthodes AddYears(TDate date, int years, AdditionRule rule)
 // et CountYearsBetween(TDate start, TDate end, AdditionRule rule).
 
+#if false
 public static class DateMath
 {
     public static DateMath<TDate, TCalendar> Create<TDate, TCalendar>(AdditionRule rule)
@@ -27,6 +25,7 @@ public static class DateMath
             : new DateMathPlain<TDate, TCalendar>(rule);
     }
 }
+#endif
 
 /// <summary>
 /// Defines the non-standard mathematical operations suitable for use with the

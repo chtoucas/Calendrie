@@ -9,7 +9,7 @@ using Calendrie.Core.Intervals;
 /// Defines a finite sequence of consecutive days.
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public interface IDaySegment<TDate>
+public interface IDateSegment<TDate>
     where TDate : struct, IEquatable<TDate>, IComparable<TDate>
 {
     /// <summary>

@@ -813,7 +813,7 @@ public readonly partial struct PaxMonth :
     ICalendarBound<PaxCalendar>,
     IUnsafeFactory<PaxMonth>,
     // A month viewed as a finite sequence of days
-    IDaySegment<PaxDate>,
+    IDateSegment<PaxDate>,
     ISetMembership<PaxDate>,
     // Arithmetic
     ISubtractionOperators<PaxMonth, PaxMonth, int>
@@ -1035,7 +1035,7 @@ public partial struct PaxMonth // Adjustments
     }
 }
 
-public partial struct PaxMonth // IDaySegment
+public partial struct PaxMonth // IDateSegment
 {
     /// <inheritdoc />
     public PaxDate MinDay
@@ -1089,7 +1089,7 @@ public partial struct PaxMonth // IDaySegment
     }
 
     [Pure]
-    Range<PaxDate> IDaySegment<PaxDate>.ToDayRange() => ToRange();
+    Range<PaxDate> IDateSegment<PaxDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1108,7 +1108,7 @@ public partial struct PaxMonth // IDaySegment
     }
 
     [Pure]
-    IEnumerable<PaxDate> IDaySegment<PaxDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<PaxDate> IDateSegment<PaxDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
@@ -1391,7 +1391,7 @@ public readonly partial struct PaxYear :
     IMonthSegment<PaxMonth>,
     ISetMembership<PaxMonth>,
     // A year viewed as a finite sequence of days
-    IDaySegment<PaxDate>,
+    IDateSegment<PaxDate>,
     ISetMembership<PaxDate>,
     // Arithmetic
     ISubtractionOperators<PaxYear, PaxYear, int>
@@ -1595,7 +1595,7 @@ public partial struct PaxYear // IMonthSegment
     }
 }
 
-public partial struct PaxYear // IDaySegment
+public partial struct PaxYear // IDateSegment
 {
     /// <inheritdoc />
     public PaxDate MinDay

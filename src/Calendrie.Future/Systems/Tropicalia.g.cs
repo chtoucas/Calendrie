@@ -795,7 +795,7 @@ public readonly partial struct TropicaliaMonth :
     ICalendarBound<TropicaliaCalendar>,
     IUnsafeFactory<TropicaliaMonth>,
     // A month viewed as a finite sequence of days
-    IDaySegment<TropicaliaDate>,
+    IDateSegment<TropicaliaDate>,
     ISetMembership<TropicaliaDate>,
     // Arithmetic
     ISubtractionOperators<TropicaliaMonth, TropicaliaMonth, int>
@@ -1014,7 +1014,7 @@ public partial struct TropicaliaMonth // Adjustments
     }
 }
 
-public partial struct TropicaliaMonth // IDaySegment
+public partial struct TropicaliaMonth // IDateSegment
 {
     /// <inheritdoc />
     public TropicaliaDate MinDay
@@ -1066,7 +1066,7 @@ public partial struct TropicaliaMonth // IDaySegment
     }
 
     [Pure]
-    Range<TropicaliaDate> IDaySegment<TropicaliaDate>.ToDayRange() => ToRange();
+    Range<TropicaliaDate> IDateSegment<TropicaliaDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1085,7 +1085,7 @@ public partial struct TropicaliaMonth // IDaySegment
     }
 
     [Pure]
-    IEnumerable<TropicaliaDate> IDaySegment<TropicaliaDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<TropicaliaDate> IDateSegment<TropicaliaDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
@@ -1328,7 +1328,7 @@ public readonly partial struct TropicaliaYear :
     IMonthSegment<TropicaliaMonth>,
     ISetMembership<TropicaliaMonth>,
     // A year viewed as a finite sequence of days
-    IDaySegment<TropicaliaDate>,
+    IDateSegment<TropicaliaDate>,
     ISetMembership<TropicaliaDate>,
     // Arithmetic
     ISubtractionOperators<TropicaliaYear, TropicaliaYear, int>
@@ -1512,7 +1512,7 @@ public partial struct TropicaliaYear // IMonthSegment
     }
 }
 
-public partial struct TropicaliaYear // IDaySegment
+public partial struct TropicaliaYear // IDateSegment
 {
     /// <inheritdoc />
     public TropicaliaDate MinDay

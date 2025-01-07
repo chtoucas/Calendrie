@@ -29,7 +29,7 @@ public readonly partial struct CivilMonth :
     ICalendarBound<CivilCalendar>,
     IUnsafeFactory<CivilMonth>,
     // A month viewed as a finite sequence of days
-    IDaySegment<CivilDate>,
+    IDateSegment<CivilDate>,
     ISetMembership<CivilDate>,
     // Arithmetic
     ISubtractionOperators<CivilMonth, CivilMonth, int>
@@ -337,7 +337,7 @@ public readonly partial struct CivilYear :
     IMonthSegment<CivilMonth>,
     ISetMembership<CivilMonth>,
     // A year viewed as a finite sequence of days
-    IDaySegment<CivilDate>,
+    IDateSegment<CivilDate>,
     ISetMembership<CivilDate>,
     // Arithmetic
     ISubtractionOperators<CivilYear, CivilYear, int>

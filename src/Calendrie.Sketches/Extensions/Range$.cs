@@ -29,7 +29,7 @@ public partial class RangeExtensions // Range<T>
     {
         // Simpler (faster) version of
         // > range.IsSupersetOf(seg.ToRangeOfDays());
-        // when seg is a IDaySegment<T>.
+        // when seg is a IDateSegment<T>.
         return @this.Min.CompareTo(range.LowerEnd) <= 0
             && range.UpperEnd.CompareTo(@this.Max) <= 0;
     }

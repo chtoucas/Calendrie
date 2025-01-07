@@ -136,7 +136,7 @@ public partial struct CivilMonth // Preamble
     }
 }
 
-public partial struct CivilMonth // IDaySegment
+public partial struct CivilMonth // IDateSegment
 {
     /// <inheritdoc />
     public CivilDate MinDay
@@ -185,7 +185,7 @@ public partial struct CivilMonth // IDaySegment
     }
 
     [Pure]
-    Range<CivilDate> IDaySegment<CivilDate>.ToDayRange() => ToRange();
+    Range<CivilDate> IDateSegment<CivilDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -203,7 +203,7 @@ public partial struct CivilMonth // IDaySegment
     }
 
     [Pure]
-    IEnumerable<CivilDate> IDaySegment<CivilDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<CivilDate> IDateSegment<CivilDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]

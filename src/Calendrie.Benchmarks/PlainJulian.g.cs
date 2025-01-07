@@ -794,7 +794,7 @@ public readonly partial struct PlainJulianMonth :
     ICalendarBound<PlainJulianCalendar>,
     IUnsafeFactory<PlainJulianMonth>,
     // A month viewed as a finite sequence of days
-    IDaySegment<PlainJulianDate>,
+    IDateSegment<PlainJulianDate>,
     ISetMembership<PlainJulianDate>,
     // Arithmetic
     ISubtractionOperators<PlainJulianMonth, PlainJulianMonth, int>
@@ -1013,7 +1013,7 @@ public partial struct PlainJulianMonth // Adjustments
     }
 }
 
-public partial struct PlainJulianMonth // IDaySegment
+public partial struct PlainJulianMonth // IDateSegment
 {
     /// <inheritdoc />
     public PlainJulianDate MinDay
@@ -1065,7 +1065,7 @@ public partial struct PlainJulianMonth // IDaySegment
     }
 
     [Pure]
-    Range<PlainJulianDate> IDaySegment<PlainJulianDate>.ToDayRange() => ToRange();
+    Range<PlainJulianDate> IDateSegment<PlainJulianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1084,7 +1084,7 @@ public partial struct PlainJulianMonth // IDaySegment
     }
 
     [Pure]
-    IEnumerable<PlainJulianDate> IDaySegment<PlainJulianDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<PlainJulianDate> IDateSegment<PlainJulianDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
@@ -1327,7 +1327,7 @@ public readonly partial struct PlainJulianYear :
     IMonthSegment<PlainJulianMonth>,
     ISetMembership<PlainJulianMonth>,
     // A year viewed as a finite sequence of days
-    IDaySegment<PlainJulianDate>,
+    IDateSegment<PlainJulianDate>,
     ISetMembership<PlainJulianDate>,
     // Arithmetic
     ISubtractionOperators<PlainJulianYear, PlainJulianYear, int>
@@ -1511,7 +1511,7 @@ public partial struct PlainJulianYear // IMonthSegment
     }
 }
 
-public partial struct PlainJulianYear // IDaySegment
+public partial struct PlainJulianYear // IDateSegment
 {
     /// <inheritdoc />
     public PlainJulianDate MinDay

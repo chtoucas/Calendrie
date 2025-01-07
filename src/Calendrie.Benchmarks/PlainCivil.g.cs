@@ -787,7 +787,7 @@ public readonly partial struct PlainCivilMonth :
     ICalendarBound<PlainCivilCalendar>,
     IUnsafeFactory<PlainCivilMonth>,
     // A month viewed as a finite sequence of days
-    IDaySegment<PlainCivilDate>,
+    IDateSegment<PlainCivilDate>,
     ISetMembership<PlainCivilDate>,
     // Arithmetic
     ISubtractionOperators<PlainCivilMonth, PlainCivilMonth, int>
@@ -1006,7 +1006,7 @@ public partial struct PlainCivilMonth // Adjustments
     }
 }
 
-public partial struct PlainCivilMonth // IDaySegment
+public partial struct PlainCivilMonth // IDateSegment
 {
     /// <inheritdoc />
     public PlainCivilDate MinDay
@@ -1058,7 +1058,7 @@ public partial struct PlainCivilMonth // IDaySegment
     }
 
     [Pure]
-    Range<PlainCivilDate> IDaySegment<PlainCivilDate>.ToDayRange() => ToRange();
+    Range<PlainCivilDate> IDateSegment<PlainCivilDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1077,7 +1077,7 @@ public partial struct PlainCivilMonth // IDaySegment
     }
 
     [Pure]
-    IEnumerable<PlainCivilDate> IDaySegment<PlainCivilDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<PlainCivilDate> IDateSegment<PlainCivilDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
@@ -1320,7 +1320,7 @@ public readonly partial struct PlainCivilYear :
     IMonthSegment<PlainCivilMonth>,
     ISetMembership<PlainCivilMonth>,
     // A year viewed as a finite sequence of days
-    IDaySegment<PlainCivilDate>,
+    IDateSegment<PlainCivilDate>,
     ISetMembership<PlainCivilDate>,
     // Arithmetic
     ISubtractionOperators<PlainCivilYear, PlainCivilYear, int>
@@ -1504,7 +1504,7 @@ public partial struct PlainCivilYear // IMonthSegment
     }
 }
 
-public partial struct PlainCivilYear // IDaySegment
+public partial struct PlainCivilYear // IDateSegment
 {
     /// <inheritdoc />
     public PlainCivilDate MinDay

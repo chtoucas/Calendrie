@@ -6,6 +6,7 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
+#if false
 public static class MonthMath
 {
     public static MonthMath<TMonth, TCalendar> Create<TMonth, TCalendar>(AdditionRule rule)
@@ -17,6 +18,7 @@ public static class MonthMath
             : new MonthMathPlain<TMonth, TCalendar>(rule);
     }
 }
+#endif
 
 public abstract class MonthMath<TMonth, TCalendar>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>

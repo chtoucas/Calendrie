@@ -55,7 +55,7 @@ public readonly partial struct <#= Prefix #>Month :
     ICalendarBound<<#= Prefix #>Calendar>,
     IUnsafeFactory<<#= Prefix #>Month>,
     // A month viewed as a finite sequence of days
-    IDaySegment<<#= Prefix #>Date>,
+    IDateSegment<<#= Prefix #>Date>,
     ISetMembership<<#= Prefix #>Date>,
     // Arithmetic
     ISubtractionOperators<<#= Prefix #>Month, <#= Prefix #>Month, int>
@@ -544,7 +544,7 @@ public partial struct <#= Prefix #>Month // Adjustments
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // IDaySegment
+public partial struct <#= Prefix #>Month // IDateSegment
 {
     /// <inheritdoc />
     public <#= Prefix #>Date MinDay
@@ -596,7 +596,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 
     [Pure]
-    Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
+    Range<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -615,7 +615,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 
     [Pure]
-    IEnumerable<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
+    IEnumerable<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
@@ -649,7 +649,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // IDaySegment
+public partial struct <#= Prefix #>Month // IDateSegment
 {
     /// <inheritdoc />
     public <#= Prefix #>Date MinDay
@@ -703,7 +703,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 
     [Pure]
-    Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
+    Range<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -722,7 +722,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 
     [Pure]
-    IEnumerable<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
+    IEnumerable<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]

@@ -110,7 +110,7 @@ public partial struct CivilYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Number:D4} ({Calendar})");
 }
 
-public partial struct CivilYear // IDaySegment
+public partial struct CivilYear // IDateSegment
 {
     /// <inheritdoc />
     public CivilDate MinDay
