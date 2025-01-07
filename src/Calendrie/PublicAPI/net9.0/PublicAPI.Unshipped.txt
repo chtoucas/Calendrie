@@ -22,6 +22,11 @@ abstract Calendrie.Hemerology.Calendar.CountDaysInYear(int year) -> int
 abstract Calendrie.Hemerology.CalendarScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
 abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonth(int year, int month, string? paramName = null) -> void
 abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
+Calendrie.AdditionRule
+Calendrie.AdditionRule.Exact = 2 -> Calendrie.AdditionRule
+Calendrie.AdditionRule.Overflow = 3 -> Calendrie.AdditionRule
+Calendrie.AdditionRule.Overspill = 1 -> Calendrie.AdditionRule
+Calendrie.AdditionRule.Truncate = 0 -> Calendrie.AdditionRule
 Calendrie.CalendricalAdjustments
 Calendrie.CalendricalAdjustments.Days = 1 -> Calendrie.CalendricalAdjustments
 Calendrie.CalendricalAdjustments.DaysAndMonths = Calendrie.CalendricalAdjustments.Days | Calendrie.CalendricalAdjustments.Months -> Calendrie.CalendricalAdjustments
@@ -965,7 +970,7 @@ Calendrie.Systems.GregorianDate.WithYear(int newYear) -> Calendrie.Systems.Grego
 Calendrie.Systems.GregorianDate.Year.get -> int
 Calendrie.Systems.GregorianDate.YearOfCentury.get -> int
 Calendrie.Systems.GregorianDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Systems.IUnsafeDateFactory<TDate>
+Calendrie.Systems.IUnsafeFactory<T>
 Calendrie.Systems.JulianCalendar
 Calendrie.Systems.JulianCalendar.JulianCalendar() -> void
 Calendrie.Systems.JulianDate

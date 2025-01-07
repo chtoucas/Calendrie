@@ -27,7 +27,7 @@ public partial struct JulianDate // Factories & conversions
     }
 
     [Pure]
-    static JulianDate IUnsafeDateFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static JulianDate IUnsafeFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

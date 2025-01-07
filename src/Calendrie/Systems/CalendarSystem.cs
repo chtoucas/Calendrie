@@ -32,7 +32,7 @@ using Calendrie.Hemerology;
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
 public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarSystem{TDate}"/>
@@ -93,7 +93,6 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
 }
 
 // TODO(code): if we enable the year and month types, we should remove these methods
-// After that, we should remove IUnsafeDateFactory too.
 
 public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {

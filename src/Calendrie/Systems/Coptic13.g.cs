@@ -81,7 +81,7 @@ public sealed partial class Coptic13Calendar : CalendarSystem<Coptic13Date>
 public readonly partial struct Coptic13Date :
     ICalendarDate<Coptic13Date>,
     ICalendarBound<Coptic13Calendar>,
-    IUnsafeDateFactory<Coptic13Date>,
+    IUnsafeFactory<Coptic13Date>,
     ISubtractionOperators<Coptic13Date, Coptic13Date, int>
 { }
 
@@ -292,7 +292,7 @@ public partial struct Coptic13Date // Factories & conversions
     }
 
     [Pure]
-    static Coptic13Date IUnsafeDateFactory<Coptic13Date>.UnsafeCreate(int daysSinceEpoch) =>
+    static Coptic13Date IUnsafeFactory<Coptic13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

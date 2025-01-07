@@ -81,7 +81,7 @@ public sealed partial class EthiopicCalendar : CalendarSystem<EthiopicDate>
 public readonly partial struct EthiopicDate :
     ICalendarDate<EthiopicDate>,
     ICalendarBound<EthiopicCalendar>,
-    IUnsafeDateFactory<EthiopicDate>,
+    IUnsafeFactory<EthiopicDate>,
     ISubtractionOperators<EthiopicDate, EthiopicDate, int>
 { }
 
@@ -292,7 +292,7 @@ public partial struct EthiopicDate // Factories & conversions
     }
 
     [Pure]
-    static EthiopicDate IUnsafeDateFactory<EthiopicDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static EthiopicDate IUnsafeFactory<EthiopicDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

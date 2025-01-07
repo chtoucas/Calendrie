@@ -15,7 +15,7 @@ public static class PowerMath
     public static PowerMath<TDate> Create<TCalendar, TDate>(
         CalendarSystem<TDate> calendar, AdditionRuleset additionRuleset)
         where TCalendar : CalendarSystem<TDate>
-        where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
+        where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
     {
         ArgumentNullException.ThrowIfNull(calendar);
 
@@ -36,7 +36,7 @@ public static class PowerMath
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public abstract class PowerMath<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PowerMath{TDate}"/>

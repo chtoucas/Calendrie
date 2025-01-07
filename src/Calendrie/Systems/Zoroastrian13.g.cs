@@ -81,7 +81,7 @@ public sealed partial class Zoroastrian13Calendar : CalendarSystem<Zoroastrian13
 public readonly partial struct Zoroastrian13Date :
     ICalendarDate<Zoroastrian13Date>,
     ICalendarBound<Zoroastrian13Calendar>,
-    IUnsafeDateFactory<Zoroastrian13Date>,
+    IUnsafeFactory<Zoroastrian13Date>,
     ISubtractionOperators<Zoroastrian13Date, Zoroastrian13Date, int>
 { }
 
@@ -292,7 +292,7 @@ public partial struct Zoroastrian13Date // Factories & conversions
     }
 
     [Pure]
-    static Zoroastrian13Date IUnsafeDateFactory<Zoroastrian13Date>.UnsafeCreate(int daysSinceEpoch) =>
+    static Zoroastrian13Date IUnsafeFactory<Zoroastrian13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

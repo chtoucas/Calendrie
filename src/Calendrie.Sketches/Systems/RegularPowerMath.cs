@@ -7,7 +7,7 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 internal sealed class RegularPowerMath<TDate> : PowerMath<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
 {
     /// <summary>
     /// Represents the number of months in a year.

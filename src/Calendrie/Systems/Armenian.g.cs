@@ -81,7 +81,7 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
 public readonly partial struct ArmenianDate :
     ICalendarDate<ArmenianDate>,
     ICalendarBound<ArmenianCalendar>,
-    IUnsafeDateFactory<ArmenianDate>,
+    IUnsafeFactory<ArmenianDate>,
     ISubtractionOperators<ArmenianDate, ArmenianDate, int>
 { }
 
@@ -292,7 +292,7 @@ public partial struct ArmenianDate // Factories & conversions
     }
 
     [Pure]
-    static ArmenianDate IUnsafeDateFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static ArmenianDate IUnsafeFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

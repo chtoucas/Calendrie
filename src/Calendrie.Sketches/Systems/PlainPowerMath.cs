@@ -7,7 +7,7 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 internal sealed class PlainPowerMath<TDate> : PowerMath<TDate>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
+    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
 {
     public PlainPowerMath(CalendarScope scope, AdditionRuleset additionRuleset)
         : base(scope, additionRuleset)

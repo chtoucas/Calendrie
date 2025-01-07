@@ -53,6 +53,7 @@ public partial class CalendarTemplate
 public readonly partial struct <#= Prefix #>Month :
     ICalendarMonth<<#= Prefix #>Month>,
     ICalendarBound<<#= Prefix #>Calendar>,
+    IUnsafeFactory<<#= Prefix #>Month>,
     // A month viewed as a finite sequence of days
     IDaySegment<<#= Prefix #>Date>,
     ISetMembership<<#= Prefix #>Date>,
@@ -365,6 +366,10 @@ public partial struct <#= Prefix #>Month // Factories
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
+    [Pure]
+    static <#= Prefix #>Month IUnsafeFactory<<#= Prefix #>Month>.UnsafeCreate(int monthsSinceEpoch) =>
+        new(monthsSinceEpoch);
+
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
@@ -391,6 +396,10 @@ public partial struct <#= Prefix #>Month // Factories
         int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
+
+    [Pure]
+    static <#= Prefix #>Month IUnsafeFactory<<#= Prefix #>Month>.UnsafeCreate(int monthsSinceEpoch) =>
+        new(monthsSinceEpoch);
 }
 <#+
     } // T4: End of EmitMonthFactoriesNonRegular()

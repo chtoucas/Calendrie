@@ -31,6 +31,7 @@ using static Calendrie.Core.CalendricalConstants;
 public readonly partial struct ArmenianMonth :
     ICalendarMonth<ArmenianMonth>,
     ICalendarBound<ArmenianCalendar>,
+    IUnsafeFactory<ArmenianMonth>,
     // A month viewed as a finite sequence of days
     IDaySegment<ArmenianDate>,
     ISetMembership<ArmenianDate>,
@@ -188,6 +189,10 @@ public partial struct ArmenianMonth // Factories
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
         return new ArmenianMonth(monthsSinceEpoch);
     }
+
+    [Pure]
+    static ArmenianMonth IUnsafeFactory<ArmenianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        new(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>

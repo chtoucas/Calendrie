@@ -289,7 +289,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     }
 
     [Pure]
-    static <#= Prefix #>Date IUnsafeDateFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
+    static <#= Prefix #>Date IUnsafeFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
         new(<#= DaysSinceEpochVar #>);
 }
 <#+

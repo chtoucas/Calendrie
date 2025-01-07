@@ -88,7 +88,7 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
 public readonly partial struct PaxDate :
     ICalendarDate<PaxDate>,
     ICalendarBound<PaxCalendar>,
-    IUnsafeDateFactory<PaxDate>,
+    IUnsafeFactory<PaxDate>,
     ISubtractionOperators<PaxDate, PaxDate, int>
 { }
 
@@ -299,7 +299,7 @@ public partial struct PaxDate // Factories & conversions
     }
 
     [Pure]
-    static PaxDate IUnsafeDateFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static PaxDate IUnsafeFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 
@@ -811,6 +811,7 @@ public partial struct PaxDate // Non-standard math ops
 public readonly partial struct PaxMonth :
     ICalendarMonth<PaxMonth>,
     ICalendarBound<PaxCalendar>,
+    IUnsafeFactory<PaxMonth>,
     // A month viewed as a finite sequence of days
     IDaySegment<PaxDate>,
     ISetMembership<PaxDate>,
@@ -968,6 +969,10 @@ public partial struct PaxMonth // Factories
         int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
         return new PaxMonth(monthsSinceEpoch);
     }
+
+    [Pure]
+    static PaxMonth IUnsafeFactory<PaxMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        new(monthsSinceEpoch);
 }
 
 public partial struct PaxMonth // Counting

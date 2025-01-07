@@ -84,7 +84,7 @@ public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
 public readonly partial struct TropicaliaDate :
     ICalendarDate<TropicaliaDate>,
     ICalendarBound<TropicaliaCalendar>,
-    IUnsafeDateFactory<TropicaliaDate>,
+    IUnsafeFactory<TropicaliaDate>,
     ISubtractionOperators<TropicaliaDate, TropicaliaDate, int>
 { }
 
@@ -289,7 +289,7 @@ public partial struct TropicaliaDate // Factories & conversions
     }
 
     [Pure]
-    static TropicaliaDate IUnsafeDateFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
+    static TropicaliaDate IUnsafeFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }
 
@@ -793,6 +793,7 @@ public partial struct TropicaliaDate // Non-standard math ops
 public readonly partial struct TropicaliaMonth :
     ICalendarMonth<TropicaliaMonth>,
     ICalendarBound<TropicaliaCalendar>,
+    IUnsafeFactory<TropicaliaMonth>,
     // A month viewed as a finite sequence of days
     IDaySegment<TropicaliaDate>,
     ISetMembership<TropicaliaDate>,
@@ -950,6 +951,10 @@ public partial struct TropicaliaMonth // Factories
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
         return new TropicaliaMonth(monthsSinceEpoch);
     }
+
+    [Pure]
+    static TropicaliaMonth IUnsafeFactory<TropicaliaMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        new(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>

@@ -85,7 +85,7 @@ public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
 public readonly partial struct PlainCivilDate :
     ICalendarDate<PlainCivilDate>,
     ICalendarBound<PlainCivilCalendar>,
-    IUnsafeDateFactory<PlainCivilDate>,
+    IUnsafeFactory<PlainCivilDate>,
     ISubtractionOperators<PlainCivilDate, PlainCivilDate, int>
 { }
 
@@ -281,7 +281,7 @@ public partial struct PlainCivilDate // Factories & conversions
     }
 
     [Pure]
-    static PlainCivilDate IUnsafeDateFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
+    static PlainCivilDate IUnsafeFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }
 
@@ -785,6 +785,7 @@ public partial struct PlainCivilDate // Non-standard math ops
 public readonly partial struct PlainCivilMonth :
     ICalendarMonth<PlainCivilMonth>,
     ICalendarBound<PlainCivilCalendar>,
+    IUnsafeFactory<PlainCivilMonth>,
     // A month viewed as a finite sequence of days
     IDaySegment<PlainCivilDate>,
     ISetMembership<PlainCivilDate>,
@@ -942,6 +943,10 @@ public partial struct PlainCivilMonth // Factories
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
         return new PlainCivilMonth(monthsSinceEpoch);
     }
+
+    [Pure]
+    static PlainCivilMonth IUnsafeFactory<PlainCivilMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        new(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>

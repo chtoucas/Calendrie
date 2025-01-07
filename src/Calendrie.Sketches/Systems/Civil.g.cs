@@ -27,6 +27,7 @@ using Calendrie.Hemerology;
 public readonly partial struct CivilMonth :
     ICalendarMonth<CivilMonth>,
     ICalendarBound<CivilCalendar>,
+    IUnsafeFactory<CivilMonth>,
     // A month viewed as a finite sequence of days
     IDaySegment<CivilDate>,
     ISetMembership<CivilDate>,
@@ -58,6 +59,10 @@ public partial struct CivilMonth // Factories
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
         return new CivilMonth(monthsSinceEpoch);
     }
+
+    [Pure]
+    static CivilMonth IUnsafeFactory<CivilMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        new(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>

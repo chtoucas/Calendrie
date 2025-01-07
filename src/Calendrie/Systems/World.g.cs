@@ -81,7 +81,7 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 public readonly partial struct WorldDate :
     ICalendarDate<WorldDate>,
     ICalendarBound<WorldCalendar>,
-    IUnsafeDateFactory<WorldDate>,
+    IUnsafeFactory<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>
 { }
 
@@ -292,7 +292,7 @@ public partial struct WorldDate // Factories & conversions
     }
 
     [Pure]
-    static WorldDate IUnsafeDateFactory<WorldDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static WorldDate IUnsafeFactory<WorldDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 }
 

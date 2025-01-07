@@ -28,7 +28,7 @@ using static Calendrie.Core.CalendricalConstants;
 public readonly partial struct CivilDate :
     ICalendarDate<CivilDate>,
     ICalendarBound<CivilCalendar>,
-    IUnsafeDateFactory<CivilDate>,
+    IUnsafeFactory<CivilDate>,
     ISubtractionOperators<CivilDate, CivilDate, int>
 { }
 
@@ -47,7 +47,7 @@ public partial struct CivilDate // Factories & conversions
     }
 
     [Pure]
-    static CivilDate IUnsafeDateFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
+    static CivilDate IUnsafeFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 }
 
