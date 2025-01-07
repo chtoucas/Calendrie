@@ -3,6 +3,7 @@
 <#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
 <#= new ZeroCalendarTemplate(this, "TropicaliaSchema", "3_652_055")
     {
+        EnableDateCustomMath = true,
         EnableMonth = true,
         EnableYear = true,
         EnablePragmas = true,

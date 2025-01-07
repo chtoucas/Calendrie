@@ -1325,7 +1325,6 @@ public sealed class PlainJulianMonthMath : MonthMathRegular<PlainJulianMonth, Pl
     public PlainJulianMonthMath(AdditionRule rule) : base(rule) { }
 }
 
-
 #endregion
 
 #region PlainJulianYear

@@ -1081,7 +1081,6 @@ public sealed class <#= Prefix #>MonthMath : MonthMathRegular<<#= Prefix #>Month
 {
     public <#= Prefix #>MonthMath(AdditionRule rule) : base(rule) { }
 }
-
 <#+
     } // T4: End of EmitMonthCustomMathRegular
 

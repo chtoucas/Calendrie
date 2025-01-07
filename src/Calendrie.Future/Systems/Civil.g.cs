@@ -335,7 +335,6 @@ public sealed class CivilMonthMath : MonthMathRegular<CivilMonth, CivilCalendar>
     public CivilMonthMath(AdditionRule rule) : base(rule) { }
 }
 
-
 #endregion
 
 #region CivilYear

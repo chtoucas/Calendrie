@@ -782,6 +782,21 @@ public partial struct TropicaliaDate // Non-standard math ops
 
 #endregion
 
+#region TropicaliaDateMath
+
+/// <summary>
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <see cref="TropicaliaDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
+/// to resolve ambiguities.</para>
+/// </summary>
+public sealed class TropicaliaDateMath : DateMathRegular<TropicaliaDate, TropicaliaCalendar>
+{
+    public TropicaliaDateMath(AdditionRule rule) : base(rule, TropicaliaCalendar.MonthsInYear) { }
+}
+
+#endregion
+
 #region TropicaliaMonth
 
 /// <summary>
@@ -1325,7 +1340,6 @@ public sealed class TropicaliaMonthMath : MonthMathRegular<TropicaliaMonth, Trop
 {
     public TropicaliaMonthMath(AdditionRule rule) : base(rule) { }
 }
-
 
 #endregion
 

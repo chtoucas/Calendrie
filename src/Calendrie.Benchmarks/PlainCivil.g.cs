@@ -1318,7 +1318,6 @@ public sealed class PlainCivilMonthMath : MonthMathRegular<PlainCivilMonth, Plai
     public PlainCivilMonthMath(AdditionRule rule) : base(rule) { }
 }
 
-
 #endregion
 
 #region PlainCivilYear

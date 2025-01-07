@@ -66,6 +66,8 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public bool EnableCalendar { get; set; } = true;
     public bool EnableDate { get; set; } = true;
+    // Temporary property.
+    public bool EnableDateCustomMath { get; set; }
     public bool EnableMonth { get; set; }
     public bool EnableYear { get; set; }
     // Temporary property until we decide what to do with clocks.
