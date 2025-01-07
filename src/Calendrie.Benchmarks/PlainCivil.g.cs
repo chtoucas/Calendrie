@@ -830,17 +830,19 @@ public partial struct PlainCivilMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="PlainCivilMonth"/>.
+    /// Gets the smallest possible value of <see cref="PlainCivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported month.</returns>
     //
     // MinValue = new(0) = new() = default(PlainCivilMonth)
     public static PlainCivilMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="PlainCivilMonth"/>.
+    /// Gets the largest possible value of <see cref="PlainCivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported month.</returns>
     public static PlainCivilMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
@@ -1357,17 +1359,19 @@ public partial struct PlainCivilYear // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="PlainCivilYear"/>.
+    /// Gets the smallest possible value of <see cref="PlainCivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported year.</returns>
     //
     // MinValue = new(1) = new() = default(PlainCivilYear)
     public static PlainCivilYear MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="PlainCivilYear"/>.
+    /// Gets the largest possible value of <see cref="PlainCivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported year.</returns>
     public static PlainCivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>

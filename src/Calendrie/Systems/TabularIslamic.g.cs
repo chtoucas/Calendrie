@@ -144,17 +144,19 @@ public partial struct TabularIslamicDate // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="TabularIslamicDate"/>.
+    /// Gets the smallest possible value of <see cref="TabularIslamicDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported date.</returns>
     //
     // MinValue = new(0) = new() = default(TabularIslamicDate)
     public static TabularIslamicDate MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="TabularIslamicDate"/>.
+    /// Gets the largest possible value of <see cref="TabularIslamicDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported date.</returns>
     public static TabularIslamicDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>

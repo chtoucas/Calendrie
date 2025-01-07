@@ -838,17 +838,19 @@ public partial struct TropicaliaMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="TropicaliaMonth"/>.
+    /// Gets the smallest possible value of <see cref="TropicaliaMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported month.</returns>
     //
     // MinValue = new(0) = new() = default(TropicaliaMonth)
     public static TropicaliaMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="TropicaliaMonth"/>.
+    /// Gets the largest possible value of <see cref="TropicaliaMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported month.</returns>
     public static TropicaliaMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
@@ -1365,17 +1367,19 @@ public partial struct TropicaliaYear // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="TropicaliaYear"/>.
+    /// Gets the smallest possible value of <see cref="TropicaliaYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported year.</returns>
     //
     // MinValue = new(1) = new() = default(TropicaliaYear)
     public static TropicaliaYear MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="TropicaliaYear"/>.
+    /// Gets the largest possible value of <see cref="TropicaliaYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported year.</returns>
     public static TropicaliaYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>

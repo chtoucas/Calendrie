@@ -45,17 +45,19 @@ public partial struct CivilMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="CivilMonth"/>.
+    /// Gets the earliest possible value of <see cref="CivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported month.</returns>
     //
     // MinValue = new(0) = new() = default(CivilMonth)
     public static CivilMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="CivilMonth"/>.
+    /// Gets the latest possible value of <see cref="CivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported month.</returns>
     public static CivilMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>

@@ -151,17 +151,19 @@ public partial struct PaxDate // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="PaxDate"/>.
+    /// Gets the smallest possible value of <see cref="PaxDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported date.</returns>
     //
     // MinValue = new(0) = new() = default(PaxDate)
     public static PaxDate MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="PaxDate"/>.
+    /// Gets the largest possible value of <see cref="PaxDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported date.</returns>
     public static PaxDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
@@ -855,17 +857,19 @@ public partial struct PaxMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="PaxMonth"/>.
+    /// Gets the smallest possible value of <see cref="PaxMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported month.</returns>
     //
     // MinValue = new(0) = new() = default(PaxMonth)
     public static PaxMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="PaxMonth"/>.
+    /// Gets the largest possible value of <see cref="PaxMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported month.</returns>
     public static PaxMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
@@ -1426,17 +1430,19 @@ public partial struct PaxYear // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="PaxYear"/>.
+    /// Gets the smallest possible value of <see cref="PaxYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported year.</returns>
     //
     // MinValue = new(1) = new() = default(PaxYear)
     public static PaxYear MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="PaxYear"/>.
+    /// Gets the largest possible value of <see cref="PaxYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported year.</returns>
     public static PaxYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>

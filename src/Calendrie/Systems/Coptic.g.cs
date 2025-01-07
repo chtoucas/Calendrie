@@ -144,17 +144,19 @@ public partial struct CopticDate // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="CopticDate"/>.
+    /// Gets the smallest possible value of <see cref="CopticDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported date.</returns>
     //
     // MinValue = new(0) = new() = default(CopticDate)
     public static CopticDate MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="CopticDate"/>.
+    /// Gets the largest possible value of <see cref="CopticDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported date.</returns>
     public static CopticDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>

@@ -104,17 +104,19 @@ public partial struct <#= Prefix #>Month // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="<#= Prefix #>Month"/>.
+    /// Gets the smallest possible value of <see cref="<#= Prefix #>Month"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported month.</returns>
     //
     // MinValue = new(0) = new() = default(<#= Prefix #>Month)
     public static <#= Prefix #>Month MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="<#= Prefix #>Month"/>.
+    /// Gets the largest possible value of <see cref="<#= Prefix #>Month"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported month.</returns>
     public static <#= Prefix #>Month MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
@@ -235,17 +237,19 @@ public partial struct <#= Prefix #>Month // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="<#= Prefix #>Month"/>.
+    /// Gets the smallest possible value of <see cref="<#= Prefix #>Month"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported month.</returns>
     //
     // MinValue = new(0) = new() = default(<#= Prefix #>Month)
     public static <#= Prefix #>Month MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="<#= Prefix #>Month"/>.
+    /// Gets the largest possible value of <see cref="<#= Prefix #>Month"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported month.</returns>
     public static <#= Prefix #>Month MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>

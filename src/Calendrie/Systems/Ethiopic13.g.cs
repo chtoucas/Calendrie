@@ -144,17 +144,19 @@ public partial struct Ethiopic13Date // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="Ethiopic13Date"/>.
+    /// Gets the smallest possible value of <see cref="Ethiopic13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported date.</returns>
     //
     // MinValue = new(0) = new() = default(Ethiopic13Date)
     public static Ethiopic13Date MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="Ethiopic13Date"/>.
+    /// Gets the largest possible value of <see cref="Ethiopic13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported date.</returns>
     public static Ethiopic13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>

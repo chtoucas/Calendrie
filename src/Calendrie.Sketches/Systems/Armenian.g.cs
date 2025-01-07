@@ -76,17 +76,19 @@ public partial struct ArmenianMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="ArmenianMonth"/>.
+    /// Gets the smallest possible value of <see cref="ArmenianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported month.</returns>
     //
     // MinValue = new(0) = new() = default(ArmenianMonth)
     public static ArmenianMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="ArmenianMonth"/>.
+    /// Gets the largest possible value of <see cref="ArmenianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported month.</returns>
     public static ArmenianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
@@ -603,17 +605,19 @@ public partial struct ArmenianYear // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="ArmenianYear"/>.
+    /// Gets the smallest possible value of <see cref="ArmenianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported year.</returns>
     //
     // MinValue = new(1) = new() = default(ArmenianYear)
     public static ArmenianYear MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="ArmenianYear"/>.
+    /// Gets the largest possible value of <see cref="ArmenianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported year.</returns>
     public static ArmenianYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>

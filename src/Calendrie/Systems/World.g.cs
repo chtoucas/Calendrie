@@ -144,17 +144,19 @@ public partial struct WorldDate // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="WorldDate"/>.
+    /// Gets the smallest possible value of <see cref="WorldDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported date.</returns>
     //
     // MinValue = new(0) = new() = default(WorldDate)
     public static WorldDate MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="WorldDate"/>.
+    /// Gets the largest possible value of <see cref="WorldDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported date.</returns>
     public static WorldDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>

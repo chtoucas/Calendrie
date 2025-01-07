@@ -98,17 +98,19 @@ public partial struct <#= Prefix #>Year // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="<#= Prefix #>Year"/>.
+    /// Gets the smallest possible value of <see cref="<#= Prefix #>Year"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported year.</returns>
     //
     // MinValue = new(1) = new() = default(<#= Prefix #>Year)
     public static <#= Prefix #>Year MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="<#= Prefix #>Year"/>.
+    /// Gets the largest possible value of <see cref="<#= Prefix #>Year"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported year.</returns>
     public static <#= Prefix #>Year MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>

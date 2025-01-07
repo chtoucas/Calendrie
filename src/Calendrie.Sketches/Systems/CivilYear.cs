@@ -44,17 +44,19 @@ public partial struct CivilYear // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="CivilYear"/>.
+    /// Gets the minimum possible value of <see cref="CivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported year.</returns>
     //
     // MinValue = new(1) = new() = default(CivilYear)
     public static CivilYear MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="CivilYear"/>.
+    /// Gets the maximum possible value of <see cref="CivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported year.</returns>
     public static CivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>

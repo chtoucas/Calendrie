@@ -144,17 +144,19 @@ public partial struct Zoroastrian13Date // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="Zoroastrian13Date"/>.
+    /// Gets the smallest possible value of <see cref="Zoroastrian13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported date.</returns>
     //
     // MinValue = new(0) = new() = default(Zoroastrian13Date)
     public static Zoroastrian13Date MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="Zoroastrian13Date"/>.
+    /// Gets the largest possible value of <see cref="Zoroastrian13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported date.</returns>
     public static Zoroastrian13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>

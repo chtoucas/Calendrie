@@ -144,17 +144,19 @@ public partial struct Armenian13Date // Preamble
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="Armenian13Date"/>.
+    /// Gets the smallest possible value of <see cref="Armenian13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The earliest supported date.</returns>
     //
     // MinValue = new(0) = new() = default(Armenian13Date)
     public static Armenian13Date MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="Armenian13Date"/>.
+    /// Gets the largest possible value of <see cref="Armenian13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
+    /// <returns>The latest supported date.</returns>
     public static Armenian13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
