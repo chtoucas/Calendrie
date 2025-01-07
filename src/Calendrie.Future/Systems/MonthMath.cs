@@ -1,9 +1,10 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology;
+namespace Calendrie.Systems;
 
 using Calendrie.Core;
+using Calendrie.Hemerology;
 
 public static class MonthMath
 {

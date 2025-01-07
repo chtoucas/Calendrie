@@ -10,7 +10,7 @@ using Calendrie.Hemerology;
 
 public partial struct CivilMonth
 {
-    public static MonthMath<CivilMonth, CivilCalendar> CreatePowerMath(AdditionRule rule) =>
+    public static MonthMath<CivilMonth, CivilCalendar> GetCustomMath(AdditionRule rule) =>
         MonthMath.Create<CivilMonth, CivilCalendar>(rule);
 }
 
