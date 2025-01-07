@@ -3,6 +3,8 @@
 
 namespace Calendrie;
 
+// REVIEW(code): supprimer la valeur Overflow?
+
 #region Developer Notes
 
 // Exemples (calendriers grégorien et julien) quand le résultat d'une opération

@@ -122,7 +122,8 @@ public partial struct <#= Prefix #>Date // Preamble
     }
 
     /// <summary>
-    /// This constructor does NOT validate its parameter.
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct.
+    /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
     internal <#= Prefix #>Date(int <#= DaysSinceEpochVar #>)
     {
@@ -130,7 +131,7 @@ public partial struct <#= Prefix #>Date // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="<#= Prefix #>Date"/>.
+    /// Gets the smallest possible value of a <see cref="<#= Prefix #>Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -138,7 +139,7 @@ public partial struct <#= Prefix #>Date // Preamble
     public static <#= Prefix #>Date MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="<#= Prefix #>Date"/>.
+    /// Gets the largest possible value of a <see cref="<#= Prefix #>Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static <#= Prefix #>Date MaxValue { get; } = new(<#= MaxDaysSinceEpoch #>);
@@ -153,7 +154,7 @@ public partial struct <#= Prefix #>Date // Preamble
     public DayNumber DayNumber => new(_<#= DaysSinceEpochVar #>);
 
     /// <summary>
-    /// Gets the count of days since the Gregorian epoch.
+    /// Gets the count of consecutive days since the Gregorian epoch.
     /// </summary>
     public int DaysSinceZero => _<#= DaysSinceEpochVar #>;
 
@@ -182,9 +183,8 @@ public partial struct <#= Prefix #>Date // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => Calendar.Schema.GetYear(_<#= DaysSinceEpochVar #>);
 

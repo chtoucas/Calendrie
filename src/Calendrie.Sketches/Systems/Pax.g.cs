@@ -38,7 +38,6 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     private PaxCalendar(PaxSchema schema)
         : base("Pax", new StandardScope(schema, DayZero.SundayBeforeGregorian))
     {
-        Debug.Assert(schema != null);
         Schema = schema;
     }
 
@@ -143,7 +142,8 @@ public partial struct PaxDate // Preamble
     }
 
     /// <summary>
-    /// This constructor does NOT validate its parameter.
+    /// Initializes a new instance of the <see cref="PaxDate"/> struct.
+    /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
     internal PaxDate(int daysSinceEpoch)
     {
@@ -151,7 +151,7 @@ public partial struct PaxDate // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="PaxDate"/>.
+    /// Gets the smallest possible value of a <see cref="PaxDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -159,7 +159,7 @@ public partial struct PaxDate // Preamble
     public static PaxDate MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="PaxDate"/>.
+    /// Gets the largest possible value of a <see cref="PaxDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxDate MaxValue { get; } = new(MaxDaysSinceEpoch);
@@ -172,7 +172,7 @@ public partial struct PaxDate // Preamble
 
     /// <inheritdoc />
     //
-    // We already know that the resulting day number is valid so instead of
+    // We already know that the resulting day number is valid, so instead of
     // > public DayNumber DayNumber => Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
@@ -203,9 +203,8 @@ public partial struct PaxDate // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => Calendar.Schema.GetYear(_daysSinceEpoch);
 
@@ -658,6 +657,8 @@ public partial struct PaxDate // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -672,6 +673,8 @@ public partial struct PaxDate // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -682,8 +685,11 @@ public partial struct PaxDate // Non-standard math ops
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return AddMonths(sch, y, m, d, months);
     }
+
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(PaxDate other)
@@ -711,6 +717,8 @@ public partial struct PaxDate // Non-standard math ops
 
     /// <summary>
     /// Counts the number of months elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountMonthsSince(PaxDate other)
@@ -741,6 +749,8 @@ public partial struct PaxDate // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -763,6 +773,8 @@ public partial struct PaxDate // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of the specified date,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
@@ -819,8 +831,8 @@ public partial struct PaxMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PaxMonth"/> struct to the
-    /// specified month components.
+    /// Initializes a new instance of the <see cref="PaxMonth"/> struct
+    /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
@@ -843,7 +855,7 @@ public partial struct PaxMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="PaxMonth"/>.
+    /// Gets the smallest possible value of a <see cref="PaxMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -851,7 +863,7 @@ public partial struct PaxMonth // Preamble
     public static PaxMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="PaxMonth"/>.
+    /// Gets the largest possible value of a <see cref="PaxMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
@@ -888,9 +900,8 @@ public partial struct PaxMonth // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year
     {
@@ -942,8 +953,8 @@ public partial struct PaxMonth // Preamble
 public partial struct PaxMonth // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="PaxMonth"/> struct from the
-    /// specified <see cref="PaxDate"/> value.
+    /// Creates a new instance of the <see cref="PaxMonth"/> struct
+    /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
     [Pure]
     public static PaxMonth Create(PaxDate date)
@@ -1288,6 +1299,8 @@ public partial struct PaxMonth // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
+    /// <para>This method may truncate the (naïve) to ensure that it returns a
+    /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -1301,6 +1314,8 @@ public partial struct PaxMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(PaxMonth other)
@@ -1329,6 +1344,8 @@ public partial struct PaxMonth // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) to ensure that it returns a
+    /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -1386,8 +1403,8 @@ public partial struct PaxYear // Preamble
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PaxYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="PaxYear"/> struct
+    /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
@@ -1400,8 +1417,8 @@ public partial struct PaxYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PaxYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="PaxYear"/> struct
+    /// to the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     private PaxYear(ushort yearsSinceEpoch)
@@ -1410,7 +1427,7 @@ public partial struct PaxYear // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="PaxYear"/>.
+    /// Gets the smallest possible value of a <see cref="PaxYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -1418,7 +1435,7 @@ public partial struct PaxYear // Preamble
     public static PaxYear MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="PaxYear"/>.
+    /// Gets the largest possible value of a <see cref="PaxYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
@@ -1455,9 +1472,8 @@ public partial struct PaxYear // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => _yearsSinceEpoch + 1;
 
@@ -1475,22 +1491,22 @@ public partial struct PaxYear // Preamble
 public partial struct PaxYear // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct from the
-    /// specified <see cref="PaxMonth"/> value.
+    /// Creates a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified <see cref="PaxMonth"/> value.
     /// </summary>
     [Pure]
     public static PaxYear Create(PaxMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct from the
-    /// specified <see cref="PaxDate"/> value.
+    /// Creates a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
     [Pure]
     public static PaxYear Create(PaxDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct from the
-    /// specified year.
+    /// Creates a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]

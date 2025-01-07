@@ -176,7 +176,6 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     private <#= Prefix #>Calendar(<#= SchemaClass #> schema)
         : base("<#= DisplayName #>", new <#= ScopeClass #>(schema, <#= Epoch #>))
     {
-        Debug.Assert(schema != null);
         Schema = schema;
     }
 

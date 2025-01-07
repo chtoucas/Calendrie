@@ -5,9 +5,8 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// No IAbsoluteYear or IAffineYear. A year type is always "affine".
-// Interconversion can only be achieved after converting a year to a range of
-// days.
+// No IAbsoluteYear or IAffineYear. Interconversion can only be achieved after
+// converting a year to a range of days.
 
 /// <summary>
 /// Defines a calendar year.

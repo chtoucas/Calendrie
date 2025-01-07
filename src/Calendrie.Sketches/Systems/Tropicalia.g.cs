@@ -46,7 +46,6 @@ public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
     private TropicaliaCalendar(TropicaliaSchema schema)
         : base("Tropicalia", new StandardScope(schema, DayZero.NewStyle))
     {
-        Debug.Assert(schema != null);
         Schema = schema;
     }
 
@@ -133,7 +132,8 @@ public partial struct TropicaliaDate // Preamble
     }
 
     /// <summary>
-    /// This constructor does NOT validate its parameter.
+    /// Initializes a new instance of the <see cref="TropicaliaDate"/> struct.
+    /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
     internal TropicaliaDate(int daysSinceZero)
     {
@@ -141,7 +141,7 @@ public partial struct TropicaliaDate // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="TropicaliaDate"/>.
+    /// Gets the smallest possible value of a <see cref="TropicaliaDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -149,7 +149,7 @@ public partial struct TropicaliaDate // Preamble
     public static TropicaliaDate MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="TropicaliaDate"/>.
+    /// Gets the largest possible value of a <see cref="TropicaliaDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TropicaliaDate MaxValue { get; } = new(MaxDaysSinceZero);
@@ -164,7 +164,7 @@ public partial struct TropicaliaDate // Preamble
     public DayNumber DayNumber => new(_daysSinceZero);
 
     /// <summary>
-    /// Gets the count of days since the Gregorian epoch.
+    /// Gets the count of consecutive days since the Gregorian epoch.
     /// </summary>
     public int DaysSinceZero => _daysSinceZero;
 
@@ -193,9 +193,8 @@ public partial struct TropicaliaDate // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => Calendar.Schema.GetYear(_daysSinceZero);
 
@@ -644,6 +643,8 @@ public partial struct TropicaliaDate // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -658,6 +659,8 @@ public partial struct TropicaliaDate // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -671,6 +674,8 @@ public partial struct TropicaliaDate // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(TropicaliaDate other)
@@ -698,6 +703,8 @@ public partial struct TropicaliaDate // Non-standard math ops
 
     /// <summary>
     /// Counts the number of months elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountMonthsSince(TropicaliaDate other)
@@ -728,6 +735,8 @@ public partial struct TropicaliaDate // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -749,6 +758,8 @@ public partial struct TropicaliaDate // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of the specified date,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
@@ -804,8 +815,8 @@ public partial struct TropicaliaMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct to the
-    /// specified month components.
+    /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct
+    /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
@@ -827,7 +838,7 @@ public partial struct TropicaliaMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="TropicaliaMonth"/>.
+    /// Gets the smallest possible value of a <see cref="TropicaliaMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -835,7 +846,7 @@ public partial struct TropicaliaMonth // Preamble
     public static TropicaliaMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="TropicaliaMonth"/>.
+    /// Gets the largest possible value of a <see cref="TropicaliaMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TropicaliaMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
@@ -872,9 +883,8 @@ public partial struct TropicaliaMonth // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
@@ -917,8 +927,8 @@ public partial struct TropicaliaMonth // Preamble
 public partial struct TropicaliaMonth // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct from the
-    /// specified <see cref="TropicaliaDate"/> value.
+    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
+    /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
     public static TropicaliaMonth Create(TropicaliaDate date)
@@ -1263,11 +1273,11 @@ public partial struct TropicaliaMonth // Standard math ops
 
 public partial struct TropicaliaMonth // Non-standard math ops
 {
-    // For regular calendars, the next operations are unambiguous.
-
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
+    /// <para>In the particular case of the Tropicalia calendar, this
+    /// operation is exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -1285,6 +1295,8 @@ public partial struct TropicaliaMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
+    /// <para>In the particular case of the Tropicalia calendar, this
+    /// operation is exact.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(TropicaliaMonth other) =>
@@ -1330,8 +1342,8 @@ public partial struct TropicaliaYear // Preamble
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct
+    /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
@@ -1344,8 +1356,8 @@ public partial struct TropicaliaYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct
+    /// to the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     private TropicaliaYear(ushort yearsSinceEpoch)
@@ -1354,7 +1366,7 @@ public partial struct TropicaliaYear // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="TropicaliaYear"/>.
+    /// Gets the smallest possible value of a <see cref="TropicaliaYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -1362,7 +1374,7 @@ public partial struct TropicaliaYear // Preamble
     public static TropicaliaYear MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="TropicaliaYear"/>.
+    /// Gets the largest possible value of a <see cref="TropicaliaYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TropicaliaYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
@@ -1399,9 +1411,8 @@ public partial struct TropicaliaYear // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => _yearsSinceEpoch + 1;
 
@@ -1419,22 +1430,22 @@ public partial struct TropicaliaYear // Preamble
 public partial struct TropicaliaYear // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the
-    /// specified <see cref="TropicaliaMonth"/> value.
+    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
+    /// from the specified <see cref="TropicaliaMonth"/> value.
     /// </summary>
     [Pure]
     public static TropicaliaYear Create(TropicaliaMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the
-    /// specified <see cref="TropicaliaDate"/> value.
+    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
+    /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
     public static TropicaliaYear Create(TropicaliaDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct from the
-    /// specified year.
+    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
+    /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
