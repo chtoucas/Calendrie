@@ -13,14 +13,3 @@ public sealed class TropicaliaDateMath : DateMathRegular<TropicaliaDate, Tropica
 {
     public TropicaliaDateMath(AdditionRule rule) : base(rule, TropicaliaCalendar.MonthsInYear) { }
 }
-
-/// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
-/// <see cref="TropicaliaMonth"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
-/// </summary>
-public sealed class TropicaliaMonthMath : MonthMathRegular<TropicaliaMonth, TropicaliaCalendar>
-{
-    public TropicaliaMonthMath(AdditionRule rule) : base(rule) { }
-}
