@@ -93,6 +93,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
 }
 
 // TODO(code): if we enable the year and month types, we should remove these methods
+// Most certainly we should also remove the generic parameter TDate.
 
 public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {
