@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#nullable enable
+
 #pragma warning disable IDE0002 // Simplify Member Access (Style) ✓
 
 namespace Calendrie.Systems;

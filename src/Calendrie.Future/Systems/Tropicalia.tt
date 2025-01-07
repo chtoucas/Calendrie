@@ -5,6 +5,7 @@
     {
         EnableMonth = true,
         EnableYear = true,
+        EnableNullable = true,
         EnablePragmas = true,
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12

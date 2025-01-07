@@ -163,6 +163,7 @@
         "type": "Project",
         "dependencies": {
           "Calendrie": "[0.1.0, )",
+          "Calendrie.Future": "[0.1.0, )",
           "Calendrie.Sketches": "[0.1.0, )"
         }
       },

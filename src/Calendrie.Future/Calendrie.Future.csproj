@@ -11,11 +11,38 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
+    <!-- T4 templates -->
+    <None Update="**\*.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>%(Filename).g.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\" />
+    <Compile Update="Systems\Civil.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Civil.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Pax.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Pax.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Tropicalia.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Tropicalia.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- T4 service -->
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
   </ItemGroup>
 
 </Project>

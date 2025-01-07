@@ -13,6 +13,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
         EnableDate = false;
         EnableMonth = true;
         EnableYear = true;
+        EnableNullable = true;
         MaxMonthsSinceEpochValue = "119_987";
         MonthsInYear = 12;
     }

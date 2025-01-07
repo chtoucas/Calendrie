@@ -8,6 +8,12 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+public partial struct CivilMonth
+{
+    public static MonthMath<CivilMonth, CivilCalendar> CreatePowerMath(AdditionRule rule) =>
+        MonthMath.Create<CivilMonth, CivilCalendar>(rule);
+}
+
 public partial struct CivilMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
