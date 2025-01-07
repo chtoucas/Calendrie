@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core;
+using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
@@ -47,6 +48,8 @@ public abstract class DateMath<TDate, TCalendar>
     /// </summary>
     private protected DateMath(AdditionRule rule)
     {
+        Requires.Defined(rule);
+
         var scope = TDate.Calendar.Scope;
 
         AdditionRule = rule;

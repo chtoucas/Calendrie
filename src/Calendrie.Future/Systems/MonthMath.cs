@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core;
+using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 #if false
@@ -20,6 +21,12 @@ public static class MonthMath
 }
 #endif
 
+/// <summary>
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <typeparamref name="TMonth"/> type and provides a base for derived classes.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
+/// to resolve ambiguities.</para>
+/// </summary>
 public abstract class MonthMath<TMonth, TCalendar>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>
     where TCalendar : Calendar
@@ -30,6 +37,8 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// </summary>
     private protected MonthMath(AdditionRule rule)
     {
+        Requires.Defined(rule);
+
         var scope = TMonth.Calendar.Scope;
 
         AdditionRule = rule;

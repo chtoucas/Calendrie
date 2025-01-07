@@ -6,6 +6,12 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+/// <summary>
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <typeparamref name="TMonth"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
+/// to resolve ambiguities.</para>
+/// </summary>
 public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
     where TCalendar : Calendar

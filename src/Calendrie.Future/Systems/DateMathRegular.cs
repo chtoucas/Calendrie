@@ -6,6 +6,13 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+/// <summary>
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <typeparamref name="TDate"/> type when the <typeparamref name="TCalendar"/>
+/// type is <i>regular</i>.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
+/// to resolve ambiguities.</para>
+/// </summary>
 public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
