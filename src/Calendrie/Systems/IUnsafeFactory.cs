@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology;
+namespace Calendrie.Systems;
 
 // Funny interface: it's public but, having a static __internal__ method, it can
 // ONLY be implemented from within friend assemblies. Why public? It's use as a
