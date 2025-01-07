@@ -100,18 +100,19 @@ public interface IMonth
     [Pure] int CountRemainingMonthsInYear();
 
     // REVIEW(code): CountElapsedDaysInYear() and CountRemainingDaysInYear()?
+#if false
+    /// <summary>
+    /// Obtains the number of whole days in the year elapsed since the start of
+    /// the year and before this month instance.
+    /// </summary>
+    [Pure] int CountElapsedDaysInYear();
 
-    ///// <summary>
-    ///// Obtains the number of whole days in the year elapsed since the start of
-    ///// the year and before this month instance.
-    ///// </summary>
-    //[Pure] int CountElapsedDaysInYear();
-
-    ///// <summary>
-    ///// Obtains the number of whole days remaining after this month instance and
-    ///// until the end of the year.
-    ///// </summary>
-    //[Pure] int CountRemainingDaysInYear();
+    /// <summary>
+    /// Obtains the number of whole days remaining after this month instance and
+    /// until the end of the year.
+    /// </summary>
+    [Pure] int CountRemainingDaysInYear();
+#endif
 }
 
 /// <summary>
