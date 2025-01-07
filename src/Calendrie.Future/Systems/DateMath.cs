@@ -50,21 +50,24 @@ public abstract class DateMath<TDate, TCalendar>
     {
         Requires.Defined(rule);
 
-        var scope = TDate.Calendar.Scope;
-
         AdditionRule = rule;
 
+        var scope = TDate.Calendar.Scope;
+        Scope = scope;
         Schema = scope.Schema;
 
-        var seg = scope.Segment;
-        (MinYear, MaxYear) = seg.SupportedYears.Endpoints;
-        (MinMonthsSinceEpoch, MaxMonthsSinceEpoch) = seg.SupportedMonths.Endpoints;
+        (MinYear, MaxYear) = scope.Segment.SupportedYears.Endpoints;
     }
 
     /// <summary>
     /// Gets the strategy employed to resolve ambiguities.
     /// </summary>
     public AdditionRule AdditionRule { get; }
+
+    /// <summary>
+    /// Gets the scope.
+    /// </summary>
+    protected CalendarScope Scope { get; }
 
     /// <summary>
     /// Gets the schema.
@@ -80,16 +83,6 @@ public abstract class DateMath<TDate, TCalendar>
     /// Gets the latest supported year.
     /// </summary>
     protected int MaxYear { get; }
-
-    /// <summary>
-    /// Gets the earliest supported month.
-    /// </summary>
-    protected int MinMonthsSinceEpoch { get; }
-
-    /// <summary>
-    /// Gets the latest supported month.
-    /// </summary>
-    protected int MaxMonthsSinceEpoch { get; }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date.

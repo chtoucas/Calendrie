@@ -20,7 +20,20 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     /// Initializes a new instance of the <see cref="DateMathPlain{TCalendar, TDate}"/>
     /// class.
     /// </summary>
-    internal DateMathPlain(AdditionRule rule) : base(rule) { }
+    internal DateMathPlain(AdditionRule rule) : base(rule)
+    {
+        (MinMonthsSinceEpoch, MaxMonthsSinceEpoch) = Scope.Segment.SupportedMonths.Endpoints;
+    }
+
+    /// <summary>
+    /// Gets the earliest supported month.
+    /// </summary>
+    private int MinMonthsSinceEpoch { get; }
+
+    /// <summary>
+    /// Gets the latest supported month.
+    /// </summary>
+    private int MaxMonthsSinceEpoch { get; }
 
     /// <inheritdoc />
     [Pure]

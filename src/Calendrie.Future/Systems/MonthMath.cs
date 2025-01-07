@@ -39,11 +39,12 @@ public abstract class MonthMath<TMonth, TCalendar>
     {
         Requires.Defined(rule);
 
-        var scope = TMonth.Calendar.Scope;
-
         AdditionRule = rule;
 
+        var scope = TMonth.Calendar.Scope;
+        Scope = scope;
         Schema = scope.Schema;
+
         (MinYear, MaxYear) = scope.Segment.SupportedYears.Endpoints;
     }
 
@@ -51,6 +52,11 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// Gets the strategy employed to resolve ambiguities.
     /// </summary>
     public AdditionRule AdditionRule { get; }
+
+    /// <summary>
+    /// Gets the scope.
+    /// </summary>
+    protected CalendarScope Scope { get; }
 
     /// <summary>
     /// Gets the schema.
