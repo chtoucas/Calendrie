@@ -20,7 +20,10 @@ public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     /// Initializes a new instance of the <see cref="MonthMathPlain{TMonth, TCalendar}"/>
     /// class.
     /// </summary>
-    internal MonthMathPlain(AdditionRule rule) : base(rule) { }
+    internal MonthMathPlain(AdditionRule rule) : base(rule)
+    {
+        Debug.Assert(Scope is StandardScope);
+    }
 
     /// <inheritdoc />
     [Pure]
@@ -52,7 +55,8 @@ public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
 
         //int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
         int monthsInYear = Schema.CountMonthsInYear(newY);

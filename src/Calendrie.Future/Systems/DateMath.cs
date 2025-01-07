@@ -3,7 +3,10 @@
 
 namespace Calendrie.Systems;
 
-#if false
+using Calendrie.Hemerology;
+
+[Obsolete("Better to inherit one the two classes directly")]
+[ExcludeFromCodeCoverage]
 public static class DateMath
 {
     public static DateMath<TDate, TCalendar> Create<TDate, TCalendar>(AdditionRule rule)
@@ -15,4 +18,3 @@ public static class DateMath
             : new DateMathPlain<TDate, TCalendar>(rule);
     }
 }
-#endif

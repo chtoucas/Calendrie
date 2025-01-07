@@ -25,6 +25,7 @@ public class MonthMathRegular<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     {
         Debug.Assert(Schema != null);
         Debug.Assert(Schema.IsRegular(out _));
+        Debug.Assert(Scope is StandardScope);
     }
 
     /// <inheritdoc />
@@ -41,7 +42,8 @@ public class MonthMathRegular<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
 
         roundoff = 0;
 

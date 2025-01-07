@@ -29,8 +29,6 @@ public abstract class MonthMath<TMonth, TCalendar>
         var scope = TMonth.Calendar.Scope;
         Scope = scope;
         Schema = scope.Schema;
-
-        (MinYear, MaxYear) = scope.Segment.SupportedYears.Endpoints;
     }
 
     /// <summary>
@@ -47,16 +45,6 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// Gets the schema.
     /// </summary>
     protected ICalendricalSchema Schema { get; }
-
-    /// <summary>
-    /// Gets the earliest supported year.
-    /// </summary>
-    protected int MinYear { get; }
-
-    /// <summary>
-    /// Gets the latest supported year.
-    /// </summary>
-    protected int MaxYear { get; }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified month.

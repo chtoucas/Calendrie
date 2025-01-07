@@ -30,6 +30,7 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     {
         Debug.Assert(Schema != null);
         Debug.Assert(Schema.IsRegular(out _));
+        Debug.Assert(Scope is StandardScope);
 
         _monthsInYear = monthsInYear;
     }
@@ -39,7 +40,8 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     protected sealed override TDate AddYears(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
-        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
 
         int daysInMonth = Schema.CountDaysInMonth(newY, m);
         roundoff = Math.Max(0, d - daysInMonth);
@@ -56,7 +58,8 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
         int newY = checked(y + y0);
-        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
 
         int daysInMonth = Schema.CountDaysInMonth(newY, newM);
         roundoff = Math.Max(0, d - daysInMonth);

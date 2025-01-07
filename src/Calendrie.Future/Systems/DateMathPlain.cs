@@ -22,6 +22,8 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     /// </summary>
     internal DateMathPlain(AdditionRule rule) : base(rule)
     {
+        Debug.Assert(Scope is StandardScope);
+
         (MinMonthsSinceEpoch, MaxMonthsSinceEpoch) = Scope.Segment.SupportedMonths.Endpoints;
     }
 
@@ -40,7 +42,8 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     protected sealed override TDate AddYears(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
-        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
 
         var sch = Schema;
         int monthsInYear = sch.CountMonthsInYear(newY);
