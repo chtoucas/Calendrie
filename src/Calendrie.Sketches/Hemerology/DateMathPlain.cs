@@ -13,7 +13,7 @@ internal sealed class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalenda
     /// Initializes a new instance of the <see cref="DateMathPlain{TCalendar, TDate}"/>
     /// class.
     /// </summary>
-    public DateMathPlain(AdditionRule additionRule) : base(additionRule) { }
+    public DateMathPlain(AdditionRule rule) : base(rule) { }
 
     /// <inheritdoc />
     [Pure]

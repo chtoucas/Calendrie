@@ -17,13 +17,13 @@ using Calendrie.Core;
 
 public static class DateMath
 {
-    public static DateMath<TDate, TCalendar> Create<TDate, TCalendar>(AdditionRule additionRule)
+    public static DateMath<TDate, TCalendar> Create<TDate, TCalendar>(AdditionRule rule)
         where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
         where TCalendar : Calendar
     {
         return TDate.Calendar.IsRegular(out int monthsInYear)
-            ? new DateMathRegular<TDate, TCalendar>(additionRule, monthsInYear)
-            : new DateMathPlain<TDate, TCalendar>(additionRule);
+            ? new DateMathRegular<TDate, TCalendar>(rule, monthsInYear)
+            : new DateMathPlain<TDate, TCalendar>(rule);
     }
 }
 
@@ -45,11 +45,11 @@ public abstract class DateMath<TDate, TCalendar>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="DateMath{TDate, TCalendar}"/> class.
     /// </summary>
-    private protected DateMath(AdditionRule additionRule)
+    private protected DateMath(AdditionRule rule)
     {
         var scope = TDate.Calendar.Scope;
 
-        AdditionRule = additionRule;
+        AdditionRule = rule;
 
         Schema = scope.Schema;
 

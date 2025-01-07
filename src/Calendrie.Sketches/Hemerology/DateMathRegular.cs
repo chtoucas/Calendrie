@@ -18,7 +18,7 @@ internal sealed class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalen
     /// Initializes a new instance of the <see cref="DateMathRegular{TDate, TCalendar}"/>
     /// class.
     /// </summary>
-    public DateMathRegular(AdditionRule additionRule, int monthsInYear) : base(additionRule)
+    public DateMathRegular(AdditionRule rule, int monthsInYear) : base(rule)
     {
         Debug.Assert(Schema != null);
         Debug.Assert(Schema.IsRegular(out _));

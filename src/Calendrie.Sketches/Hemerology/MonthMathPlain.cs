@@ -13,7 +13,7 @@ internal sealed class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCal
     /// Initializes a new instance of the <see cref="MonthMathPlain{TMonth, TCalendar}"/>
     /// class.
     /// </summary>
-    public MonthMathPlain(AdditionRule additionRule) : base(additionRule) { }
+    public MonthMathPlain(AdditionRule rule) : base(rule) { }
 
     /// <inheritdoc />
     [Pure]

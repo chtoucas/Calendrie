@@ -7,13 +7,13 @@ using Calendrie.Core;
 
 public static class MonthMath
 {
-    public static MonthMath<TMonth, TCalendar> Create<TMonth, TCalendar>(AdditionRule additionRule)
+    public static MonthMath<TMonth, TCalendar> Create<TMonth, TCalendar>(AdditionRule rule)
         where TMonth : struct, ICalendarMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
         where TCalendar : Calendar
     {
         return TMonth.Calendar.IsRegular(out _)
-            ? new MonthMathRegular<TMonth, TCalendar>(additionRule)
-            : new MonthMathPlain<TMonth, TCalendar>(additionRule);
+            ? new MonthMathRegular<TMonth, TCalendar>(rule)
+            : new MonthMathPlain<TMonth, TCalendar>(rule);
     }
 }
 
@@ -25,11 +25,11 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="MonthMath{TMonth, TCalendar}"/> class.
     /// </summary>
-    private protected MonthMath(AdditionRule additionRule)
+    private protected MonthMath(AdditionRule rule)
     {
         var scope = TMonth.Calendar.Scope;
 
-        AdditionRule = additionRule;
+        AdditionRule = rule;
 
         Schema = scope.Schema;
         (MinYear, MaxYear) = scope.Segment.SupportedYears.Endpoints;
