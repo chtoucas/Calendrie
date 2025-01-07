@@ -10,6 +10,12 @@
       },
       "calendrie": {
         "type": "Project"
+      },
+      "calendrie.future": {
+        "type": "Project",
+        "dependencies": {
+          "Calendrie": "[0.1.0, )"
+        }
       }
     }
   }

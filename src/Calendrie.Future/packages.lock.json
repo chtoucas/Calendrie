@@ -10,19 +10,6 @@
       },
       "calendrie": {
         "type": "Project"
-      },
-      "calendrie.future": {
-        "type": "Project",
-        "dependencies": {
-          "Calendrie": "[0.1.0, )"
-        }
-      },
-      "calendrie.sketches": {
-        "type": "Project",
-        "dependencies": {
-          "Calendrie": "[0.1.0, )",
-          "Calendrie.Future": "[0.1.0, )"
-        }
       }
     }
   }

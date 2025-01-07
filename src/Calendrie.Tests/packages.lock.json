@@ -136,16 +136,24 @@
       "calendrie": {
         "type": "Project"
       },
-      "calendrie.sketches": {
+      "calendrie.future": {
         "type": "Project",
         "dependencies": {
           "Calendrie": "[0.1.0, )"
+        }
+      },
+      "calendrie.sketches": {
+        "type": "Project",
+        "dependencies": {
+          "Calendrie": "[0.1.0, )",
+          "Calendrie.Future": "[0.1.0, )"
         }
       },
       "calendrie.testing": {
         "type": "Project",
         "dependencies": {
           "Calendrie": "[0.1.0, )",
+          "Calendrie.Future": "[0.1.0, )",
           "Calendrie.Sketches": "[0.1.0, )",
           "xunit.assert": "[2.9.2, )",
           "xunit.extensibility.core": "[2.9.2, )"

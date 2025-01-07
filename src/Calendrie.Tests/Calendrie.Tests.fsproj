@@ -127,6 +127,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Calendrie.Future\Calendrie.Future.csproj" />
     <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
     <ProjectReference Include="..\Calendrie.Testing\Calendrie.Testing.csproj" />
     <ProjectReference Include="..\Samples\Samples.csproj" />

@@ -47,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Calendrie.Future\Calendrie.Future.csproj" />
     <ProjectReference Include="..\Calendrie\Calendrie.csproj" />
   </ItemGroup>
 
