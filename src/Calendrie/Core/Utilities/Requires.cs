@@ -37,6 +37,27 @@ internal static class Requires
     }
 
     /// <summary>
+    /// Validates that the specified value is a member of the enum
+    /// <see cref="AdditionRule"/>.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    public static void Defined(
+        AdditionRule rule,
+        [CallerArgumentExpression(nameof(rule))] string paramName = "")
+    {
+        if (AdditionRule.Truncate <= rule && rule <= AdditionRule.Overflow) return;
+
+        fail(rule, paramName);
+
+        static void fail(AdditionRule rule, string paramName) =>
+            throw new ArgumentOutOfRangeException(
+                paramName,
+                rule,
+                $"The value of the addition rule must be in the range 0 through 3; value = {rule}.");
+    }
+
+    /// <summary>
     /// Validates that the specified schema has the <paramref name="expected"/>
     /// profile.
     /// </summary>

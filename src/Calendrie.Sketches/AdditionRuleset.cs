@@ -24,7 +24,7 @@ public readonly record struct AdditionRuleset
         get => _dateRule;
         init
         {
-            RequiresEx.Defined(value);
+            Requires.Defined(value);
             _dateRule = value;
         }
     }
@@ -41,7 +41,7 @@ public readonly record struct AdditionRuleset
         get => _ordinalRule;
         init
         {
-            RequiresEx.Defined(value);
+            Requires.Defined(value);
             _ordinalRule = value;
         }
     }
@@ -58,7 +58,7 @@ public readonly record struct AdditionRuleset
         get => _monthRule;
         init
         {
-            RequiresEx.Defined(value);
+            Requires.Defined(value);
             _monthRule = value;
         }
     }

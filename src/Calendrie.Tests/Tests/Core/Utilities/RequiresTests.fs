@@ -45,14 +45,14 @@ let ``Defined(dayOfWeek) throws when "dayOfWeek" is not a valid value (with para
 
 [<Theory; MemberData(nameof(additionRuleData))>]
 let ``Defined(rule) does not throw when "rule" is a valid value`` (rule: AdditionRule) =
-    RequiresEx.Defined(rule)
-    RequiresEx.Defined(rule, paramName)
+    Requires.Defined(rule)
+    Requires.Defined(rule, paramName)
 
 [<Theory; MemberData(nameof(invalidAdditionRuleData))>]
 let ``Defined(rule) throws when "rule" is not a valid value (without paramName)`` (rule: AdditionRule) =
     //outOfRangeExn "weekday" (fun () -> RequiresEx.Defined(rule))
-    outOfRangeExn "" (fun () -> RequiresEx.Defined(rule))
+    outOfRangeExn "" (fun () -> Requires.Defined(rule))
 
 [<Theory; MemberData(nameof(invalidAdditionRuleData))>]
 let ``Defined(rule) throws when "rule" is not a valid value (with paramName)`` (rule: AdditionRule) =
-    outOfRangeExn paramName (fun () -> RequiresEx.Defined(rule, paramName))
+    outOfRangeExn paramName (fun () -> Requires.Defined(rule, paramName))
