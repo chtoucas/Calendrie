@@ -69,8 +69,16 @@ try {
     pushd $RootDir
 
     $args = @("-c:$configuration")
+    if ($Extras) {
+        $args += "/p:EnableMorePrototypalTests=true"
+
+        if ($NoBuild) {
+            Write-Host -ForegroundColor Red `
+                'The option -NoBuild is NOT compatible with the option -Extras (-X)'
+            exit
+        }
+    }
     if ($NoBuild) { $args += '--no-build' }
-    elseif ($Extras) { $args += "/p:EnableMorePrototypalTests=true" }
 
     switch ($Plan) {
         'default' {
@@ -78,11 +86,19 @@ try {
             # - tests excluded from the plan Regular
             # - slow tests
             $filter = 'ExcludeFrom!=Regular&Performance!~Slow'
+            if ($Extras) {
+                Write-Host -ForegroundColor Yellow `
+                    'The option -Extras (-X) has no effect on the "default" plan'
+            }
         }
         'regular' {
             # Regular test suite, excludes
             # - tests excluded from the plan Regular
             $filter = 'ExcludeFrom!=Regular'
+            if ($Extras) {
+                Write-Host -ForegroundColor Yellow `
+                    'The option -Extras (-X) has no effect on the "regular" plan'
+            }
         }
         'more' {
             # Only include tests excluded from the plan Regular.
