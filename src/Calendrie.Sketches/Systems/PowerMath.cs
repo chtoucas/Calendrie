@@ -6,6 +6,8 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
+// TODO(code): remove the dependency on Arithmetic?
+
 /// <summary>
 /// Defines the non-standard mathematical operations suitable for use with a
 /// given calendar.
@@ -119,6 +121,8 @@ public sealed class PowerMath<TCalendar, TDate>
         var (y1, m1, _) = end;
 
         // Exact difference between two months.
+        // REVIEW(code): would be easier if we add a property TDate.CalendarMonth
+        // then we could write: end.CalendarMonth - start.CalendarMonth
         int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
 
         // To avoid extracting (y0, m0, d0) more than once, we inline:
@@ -145,7 +149,7 @@ public sealed class PowerMath<TCalendar, TDate>
     private TDate AddYears(int y, int m, int d, int years)
     {
         // NB: Arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years, out int roundoff);
+        var (newY, newM, newD) = _arithmetic.AddYears(new Yemoda(y, m, d), years, out int roundoff);
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);
@@ -161,7 +165,7 @@ public sealed class PowerMath<TCalendar, TDate>
     private TDate AddMonths(int y, int m, int d, int months)
     {
         // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months, out int roundoff);
+        var (newY, newM, newD) = _arithmetic.AddMonths(new Yemoda(y, m, d), months, out int roundoff);
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
         var newDate = TDate.UnsafeCreate(daysSinceEpoch);

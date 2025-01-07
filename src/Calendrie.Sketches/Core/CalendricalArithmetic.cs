@@ -12,9 +12,8 @@ using Calendrie.Core.Intervals;
 //   - CountYearsBetween(Yemoda, Yemoda)
 //   - CountMonthsBetween(Yemoda, Yemoda)
 //   - Ops with Yedoy
-// - Date type in Calendrie.Systems:
-//   - NextMonth(), PreviousMonth() & co?
-//   - PlusYears() & other math ops should be part of an interface
+// - Date/Month/Year type:
+//   - Expl impl of NextMonth(), PreviousMonth() & co?
 //   - Move adjustments methods Calendar.GetStartOfYear & co to the date type
 // - Testing:
 //   - I'm pretty sure that PlainArithmetic.AddYears(Yemoda, years, roundoff) is
@@ -97,18 +96,22 @@ public abstract class CalendricalArithmetic
     }
 
     //
-    // Operations on "Yemoda"
+    // Operations on "Yemoda" (and "Yedoy")
     //
-    // Non-standard ops, those using the year or month units:
+    // The standard ops, those based on the day unit:
+    // - AddDays(Yemoda, days)
+    // - NextDay(Yemoda)
+    // - PreviousDay(Yemoda)
+    // - CountDaysBetween(Yemoda, Yemoda)
+    // The non-standard ops, those using the year or month units:
     // - AddYears(Yemoda, years)
     // - AddYears(Yemoda, years, out roundoff)
     // - AddMonths(Yemoda, months)
     // - AddMonths(Yemoda, months, out roundoff)
-    // Of course, one can also implement the standard ops:
-    // - AddDays(Yemoda, days)
-    // - CountDaysBetween(Yemoda, Yemoda)
-    // but we don't do it here because all our date types are based on the count
-    // of days since the epoch (daysSinceEpoch) for which these ops are trivial.
+    //
+    // NB: we don't impl the std ops here because all our date types are based
+    // on the count of consecutive days since the epoch (daysSinceEpoch),
+    // therefore these ops are trivial.
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
@@ -118,7 +121,7 @@ public abstract class CalendricalArithmetic
     /// is not a valid day (resp. month).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
-    [Pure] public abstract Yemoda AddYears(int y, int m, int d, int years);
+    [Pure] public abstract Yemoda AddYears(Yemoda ymd, int years);
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
@@ -128,20 +131,23 @@ public abstract class CalendricalArithmetic
     /// is not a valid day (resp. month).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
-    [Pure] public abstract Yemoda AddYears(int y, int m, int d, int years, out int roundoff);
+    [Pure] public abstract Yemoda AddYears(Yemoda ymd, int years, out int roundoff);
 
     /// <summary>
-    /// Adds a number of months to the specified date, yielding a new date.
+    /// Adds a number of months to the month field of the specified date,
+    /// yielding a new date.
     /// </summary>
     /// <returns>The last day of the month when the naive result is not a valid
     /// day (roundoff > 0).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public Yemoda AddMonths(int y, int m, int d, int months)
+    public Yemoda AddMonths(Yemoda ymd, int months)
     {
+        int d = ymd.Day;
+
         // NB: AddMonths(Yemo, months) is validating and exact.
-        var (newY, newM) = AddMonths(y, m, months);
+        var (newY, newM) = AddMonths(ymd.Yemo, months);
 
         // NB: AdditionRule.Truncate.
         int newD = Math.Min(d, Schema.CountDaysInMonth(newY, newM));
@@ -149,17 +155,20 @@ public abstract class CalendricalArithmetic
     }
 
     /// <summary>
-    /// Adds a number of months to the specified date, yielding a new date.
+    /// Adds a number of months to the month field of the specified date,
+    /// yielding a new date.
     /// </summary>
     /// <returns>The last day of the month when the naive result is not a valid
     /// day (roundoff > 0).</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public Yemoda AddMonths(int y, int m, int d, int months, out int roundoff)
+    public Yemoda AddMonths(Yemoda ymd, int months, out int roundoff)
     {
+        int d = ymd.Day;
+
         // NB: AddMonths(Yemo, months) is validating and exact.
-        var (newY, newM) = AddMonths(y, m, months);
+        var (newY, newM) = AddMonths(ymd.Yemo, months);
 
         int daysInMonth = Schema.CountDaysInMonth(newY, newM);
         roundoff = Math.Max(0, d - daysInMonth);
@@ -171,17 +180,20 @@ public abstract class CalendricalArithmetic
     //
     // The standard ops, those based on the month unit:
     // - AddMonths(Yemo, months)
+    // - NextMonth(Yemo)
+    // - PreviousMonth(Yemo)
     // - CountMonthsBetween(Yemo, Yemo)
     // The non-standard ops:
     // - AddYears(Yemo, years)
     // - AddYears(Yemo, years, out roundoff)
 
     /// <summary>
-    /// Adds a number of months to the specified month, yielding a new month.
+    /// Adds a number of months to the month field of the specified month,
+    /// yielding a new month.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported calendar months.</exception>
-    [Pure] public abstract Yemo AddMonths(int y, int m, int months);
+    [Pure] public abstract Yemo AddMonths(Yemo ym, int months);
 
     /// <summary>
     /// Counts the number of months between the two specified months.
@@ -190,4 +202,8 @@ public abstract class CalendricalArithmetic
     /// range of supported calendar months.</exception>
     [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "F# & VB.NET End statement.")]
     [Pure] public abstract int CountMonthsBetween(Yemo start, Yemo end);
+
+    [Pure] public abstract Yemo AddYears(Yemo ym, int years);
+
+    [Pure] public abstract Yemo AddYears(Yemo ym, int years, out int roundoff);
 }

@@ -28,8 +28,10 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     //
 
     [Pure]
-    public sealed override Yemoda AddYears(int y, int m, int d, int years)
+    public sealed override Yemoda AddYears(Yemoda ymd, int years)
     {
+        ymd.Unpack(out int y, out int m, out int d);
+
         int newY = checked(y + years);
         if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
@@ -41,8 +43,10 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
 
     /// <inheritdoc />
     [Pure]
-    public sealed override Yemoda AddYears(int y, int m, int d, int years, out int roundoff)
+    public sealed override Yemoda AddYears(Yemoda ymd, int years, out int roundoff)
     {
+        ymd.Unpack(out int y, out int m, out int d);
+
         int newY = checked(y + years);
         if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
@@ -78,8 +82,10 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
 
     /// <inheritdoc />
     [Pure]
-    public sealed override Yemo AddMonths(int y, int m, int months)
+    public sealed override Yemo AddMonths(Yemo ym, int months)
     {
+        ym.Unpack(out int y, out int m);
+
         int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
         if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
@@ -95,5 +101,32 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         end.Unpack(out int y1, out int m1);
 
         return checked(Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0));
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override Yemo AddYears(Yemo ym, int years)
+    {
+        ym.Unpack(out int y, out int m);
+
+        int newY = checked(y + years);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
+
+        int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
+        return new Yemo(newY, newM);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override Yemo AddYears(Yemo ym, int years, out int roundoff)
+    {
+        ym.Unpack(out int y, out int m);
+
+        int newY = checked(y + years);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
+
+        int monthsInYear = Schema.CountMonthsInYear(newY);
+        roundoff = Math.Max(0, m - monthsInYear);
+        return new Yemo(newY, roundoff > 0 ? monthsInYear : m);
     }
 }

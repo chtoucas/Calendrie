@@ -45,8 +45,10 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     //
 
     [Pure]
-    public sealed override Yemoda AddYears(int y, int m, int d, int years)
+    public sealed override Yemoda AddYears(Yemoda ymd, int years)
     {
+        ymd.Unpack(out int y, out int m, out int d);
+
         int newY = checked(y + years);
         if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
@@ -57,8 +59,10 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
 
     /// <inheritdoc />
     [Pure]
-    public sealed override Yemoda AddYears(int y, int m, int d, int years, out int roundoff)
+    public sealed override Yemoda AddYears(Yemoda ymd, int years, out int roundoff)
     {
+        ymd.Unpack(out int y, out int m, out int d);
+
         int newY = checked(y + years);
         if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowDateOverflow();
 
@@ -74,8 +78,10 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
 
     /// <inheritdoc />
     [Pure]
-    public sealed override Yemo AddMonths(int y, int m, int months)
+    public sealed override Yemo AddMonths(Yemo ym, int months)
     {
+        ym.Unpack(out int y, out int m);
+
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
@@ -91,5 +97,30 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
         end.Unpack(out int y1, out int m1);
 
         return checked((y1 - y0) * _monthsInYear + m1 - m0);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override Yemo AddYears(Yemo ym, int years)
+    {
+        ym.Unpack(out int y, out int m);
+
+        int newY = checked(y + years);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
+
+        return new Yemo(newY, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public sealed override Yemo AddYears(Yemo ym, int years, out int roundoff)
+    {
+        ym.Unpack(out int y, out int m);
+
+        int newY = checked(y + years);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
+
+        roundoff = 0;
+        return new Yemo(newY, m);
     }
 }

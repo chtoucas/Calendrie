@@ -143,7 +143,7 @@ public sealed class DefaultMath<TCalendar, TDate>
     private TDate AddYears(int y, int m, int d, int years)
     {
         // NB: Arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = _arithmetic.AddYears(y, m, d, years);
+        var (newY, newM, newD) = _arithmetic.AddYears(new Yemoda(y, m, d), years);
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
@@ -158,7 +158,7 @@ public sealed class DefaultMath<TCalendar, TDate>
     private TDate AddMonths(int y, int m, int d, int months)
     {
         // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = _arithmetic.AddMonths(y, m, d, months);
+        var (newY, newM, newD) = _arithmetic.AddMonths(new Yemoda(y, m, d), months);
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
