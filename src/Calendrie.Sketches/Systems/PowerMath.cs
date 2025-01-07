@@ -6,7 +6,27 @@ namespace Calendrie.Systems;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
-// TODO(code): remove the dependency on Arithmetic?
+// TODO(code): months
+// REVIEW(code): move these methods to CalendarSystem (create RegularSystem and
+// NonRegularSystem) and offer the possibility to change the ruleset.
+
+public static class PowerMath
+{
+    public static PowerMath<TDate> Create<TCalendar, TDate>(
+        CalendarSystem<TDate> calendar, AdditionRuleset additionRuleset)
+        where TCalendar : CalendarSystem<TDate>
+        where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
+    {
+        ArgumentNullException.ThrowIfNull(calendar);
+
+        var scope = calendar.Scope;
+        var sch = scope.Schema;
+
+        return sch.IsRegular(out int monthsInYear)
+            ? new RegularPowerMath<TDate>(scope, additionRuleset, monthsInYear)
+            : new PlainPowerMath<TDate>(scope, additionRuleset);
+    }
+}
 
 /// <summary>
 /// Defines the non-standard mathematical operations suitable for use with a
@@ -15,46 +35,52 @@ using Calendrie.Hemerology;
 /// to resolve ambiguities.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class PowerMath<TCalendar, TDate>
-    where TCalendar : CalendarSystem<TDate>
+public abstract class PowerMath<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeDateFactory<TDate>
 {
     /// <summary>
-    /// Represents the calendrical arithmetic.
-    /// </summary>
-    private readonly CalendricalArithmetic _arithmetic;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PowerMath{TCalendar, TDate}"/>
+    /// Initializes a new instance of the <see cref="PowerMath{TDate}"/>
     /// class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="calendar"/> is
+    /// <exception cref="ArgumentNullException"><paramref name="scope"/> is
     /// <see langword="null"/>.</exception>
-    public PowerMath(CalendarSystem<TDate> calendar, AdditionRuleset additionRuleset)
+    private protected PowerMath(CalendarScope scope, AdditionRuleset additionRuleset)
     {
-        ArgumentNullException.ThrowIfNull(calendar);
+        Debug.Assert(scope != null);
 
-        Calendar = calendar;
         AdditionRuleset = additionRuleset;
 
-        var scope = calendar.Scope;
-        if (scope.Schema is LimitSchema sch)
-        {
-            _arithmetic = CalendricalArithmetic.CreateDefault(sch, scope.Segment.SupportedYears);
-            Schema = sch;
-        }
-        else
-        {
-            throw new ArgumentException(null, nameof(calendar));
-        }
+        Schema = scope.Schema;
+
+        var seg = scope.Segment;
+        (MinYear, MaxYear) = seg.SupportedYears.Endpoints;
+        (MinMonthsSinceEpoch, MaxMonthsSinceEpoch) = seg.SupportedMonths.Endpoints;
     }
 
     /// <summary>
-    /// Gets the calendar.
+    /// Gets the schema.
     /// </summary>
-    public CalendarSystem<TDate> Calendar { get; }
+    protected ICalendricalSchema Schema { get; }
 
-    private LimitSchema Schema { get; }
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
+    protected int MinYear { get; }
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// </summary>
+    protected int MaxYear { get; }
+
+    /// <summary>
+    /// Gets the earliest supported month.
+    /// </summary>
+    protected int MinMonthsSinceEpoch { get; }
+
+    /// <summary>
+    /// Gets the latest supported month.
+    /// </summary>
+    protected int MaxMonthsSinceEpoch { get; }
 
     /// <summary>
     /// Gets the strategy employed to resolve ambiguities.
@@ -121,9 +147,9 @@ public sealed class PowerMath<TCalendar, TDate>
         var (y1, m1, _) = end;
 
         // Exact difference between two months.
-        // REVIEW(code): would be easier if we add a property TDate.CalendarMonth
+        // REVIEW(code): would be easier if we had a property TDate.CalendarMonth
         // then we could write: end.CalendarMonth - start.CalendarMonth
-        int months = _arithmetic.CountMonthsBetween(new Yemo(y0, m0), new Yemo(y1, m1));
+        int months = CountMonthsBetween(y0, m0, y1, m1);
 
         // To avoid extracting (y0, m0, d0) more than once, we inline:
         // > var newStart = AddMonths(start, months);
@@ -140,6 +166,12 @@ public sealed class PowerMath<TCalendar, TDate>
         return months;
     }
 
+    [Pure] protected abstract TDate AddYears(int y, int m, int d, int years, out int roundoff);
+
+    [Pure] protected abstract TDate AddMonths(int y, int m, int d, int months, out int roundoff);
+
+    [Pure] protected abstract int CountMonthsBetween(int y0, int m0, int y1, int m1);
+
     /// <summary>
     /// Adds a number of years to the year field of the specified date.
     /// </summary>
@@ -148,11 +180,7 @@ public sealed class PowerMath<TCalendar, TDate>
     [Pure]
     private TDate AddYears(int y, int m, int d, int years)
     {
-        // NB: Arithmetic.AddYears() is validating.
-        var (newY, newM, newD) = _arithmetic.AddYears(new Yemoda(y, m, d), years, out int roundoff);
-
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
-        var newDate = TDate.UnsafeCreate(daysSinceEpoch);
+        var newDate = AddYears(y, m, d, years, out int roundoff);
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
     }
 
@@ -164,11 +192,7 @@ public sealed class PowerMath<TCalendar, TDate>
     [Pure]
     private TDate AddMonths(int y, int m, int d, int months)
     {
-        // NB: Arithmetic.AddMonths() is validating.
-        var (newY, newM, newD) = _arithmetic.AddMonths(new Yemoda(y, m, d), months, out int roundoff);
-
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
-        var newDate = TDate.UnsafeCreate(daysSinceEpoch);
+        var newDate = AddMonths(y, m, d, months, out int roundoff);
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
     }
 
