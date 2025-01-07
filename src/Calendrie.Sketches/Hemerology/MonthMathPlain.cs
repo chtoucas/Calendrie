@@ -1,10 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Systems;
+namespace Calendrie.Hemerology;
 
 using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
 
 internal sealed class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     where TMonth : struct, ICalendarMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
@@ -15,24 +14,6 @@ internal sealed class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCal
     /// class.
     /// </summary>
     public MonthMathPlain(AdditionRule additionRule) : base(additionRule) { }
-
-    /// <inheritdoc />
-    [Pure]
-    protected sealed override TMonth AddYears(int y, int m, int years, out int roundoff)
-    {
-        // Exact addition of years to a calendar year.
-        int newY = checked(y + years);
-        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
-
-        //int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
-        int monthsInYear = Schema.CountMonthsInYear(newY);
-        roundoff = Math.Max(0, m - monthsInYear);
-        // On retourne le dernier du mois de l'année si m > monthsInYear.
-        int newM = roundoff == 0 ? m : monthsInYear;
-
-        int monthsSinceEpoch = Schema.CountMonthsSinceEpoch(newY, newM);
-        return TMonth.UnsafeCreate(monthsSinceEpoch);
-    }
 
     /// <inheritdoc />
     [Pure]
@@ -56,5 +37,23 @@ internal sealed class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCal
         }
 
         return years;
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    protected sealed override TMonth AddYears(int y, int m, int years, out int roundoff)
+    {
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < MinYear || newY > MaxYear) ThrowHelpers.ThrowMonthOverflow();
+
+        //int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
+        int monthsInYear = Schema.CountMonthsInYear(newY);
+        roundoff = Math.Max(0, m - monthsInYear);
+        // On retourne le dernier du mois de l'année si m > monthsInYear.
+        int newM = roundoff == 0 ? m : monthsInYear;
+
+        int monthsSinceEpoch = Schema.CountMonthsSinceEpoch(newY, newM);
+        return TMonth.UnsafeCreate(monthsSinceEpoch);
     }
 }

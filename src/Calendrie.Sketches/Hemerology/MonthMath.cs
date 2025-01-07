@@ -1,10 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Systems;
+namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
-using Calendrie.Hemerology;
 
 public static class MonthMath
 {
@@ -12,8 +11,8 @@ public static class MonthMath
         where TMonth : struct, ICalendarMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
         where TCalendar : Calendar
     {
-        return TMonth.Calendar.IsRegular(out int monthsInYear)
-            ? new MonthMathRegular<TMonth, TCalendar>(additionRule, monthsInYear)
+        return TMonth.Calendar.IsRegular(out _)
+            ? new MonthMathRegular<TMonth, TCalendar>(additionRule)
             : new MonthMathPlain<TMonth, TCalendar>(additionRule);
     }
 }
