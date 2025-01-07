@@ -7,7 +7,7 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
-    where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
+    where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
     /// <summary>

@@ -11,8 +11,8 @@ using static Calendrie.Core.CalendricalConstants;
 /// Defines the mathematical operations on the day field of a time-related type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IDayArithmetic<TSelf>
-    where TSelf : IDayArithmetic<TSelf>
+public interface IDayFieldMath<TSelf>
+    where TSelf : IDayFieldMath<TSelf>
 {
     /// <summary>
     /// Counts the number of days elapsed since the specified value.

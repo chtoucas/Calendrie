@@ -19,14 +19,14 @@ public interface IMonthBase<TSelf> :
     IComparable<TSelf>,
     IComparable,
     // Arithmetic
-    IMonthArithmetic<TSelf>,
+    IMonthFieldMath<TSelf>,
     //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
     IDecrementOperators<TSelf>,
     // Non-standard math ops
-    IYearArithmetic<TSelf>
+    IYearFieldMath<TSelf>
     where TSelf : IMonthBase<TSelf>
 {
     /// <summary>

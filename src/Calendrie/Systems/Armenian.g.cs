@@ -79,7 +79,7 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
 /// <para><see cref="ArmenianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct ArmenianDate :
-    ICalendarDate<ArmenianDate>,
+    IDate<ArmenianDate>,
     ICalendarBound<ArmenianCalendar>,
     IUnsafeFactory<ArmenianDate>,
     ISubtractionOperators<ArmenianDate, ArmenianDate, int>

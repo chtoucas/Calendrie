@@ -18,7 +18,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <para><see cref="GregorianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct GregorianDate :
-    ICalendarDate<GregorianDate>,
+    IDate<GregorianDate>,
     ICalendarBound<GregorianCalendar>,
     IUnsafeFactory<GregorianDate>,
     ISubtractionOperators<GregorianDate, GregorianDate, int>

@@ -19,7 +19,7 @@ public interface IYearBase<TSelf> :
     IComparable<TSelf>,
     IComparable,
     // Arithmetic
-    IYearArithmetic<TSelf>,
+    IYearFieldMath<TSelf>,
     //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,

@@ -19,7 +19,7 @@ using Calendrie.Hemerology;
 public static class DateMath
 {
     public static DateMath<TDate, TCalendar> Create<TDate, TCalendar>(AdditionRule rule)
-        where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
+        where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
         where TCalendar : Calendar
     {
         return TDate.Calendar.IsRegular(out int monthsInYear)
@@ -35,9 +35,9 @@ public static class DateMath
 /// to resolve ambiguities.</para>
 /// </summary>
 public abstract class DateMath<TDate, TCalendar>
-    where TDate : struct, ICalendarDate<TDate>, ICalendarBound<TCalendar>
+    where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>
     where TCalendar : Calendar
-    // Actually, instead of ICalendarDate, we could just use
+    // Actually, instead of IDate, we could just use
     // - IDateable
     // - IAdditionOperators<TDate, int, TDate>
     // - IComparisonOperators<TDate, TDate, bool>

@@ -26,7 +26,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <para><see cref="CivilDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct CivilDate :
-    ICalendarDate<CivilDate>,
+    IDate<CivilDate>,
     ICalendarBound<CivilCalendar>,
     IUnsafeFactory<CivilDate>,
     ISubtractionOperators<CivilDate, CivilDate, int>

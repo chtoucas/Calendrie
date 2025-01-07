@@ -11,7 +11,7 @@ using Calendrie;
 using Calendrie.Hemerology;
 
 public readonly partial struct MyGregorianDate :
-    ICalendarDate<MyGregorianDate>,
+    IDate<MyGregorianDate>,
     ICalendarBound<MyGregorianCalendar>,
     ISubtractionOperators<MyGregorianDate, MyGregorianDate, int>
 {

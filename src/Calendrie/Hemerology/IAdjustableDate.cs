@@ -7,8 +7,8 @@ namespace Calendrie.Hemerology;
 /// Defines adjustment methods for a <see cref="IDateable"/> type.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface IAdjustableDateable<out TSelf>
-    where TSelf : IDateable, IAdjustableDateable<TSelf>
+public interface IAdjustableDate<out TSelf>
+    where TSelf : IDateable, IAdjustableDate<TSelf>
 {
     /// <summary>
     /// Adjusts the year field to the specified value, yielding a new date.

@@ -79,7 +79,7 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
 /// <para><see cref="WorldDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct WorldDate :
-    ICalendarDate<WorldDate>,
+    IDate<WorldDate>,
     ICalendarBound<WorldCalendar>,
     IUnsafeFactory<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>

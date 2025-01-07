@@ -7,12 +7,12 @@ namespace Calendrie.Hemerology;
 /// Defines the base for other date types.
 /// </summary>
 /// <typeparam name="TSelf">The type that implements this interface.</typeparam>
-public interface ICalendarDateBase<TSelf> :
-    ICalendarDate,
+public interface IDateBase<TSelf> :
+    IDate,
     IAbsoluteDateBase<TSelf>,
-    IAdjustableDateable<TSelf>,
+    IAdjustableDate<TSelf>,
     // Non-standard math ops
-    IMonthArithmetic<TSelf>,
-    IYearArithmetic<TSelf>
-    where TSelf : ICalendarDateBase<TSelf>
+    IMonthFieldMath<TSelf>,
+    IYearFieldMath<TSelf>
+    where TSelf : IDateBase<TSelf>
 { }

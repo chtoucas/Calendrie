@@ -79,7 +79,7 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
 /// <para><see cref="TabularIslamicDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct TabularIslamicDate :
-    ICalendarDate<TabularIslamicDate>,
+    IDate<TabularIslamicDate>,
     ICalendarBound<TabularIslamicCalendar>,
     IUnsafeFactory<TabularIslamicDate>,
     ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>

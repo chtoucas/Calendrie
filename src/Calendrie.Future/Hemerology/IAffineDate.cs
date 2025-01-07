@@ -5,8 +5,8 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// NB: contrary to an ICalendarDate, an affine date can only be linked to a
-// single "calendar" system --- a schema actually since there is no epoch here ---,
+// NB: contrary to an IDate, an affine date can only be linked to a single
+// "calendar" system --- a schema actually since there is no epoch here ---,
 // therefore we can provide unambigiously a factory method FromDaysSinceEpoch().
 
 /// <summary>
@@ -42,15 +42,15 @@ public interface IAffineDate<TSelf> :
     IComparable,
     IMinMaxValue<TSelf>,
     // Arithmetic
-    IDayArithmetic<TSelf>,
+    IDayFieldMath<TSelf>,
     //ISubtractionOperators<TSelf, TSelf, int>, // Cannot be added, but see below
     IAdditionOperators<TSelf, int, TSelf>,
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
     IDecrementOperators<TSelf>,
     // Non-standard math ops
-    IMonthArithmetic<TSelf>,
-    IYearArithmetic<TSelf>
+    IMonthFieldMath<TSelf>,
+    IYearFieldMath<TSelf>
     where TSelf : IAffineDate<TSelf>
 {
     /// <summary>

@@ -83,7 +83,7 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 /// <para><see cref="PlainJulianDate"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainJulianDate :
-    ICalendarDate<PlainJulianDate>,
+    IDate<PlainJulianDate>,
     ICalendarBound<PlainJulianCalendar>,
     IUnsafeFactory<PlainJulianDate>,
     ISubtractionOperators<PlainJulianDate, PlainJulianDate, int>

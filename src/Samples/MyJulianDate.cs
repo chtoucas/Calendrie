@@ -14,7 +14,7 @@ using Calendrie.Hemerology;
 using static Calendrie.Core.CalendricalConstants;
 
 public readonly partial struct MyJulianDate :
-    ICalendarDate<MyJulianDate>,
+    IDate<MyJulianDate>,
     ICalendarBound<MyJulianCalendar>,
     ISubtractionOperators<MyJulianDate, MyJulianDate, int>
 {
