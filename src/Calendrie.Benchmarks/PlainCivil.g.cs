@@ -774,6 +774,21 @@ public partial struct PlainCivilDate // Non-standard math ops
 
 #endregion
 
+#region PlainCivilDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="PlainCivilDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class PlainCivilDateMath : DateMathRegular<PlainCivilDate, PlainCivilCalendar>
+{
+    public PlainCivilDateMath(AdditionRule rule) : base(rule, PlainCivilCalendar.MonthsInYear) { }
+}
+
+#endregion
+
 #region PlainCivilMonth
 
 /// <summary>

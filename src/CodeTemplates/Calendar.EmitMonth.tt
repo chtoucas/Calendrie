@@ -37,21 +37,25 @@ public partial class CalendarTemplate
 #>
 
 #endregion
+<#+
+        if (EnableMonthCustomMath) {
+#>
 
 #region <#= Prefix #>MonthMath
 <#+
-        if (IsRegular)
-        {
-            EmitMonthCustomMathRegular();
-        }
-        else
-        {
-            EmitMonthCustomMathNonRegular();
-        }
+            if (IsRegular)
+            {
+                EmitMonthCustomMathRegular();
+            }
+            else
+            {
+                EmitMonthCustomMathNonRegular();
+            }
 #>
 
 #endregion
 <#+
+        }
     }
 
     protected virtual void EmitMonthDecl()

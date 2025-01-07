@@ -35,14 +35,14 @@ public partial class CalendarTemplate
 
 #region <#= Prefix #>DateMath
 <#+
-        if (IsRegular)
-        {
-            EmitDateCustomMathRegular();
-        }
-        else
-        {
-            EmitDateCustomMathNonRegular();
-        }
+            if (IsRegular)
+            {
+                EmitDateCustomMathRegular();
+            }
+            else
+            {
+                EmitDateCustomMathNonRegular();
+            }
 #>
 
 #endregion

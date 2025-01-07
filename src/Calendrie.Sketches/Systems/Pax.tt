@@ -5,6 +5,7 @@
     {
         EnableDateCustomMath = true,
         EnableMonth = true,
+        EnableMonthCustomMath = true,
         EnableYear = true,
         MaxMonthsSinceEpochValue = "131_761"
     }.Execute() #>

@@ -15,3 +15,14 @@ public sealed class CivilDateMath : DateMathRegular<CivilDate, CivilCalendar>
 {
     public CivilDateMath(AdditionRule rule) : base(rule, CivilCalendar.MonthsInYear) { }
 }
+
+/// <summary>
+/// Provides non-standard mathematical operations for the <see cref="CivilMonth"/>
+/// type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class CivilMonthMath : MonthMathRegular<CivilMonth, CivilCalendar>
+{
+    public CivilMonthMath(AdditionRule rule) : base(rule) { }
+}
