@@ -18,11 +18,23 @@ public partial class PaxCalendar // Complements
     }
 }
 
+/// <summary>
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <see cref="PaxDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
+/// to resolve ambiguities.</para>
+/// </summary>
 public sealed class PaxDateMath : DateMathPlain<PaxDate, PaxCalendar>
 {
     public PaxDateMath(AdditionRule rule) : base(rule) { }
 }
 
+/// <summary>
+/// Defines the non-standard mathematical operations suitable for use with the
+/// <see cref="PaxMonth"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> used
+/// to resolve ambiguities.</para>
+/// </summary>
 public sealed class PaxMonthMath : MonthMathPlain<PaxMonth, PaxCalendar>
 {
     public PaxMonthMath(AdditionRule rule) : base(rule) { }
