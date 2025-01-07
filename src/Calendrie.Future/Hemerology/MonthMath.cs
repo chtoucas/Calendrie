@@ -3,7 +3,8 @@
 
 namespace Calendrie.Hemerology;
 
-using Calendrie.Core;
+using System.Numerics;
+
 using Calendrie.Core.Utilities;
 
 /// <summary>
@@ -13,7 +14,7 @@ using Calendrie.Core.Utilities;
 /// strategy.</para>
 /// </summary>
 public abstract class MonthMath<TMonth, TCalendar>
-    where TMonth : struct, IMonth, IMonthFieldMath<TMonth>, ICalendarBound<TCalendar>
+    where TMonth : struct, IMonth, IMonthFieldMath<TMonth>, IComparisonOperators<TMonth, TMonth, bool>
     where TCalendar : Calendar
 {
     /// <summary>
@@ -25,26 +26,12 @@ public abstract class MonthMath<TMonth, TCalendar>
         Requires.Defined(rule);
 
         AdditionRule = rule;
-
-        var scope = TMonth.Calendar.Scope;
-        Scope = scope;
-        Schema = scope.Schema;
     }
 
     /// <summary>
     /// Gets the strategy employed to resolve ambiguities.
     /// </summary>
     public AdditionRule AdditionRule { get; }
-
-    /// <summary>
-    /// Gets the scope.
-    /// </summary>
-    protected CalendarScope Scope { get; }
-
-    /// <summary>
-    /// Gets the schema.
-    /// </summary>
-    protected ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified month.
@@ -68,8 +55,27 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// <paramref name="start"/> &gt;= <paramref name="newStart"/> &gt;= <paramref name="end"/></para>
     /// </summary>
     [Pure]
-    [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords.", Justification = "F# & VB.NET End statement.")]
-    public abstract int CountYearsBetween(TMonth start, TMonth end, out TMonth newStart);
+    public int CountYearsBetween(TMonth start, TMonth end, out TMonth newStart)
+    {
+        var (y0, m0) = start;
+
+        // Exact difference between two calendar years.
+        int years = end.Year - y0;
+
+        // To avoid extracting y0 more than once, we inline:
+        // > var newStart = AddYears(start, years);
+        newStart = AddYears(y0, m0, years);
+        if (start < end)
+        {
+            if (newStart > end) newStart = AddYears(y0, m0, --years);
+        }
+        else
+        {
+            if (newStart < end) newStart = AddYears(y0, m0, ++years);
+        }
+
+        return years;
+    }
 
     [Pure] protected abstract TMonth AddYears(int y, int m, int years, out int roundoff);
 

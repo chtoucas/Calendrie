@@ -5,7 +5,6 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-using Calendrie.Core;
 using Calendrie.Core.Utilities;
 
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
@@ -22,8 +21,7 @@ using Calendrie.Core.Utilities;
 /// strategy.</para>
 /// </summary>
 public abstract class DateMath<TDate, TCalendar>
-    where TDate : struct, IDateable, IDayFieldMath<TDate>, ICalendarBound<TCalendar>,
-        IComparisonOperators<TDate, TDate, bool>
+    where TDate : struct, IDateable, IDayFieldMath<TDate>, IComparisonOperators<TDate, TDate, bool>
     where TCalendar : Calendar
 {
     /// <summary>
@@ -35,26 +33,12 @@ public abstract class DateMath<TDate, TCalendar>
         Requires.Defined(rule);
 
         AdditionRule = rule;
-
-        var scope = TDate.Calendar.Scope;
-        Scope = scope;
-        Schema = scope.Schema;
     }
 
     /// <summary>
     /// Gets the strategy employed to resolve ambiguities.
     /// </summary>
     public AdditionRule AdditionRule { get; }
-
-    /// <summary>
-    /// Gets the scope.
-    /// </summary>
-    protected CalendarScope Scope { get; }
-
-    /// <summary>
-    /// Gets the schema.
-    /// </summary>
-    protected ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date.

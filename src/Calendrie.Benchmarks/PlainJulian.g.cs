@@ -791,7 +791,7 @@ public partial struct PlainJulianDate // Non-standard math ops
 /// </summary>
 public sealed class PlainJulianDateMath : DateMathRegular<PlainJulianDate, PlainJulianCalendar>
 {
-    public PlainJulianDateMath(AdditionRule rule) : base(rule, PlainJulianCalendar.MonthsInYear) { }
+    public PlainJulianDateMath(AdditionRule rule) : base(rule) { }
 }
 
 #endregion

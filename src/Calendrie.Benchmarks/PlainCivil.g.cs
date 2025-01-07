@@ -784,7 +784,7 @@ public partial struct PlainCivilDate // Non-standard math ops
 /// </summary>
 public sealed class PlainCivilDateMath : DateMathRegular<PlainCivilDate, PlainCivilCalendar>
 {
-    public PlainCivilDateMath(AdditionRule rule) : base(rule, PlainCivilCalendar.MonthsInYear) { }
+    public PlainCivilDateMath(AdditionRule rule) : base(rule) { }
 }
 
 #endregion

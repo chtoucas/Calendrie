@@ -993,7 +993,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 /// </summary>
 public sealed class <#= Prefix #>DateMath : DateMathRegular<<#= Prefix #>Date, <#= Prefix #>Calendar>
 {
-    public <#= Prefix #>DateMath(AdditionRule rule) : base(rule, <#= Prefix #>Calendar.MonthsInYear) { }
+    public <#= Prefix #>DateMath(AdditionRule rule) : base(rule) { }
 }
 <#+
     } // T4: End of EmitMonthCustomMathRegular

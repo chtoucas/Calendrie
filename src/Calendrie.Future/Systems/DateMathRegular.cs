@@ -3,6 +3,7 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
@@ -18,6 +19,11 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TCalendar : Calendar
 {
     /// <summary>
+    /// Represents the schema.
+    /// </summary>
+    private readonly ICalendricalSchema _schema;
+
+    /// <summary>
     /// Represents the number of months in a year.
     /// </summary>
     private readonly int _monthsInYear;
@@ -26,12 +32,15 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     /// Initializes a new instance of the <see cref="DateMathRegular{TDate, TCalendar}"/>
     /// class.
     /// </summary>
-    internal DateMathRegular(AdditionRule rule, int monthsInYear) : base(rule)
+    internal DateMathRegular(AdditionRule rule) : base(rule)
     {
-        Debug.Assert(Schema != null);
-        Debug.Assert(Schema.IsRegular(out _));
-        Debug.Assert(Scope is StandardScope);
+        var scope = TDate.Calendar.Scope;
+        Debug.Assert(scope is StandardScope);
 
+        var schema = scope.Schema;
+        if (!schema.IsRegular(out int monthsInYear)) throw new ArgumentException(null);
+
+        _schema = schema;
         _monthsInYear = monthsInYear;
     }
 
@@ -43,12 +52,12 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
-        int daysInMonth = Schema.CountDaysInMonth(newY, m);
+        int daysInMonth = _schema.CountDaysInMonth(newY, m);
         roundoff = Math.Max(0, d - daysInMonth);
         // On retourne le dernier jour du mois si d > daysInMonth.
         int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, m, newD);
+        int daysSinceEpoch = _schema.CountDaysSinceEpoch(newY, m, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 

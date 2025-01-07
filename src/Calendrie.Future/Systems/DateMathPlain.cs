@@ -3,6 +3,7 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
@@ -17,25 +18,33 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TCalendar : Calendar
 {
     /// <summary>
+    /// Represents the schema.
+    /// </summary>
+    private readonly ICalendricalSchema _schema;
+
+    /// <summary>
+    /// Represents the earliest supported month.
+    /// </summary>
+    private readonly int _minMonthsSinceEpoch;
+
+    /// <summary>
+    /// Represents the latest supported month.
+    /// </summary>
+    private readonly int _maxMonthsSinceEpoch;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="DateMathPlain{TCalendar, TDate}"/>
     /// class.
     /// </summary>
     internal DateMathPlain(AdditionRule rule) : base(rule)
     {
-        Debug.Assert(Scope is StandardScope);
+        var scope = TDate.Calendar.Scope;
+        Debug.Assert(scope is StandardScope);
 
-        (MinMonthsSinceEpoch, MaxMonthsSinceEpoch) = Scope.Segment.SupportedMonths.Endpoints;
+        _schema = scope.Schema;
+
+        (_minMonthsSinceEpoch, _maxMonthsSinceEpoch) = scope.Segment.SupportedMonths.Endpoints;
     }
-
-    /// <summary>
-    /// Gets the earliest supported month.
-    /// </summary>
-    private int MinMonthsSinceEpoch { get; }
-
-    /// <summary>
-    /// Gets the latest supported month.
-    /// </summary>
-    private int MaxMonthsSinceEpoch { get; }
 
     /// <inheritdoc />
     [Pure]
@@ -45,8 +54,7 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
-        var sch = Schema;
-        int monthsInYear = sch.CountMonthsInYear(newY);
+        int monthsInYear = _schema.CountMonthsInYear(newY);
         int newM;
         int newD;
         if (m > monthsInYear)
@@ -59,9 +67,9 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
             roundoff = d;
             for (int i = monthsInYear + 1; i < m; i++)
             {
-                roundoff += sch.CountDaysInMonth(y, i);
+                roundoff += _schema.CountDaysInMonth(y, i);
             }
-            int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
+            int daysInMonth = _schema.CountDaysInMonth(newY, monthsInYear);
             roundoff += Math.Max(0, d - daysInMonth);
 
             newM = monthsInYear;
@@ -70,7 +78,7 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
         }
         else
         {
-            int daysInMonth = sch.CountDaysInMonth(newY, m);
+            int daysInMonth = _schema.CountDaysInMonth(newY, m);
             roundoff = Math.Max(0, d - daysInMonth);
 
             newM = m;
@@ -78,7 +86,7 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
             newD = roundoff == 0 ? d : daysInMonth;
         }
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        int daysSinceEpoch = _schema.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
@@ -86,23 +94,23 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     [Pure]
     protected sealed override TDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
-        if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
+        int monthsSinceEpoch = checked(_schema.CountMonthsSinceEpoch(y, m) + months);
+        if (monthsSinceEpoch < _minMonthsSinceEpoch || monthsSinceEpoch > _maxMonthsSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 
-        Schema.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
+        _schema.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
 
-        int daysInMonth = Schema.CountDaysInMonth(newY, newM);
+        int daysInMonth = _schema.CountDaysInMonth(newY, newM);
         roundoff = Math.Max(0, d - daysInMonth);
         // On retourne le dernier jour du mois si d > daysInMonth.
         int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        int daysSinceEpoch = _schema.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
     protected sealed override int CountMonthsBetween(int y0, int m0, int y1, int m1) =>
-        checked(Schema.CountMonthsSinceEpoch(y1, m1) - Schema.CountMonthsSinceEpoch(y0, m0));
+        checked(_schema.CountMonthsSinceEpoch(y1, m1) - _schema.CountMonthsSinceEpoch(y0, m0));
 }

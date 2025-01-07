@@ -792,7 +792,7 @@ public partial struct TropicaliaDate // Non-standard math ops
 /// </summary>
 public sealed class TropicaliaDateMath : DateMathRegular<TropicaliaDate, TropicaliaCalendar>
 {
-    public TropicaliaDateMath(AdditionRule rule) : base(rule, TropicaliaCalendar.MonthsInYear) { }
+    public TropicaliaDateMath(AdditionRule rule) : base(rule) { }
 }
 
 #endregion

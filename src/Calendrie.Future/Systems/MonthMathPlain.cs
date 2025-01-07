@@ -3,6 +3,7 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
@@ -17,36 +18,20 @@ public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     where TCalendar : Calendar
 {
     /// <summary>
+    /// Represents the schema.
+    /// </summary>
+    private readonly ICalendricalSchema _schema;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MonthMathPlain{TMonth, TCalendar}"/>
     /// class.
     /// </summary>
     internal MonthMathPlain(AdditionRule rule) : base(rule)
     {
-        Debug.Assert(Scope is StandardScope);
-    }
+        var scope = TMonth.Calendar.Scope;
+        Debug.Assert(scope is StandardScope);
 
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountYearsBetween(TMonth start, TMonth end, out TMonth newStart)
-    {
-        var (y0, m0) = start;
-
-        // Exact difference between two calendar years.
-        int years = end.Year - y0;
-
-        // To avoid extracting y0 more than once, we inline:
-        // > var newStart = AddYears(start, years);
-        newStart = AddYears(y0, m0, years);
-        if (start < end)
-        {
-            if (newStart > end) newStart = AddYears(y0, m0, --years);
-        }
-        else
-        {
-            if (newStart < end) newStart = AddYears(y0, m0, ++years);
-        }
-
-        return years;
+        _schema = scope.Schema;
     }
 
     /// <inheritdoc />
@@ -59,12 +44,12 @@ public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
             ThrowHelpers.ThrowMonthOverflow();
 
         //int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
-        int monthsInYear = Schema.CountMonthsInYear(newY);
+        int monthsInYear = _schema.CountMonthsInYear(newY);
         roundoff = Math.Max(0, m - monthsInYear);
         // On retourne le dernier du mois de l'année si m > monthsInYear.
         int newM = roundoff == 0 ? m : monthsInYear;
 
-        int monthsSinceEpoch = Schema.CountMonthsSinceEpoch(newY, newM);
+        int monthsSinceEpoch = _schema.CountMonthsSinceEpoch(newY, newM);
         return TMonth.UnsafeCreate(monthsSinceEpoch);
     }
 }
