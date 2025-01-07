@@ -1308,7 +1308,7 @@ public partial struct PlainCivilMonth // Non-standard math ops
 #region PlainCivilMonthMath
 
 /// <summary>
-/// Defines the non-standard mathematical operations for the
+/// Provides non-standard mathematical operations for the
 /// <see cref="PlainCivilMonth"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>

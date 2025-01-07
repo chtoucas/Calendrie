@@ -803,7 +803,7 @@ public partial struct PaxDate // Non-standard math ops
 #region PaxDateMath
 
 /// <summary>
-/// Defines the non-standard mathematical operations for the
+/// Provides non-standard mathematical operations for the
 /// <see cref="PaxDate"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
@@ -1394,7 +1394,7 @@ public partial struct PaxMonth // Non-standard math ops
 #region PaxMonthMath
 
 /// <summary>
-/// Defines the non-standard mathematical operations for the
+/// Provides non-standard mathematical operations for the
 /// <see cref="PaxMonth"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>

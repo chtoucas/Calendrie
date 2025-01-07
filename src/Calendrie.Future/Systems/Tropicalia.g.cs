@@ -785,7 +785,7 @@ public partial struct TropicaliaDate // Non-standard math ops
 #region TropicaliaDateMath
 
 /// <summary>
-/// Defines the non-standard mathematical operations for the
+/// Provides non-standard mathematical operations for the
 /// <see cref="TropicaliaDate"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
@@ -1331,7 +1331,7 @@ public partial struct TropicaliaMonth // Non-standard math ops
 #region TropicaliaMonthMath
 
 /// <summary>
-/// Defines the non-standard mathematical operations for the
+/// Provides non-standard mathematical operations for the
 /// <see cref="TropicaliaMonth"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>

@@ -1072,7 +1072,7 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
         WriteLine();
 #>
 /// <summary>
-/// Defines the non-standard mathematical operations for the
+/// Provides non-standard mathematical operations for the
 /// <see cref="<#= Prefix #>Month"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
@@ -1089,7 +1089,7 @@ public sealed class <#= Prefix #>MonthMath : MonthMathRegular<<#= Prefix #>Month
         WriteLine();
 #>
 /// <summary>
-/// Defines the non-standard mathematical operations for the
+/// Provides non-standard mathematical operations for the
 /// <see cref="<#= Prefix #>Month"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>

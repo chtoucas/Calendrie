@@ -4,7 +4,7 @@
 namespace Calendrie.Systems;
 
 /// <summary>
-/// Defines the non-standard mathematical operations for the <see cref="CivilDate"/>
+/// Provides non-standard mathematical operations for the <see cref="CivilDate"/>
 /// type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
