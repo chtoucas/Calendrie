@@ -67,7 +67,7 @@ public interface ICalendarYear
     /// <summary>
     /// Gets the (algebraic) year number.
     /// </summary>
-    int Year { get; }
+    int Number { get; }
 
     /// <summary>
     /// Returns <see langword="true"/> if the current instance is a leap year;

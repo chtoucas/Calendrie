@@ -377,10 +377,10 @@ public partial struct CivilYear // IMonthSegment
     public const int MonthCount = CivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public CivilMonth MinMonth => CivilMonth.UnsafeCreate(Year, 1);
+    public CivilMonth MinMonth => CivilMonth.UnsafeCreate(Number, 1);
 
     /// <inheritdoc />
-    public CivilMonth MaxMonth => CivilMonth.UnsafeCreate(Year, MonthCount);
+    public CivilMonth MaxMonth => CivilMonth.UnsafeCreate(Number, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -394,7 +394,7 @@ public partial struct CivilYear // IMonthSegment
     [Pure]
     public IEnumerable<CivilMonth> EnumerateMonths()
     {
-        int startOfYear = CivilMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+        int startOfYear = CivilMonth.UnsafeCreate(Number, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
@@ -403,7 +403,7 @@ public partial struct CivilYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(CivilMonth month) => month.Year == Year;
+    public bool Contains(CivilMonth month) => month.Year == Number;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -415,8 +415,8 @@ public partial struct CivilYear // IMonthSegment
     public CivilMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        return CivilMonth.UnsafeCreate(Year, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
+        return CivilMonth.UnsafeCreate(Number, month);
     }
 }
 

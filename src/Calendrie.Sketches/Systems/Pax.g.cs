@@ -1467,35 +1467,35 @@ public partial struct PaxYear // Preamble
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    public int Century => YearNumbering.GetCentury(Year);
+    public int Century => YearNumbering.GetCentury(Number);
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    public Ord YearOfEra => Ord.FromInt32(Year);
+    public Ord YearOfEra => Ord.FromInt32(Number);
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Number);
 
     /// <summary>
     /// Gets the year number.
     /// <para>Actually, this property returns the algebraic year, but since its
     /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
-    public int Year => _yearsSinceEpoch + 1;
+    public int Number => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Number);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+    public override string ToString() => FormattableString.Invariant($"{Number:D4} ({Calendar})");
 }
 
 public partial struct PaxYear // Factories
@@ -1530,7 +1530,7 @@ public partial struct PaxYear // IMonthSegment
     {
         get
         {
-            int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
+            int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(Number, 1);
             return new PaxMonth(monthsSinceEpoch);
         }
     }
@@ -1541,23 +1541,23 @@ public partial struct PaxYear // IMonthSegment
         get
         {
             var sch = Calendar.Schema;
-            int m = sch.CountMonthsInYear(Year);
-            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(Year, m);
+            int m = sch.CountMonthsInYear(Number);
+            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(Number, m);
             return new PaxMonth(monthsSinceEpoch);
         }
     }
 
     /// <inheritdoc />
     [Pure]
-    public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
+    public int CountMonths() => Calendar.Schema.CountMonthsInYear(Number);
 
     /// <inheritdoc />
     [Pure]
     public Range<PaxMonth> ToMonthRange()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
-        int monthsInYear = sch.CountMonthsInYear(Year);
+        int startOfYear = sch.CountMonthsSinceEpoch(Number, 1);
+        int monthsInYear = sch.CountMonthsInYear(Number);
         return Range.StartingAt(new PaxMonth(startOfYear), monthsInYear);
     }
 
@@ -1566,8 +1566,8 @@ public partial struct PaxYear // IMonthSegment
     public IEnumerable<PaxMonth> EnumerateMonths()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
-        int monthsInYear = sch.CountMonthsInYear(Year);
+        int startOfYear = sch.CountMonthsSinceEpoch(Number, 1);
+        int monthsInYear = sch.CountMonthsInYear(Number);
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, monthsInYear)
@@ -1576,7 +1576,7 @@ public partial struct PaxYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(PaxMonth month) => month.Year == Year;
+    public bool Contains(PaxMonth month) => month.Year == Number;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -1589,8 +1589,8 @@ public partial struct PaxYear // IMonthSegment
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "month".
-        chr.Scope.PreValidator.ValidateMonth(Year, month);
-        int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(Year, month);
+        chr.Scope.PreValidator.ValidateMonth(Number, month);
+        int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(Number, month);
         return new PaxMonth(monthsSinceEpoch);
     }
 }
@@ -1602,7 +1602,7 @@ public partial struct PaxYear // IDaySegment
     {
         get
         {
-            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Number, 1);
             return new PaxDate(daysSinceEpoch);
         }
     }
@@ -1613,8 +1613,8 @@ public partial struct PaxYear // IDaySegment
         get
         {
             var sch = Calendar.Schema;
-            int doy = sch.CountDaysInYear(Year);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
+            int doy = sch.CountDaysInYear(Number);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Number, doy);
             return new PaxDate(daysSinceEpoch);
         }
     }
@@ -1623,7 +1623,7 @@ public partial struct PaxYear // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Number);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
@@ -1632,8 +1632,8 @@ public partial struct PaxYear // IDaySegment
     public Range<PaxDate> ToDayRange()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        int daysInYear = sch.CountDaysInYear(Year);
+        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
+        int daysInYear = sch.CountDaysInYear(Number);
         return Range.StartingAt(new PaxDate(startOfYear), daysInYear);
     }
 
@@ -1642,8 +1642,8 @@ public partial struct PaxYear // IDaySegment
     public IEnumerable<PaxDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        int daysInYear = sch.CountDaysInYear(Year);
+        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
+        int daysInYear = sch.CountDaysInYear(Number);
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
@@ -1652,7 +1652,7 @@ public partial struct PaxYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(PaxDate date) => date.Year == Year;
+    public bool Contains(PaxDate date) => date.Year == Number;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -1664,8 +1664,8 @@ public partial struct PaxYear // IDaySegment
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
+        chr.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Number, dayOfYear);
         return new PaxDate(daysSinceEpoch);
     }
 }

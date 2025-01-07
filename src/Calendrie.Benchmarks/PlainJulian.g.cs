@@ -1403,35 +1403,35 @@ public partial struct PlainJulianYear // Preamble
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    public int Century => YearNumbering.GetCentury(Year);
+    public int Century => YearNumbering.GetCentury(Number);
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    public Ord YearOfEra => Ord.FromInt32(Year);
+    public Ord YearOfEra => Ord.FromInt32(Number);
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Number);
 
     /// <summary>
     /// Gets the year number.
     /// <para>Actually, this property returns the algebraic year, but since its
     /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
-    public int Year => _yearsSinceEpoch + 1;
+    public int Number => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Number);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+    public override string ToString() => FormattableString.Invariant($"{Number:D4} ({Calendar})");
 }
 
 public partial struct PlainJulianYear // Factories
@@ -1468,10 +1468,10 @@ public partial struct PlainJulianYear // IMonthSegment
     public const int MonthCount = PlainJulianCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public PlainJulianMonth MinMonth => PlainJulianMonth.UnsafeCreate(Year, 1);
+    public PlainJulianMonth MinMonth => PlainJulianMonth.UnsafeCreate(Number, 1);
 
     /// <inheritdoc />
-    public PlainJulianMonth MaxMonth => PlainJulianMonth.UnsafeCreate(Year, MonthCount);
+    public PlainJulianMonth MaxMonth => PlainJulianMonth.UnsafeCreate(Number, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1485,7 +1485,7 @@ public partial struct PlainJulianYear // IMonthSegment
     [Pure]
     public IEnumerable<PlainJulianMonth> EnumerateMonths()
     {
-        int startOfYear = PlainJulianMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+        int startOfYear = PlainJulianMonth.UnsafeCreate(Number, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
@@ -1494,7 +1494,7 @@ public partial struct PlainJulianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(PlainJulianMonth month) => month.Year == Year;
+    public bool Contains(PlainJulianMonth month) => month.Year == Number;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -1506,8 +1506,8 @@ public partial struct PlainJulianYear // IMonthSegment
     public PlainJulianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        return PlainJulianMonth.UnsafeCreate(Year, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
+        return PlainJulianMonth.UnsafeCreate(Number, month);
     }
 }
 
@@ -1518,7 +1518,7 @@ public partial struct PlainJulianYear // IDaySegment
     {
         get
         {
-            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Number, 1);
             return new PlainJulianDate(daysSinceEpoch);
         }
     }
@@ -1529,8 +1529,8 @@ public partial struct PlainJulianYear // IDaySegment
         get
         {
             var sch = Calendar.Schema;
-            int doy = sch.CountDaysInYear(Year);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
+            int doy = sch.CountDaysInYear(Number);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Number, doy);
             return new PlainJulianDate(daysSinceEpoch);
         }
     }
@@ -1539,7 +1539,7 @@ public partial struct PlainJulianYear // IDaySegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Number);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
@@ -1548,8 +1548,8 @@ public partial struct PlainJulianYear // IDaySegment
     public Range<PlainJulianDate> ToDayRange()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        int daysInYear = sch.CountDaysInYear(Year);
+        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
+        int daysInYear = sch.CountDaysInYear(Number);
         return Range.StartingAt(new PlainJulianDate(startOfYear), daysInYear);
     }
 
@@ -1558,8 +1558,8 @@ public partial struct PlainJulianYear // IDaySegment
     public IEnumerable<PlainJulianDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        int daysInYear = sch.CountDaysInYear(Year);
+        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
+        int daysInYear = sch.CountDaysInYear(Number);
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
@@ -1568,7 +1568,7 @@ public partial struct PlainJulianYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(PlainJulianDate date) => date.Year == Year;
+    public bool Contains(PlainJulianDate date) => date.Year == Number;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -1580,8 +1580,8 @@ public partial struct PlainJulianYear // IDaySegment
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
-        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
+        chr.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Number, dayOfYear);
         return new PlainJulianDate(daysSinceEpoch);
     }
 }
