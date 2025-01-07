@@ -11,7 +11,7 @@ using System.Numerics;
 /// <summary>
 /// Defines a calendar year.
 /// </summary>
-public interface ICalendarYear
+public interface IYear
 {
     /// <summary>
     /// Gets the count of consecutive years since the epoch of the calendar to
@@ -79,13 +79,13 @@ public interface ICalendarYear
 /// <summary>
 /// Defines a calendar year type.
 /// <para>This interface SHOULD NOT be implemented by types participating in a
-/// poly-calendar system; see <see cref="ICalendarYearBase{TSelf}"/> for a more
+/// poly-calendar system; see <see cref="IYearBase{TSelf}"/> for a more
 /// suitable interface.</para>
 /// </summary>
 /// <typeparam name="TSelf">The year type that implements this interface.
 /// </typeparam>
-public interface ICalendarYear<TSelf> :
-    ICalendarYearBase<TSelf>,
+public interface IYear<TSelf> :
+    IYearBase<TSelf>,
     IMinMaxValue<TSelf>
-    where TSelf : ICalendarYear<TSelf>
+    where TSelf : IYear<TSelf>
 { }

@@ -10,8 +10,8 @@ using System.Numerics;
 /// </summary>
 /// <typeparam name="TSelf">The year type that implements this interface.
 /// </typeparam>
-public interface ICalendarYearBase<TSelf> :
-    ICalendarYear,
+public interface IYearBase<TSelf> :
+    IYear,
     // Comparison
     IEqualityOperators<TSelf, TSelf, bool>,
     IEquatable<TSelf>,
@@ -25,7 +25,7 @@ public interface ICalendarYearBase<TSelf> :
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
     IDecrementOperators<TSelf>
-    where TSelf : ICalendarYearBase<TSelf>
+    where TSelf : IYearBase<TSelf>
 {
     /// <summary>
     /// Obtains the earliest year between the two specified years.

@@ -113,7 +113,7 @@ public partial struct CivilMonth // Preamble
     }
 
     /// <inheritdoc />
-    bool ICalendarMonth.IsIntercalary => false;
+    bool IMonth.IsIntercalary => false;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

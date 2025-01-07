@@ -10,8 +10,8 @@ using System.Numerics;
 /// </summary>
 /// <typeparam name="TSelf">The month type that implements this interface.
 /// </typeparam>
-public interface ICalendarMonthBase<TSelf> :
-    ICalendarMonth,
+public interface IMonthBase<TSelf> :
+    IMonth,
     // Comparison
     IEqualityOperators<TSelf, TSelf, bool>,
     IEquatable<TSelf>,
@@ -27,7 +27,7 @@ public interface ICalendarMonthBase<TSelf> :
     IDecrementOperators<TSelf>,
     // Non-standard math ops
     IYearArithmetic<TSelf>
-    where TSelf : ICalendarMonthBase<TSelf>
+    where TSelf : IMonthBase<TSelf>
 {
     /// <summary>
     /// Obtains the earliest month between the two specified months.

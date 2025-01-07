@@ -51,7 +51,7 @@ public partial class CalendarTemplate
 /// <para><see cref="<#= Prefix #>Month"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct <#= Prefix #>Month :
-    ICalendarMonth<<#= Prefix #>Month>,
+    IMonth<<#= Prefix #>Month>,
     ICalendarBound<<#= Prefix #>Calendar>,
     IUnsafeFactory<<#= Prefix #>Month>,
     // A month viewed as a finite sequence of days
@@ -170,7 +170,7 @@ public partial struct <#= Prefix #>Month // Preamble
     }
 
     /// <inheritdoc />
-    bool ICalendarMonth.IsIntercalary => false;
+    bool IMonth.IsIntercalary => false;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

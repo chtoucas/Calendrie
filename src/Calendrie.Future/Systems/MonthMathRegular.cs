@@ -7,7 +7,7 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 public class MonthMathRegular<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
-    where TMonth : struct, ICalendarMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
+    where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
     where TCalendar : Calendar
 {
     /// <summary>

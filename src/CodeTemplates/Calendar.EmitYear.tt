@@ -42,7 +42,7 @@ public partial class CalendarTemplate
 /// <para><see cref="<#= Prefix #>Year"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct <#= Prefix #>Year :
-    ICalendarYear<<#= Prefix #>Year>,
+    IYear<<#= Prefix #>Year>,
     ICalendarBound<<#= Prefix #>Calendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<<#= Prefix #>Month>,

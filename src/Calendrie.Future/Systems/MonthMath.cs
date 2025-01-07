@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 public static class MonthMath
 {
     public static MonthMath<TMonth, TCalendar> Create<TMonth, TCalendar>(AdditionRule rule)
-        where TMonth : struct, ICalendarMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
+        where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
         where TCalendar : Calendar
     {
         return TMonth.Calendar.IsRegular(out _)
@@ -19,7 +19,7 @@ public static class MonthMath
 }
 
 public abstract class MonthMath<TMonth, TCalendar>
-    where TMonth : struct, ICalendarMonth<TMonth>, ICalendarBound<TCalendar>
+    where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>
     where TCalendar : Calendar
 {
     /// <summary>

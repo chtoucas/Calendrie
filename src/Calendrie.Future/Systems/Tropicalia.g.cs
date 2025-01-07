@@ -791,7 +791,7 @@ public partial struct TropicaliaDate // Non-standard math ops
 /// <para><see cref="TropicaliaMonth"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct TropicaliaMonth :
-    ICalendarMonth<TropicaliaMonth>,
+    IMonth<TropicaliaMonth>,
     ICalendarBound<TropicaliaCalendar>,
     IUnsafeFactory<TropicaliaMonth>,
     // A month viewed as a finite sequence of days
@@ -904,7 +904,7 @@ public partial struct TropicaliaMonth // Preamble
     }
 
     /// <inheritdoc />
-    bool ICalendarMonth.IsIntercalary => false;
+    bool IMonth.IsIntercalary => false;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -1322,7 +1322,7 @@ public partial struct TropicaliaMonth // Non-standard math ops
 /// <para><see cref="TropicaliaYear"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct TropicaliaYear :
-    ICalendarYear<TropicaliaYear>,
+    IYear<TropicaliaYear>,
     ICalendarBound<TropicaliaCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<TropicaliaMonth>,

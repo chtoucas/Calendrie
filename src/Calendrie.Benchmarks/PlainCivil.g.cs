@@ -783,7 +783,7 @@ public partial struct PlainCivilDate // Non-standard math ops
 /// <para><see cref="PlainCivilMonth"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainCivilMonth :
-    ICalendarMonth<PlainCivilMonth>,
+    IMonth<PlainCivilMonth>,
     ICalendarBound<PlainCivilCalendar>,
     IUnsafeFactory<PlainCivilMonth>,
     // A month viewed as a finite sequence of days
@@ -896,7 +896,7 @@ public partial struct PlainCivilMonth // Preamble
     }
 
     /// <inheritdoc />
-    bool ICalendarMonth.IsIntercalary => false;
+    bool IMonth.IsIntercalary => false;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -1314,7 +1314,7 @@ public partial struct PlainCivilMonth // Non-standard math ops
 /// <para><see cref="PlainCivilYear"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PlainCivilYear :
-    ICalendarYear<PlainCivilYear>,
+    IYear<PlainCivilYear>,
     ICalendarBound<PlainCivilCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<PlainCivilMonth>,

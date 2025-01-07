@@ -809,7 +809,7 @@ public partial struct PaxDate // Non-standard math ops
 /// <para><see cref="PaxMonth"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PaxMonth :
-    ICalendarMonth<PaxMonth>,
+    IMonth<PaxMonth>,
     ICalendarBound<PaxCalendar>,
     IUnsafeFactory<PaxMonth>,
     // A month viewed as a finite sequence of days
@@ -1385,7 +1385,7 @@ public partial struct PaxMonth // Non-standard math ops
 /// <para><see cref="PaxYear"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct PaxYear :
-    ICalendarYear<PaxYear>,
+    IYear<PaxYear>,
     ICalendarBound<PaxCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<PaxMonth>,
