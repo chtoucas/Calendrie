@@ -5,6 +5,5 @@
     {
         EnableMonth = true,
         EnableYear = true,
-        EnableNullable = true,
         MaxMonthsSinceEpochValue = "131_761"
     }.Execute() #>

@@ -58,6 +58,8 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public bool EnableIsSupplementary { get; set; } = true;
 
+    // Depends on the EditorConfig. If CA is enabled on generated files, this
+    // is not necessary.
     public bool EnableNullable { get; set; }
     public bool EnablePragmas { get; set; }
     public bool ImportCalendrieSystemsNamespace { get; set; }

@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Systems\Armenian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Armenian.tt</DependentUpon>
+    </Compile>
     <Compile Update="Systems\Civil.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
