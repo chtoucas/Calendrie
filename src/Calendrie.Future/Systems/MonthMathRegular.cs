@@ -37,7 +37,7 @@ public class MonthMathRegular<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
 
     /// <inheritdoc />
     [Pure]
-    protected override TMonth AddYears(int y, int m, int years, out int roundoff)
+    protected sealed override TMonth AddYears(int y, int m, int years, out int roundoff)
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);

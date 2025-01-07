@@ -3,6 +3,8 @@
 
 namespace Calendrie.Systems;
 
+// TODO(code): inherit DateMath and use a custom impl.
+
 /// <summary>
 /// Provides non-standard mathematical operations for the <see cref="CivilDate"/>
 /// type.
