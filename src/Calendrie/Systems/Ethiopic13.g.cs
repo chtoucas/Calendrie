@@ -43,7 +43,6 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     private Ethiopic13Calendar(Coptic13Schema schema)
         : base("Ethiopic", new StandardScope(schema, DayZero.Ethiopic))
     {
-        Debug.Assert(schema != null);
         Schema = schema;
     }
 
@@ -136,7 +135,8 @@ public partial struct Ethiopic13Date // Preamble
     }
 
     /// <summary>
-    /// This constructor does NOT validate its parameter.
+    /// Initializes a new instance of the <see cref="Ethiopic13Date"/> struct.
+    /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
     internal Ethiopic13Date(int daysSinceEpoch)
     {
@@ -144,7 +144,7 @@ public partial struct Ethiopic13Date // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="Ethiopic13Date"/>.
+    /// Gets the smallest possible value of a <see cref="Ethiopic13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -152,7 +152,7 @@ public partial struct Ethiopic13Date // Preamble
     public static Ethiopic13Date MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="Ethiopic13Date"/>.
+    /// Gets the largest possible value of a <see cref="Ethiopic13Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Ethiopic13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
@@ -165,7 +165,7 @@ public partial struct Ethiopic13Date // Preamble
 
     /// <inheritdoc />
     //
-    // We already know that the resulting day number is valid so instead of
+    // We already know that the resulting day number is valid, so instead of
     // > public DayNumber DayNumber => Epoch + _daysSinceEpoch;
     // we can use an unchecked addition
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);
@@ -196,9 +196,8 @@ public partial struct Ethiopic13Date // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => Calendar.Schema.GetYear(_daysSinceEpoch);
 
@@ -646,6 +645,8 @@ public partial struct Ethiopic13Date // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -660,6 +661,8 @@ public partial struct Ethiopic13Date // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -673,6 +676,8 @@ public partial struct Ethiopic13Date // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(Ethiopic13Date other)
@@ -700,6 +705,8 @@ public partial struct Ethiopic13Date // Non-standard math ops
 
     /// <summary>
     /// Counts the number of months elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountMonthsSince(Ethiopic13Date other)
@@ -730,6 +737,8 @@ public partial struct Ethiopic13Date // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -751,6 +760,8 @@ public partial struct Ethiopic13Date // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of the specified date,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>

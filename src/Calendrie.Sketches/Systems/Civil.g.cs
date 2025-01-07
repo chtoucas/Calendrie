@@ -37,8 +37,8 @@ public readonly partial struct CivilMonth :
 public partial struct CivilMonth // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilMonth"/> struct from the
-    /// specified <see cref="CivilDate"/> value.
+    /// Creates a new instance of the <see cref="CivilMonth"/> struct
+    /// from the specified <see cref="CivilDate"/> value.
     /// </summary>
     [Pure]
     public static CivilMonth Create(CivilDate date)
@@ -284,11 +284,11 @@ public partial struct CivilMonth // Standard math ops
 
 public partial struct CivilMonth // Non-standard math ops
 {
-    // For regular calendars, the next operations are unambiguous.
-
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
+    /// <para>In the particular case of the Civil calendar, this
+    /// operation is exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -306,6 +306,8 @@ public partial struct CivilMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
+    /// <para>In the particular case of the Civil calendar, this
+    /// operation is exact.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(CivilMonth other) =>
@@ -339,22 +341,22 @@ public readonly partial struct CivilYear :
 public partial struct CivilYear // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct from the
-    /// specified <see cref="CivilMonth"/> value.
+    /// Creates a new instance of the <see cref="CivilYear"/> struct
+    /// from the specified <see cref="CivilMonth"/> value.
     /// </summary>
     [Pure]
     public static CivilYear Create(CivilMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct from the
-    /// specified <see cref="CivilDate"/> value.
+    /// Creates a new instance of the <see cref="CivilYear"/> struct
+    /// from the specified <see cref="CivilDate"/> value.
     /// </summary>
     [Pure]
     public static CivilYear Create(CivilDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct from the
-    /// specified year.
+    /// Creates a new instance of the <see cref="CivilYear"/> struct
+    /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]

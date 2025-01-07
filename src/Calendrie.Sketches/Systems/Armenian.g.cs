@@ -53,8 +53,8 @@ public partial struct ArmenianMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianMonth"/> struct to the
-    /// specified month components.
+    /// Initializes a new instance of the <see cref="ArmenianMonth"/> struct
+    /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
@@ -76,7 +76,7 @@ public partial struct ArmenianMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="ArmenianMonth"/>.
+    /// Gets the smallest possible value of a <see cref="ArmenianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -84,7 +84,7 @@ public partial struct ArmenianMonth // Preamble
     public static ArmenianMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="ArmenianMonth"/>.
+    /// Gets the largest possible value of a <see cref="ArmenianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static ArmenianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
@@ -121,9 +121,8 @@ public partial struct ArmenianMonth // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
@@ -166,8 +165,8 @@ public partial struct ArmenianMonth // Preamble
 public partial struct ArmenianMonth // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianMonth"/> struct from the
-    /// specified <see cref="ArmenianDate"/> value.
+    /// Creates a new instance of the <see cref="ArmenianMonth"/> struct
+    /// from the specified <see cref="ArmenianDate"/> value.
     /// </summary>
     [Pure]
     public static ArmenianMonth Create(ArmenianDate date)
@@ -512,11 +511,11 @@ public partial struct ArmenianMonth // Standard math ops
 
 public partial struct ArmenianMonth // Non-standard math ops
 {
-    // For regular calendars, the next operations are unambiguous.
-
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
+    /// <para>In the particular case of the Armenian calendar, this
+    /// operation is exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -534,6 +533,8 @@ public partial struct ArmenianMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
+    /// <para>In the particular case of the Armenian calendar, this
+    /// operation is exact.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(ArmenianMonth other) =>
@@ -579,8 +580,8 @@ public partial struct ArmenianYear // Preamble
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="ArmenianYear"/> struct
+    /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
@@ -593,8 +594,7 @@ public partial struct ArmenianYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="ArmenianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     private ArmenianYear(ushort yearsSinceEpoch)
@@ -603,7 +603,7 @@ public partial struct ArmenianYear // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="ArmenianYear"/>.
+    /// Gets the smallest possible value of a <see cref="ArmenianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -611,7 +611,7 @@ public partial struct ArmenianYear // Preamble
     public static ArmenianYear MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="ArmenianYear"/>.
+    /// Gets the largest possible value of a <see cref="ArmenianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static ArmenianYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
@@ -648,9 +648,8 @@ public partial struct ArmenianYear // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => _yearsSinceEpoch + 1;
 
@@ -668,22 +667,22 @@ public partial struct ArmenianYear // Preamble
 public partial struct ArmenianYear // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the
-    /// specified <see cref="ArmenianMonth"/> value.
+    /// Creates a new instance of the <see cref="ArmenianYear"/> struct
+    /// from the specified <see cref="ArmenianMonth"/> value.
     /// </summary>
     [Pure]
     public static ArmenianYear Create(ArmenianMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the
-    /// specified <see cref="ArmenianDate"/> value.
+    /// Creates a new instance of the <see cref="ArmenianYear"/> struct
+    /// from the specified <see cref="ArmenianDate"/> value.
     /// </summary>
     [Pure]
     public static ArmenianYear Create(ArmenianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianYear"/> struct from the
-    /// specified year.
+    /// Creates a new instance of the <see cref="ArmenianYear"/> struct
+    /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -802,8 +801,7 @@ public partial struct ArmenianYear // IDaySegment
     public bool Contains(ArmenianDate date) => date.Year == Year;
 
     /// <summary>
-    /// Obtains the ordinal date corresponding to the specified day of this year
-    /// instance.
+    /// Obtains the date corresponding to the specified day of this year instance.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>

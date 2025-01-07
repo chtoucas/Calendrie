@@ -47,7 +47,6 @@ public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
     private PlainCivilCalendar(GregorianSchema schema)
         : base("Plain Civil", new StandardScope(schema, DayZero.NewStyle))
     {
-        Debug.Assert(schema != null);
         Schema = schema;
     }
 
@@ -134,7 +133,8 @@ public partial struct PlainCivilDate // Preamble
     }
 
     /// <summary>
-    /// This constructor does NOT validate its parameter.
+    /// Initializes a new instance of the <see cref="PlainCivilDate"/> struct.
+    /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
     internal PlainCivilDate(int daysSinceZero)
     {
@@ -142,7 +142,7 @@ public partial struct PlainCivilDate // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="PlainCivilDate"/>.
+    /// Gets the smallest possible value of a <see cref="PlainCivilDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -150,7 +150,7 @@ public partial struct PlainCivilDate // Preamble
     public static PlainCivilDate MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="PlainCivilDate"/>.
+    /// Gets the largest possible value of a <see cref="PlainCivilDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PlainCivilDate MaxValue { get; } = new(MaxDaysSinceZero);
@@ -165,7 +165,7 @@ public partial struct PlainCivilDate // Preamble
     public DayNumber DayNumber => new(_daysSinceZero);
 
     /// <summary>
-    /// Gets the count of days since the Gregorian epoch.
+    /// Gets the count of consecutive days since the Gregorian epoch.
     /// </summary>
     public int DaysSinceZero => _daysSinceZero;
 
@@ -194,9 +194,8 @@ public partial struct PlainCivilDate // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => Calendar.Schema.GetYear(_daysSinceZero);
 
@@ -636,6 +635,8 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -650,6 +651,8 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of this date instance,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -663,6 +666,8 @@ public partial struct PlainCivilDate // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(PlainCivilDate other)
@@ -690,6 +695,8 @@ public partial struct PlainCivilDate // Non-standard math ops
 
     /// <summary>
     /// Counts the number of months elapsed since the specified date.
+    /// <para>Beware, the result may not be exact. Behind the scene, it uses
+    /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
     public int CountMonthsSince(PlainCivilDate other)
@@ -720,6 +727,8 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -741,6 +750,8 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <summary>
     /// Adds a number of months to the month field of the specified date,
     /// yielding a new date.
+    /// <para>This method may truncate the (naïve) result to ensure that it
+    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
@@ -796,8 +807,8 @@ public partial struct PlainCivilMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilMonth"/> struct to the
-    /// specified month components.
+    /// Initializes a new instance of the <see cref="PlainCivilMonth"/> struct
+    /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
@@ -819,7 +830,7 @@ public partial struct PlainCivilMonth // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="PlainCivilMonth"/>.
+    /// Gets the smallest possible value of a <see cref="PlainCivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -827,7 +838,7 @@ public partial struct PlainCivilMonth // Preamble
     public static PlainCivilMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="PlainCivilMonth"/>.
+    /// Gets the largest possible value of a <see cref="PlainCivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PlainCivilMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
@@ -864,9 +875,8 @@ public partial struct PlainCivilMonth // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
@@ -909,8 +919,8 @@ public partial struct PlainCivilMonth // Preamble
 public partial struct PlainCivilMonth // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct from the
-    /// specified <see cref="PlainCivilDate"/> value.
+    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
+    /// from the specified <see cref="PlainCivilDate"/> value.
     /// </summary>
     [Pure]
     public static PlainCivilMonth Create(PlainCivilDate date)
@@ -1255,11 +1265,11 @@ public partial struct PlainCivilMonth // Standard math ops
 
 public partial struct PlainCivilMonth // Non-standard math ops
 {
-    // For regular calendars, the next operations are unambiguous.
-
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
+    /// <para>In the particular case of the PlainCivil calendar, this
+    /// operation is exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -1277,6 +1287,8 @@ public partial struct PlainCivilMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
+    /// <para>In the particular case of the PlainCivil calendar, this
+    /// operation is exact.</para>
     /// </summary>
     [Pure]
     public int CountYearsSince(PlainCivilMonth other) =>
@@ -1322,8 +1334,8 @@ public partial struct PlainCivilYear // Preamble
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct
+    /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
@@ -1336,8 +1348,7 @@ public partial struct PlainCivilYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     private PlainCivilYear(ushort yearsSinceEpoch)
@@ -1346,7 +1357,7 @@ public partial struct PlainCivilYear // Preamble
     }
 
     /// <summary>
-    /// Gets the earliest possible value of a <see cref="PlainCivilYear"/>.
+    /// Gets the smallest possible value of a <see cref="PlainCivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
@@ -1354,7 +1365,7 @@ public partial struct PlainCivilYear // Preamble
     public static PlainCivilYear MinValue { get; }
 
     /// <summary>
-    /// Gets the latest possible value of a <see cref="PlainCivilYear"/>.
+    /// Gets the largest possible value of a <see cref="PlainCivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PlainCivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
@@ -1391,9 +1402,8 @@ public partial struct PlainCivilYear // Preamble
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
     public int Year => _yearsSinceEpoch + 1;
 
@@ -1411,22 +1421,22 @@ public partial struct PlainCivilYear // Preamble
 public partial struct PlainCivilYear // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct from the
-    /// specified <see cref="PlainCivilMonth"/> value.
+    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
+    /// from the specified <see cref="PlainCivilMonth"/> value.
     /// </summary>
     [Pure]
     public static PlainCivilYear Create(PlainCivilMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct from the
-    /// specified <see cref="PlainCivilDate"/> value.
+    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
+    /// from the specified <see cref="PlainCivilDate"/> value.
     /// </summary>
     [Pure]
     public static PlainCivilYear Create(PlainCivilDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct from the
-    /// specified year.
+    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
+    /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1545,8 +1555,7 @@ public partial struct PlainCivilYear // IDaySegment
     public bool Contains(PlainCivilDate date) => date.Year == Year;
 
     /// <summary>
-    /// Obtains the ordinal date corresponding to the specified day of this year
-    /// instance.
+    /// Obtains the date corresponding to the specified day of this year instance.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>

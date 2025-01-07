@@ -35,8 +35,7 @@ public partial struct CivilYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CivilYear"/> struct to the
-    /// specified year.
+    /// Initializes a new instance of the <see cref="CivilYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     private CivilYear(ushort yearsSinceEpoch)
@@ -165,8 +164,7 @@ public partial struct CivilYear // IDaySegment
     public bool Contains(CivilDate date) => date.Year == Year;
 
     /// <summary>
-    /// Obtains the ordinal date corresponding to the specified day of this year
-    /// instance.
+    /// Obtains the date corresponding to the specified day of this year instance.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>

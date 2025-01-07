@@ -1417,8 +1417,7 @@ public partial struct PaxYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PaxYear"/> struct
-    /// to the specified year.
+    /// Initializes a new instance of the <see cref="PaxYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     private PaxYear(ushort yearsSinceEpoch)
@@ -1645,8 +1644,7 @@ public partial struct PaxYear // IDaySegment
     public bool Contains(PaxDate date) => date.Year == Year;
 
     /// <summary>
-    /// Obtains the ordinal date corresponding to the specified day of this year
-    /// instance.
+    /// Obtains the date corresponding to the specified day of this year instance.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>
