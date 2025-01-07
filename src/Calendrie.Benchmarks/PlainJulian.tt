@@ -7,7 +7,6 @@
         EnableIsSupplementary = false,
         EnableDateCustomMath = true,
         EnableMonth = true,
-        EnableMonthCustomMath = true,
         EnableYear = true,
         EnableNullable = true,
         ImportCalendrieSystemsNamespace = true,

@@ -5,7 +5,6 @@
     {
         EnableDateCustomMath = true,
         EnableMonth = true,
-        EnableMonthCustomMath = true,
         EnableYear = true,
         EnablePragmas = true,
         MaxMonthsSinceEpochValue = "119_987",

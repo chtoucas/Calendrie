@@ -1320,21 +1320,6 @@ public partial struct PlainCivilMonth // Non-standard math ops
 
 #endregion
 
-#region PlainCivilMonthMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="PlainCivilMonth"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class PlainCivilMonthMath : MonthMathRegular<PlainCivilMonth, PlainCivilCalendar>
-{
-    public PlainCivilMonthMath(AdditionRule rule) : base(rule) { }
-}
-
-#endregion
-
 #region PlainCivilYear
 
 /// <summary>

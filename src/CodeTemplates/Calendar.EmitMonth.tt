@@ -43,11 +43,7 @@ public partial class CalendarTemplate
 
 #region <#= Prefix #>MonthMath
 <#+
-            if (IsRegular)
-            {
-                EmitMonthCustomMathRegular();
-            }
-            else
+            if (!IsRegular)
             {
                 EmitMonthCustomMathNonRegular();
             }
@@ -1070,23 +1066,6 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
 }
 <#+
     } // T4: End of EmitMonthMathNonStandardNonRegular
-
-    protected virtual void EmitMonthCustomMathRegular()
-    {
-        WriteLine();
-#>
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="<#= Prefix #>Month"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class <#= Prefix #>MonthMath : MonthMathRegular<<#= Prefix #>Month, <#= Prefix #>Calendar>
-{
-    public <#= Prefix #>MonthMath(AdditionRule rule) : base(rule) { }
-}
-<#+
-    } // T4: End of EmitMonthCustomMathRegular
 
     protected virtual void EmitMonthCustomMathNonRegular()
     {

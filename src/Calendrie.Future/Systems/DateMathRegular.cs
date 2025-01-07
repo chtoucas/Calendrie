@@ -57,6 +57,9 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     protected sealed override TDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
+#if true
+        return AddYears(y, newM, d, y0, out roundoff);
+#else
         int newY = checked(y + y0);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
@@ -68,6 +71,7 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
         return TDate.UnsafeCreate(daysSinceEpoch);
+#endif
     }
 
     /// <inheritdoc />

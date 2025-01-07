@@ -13,6 +13,7 @@ using Calendrie.Hemerology;
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
+[Obsolete("This is strictly equivalent to the math ops in TMonth")]
 public class MonthMathRegular<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
     where TCalendar : Calendar
