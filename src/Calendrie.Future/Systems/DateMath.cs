@@ -29,10 +29,10 @@ public static class DateMath
 #endif
 
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
+/// Defines the non-standard mathematical operations for the
 /// <typeparamref name="TDate"/> type and provides a base for derived classes.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
+/// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
+/// strategy.</para>
 /// </summary>
 public abstract class DateMath<TDate, TCalendar>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>

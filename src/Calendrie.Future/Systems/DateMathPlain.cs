@@ -7,10 +7,10 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
+/// Defines the non-standard mathematical operations for the
 /// <typeparamref name="TDate"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
 /// </summary>
 public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>

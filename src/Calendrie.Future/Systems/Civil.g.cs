@@ -325,10 +325,10 @@ public partial struct CivilMonth // Non-standard math ops
 #region CivilMonthMath
 
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
+/// Defines the non-standard mathematical operations for the
 /// <see cref="CivilMonth"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
 /// </summary>
 public sealed class CivilMonthMath : MonthMathRegular<CivilMonth, CivilCalendar>
 {

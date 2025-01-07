@@ -1315,10 +1315,10 @@ public partial struct PlainJulianMonth // Non-standard math ops
 #region PlainJulianMonthMath
 
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
+/// Defines the non-standard mathematical operations for the
 /// <see cref="PlainJulianMonth"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
 /// </summary>
 public sealed class PlainJulianMonthMath : MonthMathRegular<PlainJulianMonth, PlainJulianCalendar>
 {

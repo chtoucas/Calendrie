@@ -4,10 +4,10 @@
 namespace Calendrie.Systems;
 
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
-/// <see cref="CivilDate"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
+/// Defines the non-standard mathematical operations for the <see cref="CivilDate"/>
+/// type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
 /// </summary>
 public sealed class CivilDateMath : DateMathRegular<CivilDate, CivilCalendar>
 {

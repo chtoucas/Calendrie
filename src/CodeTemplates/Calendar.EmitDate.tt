@@ -986,10 +986,10 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
         WriteLine();
 #>
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
+/// Defines the non-standard mathematical operations for the
 /// <see cref="<#= Prefix #>Date"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
 /// </summary>
 public sealed class <#= Prefix #>DateMath : DateMathRegular<<#= Prefix #>Date, <#= Prefix #>Calendar>
 {
@@ -1003,10 +1003,10 @@ public sealed class <#= Prefix #>DateMath : DateMathRegular<<#= Prefix #>Date, <
         WriteLine();
 #>
 /// <summary>
-/// Defines the non-standard mathematical operations suitable for use with the
+/// Defines the non-standard mathematical operations for the
 /// <see cref="<#= Prefix #>Date"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> used
-/// to resolve ambiguities.</para>
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
 /// </summary>
 public sealed class <#= Prefix #>DateMath : DateMathPlain<<#= Prefix #>Date, <#= Prefix #>Calendar>
 {
