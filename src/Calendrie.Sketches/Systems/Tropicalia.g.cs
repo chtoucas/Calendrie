@@ -15,8 +15,8 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie;
-using Calendrie.Core.Schemas;
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 

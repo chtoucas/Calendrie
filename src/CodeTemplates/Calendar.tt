@@ -126,10 +126,10 @@ namespace <#= Namespace #>;
 using System.Numerics;
 
 using Calendrie;
-using Calendrie.Core.Schemas;
 <#+ if (EnableMonth) { #>
 using Calendrie.Core.Intervals;
 <#+ } #>
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
