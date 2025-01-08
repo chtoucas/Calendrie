@@ -283,6 +283,10 @@ public partial struct Zoroastrian13Date // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static Zoroastrian13Date Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static Zoroastrian13Date FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

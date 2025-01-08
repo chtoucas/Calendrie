@@ -207,6 +207,10 @@ public partial struct GregorianDate // Preamble
 
 public partial struct GregorianDate // Factories & conversions
 {
+    /// <inheritdoc />
+    [Pure]
+    public static GregorianDate Create(int year, int month, int day) => new(year, month, day);
+
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianDate"/> struct from
     /// the specified <see cref="CivilDate"/> value.

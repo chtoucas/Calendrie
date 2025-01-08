@@ -281,6 +281,10 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static <#= Prefix #>Date Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

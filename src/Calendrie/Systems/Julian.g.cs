@@ -18,6 +18,10 @@ public partial struct JulianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static JulianDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

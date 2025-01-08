@@ -283,6 +283,10 @@ public partial struct Armenian13Date // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static Armenian13Date Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static Armenian13Date FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

@@ -278,6 +278,10 @@ public partial struct PlainJulianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static PlainJulianDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static PlainJulianDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
@@ -948,13 +952,7 @@ public partial struct PlainJulianMonth // Preamble
 
 public partial struct PlainJulianMonth // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
-    /// from the specified month components.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The specified components
-    /// do not form a valid month or <paramref name="year"/> is outside the
-    /// range of supported years.</exception>
+    /// <inheritdoc />
     [Pure]
     public static PlainJulianMonth Create(int year, int month) => new(year, month);
 
@@ -1466,12 +1464,7 @@ public partial struct PlainJulianYear // Preamble
 
 public partial struct PlainJulianYear // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
-    /// from the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
-    /// outside the range of years supported values.</exception>
+    /// <inheritdoc />
     [Pure]
     public static PlainJulianYear Create(int year) => new(year);
 

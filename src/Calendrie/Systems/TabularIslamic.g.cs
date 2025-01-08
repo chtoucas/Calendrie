@@ -274,6 +274,10 @@ public partial struct TabularIslamicDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static TabularIslamicDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

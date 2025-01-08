@@ -83,6 +83,8 @@ public readonly partial struct MyJulianDate :
 
 public partial struct MyJulianDate // Factories & conversions
 {
+    public static MyJulianDate Create(int year, int month, int day) => new(year, month, day);
+
     public static MyJulianDate FromDayNumber(DayNumber dayNumber) =>
         new(Calendar.CreateDateParts(dayNumber));
 }

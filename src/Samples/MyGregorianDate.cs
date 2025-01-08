@@ -98,6 +98,8 @@ public readonly partial struct MyGregorianDate :
 
 public partial struct MyGregorianDate // Factories & conversions
 {
+    public static MyGregorianDate Create(int year, int month, int day) => new(year, month, day);
+
     // This factory method eventually throws an OverflowException, not an
     // ArgumentOutOfRangeException as documented in the XML doc. Only used by
     // Nearest() via IAbsoluteDate.Nearest().

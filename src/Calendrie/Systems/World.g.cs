@@ -283,6 +283,10 @@ public partial struct WorldDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static WorldDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static WorldDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

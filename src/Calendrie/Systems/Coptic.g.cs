@@ -283,6 +283,10 @@ public partial struct CopticDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static CopticDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static CopticDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

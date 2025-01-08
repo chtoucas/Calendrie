@@ -36,6 +36,10 @@ public partial struct CivilDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static CivilDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static CivilDate FromDayNumber(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;

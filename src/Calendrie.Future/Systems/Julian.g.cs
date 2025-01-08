@@ -18,13 +18,7 @@ using Calendrie.Hemerology;
 
 public partial struct JulianMonth // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianMonth"/> struct
-    /// from the specified month components.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The specified components
-    /// do not form a valid month or <paramref name="year"/> is outside the
-    /// range of supported years.</exception>
+    /// <inheritdoc />
     [Pure]
     public static JulianMonth Create(int year, int month) => new(year, month);
 

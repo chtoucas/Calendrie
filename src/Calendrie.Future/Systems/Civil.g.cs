@@ -37,13 +37,7 @@ public readonly partial struct CivilMonth :
 
 public partial struct CivilMonth // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilMonth"/> struct
-    /// from the specified month components.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The specified components
-    /// do not form a valid month or <paramref name="year"/> is outside the
-    /// range of supported years.</exception>
+    /// <inheritdoc />
     [Pure]
     public static CivilMonth Create(int year, int month) => new(year, month);
 
@@ -355,12 +349,7 @@ public readonly partial struct CivilYear :
 
 public partial struct CivilYear // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct
-    /// from the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
-    /// outside the range of years supported values.</exception>
+    /// <inheritdoc />
     [Pure]
     public static CivilYear Create(int year) => new(year);
 

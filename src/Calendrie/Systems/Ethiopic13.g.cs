@@ -283,6 +283,10 @@ public partial struct Ethiopic13Date // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static Ethiopic13Date Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static Ethiopic13Date FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);

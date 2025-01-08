@@ -270,6 +270,10 @@ public partial struct PlainCivilDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static PlainCivilDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static PlainCivilDate FromDayNumber(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
@@ -941,13 +945,7 @@ public partial struct PlainCivilMonth // Preamble
 
 public partial struct PlainCivilMonth // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
-    /// from the specified month components.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The specified components
-    /// do not form a valid month or <paramref name="year"/> is outside the
-    /// range of supported years.</exception>
+    /// <inheritdoc />
     [Pure]
     public static PlainCivilMonth Create(int year, int month) => new(year, month);
 
@@ -1459,12 +1457,7 @@ public partial struct PlainCivilYear // Preamble
 
 public partial struct PlainCivilYear // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
-    /// from the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
-    /// outside the range of years supported values.</exception>
+    /// <inheritdoc />
     [Pure]
     public static PlainCivilYear Create(int year) => new(year);
 

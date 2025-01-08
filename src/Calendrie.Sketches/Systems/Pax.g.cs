@@ -290,6 +290,10 @@ public partial struct PaxDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static PaxDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static PaxDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
@@ -977,13 +981,7 @@ public partial struct PaxMonth // Preamble
 
 public partial struct PaxMonth // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxMonth"/> struct
-    /// from the specified month components.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The specified components
-    /// do not form a valid month or <paramref name="year"/> is outside the
-    /// range of supported years.</exception>
+    /// <inheritdoc />
     [Pure]
     public static PaxMonth Create(int year, int month) => new(year, month);
 
@@ -1550,12 +1548,7 @@ public partial struct PaxYear // Preamble
 
 public partial struct PaxYear // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct
-    /// from the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
-    /// outside the range of years supported values.</exception>
+    /// <inheritdoc />
     [Pure]
     public static PaxYear Create(int year) => new(year);
 

@@ -146,12 +146,7 @@ public partial struct JulianYear // Preamble
 
 public partial struct JulianYear // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianYear"/> struct
-    /// from the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
-    /// outside the range of years supported values.</exception>
+    /// <inheritdoc />
     [Pure]
     public static JulianYear Create(int year) => new(year);
 

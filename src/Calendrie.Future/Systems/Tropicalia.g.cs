@@ -278,6 +278,10 @@ public partial struct TropicaliaDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
+    public static TropicaliaDate Create(int year, int month, int day) => new(year, month, day);
+
+    /// <inheritdoc />
+    [Pure]
     public static TropicaliaDate FromDayNumber(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
@@ -949,13 +953,7 @@ public partial struct TropicaliaMonth // Preamble
 
 public partial struct TropicaliaMonth // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
-    /// from the specified month components.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The specified components
-    /// do not form a valid month or <paramref name="year"/> is outside the
-    /// range of supported years.</exception>
+    /// <inheritdoc />
     [Pure]
     public static TropicaliaMonth Create(int year, int month) => new(year, month);
 
@@ -1467,12 +1465,7 @@ public partial struct TropicaliaYear // Preamble
 
 public partial struct TropicaliaYear // Factories
 {
-    /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
-    /// from the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
-    /// outside the range of years supported values.</exception>
+    /// <inheritdoc />
     [Pure]
     public static TropicaliaYear Create(int year) => new(year);
 
