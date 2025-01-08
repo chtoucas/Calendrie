@@ -28,6 +28,21 @@ public interface IYearBase<TSelf> :
     where TSelf : struct, IYearBase<TSelf>
 {
     /// <summary>
+    /// Creates a new instance of the <typeparamref name="TSelf"/> type from
+    /// the specified year.
+    /// </summary>
+    [Pure] static abstract TSelf Create(int year);
+
+    // TODO(code): add TryCreate(). Idem w/ IDate and IMonth.
+#if false
+    /// <summary>
+    /// Try create a new instance of the <typeparamref name="TSelf"/> type from
+    /// the specified year.
+    /// </summary>
+    [Pure] static abstract TSelf? TryCreate(int year);
+#endif
+
+    /// <summary>
     /// Obtains the earliest year between the two specified years.
     /// </summary>
     [Pure] static abstract TSelf Min(TSelf x, TSelf y);

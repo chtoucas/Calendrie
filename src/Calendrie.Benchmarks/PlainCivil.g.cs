@@ -943,6 +943,16 @@ public partial struct PlainCivilMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
+    /// from the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public static PlainCivilMonth Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
     /// from the specified <see cref="PlainCivilDate"/> value.
     /// </summary>
     [Pure]
@@ -1449,6 +1459,15 @@ public partial struct PlainCivilYear // Preamble
 
 public partial struct PlainCivilYear // Factories
 {
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
+    /// from the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    [Pure]
+    public static PlainCivilYear Create(int year) => new(year);
+
     /// <summary>
     /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
     /// from the specified <see cref="PlainCivilMonth"/> value.

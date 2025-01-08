@@ -30,6 +30,12 @@ public interface IMonthBase<TSelf> :
     where TSelf : struct, IMonthBase<TSelf>
 {
     /// <summary>
+    /// Creates a new instance of the <typeparamref name="TSelf"/> type from
+    /// the specified month components.
+    /// </summary>
+    [Pure] static abstract TSelf Create(int year, int month);
+
+    /// <summary>
     /// Obtains the earliest month between the two specified months.
     /// </summary>
     [Pure] static abstract TSelf Min(TSelf x, TSelf y);

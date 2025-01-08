@@ -359,6 +359,16 @@ public partial struct <#= Prefix #>Month // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public static <#= Prefix #>Month Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
     [Pure]
@@ -398,6 +408,16 @@ public partial struct <#= Prefix #>Month // Factories
 #>
 public partial struct <#= Prefix #>Month // Factories
 {
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public static <#= Prefix #>Month Create(int year, int month) => new(year, month);
+
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.

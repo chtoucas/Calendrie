@@ -148,6 +148,15 @@ public partial struct GregorianYear // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianYear"/> struct
+    /// from the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    [Pure]
+    public static GregorianYear Create(int year) => new(year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianYear"/> struct
     /// from the specified <see cref="GregorianMonth"/> value.
     /// </summary>
     [Pure]

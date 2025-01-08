@@ -979,6 +979,16 @@ public partial struct PaxMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="PaxMonth"/> struct
+    /// from the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public static PaxMonth Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxMonth"/> struct
     /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
     [Pure]
@@ -1540,6 +1550,15 @@ public partial struct PaxYear // Preamble
 
 public partial struct PaxYear // Factories
 {
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    [Pure]
+    public static PaxYear Create(int year) => new(year);
+
     /// <summary>
     /// Creates a new instance of the <see cref="PaxYear"/> struct
     /// from the specified <see cref="PaxMonth"/> value.

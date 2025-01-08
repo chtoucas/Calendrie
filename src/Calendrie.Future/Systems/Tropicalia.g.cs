@@ -951,6 +951,16 @@ public partial struct TropicaliaMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
+    /// from the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public static TropicaliaMonth Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
     /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
@@ -1457,6 +1467,15 @@ public partial struct TropicaliaYear // Preamble
 
 public partial struct TropicaliaYear // Factories
 {
+    /// <summary>
+    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
+    /// from the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    [Pure]
+    public static TropicaliaYear Create(int year) => new(year);
+
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
     /// from the specified <see cref="TropicaliaMonth"/> value.

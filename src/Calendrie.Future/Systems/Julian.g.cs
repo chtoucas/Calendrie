@@ -20,6 +20,16 @@ public partial struct JulianMonth // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="JulianMonth"/> struct
+    /// from the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public static JulianMonth Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianMonth"/> struct
     /// from the specified <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
