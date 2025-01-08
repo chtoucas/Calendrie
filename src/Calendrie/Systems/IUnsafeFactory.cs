@@ -13,11 +13,11 @@ namespace Calendrie.Systems;
 /// <para>This interface can ONLY be implemented from within friend assemblies.
 /// </para>
 /// </summary>
-/// <typeparam name="T">The type of date object to create.</typeparam>
+/// <typeparam name="T">The type of calendrical object to create.</typeparam>
 public interface IUnsafeFactory<out T>
 {
     /// <summary>
-    /// Creates a new instance of the <typeparamref name="T"/> struct from
+    /// Creates a new instance of the <typeparamref name="T"/> type from
     /// the specified count of consecutive units since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>

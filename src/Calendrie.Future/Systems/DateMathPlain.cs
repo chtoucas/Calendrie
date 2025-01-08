@@ -20,10 +20,12 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate>
     /// <summary>Represents the schema.</summary>
     private readonly ICalendricalSchema _schema;
 
-    /// <summary>Represents the earliest supported month.</summary>
+    /// <summary>Represents the smallest possible value of the count of consecutive
+    /// days since the epoch.</summary>
     private readonly int _minMonthsSinceEpoch;
 
-    /// <summary>Represents the latest supported month.</summary>
+    /// <summary>Represents the largest possible value of the count of consecutive
+    /// days since the epoch.</summary>
     private readonly int _maxMonthsSinceEpoch;
 
     /// <summary>
