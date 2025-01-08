@@ -163,6 +163,17 @@ public partial struct GregorianMonth // Preamble
     }
 }
 
+public partial struct GregorianMonth // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianMonth"/> struct from
+    /// the specified <see cref="CivilMonth"/> value.
+    /// <para>See also <see cref="CivilMonth.ToGregorianMonth()"/>.</para>
+    /// </summary>
+    [Pure]
+    public static GregorianMonth FromCivilMonth(CivilMonth month) => new(month.MonthsSinceEpoch);
+}
+
 public partial struct GregorianMonth // Adjustments
 {
     /// <inheritdoc />

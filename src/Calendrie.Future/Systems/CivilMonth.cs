@@ -136,6 +136,23 @@ public partial struct CivilMonth // Preamble
     }
 }
 
+public partial struct CivilMonth // Conversions
+{
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="CivilMonth"/> value to a
+    /// <see cref="GregorianMonth"/> value.
+    /// </summary>
+    public static implicit operator GregorianMonth(CivilMonth month) => new(month._monthsSinceEpoch);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="GregorianMonth"/> value.
+    /// <para>See also <see cref="GregorianMonth.FromCivilMonth(CivilMonth)"/>.
+    /// </para>
+    /// </summary>
+    [Pure]
+    public GregorianMonth ToGregorianMonth() => new(_monthsSinceEpoch);
+}
+
 public partial struct CivilMonth // IDateSegment
 {
     /// <inheritdoc />
