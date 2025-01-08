@@ -23,6 +23,19 @@ public partial struct GregorianMonth // Factories
     public static GregorianMonth Create(int year, int month) => new(year, month);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="GregorianMonth"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static GregorianMonth? TryCreate(int year, int month)
+    {
+        bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear
+            && month >= 1 && month <= GregorianCalendar.MonthsInYear;
+
+        return ok ? UnsafeCreate(year, month) : null;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="GregorianMonth"/> struct
     /// from the specified <see cref="GregorianDate"/> value.
     /// </summary>

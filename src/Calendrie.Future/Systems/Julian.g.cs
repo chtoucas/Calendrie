@@ -23,6 +23,19 @@ public partial struct JulianMonth // Factories
     public static JulianMonth Create(int year, int month) => new(year, month);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="JulianMonth"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static JulianMonth? TryCreate(int year, int month)
+    {
+        bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear
+            && month >= 1 && month <= JulianCalendar.MonthsInYear;
+
+        return ok ? UnsafeCreate(year, month) : null;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="JulianMonth"/> struct
     /// from the specified <see cref="JulianDate"/> value.
     /// </summary>

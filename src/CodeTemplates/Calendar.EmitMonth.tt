@@ -362,6 +362,19 @@ public partial struct <#= Prefix #>Month // Factories
     public static <#= Prefix #>Month Create(int year, int month) => new(year, month);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="<#= Prefix #>Month"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static <#= Prefix #>Month? TryCreate(int year, int month)
+    {
+        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
+            && month >= 1 && month <= <#= Prefix #>Calendar.MonthsInYear;
+
+        return ok ? UnsafeCreate(year, month) : null;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
@@ -407,6 +420,19 @@ public partial struct <#= Prefix #>Month // Factories
     public static <#= Prefix #>Month Create(int year, int month) => new(year, month);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="<#= Prefix #>Month"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static <#= Prefix #>Month? TryCreate(int year, int month)
+    {
+        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
+            && month >= 1 && month <= Calendar.Schema.CountMonthsInYear(year);
+
+        return ok ? UnsafeCreate(year, month) : null;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
@@ -416,6 +442,18 @@ public partial struct <#= Prefix #>Month // Factories
         var sch = Calendar.Schema;
         sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
         int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
+        return new <#= Prefix #>Month(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static <#= Prefix #>Month UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(year, month);
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 

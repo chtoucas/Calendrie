@@ -42,6 +42,19 @@ public partial struct CivilMonth // Factories
     public static CivilMonth Create(int year, int month) => new(year, month);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilMonth"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static CivilMonth? TryCreate(int year, int month)
+    {
+        bool ok = year >= CivilScope.MinYear && year <= CivilScope.MaxYear
+            && month >= 1 && month <= CivilCalendar.MonthsInYear;
+
+        return ok ? UnsafeCreate(year, month) : null;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="CivilMonth"/> struct
     /// from the specified <see cref="CivilDate"/> value.
     /// </summary>

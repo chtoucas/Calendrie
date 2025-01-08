@@ -998,6 +998,19 @@ public partial struct PaxMonth // Factories
     public static PaxMonth Create(int year, int month) => new(year, month);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="PaxMonth"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static PaxMonth? TryCreate(int year, int month)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
+            && month >= 1 && month <= Calendar.Schema.CountMonthsInYear(year);
+
+        return ok ? UnsafeCreate(year, month) : null;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="PaxMonth"/> struct
     /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
@@ -1007,6 +1020,18 @@ public partial struct PaxMonth // Factories
         var sch = Calendar.Schema;
         sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
         int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
+        return new PaxMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxMonth"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static PaxMonth UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(year, month);
         return new PaxMonth(monthsSinceEpoch);
     }
 
