@@ -453,6 +453,7 @@ Calendrie.Hemerology.ICalendarBound<TCalendar>
 Calendrie.Hemerology.ICalendarBound<TCalendar>.Calendar.get -> TCalendar!
 Calendrie.Hemerology.IDate
 Calendrie.Hemerology.IDate<TSelf>
+Calendrie.Hemerology.IDate<TSelf>.Create(int year, int month, int day) -> TSelf
 Calendrie.Hemerology.IDateable
 Calendrie.Hemerology.IDateable.Century.get -> int
 Calendrie.Hemerology.IDateable.CenturyOfEra.get -> Calendrie.Ord
@@ -1815,6 +1816,7 @@ static Calendrie.OrdinalParts.operator >=(Calendrie.OrdinalParts left, Calendrie
 static Calendrie.Systems.Armenian13Calendar.MaxYear.get -> int
 static Calendrie.Systems.Armenian13Calendar.MinYear.get -> int
 static Calendrie.Systems.Armenian13Date.Calendar.get -> Calendrie.Systems.Armenian13Calendar!
+static Calendrie.Systems.Armenian13Date.Create(int year, int month, int day) -> Calendrie.Systems.Armenian13Date
 static Calendrie.Systems.Armenian13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.Armenian13Date
 static Calendrie.Systems.Armenian13Date.Max(Calendrie.Systems.Armenian13Date x, Calendrie.Systems.Armenian13Date y) -> Calendrie.Systems.Armenian13Date
 static Calendrie.Systems.Armenian13Date.MaxValue.get -> Calendrie.Systems.Armenian13Date
@@ -1834,6 +1836,7 @@ static Calendrie.Systems.Armenian13Date.operator >=(Calendrie.Systems.Armenian13
 static Calendrie.Systems.ArmenianCalendar.MaxYear.get -> int
 static Calendrie.Systems.ArmenianCalendar.MinYear.get -> int
 static Calendrie.Systems.ArmenianDate.Calendar.get -> Calendrie.Systems.ArmenianCalendar!
+static Calendrie.Systems.ArmenianDate.Create(int year, int month, int day) -> Calendrie.Systems.ArmenianDate
 static Calendrie.Systems.ArmenianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.ArmenianDate
 static Calendrie.Systems.ArmenianDate.Max(Calendrie.Systems.ArmenianDate x, Calendrie.Systems.ArmenianDate y) -> Calendrie.Systems.ArmenianDate
 static Calendrie.Systems.ArmenianDate.MaxValue.get -> Calendrie.Systems.ArmenianDate
@@ -1853,6 +1856,7 @@ static Calendrie.Systems.ArmenianDate.operator >=(Calendrie.Systems.ArmenianDate
 static Calendrie.Systems.CivilCalendar.MaxYear.get -> int
 static Calendrie.Systems.CivilCalendar.MinYear.get -> int
 static Calendrie.Systems.CivilDate.Calendar.get -> Calendrie.Systems.CivilCalendar!
+static Calendrie.Systems.CivilDate.Create(int year, int month, int day) -> Calendrie.Systems.CivilDate
 static Calendrie.Systems.CivilDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.CivilDate
 static Calendrie.Systems.CivilDate.implicit operator Calendrie.Systems.GregorianDate(Calendrie.Systems.CivilDate date) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.CivilDate.Max(Calendrie.Systems.CivilDate x, Calendrie.Systems.CivilDate y) -> Calendrie.Systems.CivilDate
@@ -1873,6 +1877,7 @@ static Calendrie.Systems.CivilDate.operator >=(Calendrie.Systems.CivilDate left,
 static Calendrie.Systems.Coptic13Calendar.MaxYear.get -> int
 static Calendrie.Systems.Coptic13Calendar.MinYear.get -> int
 static Calendrie.Systems.Coptic13Date.Calendar.get -> Calendrie.Systems.Coptic13Calendar!
+static Calendrie.Systems.Coptic13Date.Create(int year, int month, int day) -> Calendrie.Systems.Coptic13Date
 static Calendrie.Systems.Coptic13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.Coptic13Date
 static Calendrie.Systems.Coptic13Date.Max(Calendrie.Systems.Coptic13Date x, Calendrie.Systems.Coptic13Date y) -> Calendrie.Systems.Coptic13Date
 static Calendrie.Systems.Coptic13Date.MaxValue.get -> Calendrie.Systems.Coptic13Date
@@ -1892,6 +1897,7 @@ static Calendrie.Systems.Coptic13Date.operator >=(Calendrie.Systems.Coptic13Date
 static Calendrie.Systems.CopticCalendar.MaxYear.get -> int
 static Calendrie.Systems.CopticCalendar.MinYear.get -> int
 static Calendrie.Systems.CopticDate.Calendar.get -> Calendrie.Systems.CopticCalendar!
+static Calendrie.Systems.CopticDate.Create(int year, int month, int day) -> Calendrie.Systems.CopticDate
 static Calendrie.Systems.CopticDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.CopticDate
 static Calendrie.Systems.CopticDate.Max(Calendrie.Systems.CopticDate x, Calendrie.Systems.CopticDate y) -> Calendrie.Systems.CopticDate
 static Calendrie.Systems.CopticDate.MaxValue.get -> Calendrie.Systems.CopticDate
@@ -1911,6 +1917,7 @@ static Calendrie.Systems.CopticDate.operator >=(Calendrie.Systems.CopticDate lef
 static Calendrie.Systems.Ethiopic13Calendar.MaxYear.get -> int
 static Calendrie.Systems.Ethiopic13Calendar.MinYear.get -> int
 static Calendrie.Systems.Ethiopic13Date.Calendar.get -> Calendrie.Systems.Ethiopic13Calendar!
+static Calendrie.Systems.Ethiopic13Date.Create(int year, int month, int day) -> Calendrie.Systems.Ethiopic13Date
 static Calendrie.Systems.Ethiopic13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.Ethiopic13Date
 static Calendrie.Systems.Ethiopic13Date.Max(Calendrie.Systems.Ethiopic13Date x, Calendrie.Systems.Ethiopic13Date y) -> Calendrie.Systems.Ethiopic13Date
 static Calendrie.Systems.Ethiopic13Date.MaxValue.get -> Calendrie.Systems.Ethiopic13Date
@@ -1930,6 +1937,7 @@ static Calendrie.Systems.Ethiopic13Date.operator >=(Calendrie.Systems.Ethiopic13
 static Calendrie.Systems.EthiopicCalendar.MaxYear.get -> int
 static Calendrie.Systems.EthiopicCalendar.MinYear.get -> int
 static Calendrie.Systems.EthiopicDate.Calendar.get -> Calendrie.Systems.EthiopicCalendar!
+static Calendrie.Systems.EthiopicDate.Create(int year, int month, int day) -> Calendrie.Systems.EthiopicDate
 static Calendrie.Systems.EthiopicDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.EthiopicDate
 static Calendrie.Systems.EthiopicDate.Max(Calendrie.Systems.EthiopicDate x, Calendrie.Systems.EthiopicDate y) -> Calendrie.Systems.EthiopicDate
 static Calendrie.Systems.EthiopicDate.MaxValue.get -> Calendrie.Systems.EthiopicDate
@@ -1949,6 +1957,7 @@ static Calendrie.Systems.EthiopicDate.operator >=(Calendrie.Systems.EthiopicDate
 static Calendrie.Systems.GregorianCalendar.MaxYear.get -> int
 static Calendrie.Systems.GregorianCalendar.MinYear.get -> int
 static Calendrie.Systems.GregorianDate.Calendar.get -> Calendrie.Systems.GregorianCalendar!
+static Calendrie.Systems.GregorianDate.Create(int year, int month, int day) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.FromCivilDate(Calendrie.Systems.CivilDate date) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.Max(Calendrie.Systems.GregorianDate x, Calendrie.Systems.GregorianDate y) -> Calendrie.Systems.GregorianDate
@@ -1969,6 +1978,7 @@ static Calendrie.Systems.GregorianDate.operator >=(Calendrie.Systems.GregorianDa
 static Calendrie.Systems.JulianCalendar.MaxYear.get -> int
 static Calendrie.Systems.JulianCalendar.MinYear.get -> int
 static Calendrie.Systems.JulianDate.Calendar.get -> Calendrie.Systems.JulianCalendar!
+static Calendrie.Systems.JulianDate.Create(int year, int month, int day) -> Calendrie.Systems.JulianDate
 static Calendrie.Systems.JulianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.JulianDate
 static Calendrie.Systems.JulianDate.Max(Calendrie.Systems.JulianDate x, Calendrie.Systems.JulianDate y) -> Calendrie.Systems.JulianDate
 static Calendrie.Systems.JulianDate.MaxValue.get -> Calendrie.Systems.JulianDate
@@ -1988,6 +1998,7 @@ static Calendrie.Systems.JulianDate.operator >=(Calendrie.Systems.JulianDate lef
 static Calendrie.Systems.TabularIslamicCalendar.MaxYear.get -> int
 static Calendrie.Systems.TabularIslamicCalendar.MinYear.get -> int
 static Calendrie.Systems.TabularIslamicDate.Calendar.get -> Calendrie.Systems.TabularIslamicCalendar!
+static Calendrie.Systems.TabularIslamicDate.Create(int year, int month, int day) -> Calendrie.Systems.TabularIslamicDate
 static Calendrie.Systems.TabularIslamicDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.TabularIslamicDate
 static Calendrie.Systems.TabularIslamicDate.Max(Calendrie.Systems.TabularIslamicDate x, Calendrie.Systems.TabularIslamicDate y) -> Calendrie.Systems.TabularIslamicDate
 static Calendrie.Systems.TabularIslamicDate.MaxValue.get -> Calendrie.Systems.TabularIslamicDate
@@ -2007,6 +2018,7 @@ static Calendrie.Systems.TabularIslamicDate.operator >=(Calendrie.Systems.Tabula
 static Calendrie.Systems.WorldCalendar.MaxYear.get -> int
 static Calendrie.Systems.WorldCalendar.MinYear.get -> int
 static Calendrie.Systems.WorldDate.Calendar.get -> Calendrie.Systems.WorldCalendar!
+static Calendrie.Systems.WorldDate.Create(int year, int month, int day) -> Calendrie.Systems.WorldDate
 static Calendrie.Systems.WorldDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.WorldDate
 static Calendrie.Systems.WorldDate.Max(Calendrie.Systems.WorldDate x, Calendrie.Systems.WorldDate y) -> Calendrie.Systems.WorldDate
 static Calendrie.Systems.WorldDate.MaxValue.get -> Calendrie.Systems.WorldDate
@@ -2026,6 +2038,7 @@ static Calendrie.Systems.WorldDate.operator >=(Calendrie.Systems.WorldDate left,
 static Calendrie.Systems.Zoroastrian13Calendar.MaxYear.get -> int
 static Calendrie.Systems.Zoroastrian13Calendar.MinYear.get -> int
 static Calendrie.Systems.Zoroastrian13Date.Calendar.get -> Calendrie.Systems.Zoroastrian13Calendar!
+static Calendrie.Systems.Zoroastrian13Date.Create(int year, int month, int day) -> Calendrie.Systems.Zoroastrian13Date
 static Calendrie.Systems.Zoroastrian13Date.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.Zoroastrian13Date
 static Calendrie.Systems.Zoroastrian13Date.Max(Calendrie.Systems.Zoroastrian13Date x, Calendrie.Systems.Zoroastrian13Date y) -> Calendrie.Systems.Zoroastrian13Date
 static Calendrie.Systems.Zoroastrian13Date.MaxValue.get -> Calendrie.Systems.Zoroastrian13Date
@@ -2045,6 +2058,7 @@ static Calendrie.Systems.Zoroastrian13Date.operator >=(Calendrie.Systems.Zoroast
 static Calendrie.Systems.ZoroastrianCalendar.MaxYear.get -> int
 static Calendrie.Systems.ZoroastrianCalendar.MinYear.get -> int
 static Calendrie.Systems.ZoroastrianDate.Calendar.get -> Calendrie.Systems.ZoroastrianCalendar!
+static Calendrie.Systems.ZoroastrianDate.Create(int year, int month, int day) -> Calendrie.Systems.ZoroastrianDate
 static Calendrie.Systems.ZoroastrianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.ZoroastrianDate
 static Calendrie.Systems.ZoroastrianDate.Max(Calendrie.Systems.ZoroastrianDate x, Calendrie.Systems.ZoroastrianDate y) -> Calendrie.Systems.ZoroastrianDate
 static Calendrie.Systems.ZoroastrianDate.MaxValue.get -> Calendrie.Systems.ZoroastrianDate
