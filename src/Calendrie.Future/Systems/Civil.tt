@@ -5,7 +5,8 @@
 
 public sealed class CivilTemplate : ZeroCalendarTemplate
 {
-    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema", "3_652_058")
+    public CivilTemplate(TextTransformation parent)
+        : base(parent, "CivilSchema", maxDaysSinceEpochValue: "3_652_058")
     {
         ScopeClass = "CivilScope";
 
@@ -13,6 +14,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
         EnableDate = false;
         EnableMonth = true;
         EnableYear = true;
+        EnableIsSupplementary = false;
         MaxMonthsSinceEpochValue = "119_987";
         MonthsInYear = 12;
     }

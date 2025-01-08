@@ -16,6 +16,7 @@ public sealed class JulianTemplate : CalendarTemplate
         ScopeClass = "JulianScope";
 
         EnableCalendar = false;
+        EnableDate = true;
         EnableMonth = false;
         EnableYear = false;
         EnableIsSupplementary = false;

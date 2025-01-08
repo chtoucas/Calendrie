@@ -11,6 +11,7 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
         ScopeClass = "GregorianScope";
 
         EnableCalendar = false;
+        EnableDate = true;
         EnableMonth = false;
         EnableYear = false;
         EnableIsSupplementary = false;
