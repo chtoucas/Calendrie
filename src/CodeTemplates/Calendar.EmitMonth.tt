@@ -16,7 +16,7 @@ public partial class CalendarTemplate
             EmitMonthFactoriesRegular();
             EmitMonthCountingRegular();
             EmitMonthAdjustmentsRegular();
-            EmitMonthDaySegmentRegular();
+            EmitMonthDateSegmentRegular();
             EmitMonthEquatable();
             EmitMonthComparable();
             EmitMonthMath();
@@ -28,7 +28,7 @@ public partial class CalendarTemplate
             EmitMonthFactoriesNonRegular();
             EmitMonthCountingNonRegular();
             EmitMonthAdjustmentsNonRegular();
-            EmitMonthDaySegmentNonRegular();
+            EmitMonthDateSegmentNonRegular();
             EmitMonthEquatable();
             EmitMonthComparable();
             EmitMonthMath();
@@ -554,7 +554,7 @@ public partial struct <#= Prefix #>Month // Adjustments
 <#+
     } // T4: End of EmitMonthAdjustmentsNonRegular()
 
-    protected virtual void EmitMonthDaySegmentRegular()
+    protected virtual void EmitMonthDateSegmentRegular()
     {
         WriteLine();
 #>
@@ -657,9 +657,9 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 }
 <#+
-    } // T4: End of EmitMonthDaySegmentRegular()
+    } // T4: End of EmitMonthDateSegmentRegular()
 
-    protected virtual void EmitMonthDaySegmentNonRegular()
+    protected virtual void EmitMonthDateSegmentNonRegular()
     {
         WriteLine();
 #>
@@ -766,7 +766,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 }
 <#+
-    } // T4: End of EmitMonthDaySegmentNonRegular()
+    } // T4: End of EmitMonthDateSegmentNonRegular()
 
     protected virtual void EmitMonthEquatable()
     {

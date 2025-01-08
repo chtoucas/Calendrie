@@ -21,7 +21,7 @@ public partial class CalendarTemplate
             EmitYearMonthSegmentNonRegular();
         }
 
-        EmitYearDaySegment();
+        EmitYearDateSegment();
         EmitYearEquatable();
         EmitYearComparable();
         EmitYearMath();
@@ -330,7 +330,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 <#+
     } // T4: End of EmitYearMonthSegmentNonRegular()
 
-    protected virtual void EmitYearDaySegment()
+    protected virtual void EmitYearDateSegment()
     {
         WriteLine();
 #>
@@ -409,7 +409,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
     }
 }
 <#+
-    } // T4: End of EmitYearDaySegment()
+    } // T4: End of EmitYearDateSegment()
 
     protected virtual void EmitYearEquatable()
     {

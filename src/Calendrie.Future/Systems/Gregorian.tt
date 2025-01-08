@@ -32,12 +32,12 @@ using Calendrie.Core.Utilities;
     protected sealed override void EmitMonthDecl() { }
     protected sealed override void EmitMonthPreambleRegular() { }
     protected sealed override void EmitMonthAdjustmentsRegular() { }
-    protected sealed override void EmitMonthDaySegmentRegular() { }
+    protected sealed override void EmitMonthDateSegmentRegular() { }
     protected sealed override void EmitMonthMath() { }
 
     // Year type
     protected sealed override void EmitYearPreamble() { }
-    protected sealed override void EmitYearDaySegment() { }
+    protected sealed override void EmitYearDateSegment() { }
 }
 
 #>
