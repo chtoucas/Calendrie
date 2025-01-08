@@ -165,6 +165,25 @@ public partial struct JulianYear // Factories
     public static JulianYear Create(JulianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="GregorianYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static JulianYear? TryCreate(int year)
+    {
+        bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear;
+        return ok ? new JulianYear(year - 1, default) : null;
+    }
+
+    [Pure]
+    static bool IYear<JulianYear>.TryCreate(int year, out JulianYear result)
+    {
+        bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear;
+        result = ok ? new JulianYear(year - 1, default) : default;
+        return ok;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="JulianYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>

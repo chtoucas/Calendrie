@@ -1484,6 +1484,25 @@ public partial struct TropicaliaYear // Factories
     public static TropicaliaYear Create(TropicaliaDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="TropicaliaYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static TropicaliaYear? TryCreate(int year)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        return ok ? new TropicaliaYear((ushort)(year - 1)) : null;
+    }
+
+    [Pure]
+    static bool IYear<TropicaliaYear>.TryCreate(int year, out TropicaliaYear result)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        result = ok ? new TropicaliaYear((ushort)(year - 1)) : default;
+        return ok;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>

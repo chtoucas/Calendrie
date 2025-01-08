@@ -87,7 +87,7 @@ public interface IYear
 public interface IYear<TSelf> :
     IYearBase<TSelf>,
     IMinMaxValue<TSelf>
-    where TSelf : struct, IYear<TSelf>
+    where TSelf : IYear<TSelf>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSelf"/> type from
@@ -96,4 +96,12 @@ public interface IYear<TSelf> :
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
     [Pure] static abstract TSelf Create(int year);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <typeparamref name="TSelf"/>
+    /// type from the specified year.
+    /// </summary>
+    /// <returns><see langword="true"/> if the method succeeded; otherwise,
+    /// <see langword="false"/>.</returns>
+    [Pure] static abstract bool TryCreate(int year, [NotNullWhen(true)] out TSelf? result);
 }

@@ -1483,6 +1483,25 @@ public partial struct PlainJulianYear // Factories
     public static PlainJulianYear Create(PlainJulianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="PlainJulianYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static PlainJulianYear? TryCreate(int year)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        return ok ? new PlainJulianYear((ushort)(year - 1)) : null;
+    }
+
+    [Pure]
+    static bool IYear<PlainJulianYear>.TryCreate(int year, out PlainJulianYear result)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        result = ok ? new PlainJulianYear((ushort)(year - 1)) : default;
+        return ok;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>

@@ -5,6 +5,8 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
+// TODO(code): add TryCreate(). Idem w/ IDate.
+
 // No IAbsoluteMonth or IAffineMonth. Interconversion can only be achieved after
 // converting a month to a range of days.
 

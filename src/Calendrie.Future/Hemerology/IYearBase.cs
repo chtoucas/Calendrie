@@ -25,17 +25,8 @@ public interface IYearBase<TSelf> :
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
     IDecrementOperators<TSelf>
-    where TSelf : struct, IYearBase<TSelf>
+    where TSelf : IYearBase<TSelf>
 {
-    // TODO(code): add TryCreate(). Idem w/ IDate and IMonth.
-#if false
-    /// <summary>
-    /// Try create a new instance of the <typeparamref name="TSelf"/> type from
-    /// the specified year.
-    /// </summary>
-    [Pure] static abstract TSelf? TryCreate(int year);
-#endif
-
     /// <summary>
     /// Obtains the earliest year between the two specified years.
     /// </summary>

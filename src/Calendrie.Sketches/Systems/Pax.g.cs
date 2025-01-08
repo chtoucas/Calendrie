@@ -1567,6 +1567,25 @@ public partial struct PaxYear // Factories
     public static PaxYear Create(PaxDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="PaxYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static PaxYear? TryCreate(int year)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        return ok ? new PaxYear((ushort)(year - 1)) : null;
+    }
+
+    [Pure]
+    static bool IYear<PaxYear>.TryCreate(int year, out PaxYear result)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        result = ok ? new PaxYear((ushort)(year - 1)) : default;
+        return ok;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="PaxYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>

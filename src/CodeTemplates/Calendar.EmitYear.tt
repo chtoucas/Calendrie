@@ -188,6 +188,25 @@ public partial struct <#= Prefix #>Year // Factories
     public static <#= Prefix #>Year Create(<#= Prefix #>Date date) => UnsafeCreate(date.Year);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="<#= Prefix #>Year"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static <#= Prefix #>Year? TryCreate(int year)
+    {
+        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear;
+        return ok ? new <#= Prefix #>Year((ushort)(year - 1)) : null;
+    }
+
+    [Pure]
+    static bool IYear<<#= Prefix #>Year>.TryCreate(int year, out <#= Prefix #>Year result)
+    {
+        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear;
+        result = ok ? new <#= Prefix #>Year((ushort)(year - 1)) : default;
+        return ok;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>

@@ -368,6 +368,25 @@ public partial struct CivilYear // Factories
     public static CivilYear Create(CivilDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static CivilYear? TryCreate(int year)
+    {
+        bool ok = year >= CivilScope.MinYear && year <= CivilScope.MaxYear;
+        return ok ? new CivilYear((ushort)(year - 1)) : null;
+    }
+
+    [Pure]
+    static bool IYear<CivilYear>.TryCreate(int year, out CivilYear result)
+    {
+        bool ok = year >= CivilScope.MinYear && year <= CivilScope.MaxYear;
+        result = ok ? new CivilYear((ushort)(year - 1)) : default;
+        return ok;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="CivilYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>

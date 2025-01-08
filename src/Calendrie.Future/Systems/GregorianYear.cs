@@ -165,6 +165,25 @@ public partial struct GregorianYear // Factories
     public static GregorianYear Create(GregorianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
+    /// Attempts to create a new instance of the <see cref="GregorianYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static GregorianYear? TryCreate(int year)
+    {
+        bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear;
+        return ok ? new GregorianYear(year - 1, default) : null;
+    }
+
+    [Pure]
+    static bool IYear<GregorianYear>.TryCreate(int year, out GregorianYear result)
+    {
+        bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear;
+        result = ok ? new GregorianYear(year - 1, default) : default;
+        return ok;
+    }
+
+    /// <summary>
     /// Creates a new instance of the <see cref="GregorianYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
