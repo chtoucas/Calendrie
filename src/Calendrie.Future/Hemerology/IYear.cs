@@ -67,7 +67,7 @@ public interface IYear
     /// <summary>
     /// Gets the (algebraic) year number.
     /// </summary>
-    int Number { get; }
+    int Year { get; }
 
     /// <summary>
     /// Returns <see langword="true"/> if the current instance is a leap year;

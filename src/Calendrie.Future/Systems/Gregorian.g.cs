@@ -203,10 +203,10 @@ public partial struct GregorianYear // IMonthSegment
     public const int MonthCount = GregorianCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public GregorianMonth MinMonth => GregorianMonth.UnsafeCreate(Number, 1);
+    public GregorianMonth MinMonth => GregorianMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public GregorianMonth MaxMonth => GregorianMonth.UnsafeCreate(Number, MonthCount);
+    public GregorianMonth MaxMonth => GregorianMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -220,7 +220,7 @@ public partial struct GregorianYear // IMonthSegment
     [Pure]
     public IEnumerable<GregorianMonth> EnumerateMonths()
     {
-        int startOfYear = GregorianMonth.UnsafeCreate(Number, 1).MonthsSinceEpoch;
+        int startOfYear = GregorianMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
@@ -229,7 +229,7 @@ public partial struct GregorianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(GregorianMonth month) => month.Year == Number;
+    public bool Contains(GregorianMonth month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -241,8 +241,8 @@ public partial struct GregorianYear // IMonthSegment
     public GregorianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
-        return GregorianMonth.UnsafeCreate(Number, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        return GregorianMonth.UnsafeCreate(Year, month);
     }
 }
 

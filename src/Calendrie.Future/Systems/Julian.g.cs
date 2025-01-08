@@ -203,10 +203,10 @@ public partial struct JulianYear // IMonthSegment
     public const int MonthCount = JulianCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public JulianMonth MinMonth => JulianMonth.UnsafeCreate(Number, 1);
+    public JulianMonth MinMonth => JulianMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public JulianMonth MaxMonth => JulianMonth.UnsafeCreate(Number, MonthCount);
+    public JulianMonth MaxMonth => JulianMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -220,7 +220,7 @@ public partial struct JulianYear // IMonthSegment
     [Pure]
     public IEnumerable<JulianMonth> EnumerateMonths()
     {
-        int startOfYear = JulianMonth.UnsafeCreate(Number, 1).MonthsSinceEpoch;
+        int startOfYear = JulianMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
@@ -229,7 +229,7 @@ public partial struct JulianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(JulianMonth month) => month.Year == Number;
+    public bool Contains(JulianMonth month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -241,8 +241,8 @@ public partial struct JulianYear // IMonthSegment
     public JulianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
-        return JulianMonth.UnsafeCreate(Number, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        return JulianMonth.UnsafeCreate(Year, month);
     }
 }
 

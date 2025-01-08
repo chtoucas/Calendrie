@@ -103,26 +103,26 @@ public partial struct GregorianYear // Preamble
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    public int Century => YearNumbering.GetCentury(Number);
+    public int Century => YearNumbering.GetCentury(Year);
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    public Ord YearOfEra => Ord.FromInt32(Number);
+    public Ord YearOfEra => Ord.FromInt32(Year);
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    public int YearOfCentury => YearNumbering.GetYearOfCentury(Number);
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
     /// Gets the (algebraic) year number.
     /// </summary>
-    public int Number => _yearsSinceEpoch + 1;
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => GregorianFormulae.IsLeapYear(Number);
+    public bool IsLeap => GregorianFormulae.IsLeapYear(Year);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -131,8 +131,8 @@ public partial struct GregorianYear // Preamble
     [Pure]
     public override string ToString()
     {
-        return _yearsSinceEpoch >= 0 ? FormattableString.Invariant($"{Number:D4} ({Calendar})")
-            : FormattableString.Invariant($"{getBCEYear(Number)} BCE ({Calendar})");
+        return _yearsSinceEpoch >= 0 ? FormattableString.Invariant($"{Year:D4} ({Calendar})")
+            : FormattableString.Invariant($"{getBCEYear(Year)} BCE ({Calendar})");
 
         [Pure]
         static int getBCEYear(int y)
@@ -172,14 +172,14 @@ public partial struct GregorianYear // Factories
     public static GregorianYear? TryCreate(int year)
     {
         bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear;
-        return ok ? new GregorianYear(year - 1, default) : null;
+        return ok ? UnsafeCreate(year) : null;
     }
 
     [Pure]
     static bool IYear<GregorianYear>.TryCreate(int year, out GregorianYear result)
     {
         bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear;
-        result = ok ? new GregorianYear(year - 1, default) : default;
+        result = ok ? UnsafeCreate(year) : default;
         return ok;
     }
 
@@ -199,7 +199,7 @@ public partial struct GregorianYear // IDateSegment
     {
         get
         {
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
+            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Year, 1);
             return new GregorianDate(daysSinceZero);
         }
     }
@@ -209,8 +209,8 @@ public partial struct GregorianYear // IDateSegment
     {
         get
         {
-            int doy = GregorianFormulae.CountDaysInYear(Number);
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, doy);
+            int doy = GregorianFormulae.CountDaysInYear(Year);
+            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Year, doy);
             return new GregorianDate(daysSinceZero);
         }
     }
@@ -219,7 +219,7 @@ public partial struct GregorianYear // IDateSegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => GregorianFormulae.CountDaysInYear(Number);
+    public int CountDays() => GregorianFormulae.CountDaysInYear(Year);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
@@ -227,8 +227,8 @@ public partial struct GregorianYear // IDateSegment
     [Pure]
     public Range<GregorianDate> ToDayRange()
     {
-        int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = GregorianFormulae.CountDaysInYear(Number);
+        int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = GregorianFormulae.CountDaysInYear(Year);
         return Range.StartingAt(new GregorianDate(startOfYear), daysInYear);
     }
 
@@ -236,8 +236,8 @@ public partial struct GregorianYear // IDateSegment
     [Pure]
     public IEnumerable<GregorianDate> EnumerateDays()
     {
-        int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = GregorianFormulae.CountDaysInYear(Number);
+        int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = GregorianFormulae.CountDaysInYear(Year);
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
@@ -246,7 +246,7 @@ public partial struct GregorianYear // IDateSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(GregorianDate date) => date.Year == Number;
+    public bool Contains(GregorianDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -257,8 +257,8 @@ public partial struct GregorianYear // IDateSegment
     public GregorianDate GetDayOfYear(int dayOfYear)
     {
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        Calendar.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, dayOfYear);
+        Calendar.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Year, dayOfYear);
         return new GregorianDate(daysSinceZero);
     }
 }

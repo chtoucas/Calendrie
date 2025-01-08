@@ -78,36 +78,36 @@ public partial struct CivilYear // Preamble
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    public int Century => YearNumbering.GetCentury(Number);
+    public int Century => YearNumbering.GetCentury(Year);
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    public Ord YearOfEra => Ord.FromInt32(Number);
+    public Ord YearOfEra => Ord.FromInt32(Year);
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    public int YearOfCentury => YearNumbering.GetYearOfCentury(Number);
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
     /// Gets the year number.
-    /// <para>This property represents the algebraic year, but since it's greater
-    /// than 0, there is no difference between the algebraic year and the year
-    /// of the era.</para>
     /// </summary>
-    public int Number => _yearsSinceEpoch + 1;
+    //
+    // Actually, this property returns the algebraic year, but since its value
+    // is greater than 0, one can ignore this subtlety.
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => GregorianFormulae.IsLeapYear(Number);
+    public bool IsLeap => GregorianFormulae.IsLeapYear(Year);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Number:D4} ({Calendar})");
+    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
 public partial struct CivilYear // IDateSegment
@@ -117,7 +117,7 @@ public partial struct CivilYear // IDateSegment
     {
         get
         {
-            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Number, 1);
+            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Year, 1);
             return new CivilDate(daysSinceZero);
         }
     }
@@ -127,8 +127,8 @@ public partial struct CivilYear // IDateSegment
     {
         get
         {
-            int doy = GregorianFormulae.CountDaysInYear(Number);
-            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Number, doy);
+            int doy = GregorianFormulae.CountDaysInYear(Year);
+            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Year, doy);
             return new CivilDate(daysSinceZero);
         }
     }
@@ -137,7 +137,7 @@ public partial struct CivilYear // IDateSegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => GregorianFormulae.CountDaysInYear(Number);
+    public int CountDays() => GregorianFormulae.CountDaysInYear(Year);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
@@ -145,7 +145,7 @@ public partial struct CivilYear // IDateSegment
     [Pure]
     public Range<CivilDate> ToDayRange()
     {
-        int daysInYear = GregorianFormulae.CountDaysInYear(Number);
+        int daysInYear = GregorianFormulae.CountDaysInYear(Year);
         return Range.StartingAt(MinDay, daysInYear);
     }
 
@@ -153,8 +153,8 @@ public partial struct CivilYear // IDateSegment
     [Pure]
     public IEnumerable<CivilDate> EnumerateDays()
     {
-        int startOfYear = CivilFormulae.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = GregorianFormulae.CountDaysInYear(Number);
+        int startOfYear = CivilFormulae.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = GregorianFormulae.CountDaysInYear(Year);
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
@@ -163,7 +163,7 @@ public partial struct CivilYear // IDateSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(CivilDate date) => date.Year == Number;
+    public bool Contains(CivilDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -174,8 +174,8 @@ public partial struct CivilYear // IDateSegment
     public CivilDate GetDayOfYear(int dayOfYear)
     {
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        Calendar.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
-        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Number, dayOfYear);
+        Calendar.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Year, dayOfYear);
         return new CivilDate(daysSinceZero);
     }
 }

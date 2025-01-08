@@ -130,35 +130,36 @@ public partial struct <#= Prefix #>Year // Preamble
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    public int Century => YearNumbering.GetCentury(Number);
+    public int Century => YearNumbering.GetCentury(Year);
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    public Ord YearOfEra => Ord.FromInt32(Number);
+    public Ord YearOfEra => Ord.FromInt32(Year);
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    public int YearOfCentury => YearNumbering.GetYearOfCentury(Number);
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
     /// Gets the year number.
-    /// <para>Actually, this property returns the algebraic year, but since its
-    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
-    public int Number => _yearsSinceEpoch + 1;
+    //
+    // Actually, this property returns the algebraic year, but since its value
+    // is greater than 0, one can ignore this subtlety.
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => Calendar.Schema.IsLeapYear(Number);
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Number:D4} ({Calendar})");
+    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 <#+
     } // T4: End of EmitYearPreamble()
@@ -195,14 +196,14 @@ public partial struct <#= Prefix #>Year // Factories
     public static <#= Prefix #>Year? TryCreate(int year)
     {
         bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear;
-        return ok ? new <#= Prefix #>Year((ushort)(year - 1)) : null;
+        return ok ? UnsafeCreate(year) : null;
     }
 
     [Pure]
     static bool IYear<<#= Prefix #>Year>.TryCreate(int year, out <#= Prefix #>Year result)
     {
         bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear;
-        result = ok ? new <#= Prefix #>Year((ushort)(year - 1)) : default;
+        result = ok ? UnsafeCreate(year) : default;
         return ok;
     }
 
@@ -230,10 +231,10 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     public const int MonthCount = <#= Prefix #>Calendar.MonthsInYear;
 
     /// <inheritdoc />
-    public <#= Prefix #>Month MinMonth => <#= Prefix #>Month.UnsafeCreate(Number, 1);
+    public <#= Prefix #>Month MinMonth => <#= Prefix #>Month.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public <#= Prefix #>Month MaxMonth => <#= Prefix #>Month.UnsafeCreate(Number, MonthCount);
+    public <#= Prefix #>Month MaxMonth => <#= Prefix #>Month.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -247,7 +248,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     [Pure]
     public IEnumerable<<#= Prefix #>Month> EnumerateMonths()
     {
-        int startOfYear = <#= Prefix #>Month.UnsafeCreate(Number, 1).MonthsSinceEpoch;
+        int startOfYear = <#= Prefix #>Month.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
@@ -256,7 +257,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(<#= Prefix #>Month month) => month.Year == Number;
+    public bool Contains(<#= Prefix #>Month month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -268,8 +269,8 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     public <#= Prefix #>Month GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
-        return <#= Prefix #>Month.UnsafeCreate(Number, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        return <#= Prefix #>Month.UnsafeCreate(Year, month);
     }
 }
 <#+
@@ -286,7 +287,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     {
         get
         {
-            int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(Number, 1);
+            int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
             return new <#= Prefix #>Month(monthsSinceEpoch);
         }
     }
@@ -297,23 +298,23 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         get
         {
             var sch = Calendar.Schema;
-            int m = sch.CountMonthsInYear(Number);
-            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(Number, m);
+            int m = sch.CountMonthsInYear(Year);
+            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(Year, m);
             return new <#= Prefix #>Month(monthsSinceEpoch);
         }
     }
 
     /// <inheritdoc />
     [Pure]
-    public int CountMonths() => Calendar.Schema.CountMonthsInYear(Number);
+    public int CountMonths() => Calendar.Schema.CountMonthsInYear(Year);
 
     /// <inheritdoc />
     [Pure]
     public Range<<#= Prefix #>Month> ToMonthRange()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountMonthsSinceEpoch(Number, 1);
-        int monthsInYear = sch.CountMonthsInYear(Number);
+        int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
+        int monthsInYear = sch.CountMonthsInYear(Year);
         return Range.StartingAt(new <#= Prefix #>Month(startOfYear), monthsInYear);
     }
 
@@ -322,8 +323,8 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     public IEnumerable<<#= Prefix #>Month> EnumerateMonths()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountMonthsSinceEpoch(Number, 1);
-        int monthsInYear = sch.CountMonthsInYear(Number);
+        int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
+        int monthsInYear = sch.CountMonthsInYear(Year);
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, monthsInYear)
@@ -332,7 +333,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(<#= Prefix #>Month month) => month.Year == Number;
+    public bool Contains(<#= Prefix #>Month month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -345,8 +346,8 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "month".
-        chr.Scope.PreValidator.ValidateMonth(Number, month);
-        int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(Number, month);
+        chr.Scope.PreValidator.ValidateMonth(Year, month);
+        int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(Year, month);
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 }
@@ -364,7 +365,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
     {
         get
         {
-            int <#= DaysSinceEpochVar #> = Calendar.Schema.CountDaysSinceEpoch(Number, 1);
+            int <#= DaysSinceEpochVar #> = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
             return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
         }
     }
@@ -375,8 +376,8 @@ public partial struct <#= Prefix #>Year // IDateSegment
         get
         {
             var sch = Calendar.Schema;
-            int doy = sch.CountDaysInYear(Number);
-            int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(Number, doy);
+            int doy = sch.CountDaysInYear(Year);
+            int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(Year, doy);
             return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
         }
     }
@@ -385,7 +386,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => Calendar.Schema.CountDaysInYear(Number);
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
@@ -394,8 +395,8 @@ public partial struct <#= Prefix #>Year // IDateSegment
     public Range<<#= Prefix #>Date> ToDayRange()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = sch.CountDaysInYear(Number);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
         return Range.StartingAt(new <#= Prefix #>Date(startOfYear), daysInYear);
     }
 
@@ -404,8 +405,8 @@ public partial struct <#= Prefix #>Year // IDateSegment
     public IEnumerable<<#= Prefix #>Date> EnumerateDays()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = sch.CountDaysInYear(Number);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
 
         return from <#= DaysSinceEpochVar #>
                in Enumerable.Range(startOfYear, daysInYear)
@@ -414,7 +415,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(<#= Prefix #>Date date) => date.Year == Number;
+    public bool Contains(<#= Prefix #>Date date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -426,8 +427,8 @@ public partial struct <#= Prefix #>Year // IDateSegment
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        chr.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
-        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(Number, dayOfYear);
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
         return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 }

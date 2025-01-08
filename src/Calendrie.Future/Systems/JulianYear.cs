@@ -103,26 +103,26 @@ public partial struct JulianYear // Preamble
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    public int Century => YearNumbering.GetCentury(Number);
+    public int Century => YearNumbering.GetCentury(Year);
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    public Ord YearOfEra => Ord.FromInt32(Number);
+    public Ord YearOfEra => Ord.FromInt32(Year);
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    public int YearOfCentury => YearNumbering.GetYearOfCentury(Number);
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
     /// Gets the (algebraic) year number.
     /// </summary>
-    public int Number => _yearsSinceEpoch + 1;
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => JulianFormulae.IsLeapYear(Number);
+    public bool IsLeap => JulianFormulae.IsLeapYear(Year);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -131,8 +131,8 @@ public partial struct JulianYear // Preamble
     [Pure]
     public override string ToString()
     {
-        return _yearsSinceEpoch >= 0 ? FormattableString.Invariant($"{Number:D4} ({Calendar})")
-            : FormattableString.Invariant($"{getBCEYear(Number)} BCE ({Calendar})");
+        return _yearsSinceEpoch >= 0 ? FormattableString.Invariant($"{Year:D4} ({Calendar})")
+            : FormattableString.Invariant($"{getBCEYear(Year)} BCE ({Calendar})");
 
         [Pure]
         static int getBCEYear(int y)
@@ -172,14 +172,14 @@ public partial struct JulianYear // Factories
     public static JulianYear? TryCreate(int year)
     {
         bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear;
-        return ok ? new JulianYear(year - 1, default) : null;
+        return ok ? UnsafeCreate(year) : null;
     }
 
     [Pure]
     static bool IYear<JulianYear>.TryCreate(int year, out JulianYear result)
     {
         bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear;
-        result = ok ? new JulianYear(year - 1, default) : default;
+        result = ok ? UnsafeCreate(year) : default;
         return ok;
     }
 
@@ -199,7 +199,7 @@ public partial struct JulianYear // IDateSegment
     {
         get
         {
-            int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Number, 1);
+            int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Year, 1);
             return new JulianDate(daysSinceZero);
         }
     }
@@ -209,8 +209,8 @@ public partial struct JulianYear // IDateSegment
     {
         get
         {
-            int doy = JulianFormulae.CountDaysInYear(Number);
-            int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Number, doy);
+            int doy = JulianFormulae.CountDaysInYear(Year);
+            int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Year, doy);
             return new JulianDate(daysSinceZero);
         }
     }
@@ -219,7 +219,7 @@ public partial struct JulianYear // IDateSegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => JulianFormulae.CountDaysInYear(Number);
+    public int CountDays() => JulianFormulae.CountDaysInYear(Year);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
@@ -227,8 +227,8 @@ public partial struct JulianYear // IDateSegment
     [Pure]
     public Range<JulianDate> ToDayRange()
     {
-        int startOfYear = JulianFormulae.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = JulianFormulae.CountDaysInYear(Number);
+        int startOfYear = JulianFormulae.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = JulianFormulae.CountDaysInYear(Year);
         return Range.StartingAt(new JulianDate(startOfYear), daysInYear);
     }
 
@@ -236,8 +236,8 @@ public partial struct JulianYear // IDateSegment
     [Pure]
     public IEnumerable<JulianDate> EnumerateDays()
     {
-        int startOfYear = JulianFormulae.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = JulianFormulae.CountDaysInYear(Number);
+        int startOfYear = JulianFormulae.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = JulianFormulae.CountDaysInYear(Year);
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
@@ -246,7 +246,7 @@ public partial struct JulianYear // IDateSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(JulianDate date) => date.Year == Number;
+    public bool Contains(JulianDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -257,8 +257,8 @@ public partial struct JulianYear // IDateSegment
     public JulianDate GetDayOfYear(int dayOfYear)
     {
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        Calendar.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
-        int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Number, dayOfYear);
+        Calendar.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Year, dayOfYear);
         return new JulianDate(daysSinceZero);
     }
 }

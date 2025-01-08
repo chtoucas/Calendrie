@@ -1432,35 +1432,36 @@ public partial struct TropicaliaYear // Preamble
     /// <summary>
     /// Gets the century number.
     /// </summary>
-    public int Century => YearNumbering.GetCentury(Number);
+    public int Century => YearNumbering.GetCentury(Year);
 
     /// <summary>
     /// Gets the year of the era.
     /// </summary>
-    public Ord YearOfEra => Ord.FromInt32(Number);
+    public Ord YearOfEra => Ord.FromInt32(Year);
 
     /// <summary>
     /// Gets the year of the century.
     /// <para>The result is in the range from 1 to 100.</para>
     /// </summary>
-    public int YearOfCentury => YearNumbering.GetYearOfCentury(Number);
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
 
     /// <summary>
     /// Gets the year number.
-    /// <para>Actually, this property returns the algebraic year, but since its
-    /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
-    public int Number => _yearsSinceEpoch + 1;
+    //
+    // Actually, this property returns the algebraic year, but since its value
+    // is greater than 0, one can ignore this subtlety.
+    public int Year => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => Calendar.Schema.IsLeapYear(Number);
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Number:D4} ({Calendar})");
+    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
 public partial struct TropicaliaYear // Factories
@@ -1491,14 +1492,14 @@ public partial struct TropicaliaYear // Factories
     public static TropicaliaYear? TryCreate(int year)
     {
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
-        return ok ? new TropicaliaYear((ushort)(year - 1)) : null;
+        return ok ? UnsafeCreate(year) : null;
     }
 
     [Pure]
     static bool IYear<TropicaliaYear>.TryCreate(int year, out TropicaliaYear result)
     {
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
-        result = ok ? new TropicaliaYear((ushort)(year - 1)) : default;
+        result = ok ? UnsafeCreate(year) : default;
         return ok;
     }
 
@@ -1520,10 +1521,10 @@ public partial struct TropicaliaYear // IMonthSegment
     public const int MonthCount = TropicaliaCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public TropicaliaMonth MinMonth => TropicaliaMonth.UnsafeCreate(Number, 1);
+    public TropicaliaMonth MinMonth => TropicaliaMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public TropicaliaMonth MaxMonth => TropicaliaMonth.UnsafeCreate(Number, MonthCount);
+    public TropicaliaMonth MaxMonth => TropicaliaMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1537,7 +1538,7 @@ public partial struct TropicaliaYear // IMonthSegment
     [Pure]
     public IEnumerable<TropicaliaMonth> EnumerateMonths()
     {
-        int startOfYear = TropicaliaMonth.UnsafeCreate(Number, 1).MonthsSinceEpoch;
+        int startOfYear = TropicaliaMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
@@ -1546,7 +1547,7 @@ public partial struct TropicaliaYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(TropicaliaMonth month) => month.Year == Number;
+    public bool Contains(TropicaliaMonth month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -1558,8 +1559,8 @@ public partial struct TropicaliaYear // IMonthSegment
     public TropicaliaMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
-        return TropicaliaMonth.UnsafeCreate(Number, month);
+        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        return TropicaliaMonth.UnsafeCreate(Year, month);
     }
 }
 
@@ -1570,7 +1571,7 @@ public partial struct TropicaliaYear // IDateSegment
     {
         get
         {
-            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Number, 1);
+            int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
             return new TropicaliaDate(daysSinceZero);
         }
     }
@@ -1581,8 +1582,8 @@ public partial struct TropicaliaYear // IDateSegment
         get
         {
             var sch = Calendar.Schema;
-            int doy = sch.CountDaysInYear(Number);
-            int daysSinceZero = sch.CountDaysSinceEpoch(Number, doy);
+            int doy = sch.CountDaysInYear(Year);
+            int daysSinceZero = sch.CountDaysSinceEpoch(Year, doy);
             return new TropicaliaDate(daysSinceZero);
         }
     }
@@ -1591,7 +1592,7 @@ public partial struct TropicaliaYear // IDateSegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => Calendar.Schema.CountDaysInYear(Number);
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
@@ -1600,8 +1601,8 @@ public partial struct TropicaliaYear // IDateSegment
     public Range<TropicaliaDate> ToDayRange()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = sch.CountDaysInYear(Number);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
         return Range.StartingAt(new TropicaliaDate(startOfYear), daysInYear);
     }
 
@@ -1610,8 +1611,8 @@ public partial struct TropicaliaYear // IDateSegment
     public IEnumerable<TropicaliaDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
-        int startOfYear = sch.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = sch.CountDaysInYear(Number);
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
@@ -1620,7 +1621,7 @@ public partial struct TropicaliaYear // IDateSegment
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(TropicaliaDate date) => date.Year == Number;
+    public bool Contains(TropicaliaDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -1632,8 +1633,8 @@ public partial struct TropicaliaYear // IDateSegment
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
-        chr.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
-        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(Number, dayOfYear);
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
         return new TropicaliaDate(daysSinceZero);
     }
 }
