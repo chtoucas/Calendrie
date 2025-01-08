@@ -222,7 +222,7 @@ public partial struct CivilDate // Factories & conversions
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static CivilDate UnsafeCreate(int year, int month, int day)
     {
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, month, day);
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, month, day);
         return new CivilDate(daysSinceZero);
     }
 
