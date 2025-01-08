@@ -1,0 +1,43 @@
+﻿<#@ template hostspecific="true" #>
+<#@ output extension=".g.cs" #>
+<#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
+<#= new GregorianTemplate(this).Execute() #><#+
+
+public sealed class GregorianTemplate : ZeroCalendarTemplate
+{
+    public GregorianTemplate(TextTransformation parent)
+        : base(parent, "GregorianSchema", maxDaysSinceEpochValue: "3_652_058")
+    {
+        ScopeClass = "GregorianScope";
+
+        EnableCalendar = false;
+        EnableDate = false;
+        EnableMonth = true;
+        EnableYear = false;
+        EnableIsSupplementary = false;
+        //MinMonthsSinceEpochValue = "-11_999_988";
+        MaxMonthsSinceEpochValue = "11_999_987";
+        MonthsInYear = 12;
+    }
+
+    protected sealed override void EmitUsings()
+    {
+        WriteLine();
+#>
+using Calendrie.Core.Utilities;
+<#+
+    } // T4: End of EmitUsings()
+
+    // Month type
+    protected sealed override void EmitMonthDecl() { }
+    protected sealed override void EmitMonthPreambleRegular() { }
+    protected sealed override void EmitMonthAdjustmentsRegular() { }
+    protected sealed override void EmitMonthDaySegmentRegular() { }
+    protected sealed override void EmitMonthMath() { }
+
+    // Year type
+    protected sealed override void EmitYearPreamble() { }
+    protected sealed override void EmitYearDaySegment() { }
+}
+
+#>
