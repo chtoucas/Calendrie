@@ -5,10 +5,12 @@
 
 public sealed class CivilTemplate : ZeroCalendarTemplate
 {
-    public CivilTemplate(TextTransformation parent) : base(parent, "CivilSchema", "3_652_058")
+    public CivilTemplate(TextTransformation parent)
+        : base(parent, "CivilSchema", maxDaysSinceEpochValue: "3_652_058")
     {
         ScopeClass = "CivilScope";
 
+        EnableCalendar = false;
         EnableIsSupplementary = false;
         MaxMonthsSinceEpochValue = "119_987";
         MonthsInYear = 12;
@@ -29,8 +31,6 @@ using Calendrie.Horology;
 using static Calendrie.Core.CalendricalConstants;
 <#+
     } // T4: End of EmitUsings()
-
-    protected sealed override void EmitCalendar() { }
 
     protected sealed override void EmitDatePreamble() { }
     protected sealed override void EmitDateAdjustments() { }

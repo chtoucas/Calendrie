@@ -1,7 +1,11 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
-<#= new CalendarTemplate(this, "Coptic12Schema", "DayZero.Coptic", "103_604", "3_652_134")
+<#= new CalendarTemplate(this,
+        "Coptic12Schema",
+        "DayZero.Coptic",
+        epochDaysSinceZeroValue: "103_604",
+        maxDaysSinceEpochValue:  "3_652_134")
     {
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12

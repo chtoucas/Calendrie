@@ -5,10 +5,17 @@
 
 public sealed class JulianTemplate : CalendarTemplate
 {
-    public JulianTemplate(TextTransformation parent) : base(parent, "JulianSchema", "DayZero.OldStyle", "", "")
+    public JulianTemplate(TextTransformation parent)
+        : base(
+            parent,
+            "JulianSchema",
+            "DayZero.OldStyle",
+            epochDaysSinceZeroValue: "-2",
+            maxDaysSinceEpochValue: "365_249_633")
     {
         ScopeClass = "JulianScope";
 
+        EnableCalendar = false;
         EnableMonth = false;
         EnableYear = false;
         EnableIsSupplementary = false;
@@ -27,8 +34,6 @@ using Calendrie.Horology;
 <#+ } #>
 <#+
     } // T4: End of EmitUsings()
-
-    protected sealed override void EmitCalendar() { }
 
     protected sealed override void EmitDateDecl() { }
     protected sealed override void EmitDatePreamble() { }
