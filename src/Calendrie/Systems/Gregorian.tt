@@ -31,6 +31,7 @@ using Calendrie.Horology;
 <#+
     } // T4: End of EmitUsings()
 
+    // Date type
     protected sealed override void EmitDateDecl() { }
     protected sealed override void EmitDatePreamble() { }
     protected sealed override void EmitDateFactories() { }
@@ -40,6 +41,20 @@ using Calendrie.Horology;
     protected sealed override void EmitDateMathNonStandardRegular() { }
     // NB : ce n'est pas nécessaire car le calendrier est régulier, mais bon...
     protected sealed override void EmitDateMathNonStandardNonRegular() { }
+
+    // Month type
+    protected sealed override void EmitMonthDecl() { }
+    protected sealed override void EmitMonthPreambleRegular() { }
+    protected sealed override void EmitMonthAdjustmentsRegular() { }
+    protected sealed override void EmitMonthDateSegmentRegular() { }
+    protected sealed override void EmitMonthMath() { }
+
+    // Year type
+    protected sealed override void EmitYearDecl() { }
+    protected sealed override void EmitYearPreamble() { }
+    protected sealed override void EmitYearFactories() { }
+    protected sealed override void EmitYearDateSegment() { }
+    protected sealed override void EmitYearMath() { }
 }
 
 #>

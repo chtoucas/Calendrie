@@ -35,9 +35,18 @@ using static Calendrie.Core.CalendricalConstants;
 <#+
     } // T4: End of EmitUsings()
 
+    // Date type
     protected sealed override void EmitDatePreamble() { }
     protected sealed override void EmitDateAdjustments() { }
     protected sealed override void EmitDateMathNonStandardRegular() { }
+
+    // Month type
+    protected sealed override void EmitMonthPreambleRegular() { }
+    protected sealed override void EmitMonthDateSegmentRegular() { }
+
+    // Year type
+    protected sealed override void EmitYearPreamble() { }
+    protected sealed override void EmitYearDateSegment() { }
 }
 
 #>
