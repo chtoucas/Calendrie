@@ -13,7 +13,7 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
         EnableCalendar = false;
         EnableDate = false;
         EnableMonth = true;
-        EnableYear = false;
+        EnableYear = true;
         EnableIsSupplementary = false;
         //MinMonthsSinceEpochValue = "-11_999_988";
         MaxMonthsSinceEpochValue = "11_999_987";
@@ -24,7 +24,9 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
     {
         WriteLine();
 #>
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 <#+
     } // T4: End of EmitUsings()
 
@@ -36,8 +38,11 @@ using Calendrie.Core.Utilities;
     protected sealed override void EmitMonthMath() { }
 
     // Year type
+    protected sealed override void EmitYearDecl() { }
     protected sealed override void EmitYearPreamble() { }
+    protected sealed override void EmitYearFactories() { }
     protected sealed override void EmitYearDateSegment() { }
+    protected sealed override void EmitYearMath() { }
 }
 
 #>

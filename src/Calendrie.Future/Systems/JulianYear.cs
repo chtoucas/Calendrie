@@ -12,34 +12,34 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents the Gregorian year.
+/// Represents the Julian year.
 /// <para><i>All</i> years within the range [-999_998..999_999] of years are
 /// supported.
 /// </para>
-/// <para><see cref="GregorianYear"/> is an immutable struct.</para>
+/// <para><see cref="JulianYear"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct GregorianYear :
-    IYear<GregorianYear>,
-    ICalendarBound<GregorianCalendar>,
+public readonly partial struct JulianYear :
+    IYear<JulianYear>,
+    ICalendarBound<JulianCalendar>,
     // A year viewed as a finite sequence of months
-    IMonthSegment<GregorianMonth>,
-    ISetMembership<GregorianMonth>,
+    IMonthSegment<JulianMonth>,
+    ISetMembership<JulianMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<GregorianDate>,
-    ISetMembership<GregorianDate>,
+    IDateSegment<JulianDate>,
+    ISetMembership<JulianDate>,
     // Arithmetic
-    ISubtractionOperators<GregorianYear, GregorianYear, int>
+    ISubtractionOperators<JulianYear, JulianYear, int>
 { }
 
-public partial struct GregorianYear // Preamble
+public partial struct JulianYear // Preamble
 {
     /// <summary>Represents the minimu value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to -999_999.</para></summary>
-    private const int MinYearsSinceEpoch = GregorianScope.MinYear - 1;
+    private const int MinYearsSinceEpoch = JulianScope.MinYear - 1;
 
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to 999_998.</para></summary>
-    private const int MaxYearsSinceEpoch = GregorianScope.MaxYear - 1;
+    private const int MaxYearsSinceEpoch = JulianScope.MaxYear - 1;
 
     /// <summary>
     /// Represents the count of consecutive years since the epoch
@@ -50,47 +50,47 @@ public partial struct GregorianYear // Preamble
     private readonly int _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianYear"/> struct
+    /// Initializes a new instance of the <see cref="JulianYear"/> struct
     /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
-    public GregorianYear(int year)
+    public JulianYear(int year)
     {
-        if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear)
+        if (year < JulianScope.MinYear || year > JulianScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
         _yearsSinceEpoch = year - 1;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianYear"/> struct.
+    /// Initializes a new instance of the <see cref="JulianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private GregorianYear(int yearsSinceEpoch, bool _)
+    private JulianYear(int yearsSinceEpoch, bool _)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="GregorianYear"/>.
+    /// Gets the smallest possible value of <see cref="JulianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported year.</returns>
-    public static GregorianYear MinValue { get; } = new(MinYearsSinceEpoch, default);
+    public static JulianYear MinValue { get; } = new(MinYearsSinceEpoch, default);
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="GregorianYear"/>.
+    /// Gets the largest possible value of <see cref="JulianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported year.</returns>
-    public static GregorianYear MaxValue { get; } = new(MaxYearsSinceEpoch, default);
+    public static JulianYear MaxValue { get; } = new(MaxYearsSinceEpoch, default);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static GregorianCalendar Calendar => GregorianCalendar.Instance;
+    public static JulianCalendar Calendar => JulianCalendar.Instance;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;
@@ -122,7 +122,7 @@ public partial struct GregorianYear // Preamble
     public int Number => _yearsSinceEpoch + 1;
 
     /// <inheritdoc />
-    public bool IsLeap => GregorianFormulae.IsLeapYear(Number);
+    public bool IsLeap => JulianFormulae.IsLeapYear(Number);
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
@@ -144,51 +144,51 @@ public partial struct GregorianYear // Preamble
     }
 }
 
-public partial struct GregorianYear // Factories
+public partial struct JulianYear // Factories
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="GregorianYear"/> struct
-    /// from the specified <see cref="GregorianMonth"/> value.
+    /// Creates a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianMonth"/> value.
     /// </summary>
     [Pure]
-    public static GregorianYear Create(GregorianMonth month) => UnsafeCreate(month.Year);
+    public static JulianYear Create(JulianMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="GregorianYear"/> struct
-    /// from the specified <see cref="GregorianDate"/> value.
+    /// Creates a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public static GregorianYear Create(GregorianDate date) => UnsafeCreate(date.Year);
+    public static JulianYear Create(JulianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="GregorianYear"/> struct
+    /// Creates a new instance of the <see cref="JulianYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static GregorianYear UnsafeCreate(int year) => new(year - 1, default);
+    internal static JulianYear UnsafeCreate(int year) => new(year - 1, default);
 }
 
-public partial struct GregorianYear // IDateSegment
+public partial struct JulianYear // IDateSegment
 {
     /// <inheritdoc />
-    public GregorianDate MinDay
+    public JulianDate MinDay
     {
         get
         {
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
-            return new GregorianDate(daysSinceZero);
+            int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Number, 1);
+            return new JulianDate(daysSinceZero);
         }
     }
 
     /// <inheritdoc />
-    public GregorianDate MaxDay
+    public JulianDate MaxDay
     {
         get
         {
-            int doy = GregorianFormulae.CountDaysInYear(Number);
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, doy);
-            return new GregorianDate(daysSinceZero);
+            int doy = JulianFormulae.CountDaysInYear(Number);
+            int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Number, doy);
+            return new JulianDate(daysSinceZero);
         }
     }
 
@@ -196,34 +196,34 @@ public partial struct GregorianYear // IDateSegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public int CountDays() => GregorianFormulae.CountDaysInYear(Number);
+    public int CountDays() => JulianFormulae.CountDaysInYear(Number);
 
     /// <inheritdoc />
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<GregorianDate> ToDayRange()
+    public Range<JulianDate> ToDayRange()
     {
-        int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = GregorianFormulae.CountDaysInYear(Number);
-        return Range.StartingAt(new GregorianDate(startOfYear), daysInYear);
+        int startOfYear = JulianFormulae.CountDaysSinceEpoch(Number, 1);
+        int daysInYear = JulianFormulae.CountDaysInYear(Number);
+        return Range.StartingAt(new JulianDate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<GregorianDate> EnumerateDays()
+    public IEnumerable<JulianDate> EnumerateDays()
     {
-        int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
-        int daysInYear = GregorianFormulae.CountDaysInYear(Number);
+        int startOfYear = JulianFormulae.CountDaysSinceEpoch(Number, 1);
+        int daysInYear = JulianFormulae.CountDaysInYear(Number);
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
-               select new GregorianDate(daysSinceZero);
+               select new JulianDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(GregorianDate date) => date.Year == Number;
+    public bool Contains(JulianDate date) => date.Year == Number;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -231,23 +231,23 @@ public partial struct GregorianYear // IDateSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public GregorianDate GetDayOfYear(int dayOfYear)
+    public JulianDate GetDayOfYear(int dayOfYear)
     {
         // We already know that "y" is valid, we only need to check "dayOfYear".
         Calendar.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, dayOfYear);
-        return new GregorianDate(daysSinceZero);
+        int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Number, dayOfYear);
+        return new JulianDate(daysSinceZero);
     }
 }
 
-public partial struct GregorianYear // Math ops
+public partial struct JulianYear // Math ops
 {
     /// <summary>
     /// Subtracts the two specified years and returns the number of years between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
-    public static int operator -(GregorianYear left, GregorianYear right) => left.CountYearsSince(right);
+    public static int operator -(JulianYear left, JulianYear right) => left.CountYearsSince(right);
 
     /// <summary>
     /// Adds a number of years to the specified year, yielding a new year.
@@ -255,7 +255,7 @@ public partial struct GregorianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static GregorianYear operator +(GregorianYear value, int years) => value.PlusYears(years);
+    public static JulianYear operator +(JulianYear value, int years) => value.PlusYears(years);
 
     /// <summary>
     /// Subtracts a number of years to the specified year, yielding a new year.
@@ -263,7 +263,7 @@ public partial struct GregorianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the range
     /// of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static GregorianYear operator -(GregorianYear value, int years) => value.PlusYears(-years);
+    public static JulianYear operator -(JulianYear value, int years) => value.PlusYears(-years);
 
     /// <summary>
     /// Adds one year to the specified year, yielding a new year.
@@ -271,7 +271,7 @@ public partial struct GregorianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
-    public static GregorianYear operator ++(GregorianYear value) => value.NextYear();
+    public static JulianYear operator ++(JulianYear value) => value.NextYear();
 
     /// <summary>
     /// Subtracts one year to the specified year, yielding a new year.
@@ -279,13 +279,13 @@ public partial struct GregorianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
-    public static GregorianYear operator --(GregorianYear value) => value.PreviousYear();
+    public static JulianYear operator --(JulianYear value) => value.PreviousYear();
 
     /// <summary>
     /// Counts the number of years elapsed since the specified year.
     /// </summary>
     [Pure]
-    public int CountYearsSince(GregorianYear other) =>
+    public int CountYearsSince(JulianYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
         _yearsSinceEpoch - other._yearsSinceEpoch;
@@ -297,12 +297,12 @@ public partial struct GregorianYear // Math ops
     /// the capacity of <see cref="int"/> or the range of supported years.
     /// </exception>
     [Pure]
-    public GregorianYear PlusYears(int years)
+    public JulianYear PlusYears(int years)
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (years < MinYearsSinceEpoch || yearsSinceEpoch > MaxYearsSinceEpoch)
             ThrowHelpers.ThrowYearOverflow();
-        return new GregorianYear(yearsSinceEpoch, default);
+        return new JulianYear(yearsSinceEpoch, default);
     }
 
     /// <summary>
@@ -311,10 +311,10 @@ public partial struct GregorianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [Pure]
-    public GregorianYear NextYear()
+    public JulianYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new GregorianYear(_yearsSinceEpoch + 1, default);
+        return new JulianYear(_yearsSinceEpoch + 1, default);
     }
 
     /// <summary>
@@ -323,10 +323,10 @@ public partial struct GregorianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [Pure]
-    public GregorianYear PreviousYear()
+    public JulianYear PreviousYear()
     {
         if (_yearsSinceEpoch == MinYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new GregorianYear(_yearsSinceEpoch - 1, default);
+        return new JulianYear(_yearsSinceEpoch - 1, default);
     }
 }
 

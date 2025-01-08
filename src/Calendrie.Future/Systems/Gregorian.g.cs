@@ -10,7 +10,9 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 #region GregorianMonth
 
@@ -182,6 +184,136 @@ public partial struct GregorianMonth // Non-standard math ops
     public int CountYearsSince(GregorianMonth other) =>
         // NB: this subtraction never overflows.
         Year - other.Year;
+}
+
+#endregion
+
+#region GregorianYear
+
+public partial struct GregorianYear // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthCount = GregorianCalendar.MonthsInYear;
+
+    /// <inheritdoc />
+    public GregorianMonth MinMonth => GregorianMonth.UnsafeCreate(Number, 1);
+
+    /// <inheritdoc />
+    public GregorianMonth MaxMonth => GregorianMonth.UnsafeCreate(Number, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<GregorianMonth>.CountMonths() => MonthCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<GregorianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<GregorianMonth> EnumerateMonths()
+    {
+        int startOfYear = GregorianMonth.UnsafeCreate(Number, 1).MonthsSinceEpoch;
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select new GregorianMonth(monthsSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(GregorianMonth month) => month.Year == Number;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public GregorianMonth GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
+        return GregorianMonth.UnsafeCreate(Number, month);
+    }
+}
+
+public partial struct GregorianYear // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(GregorianYear left, GregorianYear right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(GregorianYear left, GregorianYear right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(GregorianYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is GregorianYear year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _yearsSinceEpoch;
+}
+
+public partial struct GregorianYear // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(GregorianYear left, GregorianYear right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(GregorianYear left, GregorianYear right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(GregorianYear left, GregorianYear right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(GregorianYear left, GregorianYear right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static GregorianYear Min(GregorianYear x, GregorianYear y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static GregorianYear Max(GregorianYear x, GregorianYear y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(GregorianYear other) =>
+        _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is GregorianYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(GregorianYear), obj);
 }
 
 #endregion

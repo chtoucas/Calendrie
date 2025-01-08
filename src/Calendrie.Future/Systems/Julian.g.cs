@@ -10,7 +10,9 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 #region JulianMonth
 
@@ -182,6 +184,136 @@ public partial struct JulianMonth // Non-standard math ops
     public int CountYearsSince(JulianMonth other) =>
         // NB: this subtraction never overflows.
         Year - other.Year;
+}
+
+#endregion
+
+#region JulianYear
+
+public partial struct JulianYear // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthCount = JulianCalendar.MonthsInYear;
+
+    /// <inheritdoc />
+    public JulianMonth MinMonth => JulianMonth.UnsafeCreate(Number, 1);
+
+    /// <inheritdoc />
+    public JulianMonth MaxMonth => JulianMonth.UnsafeCreate(Number, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<JulianMonth>.CountMonths() => MonthCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<JulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<JulianMonth> EnumerateMonths()
+    {
+        int startOfYear = JulianMonth.UnsafeCreate(Number, 1).MonthsSinceEpoch;
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select new JulianMonth(monthsSinceEpoch);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Contains(JulianMonth month) => month.Year == Number;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public JulianMonth GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        Calendar.Scope.PreValidator.ValidateMonth(Number, month);
+        return JulianMonth.UnsafeCreate(Number, month);
+    }
+}
+
+public partial struct JulianYear // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(JulianYear left, JulianYear right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(JulianYear left, JulianYear right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(JulianYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is JulianYear year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _yearsSinceEpoch;
+}
+
+public partial struct JulianYear // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(JulianYear left, JulianYear right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(JulianYear left, JulianYear right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(JulianYear left, JulianYear right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(JulianYear left, JulianYear right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static JulianYear Min(JulianYear x, JulianYear y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static JulianYear Max(JulianYear x, JulianYear y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(JulianYear other) =>
+        _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is JulianYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(JulianYear), obj);
 }
 
 #endregion
