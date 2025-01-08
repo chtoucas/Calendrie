@@ -43,8 +43,7 @@ public partial struct GregorianMonth // Preamble
     /// Represents the count of consecutive months since the epoch
     /// <see cref="DayZero.NewStyle"/>.
     /// <para>This field is in the range from <see cref="MinMonthsSinceEpoch"/>
-    /// to <see cref="MaxMonthsSinceEpoch"/>.
-    /// </para>
+    /// to <see cref="MaxMonthsSinceEpoch"/>.</para>
     /// </summary>
     private readonly int _monthsSinceEpoch;
 
