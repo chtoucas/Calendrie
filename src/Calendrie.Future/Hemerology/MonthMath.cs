@@ -13,13 +13,12 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
-public abstract class MonthMath<TMonth, TCalendar>
+public abstract class MonthMath<TMonth>
     where TMonth : struct, IMonth, IMonthFieldMath<TMonth>, IComparisonOperators<TMonth, TMonth, bool>
-    where TCalendar : Calendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="MonthMath{TMonth, TCalendar}"/> class.
+    /// <see cref="MonthMath{TMonth}"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
@@ -48,14 +47,6 @@ public abstract class MonthMath<TMonth, TCalendar>
         var newMonth = AddYearsCore(y, m, years, out int roundoff);
         return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
     }
-
-    /// <summary>
-    /// Adds a number of years to the year field of the specified month.
-    /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow either
-    /// the capacity of <see cref="int"/> or the range of supported months.
-    /// </exception>
-    [Pure] protected abstract TMonth AddYearsCore(int y, int m, int years, out int roundoff);
 
     /// <summary>
     /// Counts the number of years between the two specified months.
@@ -97,6 +88,14 @@ public abstract class MonthMath<TMonth, TCalendar>
             return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
         }
     }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified month.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [Pure] protected abstract TMonth AddYearsCore(int y, int m, int years, out int roundoff);
 
     /// <summary>
     /// Adjusts the result using the specified rule.

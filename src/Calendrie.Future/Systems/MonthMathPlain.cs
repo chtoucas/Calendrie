@@ -10,10 +10,13 @@ using Calendrie.Hemerology;
 /// <summary>
 /// Provides non-standard mathematical operations for the
 /// <typeparamref name="TMonth"/> type.
+/// <para>This class should only be used with month types for which the
+/// underlying calendar isn't regular. Indeed, when the calendar is regular,
+/// the operations defined here are always exact.</para>
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
+public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
     where TCalendar : Calendar
 {

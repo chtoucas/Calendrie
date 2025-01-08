@@ -13,7 +13,7 @@ using Calendrie.Hemerology;
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public sealed class CivilDateMath : DateMath<CivilDate, CivilCalendar>
+public sealed class CivilDateMath : DateMath<CivilDate>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilDateMath"/> class.

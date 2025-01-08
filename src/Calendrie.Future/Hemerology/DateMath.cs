@@ -20,13 +20,12 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
-public abstract class DateMath<TDate, TCalendar>
+public abstract class DateMath<TDate>
     where TDate : struct, IDateable, IDayFieldMath<TDate>, IComparisonOperators<TDate, TDate, bool>
-    where TCalendar : Calendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="DateMath{TDate, TCalendar}"/> class.
+    /// <see cref="DateMath{TDate}"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>

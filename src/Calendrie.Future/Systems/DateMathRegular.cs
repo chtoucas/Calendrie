@@ -13,7 +13,7 @@ using Calendrie.Hemerology;
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
+public class DateMathRegular<TDate, TCalendar> : DateMath<TDate>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
