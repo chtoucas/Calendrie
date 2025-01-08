@@ -1004,10 +1004,18 @@ public partial struct PaxMonth // Factories
     [Pure]
     public static PaxMonth? TryCreate(int year, int month)
     {
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && month >= 1 && month <= Calendar.Schema.CountMonthsInYear(year);
+        var sch = Calendar.Schema;
 
-        return ok ? UnsafeCreate(year, month) : null;
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
+            && month >= 1 && month <= sch.CountMonthsInYear(year);
+
+        if (ok)
+        {
+            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(year, month);
+            return new PaxMonth(monthsSinceEpoch);
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -1023,17 +1031,8 @@ public partial struct PaxMonth // Factories
         return new PaxMonth(monthsSinceEpoch);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxMonth"/> struct
-    /// from the specified month components.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PaxMonth UnsafeCreate(int year, int month)
-    {
-        int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(year, month);
-        return new PaxMonth(monthsSinceEpoch);
-    }
+    // No method UnsafeCreate(int year, int month) to avoid multiple lookup to
+    // the property Calendar.
 
     [Pure]
     static PaxMonth IUnsafeFactory<PaxMonth>.UnsafeCreate(int monthsSinceEpoch) =>
