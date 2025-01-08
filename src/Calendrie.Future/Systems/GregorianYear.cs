@@ -151,20 +151,6 @@ public partial struct GregorianYear // Factories
     public static GregorianYear Create(int year) => new(year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="GregorianYear"/> struct
-    /// from the specified <see cref="GregorianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static GregorianYear Create(GregorianMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianYear"/> struct
-    /// from the specified <see cref="GregorianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static GregorianYear Create(GregorianDate date) => UnsafeCreate(date.Year);
-
-    /// <summary>
     /// Attempts to create a new instance of the <see cref="GregorianYear"/>
     /// struct from the specified year.
     /// </summary>
@@ -190,6 +176,24 @@ public partial struct GregorianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static GregorianYear UnsafeCreate(int year) => new(year - 1, default);
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianYear"/> struct
+    /// from the specified <see cref="GregorianMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static GregorianYear FromMonth(GregorianMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianYear"/> struct
+    /// from the specified <see cref="GregorianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static GregorianYear FromDate(GregorianDate date) => UnsafeCreate(date.Year);
 }
 
 public partial struct GregorianYear // IDateSegment

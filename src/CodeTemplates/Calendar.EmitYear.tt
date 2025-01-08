@@ -168,25 +168,11 @@ public partial struct <#= Prefix #>Year // Preamble
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Year // Factories
+public partial struct <#= Prefix #>Year // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
     public static <#= Prefix #>Year Create(int year) => new(year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
-    /// from the specified <see cref="<#= Prefix #>Month"/> value.
-    /// </summary>
-    [Pure]
-    public static <#= Prefix #>Year Create(<#= Prefix #>Month month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
-    /// from the specified <see cref="<#= Prefix #>Date"/> value.
-    /// </summary>
-    [Pure]
-    public static <#= Prefix #>Year Create(<#= Prefix #>Date date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Attempts to create a new instance of the <see cref="<#= Prefix #>Year"/>
@@ -214,6 +200,24 @@ public partial struct <#= Prefix #>Year // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static <#= Prefix #>Year UnsafeCreate(int year) => new((ushort)(year - 1));
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
+    /// from the specified <see cref="<#= Prefix #>Month"/> value.
+    /// </summary>
+    [Pure]
+    public static <#= Prefix #>Year FromMonth(<#= Prefix #>Month month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
+    /// from the specified <see cref="<#= Prefix #>Date"/> value.
+    /// </summary>
+    [Pure]
+    public static <#= Prefix #>Year FromDate(<#= Prefix #>Date date) => UnsafeCreate(date.Year);
 }
 <#+
     } // T4: End of EmitYearFactories()

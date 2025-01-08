@@ -285,6 +285,17 @@ public partial struct Coptic13Date // Factories & conversions
     [Pure]
     public static Coptic13Date Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static Coptic13Date IUnsafeFactory<Coptic13Date>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static Coptic13Date FromDayNumber(DayNumber dayNumber)
@@ -294,13 +305,6 @@ public partial struct Coptic13Date // Factories & conversions
         // NB: the subtraction won't overflow.
         return new Coptic13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static Coptic13Date IUnsafeFactory<Coptic13Date>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct Coptic13Date // Counting

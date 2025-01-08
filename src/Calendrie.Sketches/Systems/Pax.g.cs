@@ -292,6 +292,17 @@ public partial struct PaxDate // Factories & conversions
     [Pure]
     public static PaxDate Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static PaxDate IUnsafeFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static PaxDate FromDayNumber(DayNumber dayNumber)
@@ -301,13 +312,6 @@ public partial struct PaxDate // Factories & conversions
         // NB: the subtraction won't overflow.
         return new PaxDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static PaxDate IUnsafeFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct PaxDate // Counting
@@ -982,7 +986,7 @@ public partial struct PaxMonth // Preamble
         Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out year, out month);
 }
 
-public partial struct PaxMonth // Factories
+public partial struct PaxMonth // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
@@ -996,7 +1000,6 @@ public partial struct PaxMonth // Factories
     public static PaxMonth? TryCreate(int year, int month)
     {
         var sch = Calendar.Schema;
-
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
             && month >= 1 && month <= sch.CountMonthsInYear(year);
 
@@ -1009,17 +1012,24 @@ public partial struct PaxMonth // Factories
         return null;
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxMonth"/> struct
-    /// from the specified <see cref="PaxDate"/> value.
-    /// </summary>
     [Pure]
-    public static PaxMonth Create(PaxDate date)
+    static bool IMonth<PaxMonth>.TryCreate(int year, int month, out PaxMonth result)
     {
         var sch = Calendar.Schema;
-        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
-        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
-        return new PaxMonth(monthsSinceEpoch);
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
+            && month >= 1 && month <= sch.CountMonthsInYear(year);
+
+        if (ok)
+        {
+            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(year, month);
+            result = new PaxMonth(monthsSinceEpoch);
+        }
+        else
+        {
+            result = default;
+        }
+
+        return ok;
     }
 
     // No method UnsafeCreate(int year, int month) to avoid multiple lookup to
@@ -1028,6 +1038,23 @@ public partial struct PaxMonth // Factories
     [Pure]
     static PaxMonth IUnsafeFactory<PaxMonth>.UnsafeCreate(int monthsSinceEpoch) =>
         new(monthsSinceEpoch);
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxMonth"/> struct
+    /// from the specified <see cref="PaxDate"/> value.
+    /// </summary>
+    [Pure]
+    public static PaxMonth FromDate(PaxDate date)
+    {
+        var sch = Calendar.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
+        return new PaxMonth(monthsSinceEpoch);
+    }
 }
 
 public partial struct PaxMonth // Counting
@@ -1574,25 +1601,11 @@ public partial struct PaxYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct PaxYear // Factories
+public partial struct PaxYear // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
     public static PaxYear Create(int year) => new(year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct
-    /// from the specified <see cref="PaxMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static PaxYear Create(PaxMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct
-    /// from the specified <see cref="PaxDate"/> value.
-    /// </summary>
-    [Pure]
-    public static PaxYear Create(PaxDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Attempts to create a new instance of the <see cref="PaxYear"/>
@@ -1620,6 +1633,24 @@ public partial struct PaxYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static PaxYear UnsafeCreate(int year) => new((ushort)(year - 1));
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified <see cref="PaxMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static PaxYear FromMonth(PaxMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified <see cref="PaxDate"/> value.
+    /// </summary>
+    [Pure]
+    public static PaxYear FromDate(PaxDate date) => UnsafeCreate(date.Year);
 }
 
 public partial struct PaxYear // IMonthSegment

@@ -303,7 +303,7 @@ public interface IAbsoluteDate<TSelf> :
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSelf"/> struct from
-    /// the specified day number.
+    /// the specified <see cref="DayNumber"/> value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>

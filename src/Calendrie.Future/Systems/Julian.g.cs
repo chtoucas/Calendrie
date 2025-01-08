@@ -16,7 +16,7 @@ using Calendrie.Hemerology;
 
 #region JulianMonth
 
-public partial struct JulianMonth // Factories
+public partial struct JulianMonth // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
@@ -35,15 +35,14 @@ public partial struct JulianMonth // Factories
         return ok ? UnsafeCreate(year, month) : null;
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianMonth"/> struct
-    /// from the specified <see cref="JulianDate"/> value.
-    /// </summary>
     [Pure]
-    public static JulianMonth Create(JulianDate date)
+    static bool IMonth<JulianMonth>.TryCreate(int year, int month, out JulianMonth result)
     {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
+        bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear
+            && month >= 1 && month <= JulianCalendar.MonthsInYear;
+
+        result = ok ? UnsafeCreate(year, month) : default;
+        return ok;
     }
 
     /// <summary>
@@ -66,6 +65,21 @@ public partial struct JulianMonth // Factories
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         JulianCalendar.MonthsInYear * (y - 1) + m - 1;
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianMonth"/> struct
+    /// from the specified <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static JulianMonth FromDate(JulianDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
 }
 
 public partial struct JulianMonth // Counting

@@ -151,20 +151,6 @@ public partial struct JulianYear // Factories
     public static JulianYear Create(int year) => new(year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="JulianYear"/> struct
-    /// from the specified <see cref="JulianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static JulianYear Create(JulianMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianYear"/> struct
-    /// from the specified <see cref="JulianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static JulianYear Create(JulianDate date) => UnsafeCreate(date.Year);
-
-    /// <summary>
     /// Attempts to create a new instance of the <see cref="GregorianYear"/>
     /// struct from the specified year.
     /// </summary>
@@ -190,6 +176,24 @@ public partial struct JulianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static JulianYear UnsafeCreate(int year) => new(year - 1, default);
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static JulianYear Create(JulianMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static JulianYear Create(JulianDate date) => UnsafeCreate(date.Year);
 }
 
 public partial struct JulianYear // IDateSegment

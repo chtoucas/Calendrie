@@ -285,6 +285,17 @@ public partial struct WorldDate // Factories & conversions
     [Pure]
     public static WorldDate Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static WorldDate IUnsafeFactory<WorldDate>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static WorldDate FromDayNumber(DayNumber dayNumber)
@@ -294,13 +305,6 @@ public partial struct WorldDate // Factories & conversions
         // NB: the subtraction won't overflow.
         return new WorldDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static WorldDate IUnsafeFactory<WorldDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct WorldDate // Counting

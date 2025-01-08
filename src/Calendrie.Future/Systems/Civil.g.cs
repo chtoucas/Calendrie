@@ -35,7 +35,7 @@ public readonly partial struct CivilMonth :
     ISubtractionOperators<CivilMonth, CivilMonth, int>
 { }
 
-public partial struct CivilMonth // Factories
+public partial struct CivilMonth // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
@@ -54,15 +54,14 @@ public partial struct CivilMonth // Factories
         return ok ? UnsafeCreate(year, month) : null;
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilMonth"/> struct
-    /// from the specified <see cref="CivilDate"/> value.
-    /// </summary>
     [Pure]
-    public static CivilMonth Create(CivilDate date)
+    static bool IMonth<CivilMonth>.TryCreate(int year, int month, out CivilMonth result)
     {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
+        bool ok = year >= CivilScope.MinYear && year <= CivilScope.MaxYear
+            && month >= 1 && month <= CivilCalendar.MonthsInYear;
+
+        result = ok ? UnsafeCreate(year, month) : default;
+        return ok;
     }
 
     /// <summary>
@@ -85,6 +84,21 @@ public partial struct CivilMonth // Factories
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         CivilCalendar.MonthsInYear * (y - 1) + m - 1;
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilMonth"/> struct
+    /// from the specified <see cref="CivilDate"/> value.
+    /// </summary>
+    [Pure]
+    public static CivilMonth FromDate(CivilDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
 }
 
 public partial struct CivilMonth // Counting
@@ -360,25 +374,11 @@ public readonly partial struct CivilYear :
     ISubtractionOperators<CivilYear, CivilYear, int>
 { }
 
-public partial struct CivilYear // Factories
+public partial struct CivilYear // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
     public static CivilYear Create(int year) => new(year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct
-    /// from the specified <see cref="CivilMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static CivilYear Create(CivilMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct
-    /// from the specified <see cref="CivilDate"/> value.
-    /// </summary>
-    [Pure]
-    public static CivilYear Create(CivilDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Attempts to create a new instance of the <see cref="CivilYear"/>
@@ -406,6 +406,24 @@ public partial struct CivilYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static CivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilYear"/> struct
+    /// from the specified <see cref="CivilMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static CivilYear FromMonth(CivilMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilYear"/> struct
+    /// from the specified <see cref="CivilDate"/> value.
+    /// </summary>
+    [Pure]
+    public static CivilYear FromDate(CivilDate date) => UnsafeCreate(date.Year);
 }
 
 public partial struct CivilYear // IMonthSegment

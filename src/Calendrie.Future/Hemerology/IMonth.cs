@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// TODO(code): add TryCreate(). Idem w/ IDate. Create(unitsSinceEpoch)?
-
 // No IAbsoluteMonth or IAffineMonth. Interconversion can only be achieved after
 // converting a month to a range of days.
 
@@ -138,4 +136,12 @@ public interface IMonth<TSelf> :
     /// do not form a valid month or <paramref name="year"/> is outside the
     /// range of supported years.</exception>
     [Pure] static abstract TSelf Create(int year, int month);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <typeparamref name="TSelf"/>
+    /// type from the specified month components.
+    /// </summary>
+    /// <returns><see langword="true"/> if the method succeeded; otherwise,
+    /// <see langword="false"/>.</returns>
+    [Pure] static abstract bool TryCreate(int year, int month, [NotNullWhen(true)] out TSelf? result);
 }

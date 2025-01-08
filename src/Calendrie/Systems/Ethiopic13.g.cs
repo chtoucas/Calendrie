@@ -285,6 +285,17 @@ public partial struct Ethiopic13Date // Factories & conversions
     [Pure]
     public static Ethiopic13Date Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static Ethiopic13Date IUnsafeFactory<Ethiopic13Date>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static Ethiopic13Date FromDayNumber(DayNumber dayNumber)
@@ -294,13 +305,6 @@ public partial struct Ethiopic13Date // Factories & conversions
         // NB: the subtraction won't overflow.
         return new Ethiopic13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static Ethiopic13Date IUnsafeFactory<Ethiopic13Date>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct Ethiopic13Date // Counting

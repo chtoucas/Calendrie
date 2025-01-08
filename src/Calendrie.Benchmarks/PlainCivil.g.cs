@@ -272,6 +272,17 @@ public partial struct PlainCivilDate // Factories & conversions
     [Pure]
     public static PlainCivilDate Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static PlainCivilDate IUnsafeFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
+        new(daysSinceZero);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static PlainCivilDate FromDayNumber(DayNumber dayNumber)
@@ -283,13 +294,6 @@ public partial struct PlainCivilDate // Factories & conversions
 
         return new PlainCivilDate(daysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static PlainCivilDate IUnsafeFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
-        new(daysSinceZero);
 }
 
 public partial struct PlainCivilDate // Counting
@@ -946,7 +950,7 @@ public partial struct PlainCivilMonth // Preamble
     }
 }
 
-public partial struct PlainCivilMonth // Factories
+public partial struct PlainCivilMonth // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
@@ -965,15 +969,14 @@ public partial struct PlainCivilMonth // Factories
         return ok ? UnsafeCreate(year, month) : null;
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
-    /// from the specified <see cref="PlainCivilDate"/> value.
-    /// </summary>
     [Pure]
-    public static PlainCivilMonth Create(PlainCivilDate date)
+    static bool IMonth<PlainCivilMonth>.TryCreate(int year, int month, out PlainCivilMonth result)
     {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
+            && month >= 1 && month <= PlainCivilCalendar.MonthsInYear;
+
+        result = ok ? UnsafeCreate(year, month) : default;
+        return ok;
     }
 
     /// <summary>
@@ -996,6 +999,21 @@ public partial struct PlainCivilMonth // Factories
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         PlainCivilCalendar.MonthsInYear * (y - 1) + m - 1;
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
+    /// from the specified <see cref="PlainCivilDate"/> value.
+    /// </summary>
+    [Pure]
+    public static PlainCivilMonth FromDate(PlainCivilDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
 }
 
 public partial struct PlainCivilMonth // Counting
@@ -1472,25 +1490,11 @@ public partial struct PlainCivilYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct PlainCivilYear // Factories
+public partial struct PlainCivilYear // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
     public static PlainCivilYear Create(int year) => new(year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
-    /// from the specified <see cref="PlainCivilMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static PlainCivilYear Create(PlainCivilMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
-    /// from the specified <see cref="PlainCivilDate"/> value.
-    /// </summary>
-    [Pure]
-    public static PlainCivilYear Create(PlainCivilDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Attempts to create a new instance of the <see cref="PlainCivilYear"/>
@@ -1518,6 +1522,24 @@ public partial struct PlainCivilYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static PlainCivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
+    /// from the specified <see cref="PlainCivilMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static PlainCivilYear FromMonth(PlainCivilMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
+    /// from the specified <see cref="PlainCivilDate"/> value.
+    /// </summary>
+    [Pure]
+    public static PlainCivilYear FromDate(PlainCivilDate date) => UnsafeCreate(date.Year);
 }
 
 public partial struct PlainCivilYear // IMonthSegment

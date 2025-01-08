@@ -211,16 +211,6 @@ public partial struct JulianDate // Factories & conversions
     [Pure]
     public static JulianDate Create(int year, int month, int day) => new(year, month, day);
 
-    /// <inheritdoc />
-    [Pure]
-    public static JulianDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct
     /// from the specified date components.
@@ -236,6 +226,20 @@ public partial struct JulianDate // Factories & conversions
     [Pure]
     static JulianDate IUnsafeFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
+    /// <inheritdoc />
+    [Pure]
+    public static JulianDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+
+        // NB: the subtraction won't overflow.
+        return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 }
 
 public partial struct JulianDate // Adjustments

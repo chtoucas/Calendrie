@@ -285,6 +285,17 @@ public partial struct ArmenianDate // Factories & conversions
     [Pure]
     public static ArmenianDate Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static ArmenianDate IUnsafeFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static ArmenianDate FromDayNumber(DayNumber dayNumber)
@@ -294,13 +305,6 @@ public partial struct ArmenianDate // Factories & conversions
         // NB: the subtraction won't overflow.
         return new ArmenianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static ArmenianDate IUnsafeFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct ArmenianDate // Counting

@@ -355,7 +355,7 @@ public partial struct <#= Prefix #>Month // Preamble
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // Factories
+public partial struct <#= Prefix #>Month // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
@@ -374,15 +374,14 @@ public partial struct <#= Prefix #>Month // Factories
         return ok ? UnsafeCreate(year, month) : null;
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
-    /// from the specified <see cref="<#= Prefix #>Date"/> value.
-    /// </summary>
     [Pure]
-    public static <#= Prefix #>Month Create(<#= Prefix #>Date date)
+    static bool IMonth<<#= Prefix #>Month>.TryCreate(int year, int month, out <#= Prefix #>Month result)
     {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
+        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
+            && month >= 1 && month <= <#= Prefix #>Calendar.MonthsInYear;
+
+        result = ok ? UnsafeCreate(year, month) : default;
+        return ok;
     }
 
     /// <summary>
@@ -405,6 +404,21 @@ public partial struct <#= Prefix #>Month // Factories
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         <#= Prefix #>Calendar.MonthsInYear * (y - 1) + m - 1;
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified <see cref="<#= Prefix #>Date"/> value.
+    /// </summary>
+    [Pure]
+    public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
 }
 <#+
     } // T4: End of EmitMonthFactoriesRegular()
@@ -413,7 +427,7 @@ public partial struct <#= Prefix #>Month // Factories
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // Factories
+public partial struct <#= Prefix #>Month // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
@@ -427,7 +441,6 @@ public partial struct <#= Prefix #>Month // Factories
     public static <#= Prefix #>Month? TryCreate(int year, int month)
     {
         var sch = Calendar.Schema;
-
         bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
             && month >= 1 && month <= sch.CountMonthsInYear(year);
 
@@ -440,17 +453,24 @@ public partial struct <#= Prefix #>Month // Factories
         return null;
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
-    /// from the specified <see cref="<#= Prefix #>Date"/> value.
-    /// </summary>
     [Pure]
-    public static <#= Prefix #>Month Create(<#= Prefix #>Date date)
+    static bool IMonth<<#= Prefix #>Month>.TryCreate(int year, int month, out <#= Prefix #>Month result)
     {
         var sch = Calendar.Schema;
-        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
-        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
+        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
+            && month >= 1 && month <= sch.CountMonthsInYear(year);
+
+        if (ok)
+        {
+            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(year, month);
+            result = new <#= Prefix #>Month(monthsSinceEpoch);
+        }
+        else
+        {
+            result = default;
+        }
+
+        return ok;
     }
 
     // No method UnsafeCreate(int year, int month) to avoid multiple lookup to
@@ -459,6 +479,23 @@ public partial struct <#= Prefix #>Month // Factories
     [Pure]
     static <#= Prefix #>Month IUnsafeFactory<<#= Prefix #>Month>.UnsafeCreate(int monthsSinceEpoch) =>
         new(monthsSinceEpoch);
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified <see cref="<#= Prefix #>Date"/> value.
+    /// </summary>
+    [Pure]
+    public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date)
+    {
+        var sch = Calendar.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
+        return new <#= Prefix #>Month(monthsSinceEpoch);
+    }
 }
 <#+
     } // T4: End of EmitMonthFactoriesNonRegular()

@@ -276,6 +276,17 @@ public partial struct TabularIslamicDate // Factories & conversions
     [Pure]
     public static TabularIslamicDate Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static TabularIslamicDate IUnsafeFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
@@ -285,13 +296,6 @@ public partial struct TabularIslamicDate // Factories & conversions
         // NB: the subtraction won't overflow.
         return new TabularIslamicDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static TabularIslamicDate IUnsafeFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct TabularIslamicDate // Counting

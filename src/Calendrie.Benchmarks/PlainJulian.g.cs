@@ -280,6 +280,17 @@ public partial struct PlainJulianDate // Factories & conversions
     [Pure]
     public static PlainJulianDate Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static PlainJulianDate IUnsafeFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static PlainJulianDate FromDayNumber(DayNumber dayNumber)
@@ -289,13 +300,6 @@ public partial struct PlainJulianDate // Factories & conversions
         // NB: the subtraction won't overflow.
         return new PlainJulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static PlainJulianDate IUnsafeFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct PlainJulianDate // Counting
@@ -953,7 +957,7 @@ public partial struct PlainJulianMonth // Preamble
     }
 }
 
-public partial struct PlainJulianMonth // Factories
+public partial struct PlainJulianMonth // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
@@ -972,15 +976,14 @@ public partial struct PlainJulianMonth // Factories
         return ok ? UnsafeCreate(year, month) : null;
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
-    /// from the specified <see cref="PlainJulianDate"/> value.
-    /// </summary>
     [Pure]
-    public static PlainJulianMonth Create(PlainJulianDate date)
+    static bool IMonth<PlainJulianMonth>.TryCreate(int year, int month, out PlainJulianMonth result)
     {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
+            && month >= 1 && month <= PlainJulianCalendar.MonthsInYear;
+
+        result = ok ? UnsafeCreate(year, month) : default;
+        return ok;
     }
 
     /// <summary>
@@ -1003,6 +1006,21 @@ public partial struct PlainJulianMonth // Factories
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         PlainJulianCalendar.MonthsInYear * (y - 1) + m - 1;
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
+    /// from the specified <see cref="PlainJulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static PlainJulianMonth FromDate(PlainJulianDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
 }
 
 public partial struct PlainJulianMonth // Counting
@@ -1479,25 +1497,11 @@ public partial struct PlainJulianYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
-public partial struct PlainJulianYear // Factories
+public partial struct PlainJulianYear // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
     public static PlainJulianYear Create(int year) => new(year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
-    /// from the specified <see cref="PlainJulianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static PlainJulianYear Create(PlainJulianMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
-    /// from the specified <see cref="PlainJulianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static PlainJulianYear Create(PlainJulianDate date) => UnsafeCreate(date.Year);
 
     /// <summary>
     /// Attempts to create a new instance of the <see cref="PlainJulianYear"/>
@@ -1525,6 +1529,24 @@ public partial struct PlainJulianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static PlainJulianYear UnsafeCreate(int year) => new((ushort)(year - 1));
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
+    /// from the specified <see cref="PlainJulianMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static PlainJulianYear FromMonth(PlainJulianMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
+    /// from the specified <see cref="PlainJulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static PlainJulianYear FromDate(PlainJulianDate date) => UnsafeCreate(date.Year);
 }
 
 public partial struct PlainJulianYear // IMonthSegment

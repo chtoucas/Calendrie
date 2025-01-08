@@ -285,6 +285,17 @@ public partial struct Zoroastrian13Date // Factories & conversions
     [Pure]
     public static Zoroastrian13Date Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static Zoroastrian13Date IUnsafeFactory<Zoroastrian13Date>.UnsafeCreate(int daysSinceEpoch) =>
+        new(daysSinceEpoch);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static Zoroastrian13Date FromDayNumber(DayNumber dayNumber)
@@ -294,13 +305,6 @@ public partial struct Zoroastrian13Date // Factories & conversions
         // NB: the subtraction won't overflow.
         return new Zoroastrian13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static Zoroastrian13Date IUnsafeFactory<Zoroastrian13Date>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
 }
 
 public partial struct Zoroastrian13Date // Counting

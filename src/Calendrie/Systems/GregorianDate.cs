@@ -212,6 +212,29 @@ public partial struct GregorianDate // Factories & conversions
     public static GregorianDate Create(int year, int month, int day) => new(year, month, day);
 
     /// <summary>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct
+    /// from the specified date components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static GregorianDate UnsafeCreate(int year, int month, int day)
+    {
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, month, day);
+        return new GregorianDate(daysSinceZero);
+    }
+
+    // REVIEW(code): inlining? Same for the other date types.
+
+    [Pure]
+    //[Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static GregorianDate IUnsafeFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
+        new(daysSinceZero);
+
+    //
+    // Conversions
+    //
+
+    /// <summary>
     /// Creates a new instance of the <see cref="GregorianDate"/> struct from
     /// the specified <see cref="CivilDate"/> value.
     /// <para>See also <see cref="CivilDate.ToGregorianDate()"/></para>
@@ -230,25 +253,6 @@ public partial struct GregorianDate // Factories & conversions
 
         return new GregorianDate(daysSinceZero);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static GregorianDate UnsafeCreate(int year, int month, int day)
-    {
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, month, day);
-        return new GregorianDate(daysSinceZero);
-    }
-
-    // REVIEW(code): inlining? Same for the other date types.
-
-    [Pure]
-    //[Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static GregorianDate IUnsafeFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
-        new(daysSinceZero);
 }
 
 public partial struct GregorianDate // Adjustments

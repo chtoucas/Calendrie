@@ -280,6 +280,17 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     [Pure]
     public static <#= Prefix #>Date Create(int year, int month, int day) => new(year, month, day);
 
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
+
+    [Pure]
+    static <#= Prefix #>Date IUnsafeFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
+        new(<#= DaysSinceEpochVar #>);
+
+    //
+    // Conversions
+    //
+
     /// <inheritdoc />
     [Pure]
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
@@ -291,13 +302,6 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 
         return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
-
-    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
-    // lookup to the property Calendar.
-
-    [Pure]
-    static <#= Prefix #>Date IUnsafeFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
-        new(<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitDateFactories()
