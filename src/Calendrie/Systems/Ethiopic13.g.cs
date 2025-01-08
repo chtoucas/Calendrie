@@ -295,17 +295,8 @@ public partial struct Ethiopic13Date // Factories & conversions
         return new Ethiopic13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="Ethiopic13Date"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static Ethiopic13Date UnsafeCreate(int year, int month, int day)
-    {
-        int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
-        return new Ethiopic13Date(daysSinceEpoch);
-    }
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
 
     [Pure]
     static Ethiopic13Date IUnsafeFactory<Ethiopic13Date>.UnsafeCreate(int daysSinceEpoch) =>

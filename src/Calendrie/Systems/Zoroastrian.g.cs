@@ -295,17 +295,8 @@ public partial struct ZoroastrianDate // Factories & conversions
         return new ZoroastrianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="ZoroastrianDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static ZoroastrianDate UnsafeCreate(int year, int month, int day)
-    {
-        int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
-        return new ZoroastrianDate(daysSinceEpoch);
-    }
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
 
     [Pure]
     static ZoroastrianDate IUnsafeFactory<ZoroastrianDate>.UnsafeCreate(int daysSinceEpoch) =>

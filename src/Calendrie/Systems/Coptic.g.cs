@@ -295,17 +295,8 @@ public partial struct CopticDate // Factories & conversions
         return new CopticDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="CopticDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static CopticDate UnsafeCreate(int year, int month, int day)
-    {
-        int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
-        return new CopticDate(daysSinceEpoch);
-    }
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
 
     [Pure]
     static CopticDate IUnsafeFactory<CopticDate>.UnsafeCreate(int daysSinceEpoch) =>

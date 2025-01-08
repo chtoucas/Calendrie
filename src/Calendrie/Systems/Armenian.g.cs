@@ -295,17 +295,8 @@ public partial struct ArmenianDate // Factories & conversions
         return new ArmenianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static ArmenianDate UnsafeCreate(int year, int month, int day)
-    {
-        int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
-        return new ArmenianDate(daysSinceEpoch);
-    }
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
 
     [Pure]
     static ArmenianDate IUnsafeFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>

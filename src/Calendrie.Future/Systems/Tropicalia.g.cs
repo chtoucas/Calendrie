@@ -292,17 +292,8 @@ public partial struct TropicaliaDate // Factories & conversions
         return new TropicaliaDate(daysSinceZero);
     }
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static TropicaliaDate UnsafeCreate(int year, int month, int day)
-    {
-        int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
-        return new TropicaliaDate(daysSinceZero);
-    }
+    // No method UnsafeCreate(int year, int month, int day) to avoid multiple
+    // lookup to the property Calendar.
 
     [Pure]
     static TropicaliaDate IUnsafeFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
