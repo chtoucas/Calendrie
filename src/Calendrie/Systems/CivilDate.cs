@@ -229,7 +229,6 @@ public partial struct CivilDate // Factories & conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
-    /// <para>See also <see cref="GregorianDate.FromCivilDate(CivilDate)"/>.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => new(_daysSinceZero);

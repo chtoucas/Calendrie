@@ -146,8 +146,6 @@ public partial struct CivilMonth // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianMonth"/> value.
-    /// <para>See also <see cref="GregorianMonth.FromCivilMonth(CivilMonth)"/>.
-    /// </para>
     /// </summary>
     [Pure]
     public GregorianMonth ToGregorianMonth() => new(_monthsSinceEpoch);
