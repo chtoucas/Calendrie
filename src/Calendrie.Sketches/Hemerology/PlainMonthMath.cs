@@ -15,7 +15,7 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public class DefaultMonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth>
+public class PlainMonthMath<TMonth, TCalendar> : MonthMath<TMonth>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>
     where TCalendar : Calendar
 {
@@ -29,12 +29,12 @@ public class DefaultMonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth>
     private readonly int _maxYear;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultMonthMathPlain{TMonth, TCalendar}"/>
+    /// Initializes a new instance of the <see cref="PlainMonthMath{TMonth, TCalendar}"/>
     /// class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public DefaultMonthMathPlain(AdditionRule rule) : base(rule)
+    public PlainMonthMath(AdditionRule rule) : base(rule)
     {
         var scope = TMonth.Calendar.Scope;
 
