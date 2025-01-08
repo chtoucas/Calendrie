@@ -14,5 +14,5 @@ public interface IDateBase<TSelf> :
     // Non-standard math ops
     IMonthFieldMath<TSelf>,
     IYearFieldMath<TSelf>
-    where TSelf : struct, IDateBase<TSelf>
+    where TSelf : IDateBase<TSelf>
 { }

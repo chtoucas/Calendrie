@@ -27,7 +27,7 @@ public interface IMonthBase<TSelf> :
     IDecrementOperators<TSelf>,
     // Non-standard math ops
     IYearFieldMath<TSelf>
-    where TSelf : struct, IMonthBase<TSelf>
+    where TSelf : IMonthBase<TSelf>
 {
     /// <summary>
     /// Obtains the earliest month between the two specified months.

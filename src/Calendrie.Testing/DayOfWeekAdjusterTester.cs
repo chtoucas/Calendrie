@@ -12,17 +12,17 @@ internal static class DayOfWeekAdjusterTester
 {
     [Pure]
     public static DayOfWeekAdjusterTester<T> NearMinValue<T>(T min)
-        where T : struct, IAbsoluteDate<T>, IAdditionOperators<T, int, T> =>
+        where T : IAbsoluteDate<T>, IAdditionOperators<T, int, T> =>
         new(min, testNext: false, (x, n) => x + n);
 
     [Pure]
     public static DayOfWeekAdjusterTester<T> NearMaxValue<T>(T max)
-        where T : struct, IAbsoluteDate<T>, IAdditionOperators<T, int, T> =>
+        where T : IAbsoluteDate<T>, IAdditionOperators<T, int, T> =>
         new(max, testNext: true, (x, n) => x + n);
 }
 
 internal sealed partial class DayOfWeekAdjusterTester<T>
-    where T : struct, IAbsoluteDate<T>
+    where T : IAbsoluteDate<T>
 {
     private readonly bool _testNext;
 

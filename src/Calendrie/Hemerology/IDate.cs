@@ -18,7 +18,7 @@ public interface IDate : IDateable, IAbsoluteDate { }
 public interface IDate<TSelf> :
     IDateBase<TSelf>,
     IAbsoluteDate<TSelf>
-    where TSelf : struct, IDate<TSelf>
+    where TSelf : IDate<TSelf>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSelf"/> struct

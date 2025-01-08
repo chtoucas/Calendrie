@@ -128,7 +128,7 @@ public interface IMonth
 public interface IMonth<TSelf> :
     IMonthBase<TSelf>,
     IMinMaxValue<TSelf>
-    where TSelf : struct, IMonth<TSelf>
+    where TSelf : IMonth<TSelf>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSelf"/> type from

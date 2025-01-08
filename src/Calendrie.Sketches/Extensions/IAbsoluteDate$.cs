@@ -19,7 +19,7 @@ public static class IAbsoluteDateExtensions
     /// </typeparam>
     [Pure]
     public static TResult ConvertTo<TResult>(this IAbsoluteDate date)
-        where TResult : struct, IAbsoluteDate<TResult>
+        where TResult : IAbsoluteDate<TResult>
     {
         ArgumentNullException.ThrowIfNull(date);
 

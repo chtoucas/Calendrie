@@ -299,7 +299,7 @@ public interface IAbsoluteDate
 public interface IAbsoluteDate<TSelf> :
     IAbsoluteDateBase<TSelf>,
     IMinMaxValue<TSelf>
-    where TSelf : struct, IAbsoluteDate<TSelf>
+    where TSelf : IAbsoluteDate<TSelf>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSelf"/> struct from

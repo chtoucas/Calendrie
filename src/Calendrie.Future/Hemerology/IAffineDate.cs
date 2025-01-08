@@ -51,7 +51,7 @@ public interface IAffineDate<TSelf> :
     // Non-standard math ops
     IMonthFieldMath<TSelf>,
     IYearFieldMath<TSelf>
-    where TSelf : struct, IAffineDate<TSelf>
+    where TSelf : IAffineDate<TSelf>
 {
     /// <summary>
     /// Creates a new <typeparamref name="TSelf"/> instance from the specified
