@@ -44,7 +44,7 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
 
     /// <inheritdoc />
     [Pure]
-    protected sealed override TDate AddYears(int y, int m, int d, int years, out int roundoff)
+    protected sealed override TDate AddYearsCore(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
@@ -88,7 +88,7 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
 
     /// <inheritdoc />
     [Pure]
-    protected sealed override TDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    protected sealed override TDate AddMonthsCore(int y, int m, int d, int months, out int roundoff)
     {
         int monthsSinceEpoch = checked(_schema.CountMonthsSinceEpoch(y, m) + months);
         if (monthsSinceEpoch < _minMonthsSinceEpoch || monthsSinceEpoch > _maxMonthsSinceEpoch)

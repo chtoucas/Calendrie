@@ -45,26 +45,46 @@ public abstract class DateMath<TDate, TCalendar>
     /// <summary>
     /// Adds a number of years to the year field of the specified date.
     /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     [Pure]
     public TDate AddYears(TDate date, int years)
     {
         var (y, m, d) = date;
-        return AddYears(y, m, d, years);
+        var newDate = AddYearsCore(y, m, d, years, out int roundoff);
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+    }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    [Pure] protected abstract TDate AddYearsCore(int y, int m, int d, int years, out int roundoff);
+
+    /// <summary>
+    /// Adds a number of months to the month field of the specified date.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    [Pure]
+    public TDate AddMonths(TDate date, int months)
+    {
+        var (y, m, d) = date;
+        var newDate = AddMonthsCore(y, m, d, months, out int roundoff);
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
     }
 
     /// <summary>
     /// Adds a number of months to the month field of the specified date.
     /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    public TDate AddMonths(TDate date, int months)
-    {
-        var (y, m, d) = date;
-        return AddMonths(y, m, d, months);
-    }
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
+    [Pure] protected abstract TDate AddMonthsCore(int y, int m, int d, int months, out int roundoff);
 
     /// <summary>
     /// Counts the number of years between the two specified dates.
@@ -75,6 +95,8 @@ public abstract class DateMath<TDate, TCalendar>
     /// <para>If <paramref name="start"/> &gt;= <paramref name="end"/>, then
     /// <paramref name="start"/> &gt;= <paramref name="newStart"/> &gt;= <paramref name="end"/></para>
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public int CountYearsBetween(TDate start, TDate end, out TDate newStart)
     {
@@ -85,17 +107,24 @@ public abstract class DateMath<TDate, TCalendar>
 
         // To avoid extracting y0 more than once, we inline:
         // > var newStart = AddYears(start, years);
-        newStart = AddYears(y0, m0, d0, years);
+        newStart = addYears(y0, m0, d0, years);
         if (start < end)
         {
-            if (newStart > end) newStart = AddYears(y0, m0, d0, --years);
+            if (newStart > end) newStart = addYears(y0, m0, d0, --years);
         }
         else
         {
-            if (newStart < end) newStart = AddYears(y0, m0, d0, ++years);
+            if (newStart < end) newStart = addYears(y0, m0, d0, ++years);
         }
 
         return years;
+
+        [Pure]
+        TDate addYears(int y, int m, int d, int years)
+        {
+            var newDate = AddYearsCore(y, m, d, years, out int roundoff);
+            return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+        }
     }
 
     /// <summary>
@@ -107,6 +136,8 @@ public abstract class DateMath<TDate, TCalendar>
     /// <para>If <paramref name="start"/> &gt;= <paramref name="end"/>, then
     /// <paramref name="start"/> &gt;= <paramref name="newStart"/> &gt;= <paramref name="end"/></para>
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public int CountMonthsBetween(TDate start, TDate end, out TDate newStart)
     {
@@ -114,55 +145,43 @@ public abstract class DateMath<TDate, TCalendar>
         var (y1, m1, _) = end;
 
         // Exact difference between two calendar months.
-        // REVIEW(code): would be easier if we had a property TDate.CalendarMonth
-        // then we could write: end.CalendarMonth - start.CalendarMonth
         int months = CountMonthsBetween(y0, m0, y1, m1);
 
         // To avoid extracting (y0, m0, d0) more than once, we inline:
         // > var newStart = AddMonths(start, months);
-        newStart = AddMonths(y0, m0, d0, months);
+        newStart = addMonths(y0, m0, d0, months);
         if (start < end)
         {
-            if (newStart > end) newStart = AddMonths(y0, m0, d0, --months);
+            if (newStart > end) newStart = addMonths(y0, m0, d0, --months);
         }
         else
         {
-            if (newStart < end) newStart = AddMonths(y0, m0, d0, ++months);
+            if (newStart < end) newStart = addMonths(y0, m0, d0, ++months);
         }
 
         return months;
+
+        [Pure]
+        TDate addMonths(int y, int m, int d, int months)
+        {
+            var newDate = AddMonthsCore(y, m, d, months, out int roundoff);
+            return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+        }
     }
 
-    [Pure] protected abstract TDate AddYears(int y, int m, int d, int years, out int roundoff);
-
-    [Pure] protected abstract TDate AddMonths(int y, int m, int d, int months, out int roundoff);
-
+    /// <summary>
+    /// Counts the number of months between the two specified months.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure] protected abstract int CountMonthsBetween(int y0, int m0, int y1, int m1);
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified date.
+    /// Adjusts the result using the specified rule.
     /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private TDate AddYears(int y, int m, int d, int years)
-    {
-        var newDate = AddYears(y, m, d, years, out int roundoff);
-        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
-    }
-
-    /// <summary>
-    /// Adds a number of months to the month field of the specified date.
-    /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private TDate AddMonths(int y, int m, int d, int months)
-    {
-        var newDate = AddMonths(y, m, d, months, out int roundoff);
-        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
-    }
-
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported dates.
+    /// </exception>
     [Pure]
     private TDate Adjust(TDate date, int roundoff)
     {
@@ -170,13 +189,11 @@ public abstract class DateMath<TDate, TCalendar>
         // le cas roundoff = 0 et retourner date (résultat exact).
         Debug.Assert(roundoff > 0);
 
-        // NB: according to CalendricalArithmetic, date is the last day of the month.
+        // NB: date is the last day of a month.
         return AdditionRule switch
         {
             AdditionRule.Truncate => date,
-            // REVIEW(code): there is a slight inefficiency here. We know that
-            // the addition won't overflow, do we?
-            AdditionRule.Overspill => date.PlusDays(1),
+            AdditionRule.Overspill => date.NextDay(),
             AdditionRule.Exact => date.PlusDays(roundoff),
             AdditionRule.Overflow => throw new OverflowException(),
 

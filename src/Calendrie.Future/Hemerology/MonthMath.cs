@@ -38,14 +38,24 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// <summary>
     /// Adds a number of years to the year field of the specified month.
     /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported months.</exception>
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
     [Pure]
     public TMonth AddYears(TMonth month, int years)
     {
         var (y, m) = month;
-        return AddYears(y, m, years);
+        var newMonth = AddYearsCore(y, m, years, out int roundoff);
+        return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
     }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified month.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [Pure] protected abstract TMonth AddYearsCore(int y, int m, int years, out int roundoff);
 
     /// <summary>
     /// Counts the number of years between the two specified months.
@@ -56,6 +66,8 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// <para>If <paramref name="start"/> &gt;= <paramref name="end"/>, then
     /// <paramref name="start"/> &gt;= <paramref name="newStart"/> &gt;= <paramref name="end"/></para>
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
     [Pure]
     public int CountYearsBetween(TMonth start, TMonth end, out TMonth newStart)
     {
@@ -66,33 +78,32 @@ public abstract class MonthMath<TMonth, TCalendar>
 
         // To avoid extracting y0 more than once, we inline:
         // > var newStart = AddYears(start, years);
-        newStart = AddYears(y0, m0, years);
+        newStart = addYears(y0, m0, years);
         if (start < end)
         {
-            if (newStart > end) newStart = AddYears(y0, m0, --years);
+            if (newStart > end) newStart = addYears(y0, m0, --years);
         }
         else
         {
-            if (newStart < end) newStart = AddYears(y0, m0, ++years);
+            if (newStart < end) newStart = addYears(y0, m0, ++years);
         }
 
         return years;
-    }
 
-    [Pure] protected abstract TMonth AddYears(int y, int m, int years, out int roundoff);
+        [Pure]
+        TMonth addYears(int y, int m, int years)
+        {
+            var newMonth = AddYearsCore(y, m, years, out int roundoff);
+            return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
+        }
+    }
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified month.
+    /// Adjusts the result using the specified rule.
     /// </summary>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported months.</exception>
-    [Pure]
-    protected TMonth AddYears(int y, int m, int years)
-    {
-        var newMonth = AddYears(y, m, years, out int roundoff);
-        return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
-    }
-
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
     [Pure]
     private TMonth Adjust(TMonth month, int roundoff)
     {
@@ -100,11 +111,11 @@ public abstract class MonthMath<TMonth, TCalendar>
         // le cas roundoff = 0 et retourner month (résultat exact).
         Debug.Assert(roundoff > 0);
 
-        // NB: according to CalendricalArithmetic, date is the last month of the year.
+        // NB: month is the last month of a year.
         return AdditionRule switch
         {
             AdditionRule.Truncate => month,
-            AdditionRule.Overspill => month.PlusMonths(1),
+            AdditionRule.Overspill => month.NextMonth(),
             AdditionRule.Exact => month.PlusMonths(roundoff),
             AdditionRule.Overflow => throw new OverflowException(),
 

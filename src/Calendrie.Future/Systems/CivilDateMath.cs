@@ -24,7 +24,7 @@ public sealed class CivilDateMath : DateMath<CivilDate, CivilCalendar>
 
     /// <inheritdoc />
     [Pure]
-    protected sealed override CivilDate AddYears(int y, int m, int d, int years, out int roundoff)
+    protected sealed override CivilDate AddYearsCore(int y, int m, int d, int years, out int roundoff)
     {
         int newY = checked(y + years);
         if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear) ThrowHelpers.ThrowDateOverflow();
@@ -40,10 +40,10 @@ public sealed class CivilDateMath : DateMath<CivilDate, CivilCalendar>
 
     /// <inheritdoc />
     [Pure]
-    protected sealed override CivilDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    protected sealed override CivilDate AddMonthsCore(int y, int m, int d, int months, out int roundoff)
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), CivilCalendar.MonthsInYear, out int years);
-        return AddYears(y, newM, d, years, out roundoff);
+        return AddYearsCore(y, newM, d, years, out roundoff);
     }
 
     /// <inheritdoc />
