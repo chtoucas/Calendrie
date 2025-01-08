@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 
 /// <summary>
 /// Provides non-standard mathematical operations for the <typeparamref name="TDate"/>
-/// type when <typeparamref name="TCalendar"/> is <i>regular</i>.
+/// type when the underlying calendar is <i>regular</i>.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>

@@ -67,7 +67,7 @@ public abstract class MonthMath<TMonth>
         // Exact difference between two calendar years.
         int years = end.Year - y0;
 
-        // To avoid extracting y0 more than once, we inline:
+        // To avoid extracting (y0, m0) more than once, we inline:
         // > var newStart = AddYears(start, years);
         newStart = addYears(y0, m0, years);
         if (start < end)

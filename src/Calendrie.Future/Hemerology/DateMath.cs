@@ -104,7 +104,7 @@ public abstract class DateMath<TDate>
         // Exact difference between two calendar years.
         int years = end.Year - y0;
 
-        // To avoid extracting y0 more than once, we inline:
+        // To avoid extracting (y0, m0) more than once, we inline:
         // > var newStart = AddYears(start, years);
         newStart = addYears(y0, m0, d0, years);
         if (start < end)
@@ -169,7 +169,7 @@ public abstract class DateMath<TDate>
     }
 
     /// <summary>
-    /// Counts the number of months between the two specified months.
+    /// Counts the (exact) number of months between the two specified months.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
