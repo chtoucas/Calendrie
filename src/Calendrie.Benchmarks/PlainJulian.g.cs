@@ -290,6 +290,18 @@ public partial struct PlainJulianDate // Factories & conversions
         return new PlainJulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainJulianDate"/> struct
+    /// from the specified date components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static PlainJulianDate UnsafeCreate(int year, int month, int day)
+    {
+        int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
+        return new PlainJulianDate(daysSinceEpoch);
+    }
+
     [Pure]
     static PlainJulianDate IUnsafeFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

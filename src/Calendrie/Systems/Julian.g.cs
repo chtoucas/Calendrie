@@ -14,27 +14,6 @@ using Calendrie.Core.Utilities;
 
 #region JulianDate
 
-public partial struct JulianDate // Factories & conversions
-{
-    /// <inheritdoc />
-    [Pure]
-    public static JulianDate Create(int year, int month, int day) => new(year, month, day);
-
-    /// <inheritdoc />
-    [Pure]
-    public static JulianDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
-    [Pure]
-    static JulianDate IUnsafeFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
-}
-
 public partial struct JulianDate // Counting
 {
     /// <inheritdoc />

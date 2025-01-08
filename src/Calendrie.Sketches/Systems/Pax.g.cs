@@ -302,6 +302,18 @@ public partial struct PaxDate // Factories & conversions
         return new PaxDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxDate"/> struct
+    /// from the specified date components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static PaxDate UnsafeCreate(int year, int month, int day)
+    {
+        int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
+        return new PaxDate(daysSinceEpoch);
+    }
+
     [Pure]
     static PaxDate IUnsafeFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

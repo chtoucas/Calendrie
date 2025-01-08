@@ -286,6 +286,18 @@ public partial struct TabularIslamicDate // Factories & conversions
         return new TabularIslamicDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicDate"/> struct
+    /// from the specified date components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static TabularIslamicDate UnsafeCreate(int year, int month, int day)
+    {
+        int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
+        return new TabularIslamicDate(daysSinceEpoch);
+    }
+
     [Pure]
     static TabularIslamicDate IUnsafeFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);

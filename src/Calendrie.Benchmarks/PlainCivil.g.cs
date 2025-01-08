@@ -284,6 +284,18 @@ public partial struct PlainCivilDate // Factories & conversions
         return new PlainCivilDate(daysSinceZero);
     }
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="PlainCivilDate"/> struct
+    /// from the specified date components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static PlainCivilDate UnsafeCreate(int year, int month, int day)
+    {
+        int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(year, month, day);
+        return new PlainCivilDate(daysSinceZero);
+    }
+
     [Pure]
     static PlainCivilDate IUnsafeFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);

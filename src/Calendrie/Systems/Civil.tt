@@ -37,6 +37,7 @@ using static Calendrie.Core.CalendricalConstants;
 
     // Date type
     protected sealed override void EmitDatePreamble() { }
+    protected sealed override void EmitDateFactories() { }
     protected sealed override void EmitDateAdjustments() { }
     protected sealed override void EmitDateMathNonStandardRegular() { }
 
