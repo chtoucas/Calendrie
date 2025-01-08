@@ -67,7 +67,7 @@ public partial struct GregorianYear // Preamble
     /// Initializes a new instance of the <see cref="GregorianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private GregorianYear(int yearsSinceEpoch, bool _)
+    internal GregorianYear(int yearsSinceEpoch, bool _)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }

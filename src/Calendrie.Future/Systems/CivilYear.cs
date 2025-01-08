@@ -110,6 +110,22 @@ public partial struct CivilYear // Preamble
     public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
 }
 
+public partial struct CivilYear
+{
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="CivilYear"/> value to a
+    /// <see cref="GregorianYear"/> value.
+    /// </summary>
+    public static implicit operator GregorianYear(CivilYear year) =>
+        new(year._yearsSinceEpoch, default);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="GregorianMonth"/> value.
+    /// </summary>
+    [Pure]
+    public GregorianYear ToGregorianYear() => new(_yearsSinceEpoch, default);
+}
+
 public partial struct CivilYear // IDateSegment
 {
     /// <inheritdoc />
