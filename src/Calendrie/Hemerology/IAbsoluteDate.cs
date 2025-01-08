@@ -235,7 +235,7 @@ public interface IAbsoluteDate
     /// range of supported days.</exception>
     [Pure]
     public static TDate Nearest<TDate>(TDate date, DayOfWeek dayOfWeek)
-        where TDate : struct, IAbsoluteDate<TDate>
+        where TDate : IAbsoluteDate<TDate>
     {
         var nearest = date.DayNumber.Nearest(dayOfWeek);
         return TDate.FromDayNumber(nearest);
