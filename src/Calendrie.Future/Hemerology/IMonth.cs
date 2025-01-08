@@ -5,7 +5,7 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// TODO(code): add TryCreate(). Idem w/ IDate.
+// TODO(code): add TryCreate(). Idem w/ IDate. Create(unitsSinceEpoch)?
 
 // No IAbsoluteMonth or IAffineMonth. Interconversion can only be achieved after
 // converting a month to a range of days.
