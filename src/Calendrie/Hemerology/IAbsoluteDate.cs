@@ -235,7 +235,7 @@ public interface IAbsoluteDate
     /// range of supported days.</exception>
     [Pure]
     public static TDate Nearest<TDate>(TDate date, DayOfWeek dayOfWeek)
-        where TDate : IAbsoluteDate<TDate>
+        where TDate : struct, IAbsoluteDate<TDate>
     {
         var nearest = date.DayNumber.Nearest(dayOfWeek);
         return TDate.FromDayNumber(nearest);
@@ -299,7 +299,7 @@ public interface IAbsoluteDate
 public interface IAbsoluteDate<TSelf> :
     IAbsoluteDateBase<TSelf>,
     IMinMaxValue<TSelf>
-    where TSelf : IAbsoluteDate<TSelf>
+    where TSelf : struct, IAbsoluteDate<TSelf>
 {
     /// <summary>
     /// Creates a new instance of the <typeparamref name="TSelf"/> struct from

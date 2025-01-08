@@ -27,7 +27,7 @@ public interface IAbsoluteDateBase<TSelf> :
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
     IDecrementOperators<TSelf>
-    where TSelf : IAbsoluteDateBase<TSelf>
+    where TSelf : struct, IAbsoluteDateBase<TSelf>
 {
     /// <summary>
     /// Obtains the earliest date between the two specified dates.

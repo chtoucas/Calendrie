@@ -126,5 +126,5 @@ public interface IMonth
 public interface IMonth<TSelf> :
     IMonthBase<TSelf>,
     IMinMaxValue<TSelf>
-    where TSelf : IMonth<TSelf>
+    where TSelf : struct, IMonth<TSelf>
 { }

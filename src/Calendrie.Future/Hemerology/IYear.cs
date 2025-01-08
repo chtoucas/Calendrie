@@ -87,5 +87,5 @@ public interface IYear
 public interface IYear<TSelf> :
     IYearBase<TSelf>,
     IMinMaxValue<TSelf>
-    where TSelf : IYear<TSelf>
+    where TSelf : struct, IYear<TSelf>
 { }

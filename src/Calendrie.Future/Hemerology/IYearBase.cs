@@ -25,7 +25,7 @@ public interface IYearBase<TSelf> :
     ISubtractionOperators<TSelf, int, TSelf>,
     IIncrementOperators<TSelf>,
     IDecrementOperators<TSelf>
-    where TSelf : IYearBase<TSelf>
+    where TSelf : struct, IYearBase<TSelf>
 {
     /// <summary>
     /// Obtains the earliest year between the two specified years.

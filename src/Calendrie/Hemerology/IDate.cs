@@ -18,5 +18,5 @@ public interface IDate : IDateable, IAbsoluteDate { }
 public interface IDate<TSelf> :
     IDateBase<TSelf>,
     IAbsoluteDate<TSelf>
-    where TSelf : IDate<TSelf>
+    where TSelf : struct, IDate<TSelf>
 { }
