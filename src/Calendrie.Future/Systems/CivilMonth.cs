@@ -144,7 +144,7 @@ public partial struct CivilMonth // IDateSegment
         get
         {
             var (y, m) = this;
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
+            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, 1);
             return new CivilDate(daysSinceZero);
         }
     }
@@ -156,7 +156,7 @@ public partial struct CivilMonth // IDateSegment
         {
             var (y, m) = this;
             int d = GregorianFormulae.CountDaysInMonth(y, m);
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, d);
+            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, d);
             return new CivilDate(daysSinceZero);
         }
     }
@@ -194,7 +194,7 @@ public partial struct CivilMonth // IDateSegment
     public IEnumerable<CivilDate> ToEnumerable()
     {
         var (y, m) = this;
-        int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
+        int startOfMonth = CivilFormulae.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
 
         return from daysSinceZero
@@ -210,7 +210,7 @@ public partial struct CivilMonth // IDateSegment
     public bool Contains(CivilDate date)
     {
         var (y, m) = this;
-        GregorianFormulae.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
+        CivilFormulae.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
         return y1 == y && m1 == m;
     }
 
@@ -225,7 +225,7 @@ public partial struct CivilMonth // IDateSegment
     {
         var (y, m) = this;
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
         return new CivilDate(daysSinceZero);
     }
 }

@@ -34,7 +34,7 @@ public sealed class CivilDateMath : DateMath<CivilDate>
         // On retourne le dernier jour du mois si d > daysInMonth.
         int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = GregorianFormulae.CountDaysSinceEpoch(newY, m, newD);
+        int daysSinceEpoch = CivilFormulae.CountDaysSinceEpoch(newY, m, newD);
         return new CivilDate(daysSinceEpoch);
     }
 

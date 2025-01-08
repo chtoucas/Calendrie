@@ -117,7 +117,7 @@ public partial struct CivilYear // IDateSegment
     {
         get
         {
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
+            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Number, 1);
             return new CivilDate(daysSinceZero);
         }
     }
@@ -128,7 +128,7 @@ public partial struct CivilYear // IDateSegment
         get
         {
             int doy = GregorianFormulae.CountDaysInYear(Number);
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, doy);
+            int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Number, doy);
             return new CivilDate(daysSinceZero);
         }
     }
@@ -153,7 +153,7 @@ public partial struct CivilYear // IDateSegment
     [Pure]
     public IEnumerable<CivilDate> EnumerateDays()
     {
-        int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Number, 1);
+        int startOfYear = CivilFormulae.CountDaysSinceEpoch(Number, 1);
         int daysInYear = GregorianFormulae.CountDaysInYear(Number);
 
         return from daysSinceZero
@@ -175,7 +175,7 @@ public partial struct CivilYear // IDateSegment
     {
         // We already know that "y" is valid, we only need to check "dayOfYear".
         Calendar.Scope.PreValidator.ValidateDayOfYear(Number, dayOfYear);
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Number, dayOfYear);
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(Number, dayOfYear);
         return new CivilDate(daysSinceZero);
     }
 }
