@@ -29,6 +29,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Gregorian.tt</DependentUpon>
     </Compile>
+    <Compile Update="Systems\Julian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Julian.tt</DependentUpon>
+    </Compile>
     <Compile Update="Systems\Tropicalia.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

@@ -12,24 +12,24 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Represents the Gregorian month.
+/// Represents the Julian month.
 /// <para><i>All</i> months within the range [-999_998..999_999] of years are
 /// supported.
 /// </para>
-/// <para><see cref="GregorianMonth"/> is an immutable struct.</para>
+/// <para><see cref="JulianMonth"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct GregorianMonth :
-    IMonth<GregorianMonth>,
-    ICalendarBound<GregorianCalendar>,
-    IUnsafeFactory<GregorianMonth>,
+public readonly partial struct JulianMonth :
+    IMonth<JulianMonth>,
+    ICalendarBound<JulianCalendar>,
+    IUnsafeFactory<JulianMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<GregorianDate>,
-    ISetMembership<GregorianDate>,
+    IDateSegment<JulianDate>,
+    ISetMembership<JulianDate>,
     // Arithmetic
-    ISubtractionOperators<GregorianMonth, GregorianMonth, int>
+    ISubtractionOperators<JulianMonth, JulianMonth, int>
 { }
 
-public partial struct GregorianMonth // Preamble
+public partial struct JulianMonth // Preamble
 {
     /// <summary>Represents the minimum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to -11_999_988.</para></summary>
@@ -49,47 +49,47 @@ public partial struct GregorianMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianMonth"/> struct
+    /// Initializes a new instance of the <see cref="JulianMonth"/> struct
     /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
     /// range of supported years.</exception>
-    public GregorianMonth(int year, int month)
+    public JulianMonth(int year, int month)
     {
-        GregorianScope.ValidateYearMonthImpl(year, month);
+        JulianScope.ValidateYearMonthImpl(year, month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GregorianMonth"/> struct.
+    /// Initializes a new instance of the <see cref="JulianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal GregorianMonth(int monthsSinceEpoch)
+    internal JulianMonth(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="GregorianMonth"/>.
+    /// Gets the smallest possible value of <see cref="JulianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported month.</returns>
-    public static GregorianMonth MinValue { get; } = new(MinMonthsSinceEpoch);
+    public static JulianMonth MinValue { get; } = new(MinMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="GregorianMonth"/>.
+    /// Gets the largest possible value of <see cref="JulianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported month.</returns>
-    public static GregorianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+    public static JulianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current month type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static GregorianCalendar Calendar => GregorianCalendar.Instance;
+    public static JulianCalendar Calendar => JulianCalendar.Instance;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
@@ -120,7 +120,7 @@ public partial struct GregorianMonth // Preamble
     /// <para>Actually, this property returns the algebraic year, but since its
     /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, GregorianCalendar.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, JulianCalendar.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
@@ -159,26 +159,26 @@ public partial struct GregorianMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceEpoch, GregorianCalendar.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceEpoch, JulianCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 }
 
-public partial struct GregorianMonth // Adjustments
+public partial struct JulianMonth // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public GregorianMonth WithYear(int newYear)
+    public JulianMonth WithYear(int newYear)
     {
         int m = Month;
         // Even when "newYear" is valid, we must re-check "m".
-        GregorianScope.ValidateYearMonthImpl(newYear, m, nameof(newYear));
+        JulianScope.ValidateYearMonthImpl(newYear, m, nameof(newYear));
         return UnsafeCreate(newYear, m);
     }
 
     /// <inheritdoc />
     [Pure]
-    public GregorianMonth WithMonth(int newMonth)
+    public JulianMonth WithMonth(int newMonth)
     {
         int y = Year;
         // We already know that "y" is valid, we only need to check "newMonth".
@@ -187,28 +187,28 @@ public partial struct GregorianMonth // Adjustments
     }
 }
 
-public partial struct GregorianMonth // IDateSegment
+public partial struct JulianMonth // IDateSegment
 {
     /// <inheritdoc />
-    public GregorianDate MinDay
+    public JulianDate MinDay
     {
         get
         {
             var (y, m) = this;
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
-            return new GregorianDate(daysSinceZero);
+            int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, 1);
+            return new JulianDate(daysSinceEpoch);
         }
     }
 
     /// <inheritdoc />
-    public GregorianDate MaxDay
+    public JulianDate MaxDay
     {
         get
         {
             var (y, m) = this;
-            int d = GregorianFormulae.CountDaysInMonth(y, m);
-            int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, d);
-            return new GregorianDate(daysSinceZero);
+            int d = JulianFormulae.CountDaysInMonth(y, m);
+            int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, d);
+            return new JulianDate(daysSinceEpoch);
         }
     }
 
@@ -219,7 +219,7 @@ public partial struct GregorianMonth // IDateSegment
     public int CountDays()
     {
         var (y, m) = this;
-        return GregorianFormulae.CountDaysInMonth(y, m);
+        return JulianFormulae.CountDaysInMonth(y, m);
     }
 
     /// <summary>
@@ -228,41 +228,41 @@ public partial struct GregorianMonth // IDateSegment
     /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<GregorianDate> ToRange()
+    public Range<JulianDate> ToRange()
     {
         var (y, m) = this;
-        int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
-        int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
-        return Range.StartingAt(new GregorianDate(startOfMonth), daysInMonth);
+        int startOfMonth = JulianFormulae.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = JulianFormulae.CountDaysInMonth(y, m);
+        return Range.StartingAt(new JulianDate(startOfMonth), daysInMonth);
     }
 
     [Pure]
-    Range<GregorianDate> IDateSegment<GregorianDate>.ToDayRange() => ToRange();
+    Range<JulianDate> IDateSegment<JulianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
     /// </summary>
     [Pure]
-    public IEnumerable<GregorianDate> ToEnumerable()
+    public IEnumerable<JulianDate> ToEnumerable()
     {
         var (y, m) = this;
-        int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
-        int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
+        int startOfMonth = JulianFormulae.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = JulianFormulae.CountDaysInMonth(y, m);
 
-        return from daysSinceZero
+        return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new GregorianDate(daysSinceZero);
+               select new JulianDate(daysSinceEpoch);
     }
 
     [Pure]
-    IEnumerable<GregorianDate> IDateSegment<GregorianDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<JulianDate> IDateSegment<JulianDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
-    public bool Contains(GregorianDate date)
+    public bool Contains(JulianDate date)
     {
         var (y, m) = this;
-        GregorianFormulae.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
+        JulianFormulae.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
         return y1 == y && m1 == m;
     }
 
@@ -273,23 +273,23 @@ public partial struct GregorianMonth // IDateSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public GregorianDate GetDayOfMonth(int dayOfMonth)
+    public JulianDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this; ;
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new GregorianDate(daysSinceZero);
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return new JulianDate(daysSinceEpoch);
     }
 }
 
-public partial struct GregorianMonth // Standard math ops
+public partial struct JulianMonth // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified months and returns the number of months
     /// between them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
-    public static int operator -(GregorianMonth left, GregorianMonth right) => left.CountMonthsSince(right);
+    public static int operator -(JulianMonth left, JulianMonth right) => left.CountMonthsSince(right);
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.
@@ -298,7 +298,7 @@ public partial struct GregorianMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static GregorianMonth operator +(GregorianMonth value, int months) => value.PlusMonths(months);
+    public static JulianMonth operator +(JulianMonth value, int months) => value.PlusMonths(months);
 
     /// <summary>
     /// Subtracts a number of months to the specified month, yielding a new month.
@@ -307,7 +307,7 @@ public partial struct GregorianMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static GregorianMonth operator -(GregorianMonth value, int months) => value.PlusMonths(-months);
+    public static JulianMonth operator -(JulianMonth value, int months) => value.PlusMonths(-months);
 
     /// <summary>
     /// Adds one month to the specified month, yielding a new month.
@@ -315,7 +315,7 @@ public partial struct GregorianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
-    public static GregorianMonth operator ++(GregorianMonth value) => value.NextMonth();
+    public static JulianMonth operator ++(JulianMonth value) => value.NextMonth();
 
     /// <summary>
     /// Subtracts one month to the specified month, yielding a new month.
@@ -323,13 +323,13 @@ public partial struct GregorianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
-    public static GregorianMonth operator --(GregorianMonth value) => value.PreviousMonth();
+    public static JulianMonth operator --(JulianMonth value) => value.PreviousMonth();
 
     /// <summary>
     /// Counts the number of months elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountMonthsSince(GregorianMonth other) =>
+    public int CountMonthsSince(JulianMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceEpoch.
         _monthsSinceEpoch - other._monthsSinceEpoch;
@@ -341,12 +341,12 @@ public partial struct GregorianMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    public GregorianMonth PlusMonths(int months)
+    public JulianMonth PlusMonths(int months)
     {
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new GregorianMonth(monthsSinceEpoch);
+        return new JulianMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -355,10 +355,10 @@ public partial struct GregorianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [Pure]
-    public GregorianMonth NextMonth()
+    public JulianMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new GregorianMonth(_monthsSinceEpoch + 1);
+        return new JulianMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -367,9 +367,9 @@ public partial struct GregorianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [Pure]
-    public GregorianMonth PreviousMonth()
+    public JulianMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == MinMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new GregorianMonth(_monthsSinceEpoch - 1);
+        return new JulianMonth(_monthsSinceEpoch - 1);
     }
 }
