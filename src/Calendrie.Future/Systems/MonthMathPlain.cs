@@ -17,15 +17,15 @@ public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
     where TCalendar : Calendar
 {
-    /// <summary>
-    /// Represents the schema.
-    /// </summary>
+    /// <summary>Represents the schema.</summary>
     private readonly ICalendricalSchema _schema;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MonthMathPlain{TMonth, TCalendar}"/>
     /// class.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     internal MonthMathPlain(AdditionRule rule) : base(rule)
     {
         var scope = TMonth.Calendar.Scope;
@@ -43,10 +43,9 @@ public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth, TCalendar>
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
-        //int newM = Math.Min(m, Schema.CountMonthsInYear(newY));
         int monthsInYear = _schema.CountMonthsInYear(newY);
         roundoff = Math.Max(0, m - monthsInYear);
-        // On retourne le dernier du mois de l'année si m > monthsInYear.
+        // On retourne le dernier mois de l'année si m > monthsInYear.
         int newM = roundoff == 0 ? m : monthsInYear;
 
         int monthsSinceEpoch = _schema.CountMonthsSinceEpoch(newY, newM);

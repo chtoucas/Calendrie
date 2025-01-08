@@ -15,6 +15,11 @@ using Calendrie.Hemerology;
 /// </summary>
 public sealed class CivilDateMath : DateMath<CivilDate, CivilCalendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public CivilDateMath(AdditionRule rule) : base(rule) { }
 
     /// <inheritdoc />
@@ -37,8 +42,8 @@ public sealed class CivilDateMath : DateMath<CivilDate, CivilCalendar>
     [Pure]
     protected sealed override CivilDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), CivilCalendar.MonthsInYear, out int y0);
-        return AddYears(y, newM, d, y0, out roundoff);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), CivilCalendar.MonthsInYear, out int years);
+        return AddYears(y, newM, d, years, out roundoff);
     }
 
     /// <inheritdoc />

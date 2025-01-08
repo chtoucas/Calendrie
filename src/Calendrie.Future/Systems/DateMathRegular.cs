@@ -8,9 +8,8 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 /// <summary>
-/// Provides non-standard mathematical operations for the
-/// <typeparamref name="TDate"/> type when the <typeparamref name="TCalendar"/>
-/// type is <i>regular</i>.
+/// Provides non-standard mathematical operations for the <typeparamref name="TDate"/>
+/// type when <typeparamref name="TCalendar"/> is <i>regular</i>.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
@@ -18,20 +17,18 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
-    /// <summary>
-    /// Represents the schema.
-    /// </summary>
+    /// <summary>Represents the schema.</summary>
     private readonly ICalendricalSchema _schema;
 
-    /// <summary>
-    /// Represents the number of months in a year.
-    /// </summary>
+    /// <summary>Represents the number of months in a year.</summary>
     private readonly int _monthsInYear;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DateMathRegular{TDate, TCalendar}"/>
     /// class.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     internal DateMathRegular(AdditionRule rule) : base(rule)
     {
         var scope = TDate.Calendar.Scope;
@@ -65,22 +62,8 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate, TCalendar>
     [Pure]
     protected sealed override TDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int y0);
-#if true
-        return AddYears(y, newM, d, y0, out roundoff);
-#else
-        int newY = checked(y + y0);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
-
-        int daysInMonth = Schema.CountDaysInMonth(newY, newM);
-        roundoff = Math.Max(0, d - daysInMonth);
-        // On retourne le dernier jour du mois si d > daysInMonth.
-        int newD = roundoff == 0 ? d : daysInMonth;
-
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
-        return TDate.UnsafeCreate(daysSinceEpoch);
-#endif
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), _monthsInYear, out int years);
+        return AddYears(y, newM, d, years, out roundoff);
     }
 
     /// <inheritdoc />

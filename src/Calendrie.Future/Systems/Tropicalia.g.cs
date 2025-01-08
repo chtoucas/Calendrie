@@ -792,6 +792,11 @@ public partial struct TropicaliaDate // Non-standard math ops
 /// </summary>
 public sealed class TropicaliaDateMath : DateMathRegular<TropicaliaDate, TropicaliaCalendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public TropicaliaDateMath(AdditionRule rule) : base(rule) { }
 }
 

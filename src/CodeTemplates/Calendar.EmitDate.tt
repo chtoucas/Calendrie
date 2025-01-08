@@ -993,6 +993,11 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 /// </summary>
 public sealed class <#= Prefix #>DateMath : DateMathRegular<<#= Prefix #>Date, <#= Prefix #>Calendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>DateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public <#= Prefix #>DateMath(AdditionRule rule) : base(rule) { }
 }
 <#+
@@ -1010,6 +1015,11 @@ public sealed class <#= Prefix #>DateMath : DateMathRegular<<#= Prefix #>Date, <
 /// </summary>
 public sealed class <#= Prefix #>DateMath : DateMathPlain<<#= Prefix #>Date, <#= Prefix #>Calendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>DateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public <#= Prefix #>DateMath(AdditionRule rule) : base(rule) { }
 }
 <#+

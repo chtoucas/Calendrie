@@ -1079,6 +1079,11 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
 /// </summary>
 public sealed class <#= Prefix #>MonthMath : MonthMathPlain<<#= Prefix #>Month, <#= Prefix #>Calendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>MonthMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public <#= Prefix #>MonthMath(AdditionRule rule) : base(rule) { }
 }
 <#+

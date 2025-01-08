@@ -17,25 +17,21 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate, TCalendar>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
-    /// <summary>
-    /// Represents the schema.
-    /// </summary>
+    /// <summary>Represents the schema.</summary>
     private readonly ICalendricalSchema _schema;
 
-    /// <summary>
-    /// Represents the earliest supported month.
-    /// </summary>
+    /// <summary>Represents the earliest supported month.</summary>
     private readonly int _minMonthsSinceEpoch;
 
-    /// <summary>
-    /// Represents the latest supported month.
-    /// </summary>
+    /// <summary>Represents the latest supported month.</summary>
     private readonly int _maxMonthsSinceEpoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DateMathPlain{TCalendar, TDate}"/>
     /// class.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     internal DateMathPlain(AdditionRule rule) : base(rule)
     {
         var scope = TDate.Calendar.Scope;

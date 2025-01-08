@@ -28,6 +28,8 @@ public abstract class DateMath<TDate, TCalendar>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="DateMath{TDate, TCalendar}"/> class.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     protected DateMath(AdditionRule rule)
     {
         Requires.Defined(rule);

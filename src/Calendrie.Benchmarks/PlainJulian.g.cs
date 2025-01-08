@@ -791,6 +791,11 @@ public partial struct PlainJulianDate // Non-standard math ops
 /// </summary>
 public sealed class PlainJulianDateMath : DateMathRegular<PlainJulianDate, PlainJulianCalendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlainJulianDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public PlainJulianDateMath(AdditionRule rule) : base(rule) { }
 }
 

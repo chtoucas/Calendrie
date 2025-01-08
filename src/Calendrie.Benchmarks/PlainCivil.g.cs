@@ -784,6 +784,11 @@ public partial struct PlainCivilDate // Non-standard math ops
 /// </summary>
 public sealed class PlainCivilDateMath : DateMathRegular<PlainCivilDate, PlainCivilCalendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlainCivilDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public PlainCivilDateMath(AdditionRule rule) : base(rule) { }
 }
 

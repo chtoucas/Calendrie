@@ -810,6 +810,11 @@ public partial struct PaxDate // Non-standard math ops
 /// </summary>
 public sealed class PaxDateMath : DateMathPlain<PaxDate, PaxCalendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PaxDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public PaxDateMath(AdditionRule rule) : base(rule) { }
 }
 
@@ -1401,6 +1406,11 @@ public partial struct PaxMonth // Non-standard math ops
 /// </summary>
 public sealed class PaxMonthMath : MonthMathPlain<PaxMonth, PaxCalendar>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PaxMonthMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public PaxMonthMath(AdditionRule rule) : base(rule) { }
 }
 

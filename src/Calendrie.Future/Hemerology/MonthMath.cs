@@ -21,6 +21,8 @@ public abstract class MonthMath<TMonth, TCalendar>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="MonthMath{TMonth, TCalendar}"/> class.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
     protected MonthMath(AdditionRule rule)
     {
         Requires.Defined(rule);
