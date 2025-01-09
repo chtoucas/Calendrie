@@ -442,7 +442,7 @@ public partial struct <#= Prefix #>Month // Factories & conversions
         var sch = Calendar.Schema;
         bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
             && month >= 1
-            && (month <= sch.MinMonthsInYear
+            && (month <= <#= Prefix #>Calendar.MinMonthsInYear
                 || month <= sch.CountMonthsInYear(year));
 
         if (ok)

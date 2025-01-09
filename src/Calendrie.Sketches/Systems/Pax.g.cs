@@ -1006,7 +1006,7 @@ public partial struct PaxMonth // Factories & conversions
         var sch = Calendar.Schema;
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
             && month >= 1
-            && (month <= sch.MinMonthsInYear
+            && (month <= PaxCalendar.MinMonthsInYear
                 || month <= sch.CountMonthsInYear(year));
 
         if (ok)

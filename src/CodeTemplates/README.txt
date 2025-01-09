@@ -61,7 +61,8 @@ que le schéma sous-jacent définit une constante MonthsInYear ayant la même va
 
 Pour les calendriers non-réguliers, utiliser l'option "regular: false" du
 constructeur T4. Il conviendra de préciser la valeur de la propriété T4
-MaxMonthsSinceEpochValue.
+MaxMonthsSinceEpochValue. On suppose que le calendrier définit la constante
+MinMonthsInYear.
 
 Options disponibles
 -------------------

@@ -5,12 +5,10 @@ namespace Calendrie.Systems;
 
 public partial class PaxCalendar // Complements
 {
-    // REVIEW(code): PaxMonth.TryCreate() should use this.
+    // REVIEW(code): MinMonthsInYear
     // Make it a constant via T4 and add it to the parameters to be set for a
-    // non-regular calendar (CodeTemplates/README)?
-#if false
-    internal const int MinMonthsInYear = PaxSchema.MinMonthsInYear;
-#endif
+    // non-regular calendar (CodeTemplates/README.txt)?
+    internal const int MinMonthsInYear = 13;
 
     /// <summary>
     /// Obtains the number of weeks in the specified year.
