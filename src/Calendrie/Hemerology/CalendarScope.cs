@@ -113,7 +113,7 @@ public abstract partial class CalendarScope
     /// <summary>
     /// Checks whether the specified year is valid or not.
     /// <para>When the range of supported years is fixed, it's advisable to write
-    /// the validation in situ.</para>
+    /// the validation <i>in situ</i>.</para>
     /// </summary>
     public abstract bool CheckYear(int year);
 
@@ -141,7 +141,7 @@ public abstract partial class CalendarScope
     /// <summary>
     /// Validates the specified year.
     /// <para>When the range of supported years is fixed, it's advisable to write
-    /// the validation in situ.</para>
+    /// the validation <i>in situ</i>.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>

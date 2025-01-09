@@ -34,7 +34,7 @@ public readonly partial struct Range<T> :
     /// less than <paramref name="min"/>.</exception>
     public Range(T min, T max)
     {
-        if (max.CompareTo(min) < 0) throw new ArgumentOutOfRangeException(nameof(max));
+        ArgumentOutOfRangeException.ThrowIfLessThan(max, min, nameof(max));
 
         Endpoints = OrderedPair.UnsafeCreate(min, max);
     }
@@ -111,7 +111,7 @@ public partial struct Range<T> // Adjustments
         // We don't write
         // > new(min, Max)
         // to obtain the correct parameter name in the exception.
-        if (min.CompareTo(Max) > 0) throw new ArgumentOutOfRangeException(nameof(min));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(min, Max, nameof(min));
 
         var endpoints = OrderedPair.UnsafeCreate(min, Max);
         return new(endpoints);
