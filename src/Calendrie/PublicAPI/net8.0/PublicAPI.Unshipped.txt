@@ -422,7 +422,7 @@ Calendrie.Hemerology.CalendarScope.PreValidator.get -> Calendrie.Core.ICalendric
 Calendrie.Hemerology.CalendarScope.PreValidator.init -> void
 Calendrie.Hemerology.CalendarScope.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Hemerology.CalendarScope.Segment.get -> Calendrie.Core.CalendricalSegment!
-Calendrie.Hemerology.CalendarScope.Validate(Calendrie.DayNumber dayNumber) -> void
+Calendrie.Hemerology.CalendarScope.Validate(Calendrie.DayNumber dayNumber, string? paramName = null) -> void
 Calendrie.Hemerology.IAbsoluteDate
 Calendrie.Hemerology.IAbsoluteDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Hemerology.IAbsoluteDate.DayOfWeek.get -> System.DayOfWeek

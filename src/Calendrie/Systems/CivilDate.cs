@@ -277,7 +277,7 @@ public partial struct CivilDate // Factories & conversions
         int daysSinceZero = dayNumber.DaysSinceZero;
 
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
-            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
 
         return new CivilDate(daysSinceZero);
     }

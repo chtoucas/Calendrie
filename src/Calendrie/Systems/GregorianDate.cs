@@ -303,7 +303,7 @@ public partial struct GregorianDate // Factories & conversions
         int daysSinceZero = dayNumber.DaysSinceZero;
 
         if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
-            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
 
         return new GregorianDate(daysSinceZero);
     }
