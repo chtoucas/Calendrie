@@ -373,10 +373,13 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     public static <#= Prefix #>Month? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
-        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
-            && month >= 1 && month <= <#= Prefix #>Calendar.MonthsInYear;
+        if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear
+            || month < 1 || month > <#= Prefix #>Calendar.MonthsInYear)
+        {
+            return null;
+        }
 
-        return ok ? UnsafeCreate(year, month) : null;
+        return UnsafeCreate(year, month);
     }
 
     // Explicit implementation: <#= Prefix #>Month being a value type, better
@@ -446,16 +449,10 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     public static <#= Prefix #>Month? TryCreate(int year, int month)
     {
         var chr = Calendar;
-        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
-            && chr.Scope.PreValidator.CheckMonth(year, month);
+        if (!chr.Scope.CheckYearMonth(year, month)) return null;
 
-        if (ok)
-        {
-            int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
-            return new <#= Prefix #>Month(monthsSinceEpoch);
-        }
-
-        return null;
+        int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
+        return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
     // Explicit implementation: <#= Prefix #>Month being a value type, better
