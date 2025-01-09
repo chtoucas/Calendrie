@@ -8,6 +8,7 @@
         maxDaysSinceEpochValue:  "3_652_060",
         regular: false)
     {
+        ScopeClass = "PaxScope",
         EnableDateCustomMath = true,
         EnableMonth = true,
         EnableMonthCustomMath = true,

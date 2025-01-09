@@ -8,6 +8,7 @@ public partial class PaxCalendar // Complements
     // REVIEW(code): MinMonthsInYear
     // Make it a constant via T4 and add it to the parameters to be set for a
     // non-regular calendar (CodeTemplates/README.txt)?
+    // Mieux: utiliser un "scope" dédié à ce calendrier.
     internal const int MinMonthsInYear = 13;
 
     /// <summary>

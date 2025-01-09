@@ -42,7 +42,7 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     public PaxCalendar() : this(new PaxSchema()) { }
 
     private PaxCalendar(PaxSchema schema)
-        : base(DisplayName, new StandardScope(schema, DayZero.SundayBeforeGregorian))
+        : base(DisplayName, new PaxScope(schema, DayZero.SundayBeforeGregorian))
     {
         Schema = schema;
     }
@@ -56,12 +56,12 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     /// <summary>
     /// Gets the earliest supported year.
     /// </summary>
-    public static int MinYear => StandardScope.MinYear;
+    public static int MinYear => PaxScope.MinYear;
 
     /// <summary>
     /// Gets the latest supported year.
     /// </summary>
-    public static int MaxYear => StandardScope.MaxYear;
+    public static int MaxYear => PaxScope.MaxYear;
 
     /// <summary>
     /// Gets the schema.
@@ -777,7 +777,7 @@ public partial struct PaxDate // Non-standard math ops
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+        if (newY < PaxScope.MinYear || newY > PaxScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
         // NB: AdditionRule.Truncate.
@@ -1004,7 +1004,7 @@ public partial struct PaxMonth // Factories & conversions
     public static PaxMonth? TryCreate(int year, int month)
     {
         var sch = Calendar.Schema;
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
+        bool ok = year >= PaxScope.MinYear && year <= PaxScope.MaxYear
             && month >= 1
             && (month <= PaxCalendar.MinMonthsInYear
                 || month <= sch.CountMonthsInYear(year));
@@ -1441,7 +1441,7 @@ public partial struct PaxMonth // Non-standard math ops
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+        if (newY < PaxScope.MinYear || newY > PaxScope.MaxYear)
             ThrowHelpers.ThrowMonthOverflow();
 
         // NB: AdditionRule.Truncate.
@@ -1499,7 +1499,7 @@ public partial struct PaxYear // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to 9998.</para></summary>
-    private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
+    private const int MaxYearsSinceEpoch = PaxScope.MaxYear - 1;
 
     /// <summary>
     /// Represents the count of consecutive years since the epoch
@@ -1517,7 +1517,7 @@ public partial struct PaxYear // Preamble
     /// outside the range of years supported values.</exception>
     public PaxYear(int year)
     {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+        if (year < PaxScope.MinYear || year > PaxScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
 
         _yearsSinceEpoch = (ushort)(year - 1);
@@ -1611,7 +1611,7 @@ public partial struct PaxYear // Factories & conversions
     [Pure]
     public static PaxYear? TryCreate(int year)
     {
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        bool ok = year >= PaxScope.MinYear && year <= PaxScope.MaxYear;
         return ok ? UnsafeCreate(year) : null;
     }
 
