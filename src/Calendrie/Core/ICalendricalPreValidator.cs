@@ -3,7 +3,6 @@
 
 namespace Calendrie.Core;
 
-using Calendrie.Core.Schemas;
 using Calendrie.Core.Validation;
 
 #region Developer Notes
@@ -91,10 +90,7 @@ public interface ICalendricalPreValidator
 
         return schema.Profile switch
         {
-            CalendricalProfile.Solar12 =>
-                schema is GregorianSchema ? GregorianPreValidator.Instance
-                : schema is JulianSchema ? JulianPreValidator.Instance
-                : new Solar12PreValidator(schema),
+            CalendricalProfile.Solar12 => new Solar12PreValidator(schema),
             CalendricalProfile.Solar13 => new Solar13PreValidator(schema),
             CalendricalProfile.Lunar => new LunarPreValidator(schema),
             CalendricalProfile.Lunisolar => new LunisolarPreValidator(schema),

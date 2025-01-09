@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Utilities;
+using Calendrie.Core.Validation;
 
 // year > 0 but SupportedYearsCore is still equal to Maximal32.
 // Do NOT add Debug.Assert() to check that y > 0 or daysSinceEpoch >= 0. It is
@@ -21,7 +22,10 @@ public sealed partial class CivilSchema : GJSchema, ISchemaActivator<CivilSchema
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilSchema"/> class.
     /// </summary>
-    internal CivilSchema() : base(DefaultSupportedYears.WithMin(1)) { }
+    internal CivilSchema() : base(DefaultSupportedYears.WithMin(1))
+    {
+        PreValidator = GregorianPreValidator.Instance;
+    }
 
     /// <inheritdoc />
     [Pure]

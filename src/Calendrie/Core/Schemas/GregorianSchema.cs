@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Utilities;
+using Calendrie.Core.Validation;
 
 /// <summary>
 /// Represents the Gregorian schema.
@@ -47,7 +48,10 @@ public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<Gregori
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianSchema"/> class.
     /// </summary>
-    internal GregorianSchema() : base(DefaultSupportedYears) { }
+    internal GregorianSchema() : base(DefaultSupportedYears)
+    {
+        PreValidator = GregorianPreValidator.Instance;
+    }
 
     /// <summary>
     /// Gets the number of days in each century of the first 4-century cycle, the one starting

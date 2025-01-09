@@ -4,6 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Utilities;
+using Calendrie.Core.Validation;
 
 /// <summary>
 /// Represents the Julian schema.
@@ -23,7 +24,10 @@ public sealed partial class JulianSchema : GJSchema, ISchemaActivator<JulianSche
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianSchema"/> class.
     /// </summary>
-    internal JulianSchema() : base(DefaultSupportedYears) { }
+    internal JulianSchema() : base(DefaultSupportedYears)
+    {
+        PreValidator = JulianPreValidator.Instance;
+    }
 
     /// <inheritdoc />
     [Pure]

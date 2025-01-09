@@ -27,7 +27,7 @@ type CivilTests() =
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Solar12
-    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<Solar12PreValidator>()
+    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<GregorianPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
     override x.SupportedYears_Prop() =

@@ -20,6 +20,7 @@ abstract Calendrie.Core.RegularSchema.MonthsInYear.get -> int
 abstract Calendrie.Hemerology.Calendar.CountDaysInMonth(int year, int month) -> int
 abstract Calendrie.Hemerology.Calendar.CountDaysInYear(int year) -> int
 abstract Calendrie.Hemerology.CalendarScope.ValidateOrdinal(int year, int dayOfYear, string? paramName = null) -> void
+abstract Calendrie.Hemerology.CalendarScope.ValidateYear(int year, string? paramName = null) -> void
 abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonth(int year, int month, string? paramName = null) -> void
 abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
 Calendrie.AdditionRule
@@ -251,12 +252,6 @@ Calendrie.Core.Intervals.UpperRay<T>.SetEquals(Calendrie.Core.Intervals.UpperRay
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay() -> void
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay(T min) -> void
 Calendrie.Core.ISchemaActivator<TSchema>
-Calendrie.Core.IYearsValidator
-Calendrie.Core.IYearsValidator.CheckLowerBound(int year) -> void
-Calendrie.Core.IYearsValidator.CheckOverflow(int year) -> void
-Calendrie.Core.IYearsValidator.CheckUpperBound(int year) -> void
-Calendrie.Core.IYearsValidator.Range.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.IYearsValidator.Validate(int year, string? paramName = null) -> void
 Calendrie.Core.LimitSchema
 Calendrie.Core.LimitSchema.GetDateParts(int daysSinceEpoch) -> Calendrie.Core.Yemoda
 Calendrie.Core.LimitSchema.GetDateParts(int y, int doy) -> Calendrie.Core.Yemoda
@@ -420,8 +415,6 @@ Calendrie.Hemerology.CalendarScope.PreValidator.get -> Calendrie.Core.ICalendric
 Calendrie.Hemerology.CalendarScope.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Hemerology.CalendarScope.Segment.get -> Calendrie.Core.CalendricalSegment!
 Calendrie.Hemerology.CalendarScope.Validate(Calendrie.DayNumber dayNumber) -> void
-Calendrie.Hemerology.CalendarScope.ValidateYear(int year, string? paramName = null) -> void
-Calendrie.Hemerology.CalendarScope.YearsValidator.get -> Calendrie.Core.IYearsValidator!
 Calendrie.Hemerology.IAbsoluteDate
 Calendrie.Hemerology.IAbsoluteDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Hemerology.IAbsoluteDate.DayOfWeek.get -> System.DayOfWeek
@@ -1958,7 +1951,6 @@ static Calendrie.Systems.GregorianCalendar.MaxYear.get -> int
 static Calendrie.Systems.GregorianCalendar.MinYear.get -> int
 static Calendrie.Systems.GregorianDate.Calendar.get -> Calendrie.Systems.GregorianCalendar!
 static Calendrie.Systems.GregorianDate.Create(int year, int month, int day) -> Calendrie.Systems.GregorianDate
-static Calendrie.Systems.GregorianDate.FromCivilDate(Calendrie.Systems.CivilDate date) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.Max(Calendrie.Systems.GregorianDate x, Calendrie.Systems.GregorianDate y) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.MaxValue.get -> Calendrie.Systems.GregorianDate
