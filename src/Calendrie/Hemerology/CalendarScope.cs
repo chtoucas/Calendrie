@@ -77,8 +77,8 @@ public abstract partial class CalendarScope
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="DayNumber"/> is outside the
-    /// range of supported values or not.
+    /// Checks whether the specified <see cref="DayNumber"/> is outside the range
+    /// of supported values or not.
     /// </summary>
     /// <exception cref="OverflowException"><paramref name="dayNumber"/> would
     /// overflow the range of supported values.</exception>
@@ -88,8 +88,8 @@ public abstract partial class CalendarScope
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="DayNumber"/> is greater than
-    /// the upper bound of the range of supported values or not.
+    /// Checks whether the specified <see cref="DayNumber"/> is greater than the
+    /// upper bound of the range of supported values or not.
     /// </summary>
     /// <exception cref="OverflowException">The value is greater than the upper
     /// bound of the range of supported values.</exception>
@@ -99,8 +99,8 @@ public abstract partial class CalendarScope
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="DayNumber"/> is less than
-    /// the lower bound of the range of supported values or not.
+    /// Checks whether the specified <see cref="DayNumber"/> is less than the
+    /// lower bound of the range of supported values or not.
     /// </summary>
     /// <exception cref="OverflowException">The value is less than the lower
     /// bound of the range of supported values.</exception>
