@@ -34,6 +34,10 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
         _minDaysInYear = schema.MinDaysInYear;
     }
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public bool CheckMonth(int y, int month) =>
         month >= 1 && month <= _schema.CountMonthsInYear(y);
@@ -46,6 +50,10 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
     /// <inheritdoc />
     public bool CheckDayOfYear(int y, int dayOfYear) =>
         dayOfYear >= 1 && dayOfYear <= _schema.CountDaysInYear(y);
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)

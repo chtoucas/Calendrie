@@ -34,6 +34,10 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
         _schema = schema;
     }
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public bool CheckMonth(int y, int month) =>
         month >= 1 && month <= _schema.CountMonthsInYear(y);
@@ -48,6 +52,10 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     public bool CheckDayOfYear(int y, int dayOfYear) =>
         dayOfYear >= 1
         && (dayOfYear <= Lunisolar.MinDaysInYear || dayOfYear <= _schema.CountDaysInYear(y));
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)

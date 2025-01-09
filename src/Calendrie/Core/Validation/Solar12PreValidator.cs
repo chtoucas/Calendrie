@@ -33,6 +33,10 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
         _schema = schema;
     }
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public bool CheckMonth(int y, int month) =>
         month >= 1 && month <= Solar12.MonthsInYear;
@@ -47,6 +51,10 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
     public bool CheckDayOfYear(int y, int dayOfYear) =>
         dayOfYear >= 1
         && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= _schema.CountDaysInYear(y));
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)

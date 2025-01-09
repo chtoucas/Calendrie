@@ -27,6 +27,10 @@ internal sealed class GregorianPreValidator : ICalendricalPreValidator
     /// </summary>
     public static GregorianPreValidator Instance { get; } = new();
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public bool CheckMonth(int y, int month) =>
         month >= 1 && month <= Solar12.MonthsInYear;
@@ -41,6 +45,10 @@ internal sealed class GregorianPreValidator : ICalendricalPreValidator
     public bool CheckDayOfYear(int y, int dayOfYear) =>
         dayOfYear >= 1
         && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= GregorianFormulae.CountDaysInYear(y));
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)

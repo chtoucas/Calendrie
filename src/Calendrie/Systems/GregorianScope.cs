@@ -58,22 +58,30 @@ internal sealed class GregorianScope : CalendarScope
         Debug.Assert(schema.SupportedYears == SupportedYears);
     }
 
-    /// <summary>
-    /// Checks the specified year.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool CheckYearImpl(int year) => year >= MinYear && year <= MaxYear;
+    //
+    // Soft validation
+    //
 
     /// <summary>
-    /// Checks the specified month components.
+    /// Checks whether the specified year is valid or not.
+    /// <para>The range of supported years being fixed, this method should only
+    /// be used by <see cref="CheckYear(int)"/>.</para>
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool CheckYearMonthImpl(int year, int month) =>
+    private static bool CheckYearImpl(int year) => year >= MinYear && year <= MaxYear;
+
+    /// <summary>
+    /// Checks whether the specified month components are valid or not.
+    /// <para>The calendar being regular, this method should only be used by
+    /// <see cref="CheckYearMonth(int, int)"/>.</para>
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool CheckYearMonthImpl(int year, int month) =>
         year >= MinYear && year <= MaxYear
         && month >= 1 && month <= Solar12.MonthsInYear;
 
     /// <summary>
-    /// Checks the specified date components.
+    /// Checks whether the specified date components are valid or not.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool CheckYearMonthDayImpl(int year, int month, int day) =>
@@ -83,7 +91,7 @@ internal sealed class GregorianScope : CalendarScope
         && (day <= Solar.MinDaysInMonth || day <= GregorianFormulae.CountDaysInMonth(year, month));
 
     /// <summary>
-    /// Checks the specified ordinal components.
+    /// Checks whether the specified ordinal components are valid or not.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool CheckOrdinalImpl(int year, int dayOfYear) =>
@@ -91,24 +99,32 @@ internal sealed class GregorianScope : CalendarScope
         && dayOfYear >= 1
         && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= GregorianFormulae.CountDaysInYear(year));
 
+    //
+    // Soft validation
+    //
+
     /// <summary>
     /// Validates the specified year.
+    /// <para>The range of supported years being fixed, this method should only
+    /// be used by <see cref="ValidateYear(int, string?)"/>.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void ValidateYearImpl(int year, string? paramName = null)
+    private static void ValidateYearImpl(int year, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
     }
 
     /// <summary>
     /// Validates the specified month.
+    /// <para>The calendar being regular, this method should only be used by
+    /// <see cref="ValidateYearMonth(int, int, string?)"/>.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void ValidateYearMonthImpl(int year, int month, string? paramName = null)
+    private static void ValidateYearMonthImpl(int year, int month, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
@@ -154,6 +170,10 @@ internal sealed class GregorianScope : CalendarScope
         }
     }
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public sealed override bool CheckYear(int year) => CheckYearImpl(year);
 
@@ -168,6 +188,10 @@ internal sealed class GregorianScope : CalendarScope
     /// <inheritdoc />
     public sealed override bool CheckOrdinal(int year, int dayOfYear) =>
         CheckOrdinalImpl(year, dayOfYear);
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public sealed override void ValidateYear(int year, string? paramName = null) =>

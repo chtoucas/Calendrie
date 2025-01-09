@@ -53,6 +53,10 @@ internal sealed class StandardScope : CalendarScope
         Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
     }
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public sealed override bool CheckYear(int year) => year >= MinYear && year <= MaxYear;
 
@@ -67,6 +71,10 @@ internal sealed class StandardScope : CalendarScope
     /// <inheritdoc />
     public sealed override bool CheckOrdinal(int year, int dayOfYear) =>
         year >= MinYear && year <= MaxYear && PreValidator.CheckDayOfYear(year, dayOfYear);
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public sealed override void ValidateYear(int year, string? paramName = null)

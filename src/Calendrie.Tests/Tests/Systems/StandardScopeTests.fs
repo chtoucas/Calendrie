@@ -130,22 +130,22 @@ module CivilCase =
     let invalidDayOfYearFieldData = dataSet.InvalidDayOfYearFieldData
     let invalidDayFieldData = dataSet.InvalidDayFieldData
 
-    // ValidateYearMonthImpl()
+    //// ValidateYearMonthImpl()
 
-    [<Theory; MemberData(nameof(invalidYearData))>]
-    let ``ValidateYearMonthImpl() throws when "year" is out of range`` y =
-        outOfRangeExn "year" (fun () -> CivilScope.ValidateYearMonthImpl(y, 1))
-        outOfRangeExn "y" (fun () -> CivilScope.ValidateYearMonthImpl(y, 1, nameof(y)))
+    //[<Theory; MemberData(nameof(invalidYearData))>]
+    //let ``ValidateYearMonthImpl() throws when "year" is out of range`` y =
+    //    outOfRangeExn "year" (fun () -> CivilScope.ValidateYearMonthImpl(y, 1))
+    //    outOfRangeExn "y" (fun () -> CivilScope.ValidateYearMonthImpl(y, 1, nameof(y)))
 
-    [<Theory; MemberData(nameof(invalidMonthFieldData))>]
-    let ``ValidateYearMonthImpl() throws when "month" is out of range`` y m =
-        outOfRangeExn "month" (fun () -> CivilScope.ValidateYearMonthImpl(y, m))
-        outOfRangeExn "m" (fun () -> CivilScope.ValidateYearMonthImpl(y, m, nameof(m)))
+    //[<Theory; MemberData(nameof(invalidMonthFieldData))>]
+    //let ``ValidateYearMonthImpl() throws when "month" is out of range`` y m =
+    //    outOfRangeExn "month" (fun () -> CivilScope.ValidateYearMonthImpl(y, m))
+    //    outOfRangeExn "m" (fun () -> CivilScope.ValidateYearMonthImpl(y, m, nameof(m)))
 
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``ValidateYearMonth() does not throw when the input is valid`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        CivilScope.ValidateYearMonthImpl(y, m)
+    //[<Theory; MemberData(nameof(monthInfoData))>]
+    //let ``ValidateYearMonth() does not throw when the input is valid`` (x: MonthInfo) =
+    //    let y, m = x.Yemo.Deconstruct()
+    //    CivilScope.ValidateYearMonthImpl(y, m)
 
     // ValidateYearMonthDayImpl()
 

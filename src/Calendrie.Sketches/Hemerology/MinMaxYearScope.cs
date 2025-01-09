@@ -193,6 +193,10 @@ public sealed class MinMaxYearScope : CalendarScope
 
     #endregion
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public sealed override bool CheckYear(int year) => year >= MinYear && year <= MaxYear;
 
@@ -207,6 +211,10 @@ public sealed class MinMaxYearScope : CalendarScope
     /// <inheritdoc />
     public sealed override bool CheckOrdinal(int year, int dayOfYear) =>
         year >= MinYear && year <= MaxYear && PreValidator.CheckDayOfYear(year, dayOfYear);
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public sealed override void ValidateYear(int year, string? paramName = null)

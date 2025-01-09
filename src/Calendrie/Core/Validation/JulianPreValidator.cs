@@ -25,12 +25,9 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     /// </summary>
     public static JulianPreValidator Instance { get; } = new();
 
-    /// <inheritdoc />
-    public void ValidateMonth(int y, int month, string? paramName = null)
-    {
-        if (month < 1 || month > Solar12.MonthsInYear)
-            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
-    }
+    //
+    // Soft validation
+    //
 
     /// <inheritdoc />
     public bool CheckMonth(int y, int month) =>
@@ -46,6 +43,17 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     public bool CheckDayOfYear(int y, int dayOfYear) =>
         dayOfYear >= 1
         && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= JulianFormulae.CountDaysInYear(y));
+
+    //
+    // Hard validation
+    //
+
+    /// <inheritdoc />
+    public void ValidateMonth(int y, int month, string? paramName = null)
+    {
+        if (month < 1 || month > Solar12.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+    }
 
     /// <inheritdoc />
     public void ValidateMonthDay(int y, int month, int day, string? paramName = null)

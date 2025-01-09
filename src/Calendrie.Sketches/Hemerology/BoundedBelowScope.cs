@@ -154,6 +154,10 @@ public sealed class BoundedBelowScope : CalendarScope
 
     #endregion
 
+    //
+    // Soft validation
+    //
+
     /// <inheritdoc />
     public sealed override bool CheckYear(int year) => year >= MinYear && year <= MaxYear;
 
@@ -174,6 +178,10 @@ public sealed class BoundedBelowScope : CalendarScope
     {
         throw new NotImplementedException();
     }
+
+    //
+    // Hard validation
+    //
 
     /// <inheritdoc />
     public sealed override void ValidateYear(int year, string? paramName = null)
