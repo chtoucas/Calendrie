@@ -8,6 +8,7 @@ using Calendrie.Systems;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
+[Obsolete("To be removed")]
 public static class ProlepticScopeFacts
 {
     public static readonly TheoryData<int> InvalidYearData =
@@ -34,6 +35,7 @@ public static class ProlepticScopeFacts
 /// <summary>
 /// Provides data-driven tests for <see cref="ProlepticScope"/>.
 /// </summary>
+[Obsolete("To be removed")]
 internal abstract class ProlepticScopeFacts<TDataSet> :
     CalendarScopeFacts<CalendarScope, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>

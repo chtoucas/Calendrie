@@ -80,10 +80,10 @@ module Bundles =
         static member MonthsInYear() = JulianCalendar.MonthsInYear === 12
 
         [<Fact>]
-        static member MinYear() = JulianCalendar.MinYear === ProlepticScope.MinYear
+        static member MinYear() = JulianCalendar.MinYear === JulianScope.MinYear
 
         [<Fact>]
-        static member MaxYear() = JulianCalendar.MaxYear === ProlepticScope.MaxYear
+        static member MaxYear() = JulianCalendar.MaxYear === JulianScope.MaxYear
 
     [<Sealed>]
     type DateFacts() =

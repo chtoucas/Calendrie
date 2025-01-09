@@ -10,6 +10,7 @@ using Calendrie.Core.Utilities;
 /// Represents the default validator for a range of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
+[Obsolete("To be removed")]
 internal sealed class YearsValidator : IYearsValidator
 {
     /// <summary>

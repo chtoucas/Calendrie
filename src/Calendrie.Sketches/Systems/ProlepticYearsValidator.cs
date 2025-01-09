@@ -11,6 +11,7 @@ using Calendrie.Core.Utilities;
 /// Represents a validator for the range [-999_998..999_999] of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
+[Obsolete("To be removed")]
 internal sealed class ProlepticYearsValidator : IYearsValidator
 {
     // Even if this class becomes public, these constants MUST stay private

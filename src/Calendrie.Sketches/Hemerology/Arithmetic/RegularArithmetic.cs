@@ -219,7 +219,7 @@ public partial class RegularArithmetic // Operations on MonthParts
 
         m = 1 + MathZ.Modulo(checked(m - 1 + months), MonthsInYear, out int y0);
         y += y0;
-        YearsValidator.Validate(y);
+        YearsChecker.CheckOverflow(y);
 
         return new MonthParts(y, m);
     }
@@ -248,7 +248,7 @@ public partial class RegularArithmetic // Non-standard operations
         var (y, m, d) = parts;
 
         y = checked(y + years);
-        YearsValidator.CheckOverflow(y);
+        YearsChecker.CheckOverflow(y);
 
         int daysInMonth = Schema.CountDaysInMonth(y, m);
         roundoff = Math.Max(0, d - daysInMonth);
@@ -269,7 +269,7 @@ public partial class RegularArithmetic // Non-standard operations
 
         m = 1 + MathZ.Modulo(checked(m - 1 + months), MonthsInYear, out int y0);
         y += y0;
-        YearsValidator.CheckOverflow(y);
+        YearsChecker.CheckOverflow(y);
 
         int daysInMonth = Schema.CountDaysInMonth(y, m);
         roundoff = Math.Max(0, d - daysInMonth);
@@ -289,7 +289,7 @@ public partial class RegularArithmetic // Non-standard operations
         var (y, doy) = parts;
 
         y = checked(y + years);
-        YearsValidator.CheckOverflow(y);
+        YearsChecker.CheckOverflow(y);
 
         int daysInYear = Schema.CountDaysInYear(y);
         roundoff = Math.Max(0, doy - daysInYear);
@@ -309,7 +309,7 @@ public partial class RegularArithmetic // Non-standard operations
         var (y, m) = parts;
 
         y = checked(y + years);
-        YearsValidator.CheckOverflow(y);
+        YearsChecker.CheckOverflow(y);
 
         roundoff = 0;
         return new MonthParts(y, m);

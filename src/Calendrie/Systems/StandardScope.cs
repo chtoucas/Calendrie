@@ -18,7 +18,7 @@ internal sealed class StandardScope : CalendarScope
     // Even if this class becomes public, these constants MUST stay internal
     // in case we change their values in the future.
     //
-    // WARNING: if you change these values, verify that it's compatible with
+    // WARNING: if you change these values, verify that they are compatible with
     // XXXDate.ToString() which expects years to be > 0 and < 10_000, ie
     // length <= 4 and no negative values.
     // More importantly, all year types for non-proleptic calendars expect the
@@ -49,7 +49,15 @@ internal sealed class StandardScope : CalendarScope
     public StandardScope(ICalendricalSchema schema, DayNumber epoch)
         : base(CalendricalSegment.Create(schema, SupportedYears), epoch)
     {
-        YearsValidator = new StandardYearsValidator();
+        // Check the constants Min/MaxYear.
+        Debug.Assert(Segment != null);
+        Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
+    }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYear(int year, string? paramName = null)
+    {
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
     }
 
     /// <inheritdoc />

@@ -6,7 +6,6 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
-using Calendrie.Core.Validation;
 
 /// <summary>
 /// Defines the scope of application of a calendar, a range of days, and
@@ -31,9 +30,6 @@ public abstract partial class CalendarScope
         PreValidator = Schema.PreValidator;
 
         Epoch = epoch;
-
-        YearsValidator = new YearsValidator(segment.SupportedYears);
-
         Domain = Range.FromEndpoints(segment.SupportedDays.Endpoints.Select(x => epoch + x));
     }
 
@@ -43,7 +39,7 @@ public abstract partial class CalendarScope
     public DayNumber Epoch { get; }
 
     /// <summary>
-    /// Gets the range of supported values for a <see cref="DayNumber"/>.
+    /// Gets the range of supported <see cref="DayNumber"/> values.
     /// </summary>
     public Range<DayNumber> Domain { get; }
 
@@ -51,11 +47,6 @@ public abstract partial class CalendarScope
     /// Gets the segment of supported days.
     /// </summary>
     public CalendricalSegment Segment { get; }
-
-    /// <summary>
-    /// Gets the validator for the range of supported years.
-    /// </summary>
-    protected IYearsValidator YearsValidator { get; private protected init; }
 
     /// <summary>
     /// Gets the (cached) pre-validator.
@@ -123,8 +114,7 @@ public abstract partial class CalendarScope
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
-    public void ValidateYear(int year, string? paramName = null) =>
-        YearsValidator.Validate(year, paramName);
+    public abstract void ValidateYear(int year, string? paramName = null);
 
     /// <summary>
     /// Validates the specified month.

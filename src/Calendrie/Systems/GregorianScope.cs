@@ -5,6 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie;
 using Calendrie.Core;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -29,25 +30,43 @@ internal sealed class GregorianScope : CalendarScope
     /// Represents the earliest supported year.
     /// <para>This field is a constant equal to -999_998.</para>
     /// </summary>
-    internal const int MinYear = ProlepticScope.MinYear;
+    internal const int MinYear = -999_998;
 
     /// <summary>
     /// Represents the latest supported year.
     /// <para>This field is a constant equal to 999_999.</para>
     /// </summary>
-    internal const int MaxYear = ProlepticScope.MaxYear;
+    internal const int MaxYear = 999_999;
+
+    /// <summary>
+    /// Represents the range of supported years.
+    /// </summary>
+    public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianScope"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    public GregorianScope(GregorianSchema schema) :
-        base(CalendricalSegment.Create(schema, ProlepticScope.SupportedYears), DayZero.NewStyle)
+    public GregorianScope(GregorianSchema schema)
+        : base(CalendricalSegment.Create(schema, SupportedYears), DayZero.NewStyle)
     {
-        Debug.Assert(schema.SupportedYears == ProlepticScope.SupportedYears);
+        // Check the constants Min/MaxYear.
+        Debug.Assert(Segment != null);
+        Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
+        // This scope should use the largest possible range of years.
+        Debug.Assert(schema.SupportedYears == SupportedYears);
+    }
 
-        YearsValidator = new ProlepticYearsValidator();
+    /// <summary>
+    /// Validates the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ValidateYearImpl(int year, string? paramName = null)
+    {
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
     }
 
     /// <summary>
@@ -101,6 +120,10 @@ internal sealed class GregorianScope : CalendarScope
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYear(int year, string? paramName = null) =>
+        ValidateYearImpl(year, paramName);
 
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null) =>

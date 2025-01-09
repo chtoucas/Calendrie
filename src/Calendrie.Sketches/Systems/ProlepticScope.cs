@@ -10,6 +10,7 @@ using Calendrie.Core.Intervals;
 /// supporting <i>all</i> dates within the range [-999_998..999_999] of years.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
+[Obsolete("To be removed")]
 internal static class ProlepticScope
 {
     // Even if this class becomes public, these constants MUST stay internal

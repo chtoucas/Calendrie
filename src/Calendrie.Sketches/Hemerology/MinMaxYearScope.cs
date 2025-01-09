@@ -5,6 +5,7 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents a scope for a calendar supporting <i>all</i> dates within a range
@@ -23,10 +24,21 @@ public sealed class MinMaxYearScope : CalendarScope
     {
         Debug.Assert(segment != null);
         Debug.Assert(segment.IsComplete);
+
+        (MinYear, MaxYear) = segment.SupportedYears.Endpoints;
     }
 
-    #region Factories
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
+    public int MinYear { get; }
 
+    /// <summary>
+    /// Gets the latest supported year.
+    /// </summary>
+    public int MaxYear { get; }
+
+    #region Factories
 
     /// <summary>
     /// Creates the default maximal scope for the specified schema type and epoch.
@@ -182,23 +194,29 @@ public sealed class MinMaxYearScope : CalendarScope
     #endregion
 
     /// <inheritdoc />
+    public sealed override void ValidateYear(int year, string? paramName = null)
+    {
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+    }
+
+    /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)
     {
-        YearsValidator.Validate(year, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         PreValidator.ValidateMonth(year, month, paramName);
     }
 
     /// <inheritdoc />
     public sealed override void ValidateYearMonthDay(int year, int month, int day, string? paramName = null)
     {
-        YearsValidator.Validate(year, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         PreValidator.ValidateMonthDay(year, month, day, paramName);
     }
 
     /// <inheritdoc />
     public sealed override void ValidateOrdinal(int year, int dayOfYear, string? paramName = null)
     {
-        YearsValidator.Validate(year, paramName);
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         PreValidator.ValidateDayOfYear(year, dayOfYear, paramName);
     }
 }

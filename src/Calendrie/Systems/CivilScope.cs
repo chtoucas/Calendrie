@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -37,10 +38,23 @@ internal sealed class CivilScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    public CivilScope(CivilSchema schema) :
-        base(CalendricalSegment.Create(schema, StandardScope.SupportedYears), DayZero.NewStyle)
+    public CivilScope(CivilSchema schema)
+        : base(CalendricalSegment.Create(schema, StandardScope.SupportedYears), DayZero.NewStyle)
     {
-        YearsValidator = new StandardYearsValidator();
+        // Check the constants Min/MaxYear.
+        Debug.Assert(Segment != null);
+        Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
+    }
+
+    /// <summary>
+    /// Validates the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ValidateYearImpl(int year, string? paramName = null)
+    {
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
     }
 
     /// <summary>
@@ -94,6 +108,10 @@ internal sealed class CivilScope : CalendarScope
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYear(int year, string? paramName = null) =>
+        ValidateYearImpl(year, paramName);
 
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null) =>

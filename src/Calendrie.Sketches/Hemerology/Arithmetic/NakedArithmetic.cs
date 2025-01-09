@@ -5,7 +5,6 @@ namespace Calendrie.Hemerology.Arithmetic;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Validation;
 
 // Works even if the boundary years are not complete.
 
@@ -33,7 +32,7 @@ public abstract partial class NakedArithmetic
 
         DaysSinceEpochChecker = new OverflowChecker(segment.SupportedDays);
         MonthsSinceEpochChecker = new OverflowChecker(segment.SupportedMonths);
-        YearsValidator = new YearsValidator(segment.SupportedYears);
+        YearsChecker = new OverflowChecker(segment.SupportedYears);
     }
 
     /// <summary>
@@ -64,7 +63,7 @@ public abstract partial class NakedArithmetic
     /// <summary>
     /// Gets the validator for the range of supported years.
     /// </summary>
-    protected IYearsValidator YearsValidator { get; init; }
+    protected OverflowChecker YearsChecker { get; init; }
 
     /// <summary>
     /// Creates the default arithmetic object for the specified schema and range

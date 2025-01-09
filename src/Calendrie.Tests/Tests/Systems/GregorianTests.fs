@@ -100,10 +100,10 @@ module Bundles =
         static member MonthsInYear() = GregorianCalendar.MonthsInYear === 12
 
         [<Fact>]
-        static member MinYear() = GregorianCalendar.MinYear === ProlepticScope.MinYear
+        static member MinYear() = GregorianCalendar.MinYear === GregorianScope.MinYear
 
         [<Fact>]
-        static member MaxYear() = GregorianCalendar.MaxYear === ProlepticScope.MaxYear
+        static member MaxYear() = GregorianCalendar.MaxYear === GregorianScope.MaxYear
 
     [<Sealed>]
     type DateFacts() =

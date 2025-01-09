@@ -13,6 +13,7 @@ using Calendrie.Core.Intervals;
 /// <summary>
 /// Defines a validator for a range of years.
 /// </summary>
+[Obsolete("To be removed")]
 public interface IYearsValidator
 {
     /// <summary>
