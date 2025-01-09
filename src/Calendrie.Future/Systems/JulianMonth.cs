@@ -56,7 +56,12 @@ public partial struct JulianMonth // Preamble
     /// range of supported years.</exception>
     public JulianMonth(int year, int month)
     {
-        JulianScope.ValidateYearMonthImpl(year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > JulianScope.ValidateYearMonthImpl(year, month);
+        if (year < JulianScope.MinYear || year > JulianScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > JulianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }

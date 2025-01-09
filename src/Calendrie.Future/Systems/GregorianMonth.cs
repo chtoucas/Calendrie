@@ -56,7 +56,12 @@ public partial struct GregorianMonth // Preamble
     /// range of supported years.</exception>
     public GregorianMonth(int year, int month)
     {
-        GregorianScope.ValidateYearMonthImpl(year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > GregorianScope.ValidateYearMonthImpl(year, month);
+        if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }

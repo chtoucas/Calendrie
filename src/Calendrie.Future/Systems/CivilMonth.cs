@@ -30,7 +30,12 @@ public partial struct CivilMonth // Preamble
     /// range of years.</exception>
     public CivilMonth(int year, int month)
     {
-        CivilScope.ValidateYearMonthImpl(year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > CivilScope.ValidateYearMonthImpl(year, month);
+        if (year < CivilScope.MinYear || year > CivilScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > CivilCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }
