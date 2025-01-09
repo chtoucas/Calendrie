@@ -42,8 +42,8 @@ public interface ICalendricalPreValidator
     /// <summary>
     /// Checks whether the of the specified month of the year is well-formed or
     /// not.
-    /// <para>For regular calendars, it's advisable to write the validation in
-    /// situ.</para>
+    /// <para>For regular calendars, it's advisable to write the validation
+    /// <i>in situ</i>.</para>
     /// <para>This method does NOT check <paramref name="y"/>.</para>
     /// </summary>
     bool CheckMonth(int y, int month);
@@ -67,8 +67,8 @@ public interface ICalendricalPreValidator
 
     /// <summary>
     /// Validates the well-formedness of the specified month of the year.
-    /// <para>For regular calendars, it's advisable to write the validation in
-    /// situ.</para>
+    /// <para>For regular calendars, it's advisable to write the validation
+    /// <i>in situ</i>.</para>
     /// <para>This method does NOT validate <paramref name="y"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the

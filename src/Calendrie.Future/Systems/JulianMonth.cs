@@ -169,29 +169,6 @@ public partial struct JulianMonth // Preamble
     }
 }
 
-public partial struct JulianMonth // Adjustments
-{
-    /// <inheritdoc />
-    [Pure]
-    public JulianMonth WithYear(int newYear)
-    {
-        int m = Month;
-        // Even when "newYear" is valid, we must re-check "m".
-        JulianScope.ValidateYearMonthImpl(newYear, m, nameof(newYear));
-        return UnsafeCreate(newYear, m);
-    }
-
-    /// <inheritdoc />
-    [Pure]
-    public JulianMonth WithMonth(int newMonth)
-    {
-        int y = Year;
-        // We already know that "y" is valid, we only need to check "newMonth".
-        Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        return UnsafeCreate(y, newMonth);
-    }
-}
-
 public partial struct JulianMonth // IDateSegment
 {
     /// <inheritdoc />

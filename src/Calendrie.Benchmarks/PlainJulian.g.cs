@@ -1125,8 +1125,15 @@ public partial struct PlainJulianMonth // Adjustments
     public PlainJulianMonth WithYear(int newYear)
     {
         int m = Month;
+
         // Even when "newYear" is valid, we must re-check "m".
-        Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear);
+        if (m < 1 || m > PlainJulianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
+
         return UnsafeCreate(newYear, m);
     }
 
@@ -1135,8 +1142,13 @@ public partial struct PlainJulianMonth // Adjustments
     public PlainJulianMonth WithMonth(int newMonth)
     {
         int y = Year;
+
         // We already know that "y" is valid, we only need to check "newMonth".
-        Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > PlainJulianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
         return UnsafeCreate(y, newMonth);
     }
 }
@@ -1665,7 +1677,11 @@ public partial struct PlainJulianYear // IMonthSegment
     public PlainJulianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
         return PlainJulianMonth.UnsafeCreate(Year, month);
     }
 }

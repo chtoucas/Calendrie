@@ -276,7 +276,11 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     public <#= Prefix #>Month GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
         return <#= Prefix #>Month.UnsafeCreate(Year, month);
     }
 }

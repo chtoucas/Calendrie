@@ -7,8 +7,7 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(code): see all refs to ValidateYearMonth() if we can inline the code.
-// Idem with PreValidator.ValidateMonth() and CheckMonth().
+// TODO(code): add warning (XML doc) for Civil/Gregorian/JulianScope.
 
 /// <summary>
 /// Defines the scope of application of a calendar, a range of days, and
@@ -129,8 +128,8 @@ public abstract partial class CalendarScope
 
     /// <summary>
     /// Checks whether the specified month components are valid or not.
-    /// <para>For regular calendars, it's advisable to write the validation in
-    /// situ.</para>
+    /// <para>For regular calendars, it's advisable to write the validation
+    /// <i>in situ</i>.</para>
     /// </summary>
     public abstract bool CheckYearMonth(int year, int month);
 
@@ -159,8 +158,8 @@ public abstract partial class CalendarScope
 
     /// <summary>
     /// Validates the specified month.
-    /// <para>For regular calendars, it's advisable to write the validation in
-    /// situ.</para>
+    /// <para>For regular calendars, it's advisable to write the validation
+    /// <i>in situ</i>.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>

@@ -115,6 +115,41 @@ public partial struct JulianMonth // Counting
 #endif
 }
 
+public partial struct JulianMonth // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public JulianMonth WithYear(int newYear)
+    {
+        int m = Month;
+
+        // Even when "newYear" is valid, we must re-check "m".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < JulianScope.MinYear || newYear > JulianScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear);
+        if (m < 1 || m > JulianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
+
+        return UnsafeCreate(newYear, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public JulianMonth WithMonth(int newMonth)
+    {
+        int y = Year;
+
+        // We already know that "y" is valid, we only need to check "newMonth".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > JulianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
+        return UnsafeCreate(y, newMonth);
+    }
+}
+
 public partial struct JulianMonth // IEquatable
 {
     /// <inheritdoc />
@@ -272,7 +307,11 @@ public partial struct JulianYear // IMonthSegment
     public JulianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
         return JulianMonth.UnsafeCreate(Year, month);
     }
 }

@@ -33,7 +33,6 @@ using Calendrie.Hemerology;
     // Month type
     protected sealed override void EmitMonthDecl() { }
     protected sealed override void EmitMonthPreambleRegular() { }
-    protected sealed override void EmitMonthAdjustmentsRegular() { }
     protected sealed override void EmitMonthDateSegmentRegular() { }
     protected sealed override void EmitMonthMath() { }
 

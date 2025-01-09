@@ -115,6 +115,41 @@ public partial struct GregorianMonth // Counting
 #endif
 }
 
+public partial struct GregorianMonth // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public GregorianMonth WithYear(int newYear)
+    {
+        int m = Month;
+
+        // Even when "newYear" is valid, we must re-check "m".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < GregorianScope.MinYear || newYear > GregorianScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear);
+        if (m < 1 || m > GregorianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
+
+        return UnsafeCreate(newYear, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public GregorianMonth WithMonth(int newMonth)
+    {
+        int y = Year;
+
+        // We already know that "y" is valid, we only need to check "newMonth".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > GregorianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
+        return UnsafeCreate(y, newMonth);
+    }
+}
+
 public partial struct GregorianMonth // IEquatable
 {
     /// <inheritdoc />
@@ -272,7 +307,11 @@ public partial struct GregorianYear // IMonthSegment
     public GregorianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
-        Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
         return GregorianMonth.UnsafeCreate(Year, month);
     }
 }

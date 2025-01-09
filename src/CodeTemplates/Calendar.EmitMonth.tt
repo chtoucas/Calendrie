@@ -575,8 +575,15 @@ public partial struct <#= Prefix #>Month // Adjustments
     public <#= Prefix #>Month WithYear(int newYear)
     {
         int m = Month;
+
         // Even when "newYear" is valid, we must re-check "m".
-        Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < <#= ScopeClass #>.MinYear || newYear > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear);
+        if (m < 1 || m > <#= Prefix #>Calendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
+
         return UnsafeCreate(newYear, m);
     }
 
@@ -585,8 +592,13 @@ public partial struct <#= Prefix #>Month // Adjustments
     public <#= Prefix #>Month WithMonth(int newMonth)
     {
         int y = Year;
+
         // We already know that "y" is valid, we only need to check "newMonth".
-        Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > <#= Prefix #>Calendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
         return UnsafeCreate(y, newMonth);
     }
 }
