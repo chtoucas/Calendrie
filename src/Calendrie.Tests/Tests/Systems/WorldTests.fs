@@ -58,7 +58,7 @@ module Methods =
     let ``CountDaysInWorldMonth()`` (info: YemoAnd<int>) =
         let (y, m, daysInMonth) = info.Deconstruct()
 
-        chr.CountDaysInWorldMonth(y, m) === daysInMonth
+        WorldCalendar.CountDaysInWorldMonth(y, m) === daysInMonth
 
 module Bundles =
     let dateInfoData = WorldDataSet.Instance.DateInfoData
