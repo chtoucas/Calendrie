@@ -47,7 +47,8 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
         if (month < 1 || month > _schema.CountMonthsInYear(y))
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
-            || (day > Lunisolar.MinDaysInMonth && day > _schema.CountDaysInMonth(y, month)))
+            || (day > Lunisolar.MinDaysInMonth
+                && day > _schema.CountDaysInMonth(y, month)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }
@@ -57,7 +58,8 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     public void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1
-            || (dayOfYear > Lunisolar.MinDaysInYear && dayOfYear > _schema.CountDaysInYear(y)))
+            || (dayOfYear > Lunisolar.MinDaysInYear
+                && dayOfYear > _schema.CountDaysInYear(y)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
@@ -67,7 +69,8 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
     {
         if (day < 1
-            || (day > Lunisolar.MinDaysInMonth && day > _schema.CountDaysInMonth(y, m)))
+            || (day > Lunisolar.MinDaysInMonth
+                && day > _schema.CountDaysInMonth(y, m)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }

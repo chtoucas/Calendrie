@@ -6,7 +6,7 @@ namespace Calendrie.Core.Validation;
 using Calendrie.Core.Utilities;
 
 /// <summary>
-/// Provides a plain implementation for <see cref="ICalendricalPreValidator"/>.
+/// Provides a plain implementation of <see cref="ICalendricalPreValidator"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 internal sealed class PlainPreValidator : ICalendricalPreValidator
@@ -46,6 +46,7 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
     {
         if (month < 1 || month > _schema.CountMonthsInYear(y))
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
+        // No fast track with MinDaysInMonth as it can be quite small.
         if (day < 1 || day > _schema.CountDaysInMonth(y, month))
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
     }
@@ -54,7 +55,8 @@ internal sealed class PlainPreValidator : ICalendricalPreValidator
     public void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1
-            || (dayOfYear > _minDaysInYear && dayOfYear > _schema.CountDaysInYear(y)))
+            || (dayOfYear > _minDaysInYear
+                && dayOfYear > _schema.CountDaysInYear(y)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }

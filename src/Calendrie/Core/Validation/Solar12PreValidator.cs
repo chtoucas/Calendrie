@@ -46,7 +46,8 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
         if (month < 1 || month > Solar12.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
-            || (day > Solar.MinDaysInMonth && day > _schema.CountDaysInMonth(y, month)))
+            || (day > Solar.MinDaysInMonth
+                && day > _schema.CountDaysInMonth(y, month)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }
@@ -56,7 +57,8 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
     public void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1
-            || (dayOfYear > Solar.MinDaysInYear && dayOfYear > _schema.CountDaysInYear(y)))
+            || (dayOfYear > Solar.MinDaysInYear
+                && dayOfYear > _schema.CountDaysInYear(y)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
@@ -66,7 +68,8 @@ internal sealed class Solar12PreValidator : ICalendricalPreValidator
     public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
     {
         if (day < 1
-            || (day > Solar.MinDaysInMonth && day > _schema.CountDaysInMonth(y, m)))
+            || (day > Solar.MinDaysInMonth
+                && day > _schema.CountDaysInMonth(y, m)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }

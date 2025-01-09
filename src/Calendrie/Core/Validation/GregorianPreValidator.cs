@@ -50,7 +50,8 @@ internal sealed class GregorianPreValidator : ICalendricalPreValidator
     public void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1
-            || (dayOfYear > Solar.MinDaysInYear && dayOfYear > GregorianFormulae.CountDaysInYear(y)))
+            || (dayOfYear > Solar.MinDaysInYear
+                && dayOfYear > GregorianFormulae.CountDaysInYear(y)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
@@ -60,7 +61,8 @@ internal sealed class GregorianPreValidator : ICalendricalPreValidator
     public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
     {
         if (day < 1
-            || (day > Solar.MinDaysInMonth && day > GregorianFormulae.CountDaysInMonth(y, m)))
+            || (day > Solar.MinDaysInMonth
+                && day > GregorianFormulae.CountDaysInMonth(y, m)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }

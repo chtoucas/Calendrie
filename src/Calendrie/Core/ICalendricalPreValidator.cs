@@ -98,7 +98,7 @@ public interface ICalendricalPreValidator
             CalendricalProfile.Solar13 => new Solar13PreValidator(schema),
             CalendricalProfile.Lunar => new LunarPreValidator(schema),
             CalendricalProfile.Lunisolar => new LunisolarPreValidator(schema),
-            // The default case should be unreachable. Anyway, even if it is
+            // The fall-back case should be unreachable. Anyway, even if it is
             // not a valid profile, the plain validator will still work.
             CalendricalProfile.Other or _ => new PlainPreValidator(schema)
         };

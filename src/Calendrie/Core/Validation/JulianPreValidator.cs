@@ -38,7 +38,8 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
         if (month < 1 || month > Solar12.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
-            || (day > Solar.MinDaysInMonth && day > JulianFormulae.CountDaysInMonth(y, month)))
+            || (day > Solar.MinDaysInMonth
+                && day > JulianFormulae.CountDaysInMonth(y, month)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }
@@ -48,7 +49,8 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     public void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1
-            || (dayOfYear > Solar.MinDaysInYear && dayOfYear > JulianFormulae.CountDaysInYear(y)))
+            || (dayOfYear > Solar.MinDaysInYear
+                && dayOfYear > JulianFormulae.CountDaysInYear(y)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
@@ -58,7 +60,8 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
     {
         if (day < 1
-            || (day > Solar.MinDaysInMonth && day > JulianFormulae.CountDaysInMonth(y, m)))
+            || (day > Solar.MinDaysInMonth
+                && day > JulianFormulae.CountDaysInMonth(y, m)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
         }
