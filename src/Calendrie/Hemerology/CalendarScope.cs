@@ -7,9 +7,8 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(code): add CheckXXX() variants. Optimize the Civil, Julian and Gregorian cases.
-// Optimize construction of TropicaliaMonth and others like with TryCreate()?
-// See all refs to ValidateYear() and ValidateYearMonth() where this can be done.
+// TODO(code): see all refs to ValidateYearMonth() if we can inline the code.
+// Idem with PreValidator.ValidateMonth() and CheckMonth().
 
 /// <summary>
 /// Defines the scope of application of a calendar, a range of days, and
@@ -62,6 +61,10 @@ public abstract partial class CalendarScope
     /// </summary>
     protected internal ICalendricalSchema Schema { get; }
 
+    //
+    // DayNumber validation
+    //
+
     /// <summary>
     /// Validates the specified <see cref="DayNumber"/> value.
     /// </summary>
@@ -113,30 +116,42 @@ public abstract partial class CalendarScope
         if (dayNumber < Domain.Min) ThrowHelpers.ThrowDateOverflow();
     }
 
+    //
+    // Soft validation
+    //
+
     /// <summary>
-    /// Checks the specified year.
+    /// Checks whether the specified year is valid or not.
+    /// <para>When the range of supported years is fixed, it's advisable to write
+    /// the validation in situ.</para>
     /// </summary>
     public abstract bool CheckYear(int year);
 
     /// <summary>
-    /// Checks the specified month components.
+    /// Checks whether the specified month components are valid or not.
+    /// <para>For regular calendars, it's advisable to write the validation in
+    /// situ.</para>
     /// </summary>
     public abstract bool CheckYearMonth(int year, int month);
 
     /// <summary>
-    /// Checks the specified date components.
+    /// Checks whether the specified date components are valid or not.
     /// </summary>
     public abstract bool CheckYearMonthDay(int year, int month, int day);
 
     /// <summary>
-    /// Checks the specified ordinal components.
+    /// Checks whether the specified ordinal components are valid or not.
     /// </summary>
     public abstract bool CheckOrdinal(int year, int dayOfYear);
 
+    //
+    // Hard validation
+    //
+
     /// <summary>
     /// Validates the specified year.
-    /// <para>In general the minimal and maximal years being constants, it's
-    /// advisable to write the validation in situ.</para>
+    /// <para>When the range of supported years is fixed, it's advisable to write
+    /// the validation in situ.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>

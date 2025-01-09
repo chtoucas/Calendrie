@@ -11,11 +11,11 @@ using Calendrie.Core.Validation;
 // -------------------------------------------
 //
 // ICalendricalPreValidator                                 PUBLIC
-// ├─ CalendricalPreValidator       (ICalendricalSchema)    PUBLIC
 // ├─ GregorianPreValidator         (Gregorian-only)
 // ├─ JulianPreValidator            (Julian-only)
 // ├─ LunarPreValidator             (CalendricalSchema)
 // ├─ LunisolarPreValidator         (CalendricalSchema)
+// ├─ PaxPreValidator               (Pax-only)
 // ├─ PlainPreValidator             (ICalendricalSchema)
 // ├─ Solar12PreValidator           (CalendricalSchema)
 // └─ Solar13PreValidator           (CalendricalSchema)
@@ -35,14 +35,40 @@ using Calendrie.Core.Validation;
 /// </summary>
 public interface ICalendricalPreValidator
 {
+    //
+    // Soft validation
+    //
+
+    /// <summary>
+    /// Checks whether the of the specified month of the year is well-formed or
+    /// not.
+    /// <para>For regular calendars, it's advisable to write the validation in
+    /// situ.</para>
+    /// <para>This method does NOT check <paramref name="y"/>.</para>
+    /// </summary>
     bool CheckMonth(int y, int month);
 
+    /// <summary>
+    /// Validates whether the specified month of the year and day of the month
+    /// are well-formed or not.
+    /// <para>This method does NOT check <paramref name="y"/>.</para>
+    /// </summary>
     bool CheckMonthDay(int y, int month, int day);
 
+    /// <summary>
+    /// Validates whether the specified day of the year is well-formed or not.
+    /// <para>This method does NOT check <paramref name="y"/>.</para>
+    /// </summary>
     bool CheckDayOfYear(int y, int dayOfYear);
+
+    //
+    // Hard validation
+    //
 
     /// <summary>
     /// Validates the well-formedness of the specified month of the year.
+    /// <para>For regular calendars, it's advisable to write the validation in
+    /// situ.</para>
     /// <para>This method does NOT validate <paramref name="y"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
@@ -83,9 +109,16 @@ public interface ICalendricalPreValidator
     /// </exception>
     void ValidateDayOfMonth(int y, int m, int day, string? paramName = null);
 
+    //
+    // Static factory method
+    //
+
     /// <summary>
     /// Creates the default <see cref="ICalendricalPreValidator"/> for the
     /// specified schema.
+    /// <para>This method does not necessarily return the same pre-validator as
+    /// the property <see cref="ICalendricalSchema.PreValidator"/>. Each schema
+    /// may decide to use a more specialized pre-validator.</para>
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>

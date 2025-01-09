@@ -7,7 +7,6 @@ using System.Numerics;
 
 using Calendrie.Core.Utilities;
 
-//[DebuggerDisplay("{DebuggerDisplay,nq}")]
 public readonly partial struct CivilAnnual :
     // Comparison
     IEqualityOperators<CivilAnnual, CivilAnnual, bool>,
