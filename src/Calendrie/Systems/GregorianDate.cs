@@ -212,6 +212,55 @@ public partial struct GregorianDate // Factories & conversions
     [Pure]
     public static GregorianDate Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static GregorianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="GregorianDate"/>
+    /// struct from the specified date components.
+    /// </summary>
+    [Pure]
+    public static GregorianDate? TryCreate(int year, int month, int day)
+    {
+        if (!GregorianScope.CheckYearMonthDayImpl(year, month, day)) return null;
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, month, day);
+        return new GregorianDate(daysSinceZero);
+    }
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="GregorianDate"/>
+    /// struct from the specified ordinal components.
+    /// </summary>
+    [Pure]
+    public static GregorianDate? TryCreate(int year, int dayOfYear)
+    {
+        if (!GregorianScope.CheckOrdinalImpl(year, dayOfYear)) return null;
+
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, dayOfYear);
+        return new GregorianDate(daysSinceZero);
+    }
+
+    // Explicit implementation: GregorianDate being a value type, better to use
+    // the others TryCreate().
+
+    [Pure]
+    static bool IDate<GregorianDate>.TryCreate(int year, int month, int day, out GregorianDate result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<GregorianDate>.TryCreate(int year, int dayOfYear, out GregorianDate result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
     /// <summary>
     /// Creates a new instance of the <see cref="CivilDate"/> struct
     /// from the specified date components.
@@ -221,6 +270,18 @@ public partial struct GregorianDate // Factories & conversions
     internal static GregorianDate UnsafeCreate(int year, int month, int day)
     {
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, month, day);
+        return new GregorianDate(daysSinceZero);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct
+    /// from the specified ordinal components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static GregorianDate UnsafeCreate(int year, int dayOfYear)
+    {
+        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, dayOfYear);
         return new GregorianDate(daysSinceZero);
     }
 

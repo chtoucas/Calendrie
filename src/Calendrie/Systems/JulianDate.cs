@@ -212,6 +212,55 @@ public partial struct JulianDate // Factories & conversions
     [Pure]
     public static JulianDate Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static JulianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="JulianDate"/>
+    /// struct from the specified date components.
+    /// </summary>
+    [Pure]
+    public static JulianDate? TryCreate(int year, int month, int day)
+    {
+        if (!JulianScope.CheckYearMonthDayImpl(year, month, day)) return null;
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, month, day);
+        return new JulianDate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="JulianDate"/>
+    /// struct from the specified ordinal components.
+    /// </summary>
+    [Pure]
+    public static JulianDate? TryCreate(int year, int dayOfYear)
+    {
+        if (!JulianScope.CheckOrdinalImpl(year, dayOfYear)) return null;
+
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, dayOfYear);
+        return new JulianDate(daysSinceEpoch);
+    }
+
+    // Explicit implementation: JulianDate being a value type, better to use the
+    // others TryCreate().
+
+    [Pure]
+    static bool IDate<JulianDate>.TryCreate(int year, int month, int day, out JulianDate result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<JulianDate>.TryCreate(int year, int dayOfYear, out JulianDate result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct
     /// from the specified date components.
@@ -221,6 +270,18 @@ public partial struct JulianDate // Factories & conversions
     internal static JulianDate UnsafeCreate(int year, int month, int day)
     {
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, month, day);
+        return new JulianDate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct
+    /// from the specified ordinal components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static JulianDate UnsafeCreate(int year, int dayOfYear)
+    {
+        int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, dayOfYear);
         return new JulianDate(daysSinceEpoch);
     }
 

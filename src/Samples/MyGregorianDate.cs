@@ -99,6 +99,27 @@ public readonly partial struct MyGregorianDate :
 public partial struct MyGregorianDate // Factories & conversions
 {
     public static MyGregorianDate Create(int year, int month, int day) => new(year, month, day);
+    public static MyGregorianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    public static MyGregorianDate? TryCreate(int year, int month, int day) => throw new NotImplementedException();
+    public static MyGregorianDate? TryCreate(int year, int dayOfYear) => throw new NotImplementedException();
+
+    // Explicit implementation: MyGregorianDate being a value type, better to use
+    // the others TryCreate().
+
+    static bool IDate<MyGregorianDate>.TryCreate(int year, int month, int day, out MyGregorianDate result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    static bool IDate<MyGregorianDate>.TryCreate(int year, int dayOfYear, out MyGregorianDate result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
 
     // This factory method eventually throws an OverflowException, not an
     // ArgumentOutOfRangeException as documented in the XML doc. Only used by

@@ -277,6 +277,51 @@ public partial struct PlainCivilDate // Factories & conversions
     [Pure]
     public static PlainCivilDate Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static PlainCivilDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <inheritdoc />
+    [Pure]
+    public static PlainCivilDate? TryCreate(int year, int month, int day)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
+
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
+        return new PlainCivilDate(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public static PlainCivilDate? TryCreate(int year, int dayOfYear)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
+
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
+        return new PlainCivilDate(daysSinceZero);
+    }
+
+    // Explicit implementation: PlainCivilDate being a value type, better
+    // to use the others TryCreate().
+
+    [Pure]
+    static bool IDate<PlainCivilDate>.TryCreate(int year, int month, int day, out PlainCivilDate result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<PlainCivilDate>.TryCreate(int year, int dayOfYear, out PlainCivilDate result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
 
@@ -975,10 +1020,13 @@ public partial struct PlainCivilMonth // Factories & conversions
     public static PlainCivilMonth? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && month >= 1 && month <= PlainCivilCalendar.MonthsInYear;
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear
+            || month < 1 || month > PlainCivilCalendar.MonthsInYear)
+        {
+            return null;
+        }
 
-        return ok ? UnsafeCreate(year, month) : null;
+        return UnsafeCreate(year, month);
     }
 
     // Explicit implementation: PlainCivilMonth being a value type, better

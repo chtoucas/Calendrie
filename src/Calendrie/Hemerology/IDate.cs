@@ -3,8 +3,7 @@
 
 namespace Calendrie.Hemerology;
 
-// TODO(code): add TryCreate(y, m, d), Create(y, doy) and TryCreate(y, doy).
-// Create(unitsSinceEpoch)?
+// REVIEW(code): Create(unitsSinceEpoch)?
 
 /// <summary>
 /// Defines a date.
@@ -31,4 +30,28 @@ public interface IDate<TSelf> :
     /// do not form a valid date or <paramref name="year"/> is outside the
     /// range of supported years.</exception>
     [Pure] static abstract TSelf Create(int year, int month, int day);
+
+    /// <summary>
+    /// Creates a new instance of the <typeparamref name="TSelf"/> struct
+    /// from the specified ordinal components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid date or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    [Pure] static abstract TSelf Create(int year, int dayOfYear);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <typeparamref name="TSelf"/>
+    /// struct from the specified date components.
+    /// </summary>
+    [Pure]
+    static abstract bool TryCreate(
+        int year, int month, int day, [NotNullWhen(true)] out TSelf? result);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <typeparamref name="TSelf"/>
+    /// struct from the specified ordinal components.
+    /// </summary>
+    [Pure]
+    static abstract bool TryCreate(int year, int dayOfYear, [NotNullWhen(true)] out TSelf? result);
 }

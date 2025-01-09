@@ -279,6 +279,51 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     [Pure]
     public static <#= Prefix #>Date Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static <#= Prefix #>Date Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <inheritdoc />
+    [Pure]
+    public static <#= Prefix #>Date? TryCreate(int year, int month, int day)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
+
+        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(year, month, day);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public static <#= Prefix #>Date? TryCreate(int year, int dayOfYear)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
+
+        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
+        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+    }
+
+    // Explicit implementation: <#= Prefix #>Date being a value type, better
+    // to use the others TryCreate().
+
+    [Pure]
+    static bool IDate<<#= Prefix #>Date>.TryCreate(int year, int month, int day, out <#= Prefix #>Date result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<<#= Prefix #>Date>.TryCreate(int year, int dayOfYear, out <#= Prefix #>Date result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
 

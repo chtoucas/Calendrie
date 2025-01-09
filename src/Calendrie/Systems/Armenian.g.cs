@@ -290,6 +290,57 @@ public partial struct ArmenianDate // Factories & conversions
     [Pure]
     public static ArmenianDate Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static ArmenianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// struct from the specified date components.
+    /// </summary>
+    [Pure]
+    public static ArmenianDate? TryCreate(int year, int month, int day)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
+
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
+        return new ArmenianDate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// struct from the specified ordinal components.
+    /// </summary>
+    [Pure]
+    public static ArmenianDate? TryCreate(int year, int dayOfYear)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
+
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
+        return new ArmenianDate(daysSinceEpoch);
+    }
+
+    // Explicit implementation: ArmenianDate being a value type, better
+    // to use the others TryCreate().
+
+    [Pure]
+    static bool IDate<ArmenianDate>.TryCreate(int year, int month, int day, out ArmenianDate result)
+    {
+        var dateValue = TryCreate(year, month, day);
+        result = dateValue ?? default;
+        return dateValue.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<ArmenianDate>.TryCreate(int year, int dayOfYear, out ArmenianDate result)
+    {
+        var dateValue = TryCreate(year, dayOfYear);
+        result = dateValue ?? default;
+        return dateValue.HasValue;
+    }
+
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
 

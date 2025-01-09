@@ -49,10 +49,13 @@ public partial struct CivilMonth // Factories & conversions
     public static CivilMonth? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
-        bool ok = year >= CivilScope.MinYear && year <= CivilScope.MaxYear
-            && month >= 1 && month <= CivilCalendar.MonthsInYear;
+        if (year < CivilScope.MinYear || year > CivilScope.MaxYear
+            || month < 1 || month > CivilCalendar.MonthsInYear)
+        {
+            return null;
+        }
 
-        return ok ? UnsafeCreate(year, month) : null;
+        return UnsafeCreate(year, month);
     }
 
     // Explicit implementation: CivilMonth being a value type, better

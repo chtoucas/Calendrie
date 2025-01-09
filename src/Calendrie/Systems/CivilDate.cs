@@ -189,6 +189,55 @@ public partial struct CivilDate // Factories & conversions
     [Pure]
     public static CivilDate Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static CivilDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// struct from the specified date components.
+    /// </summary>
+    [Pure]
+    public static CivilDate? TryCreate(int year, int month, int day)
+    {
+        if (!CivilScope.CheckYearMonthDayImpl(year, month, day)) return null;
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, month, day);
+        return new CivilDate(daysSinceZero);
+    }
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// struct from the specified ordinal components.
+    /// </summary>
+    [Pure]
+    public static CivilDate? TryCreate(int year, int dayOfYear)
+    {
+        if (!CivilScope.CheckOrdinalImpl(year, dayOfYear)) return null;
+
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, dayOfYear);
+        return new CivilDate(daysSinceZero);
+    }
+
+    // Explicit implementation: CivilDate being a value type, better to use the
+    // others TryCreate().
+
+    [Pure]
+    static bool IDate<CivilDate>.TryCreate(int year, int month, int day, out CivilDate result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<CivilDate>.TryCreate(int year, int dayOfYear, out CivilDate result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
     /// <summary>
     /// Creates a new instance of the <see cref="CivilDate"/> struct
     /// from the specified date components.
@@ -198,6 +247,18 @@ public partial struct CivilDate // Factories & conversions
     internal static CivilDate UnsafeCreate(int year, int month, int day)
     {
         int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, month, day);
+        return new CivilDate(daysSinceZero);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct
+    /// from the specified ordinal components.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static CivilDate UnsafeCreate(int year, int dayOfYear)
+    {
+        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, dayOfYear);
         return new CivilDate(daysSinceZero);
     }
 

@@ -285,6 +285,51 @@ public partial struct TropicaliaDate // Factories & conversions
     [Pure]
     public static TropicaliaDate Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static TropicaliaDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <inheritdoc />
+    [Pure]
+    public static TropicaliaDate? TryCreate(int year, int month, int day)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
+
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
+        return new TropicaliaDate(daysSinceZero);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public static TropicaliaDate? TryCreate(int year, int dayOfYear)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
+
+        int daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
+        return new TropicaliaDate(daysSinceZero);
+    }
+
+    // Explicit implementation: TropicaliaDate being a value type, better
+    // to use the others TryCreate().
+
+    [Pure]
+    static bool IDate<TropicaliaDate>.TryCreate(int year, int month, int day, out TropicaliaDate result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<TropicaliaDate>.TryCreate(int year, int dayOfYear, out TropicaliaDate result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
 
@@ -983,10 +1028,13 @@ public partial struct TropicaliaMonth // Factories & conversions
     public static TropicaliaMonth? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && month >= 1 && month <= TropicaliaCalendar.MonthsInYear;
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear
+            || month < 1 || month > TropicaliaCalendar.MonthsInYear)
+        {
+            return null;
+        }
 
-        return ok ? UnsafeCreate(year, month) : null;
+        return UnsafeCreate(year, month);
     }
 
     // Explicit implementation: TropicaliaMonth being a value type, better

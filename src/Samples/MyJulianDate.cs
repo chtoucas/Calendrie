@@ -84,6 +84,27 @@ public readonly partial struct MyJulianDate :
 public partial struct MyJulianDate // Factories & conversions
 {
     public static MyJulianDate Create(int year, int month, int day) => new(year, month, day);
+    public static MyJulianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    public static MyJulianDate? TryCreate(int year, int month, int day) => throw new NotImplementedException();
+    public static MyJulianDate? TryCreate(int year, int dayOfYear) => throw new NotImplementedException();
+
+    // Explicit implementation: MyJulianDate being a value type, better to use
+    // the others TryCreate().
+
+    static bool IDate<MyJulianDate>.TryCreate(int year, int month, int day, out MyJulianDate result)
+    {
+        var date = TryCreate(year, month, day);
+        result = date ?? default;
+        return date.HasValue;
+    }
+
+    static bool IDate<MyJulianDate>.TryCreate(int year, int dayOfYear, out MyJulianDate result)
+    {
+        var date = TryCreate(year, dayOfYear);
+        result = date ?? default;
+        return date.HasValue;
+    }
 
     public static MyJulianDate FromDayNumber(DayNumber dayNumber) =>
         new(Calendar.CreateDateParts(dayNumber));

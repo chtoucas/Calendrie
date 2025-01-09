@@ -299,6 +299,57 @@ public partial struct PaxDate // Factories & conversions
     [Pure]
     public static PaxDate Create(int year, int month, int day) => new(year, month, day);
 
+    /// <inheritdoc />
+    [Pure]
+    public static PaxDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// struct from the specified date components.
+    /// </summary>
+    [Pure]
+    public static PaxDate? TryCreate(int year, int month, int day)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
+
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
+        return new PaxDate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// struct from the specified ordinal components.
+    /// </summary>
+    [Pure]
+    public static PaxDate? TryCreate(int year, int dayOfYear)
+    {
+        var chr = Calendar;
+        if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
+
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
+        return new PaxDate(daysSinceEpoch);
+    }
+
+    // Explicit implementation: PaxDate being a value type, better
+    // to use the others TryCreate().
+
+    [Pure]
+    static bool IDate<PaxDate>.TryCreate(int year, int month, int day, out PaxDate result)
+    {
+        var dateValue = TryCreate(year, month, day);
+        result = dateValue ?? default;
+        return dateValue.HasValue;
+    }
+
+    [Pure]
+    static bool IDate<PaxDate>.TryCreate(int year, int dayOfYear, out PaxDate result)
+    {
+        var dateValue = TryCreate(year, dayOfYear);
+        result = dateValue ?? default;
+        return dateValue.HasValue;
+    }
+
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
 
@@ -1007,16 +1058,10 @@ public partial struct PaxMonth // Factories & conversions
     public static PaxMonth? TryCreate(int year, int month)
     {
         var chr = Calendar;
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && chr.Scope.PreValidator.CheckMonth(year, month);
+        if (!chr.Scope.CheckYearMonth(year, month)) return null;
 
-        if (ok)
-        {
-            int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
-            return new PaxMonth(monthsSinceEpoch);
-        }
-
-        return null;
+        int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
+        return new PaxMonth(monthsSinceEpoch);
     }
 
     // Explicit implementation: PaxMonth being a value type, better
