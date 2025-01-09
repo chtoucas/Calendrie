@@ -1005,15 +1005,13 @@ public partial struct PaxMonth // Factories & conversions
     [Pure]
     public static PaxMonth? TryCreate(int year, int month)
     {
-        var sch = Calendar.Schema;
+        var chr = Calendar;
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && month >= 1
-            && (month <= PaxCalendar.MinMonthsInYear
-                || month <= sch.CountMonthsInYear(year));
+            && chr.Scope.PreValidator.CheckMonth(year, month);
 
         if (ok)
         {
-            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(year, month);
+            int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
             return new PaxMonth(monthsSinceEpoch);
         }
 

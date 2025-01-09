@@ -29,6 +29,7 @@ public partial struct GregorianMonth // Factories & conversions
     [Pure]
     public static GregorianMonth? TryCreate(int year, int month)
     {
+        // The calendar being regular, no need to use the PreValidator.
         bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear
             && month >= 1 && month <= GregorianCalendar.MonthsInYear;
 

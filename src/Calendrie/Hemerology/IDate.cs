@@ -3,7 +3,8 @@
 
 namespace Calendrie.Hemerology;
 
-// TODO(code): add TryCreate(y, m, d) and TryCreate(y, doy). Create(unitsSinceEpoch)?
+// TODO(code): add TryCreate(y, m, d), Create(y, doy) and TryCreate(y, doy).
+// Create(unitsSinceEpoch)?
 
 /// <summary>
 /// Defines a date.

@@ -975,6 +975,7 @@ public partial struct PlainJulianMonth // Factories & conversions
     [Pure]
     public static PlainJulianMonth? TryCreate(int year, int month)
     {
+        // The calendar being regular, no need to use the PreValidator.
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
             && month >= 1 && month <= PlainJulianCalendar.MonthsInYear;
 

@@ -7,6 +7,9 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
+// TODO(code): add CheckXXX() variants. Optimize the Civil, Julian and Gregorian cases.
+// Optimize construction of TropicaliaMonth and others like with TryCreate()?
+
 /// <summary>
 /// Defines the scope of application of a calendar, a range of days, and
 /// provides a base for derived classes.

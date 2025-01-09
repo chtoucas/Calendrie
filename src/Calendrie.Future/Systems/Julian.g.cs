@@ -29,6 +29,7 @@ public partial struct JulianMonth // Factories & conversions
     [Pure]
     public static JulianMonth? TryCreate(int year, int month)
     {
+        // The calendar being regular, no need to use the PreValidator.
         bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear
             && month >= 1 && month <= JulianCalendar.MonthsInYear;
 
