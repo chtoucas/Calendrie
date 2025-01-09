@@ -340,6 +340,7 @@ public partial struct TropicaliaDate // Adjustments
         sch.GetDateParts(_daysSinceZero, out _, out int m, out int d);
 
         // We MUST re-validate the entire date.
+        // We don't use the constructor just to avoid another calendar lookup.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(newYear, m, d);
@@ -860,7 +861,12 @@ public partial struct TropicaliaMonth // Preamble
     /// range of supported years.</exception>
     public TropicaliaMonth(int year, int month)
     {
-        TropicaliaCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > TropicaliaCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > TropicaliaCalendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }

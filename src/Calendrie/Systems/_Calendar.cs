@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 
 public partial class Armenian13Calendar // Complements
 {
@@ -41,9 +42,15 @@ public partial class WorldCalendar // Complements
     /// </para>
     /// </summary>
     [Pure]
-    public int CountDaysInWorldMonth(int year, int month)
+    public static int CountDaysInWorldMonth(int year, int month)
     {
-        Scope.ValidateYearMonth(year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > Scope.ValidateYearMonth(year, month);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
         return WorldSchema.CountDaysInWorldMonthImpl(month);
     }
 }

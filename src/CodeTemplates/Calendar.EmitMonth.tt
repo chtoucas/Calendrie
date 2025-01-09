@@ -104,7 +104,12 @@ public partial struct <#= Prefix #>Month // Preamble
     /// range of supported years.</exception>
     public <#= Prefix #>Month(int year, int month)
     {
-        <#= Prefix #>Calendar.Instance.Scope.ValidateYearMonth(year, month);
+        // The calendar being regular, no need to use the Scope:
+        // > <#= Prefix #>Calendar.Instance.Scope.ValidateYearMonth(year, month);
+        if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > <#= Prefix #>Calendar.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }

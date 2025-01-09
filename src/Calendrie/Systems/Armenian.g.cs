@@ -343,6 +343,7 @@ public partial struct ArmenianDate // Adjustments
         sch.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
 
         // We MUST re-validate the entire date.
+        // We don't use the constructor just to avoid another calendar lookup.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);

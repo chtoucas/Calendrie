@@ -9,6 +9,7 @@ using Calendrie.Core.Utilities;
 
 // TODO(code): add CheckXXX() variants. Optimize the Civil, Julian and Gregorian cases.
 // Optimize construction of TropicaliaMonth and others like with TryCreate()?
+// See all refs to ValidateYear() and ValidateYearMonth() where this can be done.
 
 /// <summary>
 /// Defines the scope of application of a calendar, a range of days, and
@@ -114,6 +115,8 @@ public abstract partial class CalendarScope
 
     /// <summary>
     /// Validates the specified year.
+    /// <para>In general the minimal and maximal years being constants, it's
+    /// advisable to write the validation in situ.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
@@ -121,6 +124,8 @@ public abstract partial class CalendarScope
 
     /// <summary>
     /// Validates the specified month.
+    /// <para>For regular calendars, it's advisable to write the validation in
+    /// situ.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>

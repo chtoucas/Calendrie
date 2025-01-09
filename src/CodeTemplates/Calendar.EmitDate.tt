@@ -347,6 +347,7 @@ public partial struct <#= Prefix #>Date // Adjustments
         sch.GetDateParts(_<#= DaysSinceEpochVar #>, out _, out int m, out int d);
 
         // We MUST re-validate the entire date.
+        // We don't use the constructor just to avoid another calendar lookup.
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newYear, m, d);
