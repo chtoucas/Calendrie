@@ -76,6 +76,18 @@ public partial struct GregorianMonth // Factories & conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static GregorianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+        return new GregorianMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianMonth"/> struct
     /// from the specified <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]

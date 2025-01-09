@@ -95,6 +95,18 @@ public partial struct CivilMonth // Factories & conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="CivilMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static CivilMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+        return new CivilMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilMonth"/> struct
     /// from the specified <see cref="CivilDate"/> value.
     /// </summary>
     [Pure]

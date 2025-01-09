@@ -144,4 +144,12 @@ public interface IMonth<TSelf> :
     /// <returns><see langword="true"/> if the method succeeded; otherwise,
     /// <see langword="false"/>.</returns>
     [Pure] static abstract bool TryCreate(int year, int month, [NotNullWhen(true)] out TSelf? result);
+
+    /// <summary>
+    /// Creates a new instance of the <typeparamref name="TSelf"/> type from the
+    /// specified number of consecutive months since the epoch.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="monthsSinceEpoch"/>
+    /// is outside the range of supported values.</exception>
+    [Pure] static abstract TSelf FromMonthsSinceEpoch(int monthsSinceEpoch);
 }

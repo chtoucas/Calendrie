@@ -1087,6 +1087,18 @@ public partial struct PaxMonth // Factories & conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="PaxMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static PaxMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+        return new PaxMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxMonth"/> struct
     /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
     [Pure]

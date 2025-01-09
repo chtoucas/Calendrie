@@ -76,6 +76,18 @@ public partial struct JulianMonth // Factories & conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="JulianMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static JulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+        return new JulianMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianMonth"/> struct
     /// from the specified <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]

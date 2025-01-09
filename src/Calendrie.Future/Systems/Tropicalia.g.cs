@@ -1074,6 +1074,18 @@ public partial struct TropicaliaMonth // Factories & conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static TropicaliaMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+        return new TropicaliaMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
     /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
