@@ -171,7 +171,7 @@ public partial struct CivilDate // Preamble
     public override string ToString()
     {
         CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({CivilCalendar.DisplayName})");
     }
 
     /// <inheritdoc />

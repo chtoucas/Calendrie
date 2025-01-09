@@ -20,11 +20,17 @@ public sealed class JulianCalendar : CalendarSystem<JulianDate>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Julian";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="JulianCalendar"/> class.
     /// </summary>
     public JulianCalendar() : this(new JulianSchema()) { }
 
-    private JulianCalendar(JulianSchema schema) : base("Julian", new JulianScope(schema))
+    private JulianCalendar(JulianSchema schema) : base(DisplayName, new JulianScope(schema))
     {
         Debug.Assert(schema != null);
         Schema = schema;

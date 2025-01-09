@@ -123,7 +123,7 @@ public partial struct CivilMonth // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Calendar})");
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({CivilCalendar.DisplayName})");
     }
 
     /// <inheritdoc />

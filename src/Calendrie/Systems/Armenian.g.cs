@@ -36,12 +36,18 @@ public sealed partial class ArmenianCalendar : CalendarSystem<ArmenianDate>
     public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Armenian";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianCalendar"/> class.
     /// </summary>
     public ArmenianCalendar() : this(new Egyptian12Schema()) { }
 
     private ArmenianCalendar(Egyptian12Schema schema)
-        : base("Armenian", new StandardScope(schema, DayZero.Armenian))
+        : base(DisplayName, new StandardScope(schema, DayZero.Armenian))
     {
         Schema = schema;
     }
@@ -265,9 +271,8 @@ public partial struct ArmenianDate // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({ArmenianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />

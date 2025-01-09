@@ -173,12 +173,18 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
 
 <#+ } #>
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "<#= DisplayName #>";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Calendar"/> class.
     /// </summary>
     public <#= Prefix #>Calendar() : this(new <#= SchemaClass #>()) { }
 
     private <#= Prefix #>Calendar(<#= SchemaClass #> schema)
-        : base("<#= DisplayName #>", new <#= ScopeClass #>(schema, <#= Epoch #>))
+        : base(DisplayName, new <#= ScopeClass #>(schema, <#= Epoch #>))
     {
         Schema = schema;
     }

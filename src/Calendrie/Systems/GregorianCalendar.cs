@@ -20,11 +20,17 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Gregorian";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GregorianCalendar"/> class.
     /// </summary>
     public GregorianCalendar() : this(new GregorianSchema()) { }
 
-    private GregorianCalendar(GregorianSchema schema) : base("Gregorian", new GregorianScope(schema))
+    private GregorianCalendar(GregorianSchema schema) : base(DisplayName, new GregorianScope(schema))
     {
         Debug.Assert(schema != null);
         Schema = schema;

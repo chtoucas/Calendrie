@@ -194,7 +194,7 @@ public partial struct <#= Prefix #>Month // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Calendar})");
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({<#= Prefix #>Calendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -339,9 +339,8 @@ public partial struct <#= Prefix #>Month // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({<#= Prefix #>Calendar.DisplayName})");
     }
 
     /// <inheritdoc />

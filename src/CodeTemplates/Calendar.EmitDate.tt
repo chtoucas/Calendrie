@@ -257,9 +257,8 @@ public partial struct <#= Prefix #>Date // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({<#= Prefix #>Calendar.DisplayName})");
     }
 
     /// <inheritdoc />

@@ -20,11 +20,17 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     public const int MonthsInYear = GJSchema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Civil";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CivilCalendar"/> class.
     /// </summary>
     public CivilCalendar() : this(new CivilSchema()) { }
 
-    private CivilCalendar(CivilSchema schema) : base("Civil", new CivilScope(schema))
+    private CivilCalendar(CivilSchema schema) : base(DisplayName, new CivilScope(schema))
     {
         Debug.Assert(schema != null);
         Schema = schema;

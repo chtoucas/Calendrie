@@ -31,12 +31,18 @@ using static Calendrie.Core.CalendricalConstants;
 public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
 {
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Pax";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PaxCalendar"/> class.
     /// </summary>
     public PaxCalendar() : this(new PaxSchema()) { }
 
     private PaxCalendar(PaxSchema schema)
-        : base("Pax", new StandardScope(schema, DayZero.SundayBeforeGregorian))
+        : base(DisplayName, new StandardScope(schema, DayZero.SundayBeforeGregorian))
     {
         Schema = schema;
     }
@@ -272,9 +278,8 @@ public partial struct PaxDate // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({PaxCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -976,9 +981,8 @@ public partial struct PaxMonth // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({PaxCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -1590,7 +1594,8 @@ public partial struct PaxYear // Preamble
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({PaxCalendar.DisplayName})");
 }
 
 public partial struct PaxYear // Factories & conversions

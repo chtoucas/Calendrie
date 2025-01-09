@@ -107,7 +107,8 @@ public partial struct CivilYear // Preamble
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({CivilCalendar.DisplayName})");
 }
 
 public partial struct CivilYear

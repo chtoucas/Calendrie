@@ -36,12 +36,18 @@ public sealed partial class WorldCalendar : CalendarSystem<WorldDate>
     public const int MonthsInYear = WorldSchema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "World";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="WorldCalendar"/> class.
     /// </summary>
     public WorldCalendar() : this(new WorldSchema()) { }
 
     private WorldCalendar(WorldSchema schema)
-        : base("World", new StandardScope(schema, DayZero.SundayBeforeGregorian))
+        : base(DisplayName, new StandardScope(schema, DayZero.SundayBeforeGregorian))
     {
         Schema = schema;
     }
@@ -265,9 +271,8 @@ public partial struct WorldDate // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({WorldCalendar.DisplayName})");
     }
 
     /// <inheritdoc />

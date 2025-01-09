@@ -131,8 +131,9 @@ public partial struct GregorianYear // Preamble
     [Pure]
     public override string ToString()
     {
-        return _yearsSinceEpoch >= 0 ? FormattableString.Invariant($"{Year:D4} ({Calendar})")
-            : FormattableString.Invariant($"{getBCEYear(Year)} BCE ({Calendar})");
+        return _yearsSinceEpoch >= 0
+            ? FormattableString.Invariant($"{Year:D4} ({GregorianCalendar.DisplayName})")
+            : FormattableString.Invariant($"{getBCEYear(Year)} BCE ({GregorianCalendar.DisplayName})");
 
         [Pure]
         static int getBCEYear(int y)

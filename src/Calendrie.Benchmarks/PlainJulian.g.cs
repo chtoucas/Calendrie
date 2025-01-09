@@ -40,12 +40,18 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     public const int MonthsInYear = JulianSchema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Plain Julian";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
     /// </summary>
     public PlainJulianCalendar() : this(new JulianSchema()) { }
 
     private PlainJulianCalendar(JulianSchema schema)
-        : base("Plain Julian", new StandardScope(schema, DayZero.OldStyle))
+        : base(DisplayName, new StandardScope(schema, DayZero.OldStyle))
     {
         Schema = schema;
     }
@@ -260,9 +266,8 @@ public partial struct PlainJulianDate // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({PlainJulianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -944,7 +949,7 @@ public partial struct PlainJulianMonth // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Calendar})");
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({PlainJulianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -1494,7 +1499,8 @@ public partial struct PlainJulianYear // Preamble
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({PlainJulianCalendar.DisplayName})");
 }
 
 public partial struct PlainJulianYear // Factories & conversions

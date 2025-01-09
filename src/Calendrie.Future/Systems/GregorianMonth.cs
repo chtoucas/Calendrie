@@ -142,8 +142,9 @@ public partial struct GregorianMonth // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return y > 0 ? FormattableString.Invariant($"{m:D2}/{y:D4} ({Calendar})")
-            : FormattableString.Invariant($"{m:D2}/{getBCEYear(y)} BCE ({Calendar})");
+        return y > 0
+            ? FormattableString.Invariant($"{m:D2}/{y:D4} ({GregorianCalendar.DisplayName})")
+            : FormattableString.Invariant($"{m:D2}/{getBCEYear(y)} BCE ({GregorianCalendar.DisplayName})");
 
         [Pure]
         static int getBCEYear(int y)

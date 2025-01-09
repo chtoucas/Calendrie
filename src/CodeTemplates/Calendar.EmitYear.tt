@@ -159,7 +159,8 @@ public partial struct <#= Prefix #>Year // Preamble
     /// instance.
     /// </summary>
     [Pure]
-    public override string ToString() => FormattableString.Invariant($"{Year:D4} ({Calendar})");
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({<#= Prefix #>Calendar.DisplayName})");
 }
 <#+
     } // T4: End of EmitYearPreamble()

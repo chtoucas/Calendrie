@@ -36,12 +36,18 @@ public sealed partial class TabularIslamicCalendar : CalendarSystem<TabularIslam
     public const int MonthsInYear = TabularIslamicSchema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Tabular Islamic";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicCalendar"/> class.
     /// </summary>
     public TabularIslamicCalendar() : this(new TabularIslamicSchema()) { }
 
     private TabularIslamicCalendar(TabularIslamicSchema schema)
-        : base("Tabular Islamic", new StandardScope(schema, DayZero.TabularIslamic))
+        : base(DisplayName, new StandardScope(schema, DayZero.TabularIslamic))
     {
         Schema = schema;
     }
@@ -256,9 +262,8 @@ public partial struct TabularIslamicDate // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({TabularIslamicCalendar.DisplayName})");
     }
 
     /// <inheritdoc />

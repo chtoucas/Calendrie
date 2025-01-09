@@ -36,12 +36,18 @@ public sealed partial class ZoroastrianCalendar : CalendarSystem<ZoroastrianDate
     public const int MonthsInYear = Egyptian12Schema.MonthsInYear;
 
     /// <summary>
+    /// Represents the display name.
+    /// <para>This field is a constant.</para>
+    /// </summary>
+    internal const string DisplayName = "Zoroastrian";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
     /// </summary>
     public ZoroastrianCalendar() : this(new Egyptian12Schema()) { }
 
     private ZoroastrianCalendar(Egyptian12Schema schema)
-        : base("Zoroastrian", new StandardScope(schema, DayZero.Zoroastrian))
+        : base(DisplayName, new StandardScope(schema, DayZero.Zoroastrian))
     {
         Schema = schema;
     }
@@ -265,9 +271,8 @@ public partial struct ZoroastrianDate // Preamble
     [Pure]
     public override string ToString()
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({chr})");
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({ZoroastrianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
