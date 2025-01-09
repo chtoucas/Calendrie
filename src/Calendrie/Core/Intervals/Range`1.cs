@@ -6,6 +6,7 @@ namespace Calendrie.Core.Intervals;
 using System.Numerics;
 
 // FIXME(code): now that the BCL has a type Range, we should change the name. Segment?
+// Strict partial order. For other types too. External comparer?
 
 /// <summary>
 /// Represents a closed bounded interval.
@@ -199,7 +200,6 @@ public partial struct Range<T> // IEquatable
 
 public partial struct Range<T> // Strict partial order
 {
-    // REVIEW(code): strict partial order. For other types too. External comparer?
 #if false
 
     /// <summary>

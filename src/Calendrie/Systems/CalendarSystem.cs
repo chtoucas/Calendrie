@@ -5,6 +5,13 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
+// TODO(code): if we enable the year and month types, we should remove these methods
+// Most certainly we should also remove the generic parameter TDate.
+// We should also move CountDaysInYear() and CountDaysInMonth() to the final
+// class calendar. Tiny advantage: on peut remplacer les scope.ValidateYear()
+// par: if (year < XXXScope.MinYear || year > XXXScope.MaxYear)
+// Move transformers to the date type?
+
 // Reasons to keep the constructor internal (system calendars and adjusters):
 // - the scope must be of type "MinMaxYearScope" but we don't enforce this
 // - we don't validate the input. Only for TDate developed whitin this
@@ -91,13 +98,6 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
         return scope.Schema.CountDaysInMonth(year, month);
     }
 }
-
-// TODO(code): if we enable the year and month types, we should remove these methods
-// Most certainly we should also remove the generic parameter TDate.
-// We should also move CountDaysInYear() and CountDaysInMonth() to the final
-// class calendar. Tiny advantage: on peut remplacer les scope.ValidateYear()
-// par: if (year < XXXScope.MinYear || year > XXXScope.MaxYear)
-
 public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {
     /// <inheritdoc/>
@@ -178,8 +178,6 @@ public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 public partial class CalendarSystem<TDate> // Transformers
 {
     // Compare to IDateProvider<>, we can bypass the validation.
-    //
-    // REVIEW(code): move transformers to the date type?
 
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.

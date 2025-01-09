@@ -54,11 +54,11 @@ public interface IAffineDate<TSelf> :
     where TSelf : IAffineDate<TSelf>
 {
     /// <summary>
-    /// Creates a new <typeparamref name="TSelf"/> instance from the specified
-    /// number of consecutive days since the epoch.
+    /// Creates a new instance of the <typeparamref name="TSelf"/> type from the
+    /// specified number of consecutive days since the epoch.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="daysSinceEpoch"/>
-    /// is outside the range of values supported by the default calendar.</exception>
+    /// is outside the range of supported values.</exception>
     [Pure] static abstract TSelf FromDaysSinceEpoch(int daysSinceEpoch);
 
     /// <summary>

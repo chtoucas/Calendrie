@@ -3,8 +3,6 @@
 
 namespace Calendrie.Hemerology;
 
-// REVIEW(code): Create(unitsSinceEpoch)?
-
 /// <summary>
 /// Defines a date.
 /// </summary>
