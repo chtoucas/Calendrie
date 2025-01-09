@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
-// TODO(code): add TryCreate(). Idem w/ IDate. Create(unitsSinceEpoch)?
-
 // No IAbsoluteYear or IAffineYear. Interconversion can only be achieved after
 // converting a year to a range of days.
 
