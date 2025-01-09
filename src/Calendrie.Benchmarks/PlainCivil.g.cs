@@ -340,7 +340,7 @@ public partial struct PlainCivilDate // Factories & conversions
         int daysSinceZero = dayNumber.DaysSinceZero;
 
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
-            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
 
         return new PlainCivilDate(daysSinceZero);
     }
@@ -1072,7 +1072,7 @@ public partial struct PlainCivilMonth // Factories & conversions
     public static PlainCivilMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new PlainCivilMonth(monthsSinceEpoch);
     }
 

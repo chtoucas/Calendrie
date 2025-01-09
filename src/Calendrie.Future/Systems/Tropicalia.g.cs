@@ -348,7 +348,7 @@ public partial struct TropicaliaDate // Factories & conversions
         int daysSinceZero = dayNumber.DaysSinceZero;
 
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
-            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
 
         return new TropicaliaDate(daysSinceZero);
     }
@@ -1080,7 +1080,7 @@ public partial struct TropicaliaMonth // Factories & conversions
     public static TropicaliaMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new TropicaliaMonth(monthsSinceEpoch);
     }
 

@@ -425,7 +425,7 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     public static <#= Prefix #>Month FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
@@ -496,7 +496,7 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     public static <#= Prefix #>Month FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 

@@ -70,6 +70,39 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
             paramName ?? nameof(dayOfYear),
             dayOfYear,
             $"The value of the day of the year was out of range; value = {dayOfYear}.");
+
+    /// <summary>
+    /// The value of the day number was out of range.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    [DoesNotReturn]
+    public static void ThrowDayNumberOutOfRange(DayNumber dayNumber, string? paramName = null) =>
+        throw new ArgumentOutOfRangeException(
+            paramName ?? nameof(dayNumber),
+            dayNumber,
+            $"The value of the day number was out of range; value = {dayNumber}.");
+
+    /// <summary>
+    /// The value of the count of consecutive days since the epoch was out of range.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    [DoesNotReturn]
+    public static void ThrowDaysSinceEpochOutOfRange(int daysSinceEpoch, string? paramName = null) =>
+        throw new ArgumentOutOfRangeException(
+            paramName ?? nameof(daysSinceEpoch),
+            daysSinceEpoch,
+            $"The value of the count of consecutive days since the epoch was out of range; value = {daysSinceEpoch}.");
+
+    /// <summary>
+    /// The value of the count of consecutive months since the epoch was out of range.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    [DoesNotReturn]
+    public static void ThrowMonthsSinceEpochOutOfRange(int monthsSinceEpoch, string? paramName = null) =>
+        throw new ArgumentOutOfRangeException(
+            paramName ?? nameof(monthsSinceEpoch),
+            monthsSinceEpoch,
+            $"The value of the count of consecutive months since the epoch was out of range; value = {monthsSinceEpoch}.");
 }
 
 internal partial class ThrowHelpers // ArgumentException

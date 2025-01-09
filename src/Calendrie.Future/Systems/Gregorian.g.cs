@@ -82,7 +82,7 @@ public partial struct GregorianMonth // Factories & conversions
     public static GregorianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new GregorianMonth(monthsSinceEpoch);
     }
 

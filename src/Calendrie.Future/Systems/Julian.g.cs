@@ -82,7 +82,7 @@ public partial struct JulianMonth // Factories & conversions
     public static JulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new JulianMonth(monthsSinceEpoch);
     }
 

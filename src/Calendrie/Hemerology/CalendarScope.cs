@@ -67,17 +67,10 @@ public abstract partial class CalendarScope
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
     /// </exception>
-    public void Validate(DayNumber dayNumber)
+    public void Validate(DayNumber dayNumber, string? paramName = null)
     {
         if (dayNumber < Domain.Min || dayNumber > Domain.Max)
-            fail(dayNumber, nameof(dayNumber));
-
-        [DoesNotReturn]
-        static void fail(DayNumber dayNumber, string paramName) =>
-            throw new ArgumentOutOfRangeException(
-                paramName,
-                dayNumber,
-                $"The value of the day number was out of range; value = {dayNumber}.");
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber, paramName);
     }
 
     /// <summary>

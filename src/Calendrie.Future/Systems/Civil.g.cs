@@ -101,7 +101,7 @@ public partial struct CivilMonth // Factories & conversions
     public static CivilMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new CivilMonth(monthsSinceEpoch);
     }
 

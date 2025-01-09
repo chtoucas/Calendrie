@@ -342,7 +342,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
         int <#= DaysSinceEpochVar #> = dayNumber.DaysSinceZero;
 
         if (unchecked((uint)<#= DaysSinceEpochVar #>) > <#= MaxDaysSinceEpoch #>)
-            throw new ArgumentOutOfRangeException(nameof(dayNumber));
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
 
         return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }

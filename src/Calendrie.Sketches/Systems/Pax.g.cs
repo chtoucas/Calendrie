@@ -1093,7 +1093,7 @@ public partial struct PaxMonth // Factories & conversions
     public static PaxMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new PaxMonth(monthsSinceEpoch);
     }
 

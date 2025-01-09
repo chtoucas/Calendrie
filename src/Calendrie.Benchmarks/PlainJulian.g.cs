@@ -1085,7 +1085,7 @@ public partial struct PlainJulianMonth // Factories & conversions
     public static PlainJulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            throw new ArgumentOutOfRangeException(nameof(monthsSinceEpoch));
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new PlainJulianMonth(monthsSinceEpoch);
     }
 
