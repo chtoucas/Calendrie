@@ -12,7 +12,7 @@ using Calendrie.Core.Utilities;
 /// the <see cref="PaxSchema"/> type.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-internal sealed class PaxPrevalidator : ICalendricalPreValidator
+internal sealed class PaxPreValidator : ICalendricalPreValidator
 {
     /// <summary>
     /// Represents the minimal total number of days there is at least in a year.
@@ -32,11 +32,11 @@ internal sealed class PaxPrevalidator : ICalendricalPreValidator
     private readonly PaxSchema _schema;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PaxPrevalidator"/> class.
+    /// Initializes a new instance of the <see cref="PaxPreValidator"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
-    public PaxPrevalidator(PaxSchema schema)
+    public PaxPreValidator(PaxSchema schema)
     {
         Debug.Assert(MinDaysInYear == schema.MinDaysInYear);
         Debug.Assert(MinMonthsInYear == schema.MinMonthsInYear);
@@ -87,7 +87,7 @@ internal sealed class PaxPrevalidator : ICalendricalPreValidator
     /// <inheritdoc />
     public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
     {
-        // No fast track with MinDaysInMonth as it's too small.
+        // No fast track with MinDaysInMonth as it's too small; MinDaysInMonth = 7.
         if (day < 1 || day > _schema.CountDaysInMonth(y, m))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);

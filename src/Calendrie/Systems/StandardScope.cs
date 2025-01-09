@@ -12,7 +12,7 @@ using Calendrie.Hemerology;
 /// Represents a scope for a calendar supporting <i>all</i> dates within the
 /// range [1..9999] of years.
 /// </summary>
-internal class StandardScope : CalendarScope
+internal sealed class StandardScope : CalendarScope
 {
     // Even if this class becomes public, these constants MUST stay internal
     // in case we change their values in the future.

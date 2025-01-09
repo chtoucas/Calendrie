@@ -157,7 +157,7 @@ type PaxTests() =
     override x.Algorithm_Prop() = x.PrototypeUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.PrototypeUT.Family === CalendricalFamily.Other
     override x.PeriodicAdjustments_Prop() = x.PrototypeUT.PeriodicAdjustments === CalendricalAdjustments.Weeks
-    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
+    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PaxPreValidator>()
     override x.IsRegular() = x.PrototypeUT.IsRegular() === (false, 0)
 
 [<Sealed>]

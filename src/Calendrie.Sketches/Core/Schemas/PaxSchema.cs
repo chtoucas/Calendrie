@@ -8,6 +8,7 @@ namespace Calendrie.Core.Schemas;
 #if PROTOTYPING
 using Calendrie.Core.Prototyping;
 #endif
+using Calendrie.Core.Validation;
 
 // Month 12 = Columbus
 // Common year:
@@ -55,10 +56,13 @@ public sealed partial class PaxSchema :
     /// </summary>
 #if PROTOTYPING
     internal PaxSchema()
-        : base(proleptic: false, minMonthsInYear: 13, minDaysInYear: 364, minDaysInMonth: 7) { }
+        : base(proleptic: false, minMonthsInYear: 13, minDaysInYear: 364, minDaysInMonth: 7)
 #else
-    internal PaxSchema() : base(DefaultSupportedYears.WithMin(1), 364, 7) { }
+    internal PaxSchema() : base(DefaultSupportedYears.WithMin(1), 364, 7)
 #endif
+    {
+        PreValidator = new PaxPreValidator(this);
+    }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Other;

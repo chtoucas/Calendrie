@@ -39,7 +39,7 @@ type PaxTmpTests() =
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Other
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Weeks
-    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
+    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PaxPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
 [<Sealed>]
@@ -52,5 +52,5 @@ type PaxTests() =
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Other
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Weeks
-    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PlainPreValidator>()
+    override x.PreValidator_Prop() = x.VerifyThatPreValidatorIs<PaxPreValidator>()
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
