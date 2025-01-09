@@ -18,6 +18,10 @@ public readonly partial struct CivilAnnual :
 {
     private readonly CivilDate _reference;
 
+    public CivilAnnual(int dayOfYear) : this(new CivilDate(1, dayOfYear)) { }
+
+    public CivilAnnual(int month, int day) : this(new CivilDate(1, month, day)) { }
+
     public CivilAnnual(CivilDate reference)
     {
         _reference = reference;
