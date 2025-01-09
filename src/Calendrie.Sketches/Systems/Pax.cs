@@ -3,6 +3,8 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core.Utilities;
+
 public partial class PaxCalendar // Complements
 {
     // REVIEW(code): MinMonthsInYear
@@ -19,7 +21,9 @@ public partial class PaxCalendar // Complements
     [Pure]
     public int CountWeeksInYear(int year)
     {
-        Scope.ValidateYear(year);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
         return Schema.CountWeeksInYear(year);
     }
 }

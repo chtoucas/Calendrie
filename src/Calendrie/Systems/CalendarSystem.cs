@@ -94,6 +94,9 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
 
 // TODO(code): if we enable the year and month types, we should remove these methods
 // Most certainly we should also remove the generic parameter TDate.
+// We should also move CountDaysInYear() and CountDaysInMonth() to the final
+// class calendar. Tiny advantage: on peut remplacer les scope.ValidateYear()
+// par: if (year < XXXScope.MinYear || year > XXXScope.MaxYear)
 
 public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {

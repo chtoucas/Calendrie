@@ -76,7 +76,9 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     [Pure]
     public int CountMonthsInYear(int year)
     {
-        Scope.ValidateYear(year);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
         return Schema.CountMonthsInYear(year);
     }
 }

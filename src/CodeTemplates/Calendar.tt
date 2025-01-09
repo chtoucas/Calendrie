@@ -219,7 +219,9 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     [Pure]
     public int CountMonthsInYear(int year)
     {
-        Scope.ValidateYear(year);
+        if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
         return Schema.CountMonthsInYear(year);
     }
 <#+ } #>
