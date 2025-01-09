@@ -59,6 +59,20 @@ internal sealed class JulianScope : CalendarScope
     }
 
     /// <summary>
+    /// Checks the specified year.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool CheckYearImpl(int year) => year >= MinYear && year <= MaxYear;
+
+    /// <summary>
+    /// Checks the specified month components.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool CheckYearMonthImpl(int year, int month) =>
+        year >= MinYear && year <= MaxYear
+        && month >= 1 && month <= Solar12.MonthsInYear;
+
+    /// <summary>
     /// Checks the specified date components.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -139,6 +153,13 @@ internal sealed class JulianScope : CalendarScope
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
+
+    /// <inheritdoc />
+    public sealed override bool CheckYear(int year) => CheckYearImpl(year);
+
+    /// <inheritdoc />
+    public sealed override bool CheckYearMonth(int year, int month) =>
+        CheckYearMonthImpl(year, month);
 
     /// <inheritdoc />
     public sealed override bool CheckYearMonthDay(int year, int month, int day) =>

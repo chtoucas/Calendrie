@@ -30,7 +30,7 @@ public abstract partial class CalendarScope
         Segment = segment;
         Schema = segment.Schema;
 
-        // Cache the computed property pre-validator.
+        // Cache the computed property PreValidator.
         PreValidator = Schema.PreValidator;
 
         Epoch = epoch;
@@ -53,9 +53,9 @@ public abstract partial class CalendarScope
     public CalendricalSegment Segment { get; }
 
     /// <summary>
-    /// Gets the (cached) pre-validator.
+    /// Gets or initializes the pre-validator.
     /// </summary>
-    protected internal ICalendricalPreValidator PreValidator { get; }
+    protected internal ICalendricalPreValidator PreValidator { get; init; }
 
     /// <summary>
     /// Gets the underlying schema.
@@ -112,6 +112,16 @@ public abstract partial class CalendarScope
     {
         if (dayNumber < Domain.Min) ThrowHelpers.ThrowDateOverflow();
     }
+
+    /// <summary>
+    /// Checks the specified year.
+    /// </summary>
+    public abstract bool CheckYear(int year);
+
+    /// <summary>
+    /// Checks the specified month components.
+    /// </summary>
+    public abstract bool CheckYearMonth(int year, int month);
 
     /// <summary>
     /// Checks the specified date components.

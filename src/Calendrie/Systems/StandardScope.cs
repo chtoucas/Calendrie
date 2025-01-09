@@ -53,16 +53,12 @@ internal sealed class StandardScope : CalendarScope
         Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
     }
 
-    /// <summary>
-    /// Validates the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
-    /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void ValidateYearImpl(int year, string? paramName = null)
-    {
-        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-    }
+    /// <inheritdoc />
+    public sealed override bool CheckYear(int year) => year >= MinYear && year <= MaxYear;
+
+    /// <inheritdoc />
+    public sealed override bool CheckYearMonth(int year, int month) =>
+        year >= MinYear && year <= MaxYear && PreValidator.CheckMonth(year, month);
 
     /// <inheritdoc />
     public sealed override bool CheckYearMonthDay(int year, int month, int day) =>

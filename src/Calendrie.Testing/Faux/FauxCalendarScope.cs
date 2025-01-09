@@ -22,6 +22,8 @@ public sealed class FauxCalendarScope : CalendarScope
     public FauxCalendarScope(CalendricalSegment segment)
         : base(segment, default) { }
 
+    public override bool CheckYear(int year) => throw new NotSupportedException();
+    public override bool CheckYearMonth(int year, int month) => throw new NotSupportedException();
     public override bool CheckYearMonthDay(int year, int month, int day) => throw new NotSupportedException();
     public override bool CheckOrdinal(int year, int dayOfYear) => throw new NotSupportedException();
     public override void ValidateYear(int year, string? paramName = null) => throw new NotSupportedException();

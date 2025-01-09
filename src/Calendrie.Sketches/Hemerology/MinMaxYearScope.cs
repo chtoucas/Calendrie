@@ -194,6 +194,13 @@ public sealed class MinMaxYearScope : CalendarScope
     #endregion
 
     /// <inheritdoc />
+    public sealed override bool CheckYear(int year) => year >= MinYear && year <= MaxYear;
+
+    /// <inheritdoc />
+    public sealed override bool CheckYearMonth(int year, int month) =>
+        year >= MinYear && year <= MaxYear && PreValidator.CheckMonth(year, month);
+
+    /// <inheritdoc />
     public sealed override bool CheckYearMonthDay(int year, int month, int day) =>
         year >= MinYear && year <= MaxYear && PreValidator.CheckMonthDay(year, month, day);
 
