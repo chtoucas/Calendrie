@@ -72,6 +72,28 @@ public sealed partial class Ethiopic13Calendar : CalendarSystem<Ethiopic13Date>
     /// Gets the schema.
     /// </summary>
     internal Coptic13Schema Schema { get; }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInYear(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        return Schema.CountDaysInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return Schema.CountDaysInMonth(year, month);
+    }
 }
 
 #endregion

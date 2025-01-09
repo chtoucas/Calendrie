@@ -209,7 +209,30 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
     /// Gets the schema.
     /// </summary>
     internal <#= SchemaClass #> Schema { get; }
-<#+ if (!IsRegular) { #>
+<#+ if (IsRegular) { #>
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInYear(int year)
+    {
+        if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        return Schema.CountDaysInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return Schema.CountDaysInMonth(year, month);
+    }
+<#+ } else { #>
 
     /// <summary>
     /// Obtains the number of months in the specified year.
@@ -223,6 +246,24 @@ public sealed partial class <#= Prefix #>Calendar : CalendarSystem<<#= Prefix #>
             ThrowHelpers.ThrowYearOutOfRange(year);
 
         return Schema.CountMonthsInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInYear(int year)
+    {
+        if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        return Schema.CountDaysInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return Schema.CountDaysInMonth(year, month);
     }
 <#+ } #>
 }

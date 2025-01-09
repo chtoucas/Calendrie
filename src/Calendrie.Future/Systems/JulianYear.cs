@@ -221,13 +221,13 @@ public partial struct JulianYear // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="JulianCalendar.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays() => JulianFormulae.CountDaysInYear(Year);
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public Range<JulianDate> ToDayRange()

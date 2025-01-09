@@ -394,13 +394,13 @@ public partial struct <#= Prefix #>Year // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="<#= Prefix #>Calendar.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public Range<<#= Prefix #>Date> ToDayRange()

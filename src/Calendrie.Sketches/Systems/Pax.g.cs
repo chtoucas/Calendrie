@@ -81,6 +81,24 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
 
         return Schema.CountMonthsInYear(year);
     }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInYear(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        return Schema.CountDaysInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return Schema.CountDaysInMonth(year, month);
+    }
 }
 
 #endregion
@@ -1199,7 +1217,7 @@ public partial struct PaxMonth // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="PaxCalendar.CountDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays()
@@ -1212,7 +1230,7 @@ public partial struct PaxMonth // IDateSegment
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public Range<PaxDate> ToRange()
@@ -1807,13 +1825,13 @@ public partial struct PaxYear // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="PaxCalendar.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public Range<PaxDate> ToDayRange()

@@ -38,7 +38,7 @@ using Calendrie.Hemerology;
 /// the count of consecutive days since the epoch.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
+public abstract partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
 {
     /// <summary>
@@ -47,7 +47,7 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    internal CalendarSystem(string name, CalendarScope scope) : base(name, scope)
+    private protected CalendarSystem(string name, CalendarScope scope) : base(name, scope)
     {
         Debug.Assert(scope != null);
         Debug.Assert(scope.Segment.IsComplete);
@@ -79,25 +79,8 @@ public partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
     /// </summary>
     internal int MaxMonthsSinceEpoch => Scope.Segment.SupportedMonths.Max;
 #endif
-
-    /// <inheritdoc/>
-    [Pure]
-    public sealed override int CountDaysInYear(int year)
-    {
-        var scope = Scope;
-        scope.ValidateYear(year);
-        return scope.Schema.CountDaysInYear(year);
-    }
-
-    /// <inheritdoc/>
-    [Pure]
-    public sealed override int CountDaysInMonth(int year, int month)
-    {
-        var scope = Scope;
-        scope.ValidateYearMonth(year, month);
-        return scope.Schema.CountDaysInMonth(year, month);
-    }
 }
+
 public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {
     /// <inheritdoc/>

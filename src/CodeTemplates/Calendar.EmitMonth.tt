@@ -695,7 +695,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="<#= Prefix #>Calendar.CountDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays()
@@ -707,7 +707,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public Range<<#= Prefix #>Date> ToRange()
@@ -801,7 +801,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.CountDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="<#= Prefix #>Calendar.CountDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays()
@@ -814,7 +814,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    /// <remarks>See also <see cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public Range<<#= Prefix #>Date> ToRange()

@@ -187,7 +187,7 @@ public readonly partial struct Yemo :
 
     /// <summary>
     /// Obtains the date parts for the specified day of the month to which belongs this instance.
-    /// <para>See also <see cref="StartOfMonth"/>.</para>
+    /// <para>See also <seealso cref="StartOfMonth"/>.</para>
     /// </summary>
     [Pure]
     public Yemoda GetDayOfMonth(int day)
@@ -200,7 +200,7 @@ public readonly partial struct Yemo :
     /// <summary>
     /// Obtains the date parts for the specified day of the month to which belongs this instance.
     /// <para>This method does NOT validate its parameter.</para>
-    /// <para>See also <see cref="StartOfMonth"/>.</para>
+    /// <para>See also <seealso cref="StartOfMonth"/>.</para>
     /// </summary>
     [Pure]
     internal Yemoda GetDayOfMonthUnsafe(int d)

@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents the Gregorian calendar.
@@ -56,4 +57,26 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the underlying schema.
     /// </summary>
     internal GregorianSchema Schema { get; }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInYear(int year)
+    {
+        if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        return Schema.CountDaysInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return Schema.CountDaysInMonth(year, month);
+    }
 }

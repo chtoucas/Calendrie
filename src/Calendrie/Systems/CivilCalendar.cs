@@ -4,6 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents the Civil calendar.
@@ -56,4 +57,26 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// Gets the schema.
     /// </summary>
     internal CivilSchema Schema { get; }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInYear(int year)
+    {
+        if (year < CivilScope.MinYear || year > CivilScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        return Schema.CountDaysInYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public sealed override int CountDaysInMonth(int year, int month)
+    {
+        if (year < CivilScope.MinYear || year > CivilScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return Schema.CountDaysInMonth(year, month);
+    }
 }

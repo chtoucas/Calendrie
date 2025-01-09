@@ -224,7 +224,7 @@ public static class GregorianMathDataSetUnambiguous
 /// Provides test data for <see cref="GregorianSchema"/> for math operations when the result is
 /// ambiguous.
 /// <para>This class provides data using the default <see cref="AdditionRuleset"/>.</para>
-/// <para>See also <see cref="GregorianDataSet"/> for test data for math operations when the result
+/// <para>See also <seealso cref="GregorianDataSet"/> for test data for math operations when the result
 /// is unambiguous.</para>
 /// </summary>
 public class GregorianMathDataSetCutOff : IAdvancedMathDataSet, ISingleton<GregorianMathDataSetCutOff>
@@ -322,7 +322,7 @@ public class GregorianMathDataSetCutOff : IAdvancedMathDataSet, ISingleton<Grego
 /// <summary>
 /// Provides test data for <see cref="GregorianSchema"/> for math operations when the result is
 /// ambiguous.
-/// <para>See also <see cref="GregorianDataSet"/> for test data for math operations when the result
+/// <para>See also <seealso cref="GregorianDataSet"/> for test data for math operations when the result
 /// is unambiguous.</para>
 /// </summary>
 public class GregorianMathDataSetNext : IAdvancedMathDataSet, ISingleton<GregorianMathDataSetNext>

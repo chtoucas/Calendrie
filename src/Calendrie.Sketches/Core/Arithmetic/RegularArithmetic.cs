@@ -10,7 +10,7 @@ using Calendrie.Core.Utilities;
 /// Provides an implementation of <see cref="CalendricalArithmetic"/> for regular
 /// schemas.
 /// <para>This class cannot be inherited.</para>
-/// <para>See also <see cref="MonthsCalculator"/>.</para>
+/// <para>See also <seealso cref="MonthsCalculator"/>.</para>
 /// </summary>
 internal sealed class RegularArithmetic : CalendricalArithmetic
 {
