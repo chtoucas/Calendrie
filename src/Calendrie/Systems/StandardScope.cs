@@ -65,8 +65,18 @@ internal sealed class StandardScope : CalendarScope
     }
 
     /// <inheritdoc />
-    public sealed override void ValidateYear(int year, string? paramName = null) =>
-        ValidateYearImpl(year, paramName);
+    public sealed override bool CheckYearMonthDay(int year, int month, int day) =>
+        year >= MinYear && year <= MaxYear && PreValidator.CheckMonthDay(year, month, day);
+
+    /// <inheritdoc />
+    public sealed override bool CheckOrdinal(int year, int dayOfYear) =>
+        year >= MinYear && year <= MaxYear && PreValidator.CheckDayOfYear(year, dayOfYear);
+
+    /// <inheritdoc />
+    public sealed override void ValidateYear(int year, string? paramName = null)
+    {
+        if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
+    }
 
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)

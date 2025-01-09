@@ -46,6 +46,25 @@ internal sealed class CivilScope : CalendarScope
     }
 
     /// <summary>
+    /// Checks the specified date components.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool CheckYearMonthDayImpl(int year, int month, int day) =>
+        year >= MinYear && year <= MaxYear
+        && month >= 1 && month <= Solar12.MonthsInYear
+        && day >= 1
+        && (day <= Solar.MinDaysInMonth || day <= GregorianFormulae.CountDaysInMonth(year, month));
+
+    /// <summary>
+    /// Checks the specified ordinal components.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool CheckOrdinalImpl(int year, int dayOfYear) =>
+        year >= MinYear && year <= MaxYear
+        && dayOfYear >= 1
+        && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= GregorianFormulae.CountDaysInYear(year));
+
+    /// <summary>
     /// Validates the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The validation failed.
@@ -107,6 +126,14 @@ internal sealed class CivilScope : CalendarScope
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
+
+    /// <inheritdoc />
+    public sealed override bool CheckYearMonthDay(int year, int month, int day) =>
+        CheckYearMonthDayImpl(year, month, day);
+
+    /// <inheritdoc />
+    public sealed override bool CheckOrdinal(int year, int dayOfYear) =>
+        CheckOrdinalImpl(year, dayOfYear);
 
     /// <inheritdoc />
     public sealed override void ValidateYear(int year, string? paramName = null) =>

@@ -155,6 +155,18 @@ public sealed class BoundedBelowScope : CalendarScope
     #endregion
 
     /// <inheritdoc />
+    public sealed override bool CheckYearMonthDay(int year, int month, int day)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public sealed override bool CheckOrdinal(int year, int dayOfYear)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
     public sealed override void ValidateYear(int year, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);

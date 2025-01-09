@@ -54,9 +54,28 @@ internal sealed class JulianScope : CalendarScope
         // Check the constants Min/MaxYear.
         Debug.Assert(Segment != null);
         Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
-        // This scope should use the largest possible range of years.
+        // Check that this scope uses the largest possible range of years.
         Debug.Assert(schema.SupportedYears == SupportedYears);
     }
+
+    /// <summary>
+    /// Checks the specified date components.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool CheckYearMonthDayImpl(int year, int month, int day) =>
+        year >= MinYear && year <= MaxYear
+        && month >= 1 && month <= Solar12.MonthsInYear
+        && day >= 1
+        && (day <= Solar.MinDaysInMonth || day <= JulianFormulae.CountDaysInMonth(year, month));
+
+    /// <summary>
+    /// Checks the specified ordinal components.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool CheckOrdinalImpl(int year, int dayOfYear) =>
+        year >= MinYear && year <= MaxYear
+        && dayOfYear >= 1
+        && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= JulianFormulae.CountDaysInYear(year));
 
     /// <summary>
     /// Validates the specified year.
@@ -120,6 +139,14 @@ internal sealed class JulianScope : CalendarScope
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
         }
     }
+
+    /// <inheritdoc />
+    public sealed override bool CheckYearMonthDay(int year, int month, int day) =>
+        CheckYearMonthDayImpl(year, month, day);
+
+    /// <inheritdoc />
+    public sealed override bool CheckOrdinal(int year, int dayOfYear) =>
+        CheckOrdinalImpl(year, dayOfYear);
 
     /// <inheritdoc />
     public sealed override void ValidateYear(int year, string? paramName = null) =>

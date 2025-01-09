@@ -114,6 +114,16 @@ public abstract partial class CalendarScope
     }
 
     /// <summary>
+    /// Checks the specified date components.
+    /// </summary>
+    public abstract bool CheckYearMonthDay(int year, int month, int day);
+
+    /// <summary>
+    /// Checks the specified ordinal components.
+    /// </summary>
+    public abstract bool CheckOrdinal(int year, int dayOfYear);
+
+    /// <summary>
     /// Validates the specified year.
     /// <para>In general the minimal and maximal years being constants, it's
     /// advisable to write the validation in situ.</para>
