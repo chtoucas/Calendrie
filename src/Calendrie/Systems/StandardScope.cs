@@ -11,9 +11,8 @@ using Calendrie.Hemerology;
 /// <summary>
 /// Represents a scope for a calendar supporting <i>all</i> dates within the
 /// range [1..9999] of years.
-/// <para>This class cannot be inherited.</para>
 /// </summary>
-internal sealed class StandardScope : CalendarScope
+internal class StandardScope : CalendarScope
 {
     // Even if this class becomes public, these constants MUST stay internal
     // in case we change their values in the future.
@@ -54,11 +53,20 @@ internal sealed class StandardScope : CalendarScope
         Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
     }
 
-    /// <inheritdoc />
-    public sealed override void ValidateYear(int year, string? paramName = null)
+    /// <summary>
+    /// Validates the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The validation failed.
+    /// </exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ValidateYearImpl(int year, string? paramName = null)
     {
         if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year, paramName);
     }
+
+    /// <inheritdoc />
+    public sealed override void ValidateYear(int year, string? paramName = null) =>
+        ValidateYearImpl(year, paramName);
 
     /// <inheritdoc />
     public sealed override void ValidateYearMonth(int year, int month, string? paramName = null)

@@ -11,6 +11,8 @@ using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
 
+// See comments in StandardScope.
+
 /// <summary>
 /// Represents the standard scope of the Civil calendar.
 /// <para>Supported dates are within the range [1..9999] of years.</para>
@@ -18,9 +20,6 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 internal sealed class CivilScope : CalendarScope
 {
-    // Even if this class becomes public, these constants MUST stay internal
-    // in case we change their values in the future.
-
     /// <summary>
     /// Represents the earliest supported year.
     /// <para>This field is a constant equal to 1.</para>

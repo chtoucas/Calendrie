@@ -51,7 +51,7 @@ public abstract partial class CalendarScope
     /// <summary>
     /// Gets the (cached) pre-validator.
     /// </summary>
-    protected internal ICalendricalPreValidator PreValidator { get; }
+    protected internal ICalendricalPreValidator PreValidator { get; init; }
 
     /// <summary>
     /// Gets the underlying schema.
