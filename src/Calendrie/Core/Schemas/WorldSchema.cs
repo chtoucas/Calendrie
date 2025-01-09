@@ -16,17 +16,18 @@ namespace Calendrie.Core.Schemas;
 // Main flaws: blank-days, position of the intercalary day.
 
 /// <summary>
-/// Represents the World schema proposed by Gustave Armelin and Émile Manin (1887), and
-/// Elisabeth Achelis (1930).
-/// <para>The world calendar is a blank-day calendar using a 12-months schema with four
-/// identical quarters: one month of 31 days followed by two months of 30 days.</para>
-/// <para>The two blank-days are the Leapyear Day following June on leap years, and the
-/// Worldsday following December.</para>
+/// Represents the World schema proposed by Gustave Armelin and Émile Manin
+/// (1887), and Elisabeth Achelis (1930).
+/// <para>The world calendar is a blank-day calendar using a 12-months schema
+/// with four identical quarters: one month of 31 days followed by two months of
+/// 30 days.</para>
+/// <para>The two blank-days are the Leapyear Day following June on leap years,
+/// and the Worldsday following December.</para>
+/// <para>For technical reasons, the blank-days are attached to the month
+/// preceding them.</para>
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-/// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
-/// </remarks>
 public sealed partial class WorldSchema :
     LimitSchema,
     IBlankDayFeaturette,
@@ -73,8 +74,8 @@ public sealed partial class WorldSchema :
     static WorldSchema ISchemaActivator<WorldSchema>.CreateInstance() => new();
 
     /// <summary>
-    /// Obtains the genuine number of days in a month (excluding the blank days that are
-    /// formally outside any month).
+    /// Obtains the genuine number of days in a month (excluding the blank days
+    /// that are formally outside any month).
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
     [Pure]
@@ -84,8 +85,8 @@ public sealed partial class WorldSchema :
         (m - 1) % 3 == 0 ? 31 : 30;
 
     /// <summary>
-    /// Obtains the genuine number of days in a month (excluding the blank days that are
-    /// formally outside any month).
+    /// Obtains the genuine number of days in a month (excluding the blank days
+    /// that are formally outside any month).
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
     [Pure]

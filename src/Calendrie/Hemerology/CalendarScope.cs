@@ -7,8 +7,6 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(code): add warning (XML doc) for Civil/Gregorian/JulianScope.
-
 /// <summary>
 /// Defines the scope of application of a calendar, a range of days, and
 /// provides a base for derived classes.
