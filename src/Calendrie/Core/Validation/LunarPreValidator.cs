@@ -33,6 +33,21 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     }
 
     /// <inheritdoc />
+    public bool CheckMonth(int y, int month) =>
+        month >= 1 && month <= Lunar.MonthsInYear;
+
+    /// <inheritdoc />
+    public bool CheckMonthDay(int y, int month, int day) =>
+        month >= 1 && month <= Lunar.MonthsInYear
+        && day >= 1
+        && (day <= Lunar.MinDaysInMonth || day <= _schema.CountDaysInMonth(y, month));
+
+    /// <inheritdoc />
+    public bool CheckDayOfYear(int y, int dayOfYear) =>
+        dayOfYear >= 1
+        && (dayOfYear <= Lunar.MinDaysInYear || dayOfYear <= _schema.CountDaysInYear(y));
+
+    /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)
     {
         if (month < 1 || month > Lunar.MonthsInYear)

@@ -35,6 +35,12 @@ using Calendrie.Core.Validation;
 /// </summary>
 public interface ICalendricalPreValidator
 {
+    bool CheckMonth(int y, int month);
+
+    bool CheckMonthDay(int y, int month, int day);
+
+    bool CheckDayOfYear(int y, int dayOfYear);
+
     /// <summary>
     /// Validates the well-formedness of the specified month of the year.
     /// <para>This method does NOT validate <paramref name="y"/>.</para>

@@ -33,6 +33,21 @@ internal sealed class JulianPreValidator : ICalendricalPreValidator
     }
 
     /// <inheritdoc />
+    public bool CheckMonth(int y, int month) =>
+        month >= 1 && month <= Solar12.MonthsInYear;
+
+    /// <inheritdoc />
+    public bool CheckMonthDay(int y, int month, int day) =>
+        month >= 1 && month <= Solar12.MonthsInYear
+        && day >= 1
+        && (day <= Solar.MinDaysInMonth || day <= JulianFormulae.CountDaysInMonth(y, month));
+
+    /// <inheritdoc />
+    public bool CheckDayOfYear(int y, int dayOfYear) =>
+        dayOfYear >= 1
+        && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= JulianFormulae.CountDaysInYear(y));
+
+    /// <inheritdoc />
     public void ValidateMonthDay(int y, int month, int day, string? paramName = null)
     {
         if (month < 1 || month > Solar12.MonthsInYear)

@@ -34,6 +34,21 @@ internal sealed class Solar13PreValidator : ICalendricalPreValidator
     }
 
     /// <inheritdoc />
+    public bool CheckMonth(int y, int month) =>
+        month >= 1 && month <= Solar13.MonthsInYear;
+
+    /// <inheritdoc />
+    public bool CheckMonthDay(int y, int month, int day) =>
+        month >= 1 && month <= Solar13.MonthsInYear
+        && day >= 1
+        && (day <= Solar.MinDaysInMonth || day <= _schema.CountDaysInMonth(y, month));
+
+    /// <inheritdoc />
+    public bool CheckDayOfYear(int y, int dayOfYear) =>
+        dayOfYear >= 1
+        && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= _schema.CountDaysInYear(y));
+
+    /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)
     {
         if (month < 1 || month > Solar13.MonthsInYear)
