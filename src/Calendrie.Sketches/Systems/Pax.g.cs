@@ -1001,7 +1001,9 @@ public partial struct PaxMonth // Factories & conversions
     {
         var sch = Calendar.Schema;
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && month >= 1 && month <= sch.CountMonthsInYear(year);
+            && month >= 1
+            && (month <= sch.MinMonthsInYear
+                || month <= sch.CountMonthsInYear(year));
 
         if (ok)
         {
@@ -1012,24 +1014,14 @@ public partial struct PaxMonth // Factories & conversions
         return null;
     }
 
+    // Explicit implementation: PaxMonth being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IMonth<PaxMonth>.TryCreate(int year, int month, out PaxMonth result)
     {
-        var sch = Calendar.Schema;
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && month >= 1 && month <= sch.CountMonthsInYear(year);
-
-        if (ok)
-        {
-            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(year, month);
-            result = new PaxMonth(monthsSinceEpoch);
-        }
-        else
-        {
-            result = default;
-        }
-
-        return ok;
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
     }
 
     // No method UnsafeCreate(int year, int month) to avoid multiple lookup to
@@ -1618,12 +1610,14 @@ public partial struct PaxYear // Factories & conversions
         return ok ? UnsafeCreate(year) : null;
     }
 
+    // Explicit implementation: PaxYear being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IYear<PaxYear>.TryCreate(int year, out PaxYear result)
     {
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
-        result = ok ? UnsafeCreate(year) : default;
-        return ok;
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
     }
 
     /// <summary>
@@ -1632,7 +1626,7 @@ public partial struct PaxYear // Factories & conversions
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PaxYear UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static PaxYear UnsafeCreate(int year) => new((ushort)(year - 1));
 
     //
     // Conversions

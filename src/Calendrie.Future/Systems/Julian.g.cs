@@ -35,14 +35,14 @@ public partial struct JulianMonth // Factories & conversions
         return ok ? UnsafeCreate(year, month) : null;
     }
 
+    // Explicit implementation: JulianMonth being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IMonth<JulianMonth>.TryCreate(int year, int month, out JulianMonth result)
     {
-        bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear
-            && month >= 1 && month <= JulianCalendar.MonthsInYear;
-
-        result = ok ? UnsafeCreate(year, month) : default;
-        return ok;
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
     }
 
     /// <summary>

@@ -976,14 +976,14 @@ public partial struct PlainJulianMonth // Factories & conversions
         return ok ? UnsafeCreate(year, month) : null;
     }
 
+    // Explicit implementation: PlainJulianMonth being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IMonth<PlainJulianMonth>.TryCreate(int year, int month, out PlainJulianMonth result)
     {
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear
-            && month >= 1 && month <= PlainJulianCalendar.MonthsInYear;
-
-        result = ok ? UnsafeCreate(year, month) : default;
-        return ok;
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
     }
 
     /// <summary>
@@ -1514,12 +1514,14 @@ public partial struct PlainJulianYear // Factories & conversions
         return ok ? UnsafeCreate(year) : null;
     }
 
+    // Explicit implementation: PlainJulianYear being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IYear<PlainJulianYear>.TryCreate(int year, out PlainJulianYear result)
     {
-        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
-        result = ok ? UnsafeCreate(year) : default;
-        return ok;
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
     }
 
     /// <summary>
@@ -1528,7 +1530,7 @@ public partial struct PlainJulianYear // Factories & conversions
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PlainJulianYear UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static PlainJulianYear UnsafeCreate(int year) => new((ushort)(year - 1));
 
     //
     // Conversions

@@ -54,14 +54,14 @@ public partial struct CivilMonth // Factories & conversions
         return ok ? UnsafeCreate(year, month) : null;
     }
 
+    // Explicit implementation: CivilMonth being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IMonth<CivilMonth>.TryCreate(int year, int month, out CivilMonth result)
     {
-        bool ok = year >= CivilScope.MinYear && year <= CivilScope.MaxYear
-            && month >= 1 && month <= CivilCalendar.MonthsInYear;
-
-        result = ok ? UnsafeCreate(year, month) : default;
-        return ok;
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
     }
 
     /// <summary>
@@ -391,12 +391,14 @@ public partial struct CivilYear // Factories & conversions
         return ok ? UnsafeCreate(year) : null;
     }
 
+    // Explicit implementation: CivilYear being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IYear<CivilYear>.TryCreate(int year, out CivilYear result)
     {
-        bool ok = year >= CivilScope.MinYear && year <= CivilScope.MaxYear;
-        result = ok ? UnsafeCreate(year) : default;
-        return ok;
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
     }
 
     /// <summary>
@@ -405,7 +407,7 @@ public partial struct CivilYear // Factories & conversions
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static CivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static CivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
 
     //
     // Conversions

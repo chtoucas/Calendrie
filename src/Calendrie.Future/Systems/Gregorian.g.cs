@@ -35,14 +35,14 @@ public partial struct GregorianMonth // Factories & conversions
         return ok ? UnsafeCreate(year, month) : null;
     }
 
+    // Explicit implementation: GregorianMonth being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IMonth<GregorianMonth>.TryCreate(int year, int month, out GregorianMonth result)
     {
-        bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear
-            && month >= 1 && month <= GregorianCalendar.MonthsInYear;
-
-        result = ok ? UnsafeCreate(year, month) : default;
-        return ok;
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
     }
 
     /// <summary>

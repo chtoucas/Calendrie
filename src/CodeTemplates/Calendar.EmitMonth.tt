@@ -374,14 +374,14 @@ public partial struct <#= Prefix #>Month // Factories & conversions
         return ok ? UnsafeCreate(year, month) : null;
     }
 
+    // Explicit implementation: <#= Prefix #>Month being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IMonth<<#= Prefix #>Month>.TryCreate(int year, int month, out <#= Prefix #>Month result)
     {
-        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
-            && month >= 1 && month <= <#= Prefix #>Calendar.MonthsInYear;
-
-        result = ok ? UnsafeCreate(year, month) : default;
-        return ok;
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
     }
 
     /// <summary>
@@ -442,7 +442,9 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     {
         var sch = Calendar.Schema;
         bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
-            && month >= 1 && month <= sch.CountMonthsInYear(year);
+            && month >= 1
+            && (month <= sch.MinMonthsInYear
+                || month <= sch.CountMonthsInYear(year));
 
         if (ok)
         {
@@ -453,24 +455,14 @@ public partial struct <#= Prefix #>Month // Factories & conversions
         return null;
     }
 
+    // Explicit implementation: <#= Prefix #>Month being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IMonth<<#= Prefix #>Month>.TryCreate(int year, int month, out <#= Prefix #>Month result)
     {
-        var sch = Calendar.Schema;
-        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear
-            && month >= 1 && month <= sch.CountMonthsInYear(year);
-
-        if (ok)
-        {
-            int monthsSinceEpoch = sch.CountMonthsSinceEpoch(year, month);
-            result = new <#= Prefix #>Month(monthsSinceEpoch);
-        }
-        else
-        {
-            result = default;
-        }
-
-        return ok;
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
     }
 
     // No method UnsafeCreate(int year, int month) to avoid multiple lookup to

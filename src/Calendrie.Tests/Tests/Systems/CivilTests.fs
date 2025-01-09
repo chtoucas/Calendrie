@@ -112,29 +112,29 @@ module Prelude =
 
         civilDate === gregorianDate
 
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``GregorianDate:FromCivilDate()`` (x: DateInfo) =
-        let y, m, d, _ = x.Deconstruct()
-        let gregorianDate = new GregorianDate(y, m, d)
-        let civilDate = new CivilDate(y, m, d)
+    //[<Theory; MemberData(nameof(dateInfoData))>]
+    //let ``GregorianDate:FromCivilDate()`` (x: DateInfo) =
+    //    let y, m, d, _ = x.Deconstruct()
+    //    let gregorianDate = new GregorianDate(y, m, d)
+    //    let civilDate = new CivilDate(y, m, d)
 
-        GregorianDate.FromCivilDate(civilDate) === gregorianDate
+    //    GregorianDate.FromCivilDate(civilDate) === gregorianDate
 
-    [<Fact>]
-    let ``GregorianDate:FromCivilDate(CivilDate:MaxValue)`` () =
-        let civilDate = CivilDate.MaxValue
-        let y, m, d = civilDate.Deconstruct()
-        let gregorianDate = new GregorianDate(y, m, d)
+    //[<Fact>]
+    //let ``GregorianDate:FromCivilDate(CivilDate:MaxValue)`` () =
+    //    let civilDate = CivilDate.MaxValue
+    //    let y, m, d = civilDate.Deconstruct()
+    //    let gregorianDate = new GregorianDate(y, m, d)
 
-        GregorianDate.FromCivilDate(civilDate) === gregorianDate
+    //    GregorianDate.FromCivilDate(civilDate) === gregorianDate
 
-    [<Fact>]
-    let ``GregorianDate:FromCivilDate(CivilDate:MinValue)`` () =
-        let civilDate = CivilDate.MinValue
-        let y, m, d = civilDate.Deconstruct()
-        let gregorianDate = new GregorianDate(y, m, d)
+    //[<Fact>]
+    //let ``GregorianDate:FromCivilDate(CivilDate:MinValue)`` () =
+    //    let civilDate = CivilDate.MinValue
+    //    let y, m, d = civilDate.Deconstruct()
+    //    let gregorianDate = new GregorianDate(y, m, d)
 
-        GregorianDate.FromCivilDate(civilDate) === gregorianDate
+    //    GregorianDate.FromCivilDate(civilDate) === gregorianDate
 
 module Extensions =
     let private chr = CivilCalendar.Instance

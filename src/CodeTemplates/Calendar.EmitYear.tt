@@ -185,12 +185,14 @@ public partial struct <#= Prefix #>Year // Factories & conversions
         return ok ? UnsafeCreate(year) : null;
     }
 
+    // Explicit implementation: <#= Prefix #>Year being a value type, better
+    // to use the other TryCreate().
     [Pure]
     static bool IYear<<#= Prefix #>Year>.TryCreate(int year, out <#= Prefix #>Year result)
     {
-        bool ok = year >= <#= ScopeClass #>.MinYear && year <= <#= ScopeClass #>.MaxYear;
-        result = ok ? UnsafeCreate(year) : default;
-        return ok;
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
     }
 
     /// <summary>
@@ -199,7 +201,7 @@ public partial struct <#= Prefix #>Year // Factories & conversions
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static <#= Prefix #>Year UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static <#= Prefix #>Year UnsafeCreate(int year) => new((ushort)(year - 1));
 
     //
     // Conversions
