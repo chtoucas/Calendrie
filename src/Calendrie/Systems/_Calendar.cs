@@ -6,10 +6,12 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
+// TODO(code): move all these methods to the corresponding year or month types.
+
 public partial class Armenian13Calendar // Complements
 {
     /// <summary>
-    /// Represents the virtual month.
+    /// Represents the virtual month number.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
     public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
@@ -18,7 +20,7 @@ public partial class Armenian13Calendar // Complements
 public partial class Coptic13Calendar // Complements
 {
     /// <summary>
-    /// Represents the virtual month.
+    /// Represents the virtual month number.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
@@ -27,7 +29,7 @@ public partial class Coptic13Calendar // Complements
 public partial class Ethiopic13Calendar // Complements
 {
     /// <summary>
-    /// Represents the virtual month.
+    /// Represents the virtual month number.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
@@ -56,7 +58,7 @@ public partial class WorldCalendar // Complements
 public partial class Zoroastrian13Calendar // Complements
 {
     /// <summary>
-    /// Represents the virtual month.
+    /// Represents the virtual month number.
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
     public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
