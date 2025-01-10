@@ -25,15 +25,15 @@ public abstract class CalendarSystem : Calendar
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    protected internal ICalendricalSchema Schema { get; }
+    protected ICalendricalSchema Schema { get; }
 
     //
     // Characteristics
     //
 
     /// <summary>
-    /// Returns <see langword="true"/> if this calendar is regular; otherwise
-    /// returns <see langword="false"/>.
+    /// Returns <see langword="true"/> if this calendar instance is regular;
+    /// otherwise returns <see langword="false"/>.
     /// <para>The number of months is given in an output parameter; if this
     /// calendar is not regular <paramref name="monthsInYear"/> is set to 0.
     /// </para>

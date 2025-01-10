@@ -171,8 +171,6 @@ namespace Calendrie.Hemerology;
 
 /// <summary>
 /// Represents a calendar and provides a base for derived classes.
-/// <para>This type does NOT assume the existence of a dedicated companion date
-/// type.</para>
 /// </summary>
 public class Calendar
 {
