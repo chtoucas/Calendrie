@@ -220,7 +220,7 @@ public class Calendar
     /// <summary>
     /// Gets the calendar scope.
     /// </summary>
-    protected internal CalendarScope Scope { get; }
+    public CalendarScope Scope { get; }
 
 #if DEBUG
     // While creating a new type, these properties prove to be useful in
