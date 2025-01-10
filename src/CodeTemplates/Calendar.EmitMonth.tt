@@ -670,7 +670,9 @@ public partial struct <#= Prefix #>Month // Adjustments
 #>
 public partial struct <#= Prefix #>Month // IDateSegment
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
     public <#= Prefix #>Date MinDay
     {
         get
@@ -681,7 +683,9 @@ public partial struct <#= Prefix #>Month // IDateSegment
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
     public <#= Prefix #>Date MaxDay
     {
         get
@@ -741,7 +745,10 @@ public partial struct <#= Prefix #>Month // IDateSegment
     [Pure]
     IEnumerable<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(<#= Prefix #>Date date)
     {
@@ -775,7 +782,9 @@ public partial struct <#= Prefix #>Month // IDateSegment
 #>
 public partial struct <#= Prefix #>Month // IDateSegment
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
     public <#= Prefix #>Date MinDay
     {
         get
@@ -787,7 +796,9 @@ public partial struct <#= Prefix #>Month // IDateSegment
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
     public <#= Prefix #>Date MaxDay
     {
         get
@@ -848,7 +859,10 @@ public partial struct <#= Prefix #>Month // IDateSegment
     [Pure]
     IEnumerable<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(<#= Prefix #>Date date)
     {

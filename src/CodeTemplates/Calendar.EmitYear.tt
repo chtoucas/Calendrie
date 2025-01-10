@@ -262,7 +262,10 @@ public partial struct <#= Prefix #>Year // IMonthSegment
                select new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(<#= Prefix #>Month month) => month.Year == Year;
 
@@ -342,7 +345,10 @@ public partial struct <#= Prefix #>Year // IMonthSegment
                select new <#= Prefix #>Month(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(<#= Prefix #>Month month) => month.Year == Year;
 
@@ -371,7 +377,9 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 #>
 public partial struct <#= Prefix #>Year // IDateSegment
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
     public <#= Prefix #>Date MinDay
     {
         get
@@ -381,7 +389,9 @@ public partial struct <#= Prefix #>Year // IDateSegment
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
     public <#= Prefix #>Date MaxDay
     {
         get
@@ -424,7 +434,10 @@ public partial struct <#= Prefix #>Year // IDateSegment
                select new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(<#= Prefix #>Date date) => date.Year == Year;
 
