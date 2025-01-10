@@ -8,7 +8,7 @@ using System.Numerics;
 // Name conflict with BCL System.Range: use an alias, either
 // > using BclRange = System.Range;
 // or
-// > using Range_ = Calendrie.Core.Intervals.Range;
+// > using CalendrieRange = Calendrie.Core.Intervals.Range;
 //
 // Enumerable:
 // - ToEnumerable() for structs

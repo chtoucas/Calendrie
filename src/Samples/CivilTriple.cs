@@ -11,7 +11,7 @@ using Calendrie;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
-using Range_ = Calendrie.Core.Intervals.Range;
+using CalendrieRange = Calendrie.Core.Intervals.Range;
 
 // Demonstration that almost all operations only depend on the schema.
 //
@@ -31,7 +31,7 @@ internal static class CivilTripleScope
     public static readonly ICalendricalPreValidator PreValidator = Schema.PreValidator;
 
     public static readonly CalendricalSegment Segment =
-        CalendricalSegment.Create(Schema, Range_.Create(MinYear, MaxYear));
+        CalendricalSegment.Create(Schema, CalendrieRange.Create(MinYear, MaxYear));
 
     public static void ValidateYearMonthDay(int year, int month, int day)
     {
