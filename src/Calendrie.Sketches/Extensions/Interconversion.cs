@@ -13,18 +13,12 @@ using Calendrie.Systems;
 
 public static class Interconversion
 {
+    // See also TropicaliaDate.FromAbsoluteDate()
     [Pure]
     public static TDate ConvertTo<TDate>(this IAbsoluteDate date)
         where TDate : IAbsoluteDate<TDate>
     {
         ArgumentNullException.ThrowIfNull(date);
-        return TDate.FromDayNumber(date.DayNumber);
-    }
-
-    [Pure]
-    public static TDate ConvertTo<TDate>(this CivilDate date)
-        where TDate : IAbsoluteDate<TDate>
-    {
         return TDate.FromDayNumber(date.DayNumber);
     }
 

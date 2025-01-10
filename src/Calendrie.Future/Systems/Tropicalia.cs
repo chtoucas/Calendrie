@@ -5,6 +5,8 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
+// See also Calendrie.Extensions.Interconversion.
+
 public partial struct TropicaliaDate
 {
     /// <summary>

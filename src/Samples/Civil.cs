@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Hemerology;
 using Calendrie.Systems;
 
 using CalendrieRange = Calendrie.Core.Intervals.Range;
@@ -122,64 +123,6 @@ public partial class Civil
     /// Obtains the last day of the month to which belongs the specified date.
     /// </summary>
     public static CivilDate GetEndOfMonth(this CivilDate date) => CivilMonth.FromDate(date).MaxDay;
-
-    //
-    // Interconversion: CivilDate -> other date types
-    //
-
-    /// <summary>
-    /// Interconverts the specified Civil date to a <see cref="GregorianDate"/> value.
-    /// </summary>
-    public static GregorianDate ToGregorianDate(this CivilDate date) =>
-        GregorianDate.FromDayNumber(date.DayNumber);
-
-    /// <summary>
-    /// Interconverts the specified Civil date to a <see cref="GregorianDate"/> value.
-    /// <para>There is an implicit conversion from <see cref="CivilDate"/> to
-    /// <see cref="GregorianDate"/>.</para>
-    /// <para>One can also use the more explicit method
-    /// <see cref="CivilDate.ToGregorianDate()"/>.</para>
-    /// </summary>
-    public static GregorianDate AsGregorianDate(this CivilDate date) => date;
-
-    /// <summary>
-    /// Interconverts the specified Civil date to a <see cref="JulianDate"/> value.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    public static JulianDate ToJulianDate(this CivilDate date) =>
-        JulianDate.FromDayNumber(date.DayNumber);
-
-    /// <summary>
-    /// Interconverts the specified Civil date to a <see cref="WorldDate"/> value.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    public static WorldDate ToWorldDate(this CivilDate date) =>
-        WorldDate.FromDayNumber(date.DayNumber);
-
-    //
-    // Interconversion: other date types -> CivilDate
-    //
-
-    /// <summary>
-    /// Interconverts the specified Gregorian date to a <see cref="CivilDate"/> value.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    public static CivilDate ToCivilDate(this GregorianDate date) =>
-        CivilDate.FromDayNumber(date.DayNumber);
-
-    /// <summary>
-    /// Interconverts the specified Julian date to a <see cref="CivilDate"/> value.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    public static CivilDate ToCivilDate(this JulianDate date) =>
-        CivilDate.FromDayNumber(date.DayNumber);
-
-    /// <summary>
-    /// Interconverts the specified World date to a <see cref="CivilDate"/> value.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    public static CivilDate ToCivilDate(this WorldDate date) =>
-        CivilDate.FromDayNumber(date.DayNumber);
 }
 
 // CivilMonth extension methods
@@ -196,7 +139,57 @@ public partial class Civil
     /// </summary>
     public static CivilDate GetEndOfYear(this CivilMonth month) => CivilYear.FromMonth(month).MaxDay;
 
-    // NB: interconversion to JulianMonth is NOT possible.
+}
+
+// CivilDate interconversion
+//
+public partial class Civil
+{
+    /// <summary>
+    /// (Inter)Converts the specified Civil date to a <see cref="JulianDate"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    public static JulianDate ToJulianDate(this CivilDate date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
+    /// (Inter)Converts the specified Julian date to a <see cref="CivilDate"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    public static CivilDate FromJulianDate(this JulianDate date) =>
+        CivilDate.FromDayNumber(date.DayNumber);
+
+    public static Range<JulianDate> ToJulianRange(this Range<CivilDate> range)
+    {
+        var (min, max) = range.Endpoints;
+        return CalendrieRange.Create(min.ToJulianDate(), max.ToJulianDate());
+    }
+
+    // General interconversion methods are possible but not very user-friendly.
+
+    /// <summary>
+    /// (Inter)Converts the specified Civil date to a <typeparamref name="TDate"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    public static TDate ConvertTo<TDate>(this CivilDate date)
+        where TDate : IAbsoluteDate<TDate>
+    {
+        return TDate.FromDayNumber(date.DayNumber);
+    }
+
+    public static Range<TDate> ConvertTo<TDate>(this Range<CivilDate> range)
+        where TDate : struct, IAbsoluteDate<TDate>
+    {
+        var (min, max) = range.Endpoints;
+        return CalendrieRange.Create(min.ConvertTo<TDate>(), max.ConvertTo<TDate>());
+    }
+}
+
+// CivilMonth interconversion
+//
+public partial class Civil
+{
+    // NB: interconversion to XXXMonth is NOT possible.
 
     /// <summary>
     /// Converts the specified month to a range of <see cref="JulianDate"/>
@@ -230,13 +223,13 @@ public partial class Civil
         from date in month.ToEnumerable() select date.ToJulianDate();
 }
 
-// CivilYear extension methods
+// CivilYear interconversion
 //
 public partial class Civil
 {
     // Notes:
-    // - Interconversion to JulianYear is NOT possible.
-    // - Conversion to a range or to an enumerable collection of JulianMonth
+    // - Interconversion to XXXYear is NOT possible.
+    // - Conversion to a range or to an enumerable collection of XXXMonth
     //   is NOT possible.
 
     /// <summary>
