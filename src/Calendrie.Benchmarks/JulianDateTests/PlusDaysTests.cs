@@ -17,7 +17,7 @@ public class PlusDaysTests : JulianDateComparisons
     public JulianDate WithJulianDate31() => julianDate.PlusDays(31);
 
     [Benchmark(Description = "JulianDate_Plain")]
-    public PlainJulianDate WithPlainJulianDate31() => plainJulianDate.PlusDays(31);
+    public MyJulianDate WithPlainJulianDate31() => plainJulianDate.PlusDays(31);
 
     [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate31() => localDate.PlusDays(31);

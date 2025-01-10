@@ -23,15 +23,15 @@ using Calendrie.Systems;
 
 using static Calendrie.Core.CalendricalConstants;
 
-#region PlainJulianCalendar
+#region MyJulianCalendar
 
 /// <summary>
-/// Represents the Plain Julian calendar.
+/// Represents the Plain Standard Julian calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate>
+public sealed partial class MyJulianCalendar : CalendarSystem<MyJulianDate>
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -43,24 +43,24 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "Plain Julian";
+    internal const string DisplayName = "Plain Standard Julian";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianCalendar"/> class.
+    /// Initializes a new instance of the <see cref="MyJulianCalendar"/> class.
     /// </summary>
-    public PlainJulianCalendar() : this(new JulianSchema()) { }
+    public MyJulianCalendar() : this(new JulianSchema()) { }
 
-    private PlainJulianCalendar(JulianSchema schema)
+    private MyJulianCalendar(JulianSchema schema)
         : base(DisplayName, new StandardScope(schema, DayZero.OldStyle))
     {
         Schema = schema;
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="PlainJulianCalendar"/> class.
-    /// <para>See <see cref="PlainJulianDate.Calendar"/>.</para>
+    /// Gets a singleton instance of the <see cref="MyJulianCalendar"/> class.
+    /// <para>See <see cref="MyJulianDate.Calendar"/>.</para>
     /// </summary>
-    internal static PlainJulianCalendar Instance { get; } = new();
+    internal static MyJulianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -102,22 +102,22 @@ public sealed partial class PlainJulianCalendar : CalendarSystem<PlainJulianDate
 
 #endregion
 
-#region PlainJulianDate
+#region MyJulianDate
 
 /// <summary>
-/// Represents the Plain Julian date.
+/// Represents the Plain Standard Julian date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="PlainJulianDate"/> is an immutable struct.</para>
+/// <para><see cref="MyJulianDate"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct PlainJulianDate :
-    IDate<PlainJulianDate>,
-    ICalendarBound<PlainJulianCalendar>,
-    IUnsafeFactory<PlainJulianDate>,
-    ISubtractionOperators<PlainJulianDate, PlainJulianDate, int>
+public readonly partial struct MyJulianDate :
+    IDate<MyJulianDate>,
+    ICalendarBound<MyJulianCalendar>,
+    IUnsafeFactory<MyJulianDate>,
+    ISubtractionOperators<MyJulianDate, MyJulianDate, int>
 { }
 
-public partial struct PlainJulianDate // Preamble
+public partial struct MyJulianDate // Preamble
 {
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
     /// for the epoch <see cref="DayZero.OldStyle"/>.
@@ -137,65 +137,65 @@ public partial struct PlainJulianDate // Preamble
     private readonly int _daysSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianDate"/> struct
+    /// Initializes a new instance of the <see cref="MyJulianDate"/> struct
     /// to the specified date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid date or <paramref name="year"/> is outside the range
     /// of supported years.</exception>
-    public PlainJulianDate(int year, int month, int day)
+    public MyJulianDate(int year, int month, int day)
     {
-        var chr = PlainJulianCalendar.Instance;
+        var chr = MyJulianCalendar.Instance;
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianDate"/> struct
+    /// Initializes a new instance of the <see cref="MyJulianDate"/> struct
     /// to the specified ordinal date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid ordinal date or <paramref name="year"/> is outside
     /// the range of supported years.</exception>
-    public PlainJulianDate(int year, int dayOfYear)
+    public MyJulianDate(int year, int dayOfYear)
     {
-        var chr = PlainJulianCalendar.Instance;
+        var chr = MyJulianCalendar.Instance;
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianDate"/> struct.
+    /// Initializes a new instance of the <see cref="MyJulianDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal PlainJulianDate(int daysSinceEpoch)
+    internal MyJulianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="PlainJulianDate"/>.
+    /// Gets the smallest possible value of <see cref="MyJulianDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported date.</returns>
     //
-    // MinValue = new(0) = new() = default(PlainJulianDate)
-    public static PlainJulianDate MinValue { get; }
+    // MinValue = new(0) = new() = default(MyJulianDate)
+    public static MyJulianDate MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="PlainJulianDate"/>.
+    /// Gets the largest possible value of <see cref="MyJulianDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported date.</returns>
-    public static PlainJulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
+    public static MyJulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainJulianCalendar Calendar => PlainJulianCalendar.Instance;
+    public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
     /// <inheritdoc />
     //
@@ -289,7 +289,7 @@ public partial struct PlainJulianDate // Preamble
     public override string ToString()
     {
         Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({PlainJulianCalendar.DisplayName})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({MyJulianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -301,28 +301,28 @@ public partial struct PlainJulianDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct PlainJulianDate // Factories & conversions
+public partial struct MyJulianDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianDate Create(int year, int month, int day) => new(year, month, day);
+    public static MyJulianDate Create(int year, int month, int day) => new(year, month, day);
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+    public static MyJulianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <summary>
     /// Attempts to create a new instance of the <see cref="CivilDate"/>
     /// struct from the specified date components.
     /// </summary>
     [Pure]
-    public static PlainJulianDate? TryCreate(int year, int month, int day)
+    public static MyJulianDate? TryCreate(int year, int month, int day)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
 
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -330,20 +330,20 @@ public partial struct PlainJulianDate // Factories & conversions
     /// struct from the specified ordinal components.
     /// </summary>
     [Pure]
-    public static PlainJulianDate? TryCreate(int year, int dayOfYear)
+    public static MyJulianDate? TryCreate(int year, int dayOfYear)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
 
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
-    // Explicit implementation: PlainJulianDate being a value type, better
+    // Explicit implementation: MyJulianDate being a value type, better
     // to use the others TryCreate().
 
     [Pure]
-    static bool IDate<PlainJulianDate>.TryCreate(int year, int month, int day, out PlainJulianDate result)
+    static bool IDate<MyJulianDate>.TryCreate(int year, int month, int day, out MyJulianDate result)
     {
         var dateValue = TryCreate(year, month, day);
         result = dateValue ?? default;
@@ -351,7 +351,7 @@ public partial struct PlainJulianDate // Factories & conversions
     }
 
     [Pure]
-    static bool IDate<PlainJulianDate>.TryCreate(int year, int dayOfYear, out PlainJulianDate result)
+    static bool IDate<MyJulianDate>.TryCreate(int year, int dayOfYear, out MyJulianDate result)
     {
         var dateValue = TryCreate(year, dayOfYear);
         result = dateValue ?? default;
@@ -362,7 +362,7 @@ public partial struct PlainJulianDate // Factories & conversions
     // lookup to the property Calendar.
 
     [Pure]
-    static PlainJulianDate IUnsafeFactory<PlainJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static MyJulianDate IUnsafeFactory<MyJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
 
     //
@@ -371,16 +371,16 @@ public partial struct PlainJulianDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianDate FromDayNumber(DayNumber dayNumber)
+    public static MyJulianDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
 
         // NB: the subtraction won't overflow.
-        return new PlainJulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+        return new MyJulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 }
 
-public partial struct PlainJulianDate // Counting
+public partial struct MyJulianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -399,11 +399,11 @@ public partial struct PlainJulianDate // Counting
     public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
-public partial struct PlainJulianDate // Adjustments
+public partial struct MyJulianDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate WithYear(int newYear)
+    public MyJulianDate WithYear(int newYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -415,12 +415,12 @@ public partial struct PlainJulianDate // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate WithMonth(int newMonth)
+    public MyJulianDate WithMonth(int newMonth)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -431,12 +431,12 @@ public partial struct PlainJulianDate // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate WithDay(int newDay)
+    public MyJulianDate WithDay(int newDay)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -447,12 +447,12 @@ public partial struct PlainJulianDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate WithDayOfYear(int newDayOfYear)
+    public MyJulianDate WithDayOfYear(int newDayOfYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -463,27 +463,27 @@ public partial struct PlainJulianDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 }
 
-public partial struct PlainJulianDate // Find close by day of the week
+public partial struct MyJulianDate // Find close by day of the week
 {
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Previous(DayOfWeek dayOfWeek)
+    public MyJulianDate Previous(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate PreviousOrSame(DayOfWeek dayOfWeek)
+    public MyJulianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -491,22 +491,22 @@ public partial struct PlainJulianDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Nearest(DayOfWeek dayOfWeek)
+    public MyJulianDate Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate NextOrSame(DayOfWeek dayOfWeek)
+    public MyJulianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -514,103 +514,103 @@ public partial struct PlainJulianDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianDate Next(DayOfWeek dayOfWeek)
+    public MyJulianDate Next(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 }
 
-public partial struct PlainJulianDate // IEquatable
+public partial struct MyJulianDate // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PlainJulianDate left, PlainJulianDate right) =>
+    public static bool operator ==(MyJulianDate left, MyJulianDate right) =>
         left._daysSinceEpoch == right._daysSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(PlainJulianDate left, PlainJulianDate right) =>
+    public static bool operator !=(MyJulianDate left, MyJulianDate right) =>
         left._daysSinceEpoch != right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainJulianDate other) => _daysSinceEpoch == other._daysSinceEpoch;
+    public bool Equals(MyJulianDate other) => _daysSinceEpoch == other._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is PlainJulianDate date && Equals(date);
+        obj is MyJulianDate date && Equals(date);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _daysSinceEpoch;
 }
 
-public partial struct PlainJulianDate // IComparable
+public partial struct MyJulianDate // IComparable
 {
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(PlainJulianDate left, PlainJulianDate right) =>
+    public static bool operator <(MyJulianDate left, MyJulianDate right) =>
         left._daysSinceEpoch < right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(PlainJulianDate left, PlainJulianDate right) =>
+    public static bool operator <=(MyJulianDate left, MyJulianDate right) =>
         left._daysSinceEpoch <= right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(PlainJulianDate left, PlainJulianDate right) =>
+    public static bool operator >(MyJulianDate left, MyJulianDate right) =>
         left._daysSinceEpoch > right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(PlainJulianDate left, PlainJulianDate right) =>
+    public static bool operator >=(MyJulianDate left, MyJulianDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianDate Min(PlainJulianDate x, PlainJulianDate y) => x < y ? x : y;
+    public static MyJulianDate Min(MyJulianDate x, MyJulianDate y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianDate Max(PlainJulianDate x, PlainJulianDate y) => x > y ? x : y;
+    public static MyJulianDate Max(MyJulianDate x, MyJulianDate y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainJulianDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
+    public int CompareTo(MyJulianDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is PlainJulianDate date ? CompareTo(date)
-        : ThrowHelpers.ThrowNonComparable(typeof(PlainJulianDate), obj);
+        : obj is MyJulianDate date ? CompareTo(date)
+        : ThrowHelpers.ThrowNonComparable(typeof(MyJulianDate), obj);
 }
 
-public partial struct PlainJulianDate // Standard math ops
+public partial struct MyJulianDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
-    public static int operator -(PlainJulianDate left, PlainJulianDate right) => left.CountDaysSince(right);
+    public static int operator -(MyJulianDate left, MyJulianDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
@@ -619,7 +619,7 @@ public partial struct PlainJulianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static PlainJulianDate operator +(PlainJulianDate value, int days) => value.PlusDays(days);
+    public static MyJulianDate operator +(MyJulianDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -628,7 +628,7 @@ public partial struct PlainJulianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static PlainJulianDate operator -(PlainJulianDate value, int days) => value.PlusDays(-days);
+    public static MyJulianDate operator -(MyJulianDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -636,7 +636,7 @@ public partial struct PlainJulianDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
-    public static PlainJulianDate operator ++(PlainJulianDate value) => value.NextDay();
+    public static MyJulianDate operator ++(MyJulianDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
@@ -644,13 +644,13 @@ public partial struct PlainJulianDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
-    public static PlainJulianDate operator --(PlainJulianDate value) => value.PreviousDay();
+    public static MyJulianDate operator --(MyJulianDate value) => value.PreviousDay();
 
     /// <summary>
     /// Counts the number of days elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountDaysSince(PlainJulianDate other) =>
+    public int CountDaysSince(MyJulianDate other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxDaysSinceEpoch.
         _daysSinceEpoch - other._daysSinceEpoch;
@@ -662,11 +662,11 @@ public partial struct PlainJulianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public PlainJulianDate PlusDays(int days)
+    public MyJulianDate PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -675,10 +675,10 @@ public partial struct PlainJulianDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [Pure]
-    public PlainJulianDate NextDay()
+    public MyJulianDate NextDay()
     {
         if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(_daysSinceEpoch + 1);
+        return new MyJulianDate(_daysSinceEpoch + 1);
     }
 
     /// <summary>
@@ -687,10 +687,10 @@ public partial struct PlainJulianDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [Pure]
-    public PlainJulianDate PreviousDay()
+    public MyJulianDate PreviousDay()
     {
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
-        return new PlainJulianDate(_daysSinceEpoch - 1);
+        return new MyJulianDate(_daysSinceEpoch - 1);
     }
 
     //
@@ -701,7 +701,7 @@ public partial struct PlainJulianDate // Standard math ops
     /// Counts the number of weeks elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(PlainJulianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(MyJulianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -710,24 +710,24 @@ public partial struct PlainJulianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public PlainJulianDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public MyJulianDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public PlainJulianDate NextWeek() => PlusDays(DaysInWeek);
+    public MyJulianDate NextWeek() => PlusDays(DaysInWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public PlainJulianDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public MyJulianDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
-public partial struct PlainJulianDate // Non-standard math ops
+public partial struct MyJulianDate // Non-standard math ops
 {
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
@@ -738,7 +738,7 @@ public partial struct PlainJulianDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public PlainJulianDate PlusYears(int years)
+    public MyJulianDate PlusYears(int years)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -754,7 +754,7 @@ public partial struct PlainJulianDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public PlainJulianDate PlusMonths(int months)
+    public MyJulianDate PlusMonths(int months)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -767,7 +767,7 @@ public partial struct PlainJulianDate // Non-standard math ops
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(PlainJulianDate other)
+    public int CountYearsSince(MyJulianDate other)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
@@ -796,14 +796,14 @@ public partial struct PlainJulianDate // Non-standard math ops
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountMonthsSince(PlainJulianDate other)
+    public int CountMonthsSince(MyJulianDate other)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
         sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(PlainJulianCalendar.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(MyJulianCalendar.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -830,7 +830,7 @@ public partial struct PlainJulianDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PlainJulianDate AddYears(JulianSchema sch, int y, int m, int d, int years)
+    private static MyJulianDate AddYears(JulianSchema sch, int y, int m, int d, int years)
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
@@ -841,7 +841,7 @@ public partial struct PlainJulianDate // Non-standard math ops
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -853,10 +853,10 @@ public partial struct PlainJulianDate // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PlainJulianDate AddMonths(JulianSchema sch, int y, int m, int d, int months)
+    private static MyJulianDate AddMonths(JulianSchema sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), PlainJulianCalendar.MonthsInYear, out int y0);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), MyJulianCalendar.MonthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
@@ -865,52 +865,52 @@ public partial struct PlainJulianDate // Non-standard math ops
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 }
 
 #endregion
 
-#region PlainJulianDateMath
+#region MyJulianDateMath
 
 /// <summary>
 /// Provides non-standard mathematical operations for the
-/// <see cref="PlainJulianDate"/> type.
+/// <see cref="MyJulianDate"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public sealed class PlainJulianDateMath : DateMathRegular<PlainJulianDate, PlainJulianCalendar>
+public sealed class MyJulianDateMath : DateMathRegular<MyJulianDate, MyJulianCalendar>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianDateMath"/> class.
+    /// Initializes a new instance of the <see cref="MyJulianDateMath"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public PlainJulianDateMath(AdditionRule rule) : base(rule) { }
+    public MyJulianDateMath(AdditionRule rule) : base(rule) { }
 }
 
 #endregion
 
-#region PlainJulianMonth
+#region MyJulianMonth
 
 /// <summary>
-/// Represents the Plain Julian month.
+/// Represents the Plain Standard Julian month.
 /// <para><i>All</i> months within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="PlainJulianMonth"/> is an immutable struct.</para>
+/// <para><see cref="MyJulianMonth"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct PlainJulianMonth :
-    IMonth<PlainJulianMonth>,
-    ICalendarBound<PlainJulianCalendar>,
-    IUnsafeFactory<PlainJulianMonth>,
+public readonly partial struct MyJulianMonth :
+    IMonth<MyJulianMonth>,
+    ICalendarBound<MyJulianCalendar>,
+    IUnsafeFactory<MyJulianMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<PlainJulianDate>,
-    ISetMembership<PlainJulianDate>,
+    IDateSegment<MyJulianDate>,
+    ISetMembership<MyJulianDate>,
     // Arithmetic
-    ISubtractionOperators<PlainJulianMonth, PlainJulianMonth, int>
+    ISubtractionOperators<MyJulianMonth, MyJulianMonth, int>
 { }
 
-public partial struct PlainJulianMonth // Preamble
+public partial struct MyJulianMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
@@ -925,54 +925,54 @@ public partial struct PlainJulianMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianMonth"/> struct
+    /// Initializes a new instance of the <see cref="MyJulianMonth"/> struct
     /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
     /// range of supported years.</exception>
-    public PlainJulianMonth(int year, int month)
+    public MyJulianMonth(int year, int month)
     {
         // The calendar being regular, no need to use the Scope:
-        // > PlainJulianCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        // > MyJulianCalendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > PlainJulianCalendar.MonthsInYear)
+        if (month < 1 || month > MyJulianCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianMonth"/> struct.
+    /// Initializes a new instance of the <see cref="MyJulianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal PlainJulianMonth(int monthsSinceEpoch)
+    internal MyJulianMonth(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="PlainJulianMonth"/>.
+    /// Gets the smallest possible value of <see cref="MyJulianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported month.</returns>
     //
-    // MinValue = new(0) = new() = default(PlainJulianMonth)
-    public static PlainJulianMonth MinValue { get; }
+    // MinValue = new(0) = new() = default(MyJulianMonth)
+    public static MyJulianMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="PlainJulianMonth"/>.
+    /// Gets the largest possible value of <see cref="MyJulianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported month.</returns>
-    public static PlainJulianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+    public static MyJulianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current month type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainJulianCalendar Calendar => PlainJulianCalendar.Instance;
+    public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
@@ -1005,7 +1005,7 @@ public partial struct PlainJulianMonth // Preamble
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
-        1 + _monthsSinceEpoch / PlainJulianCalendar.MonthsInYear;
+        1 + _monthsSinceEpoch / MyJulianCalendar.MonthsInYear;
 
     /// <inheritdoc />
     public int Month
@@ -1028,7 +1028,7 @@ public partial struct PlainJulianMonth // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({PlainJulianCalendar.DisplayName})");
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({MyJulianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -1036,27 +1036,27 @@ public partial struct PlainJulianMonth // Preamble
     {
         // See RegularSchema.GetMonthParts().
         // NB: both dividend and divisor are >= 0.
-        year = 1 + MathN.Divide(_monthsSinceEpoch, PlainJulianCalendar.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(_monthsSinceEpoch, MyJulianCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 }
 
-public partial struct PlainJulianMonth // Factories & conversions
+public partial struct MyJulianMonth // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianMonth Create(int year, int month) => new(year, month);
+    public static MyJulianMonth Create(int year, int month) => new(year, month);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="PlainJulianMonth"/>
+    /// Attempts to create a new instance of the <see cref="MyJulianMonth"/>
     /// struct from the specified month components.
     /// </summary>
     [Pure]
-    public static PlainJulianMonth? TryCreate(int year, int month)
+    public static MyJulianMonth? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear
-            || month < 1 || month > PlainJulianCalendar.MonthsInYear)
+            || month < 1 || month > MyJulianCalendar.MonthsInYear)
         {
             return null;
         }
@@ -1064,10 +1064,10 @@ public partial struct PlainJulianMonth // Factories & conversions
         return UnsafeCreate(year, month);
     }
 
-    // Explicit implementation: PlainJulianMonth being a value type, better
+    // Explicit implementation: MyJulianMonth being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IMonth<PlainJulianMonth>.TryCreate(int year, int month, out PlainJulianMonth result)
+    static bool IMonth<MyJulianMonth>.TryCreate(int year, int month, out MyJulianMonth result)
     {
         var monthValue = TryCreate(year, month);
         result = monthValue ?? default;
@@ -1075,55 +1075,55 @@ public partial struct PlainJulianMonth // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
+    /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
     /// from the specified month components.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PlainJulianMonth UnsafeCreate(int year, int month)
+    internal static MyJulianMonth UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new PlainJulianMonth(monthsSinceEpoch);
+        return new MyJulianMonth(monthsSinceEpoch);
     }
 
     [Pure]
-    static PlainJulianMonth IUnsafeFactory<PlainJulianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+    static MyJulianMonth IUnsafeFactory<MyJulianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
         new(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        PlainJulianCalendar.MonthsInYear * (y - 1) + m - 1;
+        MyJulianCalendar.MonthsInYear * (y - 1) + m - 1;
 
     //
     // Conversions
     //
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
+    /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
     /// from the specified number of consecutive months since the epoch.
     /// </summary>
     [Pure]
-    public static PlainJulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    public static MyJulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new PlainJulianMonth(monthsSinceEpoch);
+        return new MyJulianMonth(monthsSinceEpoch);
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianMonth"/> struct
-    /// from the specified <see cref="PlainJulianDate"/> value.
+    /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
+    /// from the specified <see cref="MyJulianDate"/> value.
     /// </summary>
     [Pure]
-    public static PlainJulianMonth FromDate(PlainJulianDate date)
+    public static MyJulianMonth FromDate(MyJulianDate date)
     {
         var (y, m, _) = date;
         return UnsafeCreate(y, m);
     }
 }
 
-public partial struct PlainJulianMonth // Counting
+public partial struct MyJulianMonth // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -1131,7 +1131,7 @@ public partial struct PlainJulianMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => PlainJulianCalendar.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => MyJulianCalendar.MonthsInYear - 1;
 
 #if false
     /// <inheritdoc />
@@ -1152,11 +1152,11 @@ public partial struct PlainJulianMonth // Counting
 #endif
 }
 
-public partial struct PlainJulianMonth // Adjustments
+public partial struct MyJulianMonth // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public PlainJulianMonth WithYear(int newYear)
+    public MyJulianMonth WithYear(int newYear)
     {
         int m = Month;
 
@@ -1165,7 +1165,7 @@ public partial struct PlainJulianMonth // Adjustments
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(newYear);
-        if (m < 1 || m > PlainJulianCalendar.MonthsInYear)
+        if (m < 1 || m > MyJulianCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
         return UnsafeCreate(newYear, m);
@@ -1173,35 +1173,39 @@ public partial struct PlainJulianMonth // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainJulianMonth WithMonth(int newMonth)
+    public MyJulianMonth WithMonth(int newMonth)
     {
         int y = Year;
 
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > PlainJulianCalendar.MonthsInYear)
+        if (newMonth < 1 || newMonth > MyJulianCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
     }
 }
 
-public partial struct PlainJulianMonth // IDateSegment
+public partial struct MyJulianMonth // IDateSegment
 {
-    /// <inheritdoc />
-    public PlainJulianDate MinDay
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
+    public MyJulianDate MinDay
     {
         get
         {
             var (y, m) = this;
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return new PlainJulianDate(daysSinceEpoch);
+            return new MyJulianDate(daysSinceEpoch);
         }
     }
 
-    /// <inheritdoc />
-    public PlainJulianDate MaxDay
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
+    public MyJulianDate MaxDay
     {
         get
         {
@@ -1209,12 +1213,12 @@ public partial struct PlainJulianMonth // IDateSegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-            return new PlainJulianDate(daysSinceEpoch);
+            return new MyJulianDate(daysSinceEpoch);
         }
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="PlainJulianCalendar.CountDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="MyJulianCalendar.CountDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays()
@@ -1229,23 +1233,23 @@ public partial struct PlainJulianMonth // IDateSegment
     /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PlainJulianDate> ToRange()
+    public Range<MyJulianDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new PlainJulianDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(new MyJulianDate(startOfMonth), daysInMonth);
     }
 
     [Pure]
-    Range<PlainJulianDate> IDateSegment<PlainJulianDate>.ToDayRange() => ToRange();
+    Range<MyJulianDate> IDateSegment<MyJulianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
     /// </summary>
     [Pure]
-    public IEnumerable<PlainJulianDate> ToEnumerable()
+    public IEnumerable<MyJulianDate> ToEnumerable()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1254,15 +1258,18 @@ public partial struct PlainJulianMonth // IDateSegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new PlainJulianDate(daysSinceEpoch);
+               select new MyJulianDate(daysSinceEpoch);
     }
 
     [Pure]
-    IEnumerable<PlainJulianDate> IDateSegment<PlainJulianDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<MyJulianDate> IDateSegment<MyJulianDate>.EnumerateDays() => ToEnumerable();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
-    public bool Contains(PlainJulianDate date)
+    public bool Contains(MyJulianDate date)
     {
         var (y, m) = this;
         Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
@@ -1276,97 +1283,97 @@ public partial struct PlainJulianMonth // IDateSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public PlainJulianDate GetDayOfMonth(int dayOfMonth)
+    public MyJulianDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 }
 
-public partial struct PlainJulianMonth // IEquatable
+public partial struct MyJulianMonth // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PlainJulianMonth left, PlainJulianMonth right) =>
+    public static bool operator ==(MyJulianMonth left, MyJulianMonth right) =>
         left._monthsSinceEpoch == right._monthsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(PlainJulianMonth left, PlainJulianMonth right) =>
+    public static bool operator !=(MyJulianMonth left, MyJulianMonth right) =>
         left._monthsSinceEpoch != right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainJulianMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+    public bool Equals(MyJulianMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is PlainJulianMonth month && Equals(month);
+        obj is MyJulianMonth month && Equals(month);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _monthsSinceEpoch;
 }
 
-public partial struct PlainJulianMonth // IComparable
+public partial struct MyJulianMonth // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(PlainJulianMonth left, PlainJulianMonth right) =>
+    public static bool operator <(MyJulianMonth left, MyJulianMonth right) =>
         left._monthsSinceEpoch < right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(PlainJulianMonth left, PlainJulianMonth right) =>
+    public static bool operator <=(MyJulianMonth left, MyJulianMonth right) =>
         left._monthsSinceEpoch <= right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(PlainJulianMonth left, PlainJulianMonth right) =>
+    public static bool operator >(MyJulianMonth left, MyJulianMonth right) =>
         left._monthsSinceEpoch > right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(PlainJulianMonth left, PlainJulianMonth right) =>
+    public static bool operator >=(MyJulianMonth left, MyJulianMonth right) =>
         left._monthsSinceEpoch >= right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianMonth Min(PlainJulianMonth x, PlainJulianMonth y) => x < y ? x : y;
+    public static MyJulianMonth Min(MyJulianMonth x, MyJulianMonth y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianMonth Max(PlainJulianMonth x, PlainJulianMonth y) => x > y ? x : y;
+    public static MyJulianMonth Max(MyJulianMonth x, MyJulianMonth y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainJulianMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+    public int CompareTo(MyJulianMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is PlainJulianMonth month ? CompareTo(month)
-        : ThrowHelpers.ThrowNonComparable(typeof(PlainJulianMonth), obj);
+        : obj is MyJulianMonth month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(MyJulianMonth), obj);
 }
 
-public partial struct PlainJulianMonth // Standard math ops
+public partial struct MyJulianMonth // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified months and returns the number of months
     /// between them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
-    public static int operator -(PlainJulianMonth left, PlainJulianMonth right) => left.CountMonthsSince(right);
+    public static int operator -(MyJulianMonth left, MyJulianMonth right) => left.CountMonthsSince(right);
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.
@@ -1375,7 +1382,7 @@ public partial struct PlainJulianMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static PlainJulianMonth operator +(PlainJulianMonth value, int months) => value.PlusMonths(months);
+    public static MyJulianMonth operator +(MyJulianMonth value, int months) => value.PlusMonths(months);
 
     /// <summary>
     /// Subtracts a number of months to the specified month, yielding a new month.
@@ -1384,7 +1391,7 @@ public partial struct PlainJulianMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static PlainJulianMonth operator -(PlainJulianMonth value, int months) => value.PlusMonths(-months);
+    public static MyJulianMonth operator -(MyJulianMonth value, int months) => value.PlusMonths(-months);
 
     /// <summary>
     /// Adds one month to the specified month, yielding a new month.
@@ -1392,7 +1399,7 @@ public partial struct PlainJulianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
-    public static PlainJulianMonth operator ++(PlainJulianMonth value) => value.NextMonth();
+    public static MyJulianMonth operator ++(MyJulianMonth value) => value.NextMonth();
 
     /// <summary>
     /// Subtracts one month to the specified month, yielding a new month.
@@ -1400,13 +1407,13 @@ public partial struct PlainJulianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
-    public static PlainJulianMonth operator --(PlainJulianMonth value) => value.PreviousMonth();
+    public static MyJulianMonth operator --(MyJulianMonth value) => value.PreviousMonth();
 
     /// <summary>
     /// Counts the number of months elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountMonthsSince(PlainJulianMonth other) =>
+    public int CountMonthsSince(MyJulianMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceEpoch.
         _monthsSinceEpoch - other._monthsSinceEpoch;
@@ -1418,12 +1425,12 @@ public partial struct PlainJulianMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    public PlainJulianMonth PlusMonths(int months)
+    public MyJulianMonth PlusMonths(int months)
     {
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new PlainJulianMonth(monthsSinceEpoch);
+        return new MyJulianMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1432,10 +1439,10 @@ public partial struct PlainJulianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [Pure]
-    public PlainJulianMonth NextMonth()
+    public MyJulianMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new PlainJulianMonth(_monthsSinceEpoch + 1);
+        return new MyJulianMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1444,25 +1451,25 @@ public partial struct PlainJulianMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [Pure]
-    public PlainJulianMonth PreviousMonth()
+    public MyJulianMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new PlainJulianMonth(_monthsSinceEpoch - 1);
+        return new MyJulianMonth(_monthsSinceEpoch - 1);
     }
 }
 
-public partial struct PlainJulianMonth // Non-standard math ops
+public partial struct MyJulianMonth // Non-standard math ops
 {
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
-    /// <para>In the particular case of the PlainJulian calendar, this
+    /// <para>In the particular case of the MyJulian calendar, this
     /// operation is exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
     [Pure]
-    public PlainJulianMonth PlusYears(int years)
+    public MyJulianMonth PlusYears(int years)
     {
         var (y, m) = this;
         // Exact addition of years to a calendar year.
@@ -1475,39 +1482,39 @@ public partial struct PlainJulianMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
-    /// <para>In the particular case of the PlainJulian calendar, this
+    /// <para>In the particular case of the MyJulian calendar, this
     /// operation is exact.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(PlainJulianMonth other) =>
+    public int CountYearsSince(MyJulianMonth other) =>
         // NB: this subtraction never overflows.
         Year - other.Year;
 }
 
 #endregion
 
-#region PlainJulianYear
+#region MyJulianYear
 
 /// <summary>
-/// Represents the PlainJulian year.
+/// Represents the MyJulian year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="PlainJulianYear"/> is an immutable struct.</para>
+/// <para><see cref="MyJulianYear"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct PlainJulianYear :
-    IYear<PlainJulianYear>,
-    ICalendarBound<PlainJulianCalendar>,
+public readonly partial struct MyJulianYear :
+    IYear<MyJulianYear>,
+    ICalendarBound<MyJulianCalendar>,
     // A year viewed as a finite sequence of months
-    IMonthSegment<PlainJulianMonth>,
-    ISetMembership<PlainJulianMonth>,
+    IMonthSegment<MyJulianMonth>,
+    ISetMembership<MyJulianMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<PlainJulianDate>,
-    ISetMembership<PlainJulianDate>,
+    IDateSegment<MyJulianDate>,
+    ISetMembership<MyJulianDate>,
     // Arithmetic
-    ISubtractionOperators<PlainJulianYear, PlainJulianYear, int>
+    ISubtractionOperators<MyJulianYear, MyJulianYear, int>
 { }
 
-public partial struct PlainJulianYear // Preamble
+public partial struct MyJulianYear // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to 9998.</para></summary>
@@ -1522,12 +1529,12 @@ public partial struct PlainJulianYear // Preamble
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianYear"/> struct
+    /// Initializes a new instance of the <see cref="MyJulianYear"/> struct
     /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
-    public PlainJulianYear(int year)
+    public MyJulianYear(int year)
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -1536,35 +1543,35 @@ public partial struct PlainJulianYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainJulianYear"/> struct.
+    /// Initializes a new instance of the <see cref="MyJulianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private PlainJulianYear(ushort yearsSinceEpoch)
+    private MyJulianYear(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="PlainJulianYear"/>.
+    /// Gets the smallest possible value of <see cref="MyJulianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported year.</returns>
     //
-    // MinValue = new(1) = new() = default(PlainJulianYear)
-    public static PlainJulianYear MinValue { get; }
+    // MinValue = new(1) = new() = default(MyJulianYear)
+    public static MyJulianYear MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="PlainJulianYear"/>.
+    /// Gets the largest possible value of <see cref="MyJulianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported year.</returns>
-    public static PlainJulianYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+    public static MyJulianYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainJulianCalendar Calendar => PlainJulianCalendar.Instance;
+    public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;
@@ -1607,30 +1614,30 @@ public partial struct PlainJulianYear // Preamble
     /// </summary>
     [Pure]
     public override string ToString() =>
-        FormattableString.Invariant($"{Year:D4} ({PlainJulianCalendar.DisplayName})");
+        FormattableString.Invariant($"{Year:D4} ({MyJulianCalendar.DisplayName})");
 }
 
-public partial struct PlainJulianYear // Factories & conversions
+public partial struct MyJulianYear // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianYear Create(int year) => new(year);
+    public static MyJulianYear Create(int year) => new(year);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="PlainJulianYear"/>
+    /// Attempts to create a new instance of the <see cref="MyJulianYear"/>
     /// struct from the specified year.
     /// </summary>
     [Pure]
-    public static PlainJulianYear? TryCreate(int year)
+    public static MyJulianYear? TryCreate(int year)
     {
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
         return ok ? UnsafeCreate(year) : null;
     }
 
-    // Explicit implementation: PlainJulianYear being a value type, better
+    // Explicit implementation: MyJulianYear being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IYear<PlainJulianYear>.TryCreate(int year, out PlainJulianYear result)
+    static bool IYear<MyJulianYear>.TryCreate(int year, out MyJulianYear result)
     {
         var yearValue = TryCreate(year);
         result = yearValue ?? default;
@@ -1638,68 +1645,71 @@ public partial struct PlainJulianYear // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
+    /// Creates a new instance of the <see cref="MyJulianYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static PlainJulianYear UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static MyJulianYear UnsafeCreate(int year) => new((ushort)(year - 1));
 
     //
     // Conversions
     //
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
-    /// from the specified <see cref="PlainJulianMonth"/> value.
+    /// Creates a new instance of the <see cref="MyJulianYear"/> struct
+    /// from the specified <see cref="MyJulianMonth"/> value.
     /// </summary>
     [Pure]
-    public static PlainJulianYear FromMonth(PlainJulianMonth month) => UnsafeCreate(month.Year);
+    public static MyJulianYear FromMonth(MyJulianMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainJulianYear"/> struct
-    /// from the specified <see cref="PlainJulianDate"/> value.
+    /// Creates a new instance of the <see cref="MyJulianYear"/> struct
+    /// from the specified <see cref="MyJulianDate"/> value.
     /// </summary>
     [Pure]
-    public static PlainJulianYear FromDate(PlainJulianDate date) => UnsafeCreate(date.Year);
+    public static MyJulianYear FromDate(MyJulianDate date) => UnsafeCreate(date.Year);
 }
 
-public partial struct PlainJulianYear // IMonthSegment
+public partial struct MyJulianYear // IMonthSegment
 {
     /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = PlainJulianCalendar.MonthsInYear;
+    public const int MonthCount = MyJulianCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public PlainJulianMonth MinMonth => PlainJulianMonth.UnsafeCreate(Year, 1);
+    public MyJulianMonth MinMonth => MyJulianMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public PlainJulianMonth MaxMonth => PlainJulianMonth.UnsafeCreate(Year, MonthCount);
-
-    /// <inheritdoc />
-    [Pure]
-    int IMonthSegment<PlainJulianMonth>.CountMonths() => MonthCount;
+    public MyJulianMonth MaxMonth => MyJulianMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    public Range<PlainJulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    int IMonthSegment<MyJulianMonth>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<PlainJulianMonth> EnumerateMonths()
+    public Range<MyJulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<MyJulianMonth> EnumerateMonths()
     {
-        int startOfYear = PlainJulianMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+        int startOfYear = MyJulianMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select new PlainJulianMonth(monthsSinceEpoch);
+               select new MyJulianMonth(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
-    public bool Contains(PlainJulianMonth month) => month.Year == Year;
+    public bool Contains(MyJulianMonth month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -1708,7 +1718,7 @@ public partial struct PlainJulianYear // IMonthSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public PlainJulianMonth GetMonthOfYear(int month)
+    public MyJulianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
@@ -1716,36 +1726,40 @@ public partial struct PlainJulianYear // IMonthSegment
         if (month < 1 || month > GregorianCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
-        return PlainJulianMonth.UnsafeCreate(Year, month);
+        return MyJulianMonth.UnsafeCreate(Year, month);
     }
 }
 
-public partial struct PlainJulianYear // IDateSegment
+public partial struct MyJulianYear // IDateSegment
 {
-    /// <inheritdoc />
-    public PlainJulianDate MinDay
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
+    public MyJulianDate MinDay
     {
         get
         {
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new PlainJulianDate(daysSinceEpoch);
+            return new MyJulianDate(daysSinceEpoch);
         }
     }
 
-    /// <inheritdoc />
-    public PlainJulianDate MaxDay
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
+    public MyJulianDate MaxDay
     {
         get
         {
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
-            return new PlainJulianDate(daysSinceEpoch);
+            return new MyJulianDate(daysSinceEpoch);
         }
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="PlainJulianCalendar.CountDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="MyJulianCalendar.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
@@ -1754,17 +1768,17 @@ public partial struct PlainJulianYear // IDateSegment
     /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PlainJulianDate> ToDayRange()
+    public Range<MyJulianDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(new PlainJulianDate(startOfYear), daysInYear);
+        return Range.StartingAt(new MyJulianDate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<PlainJulianDate> EnumerateDays()
+    public IEnumerable<MyJulianDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
@@ -1772,12 +1786,15 @@ public partial struct PlainJulianYear // IDateSegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select new PlainJulianDate(daysSinceEpoch);
+               select new MyJulianDate(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
-    public bool Contains(PlainJulianDate date) => date.Year == Year;
+    public bool Contains(MyJulianDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -1785,98 +1802,98 @@ public partial struct PlainJulianYear // IDateSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public PlainJulianDate GetDayOfYear(int dayOfYear)
+    public MyJulianDate GetDayOfYear(int dayOfYear)
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return new PlainJulianDate(daysSinceEpoch);
+        return new MyJulianDate(daysSinceEpoch);
     }
 }
 
-public partial struct PlainJulianYear // IEquatable
+public partial struct MyJulianYear // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PlainJulianYear left, PlainJulianYear right) =>
+    public static bool operator ==(MyJulianYear left, MyJulianYear right) =>
         left._yearsSinceEpoch == right._yearsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(PlainJulianYear left, PlainJulianYear right) =>
+    public static bool operator !=(MyJulianYear left, MyJulianYear right) =>
         left._yearsSinceEpoch != right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainJulianYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+    public bool Equals(MyJulianYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is PlainJulianYear year && Equals(year);
+        obj is MyJulianYear year && Equals(year);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _yearsSinceEpoch;
 }
 
-public partial struct PlainJulianYear // IComparable
+public partial struct MyJulianYear // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(PlainJulianYear left, PlainJulianYear right) =>
+    public static bool operator <(MyJulianYear left, MyJulianYear right) =>
         left._yearsSinceEpoch < right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(PlainJulianYear left, PlainJulianYear right) =>
+    public static bool operator <=(MyJulianYear left, MyJulianYear right) =>
         left._yearsSinceEpoch <= right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(PlainJulianYear left, PlainJulianYear right) =>
+    public static bool operator >(MyJulianYear left, MyJulianYear right) =>
         left._yearsSinceEpoch > right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(PlainJulianYear left, PlainJulianYear right) =>
+    public static bool operator >=(MyJulianYear left, MyJulianYear right) =>
         left._yearsSinceEpoch >= right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianYear Min(PlainJulianYear x, PlainJulianYear y) => x < y ? x : y;
+    public static MyJulianYear Min(MyJulianYear x, MyJulianYear y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainJulianYear Max(PlainJulianYear x, PlainJulianYear y) => x > y ? x : y;
+    public static MyJulianYear Max(MyJulianYear x, MyJulianYear y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainJulianYear other) =>
+    public int CompareTo(MyJulianYear other) =>
         _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is PlainJulianYear year ? CompareTo(year)
-        : ThrowHelpers.ThrowNonComparable(typeof(PlainJulianYear), obj);
+        : obj is MyJulianYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(MyJulianYear), obj);
 }
 
-public partial struct PlainJulianYear // Math ops
+public partial struct MyJulianYear // Math ops
 {
     /// <summary>
     /// Subtracts the two specified years and returns the number of years between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
-    public static int operator -(PlainJulianYear left, PlainJulianYear right) => left.CountYearsSince(right);
+    public static int operator -(MyJulianYear left, MyJulianYear right) => left.CountYearsSince(right);
 
     /// <summary>
     /// Adds a number of years to the specified year, yielding a new year.
@@ -1884,7 +1901,7 @@ public partial struct PlainJulianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static PlainJulianYear operator +(PlainJulianYear value, int years) => value.PlusYears(years);
+    public static MyJulianYear operator +(MyJulianYear value, int years) => value.PlusYears(years);
 
     /// <summary>
     /// Subtracts a number of years to the specified year, yielding a new year.
@@ -1892,7 +1909,7 @@ public partial struct PlainJulianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the range
     /// of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static PlainJulianYear operator -(PlainJulianYear value, int years) => value.PlusYears(-years);
+    public static MyJulianYear operator -(MyJulianYear value, int years) => value.PlusYears(-years);
 
     /// <summary>
     /// Adds one year to the specified year, yielding a new year.
@@ -1900,7 +1917,7 @@ public partial struct PlainJulianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
-    public static PlainJulianYear operator ++(PlainJulianYear value) => value.NextYear();
+    public static MyJulianYear operator ++(MyJulianYear value) => value.NextYear();
 
     /// <summary>
     /// Subtracts one year to the specified year, yielding a new year.
@@ -1908,13 +1925,13 @@ public partial struct PlainJulianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
-    public static PlainJulianYear operator --(PlainJulianYear value) => value.PreviousYear();
+    public static MyJulianYear operator --(MyJulianYear value) => value.PreviousYear();
 
     /// <summary>
     /// Counts the number of years elapsed since the specified year.
     /// </summary>
     [Pure]
-    public int CountYearsSince(PlainJulianYear other) =>
+    public int CountYearsSince(MyJulianYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
         _yearsSinceEpoch - other._yearsSinceEpoch;
@@ -1926,11 +1943,11 @@ public partial struct PlainJulianYear // Math ops
     /// the capacity of <see cref="int"/> or the range of supported years.
     /// </exception>
     [Pure]
-    public PlainJulianYear PlusYears(int years)
+    public MyJulianYear PlusYears(int years)
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainJulianYear((ushort)yearsSinceEpoch);
+        return new MyJulianYear((ushort)yearsSinceEpoch);
     }
 
     /// <summary>
@@ -1939,10 +1956,10 @@ public partial struct PlainJulianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [Pure]
-    public PlainJulianYear NextYear()
+    public MyJulianYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainJulianYear((ushort)(_yearsSinceEpoch + 1));
+        return new MyJulianYear((ushort)(_yearsSinceEpoch + 1));
     }
 
     /// <summary>
@@ -1951,10 +1968,10 @@ public partial struct PlainJulianYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [Pure]
-    public PlainJulianYear PreviousYear()
+    public MyJulianYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new PlainJulianYear((ushort)(_yearsSinceEpoch - 1));
+        return new MyJulianYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 

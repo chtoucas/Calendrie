@@ -23,7 +23,7 @@ public class CtorTests
     public JulianDate WithJulianDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "JulianDate_Plain")]
-    public PlainJulianDate WithPlainJulianDate() => new(_year, _month, _day);
+    public MyJulianDate WithPlainJulianDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "LocalDate_NodaTime")]
     public LocalDate WithLocalDate() => new(_year, _month, _day, CalendarSystem.Julian);

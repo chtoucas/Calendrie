@@ -33,15 +33,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="PlainCivil.g.cs">
+    <Compile Update="MyCivil.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>PlainCivil.tt</DependentUpon>
+      <DependentUpon>MyCivil.tt</DependentUpon>
     </Compile>
-    <Compile Update="PlainJulian.g.cs">
+    <Compile Update="MyJulian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>PlainJulian.tt</DependentUpon>
+      <DependentUpon>MyJulian.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -7,7 +7,7 @@
         epochDaysSinceZeroValue: "-2",
         maxDaysSinceEpochValue:  "3_651_769")
     {
-        DisplayName = "Plain Julian",
+        DisplayName = "Plain Standard Julian",
         EnableDateCustomMath = true,
         EnableMonth = true,
         EnableYear = true,

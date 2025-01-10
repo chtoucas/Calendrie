@@ -14,7 +14,7 @@ public abstract class JulianDateComparisons
 
     private protected DayNumber dayNumber;
     private protected JulianDate julianDate;
-    private protected PlainJulianDate plainJulianDate;
+    private protected MyJulianDate plainJulianDate;
     private protected DateOnly dateOnly;
     private protected DateTime dateTime;
     private protected LocalDate localDate;

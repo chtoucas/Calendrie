@@ -3,7 +3,7 @@
 <#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
 <#= new ZeroCalendarTemplate(this, "GregorianSchema", maxDaysSinceEpochValue: "3_652_058")
     {
-        DisplayName = "Plain Civil",
+        DisplayName = "Plain Standard Civil",
         EnableDateCustomMath = true,
         EnableMonth = true,
         EnableYear = true,

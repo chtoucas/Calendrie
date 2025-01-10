@@ -36,7 +36,7 @@ public class CtorTests
 
     [BenchmarkCategory("Fast")]
     [Benchmark(Description = "CivilDate_Plain")]
-    public PlainCivilDate WithPlainCivilDateFast() => new(_yearFast, _monthFast, _dayFast);
+    public MyCivilDate WithPlainCivilDateFast() => new(_yearFast, _monthFast, _dayFast);
 
     [BenchmarkCategory("Fast")]
     [Benchmark(Description = "GregorianDate")]
@@ -68,7 +68,7 @@ public class CtorTests
 
     [BenchmarkCategory("Slow")]
     [Benchmark(Description = "CivilDate_Plain")]
-    public PlainCivilDate WithPlainCivilDateSlow() => new(_yearSlow, _monthSlow, _daySlow);
+    public MyCivilDate WithPlainCivilDateSlow() => new(_yearSlow, _monthSlow, _daySlow);
 
     [BenchmarkCategory("Slow")]
     [Benchmark(Description = "GregorianDate")]

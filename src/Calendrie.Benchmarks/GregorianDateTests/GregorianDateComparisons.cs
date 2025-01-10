@@ -13,7 +13,7 @@ public abstract class GregorianDateComparisons
     private protected DayNumber dayNumber;
     private protected CivilDate civilDate;
     private protected GregorianDate gregorianDate;
-    private protected PlainCivilDate plainCivilDate;
+    private protected MyCivilDate plainCivilDate;
     private protected DateOnly dateOnly;
     private protected DateTime dateTime;
     private protected LocalDate localDate;

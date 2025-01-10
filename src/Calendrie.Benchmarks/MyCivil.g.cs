@@ -23,15 +23,15 @@ using Calendrie.Systems;
 
 using static Calendrie.Core.CalendricalConstants;
 
-#region PlainCivilCalendar
+#region MyCivilCalendar
 
 /// <summary>
-/// Represents the Plain Civil calendar.
+/// Represents the Plain Standard Civil calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
+public sealed partial class MyCivilCalendar : CalendarSystem<MyCivilDate>
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -43,24 +43,24 @@ public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "Plain Civil";
+    internal const string DisplayName = "Plain Standard Civil";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilCalendar"/> class.
+    /// Initializes a new instance of the <see cref="MyCivilCalendar"/> class.
     /// </summary>
-    public PlainCivilCalendar() : this(new GregorianSchema()) { }
+    public MyCivilCalendar() : this(new GregorianSchema()) { }
 
-    private PlainCivilCalendar(GregorianSchema schema)
+    private MyCivilCalendar(GregorianSchema schema)
         : base(DisplayName, new StandardScope(schema, DayZero.NewStyle))
     {
         Schema = schema;
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="PlainCivilCalendar"/> class.
-    /// <para>See <see cref="PlainCivilDate.Calendar"/>.</para>
+    /// Gets a singleton instance of the <see cref="MyCivilCalendar"/> class.
+    /// <para>See <see cref="MyCivilDate.Calendar"/>.</para>
     /// </summary>
-    internal static PlainCivilCalendar Instance { get; } = new();
+    internal static MyCivilCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -102,22 +102,22 @@ public sealed partial class PlainCivilCalendar : CalendarSystem<PlainCivilDate>
 
 #endregion
 
-#region PlainCivilDate
+#region MyCivilDate
 
 /// <summary>
-/// Represents the Plain Civil date.
+/// Represents the Plain Standard Civil date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="PlainCivilDate"/> is an immutable struct.</para>
+/// <para><see cref="MyCivilDate"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct PlainCivilDate :
-    IDate<PlainCivilDate>,
-    ICalendarBound<PlainCivilCalendar>,
-    IUnsafeFactory<PlainCivilDate>,
-    ISubtractionOperators<PlainCivilDate, PlainCivilDate, int>
+public readonly partial struct MyCivilDate :
+    IDate<MyCivilDate>,
+    ICalendarBound<MyCivilCalendar>,
+    IUnsafeFactory<MyCivilDate>,
+    ISubtractionOperators<MyCivilDate, MyCivilDate, int>
 { }
 
-public partial struct PlainCivilDate // Preamble
+public partial struct MyCivilDate // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 3_652_058.</para></summary>
@@ -131,63 +131,63 @@ public partial struct PlainCivilDate // Preamble
     private readonly int _daysSinceZero;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilDate"/> struct
+    /// Initializes a new instance of the <see cref="MyCivilDate"/> struct
     /// to the specified date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid date or <paramref name="year"/> is outside the range
     /// of supported years.</exception>
-    public PlainCivilDate(int year, int month, int day)
+    public MyCivilDate(int year, int month, int day)
     {
-        var chr = PlainCivilCalendar.Instance;
+        var chr = MyCivilCalendar.Instance;
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilDate"/> struct
+    /// Initializes a new instance of the <see cref="MyCivilDate"/> struct
     /// to the specified ordinal date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid ordinal date or <paramref name="year"/> is outside
     /// the range of supported years.</exception>
-    public PlainCivilDate(int year, int dayOfYear)
+    public MyCivilDate(int year, int dayOfYear)
     {
-        var chr = PlainCivilCalendar.Instance;
+        var chr = MyCivilCalendar.Instance;
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilDate"/> struct.
+    /// Initializes a new instance of the <see cref="MyCivilDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal PlainCivilDate(int daysSinceZero)
+    internal MyCivilDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of a <see cref="PlainCivilDate"/>.
+    /// Gets the smallest possible value of a <see cref="MyCivilDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     //
-    // MinValue = new(0) = new() = default(PlainCivilDate)
-    public static PlainCivilDate MinValue { get; }
+    // MinValue = new(0) = new() = default(MyCivilDate)
+    public static MyCivilDate MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of a <see cref="PlainCivilDate"/>.
+    /// Gets the largest possible value of a <see cref="MyCivilDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainCivilDate MaxValue { get; } = new(MaxDaysSinceZero);
+    public static MyCivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainCivilCalendar Calendar => PlainCivilCalendar.Instance;
+    public static MyCivilCalendar Calendar => MyCivilCalendar.Instance;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
@@ -281,7 +281,7 @@ public partial struct PlainCivilDate // Preamble
     public override string ToString()
     {
         Calendar.Schema.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({PlainCivilCalendar.DisplayName})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({MyCivilCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -293,43 +293,43 @@ public partial struct PlainCivilDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct PlainCivilDate // Factories & conversions
+public partial struct MyCivilDate // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilDate Create(int year, int month, int day) => new(year, month, day);
+    public static MyCivilDate Create(int year, int month, int day) => new(year, month, day);
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+    public static MyCivilDate Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilDate? TryCreate(int year, int month, int day)
+    public static MyCivilDate? TryCreate(int year, int month, int day)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
 
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, month, day);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilDate? TryCreate(int year, int dayOfYear)
+    public static MyCivilDate? TryCreate(int year, int dayOfYear)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
 
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
-    // Explicit implementation: PlainCivilDate being a value type, better
+    // Explicit implementation: MyCivilDate being a value type, better
     // to use the others TryCreate().
 
     [Pure]
-    static bool IDate<PlainCivilDate>.TryCreate(int year, int month, int day, out PlainCivilDate result)
+    static bool IDate<MyCivilDate>.TryCreate(int year, int month, int day, out MyCivilDate result)
     {
         var date = TryCreate(year, month, day);
         result = date ?? default;
@@ -337,7 +337,7 @@ public partial struct PlainCivilDate // Factories & conversions
     }
 
     [Pure]
-    static bool IDate<PlainCivilDate>.TryCreate(int year, int dayOfYear, out PlainCivilDate result)
+    static bool IDate<MyCivilDate>.TryCreate(int year, int dayOfYear, out MyCivilDate result)
     {
         var date = TryCreate(year, dayOfYear);
         result = date ?? default;
@@ -348,7 +348,7 @@ public partial struct PlainCivilDate // Factories & conversions
     // lookup to the property Calendar.
 
     [Pure]
-    static PlainCivilDate IUnsafeFactory<PlainCivilDate>.UnsafeCreate(int daysSinceZero) =>
+    static MyCivilDate IUnsafeFactory<MyCivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
 
     //
@@ -357,18 +357,18 @@ public partial struct PlainCivilDate // Factories & conversions
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilDate FromDayNumber(DayNumber dayNumber)
+    public static MyCivilDate FromDayNumber(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
 
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
             ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
 
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 }
 
-public partial struct PlainCivilDate // Counting
+public partial struct MyCivilDate // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -387,11 +387,11 @@ public partial struct PlainCivilDate // Counting
     public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
-public partial struct PlainCivilDate // Adjustments
+public partial struct MyCivilDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate WithYear(int newYear)
+    public MyCivilDate WithYear(int newYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -403,12 +403,12 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate WithMonth(int newMonth)
+    public MyCivilDate WithMonth(int newMonth)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -419,12 +419,12 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate WithDay(int newDay)
+    public MyCivilDate WithDay(int newDay)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -435,12 +435,12 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate WithDayOfYear(int newDayOfYear)
+    public MyCivilDate WithDayOfYear(int newDayOfYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -451,27 +451,27 @@ public partial struct PlainCivilDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 }
 
-public partial struct PlainCivilDate // Find close by day of the week
+public partial struct MyCivilDate // Find close by day of the week
 {
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate Previous(DayOfWeek dayOfWeek)
+    public MyCivilDate Previous(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate PreviousOrSame(DayOfWeek dayOfWeek)
+    public MyCivilDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -479,21 +479,21 @@ public partial struct PlainCivilDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate Nearest(DayOfWeek dayOfWeek)
+    public MyCivilDate Nearest(DayOfWeek dayOfWeek)
     {
         int daysSinceZero = DayNumber.Nearest(dayOfWeek).DaysSinceZero;
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate NextOrSame(DayOfWeek dayOfWeek)
+    public MyCivilDate NextOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -501,103 +501,103 @@ public partial struct PlainCivilDate // Find close by day of the week
         if (δ == 0) return this;
         int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilDate Next(DayOfWeek dayOfWeek)
+    public MyCivilDate Next(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 }
 
-public partial struct PlainCivilDate // IEquatable
+public partial struct MyCivilDate // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PlainCivilDate left, PlainCivilDate right) =>
+    public static bool operator ==(MyCivilDate left, MyCivilDate right) =>
         left._daysSinceZero == right._daysSinceZero;
 
     /// <inheritdoc />
-    public static bool operator !=(PlainCivilDate left, PlainCivilDate right) =>
+    public static bool operator !=(MyCivilDate left, MyCivilDate right) =>
         left._daysSinceZero != right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainCivilDate other) => _daysSinceZero == other._daysSinceZero;
+    public bool Equals(MyCivilDate other) => _daysSinceZero == other._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is PlainCivilDate date && Equals(date);
+        obj is MyCivilDate date && Equals(date);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _daysSinceZero;
 }
 
-public partial struct PlainCivilDate // IComparable
+public partial struct MyCivilDate // IComparable
 {
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(PlainCivilDate left, PlainCivilDate right) =>
+    public static bool operator <(MyCivilDate left, MyCivilDate right) =>
         left._daysSinceZero < right._daysSinceZero;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(PlainCivilDate left, PlainCivilDate right) =>
+    public static bool operator <=(MyCivilDate left, MyCivilDate right) =>
         left._daysSinceZero <= right._daysSinceZero;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(PlainCivilDate left, PlainCivilDate right) =>
+    public static bool operator >(MyCivilDate left, MyCivilDate right) =>
         left._daysSinceZero > right._daysSinceZero;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(PlainCivilDate left, PlainCivilDate right) =>
+    public static bool operator >=(MyCivilDate left, MyCivilDate right) =>
         left._daysSinceZero >= right._daysSinceZero;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilDate Min(PlainCivilDate x, PlainCivilDate y) => x < y ? x : y;
+    public static MyCivilDate Min(MyCivilDate x, MyCivilDate y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilDate Max(PlainCivilDate x, PlainCivilDate y) => x > y ? x : y;
+    public static MyCivilDate Max(MyCivilDate x, MyCivilDate y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainCivilDate other) => _daysSinceZero.CompareTo(other._daysSinceZero);
+    public int CompareTo(MyCivilDate other) => _daysSinceZero.CompareTo(other._daysSinceZero);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is PlainCivilDate date ? CompareTo(date)
-        : ThrowHelpers.ThrowNonComparable(typeof(PlainCivilDate), obj);
+        : obj is MyCivilDate date ? CompareTo(date)
+        : ThrowHelpers.ThrowNonComparable(typeof(MyCivilDate), obj);
 }
 
-public partial struct PlainCivilDate // Standard math ops
+public partial struct MyCivilDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
-    public static int operator -(PlainCivilDate left, PlainCivilDate right) => left.CountDaysSince(right);
+    public static int operator -(MyCivilDate left, MyCivilDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
@@ -606,7 +606,7 @@ public partial struct PlainCivilDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static PlainCivilDate operator +(PlainCivilDate value, int days) => value.PlusDays(days);
+    public static MyCivilDate operator +(MyCivilDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -615,7 +615,7 @@ public partial struct PlainCivilDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static PlainCivilDate operator -(PlainCivilDate value, int days) => value.PlusDays(-days);
+    public static MyCivilDate operator -(MyCivilDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -623,7 +623,7 @@ public partial struct PlainCivilDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
-    public static PlainCivilDate operator ++(PlainCivilDate value) => value.NextDay();
+    public static MyCivilDate operator ++(MyCivilDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
@@ -631,13 +631,13 @@ public partial struct PlainCivilDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
-    public static PlainCivilDate operator --(PlainCivilDate value) => value.PreviousDay();
+    public static MyCivilDate operator --(MyCivilDate value) => value.PreviousDay();
 
     /// <summary>
     /// Counts the number of days elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountDaysSince(PlainCivilDate other) =>
+    public int CountDaysSince(MyCivilDate other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxDaysSinceZero.
         _daysSinceZero - other._daysSinceZero;
@@ -649,11 +649,11 @@ public partial struct PlainCivilDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public PlainCivilDate PlusDays(int days)
+    public MyCivilDate PlusDays(int days)
     {
         int daysSinceZero = checked(_daysSinceZero + days);
         if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <summary>
@@ -662,10 +662,10 @@ public partial struct PlainCivilDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [Pure]
-    public PlainCivilDate NextDay()
+    public MyCivilDate NextDay()
     {
         if (_daysSinceZero == MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(_daysSinceZero + 1);
+        return new MyCivilDate(_daysSinceZero + 1);
     }
 
     /// <summary>
@@ -674,10 +674,10 @@ public partial struct PlainCivilDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [Pure]
-    public PlainCivilDate PreviousDay()
+    public MyCivilDate PreviousDay()
     {
         if (_daysSinceZero == 0) ThrowHelpers.ThrowDateOverflow();
-        return new PlainCivilDate(_daysSinceZero - 1);
+        return new MyCivilDate(_daysSinceZero - 1);
     }
 
     //
@@ -688,7 +688,7 @@ public partial struct PlainCivilDate // Standard math ops
     /// Counts the number of weeks elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(PlainCivilDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(MyCivilDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -697,24 +697,24 @@ public partial struct PlainCivilDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public PlainCivilDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public MyCivilDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public PlainCivilDate NextWeek() => PlusDays(DaysInWeek);
+    public MyCivilDate NextWeek() => PlusDays(DaysInWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public PlainCivilDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public MyCivilDate PreviousWeek() => PlusDays(-DaysInWeek);
 }
 
-public partial struct PlainCivilDate // Non-standard math ops
+public partial struct MyCivilDate // Non-standard math ops
 {
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
@@ -725,7 +725,7 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public PlainCivilDate PlusYears(int years)
+    public MyCivilDate PlusYears(int years)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
@@ -741,7 +741,7 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public PlainCivilDate PlusMonths(int months)
+    public MyCivilDate PlusMonths(int months)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
@@ -754,7 +754,7 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(PlainCivilDate other)
+    public int CountYearsSince(MyCivilDate other)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
@@ -783,14 +783,14 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountMonthsSince(PlainCivilDate other)
+    public int CountMonthsSince(MyCivilDate other)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceZero, out int y, out int m, out _);
         sch.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(PlainCivilCalendar.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(MyCivilCalendar.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -817,7 +817,7 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PlainCivilDate AddYears(GregorianSchema sch, int y, int m, int d, int years)
+    private static MyCivilDate AddYears(GregorianSchema sch, int y, int m, int d, int years)
     {
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
@@ -828,7 +828,7 @@ public partial struct PlainCivilDate // Non-standard math ops
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(newY, m, newD);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 
     /// <summary>
@@ -840,10 +840,10 @@ public partial struct PlainCivilDate // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    private static PlainCivilDate AddMonths(GregorianSchema sch, int y, int m, int d, int months)
+    private static MyCivilDate AddMonths(GregorianSchema sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), PlainCivilCalendar.MonthsInYear, out int y0);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), MyCivilCalendar.MonthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
@@ -852,52 +852,52 @@ public partial struct PlainCivilDate // Non-standard math ops
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
 
         int daysSinceZero = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 }
 
 #endregion
 
-#region PlainCivilDateMath
+#region MyCivilDateMath
 
 /// <summary>
 /// Provides non-standard mathematical operations for the
-/// <see cref="PlainCivilDate"/> type.
+/// <see cref="MyCivilDate"/> type.
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public sealed class PlainCivilDateMath : DateMathRegular<PlainCivilDate, PlainCivilCalendar>
+public sealed class MyCivilDateMath : DateMathRegular<MyCivilDate, MyCivilCalendar>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilDateMath"/> class.
+    /// Initializes a new instance of the <see cref="MyCivilDateMath"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public PlainCivilDateMath(AdditionRule rule) : base(rule) { }
+    public MyCivilDateMath(AdditionRule rule) : base(rule) { }
 }
 
 #endregion
 
-#region PlainCivilMonth
+#region MyCivilMonth
 
 /// <summary>
-/// Represents the Plain Civil month.
+/// Represents the Plain Standard Civil month.
 /// <para><i>All</i> months within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="PlainCivilMonth"/> is an immutable struct.</para>
+/// <para><see cref="MyCivilMonth"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct PlainCivilMonth :
-    IMonth<PlainCivilMonth>,
-    ICalendarBound<PlainCivilCalendar>,
-    IUnsafeFactory<PlainCivilMonth>,
+public readonly partial struct MyCivilMonth :
+    IMonth<MyCivilMonth>,
+    ICalendarBound<MyCivilCalendar>,
+    IUnsafeFactory<MyCivilMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<PlainCivilDate>,
-    ISetMembership<PlainCivilDate>,
+    IDateSegment<MyCivilDate>,
+    ISetMembership<MyCivilDate>,
     // Arithmetic
-    ISubtractionOperators<PlainCivilMonth, PlainCivilMonth, int>
+    ISubtractionOperators<MyCivilMonth, MyCivilMonth, int>
 { }
 
-public partial struct PlainCivilMonth // Preamble
+public partial struct MyCivilMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
@@ -912,54 +912,54 @@ public partial struct PlainCivilMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilMonth"/> struct
+    /// Initializes a new instance of the <see cref="MyCivilMonth"/> struct
     /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
     /// range of supported years.</exception>
-    public PlainCivilMonth(int year, int month)
+    public MyCivilMonth(int year, int month)
     {
         // The calendar being regular, no need to use the Scope:
-        // > PlainCivilCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        // > MyCivilCalendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > PlainCivilCalendar.MonthsInYear)
+        if (month < 1 || month > MyCivilCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilMonth"/> struct.
+    /// Initializes a new instance of the <see cref="MyCivilMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal PlainCivilMonth(int monthsSinceEpoch)
+    internal MyCivilMonth(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="PlainCivilMonth"/>.
+    /// Gets the smallest possible value of <see cref="MyCivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported month.</returns>
     //
-    // MinValue = new(0) = new() = default(PlainCivilMonth)
-    public static PlainCivilMonth MinValue { get; }
+    // MinValue = new(0) = new() = default(MyCivilMonth)
+    public static MyCivilMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="PlainCivilMonth"/>.
+    /// Gets the largest possible value of <see cref="MyCivilMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported month.</returns>
-    public static PlainCivilMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+    public static MyCivilMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current month type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainCivilCalendar Calendar => PlainCivilCalendar.Instance;
+    public static MyCivilCalendar Calendar => MyCivilCalendar.Instance;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
@@ -992,7 +992,7 @@ public partial struct PlainCivilMonth // Preamble
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
-        1 + _monthsSinceEpoch / PlainCivilCalendar.MonthsInYear;
+        1 + _monthsSinceEpoch / MyCivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
     public int Month
@@ -1015,7 +1015,7 @@ public partial struct PlainCivilMonth // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({PlainCivilCalendar.DisplayName})");
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({MyCivilCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -1023,27 +1023,27 @@ public partial struct PlainCivilMonth // Preamble
     {
         // See RegularSchema.GetMonthParts().
         // NB: both dividend and divisor are >= 0.
-        year = 1 + MathN.Divide(_monthsSinceEpoch, PlainCivilCalendar.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(_monthsSinceEpoch, MyCivilCalendar.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 }
 
-public partial struct PlainCivilMonth // Factories & conversions
+public partial struct MyCivilMonth // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilMonth Create(int year, int month) => new(year, month);
+    public static MyCivilMonth Create(int year, int month) => new(year, month);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="PlainCivilMonth"/>
+    /// Attempts to create a new instance of the <see cref="MyCivilMonth"/>
     /// struct from the specified month components.
     /// </summary>
     [Pure]
-    public static PlainCivilMonth? TryCreate(int year, int month)
+    public static MyCivilMonth? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear
-            || month < 1 || month > PlainCivilCalendar.MonthsInYear)
+            || month < 1 || month > MyCivilCalendar.MonthsInYear)
         {
             return null;
         }
@@ -1051,10 +1051,10 @@ public partial struct PlainCivilMonth // Factories & conversions
         return UnsafeCreate(year, month);
     }
 
-    // Explicit implementation: PlainCivilMonth being a value type, better
+    // Explicit implementation: MyCivilMonth being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IMonth<PlainCivilMonth>.TryCreate(int year, int month, out PlainCivilMonth result)
+    static bool IMonth<MyCivilMonth>.TryCreate(int year, int month, out MyCivilMonth result)
     {
         var monthValue = TryCreate(year, month);
         result = monthValue ?? default;
@@ -1062,55 +1062,55 @@ public partial struct PlainCivilMonth // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
+    /// Creates a new instance of the <see cref="MyCivilMonth"/> struct
     /// from the specified month components.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PlainCivilMonth UnsafeCreate(int year, int month)
+    internal static MyCivilMonth UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new PlainCivilMonth(monthsSinceEpoch);
+        return new MyCivilMonth(monthsSinceEpoch);
     }
 
     [Pure]
-    static PlainCivilMonth IUnsafeFactory<PlainCivilMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+    static MyCivilMonth IUnsafeFactory<MyCivilMonth>.UnsafeCreate(int monthsSinceEpoch) =>
         new(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        PlainCivilCalendar.MonthsInYear * (y - 1) + m - 1;
+        MyCivilCalendar.MonthsInYear * (y - 1) + m - 1;
 
     //
     // Conversions
     //
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
+    /// Creates a new instance of the <see cref="MyCivilMonth"/> struct
     /// from the specified number of consecutive months since the epoch.
     /// </summary>
     [Pure]
-    public static PlainCivilMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    public static MyCivilMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
     {
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new PlainCivilMonth(monthsSinceEpoch);
+        return new MyCivilMonth(monthsSinceEpoch);
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilMonth"/> struct
-    /// from the specified <see cref="PlainCivilDate"/> value.
+    /// Creates a new instance of the <see cref="MyCivilMonth"/> struct
+    /// from the specified <see cref="MyCivilDate"/> value.
     /// </summary>
     [Pure]
-    public static PlainCivilMonth FromDate(PlainCivilDate date)
+    public static MyCivilMonth FromDate(MyCivilDate date)
     {
         var (y, m, _) = date;
         return UnsafeCreate(y, m);
     }
 }
 
-public partial struct PlainCivilMonth // Counting
+public partial struct MyCivilMonth // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -1118,7 +1118,7 @@ public partial struct PlainCivilMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => PlainCivilCalendar.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => MyCivilCalendar.MonthsInYear - 1;
 
 #if false
     /// <inheritdoc />
@@ -1139,11 +1139,11 @@ public partial struct PlainCivilMonth // Counting
 #endif
 }
 
-public partial struct PlainCivilMonth // Adjustments
+public partial struct MyCivilMonth // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public PlainCivilMonth WithYear(int newYear)
+    public MyCivilMonth WithYear(int newYear)
     {
         int m = Month;
 
@@ -1152,7 +1152,7 @@ public partial struct PlainCivilMonth // Adjustments
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(newYear);
-        if (m < 1 || m > PlainCivilCalendar.MonthsInYear)
+        if (m < 1 || m > MyCivilCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
         return UnsafeCreate(newYear, m);
@@ -1160,35 +1160,39 @@ public partial struct PlainCivilMonth // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public PlainCivilMonth WithMonth(int newMonth)
+    public MyCivilMonth WithMonth(int newMonth)
     {
         int y = Year;
 
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > PlainCivilCalendar.MonthsInYear)
+        if (newMonth < 1 || newMonth > MyCivilCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
     }
 }
 
-public partial struct PlainCivilMonth // IDateSegment
+public partial struct MyCivilMonth // IDateSegment
 {
-    /// <inheritdoc />
-    public PlainCivilDate MinDay
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
+    public MyCivilDate MinDay
     {
         get
         {
             var (y, m) = this;
             int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return new PlainCivilDate(daysSinceZero);
+            return new MyCivilDate(daysSinceZero);
         }
     }
 
-    /// <inheritdoc />
-    public PlainCivilDate MaxDay
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
+    public MyCivilDate MaxDay
     {
         get
         {
@@ -1196,12 +1200,12 @@ public partial struct PlainCivilMonth // IDateSegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceZero = sch.CountDaysSinceEpoch(y, m, d);
-            return new PlainCivilDate(daysSinceZero);
+            return new MyCivilDate(daysSinceZero);
         }
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="PlainCivilCalendar.CountDaysInMonth(int, int)"/>.
+    /// <remarks>See also <seealso cref="MyCivilCalendar.CountDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays()
@@ -1216,23 +1220,23 @@ public partial struct PlainCivilMonth // IDateSegment
     /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PlainCivilDate> ToRange()
+    public Range<MyCivilDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new PlainCivilDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(new MyCivilDate(startOfMonth), daysInMonth);
     }
 
     [Pure]
-    Range<PlainCivilDate> IDateSegment<PlainCivilDate>.ToDayRange() => ToRange();
+    Range<MyCivilDate> IDateSegment<MyCivilDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
     /// </summary>
     [Pure]
-    public IEnumerable<PlainCivilDate> ToEnumerable()
+    public IEnumerable<MyCivilDate> ToEnumerable()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1241,15 +1245,18 @@ public partial struct PlainCivilMonth // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new PlainCivilDate(daysSinceZero);
+               select new MyCivilDate(daysSinceZero);
     }
 
     [Pure]
-    IEnumerable<PlainCivilDate> IDateSegment<PlainCivilDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<MyCivilDate> IDateSegment<MyCivilDate>.EnumerateDays() => ToEnumerable();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
-    public bool Contains(PlainCivilDate date)
+    public bool Contains(MyCivilDate date)
     {
         var (y, m) = this;
         Calendar.Schema.GetDateParts(date.DaysSinceZero, out int y1, out int m1, out _);
@@ -1263,97 +1270,97 @@ public partial struct PlainCivilMonth // IDateSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public PlainCivilDate GetDayOfMonth(int dayOfMonth)
+    public MyCivilDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 }
 
-public partial struct PlainCivilMonth // IEquatable
+public partial struct MyCivilMonth // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PlainCivilMonth left, PlainCivilMonth right) =>
+    public static bool operator ==(MyCivilMonth left, MyCivilMonth right) =>
         left._monthsSinceEpoch == right._monthsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(PlainCivilMonth left, PlainCivilMonth right) =>
+    public static bool operator !=(MyCivilMonth left, MyCivilMonth right) =>
         left._monthsSinceEpoch != right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainCivilMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+    public bool Equals(MyCivilMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is PlainCivilMonth month && Equals(month);
+        obj is MyCivilMonth month && Equals(month);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _monthsSinceEpoch;
 }
 
-public partial struct PlainCivilMonth // IComparable
+public partial struct MyCivilMonth // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(PlainCivilMonth left, PlainCivilMonth right) =>
+    public static bool operator <(MyCivilMonth left, MyCivilMonth right) =>
         left._monthsSinceEpoch < right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(PlainCivilMonth left, PlainCivilMonth right) =>
+    public static bool operator <=(MyCivilMonth left, MyCivilMonth right) =>
         left._monthsSinceEpoch <= right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(PlainCivilMonth left, PlainCivilMonth right) =>
+    public static bool operator >(MyCivilMonth left, MyCivilMonth right) =>
         left._monthsSinceEpoch > right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(PlainCivilMonth left, PlainCivilMonth right) =>
+    public static bool operator >=(MyCivilMonth left, MyCivilMonth right) =>
         left._monthsSinceEpoch >= right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilMonth Min(PlainCivilMonth x, PlainCivilMonth y) => x < y ? x : y;
+    public static MyCivilMonth Min(MyCivilMonth x, MyCivilMonth y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilMonth Max(PlainCivilMonth x, PlainCivilMonth y) => x > y ? x : y;
+    public static MyCivilMonth Max(MyCivilMonth x, MyCivilMonth y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainCivilMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+    public int CompareTo(MyCivilMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is PlainCivilMonth month ? CompareTo(month)
-        : ThrowHelpers.ThrowNonComparable(typeof(PlainCivilMonth), obj);
+        : obj is MyCivilMonth month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(MyCivilMonth), obj);
 }
 
-public partial struct PlainCivilMonth // Standard math ops
+public partial struct MyCivilMonth // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified months and returns the number of months
     /// between them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
-    public static int operator -(PlainCivilMonth left, PlainCivilMonth right) => left.CountMonthsSince(right);
+    public static int operator -(MyCivilMonth left, MyCivilMonth right) => left.CountMonthsSince(right);
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.
@@ -1362,7 +1369,7 @@ public partial struct PlainCivilMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static PlainCivilMonth operator +(PlainCivilMonth value, int months) => value.PlusMonths(months);
+    public static MyCivilMonth operator +(MyCivilMonth value, int months) => value.PlusMonths(months);
 
     /// <summary>
     /// Subtracts a number of months to the specified month, yielding a new month.
@@ -1371,7 +1378,7 @@ public partial struct PlainCivilMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static PlainCivilMonth operator -(PlainCivilMonth value, int months) => value.PlusMonths(-months);
+    public static MyCivilMonth operator -(MyCivilMonth value, int months) => value.PlusMonths(-months);
 
     /// <summary>
     /// Adds one month to the specified month, yielding a new month.
@@ -1379,7 +1386,7 @@ public partial struct PlainCivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
-    public static PlainCivilMonth operator ++(PlainCivilMonth value) => value.NextMonth();
+    public static MyCivilMonth operator ++(MyCivilMonth value) => value.NextMonth();
 
     /// <summary>
     /// Subtracts one month to the specified month, yielding a new month.
@@ -1387,13 +1394,13 @@ public partial struct PlainCivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
-    public static PlainCivilMonth operator --(PlainCivilMonth value) => value.PreviousMonth();
+    public static MyCivilMonth operator --(MyCivilMonth value) => value.PreviousMonth();
 
     /// <summary>
     /// Counts the number of months elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountMonthsSince(PlainCivilMonth other) =>
+    public int CountMonthsSince(MyCivilMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceEpoch.
         _monthsSinceEpoch - other._monthsSinceEpoch;
@@ -1405,12 +1412,12 @@ public partial struct PlainCivilMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    public PlainCivilMonth PlusMonths(int months)
+    public MyCivilMonth PlusMonths(int months)
     {
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new PlainCivilMonth(monthsSinceEpoch);
+        return new MyCivilMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1419,10 +1426,10 @@ public partial struct PlainCivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [Pure]
-    public PlainCivilMonth NextMonth()
+    public MyCivilMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new PlainCivilMonth(_monthsSinceEpoch + 1);
+        return new MyCivilMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1431,25 +1438,25 @@ public partial struct PlainCivilMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [Pure]
-    public PlainCivilMonth PreviousMonth()
+    public MyCivilMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new PlainCivilMonth(_monthsSinceEpoch - 1);
+        return new MyCivilMonth(_monthsSinceEpoch - 1);
     }
 }
 
-public partial struct PlainCivilMonth // Non-standard math ops
+public partial struct MyCivilMonth // Non-standard math ops
 {
     /// <summary>
     /// Adds a number of years to the year field of this month instance, yielding
     /// a new month.
-    /// <para>In the particular case of the PlainCivil calendar, this
+    /// <para>In the particular case of the MyCivil calendar, this
     /// operation is exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
     [Pure]
-    public PlainCivilMonth PlusYears(int years)
+    public MyCivilMonth PlusYears(int years)
     {
         var (y, m) = this;
         // Exact addition of years to a calendar year.
@@ -1462,39 +1469,39 @@ public partial struct PlainCivilMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of years elapsed since the specified month.
-    /// <para>In the particular case of the PlainCivil calendar, this
+    /// <para>In the particular case of the MyCivil calendar, this
     /// operation is exact.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(PlainCivilMonth other) =>
+    public int CountYearsSince(MyCivilMonth other) =>
         // NB: this subtraction never overflows.
         Year - other.Year;
 }
 
 #endregion
 
-#region PlainCivilYear
+#region MyCivilYear
 
 /// <summary>
-/// Represents the PlainCivil year.
+/// Represents the MyCivil year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="PlainCivilYear"/> is an immutable struct.</para>
+/// <para><see cref="MyCivilYear"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct PlainCivilYear :
-    IYear<PlainCivilYear>,
-    ICalendarBound<PlainCivilCalendar>,
+public readonly partial struct MyCivilYear :
+    IYear<MyCivilYear>,
+    ICalendarBound<MyCivilCalendar>,
     // A year viewed as a finite sequence of months
-    IMonthSegment<PlainCivilMonth>,
-    ISetMembership<PlainCivilMonth>,
+    IMonthSegment<MyCivilMonth>,
+    ISetMembership<MyCivilMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<PlainCivilDate>,
-    ISetMembership<PlainCivilDate>,
+    IDateSegment<MyCivilDate>,
+    ISetMembership<MyCivilDate>,
     // Arithmetic
-    ISubtractionOperators<PlainCivilYear, PlainCivilYear, int>
+    ISubtractionOperators<MyCivilYear, MyCivilYear, int>
 { }
 
-public partial struct PlainCivilYear // Preamble
+public partial struct MyCivilYear // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to 9998.</para></summary>
@@ -1509,12 +1516,12 @@ public partial struct PlainCivilYear // Preamble
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct
+    /// Initializes a new instance of the <see cref="MyCivilYear"/> struct
     /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
-    public PlainCivilYear(int year)
+    public MyCivilYear(int year)
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -1523,35 +1530,35 @@ public partial struct PlainCivilYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlainCivilYear"/> struct.
+    /// Initializes a new instance of the <see cref="MyCivilYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private PlainCivilYear(ushort yearsSinceEpoch)
+    private MyCivilYear(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="PlainCivilYear"/>.
+    /// Gets the smallest possible value of <see cref="MyCivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported year.</returns>
     //
-    // MinValue = new(1) = new() = default(PlainCivilYear)
-    public static PlainCivilYear MinValue { get; }
+    // MinValue = new(1) = new() = default(MyCivilYear)
+    public static MyCivilYear MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="PlainCivilYear"/>.
+    /// Gets the largest possible value of <see cref="MyCivilYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported year.</returns>
-    public static PlainCivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+    public static MyCivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
     /// Gets the calendar to which belongs the current date type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PlainCivilCalendar Calendar => PlainCivilCalendar.Instance;
+    public static MyCivilCalendar Calendar => MyCivilCalendar.Instance;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;
@@ -1594,30 +1601,30 @@ public partial struct PlainCivilYear // Preamble
     /// </summary>
     [Pure]
     public override string ToString() =>
-        FormattableString.Invariant($"{Year:D4} ({PlainCivilCalendar.DisplayName})");
+        FormattableString.Invariant($"{Year:D4} ({MyCivilCalendar.DisplayName})");
 }
 
-public partial struct PlainCivilYear // Factories & conversions
+public partial struct MyCivilYear // Factories & conversions
 {
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilYear Create(int year) => new(year);
+    public static MyCivilYear Create(int year) => new(year);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="PlainCivilYear"/>
+    /// Attempts to create a new instance of the <see cref="MyCivilYear"/>
     /// struct from the specified year.
     /// </summary>
     [Pure]
-    public static PlainCivilYear? TryCreate(int year)
+    public static MyCivilYear? TryCreate(int year)
     {
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
         return ok ? UnsafeCreate(year) : null;
     }
 
-    // Explicit implementation: PlainCivilYear being a value type, better
+    // Explicit implementation: MyCivilYear being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IYear<PlainCivilYear>.TryCreate(int year, out PlainCivilYear result)
+    static bool IYear<MyCivilYear>.TryCreate(int year, out MyCivilYear result)
     {
         var yearValue = TryCreate(year);
         result = yearValue ?? default;
@@ -1625,68 +1632,71 @@ public partial struct PlainCivilYear // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
+    /// Creates a new instance of the <see cref="MyCivilYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static PlainCivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static MyCivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
 
     //
     // Conversions
     //
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
-    /// from the specified <see cref="PlainCivilMonth"/> value.
+    /// Creates a new instance of the <see cref="MyCivilYear"/> struct
+    /// from the specified <see cref="MyCivilMonth"/> value.
     /// </summary>
     [Pure]
-    public static PlainCivilYear FromMonth(PlainCivilMonth month) => UnsafeCreate(month.Year);
+    public static MyCivilYear FromMonth(MyCivilMonth month) => UnsafeCreate(month.Year);
 
     /// <summary>
-    /// Creates a new instance of the <see cref="PlainCivilYear"/> struct
-    /// from the specified <see cref="PlainCivilDate"/> value.
+    /// Creates a new instance of the <see cref="MyCivilYear"/> struct
+    /// from the specified <see cref="MyCivilDate"/> value.
     /// </summary>
     [Pure]
-    public static PlainCivilYear FromDate(PlainCivilDate date) => UnsafeCreate(date.Year);
+    public static MyCivilYear FromDate(MyCivilDate date) => UnsafeCreate(date.Year);
 }
 
-public partial struct PlainCivilYear // IMonthSegment
+public partial struct MyCivilYear // IMonthSegment
 {
     /// <summary>
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = PlainCivilCalendar.MonthsInYear;
+    public const int MonthCount = MyCivilCalendar.MonthsInYear;
 
     /// <inheritdoc />
-    public PlainCivilMonth MinMonth => PlainCivilMonth.UnsafeCreate(Year, 1);
+    public MyCivilMonth MinMonth => MyCivilMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public PlainCivilMonth MaxMonth => PlainCivilMonth.UnsafeCreate(Year, MonthCount);
-
-    /// <inheritdoc />
-    [Pure]
-    int IMonthSegment<PlainCivilMonth>.CountMonths() => MonthCount;
+    public MyCivilMonth MaxMonth => MyCivilMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    public Range<PlainCivilMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    int IMonthSegment<MyCivilMonth>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<PlainCivilMonth> EnumerateMonths()
+    public Range<MyCivilMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<MyCivilMonth> EnumerateMonths()
     {
-        int startOfYear = PlainCivilMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+        int startOfYear = MyCivilMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select new PlainCivilMonth(monthsSinceEpoch);
+               select new MyCivilMonth(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
-    public bool Contains(PlainCivilMonth month) => month.Year == Year;
+    public bool Contains(MyCivilMonth month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -1695,7 +1705,7 @@ public partial struct PlainCivilYear // IMonthSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public PlainCivilMonth GetMonthOfYear(int month)
+    public MyCivilMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
@@ -1703,36 +1713,40 @@ public partial struct PlainCivilYear // IMonthSegment
         if (month < 1 || month > GregorianCalendar.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
-        return PlainCivilMonth.UnsafeCreate(Year, month);
+        return MyCivilMonth.UnsafeCreate(Year, month);
     }
 }
 
-public partial struct PlainCivilYear // IDateSegment
+public partial struct MyCivilYear // IDateSegment
 {
-    /// <inheritdoc />
-    public PlainCivilDate MinDay
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
+    public MyCivilDate MinDay
     {
         get
         {
             int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new PlainCivilDate(daysSinceZero);
+            return new MyCivilDate(daysSinceZero);
         }
     }
 
-    /// <inheritdoc />
-    public PlainCivilDate MaxDay
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
+    public MyCivilDate MaxDay
     {
         get
         {
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int daysSinceZero = sch.CountDaysSinceEpoch(Year, doy);
-            return new PlainCivilDate(daysSinceZero);
+            return new MyCivilDate(daysSinceZero);
         }
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="PlainCivilCalendar.CountDaysInYear(int)"/>.
+    /// <remarks>See also <seealso cref="MyCivilCalendar.CountDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
@@ -1741,17 +1755,17 @@ public partial struct PlainCivilYear // IDateSegment
     /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
     /// </remarks>
     [Pure]
-    public Range<PlainCivilDate> ToDayRange()
+    public Range<MyCivilDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(new PlainCivilDate(startOfYear), daysInYear);
+        return Range.StartingAt(new MyCivilDate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<PlainCivilDate> EnumerateDays()
+    public IEnumerable<MyCivilDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
@@ -1759,12 +1773,15 @@ public partial struct PlainCivilYear // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
-               select new PlainCivilDate(daysSinceZero);
+               select new MyCivilDate(daysSinceZero);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
-    public bool Contains(PlainCivilDate date) => date.Year == Year;
+    public bool Contains(MyCivilDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -1772,98 +1789,98 @@ public partial struct PlainCivilYear // IDateSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public PlainCivilDate GetDayOfYear(int dayOfYear)
+    public MyCivilDate GetDayOfYear(int dayOfYear)
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return new PlainCivilDate(daysSinceZero);
+        return new MyCivilDate(daysSinceZero);
     }
 }
 
-public partial struct PlainCivilYear // IEquatable
+public partial struct MyCivilYear // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(PlainCivilYear left, PlainCivilYear right) =>
+    public static bool operator ==(MyCivilYear left, MyCivilYear right) =>
         left._yearsSinceEpoch == right._yearsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(PlainCivilYear left, PlainCivilYear right) =>
+    public static bool operator !=(MyCivilYear left, MyCivilYear right) =>
         left._yearsSinceEpoch != right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(PlainCivilYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+    public bool Equals(MyCivilYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is PlainCivilYear year && Equals(year);
+        obj is MyCivilYear year && Equals(year);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _yearsSinceEpoch;
 }
 
-public partial struct PlainCivilYear // IComparable
+public partial struct MyCivilYear // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(PlainCivilYear left, PlainCivilYear right) =>
+    public static bool operator <(MyCivilYear left, MyCivilYear right) =>
         left._yearsSinceEpoch < right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(PlainCivilYear left, PlainCivilYear right) =>
+    public static bool operator <=(MyCivilYear left, MyCivilYear right) =>
         left._yearsSinceEpoch <= right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(PlainCivilYear left, PlainCivilYear right) =>
+    public static bool operator >(MyCivilYear left, MyCivilYear right) =>
         left._yearsSinceEpoch > right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(PlainCivilYear left, PlainCivilYear right) =>
+    public static bool operator >=(MyCivilYear left, MyCivilYear right) =>
         left._yearsSinceEpoch >= right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilYear Min(PlainCivilYear x, PlainCivilYear y) => x < y ? x : y;
+    public static MyCivilYear Min(MyCivilYear x, MyCivilYear y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static PlainCivilYear Max(PlainCivilYear x, PlainCivilYear y) => x > y ? x : y;
+    public static MyCivilYear Max(MyCivilYear x, MyCivilYear y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(PlainCivilYear other) =>
+    public int CompareTo(MyCivilYear other) =>
         _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is PlainCivilYear year ? CompareTo(year)
-        : ThrowHelpers.ThrowNonComparable(typeof(PlainCivilYear), obj);
+        : obj is MyCivilYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(MyCivilYear), obj);
 }
 
-public partial struct PlainCivilYear // Math ops
+public partial struct MyCivilYear // Math ops
 {
     /// <summary>
     /// Subtracts the two specified years and returns the number of years between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
-    public static int operator -(PlainCivilYear left, PlainCivilYear right) => left.CountYearsSince(right);
+    public static int operator -(MyCivilYear left, MyCivilYear right) => left.CountYearsSince(right);
 
     /// <summary>
     /// Adds a number of years to the specified year, yielding a new year.
@@ -1871,7 +1888,7 @@ public partial struct PlainCivilYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static PlainCivilYear operator +(PlainCivilYear value, int years) => value.PlusYears(years);
+    public static MyCivilYear operator +(MyCivilYear value, int years) => value.PlusYears(years);
 
     /// <summary>
     /// Subtracts a number of years to the specified year, yielding a new year.
@@ -1879,7 +1896,7 @@ public partial struct PlainCivilYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the range
     /// of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static PlainCivilYear operator -(PlainCivilYear value, int years) => value.PlusYears(-years);
+    public static MyCivilYear operator -(MyCivilYear value, int years) => value.PlusYears(-years);
 
     /// <summary>
     /// Adds one year to the specified year, yielding a new year.
@@ -1887,7 +1904,7 @@ public partial struct PlainCivilYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
-    public static PlainCivilYear operator ++(PlainCivilYear value) => value.NextYear();
+    public static MyCivilYear operator ++(MyCivilYear value) => value.NextYear();
 
     /// <summary>
     /// Subtracts one year to the specified year, yielding a new year.
@@ -1895,13 +1912,13 @@ public partial struct PlainCivilYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
-    public static PlainCivilYear operator --(PlainCivilYear value) => value.PreviousYear();
+    public static MyCivilYear operator --(MyCivilYear value) => value.PreviousYear();
 
     /// <summary>
     /// Counts the number of years elapsed since the specified year.
     /// </summary>
     [Pure]
-    public int CountYearsSince(PlainCivilYear other) =>
+    public int CountYearsSince(MyCivilYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
         _yearsSinceEpoch - other._yearsSinceEpoch;
@@ -1913,11 +1930,11 @@ public partial struct PlainCivilYear // Math ops
     /// the capacity of <see cref="int"/> or the range of supported years.
     /// </exception>
     [Pure]
-    public PlainCivilYear PlusYears(int years)
+    public MyCivilYear PlusYears(int years)
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear((ushort)yearsSinceEpoch);
+        return new MyCivilYear((ushort)yearsSinceEpoch);
     }
 
     /// <summary>
@@ -1926,10 +1943,10 @@ public partial struct PlainCivilYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [Pure]
-    public PlainCivilYear NextYear()
+    public MyCivilYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear((ushort)(_yearsSinceEpoch + 1));
+        return new MyCivilYear((ushort)(_yearsSinceEpoch + 1));
     }
 
     /// <summary>
@@ -1938,10 +1955,10 @@ public partial struct PlainCivilYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [Pure]
-    public PlainCivilYear PreviousYear()
+    public MyCivilYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new PlainCivilYear((ushort)(_yearsSinceEpoch - 1));
+        return new MyCivilYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 
