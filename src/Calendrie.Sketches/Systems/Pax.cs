@@ -3,21 +3,11 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Core.Utilities;
-
-public partial class PaxCalendar // Complements
+public partial struct PaxYear // Complements
 {
     /// <summary>
-    /// Obtains the number of weeks in the specified year.
+    /// Obtains the number of weeks in the current instance.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
     [Pure]
-    public int CountWeeksInYear(int year)
-    {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-
-        return Schema.CountWeeksInYear(year);
-    }
+    public int CountWeeks() => Calendar.Schema.CountWeeksInYear(Year);
 }
