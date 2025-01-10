@@ -37,7 +37,7 @@ internal abstract partial class IDateFacts<TDate, TDataSet> :
     protected abstract TDate MaxDate { get; }
 
     // Helper for derived ctor's.
-    protected static Range<DayNumber> GetDomain(CalendarSystem calendar)
+    protected static Range<DayNumber> GetDomain(Calendar calendar)
     {
         ArgumentNullException.ThrowIfNull(calendar);
 

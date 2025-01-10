@@ -6,10 +6,10 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core;
 
 /// <summary>
-/// Represents a calendar without a dedicated companion date type and provides
-/// a base for derived classes.
+/// Represents a user-defined calendar without a dedicated companion date type
+/// and provides a base for derived classes.
 /// </summary>
-public abstract class NakedCalendar : CalendarSystem2
+public abstract class NakedCalendar : UserCalendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the

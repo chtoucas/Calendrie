@@ -7,7 +7,7 @@ namespace Calendrie.Hemerology;
 /// Defines a type bound to a single calendar type.
 /// </summary>
 /// <typeparam name="TCalendar">The companion calendar type.</typeparam>
-public interface ICalendarBound<out TCalendar> where TCalendar : CalendarSystem
+public interface ICalendarBound<out TCalendar> where TCalendar : Calendar
 {
     /// <summary>
     /// Gets the calendar to which belongs the current type.

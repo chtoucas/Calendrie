@@ -17,7 +17,7 @@ using Calendrie.Core.Utilities;
 /// </summary>
 public class PlainMonthMath<TMonth, TCalendar> : MonthMath<TMonth>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>
-    where TCalendar : CalendarSystem
+    where TCalendar : Calendar
 {
     /// <summary>Represents the schema.</summary>
     private readonly ICalendricalSchema _schema;

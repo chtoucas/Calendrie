@@ -11,13 +11,13 @@ namespace Calendrie.Hemerology;
 // Types implementing ICalendar or ICalendar<T>
 // --------------------------------------------
 //
-// Calendar
-//   CalendarSystem
+// CalendarSystem
+//   CalendarSystem<>
 //     CivilCalendar                    CivilDate
 //     GregorianCalendar                GregorianDate
 //     JulianCalendar                   JulianDate
 //     etc
-//   CalendarSystem
+//   UserCalendar
 //     NakedCalendar
 //       BoundedBelowCalendar
 //       MinMaxYearCalendar
@@ -170,17 +170,17 @@ namespace Calendrie.Hemerology;
 #endregion
 
 /// <summary>
-/// Represents a calendar system and provides a base for derived classes.
+/// Represents a calendar and provides a base for derived classes.
 /// </summary>
-public class CalendarSystem
+public class Calendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="CalendarSystem"/> class.
+    /// <see cref="Calendar"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    protected CalendarSystem(string name, CalendarScope scope)
+    protected Calendar(string name, CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(name);
         ArgumentNullException.ThrowIfNull(scope);

@@ -7,12 +7,12 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="CalendarSystem"/> and <see cref="IDateProvider{TDate}"/>.
+/// Provides facts about <see cref="Calendar"/> and <see cref="IDateProvider{TDate}"/>.
 /// </summary>
 public abstract partial class CalendarFacts<TDate, TCalendar, TDataSet> :
     CalendarFacts<TCalendar, TDataSet>
     where TDate : IDateable
-    where TCalendar : CalendarSystem, IDateProvider<TDate>
+    where TCalendar : Calendar, IDateProvider<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected CalendarFacts(TCalendar calendar) : base(calendar) { }

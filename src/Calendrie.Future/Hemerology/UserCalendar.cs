@@ -6,17 +6,17 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core;
 
 /// <summary>
-/// Represents a calendar and provides a base for derived classes.
+/// Represents a user-defined calendar and provides a base for derived classes.
 /// </summary>
-public abstract class CalendarSystem2 : CalendarSystem
+public abstract class UserCalendar : Calendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="CalendarSystem2"/> class.
+    /// <see cref="UserCalendar"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    protected CalendarSystem2(string name, CalendarScope scope) : base(name, scope)
+    protected UserCalendar(string name, CalendarScope scope) : base(name, scope)
     {
         Debug.Assert(scope != null);
         Schema = scope.Schema;

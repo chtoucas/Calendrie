@@ -4,7 +4,7 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Represents a calendar with dates within a range of years.
+/// Represents a user-defined calendar with dates within a range of years.
 /// </summary>
 public class MinMaxYearCalendar : NakedCalendar
 {
@@ -51,7 +51,7 @@ public class MinMaxYearCalendar : NakedCalendar
 
     /// <summary>
     /// Obtains the number of months in the specified year.
-    /// <para>See also <seealso cref="CalendarSystem2.IsRegular(out int)"/>.</para>
+    /// <para>See also <seealso cref="UserCalendar.IsRegular(out int)"/>.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The year is outside the
     /// range of supported years.</exception>

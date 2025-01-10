@@ -11,7 +11,7 @@ using Calendrie.Testing.Data;
 /// </summary>
 internal abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IDateFacts<TDate, TDataSet>
-    where TCalendar : CalendarSystem, IDateProvider<TDate>
+    where TCalendar : Calendar, IDateProvider<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
