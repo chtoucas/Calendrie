@@ -3,10 +3,40 @@
 
 namespace Calendrie.Systems;
 
-// Only meant to demonstrate a few things that can be done with the year and
-// month types.
+// Only meant to demonstrate a few things which can be done with the year and
+// month types. Without them, these methods would be good candidates for inclusion
+// in a calendar class.
 
 internal static partial class Civil { }
+
+internal partial class Civil // Year and month characteristics
+{
+    /// <summary>
+    /// Determines whether the specified year is leap or not.
+    /// <para>A leap year is a year with at least one intercalary day, week or
+    /// month.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of supported years.</exception>
+    [Pure]
+    public static bool IsLeapYear(int year) => new CivilYear(year).IsLeap;
+
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
+    [Pure]
+    public static int CountDaysInYear(int year) => new CivilYear(year).CountDays();
+
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
+    [Pure]
+    public static int CountDaysInMonth(int year, int month) => new CivilMonth(year, month).CountDays();
+}
 
 internal partial class Civil // Kind of IDateProvider<CivilDate>
 {
