@@ -226,7 +226,8 @@ public class Calendar
     // While creating a new type, these properties prove to be useful in
     // determining the actual value of MaxDaysSinceEpoch and MaxMonthsSinceEpoch
     // to be used by the T4 template.
-    // For non-proleptic calendars, MinDaysSinceEpoch and MinMonthsSinceEpoch = 0.
+    // For (complete) calendars starting at year 1, MinDaysSinceEpoch and
+    // MinMonthsSinceEpoch = 0.
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.

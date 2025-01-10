@@ -28,6 +28,39 @@ public abstract class NakedCalendar : UserCalendar
     protected PartsAdapter PartsAdapter { get; }
 
     //
+    // Day infos
+    //
+
+    /// <summary>
+    /// Determines whether the specified date is an intercalary day or not.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
+    /// or outside the range of supported dates.</exception>
+    [Pure]
+    public bool IsIntercalaryDay(int year, int month, int day)
+    {
+        Scope.ValidateYearMonthDay(year, month, day);
+        return Schema.IsIntercalaryDay(year, month, day);
+    }
+
+    /// <summary>
+    /// Determines whether the specified date is a supplementary day or not.
+    /// <para>Supplementary days are days kept outside the intermediary cycles,
+    /// those shorter than a year. For technical reasons, we usually attach them
+    /// to the month before. Notice that a supplementary day may be intercalary
+    /// too. An example of such days is given by the epagomenal days which are
+    /// kept outside any regular month or decade.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The date is either invalid
+    /// or outside the range of supported dates.</exception>
+    [Pure]
+    public bool IsSupplementaryDay(int year, int month, int day)
+    {
+        Scope.ValidateYearMonthDay(year, month, day);
+        return Schema.IsSupplementaryDay(year, month, day);
+    }
+
+    //
     // Conversions
     //
 
