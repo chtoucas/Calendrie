@@ -17,7 +17,7 @@ public readonly partial struct MyGregorianDate :
 {
     private static readonly DayNumber s_Epoch = MyGregorianCalendar.Instance.Epoch;
 
-    private static readonly int s_MinDaysSinceEpoch = MyGregorianCalendar.Instance.MinDaysSinceEpoch;
+    private const int MinDaysSinceEpoch = 0;
     private static readonly int s_MaxDaysSinceEpoch = MyGregorianCalendar.Instance.MaxDaysSinceEpoch;
 
     private readonly int _daysSinceEpoch;
@@ -37,7 +37,8 @@ public readonly partial struct MyGregorianDate :
         _daysSinceEpoch = daysSinceEpoch;
     }
 
-    public static MyGregorianDate MinValue { get; } = new(s_MinDaysSinceEpoch);
+    // NB: MinValue = new(MinDaysSinceEpoch) = default
+    public static MyGregorianDate MinValue { get; }
     public static MyGregorianDate MaxValue { get; } = new(s_MaxDaysSinceEpoch);
 
     public static MyGregorianCalendar Calendar => MyGregorianCalendar.Instance;
@@ -101,8 +102,17 @@ public partial struct MyGregorianDate // Factories & conversions
     public static MyGregorianDate Create(int year, int month, int day) => new(year, month, day);
     public static MyGregorianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
 
-    public static MyGregorianDate? TryCreate(int year, int month, int day) => throw new NotImplementedException();
-    public static MyGregorianDate? TryCreate(int year, int dayOfYear) => throw new NotImplementedException();
+    public static MyGregorianDate? TryCreate(int year, int month, int day)
+    {
+        int? daysSinceEpoch = Calendar.TryCountDaysSinceEpoch(year, month, day);
+        return daysSinceEpoch.HasValue ? new(daysSinceEpoch.Value) : null;
+    }
+
+    public static MyGregorianDate? TryCreate(int year, int dayOfYear)
+    {
+        int? daysSinceEpoch = Calendar.TryCountDaysSinceEpoch(year, dayOfYear);
+        return daysSinceEpoch.HasValue ? new(daysSinceEpoch.Value) : null;
+    }
 
     // Explicit implementation: MyGregorianDate being a value type, better to use
     // the others TryCreate().
@@ -121,14 +131,14 @@ public partial struct MyGregorianDate // Factories & conversions
         return date.HasValue;
     }
 
-    // This factory method eventually throws an OverflowException, not an
+    public static MyGregorianDate FromDayNumber(DayNumber dayNumber) =>
+        new(Calendar.CountDaysSinceEpoch(dayNumber));
+
+    // This method eventually throws an OverflowException, not an
     // ArgumentOutOfRangeException as documented in the XML doc. Only used by
     // Nearest() via IAbsoluteDate.Nearest().
     static MyGregorianDate IAbsoluteDate<MyGregorianDate>.FromDayNumber(DayNumber dayNumber) =>
         new(Calendar.CountDaysSinceEpochChecked(dayNumber));
-
-    public static MyGregorianDate FromDayNumber(DayNumber dayNumber) =>
-        new(Calendar.CountDaysSinceEpoch(dayNumber));
 }
 
 public partial struct MyGregorianDate // Counting
@@ -196,13 +206,11 @@ public partial struct MyGregorianDate // IComparable
 public partial struct MyGregorianDate // Math
 {
 #pragma warning disable CA2225 // Operator overloads have named alternates
-
     public static int operator -(MyGregorianDate left, MyGregorianDate right) => left.CountDaysSince(right);
     public static MyGregorianDate operator +(MyGregorianDate value, int days) => value.PlusDays(days);
     public static MyGregorianDate operator -(MyGregorianDate value, int days) => value.PlusDays(-days);
     public static MyGregorianDate operator ++(MyGregorianDate value) => value.NextDay();
     public static MyGregorianDate operator --(MyGregorianDate value) => value.PreviousDay();
-
 #pragma warning restore CA2225 // Operator overloads have named alternates
 
     public int CountDaysSince(MyGregorianDate other) => _daysSinceEpoch - other._daysSinceEpoch;
@@ -211,7 +219,7 @@ public partial struct MyGregorianDate // Math
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
 
-        if (daysSinceEpoch < s_MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
+        if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
             throw new OverflowException();
 
         return new(daysSinceEpoch);

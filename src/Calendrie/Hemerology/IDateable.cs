@@ -107,7 +107,7 @@ public interface IDateable
     /// the year and before this date instance.
     /// <para>Trivial (= DayOfYear - 1), only added for completeness.</para>
     /// </summary>
-    [Pure] int CountElapsedDaysInYear();
+    [Pure] int CountElapsedDaysInYear() => DayOfYear - 1;
 
     /// <summary>
     /// Obtains the number of whole days remaining until the end of the year.
@@ -119,7 +119,7 @@ public interface IDateable
     /// the month and before this date instance.
     /// <para>Trivial (= Day - 1), only added for completeness.</para>
     /// </summary>
-    [Pure] int CountElapsedDaysInMonth();
+    [Pure] int CountElapsedDaysInMonth() => Day - 1;
 
     /// <summary>
     /// Obtains the number of whole days remaining until the end of the month.

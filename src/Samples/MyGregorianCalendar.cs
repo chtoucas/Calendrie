@@ -24,7 +24,7 @@ public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<My
 
         var seg = Scope.Segment;
         (MinYear, MaxYear) = seg.SupportedYears.Endpoints;
-        (MinDaysSinceEpoch, MaxDaysSinceEpoch) = seg.SupportedDays.Endpoints;
+        MaxDaysSinceEpoch = seg.SupportedDays.Endpoints.UpperValue;
 
         // Cache the computed property pre-validator.
         PreValidator = Schema.PreValidator;
@@ -38,7 +38,7 @@ public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<My
     public int MinYear { get; }
     public int MaxYear { get; }
 
-    internal int MinDaysSinceEpoch { get; }
+    // NB: MinDaysSinceEpoch = 0 (this calendar starts on 1/1/1)
     internal int MaxDaysSinceEpoch { get; }
 
     private ICalendricalPreValidator PreValidator { get; }
@@ -111,7 +111,7 @@ public partial class MyGregorianCalendar // IDateProvider<MyGregorianDate>
     }
 }
 
-public partial class MyGregorianCalendar // Date constructors helpers
+public partial class MyGregorianCalendar // Date helpers (ctors, factories & conversions)
 {
     internal int CountDaysSinceEpoch(int year, int month, int day)
     {
@@ -136,10 +136,20 @@ public partial class MyGregorianCalendar // Date constructors helpers
         Scope.CheckOverflow(dayNumber);
         return dayNumber.DaysSinceZero - Epoch.DaysSinceZero;
     }
+
+    public int? TryCountDaysSinceEpoch(int year, int month, int day) =>
+        Scope.CheckYearMonthDay(year, month, day)
+        ? Schema.CountDaysSinceEpoch(year, month, day)
+        : null;
+
+    public int? TryCountDaysSinceEpoch(int year, int dayOfYear) =>
+        Scope.CheckOrdinal(year, dayOfYear)
+        ? Schema.CountDaysSinceEpoch(year, dayOfYear)
+        : null;
 }
 
 // These methods do not validate their parameters
-public partial class MyGregorianCalendar // Date helpers
+public partial class MyGregorianCalendar // Date helpers (no validation)
 {
     internal bool IsIntercalaryDay(int daysSinceEpoch)
     {
@@ -154,11 +164,7 @@ public partial class MyGregorianCalendar // Date helpers
         Schema.GetYear(daysSinceEpoch, out dayofYear);
 
     internal int GetYear(int daysSinceEpoch) => Schema.GetYear(daysSinceEpoch);
-}
 
-// These methods do not validate their parameters
-public partial class MyGregorianCalendar // Date helpers (counting)
-{
     internal int CountDaysInYearAfter(int daysSinceEpoch) =>
         Schema.CountDaysInYearAfter(daysSinceEpoch);
 
@@ -166,10 +172,10 @@ public partial class MyGregorianCalendar // Date helpers (counting)
         Schema.CountDaysInMonthAfter(daysSinceEpoch);
 }
 
-public partial class MyGregorianCalendar // Date helpers (adjustments)
+public partial class MyGregorianCalendar // Date helpers (validation)
 {
     //
-    // Adjustments for the core parts
+    // Adjustments for the core date parts
     //
 
     internal MyGregorianDate AdjustYear(MyGregorianDate date, int newYear)
