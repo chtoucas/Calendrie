@@ -15,7 +15,7 @@ using Calendrie.Hemerology;
 /// </summary>
 public class DateMathPlain<TDate, TCalendar> : DateMath<TDate>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
-    where TCalendar : Calendar
+    where TCalendar : CalendarSystem
 {
     /// <summary>Represents the schema.</summary>
     private readonly ICalendricalSchema _schema;

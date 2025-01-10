@@ -172,15 +172,15 @@ namespace Calendrie.Hemerology;
 /// <summary>
 /// Represents a calendar system and provides a base for derived classes.
 /// </summary>
-public class Calendar
+public class CalendarSystem
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="Calendar"/> class.
+    /// <see cref="CalendarSystem"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    protected Calendar(string name, CalendarScope scope)
+    protected CalendarSystem(string name, CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(name);
         ArgumentNullException.ThrowIfNull(scope);

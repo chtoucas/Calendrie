@@ -41,7 +41,7 @@ using Calendrie.Hemerology;
 /// the count of consecutive days since the epoch.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public abstract partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
+public abstract partial class CalendarSystem<TDate> : CalendarSystem, IDateProvider<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
 {
     /// <summary>

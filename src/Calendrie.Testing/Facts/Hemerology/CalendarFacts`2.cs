@@ -18,11 +18,11 @@ using Calendrie.Testing.Data;
 // (unbounded calendars).
 
 /// <summary>
-/// Provides facts about <see cref="Calendar"/>.
+/// Provides facts about <see cref="CalendarSystem"/>.
 /// </summary>
 public abstract partial class CalendarFacts<TCalendar, TDataSet> :
     CalendarDataConsumer<TDataSet>
-    where TCalendar : Calendar
+    where TCalendar : CalendarSystem
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected CalendarFacts(TCalendar calendar)

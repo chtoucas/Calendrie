@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Calendrie.Hemerology;
 
 [Obsolete("Use Calendar instead")]
-public sealed class FauxCalendar : Calendar
+public sealed class FauxCalendar : CalendarSystem
 {
     public FauxCalendar(string name, CalendarScope scope) : base(name, scope) { }
 
@@ -16,7 +16,7 @@ public sealed class FauxCalendar : Calendar
     //public override int CountDaysInYear(int year) => throw new NotSupportedException();
 }
 
-public sealed class FauxCalendar<TDate> : Calendar, IDateProvider<TDate>
+public sealed class FauxCalendar<TDate> : CalendarSystem, IDateProvider<TDate>
 {
     public FauxCalendar(string name, CalendarScope scope) : base(name, scope) { }
 

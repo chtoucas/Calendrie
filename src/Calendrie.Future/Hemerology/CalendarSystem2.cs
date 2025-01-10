@@ -8,7 +8,7 @@ using Calendrie.Core;
 /// <summary>
 /// Represents a calendar and provides a base for derived classes.
 /// </summary>
-public abstract class CalendarSystem2 : Calendar
+public abstract class CalendarSystem2 : CalendarSystem
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
