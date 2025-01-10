@@ -14,67 +14,59 @@ using Calendrie.Systems;
 public static class Interconversion
 {
     [Pure]
-    public static TropicaliaDate ToTropicaliaDate(this CivilDate date) =>
-        WithCalendar(date, TropicaliaCalendar.Instance);
-
-    [Pure]
-    public static TDate WithCalendar<TDate>(this CivilDate date, ICalendar<TDate> calendar)
+    public static TDate ConvertTo<TDate>(this IAbsoluteDate date)
         where TDate : IAbsoluteDate<TDate>
     {
-        ArgumentNullException.ThrowIfNull(calendar);
-        return calendar.NewDate(date.DayNumber);
+        ArgumentNullException.ThrowIfNull(date);
+        return TDate.FromDayNumber(date.DayNumber);
     }
 
-    /// <summary>
-    /// Converts the specified Civil date to a <typeparamref name="TDate"/> value.
-    /// </summary>
     [Pure]
-    public static TDate InterconvertTo<TDate>(this CivilDate date)
+    public static TDate ConvertTo<TDate>(this CivilDate date)
         where TDate : IAbsoluteDate<TDate>
     {
         return TDate.FromDayNumber(date.DayNumber);
     }
 
-    /// <summary>
-    /// Converts the specified Civil month to a range of <typeparamref name="TDate"/>
-    /// values.
-    /// </summary>
     [Pure]
-    public static Range<TDate> InterconvertTo<TDate>(this CivilMonth month)
+    public static Range<TDate> ConvertTo<TDate>(this Range<CivilDate> range)
         where TDate : struct, IAbsoluteDate<TDate>
     {
-        return InterconvertToRange<CivilDate, TDate>(month);
+        return Interconvert<CivilDate, TDate>(range);
     }
 
-    /// <summary>
-    /// Converts the specified Civil year to a range of <typeparamref name="TDate"/>
-    /// values.
-    /// </summary>
     [Pure]
-    public static Range<TDate> InterconvertTo<TDate>(this CivilYear year)
+    public static Range<TDate> ConvertTo<TDate>(this CivilMonth month)
         where TDate : struct, IAbsoluteDate<TDate>
     {
-        return InterconvertToRange<CivilDate, TDate>(year);
+        return Interconvert<CivilDate, TDate>(month);
+    }
+
+    [Pure]
+    public static Range<TDate> ConvertTo<TDate>(this CivilYear year)
+        where TDate : struct, IAbsoluteDate<TDate>
+    {
+        return Interconvert<CivilDate, TDate>(year);
     }
 
     //
     // Helpers
     //
 
-    //[Pure]
-    //public static Range<TDate> InterconvertTo<TDate>(this IDateSegment<CivilDate> @this)
-    //    where TDate : struct, IAbsoluteDate<TDate>
-    //{
-    //    ArgumentNullException.ThrowIfNull(@this);
+    [Pure]
+    private static Range<TOut> Interconvert<TIn, TOut>(this Range<TIn> @this)
+        where TIn : struct, IAbsoluteDate<TIn>
+        where TOut : struct, IAbsoluteDate<TOut>
+    {
+        var (min, max) = @this.Endpoints;
+        return Range.Create(interconv(min), interconv(max));
 
-    //    var (min, max) = @this.ToDayRange().Endpoints;
-    //    return Range.Create(min.InterconvertTo<TDate>(), max.InterconvertTo<TDate>());
-    //}
-
-    // Pas très praticable tous ces paramètres génériques.
+        [Pure]
+        static TOut interconv(TIn value) => TOut.FromDayNumber(value.DayNumber);
+    }
 
     [Pure]
-    private static Range<TOut> InterconvertToRange<TIn, TOut>(this IDateSegment<TIn> @this)
+    private static Range<TOut> Interconvert<TIn, TOut>(this IDateSegment<TIn> @this)
         where TIn : struct, IAbsoluteDate<TIn>
         where TOut : struct, IAbsoluteDate<TOut>
     {
