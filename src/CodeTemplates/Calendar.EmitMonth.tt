@@ -808,8 +808,6 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="<#= Prefix #>Calendar.CountDaysInMonth(int, int)"/>.
-    /// </remarks>
     [Pure]
     public int CountDays()
     {

@@ -1189,8 +1189,6 @@ public partial struct PaxMonth // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="PaxCalendar.CountDaysInMonth(int, int)"/>.
-    /// </remarks>
     [Pure]
     public int CountDays()
     {

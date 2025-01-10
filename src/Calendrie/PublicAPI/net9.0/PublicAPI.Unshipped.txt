@@ -17,8 +17,6 @@ abstract Calendrie.Core.CalendricalSchema.IsSupplementaryDay(int y, int m, int d
 abstract Calendrie.Core.CalendricalSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 abstract Calendrie.Core.LimitSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
 abstract Calendrie.Core.RegularSchema.MonthsInYear.get -> int
-abstract Calendrie.Hemerology.Calendar.CountDaysInMonth(int year, int month) -> int
-abstract Calendrie.Hemerology.Calendar.CountDaysInYear(int year) -> int
 abstract Calendrie.Hemerology.CalendarScope.CheckOrdinal(int year, int dayOfYear) -> bool
 abstract Calendrie.Hemerology.CalendarScope.CheckYear(int year) -> bool
 abstract Calendrie.Hemerology.CalendarScope.CheckYearMonth(int year, int month) -> bool
@@ -405,9 +403,6 @@ Calendrie.Hemerology.Calendar.Algorithm.get -> Calendrie.CalendricalAlgorithm
 Calendrie.Hemerology.Calendar.Calendar(string! name, Calendrie.Hemerology.CalendarScope! scope) -> void
 Calendrie.Hemerology.Calendar.Epoch.get -> Calendrie.DayNumber
 Calendrie.Hemerology.Calendar.Family.get -> Calendrie.CalendricalFamily
-Calendrie.Hemerology.Calendar.IsIntercalaryMonth(int year, int month) -> bool
-Calendrie.Hemerology.Calendar.IsLeapYear(int year) -> bool
-Calendrie.Hemerology.Calendar.IsRegular(out int monthsInYear) -> bool
 Calendrie.Hemerology.Calendar.Name.get -> string!
 Calendrie.Hemerology.Calendar.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 Calendrie.Hemerology.Calendar.Scope.get -> Calendrie.Hemerology.CalendarScope!
@@ -630,17 +625,6 @@ Calendrie.Systems.ArmenianDate.WithYear(int newYear) -> Calendrie.Systems.Armeni
 Calendrie.Systems.ArmenianDate.Year.get -> int
 Calendrie.Systems.ArmenianDate.YearOfCentury.get -> int
 Calendrie.Systems.ArmenianDate.YearOfEra.get -> Calendrie.Ord
-Calendrie.Systems.CalendarSystem<TDate>
-Calendrie.Systems.CalendarSystem<TDate>.GetDaysInMonth(int year, int month) -> System.Collections.Generic.IEnumerable<TDate>!
-Calendrie.Systems.CalendarSystem<TDate>.GetDaysInYear(int year) -> System.Collections.Generic.IEnumerable<TDate>!
-Calendrie.Systems.CalendarSystem<TDate>.GetEndOfMonth(int year, int month) -> TDate
-Calendrie.Systems.CalendarSystem<TDate>.GetEndOfMonth(TDate date) -> TDate
-Calendrie.Systems.CalendarSystem<TDate>.GetEndOfYear(int year) -> TDate
-Calendrie.Systems.CalendarSystem<TDate>.GetEndOfYear(TDate date) -> TDate
-Calendrie.Systems.CalendarSystem<TDate>.GetStartOfMonth(int year, int month) -> TDate
-Calendrie.Systems.CalendarSystem<TDate>.GetStartOfMonth(TDate date) -> TDate
-Calendrie.Systems.CalendarSystem<TDate>.GetStartOfYear(int year) -> TDate
-Calendrie.Systems.CalendarSystem<TDate>.GetStartOfYear(TDate date) -> TDate
 Calendrie.Systems.CivilCalendar
 Calendrie.Systems.CivilCalendar.CivilCalendar() -> void
 Calendrie.Systems.CivilDate
@@ -1619,32 +1603,6 @@ override sealed Calendrie.Core.Schemas.WorldSchema.IsLeapYear(int y) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-override sealed Calendrie.Systems.Armenian13Calendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.Armenian13Calendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.ArmenianCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.ArmenianCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.CivilCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.CivilCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.Coptic13Calendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.Coptic13Calendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.CopticCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.CopticCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.Ethiopic13Calendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.Ethiopic13Calendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.EthiopicCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.EthiopicCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.GregorianCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.GregorianCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.JulianCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.JulianCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.TabularIslamicCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.TabularIslamicCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.WorldCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.WorldCalendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.Zoroastrian13Calendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.Zoroastrian13Calendar.CountDaysInYear(int year) -> int
-override sealed Calendrie.Systems.ZoroastrianCalendar.CountDaysInMonth(int year, int month) -> int
-override sealed Calendrie.Systems.ZoroastrianCalendar.CountDaysInYear(int year) -> int
 static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.Create<TSchema>(Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
