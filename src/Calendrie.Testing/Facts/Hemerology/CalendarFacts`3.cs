@@ -12,7 +12,7 @@ using Calendrie.Testing.Data;
 public abstract partial class CalendarFacts<TDate, TCalendar, TDataSet> :
     CalendarFacts<TCalendar, TDataSet>
     where TDate : IDateable
-    where TCalendar : Calendar, IDateProvider<TDate>
+    where TCalendar : Calendar //, IDateProvider<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected CalendarFacts(TCalendar calendar) : base(calendar) { }
@@ -123,6 +123,7 @@ public partial class CalendarFacts<TDate, TCalendar, TDataSet> // Factories
     #endregion
 }
 
+#if false
 public partial class CalendarFacts<TDate, TCalendar, TDataSet> // IDateProvider<TDate>
 {
     #region GetDaysInYear(y)
@@ -255,3 +256,4 @@ public partial class CalendarFacts<TDate, TCalendar, TDataSet> // IDateProvider<
 
     #endregion
 }
+#endif

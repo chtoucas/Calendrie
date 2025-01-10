@@ -5,11 +5,8 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-// TODO(code): if we enable the year and month types, we should remove these methods
-// Most certainly we should also remove the generic parameter TDate.
-// We should also move CountDaysInYear() and CountDaysInMonth() to the final
-// class calendar. Tiny advantage: on peut remplacer les scope.ValidateYear()
-// par: if (year < XXXScope.MinYear || year > XXXScope.MaxYear)
+// TODO(code): if we enable the year and month types, we should remove this
+// class entirely.
 //
 // Move transformers to the date type?
 //
@@ -41,7 +38,7 @@ using Calendrie.Hemerology;
 /// the count of consecutive days since the epoch.</para>
 /// </summary>
 /// <typeparam name="TDate">The type of date object.</typeparam>
-public abstract partial class CalendarSystem<TDate> : Calendar, IDateProvider<TDate>
+public abstract partial class CalendarSystem<TDate> : Calendar //, IDateProvider<TDate>
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>
 {
     /// <summary>
@@ -57,6 +54,7 @@ public abstract partial class CalendarSystem<TDate> : Calendar, IDateProvider<TD
     }
 }
 
+#if false
 public partial class CalendarSystem<TDate> // IDateProvider<TDate>
 {
     /// <inheritdoc/>
@@ -182,3 +180,4 @@ public partial class CalendarSystem<TDate> // Transformers
         return TDate.UnsafeCreate(daysSinceEpoch);
     }
 }
+#endif

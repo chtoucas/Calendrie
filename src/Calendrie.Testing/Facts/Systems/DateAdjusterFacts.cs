@@ -14,7 +14,7 @@ internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>, IAdjustableDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected DateAdjusterFacts(CalendarSystem<TDate> adjuster)
+    protected DateAdjusterFacts(Calendar adjuster)
     {
         ArgumentNullException.ThrowIfNull(adjuster);
 
@@ -27,13 +27,15 @@ internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     /// <summary>
     /// Gets the adjuster under test.
     /// </summary>
-    protected CalendarSystem<TDate> CalendarUT { get; }
+    protected Calendar CalendarUT { get; }
 
     protected SupportedYearsTester SupportedYearsTester { get; }
 
     protected abstract TDate GetDate(int y, int m, int d);
     protected abstract TDate GetDate(int y, int doy);
 }
+
+#if false
 
 internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
 {
@@ -80,7 +82,6 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
     }
 }
 
-#if false
 
 internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustYear()
 {
