@@ -59,7 +59,7 @@ public class BoundedBelowCalendar : NakedCalendar
 
     /// <summary>
     /// Obtains the number of months in the specified year.
-    /// <para>See also <seealso cref="CalendarSystem.IsRegular(out int)"/>.</para>
+    /// <para>See also <seealso cref="CalendarSystem2.IsRegular(out int)"/>.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The year is outside the
     /// range of supported years.</exception>

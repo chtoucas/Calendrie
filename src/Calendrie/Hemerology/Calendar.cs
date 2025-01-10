@@ -170,7 +170,7 @@ namespace Calendrie.Hemerology;
 #endregion
 
 /// <summary>
-/// Represents a calendar and provides a base for derived classes.
+/// Represents a calendar system and provides a base for derived classes.
 /// </summary>
 public class Calendar
 {
