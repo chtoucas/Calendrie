@@ -305,7 +305,10 @@ public partial struct GregorianYear // IMonthSegment
                select new GregorianMonth(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(GregorianMonth month) => month.Year == Year;
 

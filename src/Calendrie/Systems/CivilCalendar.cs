@@ -58,9 +58,13 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
     /// </summary>
     internal CivilSchema Schema { get; }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
     [Pure]
-    public sealed override int CountDaysInYear(int year)
+    public int CountDaysInYear(int year)
     {
         if (year < CivilScope.MinYear || year > CivilScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -68,9 +72,13 @@ public sealed class CivilCalendar : CalendarSystem<CivilDate>
         return Schema.CountDaysInYear(year);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
     [Pure]
-    public sealed override int CountDaysInMonth(int year, int month)
+    public int CountDaysInMonth(int year, int month)
     {
         if (year < CivilScope.MinYear || year > CivilScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);

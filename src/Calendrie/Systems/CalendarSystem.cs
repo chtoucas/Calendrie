@@ -10,7 +10,10 @@ using Calendrie.Hemerology;
 // We should also move CountDaysInYear() and CountDaysInMonth() to the final
 // class calendar. Tiny advantage: on peut remplacer les scope.ValidateYear()
 // par: if (year < XXXScope.MinYear || year > XXXScope.MaxYear)
+//
 // Move transformers to the date type?
+//
+// Remove CountDaysInYear() and CountDaysInMonth() in derived classes.
 
 // Reasons to keep the constructor internal (system calendars and adjusters):
 // - the scope must be of type "MinMaxYearScope" but we don't enforce this

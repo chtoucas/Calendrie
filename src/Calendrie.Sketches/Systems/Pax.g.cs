@@ -82,9 +82,13 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
         return Schema.CountMonthsInYear(year);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
     [Pure]
-    public sealed override int CountDaysInYear(int year)
+    public int CountDaysInYear(int year)
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -92,9 +96,13 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
         return Schema.CountDaysInYear(year);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
     [Pure]
-    public sealed override int CountDaysInMonth(int year, int month)
+    public int CountDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
         return Schema.CountDaysInMonth(year, month);
@@ -1191,7 +1199,9 @@ public partial struct PaxMonth // Adjustments
 
 public partial struct PaxMonth // IDateSegment
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
     public PaxDate MinDay
     {
         get
@@ -1203,7 +1213,9 @@ public partial struct PaxMonth // IDateSegment
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
     public PaxDate MaxDay
     {
         get
@@ -1264,7 +1276,10 @@ public partial struct PaxMonth // IDateSegment
     [Pure]
     IEnumerable<PaxDate> IDateSegment<PaxDate>.EnumerateDays() => ToEnumerable();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(PaxDate date)
     {
@@ -1779,7 +1794,10 @@ public partial struct PaxYear // IMonthSegment
                select new PaxMonth(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(PaxMonth month) => month.Year == Year;
 
@@ -1802,7 +1820,9 @@ public partial struct PaxYear // IMonthSegment
 
 public partial struct PaxYear // IDateSegment
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
     public PaxDate MinDay
     {
         get
@@ -1812,7 +1832,9 @@ public partial struct PaxYear // IDateSegment
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
     public PaxDate MaxDay
     {
         get
@@ -1855,7 +1877,10 @@ public partial struct PaxYear // IDateSegment
                select new PaxDate(daysSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(PaxDate date) => date.Year == Year;
 

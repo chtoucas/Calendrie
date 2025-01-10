@@ -170,10 +170,10 @@ namespace Calendrie.Hemerology;
 
 /// <summary>
 /// Represents a calendar and provides a base for derived classes.
-/// <para>We do NOT assume the existence of a dedicated companion date type.
-/// </para>
+/// <para>This type does NOT assume the existence of a dedicated companion date
+/// type.</para>
 /// </summary>
-public abstract partial class Calendar
+public class Calendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -258,66 +258,4 @@ public abstract partial class Calendar
     /// </summary>
     [Pure]
     public override string ToString() => Name;
-
-    //
-    // Characteristics
-    //
-
-    /// <summary>
-    /// Returns <see langword="true"/> if this calendar is regular; otherwise
-    /// returns <see langword="false"/>.
-    /// <para>The number of months is given in an output parameter; if this
-    /// calendar is not regular <paramref name="monthsInYear"/> is set to 0.
-    /// </para>
-    /// </summary>
-    [Pure]
-    public bool IsRegular(out int monthsInYear) => Scope.Schema.IsRegular(out monthsInYear);
-}
-
-public partial class Calendar // Year and month infos
-{
-    /// <summary>
-    /// Determines whether the specified year is leap or not.
-    /// <para>A leap year is a year with at least one intercalary day, week or
-    /// month.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
-    /// outside the range of supported years.</exception>
-    [Pure]
-    public bool IsLeapYear(int year)
-    {
-        var scope = Scope;
-        scope.ValidateYear(year);
-        return scope.Schema.IsLeapYear(year);
-    }
-
-    /// <summary>
-    /// Determines whether the specified month is intercalary or not.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
-    /// or outside the range of supported months.</exception>
-    [Pure]
-    public bool IsIntercalaryMonth(int year, int month)
-    {
-        var scope = Scope;
-        scope.ValidateYearMonth(year, month);
-        return scope.Schema.IsIntercalaryMonth(year, month);
-    }
-
-    // Les méthodes suivantes sont abstraites car une année ou un mois peut être
-    // incomplet.
-
-    /// <summary>
-    /// Obtains the number of days in the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
-    [Pure] public abstract int CountDaysInYear(int year);
-
-    /// <summary>
-    /// Obtains the number of days in the specified month.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
-    /// or outside the range of supported months.</exception>
-    [Pure] public abstract int CountDaysInMonth(int year, int month);
 }

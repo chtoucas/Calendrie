@@ -65,6 +65,7 @@ public partial class CalendarFacts<TCalendar, TDataSet>
     [Fact]
     public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
 
+#if false // TODO(fact): create CalendarSystemFacts
     //
     // Characteristics
     //
@@ -148,4 +149,6 @@ public partial class CalendarFacts<TCalendar, TDataSet>
     }
 
     #endregion
+
+#endif
 }

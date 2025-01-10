@@ -489,7 +489,10 @@ public partial struct CivilYear // IMonthSegment
                select new CivilMonth(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(CivilMonth month) => month.Year == Year;
 

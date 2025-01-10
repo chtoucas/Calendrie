@@ -76,9 +76,13 @@ public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
     /// </summary>
     internal TropicaliaSchema Schema { get; }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
     [Pure]
-    public sealed override int CountDaysInYear(int year)
+    public int CountDaysInYear(int year)
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -86,9 +90,13 @@ public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
         return Schema.CountDaysInYear(year);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
     [Pure]
-    public sealed override int CountDaysInMonth(int year, int month)
+    public int CountDaysInMonth(int year, int month)
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -1184,7 +1192,9 @@ public partial struct TropicaliaMonth // Adjustments
 
 public partial struct TropicaliaMonth // IDateSegment
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
     public TropicaliaDate MinDay
     {
         get
@@ -1195,7 +1205,9 @@ public partial struct TropicaliaMonth // IDateSegment
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
     public TropicaliaDate MaxDay
     {
         get
@@ -1255,7 +1267,10 @@ public partial struct TropicaliaMonth // IDateSegment
     [Pure]
     IEnumerable<TropicaliaDate> IDateSegment<TropicaliaDate>.EnumerateDays() => ToEnumerable();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(TropicaliaDate date)
     {
@@ -1692,7 +1707,10 @@ public partial struct TropicaliaYear // IMonthSegment
                select new TropicaliaMonth(monthsSinceEpoch);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(TropicaliaMonth month) => month.Year == Year;
 
@@ -1717,7 +1735,9 @@ public partial struct TropicaliaYear // IMonthSegment
 
 public partial struct TropicaliaYear // IDateSegment
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
     public TropicaliaDate MinDay
     {
         get
@@ -1727,7 +1747,9 @@ public partial struct TropicaliaYear // IDateSegment
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
     public TropicaliaDate MaxDay
     {
         get
@@ -1770,7 +1792,10 @@ public partial struct TropicaliaYear // IDateSegment
                select new TropicaliaDate(daysSinceZero);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
     [Pure]
     public bool Contains(TropicaliaDate date) => date.Year == Year;
 
