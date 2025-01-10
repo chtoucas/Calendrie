@@ -6,7 +6,9 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
-// TODO(code): move all these methods to the corresponding year or month types.
+// TODO(code): move CountDaysInWorldMonth() to WorldMonth.
+// Move VirtualMonth to the year type (add property IsVirtual to the month type)?
+// If so, maybe make Calendar.MonthsInYear internal (we also have Year.MonthCount)?
 
 public partial class Armenian13Calendar // Complements
 {

@@ -471,13 +471,6 @@ Calendrie.Hemerology.IDateable.Year.get -> int
 Calendrie.Hemerology.IDateable.YearOfCentury.get -> int
 Calendrie.Hemerology.IDateable.YearOfEra.get -> Calendrie.Ord
 Calendrie.Hemerology.IDateBase<TSelf>
-Calendrie.Hemerology.IDateProvider<TDate>
-Calendrie.Hemerology.IDateProvider<TDate>.GetDaysInMonth(int year, int month) -> System.Collections.Generic.IEnumerable<TDate>!
-Calendrie.Hemerology.IDateProvider<TDate>.GetDaysInYear(int year) -> System.Collections.Generic.IEnumerable<TDate>!
-Calendrie.Hemerology.IDateProvider<TDate>.GetEndOfMonth(int year, int month) -> TDate
-Calendrie.Hemerology.IDateProvider<TDate>.GetEndOfYear(int year) -> TDate
-Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfMonth(int year, int month) -> TDate
-Calendrie.Hemerology.IDateProvider<TDate>.GetStartOfYear(int year) -> TDate
 Calendrie.Hemerology.IDayFieldMath<TSelf>
 Calendrie.Hemerology.IDayFieldMath<TSelf>.AddWeeks(int weeks) -> TSelf
 Calendrie.Hemerology.IDayFieldMath<TSelf>.CountDaysSince(TSelf other) -> int
@@ -1965,6 +1958,7 @@ static Calendrie.Systems.GregorianCalendar.MinYear.get -> int
 static Calendrie.Systems.GregorianDate.Calendar.get -> Calendrie.Systems.GregorianCalendar!
 static Calendrie.Systems.GregorianDate.Create(int year, int dayOfYear) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.Create(int year, int month, int day) -> Calendrie.Systems.GregorianDate
+static Calendrie.Systems.GregorianDate.FromCivilDate(Calendrie.Systems.CivilDate date) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.FromDayNumber(Calendrie.DayNumber dayNumber) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.Max(Calendrie.Systems.GregorianDate x, Calendrie.Systems.GregorianDate y) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.MaxValue.get -> Calendrie.Systems.GregorianDate
