@@ -4,7 +4,7 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
-using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 /// <summary>
 /// Represents the Gregorian calendar.
@@ -12,7 +12,7 @@ using Calendrie.Core.Utilities;
 /// the range [-999_998..999_999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
+public sealed class GregorianCalendar : Calendar
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -57,34 +57,4 @@ public sealed class GregorianCalendar : CalendarSystem<GregorianDate>
     /// Gets the underlying schema.
     /// </summary>
     internal GregorianSchema Schema { get; }
-
-    /// <summary>
-    /// Obtains the number of days in the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
-    [Pure]
-    public int CountDaysInYear(int year)
-    {
-        if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-
-        return Schema.CountDaysInYear(year);
-    }
-
-    /// <summary>
-    /// Obtains the number of days in the specified month.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
-    /// or outside the range of supported months.</exception>
-    [Pure]
-    public int CountDaysInMonth(int year, int month)
-    {
-        if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > MonthsInYear)
-            ThrowHelpers.ThrowMonthOutOfRange(month);
-
-        return Schema.CountDaysInMonth(year, month);
-    }
 }

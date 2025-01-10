@@ -151,14 +151,10 @@ public partial struct CivilYear // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="CivilCalendar.CountDaysInYear(int)"/>.
-    /// </remarks>
     [Pure]
     public int CountDays() => GregorianFormulae.CountDaysInYear(Year);
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
-    /// </remarks>
     [Pure]
     public Range<CivilDate> ToDayRange()
     {

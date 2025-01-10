@@ -28,7 +28,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
+public sealed partial class PaxCalendar : Calendar
 {
     /// <summary>
     /// Represents the display name.
@@ -67,46 +67,6 @@ public sealed partial class PaxCalendar : CalendarSystem<PaxDate>
     /// Gets the schema.
     /// </summary>
     internal PaxSchema Schema { get; }
-
-    /// <summary>
-    /// Obtains the number of months in the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
-    [Pure]
-    public int CountMonthsInYear(int year)
-    {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-
-        return Schema.CountMonthsInYear(year);
-    }
-
-    /// <summary>
-    /// Obtains the number of days in the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
-    [Pure]
-    public int CountDaysInYear(int year)
-    {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-
-        return Schema.CountDaysInYear(year);
-    }
-
-    /// <summary>
-    /// Obtains the number of days in the specified month.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
-    /// or outside the range of supported months.</exception>
-    [Pure]
-    public int CountDaysInMonth(int year, int month)
-    {
-        Scope.ValidateYearMonth(year, month);
-        return Schema.CountDaysInMonth(year, month);
-    }
 }
 
 #endregion
@@ -1242,8 +1202,6 @@ public partial struct PaxMonth // IDateSegment
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
-    /// </remarks>
     [Pure]
     public Range<PaxDate> ToRange()
     {
@@ -1847,14 +1805,10 @@ public partial struct PaxYear // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="PaxCalendar.CountDaysInYear(int)"/>.
-    /// </remarks>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
-    /// </remarks>
     [Pure]
     public Range<PaxDate> ToDayRange()
     {

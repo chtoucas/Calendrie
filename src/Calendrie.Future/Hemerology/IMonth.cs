@@ -88,9 +88,8 @@ public interface IMonth
     /// <summary>
     /// Obtains the number of whole months in the year elapsed since the start
     /// of the year and before this month instance.
+    /// <para>Trivial (= Month - 1), only added for completeness.</para>
     /// </summary>
-    //
-    // Trivial, only added for completeness.
     [Pure] int CountElapsedMonthsInYear() => Month - 1;
 
     /// <summary>

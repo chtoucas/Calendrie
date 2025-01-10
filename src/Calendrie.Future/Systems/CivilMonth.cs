@@ -182,8 +182,6 @@ public partial struct CivilMonth // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="CivilCalendar.CountDaysInMonth(int, int)"/>.
-    /// </remarks>
     [Pure]
     public int CountDays()
     {
@@ -194,8 +192,6 @@ public partial struct CivilMonth // IDateSegment
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
-    /// </remarks>
     [Pure]
     public Range<CivilDate> ToRange()
     {

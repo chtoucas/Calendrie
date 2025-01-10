@@ -30,7 +30,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
+public sealed partial class TropicaliaCalendar : Calendar
 {
     /// <summary>
     /// Represents the total number of months in a year.
@@ -75,36 +75,6 @@ public sealed partial class TropicaliaCalendar : CalendarSystem<TropicaliaDate>
     /// Gets the schema.
     /// </summary>
     internal TropicaliaSchema Schema { get; }
-
-    /// <summary>
-    /// Obtains the number of days in the specified year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
-    [Pure]
-    public int CountDaysInYear(int year)
-    {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-
-        return Schema.CountDaysInYear(year);
-    }
-
-    /// <summary>
-    /// Obtains the number of days in the specified month.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
-    /// or outside the range of supported months.</exception>
-    [Pure]
-    public int CountDaysInMonth(int year, int month)
-    {
-        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > MonthsInYear)
-            ThrowHelpers.ThrowMonthOutOfRange(month);
-
-        return Schema.CountDaysInMonth(year, month);
-    }
 }
 
 #endregion
@@ -1221,8 +1191,6 @@ public partial struct TropicaliaMonth // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="TropicaliaCalendar.CountDaysInMonth(int, int)"/>.
-    /// </remarks>
     [Pure]
     public int CountDays()
     {
@@ -1233,8 +1201,6 @@ public partial struct TropicaliaMonth // IDateSegment
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInMonth(int, int)"/>.
-    /// </remarks>
     [Pure]
     public Range<TropicaliaDate> ToRange()
     {
@@ -1762,14 +1728,10 @@ public partial struct TropicaliaYear // IDateSegment
     }
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="TropicaliaCalendar.CountDaysInYear(int)"/>.
-    /// </remarks>
     [Pure]
     public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
 
     /// <inheritdoc />
-    /// <remarks>See also <seealso cref="CalendarSystem{TDate}.GetDaysInYear(int)"/>.
-    /// </remarks>
     [Pure]
     public Range<TropicaliaDate> ToDayRange()
     {
