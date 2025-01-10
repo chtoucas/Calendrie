@@ -17,9 +17,10 @@ namespace Calendrie.Hemerology;
 //     GregorianCalendar                GregorianDate
 //     JulianCalendar                   JulianDate
 //     etc
-//   NakedCalendar
-//     BoundedBelowCalendar
-//     MinMaxYearCalendar
+//   CalendarSystem
+//     NakedCalendar
+//       BoundedBelowCalendar
+//       MinMaxYearCalendar
 //
 // Calendar vs Date
 // ----------------

@@ -12,9 +12,11 @@ using Calendrie.Hemerology;
 
 using CalendrieRange = Calendrie.Core.Intervals.Range;
 
-public sealed partial class MyJulianCalendar : UserCalendar
+public sealed partial class MyJulianCalendar : CalendarSystem
 {
     internal const string DisplayName = "Julien";
+
+    public const int MonthsInYear = 12;
 
     public MyJulianCalendar()
         : base(DisplayName,
@@ -41,13 +43,13 @@ public sealed partial class MyJulianCalendar : UserCalendar
 
     private ICalendricalPreValidator PreValidator { get; }
 
-    public int CountDaysInYear(int year)
+    public sealed override int CountDaysInYear(int year)
     {
         Scope.ValidateYear(year);
         return Schema.CountDaysInYear(year);
     }
 
-    public int CountDaysInMonth(int year, int month)
+    public sealed override int CountDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
         return Schema.CountDaysInMonth(year, month);

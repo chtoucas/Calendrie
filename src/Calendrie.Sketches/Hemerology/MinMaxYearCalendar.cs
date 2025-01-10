@@ -49,9 +49,14 @@ public class MinMaxYearCalendar : NakedCalendar
     /// </summary>
     public MinMaxYearOrdinalPartsProvider OrdinalPartsProvider { get; }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtains the number of months in the specified year.
+    /// <para>See also <seealso cref="CalendarSystem.IsRegular(out int)"/>.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
     [Pure]
-    public sealed override int CountMonthsInYear(int year)
+    public int CountMonthsInYear(int year)
     {
         Scope.ValidateYear(year);
         return Schema.CountMonthsInYear(year);

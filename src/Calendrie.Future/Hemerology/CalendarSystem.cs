@@ -60,6 +60,7 @@ public abstract class CalendarSystem : Calendar
         return scope.Schema.IsLeapYear(year);
     }
 
+#if false // Not included as most calendars are regular.
     /// <summary>
     /// Obtains the number of months in the specified year.
     /// <para>See also <seealso cref="IsRegular(out int)"/>.</para>
@@ -67,6 +68,7 @@ public abstract class CalendarSystem : Calendar
     /// <exception cref="ArgumentOutOfRangeException">The year is outside the
     /// range of supported years.</exception>
     [Pure] public abstract int CountMonthsInYear(int year);
+#endif
 
     // La méthode suivante est abstraite car une année peut être incomplète.
 

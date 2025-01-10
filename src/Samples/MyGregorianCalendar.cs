@@ -15,9 +15,11 @@ using Calendrie.Hemerology;
 
 // This is a plain implementation, there is plenty room left to apply various optimizations.
 
-public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<MyGregorianDate>
+public sealed partial class MyGregorianCalendar : CalendarSystem, IDateProvider<MyGregorianDate>
 {
     internal const string DisplayName = "Gregorian";
+
+    public const int MonthsInYear = 12;
 
     public MyGregorianCalendar()
         : base(DisplayName,
@@ -46,13 +48,13 @@ public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<My
 
     private ICalendricalPreValidator PreValidator { get; }
 
-    public int CountDaysInYear(int year)
+    public sealed override int CountDaysInYear(int year)
     {
         Scope.ValidateYear(year);
         return Schema.CountDaysInYear(year);
     }
 
-    public int CountDaysInMonth(int year, int month)
+    public sealed override int CountDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
         return Schema.CountDaysInMonth(year, month);
