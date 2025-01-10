@@ -25,6 +25,9 @@ public abstract class UserCalendar : Calendar
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
+    //
+    // Do NOT remove this property. Without it a derived class won't have access
+    // to the underlying schema.
     protected ICalendricalSchema Schema { get; }
 
     //
@@ -55,9 +58,8 @@ public abstract class UserCalendar : Calendar
     [Pure]
     public bool IsLeapYear(int year)
     {
-        var scope = Scope;
-        scope.ValidateYear(year);
-        return scope.Schema.IsLeapYear(year);
+        Scope.ValidateYear(year);
+        return Schema.IsLeapYear(year);
     }
 
 #if false // Not included as most calendars are regular.
@@ -91,9 +93,8 @@ public abstract class UserCalendar : Calendar
     [Pure]
     public bool IsIntercalaryMonth(int year, int month)
     {
-        var scope = Scope;
-        scope.ValidateYearMonth(year, month);
-        return scope.Schema.IsIntercalaryMonth(year, month);
+        Scope.ValidateYearMonth(year, month);
+        return Schema.IsIntercalaryMonth(year, month);
     }
 
     // La méthode suivante est abstraite car une année peut être incomplète.

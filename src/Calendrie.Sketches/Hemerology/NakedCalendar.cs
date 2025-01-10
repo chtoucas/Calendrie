@@ -19,8 +19,7 @@ public abstract class NakedCalendar : UserCalendar
     /// <see langword="null"/>.</exception>
     protected NakedCalendar(string name, CalendarScope scope) : base(name, scope)
     {
-        Debug.Assert(scope != null);
-        PartsAdapter = new PartsAdapter(scope.Schema);
+        PartsAdapter = new PartsAdapter(Schema);
     }
 
     /// <summary>

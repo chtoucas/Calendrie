@@ -11,7 +11,7 @@ namespace Calendrie.Hemerology;
 // Types implementing ICalendar or ICalendar<T>
 // --------------------------------------------
 //
-// CalendarSystem
+// Calendar
 //   CalendarSystem<>
 //     CivilCalendar                    CivilDate
 //     GregorianCalendar                GregorianDate
@@ -175,8 +175,7 @@ namespace Calendrie.Hemerology;
 public class Calendar
 {
     /// <summary>
-    /// Called from constructors in derived classes to initialize the
-    /// <see cref="Calendar"/> class.
+    /// Initializes a new instance of the <see cref="Calendar"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
