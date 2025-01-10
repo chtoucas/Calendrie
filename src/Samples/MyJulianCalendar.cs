@@ -75,7 +75,7 @@ public partial class MyJulianCalendar // Date constructors helpers
     }
 }
 
-public partial class MyJulianCalendar // Date helpers
+public partial class MyJulianCalendar // Date helpers (no validation)
 {
     internal int CountDaysSinceEpoch(Yemoda ymd)
     {
@@ -100,10 +100,7 @@ public partial class MyJulianCalendar // Date helpers
         var (y, m, d) = ymd;
         return Schema.IsIntercalaryDay(y, m, d);
     }
-}
 
-public partial class MyJulianCalendar // Date helpers (counting)
-{
     internal int CountDaysInYearAfter(Yemoda ymd)
     {
         var (y, m, d) = ymd;
@@ -117,12 +114,8 @@ public partial class MyJulianCalendar // Date helpers (counting)
     }
 }
 
-public partial class MyJulianCalendar // Date helpers (adjustments)
+public partial class MyJulianCalendar // Date helpers (validation)
 {
-    //
-    // Adjustments for the core parts
-    //
-
     internal MyJulianDate AdjustYear(MyJulianDate date, int newYear)
     {
         var (_, m, d) = date;
@@ -155,10 +148,6 @@ public partial class MyJulianCalendar // Date helpers (adjustments)
         return new(UnderlyingSchema.GetDateParts(y, newDayOfYear));
     }
 
-    //
-    // Find a close by day of the week
-    //
-
     internal MyJulianDate Nearest(MyJulianDate date, DayOfWeek dayOfWeek)
     {
         var dayNumber = date.DayNumber.Nearest(dayOfWeek);
@@ -171,7 +160,10 @@ public partial class MyJulianCalendar // Date helpers (adjustments)
 public partial class MyJulianCalendar // Date helpers (math)
 {
     internal int CountDaysBetween(Yemoda left, Yemoda right) => throw new NotImplementedException();
+
     internal Yemoda AddDays(Yemoda ymd, int days) => throw new NotImplementedException();
+
     internal Yemoda NextDay(Yemoda ymd) => throw new NotImplementedException();
+
     internal Yemoda PreviousDay(Yemoda ymd) => throw new NotImplementedException();
 }

@@ -3,6 +3,7 @@
 
 namespace Samples;
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +12,8 @@ using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
+
+// This is a plain implementation, there is plenty room left to apply various optimizations.
 
 public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<MyGregorianDate>
 {
@@ -137,20 +140,21 @@ public partial class MyGregorianCalendar // Date helpers (ctors, factories & con
         return dayNumber.DaysSinceZero - Epoch.DaysSinceZero;
     }
 
-    public int? TryCountDaysSinceEpoch(int year, int month, int day) =>
+    internal int? TryCountDaysSinceEpoch(int year, int month, int day) =>
         Scope.CheckYearMonthDay(year, month, day)
         ? Schema.CountDaysSinceEpoch(year, month, day)
         : null;
 
-    public int? TryCountDaysSinceEpoch(int year, int dayOfYear) =>
+    internal int? TryCountDaysSinceEpoch(int year, int dayOfYear) =>
         Scope.CheckOrdinal(year, dayOfYear)
         ? Schema.CountDaysSinceEpoch(year, dayOfYear)
         : null;
 }
 
-// These methods do not validate their parameters
 public partial class MyGregorianCalendar // Date helpers (no validation)
 {
+    // These methods do not validate their parameters because they don't need to.
+
     internal bool IsIntercalaryDay(int daysSinceEpoch)
     {
         Schema.GetDateParts(daysSinceEpoch, out int y, out int m, out int d);
@@ -172,12 +176,8 @@ public partial class MyGregorianCalendar // Date helpers (no validation)
         Schema.CountDaysInMonthAfter(daysSinceEpoch);
 }
 
-public partial class MyGregorianCalendar // Date helpers (validation)
+public partial class MyGregorianCalendar // Date helpers
 {
-    //
-    // Adjustments for the core date parts
-    //
-
     internal MyGregorianDate AdjustYear(MyGregorianDate date, int newYear)
     {
         var (_, m, d) = date;
@@ -213,4 +213,16 @@ public partial class MyGregorianCalendar // Date helpers (validation)
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, newDayOfYear);
         return new(daysSinceEpoch);
     }
+
+    internal MyGregorianDate AddYears(MyGregorianDate date, int years) =>
+        throw new NotImplementedException();
+
+    internal MyGregorianDate AddMonths(MyGregorianDate date, int months) =>
+        throw new NotImplementedException();
+
+    internal int CountYearsBetween(MyGregorianDate start, MyGregorianDate end) =>
+        throw new NotImplementedException();
+
+    internal int CountMonthsBetween(MyGregorianDate start, MyGregorianDate end) =>
+        throw new NotImplementedException();
 }
