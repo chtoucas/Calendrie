@@ -12,11 +12,10 @@ namespace Calendrie.Hemerology;
 // --------------------------------------------
 //
 // Calendar
-//   CalendarSystem<>
-//     CivilCalendar                    CivilDate
-//     GregorianCalendar                GregorianDate
-//     JulianCalendar                   JulianDate
-//     etc
+//   CivilCalendar                    CivilDate
+//   GregorianCalendar                GregorianDate
+//   JulianCalendar                   JulianDate
+//   etc
 //   UserCalendar
 //     NakedCalendar
 //       BoundedBelowCalendar
