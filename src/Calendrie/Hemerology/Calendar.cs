@@ -178,7 +178,7 @@ public class Calendar
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    protected Calendar(string name, CalendarScope scope)
+    public Calendar(string name, CalendarScope scope)
     {
         ArgumentNullException.ThrowIfNull(name);
         ArgumentNullException.ThrowIfNull(scope);
