@@ -54,7 +54,7 @@ public sealed partial class MyJulianCalendar : UserCalendar
     }
 }
 
-public partial class MyJulianCalendar // Date constructors helpers
+public partial class MyJulianCalendar // Date helpers (ctors)
 {
     public Yemoda CreateDateParts(int year, int month, int day)
     {
@@ -77,6 +77,8 @@ public partial class MyJulianCalendar // Date constructors helpers
 
 public partial class MyJulianCalendar // Date helpers (no validation)
 {
+    // These methods do not validate their parameters because they don't need to.
+
     internal int CountDaysSinceEpoch(Yemoda ymd)
     {
         var (y, m, d) = ymd;
@@ -114,7 +116,7 @@ public partial class MyJulianCalendar // Date helpers (no validation)
     }
 }
 
-public partial class MyJulianCalendar // Date helpers (validation)
+public partial class MyJulianCalendar // Date helpers
 {
     internal MyJulianDate AdjustYear(MyJulianDate date, int newYear)
     {
@@ -155,10 +157,7 @@ public partial class MyJulianCalendar // Date helpers (validation)
         var ymd = UnderlyingSchema.GetDateParts(dayNumber - Epoch);
         return new(ymd);
     }
-}
 
-public partial class MyJulianCalendar // Date helpers (math)
-{
     internal int CountDaysBetween(Yemoda left, Yemoda right) => throw new NotImplementedException();
 
     internal Yemoda AddDays(Yemoda ymd, int days) => throw new NotImplementedException();
