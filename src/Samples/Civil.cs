@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Calendrie.Systems;
 using Calendrie.Core.Intervals;
+using Calendrie.Systems;
 
 using CalendrieRange = Calendrie.Core.Intervals.Range;
 

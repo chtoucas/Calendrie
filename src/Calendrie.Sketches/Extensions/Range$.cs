@@ -5,13 +5,7 @@ namespace Calendrie.Extensions;
 
 using Calendrie.Core.Intervals;
 
-// TODO(code): specialized versions for years and months.
-// Interconversion of a range. ToEnumerable()
-// Range<Year>.Count(), ToEnumerable(), GetCalendar().
-
-public static partial class RangeExtensions { }
-
-public partial class RangeExtensions // Range<T>
+public static class RangeExtensions
 {
     [Pure]
     public static Range<TItem> Flatten<T, TItem>(this Range<T> @this)
