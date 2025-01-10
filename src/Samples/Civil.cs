@@ -157,28 +157,28 @@ public partial class Civil
         WorldDate.FromDayNumber(date.DayNumber);
 
     //
-    // Interconversion: Other date types -> CivilDate
+    // Interconversion: other date types -> CivilDate
     //
 
     /// <summary>
     /// Interconverts the specified Gregorian date to a <see cref="CivilDate"/> value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"/>
-    public static CivilDate ToCivilDate(GregorianDate date) =>
+    public static CivilDate ToCivilDate(this GregorianDate date) =>
         CivilDate.FromDayNumber(date.DayNumber);
 
     /// <summary>
     /// Interconverts the specified Julian date to a <see cref="CivilDate"/> value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"/>
-    public static CivilDate ToCivilDate(JulianDate date) =>
+    public static CivilDate ToCivilDate(this JulianDate date) =>
         CivilDate.FromDayNumber(date.DayNumber);
 
     /// <summary>
     /// Interconverts the specified World date to a <see cref="CivilDate"/> value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"/>
-    public static CivilDate ToCivilDate(WorldDate date) =>
+    public static CivilDate ToCivilDate(this WorldDate date) =>
         CivilDate.FromDayNumber(date.DayNumber);
 }
 
