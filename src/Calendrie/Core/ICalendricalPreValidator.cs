@@ -10,7 +10,7 @@ using Calendrie.Core.Validation;
 // Types Implementing ICalendricalPreValidator
 // -------------------------------------------
 //
-// ICalendricalPreValidator                                 PUBLIC
+// ICalendricalPreValidator
 // ├─ GregorianPreValidator         (Gregorian-only)
 // ├─ JulianPreValidator            (Julian-only)
 // ├─ LunarPreValidator             (CalendricalSchema)
