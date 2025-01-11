@@ -29,9 +29,15 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
     /// </summary>
     protected TScope ScopeUT { get; }
 
+    [Theory] public abstract void CheckYear_InvalidYear(int y);
+    [Theory] public abstract void CheckYear(int y);
+
+    [Theory] public abstract void ValidateYear_InvalidYear(int y);
+    [Theory] public abstract void ValidateYear(int y);
+
     #region CheckYearMonth()
 
-    //[Theory] public abstract void CheckYearMonth_InvalidYear(int y);
+    [Theory] public abstract void CheckYearMonth_InvalidYear(int y);
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void CheckYearMonth_InvalidMonth(int y, int m) =>
@@ -67,7 +73,7 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
 
     #region CheckYearMonthDay()
 
-    //[Theory] public abstract void CheckYearMonthDay_InvalidYear(int y);
+    [Theory] public abstract void CheckYearMonthDay_InvalidYear(int y);
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void CheckYearMonthDay_InvalidMonth(int y, int m) =>
@@ -114,7 +120,7 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
 
     #region CheckOrdinal()
 
-    //[Theory] public abstract void CheckOrdinal_InvalidYear(int y);
+    [Theory] public abstract void CheckOrdinal_InvalidYear(int y);
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void CheckOrdinal_InvalidDayOfYear(int y, int doy) =>

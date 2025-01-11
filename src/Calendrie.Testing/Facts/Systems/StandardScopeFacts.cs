@@ -48,6 +48,26 @@ internal abstract class StandardScopeFacts<TDataSet> :
     public static TheoryData<int> ValidYearData => StandardScopeFacts.ValidYearData;
 
     [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void CheckYear_InvalidYear(int y) => Assert.False(ScopeUT.CheckYear(y));
+
+    [Theory, MemberData(nameof(ValidYearData))]
+    public sealed override void CheckYear(int y) => Assert.True(ScopeUT.CheckYear(y));
+
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void ValidateYear_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYear(y));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYear(y, nameof(y)));
+    }
+
+    [Theory, MemberData(nameof(ValidYearData))]
+    public sealed override void ValidateYear(int y) => ScopeUT.ValidateYear(y);
+
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void CheckYearMonth_InvalidYear(int y) =>
+        Assert.False(ScopeUT.CheckYearMonth(y, 1));
+
+    [Theory, MemberData(nameof(InvalidYearData))]
     public sealed override void ValidateYearMonth_InvalidYear(int y)
     {
         AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonth(y, 1));
@@ -55,11 +75,19 @@ internal abstract class StandardScopeFacts<TDataSet> :
     }
 
     [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void CheckYearMonthDay_InvalidYear(int y) =>
+        Assert.False(ScopeUT.CheckYearMonthDay(y, 1, 1));
+
+    [Theory, MemberData(nameof(InvalidYearData))]
     public sealed override void ValidateYearMonthDay_InvalidYear(int y)
     {
         AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonthDay(y, 1, 1));
         AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYearMonthDay(y, 1, 1, nameof(y)));
     }
+
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public sealed override void CheckOrdinal_InvalidYear(int y) =>
+        Assert.False(ScopeUT.CheckOrdinal(y, 1));
 
     [Theory, MemberData(nameof(InvalidYearData))]
     public sealed override void ValidateOrdinal_InvalidYear(int y)

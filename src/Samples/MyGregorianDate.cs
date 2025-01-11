@@ -10,6 +10,8 @@ using System.Numerics;
 using Calendrie;
 using Calendrie.Hemerology;
 
+// NB: this class is also used to test various default implementation methods.
+
 public readonly partial struct MyGregorianDate :
     IDate<MyGregorianDate>,
     ICalendarBound<MyGregorianCalendar>,
@@ -143,9 +145,11 @@ public partial struct MyGregorianDate // Factories & conversions
 
 public partial struct MyGregorianDate // Counting
 {
-    public int CountElapsedDaysInYear() => DayOfYear - 1;
+    // NB: "disabled" methods in order to test IDateable methods.
+
+    //public int CountElapsedDaysInYear() => DayOfYear - 1;
     public int CountRemainingDaysInYear() => Calendar.CountDaysInYearAfter(_daysSinceEpoch);
-    public int CountElapsedDaysInMonth() => Day - 1;
+    //public int CountElapsedDaysInMonth() => Day - 1;
     public int CountRemainingDaysInMonth() => Calendar.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
