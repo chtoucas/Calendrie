@@ -4,6 +4,7 @@
 namespace Calendrie.Testing.Facts.Systems;
 
 using Calendrie.Hemerology;
+using Calendrie.Systems;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
@@ -20,11 +21,6 @@ public static class ProlepticScopeFacts
     /// <para>This field is a constant equal to 999_999.</para>
     /// </summary>
     internal const int MaxYear = 999_999;
-
-    ///// <summary>
-    ///// Represents the range of supported years.
-    ///// </summary>
-    //public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
     public static readonly TheoryData<int> InvalidYearData =
     [
@@ -48,7 +44,8 @@ public static class ProlepticScopeFacts
 
 
 /// <summary>
-/// Provides data-driven tests for proleptic scopes.
+/// Provides data-driven tests for <see cref="GregorianScope"/> and
+/// <see cref="JulianScope"/>.
 /// </summary>
 internal abstract class ProlepticScopeFacts<TDataSet> :
     CalendarScopeFacts<CalendarScope, TDataSet>
