@@ -1,26 +1,26 @@
 Summary
-  Generated on: 10/01/2025 - 09:17:19
+  Generated on: 11/01/2025 - 19:20:43
   Parser: OpenCover
   Assemblies: 3
-  Classes: 180
-  Files: 171
-  Line coverage: 62.4%
-  Covered lines: 6598
-  Uncovered lines: 3969
-  Coverable lines: 10567
-  Total lines: 40206
-  Branch coverage: 58% (1863 of 3211)
-  Covered branches: 1863
-  Total branches: 3211
-  Method coverage: 65.5% (2316 of 3533)
-  Full method coverage: 53.6% (1895 of 3533)
-  Covered methods: 2316
-  Fully covered methods: 1895
-  Total methods: 3533
+  Classes: 179
+  Files: 172
+  Line coverage: 64.2%
+  Covered lines: 6781
+  Uncovered lines: 3778
+  Coverable lines: 10559
+  Total lines: 40256
+  Branch coverage: 66.8% (2145 of 3209)
+  Covered branches: 2145
+  Total branches: 3209
+  Method coverage: 67.9% (2397 of 3529)
+  Full method coverage: 56% (1979 of 3529)
+  Covered methods: 2397
+  Fully covered methods: 1979
+  Total methods: 3529
 
-Calendrie                                                  81%
+Calendrie                                                83.1%
   Calendrie.Core.CalendricalSchema                        100%
-  Calendrie.Core.CalendricalSegment                      84.4%
+  Calendrie.Core.CalendricalSegment                       100%
   Calendrie.Core.CalendricalSegmentBuilder                100%
   Calendrie.Core.ICalendricalPreValidator                 100%
   Calendrie.Core.ICalendricalSchema                       100%
@@ -72,14 +72,14 @@ Calendrie                                                  81%
   Calendrie.Core.Utilities.MathT                          100%
   Calendrie.Core.Utilities.MathZ                          100%
   Calendrie.Core.Utilities.Requires                       100%
-  Calendrie.Core.Utilities.ThrowHelpers                  71.4%
-  Calendrie.Core.Validation.GregorianPreValidator        82.3%
-  Calendrie.Core.Validation.JulianPreValidator           82.8%
-  Calendrie.Core.Validation.LunarPreValidator            84.2%
-  Calendrie.Core.Validation.LunisolarPreValidator        84.2%
-  Calendrie.Core.Validation.PlainPreValidator              87%
-  Calendrie.Core.Validation.Solar12PreValidator          84.2%
-  Calendrie.Core.Validation.Solar13PreValidator          84.2%
+  Calendrie.Core.Utilities.ThrowHelpers                   100%
+  Calendrie.Core.Validation.GregorianPreValidator         100%
+  Calendrie.Core.Validation.JulianPreValidator            100%
+  Calendrie.Core.Validation.LunarPreValidator             100%
+  Calendrie.Core.Validation.LunisolarPreValidator         100%
+  Calendrie.Core.Validation.PlainPreValidator             100%
+  Calendrie.Core.Validation.Solar12PreValidator           100%
+  Calendrie.Core.Validation.Solar13PreValidator           100%
   Calendrie.Core.Yedoy                                    100%
   Calendrie.Core.Yemo                                     100%
   Calendrie.Core.Yemoda                                   100%
@@ -89,7 +89,7 @@ Calendrie                                                  81%
   Calendrie.Hemerology.Calendar                           100%
   Calendrie.Hemerology.CalendarScope                      100%
   Calendrie.Hemerology.IAbsoluteDate                      100%
-  Calendrie.Hemerology.IDateable                            0%
+  Calendrie.Hemerology.IDateable                          100%
   Calendrie.Hemerology.IDayFieldMath<T>                     0%
   Calendrie.Hemerology.IMonthFieldMath<T>                   0%
   Calendrie.Hemerology.IYearFieldMath<T>                    0%
@@ -102,7 +102,7 @@ Calendrie                                                  81%
   Calendrie.Systems.ArmenianDate                         66.2%
   Calendrie.Systems.CivilCalendar                         100%
   Calendrie.Systems.CivilDate                            63.1%
-  Calendrie.Systems.CivilScope                           65.3%
+  Calendrie.Systems.CivilScope                            100%
   Calendrie.Systems.Coptic13Calendar                      100%
   Calendrie.Systems.Coptic13Date                         66.2%
   Calendrie.Systems.CopticCalendar                        100%
@@ -112,12 +112,12 @@ Calendrie                                                  81%
   Calendrie.Systems.EthiopicCalendar                      100%
   Calendrie.Systems.EthiopicDate                         66.2%
   Calendrie.Systems.GregorianCalendar                     100%
-  Calendrie.Systems.GregorianDate                        64.2%
-  Calendrie.Systems.GregorianScope                         50%
+  Calendrie.Systems.GregorianDate                        63.9%
+  Calendrie.Systems.GregorianScope                        100%
   Calendrie.Systems.JulianCalendar                        100%
   Calendrie.Systems.JulianDate                           64.1%
-  Calendrie.Systems.JulianScope                            50%
-  Calendrie.Systems.StandardScope                          56%
+  Calendrie.Systems.JulianScope                           100%
+  Calendrie.Systems.StandardScope                         100%
   Calendrie.Systems.TabularIslamicCalendar                100%
   Calendrie.Systems.TabularIslamicDate                     65%
   Calendrie.Systems.WorldCalendar                        87.5%
@@ -128,11 +128,10 @@ Calendrie                                                  81%
   Calendrie.Systems.ZoroastrianDate                      66.2%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Future                                         11.9%
+Calendrie.Future                                         11.1%
   Calendrie.Hemerology.DateMath<T>                          0%
   Calendrie.Hemerology.IMonth                               0%
   Calendrie.Hemerology.MonthMath<T>                         0%
-  Calendrie.Hemerology.UserCalendar                      65.2%
   Calendrie.Systems.CivilDateMath                           0%
   Calendrie.Systems.CivilMonth                              0%
   Calendrie.Systems.CivilYear                             8.1%
@@ -146,12 +145,12 @@ Calendrie.Future                                         11.9%
   Calendrie.Systems.JulianYear                              0%
   Calendrie.Systems.MonthMathPlain<T1, T2>                  0%
   Calendrie.Systems.TropicaliaCalendar                    100%
-  Calendrie.Systems.TropicaliaDate                       65.4%
+  Calendrie.Systems.TropicaliaDate                       64.4%
   Calendrie.Systems.TropicaliaDateMath                      0%
   Calendrie.Systems.TropicaliaMonth                         0%
   Calendrie.Systems.TropicaliaYear                          0%
 
-Calendrie.Sketches                                         44%
+Calendrie.Sketches                                       45.9%
   Calendrie.AdditionRuleset                               100%
   Calendrie.Core.Arithmetic.PlainArithmetic                 0%
   Calendrie.Core.Arithmetic.RegularArithmetic               0%
@@ -160,7 +159,6 @@ Calendrie.Sketches                                         44%
   Calendrie.Core.Intervals.IntervalExtra                  100%
   Calendrie.Core.Intervals.Lavretni                       100%
   Calendrie.Core.Intervals.Unbounded<T>                   100%
-  Calendrie.Core.OffsettedSchema                            0%
   Calendrie.Core.OffsettedSchema<T>                         0%
   Calendrie.Core.OverflowChecker                            0%
   Calendrie.Core.Prototyping.PrototypalSchema            97.7%
@@ -171,11 +169,12 @@ Calendrie.Sketches                                         44%
   Calendrie.Core.Utilities.MathU                          100%
   Calendrie.Core.Validation.GregorianPreValidator2        100%
   Calendrie.Core.Validation.JulianPreValidator2           100%
-  Calendrie.Core.Validation.PaxPreValidator              65.9%
+  Calendrie.Core.Validation.PaxPreValidator               100%
   Calendrie.Extensions.CivilDateExtensions                100%
   Calendrie.Extensions.DayNumberExtensions                 20%
   Calendrie.Extensions.GregorianDateExtensions            100%
   Calendrie.Extensions.IAbsoluteDateExtensions              0%
+  Calendrie.Extensions.Interconversion                      0%
   Calendrie.Extensions.JulianDateExtensions               100%
   Calendrie.Extensions.RangeExtensions                      0%
   Calendrie.Hemerology.Arithmetic.NakedArithmetic           0%
@@ -183,23 +182,23 @@ Calendrie.Sketches                                         44%
   Calendrie.Hemerology.Arithmetic.RegularArithmetic         0%
   Calendrie.Hemerology.BoundedBelowCalendar              94.4%
   Calendrie.Hemerology.BoundedBelowDayNumberProvider     12.8%
-  Calendrie.Hemerology.BoundedBelowScope                 83.5%
+  Calendrie.Hemerology.BoundedBelowScope                 88.5%
+  Calendrie.Hemerology.DateProvider<T1, T2>                 0%
   Calendrie.Hemerology.MinMaxYearCalendar                  32%
   Calendrie.Hemerology.MinMaxYearDatePartsProvider       14.2%
   Calendrie.Hemerology.MinMaxYearDayNumberProvider       17.9%
   Calendrie.Hemerology.MinMaxYearOrdinalPartsProvider    15.2%
-  Calendrie.Hemerology.MinMaxYearScope                   68.9%
+  Calendrie.Hemerology.MinMaxYearScope                    100%
   Calendrie.Hemerology.NakedCalendar                      100%
   Calendrie.Hemerology.PlainMonthMath<T1, T2>               0%
-  Calendrie.Systems.CalendarSystem<T>                       0%
+  Calendrie.Hemerology.UserCalendar                      46.6%
   Calendrie.Systems.CivilAnnual                             0%
   Calendrie.Systems.GregorianReform                       100%
   Calendrie.Systems.OrthodoxKalendar                        0%
-  Calendrie.Systems.PaxCalendar                          64.2%
+  Calendrie.Systems.PaxCalendar                           100%
   Calendrie.Systems.PaxDate                              65.3%
   Calendrie.Systems.PaxDateMath                             0%
   Calendrie.Systems.PaxMonth                                0%
   Calendrie.Systems.PaxMonthMath                            0%
   Calendrie.Systems.PaxYear                                 0%
-  Calendrie.Systems.ProlepticScope                          0%
   Calendrie.Systems.RomanKalendar                        63.4%
