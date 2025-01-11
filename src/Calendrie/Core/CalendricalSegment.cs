@@ -1,6 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
+// REVIEW(code): generic factories, same question elsewhere: scopes, schema activator
+//#define ENABLE_GENERIC_FACTORIES
+
 namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
@@ -17,6 +20,10 @@ public sealed class CalendricalSegment
     /// </summary>
     internal CalendricalSegment(ICalendricalSchema schema, Endpoint min, Endpoint max)
     {
+        Debug.Assert(schema != null);
+        Debug.Assert(min != null);
+        Debug.Assert(max != null);
+
         Schema = schema;
 
         SupportedDays = Range.Create(min.DaysSinceEpoch, max.DaysSinceEpoch);
@@ -65,7 +72,7 @@ public sealed class CalendricalSegment
     public Range<int> SupportedMonths { get; }
 
     /// <summary>
-    /// Gets the range of supported years.
+    /// Gets the range of supported (algebraic) years.
     /// </summary>
     public Range<int> SupportedYears { get; }
 
@@ -102,19 +109,22 @@ public sealed class CalendricalSegment
     [Pure]
     public sealed override string ToString() => MinMaxDateParts.ToString();
 
+    #region Factories
+
+#if ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates a new instance of the <see cref="CalendricalSegment"/> class.
     /// </summary>
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
     /// NOT a subinterval of the range of supported years by
-    /// <typeparamref name="TSchema"/>.
-    /// </exception>
+    /// <typeparamref name="TSchema"/>.</exception>
     [Pure]
     public static CalendricalSegment Create<TSchema>(Range<int> supportedYears)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
         return Create(TSchema.CreateInstance(), supportedYears);
     }
+#endif
 
     /// <summary>
     /// Creates a new instance of the <see cref="CalendricalSegment"/> class.
@@ -132,6 +142,7 @@ public sealed class CalendricalSegment
         return builder.BuildSegment();
     }
 
+#if ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates the maximal segment for the <typeparamref name="TSchema"/> type.
     /// </summary>
@@ -141,6 +152,7 @@ public sealed class CalendricalSegment
     {
         return CreateMaximal(TSchema.CreateInstance());
     }
+#endif
 
     /// <summary>
     /// Creates the maximal segment for <paramref name="schema"/>.
@@ -156,6 +168,7 @@ public sealed class CalendricalSegment
         return builder.BuildSegment();
     }
 
+#if ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates the maximal segment with years on after year 1 for the
     /// <typeparamref name="TSchema"/> type.
@@ -169,6 +182,7 @@ public sealed class CalendricalSegment
     {
         return CreateMaximalOnOrAfterYear1(TSchema.CreateInstance());
     }
+#endif
 
     /// <summary>
     /// Creates the maximal segment with years on after year 1 for
@@ -177,7 +191,7 @@ public sealed class CalendricalSegment
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The range of supported years by
-    /// <paramref name="schema"/> does not contain the years &gt;= 1.
+    /// <paramref name="schema"/> does not contain any year &gt;= 1.
     /// </exception>
     [Pure]
     public static CalendricalSegment CreateMaximalOnOrAfterYear1(ICalendricalSchema schema)
@@ -194,6 +208,8 @@ public sealed class CalendricalSegment
         return builder.BuildSegment();
     }
 
+    #endregion
+
     internal sealed class Endpoint
     {
         public int MonthsSinceEpoch { get; internal set; }
@@ -206,14 +222,13 @@ public sealed class CalendricalSegment
         public int Year => DateParts.Year;
 
         /// <summary>
-        /// <c>left &gt; right
-        /// </c>
+        /// <c>left &gt; right</c>
         /// <para><c>(null &gt; null)</c> evaluates to false</para>
         /// </summary>
         public static bool IsGreaterThan(Endpoint? left, Endpoint? right) =>
             left is not null
             && right is not null
-            && left.DaysSinceEpoch.CompareTo(right.DaysSinceEpoch) > 0;
+            && left.DaysSinceEpoch > right.DaysSinceEpoch;
 
         // Using .NET comparison ops would have been nicer but, since this
         // type is internal, it would have made full code coverage almost
@@ -233,8 +248,7 @@ public sealed class CalendricalSegment
 
         //public int CompareTo(Endpoint other)
         //{
-        //    Requires.NotNull(other);
-
+        //    ArgumentNullException.ThrowIfNull(other);
         //    return DaysSinceEpoch.CompareTo(other.DaysSinceEpoch);
         //}
     }

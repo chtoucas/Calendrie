@@ -64,7 +64,6 @@ public sealed class MinMaxYearScope : CalendarScope
     public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch, Range<int> supportedYears)
     {
         var segment = CalendricalSegment.Create(schema, supportedYears);
-
         return new MinMaxYearScope(segment, epoch);
     }
 
@@ -86,7 +85,6 @@ public sealed class MinMaxYearScope : CalendarScope
     public static MinMaxYearScope CreateMaximal(ICalendricalSchema schema, DayNumber epoch)
     {
         var segment = CalendricalSegment.CreateMaximal(schema);
-
         return new MinMaxYearScope(segment, epoch);
     }
 
@@ -112,7 +110,6 @@ public sealed class MinMaxYearScope : CalendarScope
     public static MinMaxYearScope CreateMaximalOnOrAfterYear1(ICalendricalSchema schema, DayNumber epoch)
     {
         var segment = CalendricalSegment.CreateMaximalOnOrAfterYear1(schema);
-
         return new MinMaxYearScope(segment, epoch);
     }
 
