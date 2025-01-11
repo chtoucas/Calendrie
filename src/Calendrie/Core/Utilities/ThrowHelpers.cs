@@ -123,15 +123,18 @@ internal partial class ThrowHelpers // ArgumentException
     /// </summary>
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
-    public static void ThrowBadBinaryInput() =>
-        throw new ArgumentException("The binary data was not well-formed.", "data");
+    public static void ThrowBadBinaryInput(string? paramName = null) =>
+        throw new ArgumentException("The binary data was not well-formed.", paramName ?? "data");
 
+    /// <summary>
+    /// The object should be of type {expected} but it was of type {obj.GetType()}.
+    /// </summary>
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn, Pure]
-    public static int ThrowNonComparable(Type expected, object obj) =>
+    public static int ThrowNonComparable(Type expected, object obj, string? paramName = null) =>
         throw new ArgumentException(
             $"The object should be of type {expected} but it was of type {obj.GetType()}.",
-            nameof(obj));
+            paramName ?? nameof(obj));
 }
 
 internal partial class ThrowHelpers // OverflowException

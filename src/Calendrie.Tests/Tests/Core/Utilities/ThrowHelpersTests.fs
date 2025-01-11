@@ -62,10 +62,12 @@ module ArgumentExns =
     [<Fact>]
     let ThrowBadBinaryInput () =
         argExn "data" (fun () -> ThrowHelpers.ThrowBadBinaryInput())
+        argExn "paramName" (fun () -> ThrowHelpers.ThrowBadBinaryInput("paramName"))
 
     [<Fact>]
     let ThrowNonComparable () =
         argExn "obj" (fun () -> ThrowHelpers.ThrowNonComparable(typeof<string>, 1))
+        argExn "paramName" (fun () -> ThrowHelpers.ThrowNonComparable(typeof<string>, 1, "paramName"))
 
 module OverflowExns =
     [<Fact>]

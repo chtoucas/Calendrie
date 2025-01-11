@@ -268,10 +268,7 @@ public partial struct Yemo // Binary data helpers
     private static void ValidateBinaryData(int data)
     {
         int d0 = data & Yemoda.DayMask;
-        if (d0 != 0)
-        {
-            ThrowHelpers.ThrowBadBinaryInput();
-        }
+        if (d0 != 0) ThrowHelpers.ThrowBadBinaryInput();
     }
 
     [Conditional("DEBUG")]

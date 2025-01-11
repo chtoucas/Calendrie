@@ -19,7 +19,8 @@ internal static class Requires
     /// <see cref="DayOfWeek"/>.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="dayOfWeek"/>
-    /// was not a known member of the enum <see cref="DayOfWeek"/>.</exception>
+    /// is not a known member of the enum <see cref="DayOfWeek"/>.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Defined(
         DayOfWeek dayOfWeek,
         [CallerArgumentExpression(nameof(dayOfWeek))] string paramName = "")
@@ -33,7 +34,7 @@ internal static class Requires
             throw new ArgumentOutOfRangeException(
                 paramName,
                 dayOfWeek,
-                $"The value of the day of the week must be in the range 0 through 6; value = {dayOfWeek}.");
+                "The value of the day of the week must be in the range 0 through 6");
     }
 
     /// <summary>
@@ -41,7 +42,8 @@ internal static class Requires
     /// <see cref="AdditionRule"/>.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    /// is not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Defined(
         AdditionRule rule,
         [CallerArgumentExpression(nameof(rule))] string paramName = "")
@@ -50,11 +52,12 @@ internal static class Requires
 
         fail(rule, paramName);
 
+        [DoesNotReturn]
         static void fail(AdditionRule rule, string paramName) =>
             throw new ArgumentOutOfRangeException(
                 paramName,
                 rule,
-                $"The value of the addition rule must be in the range 0 through 3; value = {rule}.");
+                "The value of the addition rule must be in the range 0 through 3");
     }
 
     /// <summary>
@@ -64,7 +67,8 @@ internal static class Requires
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">Thrown if <paramref name="schema"/>
-    /// did not have the expected profile.</exception>
+    /// does not have the expected profile.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Profile(
         CalendricalSchema schema,
         CalendricalProfile expected,
