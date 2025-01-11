@@ -40,6 +40,7 @@ public sealed class MinMaxYearScope : CalendarScope
 
     #region Factories
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates the default maximal scope for the specified schema type and epoch.
     /// </summary>
@@ -51,6 +52,7 @@ public sealed class MinMaxYearScope : CalendarScope
     {
         return Create(TSchema.CreateInstance(), epoch, supportedYears);
     }
+#endif
 
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
@@ -67,6 +69,7 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(segment, epoch);
     }
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates the default maximal scope for the specified schema type and epoch.
     /// </summary>
@@ -75,6 +78,7 @@ public sealed class MinMaxYearScope : CalendarScope
     {
         return CreateMaximal(TSchema.CreateInstance(), epoch);
     }
+#endif
 
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
@@ -88,6 +92,9 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(segment, epoch);
     }
 
+#if true || ENABLE_GENERIC_FACTORIES
+    // Always enabled for MyGregorianDate which is used for a bunch of tests.
+
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
     /// </summary>
@@ -98,6 +105,7 @@ public sealed class MinMaxYearScope : CalendarScope
     {
         return CreateMaximalOnOrAfterYear1(TSchema.CreateInstance(), epoch);
     }
+#endif
 
     /// <summary>
     /// Creates the default maximal scope for the specified schema and epoch.
@@ -113,6 +121,7 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(segment, epoch);
     }
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
     /// dates on or after the specified year.
@@ -124,6 +133,7 @@ public sealed class MinMaxYearScope : CalendarScope
     {
         return StartingAt(TSchema.CreateInstance(), epoch, year);
     }
+#endif
 
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
@@ -142,6 +152,7 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(segment, epoch);
     }
 
+#if ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with
     /// dates on or before the specified year.
@@ -153,6 +164,7 @@ public sealed class MinMaxYearScope : CalendarScope
     {
         return EndingAt(TSchema.CreateInstance(), epoch, year);
     }
+#endif
 
     /// <summary>
     /// Creates a new instance of the <see cref="MinMaxYearScope"/> class with

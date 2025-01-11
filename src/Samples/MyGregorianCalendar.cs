@@ -228,3 +228,4 @@ public partial class MyGregorianCalendar // Date helpers
     internal int CountMonthsBetween(MyGregorianDate start, MyGregorianDate end) =>
         throw new NotImplementedException();
 }
+

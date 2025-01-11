@@ -9,6 +9,7 @@ using Calendrie.Core.Intervals;
 // l'état cela me semble compliqué. Par exemple, Min/MaxYear ne sont plus les
 // mêmes, mais ces propriétés étant "fermées" on ne peut pas faire grand chose.
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
 public static class OffsettedSchema
 {
     public static OffsettedSchema<TSchema> Create<TSchema>(int offset)
@@ -17,6 +18,7 @@ public static class OffsettedSchema
         return new OffsettedSchema<TSchema>(TSchema.CreateInstance(), offset);
     }
 }
+#endif
 
 public partial class OffsettedSchema<TSchema> : ICalendricalSchema
     where TSchema : ICalendricalSchema

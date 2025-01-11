@@ -3,6 +3,8 @@
 
 namespace Samples;
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
+
 using Calendrie;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
@@ -274,3 +276,5 @@ public partial class CalendarZoo
                     OffsettedSchema.Create<CivilSchema>(543), DayZero.NewStyle));
     }
 }
+
+#endif

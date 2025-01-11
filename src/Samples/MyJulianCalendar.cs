@@ -3,6 +3,8 @@
 
 namespace Samples;
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
+
 using System;
 
 using Calendrie;
@@ -168,3 +170,5 @@ public partial class MyJulianCalendar // Date helpers
 
     internal Yemoda PreviousDay(Yemoda ymd) => throw new NotImplementedException();
 }
+
+#endif

@@ -56,6 +56,7 @@ public sealed class BoundedBelowScope : CalendarScope
 
     #region Factories
 
+#if ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
@@ -73,6 +74,7 @@ public sealed class BoundedBelowScope : CalendarScope
     {
         return Create(TSchema.CreateInstance(), epoch, minDateParts, maxYear);
     }
+#endif
 
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
@@ -98,6 +100,7 @@ public sealed class BoundedBelowScope : CalendarScope
         return new BoundedBelowScope(segment, epoch);
     }
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.
     /// </summary>
@@ -111,6 +114,7 @@ public sealed class BoundedBelowScope : CalendarScope
     {
         return StartingAt(TSchema.CreateInstance(), epoch, parts);
     }
+#endif
 
     /// <summary>
     /// Creates a new instance of the <see cref="BoundedBelowScope"/> class.

@@ -1,8 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-// TODO(code): generic factories, same pbm elsewhere: scopes, schema activator.
-//#define ENABLE_GENERIC_FACTORIES
+// FIXME(code): ENABLE_GENERIC_FACTORIES.
 
 namespace Calendrie.Core;
 

@@ -3,6 +3,8 @@
 
 namespace Samples;
 
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
@@ -187,3 +189,5 @@ public partial struct MyJulianDate // Math
     public int CountYearsSince(MyJulianDate other) => throw new NotImplementedException();
     public int CountMonthsSince(MyJulianDate other) => throw new NotImplementedException();
 }
+
+#endif

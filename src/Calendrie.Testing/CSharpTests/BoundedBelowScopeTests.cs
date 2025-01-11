@@ -27,11 +27,13 @@ public partial class BoundedBelowScopeTests : CalendricalDataConsumer<GregorianD
             () => BoundedBelowScope.Create(
                 s_Schema, DayZero.NewStyle, new(s_Schema.SupportedYears.Min - 1, 1, 1), 9999));
 
+#if ENABLE_GENERIC_FACTORIES
     [Fact]
     public static void Create_InvalidMinYear_Generic() =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create<GregorianSchema>(
                 DayZero.NewStyle, new(s_Schema.SupportedYears.Min - 1, 1, 1), 9999));
+#endif
 
     [Fact]
     public static void Create_InvalidMaxYear() =>
@@ -39,31 +41,37 @@ public partial class BoundedBelowScopeTests : CalendricalDataConsumer<GregorianD
             () => BoundedBelowScope.Create(
                 s_Schema, DayZero.NewStyle, new(s_Schema.SupportedYears.Max + 1, 1, 1), 9999));
 
+#if ENABLE_GENERIC_FACTORIES
     [Fact]
     public static void Create_InvalidMaxYear_Generic() =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create<GregorianSchema>(
                 DayZero.NewStyle, new(s_Schema.SupportedYears.Max + 1, 1, 1), 9999));
+#endif
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public static void Create_InvalidMonth(int y, int m) =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create(s_Schema, DayZero.NewStyle, new(y, m, 1), 9999));
 
+#if ENABLE_GENERIC_FACTORIES
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public static void Create_InvalidMonth_Generic(int y, int m) =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create<GregorianSchema>(DayZero.NewStyle, new(y, m, 1), 9999));
+#endif
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public static void Create_InvalidDay(int y, int m, int d) =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create(s_Schema, DayZero.NewStyle, new(y, m, d), 9999));
 
+#if ENABLE_GENERIC_FACTORIES
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public static void Create_InvalidDay_Generic(int y, int m, int d) =>
         Assert.Throws<ArgumentOutOfRangeException>(
             () => BoundedBelowScope.Create<GregorianSchema>(DayZero.NewStyle, new(y, m, d), 9999));
+#endif
 
     [Theory(Skip = "MinDateParts cannot be the start of a year."), MemberData(nameof(DateInfoData))]
     public void Create(DateInfo info)
