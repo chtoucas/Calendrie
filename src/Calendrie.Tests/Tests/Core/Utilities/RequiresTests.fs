@@ -6,9 +6,12 @@ module Calendrie.Tests.Core.Utilities.RequiresTests
 open System
 
 open Calendrie
+open Calendrie.Core
+open Calendrie.Core.Schemas
 open Calendrie.Core.Utilities
 open Calendrie.Testing
 open Calendrie.Testing.Data
+open Calendrie.Testing.Faux
 
 open Xunit
 
@@ -56,3 +59,36 @@ let ``Defined(rule) throws when "rule" is not a valid value (without paramName)`
 [<Theory; MemberData(nameof(invalidAdditionRuleData))>]
 let ``Defined(rule) throws when "rule" is not a valid value (with paramName)`` (rule: AdditionRule) =
     outOfRangeExn paramName (fun () -> Requires.Defined(rule, paramName))
+
+//
+// Profile
+//
+
+[<Fact>]
+let ``Profile(schema) throws for null schema`` () =
+    nullExn "schema" (fun () -> Requires.Profile(null, CalendricalProfile.Lunar))
+    nullExn "schema" (fun () -> Requires.Profile(null, CalendricalProfile.Lunar, "paramName"))
+
+[<Fact>]
+let ``Profile() does not throw when the schema has the expected profile`` () =
+    Requires.Profile(new Coptic13Schema(), CalendricalProfile.Other)
+    Requires.Profile(new GregorianSchema(), CalendricalProfile.Solar12)
+    Requires.Profile(new PositivistSchema(), CalendricalProfile.Solar13)
+    Requires.Profile(new TabularIslamicSchema(), CalendricalProfile.Lunar)
+    Requires.Profile(new FauxLunisolarSchema(), CalendricalProfile.Lunisolar)
+
+[<Fact>]
+let ``Profile() throws when the schema does not have the expected profile (without paramName)`` () =
+    argExn "" (fun () -> Requires.Profile(new Coptic13Schema(), CalendricalProfile.Lunisolar))
+    argExn "" (fun () -> Requires.Profile(new GregorianSchema(), CalendricalProfile.Other))
+    argExn "" (fun () -> Requires.Profile(new PositivistSchema(), CalendricalProfile.Solar12))
+    argExn "" (fun () -> Requires.Profile(new TabularIslamicSchema(), CalendricalProfile.Solar13))
+    argExn "" (fun () -> Requires.Profile(new FauxLunisolarSchema(), CalendricalProfile.Lunar))
+
+[<Fact>]
+let ``Profile() throws when the schema does not have the expected profile (with paramName)`` () =
+    argExn "paramName" (fun () -> Requires.Profile(new Coptic13Schema(), CalendricalProfile.Lunisolar, "paramName"))
+    argExn "paramName" (fun () -> Requires.Profile(new GregorianSchema(), CalendricalProfile.Other, "paramName"))
+    argExn "paramName" (fun () -> Requires.Profile(new PositivistSchema(), CalendricalProfile.Solar12, "paramName"))
+    argExn "paramName" (fun () -> Requires.Profile(new TabularIslamicSchema(), CalendricalProfile.Solar13, "paramName"))
+    argExn "paramName" (fun () -> Requires.Profile(new FauxLunisolarSchema(), CalendricalProfile.Lunar, "paramName"))

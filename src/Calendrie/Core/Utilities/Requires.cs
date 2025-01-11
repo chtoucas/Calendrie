@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core.Utilities;
 
+// FIXME(code): CallerArgumentExpression (see the tests)
+
 // See https://github.com/CommunityToolkit/dotnet/blob/main/src/CommunityToolkit.Diagnostics/Guard.cs
 // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.assumes?view=visualstudiosdk-2022
 
@@ -74,7 +76,6 @@ internal static class Requires
         CalendricalProfile expected,
         [CallerArgumentExpression(nameof(schema))] string paramName = "")
     {
-        // TODO(fact): test this exception.
         ArgumentNullException.ThrowIfNull(schema);
 
         if (schema.Profile == expected) return;
