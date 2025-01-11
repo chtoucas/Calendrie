@@ -1,0 +1,12 @@
+﻿<#@ template hostspecific="true" #>
+<#@ output extension=".g.cs" #>
+<#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
+<#= new CalendarTemplate(this,
+        "Persian2820Schema",
+        "DayZero.Persian",
+        epochDaysSinceZeroValue: "226_895",
+        maxDaysSinceEpochValue:  "3_652_055")
+    {
+        MaxMonthsSinceEpochValue = "119_987",
+        MonthsInYear = 12
+    }.Execute() #>

@@ -13,8 +13,6 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-let chr = PaxCalendar.Instance
-
 module Prelude =
     [<Fact>]
     let ``Value of PaxCalendar.Epoch.DaysZinceZero`` () =
@@ -43,6 +41,8 @@ module Prelude =
 #endif
 
 module Bundles =
+    let private chr = PaxCalendar.Instance
+
     let dateInfoData = PaxDataSet.Instance.DateInfoData
 
     [<Sealed>]

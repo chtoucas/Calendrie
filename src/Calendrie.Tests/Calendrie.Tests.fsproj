@@ -82,8 +82,14 @@
     <Compile Include="Tests\Systems\CivilTests.fs" />
     <Compile Include="Tests\Systems\ArmenianTests.fs" />
     <Compile Include="Tests\Systems\CopticTests.fs" />
+    <Compile Include="Tests\Systems\Egyptian.fs" />
     <Compile Include="Tests\Systems\EthiopicTests.fs" />
+    <Compile Include="Tests\Systems\FrenchRepublican.fs" />
+    <Compile Include="Tests\Systems\InternationalFixed.fs" />
     <Compile Include="Tests\Systems\PaxTests.fs" />
+    <Compile Include="Tests\Systems\Persian2820.fs" />
+    <Compile Include="Tests\Systems\Positivist.fs" />
+    <Compile Include="Tests\Systems\RevisedWorld.fs" />
     <Compile Include="Tests\Systems\TropicaliaTests.fs" />
     <Compile Include="Tests\Systems\TabularIslamicTests.fs" />
     <Compile Include="Tests\Systems\WorldTests.fs" />

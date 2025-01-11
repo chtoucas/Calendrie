@@ -13,8 +13,6 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-let chr = TropicaliaCalendar.Instance
-
 module Prelude =
     [<Fact>]
     let ``Value of TropicaliaCalendar.Epoch.DaysZinceZero`` () =
@@ -44,6 +42,8 @@ module Prelude =
 
 
 module Bundles =
+    let private chr = TropicaliaCalendar.Instance
+
     let dateInfoData = TropicaliaDataSet.Instance.DateInfoData
 
     [<Sealed>]

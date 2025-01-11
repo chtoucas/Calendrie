@@ -24,15 +24,55 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Civil.tt</DependentUpon>
     </Compile>
+    <Compile Update="Systems\Egyptian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Egyptian.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Egyptian13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Egyptian13.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\FrenchRepublican.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FrenchRepublican.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\FrenchRepublican13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FrenchRepublican13.tt</DependentUpon>
+    </Compile>
     <Compile Update="Systems\Gregorian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Gregorian.tt</DependentUpon>
     </Compile>
+    <Compile Update="Systems\InternationalFixed.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InternationalFixed.tt</DependentUpon>
+    </Compile>
     <Compile Update="Systems\Julian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Julian.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Persian2820.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Persian2820.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Positivist.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Positivist.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\RevisedWorld.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RevisedWorld.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Tropicalia.g.cs">
       <DesignTime>True</DesignTime>

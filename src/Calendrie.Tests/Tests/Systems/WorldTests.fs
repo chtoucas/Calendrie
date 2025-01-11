@@ -14,8 +14,6 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-let private chr = WorldCalendar.Instance
-
 module Prelude =
     [<Fact>]
     let ``Value of WorldCalendar.Epoch.DaysZinceZero`` () =
@@ -44,6 +42,8 @@ module Prelude =
 #endif
 
 module Methods =
+    let private chr = WorldCalendar.Instance
+
     let dateInfoData = WorldDataSet.Instance.DateInfoData
     let moreMonthInfoData = WorldDataSet.MoreMonthInfoData
 
@@ -61,6 +61,8 @@ module Methods =
         WorldCalendar.CountDaysInWorldMonth(y, m) === daysInMonth
 
 module Bundles =
+    let private chr = WorldCalendar.Instance
+
     let dateInfoData = WorldDataSet.Instance.DateInfoData
 
     [<Sealed>]
