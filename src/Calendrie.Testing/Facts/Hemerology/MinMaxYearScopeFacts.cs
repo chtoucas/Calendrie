@@ -1,26 +1,15 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Testing.Facts.Systems;
+namespace Calendrie.Testing.Facts.Hemerology;
 
 using Calendrie.Hemerology;
-using Calendrie.Systems;
 using Calendrie.Testing.Data;
-using Calendrie.Testing.Facts.Hemerology;
 
-public static class ProlepticScopeFacts
+public static class MinMaxYearScopeFacts
 {
-    /// <summary>
-    /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para>
-    /// </summary>
-    internal const int MinYear = -999_998;
-
-    /// <summary>
-    /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 999_999.</para>
-    /// </summary>
-    internal const int MaxYear = 999_999;
+    internal const int MinYear = -5;
+    internal const int MaxYear = 1234;
 
     public static readonly TheoryData<int> InvalidYearData =
     [
@@ -42,25 +31,20 @@ public static class ProlepticScopeFacts
     ];
 }
 
-
-/// <summary>
-/// Provides data-driven tests for <see cref="GregorianScope"/> and
-/// <see cref="JulianScope"/>.
-/// </summary>
-internal abstract class ProlepticScopeFacts<TDataSet> :
-    CalendarScopeFacts<CalendarScope, TDataSet>
+internal class MinMaxYearScopeFacts<TDataSet> :
+    CalendarScopeFacts<MinMaxYearScope, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected ProlepticScopeFacts(CalendarScope scope) : base(scope)
+    public MinMaxYearScopeFacts(MinMaxYearScope scope) : base(scope)
     {
         Debug.Assert(scope != null);
         var (minYear, maxYear) = scope.Segment.SupportedYears.Endpoints;
-        Debug.Assert(minYear == ProlepticScopeFacts.MinYear);
-        Debug.Assert(maxYear == ProlepticScopeFacts.MaxYear);
+        Debug.Assert(minYear == MinMaxYearScopeFacts.MinYear);
+        Debug.Assert(maxYear == MinMaxYearScopeFacts.MaxYear);
     }
 
-    public static TheoryData<int> InvalidYearData => ProlepticScopeFacts.InvalidYearData;
-    public static TheoryData<int> ValidYearData => ProlepticScopeFacts.ValidYearData;
+    public static TheoryData<int> InvalidYearData => MinMaxYearScopeFacts.InvalidYearData;
+    public static TheoryData<int> ValidYearData => MinMaxYearScopeFacts.ValidYearData;
 
     [Theory, MemberData(nameof(InvalidYearData))]
     public sealed override void CheckYear_InvalidYear(int y) => Assert.False(ScopeUT.CheckYear(y));

@@ -17,6 +17,8 @@ open Xunit
 
 open type Calendrie.Extensions.JulianDateExtensions
 
+// NB: notice the use of UnboundedJulianDataSet.
+
 module Prelude =
     // Test for Benchmars.PlainJulian
     [<Fact>]

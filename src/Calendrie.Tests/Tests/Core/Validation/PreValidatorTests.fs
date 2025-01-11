@@ -29,8 +29,8 @@ module Prelude =
 
     [<Fact>]
     let ``Constructor throws for null schema`` () =
-        // GregorianPreValidator: no ctor
-        // JulianPreValidator:    no ctor
+        // GregorianPreValidator: singleton, no public ctor
+        // JulianPreValidator:    singleton, no public ctor
         nullExn "schema" (fun () -> new LunarPreValidator(null))
         nullExn "schema" (fun () -> new LunisolarPreValidator(null))
         nullExn "schema" (fun () -> new PaxPreValidator(null))

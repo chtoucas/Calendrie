@@ -9,11 +9,22 @@ open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Hemerology
 open Calendrie.Testing
+open Calendrie.Testing.Data.Schemas
+open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Faux
 
 open Xunit
 
 // See also CalendricalSegmentTests.
+
+let private scope = MinMaxYearScope.Create(
+    new GregorianSchema(),
+    DayZero.NewStyle,
+    Range.Create(MinMaxYearScopeFacts.MinYear, MinMaxYearScopeFacts.MaxYear))
+
+[<Sealed>]
+type CivilTests() =
+    inherit MinMaxYearScopeFacts<GregorianDataSet>(scope)
 
 module Factories =
     [<Fact>]
