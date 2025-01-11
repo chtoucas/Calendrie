@@ -7,7 +7,7 @@ namespace Calendrie.Core.Utilities;
 /// <remarks>This class cannot be inherited.</remarks>
 internal static partial class MathU { }
 
-// CIL code sizes are given for when __PATCH_DIVREM__ is set.
+// CIL code sizes are given for when PATCH_DIVREM is set.
 // No plain Divide or Modulo: just use the C# operator / and %.
 
 internal partial class MathU // Division
@@ -28,7 +28,7 @@ internal partial class MathU // Division
     {
         Debug.Assert(n > 0);
 
-#if __PATCH_DIVREM__
+#if PATCH_DIVREM
         uint q = m / n;
         r = m - q * n;
         return q;
@@ -48,7 +48,7 @@ internal partial class MathU // Division
     {
         Debug.Assert(n != 0);
 
-#if __PATCH_DIVREM__
+#if PATCH_DIVREM
         uint q = m / n;
         uint r = m - q * n;
         return r == 0 ? q : q + 1;

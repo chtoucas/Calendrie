@@ -7,7 +7,7 @@ using Calendrie.Core.Utilities;
 
 using static Benchmarks.BenchmarkHelpers;
 
-// See also __PATCH_DIVREM__ in main proj.
+// See also PATCH_DIVREM in main proj.
 
 public class DivisionTests
 {

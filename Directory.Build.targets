@@ -6,7 +6,8 @@
     <DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);CONTRACTS_FULL</DefineConstants>
     <DefineConstants Condition=" '$(DefineConstants)' == '' ">CONTRACTS_FULL</DefineConstants>
 
-    <DefineConstants>$(DefineConstants);__PATCH_DIVREM__</DefineConstants>
+    <DefineConstants>$(DefineConstants);PATCH_DIVREM</DefineConstants>
+    <DefineConstants>$(DefineConstants);ENABLE_GENERIC_FACTORIES</DefineConstants>
 
     <DefineConstants Condition=" '$(EnableMorePrototypalTests)' == 'true' ">$(DefineConstants);ENABLE_MORE_PROTOTYPAL_TESTS</DefineConstants>
 

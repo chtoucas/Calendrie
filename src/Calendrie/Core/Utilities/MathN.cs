@@ -9,7 +9,7 @@ namespace Calendrie.Core.Utilities;
 /// </summary>
 internal static partial class MathN { }
 
-// CIL code sizes are given for when __PATCH_DIVREM__ is set.
+// CIL code sizes are given for when PATCH_DIVREM is set.
 // No plain Divide or Modulo: just use the C# operator / and %.
 // Euclidian division: methods in this class should only be used when
 // the dividend is a positive integers (the divisor is always > 0).
@@ -37,7 +37,7 @@ internal partial class MathN // Division
         Debug.Assert(m >= 0);
         Debug.Assert(n > 0);
 
-#if __PATCH_DIVREM__
+#if PATCH_DIVREM
         int q = m / n;
         r = m - q * n;
         return q;
@@ -59,7 +59,7 @@ internal partial class MathN // Division
         Debug.Assert(m >= 0);
         Debug.Assert(n > 0);
 
-#if __PATCH_DIVREM__
+#if PATCH_DIVREM
         int q = m / n;
         int r = m - q * n;
         return r == 0 ? q : q + 1;
@@ -101,7 +101,7 @@ internal partial class MathN // Division
         Debug.Assert(m >= 0);
         Debug.Assert(n > 0);
 
-#if __PATCH_DIVREM__
+#if PATCH_DIVREM
         int q = m / n;
         r = 1 + m - q * n;
         return q + 1;
