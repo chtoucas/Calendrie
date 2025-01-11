@@ -59,8 +59,8 @@ module GregorianCase =
 
     let dateInfoData = dataSet.DateInfoData
     let invalidMonthFieldData = dataSet.InvalidMonthFieldData
-    let invalidDayOfYearFieldData = dataSet.InvalidDayOfYearFieldData
     let invalidDayFieldData = dataSet.InvalidDayFieldData
+    let invalidDayOfYearFieldData = dataSet.InvalidDayOfYearFieldData
 
     // ValidateMonthDay()
 
@@ -93,11 +93,16 @@ module GregorianCase =
     let ``ValidateDayOfYear() ignores year and does not throw`` () =
         GregorianPreValidator2.ValidateDayOfYear(Int64.MinValue, 1)
         GregorianPreValidator2.ValidateDayOfYear(Int64.MaxValue, 1)
+
         // Leap year: dayOfYear > MinDaysInYear.
         // NB: the next tests are a bit redundant. Indeed, if IsLeapYear() does
         // not overflow, then ValidateDayOfYear() won't either.
-        GregorianFormulae2.IsLeapYear(Int64.MinValue) |> ok
-        GregorianFormulae2.IsLeapYear(Int64.MaxValue - 3L) |> ok
+        GregorianFormulae2.IsLeapYear(Int64.MinValue)      |> ok    // First leap year
+        GregorianFormulae2.IsLeapYear(Int64.MaxValue - 3L) |> ok    // Last leap year
+        GregorianFormulae2.IsLeapYear(Int64.MaxValue - 2L) |> nok
+        GregorianFormulae2.IsLeapYear(Int64.MaxValue - 1L) |> nok
+        GregorianFormulae2.IsLeapYear(Int64.MaxValue)      |> nok
+
         GregorianPreValidator2.ValidateDayOfYear(Int64.MinValue, 366)
         GregorianPreValidator2.ValidateDayOfYear(Int64.MaxValue - 3L, 366)
 
@@ -116,8 +121,8 @@ module JulianCase =
 
     let dateInfoData = dataSet.DateInfoData
     let invalidMonthFieldData = dataSet.InvalidMonthFieldData
-    let invalidDayOfYearFieldData = dataSet.InvalidDayOfYearFieldData
     let invalidDayFieldData = dataSet.InvalidDayFieldData
+    let invalidDayOfYearFieldData = dataSet.InvalidDayOfYearFieldData
 
     // ValidateMonthDay()
 
@@ -150,11 +155,16 @@ module JulianCase =
     let ``ValidateDayOfYear() ignores year and does not throw`` () =
         JulianPreValidator2.ValidateDayOfYear(Int64.MinValue, 1)
         JulianPreValidator2.ValidateDayOfYear(Int64.MaxValue, 1)
+
         // Leap year: dayOfYear > MinDaysInYear.
         // NB: the next tests are a bit redundant. Indeed, if IsLeapYear() does
         // not overflow, then ValidateDayOfYear() won't either.
-        JulianFormulae2.IsLeapYear(Int64.MinValue) |> ok
-        JulianFormulae2.IsLeapYear(Int64.MaxValue - 3L) |> ok
+        JulianFormulae2.IsLeapYear(Int64.MinValue)      |> ok   // First leap year
+        JulianFormulae2.IsLeapYear(Int64.MaxValue - 3L) |> ok   // Last leap year
+        JulianFormulae2.IsLeapYear(Int64.MaxValue - 2L) |> nok
+        JulianFormulae2.IsLeapYear(Int64.MaxValue - 1L) |> nok
+        JulianFormulae2.IsLeapYear(Int64.MaxValue)      |> nok
+
         JulianPreValidator2.ValidateDayOfYear(Int64.MinValue, 366)
         JulianPreValidator2.ValidateDayOfYear(Int64.MaxValue - 3L, 366)
 

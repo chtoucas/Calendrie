@@ -13,7 +13,12 @@ open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
 open Calendrie.Testing.Faux
 
+open Xunit
+
 // TODO(fact): lunisolar (fake).
+
+// Quand on teste la propriété PreValidatorUT, c'est juste pour être sûr qu'on
+// teste bien les 8 types de pré-validateurs.
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -26,6 +31,7 @@ type CivilTests() =
 type Coptic12Tests() =
     inherit ICalendricalPreValidatorFacts<Coptic12DataSet>(new Coptic12Schema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<Solar12PreValidator>
 
 // PlainPreValidator
@@ -33,6 +39,7 @@ type Coptic12Tests() =
 type Coptic13Tests() =
     inherit ICalendricalPreValidatorFacts<Coptic13DataSet>(new Coptic13Schema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<PlainPreValidator>
 
     override x.ValidateMonthDay_AtAbsoluteMaxYear() =
@@ -70,6 +77,7 @@ type FrenchRepublican13Tests() =
 type GregorianTests() =
     inherit ICalendricalPreValidatorFacts<GregorianDataSet>(new GregorianSchema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<GregorianPreValidator>
 
 // Solar13PreValidator
@@ -77,6 +85,7 @@ type GregorianTests() =
 type InternationalFixedTests() =
     inherit ICalendricalPreValidatorFacts<InternationalFixedDataSet>(new InternationalFixedSchema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<Solar13PreValidator>
 
 // JulianPreValidator
@@ -84,6 +93,7 @@ type InternationalFixedTests() =
 type JulianTests() =
     inherit ICalendricalPreValidatorFacts<JulianDataSet>(new JulianSchema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<JulianPreValidator>
 
 // LunisolarPreValidator
@@ -91,6 +101,7 @@ type JulianTests() =
 type FauxLunisolarTests() =
     inherit ICalendricalPreValidatorFacts<FauxLunisolarDataSet>(new FauxLunisolarSchema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<LunisolarPreValidator>
 
 // PaxPreValidator
@@ -98,6 +109,7 @@ type FauxLunisolarTests() =
 type PaxTests() =
     inherit ICalendricalPreValidatorFacts<PaxDataSet>(new PaxSchema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<PaxPreValidator>
 
 [<Sealed>]
@@ -117,6 +129,7 @@ type PositivistTests() =
 type TabularIslamicTests() =
     inherit ICalendricalPreValidatorFacts<TabularIslamicDataSet>(new TabularIslamicSchema())
 
+    [<Fact>]
     member x.PreValidator() = x.PreValidatorUT |> is<LunarPreValidator>
 
 [<Sealed>]
