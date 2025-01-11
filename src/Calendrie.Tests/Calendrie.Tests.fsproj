@@ -76,9 +76,7 @@
     <Compile Include="Tests\Systems\RomanKalendarTests.fs" />
     <Compile Include="Tests\Systems\StandardScopeTests.fs" />
     <Compile Include="Tests\Systems\StandardScopeTestSuite.fs" />
-    <Compile Include="Tests\Systems\StandardYearsValidatorTests.fs" />
     <Compile Include="Tests\Systems\ProlepticScopeTestSuite.fs" />
-    <Compile Include="Tests\Systems\ProlepticYearsValidatorTests.fs" />
     <Compile Include="Tests\Systems\GregorianTests.fs" />
     <Compile Include="Tests\Systems\JulianTests.fs" />
     <Compile Include="Tests\Systems\CivilTests.fs" />

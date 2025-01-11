@@ -45,6 +45,9 @@ internal sealed class StandardScope : CalendarScope
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="schema"/> is
     /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException">The range of supported years by
+    /// <paramref name="schema"/> is not a superset of the interval [1..9999].
+    /// </exception>
     public StandardScope(ICalendricalSchema schema, DayNumber epoch)
         : base(CalendricalSegment.Create(schema, SupportedYears), epoch)
     {
