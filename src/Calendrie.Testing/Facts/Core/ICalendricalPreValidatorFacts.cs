@@ -34,11 +34,11 @@ public abstract partial class ICalendricalPreValidatorFacts<TDataSet> :
     }
 
     /// <summary>
-    /// Gets a minimum value of the year for which the methods are known not to overflow.
+    /// Gets the minimum value of the year for which the methods are known not to overflow.
     /// </summary>
     protected int MinYear { get; }
     /// <summary>
-    /// Gets a maximum value of the year for which the methods are known not to overflow.
+    /// Gets the maximum value of the year for which the methods are known not to overflow.
     /// </summary>
     protected int MaxYear { get; }
 
@@ -50,7 +50,18 @@ public abstract partial class ICalendricalPreValidatorFacts<TDataSet> :
 
 public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
 {
-    #region ValidateMonth()
+    #region CheckMonth() & ValidateMonth()
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void CheckMonth_InvalidMonthOfYear(int y, int m) =>
+        Assert.False(PreValidatorUT.CheckMonth(y, m));
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CheckMonth(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        Assert.True(PreValidatorUT.CheckMonth(y, m));
+    }
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void ValidateMonth_InvalidMonthOfYear(int y, int m)
@@ -67,7 +78,22 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
     }
 
     #endregion
-    #region ValidateMonthDay()
+    #region CheckMonthDay() & ValidateMonthDay()
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void CheckMonthDay_InvalidMonth(int y, int m) =>
+        Assert.False(PreValidatorUT.CheckMonthDay(y, m, 1));
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void CheckMonthDay_InvalidDay(int y, int m, int d) =>
+        Assert.False(PreValidatorUT.CheckMonthDay(y, m, d));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void CheckMonthDay(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        Assert.True(PreValidatorUT.CheckMonthDay(y, m, d));
+    }
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void ValidateMonthDay_InvalidMonth(int y, int m)
@@ -91,7 +117,18 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
     }
 
     #endregion
-    #region ValidateDayOfYear()
+    #region CheckDayOfYear() & ValidateDayOfYear()
+
+    [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
+    public void CheckDayOfYear_InvalidDayOfYear(int y, int doy) =>
+        Assert.False(PreValidatorUT.CheckDayOfYear(y, doy));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void CheckDayOfYear(DateInfo info)
+    {
+        var (y, doy) = info.Yedoy;
+        Assert.True(PreValidatorUT.CheckDayOfYear(y, doy));
+    }
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void ValidateDayOfYear_InvalidDayOfYear(int y, int doy)

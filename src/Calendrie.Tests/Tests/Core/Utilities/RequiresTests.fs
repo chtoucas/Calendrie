@@ -65,7 +65,7 @@ let ``Defined(rule) throws when "rule" is not a valid value (with paramName)`` (
 //
 
 [<Fact>]
-let ``Profile(schema) throws for null schema`` () =
+let ``Profile() throws for null schema`` () =
     nullExn "schema" (fun () -> Requires.Profile(null, CalendricalProfile.Lunar))
     nullExn "schema" (fun () -> Requires.Profile(null, CalendricalProfile.Lunar, "paramName"))
 
