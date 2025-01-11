@@ -95,6 +95,44 @@ public sealed class StandardCoptic13DataSet :
 }
 
 /// <summary>
+/// Provides test data for the Egyptian calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardEgyptian12DataSet :
+    StandardCalendarDataSet<UnboundedEgyptian12DataSet>, IEpagomenalDataSet, ISingleton<StandardEgyptian12DataSet>
+{
+    private StandardEgyptian12DataSet() : base(UnboundedEgyptian12DataSet.Instance) { }
+
+    public static StandardEgyptian12DataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardEgyptian12DataSet Instance = new();
+        static Singleton() { }
+    }
+
+    public DataGroup<YemodaAnd<int>> EpagomenalDayInfoData => Unbounded.EpagomenalDayInfoData.WhereT(DataFilter.Filter);
+}
+
+/// <summary>
+/// Provides test data for the Egyptian13 calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardEgyptian13DataSet :
+    StandardCalendarDataSet<UnboundedEgyptian13DataSet>, IEpagomenalDataSet, ISingleton<StandardEgyptian13DataSet>
+{
+    private StandardEgyptian13DataSet() : base(UnboundedEgyptian13DataSet.Instance) { }
+
+    public static StandardEgyptian13DataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardEgyptian13DataSet Instance = new();
+        static Singleton() { }
+    }
+
+    public DataGroup<YemodaAnd<int>> EpagomenalDayInfoData => Unbounded.EpagomenalDayInfoData.WhereT(DataFilter.Filter);
+}
+
+/// <summary>
 /// Provides test data for the Ethiopic calendar with years within the range [1..9999].
 /// </summary>
 public sealed class StandardEthiopic12DataSet :
@@ -133,6 +171,44 @@ public sealed class StandardEthiopic13DataSet :
 }
 
 /// <summary>
+/// Provides test data for the FrenchRepublican calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardFrenchRepublican12DataSet :
+    StandardCalendarDataSet<UnboundedFrenchRepublican12DataSet>, IEpagomenalDataSet, ISingleton<StandardFrenchRepublican12DataSet>
+{
+    private StandardFrenchRepublican12DataSet() : base(UnboundedFrenchRepublican12DataSet.Instance) { }
+
+    public static StandardFrenchRepublican12DataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardFrenchRepublican12DataSet Instance = new();
+        static Singleton() { }
+    }
+
+    public DataGroup<YemodaAnd<int>> EpagomenalDayInfoData => Unbounded.EpagomenalDayInfoData.WhereT(DataFilter.Filter);
+}
+
+/// <summary>
+/// Provides test data for the FrenchRepublican13 calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardFrenchRepublican13DataSet :
+    StandardCalendarDataSet<UnboundedFrenchRepublican13DataSet>, IEpagomenalDataSet, ISingleton<StandardFrenchRepublican13DataSet>
+{
+    private StandardFrenchRepublican13DataSet() : base(UnboundedFrenchRepublican13DataSet.Instance) { }
+
+    public static StandardFrenchRepublican13DataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardFrenchRepublican13DataSet Instance = new();
+        static Singleton() { }
+    }
+
+    public DataGroup<YemodaAnd<int>> EpagomenalDayInfoData => Unbounded.EpagomenalDayInfoData.WhereT(DataFilter.Filter);
+}
+
+/// <summary>
 /// Provides test data for the Gregorian calendar with years within the range [1..9999].
 /// </summary>
 public sealed class StandardGregorianDataSet :
@@ -160,6 +236,40 @@ public sealed class StandardGregorianDataSet :
 }
 
 /// <summary>
+/// Provides test data for the Julian calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardJulianDataSet :
+    StandardCalendarDataSet<UnboundedJulianDataSet>, ISingleton<StandardJulianDataSet>
+{
+    private StandardJulianDataSet() : base(UnboundedJulianDataSet.Instance) { }
+
+    public static StandardJulianDataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardJulianDataSet Instance = new();
+        static Singleton() { }
+    }
+}
+
+/// <summary>
+/// Provides test data for the InternationalFixed calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardInternationalFixedDataSet :
+    StandardCalendarDataSet<UnboundedInternationalFixedDataSet>, ISingleton<StandardInternationalFixedDataSet>
+{
+    private StandardInternationalFixedDataSet() : base(UnboundedInternationalFixedDataSet.Instance) { }
+
+    public static StandardInternationalFixedDataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardInternationalFixedDataSet Instance = new();
+        static Singleton() { }
+    }
+}
+
+/// <summary>
 /// Provides test data for the Pax calendar with years within the range [1..9999].
 /// </summary>
 public sealed class StandardPaxDataSet :
@@ -172,6 +282,23 @@ public sealed class StandardPaxDataSet :
     private static class Singleton
     {
         internal static readonly StandardPaxDataSet Instance = new();
+        static Singleton() { }
+    }
+}
+
+/// <summary>
+/// Provides test data for the Persian2820 calendar with years within the range [1..9999].
+/// </summary>
+public sealed class StandardPersian2820DataSet :
+    StandardCalendarDataSet<UnboundedPersian2820DataSet>, ISingleton<StandardPersian2820DataSet>
+{
+    private StandardPersian2820DataSet() : base(UnboundedPersian2820DataSet.Instance) { }
+
+    public static StandardPersian2820DataSet Instance => Singleton.Instance;
+
+    private static class Singleton
+    {
+        internal static readonly StandardPersian2820DataSet Instance = new();
         static Singleton() { }
     }
 }

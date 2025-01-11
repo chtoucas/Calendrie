@@ -7,11 +7,12 @@ open Calendrie
 open Calendrie.Core.Schemas
 open Calendrie.Systems
 open Calendrie.Testing
+open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Systems
 open Calendrie.Testing.Faux
 
-// TODO(fact): lunisolar (fake).
+// TODO(fact): lunisolar (fake, not standard dataset), Tropicalia3xxx (not standard).
 
 let private scopeOf(sch) = new StandardScope(sch, DayZero.OldStyle)
 
@@ -21,62 +22,62 @@ let private scopeOf(sch) = new StandardScope(sch, DayZero.OldStyle)
 // We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type CivilTests() =
-    inherit CivilScopeFacts<GregorianDataSet>(new CivilScope(new CivilSchema()))
+    inherit CivilScopeFacts<StandardGregorianDataSet>(new CivilScope(new CivilSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic12Tests() =
-    inherit StandardScopeFacts<Coptic12DataSet>(scopeOf(new Coptic12Schema()))
+    inherit StandardScopeFacts<StandardCoptic12DataSet>(scopeOf(new Coptic12Schema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Coptic13Tests() =
-    inherit StandardScopeFacts<Coptic13DataSet>(scopeOf(new Coptic13Schema()))
+    inherit StandardScopeFacts<StandardCoptic13DataSet>(scopeOf(new Coptic13Schema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Egyptian12Tests() =
-    inherit StandardScopeFacts<Egyptian12DataSet>(scopeOf(new Egyptian12Schema()))
+    inherit StandardScopeFacts<StandardEgyptian12DataSet>(scopeOf(new Egyptian12Schema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Egyptian13Tests() =
-    inherit StandardScopeFacts<Egyptian13DataSet>(scopeOf(new Egyptian13Schema()))
+    inherit StandardScopeFacts<StandardEgyptian13DataSet>(scopeOf(new Egyptian13Schema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type FrenchRepublican12Tests() =
-    inherit StandardScopeFacts<FrenchRepublican12DataSet>(scopeOf(new FrenchRepublican12Schema()))
+    inherit StandardScopeFacts<StandardFrenchRepublican12DataSet>(scopeOf(new FrenchRepublican12Schema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type FrenchRepublican13Tests() =
-    inherit StandardScopeFacts<FrenchRepublican13DataSet>(scopeOf(new FrenchRepublican13Schema()))
+    inherit StandardScopeFacts<StandardFrenchRepublican13DataSet>(scopeOf(new FrenchRepublican13Schema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 // We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type GregorianTests() =
-    inherit StandardScopeFacts<GregorianDataSet>(scopeOf(new GregorianSchema()))
+    inherit StandardScopeFacts<StandardGregorianDataSet>(scopeOf(new GregorianSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type InternationalFixedTests() =
-    inherit StandardScopeFacts<InternationalFixedDataSet>(scopeOf(new InternationalFixedSchema()))
+    inherit StandardScopeFacts<StandardInternationalFixedDataSet>(scopeOf(new InternationalFixedSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type JulianTests() =
-    inherit StandardScopeFacts<JulianDataSet>(scopeOf(new JulianSchema()))
+    inherit StandardScopeFacts<StandardJulianDataSet>(scopeOf(new JulianSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -88,31 +89,31 @@ type FauxLunisolarTests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type PaxTests() =
-    inherit StandardScopeFacts<PaxDataSet>(scopeOf(new PaxSchema()))
+    inherit StandardScopeFacts<StandardPaxDataSet>(scopeOf(new PaxSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type Persian2820Tests() =
-    inherit StandardScopeFacts<Persian2820DataSet>(scopeOf(new Persian2820Schema()))
+    inherit StandardScopeFacts<StandardPersian2820DataSet>(scopeOf(new Persian2820Schema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type PositivistTests() =
-    inherit StandardScopeFacts<PositivistDataSet>(scopeOf(new PositivistSchema()))
+    inherit StandardScopeFacts<StandardPositivistDataSet>(scopeOf(new PositivistSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type TabularIslamicTests() =
-    inherit StandardScopeFacts<TabularIslamicDataSet>(scopeOf(new TabularIslamicSchema()))
+    inherit StandardScopeFacts<StandardTabularIslamicDataSet>(scopeOf(new TabularIslamicSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type TropicaliaTests() =
-    inherit StandardScopeFacts<TropicaliaDataSet>(scopeOf(new TropicaliaSchema()))
+    inherit StandardScopeFacts<StandardTropicaliaDataSet>(scopeOf(new TropicaliaSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -130,4 +131,4 @@ type Tropicalia3130Tests() =
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type WorldTests() =
-    inherit StandardScopeFacts<WorldDataSet>(scopeOf(new WorldSchema()))
+    inherit StandardScopeFacts<StandardWorldDataSet>(scopeOf(new WorldSchema()))

@@ -7,9 +7,7 @@ using Calendrie.Systems;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
-// FIXME(fact): skip negative years.
-// Use an ICalendarDataSet? StandardCalendarDataSet?
-// What about ProlepticScopeFacts.
+// FIXME(fact): how to enforce the use of a StandardCalendarDataSet?
 
 public static class StandardScopeFacts
 {
