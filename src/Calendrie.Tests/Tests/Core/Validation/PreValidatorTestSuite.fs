@@ -8,11 +8,18 @@ open System
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing
+open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
 open Calendrie.Testing.Faux
 
 // TODO(fact): lunisolar (fake).
+
+[<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+type CivilTests() =
+    inherit ICalendricalPreValidatorFacts<StandardGregorianDataSet>(new CivilSchema())
 
 // Solar12PreValidator
 [<Sealed>]
@@ -86,11 +93,12 @@ type FauxLunisolarTests() =
 
     member x.PreValidator() = x.PreValidatorUT |> is<LunisolarPreValidator>
 
+// PaxPreValidator
 [<Sealed>]
-[<TestExcludeFrom(TestExcludeFrom.Regular)>]
-[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type PaxTests() =
     inherit ICalendricalPreValidatorFacts<PaxDataSet>(new PaxSchema())
+
+    member x.PreValidator() = x.PreValidatorUT |> is<PaxPreValidator>
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]

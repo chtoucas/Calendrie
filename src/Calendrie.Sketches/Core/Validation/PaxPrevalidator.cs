@@ -38,10 +38,10 @@ internal sealed class PaxPreValidator : ICalendricalPreValidator
     /// <see langword="null"/>.</exception>
     public PaxPreValidator(PaxSchema schema)
     {
+        ArgumentNullException.ThrowIfNull(schema);
+
         Debug.Assert(MinDaysInYear == schema.MinDaysInYear);
         Debug.Assert(MinMonthsInYear == schema.MinMonthsInYear);
-
-        ArgumentNullException.ThrowIfNull(schema);
 
         _schema = schema;
     }

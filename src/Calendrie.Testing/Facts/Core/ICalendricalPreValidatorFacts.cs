@@ -34,11 +34,11 @@ public abstract partial class ICalendricalPreValidatorFacts<TDataSet> :
     }
 
     /// <summary>
-    /// Gets the minimum value of the year for which the methods are known not to overflow.
+    /// Gets the minimal year for which the methods are known not to overflow.
     /// </summary>
     protected int MinYear { get; }
     /// <summary>
-    /// Gets the maximum value of the year for which the methods are known not to overflow.
+    /// Gets the maximal year for which the methods are known not to overflow.
     /// </summary>
     protected int MaxYear { get; }
 
@@ -50,7 +50,7 @@ public abstract partial class ICalendricalPreValidatorFacts<TDataSet> :
 
 public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
 {
-    #region CheckMonth() & ValidateMonth()
+    #region CheckMonth()
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void CheckMonth_InvalidMonthOfYear(int y, int m) =>
@@ -62,6 +62,9 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
         var (y, m) = info.Yemo;
         Assert.True(PreValidatorUT.CheckMonth(y, m));
     }
+
+    #endregion
+    #region ValidateMonth()
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void ValidateMonth_InvalidMonthOfYear(int y, int m)
@@ -78,7 +81,8 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
     }
 
     #endregion
-    #region CheckMonthDay() & ValidateMonthDay()
+
+    #region CheckMonthDay()
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void CheckMonthDay_InvalidMonth(int y, int m) =>
@@ -94,6 +98,9 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
         var (y, m, d) = info.Yemoda;
         Assert.True(PreValidatorUT.CheckMonthDay(y, m, d));
     }
+
+    #endregion
+    #region ValidateMonthDay()
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void ValidateMonthDay_InvalidMonth(int y, int m)
@@ -117,7 +124,8 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
     }
 
     #endregion
-    #region CheckDayOfYear() & ValidateDayOfYear()
+
+    #region CheckDayOfYear()
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void CheckDayOfYear_InvalidDayOfYear(int y, int doy) =>
@@ -129,6 +137,9 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
         var (y, doy) = info.Yedoy;
         Assert.True(PreValidatorUT.CheckDayOfYear(y, doy));
     }
+
+    #endregion
+    #region ValidateDayOfYear()
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void ValidateDayOfYear_InvalidDayOfYear(int y, int doy)
@@ -145,6 +156,7 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
     }
 
     #endregion
+
     #region ValidateDayOfMonth()
 
     [Theory, MemberData(nameof(InvalidDayFieldData))]
@@ -172,10 +184,17 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Overflows
     // itself, it delegates them to a schema. In practice, it all depends on the
     // behaviour of IsLeapYear() which, hopefully, we fully test elsewhere.
     //
-    // To simplify, we only test the start of a month or a day which usually
+    // Underflow:
+    // To simplify, we test at the start of a year, month or day which usually
     // never overflow because we use shortcuts (MinDaysInYear/Month) to avoid
-    // having to perform any calculation; this is not the case with
-    // CalendricalPreValidator and, to some extent, PlainPreValidator.
+    // having to perform any calculation; this is not the case, to some extent,
+    // with PlainPreValidator.
+    //
+    // Overflow:
+    // We use 12 for the month field and 353 for the day of the year field.
+    // These are values that are valid for all current schemas --- this might
+    // not be the case in the future.
+    //
     //
     // A consequence of these two remarks is that the following tests are not
     // that interesting.
@@ -183,23 +202,26 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Overflows
     // Within the range [MinYear..MaxYear], we should never observe any overflow.
 
     [Fact] public void ValidateMonth_DoesNotUnderflow() => PreValidatorUT.ValidateMonth(MinYear, 1);
-    [Fact] public void ValidateMonth_DoesNotOverflow() => PreValidatorUT.ValidateMonth(MaxYear, 1);
+    [Fact] public void ValidateMonth_DoesNotOverflow() => PreValidatorUT.ValidateMonth(MaxYear, 12);
 
     [Fact] public void ValidateMonthDay_DoesNotUnderflow() => PreValidatorUT.ValidateMonthDay(MinYear, 1, 1);
-    [Fact] public void ValidateMonthDay_DoesNotOverflow() => PreValidatorUT.ValidateMonthDay(MaxYear, 1, 1);
+    [Fact] public void ValidateMonthDay_DoesNotOverflow() => PreValidatorUT.ValidateMonthDay(MaxYear, 12, 1);
 
     [Fact] public void ValidateDayOfYear_DoesNotUnderflow() => PreValidatorUT.ValidateDayOfYear(MinYear, 1);
-    [Fact] public void ValidateDayOfYear_DoesNotOverflow() => PreValidatorUT.ValidateDayOfYear(MaxYear, 1);
+    [Fact] public void ValidateDayOfYear_DoesNotOverflow() => PreValidatorUT.ValidateDayOfYear(MaxYear, 12);
 
     // Outside the range of supported years, we don't know for sure, but one can
     // override the tests if necessary.
+    //
+    // The Civil schema is not "proleptic", but since its pre-validator is the
+    // Gregorian validator, we can use int.MinValue during the tests.
 
     [Fact] public virtual void ValidateMonth_AtAbsoluteMinYear() => PreValidatorUT.ValidateMonth(int.MinValue, 1);
-    [Fact] public virtual void ValidateMonth_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonth(int.MaxValue, 1);
+    [Fact] public virtual void ValidateMonth_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonth(int.MaxValue, 12);
 
     [Fact] public virtual void ValidateMonthDay_AtAbsoluteMinYear() => PreValidatorUT.ValidateMonthDay(int.MinValue, 1, 1);
-    [Fact] public virtual void ValidateMonthDay_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonthDay(int.MaxValue, 1, 1);
+    [Fact] public virtual void ValidateMonthDay_AtAbsoluteMaxYear() => PreValidatorUT.ValidateMonthDay(int.MaxValue, 12, 1);
 
     [Fact] public virtual void ValidateDayOfYear_AtAbsoluteMinYear() => PreValidatorUT.ValidateDayOfYear(int.MinValue, 1);
-    [Fact] public virtual void ValidateDayOfYear_AtAbsoluteMaxYear() => PreValidatorUT.ValidateDayOfYear(int.MaxValue, 1);
+    [Fact] public virtual void ValidateDayOfYear_AtAbsoluteMaxYear() => PreValidatorUT.ValidateDayOfYear(int.MaxValue, 353);
 }

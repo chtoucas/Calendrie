@@ -59,10 +59,9 @@
     <Compile Include="Tests\Core\Utilities\MathZTests.fs" />
     <Compile Include="Tests\Core\Utilities\RequiresTests.fs" />
     <Compile Include="Tests\Core\Utilities\ThrowHelpersTests.fs" />
-    <Compile Include="Tests\Core\Validation\PlainPreValidatorTests.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTests.fs" />
+    <Compile Include="Tests\Core\Validation\PlainPreValidatorTests.fs" />
     <Compile Include="Tests\Core\Validation\PreValidatorTestSuite.fs" />
-    <Compile Include="Tests\Core\Validation\RangeValidatorTests.fs" />
     <Compile Include="Tests\Core\CalendricalSegmentBuilderTests.fs" />
     <Compile Include="Tests\Core\CalendricalSegmentTests.fs" />
     <Compile Include="Tests\Core\MonthsCalculatorTests.fs" />
