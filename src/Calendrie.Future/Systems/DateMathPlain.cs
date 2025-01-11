@@ -17,9 +17,6 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
-    /// <summary>Represents the schema.</summary>
-    private readonly ICalendricalSchema _schema;
-
     /// <summary>Represents the smallest possible value of the count of consecutive
     /// days since the epoch.</summary>
     private readonly int _minMonthsSinceEpoch;
@@ -27,6 +24,9 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate>
     /// <summary>Represents the largest possible value of the count of consecutive
     /// days since the epoch.</summary>
     private readonly int _maxMonthsSinceEpoch;
+
+    /// <summary>Represents the schema.</summary>
+    private readonly ICalendricalSchema _schema;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DateMathPlain{TCalendar, TDate}"/>

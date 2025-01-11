@@ -36,7 +36,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
         throw new ArgumentOutOfRangeException(
             paramName ?? nameof(year),
             year,
-            $"The value of the year was out of range; value = {year}.");
+            "The value of the year was out of range.");
 
     /// <summary>
     /// The value of the month of the year was out of range.
@@ -47,7 +47,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
         throw new ArgumentOutOfRangeException(
             paramName ?? nameof(month),
             month,
-            $"The value of the month of the year was out of range; value = {month}.");
+            "The value of the month of the year was out of range");
 
     /// <summary>
     /// The value of the day of the month was out of range.
@@ -58,7 +58,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
         throw new ArgumentOutOfRangeException(
             paramName ?? nameof(day),
             day,
-            $"The value of the day of the month was out of range; value = {day}.");
+            "The value of the day of the month was out of range");
 
     /// <summary>
     /// The value of the day of the year was out of range.
@@ -69,7 +69,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
         throw new ArgumentOutOfRangeException(
             paramName ?? nameof(dayOfYear),
             dayOfYear,
-            $"The value of the day of the year was out of range; value = {dayOfYear}.");
+            "The value of the day of the year was out of range");
 
     /// <summary>
     /// The value of the day number was out of range.
@@ -80,7 +80,18 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
         throw new ArgumentOutOfRangeException(
             paramName ?? nameof(dayNumber),
             dayNumber,
-            $"The value of the day number was out of range; value = {dayNumber}.");
+            "The value of the day number was out of range");
+
+    /// <summary>
+    /// The value of the rank was out of range.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    [DoesNotReturn]
+    public static void ThrowRankOutOfRange(int rank, string? paramName = null) =>
+        throw new ArgumentOutOfRangeException(
+            paramName ?? nameof(rank),
+            rank,
+            "The value of the rank was out of range");
 
     /// <summary>
     /// The value of the count of consecutive days since the epoch was out of range.
@@ -91,7 +102,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
         throw new ArgumentOutOfRangeException(
             paramName ?? nameof(daysSinceEpoch),
             daysSinceEpoch,
-            $"The value of the count of consecutive days since the epoch was out of range; value = {daysSinceEpoch}.");
+            "The value of the count of consecutive days since the epoch was out of range");
 
     /// <summary>
     /// The value of the count of consecutive months since the epoch was out of range.
@@ -102,7 +113,7 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
         throw new ArgumentOutOfRangeException(
             paramName ?? nameof(monthsSinceEpoch),
             monthsSinceEpoch,
-            $"The value of the count of consecutive months since the epoch was out of range; value = {monthsSinceEpoch}.");
+            "The value of the count of consecutive months since the epoch was out of range");
 }
 
 internal partial class ThrowHelpers // ArgumentException
@@ -113,13 +124,13 @@ internal partial class ThrowHelpers // ArgumentException
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn]
     public static void ThrowBadBinaryInput() =>
-        throw new ArgumentException("The binary data is not well-formed.", "data");
+        throw new ArgumentException("The binary data was not well-formed.", "data");
 
     /// <exception cref="ArgumentException"/>
     [DoesNotReturn, Pure]
     public static int ThrowNonComparable(Type expected, object obj) =>
         throw new ArgumentException(
-            $"The object should be of type {expected} but it is of type {obj.GetType()}.",
+            $"The object should be of type {expected} but it was of type {obj.GetType()}.",
             nameof(obj));
 }
 
@@ -148,4 +159,20 @@ internal partial class ThrowHelpers // OverflowException
     [DoesNotReturn]
     public static void ThrowYearOverflow() =>
         throw new OverflowException("The computation would overflow the range of supported years.");
+
+    /// <summary>
+    /// The computation would overflow the range of supported day numbers.
+    /// </summary>
+    /// <exception cref="OverflowException"/>
+    [DoesNotReturn]
+    public static void ThrowDayNumberOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported day numbers.");
+
+    /// <summary>
+    /// The operation would overflow the range of supported ordinal numerals.
+    /// </summary>
+    /// <exception cref="OverflowException"/>
+    [DoesNotReturn]
+    public static void ThrowOrdOverflow() =>
+        throw new OverflowException("The computation would overflow the range of supported ordinal numerals.");
 }

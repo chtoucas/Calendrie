@@ -17,11 +17,11 @@ public class DateMathRegular<TDate, TCalendar> : DateMath<TDate>
     where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
-    /// <summary>Represents the schema.</summary>
-    private readonly ICalendricalSchema _schema;
-
     /// <summary>Represents the number of months in a year.</summary>
     private readonly int _monthsInYear;
+
+    /// <summary>Represents the schema.</summary>
+    private readonly ICalendricalSchema _schema;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DateMathRegular{TDate, TCalendar}"/>

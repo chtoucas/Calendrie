@@ -148,7 +148,7 @@ public partial struct Ord // Factories, conversions
     public static Ord FromRank(int rank)
     {
         if (rank == 0 || rank == int.MinValue)
-            throw new ArgumentOutOfRangeException(nameof(rank));
+            ThrowHelpers.ThrowRankOutOfRange(rank);
 
         // The next operation never overflows. It is equivalent to:
         //   rank > 0 ? Zeroth + rank : First + rank;
@@ -253,7 +253,7 @@ public partial struct Ord // Math ops
     public static Ord operator +(Ord ord, int num)
     {
         int newVal = checked(ord._value + num);
-        if (newVal < MinAlgebraicValue) ThrowOrdOverflow();
+        if (newVal < MinAlgebraicValue) ThrowHelpers.ThrowOrdOverflow();
         return new Ord(newVal);
     }
 
@@ -266,7 +266,7 @@ public partial struct Ord // Math ops
     public static Ord operator -(Ord ord, int num)
     {
         int newVal = checked(ord._value - num);
-        if (newVal < MinAlgebraicValue) ThrowOrdOverflow();
+        if (newVal < MinAlgebraicValue) ThrowHelpers.ThrowOrdOverflow();
         return new Ord(newVal);
     }
 
@@ -314,7 +314,7 @@ public partial struct Ord // Math ops
     [Pure]
     public Ord Increment()
     {
-        if (this == MaxValue) ThrowOrdOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowOrdOverflow();
         return new Ord(_value + 1);
     }
 
@@ -326,7 +326,7 @@ public partial struct Ord // Math ops
     [Pure]
     public Ord Decrement()
     {
-        if (this == MinValue) ThrowOrdOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowOrdOverflow();
         return new Ord(_value - 1);
     }
 
@@ -336,12 +336,4 @@ public partial struct Ord // Math ops
     [Pure]
     // No need to use checked arithmetic, the op always succeeds.
     public Ord Negate() => new(1 - _value);
-
-    /// <summary>
-    /// The operation would overflow the range of supported ordinal numerals.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn]
-    private static void ThrowOrdOverflow() =>
-        throw new OverflowException("The computation would overflow the range of supported ordinal numerals.");
 }

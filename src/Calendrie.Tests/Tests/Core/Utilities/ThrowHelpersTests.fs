@@ -3,6 +3,7 @@
 
 module Calendrie.Tests.Core.Utilities.ThrowHelpersTests
 
+open Calendrie
 open Calendrie.Core.Utilities
 open Calendrie.Testing
 
@@ -33,6 +34,30 @@ module ArgumentOutOfRangeExns =
         outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.ThrowDayOfYearOutOfRange(1, null))
         outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowDayOfYearOutOfRange(1, "paramName"))
 
+    [<Fact>]
+    let ThrowDayNumberOutOfRange () =
+        outOfRangeExn "dayNumber" (fun () -> ThrowHelpers.ThrowDayNumberOutOfRange(DayNumber.Zero))
+        outOfRangeExn "dayNumber" (fun () -> ThrowHelpers.ThrowDayNumberOutOfRange(DayNumber.Zero, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowDayNumberOutOfRange(DayNumber.Zero, "paramName"))
+
+    [<Fact>]
+    let ThrowRankOutOfRange () =
+        outOfRangeExn "rank" (fun () -> ThrowHelpers.ThrowRankOutOfRange(1))
+        outOfRangeExn "rank" (fun () -> ThrowHelpers.ThrowRankOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowRankOutOfRange(1, "paramName"))
+
+    [<Fact>]
+    let ThrowDaysSinceEpochOutOfRange () =
+        outOfRangeExn "daysSinceEpoch" (fun () -> ThrowHelpers.ThrowDaysSinceEpochOutOfRange(1))
+        outOfRangeExn "daysSinceEpoch" (fun () -> ThrowHelpers.ThrowDaysSinceEpochOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowDaysSinceEpochOutOfRange(1, "paramName"))
+
+    [<Fact>]
+    let ThrowMonthsSinceEpochOutOfRange () =
+        outOfRangeExn "monthsSinceEpoch" (fun () -> ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(1))
+        outOfRangeExn "monthsSinceEpoch" (fun () -> ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(1, "paramName"))
+
 module ArgumentExns =
     [<Fact>]
     let ThrowBadBinaryInput () =
@@ -46,3 +71,19 @@ module OverflowExns =
     [<Fact>]
     let ThrowDateOverflow () =
         (fun () -> ThrowHelpers.ThrowDateOverflow()) |> overflows
+
+    [<Fact>]
+    let ThrowMonthOverflow () =
+        (fun () -> ThrowHelpers.ThrowMonthOverflow()) |> overflows
+
+    [<Fact>]
+    let ThrowYearOverflow () =
+        (fun () -> ThrowHelpers.ThrowYearOverflow()) |> overflows
+
+    [<Fact>]
+    let ThrowDayNumberOverflow () =
+        (fun () -> ThrowHelpers.ThrowDayNumberOverflow()) |> overflows
+
+    [<Fact>]
+    let ThrowOrdOverflow () =
+        (fun () -> ThrowHelpers.ThrowOrdOverflow()) |> overflows

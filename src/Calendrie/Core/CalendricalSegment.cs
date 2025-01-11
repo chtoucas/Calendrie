@@ -185,8 +185,11 @@ public sealed class CalendricalSegment
         var builder = new CalendricalSegmentBuilder(schema);
         if (!builder.TrySetMinToStartOfMinSupportedYearOnOrAfterYear1())
         {
-            throw new ArgumentException(null, nameof(schema));
+            throw new ArgumentException(
+                "The schema did not support any year greater than or equal to 1.",
+                nameof(schema));
         }
+
         builder.SetMaxToEndOfMaxSupportedYear();
         return builder.BuildSegment();
     }

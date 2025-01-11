@@ -19,14 +19,14 @@ public class PlainMonthMath<TMonth, TCalendar> : MonthMath<TMonth>
     where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>
     where TCalendar : Calendar
 {
-    /// <summary>Represents the schema.</summary>
-    private readonly ICalendricalSchema _schema;
-
     /// <summary>Represents the earliest supported year.</summary>
     private readonly int _minYear;
 
     /// <summary>Represents the latest supported year.</summary>
     private readonly int _maxYear;
+
+    /// <summary>Represents the schema.</summary>
+    private readonly ICalendricalSchema _schema;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlainMonthMath{TMonth, TCalendar}"/>

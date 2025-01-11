@@ -73,15 +73,19 @@ public abstract partial class LimitSchema : CalendricalSchema
     /// Called from constructors in derived classes to initialize the
     /// <see cref="LimitSchema"/> class.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="supportedYears"/>
-    /// is NOT a subinterval of <see cref="Yemoda.SupportedYears"/>.</exception>
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/>
+    /// is not a subinterval of <see cref="Yemoda.SupportedYears"/>.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     private protected LimitSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
         if (!supportedYears.IsSubsetOf(MaxSupportedYears))
-            throw new ArgumentOutOfRangeException(nameof(supportedYears));
+        {
+            throw new ArgumentException(
+                "The value was not a subinterval of Yemoda.SupportedYears.",
+                nameof(supportedYears));
+        }
     }
 
     /// <summary>
@@ -116,13 +120,20 @@ public partial class LimitSchema // Properties
     /// </para>
     /// <para>See also <seealso cref="ICalendricalPreValidator"/>.</para>
     /// </summary>
+    /// <exception cref="ArgumentException"><paramref name="value"/>
+    /// is not a subinterval of <see cref="CalendricalSchema.SupportedYears"/>.
+    /// </exception>
     public Range<int> SupportedYearsCore
     {
         get => _supportedYearsCore;
         protected init
         {
             if (!value.IsSupersetOf(SupportedYears))
-                throw new ArgumentException(null, nameof(value));
+            {
+                throw new ArgumentException(
+                    "The value was not a subinterval of CalendricalSchema.SupportedYears.",
+                    nameof(value));
+            }
 
             _supportedYearsCore = value;
         }

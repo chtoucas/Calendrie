@@ -62,34 +62,44 @@ public sealed partial class CalendricalSegmentBuilder
 
     private Endpoint? _min;
     /// <summary>
-    /// Gets the minimum of the segment.
+    /// Gets or sets the minimum of the segment.
     /// </summary>
-    /// <exception cref="InvalidOperationException">The minimum was not set.
+    /// <exception cref="InvalidOperationException">The minimum is not set.
     /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/>
+    /// is greater than the maximum.</exception>
     private Endpoint Min
     {
-        get => _min ?? throw new InvalidOperationException();
+        get => _min ?? throw new InvalidOperationException("The minimum was not set.");
         set
         {
             if (Endpoint.IsGreaterThan(value, _max))
-                throw new ArgumentOutOfRangeException(nameof(value));
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(value), value, "The value was greater than the maximum.");
+            }
             _min = value;
         }
     }
 
     private Endpoint? _max;
     /// <summary>
-    /// Gets the maximum of the segment.
+    /// Gets or sets the maximum of the segment.
     /// </summary>
-    /// <exception cref="InvalidOperationException">The maximum was not set.
+    /// <exception cref="InvalidOperationException">The maximum is not set.
     /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/>
+    /// is less than the minimum.</exception>
     private Endpoint Max
     {
-        get => _max ?? throw new InvalidOperationException();
+        get => _max ?? throw new InvalidOperationException("The maximum was not set.");
         set
         {
             if (Endpoint.IsGreaterThan(_min, value))
-                throw new ArgumentOutOfRangeException(nameof(value));
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(value), value, "The value was less than the minimum.");
+            }
             _max = value;
         }
     }
@@ -287,12 +297,20 @@ public partial class CalendricalSegmentBuilder // Builder methods
     public void SetMaxToEndOfMaxSupportedYear() =>
         Max = GetEndpointAtEndOfYear(_schema.SupportedYears.Max);
 
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/>
+    /// is not a subinterval of the range of years supported by the schema.
+    /// </exception>
+    //
     // This method throw an ArgumentException not an ArgumentOutOfRangeException,
     // therefore it's not equivalent to set Min and Max separately.
     internal void SetSupportedYears(Range<int> supportedYears)
     {
         if (!supportedYears.IsSubsetOf(_schema.SupportedYears))
-            throw new ArgumentException(null, nameof(supportedYears));
+        {
+            throw new ArgumentException(
+                "The value was not a subinterval of the range of years supported by the schema.",
+                nameof(supportedYears));
+        }
 
         Min = GetEndpointAtStartOfYear(supportedYears.Min);
         Max = GetEndpointAtEndOfYear(supportedYears.Max);
@@ -306,12 +324,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     {
         var range = _schema.SupportedDays;
         if (daysSinceEpoch < range.Min || daysSinceEpoch > range.Max)
-        {
-            throw new ArgumentOutOfRangeException(
-                paramName,
-                daysSinceEpoch,
-                $"The value was out of range; value = {daysSinceEpoch}.");
-        }
+            ThrowHelpers.ThrowDaysSinceEpochOutOfRange(daysSinceEpoch, paramName);
     }
 
     private void ValidateYear(int year, string? paramName = null)

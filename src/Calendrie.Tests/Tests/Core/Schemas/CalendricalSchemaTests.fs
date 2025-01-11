@@ -76,14 +76,14 @@ module LimitSchemaPrelude =
         let maxrange = LimitSchema.MaxSupportedYears
         let range = maxrange.WithMin(maxrange.Min - 1)
 
-        outOfRangeExn "supportedYears" (fun () -> new FauxLimitSchema(range))
+        argExn "supportedYears" (fun () -> new FauxLimitSchema(range))
 
     [<Fact>]
     let ``Constructor expects supportedYears:Max to be <= MaxSupportedYears:Max`` () =
         let maxrange = LimitSchema.MaxSupportedYears
         let range = maxrange.WithMax(maxrange.Max + 1)
 
-        outOfRangeExn "supportedYears" (fun () -> new FauxLimitSchema(range))
+        argExn "supportedYears" (fun () -> new FauxLimitSchema(range))
 
     [<Fact>]
     let ``Constructor succeeds with supportedYears = DefaultSupportedYears`` () =

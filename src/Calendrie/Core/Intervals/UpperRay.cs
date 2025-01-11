@@ -29,7 +29,9 @@ public partial class UpperRay // UpperRay<int>
     public static LowerRay<int> Complement(this UpperRay<int> ray)
     {
         int min = ray.Min;
-        return min == int.MinValue ? throw new InvalidOperationException() : new(min - 1);
+        return min == int.MinValue
+            ? throw new InvalidOperationException("The complement would be an empty set.")
+            : new(min - 1);
     }
 }
 
@@ -42,6 +44,8 @@ public partial class UpperRay // UpperRay<DayNumber>
     public static LowerRay<DayNumber> Complement(this UpperRay<DayNumber> ray)
     {
         var min = ray.Min;
-        return min == DayNumber.MinValue ? throw new InvalidOperationException() : new(min - 1);
+        return min == DayNumber.MinValue
+            ? throw new InvalidOperationException("The complement would be an empty set.")
+            : new(min - 1);
     }
 }

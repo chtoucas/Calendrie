@@ -591,7 +591,7 @@ public partial struct DayNumber // Math ops
     {
         int newDays = checked(value._daysSinceZero + days);
         if (newDays == MinDaysSinceZero - 1 || newDays == MaxDaysSinceZero + 1)
-            ThrowDayNumberOverflow();
+            ThrowHelpers.ThrowDayNumberOverflow();
         return new DayNumber(newDays);
     }
 
@@ -606,7 +606,7 @@ public partial struct DayNumber // Math ops
     {
         int newDays = checked(value._daysSinceZero - days);
         if (newDays == MinDaysSinceZero - 1 || newDays == MaxDaysSinceZero + 1)
-            ThrowDayNumberOverflow();
+            ThrowHelpers.ThrowDayNumberOverflow();
         return new DayNumber(newDays);
     }
 
@@ -651,7 +651,7 @@ public partial struct DayNumber // Math ops
     [Pure]
     public DayNumber NextDay()
     {
-        if (this == MaxValue) ThrowDayNumberOverflow();
+        if (this == MaxValue) ThrowHelpers.ThrowDayNumberOverflow();
         return new DayNumber(_daysSinceZero + 1);
     }
 
@@ -663,16 +663,7 @@ public partial struct DayNumber // Math ops
     [Pure]
     public DayNumber PreviousDay()
     {
-        if (this == MinValue) ThrowDayNumberOverflow();
+        if (this == MinValue) ThrowHelpers.ThrowDayNumberOverflow();
         return new DayNumber(_daysSinceZero - 1);
     }
-
-    /// <summary>
-    /// The operation would overflow the range of supported day numbers.
-    /// </summary>
-    /// <exception cref="OverflowException"/>
-    [DoesNotReturn]
-    private static void ThrowDayNumberOverflow() =>
-        throw new OverflowException("The computation would overflow the range of supported day numbers.");
-
 }
