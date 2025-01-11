@@ -11,7 +11,17 @@ open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Systems
 open Calendrie.Testing.Faux
 
+// TODO(fact): lunisolar (fake).
+
 let private scopeOf(sch) = new StandardScope(sch, DayZero.OldStyle)
+
+// Not an actual StandardScope but close enough.
+[<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+// We do not exclude this one from CodeCoverage.
+//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+type CivilTests() =
+    inherit CivilScopeFacts<GregorianDataSet>(new CivilScope(new CivilSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -51,7 +61,8 @@ type FrenchRepublican13Tests() =
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
+// We do not exclude this one from CodeCoverage.
+//[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type GregorianTests() =
     inherit StandardScopeFacts<GregorianDataSet>(scopeOf(new GregorianSchema()))
 

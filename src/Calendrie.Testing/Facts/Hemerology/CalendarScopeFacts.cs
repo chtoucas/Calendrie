@@ -29,6 +29,22 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
     /// </summary>
     protected TScope ScopeUT { get; }
 
+    #region CheckYearMonth()
+
+    //[Theory] public abstract void CheckYearMonth_InvalidYear(int y);
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void CheckYearMonth_InvalidMonth(int y, int m) =>
+        Assert.False(ScopeUT.CheckYearMonth(y, m));
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CheckYearMonth(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        Assert.True(ScopeUT.CheckYearMonth(y, m));
+    }
+
+    #endregion
     #region ValidateYearMonth()
 
     [Theory] public abstract void ValidateYearMonth_InvalidYear(int y);
@@ -45,6 +61,27 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
     {
         var (y, m) = info.Yemo;
         ScopeUT.ValidateYearMonth(y, m);
+    }
+
+    #endregion
+
+    #region CheckYearMonthDay()
+
+    //[Theory] public abstract void CheckYearMonthDay_InvalidYear(int y);
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void CheckYearMonthDay_InvalidMonth(int y, int m) =>
+        Assert.False(ScopeUT.CheckYearMonthDay(y, m, 1));
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void CheckYearMonthDay_InvalidDay(int y, int m, int d) =>
+        Assert.False(ScopeUT.CheckYearMonthDay(y, m, d));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void CheckYearMonthDay(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        Assert.True(ScopeUT.CheckYearMonthDay(y, m, d));
     }
 
     #endregion
@@ -71,6 +108,23 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
     {
         var (y, m, d) = info.Yemoda;
         ScopeUT.ValidateYearMonthDay(y, m, d);
+    }
+
+    #endregion
+
+    #region CheckOrdinal()
+
+    //[Theory] public abstract void CheckOrdinal_InvalidYear(int y);
+
+    [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
+    public void CheckOrdinal_InvalidDayOfYear(int y, int doy) =>
+        Assert.False(ScopeUT.CheckOrdinal(y, doy));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void CheckOrdinal(DateInfo info)
+    {
+        var (y, doy) = info.Yedoy;
+        Assert.True(ScopeUT.CheckOrdinal(y, doy));
     }
 
     #endregion

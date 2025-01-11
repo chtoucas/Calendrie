@@ -4,38 +4,52 @@
 namespace Calendrie.Testing.Facts.Systems;
 
 using Calendrie.Hemerology;
-using Calendrie.Systems;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
-[Obsolete("To be removed")]
 public static class ProlepticScopeFacts
 {
+    /// <summary>
+    /// Represents the earliest supported year.
+    /// <para>This field is a constant equal to -999_998.</para>
+    /// </summary>
+    internal const int MinYear = -999_998;
+
+    /// <summary>
+    /// Represents the latest supported year.
+    /// <para>This field is a constant equal to 999_999.</para>
+    /// </summary>
+    internal const int MaxYear = 999_999;
+
+    ///// <summary>
+    ///// Represents the range of supported years.
+    ///// </summary>
+    //public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
+
     public static readonly TheoryData<int> InvalidYearData =
     [
         int.MinValue,
-        ProlepticScope.MinYear - 1,
-        ProlepticScope.MaxYear + 1,
+        MinYear - 1,
+        MaxYear + 1,
         int.MaxValue,
     ];
 
     public static readonly TheoryData<int> ValidYearData =
     [
-        ProlepticScope.MinYear,
-        ProlepticScope.MinYear + 1,
+        MinYear,
+        MinYear + 1,
         -1,
         0,
         1,
-        ProlepticScope.MaxYear - 1,
-        ProlepticScope.MaxYear
+        MaxYear - 1,
+        MaxYear
     ];
 }
 
 
 /// <summary>
-/// Provides data-driven tests for <see cref="ProlepticScope"/>.
+/// Provides data-driven tests for proleptic scopes.
 /// </summary>
-[Obsolete("To be removed")]
 internal abstract class ProlepticScopeFacts<TDataSet> :
     CalendarScopeFacts<CalendarScope, TDataSet>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
@@ -46,8 +60,8 @@ internal abstract class ProlepticScopeFacts<TDataSet> :
 
         var (minYear, maxYear) = scope.Segment.SupportedYears.Endpoints;
 
-        Debug.Assert(minYear == ProlepticScope.MinYear);
-        Debug.Assert(maxYear == ProlepticScope.MaxYear);
+        Debug.Assert(minYear == ProlepticScopeFacts.MinYear);
+        Debug.Assert(maxYear == ProlepticScopeFacts.MaxYear);
     }
 
     public static TheoryData<int> InvalidYearData => ProlepticScopeFacts.InvalidYearData;

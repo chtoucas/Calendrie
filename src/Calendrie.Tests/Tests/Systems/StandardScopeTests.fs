@@ -3,8 +3,6 @@
 
 module Calendrie.Tests.Systems.StandardScopeTests
 
-open System
-
 open Calendrie
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
@@ -16,11 +14,6 @@ open Calendrie.Testing.Facts.Systems
 open Calendrie.Testing.Faux
 
 open Xunit
-
-// Not an actual StandardScope but close enough.
-[<Sealed>]
-type CivilTests() =
-    inherit CivilScopeFacts<GregorianDataSet>(new CivilScope(new CivilSchema()))
 
 module Prelude =
     [<Fact>]
