@@ -9,6 +9,7 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about <see cref="Calendar"/>.
 /// </summary>
+[Obsolete("To be removed")]
 public abstract partial class CalendarFacts<TDate, TCalendar, TDataSet> :
     CalendarFacts<TCalendar, TDataSet>
     where TDate : IDateable

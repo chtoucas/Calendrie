@@ -168,15 +168,11 @@ module Bundles =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit CalendarFacts<CivilDate, CivilCalendar, StandardGregorianDataSet>(chr)
+        inherit CalendarFacts<CivilCalendar, StandardGregorianDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new CivilDate(y, m, d);
-        override __.GetDate(y, doy) = new CivilDate(y, doy);
-        override __.GetDate(dayNumber) = CivilDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = CivilCalendar.MonthsInYear === 12

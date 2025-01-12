@@ -48,15 +48,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<PaxDate, PaxCalendar, StandardPaxDataSet>(chr)
+        inherit CalendarFacts<PaxCalendar, StandardPaxDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Other
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Weeks
-
-        override __.GetDate(y, m, d) = new PaxDate(y, m, d);
-        override __.GetDate(y, doy) = new PaxDate(y, doy);
-        override __.GetDate(dayNumber) = PaxDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MinYear() = PaxCalendar.MinYear === StandardScope.MinYear

@@ -62,15 +62,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
+        inherit CalendarFacts<CopticCalendar, StandardCoptic12DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new CopticDate(y, m, d);
-        override __.GetDate(y, doy) = new CopticDate(y, doy);
-        override __.GetDate(dayNumber) = CopticDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = CopticCalendar.MonthsInYear === 12
@@ -115,15 +111,11 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>(chr)
+        inherit CalendarFacts<Coptic13Calendar, StandardCoptic13DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new Coptic13Date(y, m, d);
-        override __.GetDate(y, doy) = new Coptic13Date(y, doy);
-        override __.GetDate(dayNumber) = Coptic13Date.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = Coptic13Calendar.MonthsInYear === 13

@@ -68,15 +68,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<WorldDate, WorldCalendar, StandardWorldDataSet>(chr)
+        inherit CalendarFacts<WorldCalendar, StandardWorldDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new WorldDate(y, m, d);
-        override __.GetDate(y, doy) = new WorldDate(y, doy);
-        override __.GetDate(dayNumber) = WorldDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = WorldCalendar.MonthsInYear === 12

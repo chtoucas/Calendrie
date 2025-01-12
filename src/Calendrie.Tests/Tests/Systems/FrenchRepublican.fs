@@ -63,15 +63,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
+        inherit CalendarFacts<FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d);
-        override __.GetDate(y, doy) = new FrenchRepublicanDate(y, doy);
-        override __.GetDate(dayNumber) = FrenchRepublicanDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = FrenchRepublicanCalendar.MonthsInYear === 12
@@ -116,15 +112,11 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
+        inherit CalendarFacts<FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d);
-        override __.GetDate(y, doy) = new FrenchRepublican13Date(y, doy);
-        override __.GetDate(dayNumber) = FrenchRepublican13Date.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = FrenchRepublican13Calendar.MonthsInYear === 13

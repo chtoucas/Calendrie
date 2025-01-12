@@ -46,10 +46,33 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // Properties
 public partial class NakedCalendarFacts<TCalendar, TDataSet> // Characteristics
 {
     //
-    // Counting
+    // Characteristics
     //
 
-    //#region CountMonthsInYear()
+    //[Fact] public abstract void IsRegular();
+
+    //
+    // Year infos
+    //
+
+    #region IsLeapYear()
+
+    [Fact]
+    public void IsLeapYear_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(CalendarUT.IsLeapYear);
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void IsLeapYear(YearInfo info)
+    {
+        // Act
+        bool actual = CalendarUT.IsLeapYear(info.Year);
+        // Assert
+        Assert.Equal(info.IsLeap, actual);
+    }
+
+    #endregion
+
+    #region CountMonthsInYear()
 
     //[Fact]
     //public void CountMonthsInYear_InvalidYear() =>
@@ -64,7 +87,75 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // Characteristics
     //    Assert.Equal(info.MonthsInYear, actual);
     //}
 
-    //#endregion
+    #endregion
+    #region CountDaysInYear()
+
+    [Fact]
+    public void CountDaysInYear_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(CalendarUT.CountDaysInYear);
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void CountDaysInYear(YearInfo info)
+    {
+        // Act
+        int actual = CalendarUT.CountDaysInYear(info.Year);
+        // Assert
+        Assert.Equal(info.DaysInYear, actual);
+    }
+
+    #endregion
+
+    //
+    // Month infos
+    //
+
+    #region IsIntercalaryMonth()
+
+    [Fact]
+    public void IsIntercalaryMonth_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(y => CalendarUT.IsIntercalaryMonth(y, 1));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void IsIntercalaryMonth_InvalidMonth(int y, int m) =>
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.IsIntercalaryMonth(y, m));
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void IsIntercalaryMonth(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        // Act
+        bool actual = CalendarUT.IsIntercalaryMonth(y, m);
+        // Assert
+        Assert.Equal(info.IsIntercalary, actual);
+    }
+
+    #endregion
+
+    #region CountDaysInMonth()
+
+    [Fact]
+    public void CountDaysInMonth_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(y => CalendarUT.CountDaysInMonth(y, 1));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void CountDaysInMonth_InvalidMonth(int y, int m) =>
+        AssertEx.ThrowsAoorexn("month", () => CalendarUT.CountDaysInMonth(y, m));
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CountDaysInMonth(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        // Act
+        int actual = CalendarUT.CountDaysInMonth(y, m);
+        // Assert
+        Assert.Equal(info.DaysInMonth, actual);
+    }
+
+    #endregion
+
+    //
+    // Counting
+    //
 
     #region IsIntercalaryDay()
 
@@ -357,6 +448,7 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // IDateProvider<Da
     }
 
     #endregion
+
     #region GetStartOfMonth(y, m)
 
     [Fact]

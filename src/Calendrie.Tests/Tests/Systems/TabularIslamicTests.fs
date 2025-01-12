@@ -45,15 +45,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<TabularIslamicDate, TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)
+        inherit CalendarFacts<TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Lunar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new TabularIslamicDate(y, m, d);
-        override __.GetDate(y, doy) = new TabularIslamicDate(y, doy);
-        override __.GetDate(dayNumber) = TabularIslamicDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = TabularIslamicCalendar.MonthsInYear === 12

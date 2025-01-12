@@ -49,15 +49,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<TropicaliaDate, TropicaliaCalendar, StandardTropicaliaDataSet>(chr)
+        inherit CalendarFacts<TropicaliaCalendar, StandardTropicaliaDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new TropicaliaDate(y, m, d);
-        override __.GetDate(y, doy) = new TropicaliaDate(y, doy);
-        override __.GetDate(dayNumber) = TropicaliaDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MinYear() = TropicaliaCalendar.MinYear === StandardScope.MinYear

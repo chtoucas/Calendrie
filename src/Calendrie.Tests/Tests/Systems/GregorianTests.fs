@@ -86,15 +86,11 @@ module Bundles =
 
     [<Sealed>]
     type CalendaTests() =
-        inherit CalendarFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)
+        inherit CalendarFacts<GregorianCalendar, UnboundedGregorianDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new GregorianDate(y, m, d);
-        override __.GetDate(y, doy) = new GregorianDate(y, doy);
-        override __.GetDate(dayNumber) = GregorianDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = GregorianCalendar.MonthsInYear === 12

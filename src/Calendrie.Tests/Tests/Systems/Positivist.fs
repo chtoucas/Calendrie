@@ -45,15 +45,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<PositivistDate, PositivistCalendar, StandardPositivistDataSet>(chr)
+        inherit CalendarFacts<PositivistCalendar, StandardPositivistDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new PositivistDate(y, m, d);
-        override __.GetDate(y, doy) = new PositivistDate(y, doy);
-        override __.GetDate(dayNumber) = PositivistDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = PositivistCalendar.MonthsInYear === 13

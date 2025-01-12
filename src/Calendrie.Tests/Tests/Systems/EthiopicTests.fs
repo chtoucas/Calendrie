@@ -63,15 +63,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<EthiopicDate, EthiopicCalendar, StandardEthiopic12DataSet>(chr)
+        inherit CalendarFacts<EthiopicCalendar, StandardEthiopic12DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new EthiopicDate(y, m, d);
-        override __.GetDate(y, doy) = new EthiopicDate(y, doy);
-        override __.GetDate(dayNumber) = EthiopicDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = EthiopicCalendar.MonthsInYear === 12
@@ -116,15 +112,11 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Ethiopic13Date, Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
+        inherit CalendarFacts<Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new Ethiopic13Date(y, m, d);
-        override __.GetDate(y, doy) = new Ethiopic13Date(y, doy);
-        override __.GetDate(dayNumber) = Ethiopic13Date.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = Ethiopic13Calendar.MonthsInYear === 13

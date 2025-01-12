@@ -63,15 +63,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<ArmenianDate, ArmenianCalendar, StandardArmenian12DataSet>(chr)
+        inherit CalendarFacts<ArmenianCalendar, StandardArmenian12DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.None
-
-        override __.GetDate(y, m, d) = new ArmenianDate(y, m, d);
-        override __.GetDate(y, doy) = new ArmenianDate(y, doy);
-        override __.GetDate(dayNumber) = ArmenianDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = ArmenianCalendar.MonthsInYear === 12

@@ -45,15 +45,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
+        inherit CalendarFacts<InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        override __.GetDate(y, m, d) = new InternationalFixedDate(y, m, d);
-        override __.GetDate(y, doy) = new InternationalFixedDate(y, doy);
-        override __.GetDate(dayNumber) = InternationalFixedDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = InternationalFixedCalendar.MonthsInYear === 13

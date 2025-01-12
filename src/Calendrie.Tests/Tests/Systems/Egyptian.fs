@@ -63,15 +63,11 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<EgyptianDate, EgyptianCalendar, StandardEgyptian12DataSet>(chr)
+        inherit CalendarFacts<EgyptianCalendar, StandardEgyptian12DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.None
-
-        override __.GetDate(y, m, d) = new EgyptianDate(y, m, d);
-        override __.GetDate(y, doy) = new EgyptianDate(y, doy);
-        override __.GetDate(dayNumber) = EgyptianDate.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = EgyptianCalendar.MonthsInYear === 12
@@ -116,15 +112,11 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Egyptian13Date, Egyptian13Calendar, StandardEgyptian13DataSet>(chr)
+        inherit CalendarFacts<Egyptian13Calendar, StandardEgyptian13DataSet>(chr)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.None
-
-        override __.GetDate(y, m, d) = new Egyptian13Date(y, m, d);
-        override __.GetDate(y, doy) = new Egyptian13Date(y, doy);
-        override __.GetDate(dayNumber) = Egyptian13Date.FromDayNumber(dayNumber);
 
         [<Fact>]
         static member MonthsInYear() = Egyptian13Calendar.MonthsInYear === 13
