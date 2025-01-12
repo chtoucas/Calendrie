@@ -48,33 +48,14 @@ public partial class IDateFacts<TDate, TCalendar, TDataSet> :
         // Act & Assert
         Assert.Equal(str, date.ToString());
     }
-
-    // Althought, we do not usually test static methods/props in a fact class,
-    // the situation is a bit different here since this is a static method on a
-    // __type__.
-
-    //[Fact]
-    //public void Today()
-    //{
-    //    // This test may fail if there is a change of day between the two calls
-    //    // to Today().
-    //    var today = DayNumber.Today();
-    //    // Act & Assert
-    //    Assert.Equal(today, TDate.Today().DayNumber);
-    //}
-
-    //[Theory, MemberData(nameof(DayNumberInfoData))]
-    //public void FromDayNumber(DayNumberInfo info)
-    //{
-    //    var (dayNumber, y, m, d) = info;
-    //    var date = GetDate(y, m, d);
-    //    // Act & Assert
-    //    Assert.Equal(date, TDate.FromDayNumber(dayNumber));
-    //}
 }
 
 public partial class IDateFacts<TDate, TCalendar, TDataSet> // Factories & constructors
 {
+    // Althought, we do not usually test static methods/props in a fact class,
+    // the situation is a bit different here since this is a static method on a
+    // __type__.
+
     #region Create(y, m, d)
 
     [Fact]

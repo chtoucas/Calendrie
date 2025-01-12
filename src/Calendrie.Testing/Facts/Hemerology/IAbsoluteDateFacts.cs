@@ -76,6 +76,10 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Prelude
 
 public partial class IAbsoluteDateFacts<TDate, TDataSet> // Factories
 {
+    // Althought, we do not usually test static methods/props in a fact class,
+    // the situation is a bit different here since this is a static method on a
+    // __type__.
+
     // Virtual: see the comments in MyGregorianDateFacts.
     [Fact]
     public virtual void FromDayNumber_InvalidDayNumber() =>
@@ -92,6 +96,16 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Factories
         Assert.Equal(m, date.Month);
         Assert.Equal(d, date.Day);
     }
+
+    //[Fact]
+    //public void Today()
+    //{
+    //    // This test may fail if there is a change of day between the two calls
+    //    // to Today().
+    //    var today = DayNumber.Today();
+    //    // Act & Assert
+    //    Assert.Equal(today, TDate.Today().DayNumber);
+    //}
 }
 
 public partial class IAbsoluteDateFacts<TDate, TDataSet> // Adjust the day of the week
