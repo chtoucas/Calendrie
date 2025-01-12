@@ -45,4 +45,14 @@ public sealed class SupportedYearsTester
             AssertEx.ThrowsAoorexn(argName, () => fun.Invoke(y));
         }
     }
+
+    public void TestInvalidYearTryPattern(Func<int, bool> fun)
+    {
+        ArgumentNullException.ThrowIfNull(fun);
+
+        foreach (int y in InvalidYears)
+        {
+            Assert.False(fun.Invoke(y));
+        }
+    }
 }

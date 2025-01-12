@@ -73,7 +73,7 @@ public partial class IDateFacts<TDate, TCalendar, TDataSet> :
     //}
 }
 
-public partial class IDateFacts<TDate, TCalendar, TDataSet> // Factories
+public partial class IDateFacts<TDate, TCalendar, TDataSet> // Factories & constructors
 {
     #region Create(y, m, d)
 
@@ -115,6 +115,49 @@ public partial class IDateFacts<TDate, TCalendar, TDataSet> // Factories
     }
 
     #endregion
+    #region TryCreate(y, m, d)
+
+    [Fact]
+    public void TryCreate_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYearTryPattern(y => TDate.TryCreate(y, 1, 1, out _));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void TryCreate_InvalidMonth(int y, int m) =>
+        Assert.False(TDate.TryCreate(y, m, 1, out _));
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void TryCreate_InvalidDay(int y, int m, int d) =>
+        Assert.False(TDate.TryCreate(y, m, d, out _));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void TryCreate(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        // Act
+        bool result = TDate.TryCreate(y, m, d, out var date);
+        // Assert
+        Assert.True(result);
+        Assert.Equal(y, date.Year);
+        Assert.Equal(m, date.Month);
+        Assert.Equal(d, date.Day);
+    }
+
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
+    [Theory, MemberData(nameof(DayNumberInfoData))]
+    public void TryCreate_ViaDayNumber(DayNumberInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        // Act
+        bool result = TDate.TryCreate(y, m, d, out var date);
+        // Assert
+        Assert.True(result);
+        Assert.Equal(y, date.Year);
+        Assert.Equal(m, date.Month);
+        Assert.Equal(d, date.Day);
+    }
+
+    #endregion
+
     #region Create(y, doy)
 
     [Fact]
@@ -132,6 +175,31 @@ public partial class IDateFacts<TDate, TCalendar, TDataSet> // Factories
         // Act
         var date = TDate.Create(y, doy);
         // Assert
+        Assert.Equal(y, date.Year);
+        Assert.Equal(m, date.Month);
+        Assert.Equal(d, date.Day);
+        Assert.Equal(doy, date.DayOfYear);
+    }
+
+    #endregion
+    #region TryCreate(y, doy)
+
+    [Fact]
+    public void TryCreate﹍Ordinal_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYearTryPattern(y => TDate.TryCreate(y, 1, out _));
+
+    [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
+    public void TryCreate﹍Ordinal_InvalidDayOfYear(int y, int doy) =>
+        Assert.False(TDate.TryCreate(y, doy, out _));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void TryCreate﹍Ordinal(DateInfo info)
+    {
+        var (y, m, d, doy) = info;
+        // Act
+        bool result = TDate.TryCreate(y, doy, out var date);
+        // Assert
+        Assert.True(result);
         Assert.Equal(y, date.Year);
         Assert.Equal(m, date.Month);
         Assert.Equal(d, date.Day);
