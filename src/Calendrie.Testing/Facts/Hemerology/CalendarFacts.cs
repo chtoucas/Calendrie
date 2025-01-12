@@ -31,5 +31,5 @@ public abstract partial class CalendarFacts<TCalendar, TDataSet> :
     [Fact] public abstract void PeriodicAdjustments_Prop();
 
     [Fact]
-    public void Epoch_Prop() => Assert.Equal(CalendarUT.Epoch, Epoch);
+    public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
 }

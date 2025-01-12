@@ -28,18 +28,19 @@ public abstract class UserCalendarFacts<TCalendar, TDataSet> :
 
     [Fact]
     public sealed override void Algorithm_Prop() =>
-        Assert.Equal(CalendarUT.Algorithm, CalendarUT.Scope.Schema.Algorithm);
+        Assert.Equal(CalendarUT.Scope.Schema.Algorithm, CalendarUT.Algorithm);
 
     [Fact]
     public sealed override void Family_Prop() =>
-        Assert.Equal(CalendarUT.Family, CalendarUT.Scope.Schema.Family);
+        Assert.Equal(CalendarUT.Scope.Schema.Family, CalendarUT.Family);
 
     [Fact]
     public sealed override void PeriodicAdjustments_Prop() =>
-        Assert.Equal(CalendarUT.PeriodicAdjustments, CalendarUT.Scope.Schema.PeriodicAdjustments);
+        Assert.Equal(CalendarUT.Scope.Schema.PeriodicAdjustments, CalendarUT.PeriodicAdjustments);
 
     [Fact]
-    public void ToString_ReturnsName() => Assert.Equal(CalendarUT.Name, CalendarUT.ToString());
+    public virtual void ToString_ReturnsName() =>
+        Assert.Equal(CalendarUT.ToString(), CalendarUT.Name);
 
     //
     // Characteristics
