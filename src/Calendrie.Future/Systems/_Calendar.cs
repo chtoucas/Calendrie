@@ -6,8 +6,6 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
-public partial class EgyptianCalendar { }
-
 public partial class Egyptian13Calendar // Complements
 {
     /// <summary>
@@ -16,8 +14,6 @@ public partial class Egyptian13Calendar // Complements
     /// </summary>
     public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
 }
-
-public partial class FrenchRepublicanCalendar { }
 
 public partial class FrenchRepublican13Calendar // Complements
 {
