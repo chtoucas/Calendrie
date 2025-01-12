@@ -37,26 +37,21 @@ Usage: test.ps1 [arguments]
      -NoBuild        do NOT build the test suite?
   -h|-Help           print this help then exit
 
-The default behaviour is to run the regular test plan using the configuration Debug.
-
-Test plans
-----------
+Test plans.
 - "default"   = exclude tests of low importance and slow-running tests
 - "regular"   = exclude tests of low importance
-- "most"      = the whole test suite
-- "more"      = include all tests ignored by "regular"
+- "more"      = tests ignored by "regular", but no extras unless -X is selected
+- "most"      = the whole test suite, but no extras unless -X is selected
+- "cover"     = mimic the (default) test plan used by the code coverage tool
 The difference between "default" and "regular" is really tiny.
-
-We also have a plan named "cover". It mimics the (default) test plan used by the
-code coverage tool.
 
 Of course, one can use "dotnet test" to run the whole test suite or to apply
 custom filters.
 
-Examples
---------
+Examples.
 > test.ps1 -NoBuild             # Default test plan (Debug), no build
-> test.ps1 regular -c Release   # Comprehensive test suite (Release)
+> test.ps1 regular -c Release   # Regular test plan (Release)
+> test.ps1 most -X              # Whole test suite (Debug)
 
 "@
 }

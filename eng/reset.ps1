@@ -32,6 +32,11 @@ Usage: reset.ps1 [arguments]
   -a|-All
   -h|-Help          print this help then exit
 
+Related commands.
+> dotnet restore
+> dotnet tool restore
+> dotnet list package --outdated
+
 "@
 }
 
