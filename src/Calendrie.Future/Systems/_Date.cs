@@ -51,3 +51,17 @@ public partial struct FrenchRepublican13Date : IEpagomenalDay // Complements
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
+
+public partial struct RevisedWorldDate : IBlankDay // Complements
+{
+    /// <inheritdoc />
+    public bool IsBlank
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return sch.IsBlankDay(y, m, d);
+        }
+    }
+}
