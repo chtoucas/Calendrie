@@ -25,9 +25,11 @@ public abstract partial class IAbsoluteDateFacts<TDate, TDataSet> :
     protected IAbsoluteDateFacts(Range<DayNumber> domain)
     {
         Domain = domain;
+        DomainTester = new DomainTester(domain);
     }
 
     protected Range<DayNumber> Domain { get; }
+    protected DomainTester DomainTester { get; }
 
     protected TDate MinDate => TDate.MinValue;
     protected TDate MaxDate => TDate.MaxValue;
@@ -52,10 +54,7 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Prelude
     //    // Act & Assert
     //    Assert.Equal(dayOfWeek, date.DayOfWeek);
     //}
-}
 
-public partial class IAbsoluteDateFacts<TDate, TDataSet> // Conversions
-{
     [Theory, MemberData(nameof(DayNumberInfoData))]
     public void DayNumber_Prop(DayNumberInfo info)
     {
@@ -72,6 +71,26 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Conversions
         var date = GetDate(y, m, d);
         // Act & Assert
         Assert.Equal(daysSinceEpoch, date.DaysSinceEpoch);
+    }
+}
+
+public partial class IAbsoluteDateFacts<TDate, TDataSet> // Factories
+{
+    // Virtual: see the comments in MyGregorianDateFacts.
+    [Fact]
+    public virtual void FromDayNumber_InvalidDayNumber() =>
+        DomainTester.TestInvalidDayNumber(TDate.FromDayNumber);
+
+    [Theory, MemberData(nameof(DayNumberInfoData))]
+    public void FromDayNumber(DayNumberInfo info)
+    {
+        var (dayNumber, y, m, d) = info;
+        // Act
+        var date = TDate.FromDayNumber(dayNumber);
+        // Assert
+        Assert.Equal(y, date.Year);
+        Assert.Equal(m, date.Month);
+        Assert.Equal(d, date.Day);
     }
 }
 

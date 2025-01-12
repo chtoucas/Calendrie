@@ -14,7 +14,7 @@ using Calendrie.Testing.Data;
 public abstract partial class IDateableFacts<TDate, TDataSet> :
     CalendricalDataConsumer<TDataSet>
     where TDate : IDateable
-    where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
+    where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected IDateableFacts() { }
 

@@ -10,18 +10,24 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides data-driven tests for the <see cref="IDate{TSelf}"/> type.
 /// </summary>
-public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
+public partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IAbsoluteDateFacts<TDate, TDataSet>
     where TCalendar : Calendar
     where TDate : struct, IDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected IDateFacts(TCalendar calendar) : base(GetDomain(calendar))
+    public IDateFacts(TCalendar calendar) : base(GetDomain(calendar))
     {
         Debug.Assert(calendar != null);
 
         Calendar = calendar;
+
+        var scope = calendar.Scope;
+        var supportedYears = scope.Segment.SupportedYears;
+        SupportedYearsTester = new SupportedYearsTester(supportedYears);
     }
+
+    protected SupportedYearsTester SupportedYearsTester { get; }
 
     private static Range<DayNumber> GetDomain(Calendar calendar)
     {
@@ -65,4 +71,72 @@ public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     //    // Act & Assert
     //    Assert.Equal(date, TDate.FromDayNumber(dayNumber));
     //}
+}
+
+public partial class IDateFacts<TDate, TCalendar, TDataSet> // Factories
+{
+    #region Create(y, m, d)
+
+    [Fact]
+    public void Create_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(y => TDate.Create(y, 1, 1));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void Create_InvalidMonth(int y, int m) =>
+        AssertEx.ThrowsAoorexn("month", () => TDate.Create(y, m, 1));
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void Create_InvalidDay(int y, int m, int d) =>
+        AssertEx.ThrowsAoorexn("day", () => TDate.Create(y, m, d));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Create(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        // Act
+        var date = TDate.Create(y, m, d);
+        // Assert
+        Assert.Equal(y, date.Year);
+        Assert.Equal(m, date.Month);
+        Assert.Equal(d, date.Day);
+    }
+
+    [TestExcludeFrom(TestExcludeFrom.Regular)]
+    [Theory, MemberData(nameof(DayNumberInfoData))]
+    public void Create_ViaDayNumber(DayNumberInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        // Act
+        var date = TDate.Create(y, m, d);
+        // Assert
+        Assert.Equal(y, date.Year);
+        Assert.Equal(m, date.Month);
+        Assert.Equal(d, date.Day);
+    }
+
+    #endregion
+    #region Create(y, doy)
+
+    [Fact]
+    public void Create﹍Ordinal_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(y => TDate.Create(y, 1));
+
+    [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
+    public void Create﹍Ordinal_InvalidDayOfYear(int y, int doy) =>
+        AssertEx.ThrowsAoorexn("dayOfYear", () => TDate.Create(y, doy));
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Create﹍Ordinal(DateInfo info)
+    {
+        var (y, m, d, doy) = info;
+        // Act
+        var date = TDate.Create(y, doy);
+        // Assert
+        Assert.Equal(y, date.Year);
+        Assert.Equal(m, date.Month);
+        Assert.Equal(d, date.Day);
+        Assert.Equal(doy, date.DayOfYear);
+    }
+
+    #endregion
 }
