@@ -16,7 +16,17 @@ public abstract partial class CalendarFacts<TDate, TCalendar, TDataSet> :
     where TCalendar : Calendar
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected CalendarFacts(TCalendar calendar) : base(calendar) { }
+    protected CalendarFacts(TCalendar calendar) : base(calendar)
+    {
+        var scope = calendar.Scope;
+
+        var supportedYears = scope.Segment.SupportedYears;
+        SupportedYearsTester = new SupportedYearsTester(supportedYears);
+        DomainTester = new DomainTester(scope.Domain);
+    }
+
+    protected SupportedYearsTester SupportedYearsTester { get; }
+    protected DomainTester DomainTester { get; }
 
     /// <summary>
     /// Creates a new instance of <typeparamref name="TDate"/> from the specified

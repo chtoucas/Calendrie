@@ -3,7 +3,6 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
@@ -20,14 +19,6 @@ public abstract partial class CalendarFacts<TCalendar, TDataSet> :
         ArgumentNullException.ThrowIfNull(calendar);
 
         CalendarUT = calendar;
-
-        var scope = calendar.Scope;
-        var supportedYears = scope.Segment.SupportedYears;
-        SupportedYearsTester = new SupportedYearsTester(supportedYears);
-
-        var domain = scope.Domain;
-        Domain = domain;
-        DomainTester = new DomainTester(domain);
     }
 
     /// <summary>
@@ -35,15 +26,10 @@ public abstract partial class CalendarFacts<TCalendar, TDataSet> :
     /// </summary>
     protected TCalendar CalendarUT { get; }
 
-    protected Range<DayNumber> Domain { get; }
-
-    protected SupportedYearsTester SupportedYearsTester { get; }
-    protected DomainTester DomainTester { get; }
-
     [Fact] public abstract void Algorithm_Prop();
     [Fact] public abstract void Family_Prop();
     [Fact] public abstract void PeriodicAdjustments_Prop();
 
     [Fact]
-    public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
+    public void Epoch_Prop() => Assert.Equal(CalendarUT.Epoch, Epoch);
 }

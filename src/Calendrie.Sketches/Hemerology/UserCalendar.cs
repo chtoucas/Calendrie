@@ -62,7 +62,7 @@ public abstract class UserCalendar : Calendar
         return Schema.IsLeapYear(year);
     }
 
-#if false // Not included as most calendars are regular.
+#if false // Not included as most calendars are regular; see NakedCalendar.
     /// <summary>
     /// Obtains the number of months in the specified year.
     /// <para>See also <seealso cref="IsRegular(out int)"/>.</para>

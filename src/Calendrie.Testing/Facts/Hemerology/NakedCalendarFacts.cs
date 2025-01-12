@@ -3,10 +3,9 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
+using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
-
-// TODO(fact): should derive from ICalendarTFacts, no?
 
 // Ça passe parce qu'on triche, voir GregorianBoundedBelowCalendarTests et
 // GregorianBoundedBelowCalendarTests. En toute rigueur, il faudrait créer
@@ -16,145 +15,50 @@ using Calendrie.Testing.Data;
 /// Provides facts about <see cref="NakedCalendar"/>.
 /// </summary>
 public abstract partial class NakedCalendarFacts<TCalendar, TDataSet> :
-    CalendarFacts<TCalendar, TDataSet>
+    UserCalendarFacts<TCalendar, TDataSet>
     where TCalendar : NakedCalendar
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected NakedCalendarFacts(TCalendar calendar) : base(calendar) { }
+    protected NakedCalendarFacts(TCalendar calendar) : base(calendar)
+    {
+        Debug.Assert(calendar != null);
+
+        var domain = calendar.Scope.Domain;
+        Domain = domain;
+        DomainTester = new DomainTester(domain);
+    }
+
+    protected Range<DayNumber> Domain { get; }
+    protected DomainTester DomainTester { get; }
 
     //protected IDateProvider<DateParts> DatePartsProvider => CalendarUT.DatePartsProvider;
-}
-
-public partial class NakedCalendarFacts<TCalendar, TDataSet> // Properties
-{
-    [Fact]
-    public sealed override void Algorithm_Prop() =>
-        Assert.Equal(CalendarUT.Scope.Schema.Algorithm, CalendarUT.Algorithm);
-
-    [Fact]
-    public sealed override void Family_Prop() =>
-        Assert.Equal(CalendarUT.Scope.Schema.Family, CalendarUT.Family);
-
-    [Fact]
-    public sealed override void PeriodicAdjustments_Prop() =>
-        Assert.Equal(CalendarUT.Scope.Schema.PeriodicAdjustments, CalendarUT.PeriodicAdjustments);
-
-    [Fact]
-    public void ToString_ReturnsName() => Assert.Equal(CalendarUT.Name, CalendarUT.ToString());
 }
 
 public partial class NakedCalendarFacts<TCalendar, TDataSet> // Characteristics
 {
     //
-    // Characteristics
-    //
-
-    //[Fact] public abstract void IsRegular();
-
-    //
     // Year infos
     //
 
-    #region IsLeapYear()
-
-    [Fact]
-    public void IsLeapYear_InvalidYear() =>
-        SupportedYearsTester.TestInvalidYear(CalendarUT.IsLeapYear);
-
-    [Theory, MemberData(nameof(YearInfoData))]
-    public void IsLeapYear(YearInfo info)
-    {
-        // Act
-        bool actual = CalendarUT.IsLeapYear(info.Year);
-        // Assert
-        Assert.Equal(info.IsLeap, actual);
-    }
-
-    #endregion
-
     #region CountMonthsInYear()
 
-    //[Fact]
-    //public void CountMonthsInYear_InvalidYear() =>
-    //    SupportedYearsTester.TestInvalidYear(CalendarUT.CountMonthsInYear);
-
-    //[Theory, MemberData(nameof(YearInfoData))]
-    //public void CountMonthsInYear(YearInfo info)
-    //{
-    //    // Act
-    //    int actual = CalendarUT.CountMonthsInYear(info.Year);
-    //    // Assert
-    //    Assert.Equal(info.MonthsInYear, actual);
-    //}
-
-    #endregion
-    #region CountDaysInYear()
-
     [Fact]
-    public void CountDaysInYear_InvalidYear() =>
-        SupportedYearsTester.TestInvalidYear(CalendarUT.CountDaysInYear);
+    public void CountMonthsInYear_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(CalendarUT.CountMonthsInYear);
 
     [Theory, MemberData(nameof(YearInfoData))]
-    public void CountDaysInYear(YearInfo info)
+    public void CountMonthsInYear(YearInfo info)
     {
         // Act
-        int actual = CalendarUT.CountDaysInYear(info.Year);
+        int actual = CalendarUT.CountMonthsInYear(info.Year);
         // Assert
-        Assert.Equal(info.DaysInYear, actual);
+        Assert.Equal(info.MonthsInYear, actual);
     }
 
     #endregion
 
     //
-    // Month infos
-    //
-
-    #region IsIntercalaryMonth()
-
-    [Fact]
-    public void IsIntercalaryMonth_InvalidYear() =>
-        SupportedYearsTester.TestInvalidYear(y => CalendarUT.IsIntercalaryMonth(y, 1));
-
-    [Theory, MemberData(nameof(InvalidMonthFieldData))]
-    public void IsIntercalaryMonth_InvalidMonth(int y, int m) =>
-        AssertEx.ThrowsAoorexn("month", () => CalendarUT.IsIntercalaryMonth(y, m));
-
-    [Theory, MemberData(nameof(MonthInfoData))]
-    public void IsIntercalaryMonth(MonthInfo info)
-    {
-        var (y, m) = info.Yemo;
-        // Act
-        bool actual = CalendarUT.IsIntercalaryMonth(y, m);
-        // Assert
-        Assert.Equal(info.IsIntercalary, actual);
-    }
-
-    #endregion
-
-    #region CountDaysInMonth()
-
-    [Fact]
-    public void CountDaysInMonth_InvalidYear() =>
-        SupportedYearsTester.TestInvalidYear(y => CalendarUT.CountDaysInMonth(y, 1));
-
-    [Theory, MemberData(nameof(InvalidMonthFieldData))]
-    public void CountDaysInMonth_InvalidMonth(int y, int m) =>
-        AssertEx.ThrowsAoorexn("month", () => CalendarUT.CountDaysInMonth(y, m));
-
-    [Theory, MemberData(nameof(MonthInfoData))]
-    public void CountDaysInMonth(MonthInfo info)
-    {
-        var (y, m) = info.Yemo;
-        // Act
-        int actual = CalendarUT.CountDaysInMonth(y, m);
-        // Assert
-        Assert.Equal(info.DaysInMonth, actual);
-    }
-
-    #endregion
-
-    //
-    // Counting
+    // Day infos
     //
 
     #region IsIntercalaryDay()
@@ -358,7 +262,7 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // Conversions
     #endregion
 }
 
-public partial class NakedCalendarFacts<TCalendar, TDataSet> // IDateProvider<DayNumber>
+public partial class IDateProviderFacts<TDate, TCalendar, TDataSet> // IDateProvider<DayNumber>
 {
 #if false
     #region GetDaysInYear(y)

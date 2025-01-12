@@ -28,6 +28,18 @@ public abstract class NakedCalendar : UserCalendar
     protected PartsAdapter PartsAdapter { get; }
 
     //
+    // Year infos
+    //
+
+    /// <summary>
+    /// Obtains the number of months in the specified year.
+    /// <para>See also <seealso cref="UserCalendar.IsRegular(out int)"/>.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
+    [Pure] public abstract int CountMonthsInYear(int year);
+
+    //
     // Day infos
     //
 

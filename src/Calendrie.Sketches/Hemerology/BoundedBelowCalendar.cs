@@ -57,14 +57,9 @@ public class BoundedBelowCalendar : NakedCalendar
     // > if (year == MinYear && month == MinYemoda.Month) { ... }
     // car on n'a justement pas validé les paramètres.
 
-    /// <summary>
-    /// Obtains the number of months in the specified year.
-    /// <para>See also <seealso cref="UserCalendar.IsRegular(out int)"/>.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
+    /// <inheritdoc/>
     [Pure]
-    public int CountMonthsInYear(int year)
+    public sealed override int CountMonthsInYear(int year)
     {
         Scope.ValidateYear(year);
         return year == MinDateParts.Year
