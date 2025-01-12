@@ -13,11 +13,11 @@ open Calendrie.Testing.Facts.Hemerology
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type GregorianTests() =
-    inherit CalendarScopeFacts<GregorianScope, GregorianDataSet, GJScopeData>(
+    inherit CalendarScopeFacts<GregorianScope, GregorianDataSet, GJScopeDataSet>(
         new GregorianScope(new GregorianSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type JulianTests() =
-    inherit CalendarScopeFacts<JulianScope, JulianDataSet, GJScopeData>(
+    inherit CalendarScopeFacts<JulianScope, JulianDataSet, GJScopeDataSet>(
         new JulianScope(new JulianSchema()))

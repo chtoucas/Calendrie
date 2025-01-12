@@ -58,14 +58,17 @@ public static class BoundedBelowCalendarTests
 public class GregorianBoundedBelowCalendarTests :
     NakedCalendarFacts<BoundedBelowCalendar, UnboundedGregorianDataSet>
 {
+    // Datasets are tailored to work with a range of years, not a range of
+    // days, therefore these tests are only adapted to MinMaxYearCalendar.
+    //
+    // On triche un peu, la date de début a été choisie de telle sorte que
+    // les tests marchent... (cf. GregorianData).
     private const int FirstYear = -123_456;
     private const int FirstMonth = 4;
     private const int FirstDay = 5;
 
     public GregorianBoundedBelowCalendarTests() : base(MakeCalendar()) { }
 
-    // On triche un peu, la date de début a été choisie de telle sorte que
-    // les tests marchent... (cf. GregorianData).
     private static BoundedBelowCalendar MakeCalendar() =>
         new(
             "Gregorian",
@@ -81,6 +84,13 @@ public class GregorianBoundedBelowCalendarTests :
         var seg = CalendarUT.Scope.Segment;
         // Act
         Assert.Equal(parts, seg.MinMaxDateParts.LowerValue);
+    }
+
+    [Fact]
+    public override void IsRegular()
+    {
+        Assert.True(CalendarUT.IsRegular(out int monthsIsYear));
+        Assert.Equal(monthsIsYear, 12);
     }
 
     //[Fact]

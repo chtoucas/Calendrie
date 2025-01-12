@@ -5,7 +5,11 @@ namespace Calendrie.Testing.Data.Scopes;
 
 using Calendrie.Systems;
 
-public sealed class StandardScopeData : IMinMaxYearScopeData
+/// <summary>
+/// Provides an implementation of <see cref="IScopeDataSet"/> for the
+/// <see cref="StandardScope"/> type.
+/// </summary>
+public sealed class StandardScopeDataSet : IScopeDataSet
 {
     public static int MinYear => StandardScope.MinYear;
     public static int MaxYear => StandardScope.MaxYear;

@@ -7,15 +7,22 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Data.Scopes;
 
+// Datasets are tailored to work with a range of years, not a range of
+// days, therefore one has to be careful when choosing the dataset, it must be
+// tailored to work with the scope under test. For instance, this is what we do
+// with the Standard...DataSet.
+// Another way to do it would be to add a filter at the start of a test,
+// something like SkipMonth() or SkipDate() but it feels wrong. For instance,
+// the number of actual tests would be hard to get.
+
 /// <summary>
-/// Provides data-driven tests for <see cref="CalendarScope"/> when the scope
-/// defines a range of years, not a range of days.
+/// Provides data-driven tests for the <see cref="CalendarScope"/> type.
 /// </summary>
-public class CalendarScopeFacts<TScope, TDataSet, TMinMaxYearScopeData> :
+public class CalendarScopeFacts<TScope, TDataSet, TScopeDataSet> :
     CalendricalDataConsumer<TDataSet>
     where TScope : CalendarScope
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
-    where TMinMaxYearScopeData : IMinMaxYearScopeData
+    where TScopeDataSet : IScopeDataSet
 {
     public CalendarScopeFacts(TScope scope)
     {
@@ -23,18 +30,15 @@ public class CalendarScopeFacts<TScope, TDataSet, TMinMaxYearScopeData> :
 
         ScopeUT = scope;
 
-        // Datasets only work for a range of years, not a range of days.
-        if (!scope.Segment.IsComplete) throw new ArgumentException(null, nameof(scope));
-
 #if DEBUG
         var (minYear, maxYear) = scope.Segment.SupportedYears.Endpoints;
-        Debug.Assert(minYear == TMinMaxYearScopeData.MinYear);
-        Debug.Assert(maxYear == TMinMaxYearScopeData.MaxYear);
+        Debug.Assert(minYear == TScopeDataSet.MinYear);
+        Debug.Assert(maxYear == TScopeDataSet.MaxYear);
 #endif
     }
 
-    public static TheoryData<int> InvalidYearData => TMinMaxYearScopeData.InvalidYearData;
-    public static TheoryData<int> ValidYearData => TMinMaxYearScopeData.ValidYearData;
+    public static TheoryData<int> InvalidYearData => TScopeDataSet.InvalidYearData;
+    public static TheoryData<int> ValidYearData => TScopeDataSet.ValidYearData;
 
     /// <summary>
     /// Gets the scope under test.

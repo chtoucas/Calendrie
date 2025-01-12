@@ -25,7 +25,7 @@ let private scopeOf(sch) = new StandardScope(sch, DayZero.OldStyle)
 // We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type CivilTests() =
-    inherit CalendarScopeFacts<CivilScope, StandardGregorianDataSet, StandardScopeData>(
+    inherit CalendarScopeFacts<CivilScope, StandardGregorianDataSet, StandardScopeDataSet>(
         new CivilScope(new CivilSchema()))
 
 [<Sealed>]

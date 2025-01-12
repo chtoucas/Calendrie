@@ -3,13 +3,10 @@
 
 namespace Calendrie.Testing.Data.Scopes;
 
-using Calendrie.Systems;
-
-public sealed class GJScopeData : IMinMaxYearScopeData
+public sealed class MinMaxYearScopeDataSet : IScopeDataSet
 {
-    // NB: GregorianScope and JulianScope use the same range of years.
-    public static int MinYear => GregorianScope.MinYear;
-    public static int MaxYear => GregorianScope.MaxYear;
+    public static int MinYear => -5;
+    public static int MaxYear => 1234;
 
     public static TheoryData<int> InvalidYearData =>
     [

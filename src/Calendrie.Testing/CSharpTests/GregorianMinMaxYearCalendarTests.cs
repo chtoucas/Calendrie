@@ -11,8 +11,6 @@ using Calendrie.Testing.Data.Bounded;
 using Calendrie.Testing.Data.Unbounded;
 using Calendrie.Testing.Facts.Hemerology;
 
-// TODO(fact): à améliorer. À refaire en F#. Idem pour BoundedBelowCalendarTests.
-
 public class GregorianMinMaxYearCalendarDataSet :
     MinMaxYearCalendarDataSet<UnboundedGregorianDataSet>,
     ISingleton<GregorianMinMaxYearCalendarDataSet>
@@ -52,13 +50,16 @@ public class GregorianMinMaxYearCalendarTests :
                 Range.Create(FirstYear, LastYear)));
 
     [Fact]
-    public void SupportedYears_Prop()
+    public void MinYear_Prop() => Assert.Equal(FirstYear, CalendarUT.MinYear);
+
+    [Fact]
+    public void MaxYear_Prop() => Assert.Equal(LastYear, CalendarUT.MaxYear);
+
+    [Fact]
+    public override void IsRegular()
     {
-        // Act
-        var supportedYears = CalendarUT.Scope.Segment.SupportedYears;
-        // Assert
-        Assert.Equal(FirstYear, supportedYears.Min);
-        Assert.Equal(LastYear, supportedYears.Max);
+        Assert.True(CalendarUT.IsRegular(out int monthsIsYear));
+        Assert.Equal(monthsIsYear, 12);
     }
 }
 

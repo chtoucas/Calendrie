@@ -3,7 +3,7 @@
 
 namespace Calendrie.Testing.Data.Scopes;
 
-public interface IMinMaxYearScopeData
+public interface IScopeDataSet
 {
     /// <summary>
     /// Gets the earliest supported year.

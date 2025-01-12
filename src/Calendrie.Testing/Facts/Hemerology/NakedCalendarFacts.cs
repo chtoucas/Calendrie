@@ -7,12 +7,10 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// Ça passe parce qu'on triche, voir GregorianBoundedBelowCalendarTests et
-// GregorianBoundedBelowCalendarTests. En toute rigueur, il faudrait créer
-// (et utiliser) des méthodes SkipMonth() et SkipDate().
+// See comments in CalendarScopeFacts.
 
 /// <summary>
-/// Provides facts about <see cref="NakedCalendar"/>.
+/// Provides data-driven tests for the <see cref="NakedCalendar"/> type.
 /// </summary>
 public abstract partial class NakedCalendarFacts<TCalendar, TDataSet> :
     UserCalendarFacts<TCalendar, TDataSet>
@@ -23,15 +21,14 @@ public abstract partial class NakedCalendarFacts<TCalendar, TDataSet> :
     {
         Debug.Assert(calendar != null);
 
-        var domain = calendar.Scope.Domain;
+        var scope = calendar.Scope;
+        var domain = scope.Domain;
         Domain = domain;
         DomainTester = new DomainTester(domain);
     }
 
     protected Range<DayNumber> Domain { get; }
     protected DomainTester DomainTester { get; }
-
-    //protected IDateProvider<DateParts> DatePartsProvider => CalendarUT.DatePartsProvider;
 }
 
 public partial class NakedCalendarFacts<TCalendar, TDataSet> // Characteristics
@@ -262,9 +259,10 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // Conversions
     #endregion
 }
 
-public partial class IDateProviderFacts<TDate, TCalendar, TDataSet> // IDateProvider<DayNumber>
-{
 #if false
+
+public partial class NakedCalendarFacts<TCalendar, TDataSet> // IDateProvider<DayNumber>
+{
     #region GetDaysInYear(y)
 
     [Fact]
@@ -393,13 +391,10 @@ public partial class IDateProviderFacts<TDate, TCalendar, TDataSet> // IDateProv
     }
 
     #endregion
-#endif
 }
 
 public partial class NakedCalendarFacts<TCalendar, TDataSet> // DatePartsProvider
 {
-#if false
-
     #region DatePartsProvider.GetStartOfYear(y)
 
     [Fact]
@@ -473,14 +468,10 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // DatePartsProvide
     }
 
     #endregion
-
-#endif
 }
 
 public partial class NakedCalendarFacts<TCalendar, TDataSet> // Arithmetic
 {
-#if false // TODO(fact): move this to DomainExtensionsFacts.
-
     #region AddDays(dayNumber, days)
 
     [Fact]
@@ -554,6 +545,6 @@ public partial class NakedCalendarFacts<TCalendar, TDataSet> // Arithmetic
     }
 
     #endregion
+}
 
 #endif
-}

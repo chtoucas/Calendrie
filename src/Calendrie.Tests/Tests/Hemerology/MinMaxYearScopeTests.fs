@@ -150,8 +150,8 @@ module Bundles =
     let private scope = MinMaxYearScope.Create(
         new GregorianSchema(),
         DayZero.NewStyle,
-        Range.Create(MinMaxYearScopeData.MinYear, MinMaxYearScopeData.MaxYear))
+        Range.Create(MinMaxYearScopeDataSet.MinYear, MinMaxYearScopeDataSet.MaxYear))
 
     [<Sealed>]
     type GregorianTests() =
-        inherit CalendarScopeFacts<MinMaxYearScope, GregorianDataSet, MinMaxYearScopeData>(scope)
+        inherit CalendarScopeFacts<MinMaxYearScope, GregorianDataSet, MinMaxYearScopeDataSet>(scope)
