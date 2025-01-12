@@ -57,3 +57,105 @@ module Prelude =
         FrenchRepublican13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+module Bundles =
+    let private chr = FrenchRepublicanCalendar.Instance
+
+    [<Sealed>]
+    type CalendaTests() =
+        inherit CalendarFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
+
+        override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
+        override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
+        override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
+
+        override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d);
+        override __.GetDate(y, doy) = new FrenchRepublicanDate(y, doy);
+        override __.GetDate(dayNumber) = FrenchRepublicanDate.FromDayNumber(dayNumber);
+
+        [<Fact>]
+        static member MonthsInYear() = FrenchRepublicanCalendar.MonthsInYear === 12
+
+        [<Fact>]
+        static member MinYear() = FrenchRepublicanCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = FrenchRepublicanCalendar.MaxYear === StandardScope.MaxYear
+
+    [<Sealed>]
+    type DateFacts() =
+        inherit IDateFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
+
+        override __.MinDate = FrenchRepublicanDate.MinValue
+        override __.MaxDate = FrenchRepublicanDate.MaxValue
+
+        override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
+
+        [<Fact>]
+        static member Calendar_Prop() = FrenchRepublicanDate.Calendar |> isnotnull
+
+    [<Sealed>]
+    type DateAdjusterFacts() =
+        inherit DateAdjusterFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>(FrenchRepublicanCalendar.Instance)
+
+        override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
+        override __.GetDate(y, doy) = new FrenchRepublicanDate(y, doy)
+
+    [<Sealed>]
+    type EpagomenalDateFacts() =
+        inherit IEpagomenalDayFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
+
+        override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
+
+module Bundles13 =
+    let private chr = FrenchRepublican13Calendar.Instance
+
+    [<Sealed>]
+    type CalendaTests() =
+        inherit CalendarFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
+
+        override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
+        override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
+        override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
+
+        override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d);
+        override __.GetDate(y, doy) = new FrenchRepublican13Date(y, doy);
+        override __.GetDate(dayNumber) = FrenchRepublican13Date.FromDayNumber(dayNumber);
+
+        [<Fact>]
+        static member MonthsInYear() = FrenchRepublican13Calendar.MonthsInYear === 13
+
+        [<Fact>]
+        static member VirtualMonth() = FrenchRepublican13Calendar.VirtualMonth === 13
+
+        [<Fact>]
+        static member MinYear() = FrenchRepublican13Calendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = FrenchRepublican13Calendar.MaxYear === StandardScope.MaxYear
+
+    [<Sealed>]
+    type DateFacts() =
+        inherit IDateFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
+
+        override __.MinDate = FrenchRepublican13Date.MinValue
+        override __.MaxDate = FrenchRepublican13Date.MaxValue
+
+        override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d)
+
+        [<Fact>]
+        static member Calendar_Prop() = FrenchRepublican13Date.Calendar |> isnotnull
+
+    [<Sealed>]
+    type DateAdjusterFacts() =
+        inherit DateAdjusterFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>(FrenchRepublican13Calendar.Instance)
+
+        override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d)
+        override __.GetDate(y, doy) = new FrenchRepublican13Date(y, doy)
+
+    [<Sealed>]
+    type EpagomenalDateFacts() =
+        inherit IEpagomenalDayFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+
+        override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d)
+
+

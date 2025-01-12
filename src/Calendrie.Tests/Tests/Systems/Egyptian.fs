@@ -57,3 +57,103 @@ module Prelude =
         Egyptian13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+module Bundles =
+    let private chr = EgyptianCalendar.Instance
+
+    [<Sealed>]
+    type CalendaTests() =
+        inherit CalendarFacts<EgyptianDate, EgyptianCalendar, StandardEgyptian12DataSet>(chr)
+
+        override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
+        override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
+        override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.None
+
+        override __.GetDate(y, m, d) = new EgyptianDate(y, m, d);
+        override __.GetDate(y, doy) = new EgyptianDate(y, doy);
+        override __.GetDate(dayNumber) = EgyptianDate.FromDayNumber(dayNumber);
+
+        [<Fact>]
+        static member MonthsInYear() = EgyptianCalendar.MonthsInYear === 12
+
+        [<Fact>]
+        static member MinYear() = EgyptianCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = EgyptianCalendar.MaxYear === StandardScope.MaxYear
+
+    [<Sealed>]
+    type DateFacts() =
+        inherit IDateFacts<EgyptianDate, EgyptianCalendar, StandardEgyptian12DataSet>(chr)
+
+        override __.MinDate = EgyptianDate.MinValue
+        override __.MaxDate = EgyptianDate.MaxValue
+
+        override __.GetDate(y, m, d) = new EgyptianDate(y, m, d)
+
+        [<Fact>]
+        static member Calendar_Prop() = EgyptianDate.Calendar |> isnotnull
+
+    [<Sealed>]
+    type DateAdjusterFacts() =
+        inherit DateAdjusterFacts<EgyptianDate, StandardEgyptian12DataSet>(EgyptianCalendar.Instance)
+
+        override __.GetDate(y, m, d) = new EgyptianDate(y, m, d)
+        override __.GetDate(y, doy) = new EgyptianDate(y, doy)
+
+    [<Sealed>]
+    type EpagomenalDateFacts() =
+        inherit IEpagomenalDayFacts<EgyptianDate, StandardEgyptian12DataSet>()
+
+        override __.GetDate(y, m, d) = new EgyptianDate(y, m, d)
+
+module Bundles13 =
+    let private chr = Egyptian13Calendar.Instance
+
+    [<Sealed>]
+    type CalendaTests() =
+        inherit CalendarFacts<Egyptian13Date, Egyptian13Calendar, StandardEgyptian13DataSet>(chr)
+
+        override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
+        override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
+        override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.None
+
+        override __.GetDate(y, m, d) = new Egyptian13Date(y, m, d);
+        override __.GetDate(y, doy) = new Egyptian13Date(y, doy);
+        override __.GetDate(dayNumber) = Egyptian13Date.FromDayNumber(dayNumber);
+
+        [<Fact>]
+        static member MonthsInYear() = Egyptian13Calendar.MonthsInYear === 13
+
+        [<Fact>]
+        static member VirtualMonth() = Egyptian13Calendar.VirtualMonth === 13
+
+        [<Fact>]
+        static member MinYear() = Egyptian13Calendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = Egyptian13Calendar.MaxYear === StandardScope.MaxYear
+
+    [<Sealed>]
+    type DateFacts() =
+        inherit IDateFacts<Egyptian13Date, Egyptian13Calendar, StandardEgyptian13DataSet>(chr)
+
+        override __.MinDate = Egyptian13Date.MinValue
+        override __.MaxDate = Egyptian13Date.MaxValue
+
+        override __.GetDate(y, m, d) = new Egyptian13Date(y, m, d)
+
+        [<Fact>]
+        static member Calendar_Prop() = Egyptian13Date.Calendar |> isnotnull
+
+    [<Sealed>]
+    type DateAdjusterFacts() =
+        inherit DateAdjusterFacts<Egyptian13Date, StandardEgyptian13DataSet>(Egyptian13Calendar.Instance)
+
+        override __.GetDate(y, m, d) = new Egyptian13Date(y, m, d)
+        override __.GetDate(y, doy) = new Egyptian13Date(y, doy)
+
+    [<Sealed>]
+    type EpagomenalDateFacts() =
+        inherit IEpagomenalDayFacts<Egyptian13Date, StandardEgyptian13DataSet>()
+
+        override __.GetDate(y, m, d) = new Egyptian13Date(y, m, d)

@@ -23,7 +23,7 @@ let private scope = MinMaxYearScope.Create(
     Range.Create(MinMaxYearScopeFacts.MinYear, MinMaxYearScopeFacts.MaxYear))
 
 [<Sealed>]
-type CivilTests() =
+type GregorianTests() =
     inherit MinMaxYearScopeFacts<GregorianDataSet>(scope)
 
 module Factories =

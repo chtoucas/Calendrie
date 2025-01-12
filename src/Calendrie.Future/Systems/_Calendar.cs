@@ -6,17 +6,27 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
-[ExcludeFromCodeCoverage]
 public partial class EgyptianCalendar { }
 
-[ExcludeFromCodeCoverage]
-public partial class Egyptian13Calendar { }
+public partial class Egyptian13Calendar // Complements
+{
+    /// <summary>
+    /// Represents the virtual month number.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
+}
 
-[ExcludeFromCodeCoverage]
 public partial class FrenchRepublicanCalendar { }
 
-[ExcludeFromCodeCoverage]
-public partial class FrenchRepublican13Calendar { }
+public partial class FrenchRepublican13Calendar // Complements
+{
+    /// <summary>
+    /// Represents the virtual month number.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = FrenchRepublican13Schema.VirtualMonth;
+}
 
 [ExcludeFromCodeCoverage]
 public partial class InternationalFixedCalendar { }
