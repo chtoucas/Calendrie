@@ -105,8 +105,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)
 
-        override __.GetDate(y, m, d) = new GregorianDate(y, m, d)
-
         [<Fact>]
         member x.ToString_InvariantCulture2 () =
             let date = x.GetDate(999_999, 12, 31);

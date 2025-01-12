@@ -88,8 +88,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<WorldDate, WorldCalendar, StandardWorldDataSet>(chr)
 
-        override __.GetDate(y, m, d) = new WorldDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = WorldDate.Calendar |> isnotnull
 

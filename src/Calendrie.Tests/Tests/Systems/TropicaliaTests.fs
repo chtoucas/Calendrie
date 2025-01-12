@@ -66,8 +66,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<TropicaliaDate, TropicaliaCalendar, StandardTropicaliaDataSet>(chr)
 
-        override __.GetDate(y, m, d) = new TropicaliaDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = TropicaliaDate.Calendar |> isnotnull
 

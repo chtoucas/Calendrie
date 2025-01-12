@@ -65,8 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<PositivistDate, PositivistCalendar, StandardPositivistDataSet>(chr)
 
-        override __.GetDate(y, m, d) = new PositivistDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = PositivistDate.Calendar |> isnotnull
 

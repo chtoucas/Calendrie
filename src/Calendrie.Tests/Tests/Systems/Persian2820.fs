@@ -65,8 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<Persian2820Date, Persian2820Calendar, StandardPersian2820DataSet>(chr)
 
-        override __.GetDate(y, m, d) = new Persian2820Date(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = Persian2820Date.Calendar |> isnotnull
 

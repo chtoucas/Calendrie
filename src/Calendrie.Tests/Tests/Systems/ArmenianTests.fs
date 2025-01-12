@@ -83,8 +83,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<ArmenianDate, ArmenianCalendar, StandardArmenian12DataSet>(chr)
 
-        override __.GetDate(y, m, d) = new ArmenianDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = ArmenianDate.Calendar |> isnotnull
 
@@ -136,8 +134,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Armenian13Date, Armenian13Calendar, StandardArmenian13DataSet>(chr)
-
-        override __.GetDate(y, m, d) = new Armenian13Date(y, m, d)
 
         [<Fact>]
         static member Calendar_Prop() = Armenian13Date.Calendar |> isnotnull

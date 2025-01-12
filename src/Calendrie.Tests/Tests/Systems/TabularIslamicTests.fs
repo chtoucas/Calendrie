@@ -65,8 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<TabularIslamicDate, TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)
 
-        override __.GetDate(y, m, d) = new TabularIslamicDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = TabularIslamicDate.Calendar |> isnotnull
 

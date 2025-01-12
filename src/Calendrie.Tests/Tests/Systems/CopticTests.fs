@@ -82,8 +82,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
 
-        override __.GetDate(y, m, d) = new CopticDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = CopticDate.Calendar |> isnotnull
 
@@ -130,8 +128,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>(chr)
-
-        override __.GetDate(y, m, d) = new Coptic13Date(y, m, d)
 
         [<Fact>]
         static member Calendar_Prop() = Coptic13Date.Calendar |> isnotnull

@@ -3,6 +3,7 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
+using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
@@ -12,7 +13,7 @@ using Calendrie.Testing.Data;
 public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IAbsoluteDateFacts<TDate, TDataSet>
     where TCalendar : Calendar
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>
+    where TDate : struct, IDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected IDateFacts(TCalendar calendar) : base(GetDomain(calendar))
@@ -22,7 +23,16 @@ public abstract partial class IDateFacts<TDate, TCalendar, TDataSet> :
         Calendar = calendar;
     }
 
+    private static Range<DayNumber> GetDomain(Calendar calendar)
+    {
+        ArgumentNullException.ThrowIfNull(calendar);
+
+        return calendar.Scope.Domain;
+    }
+
     public TCalendar Calendar { get; }
+
+    protected sealed override TDate GetDate(int y, int m, int d) => TDate.Create(y, m, d);
 
     [Fact]
     public void ToString_InvariantCulture()

@@ -65,8 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
 
-        override __.GetDate(y, m, d) = new InternationalFixedDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = InternationalFixedDate.Calendar |> isnotnull
 

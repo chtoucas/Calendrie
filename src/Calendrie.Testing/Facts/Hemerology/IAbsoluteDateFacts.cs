@@ -15,6 +15,7 @@ using Calendrie.Testing.Data;
 
 /// <summary>
 /// Provides data-driven tests for the <see cref="IAbsoluteDate{TSelf}"/> type.
+/// <para>The target type MUST also be of the <see cref="IDateable"/> type.</para>
 /// </summary>
 public abstract partial class IAbsoluteDateFacts<TDate, TDataSet> :
     IDateableFacts<TDate, TDataSet>
@@ -30,14 +31,6 @@ public abstract partial class IAbsoluteDateFacts<TDate, TDataSet> :
 
     protected TDate MinDate => TDate.MinValue;
     protected TDate MaxDate => TDate.MaxValue;
-
-    // Helper for derived ctor's.
-    protected static Range<DayNumber> GetDomain(Calendar calendar)
-    {
-        ArgumentNullException.ThrowIfNull(calendar);
-
-        return calendar.Scope.Domain;
-    }
 
     protected TDate GetDate(Yemoda ymd)
     {

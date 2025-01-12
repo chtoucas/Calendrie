@@ -65,8 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<PaxDate, PaxCalendar, StandardPaxDataSet>(chr)
 
-        override __.GetDate(y, m, d) = new PaxDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = PaxDate.Calendar |> isnotnull
 

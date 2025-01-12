@@ -83,8 +83,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
 
-        override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
-
         [<Fact>]
         static member Calendar_Prop() = FrenchRepublicanDate.Calendar |> isnotnull
 
@@ -131,8 +129,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
-
-        override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d)
 
         [<Fact>]
         static member Calendar_Prop() = FrenchRepublican13Date.Calendar |> isnotnull
