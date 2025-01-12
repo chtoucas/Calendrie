@@ -8,8 +8,8 @@ using Calendrie.Testing.Data;
 using Calendrie.Testing.Data.Scopes;
 
 /// <summary>
-/// Provides data-driven tests for <see cref="CalendarScope"/> for a range of
-/// years, not a range of days.
+/// Provides data-driven tests for <see cref="CalendarScope"/> when the scope
+/// defines a range of years, not a range of days.
 /// </summary>
 public class CalendarScopeFacts<TScope, TDataSet, TMinMaxYearScopeData> :
     CalendricalDataConsumer<TDataSet>

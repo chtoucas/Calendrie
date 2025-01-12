@@ -18,15 +18,6 @@ open Xunit
 
 // See also CalendricalSegmentTests.
 
-let private scope = MinMaxYearScope.Create(
-    new GregorianSchema(),
-    DayZero.NewStyle,
-    Range.Create(MinMaxYearScopeData.MinYear, MinMaxYearScopeData.MaxYear))
-
-[<Sealed>]
-type GregorianTests() =
-    inherit CalendarScopeFacts<MinMaxYearScope, GregorianDataSet, MinMaxYearScopeData>(scope)
-
 module Factories =
     [<Fact>]
     let ``Create() throws when "schema" is null`` () =
@@ -154,3 +145,13 @@ module Factories =
 
         scope.Epoch === epoch
         scope.Segment ==& seg
+
+module Bundles =
+    let private scope = MinMaxYearScope.Create(
+        new GregorianSchema(),
+        DayZero.NewStyle,
+        Range.Create(MinMaxYearScopeData.MinYear, MinMaxYearScopeData.MaxYear))
+
+    [<Sealed>]
+    type GregorianTests() =
+        inherit CalendarScopeFacts<MinMaxYearScope, GregorianDataSet, MinMaxYearScopeData>(scope)
