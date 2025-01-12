@@ -198,12 +198,12 @@ public partial class MyGregorianCalendar // Date helpers
         return new(daysSinceEpoch);
     }
 
-    internal MyGregorianDate AdjustDayOfMonth(MyGregorianDate date, int newDayOfMonth)
+    internal MyGregorianDate AdjustDayOfMonth(MyGregorianDate date, int newDay)
     {
         var (y, m, _) = date;
-        PreValidator.ValidateDayOfMonth(y, m, newDayOfMonth, nameof(newDayOfMonth));
+        PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDayOfMonth);
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(y, m, newDay);
         return new(daysSinceEpoch);
     }
 

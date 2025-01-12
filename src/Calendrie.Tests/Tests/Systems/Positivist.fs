@@ -63,10 +63,3 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<PositivistDate, StandardPositivistDataSet>()
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<PositivistDate, StandardPositivistDataSet>(PositivistCalendar.Instance)
-
-

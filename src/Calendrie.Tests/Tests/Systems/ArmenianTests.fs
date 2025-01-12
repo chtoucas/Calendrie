@@ -84,11 +84,6 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<ArmenianDate, StandardArmenian12DataSet>(ArmenianCalendar.Instance)
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<ArmenianDate, StandardArmenian12DataSet>()
 
@@ -123,11 +118,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Armenian13Date, StandardArmenian13DataSet>()
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<Armenian13Date, StandardArmenian13DataSet>(Armenian13Calendar.Instance)
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

@@ -86,8 +86,3 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<WorldDate, StandardWorldDataSet>()
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<WorldDate, StandardWorldDataSet>(chr)

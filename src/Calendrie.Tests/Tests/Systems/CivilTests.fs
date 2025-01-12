@@ -187,10 +187,6 @@ module Bundles =
         inherit IDateFacts<CivilDate, StandardGregorianDataSet>()
 
     [<Sealed>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<CivilDate, StandardGregorianDataSet>(CivilCalendar.Instance)
-
-    [<Sealed>]
     type DayOfWeekFacts() =
         inherit IDateDayOfWeekFacts<CivilDate, StandardGregorianDataSet>()
 

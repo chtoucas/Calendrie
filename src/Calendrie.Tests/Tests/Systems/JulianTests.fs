@@ -100,7 +100,3 @@ module Bundles =
         member x.ToString_InvariantCulture4 () =
             let date = x.GetDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Julian)"
-
-    [<Sealed>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<JulianDate, UnboundedJulianDataSet>(JulianCalendar.Instance)

@@ -9,7 +9,6 @@ open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
 
 open Samples
-open Xunit
 
 // Test IDateable and IAbsoluteDate default implementation methods.
 

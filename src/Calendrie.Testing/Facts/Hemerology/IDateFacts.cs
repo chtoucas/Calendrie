@@ -180,3 +180,82 @@ public partial class IDateFacts<TDate, TDataSet> // Factories & constructors
 
     #endregion
 }
+
+public partial class IDateFacts<TDate, TDataSet> // Adjustments
+{
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void WithYear_InvalidYear(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var date = TDate.Create(y, m, d);
+        foreach (int invalidYear in SupportedYearsTester.InvalidYears)
+        {
+            // Act & Assert
+            AssertEx.ThrowsAoorexn("newYear", () => date.WithYear(invalidYear));
+        }
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void WithYear(YearInfo info)
+    {
+        int y = info.Year;
+        var date = TDate.Create(1, 1, 1);
+        var exp = TDate.Create(y, 1, 1);
+        // Act & Assert
+        Assert.Equal(exp, date.WithYear(y));
+    }
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void WithMonth_InvalidMonth(int y, int newMonth)
+    {
+        var date = TDate.Create(y, 1, 1);
+        // Act & Assert
+        AssertEx.ThrowsAoorexn("newMonth", () => date.WithMonth(newMonth));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void WithMonth(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var date = TDate.Create(y, 1, 1);
+        var exp = TDate.Create(y, m, 1);
+        // Act & Assert
+        Assert.Equal(exp, date.WithMonth(m));
+    }
+
+    [Theory, MemberData(nameof(InvalidDayFieldData))]
+    public void WithDay_InvalidDay(int y, int m, int newDay)
+    {
+        var date = TDate.Create(y, m, 1);
+        // Act & Assert
+        AssertEx.ThrowsAoorexn("newDay", () => date.WithDay(newDay));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void WithDay(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var date = TDate.Create(y, m, 1);
+        var exp = TDate.Create(y, m, d);
+        // Act & Assert
+        Assert.Equal(exp, date.WithDay(d));
+    }
+
+    [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
+    public void WithDayOfYear_InvalidDayOfYear(int y, int newDayOfYear)
+    {
+        var date = TDate.Create(y, 1);
+        // Act & Assert
+        AssertEx.ThrowsAoorexn("newDayOfYear", () => date.WithDayOfYear(newDayOfYear));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void WithDayOfYear(DateInfo info)
+    {
+        var (y, doy) = info.Yedoy;
+        var date = TDate.Create(y, 1);
+        var exp = TDate.Create(y, doy);
+        // Act & Assert
+        Assert.Equal(exp, date.WithDayOfYear(doy));
+    }
+}

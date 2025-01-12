@@ -63,8 +63,3 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<InternationalFixedDate, StandardInternationalFixedDataSet>()
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<InternationalFixedDate, StandardInternationalFixedDataSet>(InternationalFixedCalendar.Instance)

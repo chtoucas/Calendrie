@@ -84,11 +84,6 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<EthiopicDate, StandardEthiopic12DataSet>(EthiopicCalendar.Instance)
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<EthiopicDate, StandardEthiopic12DataSet>()
 

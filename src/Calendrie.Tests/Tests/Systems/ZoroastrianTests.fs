@@ -84,11 +84,6 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<ZoroastrianDate, StandardZoroastrian12DataSet>(ZoroastrianCalendar.Instance)
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<ZoroastrianDate, StandardZoroastrian12DataSet>()
 
@@ -122,11 +117,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>()
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>(Zoroastrian13Calendar.Instance)
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

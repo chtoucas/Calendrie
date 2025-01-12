@@ -120,10 +120,6 @@ module Bundles =
             date.ToString() === "01/01/999999 BCE (Gregorian)"
 
     [<Sealed>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<GregorianDate, UnboundedGregorianDataSet>(GregorianCalendar.Instance)
-
-    [<Sealed>]
     type DayOfWeekFacts() =
         inherit IDateDayOfWeekFacts<GregorianDate, UnboundedGregorianDataSet>()
 

@@ -63,11 +63,3 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Persian2820Date, StandardPersian2820DataSet>()
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<Persian2820Date, StandardPersian2820DataSet>(Persian2820Calendar.Instance)
-
-
-
