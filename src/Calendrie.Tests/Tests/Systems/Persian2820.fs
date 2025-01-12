@@ -65,9 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<Persian2820Date, Persian2820Calendar, StandardPersian2820DataSet>(chr)
 
-        override __.MinDate = Persian2820Date.MinValue
-        override __.MaxDate = Persian2820Date.MaxValue
-
         override __.GetDate(y, m, d) = new Persian2820Date(y, m, d)
 
         [<Fact>]

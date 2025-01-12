@@ -105,9 +105,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)
 
-        override __.MinDate = GregorianDate.MinValue
-        override __.MaxDate = GregorianDate.MaxValue
-
         override __.GetDate(y, m, d) = new GregorianDate(y, m, d)
 
         [<Fact>]

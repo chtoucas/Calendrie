@@ -65,9 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<PositivistDate, PositivistCalendar, StandardPositivistDataSet>(chr)
 
-        override __.MinDate = PositivistDate.MinValue
-        override __.MaxDate = PositivistDate.MaxValue
-
         override __.GetDate(y, m, d) = new PositivistDate(y, m, d)
 
         [<Fact>]

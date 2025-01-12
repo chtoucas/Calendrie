@@ -83,9 +83,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<EthiopicDate, EthiopicCalendar, StandardEthiopic12DataSet>(chr)
 
-        override __.MinDate = EthiopicDate.MinValue
-        override __.MaxDate = EthiopicDate.MaxValue
-
         override __.GetDate(y, m, d) = new EthiopicDate(y, m, d)
 
         [<Fact>]
@@ -134,9 +131,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Ethiopic13Date, Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
-
-        override __.MinDate = Ethiopic13Date.MinValue
-        override __.MaxDate = Ethiopic13Date.MaxValue
 
         override __.GetDate(y, m, d) = new Ethiopic13Date(y, m, d)
 

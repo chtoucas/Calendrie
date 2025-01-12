@@ -83,9 +83,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<ZoroastrianDate, ZoroastrianCalendar, StandardZoroastrian12DataSet>(chr)
 
-        override __.MinDate = ZoroastrianDate.MinValue
-        override __.MaxDate = ZoroastrianDate.MaxValue
-
         override __.GetDate(y, m, d) = new ZoroastrianDate(y, m, d)
 
         [<Fact>]
@@ -134,9 +131,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Zoroastrian13Date, Zoroastrian13Calendar, StandardZoroastrian13DataSet>(chr)
-
-        override __.MinDate = Zoroastrian13Date.MinValue
-        override __.MaxDate = Zoroastrian13Date.MaxValue
 
         override __.GetDate(y, m, d) = new Zoroastrian13Date(y, m, d)
 

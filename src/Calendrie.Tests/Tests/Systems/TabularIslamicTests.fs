@@ -65,9 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<TabularIslamicDate, TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)
 
-        override __.MinDate = TabularIslamicDate.MinValue
-        override __.MaxDate = TabularIslamicDate.MaxValue
-
         override __.GetDate(y, m, d) = new TabularIslamicDate(y, m, d)
 
         [<Fact>]

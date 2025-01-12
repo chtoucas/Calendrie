@@ -88,9 +88,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<WorldDate, WorldCalendar, StandardWorldDataSet>(chr)
 
-        override __.MinDate = WorldDate.MinValue
-        override __.MaxDate = WorldDate.MaxValue
-
         override __.GetDate(y, m, d) = new WorldDate(y, m, d)
 
         [<Fact>]

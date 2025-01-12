@@ -65,9 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<PaxDate, PaxCalendar, StandardPaxDataSet>(chr)
 
-        override __.MinDate = PaxDate.MinValue
-        override __.MaxDate = PaxDate.MaxValue
-
         override __.GetDate(y, m, d) = new PaxDate(y, m, d)
 
         [<Fact>]

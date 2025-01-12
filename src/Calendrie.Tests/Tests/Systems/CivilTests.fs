@@ -187,9 +187,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<CivilDate, CivilCalendar, StandardGregorianDataSet>(chr)
 
-        override __.MinDate = CivilDate.MinValue
-        override __.MaxDate = CivilDate.MaxValue
-
         override __.GetDate(y, m, d) = new CivilDate(y, m, d)
 
         [<Fact>]

@@ -66,9 +66,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<TropicaliaDate, TropicaliaCalendar, StandardTropicaliaDataSet>(chr)
 
-        override __.MinDate = TropicaliaDate.MinValue
-        override __.MaxDate = TropicaliaDate.MaxValue
-
         override __.GetDate(y, m, d) = new TropicaliaDate(y, m, d)
 
         [<Fact>]

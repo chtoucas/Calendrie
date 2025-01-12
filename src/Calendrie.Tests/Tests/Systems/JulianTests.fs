@@ -87,9 +87,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>(chr)
 
-        override __.MinDate = JulianDate.MinValue
-        override __.MaxDate = JulianDate.MaxValue
-
         override __.GetDate(y, m, d) = new JulianDate(y, m, d)
 
         [<Fact>]

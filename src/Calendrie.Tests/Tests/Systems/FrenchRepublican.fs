@@ -83,9 +83,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
 
-        override __.MinDate = FrenchRepublicanDate.MinValue
-        override __.MaxDate = FrenchRepublicanDate.MaxValue
-
         override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
 
         [<Fact>]
@@ -134,9 +131,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
-
-        override __.MinDate = FrenchRepublican13Date.MinValue
-        override __.MaxDate = FrenchRepublican13Date.MaxValue
 
         override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d)
 

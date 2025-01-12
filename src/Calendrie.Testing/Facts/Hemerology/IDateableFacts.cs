@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="IDateable"/>.
+/// Provides data-driven tests for the <see cref="IDateable"/> type.
 /// </summary>
 public abstract partial class IDateableFacts<TDate, TDataSet> :
     CalendricalDataConsumer<TDataSet>

@@ -17,9 +17,6 @@ let domain = Range.Create(MyGregorianDate.MinValue.DayNumber, MyGregorianDate.Ma
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type DateFacts() =
-    inherit IDateFacts<MyGregorianDate, StandardGregorianDataSet>(domain)
-
-    override __.MinDate = MyGregorianDate.MinValue
-    override __.MaxDate = MyGregorianDate.MaxValue
+    inherit IAbsoluteDateFacts<MyGregorianDate, StandardGregorianDataSet>(domain)
 
     override __.GetDate(y, m, d) = new MyGregorianDate(y, m, d)

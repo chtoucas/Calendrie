@@ -65,9 +65,6 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
 
-        override __.MinDate = InternationalFixedDate.MinValue
-        override __.MaxDate = InternationalFixedDate.MaxValue
-
         override __.GetDate(y, m, d) = new InternationalFixedDate(y, m, d)
 
         [<Fact>]
