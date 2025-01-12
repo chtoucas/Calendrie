@@ -30,9 +30,9 @@ Run the test suite.
 
 Usage: test.ps1 [arguments]
      -Plan           specify the test plan. Default = "default"
-  -X|-Extras         enable even more tests. Only effective if -NoBuild is not
-                     enabled. Notice that it does not change the test plans
-                     "default" and "regular".
+  -X|-Extras         enable even more tests related to the prototypal schemas.
+                     Only effective if -NoBuild is not enabled. Notice that it
+                     does not change the test plans "default" and "regular".
   -c|-Configuration  configuration to test the solution for. Default = "Debug"
      -NoBuild        do NOT build the test suite?
   -h|-Help           print this help then exit
