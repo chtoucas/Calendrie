@@ -62,6 +62,7 @@ public partial class CalendarTemplate
 /// </summary>
 public readonly partial struct <#= Prefix #>Date :
     IDate<<#= Prefix #>Date>,
+    ICalendarBound,
     ICalendarBound<<#= Prefix #>Calendar>,
     IUnsafeFactory<<#= Prefix #>Date>,
     ISubtractionOperators<<#= Prefix #>Date, <#= Prefix #>Date, int>
@@ -152,6 +153,8 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

@@ -86,6 +86,7 @@ public sealed partial class RevisedWorldCalendar : Calendar
 /// </summary>
 public readonly partial struct RevisedWorldDate :
     IDate<RevisedWorldDate>,
+    ICalendarBound,
     ICalendarBound<RevisedWorldCalendar>,
     IUnsafeFactory<RevisedWorldDate>,
     ISubtractionOperators<RevisedWorldDate, RevisedWorldDate, int>
@@ -170,6 +171,8 @@ public partial struct RevisedWorldDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static RevisedWorldCalendar Calendar => RevisedWorldCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

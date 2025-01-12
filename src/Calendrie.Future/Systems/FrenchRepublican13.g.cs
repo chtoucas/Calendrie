@@ -86,6 +86,7 @@ public sealed partial class FrenchRepublican13Calendar : Calendar
 /// </summary>
 public readonly partial struct FrenchRepublican13Date :
     IDate<FrenchRepublican13Date>,
+    ICalendarBound,
     ICalendarBound<FrenchRepublican13Calendar>,
     IUnsafeFactory<FrenchRepublican13Date>,
     ISubtractionOperators<FrenchRepublican13Date, FrenchRepublican13Date, int>
@@ -170,6 +171,8 @@ public partial struct FrenchRepublican13Date // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static FrenchRepublican13Calendar Calendar => FrenchRepublican13Calendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

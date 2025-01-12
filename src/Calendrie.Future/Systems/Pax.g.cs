@@ -81,6 +81,7 @@ public sealed partial class PaxCalendar : Calendar
 /// </summary>
 public readonly partial struct PaxDate :
     IDate<PaxDate>,
+    ICalendarBound,
     ICalendarBound<PaxCalendar>,
     IUnsafeFactory<PaxDate>,
     ISubtractionOperators<PaxDate, PaxDate, int>
@@ -165,6 +166,8 @@ public partial struct PaxDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxCalendar Calendar => PaxCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

@@ -63,7 +63,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
+        inherit IDateFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>()
 
         [<Fact>]
         static member Calendar_Prop() = InternationalFixedDate.Calendar |> isnotnull

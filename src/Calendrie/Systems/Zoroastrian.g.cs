@@ -86,6 +86,7 @@ public sealed partial class ZoroastrianCalendar : Calendar
 /// </summary>
 public readonly partial struct ZoroastrianDate :
     IDate<ZoroastrianDate>,
+    ICalendarBound,
     ICalendarBound<ZoroastrianCalendar>,
     IUnsafeFactory<ZoroastrianDate>,
     ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
@@ -170,6 +171,8 @@ public partial struct ZoroastrianDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static ZoroastrianCalendar Calendar => ZoroastrianCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

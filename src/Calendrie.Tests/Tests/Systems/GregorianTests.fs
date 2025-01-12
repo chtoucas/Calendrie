@@ -103,7 +103,7 @@ module Bundles =
 
     [<Sealed>]
     type DateFacts() =
-        inherit IDateFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>(chr)
+        inherit IDateFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>()
 
         [<Fact>]
         member x.ToString_InvariantCulture2 () =

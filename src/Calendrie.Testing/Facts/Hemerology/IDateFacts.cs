@@ -3,9 +3,12 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
+
+// Pour le moment, toutes les classes implémentant IDate<T> implémentent
+// aussi ICalendarBound, mais si un jour cela change, on pourra toujours lever la
+// contrainte ICalendarBound ci-dessous.
 
 /// <summary>
 /// Provides data-driven tests for the <see cref="IDate{TSelf}"/> type.
@@ -13,30 +16,16 @@ using Calendrie.Testing.Data;
 public partial class IDateFacts<TDate, TCalendar, TDataSet> :
     IAbsoluteDateFacts<TDate, TDataSet>
     where TCalendar : Calendar
-    where TDate : struct, IDate<TDate>
+    where TDate : struct, IDate<TDate>, ICalendarBound
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    public IDateFacts(TCalendar calendar) : base(GetDomain(calendar))
+    public IDateFacts() : base(TDate.Calendar.Scope.Domain)
     {
-        Debug.Assert(calendar != null);
-
-        Calendar = calendar;
-
-        var scope = calendar.Scope;
-        var supportedYears = scope.Segment.SupportedYears;
+        var supportedYears = TDate.Calendar.Scope.Segment.SupportedYears;
         SupportedYearsTester = new SupportedYearsTester(supportedYears);
     }
 
     protected SupportedYearsTester SupportedYearsTester { get; }
-
-    private static Range<DayNumber> GetDomain(Calendar calendar)
-    {
-        ArgumentNullException.ThrowIfNull(calendar);
-
-        return calendar.Scope.Domain;
-    }
-
-    public TCalendar Calendar { get; }
 
     protected sealed override TDate GetDate(int y, int m, int d) => TDate.Create(y, m, d);
 
@@ -44,7 +33,7 @@ public partial class IDateFacts<TDate, TCalendar, TDataSet> :
     public void ToString_InvariantCulture()
     {
         var date = GetDate(1, 1, 1);
-        string str = FormattableString.Invariant($"01/01/0001 ({Calendar})");
+        string str = FormattableString.Invariant($"01/01/0001 ({TDate.Calendar})");
         // Act & Assert
         Assert.Equal(str, date.ToString());
     }

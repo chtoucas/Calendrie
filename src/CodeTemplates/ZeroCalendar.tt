@@ -150,6 +150,8 @@ public partial struct <#= Prefix #>Date // Preamble
     /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
 
+    static Calendar ICalendarBound.Calendar => Calendar;
+
     /// <inheritdoc />
     public DayNumber DayNumber => new(_<#= DaysSinceEpochVar #>);
 

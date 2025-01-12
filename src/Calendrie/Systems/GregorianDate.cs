@@ -19,6 +19,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 public readonly partial struct GregorianDate :
     IDate<GregorianDate>,
+    ICalendarBound,
     ICalendarBound<GregorianCalendar>,
     IUnsafeFactory<GregorianDate>,
     ISubtractionOperators<GregorianDate, GregorianDate, int>
@@ -96,6 +97,8 @@ public partial struct GregorianDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static GregorianCalendar Calendar => GregorianCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);

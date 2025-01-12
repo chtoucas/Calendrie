@@ -85,7 +85,7 @@ module Bundles =
 
     [<Sealed>]
     type DateFacts() =
-        inherit IDateFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>(chr)
+        inherit IDateFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>()
 
         [<Fact>]
         member x.ToString_InvariantCulture2 () =

@@ -86,6 +86,7 @@ public sealed partial class InternationalFixedCalendar : Calendar
 /// </summary>
 public readonly partial struct InternationalFixedDate :
     IDate<InternationalFixedDate>,
+    ICalendarBound,
     ICalendarBound<InternationalFixedCalendar>,
     IUnsafeFactory<InternationalFixedDate>,
     ISubtractionOperators<InternationalFixedDate, InternationalFixedDate, int>
@@ -170,6 +171,8 @@ public partial struct InternationalFixedDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static InternationalFixedCalendar Calendar => InternationalFixedCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

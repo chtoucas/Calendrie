@@ -19,6 +19,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 public readonly partial struct JulianDate :
     IDate<JulianDate>,
+    ICalendarBound,
     ICalendarBound<JulianCalendar>,
     IUnsafeFactory<JulianDate>,
     ISubtractionOperators<JulianDate, JulianDate, int>
@@ -98,6 +99,8 @@ public partial struct JulianDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static JulianCalendar Calendar => JulianCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(EpochDaysSinceZero + _daysSinceEpoch);

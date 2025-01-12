@@ -14,6 +14,7 @@ using Calendrie.Hemerology;
 
 public readonly partial struct MyGregorianDate :
     IDate<MyGregorianDate>,
+    ICalendarBound,
     ICalendarBound<MyGregorianCalendar>,
     ISubtractionOperators<MyGregorianDate, MyGregorianDate, int>
 {
@@ -44,6 +45,8 @@ public readonly partial struct MyGregorianDate :
     public static MyGregorianDate MaxValue { get; } = new(s_MaxDaysSinceEpoch);
 
     public static MyGregorianCalendar Calendar => MyGregorianCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     public int DaysSinceEpoch => _daysSinceEpoch;

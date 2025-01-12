@@ -185,7 +185,7 @@ module Bundles =
 
     [<Sealed>]
     type DateFacts() =
-        inherit IDateFacts<CivilDate, CivilCalendar, StandardGregorianDataSet>(chr)
+        inherit IDateFacts<CivilDate, CivilCalendar, StandardGregorianDataSet>()
 
         [<Fact>]
         static member Calendar_Prop() = CivilDate.Calendar |> isnotnull

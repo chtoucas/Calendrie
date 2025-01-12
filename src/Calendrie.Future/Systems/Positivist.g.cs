@@ -86,6 +86,7 @@ public sealed partial class PositivistCalendar : Calendar
 /// </summary>
 public readonly partial struct PositivistDate :
     IDate<PositivistDate>,
+    ICalendarBound,
     ICalendarBound<PositivistCalendar>,
     IUnsafeFactory<PositivistDate>,
     ISubtractionOperators<PositivistDate, PositivistDate, int>
@@ -170,6 +171,8 @@ public partial struct PositivistDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PositivistCalendar Calendar => PositivistCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

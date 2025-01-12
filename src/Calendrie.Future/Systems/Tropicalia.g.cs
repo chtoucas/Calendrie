@@ -89,6 +89,7 @@ public sealed partial class TropicaliaCalendar : Calendar
 /// </summary>
 public readonly partial struct TropicaliaDate :
     IDate<TropicaliaDate>,
+    ICalendarBound,
     ICalendarBound<TropicaliaCalendar>,
     IUnsafeFactory<TropicaliaDate>,
     ISubtractionOperators<TropicaliaDate, TropicaliaDate, int>
@@ -165,6 +166,8 @@ public partial struct TropicaliaDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);

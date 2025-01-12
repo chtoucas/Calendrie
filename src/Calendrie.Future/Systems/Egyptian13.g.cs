@@ -86,6 +86,7 @@ public sealed partial class Egyptian13Calendar : Calendar
 /// </summary>
 public readonly partial struct Egyptian13Date :
     IDate<Egyptian13Date>,
+    ICalendarBound,
     ICalendarBound<Egyptian13Calendar>,
     IUnsafeFactory<Egyptian13Date>,
     ISubtractionOperators<Egyptian13Date, Egyptian13Date, int>
@@ -170,6 +171,8 @@ public partial struct Egyptian13Date // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Egyptian13Calendar Calendar => Egyptian13Calendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

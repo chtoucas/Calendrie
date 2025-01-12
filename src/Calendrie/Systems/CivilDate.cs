@@ -79,6 +79,8 @@ public partial struct CivilDate // Preamble
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
+    static Calendar ICalendarBound.Calendar => Calendar;
+
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
 

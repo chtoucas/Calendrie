@@ -80,7 +80,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
+        inherit IDateFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>()
 
         [<Fact>]
         static member Calendar_Prop() = CopticDate.Calendar |> isnotnull
@@ -127,7 +127,7 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>(chr)
+        inherit IDateFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>()
 
         [<Fact>]
         static member Calendar_Prop() = Coptic13Date.Calendar |> isnotnull

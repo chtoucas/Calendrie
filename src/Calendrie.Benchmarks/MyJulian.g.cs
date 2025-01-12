@@ -90,6 +90,7 @@ public sealed partial class MyJulianCalendar : Calendar
 /// </summary>
 public readonly partial struct MyJulianDate :
     IDate<MyJulianDate>,
+    ICalendarBound,
     ICalendarBound<MyJulianCalendar>,
     IUnsafeFactory<MyJulianDate>,
     ISubtractionOperators<MyJulianDate, MyJulianDate, int>
@@ -174,6 +175,8 @@ public partial struct MyJulianDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

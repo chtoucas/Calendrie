@@ -86,6 +86,7 @@ public sealed partial class ArmenianCalendar : Calendar
 /// </summary>
 public readonly partial struct ArmenianDate :
     IDate<ArmenianDate>,
+    ICalendarBound,
     ICalendarBound<ArmenianCalendar>,
     IUnsafeFactory<ArmenianDate>,
     ISubtractionOperators<ArmenianDate, ArmenianDate, int>
@@ -170,6 +171,8 @@ public partial struct ArmenianDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static ArmenianCalendar Calendar => ArmenianCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     //

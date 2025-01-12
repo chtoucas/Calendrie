@@ -90,6 +90,7 @@ public sealed partial class MyCivilCalendar : Calendar
 /// </summary>
 public readonly partial struct MyCivilDate :
     IDate<MyCivilDate>,
+    ICalendarBound,
     ICalendarBound<MyCivilCalendar>,
     IUnsafeFactory<MyCivilDate>,
     ISubtractionOperators<MyCivilDate, MyCivilDate, int>
@@ -166,6 +167,8 @@ public partial struct MyCivilDate // Preamble
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyCivilCalendar Calendar => MyCivilCalendar.Instance;
+
+    static Calendar ICalendarBound.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);

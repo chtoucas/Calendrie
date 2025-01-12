@@ -8,10 +8,11 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// TODO(fact): for simple date objects the constructor is tested in
-// CalendarFacts (Factories). For the others, copy this code: CivilDate
-// and ZDate. See also CalendarDateTests.
-// DayOfWeek via DayNumber. Pre-filter CalCalDataSet.DayOfWeekData.
+// TODO(fact): DayOfWeek via DayNumber. Pre-filter CalCalDataSet.DayOfWeekData.
+
+// Pour le moment, toutes les classes implémentant IAbsoluteDate<T> implémentent
+// aussi IDateable, mais si un jour cela change, on pourra toujours lever la
+// contrainte IDateable ci-dessous.
 
 /// <summary>
 /// Provides data-driven tests for the <see cref="IAbsoluteDate{TSelf}"/> type.
