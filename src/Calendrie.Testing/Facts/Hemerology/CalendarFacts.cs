@@ -32,4 +32,10 @@ public abstract partial class CalendarFacts<TCalendar, TDataSet> :
 
     [Fact]
     public void Epoch_Prop() => Assert.Equal(Epoch, CalendarUT.Epoch);
+
+    // Virtual for calendars overriding ToString().
+    [Fact]
+    public virtual void ToString_InvariantCulture() =>
+        Assert.Equal(CalendarUT.ToString(), CalendarUT.Name);
+
 }

@@ -38,10 +38,6 @@ public abstract class UserCalendarFacts<TCalendar, TDataSet> :
     public sealed override void PeriodicAdjustments_Prop() =>
         Assert.Equal(CalendarUT.Scope.Schema.PeriodicAdjustments, CalendarUT.PeriodicAdjustments);
 
-    [Fact]
-    public virtual void ToString_ReturnsName() =>
-        Assert.Equal(CalendarUT.ToString(), CalendarUT.Name);
-
     //
     // Characteristics
     //
