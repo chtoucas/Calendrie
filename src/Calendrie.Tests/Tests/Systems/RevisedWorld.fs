@@ -3,13 +3,8 @@
 
 module Calendrie.Tests.Systems.RevisedWorld
 
-open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
-open Calendrie.Testing.Data.Bounded
-open Calendrie.Testing.Data.Schemas
-open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 

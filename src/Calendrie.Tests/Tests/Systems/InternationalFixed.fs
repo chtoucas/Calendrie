@@ -8,7 +8,6 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -69,6 +68,3 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<InternationalFixedDate, StandardInternationalFixedDataSet>(InternationalFixedCalendar.Instance)
-
-        override __.GetDate(y, m, d) = new InternationalFixedDate(y, m, d)
-        override __.GetDate(y, doy) = new InternationalFixedDate(y, doy)

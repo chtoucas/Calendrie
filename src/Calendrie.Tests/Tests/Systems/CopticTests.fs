@@ -8,7 +8,6 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -87,9 +86,6 @@ module Bundles =
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<CopticDate, StandardCoptic12DataSet>(CopticCalendar.Instance)
 
-        override __.GetDate(y, m, d) = new CopticDate(y, m, d)
-        override __.GetDate(y, doy) = new CopticDate(y, doy)
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
@@ -130,9 +126,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Coptic13Date, StandardCoptic13DataSet>(Coptic13Calendar.Instance)
-
-        override __.GetDate(y, m, d) = new Coptic13Date(y, m, d)
-        override __.GetDate(y, doy) = new Coptic13Date(y, doy)
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

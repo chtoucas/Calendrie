@@ -13,7 +13,6 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -190,9 +189,6 @@ module Bundles =
     [<Sealed>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<CivilDate, StandardGregorianDataSet>(CivilCalendar.Instance)
-
-        override __.GetDate(y, m, d) = new CivilDate(y, m, d)
-        override __.GetDate(y, doy) = new CivilDate(y, doy)
 
     [<Sealed>]
     type DayOfWeekFacts() =

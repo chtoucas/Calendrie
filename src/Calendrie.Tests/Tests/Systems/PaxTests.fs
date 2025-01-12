@@ -9,7 +9,6 @@ open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -69,6 +68,3 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<PaxDate, StandardPaxDataSet>(chr)
-
-        override __.GetDate(y, m, d) = new PaxDate(y, m, d)
-        override __.GetDate(y, doy) = new PaxDate(y, doy)

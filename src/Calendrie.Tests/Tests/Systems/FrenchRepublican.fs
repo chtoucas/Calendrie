@@ -8,7 +8,6 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -88,9 +87,6 @@ module Bundles =
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>(FrenchRepublicanCalendar.Instance)
 
-        override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
-        override __.GetDate(y, doy) = new FrenchRepublicanDate(y, doy)
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
@@ -131,9 +127,6 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>(FrenchRepublican13Calendar.Instance)
-
-        override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d)
-        override __.GetDate(y, doy) = new FrenchRepublican13Date(y, doy)
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

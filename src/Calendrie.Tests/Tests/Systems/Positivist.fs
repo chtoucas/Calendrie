@@ -8,7 +8,6 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -69,8 +68,5 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<PositivistDate, StandardPositivistDataSet>(PositivistCalendar.Instance)
-
-        override __.GetDate(y, m, d) = new PositivistDate(y, m, d)
-        override __.GetDate(y, doy) = new PositivistDate(y, doy)
 
 

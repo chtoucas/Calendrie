@@ -12,7 +12,6 @@ open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -123,9 +122,6 @@ module Bundles =
     [<Sealed>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<GregorianDate, UnboundedGregorianDataSet>(GregorianCalendar.Instance)
-
-        override __.GetDate(y, m, d) = new GregorianDate(y, m, d)
-        override __.GetDate(y, doy) = new GregorianDate(y, doy)
 
     [<Sealed>]
     type DayOfWeekFacts() =

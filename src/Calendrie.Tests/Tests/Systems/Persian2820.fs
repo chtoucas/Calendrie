@@ -8,7 +8,6 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -69,9 +68,6 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Persian2820Date, StandardPersian2820DataSet>(Persian2820Calendar.Instance)
-
-        override __.GetDate(y, m, d) = new Persian2820Date(y, m, d)
-        override __.GetDate(y, doy) = new Persian2820Date(y, doy)
 
 
 

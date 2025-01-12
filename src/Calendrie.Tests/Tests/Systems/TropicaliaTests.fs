@@ -9,7 +9,6 @@ open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -70,6 +69,3 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<TropicaliaDate, StandardTropicaliaDataSet>(chr)
-
-        override __.GetDate(y, m, d) = new TropicaliaDate(y, m, d)
-        override __.GetDate(y, doy) = new TropicaliaDate(y, doy)

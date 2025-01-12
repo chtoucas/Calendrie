@@ -1,17 +1,17 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Testing.Facts.Systems;
+namespace Calendrie.Testing.Facts.Hemerology;
 
 using Calendrie.Hemerology;
-using Calendrie.Systems;
 using Calendrie.Testing.Data;
 
+// TODO(fact): merge with IDateFacts.
 // In addition, one should test WithYear() with valid and invalid results.
 
-internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
+internal partial class DateAdjusterFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
-    where TDate : struct, IDateable, IAbsoluteDate<TDate>, IUnsafeFactory<TDate>, IAdjustableDate<TDate>
+    where TDate : struct, IDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     protected DateAdjusterFacts(Calendar adjuster)
@@ -30,9 +30,6 @@ internal abstract partial class DateAdjusterFacts<TDate, TDataSet> :
     protected Calendar CalendarUT { get; }
 
     protected SupportedYearsTester SupportedYearsTester { get; }
-
-    protected abstract TDate GetDate(int y, int m, int d);
-    protected abstract TDate GetDate(int y, int doy);
 }
 
 #if false
@@ -43,8 +40,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
     public void GetStartOfYear(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
-        var startOfYear = GetDate(y, 1, 1);
+        var date = TDate.Create(y, m, d);
+        var startOfYear = TDate.Create(y, 1, 1);
         // Act & Assert
         Assert.Equal(startOfYear, CalendarUT.GetStartOfYear(date));
     }
@@ -53,7 +50,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
     public void GetEndOfYear(YearInfo info)
     {
         int y = info.Year;
-        var date = GetDate(y, 1, 1);
+        var date = TDate.Create(y, 1, 1);
         // Act
         var endOfYear = CalendarUT.GetEndOfYear(date);
         // Assert
@@ -65,8 +62,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
     public void GetStartOfMonth(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
-        var startOfMonth = GetDate(y, m, 1);
+        var date = TDate.Create(y, m, d);
+        var startOfMonth = TDate.Create(y, m, 1);
         // Act & Assert
         Assert.Equal(startOfMonth, CalendarUT.GetStartOfMonth(date));
     }
@@ -75,8 +72,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Special dates
     public void GetEndOfMonth(MonthInfo info)
     {
         var (y, m) = info.Yemo;
-        var date = GetDate(y, m, 1);
-        var endOfMonth = GetDate(y, m, info.DaysInMonth);
+        var date = TDate.Create(y, m, 1);
+        var endOfMonth = TDate.Create(y, m, info.DaysInMonth);
         // Act & Assert
         Assert.Equal(endOfMonth, CalendarUT.GetEndOfMonth(date));
     }
@@ -89,7 +86,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustYear()
     public void AdjustYear_InvalidYears(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         SupportedYearsTester.TestInvalidYear(y => AdjusterUT.AdjustYear(date, y), "newYear");
     }
@@ -99,8 +96,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustYear()
     {
         foreach (int y in SupportedYearsTester.ValidYears)
         {
-            var date = GetDate(1, 1, 1);
-            var exp = GetDate(y, 1, 1);
+            var date = TDate.Create(1, 1, 1);
+            var exp = TDate.Create(y, 1, 1);
             // Act & Assert
             Assert.Equal(exp, AdjusterUT.AdjustYear(date, y));
         }
@@ -110,7 +107,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustYear()
     public void AdjustYear_Invariance(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(date, AdjusterUT.AdjustYear(date, y));
     }
@@ -122,8 +119,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustYear()
     //public void AdjustYear(DateInfo info)
     //{
     //    var (y, m, d) = info.Yemoda;
-    //    var date = GetDate(1, m, d);
-    //    var exp = GetDate(y, m, d);
+    //    var date = TDate.Create(1, m, d);
+    //    var exp = TDate.Create(y, m, d);
     //    // Act & Assert
     //    Assert.Equal(exp, AdjusterUT.AdjustYear(date, y));
     //}
@@ -134,7 +131,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustMonth()
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void AdjustMonth_InvalidMonth(int y, int newMonth)
     {
-        var date = GetDate(y, 1, 1);
+        var date = TDate.Create(y, 1, 1);
         // Act & Assert
         AssertEx.ThrowsAoorexn("newMonth", () => AdjusterUT.AdjustMonth(date, newMonth));
     }
@@ -143,7 +140,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustMonth()
     public void AdjustMonth_Invariance(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(date, AdjusterUT.AdjustMonth(date, m));
     }
@@ -152,8 +149,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustMonth()
     public void AdjustMonth(MonthInfo info)
     {
         var (y, m) = info.Yemo;
-        var date = GetDate(y, 1, 1);
-        var exp = GetDate(y, m, 1);
+        var date = TDate.Create(y, 1, 1);
+        var exp = TDate.Create(y, m, 1);
         // Act & Assert
         Assert.Equal(exp, AdjusterUT.AdjustMonth(date, m));
     }
@@ -164,7 +161,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDay()
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public void AdjustDay_InvalidDay(int y, int m, int newDayOfMonth)
     {
-        var date = GetDate(y, m, 1);
+        var date = TDate.Create(y, m, 1);
         // Act & Assert
         AssertEx.ThrowsAoorexn("newDayOfMonth", () => AdjusterUT.AdjustDayOfMonth(date, newDayOfMonth));
     }
@@ -173,7 +170,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDay()
     public void AdjustDay_Invariance(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(date, AdjusterUT.AdjustDayOfMonth(date, d));
     }
@@ -182,8 +179,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDay()
     public void AdjustDay(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, 1);
-        var exp = GetDate(y, m, d);
+        var date = TDate.Create(y, m, 1);
+        var exp = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(exp, AdjusterUT.AdjustDayOfMonth(date, d));
     }
@@ -194,7 +191,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDayOfYear()
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void AdjustDayOfYear_InvalidDayOfYear(int y, int newDayOfYear)
     {
-        var date = GetDate(y, 1);
+        var date = TDate.Create(y, 1);
         // Act & Assert
         AssertEx.ThrowsAoorexn("newDayOfYear", () => AdjusterUT.AdjustDayOfYear(date, newDayOfYear));
     }
@@ -203,7 +200,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDayOfYear()
     public void AdjustDayOfYear_Invariance(DateInfo info)
     {
         var (y, doy) = info.Yedoy;
-        var date = GetDate(y, doy);
+        var date = TDate.Create(y, doy);
         // Act & Assert
         Assert.Equal(date, AdjusterUT.AdjustDayOfYear(date, doy));
     }
@@ -212,8 +209,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // AdjustDayOfYear()
     public void AdjustDayOfYear(DateInfo info)
     {
         var (y, doy) = info.Yedoy;
-        var date = GetDate(y, 1);
-        var exp = GetDate(y, doy);
+        var date = TDate.Create(y, 1);
+        var exp = TDate.Create(y, doy);
         // Act & Assert
         Assert.Equal(exp, AdjusterUT.AdjustDayOfYear(date, doy));
     }
@@ -227,7 +224,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     public void Adjust_InvalidYear(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         foreach (int invalidYear in SupportedYearsTester.InvalidYears)
         {
             // Act & Assert
@@ -238,7 +235,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void Adjust_InvalidMonth(int y, int newMonth)
     {
-        var date = GetDate(y, 1, 1);
+        var date = TDate.Create(y, 1, 1);
         // Act & Assert
         AssertEx.ThrowsAoorexn("newMonth", () => date.WithMonth(newMonth));
     }
@@ -246,7 +243,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     [Theory, MemberData(nameof(InvalidDayFieldData))]
     public void Adjust_InvalidDay(int y, int m, int newDay)
     {
-        var date = GetDate(y, m, 1);
+        var date = TDate.Create(y, m, 1);
         // Act & Assert
         AssertEx.ThrowsAoorexn("newDay", () => date.WithDay(newDay));
     }
@@ -254,7 +251,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void Adjust_InvalidDayOfYear(int y, int newDayOfYear)
     {
-        var date = GetDate(y, 1);
+        var date = TDate.Create(y, 1);
         // Act & Assert
         AssertEx.ThrowsAoorexn("newDayOfYear", () => date.WithDayOfYear(newDayOfYear));
     }
@@ -263,8 +260,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     public void Adjust_WithYear(YearInfo info)
     {
         var y = info.Year;
-        var date = GetDate(1, 1, 1);
-        var exp = GetDate(y, 1, 1);
+        var date = TDate.Create(1, 1, 1);
+        var exp = TDate.Create(y, 1, 1);
         // Act & Assert
         Assert.Equal(exp, date.WithYear(y));
     }
@@ -273,8 +270,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     public void Adjust_WithMonth(MonthInfo info)
     {
         var (y, m) = info.Yemo;
-        var date = GetDate(y, 1, 1);
-        var exp = GetDate(y, m, 1);
+        var date = TDate.Create(y, 1, 1);
+        var exp = TDate.Create(y, m, 1);
         // Act & Assert
         Assert.Equal(exp, date.WithMonth(m));
     }
@@ -283,8 +280,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     public void Adjust_WithDay(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, 1);
-        var exp = GetDate(y, m, d);
+        var date = TDate.Create(y, m, 1);
+        var exp = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(exp, date.WithDay(d));
     }
@@ -293,8 +290,8 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     public void Adjust_WithDayOfYear(DateInfo info)
     {
         var (y, doy) = info.Yedoy;
-        var date = GetDate(y, 1);
-        var exp = GetDate(y, doy);
+        var date = TDate.Create(y, 1);
+        var exp = TDate.Create(y, doy);
         // Act & Assert
         Assert.Equal(exp, date.WithDayOfYear(doy));
     }
@@ -303,9 +300,9 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     //public void Adjust(DateInfo info)
     //{
     //    var (y, m, d) = info.Yemoda;
-    //    var date = GetDate(1, 1, 1);
+    //    var date = TDate.Create(1, 1, 1);
     //    var adjuster = (DateParts _) => new DateParts(y, m, d);
-    //    var exp = GetDate(y, m, d);
+    //    var exp = TDate.Create(y, m, d);
     //    // Act & Assert
     //    Assert.Equal(exp, date.Adjust(adjuster));
     //}
@@ -314,7 +311,7 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     //public void Adjust_Invariance(DateInfo info)
     //{
     //    var (y, doy) = info.Yedoy;
-    //    var date = GetDate(y, doy);
+    //    var date = TDate.Create(y, doy);
     //    // Act & Assert
     //    Assert.Equal(date, date.Adjust(x => x));
     //}
@@ -323,9 +320,9 @@ internal partial class DateAdjusterFacts<TDate, TDataSet> // Adjust()
     //public void Adjust(DateInfo info)
     //{
     //    var (y, doy) = info.Yedoy;
-    //    var date = GetDate(1, 1);
+    //    var date = TDate.Create(1, 1);
     //    var adjuster = (OrdinalParts _) => new OrdinalParts(y, doy);
-    //    var exp = GetDate(y, doy);
+    //    var exp = TDate.Create(y, doy);
     //    // Act & Assert
     //    Assert.Equal(exp, date.Adjust(adjuster));
     //}

@@ -6,8 +6,8 @@ namespace Calendrie.Testing.Facts.Hemerology;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// Pour le moment, toutes les classes implémentant IDate<T> implémentent
-// aussi ICalendarBound, mais si un jour cela change, on pourra toujours lever la
+// Pour le moment, toutes les classes implémentant IDate<T> implémentent aussi
+// ICalendarBound, mais si un jour cela change, on pourra toujours lever la
 // contrainte ICalendarBound ci-dessous.
 
 /// <summary>
