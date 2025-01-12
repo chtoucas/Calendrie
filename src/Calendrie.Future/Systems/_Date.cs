@@ -40,6 +40,7 @@ public partial struct FrenchRepublicanDate : IEpagomenalDay // Complements
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
+
 public partial struct FrenchRepublican13Date : IEpagomenalDay // Complements
 {
     /// <inheritdoc />
