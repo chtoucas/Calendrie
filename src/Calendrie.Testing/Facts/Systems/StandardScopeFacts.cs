@@ -7,11 +7,14 @@ using Calendrie.Systems;
 using Calendrie.Testing.Data;
 using Calendrie.Testing.Facts.Hemerology;
 
-// FIXME(fact): how to enforce the use of a StandardCalendarDataSet?
+// REVIEW(fact): how to enforce the use of a StandardCalendarDataSet?
 
-public static class StandardScopeFacts
+public sealed class StandardScopeData : IMinMaxYearScopeData
 {
-    public static readonly TheoryData<int> InvalidYearData =
+    public static int MinYear => StandardScope.MinYear;
+    public static int MaxYear => StandardScope.MaxYear;
+
+    public static TheoryData<int> InvalidYearData =>
     [
         int.MinValue,
         StandardScope.MinYear - 1,
@@ -19,7 +22,7 @@ public static class StandardScopeFacts
         int.MaxValue,
     ];
 
-    public static readonly TheoryData<int> ValidYearData =
+    public static TheoryData<int> ValidYearData =>
     [
         StandardScope.MinYear,
         StandardScope.MinYear + 1,
@@ -32,65 +35,18 @@ public static class StandardScopeFacts
 /// Provides data-driven tests for <see cref="StandardScope"/>.
 /// </summary>
 internal abstract class StandardScopeFacts<TDataSet> :
-    CalendarScopeFacts<StandardScope, TDataSet>
+    CalendarScopeFacts<StandardScope, TDataSet, StandardScopeData>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected StandardScopeFacts(StandardScope scope) : base(scope)
-    {
-        Debug.Assert(scope != null);
-        Debug.Assert(scope.Segment.SupportedYears.Min == StandardScope.MinYear);
-        Debug.Assert(scope.Segment.SupportedYears.Max == StandardScope.MaxYear);
-    }
+    protected StandardScopeFacts(StandardScope scope) : base(scope) { }
+}
 
-    public static TheoryData<int> InvalidYearData => StandardScopeFacts.InvalidYearData;
-    public static TheoryData<int> ValidYearData => StandardScopeFacts.ValidYearData;
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void CheckYear_InvalidYear(int y) => Assert.False(ScopeUT.CheckYear(y));
-
-    [Theory, MemberData(nameof(ValidYearData))]
-    public sealed override void CheckYear(int y) => Assert.True(ScopeUT.CheckYear(y));
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void ValidateYear_InvalidYear(int y)
-    {
-        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYear(y));
-        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYear(y, nameof(y)));
-    }
-
-    [Theory, MemberData(nameof(ValidYearData))]
-    public sealed override void ValidateYear(int y) => ScopeUT.ValidateYear(y);
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void CheckYearMonth_InvalidYear(int y) =>
-        Assert.False(ScopeUT.CheckYearMonth(y, 1));
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void ValidateYearMonth_InvalidYear(int y)
-    {
-        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonth(y, 1));
-        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYearMonth(y, 1, nameof(y)));
-    }
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void CheckYearMonthDay_InvalidYear(int y) =>
-        Assert.False(ScopeUT.CheckYearMonthDay(y, 1, 1));
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void ValidateYearMonthDay_InvalidYear(int y)
-    {
-        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonthDay(y, 1, 1));
-        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYearMonthDay(y, 1, 1, nameof(y)));
-    }
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void CheckOrdinal_InvalidYear(int y) =>
-        Assert.False(ScopeUT.CheckOrdinal(y, 1));
-
-    [Theory, MemberData(nameof(InvalidYearData))]
-    public sealed override void ValidateOrdinal_InvalidYear(int y)
-    {
-        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateOrdinal(y, 1));
-        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateOrdinal(y, 1, nameof(y)));
-    }
+/// <summary>
+/// Provides data-driven tests for <see cref="CivilScope"/>.
+/// </summary>
+internal abstract class CivilScopeFacts<TDataSet> :
+    CalendarScopeFacts<CivilScope, TDataSet, StandardScopeData>
+    where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
+{
+    protected CivilScopeFacts(CivilScope scope) : base(scope) { }
 }

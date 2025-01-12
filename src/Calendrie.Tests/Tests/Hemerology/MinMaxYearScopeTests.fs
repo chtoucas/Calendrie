@@ -20,11 +20,11 @@ open Xunit
 let private scope = MinMaxYearScope.Create(
     new GregorianSchema(),
     DayZero.NewStyle,
-    Range.Create(MinMaxYearScopeFacts.MinYear, MinMaxYearScopeFacts.MaxYear))
+    Range.Create(MinMaxYearScopeData.MinYear, MinMaxYearScopeData.MaxYear))
 
 [<Sealed>]
 type GregorianTests() =
-    inherit MinMaxYearScopeFacts<GregorianDataSet>(scope)
+    inherit CalendarScopeFacts<MinMaxYearScope, GregorianDataSet, MinMaxYearScopeData>(scope)
 
 module Factories =
     [<Fact>]

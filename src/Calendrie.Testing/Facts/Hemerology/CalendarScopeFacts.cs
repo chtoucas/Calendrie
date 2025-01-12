@@ -6,38 +6,109 @@ namespace Calendrie.Testing.Facts.Hemerology;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
+public interface IMinMaxYearScopeData
+{
+    /// <summary>
+    /// Gets the earliest supported year.
+    /// </summary>
+    static abstract int MinYear { get; }
+
+    /// <summary>
+    /// Gets the latest supported year.
+    /// </summary>
+    static abstract int MaxYear { get; }
+
+    static abstract TheoryData<int> InvalidYearData { get; }
+    static abstract TheoryData<int> ValidYearData { get; }
+}
+
+public sealed class MinMaxYearScopeData : IMinMaxYearScopeData
+{
+    public static int MinYear => -5;
+    public static int MaxYear => 1234;
+
+    public static TheoryData<int> InvalidYearData =>
+    [
+        int.MinValue,
+        MinYear - 1,
+        MaxYear + 1,
+        int.MaxValue,
+    ];
+
+    public static TheoryData<int> ValidYearData =>
+    [
+        MinYear,
+        MinYear + 1,
+        -1,
+        0,
+        1,
+        MaxYear - 1,
+        MaxYear
+    ];
+}
+
 /// <summary>
-/// Provides data-driven tests for <see cref="CalendarScope"/>.
+/// Provides data-driven tests for <see cref="CalendarScope"/> for a range of
+/// years, not a range of days.
 /// </summary>
-internal abstract class CalendarScopeFacts<TScope, TDataSet> :
+public class CalendarScopeFacts<TScope, TDataSet, TMinMaxYearScopeData> :
     CalendricalDataConsumer<TDataSet>
     where TScope : CalendarScope
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
+    where TMinMaxYearScopeData : IMinMaxYearScopeData
 {
-    protected CalendarScopeFacts(TScope scope)
+    public CalendarScopeFacts(TScope scope)
     {
         ArgumentNullException.ThrowIfNull(scope);
 
-        // Right now, datasets only work for a range of years.
-        if (!scope.Segment.IsComplete) throw new ArgumentException("", nameof(scope));
-
         ScopeUT = scope;
+
+        // Datasets only work for a range of years, not a range of days.
+        if (!scope.Segment.IsComplete) throw new ArgumentException(null, nameof(scope));
+
+#if DEBUG
+        var (minYear, maxYear) = scope.Segment.SupportedYears.Endpoints;
+        Debug.Assert(minYear == TMinMaxYearScopeData.MinYear);
+        Debug.Assert(maxYear == TMinMaxYearScopeData.MaxYear);
+#endif
     }
+
+    public static TheoryData<int> InvalidYearData => TMinMaxYearScopeData.InvalidYearData;
+    public static TheoryData<int> ValidYearData => TMinMaxYearScopeData.ValidYearData;
 
     /// <summary>
     /// Gets the scope under test.
     /// </summary>
     protected TScope ScopeUT { get; }
 
-    [Theory] public abstract void CheckYear_InvalidYear(int y);
-    [Theory] public abstract void CheckYear(int y);
+    #region CheckYear()
 
-    [Theory] public abstract void ValidateYear_InvalidYear(int y);
-    [Theory] public abstract void ValidateYear(int y);
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void CheckYear_InvalidYear(int y) => Assert.False(ScopeUT.CheckYear(y));
+
+    [Theory, MemberData(nameof(ValidYearData))]
+    public void CheckYear(int y) => Assert.True(ScopeUT.CheckYear(y));
+
+    #endregion
+    #region ValidateYear()
+
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void ValidateYear_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYear(y));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYear(y, nameof(y)));
+    }
+
+    [Theory, MemberData(nameof(ValidYearData))]
+    public void ValidateYear(int y) => ScopeUT.ValidateYear(y);
+
+    #endregion
 
     #region CheckYearMonth()
 
-    [Theory] public abstract void CheckYearMonth_InvalidYear(int y);
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void CheckYearMonth_InvalidYear(int y) =>
+        Assert.False(ScopeUT.CheckYearMonth(y, 1));
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void CheckYearMonth_InvalidMonth(int y, int m) =>
@@ -53,7 +124,12 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
     #endregion
     #region ValidateYearMonth()
 
-    [Theory] public abstract void ValidateYearMonth_InvalidYear(int y);
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void ValidateYearMonth_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonth(y, 1));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYearMonth(y, 1, nameof(y)));
+    }
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void ValidateYearMonth_InvalidMonth(int y, int m)
@@ -73,7 +149,9 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
 
     #region CheckYearMonthDay()
 
-    [Theory] public abstract void CheckYearMonthDay_InvalidYear(int y);
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void CheckYearMonthDay_InvalidYear(int y) =>
+        Assert.False(ScopeUT.CheckYearMonthDay(y, 1, 1));
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void CheckYearMonthDay_InvalidMonth(int y, int m) =>
@@ -93,7 +171,12 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
     #endregion
     #region ValidateYearMonthDay()
 
-    [Theory] public abstract void ValidateYearMonthDay_InvalidYear(int y);
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void ValidateYearMonthDay_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateYearMonthDay(y, 1, 1));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateYearMonthDay(y, 1, 1, nameof(y)));
+    }
 
     [Theory, MemberData(nameof(InvalidMonthFieldData))]
     public void ValidateYearMonthDay_InvalidMonth(int y, int m)
@@ -120,7 +203,9 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
 
     #region CheckOrdinal()
 
-    [Theory] public abstract void CheckOrdinal_InvalidYear(int y);
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void CheckOrdinal_InvalidYear(int y) =>
+        Assert.False(ScopeUT.CheckOrdinal(y, 1));
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void CheckOrdinal_InvalidDayOfYear(int y, int doy) =>
@@ -136,7 +221,12 @@ internal abstract class CalendarScopeFacts<TScope, TDataSet> :
     #endregion
     #region ValidateOrdinal()
 
-    [Theory] public abstract void ValidateOrdinal_InvalidYear(int y);
+    [Theory, MemberData(nameof(InvalidYearData))]
+    public void ValidateOrdinal_InvalidYear(int y)
+    {
+        AssertEx.ThrowsAoorexn("year", () => ScopeUT.ValidateOrdinal(y, 1));
+        AssertEx.ThrowsAoorexn("y", () => ScopeUT.ValidateOrdinal(y, 1, nameof(y)));
+    }
 
     [Theory, MemberData(nameof(InvalidDayOfYearFieldData))]
     public void ValidateOrdinal_InvalidDayOfYear(int y, int doy)
