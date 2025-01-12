@@ -324,8 +324,6 @@ Calendrie.Core.Schemas.PositivistSchema
 Calendrie.Core.Schemas.PositivistSchema.IsBlankDay(int y, int m, int d) -> bool
 Calendrie.Core.Schemas.PtolemaicSchema
 Calendrie.Core.Schemas.TabularIslamicSchema
-Calendrie.Core.Schemas.Tropicalia3031Schema
-Calendrie.Core.Schemas.Tropicalia3130Schema
 Calendrie.Core.Schemas.TropicaliaSchema
 Calendrie.Core.Schemas.TropicalistaSchema
 Calendrie.Core.Schemas.WorldSchema
@@ -1542,20 +1540,6 @@ override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsLeapYear(int y) ->
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-override sealed Calendrie.Core.Schemas.Tropicalia3031Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3031Schema.CountDaysInYearBeforeMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3031Schema.CountDaysSinceEpoch(int y, int m, int d) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3031Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Tropicalia3031Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Tropicalia3031Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3031Schema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.Tropicalia3130Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3130Schema.CountDaysInYearBeforeMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3130Schema.CountDaysSinceEpoch(int y, int m, int d) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3130Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Tropicalia3130Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Tropicalia3130Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.Tropicalia3130Schema.IsIntercalaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.TropicaliaSchema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.TropicaliaSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.TropicaliaSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
@@ -1597,11 +1581,8 @@ override sealed Calendrie.Core.Schemas.WorldSchema.IsRegular(out int monthsInYea
 override sealed Calendrie.Core.Schemas.WorldSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
-static Calendrie.Core.CalendricalSegment.Create<TSchema>(Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
-static Calendrie.Core.CalendricalSegment.CreateMaximal<TSchema>() -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximalOnOrAfterYear1(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
-static Calendrie.Core.CalendricalSegment.CreateMaximalOnOrAfterYear1<TSchema>() -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.LowerRay<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> bool

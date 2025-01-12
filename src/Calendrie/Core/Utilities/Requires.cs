@@ -3,7 +3,7 @@
 
 namespace Calendrie.Core.Utilities;
 
-// FIXME(code): CallerArgumentExpression (see the tests)
+// TODO(code): CallerArgumentExpression (see the tests)
 
 // See https://github.com/CommunityToolkit/dotnet/blob/main/src/CommunityToolkit.Diagnostics/Guard.cs
 // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.assumes?view=visualstudiosdk-2022
