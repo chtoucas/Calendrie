@@ -61,6 +61,7 @@ module Bundles =
     let private chr = ArmenianCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<ArmenianDate, ArmenianCalendar, StandardArmenian12DataSet>(chr)
 
@@ -82,6 +83,7 @@ module Bundles =
         static member MaxYear() = ArmenianCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<ArmenianDate, ArmenianCalendar, StandardArmenian12DataSet>(chr)
 
@@ -94,6 +96,7 @@ module Bundles =
         static member Calendar_Prop() = ArmenianDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<ArmenianDate, StandardArmenian12DataSet>(ArmenianCalendar.Instance)
 
@@ -101,6 +104,7 @@ module Bundles =
         override __.GetDate(y, doy) = new ArmenianDate(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<ArmenianDate, StandardArmenian12DataSet>()
 
@@ -111,6 +115,7 @@ module Bundles13 =
     let private chr = Armenian13Calendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<Armenian13Date, Armenian13Calendar, StandardArmenian13DataSet>(chr)
 
@@ -135,6 +140,7 @@ module Bundles13 =
         static member MaxYear() = Armenian13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Armenian13Date, Armenian13Calendar, StandardArmenian13DataSet>(chr)
 
@@ -147,6 +153,7 @@ module Bundles13 =
         static member Calendar_Prop() = Armenian13Date.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Armenian13Date, StandardArmenian13DataSet>(Armenian13Calendar.Instance)
 
@@ -154,6 +161,7 @@ module Bundles13 =
         override __.GetDate(y, doy) = new Armenian13Date(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<Armenian13Date, StandardArmenian13DataSet>()
 

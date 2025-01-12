@@ -43,6 +43,7 @@ module Bundles =
     let private chr = TabularIslamicCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<TabularIslamicDate, TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)
 
@@ -64,6 +65,7 @@ module Bundles =
         static member MaxYear() = TabularIslamicCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<TabularIslamicDate, TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)
 
@@ -76,6 +78,7 @@ module Bundles =
         static member Calendar_Prop() = TabularIslamicDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<TabularIslamicDate, StandardTabularIslamicDataSet>(TabularIslamicCalendar.Instance)
 

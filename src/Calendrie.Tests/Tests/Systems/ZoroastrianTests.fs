@@ -61,6 +61,7 @@ module Bundles =
     let private chr = ZoroastrianCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<ZoroastrianDate, ZoroastrianCalendar, StandardZoroastrian12DataSet>(chr)
 
@@ -82,6 +83,7 @@ module Bundles =
         static member MaxYear() = ZoroastrianCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<ZoroastrianDate, ZoroastrianCalendar, StandardZoroastrian12DataSet>(chr)
 
@@ -94,6 +96,7 @@ module Bundles =
         static member Calendar_Prop() = ZoroastrianDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<ZoroastrianDate, StandardZoroastrian12DataSet>(ZoroastrianCalendar.Instance)
 
@@ -101,6 +104,7 @@ module Bundles =
         override __.GetDate(y, doy) = new ZoroastrianDate(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<ZoroastrianDate, StandardZoroastrian12DataSet>()
 
@@ -110,6 +114,7 @@ module Bundles13 =
     let private chr = Zoroastrian13Calendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<Zoroastrian13Date, Zoroastrian13Calendar, StandardZoroastrian13DataSet>(chr)
 
@@ -134,6 +139,7 @@ module Bundles13 =
         static member MaxYear() = Zoroastrian13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Zoroastrian13Date, Zoroastrian13Calendar, StandardZoroastrian13DataSet>(chr)
 
@@ -146,6 +152,7 @@ module Bundles13 =
         static member Calendar_Prop() = Zoroastrian13Date.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>(Zoroastrian13Calendar.Instance)
 
@@ -153,6 +160,7 @@ module Bundles13 =
         override __.GetDate(y, doy) = new Zoroastrian13Date(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>()
 

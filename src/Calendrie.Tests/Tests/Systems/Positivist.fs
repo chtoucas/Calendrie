@@ -43,6 +43,7 @@ module Bundles =
     let private chr = PositivistCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<PositivistDate, PositivistCalendar, StandardPositivistDataSet>(chr)
 
@@ -64,6 +65,7 @@ module Bundles =
         static member MaxYear() = PositivistCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<PositivistDate, PositivistCalendar, StandardPositivistDataSet>(chr)
 
@@ -76,6 +78,7 @@ module Bundles =
         static member Calendar_Prop() = PositivistDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<PositivistDate, StandardPositivistDataSet>(PositivistCalendar.Instance)
 

@@ -60,6 +60,7 @@ module Bundles =
     let private chr = CopticCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
 
@@ -81,6 +82,7 @@ module Bundles =
         static member MaxYear() = CopticCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<CopticDate, CopticCalendar, StandardCoptic12DataSet>(chr)
 
@@ -93,6 +95,7 @@ module Bundles =
         static member Calendar_Prop() = CopticDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<CopticDate, StandardCoptic12DataSet>(CopticCalendar.Instance)
 
@@ -100,6 +103,7 @@ module Bundles =
         override __.GetDate(y, doy) = new CopticDate(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<CopticDate, StandardCoptic12DataSet>()
 
@@ -109,6 +113,7 @@ module Bundles13 =
     let private chr = Coptic13Calendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>(chr)
 
@@ -133,6 +138,7 @@ module Bundles13 =
         static member MaxYear() = Coptic13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Coptic13Date, Coptic13Calendar, StandardCoptic13DataSet>(chr)
 
@@ -145,6 +151,7 @@ module Bundles13 =
         static member Calendar_Prop() = Coptic13Date.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Coptic13Date, StandardCoptic13DataSet>(Coptic13Calendar.Instance)
 
@@ -152,6 +159,7 @@ module Bundles13 =
         override __.GetDate(y, doy) = new Coptic13Date(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<Coptic13Date, StandardCoptic13DataSet>()
 

@@ -61,6 +61,7 @@ module Bundles =
     let private chr = EgyptianCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<EgyptianDate, EgyptianCalendar, StandardEgyptian12DataSet>(chr)
 
@@ -82,6 +83,7 @@ module Bundles =
         static member MaxYear() = EgyptianCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<EgyptianDate, EgyptianCalendar, StandardEgyptian12DataSet>(chr)
 
@@ -94,6 +96,7 @@ module Bundles =
         static member Calendar_Prop() = EgyptianDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<EgyptianDate, StandardEgyptian12DataSet>(EgyptianCalendar.Instance)
 
@@ -101,6 +104,7 @@ module Bundles =
         override __.GetDate(y, doy) = new EgyptianDate(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<EgyptianDate, StandardEgyptian12DataSet>()
 
@@ -110,6 +114,7 @@ module Bundles13 =
     let private chr = Egyptian13Calendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<Egyptian13Date, Egyptian13Calendar, StandardEgyptian13DataSet>(chr)
 
@@ -134,6 +139,7 @@ module Bundles13 =
         static member MaxYear() = Egyptian13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Egyptian13Date, Egyptian13Calendar, StandardEgyptian13DataSet>(chr)
 
@@ -146,6 +152,7 @@ module Bundles13 =
         static member Calendar_Prop() = Egyptian13Date.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Egyptian13Date, StandardEgyptian13DataSet>(Egyptian13Calendar.Instance)
 
@@ -153,6 +160,7 @@ module Bundles13 =
         override __.GetDate(y, doy) = new Egyptian13Date(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<Egyptian13Date, StandardEgyptian13DataSet>()
 

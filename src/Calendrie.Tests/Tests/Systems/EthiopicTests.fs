@@ -61,6 +61,7 @@ module Bundles =
     let private chr = EthiopicCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<EthiopicDate, EthiopicCalendar, StandardEthiopic12DataSet>(chr)
 
@@ -82,6 +83,7 @@ module Bundles =
         static member MaxYear() = EthiopicCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<EthiopicDate, EthiopicCalendar, StandardEthiopic12DataSet>(chr)
 
@@ -94,6 +96,7 @@ module Bundles =
         static member Calendar_Prop() = EthiopicDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<EthiopicDate, StandardEthiopic12DataSet>(EthiopicCalendar.Instance)
 
@@ -101,6 +104,7 @@ module Bundles =
         override __.GetDate(y, doy) = new EthiopicDate(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<EthiopicDate, StandardEthiopic12DataSet>()
 
@@ -110,6 +114,7 @@ module Bundles13 =
     let private chr = Ethiopic13Calendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<Ethiopic13Date, Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
 
@@ -134,6 +139,7 @@ module Bundles13 =
         static member MaxYear() = Ethiopic13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Ethiopic13Date, Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
 
@@ -146,6 +152,7 @@ module Bundles13 =
         static member Calendar_Prop() = Ethiopic13Date.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Ethiopic13Date, StandardEthiopic13DataSet>(Ethiopic13Calendar.Instance)
 
@@ -153,6 +160,7 @@ module Bundles13 =
         override __.GetDate(y, doy) = new Ethiopic13Date(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<Ethiopic13Date, StandardEthiopic13DataSet>()
 

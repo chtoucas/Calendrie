@@ -47,6 +47,7 @@ module Bundles =
     let dateInfoData = TropicaliaDataSet.Instance.DateInfoData
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<TropicaliaDate, TropicaliaCalendar, StandardTropicaliaDataSet>(chr)
 
@@ -65,6 +66,7 @@ module Bundles =
         static member MaxYear() = TropicaliaCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<TropicaliaDate, TropicaliaCalendar, StandardTropicaliaDataSet>(chr)
 
@@ -77,6 +79,7 @@ module Bundles =
         static member Calendar_Prop() = TropicaliaDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<TropicaliaDate, StandardTropicaliaDataSet>(chr)
 

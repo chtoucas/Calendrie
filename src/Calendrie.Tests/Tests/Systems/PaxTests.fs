@@ -46,6 +46,7 @@ module Bundles =
     let dateInfoData = PaxDataSet.Instance.DateInfoData
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<PaxDate, PaxCalendar, StandardPaxDataSet>(chr)
 
@@ -64,6 +65,7 @@ module Bundles =
         static member MaxYear() = PaxCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<PaxDate, PaxCalendar, StandardPaxDataSet>(chr)
 
@@ -76,6 +78,7 @@ module Bundles =
         static member Calendar_Prop() = PaxDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<PaxDate, StandardPaxDataSet>(chr)
 

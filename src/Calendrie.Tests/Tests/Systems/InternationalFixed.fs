@@ -43,6 +43,7 @@ module Bundles =
     let private chr = InternationalFixedCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
 
@@ -64,6 +65,7 @@ module Bundles =
         static member MaxYear() = InternationalFixedCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
 
@@ -76,6 +78,7 @@ module Bundles =
         static member Calendar_Prop() = InternationalFixedDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<InternationalFixedDate, StandardInternationalFixedDataSet>(InternationalFixedCalendar.Instance)
 

@@ -61,6 +61,7 @@ module Bundles =
     let private chr = FrenchRepublicanCalendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
 
@@ -82,6 +83,7 @@ module Bundles =
         static member MaxYear() = FrenchRepublicanCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
 
@@ -94,6 +96,7 @@ module Bundles =
         static member Calendar_Prop() = FrenchRepublicanDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>(FrenchRepublicanCalendar.Instance)
 
@@ -101,6 +104,7 @@ module Bundles =
         override __.GetDate(y, doy) = new FrenchRepublicanDate(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
 
@@ -110,6 +114,7 @@ module Bundles13 =
     let private chr = FrenchRepublican13Calendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
 
@@ -134,6 +139,7 @@ module Bundles13 =
         static member MaxYear() = FrenchRepublican13Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
 
@@ -146,6 +152,7 @@ module Bundles13 =
         static member Calendar_Prop() = FrenchRepublican13Date.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>(FrenchRepublican13Calendar.Instance)
 
@@ -153,6 +160,7 @@ module Bundles13 =
         override __.GetDate(y, doy) = new FrenchRepublican13Date(y, doy)
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
 

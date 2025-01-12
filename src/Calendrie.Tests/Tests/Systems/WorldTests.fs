@@ -66,6 +66,7 @@ module Bundles =
     let dateInfoData = WorldDataSet.Instance.DateInfoData
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<WorldDate, WorldCalendar, StandardWorldDataSet>(chr)
 
@@ -87,6 +88,7 @@ module Bundles =
         static member MaxYear() = WorldCalendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<WorldDate, WorldCalendar, StandardWorldDataSet>(chr)
 
@@ -99,6 +101,7 @@ module Bundles =
         static member Calendar_Prop() = WorldDate.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<WorldDate, StandardWorldDataSet>(chr)
 

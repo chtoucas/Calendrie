@@ -43,6 +43,7 @@ module Bundles =
     let private chr = Persian2820Calendar.Instance
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
         inherit CalendarFacts<Persian2820Date, Persian2820Calendar, StandardPersian2820DataSet>(chr)
 
@@ -64,6 +65,7 @@ module Bundles =
         static member MaxYear() = Persian2820Calendar.MaxYear === StandardScope.MaxYear
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Persian2820Date, Persian2820Calendar, StandardPersian2820DataSet>(chr)
 
@@ -76,6 +78,7 @@ module Bundles =
         static member Calendar_Prop() = Persian2820Date.Calendar |> isnotnull
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateAdjusterFacts() =
         inherit DateAdjusterFacts<Persian2820Date, StandardPersian2820DataSet>(Persian2820Calendar.Instance)
 
