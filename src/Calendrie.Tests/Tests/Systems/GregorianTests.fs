@@ -103,7 +103,7 @@ module Bundles =
 
     [<Sealed>]
     type DateFacts() =
-        inherit IDateFacts<GregorianDate, GregorianCalendar, UnboundedGregorianDataSet>()
+        inherit IDateFacts<GregorianDate, UnboundedGregorianDataSet>()
 
         [<Fact>]
         member x.ToString_InvariantCulture2 () =
@@ -119,9 +119,6 @@ module Bundles =
         member x.ToString_InvariantCulture4 () =
             let date = x.GetDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Gregorian)"
-
-        [<Fact>]
-        static member Calendar_Prop() = GregorianDate.Calendar |> isnotnull
 
     [<Sealed>]
     type DateAdjusterFacts() =

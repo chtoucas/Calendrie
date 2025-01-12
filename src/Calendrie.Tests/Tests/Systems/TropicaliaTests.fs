@@ -64,10 +64,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<TropicaliaDate, TropicaliaCalendar, StandardTropicaliaDataSet>()
-
-        [<Fact>]
-        static member Calendar_Prop() = TropicaliaDate.Calendar |> isnotnull
+        inherit IDateFacts<TropicaliaDate, StandardTropicaliaDataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

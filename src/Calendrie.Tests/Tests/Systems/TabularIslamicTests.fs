@@ -63,10 +63,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<TabularIslamicDate, TabularIslamicCalendar, StandardTabularIslamicDataSet>()
-
-        [<Fact>]
-        static member Calendar_Prop() = TabularIslamicDate.Calendar |> isnotnull
+        inherit IDateFacts<TabularIslamicDate, StandardTabularIslamicDataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

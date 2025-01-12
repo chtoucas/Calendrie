@@ -63,10 +63,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<PositivistDate, PositivistCalendar, StandardPositivistDataSet>()
-
-        [<Fact>]
-        static member Calendar_Prop() = PositivistDate.Calendar |> isnotnull
+        inherit IDateFacts<PositivistDate, StandardPositivistDataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

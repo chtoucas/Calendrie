@@ -18,7 +18,7 @@ let domain = Range.Create(MyGregorianDate.MinValue.DayNumber, MyGregorianDate.Ma
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type DateFacts() =
-    inherit IDateFacts<MyGregorianDate, MyGregorianCalendar, StandardGregorianDataSet>()
+    inherit IDateFacts<MyGregorianDate, StandardGregorianDataSet>()
 
     // MyGregorianDate.FromDayNumber() throws an OverflowException here but only
     // because the base test uses the explicit implementation of FromDayNumber().

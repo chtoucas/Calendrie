@@ -85,7 +85,7 @@ module Bundles =
 
     [<Sealed>]
     type DateFacts() =
-        inherit IDateFacts<JulianDate, JulianCalendar, UnboundedJulianDataSet>()
+        inherit IDateFacts<JulianDate, UnboundedJulianDataSet>()
 
         [<Fact>]
         member x.ToString_InvariantCulture2 () =
@@ -101,9 +101,6 @@ module Bundles =
         member x.ToString_InvariantCulture4 () =
             let date = x.GetDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Julian)"
-
-        [<Fact>]
-        static member Calendar_Prop() = JulianDate.Calendar |> isnotnull
 
     [<Sealed>]
     type DateAdjusterFacts() =

@@ -13,9 +13,8 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides data-driven tests for the <see cref="IDate{TSelf}"/> type.
 /// </summary>
-public partial class IDateFacts<TDate, TCalendar, TDataSet> :
+public partial class IDateFacts<TDate, TDataSet> :
     IAbsoluteDateFacts<TDate, TDataSet>
-    where TCalendar : Calendar
     where TDate : struct, IDate<TDate>, ICalendarBound
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
@@ -30,6 +29,9 @@ public partial class IDateFacts<TDate, TCalendar, TDataSet> :
     protected sealed override TDate GetDate(int y, int m, int d) => TDate.Create(y, m, d);
 
     [Fact]
+    public void Calendar_Prop() => Assert.NotNull(TDate.Calendar);
+
+    [Fact]
     public void ToString_InvariantCulture()
     {
         var date = GetDate(1, 1, 1);
@@ -39,7 +41,7 @@ public partial class IDateFacts<TDate, TCalendar, TDataSet> :
     }
 }
 
-public partial class IDateFacts<TDate, TCalendar, TDataSet> // Factories & constructors
+public partial class IDateFacts<TDate, TDataSet> // Factories & constructors
 {
     // Althought, we do not usually test static methods/props in a fact class,
     // the situation is a bit different here since this is a static method on a

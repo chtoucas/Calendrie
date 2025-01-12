@@ -81,10 +81,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<FrenchRepublicanDate, FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>()
-
-        [<Fact>]
-        static member Calendar_Prop() = FrenchRepublicanDate.Calendar |> isnotnull
+        inherit IDateFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -128,10 +125,7 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<FrenchRepublican13Date, FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>()
-
-        [<Fact>]
-        static member Calendar_Prop() = FrenchRepublican13Date.Calendar |> isnotnull
+        inherit IDateFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
