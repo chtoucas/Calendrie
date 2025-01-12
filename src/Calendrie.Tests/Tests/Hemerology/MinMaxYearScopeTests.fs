@@ -10,6 +10,7 @@ open Calendrie.Core.Schemas
 open Calendrie.Hemerology
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas
+open Calendrie.Testing.Data.Scopes
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Faux
 

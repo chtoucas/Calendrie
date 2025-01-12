@@ -5,47 +5,7 @@ namespace Calendrie.Testing.Facts.Hemerology;
 
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
-
-public interface IMinMaxYearScopeData
-{
-    /// <summary>
-    /// Gets the earliest supported year.
-    /// </summary>
-    static abstract int MinYear { get; }
-
-    /// <summary>
-    /// Gets the latest supported year.
-    /// </summary>
-    static abstract int MaxYear { get; }
-
-    static abstract TheoryData<int> InvalidYearData { get; }
-    static abstract TheoryData<int> ValidYearData { get; }
-}
-
-public sealed class MinMaxYearScopeData : IMinMaxYearScopeData
-{
-    public static int MinYear => -5;
-    public static int MaxYear => 1234;
-
-    public static TheoryData<int> InvalidYearData =>
-    [
-        int.MinValue,
-        MinYear - 1,
-        MaxYear + 1,
-        int.MaxValue,
-    ];
-
-    public static TheoryData<int> ValidYearData =>
-    [
-        MinYear,
-        MinYear + 1,
-        -1,
-        0,
-        1,
-        MaxYear - 1,
-        MaxYear
-    ];
-}
+using Calendrie.Testing.Data.Scopes;
 
 /// <summary>
 /// Provides data-driven tests for <see cref="CalendarScope"/> for a range of

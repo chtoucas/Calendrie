@@ -9,11 +9,14 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Schemas
+open Calendrie.Testing.Data.Scopes
+open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Systems
 open Calendrie.Testing.Faux
 
-// TODO(fact): lunisolar (fake, not standard dataset), Tropicalia3xxx (not standard).
+// TODO(fact): lunisolar (fake, no standard dataset), Tropicalia3xxx (not standard dataset).
 
+// The value of the epoch does not matter here (we don't test the day numbers).
 let private scopeOf(sch) = new StandardScope(sch, DayZero.OldStyle)
 
 // Not an actual StandardScope but close enough.
@@ -22,7 +25,8 @@ let private scopeOf(sch) = new StandardScope(sch, DayZero.OldStyle)
 // We do not exclude this one from CodeCoverage.
 //[<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
 type CivilTests() =
-    inherit CivilScopeFacts<StandardGregorianDataSet>(new CivilScope(new CivilSchema()))
+    inherit CalendarScopeFacts<CivilScope, StandardGregorianDataSet, StandardScopeData>(
+        new CivilScope(new CivilSchema()))
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
