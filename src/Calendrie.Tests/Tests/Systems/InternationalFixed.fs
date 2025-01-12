@@ -7,7 +7,6 @@ open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
-open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Systems
 
@@ -40,3 +39,45 @@ module Prelude =
         InternationalFixedCalendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+module Bundles =
+    let private chr = InternationalFixedCalendar.Instance
+
+    [<Sealed>]
+    type CalendaTests() =
+        inherit CalendarFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
+
+        override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
+        override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
+        override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
+
+        override __.GetDate(y, m, d) = new InternationalFixedDate(y, m, d);
+        override __.GetDate(y, doy) = new InternationalFixedDate(y, doy);
+        override __.GetDate(dayNumber) = InternationalFixedDate.FromDayNumber(dayNumber);
+
+        [<Fact>]
+        static member MonthsInYear() = InternationalFixedCalendar.MonthsInYear === 13
+
+        [<Fact>]
+        static member MinYear() = InternationalFixedCalendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = InternationalFixedCalendar.MaxYear === StandardScope.MaxYear
+
+    [<Sealed>]
+    type DateFacts() =
+        inherit IDateFacts<InternationalFixedDate, InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
+
+        override __.MinDate = InternationalFixedDate.MinValue
+        override __.MaxDate = InternationalFixedDate.MaxValue
+
+        override __.GetDate(y, m, d) = new InternationalFixedDate(y, m, d)
+
+        [<Fact>]
+        static member Calendar_Prop() = InternationalFixedDate.Calendar |> isnotnull
+
+    [<Sealed>]
+    type DateAdjusterFacts() =
+        inherit DateAdjusterFacts<InternationalFixedDate, StandardInternationalFixedDataSet>(InternationalFixedCalendar.Instance)
+
+        override __.GetDate(y, m, d) = new InternationalFixedDate(y, m, d)
+        override __.GetDate(y, doy) = new InternationalFixedDate(y, doy)

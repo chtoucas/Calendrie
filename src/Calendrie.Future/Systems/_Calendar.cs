@@ -28,16 +28,6 @@ public partial class FrenchRepublican13Calendar // Complements
     public const int VirtualMonth = FrenchRepublican13Schema.VirtualMonth;
 }
 
-[ExcludeFromCodeCoverage]
-public partial class InternationalFixedCalendar { }
-
-[ExcludeFromCodeCoverage]
-public partial class Persian2820Calendar { }
-
-[ExcludeFromCodeCoverage]
-public partial class PositivistCalendar { }
-
-[ExcludeFromCodeCoverage]
 public partial class RevisedWorldCalendar // Complements
 {
     /// <summary>

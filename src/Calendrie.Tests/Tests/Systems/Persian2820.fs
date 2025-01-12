@@ -7,7 +7,6 @@ open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
-open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Systems
 
@@ -39,5 +38,49 @@ module Prelude =
     let ``Value of Persian2820Calendar.MaxMonthsSinceEpoch`` () =
         Persian2820Calendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
+
+module Bundles =
+    let private chr = Persian2820Calendar.Instance
+
+    [<Sealed>]
+    type CalendaTests() =
+        inherit CalendarFacts<Persian2820Date, Persian2820Calendar, StandardPersian2820DataSet>(chr)
+
+        override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
+        override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
+        override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
+
+        override __.GetDate(y, m, d) = new Persian2820Date(y, m, d);
+        override __.GetDate(y, doy) = new Persian2820Date(y, doy);
+        override __.GetDate(dayNumber) = Persian2820Date.FromDayNumber(dayNumber);
+
+        [<Fact>]
+        static member MonthsInYear() = Persian2820Calendar.MonthsInYear === 12
+
+        [<Fact>]
+        static member MinYear() = Persian2820Calendar.MinYear === StandardScope.MinYear
+
+        [<Fact>]
+        static member MaxYear() = Persian2820Calendar.MaxYear === StandardScope.MaxYear
+
+    [<Sealed>]
+    type DateFacts() =
+        inherit IDateFacts<Persian2820Date, Persian2820Calendar, StandardPersian2820DataSet>(chr)
+
+        override __.MinDate = Persian2820Date.MinValue
+        override __.MaxDate = Persian2820Date.MaxValue
+
+        override __.GetDate(y, m, d) = new Persian2820Date(y, m, d)
+
+        [<Fact>]
+        static member Calendar_Prop() = Persian2820Date.Calendar |> isnotnull
+
+    [<Sealed>]
+    type DateAdjusterFacts() =
+        inherit DateAdjusterFacts<Persian2820Date, StandardPersian2820DataSet>(Persian2820Calendar.Instance)
+
+        override __.GetDate(y, m, d) = new Persian2820Date(y, m, d)
+        override __.GetDate(y, doy) = new Persian2820Date(y, doy)
+
 
 

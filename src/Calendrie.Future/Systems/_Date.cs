@@ -51,15 +51,3 @@ public partial struct FrenchRepublican13Date : IEpagomenalDay // Complements
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
     }
 }
-
-[ExcludeFromCodeCoverage]
-public partial struct InternationalFixedDate { }
-
-[ExcludeFromCodeCoverage]
-public partial struct Persian2820Date { }
-
-[ExcludeFromCodeCoverage]
-public partial struct PositivistDate { }
-
-[ExcludeFromCodeCoverage]
-public partial struct RevisedWorldDate { }
