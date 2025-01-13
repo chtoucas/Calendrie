@@ -10,6 +10,7 @@ using Calendrie.Testing.Data;
 /// Provides basic facts about the <see cref="ICalendricalSchema"/> type.
 /// <para>Useful when testing an unfinished schema.</para>
 /// </summary>
+[Obsolete("No longer needed as we move to prototypes")]
 public abstract class ICalendricalSchemaBasicFacts<TSchema, TDataSet> :
     ICalendricalCoreFacts<TSchema, TDataSet>
     where TSchema : ICalendricalSchema
