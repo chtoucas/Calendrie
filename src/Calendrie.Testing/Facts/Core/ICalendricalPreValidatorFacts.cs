@@ -178,7 +178,7 @@ public partial class ICalendricalPreValidatorFacts<TDataSet> // Methods
 
 public partial class ICalendricalPreValidatorFacts<TDataSet> // Overflows
 {
-    // Verification that the methods **ignore the year param** and do not overflow.
+    // Verification that the methods __ignore the year param__ and do not overflow.
     //
     // Usually, a pre-validator does not perform any arithmetical operation
     // itself, it delegates them to a schema. In practice, it all depends on the

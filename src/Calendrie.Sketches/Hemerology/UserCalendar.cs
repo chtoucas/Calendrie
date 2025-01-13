@@ -63,12 +63,6 @@ public abstract class UserCalendar : Calendar
     }
 
 #if false // Not included as most calendars are regular; see NakedCalendar.
-    /// <summary>
-    /// Obtains the number of months in the specified year.
-    /// <para>See also <seealso cref="IsRegular(out int)"/>.</para>
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
-    /// range of supported years.</exception>
     [Pure] public abstract int CountMonthsInYear(int year);
 #endif
 
