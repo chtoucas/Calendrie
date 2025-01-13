@@ -67,7 +67,7 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Prelude
     [Theory, MemberData(nameof(CalCalDataSet.DayNumberToDayOfWeekData), MemberType = typeof(CalCalDataSet))]
     public void DayOfWeek_Prop_ViaDayNumber(DayNumber dayNumber, DayOfWeek dayOfWeek)
     {
-        if (!Domain.Contains(dayNumber)) { return; }
+        if (!Domain.Contains(dayNumber)) return;
 
         var date = TDate.FromDayNumber(dayNumber);
         // Act & Assert
@@ -376,6 +376,82 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
 
         Assert.Equal(1, dateAfter.CountDaysSince(date));
         Assert.Equal(-1, date.CountDaysSince(dateAfter));
+    }
+
+    #endregion
+
+    // TODO(fact): finish the tests for week math
+
+    #region NextWeek()
+
+    [Fact]
+    public void NextWeek_Overflows_AtMaxValue() => AssertEx.Overflows(() => MaxDate.NextWeek());
+
+    [Theory, MemberData(nameof(DayNumberInfoData))]
+    public void NextWeek(DayNumberInfo info)
+    {
+        var dayNumber = info.DayNumber;
+        if (dayNumber + 7 > TDate.MaxValue.DayNumber) return;
+
+        var date = TDate.FromDayNumber(dayNumber);
+        var dayOfWeek = date.DayOfWeek;
+        // Act & Assert
+        Assert.Equal(date.PlusDays(7), date.NextWeek());
+        Assert.Equal(date.Next(dayOfWeek), date.NextWeek());
+    }
+
+    #endregion
+    #region PreviousWeek()
+
+    [Fact]
+    public void PreviousWeek_Overflows_AtMinValue() => AssertEx.Overflows(() => MinDate.PreviousWeek());
+
+    [Theory, MemberData(nameof(DayNumberInfoData))]
+    public void PreviousWeek(DayNumberInfo info)
+    {
+        var dayNumber = info.DayNumber;
+        if (dayNumber - 7 < TDate.MinValue.DayNumber) return;
+
+        var date = TDate.FromDayNumber(dayNumber);
+        var dayOfWeek = date.DayOfWeek;
+        // Act & Assert
+        Assert.Equal(date.PlusDays(-7), date.PreviousWeek());
+        Assert.Equal(date.Previous(dayOfWeek), date.PreviousWeek());
+    }
+
+    #endregion
+    #region PlusWeeks()
+
+    [Fact]
+    public void PlusWeeks_Overflows()
+    {
+        var date = GetDate(1, 1, 1);
+        // Act & Assert
+        AssertEx.Overflows(() => date.AddWeeks(int.MinValue));
+        AssertEx.Overflows(() => date.AddWeeks(int.MaxValue));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void PlusWeeks_Zero_IsNeutral(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var date = GetDate(y, m, d);
+        // Act & Assert
+        Assert.Equal(date, date.AddWeeks(0));
+        Assert.Equal(0, date.CountWeeksSince(date));
+    }
+
+    [Theory, MemberData(nameof(DayNumberInfoData))]
+    public void PlusWeeks(DayNumberInfo info)
+    {
+        var dayNumber = info.DayNumber;
+        if (dayNumber + 21 > TDate.MaxValue.DayNumber) return;
+        if (dayNumber - 21 < TDate.MinValue.DayNumber) return;
+
+        var date = TDate.FromDayNumber(dayNumber);
+        // Act & Assert
+        Assert.Equal(date.PlusDays(21), date.AddWeeks(3));
+        Assert.Equal(date.PlusDays(-21), date.AddWeeks(-3));
     }
 
     #endregion
