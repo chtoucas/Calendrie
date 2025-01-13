@@ -244,7 +244,8 @@ public partial struct MyGregorianDate // Math
         this == MinValue ? throw new OverflowException() : new(_daysSinceEpoch - 1);
 
     public MyGregorianDate PlusYears(int years) => Calendar.AddYears(this, years);
-    public MyGregorianDate PlusMonths(int months) => Calendar.AddMonths(this, months);
     public int CountYearsSince(MyGregorianDate other) => Calendar.CountYearsBetween(other, this);
+
+    public MyGregorianDate PlusMonths(int months) => Calendar.AddMonths(this, months);
     public int CountMonthsSince(MyGregorianDate other) => Calendar.CountMonthsBetween(other, this);
 }

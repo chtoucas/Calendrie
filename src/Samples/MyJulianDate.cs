@@ -186,8 +186,9 @@ public partial struct MyJulianDate // Math
     public MyJulianDate PreviousDay() => new(Calendar.PreviousDay(_bin));
 
     public MyJulianDate PlusYears(int years) => throw new NotImplementedException();
-    public MyJulianDate PlusMonths(int months) => throw new NotImplementedException();
     public int CountYearsSince(MyJulianDate other) => throw new NotImplementedException();
+
+    public MyJulianDate PlusMonths(int months) => throw new NotImplementedException();
     public int CountMonthsSince(MyJulianDate other) => throw new NotImplementedException();
 }
 

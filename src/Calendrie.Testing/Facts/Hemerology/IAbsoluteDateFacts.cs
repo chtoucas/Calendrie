@@ -8,11 +8,9 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// TODO(fact): DayOfWeek via DayNumber. Pre-filter CalCalDataSet.DayOfWeekData.
-
-// Pour le moment, toutes les classes implémentant IAbsoluteDate<T> implémentent
-// aussi IDateable, mais si un jour cela change, on pourra toujours lever la
-// contrainte IDateable ci-dessous.
+// Pour le moment, mis à part DayNumber, toutes les classes implémentant
+// IAbsoluteDate<T> implémentent aussi IDateable, mais si un jour cela change,
+// on pourra toujours lever la contrainte IDateable ci-dessous.
 
 /// <summary>
 /// Provides data-driven tests for the <see cref="IAbsoluteDate{TSelf}"/> type.
@@ -47,15 +45,6 @@ public abstract partial class IAbsoluteDateFacts<TDate, TDataSet> :
 
 public partial class IAbsoluteDateFacts<TDate, TDataSet> // Prelude
 {
-    //[Theory, MemberData(nameof(CalCalDataSet.DayOfWeekData), MemberType = typeof(CalCalDataSet))]
-    //public void DayOfWeek_Prop_ViaDayNumber(DayNumber dayNumber, DayOfWeek dayOfWeek)
-    //{
-    //    if (Domain.Contains(dayNumber) == false) { return; }
-    //    var date = TDate.FromDayNumber(dayNumber);
-    //    // Act & Assert
-    //    Assert.Equal(dayOfWeek, date.DayOfWeek);
-    //}
-
     [Theory, MemberData(nameof(DayNumberInfoData))]
     public void DayNumber_Prop(DayNumberInfo info)
     {
@@ -72,6 +61,17 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Prelude
         var date = GetDate(y, m, d);
         // Act & Assert
         Assert.Equal(daysSinceEpoch, date.DaysSinceEpoch);
+    }
+
+    // TODO(fact): pre-filter CalCalDataSet.DayNumberToDayOfWeekData.
+    [Theory, MemberData(nameof(CalCalDataSet.DayNumberToDayOfWeekData), MemberType = typeof(CalCalDataSet))]
+    public void DayOfWeek_Prop_ViaDayNumber(DayNumber dayNumber, DayOfWeek dayOfWeek)
+    {
+        if (!Domain.Contains(dayNumber)) { return; }
+
+        var date = TDate.FromDayNumber(dayNumber);
+        // Act & Assert
+        Assert.Equal(dayOfWeek, date.DayOfWeek);
     }
 }
 

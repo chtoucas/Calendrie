@@ -9,20 +9,20 @@ public sealed class DomainTester
 {
     public DomainTester(Range<DayNumber> domain)
     {
-        // Un peu naïf mais on s'en contentera pour le moment.
-        var (minDayNumber, maxDayNumber) = domain.Endpoints;
+        // Un peu naïf mais pour le moment on s'en contentera pour le moment.
+        var (min, max) = domain.Endpoints;
         ValidDayNumbers =
         [
-            minDayNumber,
-            minDayNumber + 1,
-            maxDayNumber - 1,
-            maxDayNumber,
+            min,
+            min + 1,
+            max - 1,
+            max,
         ];
         InvalidDayNumbers =
         [
             DayNumber.MinValue,
-            minDayNumber - 1,
-            maxDayNumber + 1,
+            min - 1,
+            max + 1,
             DayNumber.MaxValue,
         ];
     }

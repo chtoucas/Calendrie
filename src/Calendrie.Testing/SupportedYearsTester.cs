@@ -10,19 +10,19 @@ public sealed class SupportedYearsTester
     public SupportedYearsTester(Range<int> supportedYears)
     {
         // Un peu naïf mais pour le moment on s'en contentera pour le moment.
-        var (minYear, maxYear) = supportedYears.Endpoints;
+        var (min, max) = supportedYears.Endpoints;
         ValidYears =
         [
-            minYear,
-            minYear + 1,
-            maxYear - 1,
-            maxYear,
+            min,
+            min + 1,
+            max - 1,
+            max,
         ];
         InvalidYears =
         [
             int.MinValue,
-            minYear - 1,
-            maxYear + 1,
+            min - 1,
+            max + 1,
             int.MaxValue,
         ];
     }
