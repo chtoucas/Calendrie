@@ -20,7 +20,6 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct GregorianMonth :
     IMonth<GregorianMonth>,
-    ICalendarBound<GregorianCalendar>,
     IUnsafeFactory<GregorianMonth>,
     // A month viewed as a finite sequence of days
     IDateSegment<GregorianDate>,
@@ -90,10 +89,12 @@ public partial struct GregorianMonth // Preamble
     public static GregorianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current month type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static GregorianCalendar Calendar => GregorianCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;

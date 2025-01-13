@@ -90,8 +90,6 @@ public sealed partial class MyCivilCalendar : Calendar
 /// </summary>
 public readonly partial struct MyCivilDate :
     IDate<MyCivilDate>,
-    ICalendarBound,
-    ICalendarBound<MyCivilCalendar>,
     IUnsafeFactory<MyCivilDate>,
     ISubtractionOperators<MyCivilDate, MyCivilDate, int>
 { }
@@ -163,12 +161,12 @@ public partial struct MyCivilDate // Preamble
     public static MyCivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyCivilCalendar Calendar => MyCivilCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
@@ -869,7 +867,6 @@ public sealed class MyCivilDateMath : DateMathRegular<MyCivilDate, MyCivilCalend
 /// </summary>
 public readonly partial struct MyCivilMonth :
     IMonth<MyCivilMonth>,
-    ICalendarBound<MyCivilCalendar>,
     IUnsafeFactory<MyCivilMonth>,
     // A month viewed as a finite sequence of days
     IDateSegment<MyCivilDate>,
@@ -937,10 +934,12 @@ public partial struct MyCivilMonth // Preamble
     public static MyCivilMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current month type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyCivilCalendar Calendar => MyCivilCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
@@ -1467,7 +1466,6 @@ public partial struct MyCivilMonth // Non-standard math ops
 /// </summary>
 public readonly partial struct MyCivilYear :
     IYear<MyCivilYear>,
-    ICalendarBound<MyCivilCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<MyCivilMonth>,
     ISetMembership<MyCivilMonth>,
@@ -1532,10 +1530,12 @@ public partial struct MyCivilYear // Preamble
     public static MyCivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyCivilCalendar Calendar => MyCivilCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;

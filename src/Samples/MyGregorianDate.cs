@@ -14,8 +14,6 @@ using Calendrie.Hemerology;
 
 public readonly partial struct MyGregorianDate :
     IDate<MyGregorianDate>,
-    ICalendarBound,
-    ICalendarBound<MyGregorianCalendar>,
     ISubtractionOperators<MyGregorianDate, MyGregorianDate, int>
 {
     private static readonly DayNumber s_Epoch = MyGregorianCalendar.Instance.Epoch;
@@ -46,7 +44,7 @@ public readonly partial struct MyGregorianDate :
 
     public static MyGregorianCalendar Calendar => MyGregorianCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
     public int DaysSinceEpoch => _daysSinceEpoch;

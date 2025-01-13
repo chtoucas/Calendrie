@@ -20,7 +20,6 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct JulianMonth :
     IMonth<JulianMonth>,
-    ICalendarBound<JulianCalendar>,
     IUnsafeFactory<JulianMonth>,
     // A month viewed as a finite sequence of days
     IDateSegment<JulianDate>,
@@ -90,10 +89,12 @@ public partial struct JulianMonth // Preamble
     public static JulianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current month type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static JulianCalendar Calendar => JulianCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;

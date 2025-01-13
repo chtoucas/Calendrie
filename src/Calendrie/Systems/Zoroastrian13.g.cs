@@ -86,8 +86,6 @@ public sealed partial class Zoroastrian13Calendar : Calendar
 /// </summary>
 public readonly partial struct Zoroastrian13Date :
     IDate<Zoroastrian13Date>,
-    ICalendarBound,
-    ICalendarBound<Zoroastrian13Calendar>,
     IUnsafeFactory<Zoroastrian13Date>,
     ISubtractionOperators<Zoroastrian13Date, Zoroastrian13Date, int>
 { }
@@ -167,12 +165,12 @@ public partial struct Zoroastrian13Date // Preamble
     public static Zoroastrian13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Zoroastrian13Calendar Calendar => Zoroastrian13Calendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //

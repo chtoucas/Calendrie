@@ -6,7 +6,7 @@ namespace Calendrie.Hemerology;
 // This class works best for date types based on the count of days since the epoch.
 
 public sealed class DateProvider<TDate, TCalendar> : IDateProvider<TDate>
-    where TDate : IDate<TDate>, ICalendarBound<TCalendar>
+    where TDate : IDate<TDate>
     where TCalendar : Calendar
 {
     private readonly CalendarScope _scope;

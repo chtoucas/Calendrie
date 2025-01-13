@@ -17,7 +17,7 @@ using Calendrie.Hemerology;
 /// </para>
 /// </summary>
 public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth>
-    where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>, IUnsafeFactory<TMonth>
+    where TMonth : struct, IMonth<TMonth>, IUnsafeFactory<TMonth>
     where TCalendar : Calendar
 {
     /// <summary>Represents the schema.</summary>

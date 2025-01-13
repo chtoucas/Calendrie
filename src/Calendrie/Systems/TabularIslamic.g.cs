@@ -86,8 +86,6 @@ public sealed partial class TabularIslamicCalendar : Calendar
 /// </summary>
 public readonly partial struct TabularIslamicDate :
     IDate<TabularIslamicDate>,
-    ICalendarBound,
-    ICalendarBound<TabularIslamicCalendar>,
     IUnsafeFactory<TabularIslamicDate>,
     ISubtractionOperators<TabularIslamicDate, TabularIslamicDate, int>
 { }
@@ -167,12 +165,12 @@ public partial struct TabularIslamicDate // Preamble
     public static TabularIslamicDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TabularIslamicCalendar Calendar => TabularIslamicCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //

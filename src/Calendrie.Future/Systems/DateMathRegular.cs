@@ -14,7 +14,7 @@ using Calendrie.Hemerology;
 /// </para>
 /// </summary>
 public class DateMathRegular<TDate, TCalendar> : DateMath<TDate>
-    where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
+    where TDate : struct, IDate<TDate>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
     /// <summary>Represents the number of months in a year.</summary>

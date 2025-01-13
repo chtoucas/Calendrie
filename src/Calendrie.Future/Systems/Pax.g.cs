@@ -81,8 +81,6 @@ public sealed partial class PaxCalendar : Calendar
 /// </summary>
 public readonly partial struct PaxDate :
     IDate<PaxDate>,
-    ICalendarBound,
-    ICalendarBound<PaxCalendar>,
     IUnsafeFactory<PaxDate>,
     ISubtractionOperators<PaxDate, PaxDate, int>
 { }
@@ -162,12 +160,12 @@ public partial struct PaxDate // Preamble
     public static PaxDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxCalendar Calendar => PaxCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //
@@ -889,7 +887,6 @@ public sealed class PaxDateMath : DateMathPlain<PaxDate, PaxCalendar>
 /// </summary>
 public readonly partial struct PaxMonth :
     IMonth<PaxMonth>,
-    ICalendarBound<PaxCalendar>,
     IUnsafeFactory<PaxMonth>,
     // A month viewed as a finite sequence of days
     IDateSegment<PaxDate>,
@@ -953,10 +950,12 @@ public partial struct PaxMonth // Preamble
     public static PaxMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current month type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxCalendar Calendar => PaxCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
@@ -1534,7 +1533,6 @@ public sealed class PaxMonthMath : MonthMathPlain<PaxMonth, PaxCalendar>
 /// </summary>
 public readonly partial struct PaxYear :
     IYear<PaxYear>,
-    ICalendarBound<PaxCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<PaxMonth>,
     ISetMembership<PaxMonth>,
@@ -1599,10 +1597,12 @@ public partial struct PaxYear // Preamble
     public static PaxYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxCalendar Calendar => PaxCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;

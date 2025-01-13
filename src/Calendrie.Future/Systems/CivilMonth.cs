@@ -66,10 +66,12 @@ public partial struct CivilMonth // Preamble
     public static CivilMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current month type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
 
     /// <summary>
     /// Gets the count of consecutive months since the Gregorian epoch.

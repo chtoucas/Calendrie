@@ -74,12 +74,12 @@ public partial struct CivilDate // Preamble
     public static CivilDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);

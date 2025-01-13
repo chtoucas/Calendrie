@@ -16,7 +16,7 @@ using Calendrie.Core.Utilities;
 /// </para>
 /// </summary>
 public class PlainMonthMath<TMonth, TCalendar> : MonthMath<TMonth>
-    where TMonth : struct, IMonth<TMonth>, ICalendarBound<TCalendar>
+    where TMonth : struct, IMonth<TMonth>
     where TCalendar : Calendar
 {
     /// <summary>Represents the earliest supported year.</summary>

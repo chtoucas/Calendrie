@@ -6,6 +6,7 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 public partial struct CivilYear // Preamble
 {
@@ -60,10 +61,12 @@ public partial struct CivilYear // Preamble
     public static CivilYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static CivilCalendar Calendar => CivilCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
 
     /// <summary>
     /// Gets the count of consecutive years since the Gregorian epoch.

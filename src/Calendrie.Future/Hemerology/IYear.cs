@@ -14,6 +14,11 @@ using System.Numerics;
 public interface IYear
 {
     /// <summary>
+    /// Gets the companion calendar.
+    /// </summary>
+    static abstract Calendar Calendar { get; }
+
+    /// <summary>
     /// Gets the count of consecutive years since the epoch of the calendar to
     /// which belongs the current instance.
     /// </summary>

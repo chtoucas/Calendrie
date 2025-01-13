@@ -90,8 +90,6 @@ public sealed partial class MyJulianCalendar : Calendar
 /// </summary>
 public readonly partial struct MyJulianDate :
     IDate<MyJulianDate>,
-    ICalendarBound,
-    ICalendarBound<MyJulianCalendar>,
     IUnsafeFactory<MyJulianDate>,
     ISubtractionOperators<MyJulianDate, MyJulianDate, int>
 { }
@@ -171,12 +169,12 @@ public partial struct MyJulianDate // Preamble
     public static MyJulianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //
@@ -882,7 +880,6 @@ public sealed class MyJulianDateMath : DateMathRegular<MyJulianDate, MyJulianCal
 /// </summary>
 public readonly partial struct MyJulianMonth :
     IMonth<MyJulianMonth>,
-    ICalendarBound<MyJulianCalendar>,
     IUnsafeFactory<MyJulianMonth>,
     // A month viewed as a finite sequence of days
     IDateSegment<MyJulianDate>,
@@ -950,10 +947,12 @@ public partial struct MyJulianMonth // Preamble
     public static MyJulianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current month type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
@@ -1480,7 +1479,6 @@ public partial struct MyJulianMonth // Non-standard math ops
 /// </summary>
 public readonly partial struct MyJulianYear :
     IYear<MyJulianYear>,
-    ICalendarBound<MyJulianCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<MyJulianMonth>,
     ISetMembership<MyJulianMonth>,
@@ -1545,10 +1543,12 @@ public partial struct MyJulianYear // Preamble
     public static MyJulianYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;

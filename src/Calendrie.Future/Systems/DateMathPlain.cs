@@ -14,7 +14,7 @@ using Calendrie.Hemerology;
 /// </para>
 /// </summary>
 public class DateMathPlain<TDate, TCalendar> : DateMath<TDate>
-    where TDate : struct, IDate<TDate>, ICalendarBound<TCalendar>, IUnsafeFactory<TDate>
+    where TDate : struct, IDate<TDate>, IUnsafeFactory<TDate>
     where TCalendar : Calendar
 {
     /// <summary>Represents the smallest possible value of the count of consecutive

@@ -43,7 +43,6 @@ public partial class CalendarTemplate
 /// </summary>
 public readonly partial struct <#= Prefix #>Year :
     IYear<<#= Prefix #>Year>,
-    ICalendarBound<<#= Prefix #>Calendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<<#= Prefix #>Month>,
     ISetMembership<<#= Prefix #>Month>,
@@ -114,10 +113,12 @@ public partial struct <#= Prefix #>Year // Preamble
     public static <#= Prefix #>Year MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;

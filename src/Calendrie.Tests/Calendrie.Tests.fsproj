@@ -13,9 +13,9 @@
     <WarningLevel>5</WarningLevel>
     <!--
       FS0044  This construct is deprecated
-              (We still want to test obsolete methods)
+              (we still want to test obsolete methods)
     -->
-    <NoWarn>$(NoWarn);FS0044</NoWarn>
+    <!--<NoWarn>$(NoWarn);FS0044</NoWarn>-->
     <WarningsNotAsErrors>$(WarningsNotAsErrors);FS0044</WarningsNotAsErrors>
     <!--
       We enable most opt-in warnings. Missing ones:

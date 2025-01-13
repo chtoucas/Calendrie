@@ -86,8 +86,6 @@ public sealed partial class Egyptian13Calendar : Calendar
 /// </summary>
 public readonly partial struct Egyptian13Date :
     IDate<Egyptian13Date>,
-    ICalendarBound,
-    ICalendarBound<Egyptian13Calendar>,
     IUnsafeFactory<Egyptian13Date>,
     ISubtractionOperators<Egyptian13Date, Egyptian13Date, int>
 { }
@@ -167,12 +165,12 @@ public partial struct Egyptian13Date // Preamble
     public static Egyptian13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Egyptian13Calendar Calendar => Egyptian13Calendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //

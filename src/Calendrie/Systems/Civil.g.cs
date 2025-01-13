@@ -27,8 +27,6 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 public readonly partial struct CivilDate :
     IDate<CivilDate>,
-    ICalendarBound,
-    ICalendarBound<CivilCalendar>,
     IUnsafeFactory<CivilDate>,
     ISubtractionOperators<CivilDate, CivilDate, int>
 { }

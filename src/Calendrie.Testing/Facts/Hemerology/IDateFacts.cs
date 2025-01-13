@@ -6,16 +6,12 @@ namespace Calendrie.Testing.Facts.Hemerology;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// Pour le moment, toutes les classes implémentant IDate<T> implémentent aussi
-// ICalendarBound, mais si un jour cela change, on pourra toujours lever la
-// contrainte ICalendarBound ci-dessous.
-
 /// <summary>
 /// Provides data-driven tests for the <see cref="IDate{TSelf}"/> type.
 /// </summary>
 public partial class IDateFacts<TDate, TDataSet> :
     IAbsoluteDateFacts<TDate, TDataSet>
-    where TDate : struct, IDate<TDate>, ICalendarBound
+    where TDate : struct, IDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     public IDateFacts() : base(TDate.Calendar.Scope.Domain)

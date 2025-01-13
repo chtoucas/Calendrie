@@ -89,8 +89,6 @@ public sealed partial class TropicaliaCalendar : Calendar
 /// </summary>
 public readonly partial struct TropicaliaDate :
     IDate<TropicaliaDate>,
-    ICalendarBound,
-    ICalendarBound<TropicaliaCalendar>,
     IUnsafeFactory<TropicaliaDate>,
     ISubtractionOperators<TropicaliaDate, TropicaliaDate, int>
 { }
@@ -162,12 +160,12 @@ public partial struct TropicaliaDate // Preamble
     public static TropicaliaDate MaxValue { get; } = new(MaxDaysSinceZero);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_daysSinceZero);
@@ -877,7 +875,6 @@ public sealed class TropicaliaDateMath : DateMathRegular<TropicaliaDate, Tropica
 /// </summary>
 public readonly partial struct TropicaliaMonth :
     IMonth<TropicaliaMonth>,
-    ICalendarBound<TropicaliaCalendar>,
     IUnsafeFactory<TropicaliaMonth>,
     // A month viewed as a finite sequence of days
     IDateSegment<TropicaliaDate>,
@@ -945,10 +942,12 @@ public partial struct TropicaliaMonth // Preamble
     public static TropicaliaMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current month type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
 
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
@@ -1475,7 +1474,6 @@ public partial struct TropicaliaMonth // Non-standard math ops
 /// </summary>
 public readonly partial struct TropicaliaYear :
     IYear<TropicaliaYear>,
-    ICalendarBound<TropicaliaCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<TropicaliaMonth>,
     ISetMembership<TropicaliaMonth>,
@@ -1540,10 +1538,12 @@ public partial struct TropicaliaYear // Preamble
     public static TropicaliaYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
 
     /// <inheritdoc />
     public int YearsSinceEpoch => _yearsSinceEpoch;

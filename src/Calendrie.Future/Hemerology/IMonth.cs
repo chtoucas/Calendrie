@@ -14,6 +14,11 @@ using System.Numerics;
 public interface IMonth
 {
     /// <summary>
+    /// Gets the companion calendar.
+    /// </summary>
+    static abstract Calendar Calendar { get; }
+
+    /// <summary>
     /// Gets the count of consecutive months since the epoch of the calendar to
     /// which belongs the current instance.
     /// </summary>

@@ -6,7 +6,13 @@ namespace Calendrie.Hemerology;
 /// <summary>
 /// Defines a date.
 /// </summary>
-public interface IDate : IDateable, IAbsoluteDate { }
+public interface IDate : IDateable, IAbsoluteDate
+{
+    /// <summary>
+    /// Gets the companion calendar.
+    /// </summary>
+    static abstract Calendar Calendar { get; }
+}
 
 /// <summary>
 /// Defines a date type.

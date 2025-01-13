@@ -17,8 +17,6 @@ using static Calendrie.Core.CalendricalConstants;
 
 public readonly partial struct MyJulianDate :
     IDate<MyJulianDate>,
-    ICalendarBound<MyJulianCalendar>,
-    ICalendarBound,
     ISubtractionOperators<MyJulianDate, MyJulianDate, int>
 {
     private static readonly DayNumber s_Epoch = MyJulianCalendar.Instance.Epoch;
@@ -42,7 +40,7 @@ public readonly partial struct MyJulianDate :
 
     public static MyJulianCalendar Calendar => MyJulianCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     public DayNumber DayNumber => s_Epoch + DaysSinceEpoch;
     public int DaysSinceEpoch => Calendar.CountDaysSinceEpoch(_bin);

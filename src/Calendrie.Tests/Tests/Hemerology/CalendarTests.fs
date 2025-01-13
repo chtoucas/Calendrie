@@ -18,26 +18,25 @@ module Prelude =
         let name: string = null
         let scope = new StandardScope(new GregorianSchema(), DayZero.NewStyle)
 
-        nullExn "name" (fun () -> new FauxCalendar(name, scope))
+        nullExn "name" (fun () -> new Calendar(name, scope))
 
     [<Fact>]
     let ``Constructor throws when "scope" is null`` () =
         let scope: CalendarScope = null
 
-        nullExn "scope" (fun () -> new FauxCalendar("Name", scope))
+        nullExn "scope" (fun () -> new Calendar("Name", scope))
 
     [<Fact>]
     let ``Properties from constructor`` () =
         let name = "My Name"
         let scope = new StandardScope(new GregorianSchema(), DayZero.NewStyle)
-        let chr = new FauxCalendar(name, scope)
+        let chr = new Calendar(name, scope)
 
         chr.Name  === name
-        // C# protected internal
-        //chr.Scope ==& scope
+        chr.Scope ==& scope
 
     [<Fact>]
-    let ``NakedCalendar::IsRegular() when the calendar is regular`` () =
+    let ``UserCalendar::IsRegular() when the calendar is regular`` () =
         let name = "My Name"
         let scope = MinMaxYearScope.CreateMaximal(new GregorianSchema(), DayZero.NewStyle)
         let chr = new MinMaxYearCalendar(name, scope)
@@ -48,7 +47,7 @@ module Prelude =
         monthsInYear === 12
 
     [<Fact>]
-    let ``NakedCalendar::IsRegular()() when the calendar is not regular`` () =
+    let ``UserCalendar::IsRegular()() when the calendar is not regular`` () =
         let name = "My Name"
         let scope = MinMaxYearScope.CreateMaximal(new FauxLunisolarSchema(), DayZero.NewStyle)
         let chr = new MinMaxYearCalendar(name, scope)

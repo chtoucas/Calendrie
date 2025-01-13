@@ -86,8 +86,6 @@ public sealed partial class CopticCalendar : Calendar
 /// </summary>
 public readonly partial struct CopticDate :
     IDate<CopticDate>,
-    ICalendarBound,
-    ICalendarBound<CopticCalendar>,
     IUnsafeFactory<CopticDate>,
     ISubtractionOperators<CopticDate, CopticDate, int>
 { }
@@ -167,12 +165,12 @@ public partial struct CopticDate // Preamble
     public static CopticDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static CopticCalendar Calendar => CopticCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //

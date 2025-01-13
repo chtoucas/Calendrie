@@ -26,7 +26,6 @@ using Calendrie.Hemerology;
 /// </summary>
 public readonly partial struct CivilMonth :
     IMonth<CivilMonth>,
-    ICalendarBound<CivilCalendar>,
     IUnsafeFactory<CivilMonth>,
     // A month viewed as a finite sequence of days
     IDateSegment<CivilDate>,
@@ -391,7 +390,6 @@ public partial struct CivilMonth // Non-standard math ops
 /// </summary>
 public readonly partial struct CivilYear :
     IYear<CivilYear>,
-    ICalendarBound<CivilCalendar>,
     // A year viewed as a finite sequence of months
     IMonthSegment<CivilMonth>,
     ISetMembership<CivilMonth>,

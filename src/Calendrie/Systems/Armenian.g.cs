@@ -86,8 +86,6 @@ public sealed partial class ArmenianCalendar : Calendar
 /// </summary>
 public readonly partial struct ArmenianDate :
     IDate<ArmenianDate>,
-    ICalendarBound,
-    ICalendarBound<ArmenianCalendar>,
     IUnsafeFactory<ArmenianDate>,
     ISubtractionOperators<ArmenianDate, ArmenianDate, int>
 { }
@@ -167,12 +165,12 @@ public partial struct ArmenianDate // Preamble
     public static ArmenianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static ArmenianCalendar Calendar => ArmenianCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //

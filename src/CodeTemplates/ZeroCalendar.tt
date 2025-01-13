@@ -145,12 +145,12 @@ public partial struct <#= Prefix #>Date // Preamble
     public static <#= Prefix #>Date MaxValue { get; } = new(<#= MaxDaysSinceEpoch #>);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     public DayNumber DayNumber => new(_<#= DaysSinceEpochVar #>);

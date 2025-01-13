@@ -86,8 +86,6 @@ public sealed partial class FrenchRepublicanCalendar : Calendar
 /// </summary>
 public readonly partial struct FrenchRepublicanDate :
     IDate<FrenchRepublicanDate>,
-    ICalendarBound,
-    ICalendarBound<FrenchRepublicanCalendar>,
     IUnsafeFactory<FrenchRepublicanDate>,
     ISubtractionOperators<FrenchRepublicanDate, FrenchRepublicanDate, int>
 { }
@@ -167,12 +165,12 @@ public partial struct FrenchRepublicanDate // Preamble
     public static FrenchRepublicanDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static FrenchRepublicanCalendar Calendar => FrenchRepublicanCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //

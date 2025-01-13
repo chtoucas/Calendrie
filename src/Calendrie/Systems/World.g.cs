@@ -86,8 +86,6 @@ public sealed partial class WorldCalendar : Calendar
 /// </summary>
 public readonly partial struct WorldDate :
     IDate<WorldDate>,
-    ICalendarBound,
-    ICalendarBound<WorldCalendar>,
     IUnsafeFactory<WorldDate>,
     ISubtractionOperators<WorldDate, WorldDate, int>
 { }
@@ -167,12 +165,12 @@ public partial struct WorldDate // Preamble
     public static WorldDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static WorldCalendar Calendar => WorldCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //

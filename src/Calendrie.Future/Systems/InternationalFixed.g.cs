@@ -86,8 +86,6 @@ public sealed partial class InternationalFixedCalendar : Calendar
 /// </summary>
 public readonly partial struct InternationalFixedDate :
     IDate<InternationalFixedDate>,
-    ICalendarBound,
-    ICalendarBound<InternationalFixedCalendar>,
     IUnsafeFactory<InternationalFixedDate>,
     ISubtractionOperators<InternationalFixedDate, InternationalFixedDate, int>
 { }
@@ -167,12 +165,12 @@ public partial struct InternationalFixedDate // Preamble
     public static InternationalFixedDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
-    /// Gets the calendar to which belongs the current date type.
+    /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static InternationalFixedCalendar Calendar => InternationalFixedCalendar.Instance;
 
-    static Calendar ICalendarBound.Calendar => Calendar;
+    static Calendar IDate.Calendar => Calendar;
 
     /// <inheritdoc />
     //
