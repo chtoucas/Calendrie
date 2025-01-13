@@ -7,7 +7,7 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides data-driven tests for the <see cref="Calendar"/> type.
+/// Provides facts about the <see cref="Calendar"/> type.
 /// </summary>
 public abstract partial class CalendarFacts<TCalendar, TDataSet> :
     CalendarDataConsumer<TDataSet>

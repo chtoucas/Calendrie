@@ -9,7 +9,7 @@ using Calendrie.Testing.Data;
 // Sync with LimitSchemaFacts.
 
 /// <summary>
-/// Provides facts about <see cref="PartsAdapter"/>.
+/// Provides facts about the <see cref="PartsAdapter"/> type.
 /// </summary>
 public partial class PartsAdapterFacts<TDataSet> :
     CalendricalDataConsumer<TDataSet>

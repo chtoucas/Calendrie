@@ -8,7 +8,7 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides more facts about <see cref="IAbsoluteDate{TSelf}"/>.
+/// Provides more facts about the <see cref="IAbsoluteDate{TSelf}"/> type.
 /// </summary>
 internal abstract partial class IDateDayOfWeekFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>

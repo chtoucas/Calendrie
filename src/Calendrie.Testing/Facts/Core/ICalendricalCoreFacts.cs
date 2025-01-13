@@ -35,7 +35,7 @@ using Calendrie.Testing.Data;
 #endregion
 
 /// <summary>
-/// Provides facts about <see cref="ICalendricalCore"/>.
+/// Provides facts about the <see cref="ICalendricalCore"/> type.
 /// <para>Only use this class to test schemas (unbounded calendars).</para>
 /// </summary>
 public abstract partial class ICalendricalCoreFacts<TKernel, TDataSet> :

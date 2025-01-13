@@ -9,7 +9,7 @@ using Calendrie.Testing.Data;
 using Calendrie.Testing.Faux;
 
 /// <summary>
-/// Provides facts about <see cref="NonRegularSchemaPrototype"/>.
+/// Provides facts about the <see cref="NonRegularSchemaPrototype"/> type.
 /// </summary>
 public abstract partial class NonRegularSchemaPrototypeFacts<TDataSet> :
     ICalendricalSchemaFacts<NonRegularSchemaPrototype, TDataSet>

@@ -10,7 +10,7 @@ using Calendrie.Testing.Data;
 // See comments in CalendarScopeFacts.
 
 /// <summary>
-/// Provides data-driven tests for the <see cref="NakedCalendar"/> type.
+/// Provides facts about the <see cref="NakedCalendar"/> type.
 /// </summary>
 public abstract partial class NakedCalendarFacts<TCalendar, TDataSet> :
     UserCalendarFacts<TCalendar, TDataSet>

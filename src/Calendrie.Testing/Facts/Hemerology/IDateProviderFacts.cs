@@ -7,7 +7,7 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="IDateProvider{TDate}"/>.
+/// Provides facts about the <see cref="IDateProvider{TDate}"/> type.
 /// </summary>
 public abstract partial class IDateProviderFacts<TDate, TCalendar, TDataSet> :
     CalendarDataConsumer<TDataSet>

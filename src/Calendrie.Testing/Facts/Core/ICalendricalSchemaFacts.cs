@@ -8,7 +8,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="ICalendricalSchema"/>.
+/// Provides facts about the <see cref="ICalendricalSchema"/> type.
 /// </summary>
 public abstract partial class ICalendricalSchemaFacts<TSchema, TDataSet> :
     ICalendricalCoreFacts<TSchema, TDataSet>

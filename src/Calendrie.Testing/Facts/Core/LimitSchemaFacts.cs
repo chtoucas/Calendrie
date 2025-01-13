@@ -10,7 +10,7 @@ using Calendrie.Testing.Data;
 // Sync with ICalendricalPartsFactoryFacts.
 
 /// <summary>
-/// Provides facts about <see cref="LimitSchema"/>.
+/// Provides facts about the <see cref="LimitSchema"/> type.
 /// </summary>
 public abstract partial class LimitSchemaFacts<TDataSet> :
     ICalendricalSchemaFacts<LimitSchema, TDataSet>

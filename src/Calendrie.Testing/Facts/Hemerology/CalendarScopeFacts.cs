@@ -16,7 +16,7 @@ using Calendrie.Testing.Data.Scopes;
 // the number of actual tests would be hard to get.
 
 /// <summary>
-/// Provides data-driven tests for the <see cref="CalendarScope"/> type.
+/// Provides facts about the <see cref="CalendarScope"/> type.
 /// </summary>
 public class CalendarScopeFacts<TScope, TDataSet, TScopeDataSet> :
     CalendricalDataConsumer<TDataSet>

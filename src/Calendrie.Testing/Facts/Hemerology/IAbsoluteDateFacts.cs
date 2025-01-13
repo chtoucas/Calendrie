@@ -13,7 +13,7 @@ using Calendrie.Testing.Data;
 // on pourra toujours lever la contrainte IDateable ci-dessous.
 
 /// <summary>
-/// Provides data-driven tests for the <see cref="IAbsoluteDate{TSelf}"/> type.
+/// Provides facts about the <see cref="IAbsoluteDate{TSelf}"/> type.
 /// <para>The target type MUST also be of the <see cref="IDateable"/> type.</para>
 /// </summary>
 public abstract partial class IAbsoluteDateFacts<TDate, TDataSet> :

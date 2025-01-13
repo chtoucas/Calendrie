@@ -8,7 +8,7 @@ using Calendrie.Core.Prototyping;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="PrototypalSchema"/>.
+/// Provides facts about the <see cref="PrototypalSchema"/> type.
 /// </summary>
 public abstract class PrototypalSchemaFacts<TDataSet> :
     ICalendricalSchemaFacts<PrototypalSchema, TDataSet>

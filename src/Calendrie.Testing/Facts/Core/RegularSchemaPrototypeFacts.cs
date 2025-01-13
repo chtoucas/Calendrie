@@ -9,7 +9,7 @@ using Calendrie.Testing.Data;
 using Calendrie.Testing.Faux;
 
 /// <summary>
-/// Provides facts about <see cref="RegularSchemaPrototype"/>.
+/// Provides facts about the <see cref="RegularSchemaPrototype"/> type.
 /// </summary>
 public abstract partial class RegularSchemaPrototypeFacts<TDataSet> :
     ICalendricalSchemaFacts<RegularSchemaPrototype, TDataSet>

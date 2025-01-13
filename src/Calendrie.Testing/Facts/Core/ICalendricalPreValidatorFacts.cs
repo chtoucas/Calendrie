@@ -7,7 +7,7 @@ using Calendrie.Core;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about <see cref="ICalendricalPreValidator"/>.
+/// Provides facts about the <see cref="ICalendricalPreValidator"/> type.
 /// </summary>
 public abstract partial class ICalendricalPreValidatorFacts<TDataSet> :
     CalendricalDataConsumer<TDataSet>

@@ -7,7 +7,7 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides data-driven tests for the <see cref="IDate{TSelf}"/> type.
+/// Provides facts about the <see cref="IDate{TSelf}"/> type.
 /// </summary>
 public partial class IDateFacts<TDate, TDataSet> :
     IAbsoluteDateFacts<TDate, TDataSet>
