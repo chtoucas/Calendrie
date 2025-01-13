@@ -147,7 +147,7 @@ public partial struct MyJulianDate // Preamble
     /// Initializes a new instance of the <see cref="MyJulianDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal MyJulianDate(int daysSinceEpoch)
+    private MyJulianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
@@ -339,6 +339,14 @@ public partial struct MyJulianDate // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="MyJulianDate"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static MyJulianDate UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
     static MyJulianDate IUnsafeFactory<MyJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
@@ -1178,7 +1186,7 @@ public partial struct MyJulianMonth // IDateSegment
         {
             var (y, m) = this;
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return new MyJulianDate(daysSinceEpoch);
+            return MyJulianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1193,7 +1201,7 @@ public partial struct MyJulianMonth // IDateSegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-            return new MyJulianDate(daysSinceEpoch);
+            return MyJulianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1215,7 +1223,7 @@ public partial struct MyJulianMonth // IDateSegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new MyJulianDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(MyJulianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1234,7 +1242,7 @@ public partial struct MyJulianMonth // IDateSegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new MyJulianDate(daysSinceEpoch);
+               select MyJulianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     [Pure]
@@ -1265,7 +1273,7 @@ public partial struct MyJulianMonth // IDateSegment
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new MyJulianDate(daysSinceEpoch);
+        return MyJulianDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 
@@ -1717,7 +1725,7 @@ public partial struct MyJulianYear // IDateSegment
         get
         {
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new MyJulianDate(daysSinceEpoch);
+            return MyJulianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1731,7 +1739,7 @@ public partial struct MyJulianYear // IDateSegment
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
-            return new MyJulianDate(daysSinceEpoch);
+            return MyJulianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1746,7 +1754,7 @@ public partial struct MyJulianYear // IDateSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(new MyJulianDate(startOfYear), daysInYear);
+        return Range.StartingAt(MyJulianDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
@@ -1759,7 +1767,7 @@ public partial struct MyJulianYear // IDateSegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select new MyJulianDate(daysSinceEpoch);
+               select MyJulianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -1781,7 +1789,7 @@ public partial struct MyJulianYear // IDateSegment
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return new MyJulianDate(daysSinceEpoch);
+        return MyJulianDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 

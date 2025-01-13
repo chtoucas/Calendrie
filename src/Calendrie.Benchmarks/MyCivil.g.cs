@@ -141,7 +141,7 @@ public partial struct MyCivilDate // Preamble
     /// Initializes a new instance of the <see cref="MyCivilDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal MyCivilDate(int daysSinceZero)
+    private MyCivilDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
     }
@@ -325,6 +325,14 @@ public partial struct MyCivilDate // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="MyCivilDate"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static MyCivilDate UnsafeCreate(int daysSinceZero) => new(daysSinceZero);
 
     [Pure]
     static MyCivilDate IUnsafeFactory<MyCivilDate>.UnsafeCreate(int daysSinceZero) =>
@@ -1165,7 +1173,7 @@ public partial struct MyCivilMonth // IDateSegment
         {
             var (y, m) = this;
             int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return new MyCivilDate(daysSinceZero);
+            return MyCivilDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1180,7 +1188,7 @@ public partial struct MyCivilMonth // IDateSegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceZero = sch.CountDaysSinceEpoch(y, m, d);
-            return new MyCivilDate(daysSinceZero);
+            return MyCivilDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1202,7 +1210,7 @@ public partial struct MyCivilMonth // IDateSegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new MyCivilDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(MyCivilDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1221,7 +1229,7 @@ public partial struct MyCivilMonth // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new MyCivilDate(daysSinceZero);
+               select MyCivilDate.UnsafeCreate(daysSinceZero);
     }
 
     [Pure]
@@ -1252,7 +1260,7 @@ public partial struct MyCivilMonth // IDateSegment
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new MyCivilDate(daysSinceZero);
+        return MyCivilDate.UnsafeCreate(daysSinceZero);
     }
 }
 
@@ -1704,7 +1712,7 @@ public partial struct MyCivilYear // IDateSegment
         get
         {
             int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new MyCivilDate(daysSinceZero);
+            return MyCivilDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1718,7 +1726,7 @@ public partial struct MyCivilYear // IDateSegment
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int daysSinceZero = sch.CountDaysSinceEpoch(Year, doy);
-            return new MyCivilDate(daysSinceZero);
+            return MyCivilDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1733,7 +1741,7 @@ public partial struct MyCivilYear // IDateSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(new MyCivilDate(startOfYear), daysInYear);
+        return Range.StartingAt(MyCivilDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
@@ -1746,7 +1754,7 @@ public partial struct MyCivilYear // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
-               select new MyCivilDate(daysSinceZero);
+               select MyCivilDate.UnsafeCreate(daysSinceZero);
     }
 
     /// <summary>
@@ -1768,7 +1776,7 @@ public partial struct MyCivilYear // IDateSegment
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return new MyCivilDate(daysSinceZero);
+        return MyCivilDate.UnsafeCreate(daysSinceZero);
     }
 }
 

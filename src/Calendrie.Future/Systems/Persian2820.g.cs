@@ -143,7 +143,7 @@ public partial struct Persian2820Date // Preamble
     /// Initializes a new instance of the <see cref="Persian2820Date"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal Persian2820Date(int daysSinceEpoch)
+    private Persian2820Date(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
@@ -344,6 +344,14 @@ public partial struct Persian2820Date // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Persian2820Date"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static Persian2820Date UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
     static Persian2820Date IUnsafeFactory<Persian2820Date>.UnsafeCreate(int daysSinceEpoch) =>

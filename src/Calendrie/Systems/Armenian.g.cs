@@ -143,7 +143,7 @@ public partial struct ArmenianDate // Preamble
     /// Initializes a new instance of the <see cref="ArmenianDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal ArmenianDate(int daysSinceEpoch)
+    private ArmenianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
@@ -344,6 +344,14 @@ public partial struct ArmenianDate // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="ArmenianDate"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static ArmenianDate UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
     static ArmenianDate IUnsafeFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>

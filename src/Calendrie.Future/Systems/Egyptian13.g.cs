@@ -143,7 +143,7 @@ public partial struct Egyptian13Date // Preamble
     /// Initializes a new instance of the <see cref="Egyptian13Date"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal Egyptian13Date(int daysSinceEpoch)
+    private Egyptian13Date(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
@@ -344,6 +344,14 @@ public partial struct Egyptian13Date // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Egyptian13Date"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static Egyptian13Date UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
     static Egyptian13Date IUnsafeFactory<Egyptian13Date>.UnsafeCreate(int daysSinceEpoch) =>

@@ -140,7 +140,7 @@ public partial struct TropicaliaDate // Preamble
     /// Initializes a new instance of the <see cref="TropicaliaDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal TropicaliaDate(int daysSinceZero)
+    private TropicaliaDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
     }
@@ -333,6 +333,14 @@ public partial struct TropicaliaDate // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TropicaliaDate"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static TropicaliaDate UnsafeCreate(int daysSinceZero) => new(daysSinceZero);
 
     [Pure]
     static TropicaliaDate IUnsafeFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
@@ -1173,7 +1181,7 @@ public partial struct TropicaliaMonth // IDateSegment
         {
             var (y, m) = this;
             int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return new TropicaliaDate(daysSinceZero);
+            return TropicaliaDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1188,7 +1196,7 @@ public partial struct TropicaliaMonth // IDateSegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceZero = sch.CountDaysSinceEpoch(y, m, d);
-            return new TropicaliaDate(daysSinceZero);
+            return TropicaliaDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1210,7 +1218,7 @@ public partial struct TropicaliaMonth // IDateSegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new TropicaliaDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(TropicaliaDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1229,7 +1237,7 @@ public partial struct TropicaliaMonth // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new TropicaliaDate(daysSinceZero);
+               select TropicaliaDate.UnsafeCreate(daysSinceZero);
     }
 
     [Pure]
@@ -1260,7 +1268,7 @@ public partial struct TropicaliaMonth // IDateSegment
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new TropicaliaDate(daysSinceZero);
+        return TropicaliaDate.UnsafeCreate(daysSinceZero);
     }
 }
 
@@ -1712,7 +1720,7 @@ public partial struct TropicaliaYear // IDateSegment
         get
         {
             int daysSinceZero = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new TropicaliaDate(daysSinceZero);
+            return TropicaliaDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1726,7 +1734,7 @@ public partial struct TropicaliaYear // IDateSegment
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int daysSinceZero = sch.CountDaysSinceEpoch(Year, doy);
-            return new TropicaliaDate(daysSinceZero);
+            return TropicaliaDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -1741,7 +1749,7 @@ public partial struct TropicaliaYear // IDateSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(new TropicaliaDate(startOfYear), daysInYear);
+        return Range.StartingAt(TropicaliaDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
@@ -1754,7 +1762,7 @@ public partial struct TropicaliaYear // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
-               select new TropicaliaDate(daysSinceZero);
+               select TropicaliaDate.UnsafeCreate(daysSinceZero);
     }
 
     /// <summary>
@@ -1776,7 +1784,7 @@ public partial struct TropicaliaYear // IDateSegment
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceZero = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return new TropicaliaDate(daysSinceZero);
+        return TropicaliaDate.UnsafeCreate(daysSinceZero);
     }
 }
 

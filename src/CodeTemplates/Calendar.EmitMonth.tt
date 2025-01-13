@@ -279,6 +279,8 @@ public partial struct <#= Prefix #>Month // Preamble
     /// </summary>
     public static <#= Prefix #>Calendar Calendar => <#= Prefix #>Calendar.Instance;
 
+    static Calendar IMonth.Calendar => Calendar;
+
     /// <inheritdoc />
     public int MonthsSinceEpoch => _monthsSinceEpoch;
 
@@ -680,7 +682,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
         {
             var (y, m) = this;
             int <#= DaysSinceEpochVar #> = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -695,7 +697,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, d);
-            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -717,7 +719,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new <#= Prefix #>Date(startOfMonth), daysInMonth);
+        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -736,7 +738,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
 
         return from <#= DaysSinceEpochVar #>
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+               select <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 
     [Pure]
@@ -767,7 +769,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+        return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 }
 <#+
@@ -789,7 +791,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
             var sch = Calendar.Schema;
             sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
             int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, 1);
-            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -804,7 +806,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
             sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
             int d = sch.CountDaysInMonth(y, m);
             int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, d);
-            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -827,7 +829,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new <#= Prefix #>Date(startOfMonth), daysInMonth);
+        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -846,7 +848,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
 
         return from <#= DaysSinceEpochVar #>
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+               select <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 
     [Pure]
@@ -879,7 +881,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+        return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 }
 <#+

@@ -125,7 +125,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// Initializes a new instance of the <see cref="<#= Prefix #>Date"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal <#= Prefix #>Date(int <#= DaysSinceEpochVar #>)
+    private <#= Prefix #>Date(int <#= DaysSinceEpochVar #>)
     {
         _<#= DaysSinceEpochVar #> = <#= DaysSinceEpochVar #>;
     }
@@ -328,6 +328,14 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="<#= Prefix #>Date"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static <#= Prefix #>Date UnsafeCreate(int <#= DaysSinceEpochVar #>) => new(<#= DaysSinceEpochVar #>);
 
     [Pure]
     static <#= Prefix #>Date IUnsafeFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>

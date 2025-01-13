@@ -138,7 +138,7 @@ public partial struct PaxDate // Preamble
     /// Initializes a new instance of the <see cref="PaxDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal PaxDate(int daysSinceEpoch)
+    private PaxDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
@@ -339,6 +339,14 @@ public partial struct PaxDate // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxDate"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static PaxDate UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
     static PaxDate IUnsafeFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
@@ -950,7 +958,7 @@ public partial struct PaxMonth // Preamble
     public static PaxMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
-    /// Gets the companion calendar.
+    /// Gets the calendar to which belongs the current month type.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxCalendar Calendar => PaxCalendar.Instance;
@@ -1171,7 +1179,7 @@ public partial struct PaxMonth // IDateSegment
             var sch = Calendar.Schema;
             sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, 1);
-            return new PaxDate(daysSinceEpoch);
+            return PaxDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1186,7 +1194,7 @@ public partial struct PaxMonth // IDateSegment
             sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-            return new PaxDate(daysSinceEpoch);
+            return PaxDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1209,7 +1217,7 @@ public partial struct PaxMonth // IDateSegment
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(new PaxDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(PaxDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1228,7 +1236,7 @@ public partial struct PaxMonth // IDateSegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new PaxDate(daysSinceEpoch);
+               select PaxDate.UnsafeCreate(daysSinceEpoch);
     }
 
     [Pure]
@@ -1261,7 +1269,7 @@ public partial struct PaxMonth // IDateSegment
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new PaxDate(daysSinceEpoch);
+        return PaxDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 
@@ -1787,7 +1795,7 @@ public partial struct PaxYear // IDateSegment
         get
         {
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new PaxDate(daysSinceEpoch);
+            return PaxDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1801,7 +1809,7 @@ public partial struct PaxYear // IDateSegment
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
-            return new PaxDate(daysSinceEpoch);
+            return PaxDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1816,7 +1824,7 @@ public partial struct PaxYear // IDateSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(new PaxDate(startOfYear), daysInYear);
+        return Range.StartingAt(PaxDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
@@ -1829,7 +1837,7 @@ public partial struct PaxYear // IDateSegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select new PaxDate(daysSinceEpoch);
+               select PaxDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -1851,7 +1859,7 @@ public partial struct PaxYear // IDateSegment
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return new PaxDate(daysSinceEpoch);
+        return PaxDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 

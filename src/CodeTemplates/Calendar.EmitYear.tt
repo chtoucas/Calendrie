@@ -386,7 +386,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
         get
         {
             int <#= DaysSinceEpochVar #> = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -400,7 +400,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(Year, doy);
-            return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
         }
     }
 
@@ -415,7 +415,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(new <#= Prefix #>Date(startOfYear), daysInYear);
+        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
@@ -428,7 +428,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
 
         return from <#= DaysSinceEpochVar #>
                in Enumerable.Range(startOfYear, daysInYear)
-               select new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+               select <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 
     /// <summary>
@@ -450,7 +450,7 @@ public partial struct <#= Prefix #>Year // IDateSegment
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
+        return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 }
 <#+

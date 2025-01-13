@@ -143,7 +143,7 @@ public partial struct FrenchRepublican13Date // Preamble
     /// Initializes a new instance of the <see cref="FrenchRepublican13Date"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    internal FrenchRepublican13Date(int daysSinceEpoch)
+    private FrenchRepublican13Date(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
@@ -344,6 +344,14 @@ public partial struct FrenchRepublican13Date // Factories & conversions
 
     // No method UnsafeCreate(int year, int month, int day) to avoid multiple
     // lookup to the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="FrenchRepublican13Date"/> struct
+    /// from the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static FrenchRepublican13Date UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
     static FrenchRepublican13Date IUnsafeFactory<FrenchRepublican13Date>.UnsafeCreate(int daysSinceEpoch) =>
