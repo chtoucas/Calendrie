@@ -702,7 +702,7 @@ public partial struct InternationalFixedDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public InternationalFixedDate AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public InternationalFixedDate PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of

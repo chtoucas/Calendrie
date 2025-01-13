@@ -64,7 +64,7 @@ public interface IDayFieldMath<TSelf>
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of the day field or the range of supported values.
     /// </exception>
-    [Pure] TSelf AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    [Pure] TSelf PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
 
     /// <summary>
     /// Returns the value obtained after adding seven days to the day field of

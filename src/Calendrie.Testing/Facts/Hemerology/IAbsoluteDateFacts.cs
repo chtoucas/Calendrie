@@ -427,8 +427,8 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
     {
         var date = GetDate(1, 1, 1);
         // Act & Assert
-        AssertEx.Overflows(() => date.AddWeeks(int.MinValue));
-        AssertEx.Overflows(() => date.AddWeeks(int.MaxValue));
+        AssertEx.Overflows(() => date.PlusWeeks(int.MinValue));
+        AssertEx.Overflows(() => date.PlusWeeks(int.MaxValue));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -437,7 +437,7 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
         var (y, m, d) = info.Yemoda;
         var date = GetDate(y, m, d);
         // Act & Assert
-        Assert.Equal(date, date.AddWeeks(0));
+        Assert.Equal(date, date.PlusWeeks(0));
         Assert.Equal(0, date.CountWeeksSince(date));
     }
 
@@ -450,8 +450,8 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
 
         var date = TDate.FromDayNumber(dayNumber);
         // Act & Assert
-        Assert.Equal(date.PlusDays(21), date.AddWeeks(3));
-        Assert.Equal(date.PlusDays(-21), date.AddWeeks(-3));
+        Assert.Equal(date.PlusDays(21), date.PlusWeeks(3));
+        Assert.Equal(date.PlusDays(-21), date.PlusWeeks(-3));
     }
 
     #endregion

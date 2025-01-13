@@ -702,7 +702,7 @@ public partial struct Zoroastrian13Date // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public Zoroastrian13Date AddWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public Zoroastrian13Date PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
