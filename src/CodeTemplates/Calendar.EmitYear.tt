@@ -260,7 +260,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select new <#= Prefix #>Month(monthsSinceEpoch);
+               select <#= Prefix #>Month.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -303,7 +303,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         get
         {
             int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
-            return new <#= Prefix #>Month(monthsSinceEpoch);
+            return <#= Prefix #>Month.UnsafeCreate(monthsSinceEpoch);
         }
     }
 
@@ -315,7 +315,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
             var sch = Calendar.Schema;
             int m = sch.CountMonthsInYear(Year);
             int monthsSinceEpoch = sch.CountMonthsSinceEpoch(Year, m);
-            return new <#= Prefix #>Month(monthsSinceEpoch);
+            return <#= Prefix #>Month.UnsafeCreate(monthsSinceEpoch);
         }
     }
 
@@ -330,7 +330,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
         int monthsInYear = sch.CountMonthsInYear(Year);
-        return Range.StartingAt(new <#= Prefix #>Month(startOfYear), monthsInYear);
+        return Range.StartingAt(<#= Prefix #>Month.UnsafeCreate(startOfYear), monthsInYear);
     }
 
     /// <inheritdoc />
@@ -343,7 +343,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, monthsInYear)
-               select new <#= Prefix #>Month(monthsSinceEpoch);
+               select <#= Prefix #>Month.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -366,7 +366,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         chr.Scope.PreValidator.ValidateMonth(Year, month);
         int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(Year, month);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
+        return <#= Prefix #>Month.UnsafeCreate(monthsSinceEpoch);
     }
 }
 <#+

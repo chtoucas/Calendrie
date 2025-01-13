@@ -936,7 +936,7 @@ public partial struct PaxMonth // Preamble
     /// Initializes a new instance of the <see cref="PaxMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal PaxMonth(int monthsSinceEpoch)
+    private PaxMonth(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
@@ -1072,6 +1072,14 @@ public partial struct PaxMonth // Factories & conversions
 
     // No method UnsafeCreate(int year, int month) to avoid multiple lookup to
     // the property Calendar.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="PaxMonth"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static PaxMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
 
     [Pure]
     static PaxMonth IUnsafeFactory<PaxMonth>.UnsafeCreate(int monthsSinceEpoch) =>
@@ -1718,7 +1726,7 @@ public partial struct PaxYear // IMonthSegment
         get
         {
             int monthsSinceEpoch = Calendar.Schema.CountMonthsSinceEpoch(Year, 1);
-            return new PaxMonth(monthsSinceEpoch);
+            return PaxMonth.UnsafeCreate(monthsSinceEpoch);
         }
     }
 
@@ -1730,7 +1738,7 @@ public partial struct PaxYear // IMonthSegment
             var sch = Calendar.Schema;
             int m = sch.CountMonthsInYear(Year);
             int monthsSinceEpoch = sch.CountMonthsSinceEpoch(Year, m);
-            return new PaxMonth(monthsSinceEpoch);
+            return PaxMonth.UnsafeCreate(monthsSinceEpoch);
         }
     }
 
@@ -1745,7 +1753,7 @@ public partial struct PaxYear // IMonthSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
         int monthsInYear = sch.CountMonthsInYear(Year);
-        return Range.StartingAt(new PaxMonth(startOfYear), monthsInYear);
+        return Range.StartingAt(PaxMonth.UnsafeCreate(startOfYear), monthsInYear);
     }
 
     /// <inheritdoc />
@@ -1758,7 +1766,7 @@ public partial struct PaxYear // IMonthSegment
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, monthsInYear)
-               select new PaxMonth(monthsSinceEpoch);
+               select PaxMonth.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1781,7 +1789,7 @@ public partial struct PaxYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         chr.Scope.PreValidator.ValidateMonth(Year, month);
         int monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(Year, month);
-        return new PaxMonth(monthsSinceEpoch);
+        return PaxMonth.UnsafeCreate(monthsSinceEpoch);
     }
 }
 

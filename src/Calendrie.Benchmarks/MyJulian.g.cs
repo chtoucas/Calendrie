@@ -933,7 +933,7 @@ public partial struct MyJulianMonth // Preamble
     /// Initializes a new instance of the <see cref="MyJulianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal MyJulianMonth(int monthsSinceEpoch)
+    private MyJulianMonth(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
@@ -1065,7 +1065,7 @@ public partial struct MyJulianMonth // Factories & conversions
     /// <summary>
     /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
     /// from the specified month components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static MyJulianMonth UnsafeCreate(int year, int month)
@@ -1073,6 +1073,14 @@ public partial struct MyJulianMonth // Factories & conversions
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
         return new MyJulianMonth(monthsSinceEpoch);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static MyJulianMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
 
     [Pure]
     static MyJulianMonth IUnsafeFactory<MyJulianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
@@ -1686,7 +1694,7 @@ public partial struct MyJulianYear // IMonthSegment
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select new MyJulianMonth(monthsSinceEpoch);
+               select MyJulianMonth.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>

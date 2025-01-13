@@ -52,7 +52,7 @@ public partial struct GregorianMonth // Factories & conversions
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianMonth"/> struct
     /// from the specified month components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static GregorianMonth UnsafeCreate(int year, int month)
@@ -60,6 +60,14 @@ public partial struct GregorianMonth // Factories & conversions
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
         return new GregorianMonth(monthsSinceEpoch);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianMonth"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static GregorianMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
 
     [Pure]
     static GregorianMonth IUnsafeFactory<GregorianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
@@ -302,7 +310,7 @@ public partial struct GregorianYear // IMonthSegment
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select new GregorianMonth(monthsSinceEpoch);
+               select GregorianMonth.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>

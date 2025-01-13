@@ -928,7 +928,7 @@ public partial struct TropicaliaMonth // Preamble
     /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    internal TropicaliaMonth(int monthsSinceEpoch)
+    private TropicaliaMonth(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
@@ -1060,7 +1060,7 @@ public partial struct TropicaliaMonth // Factories & conversions
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
     /// from the specified month components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static TropicaliaMonth UnsafeCreate(int year, int month)
@@ -1068,6 +1068,14 @@ public partial struct TropicaliaMonth // Factories & conversions
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
         return new TropicaliaMonth(monthsSinceEpoch);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static TropicaliaMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
 
     [Pure]
     static TropicaliaMonth IUnsafeFactory<TropicaliaMonth>.UnsafeCreate(int monthsSinceEpoch) =>
@@ -1681,7 +1689,7 @@ public partial struct TropicaliaYear // IMonthSegment
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select new TropicaliaMonth(monthsSinceEpoch);
+               select TropicaliaMonth.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>
