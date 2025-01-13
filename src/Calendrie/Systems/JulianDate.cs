@@ -605,10 +605,12 @@ public partial struct JulianDate // Non-standard math ops
         if (other < this)
         {
             if (newStart > this) years--;
+            Debug.Assert(newStart <= this);
         }
         else
         {
             if (newStart < this) years++;
+            Debug.Assert(newStart >= this);
         }
 
         return years;
@@ -633,10 +635,12 @@ public partial struct JulianDate // Non-standard math ops
         if (other < this)
         {
             if (newStart > this) months--;
+            Debug.Assert(newStart <= this);
         }
         else
         {
             if (newStart < this) months++;
+            Debug.Assert(newStart >= this);
         }
 
         return months;

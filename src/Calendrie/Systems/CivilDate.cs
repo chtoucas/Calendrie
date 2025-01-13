@@ -407,10 +407,12 @@ public partial struct CivilDate // Non-standard math ops
         if (other < this)
         {
             if (newStart > this) years--;
+            Debug.Assert(newStart <= this);
         }
         else
         {
             if (newStart < this) years++;
+            Debug.Assert(newStart >= this);
         }
 
         return years;
@@ -435,10 +437,12 @@ public partial struct CivilDate // Non-standard math ops
         if (other < this)
         {
             if (newStart > this) months--;
+            Debug.Assert(newStart <= this);
         }
         else
         {
             if (newStart < this) months++;
+            Debug.Assert(newStart >= this);
         }
 
         return months;
@@ -573,10 +577,12 @@ public partial struct CivilDate // Non-standard math ops (experimental)
         if (other < this)
         {
             if (newStart > this) newStart = addYears(y0, m0, d0, --years, rule);
+            Debug.Assert(newStart <= this);
         }
         else
         {
             if (newStart < this) newStart = addYears(y0, m0, d0, ++years, rule);
+            Debug.Assert(newStart >= this);
         }
 
         return years;
@@ -596,11 +602,11 @@ public partial struct CivilDate // Non-standard math ops (experimental)
     [Pure]
     public int CountMonthsSince(CivilDate other, AdditionRule rule, out CivilDate newStart)
     {
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out _);
         CivilFormulae.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
-        CivilFormulae.GetDateParts(_daysSinceZero, out int y1, out int m1, out _);
 
         // Exact difference between two calendar months.
-        int months = checked((y1 - y0) * CivilCalendar.MonthsInYear + m1 - m0);
+        int months = checked((y - y0) * CivilCalendar.MonthsInYear + m - m0);
 
         // To avoid extracting (y0, m0, d0) more than once, we inline:
         // > var newStart = start.PlusMonths(months);
@@ -608,10 +614,12 @@ public partial struct CivilDate // Non-standard math ops (experimental)
         if (other < this)
         {
             if (newStart > this) newStart = addMonths(y0, m0, d0, --months, rule);
+            Debug.Assert(newStart <= this);
         }
         else
         {
             if (newStart < this) newStart = addMonths(y0, m0, d0, ++months, rule);
+            Debug.Assert(newStart >= this);
         }
 
         return months;

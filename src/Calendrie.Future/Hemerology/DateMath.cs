@@ -110,10 +110,12 @@ public abstract class DateMath<TDate>
         if (start < end)
         {
             if (newStart > end) newStart = addYears(y0, m0, d0, --years);
+            Debug.Assert(newStart <= end);
         }
         else
         {
             if (newStart < end) newStart = addYears(y0, m0, d0, ++years);
+            Debug.Assert(newStart >= end);
         }
 
         return years;
@@ -152,10 +154,12 @@ public abstract class DateMath<TDate>
         if (start < end)
         {
             if (newStart > end) newStart = addMonths(y0, m0, d0, --months);
+            Debug.Assert(newStart <= end);
         }
         else
         {
             if (newStart < end) newStart = addMonths(y0, m0, d0, ++months);
+            Debug.Assert(newStart >= end);
         }
 
         return months;
