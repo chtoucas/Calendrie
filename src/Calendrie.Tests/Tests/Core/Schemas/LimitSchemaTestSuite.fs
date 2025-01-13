@@ -183,11 +183,8 @@ type FauxLunisolarTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
 [<Sealed>]
-type PaxTests() = //as self =
+type PaxTests() =
     inherit ICalendricalSchemaFacts<PaxSchema, PaxDataSet>(new PaxSchema())
-    //inherit ICalendricalSchemaBasicFacts<PaxSchema, PaxDataSet>(new PaxSchema())
-    //do
-    //    self.TestGetMonthAnyway <- true
 
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Other
