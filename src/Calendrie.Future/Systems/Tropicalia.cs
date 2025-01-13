@@ -7,6 +7,9 @@ using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 // This is a place to experiment additions to the API.
+
+// REVIEW(code): maybe only ToGregorian/JulianDate(), ie when interconversion is
+// always possible.
 // See also Calendrie.Extensions.Interconversion.
 
 public partial struct TropicaliaDate
@@ -21,7 +24,22 @@ public partial struct TropicaliaDate
         ArgumentNullException.ThrowIfNull(date);
         return FromDayNumber(date.DayNumber);
     }
+
+    /// <summary>
+    /// (Inter)Converts the current instance to a <typeparamref name="TDate"/>
+    /// value.
+    /// </summary>
+    [Pure]
+    public TDate ToAbsoluteDate<TDate>() where TDate : IAbsoluteDate<TDate>
+    {
+        return TDate.FromDayNumber(DayNumber);
+    }
 }
+
+// REVIEW(code): non-standard math ops (experimental), also for month types.
+// Probably, only for CivilDate, GregorianDate and JulianDate.
+// For the others, use DateMath.
+// See also CivilDate in main project.
 
 public partial struct TropicaliaDate // Non-standard math ops (plain implementation)
 {

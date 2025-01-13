@@ -37,7 +37,6 @@ public class DateMathPlain<TDate, TCalendar> : DateMath<TDate>
     internal DateMathPlain(AdditionRule rule) : base(rule)
     {
         var scope = TDate.Calendar.Scope;
-        // REVIEW(code): pourquoi ? On a aussi Gregorian/JulianScope.
         Debug.Assert(scope is StandardScope);
 
         _schema = scope.Schema;

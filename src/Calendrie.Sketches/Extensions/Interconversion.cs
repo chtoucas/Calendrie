@@ -13,7 +13,7 @@ using Calendrie.Systems;
 
 public static class Interconversion
 {
-    // See also TropicaliaDate.FromAbsoluteDate()
+    // See also TropicaliaDate.From/ToAbsoluteDate()
     [Pure]
     public static TDate ConvertTo<TDate>(this IAbsoluteDate date)
         where TDate : IAbsoluteDate<TDate>

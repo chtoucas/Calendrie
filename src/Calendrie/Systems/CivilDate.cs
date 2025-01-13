@@ -444,6 +444,10 @@ public partial struct CivilDate // Non-standard math ops
         return months;
     }
 
+    //
+    // Helpers
+    //
+
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
@@ -491,28 +495,74 @@ public partial struct CivilDate // Non-standard math ops
 
 public partial struct CivilDate // Non-standard math ops (experimental)
 {
-#if DEBUG
+    // TODO(code): non-standard math ops (experimental), GregorianDate and JulianDate too.
 
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance using the
+    /// specified rounding rule, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates -or- <see cref="AdditionRule.Overflow"/> was
+    /// selected and the addition was not exact.</exception>
     [Pure]
     public CivilDate PlusYears(int years, AdditionRule rule)
     {
-        var (y, m, d) = this;
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
         var newDate = AddYears(y, m, d, years, out int roundoff);
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
     }
 
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance and also
+    /// returns the roundoff in an output parameter, yielding a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public CivilDate PlusYears(int years, out int roundoff)
+    {
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+        return AddYears(y, m, d, years, out roundoff);
+    }
+
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance using
+    /// the specified rounding rule, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates -or- <see cref="AdditionRule.Overflow"/> was
+    /// selected and the addition was not exact.</exception>
     [Pure]
     public CivilDate PlusMonths(int months, AdditionRule rule)
     {
-        var (y, m, d) = this;
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
         var newDate = AddMonths(y, m, d, months, out int roundoff);
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
     }
 
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance and also
+    /// returns the roundoff in an output parameter, yielding a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public CivilDate PlusMonths(int months, out int roundoff)
+    {
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+        return AddMonths(y, m, d, months, out roundoff);
+    }
+
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date using the
+    /// specified rounding rule.
+    /// </summary>
     [Pure]
     public int CountYearsSince(CivilDate other, AdditionRule rule, out CivilDate newStart)
     {
-        var (y0, m0, d0) = other;
+        CivilFormulae.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
@@ -539,14 +589,18 @@ public partial struct CivilDate // Non-standard math ops (experimental)
         }
     }
 
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date using the
+    /// specified rounding rule.
+    /// </summary>
     [Pure]
     public int CountMonthsSince(CivilDate other, AdditionRule rule, out CivilDate newStart)
     {
-        var (y0, m0, d0) = other;
-        var (y1, m1, _) = this;
+        CivilFormulae.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
+        CivilFormulae.GetDateParts(_daysSinceZero, out int y1, out int m1, out _);
 
         // Exact difference between two calendar months.
-        int months = CountMonthsBetween(y0, m0, y1, m1);
+        int months = checked((y1 - y0) * CivilCalendar.MonthsInYear + m1 - m0);
 
         // To avoid extracting (y0, m0, d0) more than once, we inline:
         // > var newStart = start.PlusMonths(months);
@@ -577,17 +631,15 @@ public partial struct CivilDate // Non-standard math ops (experimental)
     [Pure]
     private static CivilDate AddYears(int y, int m, int d, int years, out int roundoff)
     {
-        var sch = Calendar.Schema;
-
         int newY = checked(y + years);
         if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear) ThrowHelpers.ThrowDateOverflow();
 
-        int daysInMonth = sch.CountDaysInMonth(newY, m);
+        int daysInMonth = GregorianFormulae.CountDaysInMonth(newY, m);
         roundoff = Math.Max(0, d - daysInMonth);
         // On retourne le dernier jour du mois si d > daysInMonth.
         int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
+        int daysSinceEpoch = CivilFormulae.CountDaysSinceEpoch(newY, m, newD);
         return new CivilDate(daysSinceEpoch);
     }
 
@@ -599,14 +651,10 @@ public partial struct CivilDate // Non-standard math ops (experimental)
     }
 
     [Pure]
-    private static int CountMonthsBetween(int y0, int m0, int y1, int m1) =>
-        checked((y1 - y0) * CivilCalendar.MonthsInYear + m1 - m0);
-
-    [Pure]
     private static CivilDate Adjust(CivilDate date, int roundoff, AdditionRule rule)
     {
-        // Si on ne filtrait pas roundoff > 0, il faudrait prendre en compte
-        // le cas roundoff = 0 et retourner date (résultat exact).
+        // Si on ne filtrait pas roundoff > 0, il faudrait d'abord prendre en
+        // compte le cas roundoff = 0 et retourner date (résultat exact).
         Debug.Assert(roundoff > 0);
 
         // NB: date is the last day of a month.
@@ -620,6 +668,4 @@ public partial struct CivilDate // Non-standard math ops (experimental)
             _ => throw new NotSupportedException(),
         };
     }
-
-#endif
 }
