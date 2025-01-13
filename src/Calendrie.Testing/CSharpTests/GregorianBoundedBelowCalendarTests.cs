@@ -56,7 +56,7 @@ public static class BoundedBelowCalendarTests
 }
 
 public class GregorianBoundedBelowCalendarTests :
-    NakedCalendarFacts<BoundedBelowCalendar, UnboundedGregorianDataSet>
+    CalendarSansFacts<BoundedBelowCalendar, UnboundedGregorianDataSet>
 {
     // Datasets are tailored to work with a range of years, not a range of
     // days, therefore these tests are only adapted to MinMaxYearCalendar.

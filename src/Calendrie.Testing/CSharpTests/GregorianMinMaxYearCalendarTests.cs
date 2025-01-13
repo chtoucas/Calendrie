@@ -32,7 +32,7 @@ public class GregorianMinMaxYearCalendarDataSet :
 }
 
 public class GregorianMinMaxYearCalendarTests :
-    NakedCalendarFacts<MinMaxYearCalendar, GregorianMinMaxYearCalendarDataSet>
+    CalendarSansFacts<MinMaxYearCalendar, GregorianMinMaxYearCalendarDataSet>
 {
     // On triche un peu, les années de début et de fin ont été choisies de
     // telle sorte que les tests marchent... (cf. GregorianData).

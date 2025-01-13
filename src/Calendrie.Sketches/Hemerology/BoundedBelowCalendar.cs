@@ -4,10 +4,10 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Represents a user-defined calendar with dates on or after a given date.
+/// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>
 /// </summary>
-public class BoundedBelowCalendar : NakedCalendar
+public class BoundedBelowCalendar : CalendarSans
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="BoundedBelowCalendar"/>

@@ -6,21 +6,30 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core;
 
 /// <summary>
-/// Represents a user-defined calendar without a dedicated companion date type
-/// and provides a base for derived classes.
+/// Represents a calendar without a dedicated companion date type and provides
+/// a base for derived classes.
 /// </summary>
-public abstract class NakedCalendar : UserCalendar
+public abstract class CalendarSans : Calendar
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="NakedCalendar"/> class.
+    /// <see cref="CalendarSans"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">One of the parameters is
     /// <see langword="null"/>.</exception>
-    protected NakedCalendar(string name, CalendarScope scope) : base(name, scope)
+    protected CalendarSans(string name, CalendarScope scope) : base(name, scope)
     {
-        PartsAdapter = new PartsAdapter(Schema);
+        Debug.Assert(scope != null);
+        var schema = scope.Schema;
+
+        Schema = schema;
+        PartsAdapter = new PartsAdapter(schema);
     }
+
+    /// <summary>
+    /// Gets the underlying schema.
+    /// </summary>
+    protected ICalendricalSchema Schema { get; }
 
     /// <summary>
     /// Gets the adapter for the calendrical parts.
@@ -28,16 +37,78 @@ public abstract class NakedCalendar : UserCalendar
     protected PartsAdapter PartsAdapter { get; }
 
     //
+    // Characteristics
+    //
+
+    /// <summary>
+    /// Returns <see langword="true"/> if this calendar instance is regular;
+    /// otherwise returns <see langword="false"/>.
+    /// <para>The number of months is given in an output parameter; if this
+    /// calendar is not regular <paramref name="monthsInYear"/> is set to 0.
+    /// </para>
+    /// </summary>
+    [Pure]
+    public bool IsRegular(out int monthsInYear) => Scope.Schema.IsRegular(out monthsInYear);
+
+    //
     // Year infos
     //
 
     /// <summary>
+    /// Determines whether the specified year is leap or not.
+    /// <para>A leap year is a year with at least one intercalary day, week or
+    /// month.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of supported years.</exception>
+    [Pure]
+    public bool IsLeapYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return Schema.IsLeapYear(year);
+    }
+
+    /// <summary>
     /// Obtains the number of months in the specified year.
-    /// <para>See also <seealso cref="UserCalendar.IsRegular(out int)"/>.</para>
+    /// <para>See also <seealso cref="IsRegular(out int)"/>.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The year is outside the
     /// range of supported years.</exception>
     [Pure] public abstract int CountMonthsInYear(int year);
+
+    // La méthode suivante est abstraite car une année peut être incomplète.
+
+    /// <summary>
+    /// Obtains the number of days in the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The year is outside the
+    /// range of supported years.</exception>
+    [Pure] public abstract int CountDaysInYear(int year);
+
+    //
+    // Month infos
+    //
+
+    /// <summary>
+    /// Determines whether the specified month is intercalary or not.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
+    [Pure]
+    public bool IsIntercalaryMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return Schema.IsIntercalaryMonth(year, month);
+    }
+
+    // La méthode suivante est abstraite car une année peut être incomplète.
+
+    /// <summary>
+    /// Obtains the number of days in the specified month.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The month is either invalid
+    /// or outside the range of supported months.</exception>
+    [Pure] public abstract int CountDaysInMonth(int year, int month);
 
     //
     // Day infos

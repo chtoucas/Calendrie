@@ -48,13 +48,18 @@ public sealed partial class MyGregorianCalendar : UserCalendar, IDateProvider<My
 
     private ICalendricalPreValidator PreValidator { get; }
 
-    public sealed override int CountDaysInYear(int year)
+    public bool IsLeapYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return Schema.IsLeapYear(year);
+    }
+    public int CountDaysInYear(int year)
     {
         Scope.ValidateYear(year);
         return Schema.CountDaysInYear(year);
     }
 
-    public sealed override int CountDaysInMonth(int year, int month)
+    public int CountDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
         return Schema.CountDaysInMonth(year, month);

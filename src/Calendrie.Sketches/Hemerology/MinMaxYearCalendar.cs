@@ -4,9 +4,9 @@
 namespace Calendrie.Hemerology;
 
 /// <summary>
-/// Represents a user-defined calendar with dates within a range of years.
+/// Represents a calendar with dates within a range of years.
 /// </summary>
-public class MinMaxYearCalendar : NakedCalendar
+public class MinMaxYearCalendar : CalendarSans
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MinMaxYearCalendar"/> class.

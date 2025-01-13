@@ -8,18 +8,18 @@ namespace Calendrie.Hemerology;
 // Standard calendar: year/month/day subdivision of time, a single era,
 // that is an interval of days.
 //
-// Types implementing ICalendar or ICalendar<T>
-// --------------------------------------------
+// Main calendar types
+// -------------------
 //
 // Calendar
 //   CivilCalendar                    CivilDate
 //   GregorianCalendar                GregorianDate
 //   JulianCalendar                   JulianDate
 //   etc
+//   CalendarSans
+//     BoundedBelowCalendar
+//     MinMaxYearCalendar
 //   UserCalendar
-//     NakedCalendar
-//       BoundedBelowCalendar
-//       MinMaxYearCalendar
 //
 // Calendar vs Date
 // ----------------
@@ -90,7 +90,7 @@ namespace Calendrie.Hemerology;
 // Regarding min/max values, for exactly the same reason, we do not include
 // them here but end calendars should have them, e.g. Min/MaxDate or a
 // single MinMaxDate. For instance, I prefer Min/MaxDateParts to Min/MaxDate
-// with NakedCalendar, but it could be also Min/MaxDay or Min/MaxOrdinalDate.
+// with CalendarSans, but it could be also Min/MaxDay or Min/MaxOrdinalDate.
 // Furthermore, for mono-system of calendars, we expect TDate to implement
 // IMinMaxValue<TDate>.
 //
@@ -164,12 +164,12 @@ namespace Calendrie.Hemerology;
 // Ex. XCivilDate or MyDate.
 //
 // ## Mono-calendar system without a companion date type.
-// Ex. NakedCalendar, MinMaxYearCalendar<TDate>?
+// Ex. CalendarSans, MinMaxYearCalendar<TDate>?
 
 #endregion
 
 /// <summary>
-/// Represents a calendar and provides a base for derived classes.
+/// Represents a calendar.
 /// </summary>
 public class Calendar
 {
