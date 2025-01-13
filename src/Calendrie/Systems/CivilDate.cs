@@ -489,3 +489,137 @@ public partial struct CivilDate // Non-standard math ops
     }
 }
 
+public partial struct CivilDate // Non-standard math ops (experimental)
+{
+#if DEBUG
+
+    [Pure]
+    public CivilDate PlusYears(int years, AdditionRule rule)
+    {
+        var (y, m, d) = this;
+        var newDate = AddYears(y, m, d, years, out int roundoff);
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
+    }
+
+    [Pure]
+    public CivilDate PlusMonths(int months, AdditionRule rule)
+    {
+        var (y, m, d) = this;
+        var newDate = AddMonths(y, m, d, months, out int roundoff);
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
+    }
+
+    [Pure]
+    public int CountYearsSince(CivilDate other, AdditionRule rule, out CivilDate newStart)
+    {
+        var (y0, m0, d0) = other;
+
+        // Exact difference between two calendar years.
+        int years = Year - y0;
+
+        // To avoid extracting (y0, m0) more than once, we inline:
+        // > var newStart = start.PlusYears(years);
+        newStart = addYears(y0, m0, d0, years, rule);
+        if (other < this)
+        {
+            if (newStart > this) newStart = addYears(y0, m0, d0, --years, rule);
+        }
+        else
+        {
+            if (newStart < this) newStart = addYears(y0, m0, d0, ++years, rule);
+        }
+
+        return years;
+
+        [Pure]
+        static CivilDate addYears(int y, int m, int d, int years, AdditionRule rule)
+        {
+            var newDate = AddYears(y, m, d, years, out int roundoff);
+            return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
+        }
+    }
+
+    [Pure]
+    public int CountMonthsSince(CivilDate other, AdditionRule rule, out CivilDate newStart)
+    {
+        var (y0, m0, d0) = other;
+        var (y1, m1, _) = this;
+
+        // Exact difference between two calendar months.
+        int months = CountMonthsBetween(y0, m0, y1, m1);
+
+        // To avoid extracting (y0, m0, d0) more than once, we inline:
+        // > var newStart = start.PlusMonths(months);
+        newStart = addMonths(y0, m0, d0, months, rule);
+        if (other < this)
+        {
+            if (newStart > this) newStart = addMonths(y0, m0, d0, --months, rule);
+        }
+        else
+        {
+            if (newStart < this) newStart = addMonths(y0, m0, d0, ++months, rule);
+        }
+
+        return months;
+
+        [Pure]
+        static CivilDate addMonths(int y, int m, int d, int months, AdditionRule rule)
+        {
+            var newDate = AddMonths(y, m, d, months, out int roundoff);
+            return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
+        }
+    }
+
+    //
+    // Helpers
+    //
+
+    [Pure]
+    private static CivilDate AddYears(int y, int m, int d, int years, out int roundoff)
+    {
+        var sch = Calendar.Schema;
+
+        int newY = checked(y + years);
+        if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear) ThrowHelpers.ThrowDateOverflow();
+
+        int daysInMonth = sch.CountDaysInMonth(newY, m);
+        roundoff = Math.Max(0, d - daysInMonth);
+        // On retourne le dernier jour du mois si d > daysInMonth.
+        int newD = roundoff == 0 ? d : daysInMonth;
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
+        return new CivilDate(daysSinceEpoch);
+    }
+
+    [Pure]
+    private static CivilDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    {
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), CivilCalendar.MonthsInYear, out int years);
+        return AddYears(y, newM, d, years, out roundoff);
+    }
+
+    [Pure]
+    private static int CountMonthsBetween(int y0, int m0, int y1, int m1) =>
+        checked((y1 - y0) * CivilCalendar.MonthsInYear + m1 - m0);
+
+    [Pure]
+    private static CivilDate Adjust(CivilDate date, int roundoff, AdditionRule rule)
+    {
+        // Si on ne filtrait pas roundoff > 0, il faudrait prendre en compte
+        // le cas roundoff = 0 et retourner date (résultat exact).
+        Debug.Assert(roundoff > 0);
+
+        // NB: date is the last day of a month.
+        return rule switch
+        {
+            AdditionRule.Truncate => date,
+            AdditionRule.Overspill => date.NextDay(),
+            AdditionRule.Exact => date.PlusDays(roundoff),
+            AdditionRule.Overflow => throw new OverflowException(),
+
+            _ => throw new NotSupportedException(),
+        };
+    }
+
+#endif
+}
