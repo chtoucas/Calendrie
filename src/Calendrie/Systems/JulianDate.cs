@@ -73,7 +73,7 @@ public partial struct JulianDate // Preamble
     /// Initializes a new instance of the <see cref="JulianDate"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    internal JulianDate(int daysSinceEpoch)
+    private JulianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
@@ -263,9 +263,9 @@ public partial struct JulianDate // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="JulianDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified date components.
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static JulianDate UnsafeCreate(int year, int month, int day)
@@ -275,9 +275,9 @@ public partial struct JulianDate // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="JulianDate"/> struct
-    /// from the specified ordinal components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified ordinal components.
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static JulianDate UnsafeCreate(int year, int dayOfYear)
@@ -285,6 +285,14 @@ public partial struct JulianDate // Factories & conversions
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(year, dayOfYear);
         return new JulianDate(daysSinceEpoch);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static JulianDate UnsafeCreate(int daysSinceZero) => new(daysSinceZero);
 
     [Pure]
     static JulianDate IUnsafeFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>

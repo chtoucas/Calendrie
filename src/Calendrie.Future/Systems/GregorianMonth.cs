@@ -179,7 +179,7 @@ public partial struct GregorianMonth // IDateSegment
         {
             var (y, m) = this;
             int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
-            return new GregorianDate(daysSinceZero);
+            return GregorianDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -191,7 +191,7 @@ public partial struct GregorianMonth // IDateSegment
             var (y, m) = this;
             int d = GregorianFormulae.CountDaysInMonth(y, m);
             int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, d);
-            return new GregorianDate(daysSinceZero);
+            return GregorianDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -212,7 +212,7 @@ public partial struct GregorianMonth // IDateSegment
         var (y, m) = this;
         int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
-        return Range.StartingAt(new GregorianDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(GregorianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -230,7 +230,7 @@ public partial struct GregorianMonth // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new GregorianDate(daysSinceZero);
+               select GregorianDate.UnsafeCreate(daysSinceZero);
     }
 
     [Pure]
@@ -257,7 +257,7 @@ public partial struct GregorianMonth // IDateSegment
         var (y, m) = this; ;
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new GregorianDate(daysSinceZero);
+        return GregorianDate.UnsafeCreate(daysSinceZero);
     }
 }
 

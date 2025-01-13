@@ -52,7 +52,7 @@ public partial struct CivilDate // Preamble
     /// Initializes a new instance of the <see cref="CivilDate"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    internal CivilDate(int daysSinceZero)
+    private CivilDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
     }
@@ -241,9 +241,9 @@ public partial struct CivilDate // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct from the
+    /// specified date components.
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static CivilDate UnsafeCreate(int year, int month, int day)
@@ -253,9 +253,9 @@ public partial struct CivilDate // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilDate"/> struct
-    /// from the specified ordinal components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct from the
+    /// specified ordinal components.
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static CivilDate UnsafeCreate(int year, int dayOfYear)
@@ -263,6 +263,14 @@ public partial struct CivilDate // Factories & conversions
         int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(year, dayOfYear);
         return new CivilDate(daysSinceZero);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct from the
+    /// specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static CivilDate UnsafeCreate(int daysSinceZero) => new(daysSinceZero);
 
     [Pure]
     static CivilDate IUnsafeFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
@@ -288,14 +296,15 @@ public partial struct CivilDate // Factories & conversions
     /// Defines an implicit conversion of a <see cref="CivilDate"/> value to a
     /// <see cref="GregorianDate"/> value.
     /// </summary>
-    public static implicit operator GregorianDate(CivilDate date) => new(date._daysSinceZero);
+    public static implicit operator GregorianDate(CivilDate date) =>
+        GregorianDate.UnsafeCreate(date._daysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// <para>See also <seealso cref="GregorianDate.FromCivilDate(CivilDate)"/>.</para>
     /// </summary>
     [Pure]
-    public GregorianDate ToGregorianDate() => new(_daysSinceZero);
+    public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_daysSinceZero);
 }
 
 public partial struct CivilDate // Adjustments

@@ -71,7 +71,7 @@ public partial struct GregorianDate // Preamble
     /// Initializes a new instance of the <see cref="GregorianDate"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    internal GregorianDate(int daysSinceZero)
+    private GregorianDate(int daysSinceZero)
     {
         _daysSinceZero = daysSinceZero;
     }
@@ -263,9 +263,9 @@ public partial struct GregorianDate // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilDate"/> struct
-    /// from the specified date components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
+    /// the specified date components.
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static GregorianDate UnsafeCreate(int year, int month, int day)
@@ -275,9 +275,9 @@ public partial struct GregorianDate // Factories & conversions
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CivilDate"/> struct
-    /// from the specified ordinal components.
-    /// <para>This method does NOT validate its parameter.</para>
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
+    /// the specified ordinal components.
+    /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static GregorianDate UnsafeCreate(int year, int dayOfYear)
@@ -285,6 +285,14 @@ public partial struct GregorianDate // Factories & conversions
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(year, dayOfYear);
         return new GregorianDate(daysSinceZero);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
+    /// the specified count of consecutive days since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static GregorianDate UnsafeCreate(int daysSinceZero) => new(daysSinceZero);
 
     // REVIEW(code): inlining? Same for the other date types.
 

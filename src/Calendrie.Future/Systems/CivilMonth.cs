@@ -167,7 +167,7 @@ public partial struct CivilMonth // IDateSegment
         {
             var (y, m) = this;
             int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, 1);
-            return new CivilDate(daysSinceZero);
+            return CivilDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -179,7 +179,7 @@ public partial struct CivilMonth // IDateSegment
             var (y, m) = this;
             int d = GregorianFormulae.CountDaysInMonth(y, m);
             int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, d);
-            return new CivilDate(daysSinceZero);
+            return CivilDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -217,7 +217,7 @@ public partial struct CivilMonth // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new CivilDate(daysSinceZero);
+               select CivilDate.UnsafeCreate(daysSinceZero);
     }
 
     [Pure]
@@ -244,6 +244,6 @@ public partial struct CivilMonth // IDateSegment
         var (y, m) = this;
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new CivilDate(daysSinceZero);
+        return CivilDate.UnsafeCreate(daysSinceZero);
     }
 }

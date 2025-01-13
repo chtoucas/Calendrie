@@ -35,7 +35,7 @@ public sealed class CivilDateMath : DateMath<CivilDate>
         int newD = roundoff == 0 ? d : daysInMonth;
 
         int daysSinceEpoch = CivilFormulae.CountDaysSinceEpoch(newY, m, newD);
-        return new CivilDate(daysSinceEpoch);
+        return CivilDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc />

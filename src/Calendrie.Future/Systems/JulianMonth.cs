@@ -179,7 +179,7 @@ public partial struct JulianMonth // IDateSegment
         {
             var (y, m) = this;
             int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, 1);
-            return new JulianDate(daysSinceEpoch);
+            return JulianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -191,7 +191,7 @@ public partial struct JulianMonth // IDateSegment
             var (y, m) = this;
             int d = JulianFormulae.CountDaysInMonth(y, m);
             int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, d);
-            return new JulianDate(daysSinceEpoch);
+            return JulianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -212,7 +212,7 @@ public partial struct JulianMonth // IDateSegment
         var (y, m) = this;
         int startOfMonth = JulianFormulae.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = JulianFormulae.CountDaysInMonth(y, m);
-        return Range.StartingAt(new JulianDate(startOfMonth), daysInMonth);
+        return Range.StartingAt(JulianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -230,7 +230,7 @@ public partial struct JulianMonth // IDateSegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new JulianDate(daysSinceEpoch);
+               select JulianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     [Pure]
@@ -257,7 +257,7 @@ public partial struct JulianMonth // IDateSegment
         var (y, m) = this; ;
         Calendar.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return new JulianDate(daysSinceEpoch);
+        return JulianDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 

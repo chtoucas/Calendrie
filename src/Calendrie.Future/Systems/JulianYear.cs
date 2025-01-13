@@ -206,7 +206,7 @@ public partial struct JulianYear // IDateSegment
         get
         {
             int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Year, 1);
-            return new JulianDate(daysSinceZero);
+            return JulianDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -217,7 +217,7 @@ public partial struct JulianYear // IDateSegment
         {
             int doy = JulianFormulae.CountDaysInYear(Year);
             int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Year, doy);
-            return new JulianDate(daysSinceZero);
+            return JulianDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -231,7 +231,7 @@ public partial struct JulianYear // IDateSegment
     {
         int startOfYear = JulianFormulae.CountDaysSinceEpoch(Year, 1);
         int daysInYear = JulianFormulae.CountDaysInYear(Year);
-        return Range.StartingAt(new JulianDate(startOfYear), daysInYear);
+        return Range.StartingAt(JulianDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
@@ -243,7 +243,7 @@ public partial struct JulianYear // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
-               select new JulianDate(daysSinceZero);
+               select JulianDate.UnsafeCreate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -261,7 +261,7 @@ public partial struct JulianYear // IDateSegment
         // We already know that "y" is valid, we only need to check "dayOfYear".
         Calendar.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceZero = JulianFormulae.CountDaysSinceEpoch(Year, dayOfYear);
-        return new JulianDate(daysSinceZero);
+        return JulianDate.UnsafeCreate(daysSinceZero);
     }
 }
 

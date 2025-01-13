@@ -37,7 +37,7 @@ public sealed class GregorianDateMath : DateMath<GregorianDate>
         int newD = roundoff == 0 ? d : daysInMonth;
 
         int daysSinceEpoch = GregorianFormulae.CountDaysSinceEpoch(newY, m, newD);
-        return new GregorianDate(daysSinceEpoch);
+        return GregorianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc />

@@ -37,7 +37,7 @@ public sealed class JulianDateMath : DateMath<JulianDate>
         int newD = roundoff == 0 ? d : daysInMonth;
 
         int daysSinceEpoch = JulianFormulae.CountDaysSinceEpoch(newY, m, newD);
-        return new JulianDate(daysSinceEpoch);
+        return JulianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <inheritdoc />

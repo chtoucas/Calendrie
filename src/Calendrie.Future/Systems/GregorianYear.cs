@@ -206,7 +206,7 @@ public partial struct GregorianYear // IDateSegment
         get
         {
             int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Year, 1);
-            return new GregorianDate(daysSinceZero);
+            return GregorianDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -217,7 +217,7 @@ public partial struct GregorianYear // IDateSegment
         {
             int doy = GregorianFormulae.CountDaysInYear(Year);
             int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Year, doy);
-            return new GregorianDate(daysSinceZero);
+            return GregorianDate.UnsafeCreate(daysSinceZero);
         }
     }
 
@@ -231,7 +231,7 @@ public partial struct GregorianYear // IDateSegment
     {
         int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Year, 1);
         int daysInYear = GregorianFormulae.CountDaysInYear(Year);
-        return Range.StartingAt(new GregorianDate(startOfYear), daysInYear);
+        return Range.StartingAt(GregorianDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
@@ -243,7 +243,7 @@ public partial struct GregorianYear // IDateSegment
 
         return from daysSinceZero
                in Enumerable.Range(startOfYear, daysInYear)
-               select new GregorianDate(daysSinceZero);
+               select GregorianDate.UnsafeCreate(daysSinceZero);
     }
 
     /// <inheritdoc />
@@ -261,7 +261,7 @@ public partial struct GregorianYear // IDateSegment
         // We already know that "y" is valid, we only need to check "dayOfYear".
         Calendar.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(Year, dayOfYear);
-        return new GregorianDate(daysSinceZero);
+        return GregorianDate.UnsafeCreate(daysSinceZero);
     }
 }
 
