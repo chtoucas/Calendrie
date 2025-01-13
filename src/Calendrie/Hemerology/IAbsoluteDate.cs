@@ -228,6 +228,8 @@ public interface IAbsoluteDate
     /// <para>If the day already falls on the given day of the week, returns the
     /// current instance.</para>
     /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="date"/> is null.
+    /// </exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfWeek"/>
     /// is not a valid day of the week - or - the result would be outside the
     /// range of supported days.</exception>

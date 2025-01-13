@@ -19,8 +19,8 @@ let domain = Range.Create(MyGregorianDate.MinValue.DayNumber, MyGregorianDate.Ma
 type DateFacts() =
     inherit IDateFacts<MyGregorianDate, StandardGregorianDataSet>()
 
-    // MyGregorianDate.FromDayNumber() throws an OverflowException here but only
-    // because the base test uses the explicit implementation of FromDayNumber().
+    // TDate.FromDayNumber() throws an OverflowException here but only because
+    // the base test uses the explicit implementation of FromDayNumber().
     override x.FromDayNumber_InvalidDayNumber () =
         x.DomainTester.TestInvalidDayNumber(MyGregorianDate.FromDayNumber);
 

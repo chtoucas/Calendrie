@@ -140,8 +140,15 @@ public partial struct MyGregorianDate // Factories & conversions
         new(Calendar.CountDaysSinceEpoch(dayNumber));
 
     // This method eventually throws an OverflowException, not an
-    // ArgumentOutOfRangeException as documented in the XML doc. Only used by
-    // Nearest() via IAbsoluteDate.Nearest().
+    // ArgumentOutOfRangeException as documented in the XML doc.
+    // Why? It's to ensure that Nearest(), which uses this explicit impl via
+    // IAbsoluteDate.Nearest(), throws an ArgumentOutOfRangeException only when
+    // dayOfWeek is invalid and an OverflowException otherwise.
+    // Here, it's the only case where we use this method.
+    // Of course, one can always call this method explicitely.
+    // Pourquoi on n'a pas ce problème avec les autres types date de ce projet ?
+    // La réponse est simplement parce que Nearest() n'utilise pas
+    // IAbsoluteDate.Nearest() mais DayNumber.Nearest().
     static MyGregorianDate IAbsoluteDate<MyGregorianDate>.FromDayNumber(DayNumber dayNumber) =>
         new(Calendar.CountDaysSinceEpochChecked(dayNumber));
 }
