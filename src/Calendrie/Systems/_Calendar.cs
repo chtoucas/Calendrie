@@ -7,8 +7,8 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 
 // TODO(code): move CountDaysInWorldMonth() to WorldMonth.
-// Add property IsVirtual to the month type. Move VirtualMonth to the year type?
-// Maybe make Calendar.MonthsInYear internal (we also have Year.MonthCount)?
+// Add property IsVirtual to the month type. Move VirtualMonth to the year type
+// or simply remove it? Remove Calendar.MonthsInYear (we also have Year.MonthCount)?
 
 public partial class Armenian13Calendar // Complements
 {

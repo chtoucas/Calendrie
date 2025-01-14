@@ -292,7 +292,7 @@ public partial struct JulianDate // Factories & conversions
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static JulianDate UnsafeCreate(int daysSinceZero) => new(daysSinceZero);
+    internal static JulianDate UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
     static JulianDate IUnsafeFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
