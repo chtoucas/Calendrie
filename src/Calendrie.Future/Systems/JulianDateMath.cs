@@ -45,12 +45,12 @@ public sealed class JulianDateMath : DateMath<JulianDate>
     protected sealed override JulianDate AddMonthsCore(
         int y, int m, int d, int months, out int roundoff)
     {
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), JulianCalendar.MonthsInYear, out int years);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), GJSchema.MonthsInYear, out int years);
         return AddYearsCore(y, newM, d, years, out roundoff);
     }
 
     /// <inheritdoc />
     [Pure]
     protected sealed override int CountMonthsBetween(int y0, int m0, int y1, int m1) =>
-        checked((y1 - y0) * JulianCalendar.MonthsInYear + m1 - m0);
+        checked((y1 - y0) * GJSchema.MonthsInYear + m1 - m0);
 }

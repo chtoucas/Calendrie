@@ -59,7 +59,7 @@ public partial struct GregorianMonth // Preamble
         // > GregorianScope.ValidateYearMonthImpl(year, month);
         if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+        if (month < 1 || month > GJSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
@@ -125,7 +125,7 @@ public partial struct GregorianMonth // Preamble
     /// <para>Actually, this property returns the algebraic year, but since its
     /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, GregorianCalendar.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, GJSchema.MonthsInYear);
 
     /// <inheritdoc />
     public int Month
@@ -165,7 +165,7 @@ public partial struct GregorianMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceEpoch, GregorianCalendar.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceEpoch, GJSchema.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 }

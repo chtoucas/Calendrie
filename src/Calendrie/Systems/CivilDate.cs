@@ -606,7 +606,7 @@ public partial struct CivilDate // Non-standard math ops (experimental)
         CivilFormulae.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked((y - y0) * CivilCalendar.MonthsInYear + m - m0);
+        int months = checked((y - y0) * GJSchema.MonthsInYear + m - m0);
 
         // To avoid extracting (y0, m0, d0) more than once, we inline:
         // > var newStart = start.PlusMonths(months);
@@ -654,7 +654,7 @@ public partial struct CivilDate // Non-standard math ops (experimental)
     [Pure]
     private static CivilDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), CivilCalendar.MonthsInYear, out int years);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), GJSchema.MonthsInYear, out int years);
         return AddYears(y, newM, d, years, out roundoff);
     }
 
