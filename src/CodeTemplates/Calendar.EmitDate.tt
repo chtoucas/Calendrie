@@ -358,8 +358,8 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     public static <#= Prefix #>Date FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
         return new <#= Prefix #>Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
@@ -375,7 +375,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     /// to a <see cref="JulianDate"/> value.
     /// </summary>
     public static explicit operator JulianDate(<#= Prefix #>Date date) =>
-        JulianDate.FromDayNumber(date.DayNumber);
+        JulianDate.FromAbsoluteDate(date.DayNumber);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
@@ -387,7 +387,7 @@ public partial struct <#= Prefix #>Date // Factories & conversions
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(DayNumber);
 }
 <#+
     } // T4: End of EmitDateFactories()

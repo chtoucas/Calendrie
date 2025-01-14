@@ -383,7 +383,7 @@ public partial struct Persian2820Date // Factories & conversions
     /// to a <see cref="JulianDate"/> value.
     /// </summary>
     public static explicit operator JulianDate(Persian2820Date date) =>
-        JulianDate.FromDayNumber(date.DayNumber);
+        JulianDate.FromAbsoluteDate(date.DayNumber);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
@@ -395,7 +395,7 @@ public partial struct Persian2820Date // Factories & conversions
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(DayNumber);
 }
 
 public partial struct Persian2820Date // Counting

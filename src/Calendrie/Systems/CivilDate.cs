@@ -304,7 +304,7 @@ public partial struct CivilDate // Factories & conversions
     /// <see cref="JulianDate"/> value.
     /// </summary>
     public static explicit operator JulianDate(CivilDate date) =>
-        JulianDate.FromDayNumber(date.DayNumber);
+        JulianDate.FromAbsoluteDate(date.DayNumber);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
@@ -316,7 +316,7 @@ public partial struct CivilDate // Factories & conversions
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(DayNumber);
 }
 
 public partial struct CivilDate // Adjustments

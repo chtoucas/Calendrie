@@ -288,15 +288,6 @@ public partial struct JulianDate // Factories & conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct from the
-    /// specified day number.
-    /// <para>This method does NOT validate its parameter.</para>
-    /// </summary>
-    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static JulianDate UnsafeCreate(DayNumber dayNumber) =>
-        new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
     /// specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -316,10 +307,22 @@ public partial struct JulianDate // Factories & conversions
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
         return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified absolute date.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure]
+    internal static JulianDate FromAbsoluteDate(DayNumber dayNumber) =>
+        // NB: in general, the subtraction may overflow, but this is not the case
+        // for date types in Calendrie.Systems, GregorianDate being the sole
+        // exception.
+        new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 
     /// <summary>
     /// Defines an explicit conversion of a <see cref="JulianDate"/> value to a
