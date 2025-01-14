@@ -3,7 +3,7 @@
 
 module Calendrie.Tests.Systems.CivilTests
 
-#nowarn 3391 // Implicit conversion from CivilDate to GregorianDate
+#nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open System
 
@@ -25,7 +25,6 @@ module Prelude =
 
     let dateInfoData = calendarDataSet.DateInfoData
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
-    let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     [<Fact>]
     let ``Value of CivilCalendar.Epoch.DaysZinceZero`` () =
@@ -60,6 +59,12 @@ module Prelude =
 
         date.DaysSinceZero === daysSinceEpoch
 
+module Conversions =
+    let private calendarDataSet = StandardGregorianDataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let dayNumberInfoData = calendarDataSet.DayNumberInfoData
+
     //
     // Conversion to DayNumber
     //
@@ -67,9 +72,9 @@ module Prelude =
     [<Theory; MemberData(nameof(dayNumberInfoData))>]
     let ``Implicit conversion to DayNumber`` (x: DayNumberInfo) =
         let dayNumber, y, m, d = x.Deconstruct()
-        let date : DayNumber = new CivilDate(y, m, d)
+        let date  = new CivilDate(y, m, d)
 
-        date === dayNumber
+        date : DayNumber === dayNumber
 
     //
     // Conversion to GregorianDate
@@ -79,49 +84,45 @@ module Prelude =
     let ``ToGregorianDate()`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
         let date = new CivilDate(y, m, d)
-        let gregorianDate = new GregorianDate(y, m, d)
+        let exp = new GregorianDate(y, m, d)
 
-        date.ToGregorianDate() === gregorianDate
+        date.ToGregorianDate() === exp
 
     [<Fact>]
     let ``ToGregorianDate() at CivilDate:MaxValue`` () =
-        let date = CivilDate.MaxValue
-        let y, m, d = date.Deconstruct()
-        let gregorianDate = new GregorianDate(y, m, d)
+        let y, m, d = CivilDate.MaxValue.Deconstruct()
+        let exp = new GregorianDate(y, m, d)
 
-        date.ToGregorianDate() === gregorianDate
+        CivilDate.MaxValue.ToGregorianDate() === exp
 
     [<Fact>]
     let ``ToGregorianDate() at CivilDate:MinValue`` () =
-        let date = CivilDate.MinValue
-        let y, m, d = date.Deconstruct()
-        let gregorianDate = new GregorianDate(y, m, d)
+        let y, m, d = CivilDate.MinValue.Deconstruct()
+        let exp = new GregorianDate(y, m, d)
 
-        date.ToGregorianDate() === gregorianDate
+        CivilDate.MinValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Implicit conversion to GregorianDate`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
-        let date : GregorianDate = new CivilDate(y, m, d)
-        let gregorianDate = new GregorianDate(y, m, d)
+        let date = new CivilDate(y, m, d)
+        let exp = new GregorianDate(y, m, d)
 
-        date === gregorianDate
+        (date : GregorianDate) === exp
 
     [<Fact>]
     let ``Implicit conversion to GregorianDate at CivilDate:MaxValue`` () =
-        let date : GregorianDate = CivilDate.MaxValue
         let y, m, d = CivilDate.MaxValue.Deconstruct()
-        let gregorianDate = new GregorianDate(y, m, d)
+        let exp = new GregorianDate(y, m, d)
 
-        date === gregorianDate
+        (CivilDate.MaxValue : GregorianDate) === exp
 
     [<Fact>]
     let ``Implicit conversion to GregorianDate at CivilDate:MinValue`` () =
-        let date : GregorianDate = CivilDate.MinValue
         let y, m, d = CivilDate.MinValue.Deconstruct()
-        let gregorianDate = new GregorianDate(y, m, d)
+        let exp = new GregorianDate(y, m, d)
 
-        date === gregorianDate
+        (CivilDate.MinValue : GregorianDate) === exp
 
     //[<Theory; MemberData(nameof(dateInfoData))>]
     //let ``GregorianDate:FromCivilDate()`` (x: DateInfo) =
@@ -155,45 +156,41 @@ module Prelude =
     let ``ToJulianDate()`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
         let date = new CivilDate(y, m, d)
-        let julianDate = JulianDate.FromAbsoluteDate(date.DayNumber)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
 
-        date.ToJulianDate() === julianDate
+        date.ToJulianDate() === exp
 
     [<Fact>]
     let ``ToJulianDate() at CivilDate:MaxValue`` () =
-        let date = CivilDate.MaxValue
-        let julianDate = JulianDate.FromAbsoluteDate(date.DayNumber)
+        let exp = JulianDate.FromAbsoluteDate(CivilDate.MaxValue.DayNumber)
 
-        date.ToJulianDate() === julianDate
+        CivilDate.MaxValue.ToJulianDate() === exp
 
     [<Fact>]
     let ``ToJulianDate() at CivilDate:MinValue`` () =
-        let date = CivilDate.MinValue
-        let julianDate = JulianDate.FromAbsoluteDate(date.DayNumber)
+        let exp = JulianDate.FromAbsoluteDate(CivilDate.MinValue.DayNumber)
 
-        date.ToJulianDate() === julianDate
+        CivilDate.MinValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
         let date = new CivilDate(y, m, d)
-        let julianDate = JulianDate.FromAbsoluteDate(date.DayNumber)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
 
-        CivilDate.op_Explicit date === julianDate
+        CivilDate.op_Explicit date === exp
 
     [<Fact>]
     let ``Explicit conversion to JulianDate at CivilDate:MaxValue`` () =
-        let date = CivilDate.MaxValue
-        let julianDate = JulianDate.FromAbsoluteDate(date.DayNumber)
+        let exp = JulianDate.FromAbsoluteDate(CivilDate.MaxValue.DayNumber)
 
-        CivilDate.op_Explicit date === julianDate
+        CivilDate.op_Explicit CivilDate.MaxValue === exp
 
     [<Fact>]
     let ``Explicit conversion to JulianDate at CivilDate:MinValue`` () =
-        let date = CivilDate.MinValue
-        let julianDate = JulianDate.FromAbsoluteDate(date.DayNumber)
+        let exp = JulianDate.FromAbsoluteDate(CivilDate.MinValue.DayNumber)
 
-        CivilDate.op_Explicit date === julianDate
+        CivilDate.op_Explicit CivilDate.MinValue === exp
 
 module Extensions =
     let private chr = CivilCalendar.Instance
