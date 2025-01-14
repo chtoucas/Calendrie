@@ -335,7 +335,7 @@ public partial struct GregorianYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+        if (month < 1 || month > GregorianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         return GregorianMonth.UnsafeCreate(Year, month);

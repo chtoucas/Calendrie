@@ -287,7 +287,7 @@ public partial struct TabularIslamicDate // Factories & conversions
     public static TabularIslamicDate Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="TabularIslamicDate"/>
     /// struct from the specified date components.
     /// </summary>
     [Pure]
@@ -301,7 +301,7 @@ public partial struct TabularIslamicDate // Factories & conversions
     }
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="TabularIslamicDate"/>
     /// struct from the specified ordinal components.
     /// </summary>
     [Pure]

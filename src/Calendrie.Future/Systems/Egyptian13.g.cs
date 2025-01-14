@@ -296,7 +296,7 @@ public partial struct Egyptian13Date // Factories & conversions
     public static Egyptian13Date Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="Egyptian13Date"/>
     /// struct from the specified date components.
     /// </summary>
     [Pure]
@@ -310,7 +310,7 @@ public partial struct Egyptian13Date // Factories & conversions
     }
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="Egyptian13Date"/>
     /// struct from the specified ordinal components.
     /// </summary>
     [Pure]

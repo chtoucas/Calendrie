@@ -291,7 +291,7 @@ public partial struct MyJulianDate // Factories & conversions
     public static MyJulianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="MyJulianDate"/>
     /// struct from the specified date components.
     /// </summary>
     [Pure]
@@ -305,7 +305,7 @@ public partial struct MyJulianDate // Factories & conversions
     }
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="MyJulianDate"/>
     /// struct from the specified ordinal components.
     /// </summary>
     [Pure]
@@ -1720,7 +1720,7 @@ public partial struct MyJulianYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        if (month < 1 || month > GregorianCalendar.MonthsInYear)
+        if (month < 1 || month > JulianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         return MyJulianMonth.UnsafeCreate(Year, month);

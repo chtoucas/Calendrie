@@ -296,7 +296,7 @@ public partial struct RevisedWorldDate // Factories & conversions
     public static RevisedWorldDate Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="RevisedWorldDate"/>
     /// struct from the specified date components.
     /// </summary>
     [Pure]
@@ -310,7 +310,7 @@ public partial struct RevisedWorldDate // Factories & conversions
     }
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CivilDate"/>
+    /// Attempts to create a new instance of the <see cref="RevisedWorldDate"/>
     /// struct from the specified ordinal components.
     /// </summary>
     [Pure]
