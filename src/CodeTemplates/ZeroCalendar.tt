@@ -341,7 +341,13 @@ public partial struct <#= Prefix #>Date // Factories
     static <#= Prefix #>Date IUnsafeFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
         new(<#= DaysSinceEpochVar #>);
 }
+<#+
+    } // T4: End of EmitDateFactories()
 
+    protected override void EmitDateConversions()
+    {
+        WriteLine();
+#>
 public partial struct <#= Prefix #>Date // Conversions
 {
     /// <summary>
@@ -365,6 +371,11 @@ public partial struct <#= Prefix #>Date // Conversions
     /// </summary>
     public static explicit operator JulianDate(<#= Prefix #>Date date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
+
+    // Why FromAbsoluteDate() rather than FromDayNumber()? Usability.
+    // Why not simply change the interface? It makes sense to apply this only
+    // here because there is also an implicit conversion from all date types in
+    // Calendrie.Systems to DayNumber.
 
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Date"/> struct
@@ -400,7 +411,7 @@ public partial struct <#= Prefix #>Date // Conversions
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 <#+
-    } // T4: End of EmitDateFactories()
+    } // T4: End of EmitDateConversions()
 
     protected override void EmitDateCloseByDayOfWeek()
     {
