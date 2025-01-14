@@ -342,6 +342,14 @@ public partial struct MyCivilDate // Factories
 public partial struct MyCivilDate // Conversions
 {
     /// <summary>
+    /// Defines an implicit conversion of a <see cref="MyCivilDate"/> value
+    /// to a <see cref="Calendrie.DayNumber"/> value.
+    /// <para>See also <seealso cref="DayNumber"/>.</para>
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
+    public static implicit operator DayNumber(MyCivilDate date) => date.DayNumber;
+
+    /// <summary>
     /// Defines an explicit conversion of a <see cref="MyCivilDate"/> value
     /// to a <see cref="GregorianDate"/> value.
     /// </summary>
@@ -353,11 +361,16 @@ public partial struct MyCivilDate // Conversions
     /// to a <see cref="JulianDate"/> value.
     /// </summary>
     public static explicit operator JulianDate(MyCivilDate date) =>
-        JulianDate.FromAbsoluteDate(date.DayNumber);
+        JulianDate.UnsafeCreate(date.DayNumber);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creates a new instance of the <see cref="MyCivilDate"/> struct
+    /// from the specified <see cref="Calendrie.DayNumber"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
     [Pure]
-    public static MyCivilDate FromDayNumber(DayNumber dayNumber)
+    public static MyCivilDate FromAbsoluteDate(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
 
@@ -366,6 +379,10 @@ public partial struct MyCivilDate // Conversions
 
         return new MyCivilDate(daysSinceZero);
     }
+
+    [Pure]
+    static MyCivilDate IAbsoluteDate<MyCivilDate>.FromDayNumber(DayNumber dayNumber) =>
+        FromAbsoluteDate(dayNumber);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
@@ -377,7 +394,7 @@ public partial struct MyCivilDate // Conversions
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
 public partial struct MyCivilDate // Counting

@@ -361,6 +361,14 @@ public partial struct Armenian13Date // Factories
 public partial struct Armenian13Date // Conversions
 {
     /// <summary>
+    /// Defines an implicit conversion of a <see cref="Armenian13Date"/> value
+    /// to a <see cref="Calendrie.DayNumber"/> value.
+    /// <para>See also <seealso cref="DayNumber"/>.</para>
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
+    public static implicit operator DayNumber(Armenian13Date date) => date.DayNumber;
+
+    /// <summary>
     /// Defines an explicit conversion of a <see cref="Armenian13Date"/> value
     /// to a <see cref="GregorianDate"/> value.
     /// </summary>
@@ -372,17 +380,26 @@ public partial struct Armenian13Date // Conversions
     /// to a <see cref="JulianDate"/> value.
     /// </summary>
     public static explicit operator JulianDate(Armenian13Date date) =>
-        JulianDate.FromAbsoluteDate(date.DayNumber);
+        JulianDate.UnsafeCreate(date.DayNumber);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Date"/> struct
+    /// from the specified <see cref="Calendrie.DayNumber"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
     [Pure]
-    public static Armenian13Date FromDayNumber(DayNumber dayNumber)
+    public static Armenian13Date FromAbsoluteDate(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
         // NB: now that we have validated the day number, we know for sure that
         // the subtraction won't overflow.
         return new Armenian13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
+
+    [Pure]
+    static Armenian13Date IAbsoluteDate<Armenian13Date>.FromDayNumber(DayNumber dayNumber) =>
+        FromAbsoluteDate(dayNumber);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
@@ -394,7 +411,7 @@ public partial struct Armenian13Date // Conversions
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
 public partial struct Armenian13Date // Counting

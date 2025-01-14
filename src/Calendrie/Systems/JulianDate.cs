@@ -302,6 +302,14 @@ public partial struct JulianDate // Factories
 public partial struct JulianDate // Conversions
 {
     /// <summary>
+    /// Defines an implicit conversion of a <see cref="JulianDate"/> value to a
+    /// <see cref="Calendrie.DayNumber"/> value.
+    /// <para>See also <seealso cref="DayNumber"/>.</para>
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
+    public static implicit operator DayNumber(JulianDate date) => date.DayNumber;
+
+    /// <summary>
     /// Defines an explicit conversion of a <see cref="JulianDate"/> value to a
     /// <see cref="GregorianDate"/> value.
     /// <para>See also <seealso cref="ToGregorianDate()"/>.</para>
@@ -311,9 +319,14 @@ public partial struct JulianDate // Conversions
     public static explicit operator GregorianDate(JulianDate date) =>
         GregorianDate.FromAbsoluteDate(date);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified <see cref="Calendrie.DayNumber"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
     [Pure]
-    public static JulianDate FromDayNumber(DayNumber dayNumber)
+    public static JulianDate FromAbsoluteDate(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
         // NB: now that the day number is validated, we know for sure that the
@@ -321,13 +334,19 @@ public partial struct JulianDate // Conversions
         return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
+    [Pure]
+    static JulianDate IAbsoluteDate<JulianDate>.FromDayNumber(DayNumber dayNumber) =>
+        FromAbsoluteDate(dayNumber);
+
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct from the
     /// specified absolute date.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
+    //
+    // Truely UnsafeFromAbsoluteDate().
     [Pure]
-    internal static JulianDate FromAbsoluteDate(DayNumber dayNumber) =>
+    internal static JulianDate UnsafeCreate(DayNumber dayNumber) =>
         // NB: in general, the subtraction may overflow, but it just happens that
         // this is not the case for date types in Calendrie.Systems,
         // GregorianDate being the sole exception.

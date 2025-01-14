@@ -356,6 +356,14 @@ public partial struct MyJulianDate // Factories
 public partial struct MyJulianDate // Conversions
 {
     /// <summary>
+    /// Defines an implicit conversion of a <see cref="MyJulianDate"/> value
+    /// to a <see cref="Calendrie.DayNumber"/> value.
+    /// <para>See also <seealso cref="DayNumber"/>.</para>
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
+    public static implicit operator DayNumber(MyJulianDate date) => date.DayNumber;
+
+    /// <summary>
     /// Defines an explicit conversion of a <see cref="MyJulianDate"/> value
     /// to a <see cref="GregorianDate"/> value.
     /// </summary>
@@ -367,17 +375,26 @@ public partial struct MyJulianDate // Conversions
     /// to a <see cref="JulianDate"/> value.
     /// </summary>
     public static explicit operator JulianDate(MyJulianDate date) =>
-        JulianDate.FromAbsoluteDate(date.DayNumber);
+        JulianDate.UnsafeCreate(date.DayNumber);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creates a new instance of the <see cref="MyJulianDate"/> struct
+    /// from the specified <see cref="Calendrie.DayNumber"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
     [Pure]
-    public static MyJulianDate FromDayNumber(DayNumber dayNumber)
+    public static MyJulianDate FromAbsoluteDate(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
         // NB: now that we have validated the day number, we know for sure that
         // the subtraction won't overflow.
         return new MyJulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
+
+    [Pure]
+    static MyJulianDate IAbsoluteDate<MyJulianDate>.FromDayNumber(DayNumber dayNumber) =>
+        FromAbsoluteDate(dayNumber);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
@@ -389,7 +406,7 @@ public partial struct MyJulianDate // Conversions
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
 public partial struct MyJulianDate // Counting

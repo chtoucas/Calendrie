@@ -185,7 +185,7 @@ public partial struct CivilDate // Preamble
         year = CivilFormulae.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct CivilDate // Factories & conversions
+public partial struct CivilDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -275,14 +275,42 @@ public partial struct CivilDate // Factories & conversions
     [Pure]
     static CivilDate IUnsafeFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
+}
 
-    //
-    // Conversions
-    //
+public partial struct CivilDate // Conversions
+{
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="CivilDate"/> value to a
+    /// <see cref="Calendrie.DayNumber"/> value.
+    /// <para>See also <seealso cref="DayNumber"/>.</para>
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
+    public static implicit operator DayNumber(CivilDate date) => date.DayNumber;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="CivilDate"/> value to a
+    /// <see cref="GregorianDate"/> value.
+    /// <para>See also <seealso cref="ToGregorianDate()"/>.</para>
+    /// </summary>
+    public static implicit operator GregorianDate(CivilDate date) =>
+        GregorianDate.UnsafeCreate(date._daysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="CivilDate"/> value to a
+    /// <see cref="JulianDate"/> value.
+    /// <para>See also <seealso cref="ToJulianDate()"/>.</para>
+    /// </summary>
+    public static explicit operator JulianDate(CivilDate date) =>
+        JulianDate.UnsafeCreate(date.DayNumber);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CivilDate"/> struct from the
+    /// specified <see cref="Calendrie.DayNumber"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
     [Pure]
-    public static CivilDate FromDayNumber(DayNumber dayNumber)
+    public static CivilDate FromAbsoluteDate(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
 
@@ -292,19 +320,9 @@ public partial struct CivilDate // Factories & conversions
         return new CivilDate(daysSinceZero);
     }
 
-    /// <summary>
-    /// Defines an implicit conversion of a <see cref="CivilDate"/> value to a
-    /// <see cref="GregorianDate"/> value.
-    /// </summary>
-    public static implicit operator GregorianDate(CivilDate date) =>
-        GregorianDate.UnsafeCreate(date._daysSinceZero);
-
-    /// <summary>
-    /// Defines an explicit conversion of a <see cref="CivilDate"/> value to a
-    /// <see cref="JulianDate"/> value.
-    /// </summary>
-    public static explicit operator JulianDate(CivilDate date) =>
-        JulianDate.FromAbsoluteDate(date.DayNumber);
+    [Pure]
+    static CivilDate IAbsoluteDate<CivilDate>.FromDayNumber(DayNumber dayNumber) =>
+        FromAbsoluteDate(dayNumber);
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
@@ -316,7 +334,7 @@ public partial struct CivilDate // Factories & conversions
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
 public partial struct CivilDate // Adjustments

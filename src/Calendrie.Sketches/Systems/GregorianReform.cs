@@ -58,7 +58,7 @@ public sealed record GregorianReform
         ArgumentOutOfRangeException.ThrowIfLessThan(date, Official.LastJulianDate);
 
         var switchover = date.DayNumber + 1;
-        var firstGregorianDate = GregorianDate.FromDayNumber(switchover);
+        var firstGregorianDate = GregorianDate.FromAbsoluteDate(switchover);
 
         return new GregorianReform(date, firstGregorianDate, switchover);
     }
@@ -69,7 +69,7 @@ public sealed record GregorianReform
         ArgumentOutOfRangeException.ThrowIfLessThan(date, Official.FirstGregorianDate);
 
         var switchover = date.DayNumber;
-        var lastJulianDate = JulianDate.FromDayNumber(switchover - 1);
+        var lastJulianDate = JulianDate.FromAbsoluteDate(switchover - 1);
 
         return new GregorianReform(lastJulianDate, date, switchover);
     }

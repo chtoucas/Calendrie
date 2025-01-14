@@ -14,23 +14,24 @@ using Calendrie.Hemerology;
 public partial struct TropicaliaDate
 {
     /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaDate"/> struct from
-    /// the specified absolute date.
-    /// </summary>
-    [Pure]
-    public static TropicaliaDate FromAbsoluteDate(IAbsoluteDate date)
-    {
-        ArgumentNullException.ThrowIfNull(date);
-        return FromDayNumber(date.DayNumber);
-    }
-
-    /// <summary>
-    /// (Inter)Converts the current instance to a <typeparamref name="TDate"/>
-    /// value.
+    /// Converts the current instance to a <typeparamref name="TDate"/> value.
     /// </summary>
     [Pure]
     public TDate ToAbsoluteDate<TDate>() where TDate : IAbsoluteDate<TDate>
     {
+        // Should throw an OverflowException...
+        return TDate.FromDayNumber(DayNumber);
+    }
+
+    /// <summary>
+    /// Converts the current instance to a <typeparamref name="TDate"/> value.
+    /// </summary>
+    [Pure]
+    public TDate ToDate<TDate>() where TDate : IDate<TDate>
+    {
+        TDate.Calendar.Scope.CheckOverflow(DayNumber);
+
+        // Double validation...
         return TDate.FromDayNumber(DayNumber);
     }
 }

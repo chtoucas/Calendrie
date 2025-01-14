@@ -305,6 +305,14 @@ public partial struct GregorianDate // Factories
 public partial struct GregorianDate // Conversions
 {
     /// <summary>
+    /// Defines an implicit conversion of a <see cref="GregorianDate"/> value to
+    /// a <see cref="Calendrie.DayNumber"/> value.
+    /// <para>See also <seealso cref="DayNumber"/>.</para>
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
+    public static implicit operator DayNumber(GregorianDate date) => date.DayNumber;
+
+    /// <summary>
     /// Defines an explicit conversion of a <see cref="GregorianDate"/> value to
     /// a <see cref="JulianDate"/> value.
     /// <para>See also <seealso cref="ToJulianDate()"/>.</para>
@@ -314,9 +322,14 @@ public partial struct GregorianDate // Conversions
     public static explicit operator JulianDate(GregorianDate date) =>
         JulianDate.FromAbsoluteDate(date);
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
+    /// the specified <see cref="Calendrie.DayNumber"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
+    /// is outside the range of supported values.</exception>
     [Pure]
-    public static GregorianDate FromDayNumber(DayNumber dayNumber)
+    public static GregorianDate FromAbsoluteDate(DayNumber dayNumber)
     {
         int daysSinceZero = dayNumber.DaysSinceZero;
 
@@ -325,6 +338,10 @@ public partial struct GregorianDate // Conversions
 
         return new GregorianDate(daysSinceZero);
     }
+
+    [Pure]
+    static GregorianDate IAbsoluteDate<GregorianDate>.FromDayNumber(DayNumber dayNumber) =>
+        FromAbsoluteDate(dayNumber);
 
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianDate"/> struct from

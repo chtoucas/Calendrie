@@ -14,7 +14,7 @@ open Xunit
 [<Fact>]
 let ``Static property OldStyle`` () =
     let epoch = DayZero.OldStyle
-    let date = JulianDate.FromDayNumber(epoch)
+    let date = JulianDate.FromAbsoluteDate(epoch)
     let y, m, d = date.Deconstruct()
 
     epoch === DayNumber.Zero - 2
@@ -26,7 +26,7 @@ let ``Static property OldStyle`` () =
 [<Fact>]
 let ``Static property RataDie`` () =
     let epoch = DayZero.RataDie
-    let date = GregorianDate.FromDayNumber(epoch)
+    let date = GregorianDate.FromAbsoluteDate(epoch)
     let y, m, d = date.Deconstruct()
 
     epoch === DayNumber.Zero - 1
@@ -38,7 +38,7 @@ let ``Static property RataDie`` () =
 [<Fact>]
 let ``Static property NewStyle`` () =
     let epoch = DayZero.NewStyle
-    let date = CivilDate.FromDayNumber(epoch)
+    let date = CivilDate.FromAbsoluteDate(epoch)
     let y, m, d = date.Deconstruct()
 
     epoch === DayNumber.Zero
@@ -103,7 +103,7 @@ let ``Static property FrenchRepublican`` () =
 
 [<Fact>]
 let ``Static property Minguo`` () =
-    let date = CivilDate.FromDayNumber(DayZero.Minguo)
+    let date = CivilDate.FromAbsoluteDate(DayZero.Minguo)
     let year = new CivilYear(1912)
     let startOfYear = year.MinDay
 
@@ -111,7 +111,7 @@ let ``Static property Minguo`` () =
 
 [<Fact>]
 let ``Static property Tropicalia`` () =
-    let date = CivilDate.FromDayNumber(DayZero.Tropicalia)
+    let date = CivilDate.FromAbsoluteDate(DayZero.Tropicalia)
     let year = new CivilYear(1968)
     let startOfYear = year.MinDay
 

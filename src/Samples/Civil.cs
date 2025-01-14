@@ -145,19 +145,14 @@ public partial class Civil
 //
 public partial class Civil
 {
-    /// <summary>
-    /// (Inter)Converts the specified Civil date to a <see cref="JulianDate"/> value.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    public static JulianDate ToJulianDate(this CivilDate date) =>
-        JulianDate.FromDayNumber(date.DayNumber);
+    // Conversion of a CivilDate value to JulianDate value is already available
+    // via ToJulianDate().
 
     /// <summary>
-    /// (Inter)Converts the specified Julian date to a <see cref="CivilDate"/> value.
+    /// Converts the specified Julian date to a <see cref="CivilDate"/> value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"/>
-    public static CivilDate FromJulianDate(this JulianDate date) =>
-        CivilDate.FromDayNumber(date.DayNumber);
+    public static CivilDate FromJulianDate(this JulianDate date) => CivilDate.FromAbsoluteDate(date);
 
     public static Range<JulianDate> ToJulianRange(this Range<CivilDate> range)
     {
@@ -168,20 +163,20 @@ public partial class Civil
     // General interconversion methods are possible but not very user-friendly.
 
     /// <summary>
-    /// (Inter)Converts the specified Civil date to a <typeparamref name="TDate"/> value.
+    /// Converts the specified Civil date to a <typeparamref name="TDate"/> value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"/>
-    public static TDate ConvertTo<TDate>(this CivilDate date)
+    public static TDate ToAbsoluteDate<TDate>(this CivilDate date)
         where TDate : IAbsoluteDate<TDate>
     {
         return TDate.FromDayNumber(date.DayNumber);
     }
 
-    public static Range<TDate> ConvertTo<TDate>(this Range<CivilDate> range)
+    public static Range<TDate> ToAbsoluteDateRange<TDate>(this Range<CivilDate> range)
         where TDate : struct, IAbsoluteDate<TDate>
     {
         var (min, max) = range.Endpoints;
-        return CalendrieRange.Create(min.ConvertTo<TDate>(), max.ConvertTo<TDate>());
+        return CalendrieRange.Create(min.ToAbsoluteDate<TDate>(), max.ToAbsoluteDate<TDate>());
     }
 }
 

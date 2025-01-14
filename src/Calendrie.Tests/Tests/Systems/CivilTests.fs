@@ -158,7 +158,7 @@ module Extensions =
     [<Theory; MemberData(nameof(dayNumberToDayOfWeekData))>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     let ``CivilDate:GetDayOfWeek() via DayNumber`` (dayNumber: DayNumber) (dayOfWeek: DayOfWeek) =
-        let date = CivilDate.FromDayNumber(dayNumber)
+        let date = CivilDate.FromAbsoluteDate(dayNumber)
 
         date.GetDayOfWeek() === dayOfWeek
 

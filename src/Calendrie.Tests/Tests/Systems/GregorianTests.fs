@@ -76,7 +76,7 @@ module Extensions =
     [<Theory; MemberData(nameof(dayNumberToDayOfWeekData))>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     let ``GregorianDate:GetDayOfWeek() via DayNumber`` (dayNumber: DayNumber) (dayOfWeek: DayOfWeek) =
-        let date = GregorianDate.FromDayNumber(dayNumber)
+        let date = GregorianDate.FromAbsoluteDate(dayNumber)
 
         date.GetDayOfWeek() === dayOfWeek
 
