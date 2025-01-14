@@ -779,7 +779,7 @@ public partial struct MyCivilDate // Non-standard math ops
         sch.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(MyCivilCalendar.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(GregorianSchema.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -834,7 +834,7 @@ public partial struct MyCivilDate // Non-standard math ops
     private static MyCivilDate AddMonths(GregorianSchema sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), MyCivilCalendar.MonthsInYear, out int y0);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), GregorianSchema.MonthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
@@ -881,7 +881,7 @@ public readonly partial struct MyCivilMonth :
     IMonth<MyCivilMonth>,
     IUnsafeFactory<MyCivilMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<MyCivilDate>,
+    IDaySegment<MyCivilDate>,
     ISetMembership<MyCivilDate>,
     // Arithmetic
     ISubtractionOperators<MyCivilMonth, MyCivilMonth, int>
@@ -914,7 +914,7 @@ public partial struct MyCivilMonth // Preamble
         // > MyCivilCalendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > MyCivilCalendar.MonthsInYear)
+        if (month < 1 || month > GregorianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
@@ -984,7 +984,7 @@ public partial struct MyCivilMonth // Preamble
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
-        1 + _monthsSinceEpoch / MyCivilCalendar.MonthsInYear;
+        1 + _monthsSinceEpoch / GregorianSchema.MonthsInYear;
 
     /// <inheritdoc />
     public int Month
@@ -1015,7 +1015,7 @@ public partial struct MyCivilMonth // Preamble
     {
         // See RegularSchema.GetMonthParts().
         // NB: both dividend and divisor are >= 0.
-        year = 1 + MathN.Divide(_monthsSinceEpoch, MyCivilCalendar.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(_monthsSinceEpoch, GregorianSchema.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 }
@@ -1035,7 +1035,7 @@ public partial struct MyCivilMonth // Factories & conversions
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear
-            || month < 1 || month > MyCivilCalendar.MonthsInYear)
+            || month < 1 || month > GregorianSchema.MonthsInYear)
         {
             return null;
         }
@@ -1080,7 +1080,7 @@ public partial struct MyCivilMonth // Factories & conversions
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        MyCivilCalendar.MonthsInYear * (y - 1) + m - 1;
+        GregorianSchema.MonthsInYear * (y - 1) + m - 1;
 
     //
     // Conversions
@@ -1118,7 +1118,7 @@ public partial struct MyCivilMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => MyCivilCalendar.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => GregorianSchema.MonthsInYear - 1;
 
 #if false
     /// <inheritdoc />
@@ -1152,7 +1152,7 @@ public partial struct MyCivilMonth // Adjustments
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(newYear);
-        if (m < 1 || m > MyCivilCalendar.MonthsInYear)
+        if (m < 1 || m > GregorianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
         return UnsafeCreate(newYear, m);
@@ -1167,14 +1167,14 @@ public partial struct MyCivilMonth // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > MyCivilCalendar.MonthsInYear)
+        if (newMonth < 1 || newMonth > GregorianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
     }
 }
 
-public partial struct MyCivilMonth // IDateSegment
+public partial struct MyCivilMonth // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current month instance.
@@ -1226,7 +1226,7 @@ public partial struct MyCivilMonth // IDateSegment
     }
 
     [Pure]
-    Range<MyCivilDate> IDateSegment<MyCivilDate>.ToDayRange() => ToRange();
+    Range<MyCivilDate> IDaySegment<MyCivilDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1245,7 +1245,7 @@ public partial struct MyCivilMonth // IDateSegment
     }
 
     [Pure]
-    IEnumerable<MyCivilDate> IDateSegment<MyCivilDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<MyCivilDate> IDaySegment<MyCivilDate>.EnumerateDays() => ToEnumerable();
 
     /// <summary>
     /// Returns <see langword="true"/> if the current month instance contains
@@ -1490,7 +1490,7 @@ public readonly partial struct MyCivilYear :
     IMonthSegment<MyCivilMonth>,
     ISetMembership<MyCivilMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<MyCivilDate>,
+    IDaySegment<MyCivilDate>,
     ISetMembership<MyCivilDate>,
     // Arithmetic
     ISubtractionOperators<MyCivilYear, MyCivilYear, int>
@@ -1661,7 +1661,7 @@ public partial struct MyCivilYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = MyCivilCalendar.MonthsInYear;
+    public const int MonthCount = GregorianSchema.MonthsInYear;
 
     /// <inheritdoc />
     public MyCivilMonth MinMonth => MyCivilMonth.UnsafeCreate(Year, 1);
@@ -1714,7 +1714,7 @@ public partial struct MyCivilYear // IMonthSegment
     }
 }
 
-public partial struct MyCivilYear // IDateSegment
+public partial struct MyCivilYear // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current year instance.

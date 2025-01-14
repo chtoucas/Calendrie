@@ -60,7 +60,7 @@ public static class Interconversion
     }
 
     [Pure]
-    private static Range<TOut> Interconvert<TIn, TOut>(this IDateSegment<TIn> @this)
+    private static Range<TOut> Interconvert<TIn, TOut>(this IDaySegment<TIn> @this)
         where TIn : struct, IAbsoluteDate<TIn>
         where TOut : struct, IAbsoluteDate<TOut>
     {

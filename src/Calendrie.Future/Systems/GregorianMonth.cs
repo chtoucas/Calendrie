@@ -22,7 +22,7 @@ public readonly partial struct GregorianMonth :
     IMonth<GregorianMonth>,
     IUnsafeFactory<GregorianMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<GregorianDate>,
+    IDaySegment<GregorianDate>,
     ISetMembership<GregorianDate>,
     // Arithmetic
     ISubtractionOperators<GregorianMonth, GregorianMonth, int>
@@ -170,7 +170,7 @@ public partial struct GregorianMonth // Preamble
     }
 }
 
-public partial struct GregorianMonth // IDateSegment
+public partial struct GregorianMonth // IDaySegment
 {
     /// <inheritdoc />
     public GregorianDate MinDay
@@ -216,7 +216,7 @@ public partial struct GregorianMonth // IDateSegment
     }
 
     [Pure]
-    Range<GregorianDate> IDateSegment<GregorianDate>.ToDayRange() => ToRange();
+    Range<GregorianDate> IDaySegment<GregorianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -234,7 +234,7 @@ public partial struct GregorianMonth // IDateSegment
     }
 
     [Pure]
-    IEnumerable<GregorianDate> IDateSegment<GregorianDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<GregorianDate> IDaySegment<GregorianDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]

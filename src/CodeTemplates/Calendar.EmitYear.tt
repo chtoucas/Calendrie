@@ -47,7 +47,7 @@ public readonly partial struct <#= Prefix #>Year :
     IMonthSegment<<#= Prefix #>Month>,
     ISetMembership<<#= Prefix #>Month>,
     // A year viewed as a finite sequence of days
-    IDateSegment<<#= Prefix #>Date>,
+    IDaySegment<<#= Prefix #>Date>,
     ISetMembership<<#= Prefix #>Date>,
     // Arithmetic
     ISubtractionOperators<<#= Prefix #>Year, <#= Prefix #>Year, int>
@@ -236,7 +236,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to <#= MonthsInYear #>.</para>
     /// </summary>
-    public const int MonthCount = <#= Prefix #>Calendar.MonthsInYear;
+    public const int MonthCount = <#= SchemaClass #>.MonthsInYear;
 
     /// <inheritdoc />
     public <#= Prefix #>Month MinMonth => <#= Prefix #>Month.UnsafeCreate(Year, 1);
@@ -376,7 +376,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Year // IDateSegment
+public partial struct <#= Prefix #>Year // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current year instance.

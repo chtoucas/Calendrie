@@ -831,7 +831,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
         sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(<#= Prefix #>Calendar.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(<#= SchemaClass #>.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -886,7 +886,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     private static <#= Prefix #>Date AddMonths(<#= SchemaClass #> sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), <#= Prefix #>Calendar.MonthsInYear, out int y0);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), <#= SchemaClass #>.MonthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowDateOverflow();

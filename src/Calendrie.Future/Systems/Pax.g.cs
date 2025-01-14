@@ -901,7 +901,7 @@ public readonly partial struct PaxMonth :
     IMonth<PaxMonth>,
     IUnsafeFactory<PaxMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<PaxDate>,
+    IDaySegment<PaxDate>,
     ISetMembership<PaxDate>,
     // Arithmetic
     ISubtractionOperators<PaxMonth, PaxMonth, int>
@@ -1179,7 +1179,7 @@ public partial struct PaxMonth // Adjustments
     }
 }
 
-public partial struct PaxMonth // IDateSegment
+public partial struct PaxMonth // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current month instance.
@@ -1233,7 +1233,7 @@ public partial struct PaxMonth // IDateSegment
     }
 
     [Pure]
-    Range<PaxDate> IDateSegment<PaxDate>.ToDayRange() => ToRange();
+    Range<PaxDate> IDaySegment<PaxDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1252,7 +1252,7 @@ public partial struct PaxMonth // IDateSegment
     }
 
     [Pure]
-    IEnumerable<PaxDate> IDateSegment<PaxDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<PaxDate> IDaySegment<PaxDate>.EnumerateDays() => ToEnumerable();
 
     /// <summary>
     /// Returns <see langword="true"/> if the current month instance contains
@@ -1559,7 +1559,7 @@ public readonly partial struct PaxYear :
     IMonthSegment<PaxMonth>,
     ISetMembership<PaxMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<PaxDate>,
+    IDaySegment<PaxDate>,
     ISetMembership<PaxDate>,
     // Arithmetic
     ISubtractionOperators<PaxYear, PaxYear, int>
@@ -1799,7 +1799,7 @@ public partial struct PaxYear // IMonthSegment
     }
 }
 
-public partial struct PaxYear // IDateSegment
+public partial struct PaxYear // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current year instance.

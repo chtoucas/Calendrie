@@ -15,6 +15,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
         EnableMonth = true;
         EnableYear = true;
         EnableIsSupplementary = false;
+        EnablePragmas = true;
         MaxMonthsSinceEpochValue = "119_987";
         MonthsInYear = 12;
     }
@@ -26,6 +27,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
 using System.Numerics;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 <#+

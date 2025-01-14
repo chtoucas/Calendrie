@@ -24,7 +24,7 @@ public readonly partial struct JulianYear :
     IMonthSegment<JulianMonth>,
     ISetMembership<JulianMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<JulianDate>,
+    IDaySegment<JulianDate>,
     ISetMembership<JulianDate>,
     // Arithmetic
     ISubtractionOperators<JulianYear, JulianYear, int>
@@ -198,7 +198,7 @@ public partial struct JulianYear // Factories
     public static JulianYear Create(JulianDate date) => UnsafeCreate(date.Year);
 }
 
-public partial struct JulianYear // IDateSegment
+public partial struct JulianYear // IDaySegment
 {
     /// <inheritdoc />
     public JulianDate MinDay

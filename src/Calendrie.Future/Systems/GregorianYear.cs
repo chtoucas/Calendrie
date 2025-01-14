@@ -24,7 +24,7 @@ public readonly partial struct GregorianYear :
     IMonthSegment<GregorianMonth>,
     ISetMembership<GregorianMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<GregorianDate>,
+    IDaySegment<GregorianDate>,
     ISetMembership<GregorianDate>,
     // Arithmetic
     ISubtractionOperators<GregorianYear, GregorianYear, int>
@@ -198,7 +198,7 @@ public partial struct GregorianYear // Factories
     public static GregorianYear FromDate(GregorianDate date) => UnsafeCreate(date.Year);
 }
 
-public partial struct GregorianYear // IDateSegment
+public partial struct GregorianYear // IDaySegment
 {
     /// <inheritdoc />
     public GregorianDate MinDay

@@ -68,7 +68,7 @@ public readonly partial struct <#= Prefix #>Month :
     IMonth<<#= Prefix #>Month>,
     IUnsafeFactory<<#= Prefix #>Month>,
     // A month viewed as a finite sequence of days
-    IDateSegment<<#= Prefix #>Date>,
+    IDaySegment<<#= Prefix #>Date>,
     ISetMembership<<#= Prefix #>Date>,
     // Arithmetic
     ISubtractionOperators<<#= Prefix #>Month, <#= Prefix #>Month, int>
@@ -107,7 +107,7 @@ public partial struct <#= Prefix #>Month // Preamble
         // > <#= Prefix #>Calendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > <#= Prefix #>Calendar.MonthsInYear)
+        if (month < 1 || month > <#= SchemaClass #>.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
@@ -177,7 +177,7 @@ public partial struct <#= Prefix #>Month // Preamble
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
-        1 + _monthsSinceEpoch / <#= Prefix #>Calendar.MonthsInYear;
+        1 + _monthsSinceEpoch / <#= SchemaClass #>.MonthsInYear;
 
     /// <inheritdoc />
     public int Month
@@ -208,7 +208,7 @@ public partial struct <#= Prefix #>Month // Preamble
     {
         // See RegularSchema.GetMonthParts().
         // NB: both dividend and divisor are >= 0.
-        year = 1 + MathN.Divide(_monthsSinceEpoch, <#= Prefix #>Calendar.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(_monthsSinceEpoch, <#= SchemaClass #>.MonthsInYear, out int m0);
         month = 1 + m0;
     }
 }
@@ -377,7 +377,7 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear
-            || month < 1 || month > <#= Prefix #>Calendar.MonthsInYear)
+            || month < 1 || month > <#= SchemaClass #>.MonthsInYear)
         {
             return null;
         }
@@ -422,7 +422,7 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        <#= Prefix #>Calendar.MonthsInYear * (y - 1) + m - 1;
+        <#= SchemaClass #>.MonthsInYear * (y - 1) + m - 1;
 
     //
     // Conversions
@@ -547,7 +547,7 @@ public partial struct <#= Prefix #>Month // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => <#= Prefix #>Calendar.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => <#= SchemaClass #>.MonthsInYear - 1;
 
 #if false
     /// <inheritdoc />
@@ -624,7 +624,7 @@ public partial struct <#= Prefix #>Month // Adjustments
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < <#= ScopeClass #>.MinYear || newYear > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(newYear);
-        if (m < 1 || m > <#= Prefix #>Calendar.MonthsInYear)
+        if (m < 1 || m > <#= SchemaClass #>.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
         return UnsafeCreate(newYear, m);
@@ -639,7 +639,7 @@ public partial struct <#= Prefix #>Month // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > <#= Prefix #>Calendar.MonthsInYear)
+        if (newMonth < 1 || newMonth > <#= SchemaClass #>.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
@@ -687,7 +687,7 @@ public partial struct <#= Prefix #>Month // Adjustments
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // IDateSegment
+public partial struct <#= Prefix #>Month // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current month instance.
@@ -739,7 +739,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 
     [Pure]
-    Range<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
+    Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -758,7 +758,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 
     [Pure]
-    IEnumerable<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
+    IEnumerable<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
 
     /// <summary>
     /// Returns <see langword="true"/> if the current month instance contains
@@ -795,7 +795,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // IDateSegment
+public partial struct <#= Prefix #>Month // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current month instance.
@@ -849,7 +849,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 
     [Pure]
-    Range<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
+    Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -868,7 +868,7 @@ public partial struct <#= Prefix #>Month // IDateSegment
     }
 
     [Pure]
-    IEnumerable<<#= Prefix #>Date> IDateSegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
+    IEnumerable<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.EnumerateDays() => ToEnumerable();
 
     /// <summary>
     /// Returns <see langword="true"/> if the current month instance contains

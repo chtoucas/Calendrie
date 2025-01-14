@@ -3,13 +3,14 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
 // This is a place to experiment additions to the API.
 
 // REVIEW(code): maybe only ToGregorian/JulianDate(), ie when interconversion is
-// always possible.
+// always possible. Gregorian/JulianDate.From...()?
 // See also Calendrie.Extensions.Interconversion.
 
 public partial struct TropicaliaDate
@@ -138,7 +139,7 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     [Pure]
     private static TropicaliaDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), TropicaliaCalendar.MonthsInYear, out int years);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), TropicalistaSchema.MonthsInYear, out int years);
         return AddYears(y, newM, d, years, out roundoff);
     }
 

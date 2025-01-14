@@ -8,9 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#pragma warning disable IDE0002 // Simplify Member Access (Style) ✓
+
 namespace Calendrie.Systems;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
@@ -31,7 +34,7 @@ public partial struct GregorianMonth // Factories & conversions
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < GregorianScope.MinYear || year > GregorianScope.MaxYear
-            || month < 1 || month > GregorianCalendar.MonthsInYear)
+            || month < 1 || month > GregorianSchema.MonthsInYear)
         {
             return null;
         }
@@ -76,7 +79,7 @@ public partial struct GregorianMonth // Factories & conversions
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        GregorianCalendar.MonthsInYear * (y - 1) + m - 1;
+        GregorianSchema.MonthsInYear * (y - 1) + m - 1;
 
     //
     // Conversions
@@ -114,7 +117,7 @@ public partial struct GregorianMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => GregorianCalendar.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => GregorianSchema.MonthsInYear - 1;
 
 #if false
     /// <inheritdoc />
@@ -148,7 +151,7 @@ public partial struct GregorianMonth // Adjustments
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < GregorianScope.MinYear || newYear > GregorianScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(newYear);
-        if (m < 1 || m > GregorianCalendar.MonthsInYear)
+        if (m < 1 || m > GregorianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
         return UnsafeCreate(newYear, m);
@@ -163,7 +166,7 @@ public partial struct GregorianMonth // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > GregorianCalendar.MonthsInYear)
+        if (newMonth < 1 || newMonth > GregorianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
@@ -286,7 +289,7 @@ public partial struct GregorianYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = GregorianCalendar.MonthsInYear;
+    public const int MonthCount = GregorianSchema.MonthsInYear;
 
     /// <inheritdoc />
     public GregorianMonth MinMonth => GregorianMonth.UnsafeCreate(Year, 1);

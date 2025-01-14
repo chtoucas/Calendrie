@@ -8,11 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#pragma warning disable IDE0002 // Simplify Member Access (Style) ✓
+
 namespace Calendrie.Systems;
 
 using System.Numerics;
 
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
@@ -28,7 +31,7 @@ public readonly partial struct CivilMonth :
     IMonth<CivilMonth>,
     IUnsafeFactory<CivilMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<CivilDate>,
+    IDaySegment<CivilDate>,
     ISetMembership<CivilDate>,
     // Arithmetic
     ISubtractionOperators<CivilMonth, CivilMonth, int>
@@ -49,7 +52,7 @@ public partial struct CivilMonth // Factories & conversions
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < CivilScope.MinYear || year > CivilScope.MaxYear
-            || month < 1 || month > CivilCalendar.MonthsInYear)
+            || month < 1 || month > CivilSchema.MonthsInYear)
         {
             return null;
         }
@@ -94,7 +97,7 @@ public partial struct CivilMonth // Factories & conversions
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        CivilCalendar.MonthsInYear * (y - 1) + m - 1;
+        CivilSchema.MonthsInYear * (y - 1) + m - 1;
 
     //
     // Conversions
@@ -132,7 +135,7 @@ public partial struct CivilMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => CivilCalendar.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => CivilSchema.MonthsInYear - 1;
 
 #if false
     /// <inheritdoc />
@@ -166,7 +169,7 @@ public partial struct CivilMonth // Adjustments
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < CivilScope.MinYear || newYear > CivilScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(newYear);
-        if (m < 1 || m > CivilCalendar.MonthsInYear)
+        if (m < 1 || m > CivilSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
         return UnsafeCreate(newYear, m);
@@ -181,7 +184,7 @@ public partial struct CivilMonth // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > CivilCalendar.MonthsInYear)
+        if (newMonth < 1 || newMonth > CivilSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
@@ -402,7 +405,7 @@ public readonly partial struct CivilYear :
     IMonthSegment<CivilMonth>,
     ISetMembership<CivilMonth>,
     // A year viewed as a finite sequence of days
-    IDateSegment<CivilDate>,
+    IDaySegment<CivilDate>,
     ISetMembership<CivilDate>,
     // Arithmetic
     ISubtractionOperators<CivilYear, CivilYear, int>
@@ -468,7 +471,7 @@ public partial struct CivilYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = CivilCalendar.MonthsInYear;
+    public const int MonthCount = CivilSchema.MonthsInYear;
 
     /// <inheritdoc />
     public CivilMonth MinMonth => CivilMonth.UnsafeCreate(Year, 1);

@@ -797,7 +797,7 @@ public partial struct Persian2820Date // Non-standard math ops
         sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(Persian2820Calendar.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(Persian2820Schema.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -852,7 +852,7 @@ public partial struct Persian2820Date // Non-standard math ops
     private static Persian2820Date AddMonths(Persian2820Schema sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), Persian2820Calendar.MonthsInYear, out int y0);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), Persian2820Schema.MonthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();

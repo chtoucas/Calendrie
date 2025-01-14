@@ -797,7 +797,7 @@ public partial struct EgyptianDate // Non-standard math ops
         sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(EgyptianCalendar.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(Egyptian12Schema.MonthsInYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -852,7 +852,7 @@ public partial struct EgyptianDate // Non-standard math ops
     private static EgyptianDate AddMonths(Egyptian12Schema sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), EgyptianCalendar.MonthsInYear, out int y0);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), Egyptian12Schema.MonthsInYear, out int y0);
         int newY = checked(y + y0);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();

@@ -130,7 +130,7 @@ public partial struct CivilYear
     public GregorianYear ToGregorianYear() => new(_yearsSinceEpoch, default);
 }
 
-public partial struct CivilYear // IDateSegment
+public partial struct CivilYear // IDaySegment
 {
     /// <inheritdoc />
     public CivilDate MinDay

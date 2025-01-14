@@ -20,6 +20,7 @@ public sealed class JulianTemplate : CalendarTemplate
         EnableMonth = true;
         EnableYear = true;
         EnableIsSupplementary = false;
+        EnablePragmas = true;
         //MinMonthsSinceEpochValue = "-11_999_988";
         MaxMonthsSinceEpochValue = "11_999_987";
         MonthsInYear = 12;
@@ -30,6 +31,7 @@ public sealed class JulianTemplate : CalendarTemplate
         WriteLine();
 #>
 using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>

@@ -22,7 +22,7 @@ public readonly partial struct JulianMonth :
     IMonth<JulianMonth>,
     IUnsafeFactory<JulianMonth>,
     // A month viewed as a finite sequence of days
-    IDateSegment<JulianDate>,
+    IDaySegment<JulianDate>,
     ISetMembership<JulianDate>,
     // Arithmetic
     ISubtractionOperators<JulianMonth, JulianMonth, int>
@@ -170,7 +170,7 @@ public partial struct JulianMonth // Preamble
     }
 }
 
-public partial struct JulianMonth // IDateSegment
+public partial struct JulianMonth // IDaySegment
 {
     /// <inheritdoc />
     public JulianDate MinDay
@@ -216,7 +216,7 @@ public partial struct JulianMonth // IDateSegment
     }
 
     [Pure]
-    Range<JulianDate> IDateSegment<JulianDate>.ToDayRange() => ToRange();
+    Range<JulianDate> IDaySegment<JulianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -234,7 +234,7 @@ public partial struct JulianMonth // IDateSegment
     }
 
     [Pure]
-    IEnumerable<JulianDate> IDateSegment<JulianDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<JulianDate> IDaySegment<JulianDate>.EnumerateDays() => ToEnumerable();
 
     /// <inheritdoc />
     [Pure]
