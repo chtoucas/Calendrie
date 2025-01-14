@@ -3,6 +3,8 @@
 
 module Calendrie.Tests.Systems.WorldTests
 
+#nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
+
 open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
@@ -39,6 +41,117 @@ module Prelude =
     let ``Value of WorldCalendar.MaxMonthsSinceEpoch`` () =
         WorldCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
+
+module Conversions =
+    let private calendarDataSet = StandardWorldDataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let dayNumberInfoData = calendarDataSet.DayNumberInfoData
+
+    type GregorianDateCaster = WorldDate -> GregorianDate
+    let op_Explicit_Gregorian : GregorianDateCaster = WorldDate.op_Explicit
+
+    type JulianDateCaster = WorldDate -> JulianDate
+    let op_Explicit_Julian : JulianDateCaster = WorldDate.op_Explicit
+
+    //
+    // Conversion to DayNumber
+    //
+
+    [<Theory; MemberData(nameof(dayNumberInfoData))>]
+    let ``Implicit conversion to DayNumber`` (x: DayNumberInfo) =
+        let dayNumber, y, m, d = x.Deconstruct()
+        let date  = new WorldDate(y, m, d)
+
+        date : DayNumber === dayNumber
+
+    //
+    // Conversion to GregorianDate
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ToGregorianDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
+
+        date.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at WorldDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(WorldDate.MaxValue.DayNumber)
+
+        WorldDate.MaxValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at WorldDate:MinValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(WorldDate.MinValue.DayNumber)
+
+        WorldDate.MinValue.ToGregorianDate() === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Explicit conversion to WorldDate`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
+
+        op_Explicit_Gregorian date === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at WorldDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(WorldDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian WorldDate.MaxValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at WorldDate:MinValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(WorldDate.MinValue.DayNumber)
+
+        op_Explicit_Gregorian WorldDate.MinValue === exp
+
+    //
+    // Conversion to JulianDate
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ToJulianDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
+
+        date.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at WorldDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(WorldDate.MaxValue.DayNumber)
+
+        WorldDate.MaxValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at WorldDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(WorldDate.MinValue.DayNumber)
+
+        WorldDate.MinValue.ToJulianDate() === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Explicit conversion to JulianDate`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
+
+        op_Explicit_Julian date === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at WorldDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(WorldDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian WorldDate.MaxValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at WorldDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(WorldDate.MinValue.DayNumber)
+
+        op_Explicit_Julian WorldDate.MinValue === exp
 
 module Methods =
     let private chr = WorldCalendar.Instance

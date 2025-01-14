@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Systems.FrenchRepublican
+module Calendrie.Tests.Systems.FrenchRepublicanTests
 
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 

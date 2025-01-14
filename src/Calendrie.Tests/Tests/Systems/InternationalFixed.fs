@@ -1,11 +1,14 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Systems.InternationalFixed
+module Calendrie.Tests.Systems.InternationalFixedTests
+
+#nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
+open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
 
@@ -37,6 +40,117 @@ module Prelude =
     let ``Value of InternationalFixedCalendar.MaxMonthsSinceEpoch`` () =
         InternationalFixedCalendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
+
+module Conversions =
+    let private calendarDataSet = StandardInternationalFixedDataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let dayNumberInfoData = calendarDataSet.DayNumberInfoData
+
+    type GregorianDateCaster = InternationalFixedDate -> GregorianDate
+    let op_Explicit_Gregorian : GregorianDateCaster = InternationalFixedDate.op_Explicit
+
+    type JulianDateCaster = InternationalFixedDate -> JulianDate
+    let op_Explicit_Julian : JulianDateCaster = InternationalFixedDate.op_Explicit
+
+    //
+    // Conversion to DayNumber
+    //
+
+    [<Theory; MemberData(nameof(dayNumberInfoData))>]
+    let ``Implicit conversion to DayNumber`` (x: DayNumberInfo) =
+        let dayNumber, y, m, d = x.Deconstruct()
+        let date  = new InternationalFixedDate(y, m, d)
+
+        date : DayNumber === dayNumber
+
+    //
+    // Conversion to GregorianDate
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ToGregorianDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
+
+        date.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at InternationalFixedDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        InternationalFixedDate.MaxValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at InternationalFixedDate:MinValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
+
+        InternationalFixedDate.MinValue.ToGregorianDate() === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Explicit conversion to InternationalFixedDate`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
+
+        op_Explicit_Gregorian date === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at InternationalFixedDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian InternationalFixedDate.MaxValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at InternationalFixedDate:MinValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
+
+        op_Explicit_Gregorian InternationalFixedDate.MinValue === exp
+
+    //
+    // Conversion to JulianDate
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ToJulianDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
+
+        date.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at InternationalFixedDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        InternationalFixedDate.MaxValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at InternationalFixedDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
+
+        InternationalFixedDate.MinValue.ToJulianDate() === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Explicit conversion to JulianDate`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
+
+        op_Explicit_Julian date === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at InternationalFixedDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian InternationalFixedDate.MaxValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at InternationalFixedDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
+
+        op_Explicit_Julian InternationalFixedDate.MinValue === exp
 
 module Bundles =
     let private chr = InternationalFixedCalendar.Instance
