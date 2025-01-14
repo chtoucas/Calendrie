@@ -324,7 +324,7 @@ public partial struct GregorianDate // Conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianDate"/> struct from
-    /// the specified <see cref="Calendrie.DayNumber"/> value.
+    /// the specified absolute value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>

@@ -305,7 +305,7 @@ public partial struct CivilDate // Conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="CivilDate"/> struct from the
-    /// specified <see cref="Calendrie.DayNumber"/> value.
+    /// specified absolute value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>

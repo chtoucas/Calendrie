@@ -321,7 +321,7 @@ public partial struct JulianDate // Conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct from the
-    /// specified <see cref="Calendrie.DayNumber"/> value.
+    /// specified absolute value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>
@@ -340,7 +340,7 @@ public partial struct JulianDate // Conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct from the
-    /// specified absolute date.
+    /// specified <see cref="Calendrie.DayNumber"/> date.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     //
