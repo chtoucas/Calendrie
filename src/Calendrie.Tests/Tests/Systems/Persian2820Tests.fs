@@ -11,6 +11,7 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -177,3 +178,8 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Persian2820Date, StandardPersian2820DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<Persian2820Date, StandardPersian2820DataSet>()

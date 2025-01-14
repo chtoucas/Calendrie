@@ -11,6 +11,7 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -309,6 +310,11 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<ZoroastrianDate, StandardZoroastrian12DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<ZoroastrianDate, StandardZoroastrian12DataSet>()
 
@@ -342,6 +348,11 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

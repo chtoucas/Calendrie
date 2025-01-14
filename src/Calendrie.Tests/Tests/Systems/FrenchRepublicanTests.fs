@@ -11,6 +11,7 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -309,6 +310,11 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type EpagomenalDateFacts() =
         inherit IEpagomenalDayFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
 
@@ -345,8 +351,8 @@ module Bundles13 =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DateAdjusterFacts() =
-        inherit DateAdjusterFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>(FrenchRepublican13Calendar.Instance)
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

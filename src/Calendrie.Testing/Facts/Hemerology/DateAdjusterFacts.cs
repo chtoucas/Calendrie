@@ -9,6 +9,7 @@ using Calendrie.Testing.Data;
 // TODO(fact): cleanup.
 // In addition, one should test WithYear() with valid and invalid results.
 
+[Obsolete("To be removed")]
 internal partial class DateAdjusterFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
     where TDate : struct, IDate<TDate>
