@@ -5,36 +5,8 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
-using Calendrie.Hemerology;
 
 // This is a place to experiment additions to the API.
-
-// See also Calendrie.Extensions.Interconversion.
-
-public partial struct TropicaliaDate
-{
-    /// <summary>
-    /// Converts the current instance to a <typeparamref name="TDate"/> value.
-    /// </summary>
-    [Pure]
-    public TDate ToAbsoluteDate<TDate>() where TDate : IAbsoluteDate<TDate>
-    {
-        // Should throw an OverflowException...
-        return TDate.FromDayNumber(DayNumber);
-    }
-
-    /// <summary>
-    /// Converts the current instance to a <typeparamref name="TDate"/> value.
-    /// </summary>
-    [Pure]
-    public TDate ToDate<TDate>() where TDate : IDate<TDate>
-    {
-        TDate.Calendar.Scope.CheckOverflow(DayNumber);
-
-        // Double validation...
-        return TDate.FromDayNumber(DayNumber);
-    }
-}
 
 // REVIEW(code): non-standard math ops (experimental), also for month types.
 // Probably, only for CivilDate, GregorianDate and JulianDate.
@@ -43,7 +15,7 @@ public partial struct TropicaliaDate
 
 public partial struct TropicaliaDate // Non-standard math ops (plain implementation)
 {
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusYears(int years, AdditionRule rule)
     {
         var (y, m, d) = this;
@@ -51,14 +23,14 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
     }
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusYears(int years, out int roundoff)
     {
         var (y, m, d) = this;
         return AddYears(y, m, d, years, out roundoff);
     }
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusMonths(int months, AdditionRule rule)
     {
         var (y, m, d) = this;
@@ -66,14 +38,14 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
     }
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusMonths(int months, out int roundoff)
     {
         var (y, m, d) = this;
         return AddMonths(y, m, d, months, out roundoff);
     }
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     public int CountYearsSince(TropicaliaDate other, AdditionRule rule, out TropicaliaDate newStart)
     {
         int years = TropicaliaYear.FromDate(this) - TropicaliaYear.FromDate(other);
@@ -93,7 +65,7 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return years;
     }
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     public int CountMonthsSince(TropicaliaDate other, AdditionRule rule, out TropicaliaDate newStart)
     {
         int months = TropicaliaMonth.FromDate(this) - TropicaliaMonth.FromDate(other);
@@ -117,7 +89,7 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     // Helpers
     //
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     private static TropicaliaDate AddYears(int y, int m, int d, int years, out int roundoff)
     {
         var sch = Calendar.Schema;
@@ -135,14 +107,14 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return new TropicaliaDate(daysSinceEpoch);
     }
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     private static TropicaliaDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), TropicalistaSchema.MonthsInYear, out int years);
         return AddYears(y, newM, d, years, out roundoff);
     }
 
-    [Pure]
+    [Pure, ExcludeFromCodeCoverage]
     private static TropicaliaDate Adjust(TropicaliaDate date, int roundoff, AdditionRule rule)
     {
         // Si on ne filtrait pas roundoff > 0, il faudrait prendre en compte

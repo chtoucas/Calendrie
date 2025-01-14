@@ -13,7 +13,27 @@ using Calendrie.Systems;
 
 public static class Interconversion
 {
-    // See also TropicaliaDate.From/ToAbsoluteDate()
+    /// <summary>
+    /// Converts the specified date to a <typeparamref name="TDate"/> value.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported <typeparamref name="TDate"/> values.</exception>
+    [Pure]
+    public static TDate ToAbsoluteDate<TDate>(this IAbsoluteDate date)
+        where TDate : IDate<TDate>, IUnsafeFactory<TDate>
+    {
+        ArgumentNullException.ThrowIfNull(date);
+
+        var scope = TDate.Calendar.Scope;
+        scope.CheckOverflow(date.DayNumber);
+        return TDate.UnsafeCreate(date.DayNumber - scope.Epoch);
+    }
+
+    /// <summary>
+    /// Converts the specified date to a <typeparamref name="TDate"/> value.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="date"/>
+    /// is outside the range of supported values.</exception>
     [Pure]
     public static TDate ConvertTo<TDate>(this IAbsoluteDate date)
         where TDate : IAbsoluteDate<TDate>
