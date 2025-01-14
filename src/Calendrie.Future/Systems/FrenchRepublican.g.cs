@@ -382,9 +382,14 @@ public partial struct FrenchRepublicanDate // Conversions
     public static explicit operator JulianDate(FrenchRepublicanDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
 
+    // Why FromAbsoluteDate() rather than FromDayNumber()? Usability.
+    // Why not simply change the interface? It makes sense to apply this only
+    // here because there is also an implicit conversion from all date types in
+    // Calendrie.Systems to DayNumber.
+
     /// <summary>
     /// Creates a new instance of the <see cref="FrenchRepublicanDate"/> struct
-    /// from the specified <see cref="Calendrie.DayNumber"/> value.
+    /// from the specified absolute value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>

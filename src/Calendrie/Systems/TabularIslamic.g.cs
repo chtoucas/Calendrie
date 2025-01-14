@@ -373,9 +373,14 @@ public partial struct TabularIslamicDate // Conversions
     public static explicit operator JulianDate(TabularIslamicDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
 
+    // Why FromAbsoluteDate() rather than FromDayNumber()? Usability.
+    // Why not simply change the interface? It makes sense to apply this only
+    // here because there is also an implicit conversion from all date types in
+    // Calendrie.Systems to DayNumber.
+
     /// <summary>
     /// Creates a new instance of the <see cref="TabularIslamicDate"/> struct
-    /// from the specified <see cref="Calendrie.DayNumber"/> value.
+    /// from the specified absolute value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>
