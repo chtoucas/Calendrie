@@ -372,6 +372,20 @@ public partial struct RevisedWorldDate // Factories & conversions
     }
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="RevisedWorldDate"/> value
+    /// to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(RevisedWorldDate date) =>
+        GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="RevisedWorldDate"/> value
+    /// to a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(RevisedWorldDate date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]

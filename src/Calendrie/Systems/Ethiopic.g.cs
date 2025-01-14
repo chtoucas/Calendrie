@@ -372,6 +372,20 @@ public partial struct EthiopicDate // Factories & conversions
     }
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="EthiopicDate"/> value
+    /// to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(EthiopicDate date) =>
+        GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="EthiopicDate"/> value
+    /// to a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(EthiopicDate date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]

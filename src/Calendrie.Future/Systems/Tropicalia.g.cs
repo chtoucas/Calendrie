@@ -363,6 +363,20 @@ public partial struct TropicaliaDate // Factories & conversions
     }
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="TropicaliaDate"/> value
+    /// to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(TropicaliaDate date) =>
+        GregorianDate.UnsafeCreate(date._daysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="TropicaliaDate"/> value
+    /// to a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(TropicaliaDate date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]

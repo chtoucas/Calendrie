@@ -300,8 +300,14 @@ public partial struct CivilDate // Factories & conversions
         GregorianDate.UnsafeCreate(date._daysSinceZero);
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="CivilDate"/> value to a
+    /// <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(CivilDate date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
-    /// <para>See also <seealso cref="GregorianDate.FromCivilDate(CivilDate)"/>.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_daysSinceZero);

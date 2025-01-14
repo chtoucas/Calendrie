@@ -372,6 +372,20 @@ public partial struct InternationalFixedDate // Factories & conversions
     }
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="InternationalFixedDate"/> value
+    /// to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(InternationalFixedDate date) =>
+        GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="InternationalFixedDate"/> value
+    /// to a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(InternationalFixedDate date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]

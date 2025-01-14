@@ -372,6 +372,20 @@ public partial struct Persian2820Date // Factories & conversions
     }
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="Persian2820Date"/> value
+    /// to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(Persian2820Date date) =>
+        GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="Persian2820Date"/> value
+    /// to a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(Persian2820Date date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]

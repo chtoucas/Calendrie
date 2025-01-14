@@ -372,6 +372,20 @@ public partial struct FrenchRepublican13Date // Factories & conversions
     }
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="FrenchRepublican13Date"/> value
+    /// to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(FrenchRepublican13Date date) =>
+        GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="FrenchRepublican13Date"/> value
+    /// to a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(FrenchRepublican13Date date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]

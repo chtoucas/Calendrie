@@ -320,6 +320,19 @@ public partial struct JulianDate // Factories & conversions
         // NB: the subtraction won't overflow.
         return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="JulianDate"/> value to a
+    /// <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(JulianDate date) =>
+        GregorianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    [Pure]
+    public GregorianDate ToGregorianDate() => GregorianDate.FromDayNumber(DayNumber);
 }
 
 public partial struct JulianDate // Adjustments

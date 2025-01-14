@@ -305,14 +305,6 @@ public partial struct GregorianDate // Factories & conversions
     // Conversions
     //
 
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
-    /// the specified <see cref="CivilDate"/> value.
-    /// <para>See also <seealso cref="CivilDate.ToGregorianDate()"/>;</para>
-    /// </summary>
-    [Pure]
-    public static GregorianDate FromCivilDate(CivilDate date) => new(date.DaysSinceZero);
-
     /// <inheritdoc />
     [Pure]
     public static GregorianDate FromDayNumber(DayNumber dayNumber)
@@ -324,6 +316,19 @@ public partial struct GregorianDate // Factories & conversions
 
         return new GregorianDate(daysSinceZero);
     }
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="GregorianDate"/> value to
+    /// a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(GregorianDate date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public JulianDate ToJulianDate() => JulianDate.FromDayNumber(DayNumber);
 }
 
 public partial struct GregorianDate // Adjustments

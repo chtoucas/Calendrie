@@ -372,6 +372,20 @@ public partial struct Zoroastrian13Date // Factories & conversions
     }
 
     /// <summary>
+    /// Defines an explicit conversion of a <see cref="Zoroastrian13Date"/> value
+    /// to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    public static explicit operator GregorianDate(Zoroastrian13Date date) =>
+        GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
+
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="Zoroastrian13Date"/> value
+    /// to a <see cref="JulianDate"/> value.
+    /// </summary>
+    public static explicit operator JulianDate(Zoroastrian13Date date) =>
+        JulianDate.FromDayNumber(date.DayNumber);
+
+    /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]
