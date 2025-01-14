@@ -288,6 +288,15 @@ public partial struct JulianDate // Factories & conversions
 
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified day number.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static JulianDate UnsafeCreate(DayNumber dayNumber) =>
+        new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
     /// specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>

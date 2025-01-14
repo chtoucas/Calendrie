@@ -305,6 +305,12 @@ public partial struct CivilDate // Factories & conversions
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_daysSinceZero);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
 public partial struct CivilDate // Adjustments

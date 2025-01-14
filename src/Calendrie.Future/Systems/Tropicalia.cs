@@ -9,8 +9,6 @@ using Calendrie.Hemerology;
 
 // This is a place to experiment additions to the API.
 
-// REVIEW(code): maybe only ToGregorian/JulianDate(), ie when interconversion is
-// always possible. Gregorian/JulianDate.From...()?
 // See also Calendrie.Extensions.Interconversion.
 
 public partial struct TropicaliaDate

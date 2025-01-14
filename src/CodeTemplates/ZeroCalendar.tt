@@ -356,6 +356,18 @@ public partial struct <#= Prefix #>Date // Factories & conversions
 
         return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    [Pure]
+    public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_<#= DaysSinceEpochVar #>);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 <#+
     } // T4: End of EmitDateFactories()

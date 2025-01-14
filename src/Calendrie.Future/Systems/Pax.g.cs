@@ -365,6 +365,18 @@ public partial struct PaxDate // Factories & conversions
         // NB: the subtraction won't overflow.
         return new PaxDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    [Pure]
+    public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(DayNumber.DaysSinceZero);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
 public partial struct PaxDate // Counting

@@ -353,6 +353,18 @@ public partial struct MyCivilDate // Factories & conversions
 
         return new MyCivilDate(daysSinceZero);
     }
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// </summary>
+    [Pure]
+    public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_daysSinceZero);
+
+    /// <summary>
+    /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
 public partial struct MyCivilDate // Counting
