@@ -285,7 +285,7 @@ public partial struct PositivistDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct PositivistDate // Factories & conversions
+public partial struct PositivistDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -356,21 +356,10 @@ public partial struct PositivistDate // Factories & conversions
     [Pure]
     static PositivistDate IUnsafeFactory<PositivistDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static PositivistDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new PositivistDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
+public partial struct PositivistDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="PositivistDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -384,6 +373,16 @@ public partial struct PositivistDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(PositivistDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static PositivistDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
+        return new PositivistDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

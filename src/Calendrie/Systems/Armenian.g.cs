@@ -285,7 +285,7 @@ public partial struct ArmenianDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct ArmenianDate // Factories & conversions
+public partial struct ArmenianDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -356,21 +356,10 @@ public partial struct ArmenianDate // Factories & conversions
     [Pure]
     static ArmenianDate IUnsafeFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static ArmenianDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new ArmenianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
+public partial struct ArmenianDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="ArmenianDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -384,6 +373,16 @@ public partial struct ArmenianDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(ArmenianDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static ArmenianDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
+        return new ArmenianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

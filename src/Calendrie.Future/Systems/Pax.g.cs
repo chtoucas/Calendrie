@@ -280,7 +280,7 @@ public partial struct PaxDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct PaxDate // Factories & conversions
+public partial struct PaxDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -351,21 +351,10 @@ public partial struct PaxDate // Factories & conversions
     [Pure]
     static PaxDate IUnsafeFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static PaxDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new PaxDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
+public partial struct PaxDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="PaxDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -379,6 +368,16 @@ public partial struct PaxDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(PaxDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static PaxDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
+        return new PaxDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

@@ -272,7 +272,7 @@ public partial struct MyCivilDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct MyCivilDate // Factories & conversions
+public partial struct MyCivilDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -337,23 +337,10 @@ public partial struct MyCivilDate // Factories & conversions
     [Pure]
     static MyCivilDate IUnsafeFactory<MyCivilDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static MyCivilDate FromDayNumber(DayNumber dayNumber)
-    {
-        int daysSinceZero = dayNumber.DaysSinceZero;
-
-        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
-            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
-
-        return new MyCivilDate(daysSinceZero);
-    }
-
+public partial struct MyCivilDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="MyCivilDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -367,6 +354,18 @@ public partial struct MyCivilDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(MyCivilDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static MyCivilDate FromDayNumber(DayNumber dayNumber)
+    {
+        int daysSinceZero = dayNumber.DaysSinceZero;
+
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
+
+        return new MyCivilDate(daysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

@@ -285,7 +285,7 @@ public partial struct FrenchRepublicanDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct FrenchRepublicanDate // Factories & conversions
+public partial struct FrenchRepublicanDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -356,21 +356,10 @@ public partial struct FrenchRepublicanDate // Factories & conversions
     [Pure]
     static FrenchRepublicanDate IUnsafeFactory<FrenchRepublicanDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static FrenchRepublicanDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new FrenchRepublicanDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
+public partial struct FrenchRepublicanDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="FrenchRepublicanDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -384,6 +373,16 @@ public partial struct FrenchRepublicanDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(FrenchRepublicanDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static FrenchRepublicanDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
+        return new FrenchRepublicanDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

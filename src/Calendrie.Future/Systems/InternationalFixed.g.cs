@@ -285,7 +285,7 @@ public partial struct InternationalFixedDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct InternationalFixedDate // Factories & conversions
+public partial struct InternationalFixedDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -356,21 +356,10 @@ public partial struct InternationalFixedDate // Factories & conversions
     [Pure]
     static InternationalFixedDate IUnsafeFactory<InternationalFixedDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static InternationalFixedDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new InternationalFixedDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
+public partial struct InternationalFixedDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="InternationalFixedDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -384,6 +373,16 @@ public partial struct InternationalFixedDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(InternationalFixedDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static InternationalFixedDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
+        return new InternationalFixedDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

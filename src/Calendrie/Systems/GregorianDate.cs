@@ -207,7 +207,7 @@ public partial struct GregorianDate // Preamble
         year = GregorianFormulae.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct GregorianDate // Factories & conversions
+public partial struct GregorianDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -300,10 +300,19 @@ public partial struct GregorianDate // Factories & conversions
     //[Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static GregorianDate IUnsafeFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
+}
 
-    //
-    // Conversions
-    //
+public partial struct GregorianDate // Conversions
+{
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="GregorianDate"/> value to
+    /// a <see cref="JulianDate"/> value.
+    /// <para>See also <seealso cref="ToJulianDate()"/>.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported <see cref="JulianDate"/> values.</exception>
+    public static explicit operator JulianDate(GregorianDate date) =>
+        JulianDate.FromAbsoluteDate(date);
 
     /// <inheritdoc />
     [Pure]
@@ -318,17 +327,29 @@ public partial struct GregorianDate // Factories & conversions
     }
 
     /// <summary>
-    /// Defines an explicit conversion of a <see cref="GregorianDate"/> value to
-    /// a <see cref="JulianDate"/> value.
+    /// Creates a new instance of the <see cref="GregorianDate"/> struct from
+    /// the specified <see cref="JulianDate"/> value.
     /// </summary>
-    public static explicit operator JulianDate(GregorianDate date) =>
-        JulianDate.FromDayNumber(date.DayNumber);
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported <see cref="GregorianDate"/> values.</exception>
+    [Pure]
+    internal static GregorianDate FromAbsoluteDate(JulianDate date)
+    {
+        int daysSinceZero = date.DayNumber.DaysSinceZero;
+
+        if (daysSinceZero < MinDaysSinceZero || daysSinceZero > MaxDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new GregorianDate(daysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported <see cref="JulianDate"/> values.</exception>
     [Pure]
-    public JulianDate ToJulianDate() => JulianDate.FromDayNumber(DayNumber);
+    public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(this);
 }
 
 public partial struct GregorianDate // Adjustments

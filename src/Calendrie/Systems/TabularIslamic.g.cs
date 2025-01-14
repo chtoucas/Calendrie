@@ -276,7 +276,7 @@ public partial struct TabularIslamicDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct TabularIslamicDate // Factories & conversions
+public partial struct TabularIslamicDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -347,21 +347,10 @@ public partial struct TabularIslamicDate // Factories & conversions
     [Pure]
     static TabularIslamicDate IUnsafeFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new TabularIslamicDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
+public partial struct TabularIslamicDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="TabularIslamicDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -375,6 +364,16 @@ public partial struct TabularIslamicDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(TabularIslamicDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static TabularIslamicDate FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
+        return new TabularIslamicDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

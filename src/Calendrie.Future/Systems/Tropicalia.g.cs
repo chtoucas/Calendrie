@@ -280,7 +280,7 @@ public partial struct TropicaliaDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceZero, out dayOfYear);
 }
 
-public partial struct TropicaliaDate // Factories & conversions
+public partial struct TropicaliaDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -345,23 +345,10 @@ public partial struct TropicaliaDate // Factories & conversions
     [Pure]
     static TropicaliaDate IUnsafeFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
         new(daysSinceZero);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static TropicaliaDate FromDayNumber(DayNumber dayNumber)
-    {
-        int daysSinceZero = dayNumber.DaysSinceZero;
-
-        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
-            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
-
-        return new TropicaliaDate(daysSinceZero);
-    }
-
+public partial struct TropicaliaDate // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="TropicaliaDate"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -375,6 +362,18 @@ public partial struct TropicaliaDate // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(TropicaliaDate date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static TropicaliaDate FromDayNumber(DayNumber dayNumber)
+    {
+        int daysSinceZero = dayNumber.DaysSinceZero;
+
+        if (unchecked((uint)daysSinceZero) > MaxDaysSinceZero)
+            ThrowHelpers.ThrowDayNumberOutOfRange(dayNumber);
+
+        return new TropicaliaDate(daysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.

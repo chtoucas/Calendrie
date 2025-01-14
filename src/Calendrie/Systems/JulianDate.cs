@@ -207,7 +207,7 @@ public partial struct JulianDate // Preamble
         year = JulianFormulae.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct JulianDate // Factories & conversions
+public partial struct JulianDate // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -297,18 +297,27 @@ public partial struct JulianDate // Factories & conversions
     [Pure]
     static JulianDate IUnsafeFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
+public partial struct JulianDate // Conversions
+{
+    /// <summary>
+    /// Defines an explicit conversion of a <see cref="JulianDate"/> value to a
+    /// <see cref="GregorianDate"/> value.
+    /// <para>See also <seealso cref="ToGregorianDate()"/>.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported <see cref="GregorianDate"/> values.</exception>
+    public static explicit operator GregorianDate(JulianDate date) =>
+        GregorianDate.FromAbsoluteDate(date);
 
     /// <inheritdoc />
     [Pure]
     public static JulianDate FromDayNumber(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
-        // NB: now that we have validated the day number, we know for sure that
-        // the subtraction won't overflow.
+        // NB: now that the day number is validated, we know for sure that the
+        // subtraction won't overflow.
         return new JulianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
@@ -319,23 +328,35 @@ public partial struct JulianDate // Factories & conversions
     /// </summary>
     [Pure]
     internal static JulianDate FromAbsoluteDate(DayNumber dayNumber) =>
-        // NB: in general, the subtraction may overflow, but this is not the case
-        // for date types in Calendrie.Systems, GregorianDate being the sole
-        // exception.
+        // NB: in general, the subtraction may overflow, but it just happens that
+        // this is not the case for date types in Calendrie.Systems,
+        // GregorianDate being the sole exception.
         new(dayNumber.DaysSinceZero - EpochDaysSinceZero);
 
     /// <summary>
-    /// Defines an explicit conversion of a <see cref="JulianDate"/> value to a
-    /// <see cref="GregorianDate"/> value.
+    /// Creates a new instance of the <see cref="JulianDate"/> struct from the
+    /// specified <see cref="GregorianDate"/> value.
     /// </summary>
-    public static explicit operator GregorianDate(JulianDate date) =>
-        GregorianDate.FromDayNumber(date.DayNumber);
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported <see cref="JulianDate"/> values.</exception>
+    [Pure]
+    internal static JulianDate FromAbsoluteDate(GregorianDate date)
+    {
+        int daysSinceEpoch = date.DaysSinceZero - EpochDaysSinceZero;
+
+        if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+
+        return new(daysSinceEpoch);
+    }
 
     /// <summary>
-    /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported <see cref="GregorianDate"/> values.</exception>
     [Pure]
-    public GregorianDate ToGregorianDate() => GregorianDate.FromDayNumber(DayNumber);
+    public GregorianDate ToGregorianDate() => GregorianDate.FromAbsoluteDate(this);
 }
 
 public partial struct JulianDate // Adjustments

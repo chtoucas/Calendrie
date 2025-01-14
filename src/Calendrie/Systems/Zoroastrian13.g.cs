@@ -285,7 +285,7 @@ public partial struct Zoroastrian13Date // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct Zoroastrian13Date // Factories & conversions
+public partial struct Zoroastrian13Date // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -356,21 +356,10 @@ public partial struct Zoroastrian13Date // Factories & conversions
     [Pure]
     static Zoroastrian13Date IUnsafeFactory<Zoroastrian13Date>.UnsafeCreate(int daysSinceEpoch) =>
         new(daysSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
-    /// <inheritdoc />
-    [Pure]
-    public static Zoroastrian13Date FromDayNumber(DayNumber dayNumber)
-    {
-        Calendar.Scope.Validate(dayNumber);
-
-        // NB: the subtraction won't overflow.
-        return new Zoroastrian13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
-    }
-
+public partial struct Zoroastrian13Date // Conversions
+{
     /// <summary>
     /// Defines an explicit conversion of a <see cref="Zoroastrian13Date"/> value
     /// to a <see cref="GregorianDate"/> value.
@@ -384,6 +373,16 @@ public partial struct Zoroastrian13Date // Factories & conversions
     /// </summary>
     public static explicit operator JulianDate(Zoroastrian13Date date) =>
         JulianDate.FromAbsoluteDate(date.DayNumber);
+
+    /// <inheritdoc />
+    [Pure]
+    public static Zoroastrian13Date FromDayNumber(DayNumber dayNumber)
+    {
+        Calendar.Scope.Validate(dayNumber);
+        // NB: now that we have validated the day number, we know for sure that
+        // the subtraction won't overflow.
+        return new Zoroastrian13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+    }
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
