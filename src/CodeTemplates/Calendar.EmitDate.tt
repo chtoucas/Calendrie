@@ -348,7 +348,7 @@ public partial struct <#= Prefix #>Date // Factories
 
     [Pure]
     static <#= Prefix #>Date IUnsafeFactory<<#= Prefix #>Date>.UnsafeCreate(int <#= DaysSinceEpochVar #>) =>
-        new(<#= DaysSinceEpochVar #>);
+        UnsafeCreate(<#= DaysSinceEpochVar #>);
 }
 <#+
     } // T4: End of EmitDateFactories()

@@ -355,7 +355,7 @@ public partial struct Persian2820Date // Factories
 
     [Pure]
     static Persian2820Date IUnsafeFactory<Persian2820Date>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct Persian2820Date // Conversions

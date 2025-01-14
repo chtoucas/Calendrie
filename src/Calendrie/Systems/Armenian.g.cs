@@ -355,7 +355,7 @@ public partial struct ArmenianDate // Factories
 
     [Pure]
     static ArmenianDate IUnsafeFactory<ArmenianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct ArmenianDate // Conversions

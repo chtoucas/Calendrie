@@ -355,7 +355,7 @@ public partial struct Egyptian13Date // Factories
 
     [Pure]
     static Egyptian13Date IUnsafeFactory<Egyptian13Date>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct Egyptian13Date // Conversions

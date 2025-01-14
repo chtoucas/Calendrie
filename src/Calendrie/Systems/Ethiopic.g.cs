@@ -355,7 +355,7 @@ public partial struct EthiopicDate // Factories
 
     [Pure]
     static EthiopicDate IUnsafeFactory<EthiopicDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct EthiopicDate // Conversions

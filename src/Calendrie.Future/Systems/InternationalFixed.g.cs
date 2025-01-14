@@ -355,7 +355,7 @@ public partial struct InternationalFixedDate // Factories
 
     [Pure]
     static InternationalFixedDate IUnsafeFactory<InternationalFixedDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct InternationalFixedDate // Conversions

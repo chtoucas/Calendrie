@@ -355,7 +355,7 @@ public partial struct FrenchRepublican13Date // Factories
 
     [Pure]
     static FrenchRepublican13Date IUnsafeFactory<FrenchRepublican13Date>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct FrenchRepublican13Date // Conversions

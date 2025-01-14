@@ -355,7 +355,7 @@ public partial struct CopticDate // Factories
 
     [Pure]
     static CopticDate IUnsafeFactory<CopticDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct CopticDate // Conversions

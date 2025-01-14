@@ -350,7 +350,7 @@ public partial struct MyJulianDate // Factories
 
     [Pure]
     static MyJulianDate IUnsafeFactory<MyJulianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct MyJulianDate // Conversions

@@ -355,7 +355,7 @@ public partial struct RevisedWorldDate // Factories
 
     [Pure]
     static RevisedWorldDate IUnsafeFactory<RevisedWorldDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct RevisedWorldDate // Conversions

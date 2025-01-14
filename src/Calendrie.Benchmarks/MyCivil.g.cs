@@ -336,7 +336,7 @@ public partial struct MyCivilDate // Factories
 
     [Pure]
     static MyCivilDate IUnsafeFactory<MyCivilDate>.UnsafeCreate(int daysSinceZero) =>
-        new(daysSinceZero);
+        UnsafeCreate(daysSinceZero);
 }
 
 public partial struct MyCivilDate // Conversions

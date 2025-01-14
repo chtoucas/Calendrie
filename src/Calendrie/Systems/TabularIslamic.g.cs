@@ -346,7 +346,7 @@ public partial struct TabularIslamicDate // Factories
 
     [Pure]
     static TabularIslamicDate IUnsafeFactory<TabularIslamicDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct TabularIslamicDate // Conversions

@@ -355,7 +355,7 @@ public partial struct ZoroastrianDate // Factories
 
     [Pure]
     static ZoroastrianDate IUnsafeFactory<ZoroastrianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct ZoroastrianDate // Conversions

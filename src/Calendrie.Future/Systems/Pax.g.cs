@@ -350,7 +350,7 @@ public partial struct PaxDate // Factories
 
     [Pure]
     static PaxDate IUnsafeFactory<PaxDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct PaxDate // Conversions

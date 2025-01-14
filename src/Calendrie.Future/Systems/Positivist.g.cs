@@ -355,7 +355,7 @@ public partial struct PositivistDate // Factories
 
     [Pure]
     static PositivistDate IUnsafeFactory<PositivistDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct PositivistDate // Conversions

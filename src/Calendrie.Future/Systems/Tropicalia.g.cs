@@ -344,7 +344,7 @@ public partial struct TropicaliaDate // Factories
 
     [Pure]
     static TropicaliaDate IUnsafeFactory<TropicaliaDate>.UnsafeCreate(int daysSinceZero) =>
-        new(daysSinceZero);
+        UnsafeCreate(daysSinceZero);
 }
 
 public partial struct TropicaliaDate // Conversions
