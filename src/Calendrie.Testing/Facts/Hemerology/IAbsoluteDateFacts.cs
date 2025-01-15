@@ -382,8 +382,6 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
 
     #endregion
 
-    // TODO(fact): finish the tests for week math
-
     #region NextWeek()
 
     [Fact]
@@ -422,7 +420,7 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
     }
 
     #endregion
-    #region PlusWeeks()
+    #region PlusWeeks() & CountWeeksSince()
 
     [Fact]
     public void PlusWeeks_Overflows()
@@ -431,6 +429,30 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
         // Act & Assert
         AssertEx.Overflows(() => date.PlusWeeks(int.MinValue));
         AssertEx.Overflows(() => date.PlusWeeks(int.MaxValue));
+    }
+
+    [Fact]
+    public void CountWeeksSince_DoesNotOverflow()
+    {
+        // Act & Assert
+        _ = MaxDate.CountWeeksSince(MinDate);
+        _ = MinDate.CountWeeksSince(MaxDate);
+    }
+
+    [Fact]
+    public void PlusWeeks_AtMinValue()
+    {
+        // Act & Assert
+        AssertEx.Overflows(() => MinDate.PlusWeeks(-1));
+        Assert.Equal(MinDate, MinDate.PlusWeeks(0));
+    }
+
+    [Fact]
+    public void PlusWeeks_AtMaxValue()
+    {
+        // Act & Assert
+        Assert.Equal(MaxDate, MaxDate.PlusWeeks(0));
+        AssertEx.Overflows(() => MaxDate.PlusWeeks(1));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -451,9 +473,13 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Math
         if (dayNumber - 21 < TDate.MinValue.DayNumber) return;
 
         var date = TDate.FromDayNumber(dayNumber);
+        var other = date.PlusDays(21);
         // Act & Assert
-        Assert.Equal(date.PlusDays(21), date.PlusWeeks(3));
-        Assert.Equal(date.PlusDays(-21), date.PlusWeeks(-3));
+        Assert.Equal(other, date.PlusWeeks(3));
+        Assert.Equal(date, other.PlusWeeks(-3));
+
+        Assert.Equal(3, other.CountWeeksSince(date));
+        Assert.Equal(-3, date.CountWeeksSince(other));
     }
 
     #endregion

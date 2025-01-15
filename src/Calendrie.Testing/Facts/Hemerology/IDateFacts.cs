@@ -7,8 +7,6 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// TODO(fact): use Epoch instead of GetDate(1, 1, 1).
-
 // We also test the static (abstract) methods from the interface.
 
 /// <summary>
@@ -37,7 +35,7 @@ public partial class IDateFacts<TDate, TDataSet> :
     [Fact]
     public void ToString_InvariantCulture()
     {
-        var date = GetDate(1, 1, 1);
+        var date = TDate.FromDayNumber(TDate.Calendar.Epoch);
         string str = FormattableString.Invariant($"01/01/0001 ({TDate.Calendar})");
         // Act & Assert
         Assert.Equal(str, date.ToString());
@@ -271,7 +269,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     [Fact]
     public void PlusYears_Overflows_WithMaxYears()
     {
-        var date = GetDate(1, 1, 1);
+        var date = TDate.FromDayNumber(TDate.Calendar.Epoch);
         // Act & Assert
         AssertEx.Overflows(() => date.PlusYears(int.MinValue));
         AssertEx.Overflows(() => date.PlusYears(int.MaxValue));
@@ -358,7 +356,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     [Fact]
     public void PlusMonths_Overflows_WithMaxMonths()
     {
-        var date = GetDate(1, 1, 1);
+        var date = TDate.FromDayNumber(TDate.Calendar.Epoch);
         // Act & Assert
         AssertEx.Overflows(() => date.PlusMonths(int.MinValue));
         AssertEx.Overflows(() => date.PlusMonths(int.MaxValue));
