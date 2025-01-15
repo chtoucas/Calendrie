@@ -269,7 +269,7 @@ public partial struct JulianMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>In the particular case of the Julian calendar, this
     /// operation is exact.</para>
     /// </summary>

@@ -370,6 +370,7 @@ public partial struct <#= Prefix #>Date // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="<#= Prefix #>Date"/> value
     /// to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator GregorianDate(<#= Prefix #>Date date) =>
         GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
@@ -377,6 +378,7 @@ public partial struct <#= Prefix #>Date // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="<#= Prefix #>Date"/> value
     /// to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator JulianDate(<#= Prefix #>Date date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
@@ -407,12 +409,14 @@ public partial struct <#= Prefix #>Date // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(DayNumber.DaysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);

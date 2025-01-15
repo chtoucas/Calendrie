@@ -114,7 +114,7 @@ public partial struct CivilYear // Preamble
         FormattableString.Invariant($"{Year:D4} ({CivilCalendar.DisplayName})");
 }
 
-public partial struct CivilYear
+public partial struct CivilYear // Conversions
 {
     /// <summary>
     /// Defines an implicit conversion of a <see cref="CivilYear"/> value to a

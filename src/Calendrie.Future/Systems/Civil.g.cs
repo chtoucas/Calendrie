@@ -308,7 +308,7 @@ public partial struct CivilMonth // Standard math ops
     public static CivilMonth operator --(CivilMonth value) => value.PreviousMonth();
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified month.
+    /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
     public int CountMonthsSince(CivilMonth other) =>
@@ -379,7 +379,7 @@ public partial struct CivilMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>In the particular case of the Civil calendar, this
     /// operation is exact.</para>
     /// </summary>
@@ -640,7 +640,7 @@ public partial struct CivilYear // Math ops
     public static CivilYear operator --(CivilYear value) => value.PreviousYear();
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified year.
+    /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
     public int CountYearsSince(CivilYear other) =>

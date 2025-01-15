@@ -290,7 +290,6 @@ public partial struct CivilDate // Conversions
     /// <summary>
     /// Defines an implicit conversion of a <see cref="CivilDate"/> value to a
     /// <see cref="GregorianDate"/> value.
-    /// <para>The conversion NEVER overflows.</para>
     /// <para>See also <seealso cref="ToGregorianDate()"/>.</para>
     /// </summary>
     public static implicit operator GregorianDate(CivilDate date) =>
@@ -299,7 +298,7 @@ public partial struct CivilDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="CivilDate"/> value to a
     /// <see cref="JulianDate"/> value.
-    /// <para>The conversion NEVER overflows.</para>
+    /// <para>The conversion always succeeds.</para>
     /// <para>See also <seealso cref="ToJulianDate()"/>.</para>
     /// </summary>
     public static explicit operator JulianDate(CivilDate date) =>
@@ -328,14 +327,14 @@ public partial struct CivilDate // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
-    /// <para>The conversion NEVER overflows.</para>
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_daysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
-    /// <para>The conversion NEVER overflows.</para>
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);

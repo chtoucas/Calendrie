@@ -366,6 +366,7 @@ public partial struct PaxDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="PaxDate"/> value
     /// to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator GregorianDate(PaxDate date) =>
         GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
@@ -373,6 +374,7 @@ public partial struct PaxDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="PaxDate"/> value
     /// to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator JulianDate(PaxDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
@@ -403,12 +405,14 @@ public partial struct PaxDate // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(DayNumber.DaysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
@@ -681,7 +685,7 @@ public partial struct PaxDate // Standard math ops
     public static PaxDate operator --(PaxDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of whole days elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountDaysSince(PaxDate other) =>
@@ -801,7 +805,7 @@ public partial struct PaxDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified date.
+    /// Counts the number of whole years elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -832,7 +836,7 @@ public partial struct PaxDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Counts the number of whole months elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -1449,7 +1453,7 @@ public partial struct PaxMonth // Standard math ops
     public static PaxMonth operator --(PaxMonth value) => value.PreviousMonth();
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified month.
+    /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
     public int CountMonthsSince(PaxMonth other) =>
@@ -1516,7 +1520,7 @@ public partial struct PaxMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -2040,7 +2044,7 @@ public partial struct PaxYear // Math ops
     public static PaxYear operator --(PaxYear value) => value.PreviousYear();
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified year.
+    /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
     public int CountYearsSince(PaxYear other) =>

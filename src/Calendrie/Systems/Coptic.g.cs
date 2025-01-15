@@ -371,6 +371,7 @@ public partial struct CopticDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="CopticDate"/> value
     /// to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator GregorianDate(CopticDate date) =>
         GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
@@ -378,6 +379,7 @@ public partial struct CopticDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="CopticDate"/> value
     /// to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator JulianDate(CopticDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
@@ -408,12 +410,14 @@ public partial struct CopticDate // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(DayNumber.DaysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
@@ -686,7 +690,7 @@ public partial struct CopticDate // Standard math ops
     public static CopticDate operator --(CopticDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of whole days elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountDaysSince(CopticDate other) =>
@@ -801,7 +805,7 @@ public partial struct CopticDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified date.
+    /// Counts the number of whole years elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -832,7 +836,7 @@ public partial struct CopticDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Counts the number of whole months elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>

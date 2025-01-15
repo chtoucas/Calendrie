@@ -352,6 +352,7 @@ public partial struct MyCivilDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="MyCivilDate"/> value
     /// to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator GregorianDate(MyCivilDate date) =>
         GregorianDate.UnsafeCreate(date._daysSinceZero);
@@ -359,6 +360,7 @@ public partial struct MyCivilDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="MyCivilDate"/> value
     /// to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator JulianDate(MyCivilDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
@@ -391,12 +393,14 @@ public partial struct MyCivilDate // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_daysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
@@ -668,7 +672,7 @@ public partial struct MyCivilDate // Standard math ops
     public static MyCivilDate operator --(MyCivilDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of whole days elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountDaysSince(MyCivilDate other) =>
@@ -783,7 +787,7 @@ public partial struct MyCivilDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified date.
+    /// Counts the number of whole years elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -814,7 +818,7 @@ public partial struct MyCivilDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Counts the number of whole months elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -1440,7 +1444,7 @@ public partial struct MyCivilMonth // Standard math ops
     public static MyCivilMonth operator --(MyCivilMonth value) => value.PreviousMonth();
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified month.
+    /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
     public int CountMonthsSince(MyCivilMonth other) =>
@@ -1511,7 +1515,7 @@ public partial struct MyCivilMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>In the particular case of the MyCivil calendar, this
     /// operation is exact.</para>
     /// </summary>
@@ -1955,7 +1959,7 @@ public partial struct MyCivilYear // Math ops
     public static MyCivilYear operator --(MyCivilYear value) => value.PreviousYear();
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified year.
+    /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
     public int CountYearsSince(MyCivilYear other) =>

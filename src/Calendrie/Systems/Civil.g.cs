@@ -229,7 +229,7 @@ public partial struct CivilDate // Standard math ops
     public static CivilDate operator --(CivilDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of whole days elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountDaysSince(CivilDate other) =>

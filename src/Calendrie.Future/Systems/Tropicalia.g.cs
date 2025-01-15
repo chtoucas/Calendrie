@@ -360,6 +360,7 @@ public partial struct TropicaliaDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="TropicaliaDate"/> value
     /// to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator GregorianDate(TropicaliaDate date) =>
         GregorianDate.UnsafeCreate(date._daysSinceZero);
@@ -367,6 +368,7 @@ public partial struct TropicaliaDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="TropicaliaDate"/> value
     /// to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator JulianDate(TropicaliaDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
@@ -399,12 +401,14 @@ public partial struct TropicaliaDate // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(_daysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
@@ -676,7 +680,7 @@ public partial struct TropicaliaDate // Standard math ops
     public static TropicaliaDate operator --(TropicaliaDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of whole days elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountDaysSince(TropicaliaDate other) =>
@@ -791,7 +795,7 @@ public partial struct TropicaliaDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified date.
+    /// Counts the number of whole years elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -822,7 +826,7 @@ public partial struct TropicaliaDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Counts the number of whole months elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -1448,7 +1452,7 @@ public partial struct TropicaliaMonth // Standard math ops
     public static TropicaliaMonth operator --(TropicaliaMonth value) => value.PreviousMonth();
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified month.
+    /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
     public int CountMonthsSince(TropicaliaMonth other) =>
@@ -1519,7 +1523,7 @@ public partial struct TropicaliaMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>In the particular case of the Tropicalia calendar, this
     /// operation is exact.</para>
     /// </summary>
@@ -1963,7 +1967,7 @@ public partial struct TropicaliaYear // Math ops
     public static TropicaliaYear operator --(TropicaliaYear value) => value.PreviousYear();
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified year.
+    /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
     public int CountYearsSince(TropicaliaYear other) =>

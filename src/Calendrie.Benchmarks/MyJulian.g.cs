@@ -366,6 +366,7 @@ public partial struct MyJulianDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="MyJulianDate"/> value
     /// to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator GregorianDate(MyJulianDate date) =>
         GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
@@ -373,6 +374,7 @@ public partial struct MyJulianDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="MyJulianDate"/> value
     /// to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator JulianDate(MyJulianDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
@@ -403,12 +405,14 @@ public partial struct MyJulianDate // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(DayNumber.DaysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
@@ -681,7 +685,7 @@ public partial struct MyJulianDate // Standard math ops
     public static MyJulianDate operator --(MyJulianDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of whole days elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountDaysSince(MyJulianDate other) =>
@@ -796,7 +800,7 @@ public partial struct MyJulianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified date.
+    /// Counts the number of whole years elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -827,7 +831,7 @@ public partial struct MyJulianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Counts the number of whole months elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -1453,7 +1457,7 @@ public partial struct MyJulianMonth // Standard math ops
     public static MyJulianMonth operator --(MyJulianMonth value) => value.PreviousMonth();
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified month.
+    /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
     public int CountMonthsSince(MyJulianMonth other) =>
@@ -1524,7 +1528,7 @@ public partial struct MyJulianMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>In the particular case of the MyJulian calendar, this
     /// operation is exact.</para>
     /// </summary>
@@ -1968,7 +1972,7 @@ public partial struct MyJulianYear // Math ops
     public static MyJulianYear operator --(MyJulianYear value) => value.PreviousYear();
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified year.
+    /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
     public int CountYearsSince(MyJulianYear other) =>

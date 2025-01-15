@@ -371,6 +371,7 @@ public partial struct Persian2820Date // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="Persian2820Date"/> value
     /// to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator GregorianDate(Persian2820Date date) =>
         GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
@@ -378,6 +379,7 @@ public partial struct Persian2820Date // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="Persian2820Date"/> value
     /// to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     public static explicit operator JulianDate(Persian2820Date date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
@@ -408,12 +410,14 @@ public partial struct Persian2820Date // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="GregorianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public GregorianDate ToGregorianDate() => GregorianDate.UnsafeCreate(DayNumber.DaysSinceZero);
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion always succeeds.</para>
     /// </summary>
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
@@ -686,7 +690,7 @@ public partial struct Persian2820Date // Standard math ops
     public static Persian2820Date operator --(Persian2820Date value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of days elapsed since the specified date.
+    /// Counts the number of whole days elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountDaysSince(Persian2820Date other) =>
@@ -801,7 +805,7 @@ public partial struct Persian2820Date // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified date.
+    /// Counts the number of whole years elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -832,7 +836,7 @@ public partial struct Persian2820Date // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Counts the number of whole months elapsed since the specified date.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
