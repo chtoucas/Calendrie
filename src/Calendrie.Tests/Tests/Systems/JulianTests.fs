@@ -193,7 +193,7 @@ module Bundles =
 
     [<Sealed>]
     type YearFacts() =
-        inherit IYearFacts<JulianYear, UnboundedJulianDataSet>()
+        inherit IYearFacts<JulianYear, JulianMonth, JulianDate, UnboundedJulianDataSet>()
 
     //
     // Math

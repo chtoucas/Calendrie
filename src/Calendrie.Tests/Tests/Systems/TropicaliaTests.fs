@@ -196,7 +196,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type YearFacts() =
-        inherit IYearFacts<TropicaliaYear, StandardTropicaliaDataSet>()
+        inherit IYearFacts<TropicaliaYear, TropicaliaMonth, TropicaliaDate, StandardTropicaliaDataSet>()
 
     //
     // Math

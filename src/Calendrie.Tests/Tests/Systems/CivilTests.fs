@@ -255,7 +255,7 @@ module Bundles =
 
     [<Sealed>]
     type YearFacts() =
-        inherit IYearFacts<CivilYear, StandardGregorianDataSet>()
+        inherit IYearFacts<CivilYear, CivilMonth, CivilDate, StandardGregorianDataSet>()
 
     //
     // Math
