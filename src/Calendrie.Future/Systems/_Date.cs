@@ -53,6 +53,7 @@ public partial struct FrenchRepublican13Date : IEpagomenalDay // Complements
     }
 }
 
+[ExcludeFromCodeCoverage]
 public partial struct RevisedWorldDate : IBlankDay // Complements
 {
     /// <inheritdoc />

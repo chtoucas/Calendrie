@@ -11,7 +11,9 @@ namespace Calendrie.Core.Schemas;
 // Each quarter begins on Sunday, ends on Saturday.
 // Promoted by Camille Flammarion in France, and lobbied by Elisabeth
 // Achelis to be adopted by the United Nations.
-// See http://myweb.ecu.edu/mccartyr/world-calendar.html
+// See
+// - http://myweb.ecu.edu/mccartyr/world-calendar.html
+// - https://en.wikipedia.org/wiki/World_Calendar
 //
 // Main flaws: blank-days, position of the intercalary day.
 
