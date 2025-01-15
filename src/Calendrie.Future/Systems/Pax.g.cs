@@ -1095,7 +1095,7 @@ public partial struct PaxMonth // Preamble
         Calendar.Schema.GetMonthParts(_monthsSinceEpoch, out year, out month);
 }
 
-public partial struct PaxMonth // Factories & conversions
+public partial struct PaxMonth // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -1139,11 +1139,10 @@ public partial struct PaxMonth // Factories & conversions
     [Pure]
     static PaxMonth IUnsafeFactory<PaxMonth>.UnsafeCreate(int monthsSinceEpoch) =>
         new(monthsSinceEpoch);
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct PaxMonth // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="PaxMonth"/> struct
     /// from the specified number of consecutive months since the epoch.

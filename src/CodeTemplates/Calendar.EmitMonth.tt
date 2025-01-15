@@ -14,9 +14,10 @@ public partial class CalendarTemplate
         {
             EmitMonthPreambleRegular();
             EmitMonthFactoriesRegular();
+            EmitMonthConversionsRegular();
             EmitMonthCountingRegular();
             EmitMonthAdjustmentsRegular();
-            EmitMonthDateSegmentRegular();
+            EmitMonthDaySegmentRegular();
             EmitMonthEquatable();
             EmitMonthComparable();
             EmitMonthMath();
@@ -26,9 +27,10 @@ public partial class CalendarTemplate
         {
             EmitMonthPreambleNonRegular();
             EmitMonthFactoriesNonRegular();
+            EmitMonthConversionsNonRegular();
             EmitMonthCountingNonRegular();
             EmitMonthAdjustmentsNonRegular();
-            EmitMonthDateSegmentNonRegular();
+            EmitMonthDaySegmentNonRegular();
             EmitMonthEquatable();
             EmitMonthComparable();
             EmitMonthMath();
@@ -423,11 +425,16 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         <#= SchemaClass #>.MonthsInYear * (y - 1) + m - 1;
+}
+<#+
+    } // T4: End of EmitMonthFactoriesRegular()
 
-    //
-    // Conversions
-    //
-
+    protected virtual void EmitMonthConversionsRegular()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Month // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified number of consecutive months since the epoch.
@@ -452,13 +459,13 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     }
 }
 <#+
-    } // T4: End of EmitMonthFactoriesRegular()
+    } // T4: End of EmitMonthConversionsRegular()
 
     protected virtual void EmitMonthFactoriesNonRegular()
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // Factories & conversions
+public partial struct <#= Prefix #>Month // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -502,11 +509,16 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     [Pure]
     static <#= Prefix #>Month IUnsafeFactory<<#= Prefix #>Month>.UnsafeCreate(int monthsSinceEpoch) =>
         new(monthsSinceEpoch);
+}
+<#+
+    } // T4: End of EmitMonthFactoriesNonRegular()
 
-    //
-    // Conversions
-    //
-
+    protected virtual void EmitMonthConversionsNonRegular()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Month // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified number of consecutive months since the epoch.
@@ -533,7 +545,7 @@ public partial struct <#= Prefix #>Month // Factories & conversions
     }
 }
 <#+
-    } // T4: End of EmitMonthFactoriesNonRegular()
+    } // T4: End of EmitMonthConversionsNonRegular()
 
     protected virtual void EmitMonthCountingRegular()
     {
@@ -683,7 +695,7 @@ public partial struct <#= Prefix #>Month // Adjustments
 <#+
     } // T4: End of EmitMonthAdjustmentsNonRegular()
 
-    protected virtual void EmitMonthDateSegmentRegular()
+    protected virtual void EmitMonthDaySegmentRegular()
     {
         WriteLine();
 #>
@@ -789,9 +801,9 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 }
 <#+
-    } // T4: End of EmitMonthDateSegmentRegular()
+    } // T4: End of EmitMonthDaySegmentRegular()
 
-    protected virtual void EmitMonthDateSegmentNonRegular()
+    protected virtual void EmitMonthDaySegmentNonRegular()
     {
         WriteLine();
 #>
@@ -901,7 +913,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 }
 <#+
-    } // T4: End of EmitMonthDateSegmentNonRegular()
+    } // T4: End of EmitMonthDaySegmentNonRegular()
 
     protected virtual void EmitMonthEquatable()
     {

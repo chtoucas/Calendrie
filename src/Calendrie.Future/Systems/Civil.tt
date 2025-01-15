@@ -35,11 +35,11 @@ using Calendrie.Hemerology;
 
     // Month type
     protected sealed override void EmitMonthPreambleRegular() { }
-    protected sealed override void EmitMonthDateSegmentRegular() { }
+    protected sealed override void EmitMonthDaySegmentRegular() { }
 
     // Year type
     protected sealed override void EmitYearPreamble() { }
-    protected sealed override void EmitYearDateSegment() { }
+    protected sealed override void EmitYearDaySegment() { }
 }
 
 #>

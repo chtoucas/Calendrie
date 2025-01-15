@@ -98,11 +98,10 @@ public partial struct CivilMonth // Factories & conversions
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         CivilSchema.MonthsInYear * (y - 1) + m - 1;
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct CivilMonth // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="CivilMonth"/> struct
     /// from the specified number of consecutive months since the epoch.

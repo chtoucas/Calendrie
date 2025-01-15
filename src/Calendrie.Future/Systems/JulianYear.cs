@@ -178,11 +178,10 @@ public partial struct JulianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static JulianYear UnsafeCreate(int year) => new(year - 1, default);
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct JulianYear // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="JulianYear"/> struct
     /// from the specified <see cref="JulianMonth"/> value.

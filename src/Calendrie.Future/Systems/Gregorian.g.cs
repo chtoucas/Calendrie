@@ -80,11 +80,10 @@ public partial struct GregorianMonth // Factories & conversions
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         GregorianSchema.MonthsInYear * (y - 1) + m - 1;
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct GregorianMonth // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianMonth"/> struct
     /// from the specified number of consecutive months since the epoch.

@@ -47,14 +47,14 @@ using Calendrie.Horology;
     protected sealed override void EmitMonthDecl() { }
     protected sealed override void EmitMonthPreambleRegular() { }
     protected sealed override void EmitMonthAdjustmentsRegular() { }
-    protected sealed override void EmitMonthDateSegmentRegular() { }
+    protected sealed override void EmitMonthDaySegmentRegular() { }
     protected sealed override void EmitMonthMath() { }
 
     // Year type
     protected sealed override void EmitYearDecl() { }
     protected sealed override void EmitYearPreamble() { }
     protected sealed override void EmitYearFactories() { }
-    protected sealed override void EmitYearDateSegment() { }
+    protected sealed override void EmitYearDaySegment() { }
     protected sealed override void EmitYearMath() { }
 }
 

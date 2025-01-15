@@ -178,11 +178,10 @@ public partial struct GregorianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static GregorianYear UnsafeCreate(int year) => new(year - 1, default);
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct GregorianYear // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="GregorianYear"/> struct
     /// from the specified <see cref="GregorianMonth"/> value.
