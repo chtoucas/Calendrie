@@ -35,6 +35,8 @@ public abstract partial class CalendarSansFacts<TCalendar, TDataSet> :
 
     protected Range<DayNumber> Domain { get; }
     protected DomainTester DomainTester { get; }
+
+    [Fact] public abstract void IsRegular();
 }
 
 public partial class CalendarSansFacts<TCalendar, TDataSet> // Preamble
@@ -50,8 +52,6 @@ public partial class CalendarSansFacts<TCalendar, TDataSet> // Preamble
     [Fact]
     public sealed override void PeriodicAdjustments_Prop() =>
         Assert.Equal(CalendarUT.Scope.Schema.PeriodicAdjustments, CalendarUT.PeriodicAdjustments);
-
-    [Fact] public abstract void IsRegular();
 }
 
 public partial class CalendarSansFacts<TCalendar, TDataSet> // Infos

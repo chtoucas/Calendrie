@@ -397,6 +397,31 @@ public partial struct CivilDate // Adjustments
 
 public partial struct CivilDate // Non-standard math ops
 {
+    // TODO(code): expand the doc, the other date types and the AdditionRule too.
+    // Truncate (end of month), CountDaysSince() but may be CountDaysTill()...
+
+    // Exemples
+    //
+    // PlusYears()
+    // * 29/02/2024 + 1 année = 28/02/2025
+    //   L'addition naïve (2024 + 1) donne le 29/02/2025 qui n'est pas une date
+    //   valide. On retourne alors la fin du mois cible.
+    // * 29/02/2024 - 1 année = 28/02/2023
+    //   Ça marche aussi dans l'autre sens.
+    // * 15/13/2024 + 1 année = 31/12/2025
+    // * 15/13/2024 + 1 année = 31/12/2023
+    //   On considère ici un calendrier fictif pour lequel les années bissextiles
+    //   se termineraient le 31/13 et les années communes le 31/12.
+    //
+    // CountYearsSince()
+    // * 29/02/2024 - 28/02/2023 = 1 année
+    //   La soustraction naïve (2024 - 2023) donne 1 an. On vérifie alors que
+    //   28/02/2023 + 1 an <= 29/02/2024, pas de souci.
+    // * 28/02/2025 - 29/02/2024 = 1 année
+    //   Cette fois 29/02/2024 + 1 an = 28/02/2024
+    // * 29/02/2024 - 28/02/2025 = -1 année
+    //
+
     /// <summary>
     /// Adds a number of years to the year field of this date instance, yielding
     /// a new date.

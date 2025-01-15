@@ -301,7 +301,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     public void PlusYears_Zero_IsNeutral(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(date, date.PlusYears(0));
     }
@@ -333,7 +333,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     public void CountYearsSince_WhenSame_IsZero(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(0, date.CountYearsSince(date));
     }
@@ -377,7 +377,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     public void PlusMonths_Zero_IsNeutral(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(date, date.PlusMonths(0));
     }
@@ -407,7 +407,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     public void CountMonthsSince_WhenSame_IsZero(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
-        var date = GetDate(y, m, d);
+        var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(0, date.CountMonthsSince(date));
     }
