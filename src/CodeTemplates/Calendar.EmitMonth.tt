@@ -1179,12 +1179,10 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
         if (other < this)
         {
             if (newStart > this) years--;
-            Debug.Assert(newStart <= this);
         }
         else
         {
             if (newStart < this) years++;
-            Debug.Assert(newStart >= this);
         }
 
         return years;

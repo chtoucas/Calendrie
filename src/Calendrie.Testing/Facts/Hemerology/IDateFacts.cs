@@ -3,8 +3,11 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
+using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
+
+// TODO(fact): use Epoch instead of GetDate(1, 1, 1).
 
 // We also test the static (abstract) methods from the interface.
 
@@ -19,9 +22,11 @@ public partial class IDateFacts<TDate, TDataSet> :
     public IDateFacts() : base(TDate.Calendar.Scope.Domain)
     {
         var supportedYears = TDate.Calendar.Scope.Segment.SupportedYears;
+        SupportedYears = supportedYears;
         SupportedYearsTester = new SupportedYearsTester(supportedYears);
     }
 
+    protected Range<int> SupportedYears { get; }
     protected SupportedYearsTester SupportedYearsTester { get; }
 
     protected sealed override TDate GetDate(int y, int m, int d) => TDate.Create(y, m, d);
@@ -257,4 +262,168 @@ public partial class IDateFacts<TDate, TDataSet> // Adjustments
         // Act & Assert
         Assert.Equal(exp, date.WithDayOfYear(doy));
     }
+}
+
+public partial class IDateFacts<TDate, TDataSet> // Math
+{
+    #region PlusYears()
+
+    [Fact]
+    public void PlusYears_Overflows_WithMaxYears()
+    {
+        var date = GetDate(1, 1, 1);
+        // Act & Assert
+        AssertEx.Overflows(() => date.PlusYears(int.MinValue));
+        AssertEx.Overflows(() => date.PlusYears(int.MaxValue));
+    }
+
+    [Fact]
+    public void PlusYears_AtMinDate()
+    {
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        AssertEx.Overflows(() => MinDate.PlusYears(-1));
+        Assert.Equal(MinDate, MinDate.PlusYears(0));
+        _ = MinDate.PlusYears(years);
+        AssertEx.Overflows(() => MinDate.PlusYears(years + 1));
+    }
+
+    [Fact]
+    public void PlusYears_AtMaxDate()
+    {
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        AssertEx.Overflows(() => MaxDate.PlusYears(-years - 1));
+        _ = MaxDate.PlusYears(-years);
+        Assert.Equal(MaxDate, MaxDate.PlusYears(0));
+        AssertEx.Overflows(() => MaxDate.PlusYears(1));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void PlusYears_Zero_IsNeutral(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var date = GetDate(y, m, d);
+        // Act & Assert
+        Assert.Equal(date, date.PlusYears(0));
+    }
+
+    [Theory, MemberData(nameof(AddYearsData))]
+    public void PlusYears(YemodaPairAnd<int> info)
+    {
+        int years = info.Value;
+        var date = GetDate(info.First);
+        var other = GetDate(info.Second);
+        // Act & Assert
+        Assert.Equal(other, date.PlusYears(years));
+        Assert.Equal(date, other.PlusYears(-years));
+    }
+
+    #endregion
+    #region CountYearsSince()
+
+    [Fact]
+    public void CountYearsSince_DoesNotOverflow()
+    {
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        Assert.Equal(years, MaxDate.CountYearsSince(MinDate));
+        Assert.Equal(-years, MinDate.CountYearsSince(MaxDate));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void CountYearsSince_WhenSame_IsZero(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var date = GetDate(y, m, d);
+        // Act & Assert
+        Assert.Equal(0, date.CountYearsSince(date));
+    }
+
+    [Theory, MemberData(nameof(CountYearsBetweenData))]
+    public void CountYearsSince(YemodaPairAnd<int> info)
+    {
+        int years = info.Value;
+        var start = GetDate(info.First);
+        var end = GetDate(info.Second);
+        // Act & Assert
+        Assert.Equal(years, end.CountYearsSince(start));
+        Assert.Equal(-years, start.CountYearsSince(end));
+    }
+
+    #endregion
+
+    #region PlusMonths()
+
+    [Fact]
+    public void PlusMonths_Overflows_WithMaxMonths()
+    {
+        var date = GetDate(1, 1, 1);
+        // Act & Assert
+        AssertEx.Overflows(() => date.PlusMonths(int.MinValue));
+        AssertEx.Overflows(() => date.PlusMonths(int.MaxValue));
+    }
+
+    [Fact]
+    public void PlusMonths_AtMinDate() => Assert.Equal(MinDate, MinDate.PlusMonths(0));
+
+    [Fact]
+    public void PlusMonths_AtMaxDate()
+    {
+        // Act & Assert
+        Assert.Equal(MaxDate, MaxDate.PlusMonths(0));
+        AssertEx.Overflows(() => MaxDate.PlusMonths(1));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void PlusMonths_Zero_IsNeutral(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var date = GetDate(y, m, d);
+        // Act & Assert
+        Assert.Equal(date, date.PlusMonths(0));
+    }
+
+    [Theory, MemberData(nameof(AddMonthsData))]
+    public void PlusMonths(YemodaPairAnd<int> info)
+    {
+        int ms = info.Value;
+        var date = GetDate(info.First);
+        var other = GetDate(info.Second);
+        // Act & Assert
+        Assert.Equal(other, date.PlusMonths(ms));
+        Assert.Equal(date, other.PlusMonths(-ms));
+    }
+
+    #endregion
+    #region CountMonthsSince()
+
+    [Fact]
+    public void CountMonthsSince_DoesNotOverflow()
+    {
+        _ = MaxDate.CountMonthsSince(MinDate);
+        _ = MinDate.CountMonthsSince(MaxDate);
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void CountMonthsSince_WhenSame_IsZero(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var date = GetDate(y, m, d);
+        // Act & Assert
+        Assert.Equal(0, date.CountMonthsSince(date));
+    }
+
+    [Theory, MemberData(nameof(CountMonthsBetweenData))]
+    public void CountMonthsSince(YemodaPairAnd<int> info)
+    {
+        int ms = info.Value;
+        var start = GetDate(info.First);
+        var end = GetDate(info.Second);
+        // Act & Assert
+        Assert.Equal(ms, end.CountMonthsSince(start));
+        Assert.Equal(-ms, start.CountMonthsSince(end));
+    }
+
+    #endregion
 }

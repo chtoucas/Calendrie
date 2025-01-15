@@ -221,16 +221,47 @@ public partial class MyGregorianCalendar // Date helpers
         return new(daysSinceEpoch);
     }
 
-    internal MyGregorianDate AddYears(MyGregorianDate date, int years) =>
-        throw new NotImplementedException();
+    internal MyGregorianDate AddYears(MyGregorianDate date, int years)
+    {
+        var (y, m, d) = date;
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (!Scope.CheckYear(newY)) throw new OverflowException();
 
-    internal MyGregorianDate AddMonths(MyGregorianDate date, int months) =>
-        throw new NotImplementedException();
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, Schema.CountDaysInMonth(newY, m));
 
-    internal int CountYearsBetween(MyGregorianDate start, MyGregorianDate end) =>
-        throw new NotImplementedException();
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, m, newD);
+        return new MyGregorianDate(daysSinceEpoch);
+    }
 
-    internal int CountMonthsBetween(MyGregorianDate start, MyGregorianDate end) =>
-        throw new NotImplementedException();
+    internal MyGregorianDate AddMonths(MyGregorianDate date, int months)
+    {
+        var (y, m, d) = date;
+        // Exact addition of months to a calendar month.
+        int newM = 1 + mod(checked(m - 1 + months), MonthsInYear, out int y0);
+        int newY = checked(y + y0);
+        if (!Scope.CheckYear(newY)) throw new OverflowException();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, Schema.CountDaysInMonth(newY, newM));
+
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        return new MyGregorianDate(daysSinceEpoch);
+
+        static int mod(int i, int n, out int q)
+        {
+            Debug.Assert(n > 0);
+
+            q = i / n;
+            int r = i % n;
+            if (i < 0 && r != 0)
+            {
+                q--;
+                r += n;
+            }
+            return r;
+        }
+    }
 }
 
