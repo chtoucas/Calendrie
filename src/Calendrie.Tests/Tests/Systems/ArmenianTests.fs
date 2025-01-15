@@ -96,16 +96,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at ArmenianDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
-
-        ArmenianDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at ArmenianDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(ArmenianDate.MinValue.DayNumber)
 
         ArmenianDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at ArmenianDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
+
+        ArmenianDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to ArmenianDate`` (x: DateInfo) =
@@ -116,16 +116,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at ArmenianDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian ArmenianDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at ArmenianDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(ArmenianDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian ArmenianDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at ArmenianDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian ArmenianDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -140,16 +140,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at ArmenianDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
-
-        ArmenianDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at ArmenianDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(ArmenianDate.MinValue.DayNumber)
 
         ArmenianDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at ArmenianDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
+
+        ArmenianDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -160,16 +160,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at ArmenianDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian ArmenianDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at ArmenianDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(ArmenianDate.MinValue.DayNumber)
 
         op_Explicit_Julian ArmenianDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at ArmenianDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(ArmenianDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian ArmenianDate.MaxValue === exp
 
 module Conversions13 =
     let private calendarDataSet = StandardArmenian13DataSet.Instance
@@ -207,16 +207,16 @@ module Conversions13 =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at Armenian13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
-
-        Armenian13Date.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at Armenian13Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(Armenian13Date.MinValue.DayNumber)
 
         Armenian13Date.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at Armenian13Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
+
+        Armenian13Date.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to Armenian13Date`` (x: DateInfo) =
@@ -227,16 +227,16 @@ module Conversions13 =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at Armenian13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian Armenian13Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at Armenian13Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(Armenian13Date.MinValue.DayNumber)
 
         op_Explicit_Gregorian Armenian13Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at Armenian13Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian Armenian13Date.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -251,16 +251,16 @@ module Conversions13 =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at Armenian13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
-
-        Armenian13Date.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at Armenian13Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(Armenian13Date.MinValue.DayNumber)
 
         Armenian13Date.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at Armenian13Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
+
+        Armenian13Date.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -271,16 +271,16 @@ module Conversions13 =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at Armenian13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
-
-        op_Explicit_Julian Armenian13Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at Armenian13Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(Armenian13Date.MinValue.DayNumber)
 
         op_Explicit_Julian Armenian13Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at Armenian13Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(Armenian13Date.MaxValue.DayNumber)
+
+        op_Explicit_Julian Armenian13Date.MaxValue === exp
 
 module Bundles =
     let private chr = ArmenianCalendar.Instance

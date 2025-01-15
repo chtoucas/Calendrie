@@ -78,16 +78,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at TabularIslamicDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
-
-        TabularIslamicDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at TabularIslamicDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(TabularIslamicDate.MinValue.DayNumber)
 
         TabularIslamicDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at TabularIslamicDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
+
+        TabularIslamicDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to TabularIslamicDate`` (x: DateInfo) =
@@ -98,16 +98,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at TabularIslamicDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian TabularIslamicDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at TabularIslamicDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(TabularIslamicDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian TabularIslamicDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at TabularIslamicDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian TabularIslamicDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -122,16 +122,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at TabularIslamicDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
-
-        TabularIslamicDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at TabularIslamicDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(TabularIslamicDate.MinValue.DayNumber)
 
         TabularIslamicDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at TabularIslamicDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
+
+        TabularIslamicDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -142,16 +142,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at TabularIslamicDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian TabularIslamicDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at TabularIslamicDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(TabularIslamicDate.MinValue.DayNumber)
 
         op_Explicit_Julian TabularIslamicDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at TabularIslamicDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(TabularIslamicDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian TabularIslamicDate.MaxValue === exp
 
 module Bundles =
     let private chr = TabularIslamicCalendar.Instance

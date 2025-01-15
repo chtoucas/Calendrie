@@ -79,16 +79,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at TropicaliaDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
-
-        TropicaliaDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at TropicaliaDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(TropicaliaDate.MinValue.DayNumber)
 
         TropicaliaDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at TropicaliaDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
+
+        TropicaliaDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to TropicaliaDate`` (x: DateInfo) =
@@ -99,16 +99,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at TropicaliaDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian TropicaliaDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at TropicaliaDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(TropicaliaDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian TropicaliaDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at TropicaliaDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian TropicaliaDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -123,16 +123,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at TropicaliaDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
-
-        TropicaliaDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at TropicaliaDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(TropicaliaDate.MinValue.DayNumber)
 
         TropicaliaDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at TropicaliaDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
+
+        TropicaliaDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -143,16 +143,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at TropicaliaDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian TropicaliaDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at TropicaliaDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(TropicaliaDate.MinValue.DayNumber)
 
         op_Explicit_Julian TropicaliaDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at TropicaliaDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(TropicaliaDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian TropicaliaDate.MaxValue === exp
 
 module Bundles =
     let private chr = TropicaliaCalendar.Instance

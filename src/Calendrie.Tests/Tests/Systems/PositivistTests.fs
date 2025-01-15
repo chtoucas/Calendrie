@@ -78,16 +78,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at PositivistDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
-
-        PositivistDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at PositivistDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(PositivistDate.MinValue.DayNumber)
 
         PositivistDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at PositivistDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
+
+        PositivistDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to PositivistDate`` (x: DateInfo) =
@@ -98,16 +98,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at PositivistDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian PositivistDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at PositivistDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(PositivistDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian PositivistDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at PositivistDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian PositivistDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -122,16 +122,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at PositivistDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
-
-        PositivistDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at PositivistDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(PositivistDate.MinValue.DayNumber)
 
         PositivistDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at PositivistDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
+
+        PositivistDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -142,16 +142,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at PositivistDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian PositivistDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at PositivistDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(PositivistDate.MinValue.DayNumber)
 
         op_Explicit_Julian PositivistDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at PositivistDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(PositivistDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian PositivistDate.MaxValue === exp
 
 module Bundles =
     let private chr = PositivistCalendar.Instance

@@ -95,16 +95,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at CopticDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
-
-        CopticDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at CopticDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(CopticDate.MinValue.DayNumber)
 
         CopticDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at CopticDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
+
+        CopticDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to CopticDate`` (x: DateInfo) =
@@ -115,16 +115,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at CopticDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian CopticDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at CopticDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(CopticDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian CopticDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at CopticDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian CopticDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -139,16 +139,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at CopticDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
-
-        CopticDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at CopticDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(CopticDate.MinValue.DayNumber)
 
         CopticDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at CopticDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
+
+        CopticDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -159,16 +159,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at CopticDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian CopticDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at CopticDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(CopticDate.MinValue.DayNumber)
 
         op_Explicit_Julian CopticDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at CopticDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(CopticDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian CopticDate.MaxValue === exp
 
 module Conversions13 =
     let private calendarDataSet = StandardCoptic13DataSet.Instance
@@ -206,16 +206,16 @@ module Conversions13 =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at Coptic13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
-
-        Coptic13Date.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at Coptic13Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(Coptic13Date.MinValue.DayNumber)
 
         Coptic13Date.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at Coptic13Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
+
+        Coptic13Date.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to Coptic13Date`` (x: DateInfo) =
@@ -226,16 +226,16 @@ module Conversions13 =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at Coptic13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian Coptic13Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at Coptic13Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(Coptic13Date.MinValue.DayNumber)
 
         op_Explicit_Gregorian Coptic13Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at Coptic13Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian Coptic13Date.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -250,16 +250,16 @@ module Conversions13 =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at Coptic13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
-
-        Coptic13Date.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at Coptic13Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(Coptic13Date.MinValue.DayNumber)
 
         Coptic13Date.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at Coptic13Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
+
+        Coptic13Date.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -270,16 +270,16 @@ module Conversions13 =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at Coptic13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
-
-        op_Explicit_Julian Coptic13Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at Coptic13Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(Coptic13Date.MinValue.DayNumber)
 
         op_Explicit_Julian Coptic13Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at Coptic13Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(Coptic13Date.MaxValue.DayNumber)
+
+        op_Explicit_Julian Coptic13Date.MaxValue === exp
 
 module Bundles =
     let private chr = CopticCalendar.Instance

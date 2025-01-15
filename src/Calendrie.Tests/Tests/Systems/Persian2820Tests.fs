@@ -78,16 +78,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at Persian2820Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
-
-        Persian2820Date.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at Persian2820Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(Persian2820Date.MinValue.DayNumber)
 
         Persian2820Date.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at Persian2820Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
+
+        Persian2820Date.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to Persian2820Date`` (x: DateInfo) =
@@ -98,16 +98,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at Persian2820Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian Persian2820Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at Persian2820Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(Persian2820Date.MinValue.DayNumber)
 
         op_Explicit_Gregorian Persian2820Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at Persian2820Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian Persian2820Date.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -122,16 +122,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at Persian2820Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
-
-        Persian2820Date.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at Persian2820Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(Persian2820Date.MinValue.DayNumber)
 
         Persian2820Date.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at Persian2820Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
+
+        Persian2820Date.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -142,16 +142,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at Persian2820Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
-
-        op_Explicit_Julian Persian2820Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at Persian2820Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(Persian2820Date.MinValue.DayNumber)
 
         op_Explicit_Julian Persian2820Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at Persian2820Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(Persian2820Date.MaxValue.DayNumber)
+
+        op_Explicit_Julian Persian2820Date.MaxValue === exp
 
 module Bundles =
     let private chr = Persian2820Calendar.Instance

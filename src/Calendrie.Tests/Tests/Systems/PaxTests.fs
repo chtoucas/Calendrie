@@ -79,16 +79,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at PaxDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
-
-        PaxDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at PaxDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(PaxDate.MinValue.DayNumber)
 
         PaxDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at PaxDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
+
+        PaxDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to PaxDate`` (x: DateInfo) =
@@ -99,16 +99,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at PaxDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian PaxDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at PaxDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(PaxDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian PaxDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at PaxDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian PaxDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -123,16 +123,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at PaxDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
-
-        PaxDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at PaxDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(PaxDate.MinValue.DayNumber)
 
         PaxDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at PaxDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
+
+        PaxDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -143,16 +143,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at PaxDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian PaxDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at PaxDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(PaxDate.MinValue.DayNumber)
 
         op_Explicit_Julian PaxDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at PaxDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(PaxDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian PaxDate.MaxValue === exp
 
 module Bundles =
     let private chr = PaxCalendar.Instance

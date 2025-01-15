@@ -78,16 +78,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at InternationalFixedDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
-
-        InternationalFixedDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at InternationalFixedDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
 
         InternationalFixedDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at InternationalFixedDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        InternationalFixedDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to InternationalFixedDate`` (x: DateInfo) =
@@ -98,16 +98,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at InternationalFixedDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian InternationalFixedDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at InternationalFixedDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian InternationalFixedDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at InternationalFixedDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian InternationalFixedDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -122,16 +122,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at InternationalFixedDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
-
-        InternationalFixedDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at InternationalFixedDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
 
         InternationalFixedDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at InternationalFixedDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        InternationalFixedDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -142,16 +142,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at InternationalFixedDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian InternationalFixedDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at InternationalFixedDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MinValue.DayNumber)
 
         op_Explicit_Julian InternationalFixedDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at InternationalFixedDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(InternationalFixedDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian InternationalFixedDate.MaxValue === exp
 
 module Bundles =
     let private chr = InternationalFixedCalendar.Instance

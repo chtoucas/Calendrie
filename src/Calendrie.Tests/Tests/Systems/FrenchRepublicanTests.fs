@@ -96,16 +96,16 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at FrenchRepublicanDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
-
-        FrenchRepublicanDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at FrenchRepublicanDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
         FrenchRepublicanDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at FrenchRepublicanDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
+
+        FrenchRepublicanDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to FrenchRepublicanDate`` (x: DateInfo) =
@@ -116,16 +116,16 @@ module Conversions =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at FrenchRepublicanDate:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian FrenchRepublicanDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at FrenchRepublicanDate:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
         op_Explicit_Gregorian FrenchRepublicanDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at FrenchRepublicanDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian FrenchRepublicanDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -140,16 +140,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at FrenchRepublicanDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
-
-        FrenchRepublicanDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at FrenchRepublicanDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
         FrenchRepublicanDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at FrenchRepublicanDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
+
+        FrenchRepublicanDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -160,16 +160,16 @@ module Conversions =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at FrenchRepublicanDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
-
-        op_Explicit_Julian FrenchRepublicanDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at FrenchRepublicanDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
         op_Explicit_Julian FrenchRepublicanDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at FrenchRepublicanDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
+
+        op_Explicit_Julian FrenchRepublicanDate.MaxValue === exp
 
 module Conversions13 =
     let private calendarDataSet = StandardFrenchRepublican13DataSet.Instance
@@ -207,16 +207,16 @@ module Conversions13 =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at FrenchRepublican13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
-
-        FrenchRepublican13Date.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at FrenchRepublican13Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
 
         FrenchRepublican13Date.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at FrenchRepublican13Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+
+        FrenchRepublican13Date.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to FrenchRepublican13Date`` (x: DateInfo) =
@@ -227,16 +227,16 @@ module Conversions13 =
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at FrenchRepublican13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
-
-        op_Explicit_Gregorian FrenchRepublican13Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to GregorianDate at FrenchRepublican13Date:MinValue`` () =
         let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
 
         op_Explicit_Gregorian FrenchRepublican13Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to GregorianDate at FrenchRepublican13Date:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+
+        op_Explicit_Gregorian FrenchRepublican13Date.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -251,16 +251,16 @@ module Conversions13 =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at FrenchRepublican13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
-
-        FrenchRepublican13Date.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at FrenchRepublican13Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
 
         FrenchRepublican13Date.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at FrenchRepublican13Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+
+        FrenchRepublican13Date.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -271,16 +271,16 @@ module Conversions13 =
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at FrenchRepublican13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
-
-        op_Explicit_Julian FrenchRepublican13Date.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at FrenchRepublican13Date:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
 
         op_Explicit_Julian FrenchRepublican13Date.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at FrenchRepublican13Date:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+
+        op_Explicit_Julian FrenchRepublican13Date.MaxValue === exp
 
 module Bundles =
     let private chr = FrenchRepublicanCalendar.Instance
