@@ -356,6 +356,7 @@ public partial struct JulianDate // Conversions
     /// <summary>
     /// Creates a new instance of the <see cref="JulianDate"/> struct from the
     /// specified <see cref="GregorianDate"/> value.
+    /// <para>The operation NEVER overflows.</para>
     /// </summary>
     //
     // Used by GregorianDate to implement ToJulianDate().

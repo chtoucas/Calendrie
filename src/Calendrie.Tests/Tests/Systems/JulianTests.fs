@@ -81,7 +81,7 @@ module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
-    // NB: FromAbsoluteDate(GregorianDate) is tested in GregorianTests/ToJulianDate().
+    // NB: FromAbsoluteDate(GregorianDate) is tested in GregorianTests alongside ToJulianDate().
 
     //
     // Conversion to DayNumber

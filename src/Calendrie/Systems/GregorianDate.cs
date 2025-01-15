@@ -312,6 +312,7 @@ public partial struct GregorianDate // Conversions
     /// <summary>
     /// Defines an explicit conversion of a <see cref="GregorianDate"/> value to
     /// a <see cref="JulianDate"/> value.
+    /// <para>The conversion NEVER overflows.</para>
     /// <para>See also <seealso cref="ToJulianDate()"/>.</para>
     /// </summary>
     //
@@ -361,6 +362,7 @@ public partial struct GregorianDate // Conversions
 
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
+    /// <para>The conversion NEVER overflows.</para>
     /// </summary>
     //
     // NB: This operation does NOT overflow.
