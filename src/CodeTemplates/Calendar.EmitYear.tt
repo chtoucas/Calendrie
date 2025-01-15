@@ -588,7 +588,7 @@ public partial struct <#= Prefix #>Year // Math ops
     public static <#= Prefix #>Year operator --(<#= Prefix #>Year value) => value.PreviousYear();
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified year.
+    /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
     public int CountYearsSince(<#= Prefix #>Year other) =>

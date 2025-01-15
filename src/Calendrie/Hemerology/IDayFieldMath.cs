@@ -15,7 +15,7 @@ public interface IDayFieldMath<TSelf>
     where TSelf : IDayFieldMath<TSelf>
 {
     /// <summary>
-    /// Counts the number of days elapsed since the specified value.
+    /// Counts the number of whole days elapsed since the specified value.
     /// </summary>
     [Pure] int CountDaysSince(TSelf other);
 

@@ -12,6 +12,7 @@ open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -118,6 +119,10 @@ module Bundles =
         member x.ToString_InvariantCulture4 () =
             let date = x.GetDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Gregorian)"
+
+    [<Sealed>]
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<GregorianDate, UnboundedGregorianDataSet>()
 
     [<Sealed>]
     type DayOfWeekFacts() =

@@ -11,7 +11,7 @@ public interface IMonthFieldMath<TSelf>
     where TSelf : IMonthFieldMath<TSelf>
 {
     /// <summary>
-    /// Counts the number of months elapsed since the specified value.
+    /// Counts the number of whole months elapsed since the specified value.
     /// </summary>
     [Pure] int CountMonthsSince(TSelf other);
 

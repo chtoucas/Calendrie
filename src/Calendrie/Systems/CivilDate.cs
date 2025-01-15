@@ -274,7 +274,7 @@ public partial struct CivilDate // Factories
 
     [Pure]
     static CivilDate IUnsafeFactory<CivilDate>.UnsafeCreate(int daysSinceZero) =>
-        new(daysSinceZero);
+        UnsafeCreate(daysSinceZero);
 }
 
 public partial struct CivilDate // Conversions
@@ -421,7 +421,7 @@ public partial struct CivilDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified date.
+    /// Counts the number of whole years elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountYearsSince(CivilDate other)
@@ -449,7 +449,7 @@ public partial struct CivilDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified date.
+    /// Counts the number of whole months elapsed since the specified date.
     /// </summary>
     [Pure]
     public int CountMonthsSince(CivilDate other)
@@ -530,6 +530,8 @@ public partial struct CivilDate // Non-standard math ops
 public partial struct CivilDate // Non-standard math ops (experimental)
 {
     // TODO(code): non-standard math ops (experimental), GregorianDate and JulianDate too.
+    // I'm pretty sure that CountYears/MonthsSince() are both wrong -> only the
+    // standard versions are meaningful.
 
     /// <summary>
     /// Adds a number of years to the year field of this date instance using the

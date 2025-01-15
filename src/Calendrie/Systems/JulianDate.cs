@@ -296,7 +296,7 @@ public partial struct JulianDate // Factories
 
     [Pure]
     static JulianDate IUnsafeFactory<JulianDate>.UnsafeCreate(int daysSinceEpoch) =>
-        new(daysSinceEpoch);
+        UnsafeCreate(daysSinceEpoch);
 }
 
 public partial struct JulianDate // Conversions

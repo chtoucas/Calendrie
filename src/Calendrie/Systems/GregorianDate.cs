@@ -299,7 +299,7 @@ public partial struct GregorianDate // Factories
     [Pure]
     //[Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static GregorianDate IUnsafeFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
-        new(daysSinceZero);
+        UnsafeCreate(daysSinceZero);
 }
 
 public partial struct GregorianDate // Conversions

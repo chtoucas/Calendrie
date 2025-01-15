@@ -1036,7 +1036,7 @@ public partial struct <#= Prefix #>Month // Standard math ops
     public static <#= Prefix #>Month operator --(<#= Prefix #>Month value) => value.PreviousMonth();
 
     /// <summary>
-    /// Counts the number of months elapsed since the specified month.
+    /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
     public int CountMonthsSince(<#= Prefix #>Month other) =>
@@ -1113,7 +1113,7 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>In the particular case of the <#= Prefix #> calendar, this
     /// operation is exact.</para>
     /// </summary>
@@ -1148,7 +1148,7 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of years elapsed since the specified month.
+    /// Counts the number of whole years elapsed since the specified month.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>

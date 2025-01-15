@@ -13,6 +13,7 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -242,6 +243,10 @@ module Bundles =
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<CivilDate, StandardGregorianDataSet>()
+
+    [<Sealed>]
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<CivilDate, StandardGregorianDataSet>()
 
     [<Sealed>]
     type DayOfWeekFacts() =
