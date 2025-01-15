@@ -7,10 +7,11 @@ using Calendrie.Hemerology;
 using Calendrie.Systems;
 using Calendrie.Testing.Data;
 
+// Useful to test the interface when the implementation is __explicit__.
+
 /// <summary>
 /// Provides facts about the <see cref="IUnsafeFactory{T}"/> type.
 /// </summary>
-[Obsolete("To be removed")]
 public class IUnsafeDateFactoryFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
     where TDate : struct, IDate<TDate>, IUnsafeFactory<TDate>

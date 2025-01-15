@@ -13,6 +13,7 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
@@ -56,17 +57,6 @@ module Prelude =
 
 module Factories =
     let dateInfoData = calendarDataSet.DateInfoData
-    let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
-
-    [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
-    let ``UnsafeCreate(daysSinceEpoch)`` (x: DaysSinceEpochInfo) =
-        let (daysSinceEpoch, y, m, d) = x.Deconstruct()
-        // Act
-        let date = GregorianDate.UnsafeCreate(daysSinceEpoch)
-        // Assert
-        date.Year      === y
-        date.Month     === m
-        date.Day       === d
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``UnsafeCreate(y, m, d)`` (x: DateInfo) =
@@ -208,6 +198,10 @@ module Bundles =
         member x.ToString_InvariantCulture4 () =
             let date = x.GetDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Gregorian)"
+
+    [<Sealed>]
+    type UnsafeDateFactoryFacts() =
+        inherit IUnsafeDateFactoryFacts<GregorianDate, UnboundedGregorianDataSet>()
 
     [<Sealed>]
     type DayOfWeekFacts() =

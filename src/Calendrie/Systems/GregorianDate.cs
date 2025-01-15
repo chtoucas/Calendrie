@@ -294,10 +294,7 @@ public partial struct GregorianDate // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static GregorianDate UnsafeCreate(int daysSinceZero) => new(daysSinceZero);
 
-    // REVIEW(code): inlining? Same for the other date types.
-
     [Pure]
-    //[Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     static GregorianDate IUnsafeFactory<GregorianDate>.UnsafeCreate(int daysSinceZero) =>
         UnsafeCreate(daysSinceZero);
 }
