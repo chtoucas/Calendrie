@@ -345,6 +345,7 @@ public partial struct JulianDate // Conversions
     /// </summary>
     //
     // Truely UnsafeFromAbsoluteDate().
+    // Used by the other date types to implement ToJulianDate().
     [Pure]
     internal static JulianDate UnsafeCreate(DayNumber dayNumber) =>
         // NB: in general, the subtraction may overflow, but it just happens that
@@ -356,17 +357,20 @@ public partial struct JulianDate // Conversions
     /// Creates a new instance of the <see cref="JulianDate"/> struct from the
     /// specified <see cref="GregorianDate"/> value.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported <see cref="JulianDate"/> values.</exception>
+    //
+    // Used by GregorianDate to implement ToJulianDate().
+    // NB: This operation does NOT overflow.
     [Pure]
     internal static JulianDate FromAbsoluteDate(GregorianDate date)
     {
         int daysSinceEpoch = date.DaysSinceZero - EpochDaysSinceZero;
 
-        if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > MaxDaysSinceEpoch)
-            ThrowHelpers.ThrowDateOverflow();
+        // GregorianDate.MinValue.DayNumber > JulianDate.MinValue.DayNumber
+        Debug.Assert(daysSinceEpoch >= MinDaysSinceEpoch);
+        // GregorianDate.MaxValue.DayNumber < JulianDate.MaxValue.DayNumber
+        Debug.Assert(daysSinceEpoch <= MaxDaysSinceEpoch);
 
-        return new(daysSinceEpoch);
+        return new JulianDate(daysSinceEpoch);
     }
 
     /// <summary>

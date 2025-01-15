@@ -81,6 +81,8 @@ module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
+    // NB: FromAbsoluteDate(GregorianDate) is tested in GregorianTests/ToJulianDate().
+
     //
     // Conversion to DayNumber
     //
@@ -96,49 +98,35 @@ module Conversions =
     // Conversion to GregorianDate
     //
 
-    //[<Theory; MemberData(nameof(dateInfoData))>]
-    //let ``ToGregorianDate()`` (x: DateInfo) =
-    //    let y, m, d, _ = x.Deconstruct()
-    //    let date = new JulianDate(y, m, d)
-    //    let exp = new GregorianDate(y, m, d)
+    [<Fact>]
+    let ``Conversion to a GregorianDate value overflows at JulianDate:MinValue`` () =
+        JulianDate.MinValue.DayNumber < GregorianDate.MinValue.DayNumber |> ok
 
-    //    date.ToGregorianDate() === exp
+        (fun () -> JulianDate.MinValue.ToGregorianDate())      |> overflows
+        (fun () -> JulianDate.op_Explicit JulianDate.MinValue) |> overflows
 
-    //[<Fact>]
-    //let ``ToGregorianDate() at JulianDate:MaxValue`` () =
-    //    let y, m, d = JulianDate.MaxValue.Deconstruct()
-    //    let exp = new GregorianDate(y, m, d)
+    [<Fact>]
+    let ``Conversion to a GregorianDate value overflows at JulianDate:MaxValue`` () =
+        JulianDate.MaxValue.DayNumber > GregorianDate.MaxValue.DayNumber |> ok
 
-    //    JulianDate.MaxValue.ToGregorianDate() === exp
+        (fun () -> JulianDate.MaxValue.ToGregorianDate())      |> overflows
+        (fun () -> JulianDate.op_Explicit JulianDate.MaxValue) |> overflows
 
-    //[<Fact>]
-    //let ``ToGregorianDate() at JulianDate:MinValue`` () =
-    //    let y, m, d = JulianDate.MinValue.Deconstruct()
-    //    let exp = new GregorianDate(y, m, d)
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ToGregorianDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new JulianDate(y, m, d)
+        let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
 
-    //    JulianDate.MinValue.ToGregorianDate() === exp
+        date.ToGregorianDate() === exp
 
-    //[<Theory; MemberData(nameof(dateInfoData))>]
-    //let ``Explicit conversion to GregorianDate`` (x: DateInfo) =
-    //    let y, m, d, _ = x.Deconstruct()
-    //    let date = new JulianDate(y, m, d)
-    //    let exp = new GregorianDate(y, m, d)
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Explicit conversion to GregorianDate`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new JulianDate(y, m, d)
+        let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
 
-    //    JulianDate.op_Explicit date === exp
-
-    //[<Fact>]
-    //let ``Explicit conversion to GregorianDate at JulianDate:MaxValue`` () =
-    //    let y, m, d = JulianDate.MaxValue.Deconstruct()
-    //    let exp = new GregorianDate(y, m, d)
-
-    //    JulianDate.op_Explicit JulianDate.MaxValue === exp
-
-    //[<Fact>]
-    //let ``Explicit conversion to GregorianDate at JulianDate:MinValue`` () =
-    //    let y, m, d = JulianDate.MinValue.Deconstruct()
-    //    let exp = new GregorianDate(y, m, d)
-
-    //    JulianDate.op_Explicit JulianDate.MinValue === exp
+        JulianDate.op_Explicit date === exp
 
 module Extensions =
     let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(chr.Scope.Domain)

@@ -111,18 +111,18 @@ module Conversions =
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at CivilDate:MaxValue`` () =
-        let y, m, d = CivilDate.MaxValue.Deconstruct()
-        let exp = new GregorianDate(y, m, d)
-
-        CivilDate.MaxValue.ToGregorianDate() === exp
-
-    [<Fact>]
     let ``ToGregorianDate() at CivilDate:MinValue`` () =
         let y, m, d = CivilDate.MinValue.Deconstruct()
         let exp = new GregorianDate(y, m, d)
 
         CivilDate.MinValue.ToGregorianDate() === exp
+
+    [<Fact>]
+    let ``ToGregorianDate() at CivilDate:MaxValue`` () =
+        let y, m, d = CivilDate.MaxValue.Deconstruct()
+        let exp = new GregorianDate(y, m, d)
+
+        CivilDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Implicit conversion to GregorianDate`` (x: DateInfo) =
@@ -133,18 +133,18 @@ module Conversions =
         (date : GregorianDate) === exp
 
     [<Fact>]
-    let ``Implicit conversion to GregorianDate at CivilDate:MaxValue`` () =
-        let y, m, d = CivilDate.MaxValue.Deconstruct()
-        let exp = new GregorianDate(y, m, d)
-
-        (CivilDate.MaxValue : GregorianDate) === exp
-
-    [<Fact>]
     let ``Implicit conversion to GregorianDate at CivilDate:MinValue`` () =
         let y, m, d = CivilDate.MinValue.Deconstruct()
         let exp = new GregorianDate(y, m, d)
 
         (CivilDate.MinValue : GregorianDate) === exp
+
+    [<Fact>]
+    let ``Implicit conversion to GregorianDate at CivilDate:MaxValue`` () =
+        let y, m, d = CivilDate.MaxValue.Deconstruct()
+        let exp = new GregorianDate(y, m, d)
+
+        (CivilDate.MaxValue : GregorianDate) === exp
 
     //
     // Conversion to JulianDate
@@ -159,16 +159,16 @@ module Conversions =
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at CivilDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(CivilDate.MaxValue.DayNumber)
-
-        CivilDate.MaxValue.ToJulianDate() === exp
-
-    [<Fact>]
     let ``ToJulianDate() at CivilDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(CivilDate.MinValue.DayNumber)
 
         CivilDate.MinValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at CivilDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(CivilDate.MaxValue.DayNumber)
+
+        CivilDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
@@ -179,16 +179,16 @@ module Conversions =
         CivilDate.op_Explicit date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at CivilDate:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(CivilDate.MaxValue.DayNumber)
-
-        CivilDate.op_Explicit CivilDate.MaxValue === exp
-
-    [<Fact>]
     let ``Explicit conversion to JulianDate at CivilDate:MinValue`` () =
         let exp = JulianDate.FromAbsoluteDate(CivilDate.MinValue.DayNumber)
 
         CivilDate.op_Explicit CivilDate.MinValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at CivilDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(CivilDate.MaxValue.DayNumber)
+
+        CivilDate.op_Explicit CivilDate.MaxValue === exp
 
 module Extensions =
     let dayOfWeekData = calendarDataSet.DayOfWeekData

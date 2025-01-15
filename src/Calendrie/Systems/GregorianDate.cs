@@ -314,8 +314,8 @@ public partial struct GregorianDate // Conversions
     /// a <see cref="JulianDate"/> value.
     /// <para>See also <seealso cref="ToJulianDate()"/>.</para>
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported <see cref="JulianDate"/> values.</exception>
+    //
+    // NB: This operation does NOT overflow.
     public static explicit operator JulianDate(GregorianDate date) =>
         JulianDate.FromAbsoluteDate(date);
 
@@ -346,6 +346,8 @@ public partial struct GregorianDate // Conversions
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported <see cref="GregorianDate"/> values.</exception>
+    //
+    // Used by JulianDate to implement ToGregorianDate().
     [Pure]
     internal static GregorianDate FromAbsoluteDate(JulianDate date)
     {
@@ -360,8 +362,8 @@ public partial struct GregorianDate // Conversions
     /// <summary>
     /// Converts the current instance to a <see cref="JulianDate"/> value.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported <see cref="JulianDate"/> values.</exception>
+    //
+    // NB: This operation does NOT overflow.
     [Pure]
     public JulianDate ToJulianDate() => JulianDate.FromAbsoluteDate(this);
 }
