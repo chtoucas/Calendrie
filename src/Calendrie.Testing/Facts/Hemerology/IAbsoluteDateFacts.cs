@@ -12,6 +12,8 @@ using Calendrie.Testing.Data;
 // IAbsoluteDate<T> implémentent aussi IDateable, mais si un jour cela change,
 // on pourra toujours lever la contrainte IDateable ci-dessous.
 
+// We also test the static (abstract) methods from the interface.
+
 /// <summary>
 /// Provides facts about the <see cref="IAbsoluteDate{TSelf}"/> type.
 /// <para>The target type MUST also be of the <see cref="IDateable"/> type.</para>

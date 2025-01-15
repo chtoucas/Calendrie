@@ -7,7 +7,7 @@ using Calendrie.Hemerology;
 using Calendrie.Systems;
 using Calendrie.Testing.Data;
 
-// Useful to test the interface when the implementation is __explicit__.
+// Useful to test the static (abstract) methods from the interface.
 
 /// <summary>
 /// Provides facts about the <see cref="IUnsafeFactory{T}"/> type.

@@ -6,6 +6,8 @@ namespace Calendrie.Testing.Facts.Hemerology;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
+// We also test the static (abstract) methods from the interface.
+
 /// <summary>
 /// Provides facts about the <see cref="IDate{TSelf}"/> type.
 /// </summary>
