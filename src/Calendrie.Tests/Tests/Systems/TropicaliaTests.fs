@@ -183,3 +183,17 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<TropicaliaDate, StandardTropicaliaDataSet>()
+
+    //
+    // Month and year types
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<TropicaliaMonth, StandardTropicaliaDataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<TropicaliaYear, StandardTropicaliaDataSet>()

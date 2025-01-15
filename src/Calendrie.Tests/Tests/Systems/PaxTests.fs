@@ -183,3 +183,17 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<PaxDate, StandardPaxDataSet>()
+
+    //
+    // Month and year types
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<PaxMonth, StandardPaxDataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<PaxYear, StandardPaxDataSet>()

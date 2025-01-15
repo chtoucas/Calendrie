@@ -182,3 +182,15 @@ module Bundles =
     [<Sealed>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<JulianDate, UnboundedJulianDataSet>()
+
+    //
+    // Month and year types
+    //
+
+    [<Sealed>]
+    type MonthFacts() =
+        inherit IMonthFacts<JulianMonth, UnboundedJulianDataSet>()
+
+    [<Sealed>]
+    type YearFacts() =
+        inherit IYearFacts<JulianYear, UnboundedJulianDataSet>()

@@ -244,3 +244,15 @@ module Bundles =
         inherit IDateDayOfWeekFacts<CivilDate, StandardGregorianDataSet>()
 
         override __.GetDate(y, m, d) = new CivilDate(y, m, d)
+
+    //
+    // Month and year types
+    //
+
+    [<Sealed>]
+    type MonthFacts() =
+        inherit IMonthFacts<CivilMonth, StandardGregorianDataSet>()
+
+    [<Sealed>]
+    type YearFacts() =
+        inherit IYearFacts<CivilYear, StandardGregorianDataSet>()

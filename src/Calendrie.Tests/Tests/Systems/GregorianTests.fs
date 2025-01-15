@@ -210,3 +210,15 @@ module Bundles =
         inherit IDateDayOfWeekFacts<GregorianDate, UnboundedGregorianDataSet>()
 
         override __.GetDate(y, m, d) = new GregorianDate(y, m, d)
+
+    //
+    // Month and year types
+    //
+
+    [<Sealed>]
+    type MonthFacts() =
+        inherit IMonthFacts<GregorianMonth, UnboundedGregorianDataSet>()
+
+    [<Sealed>]
+    type YearFacts() =
+        inherit IYearFacts<GregorianYear, UnboundedGregorianDataSet>()
