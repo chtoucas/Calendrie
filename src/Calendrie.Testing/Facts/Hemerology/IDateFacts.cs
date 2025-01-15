@@ -385,12 +385,12 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     [Theory, MemberData(nameof(AddMonthsData))]
     public void PlusMonths(YemodaPairAnd<int> info)
     {
-        int ms = info.Value;
+        int months = info.Value;
         var date = GetDate(info.First);
         var other = GetDate(info.Second);
         // Act & Assert
-        Assert.Equal(other, date.PlusMonths(ms));
-        Assert.Equal(date, other.PlusMonths(-ms));
+        Assert.Equal(other, date.PlusMonths(months));
+        Assert.Equal(date, other.PlusMonths(-months));
     }
 
     #endregion
@@ -415,12 +415,12 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     [Theory, MemberData(nameof(CountMonthsBetweenData))]
     public void CountMonthsSince(YemodaPairAnd<int> info)
     {
-        int ms = info.Value;
+        int months = info.Value;
         var start = GetDate(info.First);
         var end = GetDate(info.Second);
         // Act & Assert
-        Assert.Equal(ms, end.CountMonthsSince(start));
-        Assert.Equal(-ms, start.CountMonthsSince(end));
+        Assert.Equal(months, end.CountMonthsSince(start));
+        Assert.Equal(-months, start.CountMonthsSince(end));
     }
 
     #endregion

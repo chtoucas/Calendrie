@@ -222,3 +222,12 @@ module Bundles =
     [<Sealed>]
     type YearFacts() =
         inherit IYearFacts<GregorianYear, UnboundedGregorianDataSet>()
+
+    //
+    // Math
+    //
+
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<GregorianDate, UnboundedGregorianDataSet>(
+            new GregorianDateMath(AdditionRule.Truncate))

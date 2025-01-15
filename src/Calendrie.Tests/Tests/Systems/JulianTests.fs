@@ -194,3 +194,12 @@ module Bundles =
     [<Sealed>]
     type YearFacts() =
         inherit IYearFacts<JulianYear, UnboundedJulianDataSet>()
+
+    //
+    // Math
+    //
+
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<JulianDate, UnboundedJulianDataSet>(
+            new JulianDateMath(AdditionRule.Truncate))

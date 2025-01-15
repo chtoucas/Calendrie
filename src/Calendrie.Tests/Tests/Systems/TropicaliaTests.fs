@@ -197,3 +197,12 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type YearFacts() =
         inherit IYearFacts<TropicaliaYear, StandardTropicaliaDataSet>()
+
+    //
+    // Math
+    //
+
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<TropicaliaDate, StandardTropicaliaDataSet>(
+            new TropicaliaDateMath(AdditionRule.Truncate))

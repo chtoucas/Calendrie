@@ -256,3 +256,12 @@ module Bundles =
     [<Sealed>]
     type YearFacts() =
         inherit IYearFacts<CivilYear, StandardGregorianDataSet>()
+
+    //
+    // Math
+    //
+
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<CivilDate, StandardGregorianDataSet>(
+            new CivilDateMath(AdditionRule.Truncate))

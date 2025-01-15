@@ -197,3 +197,12 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type YearFacts() =
         inherit IYearFacts<PaxYear, StandardPaxDataSet>()
+
+    //
+    // Math
+    //
+
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>(
+            new PaxDateMath(AdditionRule.Truncate))
