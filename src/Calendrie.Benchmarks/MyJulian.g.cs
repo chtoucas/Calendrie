@@ -1084,7 +1084,7 @@ public partial struct MyJulianMonth // Preamble
     }
 }
 
-public partial struct MyJulianMonth // Factories & conversions
+public partial struct MyJulianMonth // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -1139,17 +1139,16 @@ public partial struct MyJulianMonth // Factories & conversions
 
     [Pure]
     static MyJulianMonth IUnsafeFactory<MyJulianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         JulianSchema.MonthsInYear * (y - 1) + m - 1;
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct MyJulianMonth // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
     /// from the specified number of consecutive months since the epoch.
@@ -1665,7 +1664,7 @@ public partial struct MyJulianYear // Preamble
         FormattableString.Invariant($"{Year:D4} ({MyJulianCalendar.DisplayName})");
 }
 
-public partial struct MyJulianYear // Factories & conversions
+public partial struct MyJulianYear // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -1699,11 +1698,10 @@ public partial struct MyJulianYear // Factories & conversions
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static MyJulianYear UnsafeCreate(int year) => new((ushort)(year - 1));
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct MyJulianYear // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="MyJulianYear"/> struct
     /// from the specified <see cref="MyJulianMonth"/> value.

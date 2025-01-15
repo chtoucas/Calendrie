@@ -37,7 +37,7 @@ public readonly partial struct CivilMonth :
     ISubtractionOperators<CivilMonth, CivilMonth, int>
 { }
 
-public partial struct CivilMonth // Factories & conversions
+public partial struct CivilMonth // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -92,7 +92,7 @@ public partial struct CivilMonth // Factories & conversions
 
     [Pure]
     static CivilMonth IUnsafeFactory<CivilMonth>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
@@ -410,7 +410,7 @@ public readonly partial struct CivilYear :
     ISubtractionOperators<CivilYear, CivilYear, int>
 { }
 
-public partial struct CivilYear // Factories & conversions
+public partial struct CivilYear // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -444,11 +444,10 @@ public partial struct CivilYear // Factories & conversions
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static CivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct CivilYear // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="CivilYear"/> struct
     /// from the specified <see cref="CivilMonth"/> value.

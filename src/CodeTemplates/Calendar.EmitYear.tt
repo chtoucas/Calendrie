@@ -11,6 +11,7 @@ public partial class CalendarTemplate
         EmitYearDecl();
         EmitYearPreamble();
         EmitYearFactories();
+        EmitYearConversions();
 
         if (IsRegular)
         {
@@ -170,7 +171,7 @@ public partial struct <#= Prefix #>Year // Preamble
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Year // Factories & conversions
+public partial struct <#= Prefix #>Year // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -204,11 +205,16 @@ public partial struct <#= Prefix #>Year // Factories & conversions
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static <#= Prefix #>Year UnsafeCreate(int year) => new((ushort)(year - 1));
+}
+<#+
+    } // T4: End of EmitYearFactories()
 
-    //
-    // Conversions
-    //
-
+    protected virtual void EmitYearConversions()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Year // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
     /// from the specified <see cref="<#= Prefix #>Month"/> value.
@@ -224,7 +230,7 @@ public partial struct <#= Prefix #>Year // Factories & conversions
     public static <#= Prefix #>Year FromDate(<#= Prefix #>Date date) => UnsafeCreate(date.Year);
 }
 <#+
-    } // T4: End of EmitYearFactories()
+    } // T4: End of EmitYearConversions()
 
     protected virtual void EmitYearMonthSegmentRegular()
     {

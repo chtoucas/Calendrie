@@ -180,23 +180,6 @@ public partial struct JulianYear // Factories
     internal static JulianYear UnsafeCreate(int year) => new(year - 1, default);
 }
 
-public partial struct JulianYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianYear"/> struct
-    /// from the specified <see cref="JulianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static JulianYear Create(JulianMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianYear"/> struct
-    /// from the specified <see cref="JulianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static JulianYear Create(JulianDate date) => UnsafeCreate(date.Year);
-}
-
 public partial struct JulianYear // IDaySegment
 {
     /// <inheritdoc />

@@ -1138,7 +1138,7 @@ public partial struct PaxMonth // Factories
 
     [Pure]
     static PaxMonth IUnsafeFactory<PaxMonth>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 }
 
 public partial struct PaxMonth // Conversions
@@ -1720,7 +1720,7 @@ public partial struct PaxYear // Preamble
         FormattableString.Invariant($"{Year:D4} ({PaxCalendar.DisplayName})");
 }
 
-public partial struct PaxYear // Factories & conversions
+public partial struct PaxYear // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -1754,11 +1754,10 @@ public partial struct PaxYear // Factories & conversions
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static PaxYear UnsafeCreate(int year) => new((ushort)(year - 1));
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct PaxYear // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="PaxYear"/> struct
     /// from the specified <see cref="PaxMonth"/> value.

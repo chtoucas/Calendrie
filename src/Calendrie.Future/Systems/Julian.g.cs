@@ -19,7 +19,7 @@ using Calendrie.Hemerology;
 
 #region JulianMonth
 
-public partial struct JulianMonth // Factories & conversions
+public partial struct JulianMonth // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -74,7 +74,7 @@ public partial struct JulianMonth // Factories & conversions
 
     [Pure]
     static JulianMonth IUnsafeFactory<JulianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
@@ -281,6 +281,23 @@ public partial struct JulianMonth // Non-standard math ops
 #endregion
 
 #region JulianYear
+
+public partial struct JulianYear // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static JulianYear FromMonth(JulianMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static JulianYear FromDate(JulianDate date) => UnsafeCreate(date.Year);
+}
 
 public partial struct JulianYear // IMonthSegment
 {

@@ -180,23 +180,6 @@ public partial struct GregorianYear // Factories
     internal static GregorianYear UnsafeCreate(int year) => new(year - 1, default);
 }
 
-public partial struct GregorianYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianYear"/> struct
-    /// from the specified <see cref="GregorianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static GregorianYear FromMonth(GregorianMonth month) => UnsafeCreate(month.Year);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianYear"/> struct
-    /// from the specified <see cref="GregorianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static GregorianYear FromDate(GregorianDate date) => UnsafeCreate(date.Year);
-}
-
 public partial struct GregorianYear // IDaySegment
 {
     /// <inheritdoc />

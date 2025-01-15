@@ -364,7 +364,7 @@ public partial struct <#= Prefix #>Month // Preamble
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Month // Factories & conversions
+public partial struct <#= Prefix #>Month // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -419,7 +419,7 @@ public partial struct <#= Prefix #>Month // Factories & conversions
 
     [Pure]
     static <#= Prefix #>Month IUnsafeFactory<<#= Prefix #>Month>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
@@ -508,7 +508,7 @@ public partial struct <#= Prefix #>Month // Factories
 
     [Pure]
     static <#= Prefix #>Month IUnsafeFactory<<#= Prefix #>Month>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 }
 <#+
     } // T4: End of EmitMonthFactoriesNonRegular()

@@ -19,7 +19,7 @@ using Calendrie.Hemerology;
 
 #region GregorianMonth
 
-public partial struct GregorianMonth // Factories & conversions
+public partial struct GregorianMonth // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -74,7 +74,7 @@ public partial struct GregorianMonth // Factories & conversions
 
     [Pure]
     static GregorianMonth IUnsafeFactory<GregorianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
@@ -281,6 +281,23 @@ public partial struct GregorianMonth // Non-standard math ops
 #endregion
 
 #region GregorianYear
+
+public partial struct GregorianYear // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianYear"/> struct
+    /// from the specified <see cref="GregorianMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static GregorianYear FromMonth(GregorianMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="GregorianYear"/> struct
+    /// from the specified <see cref="GregorianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static GregorianYear FromDate(GregorianDate date) => UnsafeCreate(date.Year);
+}
 
 public partial struct GregorianYear // IMonthSegment
 {

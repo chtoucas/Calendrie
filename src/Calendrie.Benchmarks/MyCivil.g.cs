@@ -1071,7 +1071,7 @@ public partial struct MyCivilMonth // Preamble
     }
 }
 
-public partial struct MyCivilMonth // Factories & conversions
+public partial struct MyCivilMonth // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -1126,17 +1126,16 @@ public partial struct MyCivilMonth // Factories & conversions
 
     [Pure]
     static MyCivilMonth IUnsafeFactory<MyCivilMonth>.UnsafeCreate(int monthsSinceEpoch) =>
-        new(monthsSinceEpoch);
+        UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
         GregorianSchema.MonthsInYear * (y - 1) + m - 1;
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct MyCivilMonth // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="MyCivilMonth"/> struct
     /// from the specified number of consecutive months since the epoch.
@@ -1652,7 +1651,7 @@ public partial struct MyCivilYear // Preamble
         FormattableString.Invariant($"{Year:D4} ({MyCivilCalendar.DisplayName})");
 }
 
-public partial struct MyCivilYear // Factories & conversions
+public partial struct MyCivilYear // Factories
 {
     /// <inheritdoc />
     [Pure]
@@ -1686,11 +1685,10 @@ public partial struct MyCivilYear // Factories & conversions
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static MyCivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
+}
 
-    //
-    // Conversions
-    //
-
+public partial struct MyCivilYear // Conversions
+{
     /// <summary>
     /// Creates a new instance of the <see cref="MyCivilYear"/> struct
     /// from the specified <see cref="MyCivilMonth"/> value.
