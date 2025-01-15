@@ -6,7 +6,7 @@
 public sealed class GregorianTemplate : ZeroCalendarTemplate
 {
     public GregorianTemplate(TextTransformation parent)
-        : base(parent, "GregorianSchema", maxDaysSinceEpochValue: "3_652_058")
+        : base(parent, "GregorianSchema", maxDaysSinceEpochValue: "365_242_133")
     {
         ScopeClass = "GregorianScope";
 
