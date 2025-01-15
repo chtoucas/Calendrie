@@ -67,10 +67,10 @@ module Conversions =
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = ArmenianDate -> GregorianDate
-    let op_Explicit_Gregorian : GregorianDateCaster = ArmenianDate.op_Explicit
+    let op_Explicit_Gregorian: GregorianDateCaster = ArmenianDate.op_Explicit
 
     type JulianDateCaster = ArmenianDate -> JulianDate
-    let op_Explicit_Julian : JulianDateCaster = ArmenianDate.op_Explicit
+    let op_Explicit_Julian: JulianDateCaster = ArmenianDate.op_Explicit
 
     //
     // Conversion to DayNumber
@@ -178,10 +178,10 @@ module Conversions13 =
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Armenian13Date -> GregorianDate
-    let op_Explicit_Gregorian : GregorianDateCaster = Armenian13Date.op_Explicit
+    let op_Explicit_Gregorian: GregorianDateCaster = Armenian13Date.op_Explicit
 
     type JulianDateCaster = Armenian13Date -> JulianDate
-    let op_Explicit_Julian : JulianDateCaster = Armenian13Date.op_Explicit
+    let op_Explicit_Julian: JulianDateCaster = Armenian13Date.op_Explicit
 
     //
     // Conversion to DayNumber

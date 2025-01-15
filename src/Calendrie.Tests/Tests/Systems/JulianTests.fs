@@ -3,6 +3,8 @@
 
 module Calendrie.Tests.Systems.JulianTests
 
+#nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
+
 open System
 
 open Calendrie
@@ -11,13 +13,14 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
 open type Calendrie.Extensions.JulianDateExtensions
 
+let private chr = JulianCalendar.Instance
 // NB: notice the use of UnboundedJulianDataSet.
+let private calendarDataSet = UnboundedJulianDataSet.Instance
 
 module Prelude =
     // Test for Benchmars.PlainJulian
@@ -48,11 +51,111 @@ module Prelude =
         JulianCalendar.Instance.MaxMonthsSinceEpoch === 11_999_987
 #endif
 
-module Extensions =
-    let private chr = JulianCalendar.Instance
-    let private domain = chr.Scope.Domain
+module Factories =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
-    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(domain)
+    [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
+    let ``UnsafeCreate(daysSinceEpoch)`` (x: DaysSinceEpochInfo) =
+        let (daysSinceEpoch, y, m, d) = x.Deconstruct()
+        // Act
+        let date = JulianDate.UnsafeCreate(daysSinceEpoch)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``UnsafeCreate(y, m, d)`` (x: DateInfo) =
+        let y, m, d, doy = x.Deconstruct()
+        // Act
+        let date = JulianDate.UnsafeCreate(y, m, d)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+        date.DayOfYear === doy
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``UnsafeCreate(y, doy)`` (x: DateInfo) =
+        let y, m, d, doy = x.Deconstruct()
+        // Act
+        let date = JulianDate.UnsafeCreate(y, doy)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+        date.DayOfYear === doy
+
+module Conversions =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let dayNumberInfoData = calendarDataSet.DayNumberInfoData
+
+    //
+    // Conversion to DayNumber
+    //
+
+    [<Theory; MemberData(nameof(dayNumberInfoData))>]
+    let ``Implicit conversion to DayNumber`` (x: DayNumberInfo) =
+        let dayNumber, y, m, d = x.Deconstruct()
+        let date  = new JulianDate(y, m, d)
+
+        date : DayNumber === dayNumber
+
+    //
+    // Conversion to GregorianDate
+    //
+
+    //[<Theory; MemberData(nameof(dateInfoData))>]
+    //let ``ToGregorianDate()`` (x: DateInfo) =
+    //    let y, m, d, _ = x.Deconstruct()
+    //    let date = new JulianDate(y, m, d)
+    //    let exp = new GregorianDate(y, m, d)
+
+    //    date.ToGregorianDate() === exp
+
+    //[<Fact>]
+    //let ``ToGregorianDate() at JulianDate:MaxValue`` () =
+    //    let y, m, d = JulianDate.MaxValue.Deconstruct()
+    //    let exp = new GregorianDate(y, m, d)
+
+    //    JulianDate.MaxValue.ToGregorianDate() === exp
+
+    //[<Fact>]
+    //let ``ToGregorianDate() at JulianDate:MinValue`` () =
+    //    let y, m, d = JulianDate.MinValue.Deconstruct()
+    //    let exp = new GregorianDate(y, m, d)
+
+    //    JulianDate.MinValue.ToGregorianDate() === exp
+
+    //[<Theory; MemberData(nameof(dateInfoData))>]
+    //let ``Explicit conversion to GregorianDate`` (x: DateInfo) =
+    //    let y, m, d, _ = x.Deconstruct()
+    //    let date = new JulianDate(y, m, d)
+    //    let exp = new GregorianDate(y, m, d)
+
+    //    JulianDate.op_Explicit date === exp
+
+    //[<Fact>]
+    //let ``Explicit conversion to GregorianDate at JulianDate:MaxValue`` () =
+    //    let y, m, d = JulianDate.MaxValue.Deconstruct()
+    //    let exp = new GregorianDate(y, m, d)
+
+    //    JulianDate.op_Explicit JulianDate.MaxValue === exp
+
+    //[<Fact>]
+    //let ``Explicit conversion to GregorianDate at JulianDate:MinValue`` () =
+    //    let y, m, d = JulianDate.MinValue.Deconstruct()
+    //    let exp = new GregorianDate(y, m, d)
+
+    //    JulianDate.op_Explicit JulianDate.MinValue === exp
+
+module Extensions =
+    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(chr.Scope.Domain)
+
+    //
+    // GetDayOfWeek() via DoomsdayRule
+    //
 
     [<Theory; MemberData(nameof(dayNumberToDayOfWeekData))>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -62,10 +165,6 @@ module Extensions =
         date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
-    // NB: notice the use of UnboundedJulianDataSet.
-
-    let private chr = JulianCalendar.Instance
-
     [<Sealed>]
     type CalendaTests() =
         inherit CalendarFacts<JulianCalendar, UnboundedJulianDataSet>(chr)
@@ -101,7 +200,3 @@ module Bundles =
         member x.ToString_InvariantCulture4 () =
             let date = x.GetDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Julian)"
-
-    [<Sealed>]
-    type UnsafeDateFactoryFacts() =
-        inherit IUnsafeDateFactoryFacts<JulianDate, UnboundedJulianDataSet>()

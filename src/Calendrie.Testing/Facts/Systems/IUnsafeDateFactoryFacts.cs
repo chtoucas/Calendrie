@@ -10,13 +10,14 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about the <see cref="IUnsafeFactory{T}"/> type.
 /// </summary>
+[Obsolete("To be removed")]
 public class IUnsafeDateFactoryFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
     where TDate : struct, IDate<TDate>, IUnsafeFactory<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
     [Theory, MemberData(nameof(DaysSinceEpochInfoData))]
-    public void FromDayNumber(DaysSinceEpochInfo info)
+    public void UnsafeCreate(DaysSinceEpochInfo info)
     {
         var (daysSinceEpoch, y, m, d) = info;
         // Act

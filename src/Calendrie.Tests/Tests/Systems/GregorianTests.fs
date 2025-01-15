@@ -3,26 +3,26 @@
 
 module Calendrie.Tests.Systems.GregorianTests
 
+#nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
+
 open System
 
 open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
-open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Unbounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
 open type Calendrie.Extensions.GregorianDateExtensions
 
+let private chr = GregorianCalendar.Instance
 // NB: notice the use of UnboundedGregorianDataSet.
+let private calendarDataSet = UnboundedGregorianDataSet.Instance
 
 module Prelude =
-    let private calendarDataSet = UnboundedGregorianDataSet.Instance
-
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
     [<Fact>]
@@ -48,28 +48,119 @@ module Prelude =
 #endif
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
-    let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =
-        let (daysSinceEpoch, y, m, d) = info.Deconstruct()
+    let ``Property DaysSinceZero`` (x: DaysSinceEpochInfo) =
+        let (daysSinceEpoch, y, m, d) = x.Deconstruct()
         let date = new GregorianDate(y, m, d)
 
         date.DaysSinceZero === daysSinceEpoch
 
-module Extensions =
-    let private chr = GregorianCalendar.Instance
-    let private domain = chr.Scope.Domain
+module Factories =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
-    let private calendarDataSet = StandardGregorianDataSet.Instance
-    let dayOfWeekData = calendarDataSet.DayOfWeekData
-    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(domain)
+    [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
+    let ``UnsafeCreate(daysSinceEpoch)`` (x: DaysSinceEpochInfo) =
+        let (daysSinceEpoch, y, m, d) = x.Deconstruct()
+        // Act
+        let date = GregorianDate.UnsafeCreate(daysSinceEpoch)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``UnsafeCreate(y, m, d)`` (x: DateInfo) =
+        let y, m, d, doy = x.Deconstruct()
+        // Act
+        let date = GregorianDate.UnsafeCreate(y, m, d)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+        date.DayOfYear === doy
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``UnsafeCreate(y, doy)`` (x: DateInfo) =
+        let y, m, d, doy = x.Deconstruct()
+        // Act
+        let date = GregorianDate.UnsafeCreate(y, doy)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+        date.DayOfYear === doy
+
+module Conversions =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     //
-    // GetDayOfWeek()
+    // Conversion to DayNumber
+    //
+
+    [<Theory; MemberData(nameof(dayNumberInfoData))>]
+    let ``Implicit conversion to DayNumber`` (x: DayNumberInfo) =
+        let dayNumber, y, m, d = x.Deconstruct()
+        let date  = new GregorianDate(y, m, d)
+
+        date : DayNumber === dayNumber
+
+    //
+    // Conversion to JulianDate
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ToJulianDate()`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new GregorianDate(y, m, d)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
+
+        date.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at GregorianDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(GregorianDate.MaxValue.DayNumber)
+
+        GregorianDate.MaxValue.ToJulianDate() === exp
+
+    [<Fact>]
+    let ``ToJulianDate() at GregorianDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(GregorianDate.MinValue.DayNumber)
+
+        GregorianDate.MinValue.ToJulianDate() === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Explicit conversion to JulianDate`` (x: DateInfo) =
+        let y, m, d, _ = x.Deconstruct()
+        let date = new GregorianDate(y, m, d)
+        let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
+
+        GregorianDate.op_Explicit date === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at GregorianDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(GregorianDate.MaxValue.DayNumber)
+
+        GregorianDate.op_Explicit GregorianDate.MaxValue === exp
+
+    [<Fact>]
+    let ``Explicit conversion to JulianDate at GregorianDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(GregorianDate.MinValue.DayNumber)
+
+        GregorianDate.op_Explicit GregorianDate.MinValue === exp
+
+module Extensions =
+    let dayOfWeekData = calendarDataSet.DayOfWeekData
+    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(chr.Scope.Domain)
+
+    //
+    // GetDayOfWeek() via DoomsdayRule
     //
 
     [<Theory; MemberData(nameof(dayOfWeekData))>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    let ``GregorianDate:GetDayOfWeek()`` (info: YemodaAnd<DayOfWeek>) =
-        let (y, m, d, dayOfWeek) = info.Deconstruct()
+    let ``GregorianDate:GetDayOfWeek()`` (x: YemodaAnd<DayOfWeek>) =
+        let (y, m, d, dayOfWeek) = x.Deconstruct()
         let date = new GregorianDate(y, m, d)
 
         date.GetDayOfWeek() === dayOfWeek
@@ -82,8 +173,6 @@ module Extensions =
         date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
-    let private chr = GregorianCalendar.Instance
-
     [<Sealed>]
     type CalendaTests() =
         inherit CalendarFacts<GregorianCalendar, UnboundedGregorianDataSet>(chr)
@@ -119,10 +208,6 @@ module Bundles =
         member x.ToString_InvariantCulture4 () =
             let date = x.GetDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Gregorian)"
-
-    [<Sealed>]
-    type UnsafeDateFactoryFacts() =
-        inherit IUnsafeDateFactoryFacts<GregorianDate, UnboundedGregorianDataSet>()
 
     [<Sealed>]
     type DayOfWeekFacts() =

@@ -13,18 +13,15 @@ open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
-open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
 open type Calendrie.Extensions.CivilDateExtensions
 
-// NB: notice the use of StandardGregorianDataSet.
+let private chr = CivilCalendar.Instance
+let private calendarDataSet = StandardGregorianDataSet.Instance
 
 module Prelude =
-    let private calendarDataSet = StandardGregorianDataSet.Instance
-
-    let dateInfoData = calendarDataSet.DateInfoData
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
     [<Fact>]
@@ -54,15 +51,49 @@ module Prelude =
 #endif
 
     [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
-    let ``Property DaysSinceZero`` (info: DaysSinceEpochInfo) =
-        let (daysSinceEpoch, y, m, d) = info.Deconstruct()
+    let ``Property DaysSinceZero`` (x: DaysSinceEpochInfo) =
+        let (daysSinceEpoch, y, m, d) = x.Deconstruct()
         let date = new CivilDate(y, m, d)
 
         date.DaysSinceZero === daysSinceEpoch
 
-module Conversions =
-    let private calendarDataSet = StandardGregorianDataSet.Instance
+module Factories =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
+    [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
+    let ``UnsafeCreate(daysSinceEpoch)`` (x: DaysSinceEpochInfo) =
+        let (daysSinceEpoch, y, m, d) = x.Deconstruct()
+        // Act
+        let date = CivilDate.UnsafeCreate(daysSinceEpoch)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``UnsafeCreate(y, m, d)`` (x: DateInfo) =
+        let y, m, d, doy = x.Deconstruct()
+        // Act
+        let date = CivilDate.UnsafeCreate(y, m, d)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+        date.DayOfYear === doy
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``UnsafeCreate(y, doy)`` (x: DateInfo) =
+        let y, m, d, doy = x.Deconstruct()
+        // Act
+        let date = CivilDate.UnsafeCreate(y, doy)
+        // Assert
+        date.Year      === y
+        date.Month     === m
+        date.Day       === d
+        date.DayOfYear === doy
+
+module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
@@ -125,30 +156,6 @@ module Conversions =
 
         (CivilDate.MinValue : GregorianDate) === exp
 
-    //[<Theory; MemberData(nameof(dateInfoData))>]
-    //let ``GregorianDate:FromCivilDate()`` (x: DateInfo) =
-    //    let y, m, d, _ = x.Deconstruct()
-    //    let gregorianDate = new GregorianDate(y, m, d)
-    //    let civilDate = new CivilDate(y, m, d)
-
-    //    GregorianDate.FromCivilDate(civilDate) === gregorianDate
-
-    //[<Fact>]
-    //let ``GregorianDate:FromCivilDate(CivilDate:MaxValue)`` () =
-    //    let civilDate = CivilDate.MaxValue
-    //    let y, m, d = civilDate.Deconstruct()
-    //    let gregorianDate = new GregorianDate(y, m, d)
-
-    //    GregorianDate.FromCivilDate(civilDate) === gregorianDate
-
-    //[<Fact>]
-    //let ``GregorianDate:FromCivilDate(CivilDate:MinValue)`` () =
-    //    let civilDate = CivilDate.MinValue
-    //    let y, m, d = civilDate.Deconstruct()
-    //    let gregorianDate = new GregorianDate(y, m, d)
-
-    //    GregorianDate.FromCivilDate(civilDate) === gregorianDate
-
     //
     // Conversion to JulianDate
     //
@@ -194,21 +201,17 @@ module Conversions =
         CivilDate.op_Explicit CivilDate.MinValue === exp
 
 module Extensions =
-    let private chr = CivilCalendar.Instance
-    let private domain = chr.Scope.Domain
-
-    let private calendarDataSet = StandardGregorianDataSet.Instance
     let dayOfWeekData = calendarDataSet.DayOfWeekData
-    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(domain)
+    let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(chr.Scope.Domain)
 
     //
-    // GetDayOfWeek()
+    // GetDayOfWeek() via DoomsdayRule
     //
 
     [<Theory; MemberData(nameof(dayOfWeekData))>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    let ``CivilDate:GetDayOfWeek()`` (info: YemodaAnd<DayOfWeek>) =
-        let (y, m, d, dayOfWeek) = info.Deconstruct()
+    let ``CivilDate:GetDayOfWeek()`` (x: YemodaAnd<DayOfWeek>) =
+        let (y, m, d, dayOfWeek) = x.Deconstruct()
         let date = new CivilDate(y, m, d)
 
         date.GetDayOfWeek() === dayOfWeek
@@ -221,8 +224,6 @@ module Extensions =
         date.GetDayOfWeek() === dayOfWeek
 
 module Bundles =
-    let private chr = CivilCalendar.Instance
-
     [<Sealed>]
     type CalendaTests() =
         inherit CalendarFacts<CivilCalendar, StandardGregorianDataSet>(chr)
@@ -243,10 +244,6 @@ module Bundles =
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<CivilDate, StandardGregorianDataSet>()
-
-    [<Sealed>]
-    type UnsafeDateFactoryFacts() =
-        inherit IUnsafeDateFactoryFacts<CivilDate, StandardGregorianDataSet>()
 
     [<Sealed>]
     type DayOfWeekFacts() =

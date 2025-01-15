@@ -60,13 +60,14 @@ public partial class IDateFacts<TDate, TDataSet> // Factories & constructors
     [Theory, MemberData(nameof(DateInfoData))]
     public void Create(DateInfo info)
     {
-        var (y, m, d) = info.Yemoda;
+        var (y, m, d, doy) = info;
         // Act
         var date = TDate.Create(y, m, d);
         // Assert
         Assert.Equal(y, date.Year);
         Assert.Equal(m, date.Month);
         Assert.Equal(d, date.Day);
+        Assert.Equal(doy, date.DayOfYear);
     }
 
     [TestExcludeFrom(TestExcludeFrom.Regular)]
