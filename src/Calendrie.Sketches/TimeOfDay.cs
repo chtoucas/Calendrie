@@ -219,6 +219,8 @@ public readonly partial struct TimeOfDay :
 
 public partial struct TimeOfDay // Binary data helpers
 {
+#if ENABLE_SERIALIZATION
+
     /// <summary>
     /// Deserializes a 32-bit binary value and recreates an original serialized
     /// <see cref="TimeOfDay"/> object.
@@ -239,6 +241,8 @@ public partial struct TimeOfDay // Binary data helpers
     /// </summary>
     [Pure]
     public int ToBinary() => _bin;
+
+#endif
 
     /// <summary>
     /// Packs the specified time parts into a single 32-bit word.

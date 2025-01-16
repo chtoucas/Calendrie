@@ -26,7 +26,9 @@ using Calendrie.Core.Utilities;
 /// </remarks>
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yemo :
+#if ENABLE_SERIALIZATION
     ISerializable<Yemo, int>,
+#endif
     IEqualityOperators<Yemo, Yemo, bool>,
     IEquatable<Yemo>,
     IComparisonOperators<Yemo, Yemo, bool>,
@@ -214,6 +216,8 @@ public readonly partial struct Yemo :
 
 public partial struct Yemo // Binary data helpers
 {
+#if ENABLE_SERIALIZATION
+
     /// <summary>
     /// Deserializes a 32-bit binary value and recreates an original serialized
     /// <see cref="Yemo"/> object.
@@ -232,6 +236,8 @@ public partial struct Yemo // Binary data helpers
     /// </summary>
     [Pure]
     public int ToBinary() => _bin;
+
+#endif
 
     /// <summary>
     /// Packs the specified month parts into a single 32-bit word.

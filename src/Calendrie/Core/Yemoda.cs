@@ -60,7 +60,9 @@ using Calendrie.Core.Utilities;
 /// </remarks>
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yemoda :
+#if ENABLE_SERIALIZATION
     ISerializable<Yemoda, int>,
+#endif
     IEqualityOperators<Yemoda, Yemoda, bool>,
     IEquatable<Yemoda>,
     IComparisonOperators<Yemoda, Yemoda, bool>,
@@ -336,6 +338,8 @@ public readonly partial struct Yemoda :
 
 public partial struct Yemoda // Binary data helpers
 {
+#if ENABLE_SERIALIZATION
+
     /// <summary>
     /// Deserializes a 32-bit binary value and recreates an original serialized
     /// <see cref="Yemoda"/> object.
@@ -381,6 +385,17 @@ public partial struct Yemoda // Binary data helpers
 
         return ((long)ToBinary() << 32) | extraData;
     }
+
+#else
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Yemoda"/> struct from the
+    /// specified 32-bit integer.
+    /// </summary>
+    [Pure]
+    internal static Yemoda FromInt32(int data) => new(data);
+
+#endif
 
     /// <summary>
     /// Packs the specified date parts into a single 32-bit word.

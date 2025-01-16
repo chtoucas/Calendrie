@@ -3,6 +3,8 @@
 
 namespace Calendrie.Core;
 
+#if ENABLE_SERIALIZATION
+
 /// <summary>
 /// Provides a method to serialize an object.
 /// </summary>
@@ -32,3 +34,5 @@ internal interface ISerializable<TSelf, TBinary> :
     /// <exception cref="ArgumentOutOfRangeException">Invalid input.</exception>
     [Pure] static abstract TSelf FromBinary(TBinary data);
 }
+
+#endif

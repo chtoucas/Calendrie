@@ -295,6 +295,8 @@ module Yemoda =
 
             ymd = startOfMonth
 
+#if ENABLE_SERIALIZATION
+
     module Serialization =
         let extraSeq = seq {
             yield 0u
@@ -387,6 +389,8 @@ module Yemoda =
             ymd.Year  === 2
             ymd.Month === 1
             ymd.Day   === 1
+
+#endif
 
     module Equality =
         open NonStructuralComparison
@@ -600,6 +604,8 @@ module Yemo =
 
             ym.GetDayOfMonthUnsafe(d) === ymd
 
+#if ENABLE_SERIALIZATION
+
     module Serialization =
         // We rely on the fact that the prop Yemo unset the day bits.
 
@@ -666,6 +672,8 @@ module Yemo =
 
             ym.ToBinary() === 0
             ym === Unchecked.defaultof<Yemo>
+
+#endif
 
     module Equality =
         open NonStructuralComparison
@@ -852,6 +860,8 @@ module Yedoy =
 
             ymd = startOfYear
 
+#if ENABLE_SERIALIZATION
+
     module Serialization =
         [<Property>]
         let ``Roundtrip serialization`` (i: int) =
@@ -881,6 +891,8 @@ module Yedoy =
 
             ydoy.ToBinary() === 0
             ydoy === Unchecked.defaultof<Yedoy>
+
+#endif
 
     module Equality =
         open NonStructuralComparison

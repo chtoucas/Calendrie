@@ -7,6 +7,7 @@
     <DefineConstants Condition=" '$(DefineConstants)' == '' ">CONTRACTS_FULL</DefineConstants>
 
     <DefineConstants>$(DefineConstants);PATCH_DIVREM</DefineConstants>
+    <!--<DefineConstants>$(DefineConstants);ENABLE_SERIALIZATION</DefineConstants>-->
     <!--<DefineConstants>$(DefineConstants);ENABLE_GENERIC_FACTORIES</DefineConstants>-->
     <!-- Enable the generic factories used by the samples -->
     <!--<DefineConstants>$(DefineConstants);FORCE_ENABLE_GENERIC_FACTORIES</DefineConstants>-->

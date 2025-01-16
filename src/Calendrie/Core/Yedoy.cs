@@ -22,7 +22,9 @@ using Calendrie.Core.Utilities;
 /// </remarks>
 [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
 public readonly partial struct Yedoy :
+#if ENABLE_SERIALIZATION
     ISerializable<Yedoy, int>,
+#endif
     IEqualityOperators<Yedoy, Yedoy, bool>,
     IEquatable<Yedoy>,
     IComparisonOperators<Yedoy, Yedoy, bool>,
@@ -203,6 +205,8 @@ public readonly partial struct Yedoy :
 
 public partial struct Yedoy // Binary data helpers
 {
+#if ENABLE_SERIALIZATION
+
     /// <summary>
     /// Deserializes a 32-bit binary value and recreates an original serialized
     /// <see cref="Yedoy"/> object.
@@ -215,6 +219,17 @@ public partial struct Yedoy // Binary data helpers
     /// </summary>
     [Pure]
     public int ToBinary() => _bin;
+
+#else
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Yedoy"/> struct from the
+    /// specified 32-bit integer.
+    /// </summary>
+    [Pure]
+    internal static Yedoy FromInt32(int data) => new(data);
+
+#endif
 
     /// <summary>
     /// Packs the specified ordinal date parts into a single 32-bit word.
