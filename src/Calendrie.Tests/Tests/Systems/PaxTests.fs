@@ -206,3 +206,8 @@ module Bundles =
     type DefaultDateMathFacts() =
         inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>(
             new PaxDateMath(AdditionRule.Truncate))
+
+    [<Sealed>]
+    type DefaultMonthMathFacts() =
+        inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>(
+            new PaxMonthMath(AdditionRule.Truncate))
