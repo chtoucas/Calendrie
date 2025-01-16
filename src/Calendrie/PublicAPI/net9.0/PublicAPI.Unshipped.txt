@@ -335,7 +335,6 @@ Calendrie.Core.Yedoy.DayOfYear.get -> int
 Calendrie.Core.Yedoy.Deconstruct(out int year, out int dayOfYear) -> void
 Calendrie.Core.Yedoy.Equals(Calendrie.Core.Yedoy other) -> bool
 Calendrie.Core.Yedoy.StartOfYear.get -> Calendrie.Core.Yedoy
-Calendrie.Core.Yedoy.ToBinary() -> int
 Calendrie.Core.Yedoy.Year.get -> int
 Calendrie.Core.Yedoy.Yedoy() -> void
 Calendrie.Core.Yemo
@@ -346,7 +345,6 @@ Calendrie.Core.Yemo.GetDayOfMonth(int day) -> Calendrie.Core.Yemoda
 Calendrie.Core.Yemo.Month.get -> int
 Calendrie.Core.Yemo.StartOfMonth.get -> Calendrie.Core.Yemoda
 Calendrie.Core.Yemo.StartOfYear.get -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemo.ToBinary() -> int
 Calendrie.Core.Yemo.Year.get -> int
 Calendrie.Core.Yemo.Yemo() -> void
 Calendrie.Core.Yemoda
@@ -357,8 +355,6 @@ Calendrie.Core.Yemoda.Equals(Calendrie.Core.Yemoda other) -> bool
 Calendrie.Core.Yemoda.Month.get -> int
 Calendrie.Core.Yemoda.StartOfMonth.get -> Calendrie.Core.Yemoda
 Calendrie.Core.Yemoda.StartOfYear.get -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemoda.ToBinary() -> int
-Calendrie.Core.Yemoda.ToBinary(uint extraData) -> long
 Calendrie.Core.Yemoda.Year.get -> int
 Calendrie.Core.Yemoda.Yemo.get -> Calendrie.Core.Yemo
 Calendrie.Core.Yemoda.Yemoda() -> void
@@ -1694,7 +1690,6 @@ static Calendrie.Core.Intervals.UpperRay<T>.operator ==(Calendrie.Core.Intervals
 static Calendrie.Core.LimitSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.LimitSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.Yedoy.Create(int year, int dayOfYear) -> Calendrie.Core.Yedoy
-static Calendrie.Core.Yedoy.FromBinary(int data) -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.MaxValue.get -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.MinValue.get -> Calendrie.Core.Yedoy
 static Calendrie.Core.Yedoy.operator !=(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
@@ -1704,7 +1699,6 @@ static Calendrie.Core.Yedoy.operator ==(Calendrie.Core.Yedoy left, Calendrie.Cor
 static Calendrie.Core.Yedoy.operator >(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
 static Calendrie.Core.Yedoy.operator >=(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
 static Calendrie.Core.Yemo.Create(int year, int month) -> Calendrie.Core.Yemo
-static Calendrie.Core.Yemo.FromBinary(int data) -> Calendrie.Core.Yemo
 static Calendrie.Core.Yemo.operator !=(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
 static Calendrie.Core.Yemo.operator <(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
 static Calendrie.Core.Yemo.operator <=(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
@@ -1712,8 +1706,6 @@ static Calendrie.Core.Yemo.operator ==(Calendrie.Core.Yemo left, Calendrie.Core.
 static Calendrie.Core.Yemo.operator >(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
 static Calendrie.Core.Yemo.operator >=(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
 static Calendrie.Core.Yemoda.Create(int year, int month, int day) -> Calendrie.Core.Yemoda
-static Calendrie.Core.Yemoda.FromBinary(int data) -> Calendrie.Core.Yemoda
-static Calendrie.Core.Yemoda.FromBinary(long data, out uint extraData) -> Calendrie.Core.Yemoda
 static Calendrie.Core.Yemoda.MaxValue.get -> Calendrie.Core.Yemoda
 static Calendrie.Core.Yemoda.MinValue.get -> Calendrie.Core.Yemoda
 static Calendrie.Core.Yemoda.operator !=(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
