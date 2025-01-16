@@ -307,7 +307,7 @@ public partial struct GregorianYear // Math ops
     public GregorianYear PlusYears(int years)
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
-        if (years < MinYearsSinceEpoch || yearsSinceEpoch > MaxYearsSinceEpoch)
+        if (yearsSinceEpoch < MinYearsSinceEpoch || yearsSinceEpoch > MaxYearsSinceEpoch)
             ThrowHelpers.ThrowYearOverflow();
         return new GregorianYear(yearsSinceEpoch, default);
     }

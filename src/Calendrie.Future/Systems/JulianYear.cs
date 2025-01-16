@@ -307,7 +307,7 @@ public partial struct JulianYear // Math ops
     public JulianYear PlusYears(int years)
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
-        if (years < MinYearsSinceEpoch || yearsSinceEpoch > MaxYearsSinceEpoch)
+        if (yearsSinceEpoch < MinYearsSinceEpoch || yearsSinceEpoch > MaxYearsSinceEpoch)
             ThrowHelpers.ThrowYearOverflow();
         return new JulianYear(yearsSinceEpoch, default);
     }
