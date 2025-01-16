@@ -20,7 +20,7 @@ Current status
 Features
 --------
 
-- _Dedicated date, month and year types _per_ calendar_
+- _Dedicated date, month and year types **per** calendar_
 - Custom math
 - User-defined calendars
 
