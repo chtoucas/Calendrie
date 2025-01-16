@@ -7,7 +7,7 @@ using static TemporalConstants;
 
 // REVIEW(code): do we need to use checked ops? Use ulong args
 
-// I observe very tiny performance gains only with:
+// I only observe very tiny performance gains with:
 // - DivideByNanosecondsPerHour
 // - MultiplyByNanosecondsPerHour
 // - DivideByNanosecondsPerMinute
@@ -46,10 +46,11 @@ internal partial class TemporalArithmetic // TicksPerDay
     /// </summary>
     private const long TicksPerDayOddPart = TicksPerDay >> TicksPerDayTwoAdicOrder;
 
-    /// <summary><c>daysSinceZero = ticksSinceZero / TicksPerDay</c></summary>
-    /// <remarks><para><paramref name="ticksSinceZero"/> MUST be &gt;= 0.</para></remarks>
+    /// <summary>
+    /// <c>daysSinceZero = ticksSinceZero / TicksPerDay</c>
+    /// <para><paramref name="ticksSinceZero"/> MUST be &gt;= 0.</para>
+    /// </summary>
     [Pure]
-    // CIL code size = 12 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long DivideByTicksPerDay(long ticksSinceZero)
     {
@@ -63,7 +64,6 @@ internal partial class TemporalArithmetic // TicksPerDay
     /// <para><c>daysSinceZero = ticksSinceZero / TicksPerDay</c></para>
     /// </summary>
     [Pure]
-    // CIL code size = XXX bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ulong DivideByTicksPerDay(ulong ticksSinceZero, out ulong tickOfDay)
     {
@@ -74,9 +74,10 @@ internal partial class TemporalArithmetic // TicksPerDay
         return daysSinceZero;
     }
 
-    /// <summary><c>ticksSinceZero = TicksPerDay * daysSinceZero</c></summary>
+    /// <summary>
+    /// <c>ticksSinceZero = TicksPerDay * daysSinceZero</c>
+    /// </summary>
     [Pure]
-    // CIL code size = 12 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long MultiplyByTicksPerDay(long daysSinceZero) =>
         //(daysSinceZero << TicksPerDayTwoAdicOrder) * TicksPerDayOddPart;
@@ -98,10 +99,11 @@ internal partial class TemporalArithmetic // NanosecondsPerHour
     private const long NanosecondsPerHourOddPart =
         NanosecondsPerHour >> NanosecondsPerHourTwoAdicOrder;
 
-    /// <summary><c>hourOfDay = nanosecondOfDay / NanosecondsPerHour</c></summary>
-    /// <remarks><para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para></remarks>
+    /// <summary>
+    /// <c>hourOfDay = nanosecondOfDay / NanosecondsPerHour</c>
+    /// <para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para>
+    /// </summary>
     [Pure]
-    // CIL code size = 13 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int DivideByNanosecondsPerHour(long nanosecondOfDay)
     {
@@ -112,9 +114,10 @@ internal partial class TemporalArithmetic // NanosecondsPerHour
         return (int)((ulong)(nanosecondOfDay >> NanosecondsPerHourTwoAdicOrder) / NanosecondsPerHourOddPart);
     }
 
-    /// <summary><c>nanosecondOfDay = NanosecondsPerHour * hourOfDay</c></summary>
+    /// <summary>
+    /// <c>nanosecondOfDay = NanosecondsPerHour * hourOfDay</c>
+    /// </summary>
     [Pure]
-    // CIL code size = 13 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long MultiplyByNanosecondsPerHour(int hourOfDay)
     {
@@ -141,10 +144,11 @@ internal partial class TemporalArithmetic // NanosecondsPerMinute
     private const long NanosecondsPerMinuteOddPart =
         NanosecondsPerMinute >> NanosecondsPerMinuteTwoAdicOrder;
 
-    /// <summary><c>minuteOfDay = nanosecondOfDay / NanosecondsPerMinute</c></summary>
-    /// <remarks><para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para></remarks>
+    /// <summary>
+    /// <c>minuteOfDay = nanosecondOfDay / NanosecondsPerMinute</c>
+    /// <para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para>
+    /// </summary>
     [Pure]
-    // CIL code size = 13 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int DivideByNanosecondsPerMinute(long nanosecondOfDay)
     {
@@ -155,9 +159,10 @@ internal partial class TemporalArithmetic // NanosecondsPerMinute
         return (int)((ulong)(nanosecondOfDay >> NanosecondsPerMinuteTwoAdicOrder) / NanosecondsPerMinuteOddPart);
     }
 
-    /// <summary><c>nanosecondOfDay = NanosecondsPerMinute * minuteOfDay</c></summary>
+    /// <summary>
+    /// <c>nanosecondOfDay = NanosecondsPerMinute * minuteOfDay</c>
+    /// </summary>
     [Pure]
-    // CIL code size = 13 bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long MultiplyByNanosecondsPerMinute(int minuteOfDay)
     {
@@ -185,11 +190,12 @@ internal partial class TemporalArithmetic // NanosecondsPerSecond (disabled)
     private const long NanosecondsPerSecondOddPart =
         NanosecondsPerSecond >> NanosecondsPerSecondTwoAdicOrder;
 
-    /// <summary><c>secondOfDay = nanosecondOfDay / NanosecondsPerSecond</c></summary>
+    /// <summary>
+    /// <c>secondOfDay = nanosecondOfDay / NanosecondsPerSecond</c>
+    /// </summary>
     [Pure]
-    // CIL code size = XXX bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int DivideByNanosecondsPerSecond(long nanosecondOfDay)
+    public static long DivideByNanosecondsPerSecond(long nanosecondOfDay)
     {
         Debug.Assert(nanosecondOfDay >= 0);
         Debug.Assert(nanosecondOfDay < NanosecondsPerDay);
@@ -197,9 +203,10 @@ internal partial class TemporalArithmetic // NanosecondsPerSecond (disabled)
         return (nanosecondOfDay >> NanosecondsPerSecondTwoAdicOrder) / NanosecondsPerSecondOddPart;
     }
 
-    /// <summary><c>nanosecondOfDay = NanosecondsPerSecond * secondOfDay</c></summary>
+    /// <summary>
+    /// <c>nanosecondOfDay = NanosecondsPerSecond * secondOfDay</c>
+    /// </summary>
     [Pure]
-    // CIL code size = XXX bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long MultiplyByNanosecondsPerSecond(int secondOfDay)
     {
@@ -226,11 +233,12 @@ internal partial class TemporalArithmetic // NanosecondsPerMillisecond (disabled
     private const long NanosecondsPerMillisecondOddPart =
         NanosecondsPerMillisecond >> NanosecondsPerMillisecondTwoAdicOrder;
 
-    /// <summary><c>millisecondOfDay = nanosecondOfDay / NanosecondsPerMillisecond</c></summary>
+    /// <summary>
+    /// <c>millisecondOfDay = nanosecondOfDay / NanosecondsPerMillisecond</c>
+    /// </summary>
     [Pure]
-    // CIL code size = XXX bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int DivideByNanosecondsPerMillisecond(long nanosecondOfDay)
+    public static long DivideByNanosecondsPerMillisecond(long nanosecondOfDay)
     {
         Debug.Assert(nanosecondOfDay >= 0);
         Debug.Assert(nanosecondOfDay < NanosecondsPerDay);
@@ -238,9 +246,10 @@ internal partial class TemporalArithmetic // NanosecondsPerMillisecond (disabled
         return (nanosecondOfDay >> NanosecondsPerMillisecondTwoAdicOrder) / NanosecondsPerMillisecondOddPart;
     }
 
-    /// <summary><c>nanosecondOfDay = NanosecondsPerMillisecond * millisecondOfDay</c></summary>
+    /// <summary>
+    /// <c>nanosecondOfDay = NanosecondsPerMillisecond * millisecondOfDay</c>
+    /// </summary>
     [Pure]
-    // CIL code size = XXX bytes <= 32 bytes.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long MultiplyByNanosecondsPerMillisecond(int millisecondOfDay)
     {
