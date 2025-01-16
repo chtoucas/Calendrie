@@ -28,14 +28,14 @@ Features
 
 #### Proleptic calendars
 
-These calendars support dates in the range from -999.999 BCE to 999.999 CE
+These calendars support dates in the range from 999.999 B.C.E. to 999.999 C.E.
 of years.
 - Gregorian
 - Julian
 
 #### Retropolated calendars
 
-These calendars support dates in the range [1..9999] of years.
+These calendars support dates in the range from 1 to 9999 of years.
 - Armenian (*)
 - Civil
 - Coptic (*)
@@ -43,14 +43,15 @@ These calendars support dates in the range [1..9999] of years.
 - Ethiopic (*)
 - French Republican (*)
 - International Fixed
-- Pax (**)
+- Pax
 - Persian
 - Tabular Islamic
-- Tropicalia
+- Tropicalia (**)
 - World aka Universal
 - Zoroastrian (*)
 
 (*) Calendar available in two forms: 12 months or 12 months plus a virtual
 thirteenth month.
+
 (**) Tropicalia is like the Gregorian calendar but with a much better rule to
 identify leap years.
