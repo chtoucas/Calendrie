@@ -19,7 +19,7 @@ Features
 --------
 
 - _Dedicated date, month and year types **per** calendar_
-- Custom math
+- Optional custom math for the date and month types
 - User-defined calendars
 - Most calendrical calculations are obtained using algorithms based on the
   discrete geometry of the calendars
@@ -37,21 +37,22 @@ of years.
 
 These calendars support dates in the range from 1 to 9999 of years.
 - Armenian calendar (*)
-- Civil calendar
+- Civil calendar, sams as the Gregorian calendar above with a different range
+  of supported years
 - Coptic calendar (*)
 - Egyptian calendar (*)
 - Ethiopic calendar (*)
-- French republican calendar (*)
+- French Republican calendar (*), an arithmetisation of the astronomical calendar
 - International fixed calendar
 - Pax calendar
-- Persian calendar
-- Tabular islamic calendar
+- Persian calendar, an arithmetisation of the astronomical calendar
+- Tabular Islamic calendar, an arithmetisation of the astronomical calendar
 - Tropicalia calendar (**)
-- World calendar aka universal calendar
+- World calendar aka Universal calendar
 - Zoroastrian calendar (*)
 
 (*) Calendar available in two forms: 12 months or 12 months plus a virtual
 thirteenth month.
 
-(**) The tropicalia calendar is like the gregorian calendar but with a much
+(**) The Tropicalia calendar is like the Gregorian calendar but with a much
 better rule to identify leap years.
