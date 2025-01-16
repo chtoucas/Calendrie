@@ -15,26 +15,38 @@ Current status:
 - Results regarding performance are rather promising
 - Targets .NET 8.0+
 
+Features
+--------
+
+- Dedicated date, month and year types _per_ calendar
+- Custom math
+- User-defined calendars
+
 Supported Calendars
 -------------------
 
-### Arithmetical calendars
+### Proleptic calendars
+
+- Gregorian
+- Julian
+
+### Retropolated calendars
 
 - Armenian (*)
 - Civil
 - Coptic (*)
+- Egyptian (*)
 - Ethiopic (*)
+- French Republican (*)
+- International Fixed
+- Pax (**)
+- Persian
+- Tabular Islamic
+- Tropicalia
+- World aka Universal
 - Zoroastrian (*)
 
 (*) Calendar available in two forms: 12 months or 12 months plus a virtual
 thirteenth month.
-
-#### Proleptic calendars
-- Gregorian
-- Julian
-
-### Arithmetisation of astronomical calendars
-- Tabular Islamic
-
-### Perennial blank-day calendars
-- World aka Universal
+(**) Tropicalia is like the Gregorian calendar but with a much better rule to
+identify leap years.
