@@ -1519,13 +1519,25 @@ public partial struct TropicaliaMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of whole years elapsed since the specified month.
-    /// <para>In the particular case of the Tropicalia calendar, this
-    /// operation is exact.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(TropicaliaMonth other) =>
-        // NB: this subtraction never overflows.
-        Year - other.Year;
+    public int CountYearsSince(TropicaliaMonth other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
 }
 
 #endregion

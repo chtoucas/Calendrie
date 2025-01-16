@@ -1126,13 +1126,25 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
 
     /// <summary>
     /// Counts the number of whole years elapsed since the specified month.
-    /// <para>In the particular case of the <#= Prefix #> calendar, this
-    /// operation is exact.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(<#= Prefix #>Month other) =>
-        // NB: this subtraction never overflows.
-        Year - other.Year;
+    public int CountYearsSince(<#= Prefix #>Month other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
 }
 <#+
     } // T4: End of EmitMonthMathNonStandardRegular
