@@ -1197,7 +1197,7 @@ public partial struct MyCivilMonth // Adjustments
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(newYear);
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
         if (m < 1 || m > GregorianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
@@ -1511,13 +1511,25 @@ public partial struct MyCivilMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of whole years elapsed since the specified month.
-    /// <para>In the particular case of the MyCivil calendar, this
-    /// operation is exact.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(MyCivilMonth other) =>
-        // NB: this subtraction never overflows.
-        Year - other.Year;
+    public int CountYearsSince(MyCivilMonth other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
 }
 
 #endregion

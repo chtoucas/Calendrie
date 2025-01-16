@@ -1210,7 +1210,7 @@ public partial struct MyJulianMonth // Adjustments
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(newYear);
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
         if (m < 1 || m > JulianSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
@@ -1524,13 +1524,25 @@ public partial struct MyJulianMonth // Non-standard math ops
 
     /// <summary>
     /// Counts the number of whole years elapsed since the specified month.
-    /// <para>In the particular case of the MyJulian calendar, this
-    /// operation is exact.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(MyJulianMonth other) =>
-        // NB: this subtraction never overflows.
-        Year - other.Year;
+    public int CountYearsSince(MyJulianMonth other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
 }
 
 #endregion

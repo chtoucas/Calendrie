@@ -635,7 +635,7 @@ public partial struct <#= Prefix #>Month // Adjustments
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < <#= ScopeClass #>.MinYear || newYear > <#= ScopeClass #>.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(newYear);
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
         if (m < 1 || m > <#= SchemaClass #>.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 

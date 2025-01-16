@@ -1205,7 +1205,7 @@ public partial struct TropicaliaMonth // Adjustments
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
-            ThrowHelpers.ThrowYearOutOfRange(newYear);
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
         if (m < 1 || m > TropicaliaSchema.MonthsInYear)
             ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
