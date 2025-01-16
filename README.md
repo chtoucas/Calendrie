@@ -2,16 +2,14 @@
 An experimental calendar library with a focus on calendrical calculations and
 extensibility.
 
-_This project is heavily inspired by NodaTime and JodaTime._
+_This project is heavily inspired by NodaTime, JodaTime and the BCL._
 
 Compared to NodaTime and the BCL, Calendrie is missing many important features
-(parsing, formatting, time-related types, etc.), therefore there
-is very little reason to use this library instead of them; it's really just a
-hobby project.
+(parsing, formatting, time-related types, etc.), therefore there is very little
+reason to use this library instead of them; it's really just a hobby project.
+Nevertheless, there are features in this project not found elsewhere.
 
-Current status
---------------
-
+Current status:
 - Alpha: unstable API
 - Well tested
 - Results regarding performance are very promising
@@ -23,6 +21,8 @@ Features
 - _Dedicated date, month and year types **per** calendar_
 - Custom math
 - User-defined calendars
+- Most calendrical calculations are obtained using algorithms based on the
+  discrete geometry of the calendars
 
 ### Pre-defined Calendars
 
