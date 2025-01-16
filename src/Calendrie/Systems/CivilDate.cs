@@ -556,6 +556,7 @@ public partial struct CivilDate // Non-standard math ops (experimental)
     // TODO(code): non-standard math ops (experimental), GregorianDate and JulianDate too.
     // I'm pretty sure that CountYears/MonthsSince() are both wrong -> only the
     // standard versions are meaningful.
+    // Naming: newStart?
 
     /// <summary>
     /// Adds a number of years to the year field of this date instance using the

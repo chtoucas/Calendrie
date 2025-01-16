@@ -12,7 +12,7 @@ using Calendrie.Testing.Data;
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
     CalendricalDataConsumer<TDataSet>
-    where TYear : IYear<TYear>,
+    where TYear : struct, IYear<TYear>,
         IMonthSegment<TMonth>, ISetMembership<TMonth>,
         IDaySegment<TDate>, ISetMembership<TDate>
     where TMonth : struct, IMonth<TMonth>
@@ -21,13 +21,16 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
 {
     public IYearFacts()
     {
-        SupportedYears = TYear.Calendar.Scope.Segment.SupportedYears;
+        var supportedYears = TYear.Calendar.Scope.Segment.SupportedYears;
+        SupportedYears = supportedYears;
+        SupportedYearsTester = new SupportedYearsTester(supportedYears);
     }
 
     protected TYear MinYear => TYear.MinValue;
     protected TYear MaxYear => TYear.MaxValue;
 
     protected Range<int> SupportedYears { get; }
+    protected SupportedYearsTester SupportedYearsTester { get; }
 
     /// <summary>
     /// We only use this sample year when its value matters (mathops); otherwise
@@ -38,6 +41,19 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Prelude
 {
+    [Fact]
+    public void ToString_InvariantCulture()
+    {
+        var date = TYear.Create(1);
+        string str = FormattableString.Invariant($"0001 ({TDate.Calendar})");
+        // Act & Assert
+        Assert.Equal(str, date.ToString());
+    }
+
+    //
+    // Properties
+    //
+
     [Theory, MemberData(nameof(CenturyInfoData))]
     public void CenturyOfEra_Prop(CenturyInfo info)
     {
@@ -93,6 +109,44 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Prelude
         // Assert
         Assert.Equal(info.IsLeap, year.IsLeap);
     }
+}
+
+public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Factories
+{
+    #region Create()
+
+    [Fact]
+    public void Create_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(TYear.Create);
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void Create(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        // Act & Assert
+        Assert.Equal(y, year.Year);
+    }
+
+    #endregion
+    #region TryCreate()
+
+    [Fact]
+    public void TryCreate_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYearTryPattern(y => TYear.TryCreate(y, out _));
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void TryCreate(YearInfo info)
+    {
+        int y = info.Year;
+        // Act
+        bool result = TYear.TryCreate(y, out var year);
+        // Assert
+        Assert.True(result);
+        Assert.Equal(y, year.Year);
+    }
+
+    #endregion
 }
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment

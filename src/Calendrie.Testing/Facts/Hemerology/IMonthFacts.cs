@@ -12,7 +12,7 @@ using Calendrie.Testing.Data;
 
 public partial class IMonthFacts<TMonth, TDate, TDataSet> :
     CalendricalDataConsumer<TDataSet>
-    where TMonth : IMonth<TMonth>, IDaySegment<TDate>, ISetMembership<TDate>
+    where TMonth : struct, IMonth<TMonth>, IDaySegment<TDate>, ISetMembership<TDate>
     where TDate : struct, IDate<TDate>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
@@ -55,6 +55,15 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Prelude
         // Assert
         Assert.Equal(y, yA);
         Assert.Equal(m, mA);
+    }
+
+    [Fact]
+    public void ToString_InvariantCulture()
+    {
+        var date = TMonth.Create(1, 1);
+        string str = FormattableString.Invariant($"01/0001 ({TDate.Calendar})");
+        // Act & Assert
+        Assert.Equal(str, date.ToString());
     }
 
     //
@@ -108,6 +117,55 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Prelude
         // Assert
         Assert.Equal(info.IsIntercalary, month.IsIntercalary);
     }
+}
+
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // Factories
+{
+    #region Create()
+
+    [Fact]
+    public void Create_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYear(y => TMonth.Create(y, 1));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void Create_InvalidMonth(int y, int m) =>
+        AssertEx.ThrowsAoorexn("month", () => TMonth.Create(y, m));
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void Create(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        // Act
+        var month = TMonth.Create(y, m);
+        // Assert
+        Assert.Equal(y, month.Year);
+        Assert.Equal(m, month.Month);
+    }
+
+    #endregion
+    #region TryCreate()
+
+    [Fact]
+    public void TryCreate_InvalidYear() =>
+        SupportedYearsTester.TestInvalidYearTryPattern(y => TMonth.TryCreate(y, 1, out _));
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void TryCreate_InvalidMonth(int y, int m) =>
+        Assert.False(TMonth.TryCreate(y, m, out _));
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void TryCreate(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        // Act
+        bool result = TMonth.TryCreate(y, m, out var month);
+        // Assert
+        Assert.True(result);
+        Assert.Equal(y, month.Year);
+        Assert.Equal(m, month.Month);
+    }
+
+    #endregion
 }
 
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // Adjustments
