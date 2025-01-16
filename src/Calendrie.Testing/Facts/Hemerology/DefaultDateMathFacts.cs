@@ -1,14 +1,12 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Testing.Facts.Systems;
+namespace Calendrie.Testing.Facts.Hemerology;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
-
-// TODO(fact): test newStart
 
 /// <summary>
 /// Provides facts about the <see cref="IDate{TSelf}"/> type.
@@ -102,8 +100,10 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     {
         int years = SupportedYears.Count() - 1;
         // Act & Assert
-        Assert.Equal(years, DateMath.CountYearsBetween(MinDate, MaxDate, out _));
-        Assert.Equal(-years, DateMath.CountYearsBetween(MaxDate, MinDate, out _));
+        Assert.Equal(years, DateMath.CountYearsBetween(MinDate, MaxDate, out var newStart));
+        Assert.Equal(MinDate.PlusYears(years), newStart);
+        Assert.Equal(-years, DateMath.CountYearsBetween(MaxDate, MinDate, out newStart));
+        Assert.Equal(MaxDate.PlusYears(-years), newStart);
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -112,7 +112,8 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         var (y, m, d) = info.Yemoda;
         var date = TDate.Create(y, m, d);
         // Act & Assert
-        Assert.Equal(0, DateMath.CountYearsBetween(date, date, out _));
+        Assert.Equal(0, DateMath.CountYearsBetween(date, date, out var newStart));
+        Assert.Equal(date, newStart);
     }
 
     [Theory, MemberData(nameof(CountYearsBetweenData))]
@@ -122,8 +123,10 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         var start = GetDate(info.First);
         var end = GetDate(info.Second);
         // Act & Assert
-        Assert.Equal(years, DateMath.CountYearsBetween(start, end, out _));
-        Assert.Equal(-years, DateMath.CountYearsBetween(end, start, out _));
+        Assert.Equal(years, DateMath.CountYearsBetween(start, end, out var newStart));
+        Assert.Equal(start.PlusYears(years), newStart);
+        Assert.Equal(-years, DateMath.CountYearsBetween(end, start, out newStart));
+        Assert.Equal(end.PlusYears(-years), newStart);
     }
 
     #endregion
@@ -176,8 +179,10 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     [Fact]
     public void CountMonthsSince_DoesNotOverflow()
     {
-        _ = DateMath.CountMonthsBetween(MinDate, MaxDate, out _);
-        _ = DateMath.CountMonthsBetween(MaxDate, MinDate, out _);
+        int months = DateMath.CountMonthsBetween(MinDate, MaxDate, out var newStart);
+        Assert.Equal(MinDate.PlusMonths(months), newStart);
+        Assert.Equal(-months, DateMath.CountMonthsBetween(MaxDate, MinDate, out newStart));
+        Assert.Equal(MaxDate.PlusMonths(-months), newStart);
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -186,7 +191,8 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         var (y, m, d) = info.Yemoda;
         var date = TDate.Create(y, m, d);
         // Act & Assert
-        Assert.Equal(0, DateMath.CountMonthsBetween(date, date, out _));
+        Assert.Equal(0, DateMath.CountMonthsBetween(date, date, out var newStart));
+        Assert.Equal(date, newStart);
     }
 
     [Theory, MemberData(nameof(CountMonthsBetweenData))]
@@ -196,8 +202,10 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         var start = GetDate(info.First);
         var end = GetDate(info.Second);
         // Act & Assert
-        Assert.Equal(months, DateMath.CountMonthsBetween(start, end, out _));
-        Assert.Equal(-months, DateMath.CountMonthsBetween(end, start, out _));
+        Assert.Equal(months, DateMath.CountMonthsBetween(start, end, out var newStart));
+        Assert.Equal(start.PlusMonths(months), newStart);
+        Assert.Equal(-months, DateMath.CountMonthsBetween(end, start, out newStart));
+        Assert.Equal(end.PlusMonths(-months), newStart);
     }
 
     #endregion
