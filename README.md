@@ -5,7 +5,7 @@ extensibility.
 _This project is heavily inspired by NodaTime and JodaTime._
 
 Compared to NodaTime and the BCL, Calendrie is missing many important features
-(parsing, formatting, time-related classes, etc.), therefore there
+(parsing, formatting, time-related types, etc.), therefore there
 is very little reason to use this library instead of them; it's really just a
 hobby project.
 
@@ -14,17 +14,17 @@ Current status
 
 - Alpha: unstable API
 - Well tested
-- Results regarding performance are rather promising
+- Results regarding performance are very promising
 - Targets .NET 8.0+
 
 Features
 --------
 
-- Dedicated date, month and year types _per_ calendar
+- _Dedicated date, month and year types _per_ calendar_
 - Custom math
 - User-defined calendars
 
-### Supported Calendars
+### Pre-defined Calendars
 
 #### Proleptic calendars
 
