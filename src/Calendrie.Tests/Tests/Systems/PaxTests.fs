@@ -203,11 +203,13 @@ module Bundles =
     //
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
         inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>(
             new PaxDateMath(AdditionRule.Truncate))
 
     [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultMonthMathFacts() =
         inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>(
             new PaxMonthMath(AdditionRule.Truncate))

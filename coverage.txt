@@ -1,21 +1,21 @@
 Summary
-  Generated on: 15/01/2025 - 15:33:29
+  Generated on: 16/01/2025 - 06:21:47
   Parser: OpenCover
   Assemblies: 3
   Classes: 193
   Files: 179
-  Line coverage: 79.6%
-  Covered lines: 10090
-  Uncovered lines: 2570
-  Coverable lines: 12660
-  Total lines: 47877
-  Branch coverage: 78% (2871 of 3678)
-  Covered branches: 2871
-  Total branches: 3678
-  Method coverage: 79.4% (3414 of 4299)
-  Full method coverage: 64.7% (2784 of 4299)
-  Covered methods: 3414
-  Fully covered methods: 2784
+  Line coverage: 89.9%
+  Covered lines: 11427
+  Uncovered lines: 1277
+  Coverable lines: 12704
+  Total lines: 47950
+  Branch coverage: 86.9% (3219 of 3702)
+  Covered branches: 3219
+  Total branches: 3702
+  Method coverage: 91.5% (3934 of 4299)
+  Full method coverage: 75.3% (3239 of 4299)
+  Covered methods: 3934
+  Fully covered methods: 3239
   Total methods: 4299
 
 Calendrie                                                98.6%
@@ -126,21 +126,21 @@ Calendrie                                                98.6%
   Calendrie.Systems.ZoroastrianDate                       100%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Future                                         60.5%
+Calendrie.Future                                         90.5%
   Calendrie.Core.Schemas.PaxSchema                         86%
   Calendrie.Core.Schemas.Tropicalia3031Schema             100%
   Calendrie.Core.Schemas.Tropicalia3130Schema             100%
   Calendrie.Core.Validation.PaxPreValidator               100%
   Calendrie.Hemerology.CalendarSans                       100%
-  Calendrie.Hemerology.DateMath<T>                          0%
+  Calendrie.Hemerology.DateMath<T>                         94%
   Calendrie.Hemerology.IMonth                               0%
-  Calendrie.Hemerology.MonthMath<T>                         0%
+  Calendrie.Hemerology.MonthMath<T>                        90%
   Calendrie.Hemerology.UserCalendar                       100%
-  Calendrie.Systems.CivilDateMath                           0%
-  Calendrie.Systems.CivilMonth                              0%
-  Calendrie.Systems.CivilYear                               8%
-  Calendrie.Systems.DateMathPlain<T1, T2>                   0%
-  Calendrie.Systems.DateMathRegular<T1, T2>                 0%
+  Calendrie.Systems.CivilDateMath                         100%
+  Calendrie.Systems.CivilMonth                           74.8%
+  Calendrie.Systems.CivilYear                            74.1%
+  Calendrie.Systems.DateMathPlain<T1, T2>                93.3%
+  Calendrie.Systems.DateMathRegular<T1, T2>               100%
   Calendrie.Systems.Egyptian13Calendar                    100%
   Calendrie.Systems.Egyptian13Date                        100%
   Calendrie.Systems.EgyptianCalendar                      100%
@@ -149,30 +149,30 @@ Calendrie.Future                                         60.5%
   Calendrie.Systems.FrenchRepublican13Date                100%
   Calendrie.Systems.FrenchRepublicanCalendar              100%
   Calendrie.Systems.FrenchRepublicanDate                  100%
-  Calendrie.Systems.GregorianDateMath                       0%
-  Calendrie.Systems.GregorianMonth                          0%
-  Calendrie.Systems.GregorianYear                           0%
+  Calendrie.Systems.GregorianDateMath                     100%
+  Calendrie.Systems.GregorianMonth                       72.9%
+  Calendrie.Systems.GregorianYear                        70.2%
   Calendrie.Systems.InternationalFixedCalendar            100%
   Calendrie.Systems.InternationalFixedDate                100%
-  Calendrie.Systems.JulianDateMath                          0%
-  Calendrie.Systems.JulianMonth                             0%
-  Calendrie.Systems.JulianYear                              0%
-  Calendrie.Systems.MonthMathPlain<T1, T2>                  0%
+  Calendrie.Systems.JulianDateMath                        100%
+  Calendrie.Systems.JulianMonth                          72.9%
+  Calendrie.Systems.JulianYear                           70.2%
+  Calendrie.Systems.MonthMathPlain<T1, T2>                100%
   Calendrie.Systems.PaxCalendar                           100%
   Calendrie.Systems.PaxDate                               100%
-  Calendrie.Systems.PaxDateMath                             0%
-  Calendrie.Systems.PaxMonth                                0%
-  Calendrie.Systems.PaxMonthMath                            0%
-  Calendrie.Systems.PaxYear                                 0%
+  Calendrie.Systems.PaxDateMath                           100%
+  Calendrie.Systems.PaxMonth                             75.2%
+  Calendrie.Systems.PaxMonthMath                          100%
+  Calendrie.Systems.PaxYear                              77.2%
   Calendrie.Systems.Persian2820Calendar                   100%
   Calendrie.Systems.Persian2820Date                       100%
   Calendrie.Systems.PositivistCalendar                    100%
   Calendrie.Systems.PositivistDate                        100%
   Calendrie.Systems.TropicaliaCalendar                    100%
   Calendrie.Systems.TropicaliaDate                       99.6%
-  Calendrie.Systems.TropicaliaDateMath                      0%
-  Calendrie.Systems.TropicaliaMonth                         0%
-  Calendrie.Systems.TropicaliaYear                          0%
+  Calendrie.Systems.TropicaliaDateMath                    100%
+  Calendrie.Systems.TropicaliaMonth                      75.8%
+  Calendrie.Systems.TropicaliaYear                       75.6%
 
 Calendrie.Sketches                                       48.7%
   Calendrie.AdditionRuleset                               100%
