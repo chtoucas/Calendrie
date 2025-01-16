@@ -190,11 +190,8 @@ public partial class IDateFacts<TDate, TDataSet> // Adjustments
     {
         var (y, m, d) = info.Yemoda;
         var date = TDate.Create(y, m, d);
-        foreach (int invalidYear in SupportedYearsTester.InvalidYears)
-        {
-            // Act & Assert
-            AssertEx.ThrowsAoorexn("newYear", () => date.WithYear(invalidYear));
-        }
+        // Act & Assert
+        SupportedYearsTester.TestInvalidYear(date.WithYear, "newYear");
     }
 
     [Theory, MemberData(nameof(YearInfoData))]
