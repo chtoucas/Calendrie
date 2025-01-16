@@ -145,13 +145,12 @@ public partial struct JulianMonth // Adjustments
     {
         int m = Month;
 
-        // Even when "newYear" is valid, we must re-check "m".
+        // Even when "newYear" is valid, we should re-check "m", but the calendar
+        // being regular this is not needed here.
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
         if (newYear < JulianScope.MinYear || newYear > JulianScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
-        if (m < 1 || m > JulianSchema.MonthsInYear)
-            ThrowHelpers.ThrowMonthOutOfRange(m, nameof(newYear));
 
         return UnsafeCreate(newYear, m);
     }
