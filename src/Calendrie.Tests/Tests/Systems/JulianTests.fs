@@ -169,7 +169,7 @@ module Bundles =
             let date = new JulianDate(999_999, 12, 31);
             date.ToString() === "31/12/999999 (Julian)"
 
-        [<Fact(Skip = "Negative years <= 9999")>]
+        [<Fact>]
         static member ``ToString() 31/12/0001 BCE`` () =
             let date = new JulianDate(0, 12, 31);
             date.ToString() === "31/12/0001 BCE (Julian)"
@@ -196,7 +196,7 @@ module Bundles =
             let month = new JulianMonth(999_999, 12);
             month.ToString() === "12/999999 (Julian)"
 
-        [<Fact(Skip = "Negative years <= 9999")>]
+        [<Fact>]
         static member ``ToString() 12/0001 BCE`` () =
             let month = new JulianMonth(0, 12);
             month.ToString() === "12/0001 BCE (Julian)"
@@ -215,7 +215,7 @@ module Bundles =
             let year = new JulianYear(999_999);
             year.ToString() === "999999 (Julian)"
 
-        [<Fact(Skip = "Negative years <= 9999")>]
+        [<Fact>]
         static member ``ToString() 0001 BCE`` () =
             let year = new JulianYear(0);
             year.ToString() === "0001 BCE (Julian)"

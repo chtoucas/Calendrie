@@ -134,7 +134,7 @@ public partial struct JulianYear // Preamble
     {
         return _yearsSinceEpoch >= 0
             ? FormattableString.Invariant($"{Year:D4} ({JulianCalendar.DisplayName})")
-            : FormattableString.Invariant($"{getBCEYear(Year)} BCE ({JulianCalendar.DisplayName})");
+            : FormattableString.Invariant($"{getBCEYear(Year):D4} BCE ({JulianCalendar.DisplayName})");
 
         [Pure]
         static int getBCEYear(int y)
@@ -166,9 +166,9 @@ public partial struct JulianYear // Factories
     [Pure]
     static bool IYear<JulianYear>.TryCreate(int year, out JulianYear result)
     {
-        bool ok = year >= JulianScope.MinYear && year <= JulianScope.MaxYear;
-        result = ok ? UnsafeCreate(year) : default;
-        return ok;
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
     }
 
     /// <summary>

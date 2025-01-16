@@ -187,7 +187,7 @@ public partial struct GregorianDate // Preamble
         GregorianFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
         return y > 0
             ? FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({GregorianCalendar.DisplayName})")
-            : FormattableString.Invariant($"{d:D2}/{m:D2}/{getBCEYear(y)} BCE ({GregorianCalendar.DisplayName})");
+            : FormattableString.Invariant($"{d:D2}/{m:D2}/{getBCEYear(y):D4} BCE ({GregorianCalendar.DisplayName})");
 
         [Pure]
         static int getBCEYear(int y)

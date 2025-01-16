@@ -150,7 +150,7 @@ public partial struct JulianMonth // Preamble
         var (y, m) = this;
         return y > 0
             ? FormattableString.Invariant($"{m:D2}/{y:D4} ({JulianCalendar.DisplayName})")
-            : FormattableString.Invariant($"{m:D2}/{getBCEYear(y)} BCE ({JulianCalendar.DisplayName})");
+            : FormattableString.Invariant($"{m:D2}/{getBCEYear(y):D4} BCE ({JulianCalendar.DisplayName})");
 
         [Pure]
         static int getBCEYear(int y)

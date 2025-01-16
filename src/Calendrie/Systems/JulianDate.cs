@@ -187,7 +187,7 @@ public partial struct JulianDate // Preamble
         JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return y > 0
             ? FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({JulianCalendar.DisplayName})")
-            : FormattableString.Invariant($"{d:D2}/{m:D2}/{getBCEYear(y)} BCE ({JulianCalendar.DisplayName})");
+            : FormattableString.Invariant($"{d:D2}/{m:D2}/{getBCEYear(y):D4} BCE ({JulianCalendar.DisplayName})");
 
         [Pure]
         static int getBCEYear(int y)

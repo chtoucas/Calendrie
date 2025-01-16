@@ -191,7 +191,7 @@ module Bundles =
             let date = new GregorianDate(999_999, 12, 31);
             date.ToString() === "31/12/999999 (Gregorian)"
 
-        [<Fact(Skip = "Negative years <= 9999")>]
+        [<Fact>]
         static member ``ToString() 31/12/0001 BCE`` () =
             let date = new GregorianDate(0, 12, 31);
             date.ToString() === "31/12/0001 BCE (Gregorian)"
@@ -224,7 +224,7 @@ module Bundles =
             let month = new GregorianMonth(999_999, 12);
             month.ToString() === "12/999999 (Gregorian)"
 
-        [<Fact(Skip = "Negative years <= 9999")>]
+        [<Fact>]
         static member ``ToString() 12/0001 BCE`` () =
             let month = new GregorianMonth(0, 12);
             month.ToString() === "12/0001 BCE (Gregorian)"
@@ -243,7 +243,7 @@ module Bundles =
             let year = new GregorianYear(999_999);
             year.ToString() === "999999 (Gregorian)"
 
-        [<Fact(Skip = "Negative years <= 9999")>]
+        [<Fact>]
         static member ``ToString() 0001 BCE`` () =
             let year = new GregorianYear(0);
             year.ToString() === "0001 BCE (Gregorian)"

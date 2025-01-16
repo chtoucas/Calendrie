@@ -134,7 +134,7 @@ public partial struct GregorianYear // Preamble
     {
         return _yearsSinceEpoch >= 0
             ? FormattableString.Invariant($"{Year:D4} ({GregorianCalendar.DisplayName})")
-            : FormattableString.Invariant($"{getBCEYear(Year)} BCE ({GregorianCalendar.DisplayName})");
+            : FormattableString.Invariant($"{getBCEYear(Year):D4} BCE ({GregorianCalendar.DisplayName})");
 
         [Pure]
         static int getBCEYear(int y)
@@ -166,9 +166,9 @@ public partial struct GregorianYear // Factories
     [Pure]
     static bool IYear<GregorianYear>.TryCreate(int year, out GregorianYear result)
     {
-        bool ok = year >= GregorianScope.MinYear && year <= GregorianScope.MaxYear;
-        result = ok ? UnsafeCreate(year) : default;
-        return ok;
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
     }
 
     /// <summary>
