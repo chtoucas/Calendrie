@@ -9,7 +9,9 @@ Compared to NodaTime and the BCL, Calendrie is missing many important features
 is very little reason to use this library instead of them; it's really just a
 hobby project.
 
-Current status:
+Current status
+--------------
+
 - Alpha: unstable API
 - Well tested
 - Results regarding performance are rather promising
@@ -22,16 +24,18 @@ Features
 - Custom math
 - User-defined calendars
 
-Supported Calendars
--------------------
+### Supported Calendars
 
-### Proleptic calendars
+#### Proleptic calendars
 
+These calendars support dates in the range from -999.999 BCE to 999.999 CE
+of years.
 - Gregorian
 - Julian
 
-### Retropolated calendars
+#### Retropolated calendars
 
+These calendars support dates in the range [1..9999] of years.
 - Armenian (*)
 - Civil
 - Coptic (*)
