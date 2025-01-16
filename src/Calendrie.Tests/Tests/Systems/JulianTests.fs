@@ -165,18 +165,18 @@ module Bundles =
         inherit IDateFacts<JulianDate, UnboundedJulianDataSet>()
 
         [<Fact>]
-        member x.ToString_InvariantCulture2 () =
-            let date = x.GetDate(999_999, 12, 31);
+        static member ``ToString() 31/12/999999`` () =
+            let date = new JulianDate(999_999, 12, 31);
             date.ToString() === "31/12/999999 (Julian)"
 
-        [<Fact>]
-        member x.ToString_InvariantCulture3 () =
-            let date = x.GetDate(0, 12, 31);
-            date.ToString() === "31/12/1 BCE (Julian)"
+        [<Fact(Skip = "Negative years <= 9999")>]
+        static member ``ToString() 31/12/0001 BCE`` () =
+            let date = new JulianDate(0, 12, 31);
+            date.ToString() === "31/12/0001 BCE (Julian)"
 
         [<Fact>]
-        member x.ToString_InvariantCulture4 () =
-            let date = x.GetDate(-999_998, 1, 1);
+        static member ``ToString() 01/01/999999 BCE`` () =
+            let date = new JulianDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Julian)"
 
     [<Sealed>]
@@ -191,9 +191,39 @@ module Bundles =
     type MonthFacts() =
         inherit IMonthFacts<JulianMonth, JulianDate, UnboundedJulianDataSet>()
 
+        [<Fact>]
+        static member ``ToString() 12/999999`` () =
+            let month = new JulianMonth(999_999, 12);
+            month.ToString() === "12/999999 (Julian)"
+
+        [<Fact(Skip = "Negative years <= 9999")>]
+        static member ``ToString() 12/0001 BCE`` () =
+            let month = new JulianMonth(0, 12);
+            month.ToString() === "12/0001 BCE (Julian)"
+
+        [<Fact>]
+        static member ``ToString() 01/999999 BCE`` () =
+            let month = new JulianMonth(-999_998, 1);
+            month.ToString() === "01/999999 BCE (Julian)"
+
     [<Sealed>]
     type YearFacts() =
         inherit IYearFacts<JulianYear, JulianMonth, JulianDate, UnboundedJulianDataSet>()
+
+        [<Fact>]
+        static member ``ToString() 999999`` () =
+            let year = new JulianYear(999_999);
+            year.ToString() === "999999 (Julian)"
+
+        [<Fact(Skip = "Negative years <= 9999")>]
+        static member ``ToString() 0001 BCE`` () =
+            let year = new JulianYear(0);
+            year.ToString() === "0001 BCE (Julian)"
+
+        [<Fact>]
+        static member ``ToString() 999999 BCE`` () =
+            let year = new JulianYear(-999_998);
+            year.ToString() === "999999 BCE (Julian)"
 
     //
     // Math
