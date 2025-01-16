@@ -30,28 +30,28 @@ Features
 
 These calendars support dates in the range from 999.999 B.C.E. to 999.999 C.E.
 of years.
-- Gregorian
-- Julian
+- Gregorian calendar
+- Julian calendar
 
 #### Retropolated calendars
 
 These calendars support dates in the range from 1 to 9999 of years.
-- Armenian (*)
-- Civil
-- Coptic (*)
-- Egyptian (*)
-- Ethiopic (*)
-- French Republican (*)
-- International Fixed
-- Pax
-- Persian
-- Tabular Islamic
-- Tropicalia (**)
-- World aka Universal
-- Zoroastrian (*)
+- Armenian calendar (*)
+- Civil calendar
+- Coptic calendar (*)
+- Egyptian calendar (*)
+- Ethiopic calendar (*)
+- French republican calendar (*)
+- International fixed calendar
+- Pax calendar
+- Persian calendar
+- Tabular islamic calendar
+- Tropicalia calendar (**)
+- World calendar aka universal calendar
+- Zoroastrian calendar (*)
 
 (*) Calendar available in two forms: 12 months or 12 months plus a virtual
 thirteenth month.
 
-(**) Tropicalia is like the Gregorian calendar but with a much better rule to
-identify leap years.
+(**) The tropicalia calendar is like the gregorian calendar but with a much
+better rule to identify leap years.
