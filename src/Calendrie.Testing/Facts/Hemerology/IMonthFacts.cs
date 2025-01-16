@@ -352,3 +352,299 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
 
     #endregion
 }
+
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // IEquatable
+{
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void Equals_WhenSame(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        var same = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.True(month == same);
+        Assert.False(month != same);
+
+        Assert.True(month.Equals(same));
+        Assert.True(month.Equals((object)same));
+    }
+
+    [Theory]
+    [InlineData(2, 1)]
+    [InlineData(1, 2)]
+    public void Equals_WhenNotSame(int y, int m)
+    {
+        var month = TMonth.Create(1, 1);
+        var notSame = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.False(month == notSame);
+        Assert.True(month != notSame);
+
+        Assert.False(month.Equals(notSame));
+        Assert.False(month.Equals((object)notSame));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void Equals_NullOrPlainObject(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.False(month.Equals(1));
+        Assert.False(month.Equals(null));
+        Assert.False(month.Equals(new object()));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void GetHashCode_Repeated(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        object obj = month;
+        // Act & Assert
+        Assert.Equal(month.GetHashCode(), month.GetHashCode());
+        Assert.Equal(month.GetHashCode(), obj.GetHashCode());
+    }
+}
+
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // IComparable
+{
+    [Fact]
+    public void CompareTo_Null()
+    {
+        var month = TMonth.Create(1, 1);
+        var comparable = (IComparable)month;
+        // Act & Assert
+        Assert.Equal(1, comparable.CompareTo(null));
+    }
+
+    [Fact]
+    public void CompareTo_PlainObject()
+    {
+        var month = TMonth.Create(1, 1);
+        var comparable = (IComparable)month;
+        object other = new();
+        // Act & Assert
+        _ = Assert.Throws<ArgumentException>("obj", () => comparable.CompareTo(other));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CompareTo_WhenEqual(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var left = TMonth.Create(y, m);
+        var right = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.False(left > right);
+        Assert.True(left >= right);
+        Assert.True(left <= right);
+        Assert.False(left < right);
+
+        Assert.Equal(0, left.CompareTo(right));
+        Assert.Equal(0, ((IComparable)left).CompareTo(right));
+    }
+
+    [Theory]
+    [InlineData(2, 1)]
+    [InlineData(1, 2)]
+    public void CompareTo_WhenNotEqual(int y, int m)
+    {
+        var left = TMonth.Create(1, 1);
+        var right = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.False(left > right);
+        Assert.False(left >= right);
+        Assert.True(left <= right);
+        Assert.True(left < right);
+
+        Assert.True(left.CompareTo(right) < 0);
+        Assert.True(((IComparable)left).CompareTo(right) < 0);
+    }
+
+    [Theory]
+    [InlineData(2, 1)]
+    [InlineData(1, 2)]
+    [InlineData(1, 1)]
+    public void Min(int y, int m)
+    {
+        var min = TMonth.Create(1, 1);
+        var max = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(min, TMonth.Min(min, max));
+        Assert.Equal(min, TMonth.Min(max, min));
+    }
+
+    [Theory]
+    [InlineData(2, 1)]
+    [InlineData(1, 2)]
+    [InlineData(1, 1)]
+    public void Max(int y, int m)
+    {
+        var min = TMonth.Create(1, 1);
+        var max = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(max, TMonth.Max(min, max));
+        Assert.Equal(max, TMonth.Max(max, min));
+    }
+}
+
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
+{
+    #region NextMonth()
+
+    [Fact]
+    public void NextMonth_Overflows_AtMaxMonth()
+    {
+        var copy = MaxMonth;
+        // Act & Assert
+        AssertEx.Overflows(() => copy++);
+        AssertEx.Overflows(() => MaxMonth.NextMonth());
+    }
+
+    [Theory, MemberData(nameof(ConsecutiveMonthsData))]
+    public void NextMonth(YemoPair pair)
+    {
+        var month = GetMonth(pair.First);
+        var copy = month;
+        var monthAfter = GetMonth(pair.Second);
+        // Act & Assert
+        Assert.Equal(monthAfter, ++copy);
+        Assert.Equal(monthAfter, month.NextMonth());
+    }
+
+    #endregion
+    #region PreviousMonth()
+
+    [Fact]
+    public void PreviousMonth_Overflows_AtMinMonth()
+    {
+        var copy = MinMonth;
+        // Act & Assert
+        AssertEx.Overflows(() => copy--);
+        AssertEx.Overflows(() => MinMonth.PreviousMonth());
+    }
+
+    [Theory, MemberData(nameof(ConsecutiveMonthsData))]
+    public void PreviousMonth(YemoPair pair)
+    {
+        var month = GetMonth(pair.First);
+        var monthAfter = GetMonth(pair.Second);
+        var copy = monthAfter;
+        // Act & Assert
+        Assert.Equal(month, --copy);
+        Assert.Equal(month, monthAfter.PreviousMonth());
+    }
+
+    #endregion
+    #region AddMonths() & CountMonthsBetween()
+
+    [Fact]
+    public void AddMonths_Overflows_WithMaxMonths()
+    {
+        var month = TMonth.Create(1, 1);
+        // Act & Assert
+        AssertEx.Overflows(() => month + int.MinValue);
+        AssertEx.Overflows(() => month + int.MaxValue);
+        AssertEx.Overflows(() => month.PlusMonths(int.MinValue));
+        AssertEx.Overflows(() => month.PlusMonths(int.MaxValue));
+    }
+
+    [Fact]
+    public void AddMonths_AtMinMonth()
+    {
+        int months = MaxMonth - MinMonth;
+        // Act & Assert
+        AssertEx.Overflows(() => MinMonth - 1);
+        Assert.Equal(MinMonth, MinMonth - 0);
+        Assert.Equal(MinMonth, MinMonth + 0);
+        Assert.Equal(MaxMonth, MinMonth + months);
+        AssertEx.Overflows(() => MinMonth + (months + 1));
+
+        AssertEx.Overflows(() => MinMonth.PlusMonths(-1));
+        Assert.Equal(MinMonth, MinMonth.PlusMonths(0));
+        Assert.Equal(MaxMonth, MinMonth.PlusMonths(months));
+        AssertEx.Overflows(() => MinMonth.PlusMonths(months + 1));
+    }
+
+    [Fact]
+    public void AddMonths_AtMaxMonth()
+    {
+        int months = MaxMonth - MinMonth;
+        // Act & Assert
+        AssertEx.Overflows(() => MaxMonth - (months + 1));
+        Assert.Equal(MinMonth, MaxMonth - months);
+        Assert.Equal(MaxMonth, MaxMonth - 0);
+        Assert.Equal(MaxMonth, MaxMonth + 0);
+        AssertEx.Overflows(() => MaxMonth + 1);
+
+        AssertEx.Overflows(() => MaxMonth.PlusMonths(-months - 1));
+        Assert.Equal(MinMonth, MaxMonth.PlusMonths(-months));
+        Assert.Equal(MaxMonth, MaxMonth.PlusMonths(0));
+        AssertEx.Overflows(() => MaxMonth.PlusMonths(1));
+    }
+
+    [Fact]
+    public void AddMonths_WithLimitMonths()
+    {
+        var month = GetSampleMonth();
+        int minMonths = MinMonth - month;
+        int maxMonths = MaxMonth - month;
+        // Act & Assert
+        AssertEx.Overflows(() => month + (minMonths - 1));
+        Assert.Equal(MinMonth, month + minMonths);
+        Assert.Equal(MaxMonth, month + maxMonths);
+        AssertEx.Overflows(() => month + (maxMonths + 1));
+
+        AssertEx.Overflows(() => month.PlusMonths(minMonths - 1));
+        Assert.Equal(MinMonth, month.PlusMonths(minMonths));
+        Assert.Equal(MaxMonth, month.PlusMonths(maxMonths));
+        AssertEx.Overflows(() => month.PlusMonths(maxMonths + 1));
+    }
+
+    [Fact]
+    public void CountMonthsBetween_DoesNotOverflow()
+    {
+        _ = MaxMonth - MinMonth;
+        _ = MinMonth - MaxMonth;
+        _ = MaxMonth.CountMonthsSince(MinMonth);
+        _ = MinMonth.CountMonthsSince(MaxMonth);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void AddMonths_Zero_IsNeutral(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(month, month + 0);
+        Assert.Equal(month, month - 0);
+        Assert.Equal(month, month.PlusMonths(0));
+
+        Assert.Equal(0, month - month);
+        Assert.Equal(0, month.CountMonthsSince(month));
+    }
+
+    [Theory, MemberData(nameof(AddMonthsMonthData))]
+    public void AddMonths(YemoPairAnd<int> info)
+    {
+        int months = info.Value;
+        var month = GetMonth(info.First);
+        var other = GetMonth(info.Second);
+        // Act & Assert
+        Assert.Equal(other, month + months);
+        Assert.Equal(other, month - (-months));
+        Assert.Equal(month, other - months);
+        Assert.Equal(month, other + (-months));
+
+        Assert.Equal(other, month.PlusMonths(months));
+        Assert.Equal(month, other.PlusMonths(-months));
+
+        Assert.Equal(months, other - month);
+        Assert.Equal(-months, month - other);
+
+        Assert.Equal(months, other.CountMonthsSince(month));
+        Assert.Equal(-months, month.CountMonthsSince(other));
+    }
+
+    #endregion
+}

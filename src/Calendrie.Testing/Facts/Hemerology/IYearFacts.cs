@@ -18,7 +18,23 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
     where TMonth : struct, IMonth<TMonth>
     where TDate : struct, IDate<TDate>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
-{ }
+{
+    public IYearFacts()
+    {
+        SupportedYears = TYear.Calendar.Scope.Segment.SupportedYears;
+    }
+
+    protected TYear MinYear => TYear.MinValue;
+    protected TYear MaxYear => TYear.MaxValue;
+
+    protected Range<int> SupportedYears { get; }
+
+    /// <summary>
+    /// We only use this sample year when its value matters (mathops); otherwise
+    /// just use the year 1.
+    /// </summary>
+    private static TYear GetSampleYear() => TYear.Create(1234);
+}
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Prelude
 {
@@ -215,3 +231,299 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
     //}
 }
 
+public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IEquatable
+{
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void Equals_WhenSame(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        var same = TYear.Create(y);
+        // Act & Assert
+        Assert.True(year == same);
+        Assert.False(year != same);
+
+        Assert.True(year.Equals(same));
+        Assert.True(year.Equals((object)same));
+    }
+
+    [Fact]
+    public void Equals_WhenNotSame()
+    {
+        var year = TYear.Create(1);
+        var notSame = TYear.Create(2);
+        // Act & Assert
+        Assert.False(year == notSame);
+        Assert.True(year != notSame);
+
+        Assert.False(year.Equals(notSame));
+        Assert.False(year.Equals((object)notSame));
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void Equals_NullOrPlainObject(YearInfo info)
+    {
+        var year = TYear.Create(info.Year);
+        // Act & Assert
+        Assert.False(year.Equals(1));
+        Assert.False(year.Equals(null));
+        Assert.False(year.Equals(new object()));
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void GetHashCode_Repeated(YearInfo info)
+    {
+        var year = TYear.Create(info.Year);
+        object obj = year;
+        // Act & Assert
+        Assert.Equal(year.GetHashCode(), year.GetHashCode());
+        Assert.Equal(year.GetHashCode(), obj.GetHashCode());
+    }
+}
+
+public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IComparable
+{
+    [Fact]
+    public void CompareTo_Null()
+    {
+        var year = TYear.Create(1);
+        var comparable = (IComparable)year;
+        // Act & Assert
+        Assert.Equal(1, comparable.CompareTo(null));
+    }
+
+    [Fact]
+    public void CompareTo_PlainObject()
+    {
+        var year = TYear.Create(1);
+        var comparable = (IComparable)year;
+        object other = new();
+        // Act & Assert
+        _ = Assert.Throws<ArgumentException>("obj", () => comparable.CompareTo(other));
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void CompareTo_WhenEqual(YearInfo info)
+    {
+        int y = info.Year;
+        var left = TYear.Create(y);
+        var right = TYear.Create(y);
+        // Act & Assert
+        Assert.False(left > right);
+        Assert.True(left >= right);
+        Assert.True(left <= right);
+        Assert.False(left < right);
+
+        Assert.Equal(0, left.CompareTo(right));
+        Assert.Equal(0, ((IComparable)left).CompareTo(right));
+    }
+
+    [Fact]
+    public void CompareTo_WhenNotEqual()
+    {
+        var left = TYear.Create(1);
+        var right = TYear.Create(2);
+        // Act & Assert
+        Assert.False(left > right);
+        Assert.False(left >= right);
+        Assert.True(left <= right);
+        Assert.True(left < right);
+
+        Assert.True(left.CompareTo(right) < 0);
+        Assert.True(((IComparable)left).CompareTo(right) < 0);
+    }
+
+    [Fact]
+    public void Min()
+    {
+        var min = TYear.Create(1);
+        var max = TYear.Create(2);
+        // Act & Assert
+        Assert.Equal(min, TYear.Min(min, max));
+        Assert.Equal(min, TYear.Min(max, min));
+    }
+
+    [Fact]
+    public void Max()
+    {
+        var min = TYear.Create(1);
+        var max = TYear.Create(2);
+        // Act & Assert
+        Assert.Equal(max, TYear.Max(min, max));
+        Assert.Equal(max, TYear.Max(max, min));
+    }
+}
+
+public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Math
+{
+    #region NextYear()
+
+    [Fact]
+    public void NextYear_Overflows_AtMaxValue()
+    {
+        var copy = MaxYear;
+        // Act & Assert
+        AssertEx.Overflows(() => copy++);
+        AssertEx.Overflows(() => MaxYear.NextYear());
+    }
+
+    [Fact]
+    public void NextYear()
+    {
+        var year = GetSampleYear();
+        var copy = year;
+        var yearAfter = TYear.Create(year.Year + 1);
+        // Act & Assert
+        Assert.Equal(yearAfter, ++copy);
+        Assert.Equal(yearAfter, year.NextYear());
+    }
+
+    #endregion
+    #region PreviousYear()
+
+    [Fact]
+    public void PreviousYear_Overflows_AtMinValue()
+    {
+        var copy = MinYear;
+        // Act & Assert
+        AssertEx.Overflows(() => copy--);
+        AssertEx.Overflows(() => MinYear.PreviousYear());
+    }
+
+    [Fact]
+    public void PreviousYear()
+    {
+        var year = GetSampleYear();
+        var copy = year;
+        var yearBefore = TYear.Create(year.Year - 1);
+        // Act & Assert
+        Assert.Equal(yearBefore, --copy);
+        Assert.Equal(yearBefore, year.PreviousYear());
+    }
+
+    #endregion
+    #region PlusYears() & CountYearsSince()
+
+    [Fact]
+    public void PlusYears_Overflows_WithMaxYears()
+    {
+        var year = TYear.Create(1);
+        // Act & Assert
+        AssertEx.Overflows(() => year + int.MinValue);
+        AssertEx.Overflows(() => year + int.MaxValue);
+
+        AssertEx.Overflows(() => year.PlusYears(int.MinValue));
+        AssertEx.Overflows(() => year.PlusYears(int.MaxValue));
+    }
+
+    [Fact]
+    public void PlusYears_WithLimitYears()
+    {
+        var year = GetSampleYear();
+        int minYears = MinYear - year;
+        int maxYears = MaxYear - year;
+        // Act & Assert
+        AssertEx.Overflows(() => year + (minYears - 1));
+        Assert.Equal(MinYear, year + minYears);
+        Assert.Equal(MaxYear, year + maxYears);
+        AssertEx.Overflows(() => year + (maxYears + 1));
+
+        AssertEx.Overflows(() => year.PlusYears(minYears - 1));
+        Assert.Equal(MinYear, year.PlusYears(minYears));
+        Assert.Equal(MaxYear, year.PlusYears(maxYears));
+        AssertEx.Overflows(() => year.PlusYears(maxYears + 1));
+    }
+
+    [Fact]
+    public void CountYearsSince_DoesNotOverflow()
+    {
+        int years = MaxYear.Year - MinYear.Year;
+        // Act & Assert
+        Assert.Equal(years, MaxYear - MinYear);
+        Assert.Equal(-years, MinYear - MaxYear);
+
+        Assert.Equal(years, MaxYear.CountYearsSince(MinYear));
+        Assert.Equal(-years, MinYear.CountYearsSince(MaxYear));
+    }
+
+    [Fact]
+    public void PlusYears_AtMinYear()
+    {
+        // We could have written:
+        // > int years = MaxYear - MinYear;
+        // but this is CountYearsSince() in disguise and I prefer to stick to
+        // basic maths.
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        AssertEx.Overflows(() => MinYear - 1);
+        Assert.Equal(MinYear, MinYear - 0);
+        Assert.Equal(MinYear, MinYear + 0);
+        Assert.Equal(MaxYear, MinYear + years);
+        AssertEx.Overflows(() => MinYear + (years + 1));
+
+        AssertEx.Overflows(() => MinYear.PlusYears(-1));
+        Assert.Equal(MinYear, MinYear.PlusYears(0));
+        Assert.Equal(MaxYear, MinYear.PlusYears(years));
+        AssertEx.Overflows(() => MinYear.PlusYears(years + 1));
+    }
+
+    [Fact]
+    public void PlusYears_AtMaxYear()
+    {
+        // We could have written:
+        // > int years = MaxYear - MinYear;
+        // but this is CountYearsSince() in disguise and I prefer to stick to
+        // basic maths.
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        AssertEx.Overflows(() => MaxYear - (years + 1));
+        Assert.Equal(MinYear, MaxYear - years);
+        Assert.Equal(MaxYear, MaxYear - 0);
+        Assert.Equal(MaxYear, MaxYear + 0);
+        AssertEx.Overflows(() => MaxYear + 1);
+
+        AssertEx.Overflows(() => MaxYear.PlusYears(-years - 1));
+        Assert.Equal(MinYear, MaxYear.PlusYears(-years));
+        Assert.Equal(MaxYear, MaxYear.PlusYears(0));
+        AssertEx.Overflows(() => MaxYear.PlusYears(1));
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void PlusYears_Zero_IsNeutral(YearInfo info)
+    {
+        var year = TYear.Create(info.Year);
+        // Act & Assert
+        Assert.Equal(year, year + 0);
+        Assert.Equal(year, year - 0);
+        Assert.Equal(year, year.PlusYears(0));
+
+        Assert.Equal(0, year - year);
+        Assert.Equal(0, year.CountYearsSince(year));
+    }
+
+    [Fact]
+    public void PlusYears()
+    {
+        // NB: ys is such that "other" is a valid year for both standard and
+        // proleptic calendars.
+        int years = 876;
+        var year = GetSampleYear();
+        var other = TYear.Create(year.Year + years);
+        // Act & Assert
+        Assert.Equal(other, year + years);
+        Assert.Equal(other, year - (-years));
+        Assert.Equal(year, other - years);
+        Assert.Equal(year, other + (-years));
+
+        Assert.Equal(other, year.PlusYears(years));
+        Assert.Equal(year, other.PlusYears(-years));
+
+        Assert.Equal(years, other - year);
+        Assert.Equal(-years, year - other);
+
+        Assert.Equal(years, other.CountYearsSince(year));
+        Assert.Equal(-years, year.CountYearsSince(other));
+    }
+
+    #endregion
+}

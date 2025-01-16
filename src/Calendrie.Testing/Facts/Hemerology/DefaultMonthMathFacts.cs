@@ -24,7 +24,6 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
 
         MonthMathUT = monthMath;
         SupportedYears = TMonth.Calendar.Scope.Segment.SupportedYears;
-        SupportedMonths = TMonth.Calendar.Scope.Segment.SupportedMonths;
     }
 
     protected MonthMath<TMonth> MonthMathUT { get; }
@@ -33,7 +32,6 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
     protected TMonth MaxMonth => TMonth.MaxValue;
 
     protected Range<int> SupportedYears { get; }
-    protected Range<int> SupportedMonths { get; }
 
     protected static TMonth GetMonth(Yemo ym)
     {
