@@ -217,7 +217,7 @@ module Bundles =
 
     [<Sealed>]
     type MonthFacts() =
-        inherit IMonthFacts<GregorianMonth, UnboundedGregorianDataSet>()
+        inherit IMonthFacts<GregorianMonth, GregorianDate, UnboundedGregorianDataSet>()
 
     [<Sealed>]
     type YearFacts() =

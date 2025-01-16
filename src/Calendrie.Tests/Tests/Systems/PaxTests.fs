@@ -191,7 +191,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type MonthFacts() =
-        inherit IMonthFacts<PaxMonth, StandardPaxDataSet>()
+        inherit IMonthFacts<PaxMonth, PaxDate, StandardPaxDataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

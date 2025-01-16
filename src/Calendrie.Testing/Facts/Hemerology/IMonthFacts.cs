@@ -10,20 +10,24 @@ using Calendrie.Testing.Data;
 
 // We also test the static (abstract) methods from the interface.
 
-public partial class IMonthFacts<TMonth, TDataSet> :
+public partial class IMonthFacts<TMonth, TDate, TDataSet> :
     CalendricalDataConsumer<TDataSet>
-    where TMonth : IMonth<TMonth>
+    where TMonth : IMonth<TMonth>, IDaySegment<TDate>, ISetMembership<TDate>
+    where TDate : struct, IDate<TDate>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
     public IMonthFacts()
     {
-        SupportedYears = TMonth.Calendar.Scope.Segment.SupportedYears;
+        var supportedYears = TMonth.Calendar.Scope.Segment.SupportedYears;
+        SupportedYears = supportedYears;
+        SupportedYearsTester = new SupportedYearsTester(supportedYears);
     }
 
     protected TMonth MinMonth => TMonth.MinValue;
     protected TMonth MaxMonth => TMonth.MaxValue;
 
     protected Range<int> SupportedYears { get; }
+    protected SupportedYearsTester SupportedYearsTester { get; }
 
     protected static TMonth GetMonth(Yemo ym)
     {
@@ -39,7 +43,7 @@ public partial class IMonthFacts<TMonth, TDataSet> :
     private static TMonth GetSampleMonth() => TMonth.Create(1234, 2);
 }
 
-public partial class IMonthFacts<TMonth, TDataSet> // Prelude
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // Prelude
 {
     [Theory, MemberData(nameof(MonthInfoData))]
     public void Deconstructor(MonthInfo info)
@@ -106,7 +110,147 @@ public partial class IMonthFacts<TMonth, TDataSet> // Prelude
     }
 }
 
-public partial class IMonthFacts<TMonth, TDataSet> // Math
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // Adjustments
+{
+    #region Year adjustment
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void WithYear_InvalidYears(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        SupportedYearsTester.TestInvalidYear(month.WithYear, "newYear");
+    }
+
+    [Fact]
+    public void WithYear_ValidYears()
+    {
+        foreach (int y in SupportedYearsTester.ValidYears)
+        {
+            var month = TMonth.Create(1, 1);
+            var exp = TMonth.Create(y, 1);
+            // Act & Assert
+            Assert.Equal(exp, month.WithYear(y));
+        }
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void WithYear_Invariance(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(month, month.WithYear(y));
+    }
+
+    // FIXME(fact): case of intercalary months
+    //[Theory, MemberData(nameof(MonthInfoData))]
+    //public void WithYear(MonthInfo info)
+    //{
+    //    var (y, m) = info.Yemo;
+    //    var month = TMonth.Create(1, m);
+    //    var exp = TMonth.Create(y, m);
+    //    // Act & Assert
+    //    Assert.Equal(exp, month.WithYear(y));
+    //}
+
+    #endregion
+    #region Month adjustment
+
+    [Theory, MemberData(nameof(InvalidMonthFieldData))]
+    public void WithMonth_InvalidMonth(int y, int newMonth)
+    {
+        var month = TMonth.Create(y, 1);
+        // Act & Assert
+        AssertEx.ThrowsAoorexn("newMonth", () => month.WithMonth(newMonth));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void WithMonth_Invariance(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(month, month.WithMonth(m));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void WithMonth(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, 1);
+        var exp = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(exp, month.WithMonth(m));
+    }
+
+    #endregion
+}
+
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // IDaySegment
+{
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void MinDay_Prop(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        var startOfMonth = TDate.Create(y, m, 1);
+        // Act & Assert
+        Assert.Equal(startOfMonth, month.MinDay);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void MaxDay_Prop(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        byte daysInMonth = info.DaysInMonth;
+        var month = TMonth.Create(y, m);
+        var endOfMonth = TDate.Create(y, m, daysInMonth);
+        // Act & Assert
+        Assert.Equal(endOfMonth, month.MaxDay);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CountDays(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act
+        int actual = month.CountDays();
+        // Assert
+        Assert.Equal(info.DaysInMonth, actual);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void ToDayRange(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        var min = TDate.Create(y, m, 1);
+        var max = TDate.Create(y, m, info.DaysInMonth);
+        // Act
+        var range = month.ToDayRange();
+        // Assert
+        Assert.Equal(min, range.Min);
+        Assert.Equal(max, range.Max);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void EnumerateDays(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        var exp = from d in Enumerable.Range(1, info.DaysInMonth)
+                  select TDate.Create(y, m, d);
+        // Act
+        var actual = month.EnumerateDays();
+        // Assert
+        Assert.Equal(exp, actual);
+    }
+}
+
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
 {
     #region PlusYears()
 

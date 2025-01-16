@@ -191,7 +191,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type MonthFacts() =
-        inherit IMonthFacts<TropicaliaMonth, StandardTropicaliaDataSet>()
+        inherit IMonthFacts<TropicaliaMonth, TropicaliaDate, StandardTropicaliaDataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

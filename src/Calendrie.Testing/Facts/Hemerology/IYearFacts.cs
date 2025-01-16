@@ -22,10 +22,6 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Prelude
 {
-    //
-    // Properties
-    //
-
     [Theory, MemberData(nameof(CenturyInfoData))]
     public void CenturyOfEra_Prop(CenturyInfo info)
     {
@@ -83,48 +79,48 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Prelude
     }
 }
 
-public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
+public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
 {
     [Theory, MemberData(nameof(YearInfoData))]
-    public void CountMonths(YearInfo info)
-    {
-        var year = TYear.Create(info.Year);
-        // Act & Assert
-        Assert.Equal(info.MonthsInYear, year.CountMonths());
-    }
-
-    [Theory, MemberData(nameof(YearInfoData))]
-    public void EnumerateMonths(YearInfo info)
+    public void MinMonth_Prop(YearInfo info)
     {
         int y = info.Year;
         var year = TYear.Create(y);
-        var exp = from m in Enumerable.Range(1, info.MonthsInYear)
-                  select TMonth.Create(y, m);
-        // Act
-        var actual = year.EnumerateMonths();
-        // Assert
-        Assert.Equal(exp, actual);
+        var month = TMonth.Create(y, 1);
+        // Act & Assert
+        Assert.Equal(month, year.MinMonth);
     }
 
-    //[Theory, MemberData(nameof(MonthInfoData))]
-    //public void GetMonthOfYear(MonthInfo info)
-    //{
-    //    var (y, m) = info.Yemo;
-    //    var year = TYear.Create(y);
-    //    var month = TMonth.Create(y, m);
-    //    // Act & Assert
-    //    Assert.Equal(month, year.GetMonthOfYear(m));
-    //}
-}
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void MaxMonth_Prop(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        var month = TMonth.Create(y, info.MonthsInYear);
+        // Act & Assert
+        Assert.Equal(month, year.MaxMonth);
+    }
 
-public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
-{
     [Theory, MemberData(nameof(YearInfoData))]
     public void CountDays(YearInfo info)
     {
         var year = TYear.Create(info.Year);
         // Act & Assert
         Assert.Equal(info.DaysInYear, year.CountDays());
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void ToDayRange(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        var min = TDate.Create(y, 1);
+        var max = TDate.Create(y, info.DaysInYear);
+        // Act
+        var range = year.ToDayRange();
+        // Assert
+        Assert.Equal(min, range.Min);
+        Assert.Equal(max, range.Max);
     }
 
     [Theory, MemberData(nameof(YearInfoData))]
@@ -148,6 +144,74 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
     //    var date = TDate.Create(y, doy);
     //    // Act & Assert
     //    Assert.Equal(date, year.GetDayOfYear(doy));
+    //}
+}
+
+public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
+{
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void MinDay_Prop(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        var startOfYear = TDate.Create(y, 1);
+        // Act & Assert
+        Assert.Equal(startOfYear, year.MinDay);
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void MaxDay_Prop(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        var endOfYear = TDate.Create(y, info.DaysInYear);
+        // Act & Assert
+        Assert.Equal(endOfYear, year.MaxDay);
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void CountMonths(YearInfo info)
+    {
+        var year = TYear.Create(info.Year);
+        // Act & Assert
+        Assert.Equal(info.MonthsInYear, year.CountMonths());
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void ToMonthRange(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        var min = TMonth.Create(y, 1);
+        var max = TMonth.Create(y, info.MonthsInYear);
+        // Act
+        var range = year.ToMonthRange();
+        // Assert
+        Assert.Equal(min, range.Min);
+        Assert.Equal(max, range.Max);
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
+    public void EnumerateMonths(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        var exp = from m in Enumerable.Range(1, info.MonthsInYear)
+                  select TMonth.Create(y, m);
+        // Act
+        var actual = year.EnumerateMonths();
+        // Assert
+        Assert.Equal(exp, actual);
+    }
+
+    //[Theory, MemberData(nameof(MonthInfoData))]
+    //public void GetMonthOfYear(MonthInfo info)
+    //{
+    //    var (y, m) = info.Yemo;
+    //    var year = TYear.Create(y);
+    //    var month = TMonth.Create(y, m);
+    //    // Act & Assert
+    //    Assert.Equal(month, year.GetMonthOfYear(m));
     //}
 }
 

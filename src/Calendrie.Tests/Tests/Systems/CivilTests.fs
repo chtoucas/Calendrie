@@ -251,7 +251,7 @@ module Bundles =
 
     [<Sealed>]
     type MonthFacts() =
-        inherit IMonthFacts<CivilMonth, StandardGregorianDataSet>()
+        inherit IMonthFacts<CivilMonth, CivilDate, StandardGregorianDataSet>()
 
     [<Sealed>]
     type YearFacts() =
