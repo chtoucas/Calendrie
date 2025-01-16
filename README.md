@@ -37,7 +37,7 @@ of years.
 
 These calendars support dates in the range from 1 to 9999 of years.
 - Armenian calendar (*)
-- Civil calendar, sams as the Gregorian calendar above with a different range
+- Civil calendar, same as the Gregorian calendar above but with a different range
   of supported years
 - Coptic calendar (*)
 - Egyptian calendar (*)
