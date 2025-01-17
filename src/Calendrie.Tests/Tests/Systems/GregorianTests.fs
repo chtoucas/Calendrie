@@ -236,8 +236,13 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new GregorianDate(y, m, d)
 
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<GregorianDate, UnboundedGregorianDataSet>(
+            new GregorianDateMath(AdditionRule.Truncate))
+
     //
-    // Month and year types
+    // Month type
     //
 
     [<Sealed>]
@@ -276,6 +281,10 @@ module Bundles =
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =
         inherit IUnsafeMonthFactoryFacts<GregorianMonth, UnboundedGregorianDataSet>()
+
+    //
+    // Year type
+    //
 
     [<Sealed>]
     type YearFacts() =
@@ -323,12 +332,3 @@ module Bundles =
             let year = new GregorianYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
-
-    //
-    // Math
-    //
-
-    [<Sealed>]
-    type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<GregorianDate, UnboundedGregorianDataSet>(
-            new GregorianDateMath(AdditionRule.Truncate))

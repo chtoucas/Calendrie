@@ -155,9 +155,7 @@ module Conversions =
         op_Explicit_Julian WorldDate.MaxValue === exp
 
 module Methods =
-    let private chr = WorldCalendar.Instance
-
-    let dateInfoData = WorldDataSet.Instance.DateInfoData
+    let dateInfoData = StandardWorldDataSet.Instance.DateInfoData
     let moreMonthInfoData = WorldDataSet.MoreMonthInfoData
 
     [<Theory; MemberData(nameof(dateInfoData))>]

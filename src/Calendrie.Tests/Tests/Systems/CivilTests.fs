@@ -368,8 +368,13 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new CivilDate(y, m, d)
 
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<CivilDate, StandardGregorianDataSet>(
+            new CivilDateMath(AdditionRule.Truncate))
+
     //
-    // Month and year types
+    // Month type
     //
 
     [<Sealed>]
@@ -393,6 +398,10 @@ module Bundles =
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =
         inherit IUnsafeMonthFactoryFacts<CivilMonth, StandardGregorianDataSet>()
+
+    //
+    // Year type
+    //
 
     [<Sealed>]
     type YearFacts() =
@@ -425,12 +434,3 @@ module Bundles =
             let year = new CivilYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
-
-    //
-    // Math
-    //
-
-    [<Sealed>]
-    type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<CivilDate, StandardGregorianDataSet>(
-            new CivilDateMath(AdditionRule.Truncate))

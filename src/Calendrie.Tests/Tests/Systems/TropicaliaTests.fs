@@ -10,7 +10,6 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
-open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Systems
 
@@ -205,8 +204,14 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<TropicaliaDate, StandardTropicaliaDataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<TropicaliaDate, StandardTropicaliaDataSet>(
+            new TropicaliaDateMath(AdditionRule.Truncate))
+
     //
-    // Month and year types
+    // Month type
     //
 
     [<Sealed>]
@@ -232,6 +237,10 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeMonthFactoryFacts() =
         inherit IUnsafeMonthFactoryFacts<TropicaliaMonth, StandardTropicaliaDataSet>()
+
+    //
+    // Year type
+    //
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -265,13 +274,3 @@ module Bundles =
             let year = new TropicaliaYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
-
-    //
-    // Math
-    //
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<TropicaliaDate, StandardTropicaliaDataSet>(
-            new TropicaliaDateMath(AdditionRule.Truncate))

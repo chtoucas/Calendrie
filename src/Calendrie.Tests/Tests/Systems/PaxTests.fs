@@ -10,7 +10,6 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
-open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Systems
 
@@ -205,8 +204,14 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<PaxDate, StandardPaxDataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>(
+            new PaxDateMath(AdditionRule.Truncate))
+
     //
-    // Month and year types
+    // Month type
     //
 
     [<Sealed>]
@@ -232,6 +237,16 @@ module Bundles =
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =
         inherit IUnsafeMonthFactoryFacts<PaxMonth, StandardPaxDataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultMonthMathFacts() =
+        inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>(
+            new PaxMonthMath(AdditionRule.Truncate))
+
+    //
+    // Year type
+    //
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -265,19 +280,3 @@ module Bundles =
             let year = new PaxYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
-
-    //
-    // Math
-    //
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>(
-            new PaxDateMath(AdditionRule.Truncate))
-
-    [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    type DefaultMonthMathFacts() =
-        inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>(
-            new PaxMonthMath(AdditionRule.Truncate))
