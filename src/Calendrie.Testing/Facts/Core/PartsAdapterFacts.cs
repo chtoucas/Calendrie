@@ -104,6 +104,28 @@ public partial class PartsAdapterFacts<TDataSet> // Conversions
 
 public partial class PartsAdapterFacts<TDataSet> // Dates in a given year or month
 {
+#if DEBUG
+    // No need to be fancy here, these methods delegate to MonthParts & co
+    // which are tested separately and only in mode DEBUG.
+
+    [Fact]
+    public void GetMonthPartsAtStartOfYear() =>
+        Assert.Equal(new MonthParts(3, 1), PartsAdapter.GetMonthPartsAtStartOfYear(3));
+
+    [Fact]
+    public void GetDatePartsAtStartOfYear() =>
+        Assert.Equal(new DateParts(3, 1, 1), PartsAdapter.GetDatePartsAtStartOfYear(3));
+
+    [Fact]
+    public void GetOrdinalPartsAtStartOfYear() =>
+        Assert.Equal(new OrdinalParts(3, 1), PartsAdapter.GetOrdinalPartsAtStartOfYear(3));
+
+    [Fact]
+    public void GetDatePartsAtStartOfMonth() =>
+        Assert.Equal(new DateParts(3, 2, 1), PartsAdapter.GetDatePartsAtStartOfMonth(3, 2));
+
+#endif
+
     #region GetMonthPartsAtEndOfYear()
 
     [Theory, MemberData(nameof(EndOfYearPartsData))]
