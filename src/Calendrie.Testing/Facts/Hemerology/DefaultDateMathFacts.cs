@@ -129,6 +129,21 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         Assert.Equal(end.PlusYears(-years), newStart);
     }
 
+    [Fact]
+    public void CountYearsSince_SpecialCases()
+    {
+        // 1/3/2000 - 2/3/1900 = 99 years
+        var start = TDate.Create(1900, 3, 2);
+        var end = TDate.Create(2000, 3, 1);
+        var exp1 = TDate.Create(1999, 3, 2);
+        var exp2 = TDate.Create(1901, 3, 1);
+        // Act & Assert
+        Assert.Equal(99, DateMathUT.CountYearsBetween(start, end, out var newStart));
+        Assert.Equal(exp1, newStart);
+        Assert.Equal(-99, DateMathUT.CountYearsBetween(end, start, out newStart));
+        Assert.Equal(exp2, newStart);
+    }
+
     #endregion
 
     #region PlusMonths()
@@ -206,6 +221,21 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         Assert.Equal(start.PlusMonths(months), newStart);
         Assert.Equal(-months, DateMathUT.CountMonthsBetween(end, start, out newStart));
         Assert.Equal(end.PlusMonths(-months), newStart);
+    }
+
+    [Fact]
+    public void CountMonthsSince_SpecialCases()
+    {
+        // 1/3/2000 - 2/3/1900 = 8 months
+        var start = TDate.Create(2000, 3, 2);
+        var end = TDate.Create(2000, 12, 1);
+        var exp1 = TDate.Create(2000, 11, 2);
+        var exp2 = TDate.Create(2000, 4, 1);
+        // Act & Assert
+        Assert.Equal(8, DateMathUT.CountMonthsBetween(start, end, out var newStart));
+        Assert.Equal(exp1, newStart);
+        Assert.Equal(-8, DateMathUT.CountMonthsBetween(end, start, out newStart));
+        Assert.Equal(exp2, newStart);
     }
 
     #endregion

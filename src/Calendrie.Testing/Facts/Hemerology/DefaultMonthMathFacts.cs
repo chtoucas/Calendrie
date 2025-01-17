@@ -149,5 +149,20 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         Assert.Equal(end.PlusYears(-years), newStart);
     }
 
+    [Fact]
+    public void CountYearsSince_SpecialCases()
+    {
+        // 3/2000 - 4/1900 = 99 years
+        var start = TMonth.Create(1900, 4);
+        var end = TMonth.Create(2000, 3);
+        var exp1 = TMonth.Create(1999, 4);
+        var exp2 = TMonth.Create(1901, 3);
+        // Act & Assert
+        Assert.Equal(99, MonthMathUT.CountYearsBetween(start, end, out var newStart));
+        Assert.Equal(exp1, newStart);
+        Assert.Equal(-99, MonthMathUT.CountYearsBetween(end, start, out newStart));
+        Assert.Equal(exp2, newStart);
+    }
+
     #endregion
 }

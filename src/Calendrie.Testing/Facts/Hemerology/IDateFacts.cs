@@ -387,7 +387,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // 1/3/2000 - 2/3/1900 = 99 years
         var date = TDate.Create(2000, 3, 1);
         var other = TDate.Create(1900, 3, 2);
-
+        // Act & Assert
         Assert.Equal(99, date.CountYearsSince(other));
         Assert.Equal(-99, other.CountYearsSince(date));
     }
@@ -504,7 +504,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // 1/3/2000 - 2/3/1900 = 8 months
         var date = TDate.Create(2000, 12, 1);
         var other = TDate.Create(2000, 3, 2);
-
+        // Act & Assert
         Assert.Equal(8, date.CountMonthsSince(other));
         Assert.Equal(-8, other.CountMonthsSince(date));
     }
