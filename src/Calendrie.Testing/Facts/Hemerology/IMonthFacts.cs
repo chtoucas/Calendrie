@@ -108,6 +108,15 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Prelude
         Assert.Equal(yearOfCentury, month.YearOfCentury);
     }
 
+    [Theory, MemberData(nameof(MonthsSinceEpochInfoData))]
+    public void MonthsSinceEpoch_Prop(MonthsSinceEpochInfo info)
+    {
+        int monthsSinceEpoch = info.MonthsSinceEpoch;
+        var month = TMonth.FromMonthsSinceEpoch(monthsSinceEpoch);
+        // Act & Assert
+        Assert.Equal(monthsSinceEpoch, month.MonthsSinceEpoch);
+    }
+
     [Theory, MemberData(nameof(MonthInfoData))]
     public void IsIntercalary_Prop(MonthInfo info)
     {

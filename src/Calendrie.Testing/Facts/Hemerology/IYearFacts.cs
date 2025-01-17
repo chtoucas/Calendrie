@@ -105,6 +105,15 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // Prelude
     }
 
     [Theory, MemberData(nameof(YearInfoData))]
+    public void YearsSinceEpoch_Prop(YearInfo info)
+    {
+        int y = info.Year;
+        var year = TYear.Create(y);
+        // Act & Assert
+        Assert.Equal(y - 1, year.YearsSinceEpoch);
+    }
+
+    [Theory, MemberData(nameof(YearInfoData))]
     public void IsLeap_Prop(YearInfo info)
     {
         // Act

@@ -28,7 +28,10 @@ public partial class IDateFacts<TDate, TDataSet> :
     protected SupportedYearsTester SupportedYearsTester { get; }
 
     protected sealed override TDate GetDate(int y, int m, int d) => TDate.Create(y, m, d);
+}
 
+public partial class IDateFacts<TDate, TDataSet> // Prelude
+{
     [Fact]
     public void Calendar_Prop() => Assert.NotNull(TDate.Calendar);
 
