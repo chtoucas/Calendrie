@@ -16,6 +16,8 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
+let private calendarDataSet = StandardWorldDataSet.Instance
+
 module Prelude =
     [<Fact>]
     let ``Value of WorldCalendar.Epoch.DaysZinceZero`` () =
@@ -44,9 +46,8 @@ module Prelude =
 #endif
 
 module Conversions =
-    let private calendarDataSet = StandardWorldDataSet.Instance
-
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = WorldDate -> GregorianDate
@@ -54,6 +55,30 @@ module Conversions =
 
     type JulianDateCaster = WorldDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = WorldDate.op_Explicit
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``WorldMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = new WorldMonth(y, m)
+        // Act & Assert
+        WorldMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``WorldYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = new WorldYear(y)
+        // Act & Assert
+        WorldYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``WorldYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new WorldMonth(y, m)
+        let exp = new WorldYear(y)
+        // Act & Assert
+        WorldYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -155,7 +180,7 @@ module Conversions =
         op_Explicit_Julian WorldDate.MaxValue === exp
 
 module Methods =
-    let dateInfoData = StandardWorldDataSet.Instance.DateInfoData
+    let dateInfoData = calendarDataSet.DateInfoData
     let moreMonthInfoData = WorldDataSet.MoreMonthInfoData
 
     [<Theory; MemberData(nameof(dateInfoData))>]
@@ -166,10 +191,11 @@ module Methods =
         date.IsBlank === date.IsSupplementary
 
     [<Theory; MemberData(nameof(moreMonthInfoData))>]
-    let ``CountDaysInWorldMonth()`` (info: YemoAnd<int>) =
+    let ``WorldMonth.CountDaysInWorldMonth()`` (info: YemoAnd<int>) =
         let (y, m, daysInMonth) = info.Deconstruct()
+        let month = new WorldMonth(y, m);
 
-        WorldCalendar.CountDaysInWorldMonth(y, m) === daysInMonth
+        month.CountDaysInWorldMonth() === daysInMonth
 
 module Bundles =
     [<Sealed>]
@@ -199,3 +225,68 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<WorldDate, StandardWorldDataSet>()
+
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<WorldMonth, WorldDate, StandardWorldDataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new WorldMonth(y, m)
+            let date = new WorldDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new WorldMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<WorldMonth, StandardWorldDataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<WorldYear, WorldMonth, WorldDate, StandardWorldDataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new WorldYear(y)
+            let date = new WorldMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new WorldYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new WorldYear(y)
+            let date = new WorldDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new WorldYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

@@ -7,6 +7,8 @@
         epochDaysSinceZeroValue: "-1",
         maxDaysSinceEpochValue:  "3_652_058")
     {
+        EnableMonth = true,
+        EnableYear = true,
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12
     }.Execute() #>

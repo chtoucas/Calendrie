@@ -13,6 +13,7 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -909,6 +910,1101 @@ public partial struct WorldDate // Non-standard math ops
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return new WorldDate(daysSinceEpoch);
+    }
+}
+
+#endregion
+
+#region WorldMonth
+
+/// <summary>
+/// Represents the World month.
+/// <para><i>All</i> months within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="WorldMonth"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct WorldMonth :
+    IMonth<WorldMonth>,
+    IUnsafeFactory<WorldMonth>,
+    // A month viewed as a finite sequence of days
+    IDaySegment<WorldDate>,
+    ISetMembership<WorldDate>,
+    // Arithmetic
+    ISubtractionOperators<WorldMonth, WorldMonth, int>
+{ }
+
+public partial struct WorldMonth // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 119_987.</para></summary>
+    private const int MaxMonthsSinceEpoch = 119_987;
+
+    /// <summary>
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.SundayBeforeGregorian"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly int _monthsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WorldMonth"/> struct
+    /// to the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    public WorldMonth(int year, int month)
+    {
+        // The calendar being regular, no need to use the Scope:
+        // > WorldCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > WorldSchema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WorldMonth"/> struct.
+    /// <para>This constructor does NOT validate its parameters.</para>
+    /// </summary>
+    private WorldMonth(int monthsSinceEpoch)
+    {
+        _monthsSinceEpoch = monthsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="WorldMonth"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported month.</returns>
+    //
+    // MinValue = new(0) = new() = default(WorldMonth)
+    public static WorldMonth MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="WorldMonth"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported month.</returns>
+    public static WorldMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static WorldCalendar Calendar => WorldCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
+    /// </summary>
+    public int Year =>
+        // NB: both dividend and divisor are >= 0.
+        1 + _monthsSinceEpoch / WorldSchema.MonthsInYear;
+
+    /// <inheritdoc />
+    public int Month
+    {
+        get
+        {
+            var (_, m) = this;
+            return m;
+        }
+    }
+
+    /// <inheritdoc />
+    bool IMonth.IsIntercalary => false;
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString()
+    {
+        var (y, m) = this;
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({WorldCalendar.DisplayName})");
+    }
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int month)
+    {
+        // See RegularSchema.GetMonthParts().
+        // NB: both dividend and divisor are >= 0.
+        year = 1 + MathN.Divide(_monthsSinceEpoch, WorldSchema.MonthsInYear, out int m0);
+        month = 1 + m0;
+    }
+}
+
+public partial struct WorldMonth // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static WorldMonth Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="WorldMonth"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static WorldMonth? TryCreate(int year, int month)
+    {
+        // The calendar being regular, no need to use the PreValidator.
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear
+            || month < 1 || month > WorldSchema.MonthsInYear)
+        {
+            return null;
+        }
+
+        return UnsafeCreate(year, month);
+    }
+
+    // Explicit implementation: WorldMonth being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IMonth<WorldMonth>.TryCreate(int year, int month, out WorldMonth result)
+    {
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="WorldMonth"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static WorldMonth UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new WorldMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="WorldMonth"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static WorldMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
+
+    [Pure]
+    static WorldMonth IUnsafeFactory<WorldMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        UnsafeCreate(monthsSinceEpoch);
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceEpoch(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        WorldSchema.MonthsInYear * (y - 1) + m - 1;
+}
+
+public partial struct WorldMonth // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="WorldMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static WorldMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
+        return new WorldMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="WorldMonth"/> struct
+    /// from the specified <see cref="WorldDate"/> value.
+    /// </summary>
+    [Pure]
+    public static WorldMonth FromDate(WorldDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+}
+
+public partial struct WorldMonth // Counting
+{
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedMonthsInYear() => Month - 1;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingMonthsInYear() => WorldSchema.MonthsInYear - Month;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearBeforeMonth(y, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
+    }
+}
+
+public partial struct WorldMonth // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public WorldMonth WithYear(int newYear)
+    {
+        int m = Month;
+
+        // Even when "newYear" is valid, we should re-check "m", but the calendar
+        // being regular this is not needed here.
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
+
+        return UnsafeCreate(newYear, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public WorldMonth WithMonth(int newMonth)
+    {
+        int y = Year;
+
+        // We already know that "y" is valid, we only need to check "newMonth".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > WorldSchema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
+        return UnsafeCreate(y, newMonth);
+    }
+}
+
+public partial struct WorldMonth // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
+    public WorldDate MinDay
+    {
+        get
+        {
+            var (y, m) = this;
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
+            return WorldDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
+    public WorldDate MaxDay
+    {
+        get
+        {
+            var (y, m) = this;
+            var sch = Calendar.Schema;
+            int d = sch.CountDaysInMonth(y, m);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
+            return WorldDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInMonth(y, m);
+    }
+
+    /// <summary>
+    /// Converts the current instance to a range of days.
+    /// </summary>
+    [Pure]
+    public Range<WorldDate> ToRange()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(WorldDate.UnsafeCreate(startOfMonth), daysInMonth);
+    }
+
+    [Pure]
+    Range<WorldDate> IDaySegment<WorldDate>.ToDayRange() => ToRange();
+
+    /// <summary>
+    /// Returns an enumerable collection of all days in this month instance.
+    /// </summary>
+    [Pure]
+    public IEnumerable<WorldDate> ToEnumerable()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfMonth, daysInMonth)
+               select WorldDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    [Pure]
+    IEnumerable<WorldDate> IDaySegment<WorldDate>.EnumerateDays() => ToEnumerable();
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(WorldDate date)
+    {
+        var (y, m) = this;
+        Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
+        return y1 == y && m1 == m;
+    }
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this month
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public WorldDate GetDayOfMonth(int dayOfMonth)
+    {
+        var (y, m) = this;
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return WorldDate.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct WorldMonth // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(WorldMonth left, WorldMonth right) =>
+        left._monthsSinceEpoch == right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(WorldMonth left, WorldMonth right) =>
+        left._monthsSinceEpoch != right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(WorldMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is WorldMonth month && Equals(month);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _monthsSinceEpoch;
+}
+
+public partial struct WorldMonth // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(WorldMonth left, WorldMonth right) =>
+        left._monthsSinceEpoch < right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(WorldMonth left, WorldMonth right) =>
+        left._monthsSinceEpoch <= right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(WorldMonth left, WorldMonth right) =>
+        left._monthsSinceEpoch > right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(WorldMonth left, WorldMonth right) =>
+        left._monthsSinceEpoch >= right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static WorldMonth Min(WorldMonth x, WorldMonth y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static WorldMonth Max(WorldMonth x, WorldMonth y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(WorldMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is WorldMonth month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(WorldMonth), obj);
+}
+
+public partial struct WorldMonth // Standard math ops
+{
+    /// <summary>
+    /// Subtracts the two specified months and returns the number of months
+    /// between them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
+    public static int operator -(WorldMonth left, WorldMonth right) => left.CountMonthsSince(right);
+
+    /// <summary>
+    /// Adds a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static WorldMonth operator +(WorldMonth value, int months) => value.PlusMonths(months);
+
+    /// <summary>
+    /// Subtracts a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static WorldMonth operator -(WorldMonth value, int months) => value.PlusMonths(-months);
+
+    /// <summary>
+    /// Adds one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
+    public static WorldMonth operator ++(WorldMonth value) => value.NextMonth();
+
+    /// <summary>
+    /// Subtracts one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
+    public static WorldMonth operator --(WorldMonth value) => value.PreviousMonth();
+
+    /// <summary>
+    /// Counts the number of whole months elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(WorldMonth other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to MaxMonthsSinceEpoch.
+        _monthsSinceEpoch - other._monthsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of months to the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [Pure]
+    public WorldMonth PlusMonths(int months)
+    {
+        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthOverflow();
+        return new WorldMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the month after the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [Pure]
+    public WorldMonth NextMonth()
+    {
+        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        return new WorldMonth(_monthsSinceEpoch + 1);
+    }
+
+    /// <summary>
+    /// Obtains the month before the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [Pure]
+    public WorldMonth PreviousMonth()
+    {
+        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new WorldMonth(_monthsSinceEpoch - 1);
+    }
+}
+
+public partial struct WorldMonth // Non-standard math ops
+{
+    /// <summary>
+    /// Adds a number of years to the year field of this month instance, yielding
+    /// a new month.
+    /// <para>In the particular case of the World calendar, this
+    /// operation is exact.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported months.</exception>
+    [Pure]
+    public WorldMonth PlusYears(int years)
+    {
+        var (y, m) = this;
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        return UnsafeCreate(newY, m);
+    }
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(WorldMonth other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
+}
+
+#endregion
+
+#region WorldYear
+
+/// <summary>
+/// Represents the World year.
+/// <para><i>All</i> years within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="WorldYear"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct WorldYear :
+    IYear<WorldYear>,
+    // A year viewed as a finite sequence of months
+    IMonthSegment<WorldMonth>,
+    ISetMembership<WorldMonth>,
+    // A year viewed as a finite sequence of days
+    IDaySegment<WorldDate>,
+    ISetMembership<WorldDate>,
+    // Arithmetic
+    ISubtractionOperators<WorldYear, WorldYear, int>
+{ }
+
+public partial struct WorldYear // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 9998.</para></summary>
+    private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
+
+    /// <summary>
+    /// Represents the count of consecutive years since the epoch
+    /// <see cref="DayZero.SundayBeforeGregorian"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly ushort _yearsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WorldYear"/> struct
+    /// to the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    public WorldYear(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        _yearsSinceEpoch = (ushort)(year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WorldYear"/> struct.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    private WorldYear(ushort yearsSinceEpoch)
+    {
+        _yearsSinceEpoch = yearsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="WorldYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported year.</returns>
+    //
+    // MinValue = new(1) = new() = default(WorldYear)
+    public static WorldYear MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="WorldYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported year.</returns>
+    public static WorldYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static WorldCalendar Calendar => WorldCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// </summary>
+    //
+    // Actually, this property returns the algebraic year, but since its value
+    // is greater than 0, one can ignore this subtlety.
+    public int Year => _yearsSinceEpoch + 1;
+
+    /// <inheritdoc />
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({WorldCalendar.DisplayName})");
+}
+
+public partial struct WorldYear // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static WorldYear Create(int year) => new(year);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="WorldYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static WorldYear? TryCreate(int year)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        return ok ? UnsafeCreate(year) : null;
+    }
+
+    // Explicit implementation: WorldYear being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IYear<WorldYear>.TryCreate(int year, out WorldYear result)
+    {
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="WorldYear"/> struct
+    /// from the specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static WorldYear UnsafeCreate(int year) => new((ushort)(year - 1));
+}
+
+public partial struct WorldYear // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="WorldYear"/> struct
+    /// from the specified <see cref="WorldMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static WorldYear FromMonth(WorldMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="WorldYear"/> struct
+    /// from the specified <see cref="WorldDate"/> value.
+    /// </summary>
+    [Pure]
+    public static WorldYear FromDate(WorldDate date) => UnsafeCreate(date.Year);
+}
+
+public partial struct WorldYear // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthCount = WorldSchema.MonthsInYear;
+
+    /// <inheritdoc />
+    public WorldMonth MinMonth => WorldMonth.UnsafeCreate(Year, 1);
+
+    /// <inheritdoc />
+    public WorldMonth MaxMonth => WorldMonth.UnsafeCreate(Year, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<WorldMonth>.CountMonths() => MonthCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<WorldMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<WorldMonth> EnumerateMonths()
+    {
+        int startOfYear = WorldMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select WorldMonth.UnsafeCreate(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(WorldMonth month) => month.Year == Year;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public WorldMonth GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > WorldSchema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return WorldMonth.UnsafeCreate(Year, month);
+    }
+}
+
+public partial struct WorldYear // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
+    public WorldDate MinDay
+    {
+        get
+        {
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return WorldDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
+    public WorldDate MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int doy = sch.CountDaysInYear(Year);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
+            return WorldDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<WorldDate> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+        return Range.StartingAt(WorldDate.UnsafeCreate(startOfYear), daysInYear);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<WorldDate> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfYear, daysInYear)
+               select WorldDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(WorldDate date) => date.Year == Year;
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this year instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public WorldDate GetDayOfYear(int dayOfYear)
+    {
+        var chr = Calendar;
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
+        return WorldDate.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct WorldYear // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(WorldYear left, WorldYear right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(WorldYear left, WorldYear right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(WorldYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is WorldYear year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _yearsSinceEpoch;
+}
+
+public partial struct WorldYear // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(WorldYear left, WorldYear right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(WorldYear left, WorldYear right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(WorldYear left, WorldYear right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(WorldYear left, WorldYear right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static WorldYear Min(WorldYear x, WorldYear y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static WorldYear Max(WorldYear x, WorldYear y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(WorldYear other) =>
+        _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is WorldYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(WorldYear), obj);
+}
+
+public partial struct WorldYear // Math ops
+{
+    /// <summary>
+    /// Subtracts the two specified years and returns the number of years between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
+    public static int operator -(WorldYear left, WorldYear right) => left.CountYearsSince(right);
+
+    /// <summary>
+    /// Adds a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static WorldYear operator +(WorldYear value, int years) => value.PlusYears(years);
+
+    /// <summary>
+    /// Subtracts a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the range
+    /// of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static WorldYear operator -(WorldYear value, int years) => value.PlusYears(-years);
+
+    /// <summary>
+    /// Adds one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
+    public static WorldYear operator ++(WorldYear value) => value.NextYear();
+
+    /// <summary>
+    /// Subtracts one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
+    public static WorldYear operator --(WorldYear value) => value.PreviousYear();
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified year.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(WorldYear other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to (MaxYear - 1).
+        _yearsSinceEpoch - other._yearsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of years to the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported years.
+    /// </exception>
+    [Pure]
+    public WorldYear PlusYears(int years)
+    {
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new WorldYear((ushort)yearsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the year after the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [Pure]
+    public WorldYear NextYear()
+    {
+        if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new WorldYear((ushort)(_yearsSinceEpoch + 1));
+    }
+
+    /// <summary>
+    /// Obtains the year before the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [Pure]
+    public WorldYear PreviousYear()
+    {
+        if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
+        return new WorldYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 
