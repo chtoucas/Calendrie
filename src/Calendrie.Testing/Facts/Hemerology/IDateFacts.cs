@@ -381,6 +381,17 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         Assert.Equal(-years, start.CountYearsSince(end));
     }
 
+    [Fact]
+    public void CountYearsSince_SpecialCases()
+    {
+        // 1/3/2000 - 2/3/1900 = 99 years
+        var date = TDate.Create(2000, 3, 1);
+        var other = TDate.Create(1900, 3, 2);
+
+        Assert.Equal(99, date.CountYearsSince(other));
+        Assert.Equal(-99, other.CountYearsSince(date));
+    }
+
     #endregion
 
     #region NextMonth()
@@ -485,6 +496,17 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // Act & Assert
         Assert.Equal(months, end.CountMonthsSince(start));
         Assert.Equal(-months, start.CountMonthsSince(end));
+    }
+
+    [Fact]
+    public void CountMonthsSince_SpecialCases()
+    {
+        // 1/3/2000 - 2/3/1900 = 99 years
+        var date = TDate.Create(2000, 12, 1);
+        var other = TDate.Create(2000, 3, 2);
+
+        Assert.Equal(8, date.CountMonthsSince(other));
+        Assert.Equal(-8, other.CountMonthsSince(date));
     }
 
     #endregion

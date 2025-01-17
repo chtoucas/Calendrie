@@ -208,8 +208,13 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<JulianDate, UnboundedJulianDataSet>()
 
+    [<Sealed>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<JulianDate, UnboundedJulianDataSet>(
+            new JulianDateMath(AdditionRule.Truncate))
+
     //
-    // Month and year types
+    // Month type
     //
 
     [<Sealed>]
@@ -248,6 +253,10 @@ module Bundles =
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =
         inherit IUnsafeMonthFactoryFacts<JulianMonth, UnboundedJulianDataSet>()
+
+    //
+    // Year type
+    //
 
     [<Sealed>]
     type YearFacts() =
@@ -295,12 +304,3 @@ module Bundles =
             let year = new JulianYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
-
-    //
-    // Math
-    //
-
-    [<Sealed>]
-    type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<JulianDate, UnboundedJulianDataSet>(
-            new JulianDateMath(AdditionRule.Truncate))
