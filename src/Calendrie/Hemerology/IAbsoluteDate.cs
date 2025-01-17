@@ -9,6 +9,8 @@ using Calendrie.Core.Utilities;
 
 using static Calendrie.Core.CalendricalConstants;
 
+// TODO(doc): DaysSinceEpoch, MonthsSinceEpoch, YearsSinceEpoch.
+
 // L'interface IAbsoluteDate<T> est prévue pour les dates fonctionnant avec une
 // __seule espèce de calendrier__, d'où le fait d'avoir choisi des propriétés et
 // méthodes statiques :

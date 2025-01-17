@@ -19,11 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Systems\Civil.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Civil.tt</DependentUpon>
-    </Compile>
     <Compile Update="Systems\Egyptian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -44,20 +39,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FrenchRepublican13.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Gregorian.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Gregorian.tt</DependentUpon>
-    </Compile>
     <Compile Update="Systems\InternationalFixed.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>InternationalFixed.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Systems\Julian.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Julian.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Pax.g.cs">
       <DesignTime>True</DesignTime>

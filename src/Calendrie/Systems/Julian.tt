@@ -17,9 +17,12 @@ public sealed class JulianTemplate : CalendarTemplate
 
         EnableCalendar = false;
         EnableDate = true;
-        EnableMonth = false;
-        EnableYear = false;
+        EnableMonth = true;
+        EnableYear = true;
+
         EnableIsSupplementary = false;
+        EnablePragmas = true;
+
         //MinMonthsSinceEpochValue = "-11_999_988";
         MaxMonthsSinceEpochValue = "11_999_987";
         MonthsInYear = 12;
@@ -29,7 +32,10 @@ public sealed class JulianTemplate : CalendarTemplate
     {
         WriteLine();
 #>
+using Calendrie.Core.Intervals;
+using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 <#+ if (EnableClock) { #>
 using Calendrie.Horology;
 <#+ } #>
@@ -51,7 +57,7 @@ using Calendrie.Horology;
     // Month type
     protected sealed override void EmitMonthDecl() { }
     protected sealed override void EmitMonthPreambleRegular() { }
-    protected sealed override void EmitMonthAdjustmentsRegular() { }
+    protected sealed override void EmitMonthConversionsRegular() { }
     protected sealed override void EmitMonthDaySegmentRegular() { }
     protected sealed override void EmitMonthMath() { }
 
