@@ -92,7 +92,6 @@ public partial struct JulianMonth // Counting
     [Pure]
     public int CountRemainingMonthsInYear() => JulianSchema.MonthsInYear - 1;
 
-#if false
     /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
@@ -108,7 +107,6 @@ public partial struct JulianMonth // Counting
         var (y, m) = this;
         return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
-#endif
 }
 
 public partial struct JulianMonth // Adjustments

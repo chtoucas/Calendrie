@@ -136,7 +136,6 @@ public partial struct CivilMonth // Counting
     [Pure]
     public int CountRemainingMonthsInYear() => CivilSchema.MonthsInYear - 1;
 
-#if false
     /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
@@ -152,7 +151,6 @@ public partial struct CivilMonth // Counting
         var (y, m) = this;
         return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
-#endif
 }
 
 public partial struct CivilMonth // Adjustments

@@ -1174,7 +1174,6 @@ public partial struct TropicaliaMonth // Counting
     [Pure]
     public int CountRemainingMonthsInYear() => TropicaliaSchema.MonthsInYear - 1;
 
-#if false
     /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
@@ -1190,7 +1189,6 @@ public partial struct TropicaliaMonth // Counting
         var (y, m) = this;
         return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
-#endif
 }
 
 public partial struct TropicaliaMonth // Adjustments

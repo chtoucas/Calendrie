@@ -195,6 +195,31 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Conversions
     #endregion
 }
 
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // Counting
+{
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CountElapsedDaysInYear(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act
+        int actual = month.CountElapsedDaysInYear();
+        // Assert
+        Assert.Equal(info.DaysInYearBeforeMonth, actual);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CountRemainingDaysInYear(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act
+        int actual = month.CountRemainingDaysInYear();
+        //
+        Assert.Equal(info.DaysInYearAfterMonth, actual);
+    }
+}
+
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // Adjustments
 {
     #region Year adjustment
@@ -332,6 +357,16 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // IDaySegment
         var actual = month.EnumerateDays();
         // Assert
         Assert.Equal(exp, actual);
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Contains(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var month = TMonth.Create(y, m);
+        var date = TDate.Create(y, m, d);
+        // Act & Assert
+        Assert.True(month.Contains(date));
     }
 }
 

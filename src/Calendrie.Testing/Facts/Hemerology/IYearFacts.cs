@@ -206,6 +206,19 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
         Assert.Equal(exp, actual);
     }
 
+    // TODO(fact): add tests when Contains() returns false.
+    // Idem w/ IYear.Contains(date) and IMonth.Contains(date).
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Contains_Month(DateInfo info)
+    {
+        var (y, m, _) = info.Yemoda;
+        var year = TYear.Create(y);
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.True(year.Contains(month));
+    }
+
     //[Theory, MemberData(nameof(DateInfoData))]
     //public void GetDayOfYear(DateInfo info)
     //{
@@ -272,6 +285,16 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
         var actual = year.EnumerateMonths();
         // Assert
         Assert.Equal(exp, actual);
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Contains_Day(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var year = TYear.Create(y);
+        var date = TDate.Create(y, m, d);
+        // Act & Assert
+        Assert.True(year.Contains(date));
     }
 
     //[Theory, MemberData(nameof(MonthInfoData))]

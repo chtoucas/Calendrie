@@ -92,7 +92,6 @@ public partial struct GregorianMonth // Counting
     [Pure]
     public int CountRemainingMonthsInYear() => GregorianSchema.MonthsInYear - 1;
 
-#if false
     /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
@@ -108,7 +107,6 @@ public partial struct GregorianMonth // Counting
         var (y, m) = this;
         return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
-#endif
 }
 
 public partial struct GregorianMonth // Adjustments

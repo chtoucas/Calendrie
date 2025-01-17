@@ -561,7 +561,6 @@ public partial struct <#= Prefix #>Month // Counting
     [Pure]
     public int CountRemainingMonthsInYear() => <#= SchemaClass #>.MonthsInYear - 1;
 
-#if false
     /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
@@ -577,7 +576,6 @@ public partial struct <#= Prefix #>Month // Counting
         var (y, m) = this;
         return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
     }
-#endif
 }
 <#+
     } // T4: End of EmitMonthCountingRegular()
@@ -596,7 +594,6 @@ public partial struct <#= Prefix #>Month // Counting
     [Pure]
     public int CountRemainingMonthsInYear() => Calendar.Schema.CountMonthsInYear(Year) - 1;
 
-#if false
     /// <inheritdoc />
     [Pure]
     public int CountElapsedDaysInYear()
@@ -614,7 +611,6 @@ public partial struct <#= Prefix #>Month // Counting
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         return sch.CountDaysInYearAfterMonth(y, m);
     }
-#endif
 }
 <#+
     } // T4: End of EmitMonthCountingNonRegular()
