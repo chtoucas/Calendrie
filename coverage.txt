@@ -1,24 +1,24 @@
 Summary
-  Generated on: 17/01/2025 - 08:43:23
+  Generated on: 17/01/2025 - 11:39:45
   Parser: OpenCover
   Assemblies: 3
-  Classes: 196
+  Classes: 198
   Files: 179
-  Line coverage: 92.3%
-  Covered lines: 11945
-  Uncovered lines: 994
-  Coverable lines: 12939
-  Total lines: 48926
-  Branch coverage: 88.8% (3361 of 3784)
-  Covered branches: 3361
-  Total branches: 3784
-  Method coverage: 93.4% (4094 of 4381)
-  Full method coverage: 76.9% (3370 of 4381)
-  Covered methods: 4094
-  Fully covered methods: 3370
-  Total methods: 4381
+  Line coverage: 92.5%
+  Covered lines: 12240
+  Uncovered lines: 992
+  Coverable lines: 13232
+  Total lines: 49971
+  Branch coverage: 91.3% (3525 of 3858)
+  Covered branches: 3525
+  Total branches: 3858
+  Method coverage: 93.6% (4214 of 4501)
+  Full method coverage: 77.2% (3478 of 4501)
+  Covered methods: 4214
+  Fully covered methods: 3478
+  Total methods: 4501
 
-Calendrie                                                98.8%
+Calendrie                                                98.9%
   Calendrie.Core.CalendricalSchema                        100%
   Calendrie.Core.CalendricalSegment                       100%
   Calendrie.Core.CalendricalSegmentBuilder                100%
@@ -125,8 +125,10 @@ Calendrie                                                98.8%
   Calendrie.Systems.StandardScope                         100%
   Calendrie.Systems.TabularIslamicCalendar                100%
   Calendrie.Systems.TabularIslamicDate                    100%
-  Calendrie.Systems.WorldCalendar                        87.5%
+  Calendrie.Systems.WorldCalendar                         100%
   Calendrie.Systems.WorldDate                             100%
+  Calendrie.Systems.WorldMonth                            100%
+  Calendrie.Systems.WorldYear                             100%
   Calendrie.Systems.Zoroastrian13Calendar                 100%
   Calendrie.Systems.Zoroastrian13Date                     100%
   Calendrie.Systems.ZoroastrianCalendar                   100%
