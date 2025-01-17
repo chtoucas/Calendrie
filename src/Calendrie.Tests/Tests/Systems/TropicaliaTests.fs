@@ -224,6 +224,22 @@ module Bundles =
     type YearFacts() =
         inherit IYearFacts<TropicaliaYear, TropicaliaMonth, TropicaliaDate, StandardTropicaliaDataSet>()
 
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member GetMonthOfYear (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new TropicaliaYear(y)
+            let date = new TropicaliaMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfYear (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new TropicaliaYear(y)
+            let date = new TropicaliaDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
     //
     // Math
     //

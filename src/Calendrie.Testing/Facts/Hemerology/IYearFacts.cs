@@ -8,6 +8,10 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
+// TODO(fact): add tests when Contains() returns false.
+// Idem w/ IYear.Contains(date) and IMonth.Contains(date).
+// GetDayOfYear() and GetMonthOfYear() when invalid. Idem in IMonthFacts.
+
 // We also test the static (abstract) methods from the interface.
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
@@ -206,10 +210,6 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
         Assert.Equal(exp, actual);
     }
 
-    // TODO(fact): add tests when Contains() returns false.
-    // Idem w/ IYear.Contains(date) and IMonth.Contains(date).
-    // GetDayOfYear() and GetMonthOfYear() when invalid. Idem in IMonthFacts.
-
     [Theory, MemberData(nameof(DateInfoData))]
     public void Contains_Month(DateInfo info)
     {
@@ -219,16 +219,6 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
         // Act & Assert
         Assert.True(year.Contains(month));
     }
-
-    //[Theory, MemberData(nameof(DateInfoData))]
-    //public void GetDayOfYear(DateInfo info)
-    //{
-    //    var (y, doy) = info.Yedoy;
-    //    var year = TYear.Create(y);
-    //    var date = TDate.Create(y, doy);
-    //    // Act & Assert
-    //    Assert.Equal(date, year.GetDayOfYear(doy));
-    //}
 }
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
@@ -297,16 +287,6 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
         // Act & Assert
         Assert.True(year.Contains(date));
     }
-
-    //[Theory, MemberData(nameof(MonthInfoData))]
-    //public void GetMonthOfYear(MonthInfo info)
-    //{
-    //    var (y, m) = info.Yemo;
-    //    var year = TYear.Create(y);
-    //    var month = TMonth.Create(y, m);
-    //    // Act & Assert
-    //    Assert.Equal(month, year.GetMonthOfYear(m));
-    //}
 }
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IEquatable

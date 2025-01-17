@@ -254,6 +254,22 @@ module Bundles =
             let year = new JulianYear(-999_998);
             year.ToString() === "999999 BCE (Julian)"
 
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member GetMonthOfYear (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new JulianYear(y)
+            let date = new JulianMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfYear (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new JulianYear(y)
+            let date = new JulianDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
     //
     // Math
     //

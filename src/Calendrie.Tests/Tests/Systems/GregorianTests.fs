@@ -282,6 +282,22 @@ module Bundles =
             let year = new GregorianYear(-999_998);
             year.ToString() === "999999 BCE (Gregorian)"
 
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member GetMonthOfYear (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new GregorianYear(y)
+            let date = new GregorianMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfYear (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new GregorianYear(y)
+            let date = new GregorianDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
     //
     // Math
     //

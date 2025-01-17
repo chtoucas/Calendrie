@@ -384,6 +384,22 @@ module Bundles =
     type YearFacts() =
         inherit IYearFacts<CivilYear, CivilMonth, CivilDate, StandardGregorianDataSet>()
 
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member GetMonthOfYear (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new CivilYear(y)
+            let date = new CivilMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfYear (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new CivilYear(y)
+            let date = new CivilDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
     //
     // Math
     //
