@@ -172,6 +172,10 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = Persian2820Calendar.MaxYear === StandardScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =

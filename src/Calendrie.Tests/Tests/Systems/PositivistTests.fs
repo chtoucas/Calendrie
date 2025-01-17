@@ -172,6 +172,10 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = PositivistCalendar.MaxYear === StandardScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =

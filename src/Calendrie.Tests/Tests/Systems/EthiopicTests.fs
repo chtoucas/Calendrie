@@ -301,6 +301,10 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = EthiopicCalendar.MaxYear === StandardScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
@@ -339,6 +343,10 @@ module Bundles13 =
 
         [<Fact>]
         static member MaxYear() = Ethiopic13Calendar.MaxYear === StandardScope.MaxYear
+
+    //
+    // Date type
+    //
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

@@ -354,6 +354,10 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = CivilCalendar.MaxYear === StandardScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<CivilDate, StandardGregorianDataSet>()

@@ -185,6 +185,10 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = JulianCalendar.MaxYear === JulianScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<JulianDate, UnboundedJulianDataSet>()

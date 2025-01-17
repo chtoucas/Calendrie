@@ -194,6 +194,10 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = TropicaliaCalendar.MaxYear === StandardScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =

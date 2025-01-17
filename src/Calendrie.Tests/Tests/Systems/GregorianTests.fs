@@ -207,6 +207,10 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = GregorianCalendar.MaxYear === GregorianScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<GregorianDate, UnboundedGregorianDataSet>()
