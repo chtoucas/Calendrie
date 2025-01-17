@@ -495,6 +495,16 @@ module Yemo =
 
             (y, m) === (1, 1)
 
+#if DEBUG
+        [<Fact>]
+        let ``Constructor with ill-formed data`` () =
+            // See Yemoda.Pack().
+            let y, m, d = 1, 1, 2
+            let bin = ((y - 1) <<< Yemoda.YearShift) ||| ((m - 1) <<< Yemoda.MonthShift) ||| (d - 1)
+
+            argExn "data" (fun () -> new Yemo(bin))
+#endif
+
         [<Property>]
         let Constructor (YearField y) (MonthField m)  =
             let ym = new Yemo(y, m)
@@ -518,8 +528,8 @@ module Yemo =
             (a, b) = (y, m)
 
         [<Theory>]
-        [<InlineData(-2_097_151, 1, "01/-2097151")>]   // MinValue
-        [<InlineData(1, 1, "01/0001")>]               // Default
+        [<InlineData(-2_097_151, 1, "01/-2097151")>] // MinValue
+        [<InlineData(1, 1, "01/0001")>]              // Default
         [<InlineData(2_097_152, 16, "16/2097152")>]  // MaxValue
         [<InlineData(7, 5, "05/0007")>]
         [<InlineData(-7, 5, "05/-0007")>]
