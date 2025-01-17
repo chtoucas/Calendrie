@@ -376,6 +376,14 @@ module Bundles =
     type MonthFacts() =
         inherit IMonthFacts<CivilMonth, CivilDate, StandardGregorianDataSet>()
 
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfMonth (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new CivilMonth(y, m)
+            let date = new CivilDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =
         inherit IUnsafeMonthFactoryFacts<CivilMonth, StandardGregorianDataSet>()

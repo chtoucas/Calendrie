@@ -214,6 +214,14 @@ module Bundles =
     type MonthFacts() =
         inherit IMonthFacts<PaxMonth, PaxDate, StandardPaxDataSet>()
 
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfMonth (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new PaxMonth(y, m)
+            let date = new PaxDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =

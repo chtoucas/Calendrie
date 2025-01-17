@@ -214,6 +214,14 @@ module Bundles =
     type MonthFacts() =
         inherit IMonthFacts<TropicaliaMonth, TropicaliaDate, StandardTropicaliaDataSet>()
 
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfMonth (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new TropicaliaMonth(y, m)
+            let date = new TropicaliaDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeMonthFactoryFacts() =

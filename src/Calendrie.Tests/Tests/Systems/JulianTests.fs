@@ -231,6 +231,14 @@ module Bundles =
             let month = new JulianMonth(-999_998, 1);
             month.ToString() === "01/999999 BCE (Julian)"
 
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member GetDayOfMonth (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new JulianMonth(y, m)
+            let date = new JulianDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =
         inherit IUnsafeMonthFactoryFacts<JulianMonth, UnboundedJulianDataSet>()
