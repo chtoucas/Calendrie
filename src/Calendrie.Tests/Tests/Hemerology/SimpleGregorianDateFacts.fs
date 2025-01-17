@@ -7,18 +7,19 @@ open Calendrie.Core.Intervals
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Hemerology
+open Calendrie.Testing.Faux
 
-open Samples
+// Test IDateable and IAbsoluteDate default implementation methods.
 
-let domain = Range.Create(MyGregorianDate.MinValue.DayNumber, MyGregorianDate.MaxValue.DayNumber)
+let domain = Range.Create(SimpleGregorianDate.MinValue.DayNumber, SimpleGregorianDate.MaxValue.DayNumber)
 
 [<Sealed>]
 [<TestExcludeFrom(TestExcludeFrom.Regular)>]
 type DateFacts() =
-    inherit IDateFacts<MyGregorianDate, StandardGregorianDataSet>()
+    inherit IDateFacts<SimpleGregorianDate, StandardGregorianDataSet>()
 
     // TDate.FromDayNumber() throws an OverflowException here but only because
     // the base test uses the explicit implementation of FromDayNumber().
     override x.FromDayNumber_InvalidDayNumber () =
-        x.DomainTester.TestInvalidDayNumber(MyGregorianDate.FromDayNumber);
+        x.DomainTester.TestInvalidDayNumber(SimpleGregorianDate.FromDayNumber);
 

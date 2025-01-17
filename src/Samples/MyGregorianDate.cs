@@ -10,21 +10,6 @@ using System.Numerics;
 using Calendrie;
 using Calendrie.Hemerology;
 
-// NB: this class is also used to test
-// - IDateable.CountElapsedDaysInYear()
-// - IDateable.CountElapsedDaysInMonth()
-// - IAbsoluteDate.Previous()
-// - IAbsoluteDate.PreviousOrSame()
-// - IAbsoluteDate.Nearest()
-// - IAbsoluteDate.NextOrSame()
-// - IAbsoluteDate.Next()
-// - IDayFieldMath<TSelf>.NextDay()
-// - IDayFieldMath<TSelf>.PreviousDay()
-// - IMonthFieldMath<TSelf>.NextMonth()
-// - IMonthFieldMath<TSelf>.PreviousMonth()
-// - IYearFieldMath<TSelf>.NextMonth()
-// - IYearFieldMath<TSelf>.PreviousMonth()
-
 public readonly partial struct MyGregorianDate :
     IDate<MyGregorianDate>,
     ISubtractionOperators<MyGregorianDate, MyGregorianDate, int>
