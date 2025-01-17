@@ -366,22 +366,57 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<CivilDate, StandardGregorianDataSet>()
 
+        // NB: CountYearsSince() is not exact only "in" february.
+
         [<Fact>]
-        static member ``CountYearsSince() when one of the two dates is an intercalary day`` () =
+        static member ``CountYearsSince() where only "date" is an intercalary day (a)`` () =
+            // 28/2/2027 - 29/2/2024 = 3 years
             let date = new CivilDate(2027, 2, 28)
             let other = new CivilDate(2024, 2, 29)
             // Act & Assert
-            // 28/2/2027 - 29/2/2024 = 3 years
             date.CountYearsSince(other) === 3
-            other.PlusYears(3) === new CivilDate(2027, 2, 28) // Truncation
+            // With other rules (Overspill or Exact), the result of adding
+            // 3 years would be 1/3/2027 which is too late -> diff = 2 years.
+            other.PlusYears(3) === new CivilDate(2027, 2, 28) // Truncation happens here
+
+        // Same as above but with dates switched.
+        [<Fact>]
+        static member ``CountYearsSince() where only "other" is an intercalary day (a)`` () =
             // 29/2/2024 - 28/2/2027 = -2 years
-            // NB: 28/2/2027 - 3 years = 28/2/2024 < 29/2/2024
-            other.CountYearsSince(date) === -2
-            date.PlusYears(-2) === new CivilDate(2025, 2, 28)
+            let date = new CivilDate(2024, 2, 29)
+            let other = new CivilDate(2027, 2, 28)
+            // Act & Assert
+            date.CountYearsSince(other) === -2
+            other.PlusYears(-2) === new CivilDate(2025, 2, 28)
+            other.PlusYears(-3) === new CivilDate(2024, 2, 28) // too early
 
         [<Fact>]
-        static member ``CountYearsSince() when the two dates are intercalary`` () =
+        static member ``CountYearsSince() where only "date" is an intercalary day (b)`` () =
+            // 27/2/2027 - 29/2/2024 = 2 years
+            let date = new CivilDate(2027, 2, 27)
+            let other = new CivilDate(2024, 2, 29)
+            // Act & Assert
+            date.CountYearsSince(other) === 2
+            // With other rules (Overspill or Exact), the result of adding
+            // 3 years would be 1/3/2027 which is too late -> diff = 2 years.
+            other.PlusYears(2) === new CivilDate(2026, 2, 28) // Truncation happens here
+            other.PlusYears(3) === new CivilDate(2027, 2, 28) // too late
+
+        // Same as above but with dates switched.
+        [<Fact>]
+        static member ``CountYearsSince() where only "other" is an intercalary day (b)`` () =
+            // 29/2/2024 - 27/2/2027 = -2 years
+            let date = new CivilDate(2024, 2, 29)
+            let other = new CivilDate(2027, 2, 27)
+            // Act & Assert
+            date.CountYearsSince(other) === -2
+            other.PlusYears(-2) === new CivilDate(2025, 2, 27)
+            other.PlusYears(-3) === new CivilDate(2024, 2, 27) // too early
+
+        [<Fact>]
+        static member ``CountYearsSince() where both dates are intercalary`` () =
             // 29/2/2028 - 29/2/2024 = 4 years
+            // 29/2/2024 - 29/2/2028 = -4 years
             let date = new CivilDate(2028, 2, 29)
             let other = new CivilDate(2024, 2, 29)
             // Act & Assert

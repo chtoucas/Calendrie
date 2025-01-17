@@ -125,6 +125,9 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         // Act & Assert
         Assert.Equal(years, DateMathUT.CountYearsBetween(start, end, out var newStart));
         Assert.Equal(start.PlusYears(years), newStart);
+        // WARNING: this is not true in general. It just happens that
+        // CountYearsBetweenData only provides cases where the result is exact.
+        // If it changes in the future, we should remove the following two lines.
         Assert.Equal(-years, DateMathUT.CountYearsBetween(end, start, out newStart));
         Assert.Equal(end.PlusYears(-years), newStart);
     }
@@ -223,6 +226,9 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         // Act & Assert
         Assert.Equal(months, DateMathUT.CountMonthsBetween(start, end, out var newStart));
         Assert.Equal(start.PlusMonths(months), newStart);
+        // WARNING: this is not true in general. It just happens that
+        // CountYearsBetweenData only provides cases where the result is exact.
+        // If it changes in the future, we should remove the following two lines.
         Assert.Equal(-months, DateMathUT.CountMonthsBetween(end, start, out newStart));
         Assert.Equal(end.PlusMonths(-months), newStart);
     }

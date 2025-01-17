@@ -11,10 +11,9 @@ using Calendrie.Hemerology;
 // and the AdditionRule too.
 // Truncate (end of month), CountDaysSince() but may be CountDaysTill()...
 // Non-standard math ops (experimental): GregorianDate and JulianDate too.
-// I'm pretty sure that CountYears/MonthsSince() are both wrong -> only the
-// standard versions are meaningful.
 // Naming: newStart or ???
-
+// The default behaviour of CountYearsSince() seems not entirely coherent
+// (see CivilTests). Mots certainly the same happens with CountMonthsSince().
 
 public partial struct CivilDate // Preamble
 {
