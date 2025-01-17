@@ -73,7 +73,7 @@ module Factories =
     let ``UnsafeCreate(y, doy)`` (x: DateInfo) =
         let y, m, d, doy = x.Deconstruct()
         // Act
-        let date = GregorianDate.UnsafeCreate(y, m, d)
+        let date = GregorianDate.UnsafeCreate(y, doy)
         // Assert
         date.Year      === y
         date.Month     === m
