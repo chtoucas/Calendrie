@@ -57,7 +57,6 @@ module Prelude =
 
 module Factories =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthsSinceEpochInfoData = calendarDataSet.MonthsSinceEpochInfoData
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``UnsafeCreate(y, m, d)`` (x: DateInfo) =
@@ -80,19 +79,6 @@ module Factories =
         date.Month     === m
         date.Day       === d
         date.DayOfYear === doy
-
-    //
-    // Month
-    //
-
-    [<Theory; MemberData(nameof(monthsSinceEpochInfoData))>]
-    let ``UnsafeCreate(monthsSinceEpoch)`` (x: MonthsSinceEpochInfo) =
-        let monthsSinceEpoch, y, m = x.Deconstruct()
-        // Act
-        let month = GregorianMonth.UnsafeCreate(monthsSinceEpoch)
-        // Assert
-        month.Year  === y
-        month.Month === m
 
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
@@ -255,6 +241,10 @@ module Bundles =
         static member ``ToString() 01/999999 BCE`` () =
             let month = new GregorianMonth(-999_998, 1);
             month.ToString() === "01/999999 BCE (Gregorian)"
+
+    [<Sealed>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<GregorianMonth, UnboundedGregorianDataSet>()
 
     [<Sealed>]
     type YearFacts() =

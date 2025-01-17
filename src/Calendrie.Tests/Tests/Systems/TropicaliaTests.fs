@@ -45,18 +45,6 @@ module Prelude =
         TropicaliaCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
-module Factories =
-    let monthsSinceEpochInfoData = calendarDataSet.MonthsSinceEpochInfoData
-
-    [<Theory; MemberData(nameof(monthsSinceEpochInfoData))>]
-    let ``UnsafeCreate(monthsSinceEpoch)`` (x: MonthsSinceEpochInfo) =
-        let monthsSinceEpoch, y, m = x.Deconstruct()
-        // Act
-        let month = TropicaliaMonth.UnsafeCreate(monthsSinceEpoch)
-        // Assert
-        month.Year  === y
-        month.Month === m
-
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
@@ -208,6 +196,11 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type MonthFacts() =
         inherit IMonthFacts<TropicaliaMonth, TropicaliaDate, StandardTropicaliaDataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<TropicaliaMonth, StandardTropicaliaDataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

@@ -45,18 +45,6 @@ module Prelude =
         PaxCalendar.Instance.MaxMonthsSinceEpoch === 131_761
 #endif
 
-module Factories =
-    let monthsSinceEpochInfoData = calendarDataSet.MonthsSinceEpochInfoData
-
-    [<Theory; MemberData(nameof(monthsSinceEpochInfoData))>]
-    let ``UnsafeCreate(monthsSinceEpoch)`` (x: MonthsSinceEpochInfo) =
-        let monthsSinceEpoch, y, m = x.Deconstruct()
-        // Act
-        let month = PaxMonth.UnsafeCreate(monthsSinceEpoch)
-        // Assert
-        month.Year  === y
-        month.Month === m
-
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
@@ -208,6 +196,11 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type MonthFacts() =
         inherit IMonthFacts<PaxMonth, PaxDate, StandardPaxDataSet>()
+
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    [<Sealed>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<PaxMonth, StandardPaxDataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
