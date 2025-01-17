@@ -82,17 +82,34 @@ module Factories =
 
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     // NB: FromAbsoluteDate(JulianDate) is tested in JulianTests alongside ToGregorianDate().
 
     [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FromDate()`` (x: DateInfo) =
+    let ``GregorianMonth:FromDate()`` (x: DateInfo) =
         let y, m, d = x.Yemoda.Deconstruct()
-        let date = GregorianDate.Create(y, m, d)
-        let exp = GregorianMonth.Create(y, m)
+        let date = new GregorianDate(y, m, d)
+        let exp = new GregorianMonth(y, m)
         // Act & Assert
         GregorianMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``GregorianYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new GregorianDate(y, m, d)
+        let exp = new GregorianYear(y)
+        // Act & Assert
+        GregorianYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``GregorianYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new GregorianMonth(y, m)
+        let exp = new GregorianYear(y)
+        // Act & Assert
+        GregorianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

@@ -47,6 +47,7 @@ module Prelude =
 
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = TropicaliaDate -> GregorianDate
@@ -56,12 +57,28 @@ module Conversions =
     let op_Explicit_Julian : JulianDateCaster = TropicaliaDate.op_Explicit
 
     [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FromDate()`` (x: DateInfo) =
+    let ``TropicaliaMonth:FromDate()`` (x: DateInfo) =
         let y, m, d = x.Yemoda.Deconstruct()
-        let date = TropicaliaDate.Create(y, m, d)
-        let exp = TropicaliaMonth.Create(y, m)
+        let date = new TropicaliaDate(y, m, d)
+        let exp = new TropicaliaMonth(y, m)
         // Act & Assert
         TropicaliaMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``TropicaliaYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new TropicaliaDate(y, m, d)
+        let exp = new TropicaliaYear(y)
+        // Act & Assert
+        TropicaliaYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``TropicaliaYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new TropicaliaMonth(y, m)
+        let exp = new TropicaliaYear(y)
+        // Act & Assert
+        TropicaliaYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
