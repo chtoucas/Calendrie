@@ -7,14 +7,6 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
-// TODO(code): expand the doc for non-standard math ops, the other date types
-// and the AdditionRule too.
-// Truncate (end of month), CountDaysSince() but may be CountDaysTill()...
-// Non-standard math ops (experimental): GregorianDate and JulianDate too.
-// Naming: newStart or ???
-// The default behaviour of CountYearsSince() seems not entirely coherent
-// (see CivilTests). Mots certainly the same happens with CountMonthsSince().
-
 public partial struct CivilDate // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
@@ -536,6 +528,16 @@ public partial struct CivilDate // Non-standard math ops
 
 public partial struct CivilDate // Non-standard math ops (experimental)
 {
+    // TODO(code): expand the doc for ALL non-standard math ops (experimental or
+    // not), idem with the other date types and the AdditionRule too.
+    // Truncate (end of month), CountDaysSince() but may be CountDaysTill()...
+    // Experimental non-standard math ops: GregorianDate and JulianDate too.
+    // Naming: newStart or ???
+    // The default behaviour of CountYearsSince() seems not entirely coherent
+    // (see CivilTests). Mots certainly the same happens with CountMonthsSince().
+
+#if false && DEBUG
+
     /// <summary>
     /// Adds a number of years to the year field of this date instance using the
     /// specified rounding rule, yielding a new date.
@@ -711,4 +713,6 @@ public partial struct CivilDate // Non-standard math ops (experimental)
             _ => throw new NotSupportedException(),
         };
     }
+
+#endif
 }

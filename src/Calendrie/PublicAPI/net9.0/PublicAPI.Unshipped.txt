@@ -681,12 +681,10 @@ Calendrie.Systems.CivilDate.CountDaysSince(Calendrie.Systems.CivilDate other) ->
 Calendrie.Systems.CivilDate.CountElapsedDaysInMonth() -> int
 Calendrie.Systems.CivilDate.CountElapsedDaysInYear() -> int
 Calendrie.Systems.CivilDate.CountMonthsSince(Calendrie.Systems.CivilDate other) -> int
-Calendrie.Systems.CivilDate.CountMonthsSince(Calendrie.Systems.CivilDate other, Calendrie.AdditionRule rule, out Calendrie.Systems.CivilDate newStart) -> int
 Calendrie.Systems.CivilDate.CountRemainingDaysInMonth() -> int
 Calendrie.Systems.CivilDate.CountRemainingDaysInYear() -> int
 Calendrie.Systems.CivilDate.CountWeeksSince(Calendrie.Systems.CivilDate other) -> int
 Calendrie.Systems.CivilDate.CountYearsSince(Calendrie.Systems.CivilDate other) -> int
-Calendrie.Systems.CivilDate.CountYearsSince(Calendrie.Systems.CivilDate other, Calendrie.AdditionRule rule, out Calendrie.Systems.CivilDate newStart) -> int
 Calendrie.Systems.CivilDate.Day.get -> int
 Calendrie.Systems.CivilDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Systems.CivilDate.DayOfWeek.get -> System.DayOfWeek
@@ -704,12 +702,8 @@ Calendrie.Systems.CivilDate.NextOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.
 Calendrie.Systems.CivilDate.NextWeek() -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PlusDays(int days) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PlusMonths(int months) -> Calendrie.Systems.CivilDate
-Calendrie.Systems.CivilDate.PlusMonths(int months, Calendrie.AdditionRule rule) -> Calendrie.Systems.CivilDate
-Calendrie.Systems.CivilDate.PlusMonths(int months, out int roundoff) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PlusWeeks(int weeks) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PlusYears(int years) -> Calendrie.Systems.CivilDate
-Calendrie.Systems.CivilDate.PlusYears(int years, Calendrie.AdditionRule rule) -> Calendrie.Systems.CivilDate
-Calendrie.Systems.CivilDate.PlusYears(int years, out int roundoff) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.Previous(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PreviousDay() -> Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.PreviousOrSame(System.DayOfWeek dayOfWeek) -> Calendrie.Systems.CivilDate
@@ -1309,6 +1303,68 @@ Calendrie.Systems.WorldDate.WorldDate(int year, int month, int day) -> void
 Calendrie.Systems.WorldDate.Year.get -> int
 Calendrie.Systems.WorldDate.YearOfCentury.get -> int
 Calendrie.Systems.WorldDate.YearOfEra.get -> Calendrie.Ord
+Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldMonth.Century.get -> int
+Calendrie.Systems.WorldMonth.CenturyOfEra.get -> Calendrie.Ord
+Calendrie.Systems.WorldMonth.CompareTo(Calendrie.Systems.WorldMonth other) -> int
+Calendrie.Systems.WorldMonth.Contains(Calendrie.Systems.WorldDate date) -> bool
+Calendrie.Systems.WorldMonth.CountDays() -> int
+Calendrie.Systems.WorldMonth.CountDaysInWorldMonth() -> int
+Calendrie.Systems.WorldMonth.CountElapsedDaysInYear() -> int
+Calendrie.Systems.WorldMonth.CountElapsedMonthsInYear() -> int
+Calendrie.Systems.WorldMonth.CountMonthsSince(Calendrie.Systems.WorldMonth other) -> int
+Calendrie.Systems.WorldMonth.CountRemainingDaysInYear() -> int
+Calendrie.Systems.WorldMonth.CountRemainingMonthsInYear() -> int
+Calendrie.Systems.WorldMonth.CountYearsSince(Calendrie.Systems.WorldMonth other) -> int
+Calendrie.Systems.WorldMonth.Deconstruct(out int year, out int month) -> void
+Calendrie.Systems.WorldMonth.Equals(Calendrie.Systems.WorldMonth other) -> bool
+Calendrie.Systems.WorldMonth.GetDayOfMonth(int dayOfMonth) -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldMonth.MaxDay.get -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldMonth.MinDay.get -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldMonth.Month.get -> int
+Calendrie.Systems.WorldMonth.MonthsSinceEpoch.get -> int
+Calendrie.Systems.WorldMonth.NextMonth() -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldMonth.PlusMonths(int months) -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldMonth.PlusYears(int years) -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldMonth.PreviousMonth() -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.WorldDate>!
+Calendrie.Systems.WorldMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.WorldDate>
+Calendrie.Systems.WorldMonth.WithMonth(int newMonth) -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldMonth.WithYear(int newYear) -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldMonth.WorldMonth() -> void
+Calendrie.Systems.WorldMonth.WorldMonth(int year, int month) -> void
+Calendrie.Systems.WorldMonth.Year.get -> int
+Calendrie.Systems.WorldMonth.YearOfCentury.get -> int
+Calendrie.Systems.WorldMonth.YearOfEra.get -> Calendrie.Ord
+Calendrie.Systems.WorldYear
+Calendrie.Systems.WorldYear.Century.get -> int
+Calendrie.Systems.WorldYear.CenturyOfEra.get -> Calendrie.Ord
+Calendrie.Systems.WorldYear.CompareTo(Calendrie.Systems.WorldYear other) -> int
+Calendrie.Systems.WorldYear.Contains(Calendrie.Systems.WorldDate date) -> bool
+Calendrie.Systems.WorldYear.Contains(Calendrie.Systems.WorldMonth month) -> bool
+Calendrie.Systems.WorldYear.CountDays() -> int
+Calendrie.Systems.WorldYear.CountYearsSince(Calendrie.Systems.WorldYear other) -> int
+Calendrie.Systems.WorldYear.EnumerateDays() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.WorldDate>!
+Calendrie.Systems.WorldYear.EnumerateMonths() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.WorldMonth>!
+Calendrie.Systems.WorldYear.Equals(Calendrie.Systems.WorldYear other) -> bool
+Calendrie.Systems.WorldYear.GetDayOfYear(int dayOfYear) -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldYear.GetMonthOfYear(int month) -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldYear.IsLeap.get -> bool
+Calendrie.Systems.WorldYear.MaxDay.get -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldYear.MaxMonth.get -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldYear.MinDay.get -> Calendrie.Systems.WorldDate
+Calendrie.Systems.WorldYear.MinMonth.get -> Calendrie.Systems.WorldMonth
+Calendrie.Systems.WorldYear.NextYear() -> Calendrie.Systems.WorldYear
+Calendrie.Systems.WorldYear.PlusYears(int years) -> Calendrie.Systems.WorldYear
+Calendrie.Systems.WorldYear.PreviousYear() -> Calendrie.Systems.WorldYear
+Calendrie.Systems.WorldYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.WorldDate>
+Calendrie.Systems.WorldYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.WorldMonth>
+Calendrie.Systems.WorldYear.WorldYear() -> void
+Calendrie.Systems.WorldYear.WorldYear(int year) -> void
+Calendrie.Systems.WorldYear.Year.get -> int
+Calendrie.Systems.WorldYear.YearOfCentury.get -> int
+Calendrie.Systems.WorldYear.YearOfEra.get -> Calendrie.Ord
+Calendrie.Systems.WorldYear.YearsSinceEpoch.get -> int
 Calendrie.Systems.Zoroastrian13Calendar
 Calendrie.Systems.Zoroastrian13Calendar.Zoroastrian13Calendar() -> void
 Calendrie.Systems.Zoroastrian13Date
@@ -1506,6 +1562,7 @@ const Calendrie.Systems.JulianCalendar.MonthsInYear = 12 -> int
 const Calendrie.Systems.JulianYear.MonthCount = 12 -> int
 const Calendrie.Systems.TabularIslamicCalendar.MonthsInYear = 12 -> int
 const Calendrie.Systems.WorldCalendar.MonthsInYear = 12 -> int
+const Calendrie.Systems.WorldYear.MonthCount = 12 -> int
 const Calendrie.Systems.Zoroastrian13Calendar.MonthsInYear = 13 -> int
 const Calendrie.Systems.Zoroastrian13Calendar.VirtualMonth = 13 -> int
 const Calendrie.Systems.ZoroastrianCalendar.MonthsInYear = 12 -> int
@@ -1603,6 +1660,12 @@ override Calendrie.Systems.TabularIslamicDate.ToString() -> string!
 override Calendrie.Systems.WorldDate.Equals(object? obj) -> bool
 override Calendrie.Systems.WorldDate.GetHashCode() -> int
 override Calendrie.Systems.WorldDate.ToString() -> string!
+override Calendrie.Systems.WorldMonth.Equals(object? obj) -> bool
+override Calendrie.Systems.WorldMonth.GetHashCode() -> int
+override Calendrie.Systems.WorldMonth.ToString() -> string!
+override Calendrie.Systems.WorldYear.Equals(object? obj) -> bool
+override Calendrie.Systems.WorldYear.GetHashCode() -> int
+override Calendrie.Systems.WorldYear.ToString() -> string!
 override Calendrie.Systems.Zoroastrian13Date.Equals(object? obj) -> bool
 override Calendrie.Systems.Zoroastrian13Date.GetHashCode() -> int
 override Calendrie.Systems.Zoroastrian13Date.ToString() -> string!
@@ -2431,7 +2494,6 @@ static Calendrie.Systems.TabularIslamicDate.operator >(Calendrie.Systems.Tabular
 static Calendrie.Systems.TabularIslamicDate.operator >=(Calendrie.Systems.TabularIslamicDate left, Calendrie.Systems.TabularIslamicDate right) -> bool
 static Calendrie.Systems.TabularIslamicDate.TryCreate(int year, int dayOfYear) -> Calendrie.Systems.TabularIslamicDate?
 static Calendrie.Systems.TabularIslamicDate.TryCreate(int year, int month, int day) -> Calendrie.Systems.TabularIslamicDate?
-static Calendrie.Systems.WorldCalendar.CountDaysInWorldMonth(int year, int month) -> int
 static Calendrie.Systems.WorldCalendar.MaxYear.get -> int
 static Calendrie.Systems.WorldCalendar.MinYear.get -> int
 static Calendrie.Systems.WorldDate.Calendar.get -> Calendrie.Systems.WorldCalendar!
@@ -2458,6 +2520,46 @@ static Calendrie.Systems.WorldDate.operator >(Calendrie.Systems.WorldDate left, 
 static Calendrie.Systems.WorldDate.operator >=(Calendrie.Systems.WorldDate left, Calendrie.Systems.WorldDate right) -> bool
 static Calendrie.Systems.WorldDate.TryCreate(int year, int dayOfYear) -> Calendrie.Systems.WorldDate?
 static Calendrie.Systems.WorldDate.TryCreate(int year, int month, int day) -> Calendrie.Systems.WorldDate?
+static Calendrie.Systems.WorldMonth.Calendar.get -> Calendrie.Systems.WorldCalendar!
+static Calendrie.Systems.WorldMonth.Create(int year, int month) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.FromDate(Calendrie.Systems.WorldDate date) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.FromMonthsSinceEpoch(int monthsSinceEpoch) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.Max(Calendrie.Systems.WorldMonth x, Calendrie.Systems.WorldMonth y) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.MaxValue.get -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.Min(Calendrie.Systems.WorldMonth x, Calendrie.Systems.WorldMonth y) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.MinValue.get -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.operator !=(Calendrie.Systems.WorldMonth left, Calendrie.Systems.WorldMonth right) -> bool
+static Calendrie.Systems.WorldMonth.operator +(Calendrie.Systems.WorldMonth value, int months) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.operator ++(Calendrie.Systems.WorldMonth value) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.operator -(Calendrie.Systems.WorldMonth left, Calendrie.Systems.WorldMonth right) -> int
+static Calendrie.Systems.WorldMonth.operator -(Calendrie.Systems.WorldMonth value, int months) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.operator --(Calendrie.Systems.WorldMonth value) -> Calendrie.Systems.WorldMonth
+static Calendrie.Systems.WorldMonth.operator <(Calendrie.Systems.WorldMonth left, Calendrie.Systems.WorldMonth right) -> bool
+static Calendrie.Systems.WorldMonth.operator <=(Calendrie.Systems.WorldMonth left, Calendrie.Systems.WorldMonth right) -> bool
+static Calendrie.Systems.WorldMonth.operator ==(Calendrie.Systems.WorldMonth left, Calendrie.Systems.WorldMonth right) -> bool
+static Calendrie.Systems.WorldMonth.operator >(Calendrie.Systems.WorldMonth left, Calendrie.Systems.WorldMonth right) -> bool
+static Calendrie.Systems.WorldMonth.operator >=(Calendrie.Systems.WorldMonth left, Calendrie.Systems.WorldMonth right) -> bool
+static Calendrie.Systems.WorldMonth.TryCreate(int year, int month) -> Calendrie.Systems.WorldMonth?
+static Calendrie.Systems.WorldYear.Calendar.get -> Calendrie.Systems.WorldCalendar!
+static Calendrie.Systems.WorldYear.Create(int year) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.FromDate(Calendrie.Systems.WorldDate date) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.FromMonth(Calendrie.Systems.WorldMonth month) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.Max(Calendrie.Systems.WorldYear x, Calendrie.Systems.WorldYear y) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.MaxValue.get -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.Min(Calendrie.Systems.WorldYear x, Calendrie.Systems.WorldYear y) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.MinValue.get -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.operator !=(Calendrie.Systems.WorldYear left, Calendrie.Systems.WorldYear right) -> bool
+static Calendrie.Systems.WorldYear.operator +(Calendrie.Systems.WorldYear value, int years) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.operator ++(Calendrie.Systems.WorldYear value) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.operator -(Calendrie.Systems.WorldYear left, Calendrie.Systems.WorldYear right) -> int
+static Calendrie.Systems.WorldYear.operator -(Calendrie.Systems.WorldYear value, int years) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.operator --(Calendrie.Systems.WorldYear value) -> Calendrie.Systems.WorldYear
+static Calendrie.Systems.WorldYear.operator <(Calendrie.Systems.WorldYear left, Calendrie.Systems.WorldYear right) -> bool
+static Calendrie.Systems.WorldYear.operator <=(Calendrie.Systems.WorldYear left, Calendrie.Systems.WorldYear right) -> bool
+static Calendrie.Systems.WorldYear.operator ==(Calendrie.Systems.WorldYear left, Calendrie.Systems.WorldYear right) -> bool
+static Calendrie.Systems.WorldYear.operator >(Calendrie.Systems.WorldYear left, Calendrie.Systems.WorldYear right) -> bool
+static Calendrie.Systems.WorldYear.operator >=(Calendrie.Systems.WorldYear left, Calendrie.Systems.WorldYear right) -> bool
+static Calendrie.Systems.WorldYear.TryCreate(int year) -> Calendrie.Systems.WorldYear?
 static Calendrie.Systems.Zoroastrian13Calendar.MaxYear.get -> int
 static Calendrie.Systems.Zoroastrian13Calendar.MinYear.get -> int
 static Calendrie.Systems.Zoroastrian13Date.Calendar.get -> Calendrie.Systems.Zoroastrian13Calendar!

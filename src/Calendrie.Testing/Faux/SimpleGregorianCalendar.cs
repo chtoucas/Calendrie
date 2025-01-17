@@ -39,7 +39,11 @@ public sealed partial class SimpleGregorianCalendar : UserCalendar, IDateProvide
     public int MaxYear { get; }
 
     // NB: MinDaysSinceEpoch = 0 (this calendar starts on 1/1/1)
+#if DEBUG
     internal new int MaxDaysSinceEpoch { get; }
+#else
+    internal int MaxDaysSinceEpoch { get; }
+#endif
 
     private ICalendricalPreValidator PreValidator { get; }
 
