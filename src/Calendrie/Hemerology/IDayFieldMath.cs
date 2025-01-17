@@ -42,7 +42,7 @@ public interface IDayFieldMath<TSelf>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported value.</exception>
-    [Pure] TSelf PreviousDay() => PlusDays(1);
+    [Pure] TSelf PreviousDay() => PlusDays(-1);
 
     //
     // Math operations based on the week unit
