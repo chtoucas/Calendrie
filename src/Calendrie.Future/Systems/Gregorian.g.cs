@@ -82,32 +82,6 @@ public partial struct GregorianMonth // Factories
         GregorianSchema.MonthsInYear * (y - 1) + m - 1;
 }
 
-public partial struct GregorianMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static GregorianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new GregorianMonth(monthsSinceEpoch);
-    }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianMonth"/> struct
-    /// from the specified <see cref="GregorianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static GregorianMonth FromDate(GregorianDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
-}
-
 public partial struct GregorianMonth // Counting
 {
     /// <inheritdoc />

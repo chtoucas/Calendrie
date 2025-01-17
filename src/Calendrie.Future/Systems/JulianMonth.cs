@@ -170,6 +170,32 @@ public partial struct JulianMonth // Preamble
     }
 }
 
+public partial struct JulianMonth // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static JulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
+        return new JulianMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="JulianMonth"/> struct
+    /// from the specified <see cref="JulianDate"/> value.
+    /// </summary>
+    [Pure]
+    public static JulianMonth FromDate(JulianDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+}
+
 public partial struct JulianMonth // IDaySegment
 {
     /// <inheritdoc />
