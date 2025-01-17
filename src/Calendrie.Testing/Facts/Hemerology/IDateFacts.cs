@@ -501,7 +501,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
     [Fact]
     public void CountMonthsSince_SpecialCases()
     {
-        // 1/3/2000 - 2/3/1900 = 99 years
+        // 1/3/2000 - 2/3/1900 = 8 months
         var date = TDate.Create(2000, 12, 1);
         var other = TDate.Create(2000, 3, 2);
 
