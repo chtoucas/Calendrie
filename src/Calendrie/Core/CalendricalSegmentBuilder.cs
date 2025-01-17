@@ -335,9 +335,6 @@ public partial class CalendricalSegmentBuilder // Builder methods
     }
 
     [Conditional("DEBUG")]
-#if RELEASE
-    [ExcludeFromCodeCoverage]
-#endif
     private void __ValidateYear(int year) => ValidateYear(year);
 
     [Pure]

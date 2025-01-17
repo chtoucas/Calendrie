@@ -271,6 +271,10 @@ public partial struct Yemo // Binary data helpers
     /// </summary>
     /// <exception cref="ArgumentException">The specified binary data is not well-formed.
     /// </exception>
+#if !ENABLE_SERIALIZATION
+    // Only called by __CheckBinaryData().
+    [Conditional("DEBUG")]
+#endif
     private static void ValidateBinaryData(int data)
     {
         int d0 = data & Yemoda.DayMask;
@@ -278,9 +282,6 @@ public partial struct Yemo // Binary data helpers
     }
 
     [Conditional("DEBUG")]
-#if RELEASE
-    [ExcludeFromCodeCoverage]
-#endif
     private static void __CheckBinaryData(int bin) => ValidateBinaryData(bin);
 }
 

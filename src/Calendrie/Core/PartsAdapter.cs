@@ -107,19 +107,19 @@ public partial class PartsAdapter // Dates in a given year or month
     /// <summary>
     /// Obtains the month parts for the first month of the specified year.
     /// </summary>
-    [Pure, ExcludeFromCodeCoverage]
+    [Pure]
     public static MonthParts GetMonthPartsAtStartOfYear(int y) => MonthParts.AtStartOfYear(y);
 
     /// <summary>
     /// Obtains the date parts for the first day of the specified year.
     /// </summary>
-    [Pure, ExcludeFromCodeCoverage]
+    [Pure]
     public static DateParts GetDatePartsAtStartOfYear(int y) => DateParts.AtStartOfYear(y);
 
     /// <summary>
     /// Obtains the ordinal date parts for the first day of the specified year.
     /// </summary>
-    [Pure, ExcludeFromCodeCoverage]
+    [Pure]
     public static OrdinalParts GetOrdinalPartsAtStartOfYear(int y) => OrdinalParts.AtStartOfYear(y);
 #endif
 
@@ -164,7 +164,7 @@ public partial class PartsAdapter // Dates in a given year or month
     /// <summary>
     /// Obtains the date parts for the first day of the specified month.
     /// </summary>
-    [Pure, ExcludeFromCodeCoverage]
+    [Pure]
     public static DateParts GetDatePartsAtStartOfMonth(int y, int m) =>
         DateParts.AtStartOfMonth(y, m);
 #endif

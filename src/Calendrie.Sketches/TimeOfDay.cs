@@ -292,6 +292,10 @@ public partial struct TimeOfDay // Binary data helpers
     /// </summary>
     /// <exception cref="ArgumentException">The specified binary data is not
     /// well-formed.</exception>
+#if !ENABLE_SERIALIZATION
+    // Only called by __CheckBinaryData().
+    [Conditional("DEBUG")]
+#endif
     private static void ValidateBinaryData(int data)
     {
         // The 5 high bits are always equal to zero.
@@ -311,7 +315,6 @@ public partial struct TimeOfDay // Binary data helpers
     }
 
     [Conditional("DEBUG")]
-    [ExcludeFromCodeCoverage]
     private static void __CheckBinaryData(int bin) => ValidateBinaryData(bin);
 }
 
