@@ -168,6 +168,33 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Factories
     #endregion
 }
 
+public partial class IMonthFacts<TMonth, TDate, TDataSet> // Conversions
+{
+    #region FromMonthsSinceEpoch()
+
+    [Fact]
+    public void FromMonthsSinceEpoch_InvalidMonthsSinceEpoch()
+    {
+        AssertEx.ThrowsAoorexn("monthsSinceEpoch",
+            () => TMonth.FromMonthsSinceEpoch(TMonth.MinValue.MonthsSinceEpoch - 1));
+        AssertEx.ThrowsAoorexn("monthsSinceEpoch",
+            () => TMonth.FromMonthsSinceEpoch(TMonth.MaxValue.MonthsSinceEpoch + 1));
+    }
+
+    [Theory, MemberData(nameof(MonthsSinceEpochInfoData))]
+    public void FromMonthsSinceEpoch(MonthsSinceEpochInfo info)
+    {
+        var (monthsSinceEpoch, y, m) = info;
+        // Act
+        var month = TMonth.FromMonthsSinceEpoch(monthsSinceEpoch);
+        // Assert
+        Assert.Equal(y, month.Year);
+        Assert.Equal(m, month.Month);
+    }
+
+    #endregion
+}
+
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // Adjustments
 {
     #region Year adjustment

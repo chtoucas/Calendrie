@@ -85,6 +85,8 @@ module Factories =
 
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+    let yearInfoData = calendarDataSet.YearInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     //
@@ -189,6 +191,102 @@ module Conversions =
         let exp = JulianDate.FromAbsoluteDate(CivilDate.MaxValue.DayNumber)
 
         CivilDate.op_Explicit CivilDate.MaxValue === exp
+
+    //
+    // Conversion to GregorianMonth
+    //
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``ToGregorianMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let date = new CivilMonth(y, m)
+        let exp = new GregorianMonth(y, m)
+
+        date.ToGregorianMonth() === exp
+
+    [<Fact>]
+    let ``ToGregorianMonth() at CivilMonth:MinValue`` () =
+        let y, m = CivilMonth.MinValue.Deconstruct()
+        let exp = new GregorianMonth(y, m)
+
+        CivilMonth.MinValue.ToGregorianMonth() === exp
+
+    [<Fact>]
+    let ``ToGregorianMonth() at CivilMonth:MaxValue`` () =
+        let y, m = CivilMonth.MaxValue.Deconstruct()
+        let exp = new GregorianMonth(y, m)
+
+        CivilMonth.MaxValue.ToGregorianMonth() === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Implicit conversion to GregorianMonth`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let date = new CivilMonth(y, m)
+        let exp = new GregorianMonth(y, m)
+
+        (date : GregorianMonth) === exp
+
+    [<Fact>]
+    let ``Implicit conversion to GregorianMonth at CivilMonth:MinValue`` () =
+        let y, m = CivilMonth.MinValue.Deconstruct()
+        let exp = new GregorianMonth(y, m)
+
+        (CivilMonth.MinValue : GregorianMonth) === exp
+
+    [<Fact>]
+    let ``Implicit conversion to GregorianMonth at CivilMonth:MaxValue`` () =
+        let y, m = CivilMonth.MaxValue.Deconstruct()
+        let exp = new GregorianMonth(y, m)
+
+        (CivilMonth.MaxValue : GregorianMonth) === exp
+
+    //
+    // Conversion to GregorianYear
+    //
+
+    [<Theory; MemberData(nameof(yearInfoData))>]
+    let ``ToGregorianYear()`` (x: YearInfo) =
+        let y = x.Year
+        let date = new CivilYear(y)
+        let exp = new GregorianYear(y)
+
+        date.ToGregorianYear() === exp
+
+    [<Fact>]
+    let ``ToGregorianYear() at CivilYear:MinValue`` () =
+        let y = CivilYear.MinValue.Year
+        let exp = new GregorianYear(y)
+
+        CivilYear.MinValue.ToGregorianYear() === exp
+
+    [<Fact>]
+    let ``ToGregorianYear() at CivilYear:MaxValue`` () =
+        let y = CivilYear.MaxValue.Year
+        let exp = new GregorianYear(y)
+
+        CivilYear.MaxValue.ToGregorianYear() === exp
+
+    [<Theory; MemberData(nameof(yearInfoData))>]
+    let ``Implicit conversion to GregorianYear`` (x: YearInfo) =
+        let y = x.Year
+        let date = new CivilYear(y)
+        let exp = new GregorianYear(y)
+
+        (date : GregorianYear) === exp
+
+    [<Fact>]
+    let ``Implicit conversion to GregorianYear at CivilYear:MinValue`` () =
+        let y = CivilYear.MinValue.Year
+        let exp = new GregorianYear(y)
+
+        (CivilYear.MinValue : GregorianYear) === exp
+
+    [<Fact>]
+    let ``Implicit conversion to GregorianYear at CivilYear:MaxValue`` () =
+        let y = CivilYear.MaxValue.Year
+        let exp = new GregorianYear(y)
+
+        (CivilYear.MaxValue : GregorianYear) === exp
 
 module Extensions =
     let dayOfWeekData = calendarDataSet.DayOfWeekData
