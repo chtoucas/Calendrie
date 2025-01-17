@@ -10,7 +10,20 @@ using System.Numerics;
 using Calendrie;
 using Calendrie.Hemerology;
 
-// NB: this class is also used to test various default implementation methods.
+// NB: this class is also used to test
+// - IDateable.CountElapsedDaysInYear()
+// - IDateable.CountElapsedDaysInMonth()
+// - IAbsoluteDate.Previous()
+// - IAbsoluteDate.PreviousOrSame()
+// - IAbsoluteDate.Nearest()
+// - IAbsoluteDate.NextOrSame()
+// - IAbsoluteDate.Next()
+// - IDayFieldMath<TSelf>.NextDay()
+// - IDayFieldMath<TSelf>.PreviousDay()
+// - IMonthFieldMath<TSelf>.NextMonth()
+// - IMonthFieldMath<TSelf>.PreviousMonth()
+// - IYearFieldMath<TSelf>.NextMonth()
+// - IYearFieldMath<TSelf>.PreviousMonth()
 
 public readonly partial struct MyGregorianDate :
     IDate<MyGregorianDate>,
@@ -153,11 +166,7 @@ public partial struct MyGregorianDate // Factories & conversions
 
 public partial struct MyGregorianDate // Counting
 {
-    // NB: "disabled" methods in order to test IDateable methods.
-
-    //public int CountElapsedDaysInYear() => DayOfYear - 1;
     public int CountRemainingDaysInYear() => Calendar.CountDaysInYearAfter(_daysSinceEpoch);
-    //public int CountElapsedDaysInMonth() => Day - 1;
     public int CountRemainingDaysInMonth() => Calendar.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
@@ -221,13 +230,8 @@ public partial struct MyGregorianDate // Math
     public static int operator -(MyGregorianDate left, MyGregorianDate right) => left.CountDaysSince(right);
     public static MyGregorianDate operator +(MyGregorianDate value, int days) => value.PlusDays(days);
     public static MyGregorianDate operator -(MyGregorianDate value, int days) => value.PlusDays(-days);
-#if RELEASE
-    public static MyGregorianDate operator ++(MyGregorianDate value) => value.NextDay();
-    public static MyGregorianDate operator --(MyGregorianDate value) => value.PreviousDay();
-#else
     public static MyGregorianDate operator ++(MyGregorianDate value) => value.PlusDays(1);
     public static MyGregorianDate operator --(MyGregorianDate value) => value.PlusDays(-1);
-#endif
 #pragma warning restore CA2225 // Operator overloads have named alternates
 
     public int CountDaysSince(MyGregorianDate other) => _daysSinceEpoch - other._daysSinceEpoch;
@@ -241,14 +245,6 @@ public partial struct MyGregorianDate // Math
 
         return new(daysSinceEpoch);
     }
-
-#if RELEASE
-    public MyGregorianDate NextDay() =>
-        this == MaxValue ? throw new OverflowException() : new(_daysSinceEpoch + 1);
-
-    public MyGregorianDate PreviousDay() =>
-        this == MinValue ? throw new OverflowException() : new(_daysSinceEpoch - 1);
-#endif
 
     public MyGregorianDate PlusYears(int years) => Calendar.AddYears(this, years);
     public MyGregorianDate PlusMonths(int months) => Calendar.AddMonths(this, months);

@@ -264,6 +264,38 @@ public partial class IDateFacts<TDate, TDataSet> // Adjustments
 
 public partial class IDateFacts<TDate, TDataSet> // Math
 {
+    #region NextYear()
+
+    [Fact]
+    public void NextYear_Overflows_AtMaxValue() =>
+        AssertEx.Overflows(() => MaxDate.NextYear());
+
+    [Fact]
+    public void NextYear()
+    {
+        var date = TDate.Create(1, 1, 1);
+        var dateAfter = TDate.Create(2, 1, 1);
+        // Act & Assert
+        Assert.Equal(dateAfter, date.NextYear());
+    }
+
+    #endregion
+    #region PreviousYear()
+
+    [Fact]
+    public void PreviousYear_Overflows_AtMaxValue() =>
+        AssertEx.Overflows(() => MinDate.PreviousYear());
+
+    [Fact]
+    public void PreviousYear()
+    {
+        var date = TDate.Create(2, 1, 1);
+        var dateBefore = TDate.Create(1, 1, 1);
+        // Act & Assert
+        Assert.Equal(dateBefore, date.PreviousYear());
+    }
+
+    #endregion
     #region PlusYears()
 
     [Fact]
@@ -351,6 +383,38 @@ public partial class IDateFacts<TDate, TDataSet> // Math
 
     #endregion
 
+    #region NextMonth()
+
+    [Fact]
+    public void NextMonth_Overflows_AtMaxValue() =>
+        AssertEx.Overflows(() => MaxDate.NextMonth());
+
+    [Fact]
+    public void NextMonth()
+    {
+        var date = TDate.Create(1, 1, 1);
+        var dateAfter = TDate.Create(1, 2, 1);
+        // Act & Assert
+        Assert.Equal(dateAfter, date.NextMonth());
+    }
+
+    #endregion
+    #region PreviousMonth()
+
+    [Fact]
+    public void PreviousMonth_Overflows_AtMaxValue() =>
+        AssertEx.Overflows(() => MinDate.PreviousMonth());
+
+    [Fact]
+    public void PreviousMonth()
+    {
+        var date = TDate.Create(1, 2, 1);
+        var dateBefore = TDate.Create(1, 1, 1);
+        // Act & Assert
+        Assert.Equal(dateBefore, date.PreviousMonth());
+    }
+
+    #endregion
     #region PlusMonths()
 
     [Fact]
