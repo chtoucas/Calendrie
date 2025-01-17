@@ -260,12 +260,18 @@ module Bundles =
             month.ToString() === "01/999999 BCE (Gregorian)"
 
         [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
-        static member GetDayOfMonth (info: DateInfo) =
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new GregorianMonth(y, m)
             let date = new GregorianDate(y, m, d);
             // Act & Assert
             year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new GregorianMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
     [<Sealed>]
     type UnsafeMonthFactoryFacts() =
@@ -291,20 +297,32 @@ module Bundles =
             year.ToString() === "999999 BCE (Gregorian)"
 
         [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
-        static member GetMonthOfYear (info: MonthInfo) =
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new GregorianYear(y)
             let date = new GregorianMonth(y, m);
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new GregorianYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
         [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
-        static member GetDayOfYear (info: DateInfo) =
+        static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new GregorianYear(y)
             let date = new GregorianDate(y, doy);
             // Act & Assert
             year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new GregorianYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
 
     //
     // Math

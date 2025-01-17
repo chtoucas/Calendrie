@@ -10,7 +10,6 @@ using Calendrie.Testing.Data;
 
 // TODO(fact): add tests when Contains() returns false.
 // Idem w/ IYear.Contains(date) and IMonth.Contains(date).
-// GetDayOfYear() and GetMonthOfYear() when invalid. Idem in IMonthFacts.
 
 // We also test the static (abstract) methods from the interface.
 
