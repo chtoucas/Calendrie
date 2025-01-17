@@ -149,8 +149,10 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         Assert.Equal(end.PlusYears(-years), newStart);
     }
 
+    // For each date types, we should add tests which handle the case when there
+    // is an intercalary month involved.
     [Fact]
-    public void CountYearsSince_SpecialCases()
+    public void CountYearsSince_SpecialCase()
     {
         // 3/2000 - 4/1900 = 99 years
         var start = TMonth.Create(1900, 4);
@@ -159,8 +161,10 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var exp2 = TMonth.Create(1901, 3);
         // Act & Assert
         Assert.Equal(99, MonthMathUT.CountYearsBetween(start, end, out var newStart));
+        Assert.Equal(start.PlusYears(99), newStart);
         Assert.Equal(exp1, newStart);
         Assert.Equal(-99, MonthMathUT.CountYearsBetween(end, start, out newStart));
+        Assert.Equal(end.PlusYears(-99), newStart);
         Assert.Equal(exp2, newStart);
     }
 

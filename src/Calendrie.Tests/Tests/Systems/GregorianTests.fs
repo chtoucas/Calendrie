@@ -233,6 +233,28 @@ module Bundles =
             let date = new GregorianDate(-999_998, 1, 1);
             date.ToString() === "01/01/999999 BCE (Gregorian)"
 
+        [<Fact>]
+        static member ``CountYearsSince() when one of the two dates is an intercalary day`` () =
+            let date = new GregorianDate(2027, 2, 28)
+            let other = new GregorianDate(2024, 2, 29)
+            // Act & Assert
+            // 28/2/2027 - 29/2/2024 = 3 years
+            date.CountYearsSince(other) === 3
+            other.PlusYears(3) === new GregorianDate(2027, 2, 28) // Truncation
+            // 29/2/2024 - 28/2/2027 = -2 years
+            // NB: 28/2/2027 - 3 years = 28/2/2024 < 29/2/2024
+            other.CountYearsSince(date) === -2
+            date.PlusYears(-2) === new GregorianDate(2025, 2, 28)
+
+        [<Fact>]
+        static member ``CountYearsSince() when the two dates are intercalary`` () =
+            // 29/2/2028 - 29/2/2024 = 4 years
+            let date = new GregorianDate(2028, 2, 29)
+            let other = new GregorianDate(2024, 2, 29)
+            // Act & Assert
+            date.CountYearsSince(other) === 4
+            other.CountYearsSince(date) === -4
+
     [<Sealed>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<GregorianDate, UnboundedGregorianDataSet>()
