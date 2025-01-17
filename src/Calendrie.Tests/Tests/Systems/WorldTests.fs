@@ -179,24 +179,6 @@ module Conversions =
 
         op_Explicit_Julian WorldDate.MaxValue === exp
 
-module Methods =
-    let dateInfoData = calendarDataSet.DateInfoData
-    let moreMonthInfoData = WorldDataSet.MoreMonthInfoData
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Property IsBlank`` (info: DateInfo) =
-        let (y, m, d) = info.Yemoda.Deconstruct()
-        let date = new WorldDate(y, m, d)
-
-        date.IsBlank === date.IsSupplementary
-
-    [<Theory; MemberData(nameof(moreMonthInfoData))>]
-    let ``WorldMonth.CountDaysInWorldMonth()`` (info: YemoAnd<int>) =
-        let (y, m, daysInMonth) = info.Deconstruct()
-        let month = new WorldMonth(y, m);
-
-        month.CountDaysInWorldMonth() === daysInMonth
-
 module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -216,10 +198,22 @@ module Bundles =
         [<Fact>]
         static member MaxYear() = WorldCalendar.MaxYear === StandardScope.MaxYear
 
+    //
+    // Date type
+    //
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
         inherit IDateFacts<WorldDate, StandardWorldDataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``Property IsBlank`` (info: DateInfo) =
+            let (y, m, d) = info.Yemoda.Deconstruct()
+            let date = new WorldDate(y, m, d)
+
+            date.IsBlank === date.IsSupplementary
+
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -235,6 +229,8 @@ module Bundles =
     type MonthFacts() =
         inherit IMonthFacts<WorldMonth, WorldDate, StandardWorldDataSet>()
 
+        static member MoreMonthInfoData with get() = WorldDataSet.MoreMonthInfoData
+
         [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
@@ -248,6 +244,13 @@ module Bundles =
             let month = new WorldMonth(y, m)
             // Act & Assert
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+        [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
+        static member ``WorldMonth.CountDaysInWorldMonth()`` (info: YemoAnd<int>) =
+            let (y, m, daysInMonth) = info.Deconstruct()
+            let month = new WorldMonth(y, m);
+
+            month.CountDaysInWorldMonth() === daysInMonth
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
