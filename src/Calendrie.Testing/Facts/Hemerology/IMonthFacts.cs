@@ -400,6 +400,30 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // IDaySegment
         // Act & Assert
         Assert.True(month.Contains(date));
     }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Contains_WithInvalidYear(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var month = TMonth.Create(y, m);
+        if (TDate.TryCreate(y == 1 ? 2 : 1, m, d, out var date))
+        {
+            // Act & Assert
+            Assert.False(month.Contains(date));
+        }
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Contains_WithInvalidMonth(DateInfo info)
+    {
+        var (y, m, _) = info.Yemoda;
+        var month = TMonth.Create(y, m);
+        if (TDate.TryCreate(y, m == 1 ? 2 : 1, 1, out var date))
+        {
+            // Act & Assert
+            Assert.False(month.Contains(date));
+        }
+    }
 }
 
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math

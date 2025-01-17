@@ -8,9 +8,6 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-// TODO(fact): add tests when Contains() returns false.
-// Idem w/ IYear.Contains(date) and IMonth.Contains(date).
-
 // We also test the static (abstract) methods from the interface.
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
@@ -227,6 +224,18 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
         // Act & Assert
         Assert.True(year.Contains(month));
     }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Contains_Month_WithInvalidYear(DateInfo info)
+    {
+        var (y, m, _) = info.Yemoda;
+        var year = TYear.Create(y);
+        if (TMonth.TryCreate(y + 1, m, out var month))
+        {
+            // Act & Assert
+            Assert.False(year.Contains(month));
+        }
+    }
 }
 
 public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
@@ -294,6 +303,18 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IDaySegment
         var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.True(year.Contains(date));
+    }
+
+    [Theory, MemberData(nameof(DateInfoData))]
+    public void Contains_Day_WithInvalidYear(DateInfo info)
+    {
+        var (y, m, d) = info.Yemoda;
+        var year = TYear.Create(y);
+        if (TDate.TryCreate(y + 1, m, d, out var date))
+        {
+            // Act & Assert
+            Assert.False(year.Contains(date));
+        }
     }
 }
 
