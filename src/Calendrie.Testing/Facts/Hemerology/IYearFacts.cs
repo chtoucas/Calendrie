@@ -208,6 +208,7 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> // IMonthSegment
 
     // TODO(fact): add tests when Contains() returns false.
     // Idem w/ IYear.Contains(date) and IMonth.Contains(date).
+    // GetDayOfYear() and GetMonthOfYear() when invalid. Idem in IMonthFacts.
 
     [Theory, MemberData(nameof(DateInfoData))]
     public void Contains_Month(DateInfo info)

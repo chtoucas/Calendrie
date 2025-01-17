@@ -57,6 +57,7 @@ module Prelude =
 
 module Factories =
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthsSinceEpochInfoData = calendarDataSet.MonthsSinceEpochInfoData
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``UnsafeCreate(y, m, d)`` (x: DateInfo) =
@@ -73,12 +74,25 @@ module Factories =
     let ``UnsafeCreate(y, doy)`` (x: DateInfo) =
         let y, m, d, doy = x.Deconstruct()
         // Act
-        let date = GregorianDate.UnsafeCreate(y, doy)
+        let date = GregorianDate.UnsafeCreate(y, m, d)
         // Assert
         date.Year      === y
         date.Month     === m
         date.Day       === d
         date.DayOfYear === doy
+
+    //
+    // Month
+    //
+
+    [<Theory; MemberData(nameof(monthsSinceEpochInfoData))>]
+    let ``UnsafeCreate(monthsSinceEpoch)`` (x: MonthsSinceEpochInfo) =
+        let monthsSinceEpoch, y, m = x.Deconstruct()
+        // Act
+        let month = GregorianMonth.UnsafeCreate(monthsSinceEpoch)
+        // Assert
+        month.Year  === y
+        month.Month === m
 
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData

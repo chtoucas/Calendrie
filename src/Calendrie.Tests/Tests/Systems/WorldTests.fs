@@ -174,14 +174,10 @@ module Methods =
         WorldCalendar.CountDaysInWorldMonth(y, m) === daysInMonth
 
 module Bundles =
-    let private chr = WorldCalendar.Instance
-
-    let dateInfoData = WorldDataSet.Instance.DateInfoData
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<WorldCalendar, StandardWorldDataSet>(chr)
+        inherit CalendarFacts<WorldCalendar, StandardWorldDataSet>(WorldCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

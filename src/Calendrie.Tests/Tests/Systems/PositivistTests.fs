@@ -154,12 +154,10 @@ module Conversions =
         op_Explicit_Julian PositivistDate.MaxValue === exp
 
 module Bundles =
-    let private chr = PositivistCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<PositivistCalendar, StandardPositivistDataSet>(chr)
+        inherit CalendarFacts<PositivistCalendar, StandardPositivistDataSet>(PositivistCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

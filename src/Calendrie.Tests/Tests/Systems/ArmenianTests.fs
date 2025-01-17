@@ -283,12 +283,10 @@ module Conversions13 =
         op_Explicit_Julian Armenian13Date.MaxValue === exp
 
 module Bundles =
-    let private chr = ArmenianCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<ArmenianCalendar, StandardArmenian12DataSet>(chr)
+        inherit CalendarFacts<ArmenianCalendar, StandardArmenian12DataSet>(ArmenianCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
@@ -321,12 +319,10 @@ module Bundles =
         override __.GetDate(y, m, d) = new ArmenianDate(y, m, d)
 
 module Bundles13 =
-    let private chr = Armenian13Calendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Armenian13Calendar, StandardArmenian13DataSet>(chr)
+        inherit CalendarFacts<Armenian13Calendar, StandardArmenian13DataSet>(Armenian13Calendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus

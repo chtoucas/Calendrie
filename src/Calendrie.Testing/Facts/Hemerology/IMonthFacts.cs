@@ -391,6 +391,11 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // IDaySegment
         // Act & Assert
         Assert.True(month.Contains(date));
     }
+
+    //[Theory, MemberData(nameof(DateInfoData))]
+    //public void GetDayOfMonth(DateInfo info)
+    //{
+    //}
 }
 
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math

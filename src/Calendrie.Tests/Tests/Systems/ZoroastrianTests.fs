@@ -283,12 +283,10 @@ module Conversions13 =
         op_Explicit_Julian Zoroastrian13Date.MaxValue === exp
 
 module Bundles =
-    let private chr = ZoroastrianCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<ZoroastrianCalendar, StandardZoroastrian12DataSet>(chr)
+        inherit CalendarFacts<ZoroastrianCalendar, StandardZoroastrian12DataSet>(ZoroastrianCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
@@ -321,12 +319,10 @@ module Bundles =
         override __.GetDate(y, m, d) = new ZoroastrianDate(y, m, d)
 
 module Bundles13 =
-    let private chr = Zoroastrian13Calendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Zoroastrian13Calendar, StandardZoroastrian13DataSet>(chr)
+        inherit CalendarFacts<Zoroastrian13Calendar, StandardZoroastrian13DataSet>(Zoroastrian13Calendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus

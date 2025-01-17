@@ -154,12 +154,10 @@ module Conversions =
         op_Explicit_Julian Persian2820Date.MaxValue === exp
 
 module Bundles =
-    let private chr = Persian2820Calendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Persian2820Calendar, StandardPersian2820DataSet>(chr)
+        inherit CalendarFacts<Persian2820Calendar, StandardPersian2820DataSet>(Persian2820Calendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

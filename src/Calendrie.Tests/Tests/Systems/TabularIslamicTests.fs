@@ -154,12 +154,10 @@ module Conversions =
         op_Explicit_Julian TabularIslamicDate.MaxValue === exp
 
 module Bundles =
-    let private chr = TabularIslamicCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<TabularIslamicCalendar, StandardTabularIslamicDataSet>(chr)
+        inherit CalendarFacts<TabularIslamicCalendar, StandardTabularIslamicDataSet>(TabularIslamicCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Lunar

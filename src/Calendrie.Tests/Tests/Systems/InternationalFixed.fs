@@ -154,12 +154,10 @@ module Conversions =
         op_Explicit_Julian InternationalFixedDate.MaxValue === exp
 
 module Bundles =
-    let private chr = InternationalFixedCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<InternationalFixedCalendar, StandardInternationalFixedDataSet>(chr)
+        inherit CalendarFacts<InternationalFixedCalendar, StandardInternationalFixedDataSet>(InternationalFixedCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

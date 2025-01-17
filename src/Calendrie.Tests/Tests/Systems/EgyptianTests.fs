@@ -283,12 +283,10 @@ module Conversions13 =
         op_Explicit_Julian Egyptian13Date.MaxValue === exp
 
 module Bundles =
-    let private chr = EgyptianCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<EgyptianCalendar, StandardEgyptian12DataSet>(chr)
+        inherit CalendarFacts<EgyptianCalendar, StandardEgyptian12DataSet>(EgyptianCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus
@@ -321,12 +319,10 @@ module Bundles =
         override __.GetDate(y, m, d) = new EgyptianDate(y, m, d)
 
 module Bundles13 =
-    let private chr = Egyptian13Calendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Egyptian13Calendar, StandardEgyptian13DataSet>(chr)
+        inherit CalendarFacts<Egyptian13Calendar, StandardEgyptian13DataSet>(Egyptian13Calendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.AnnusVagus

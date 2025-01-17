@@ -283,12 +283,10 @@ module Conversions13 =
         op_Explicit_Julian FrenchRepublican13Date.MaxValue === exp
 
 module Bundles =
-    let private chr = FrenchRepublicanCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(chr)
+        inherit CalendarFacts<FrenchRepublicanCalendar, StandardFrenchRepublican12DataSet>(FrenchRepublicanCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
@@ -321,12 +319,10 @@ module Bundles =
         override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
 
 module Bundles13 =
-    let private chr = FrenchRepublican13Calendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(chr)
+        inherit CalendarFacts<FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(FrenchRepublican13Calendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

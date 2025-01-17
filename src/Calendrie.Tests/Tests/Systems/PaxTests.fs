@@ -16,6 +16,8 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
+let private calendarDataSet = StandardPaxDataSet.Instance
+
 module Prelude =
     [<Fact>]
     let ``Value of PaxCalendar.Epoch.DaysZinceZero`` () =
@@ -43,9 +45,19 @@ module Prelude =
         PaxCalendar.Instance.MaxMonthsSinceEpoch === 131_761
 #endif
 
-module Conversions =
-    let private calendarDataSet = StandardPaxDataSet.Instance
+module Factories =
+    let monthsSinceEpochInfoData = calendarDataSet.MonthsSinceEpochInfoData
 
+    [<Theory; MemberData(nameof(monthsSinceEpochInfoData))>]
+    let ``UnsafeCreate(monthsSinceEpoch)`` (x: MonthsSinceEpochInfo) =
+        let monthsSinceEpoch, y, m = x.Deconstruct()
+        // Act
+        let month = PaxMonth.UnsafeCreate(monthsSinceEpoch)
+        // Assert
+        month.Year  === y
+        month.Month === m
+
+module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
@@ -155,14 +167,10 @@ module Conversions =
         op_Explicit_Julian PaxDate.MaxValue === exp
 
 module Bundles =
-    let private chr = PaxCalendar.Instance
-
-    let dateInfoData = PaxDataSet.Instance.DateInfoData
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<PaxCalendar, StandardPaxDataSet>(chr)
+        inherit CalendarFacts<PaxCalendar, StandardPaxDataSet>(PaxCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Other

@@ -283,12 +283,10 @@ module Conversions13 =
         op_Explicit_Julian Ethiopic13Date.MaxValue === exp
 
 module Bundles =
-    let private chr = EthiopicCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<EthiopicCalendar, StandardEthiopic12DataSet>(chr)
+        inherit CalendarFacts<EthiopicCalendar, StandardEthiopic12DataSet>(EthiopicCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
@@ -321,12 +319,10 @@ module Bundles =
         override __.GetDate(y, m, d) = new EthiopicDate(y, m, d)
 
 module Bundles13 =
-    let private chr = Ethiopic13Calendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Ethiopic13Calendar, StandardEthiopic13DataSet>(chr)
+        inherit CalendarFacts<Ethiopic13Calendar, StandardEthiopic13DataSet>(Ethiopic13Calendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar

@@ -282,12 +282,10 @@ module Conversions13 =
         op_Explicit_Julian Coptic13Date.MaxValue === exp
 
 module Bundles =
-    let private chr = CopticCalendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<CopticCalendar, StandardCoptic12DataSet>(chr)
+        inherit CalendarFacts<CopticCalendar, StandardCoptic12DataSet>(CopticCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
@@ -320,12 +318,10 @@ module Bundles =
         override __.GetDate(y, m, d) = new CopticDate(y, m, d)
 
 module Bundles13 =
-    let private chr = Coptic13Calendar.Instance
-
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<Coptic13Calendar, StandardCoptic13DataSet>(chr)
+        inherit CalendarFacts<Coptic13Calendar, StandardCoptic13DataSet>(Coptic13Calendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
