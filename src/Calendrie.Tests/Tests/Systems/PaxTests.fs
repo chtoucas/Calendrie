@@ -67,6 +67,14 @@ module Conversions =
     type JulianDateCaster = PaxDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = PaxDate.op_Explicit
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = PaxDate.Create(y, m, d)
+        let exp = PaxMonth.Create(y, m)
+        // Act & Assert
+        PaxMonth.FromDate(date) === exp
+
     //
     // Conversion to DayNumber
     //

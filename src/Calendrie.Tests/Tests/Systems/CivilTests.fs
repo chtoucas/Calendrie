@@ -103,6 +103,14 @@ module Conversions =
     let yearInfoData = calendarDataSet.YearInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = CivilDate.Create(y, m, d)
+        let exp = CivilMonth.Create(y, m)
+        // Act & Assert
+        CivilMonth.FromDate(date) === exp
+
     //
     // Conversion to DayNumber
     //

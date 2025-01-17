@@ -100,6 +100,14 @@ module Conversions =
 
     // NB: FromAbsoluteDate(JulianDate) is tested in JulianTests alongside ToGregorianDate().
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = GregorianDate.Create(y, m, d)
+        let exp = GregorianMonth.Create(y, m)
+        // Act & Assert
+        GregorianMonth.FromDate(date) === exp
+
     //
     // Conversion to DayNumber
     //

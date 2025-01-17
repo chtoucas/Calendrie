@@ -67,6 +67,14 @@ module Conversions =
     type JulianDateCaster = TropicaliaDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = TropicaliaDate.op_Explicit
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = TropicaliaDate.Create(y, m, d)
+        let exp = TropicaliaMonth.Create(y, m)
+        // Act & Assert
+        TropicaliaMonth.FromDate(date) === exp
+
     //
     // Conversion to DayNumber
     //
