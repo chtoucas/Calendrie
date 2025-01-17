@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Samples.MyGregorianDateFacts
+module Calendrie.Tests.Hemerology.SimpleGregorianDateFacts
 
 open Calendrie.Core.Intervals
 open Calendrie.Testing
