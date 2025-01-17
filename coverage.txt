@@ -1,24 +1,24 @@
 Summary
-  Generated on: 17/01/2025 - 11:39:45
+  Generated on: 17/01/2025 - 17:40:53
   Parser: OpenCover
   Assemblies: 3
   Classes: 198
   Files: 179
-  Line coverage: 92.5%
+  Line coverage: 93%
   Covered lines: 12240
-  Uncovered lines: 992
-  Coverable lines: 13232
-  Total lines: 49971
-  Branch coverage: 91.3% (3525 of 3858)
+  Uncovered lines: 910
+  Coverable lines: 13150
+  Total lines: 49953
+  Branch coverage: 92.1% (3525 of 3827)
   Covered branches: 3525
-  Total branches: 3858
-  Method coverage: 93.6% (4214 of 4501)
-  Full method coverage: 77.2% (3478 of 4501)
+  Total branches: 3827
+  Method coverage: 93.8% (4214 of 4490)
+  Full method coverage: 77.4% (3478 of 4490)
   Covered methods: 4214
   Fully covered methods: 3478
-  Total methods: 4501
+  Total methods: 4490
 
-Calendrie                                                98.9%
+Calendrie                                                99.9%
   Calendrie.Core.CalendricalSchema                        100%
   Calendrie.Core.CalendricalSegment                       100%
   Calendrie.Core.CalendricalSegmentBuilder                100%
@@ -100,7 +100,7 @@ Calendrie                                                98.9%
   Calendrie.Systems.ArmenianCalendar                      100%
   Calendrie.Systems.ArmenianDate                          100%
   Calendrie.Systems.CivilCalendar                         100%
-  Calendrie.Systems.CivilDate                            74.9%
+  Calendrie.Systems.CivilDate                             100%
   Calendrie.Systems.CivilMonth                            100%
   Calendrie.Systems.CivilScope                            100%
   Calendrie.Systems.CivilYear                             100%

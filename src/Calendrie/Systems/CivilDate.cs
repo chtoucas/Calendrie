@@ -535,6 +535,9 @@ public partial struct CivilDate // Non-standard math ops (experimental)
     // Naming: newStart or ???
     // The default behaviour of CountYearsSince() seems not entirely coherent
     // (see CivilTests). Mots certainly the same happens with CountMonthsSince().
+    // Add more tests in CivilTests and GregorianTests.
+    // Add a warning about the data (CountYearsBetweenData & co) which only
+    // offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
 
 #if false && DEBUG
 
