@@ -1172,7 +1172,7 @@ public partial struct TropicaliaMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => TropicaliaSchema.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => TropicaliaSchema.MonthsInYear - Month;
 
     /// <inheritdoc />
     [Pure]

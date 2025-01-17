@@ -198,6 +198,29 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Conversions
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // Counting
 {
     [Theory, MemberData(nameof(MonthInfoData))]
+    public void CountElapsedMonthsInYear(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act
+        int actual = month.CountElapsedMonthsInYear();
+        // Assert
+        Assert.Equal(m - 1, actual);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CountRemainingMonthsInYear(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        int monthsInYear = TMonth.Calendar.Scope.Schema.CountMonthsInYear(y);
+        // Act
+        int actual = month.CountRemainingMonthsInYear();
+        // Assert
+        Assert.Equal(monthsInYear - m, actual);
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
     public void CountElapsedDaysInYear(MonthInfo info)
     {
         var (y, m) = info.Yemo;

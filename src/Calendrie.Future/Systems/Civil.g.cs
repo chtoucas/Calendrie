@@ -134,7 +134,7 @@ public partial struct CivilMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => CivilSchema.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => CivilSchema.MonthsInYear - Month;
 
     /// <inheritdoc />
     [Pure]

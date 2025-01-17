@@ -559,7 +559,7 @@ public partial struct <#= Prefix #>Month // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => <#= SchemaClass #>.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => <#= SchemaClass #>.MonthsInYear - Month;
 
     /// <inheritdoc />
     [Pure]
@@ -592,7 +592,7 @@ public partial struct <#= Prefix #>Month // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => Calendar.Schema.CountMonthsInYear(Year) - 1;
+    public int CountRemainingMonthsInYear() => Calendar.Schema.CountMonthsInYear(Year) - Month;
 
     /// <inheritdoc />
     [Pure]

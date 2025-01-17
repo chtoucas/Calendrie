@@ -1173,7 +1173,7 @@ public partial struct PaxMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => Calendar.Schema.CountMonthsInYear(Year) - 1;
+    public int CountRemainingMonthsInYear() => Calendar.Schema.CountMonthsInYear(Year) - Month;
 
     /// <inheritdoc />
     [Pure]
