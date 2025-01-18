@@ -426,120 +426,6 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // IDaySegment
     }
 }
 
-public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
-{
-    #region PlusYears()
-
-    [Fact]
-    public void PlusYears_Overflows_WithMaxYears()
-    {
-        var month = TMonth.Create(1, 1);
-        // Act & Assert
-        AssertEx.Overflows(() => month.PlusYears(int.MinValue));
-        AssertEx.Overflows(() => month.PlusYears(int.MaxValue));
-    }
-
-    [Fact]
-    public void PlusYears_AtMinMonth()
-    {
-        int years = SupportedYears.Count() - 1;
-        // Act & Assert
-        AssertEx.Overflows(() => MinMonth.PlusYears(-1));
-        Assert.Equal(MinMonth, MinMonth.PlusYears(0));
-        _ = MinMonth.PlusYears(years);
-        AssertEx.Overflows(() => MinMonth.PlusYears(years + 1));
-    }
-
-    [Fact]
-    public void PlusYears_AtMaxMonth()
-    {
-        int years = SupportedYears.Count() - 1;
-        // Act & Assert
-        AssertEx.Overflows(() => MaxMonth.PlusYears(-years - 1));
-        _ = MaxMonth.PlusYears(-years);
-        Assert.Equal(MaxMonth, MaxMonth.PlusYears(0));
-        AssertEx.Overflows(() => MaxMonth.PlusYears(1));
-    }
-
-    [Fact]
-    public void PlusYears_WithLimitYears()
-    {
-        var month = GetSampleMonth();
-        int minYs = MinMonth.Year - month.Year;
-        int maxYs = MaxMonth.Year - month.Year;
-        // Act & Assert
-        AssertEx.Overflows(() => month.PlusYears(minYs - 1));
-        _ = month.PlusYears(minYs);
-        _ = month.PlusYears(maxYs);
-        AssertEx.Overflows(() => month.PlusYears(maxYs + 1));
-    }
-
-    [Theory, MemberData(nameof(MonthInfoData))]
-    public void PlusYears_Zero_IsNeutral(MonthInfo info)
-    {
-        var (y, m) = info.Yemo;
-        var month = TMonth.Create(y, m);
-        // Act & Assert
-        Assert.Equal(month, month.PlusYears(0));
-    }
-
-    [Theory, MemberData(nameof(AddYearsMonthData))]
-    public void PlusYears(YemoPairAnd<int> info)
-    {
-        int years = info.Value;
-        var month = GetMonth(info.First);
-        var other = GetMonth(info.Second);
-        // Act & Assert
-        Assert.Equal(other, month.PlusYears(years));
-        Assert.Equal(month, other.PlusYears(-years));
-    }
-
-    #endregion
-    #region CountYearsSince()
-
-    [Fact]
-    public void CountYearsSince_DoesNotOverflow()
-    {
-        int years = SupportedYears.Count() - 1;
-        // Act & Assert
-        Assert.Equal(years, MaxMonth.CountYearsSince(MinMonth));
-        Assert.Equal(-years, MinMonth.CountYearsSince(MaxMonth));
-    }
-
-    [Theory, MemberData(nameof(MonthInfoData))]
-    public void CountYearsSince_WhenSame_IsZero(MonthInfo info)
-    {
-        var (y, m) = info.Yemo;
-        var month = TMonth.Create(y, m);
-        // Act & Assert
-        Assert.Equal(0, month.CountYearsSince(month));
-    }
-
-    [Theory, MemberData(nameof(CountYearsBetweenMonthData))]
-    public void CountYearsSince(YemoPairAnd<int> info)
-    {
-        int years = info.Value;
-        var start = GetMonth(info.First);
-        var end = GetMonth(info.Second);
-        // Act & Assert
-        Assert.Equal(years, end.CountYearsSince(start));
-        Assert.Equal(-years, start.CountYearsSince(end));
-    }
-
-    [Fact]
-    public void CountYearsSince_SpecialCases()
-    {
-        // 3/2000 - 4/1900 = 99 years
-        var date = TMonth.Create(2000, 3);
-        var other = TMonth.Create(1900, 4);
-        // Act & Assert
-        Assert.Equal(99, date.CountYearsSince(other));
-        Assert.Equal(-99, other.CountYearsSince(date));
-    }
-
-    #endregion
-}
-
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // IEquatable
 {
     [Theory, MemberData(nameof(MonthInfoData))]
@@ -677,6 +563,119 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // IComparable
 
 public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
 {
+    // TODO(fact): Next/PreviousYear()
+
+    #region PlusYears()
+
+    [Fact]
+    public void PlusYears_Overflows_WithMaxYears()
+    {
+        var month = TMonth.Create(1, 1);
+        // Act & Assert
+        AssertEx.Overflows(() => month.PlusYears(int.MinValue));
+        AssertEx.Overflows(() => month.PlusYears(int.MaxValue));
+    }
+
+    [Fact]
+    public void PlusYears_AtMinMonth()
+    {
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        AssertEx.Overflows(() => MinMonth.PlusYears(-1));
+        Assert.Equal(MinMonth, MinMonth.PlusYears(0));
+        _ = MinMonth.PlusYears(years);
+        AssertEx.Overflows(() => MinMonth.PlusYears(years + 1));
+    }
+
+    [Fact]
+    public void PlusYears_AtMaxMonth()
+    {
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        AssertEx.Overflows(() => MaxMonth.PlusYears(-years - 1));
+        _ = MaxMonth.PlusYears(-years);
+        Assert.Equal(MaxMonth, MaxMonth.PlusYears(0));
+        AssertEx.Overflows(() => MaxMonth.PlusYears(1));
+    }
+
+    [Fact]
+    public void PlusYears_WithLimitYears()
+    {
+        var month = GetSampleMonth();
+        int minYs = MinMonth.Year - month.Year;
+        int maxYs = MaxMonth.Year - month.Year;
+        // Act & Assert
+        AssertEx.Overflows(() => month.PlusYears(minYs - 1));
+        _ = month.PlusYears(minYs);
+        _ = month.PlusYears(maxYs);
+        AssertEx.Overflows(() => month.PlusYears(maxYs + 1));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void PlusYears_Zero_IsNeutral(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(month, month.PlusYears(0));
+    }
+
+    [Theory, MemberData(nameof(AddYearsMonthData))]
+    public void PlusYears(YemoPairAnd<int> info)
+    {
+        int years = info.Value;
+        var month = GetMonth(info.First);
+        var other = GetMonth(info.Second);
+        // Act & Assert
+        Assert.Equal(other, month.PlusYears(years));
+        Assert.Equal(month, other.PlusYears(-years));
+    }
+
+    #endregion
+    #region CountYearsSince()
+
+    [Fact]
+    public void CountYearsSince_DoesNotOverflow()
+    {
+        int years = SupportedYears.Count() - 1;
+        // Act & Assert
+        Assert.Equal(years, MaxMonth.CountYearsSince(MinMonth));
+        Assert.Equal(-years, MinMonth.CountYearsSince(MaxMonth));
+    }
+
+    [Theory, MemberData(nameof(MonthInfoData))]
+    public void CountYearsSince_WhenSame_IsZero(MonthInfo info)
+    {
+        var (y, m) = info.Yemo;
+        var month = TMonth.Create(y, m);
+        // Act & Assert
+        Assert.Equal(0, month.CountYearsSince(month));
+    }
+
+    [Theory, MemberData(nameof(CountYearsBetweenMonthData))]
+    public void CountYearsSince(YemoPairAnd<int> info)
+    {
+        int years = info.Value;
+        var start = GetMonth(info.First);
+        var end = GetMonth(info.Second);
+        // Act & Assert
+        Assert.Equal(years, end.CountYearsSince(start));
+        Assert.Equal(-years, start.CountYearsSince(end));
+    }
+
+    [Fact]
+    public void CountYearsSince_SpecialCases()
+    {
+        // 3/2000 - 4/1900 = 99 years
+        var date = TMonth.Create(2000, 3);
+        var other = TMonth.Create(1900, 4);
+        // Act & Assert
+        Assert.Equal(99, date.CountYearsSince(other));
+        Assert.Equal(-99, other.CountYearsSince(date));
+    }
+
+    #endregion
+
     #region NextMonth()
 
     [Fact]
@@ -723,10 +722,10 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
     }
 
     #endregion
-    #region AddMonths() & CountMonthsBetween()
+    #region PlusMonths() & CountMonthsSince()
 
     [Fact]
-    public void AddMonths_Overflows_WithMaxMonths()
+    public void PlusMonths_Overflows_WithMaxMonths()
     {
         var month = TMonth.Create(1, 1);
         // Act & Assert
@@ -737,7 +736,7 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
     }
 
     [Fact]
-    public void AddMonths_AtMinMonth()
+    public void PlusMonths_AtMinMonth()
     {
         int months = MaxMonth - MinMonth;
         // Act & Assert
@@ -754,7 +753,7 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
     }
 
     [Fact]
-    public void AddMonths_AtMaxMonth()
+    public void PlusMonths_AtMaxMonth()
     {
         int months = MaxMonth - MinMonth;
         // Act & Assert
@@ -771,7 +770,7 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
     }
 
     [Fact]
-    public void AddMonths_WithLimitMonths()
+    public void PlusMonths_WithLimitMonths()
     {
         var month = GetSampleMonth();
         int minMonths = MinMonth - month;
@@ -789,7 +788,7 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
     }
 
     [Fact]
-    public void CountMonthsBetween_DoesNotOverflow()
+    public void CountMonthsSince_DoesNotOverflow()
     {
         _ = MaxMonth - MinMonth;
         _ = MinMonth - MaxMonth;
@@ -798,7 +797,7 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
     }
 
     [Theory, MemberData(nameof(MonthInfoData))]
-    public void AddMonths_Zero_IsNeutral(MonthInfo info)
+    public void PlusMonths_Zero_IsNeutral(MonthInfo info)
     {
         var (y, m) = info.Yemo;
         var month = TMonth.Create(y, m);
@@ -812,7 +811,7 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
     }
 
     [Theory, MemberData(nameof(AddMonthsMonthData))]
-    public void AddMonths(YemoPairAnd<int> info)
+    public void PlusMonths(YemoPairAnd<int> info)
     {
         int months = info.Value;
         var month = GetMonth(info.First);
