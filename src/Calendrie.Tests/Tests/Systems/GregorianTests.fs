@@ -240,7 +240,7 @@ module Bundles =
         //
         // Math
         //
-        // NB: CountYearsSince() is not exact only "in" february.
+        // NB: CountYearsSince() is not exact but only "in" february.
 
         [<Fact>]
         static member ``CountYearsSince() where only "date" is an intercalary day (a)`` () =
@@ -314,8 +314,8 @@ module Bundles =
             other.CountYearsSince(date) === -4
             let mutable x = new GregorianDate()
             // Math
-            defaultDateMath.CountYearsBetween(other, date, &x) === 4
-            defaultDateMath.CountYearsBetween(date, other, &x) === -4
+            defaultDateMath.CountYearsBetween(other, date, &x)   === 4
+            defaultDateMath.CountYearsBetween(date, other, &x)   === -4
             defaultDateMath.CountYearsBetween(other, date, &x)   ===  4
             defaultDateMath.CountYearsBetween(date, other, &x)   === -4
             overspillDateMath.CountYearsBetween(other, date, &x) ===  4

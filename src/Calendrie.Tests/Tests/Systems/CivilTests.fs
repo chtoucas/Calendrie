@@ -370,7 +370,7 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<CivilDate, StandardGregorianDataSet>()
 
-        // NB: CountYearsSince() is not exact only "in" february.
+        // NB: CountYearsSince() is not exact but only "in" february.
 
         [<Fact>]
         static member ``CountYearsSince() where only "date" is an intercalary day (a)`` () =
