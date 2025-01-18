@@ -11,6 +11,3 @@ public partial struct PaxYear // Complements
     [Pure]
     public int CountWeeks() => Calendar.Schema.CountWeeksInYear(Year);
 }
-
-[ExcludeFromCodeCoverage]
-public partial struct RevisedWorldYear { }

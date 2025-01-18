@@ -24,11 +24,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Pax.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\RevisedWorld.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RevisedWorld.tt</DependentUpon>
-    </Compile>
     <Compile Update="Systems\Tropicalia.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
