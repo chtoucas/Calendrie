@@ -5,8 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 
-// TODO(code): Move VirtualMonth to the year type or simply remove it?
-// Remove Calendar.MonthsInYear (we also have Year.MonthCount)?
+// TODO(code): move VirtualMonth to the year type or simply remove it?
 
 public partial class Armenian13Calendar // Complements
 {

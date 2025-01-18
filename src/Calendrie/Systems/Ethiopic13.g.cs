@@ -31,12 +31,6 @@ using static Calendrie.Core.CalendricalConstants;
 public sealed partial class Ethiopic13Calendar : Calendar
 {
     /// <summary>
-    /// Represents the total number of months in a year.
-    /// <para>This field is a constant equal to 13.</para>
-    /// </summary>
-    public const int MonthsInYear = Coptic13Schema.MonthsInYear;
-
-    /// <summary>
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>

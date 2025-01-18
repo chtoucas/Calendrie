@@ -166,14 +166,6 @@ using static Calendrie.Core.CalendricalConstants;
 /// </summary>
 public sealed partial class <#= Prefix #>Calendar : Calendar
 {
-<#+ if (IsRegular && MonthsInYear > 0) { #>
-    /// <summary>
-    /// Represents the total number of months in a year.
-    /// <para>This field is a constant equal to <#= MonthsInYear #>.</para>
-    /// </summary>
-    public const int MonthsInYear = <#= SchemaClass #>.MonthsInYear;
-
-<#+ } #>
     /// <summary>
     /// Represents the display name.
     /// <para>This field is a constant.</para>

@@ -353,9 +353,6 @@ module Bundles =
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
 
         [<Fact>]
-        static member MonthsInYear() = EthiopicCalendar.MonthsInYear === 12
-
-        [<Fact>]
         static member MinYear() = EthiopicCalendar.MinYear === StandardScope.MinYear
 
         [<Fact>]
@@ -458,9 +455,6 @@ module Bundles13 =
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
-
-        [<Fact>]
-        static member MonthsInYear() = Ethiopic13Calendar.MonthsInYear === 13
 
         [<Fact>]
         static member VirtualMonth() = Ethiopic13Calendar.VirtualMonth === 13

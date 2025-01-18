@@ -193,9 +193,6 @@ module Bundles =
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
 
         [<Fact>]
-        static member MonthsInYear() = Persian2820Calendar.MonthsInYear === 12
-
-        [<Fact>]
         static member MinYear() = Persian2820Calendar.MinYear === StandardScope.MinYear
 
         [<Fact>]

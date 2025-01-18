@@ -31,12 +31,6 @@ using static Calendrie.Core.CalendricalConstants;
 public sealed partial class FrenchRepublicanCalendar : Calendar
 {
     /// <summary>
-    /// Represents the total number of months in a year.
-    /// <para>This field is a constant equal to 12.</para>
-    /// </summary>
-    public const int MonthsInYear = FrenchRepublican12Schema.MonthsInYear;
-
-    /// <summary>
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
