@@ -324,8 +324,6 @@ Calendrie.Core.Schemas.PositivistSchema
 Calendrie.Core.Schemas.PositivistSchema.IsBlankDay(int y, int m, int d) -> bool
 Calendrie.Core.Schemas.PtolemaicSchema
 Calendrie.Core.Schemas.TabularIslamicSchema
-Calendrie.Core.Schemas.TropicaliaSchema
-Calendrie.Core.Schemas.TropicalistaSchema
 Calendrie.Core.Schemas.WorldSchema
 Calendrie.Core.Schemas.WorldSchema.CountDaysInWorldMonth(int y, int m) -> int
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
@@ -2834,12 +2832,6 @@ const Calendrie.Core.Schemas.TabularIslamicSchema.DaysInCommonYear = 354 -> int
 const Calendrie.Core.Schemas.TabularIslamicSchema.DaysInLeapYear = 355 -> int
 const Calendrie.Core.Schemas.TabularIslamicSchema.DaysPer30YearCycle = 10631 -> int
 const Calendrie.Core.Schemas.TabularIslamicSchema.MonthsInYear = 12 -> int
-const Calendrie.Core.Schemas.TropicaliaSchema.DaysInYearAfterFebruary = 306 -> int
-const Calendrie.Core.Schemas.TropicalistaSchema.DaysInCommonYear = 365 -> int
-const Calendrie.Core.Schemas.TropicalistaSchema.DaysInLeapYear = 366 -> int
-const Calendrie.Core.Schemas.TropicalistaSchema.DaysPer128YearCycle = 46751 -> int
-const Calendrie.Core.Schemas.TropicalistaSchema.DaysPer4YearSubcycle = 1461 -> int
-const Calendrie.Core.Schemas.TropicalistaSchema.MonthsInYear = 12 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysPer400YearCycle = 146097 -> int
@@ -3345,26 +3337,6 @@ override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsLeapYear(int y) ->
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-override sealed Calendrie.Core.Schemas.TropicaliaSchema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.TropicaliaSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.TropicaliaSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
-override sealed Calendrie.Core.Schemas.TropicaliaSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.TropicaliaSchema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.TropicaliaSchema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.CountDaysInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.CountMonthsSinceEpoch(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.Family.get -> Calendrie.CalendricalFamily
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.GetEndOfYearInMonths(int y) -> int
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.GetStartOfYear(int y) -> int
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.GetStartOfYearInMonths(int y) -> int
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.GetYear(int daysSinceEpoch) -> int
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.IsIntercalaryMonth(int y, int m) -> bool
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.IsLeapYear(int y) -> bool
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.IsRegular(out int monthsInYear) -> bool
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.IsSupplementaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.TropicalistaSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.WorldSchema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.CountDaysInYearBeforeMonth(int y, int m) -> int

@@ -1,22 +1,22 @@
 Summary
-  Generated on: 17/01/2025 - 17:40:53
+  Generated on: 18/01/2025 - 08:28:40
   Parser: OpenCover
   Assemblies: 3
-  Classes: 198
-  Files: 179
-  Line coverage: 93%
-  Covered lines: 12240
-  Uncovered lines: 910
-  Coverable lines: 13150
-  Total lines: 49953
-  Branch coverage: 92.1% (3525 of 3827)
-  Covered branches: 3525
-  Total branches: 3827
-  Method coverage: 93.8% (4214 of 4490)
-  Full method coverage: 77.4% (3478 of 4490)
-  Covered methods: 4214
-  Fully covered methods: 3478
-  Total methods: 4490
+  Classes: 230
+  Files: 178
+  Line coverage: 94.9%
+  Covered lines: 16999
+  Uncovered lines: 905
+  Coverable lines: 17904
+  Total lines: 67398
+  Branch coverage: 94.2% (4845 of 5139)
+  Covered branches: 4845
+  Total branches: 5139
+  Method coverage: 95.7% (6139 of 6412)
+  Full method coverage: 81% (5195 of 6412)
+  Covered methods: 6139
+  Fully covered methods: 5195
+  Total methods: 6412
 
 Calendrie                                                99.9%
   Calendrie.Core.CalendricalSchema                        100%
@@ -63,8 +63,6 @@ Calendrie                                                99.9%
   Calendrie.Core.Schemas.PositivistSchema                 100%
   Calendrie.Core.Schemas.PtolemaicSchema                  100%
   Calendrie.Core.Schemas.TabularIslamicSchema             100%
-  Calendrie.Core.Schemas.TropicaliaSchema                 100%
-  Calendrie.Core.Schemas.TropicalistaSchema               100%
   Calendrie.Core.Schemas.WorldSchema                      100%
   Calendrie.Core.Utilities.MathN                          100%
   Calendrie.Core.Utilities.MathT                          100%
@@ -97,8 +95,12 @@ Calendrie                                                99.9%
   Calendrie.OrdinalParts                                  100%
   Calendrie.Systems.Armenian13Calendar                    100%
   Calendrie.Systems.Armenian13Date                        100%
+  Calendrie.Systems.Armenian13Month                       100%
+  Calendrie.Systems.Armenian13Year                        100%
   Calendrie.Systems.ArmenianCalendar                      100%
   Calendrie.Systems.ArmenianDate                          100%
+  Calendrie.Systems.ArmenianMonth                         100%
+  Calendrie.Systems.ArmenianYear                          100%
   Calendrie.Systems.CivilCalendar                         100%
   Calendrie.Systems.CivilDate                             100%
   Calendrie.Systems.CivilMonth                            100%
@@ -106,59 +108,93 @@ Calendrie                                                99.9%
   Calendrie.Systems.CivilYear                             100%
   Calendrie.Systems.Coptic13Calendar                      100%
   Calendrie.Systems.Coptic13Date                          100%
+  Calendrie.Systems.Coptic13Month                         100%
+  Calendrie.Systems.Coptic13Year                          100%
   Calendrie.Systems.CopticCalendar                        100%
   Calendrie.Systems.CopticDate                            100%
+  Calendrie.Systems.CopticMonth                           100%
+  Calendrie.Systems.CopticYear                            100%
+  Calendrie.Systems.Egyptian13Calendar                    100%
+  Calendrie.Systems.Egyptian13Date                        100%
+  Calendrie.Systems.Egyptian13Month                       100%
+  Calendrie.Systems.Egyptian13Year                        100%
+  Calendrie.Systems.EgyptianCalendar                      100%
+  Calendrie.Systems.EgyptianDate                          100%
+  Calendrie.Systems.EgyptianMonth                         100%
+  Calendrie.Systems.EgyptianYear                          100%
   Calendrie.Systems.Ethiopic13Calendar                    100%
   Calendrie.Systems.Ethiopic13Date                        100%
+  Calendrie.Systems.Ethiopic13Month                       100%
+  Calendrie.Systems.Ethiopic13Year                        100%
   Calendrie.Systems.EthiopicCalendar                      100%
   Calendrie.Systems.EthiopicDate                          100%
+  Calendrie.Systems.EthiopicMonth                         100%
+  Calendrie.Systems.EthiopicYear                          100%
+  Calendrie.Systems.FrenchRepublican13Calendar            100%
+  Calendrie.Systems.FrenchRepublican13Date                100%
+  Calendrie.Systems.FrenchRepublican13Month               100%
+  Calendrie.Systems.FrenchRepublican13Year                100%
+  Calendrie.Systems.FrenchRepublicanCalendar              100%
+  Calendrie.Systems.FrenchRepublicanDate                  100%
+  Calendrie.Systems.FrenchRepublicanMonth                 100%
+  Calendrie.Systems.FrenchRepublicanYear                  100%
   Calendrie.Systems.GregorianCalendar                     100%
   Calendrie.Systems.GregorianDate                         100%
   Calendrie.Systems.GregorianMonth                        100%
   Calendrie.Systems.GregorianScope                        100%
   Calendrie.Systems.GregorianYear                         100%
+  Calendrie.Systems.InternationalFixedCalendar            100%
+  Calendrie.Systems.InternationalFixedDate                100%
+  Calendrie.Systems.InternationalFixedMonth               100%
+  Calendrie.Systems.InternationalFixedYear                100%
   Calendrie.Systems.JulianCalendar                        100%
   Calendrie.Systems.JulianDate                            100%
   Calendrie.Systems.JulianMonth                           100%
   Calendrie.Systems.JulianScope                           100%
   Calendrie.Systems.JulianYear                            100%
+  Calendrie.Systems.Persian2820Calendar                   100%
+  Calendrie.Systems.Persian2820Date                       100%
+  Calendrie.Systems.Persian2820Month                      100%
+  Calendrie.Systems.Persian2820Year                       100%
+  Calendrie.Systems.PositivistCalendar                    100%
+  Calendrie.Systems.PositivistDate                        100%
+  Calendrie.Systems.PositivistMonth                       100%
+  Calendrie.Systems.PositivistYear                        100%
   Calendrie.Systems.StandardScope                         100%
   Calendrie.Systems.TabularIslamicCalendar                100%
   Calendrie.Systems.TabularIslamicDate                    100%
+  Calendrie.Systems.TabularIslamicMonth                   100%
+  Calendrie.Systems.TabularIslamicYear                    100%
   Calendrie.Systems.WorldCalendar                         100%
   Calendrie.Systems.WorldDate                             100%
   Calendrie.Systems.WorldMonth                            100%
   Calendrie.Systems.WorldYear                             100%
   Calendrie.Systems.Zoroastrian13Calendar                 100%
   Calendrie.Systems.Zoroastrian13Date                     100%
+  Calendrie.Systems.Zoroastrian13Month                    100%
+  Calendrie.Systems.Zoroastrian13Year                     100%
   Calendrie.Systems.ZoroastrianCalendar                   100%
   Calendrie.Systems.ZoroastrianDate                       100%
+  Calendrie.Systems.ZoroastrianMonth                      100%
+  Calendrie.Systems.ZoroastrianYear                       100%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Future                                         99.3%
-  Calendrie.Core.Schemas.PaxSchema                         86%
+Calendrie.Future                                         98.8%
+  Calendrie.Core.Schemas.PaxSchema                         90%
   Calendrie.Core.Schemas.Tropicalia3031Schema             100%
   Calendrie.Core.Schemas.Tropicalia3130Schema             100%
+  Calendrie.Core.Schemas.TropicaliaSchema                 100%
+  Calendrie.Core.Schemas.TropicalistaSchema               100%
   Calendrie.Core.TemporalArithmetic                      83.3%
   Calendrie.Core.Validation.PaxPreValidator               100%
   Calendrie.Hemerology.CalendarSans                       100%
-  Calendrie.Hemerology.DateMath<T>                         94%
+  Calendrie.Hemerology.DateMath<T>                         97%
   Calendrie.Hemerology.MonthMath<T>                        90%
   Calendrie.Hemerology.UserCalendar                       100%
   Calendrie.Systems.CivilDateMath                         100%
   Calendrie.Systems.DateMathPlain<T1, T2>                93.3%
   Calendrie.Systems.DateMathRegular<T1, T2>               100%
-  Calendrie.Systems.Egyptian13Calendar                    100%
-  Calendrie.Systems.Egyptian13Date                        100%
-  Calendrie.Systems.EgyptianCalendar                      100%
-  Calendrie.Systems.EgyptianDate                          100%
-  Calendrie.Systems.FrenchRepublican13Calendar            100%
-  Calendrie.Systems.FrenchRepublican13Date                100%
-  Calendrie.Systems.FrenchRepublicanCalendar              100%
-  Calendrie.Systems.FrenchRepublicanDate                  100%
   Calendrie.Systems.GregorianDateMath                     100%
-  Calendrie.Systems.InternationalFixedCalendar            100%
-  Calendrie.Systems.InternationalFixedDate                100%
   Calendrie.Systems.JulianDateMath                        100%
   Calendrie.Systems.MonthMathPlain<T1, T2>                100%
   Calendrie.Systems.PaxCalendar                           100%
@@ -166,11 +202,7 @@ Calendrie.Future                                         99.3%
   Calendrie.Systems.PaxDateMath                           100%
   Calendrie.Systems.PaxMonth                              100%
   Calendrie.Systems.PaxMonthMath                          100%
-  Calendrie.Systems.PaxYear                              99.2%
-  Calendrie.Systems.Persian2820Calendar                   100%
-  Calendrie.Systems.Persian2820Date                       100%
-  Calendrie.Systems.PositivistCalendar                    100%
-  Calendrie.Systems.PositivistDate                        100%
+  Calendrie.Systems.PaxYear                               100%
   Calendrie.Systems.TropicaliaCalendar                    100%
   Calendrie.Systems.TropicaliaDate                        100%
   Calendrie.Systems.TropicaliaDateMath                    100%
