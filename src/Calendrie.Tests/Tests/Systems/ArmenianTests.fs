@@ -506,6 +506,17 @@ module Bundles13 =
             // Act & Assert
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
+        //
+        // Armenian13-only property
+        //
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``Property IsVirtual`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let month = new Armenian13Month(y, m)
+            // Act & Assert
+            month.IsVirtual === (m = 13)
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeMonthFactoryFacts() =
