@@ -64,6 +64,7 @@ module Conversions =
     let private calendarDataSet = StandardEgyptian12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = EgyptianDate -> GregorianDate
@@ -71,6 +72,34 @@ module Conversions =
 
     type JulianDateCaster = EgyptianDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = EgyptianDate.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``EgyptianMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new EgyptianDate(y, m, d)
+        let exp = new EgyptianMonth(y, m)
+        // Act & Assert
+        EgyptianMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``EgyptianYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new EgyptianDate(y, m, d)
+        let exp = new EgyptianYear(y)
+        // Act & Assert
+        EgyptianYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``EgyptianYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new EgyptianMonth(y, m)
+        let exp = new EgyptianYear(y)
+        // Act & Assert
+        EgyptianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -175,6 +204,7 @@ module Conversions13 =
     let private calendarDataSet = StandardEgyptian13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Egyptian13Date -> GregorianDate
@@ -182,6 +212,34 @@ module Conversions13 =
 
     type JulianDateCaster = Egyptian13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Egyptian13Date.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Egyptian13Month:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Egyptian13Date(y, m, d)
+        let exp = new Egyptian13Month(y, m)
+        // Act & Assert
+        Egyptian13Month.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Egyptian13Year:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Egyptian13Date(y, m, d)
+        let exp = new Egyptian13Year(y)
+        // Act & Assert
+        Egyptian13Year.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Egyptian13Year:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Egyptian13Month(y, m)
+        let exp = new Egyptian13Year(y)
+        // Act & Assert
+        Egyptian13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -283,6 +341,8 @@ module Conversions13 =
         op_Explicit_Julian Egyptian13Date.MaxValue === exp
 
 module Bundles =
+    let private calendarDataSet = StandardEgyptian12DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -322,7 +382,74 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new EgyptianDate(y, m, d)
 
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<EgyptianMonth, EgyptianDate, StandardEgyptian12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new EgyptianMonth(y, m)
+            let date = new EgyptianDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new EgyptianMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<EgyptianMonth, StandardEgyptian12DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<EgyptianYear, EgyptianMonth, EgyptianDate, StandardEgyptian12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new EgyptianYear(y)
+            let date = new EgyptianMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new EgyptianYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new EgyptianYear(y)
+            let date = new EgyptianDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new EgyptianYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
+
 module Bundles13 =
+    let private calendarDataSet = StandardEgyptian13DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -364,3 +491,68 @@ module Bundles13 =
         inherit IEpagomenalDayFacts<Egyptian13Date, StandardEgyptian13DataSet>()
 
         override __.GetDate(y, m, d) = new Egyptian13Date(y, m, d)
+
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<Egyptian13Month, Egyptian13Date, StandardEgyptian13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new Egyptian13Month(y, m)
+            let date = new Egyptian13Date(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new Egyptian13Month(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<Egyptian13Month, StandardEgyptian13DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<Egyptian13Year, Egyptian13Month, Egyptian13Date, StandardEgyptian13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new Egyptian13Year(y)
+            let date = new Egyptian13Month(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new Egyptian13Year(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new Egyptian13Year(y)
+            let date = new Egyptian13Date(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new Egyptian13Year(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

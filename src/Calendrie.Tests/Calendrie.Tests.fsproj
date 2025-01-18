@@ -87,7 +87,7 @@
     <Compile Include="Tests\Systems\EgyptianTests.fs" />
     <Compile Include="Tests\Systems\EthiopicTests.fs" />
     <Compile Include="Tests\Systems\FrenchRepublicanTests.fs" />
-    <Compile Include="Tests\Systems\InternationalFixed.fs" />
+    <Compile Include="Tests\Systems\InternationalFixedTests.fs" />
     <Compile Include="Tests\Systems\PaxTests.fs" />
     <Compile Include="Tests\Systems\Persian2820Tests.fs" />
     <Compile Include="Tests\Systems\PositivistTests.fs" />

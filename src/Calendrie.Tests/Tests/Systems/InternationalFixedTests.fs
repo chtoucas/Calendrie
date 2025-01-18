@@ -15,6 +15,8 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
+let private calendarDataSet = StandardInternationalFixedDataSet.Instance
+
 module Prelude =
     [<Fact>]
     let ``Value of InternationalFixedCalendar.Epoch.DaysZinceZero`` () =
@@ -43,9 +45,8 @@ module Prelude =
 #endif
 
 module Conversions =
-    let private calendarDataSet = StandardInternationalFixedDataSet.Instance
-
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = InternationalFixedDate -> GregorianDate
@@ -53,6 +54,34 @@ module Conversions =
 
     type JulianDateCaster = InternationalFixedDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = InternationalFixedDate.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``InternationalFixedMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = new InternationalFixedMonth(y, m)
+        // Act & Assert
+        InternationalFixedMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``InternationalFixedYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = new InternationalFixedYear(y)
+        // Act & Assert
+        InternationalFixedYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``InternationalFixedYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new InternationalFixedMonth(y, m)
+        let exp = new InternationalFixedYear(y)
+        // Act & Assert
+        InternationalFixedYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -185,3 +214,68 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<InternationalFixedDate, StandardInternationalFixedDataSet>()
+
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<InternationalFixedMonth, InternationalFixedDate, StandardInternationalFixedDataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new InternationalFixedMonth(y, m)
+            let date = new InternationalFixedDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new InternationalFixedMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<InternationalFixedMonth, StandardInternationalFixedDataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<InternationalFixedYear, InternationalFixedMonth, InternationalFixedDate, StandardInternationalFixedDataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new InternationalFixedYear(y)
+            let date = new InternationalFixedMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new InternationalFixedYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new InternationalFixedYear(y)
+            let date = new InternationalFixedDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new InternationalFixedYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

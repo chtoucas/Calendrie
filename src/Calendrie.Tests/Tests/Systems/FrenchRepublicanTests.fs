@@ -64,6 +64,7 @@ module Conversions =
     let private calendarDataSet = StandardFrenchRepublican12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = FrenchRepublicanDate -> GregorianDate
@@ -71,6 +72,34 @@ module Conversions =
 
     type JulianDateCaster = FrenchRepublicanDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = FrenchRepublicanDate.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublicanMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublicanDate(y, m, d)
+        let exp = new FrenchRepublicanMonth(y, m)
+        // Act & Assert
+        FrenchRepublicanMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublicanYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublicanDate(y, m, d)
+        let exp = new FrenchRepublicanYear(y)
+        // Act & Assert
+        FrenchRepublicanYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``FrenchRepublicanYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new FrenchRepublicanMonth(y, m)
+        let exp = new FrenchRepublicanYear(y)
+        // Act & Assert
+        FrenchRepublicanYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -175,6 +204,7 @@ module Conversions13 =
     let private calendarDataSet = StandardFrenchRepublican13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = FrenchRepublican13Date -> GregorianDate
@@ -182,6 +212,34 @@ module Conversions13 =
 
     type JulianDateCaster = FrenchRepublican13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = FrenchRepublican13Date.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublican13Month:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublican13Date(y, m, d)
+        let exp = new FrenchRepublican13Month(y, m)
+        // Act & Assert
+        FrenchRepublican13Month.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublican13Year:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublican13Date(y, m, d)
+        let exp = new FrenchRepublican13Year(y)
+        // Act & Assert
+        FrenchRepublican13Year.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``FrenchRepublican13Year:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new FrenchRepublican13Month(y, m)
+        let exp = new FrenchRepublican13Year(y)
+        // Act & Assert
+        FrenchRepublican13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -283,6 +341,8 @@ module Conversions13 =
         op_Explicit_Julian FrenchRepublican13Date.MaxValue === exp
 
 module Bundles =
+    let private calendarDataSet = StandardFrenchRepublican12DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -322,7 +382,74 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new FrenchRepublicanDate(y, m, d)
 
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<FrenchRepublicanMonth, FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new FrenchRepublicanMonth(y, m)
+            let date = new FrenchRepublicanDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new FrenchRepublicanMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<FrenchRepublicanMonth, StandardFrenchRepublican12DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<FrenchRepublicanYear, FrenchRepublicanMonth, FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new FrenchRepublicanYear(y)
+            let date = new FrenchRepublicanMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new FrenchRepublicanYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new FrenchRepublicanYear(y)
+            let date = new FrenchRepublicanDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new FrenchRepublicanYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
+
 module Bundles13 =
+    let private calendarDataSet = StandardFrenchRepublican13DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -365,4 +492,67 @@ module Bundles13 =
 
         override __.GetDate(y, m, d) = new FrenchRepublican13Date(y, m, d)
 
+    //
+    // Month type
+    //
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<FrenchRepublican13Month, FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new FrenchRepublican13Month(y, m)
+            let date = new FrenchRepublican13Date(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new FrenchRepublican13Month(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<FrenchRepublican13Month, StandardFrenchRepublican13DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<FrenchRepublican13Year, FrenchRepublican13Month, FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new FrenchRepublican13Year(y)
+            let date = new FrenchRepublican13Month(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new FrenchRepublican13Year(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new FrenchRepublican13Year(y)
+            let date = new FrenchRepublican13Date(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new FrenchRepublican13Year(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
