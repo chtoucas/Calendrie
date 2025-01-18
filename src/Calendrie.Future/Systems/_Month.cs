@@ -25,3 +25,6 @@ public partial struct PaxMonth // Complements
         }
     }
 }
+
+[ExcludeFromCodeCoverage]
+public partial struct RevisedWorldMonth { }
