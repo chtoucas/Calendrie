@@ -457,9 +457,6 @@ module Bundles13 =
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
 
         [<Fact>]
-        static member VirtualMonth() = Ethiopic13Calendar.VirtualMonth === 13
-
-        [<Fact>]
         static member MinYear() = Ethiopic13Calendar.MinYear === StandardScope.MinYear
 
         [<Fact>]

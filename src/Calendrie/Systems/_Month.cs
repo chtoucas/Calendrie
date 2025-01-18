@@ -11,7 +11,7 @@ public partial struct Armenian13Month // Complements
     /// Returns <see langword="true"/> if the current month instance is virtual;
     /// otherwise returns <see langword="false"/>.
     /// </summary>
-    public bool IsVirtual => Month == Armenian13Calendar.VirtualMonth;
+    public bool IsVirtual => Month == Egyptian13Schema.VirtualMonth;
 }
 
 public partial struct Coptic13Month // Complements
@@ -20,7 +20,7 @@ public partial struct Coptic13Month // Complements
     /// Returns <see langword="true"/> if the current month instance is virtual;
     /// otherwise returns <see langword="false"/>.
     /// </summary>
-    public bool IsVirtual => Month == Coptic13Calendar.VirtualMonth;
+    public bool IsVirtual => Month == Coptic13Schema.VirtualMonth;
 }
 
 public partial struct Egyptian13Month // Complements
@@ -29,7 +29,7 @@ public partial struct Egyptian13Month // Complements
     /// Returns <see langword="true"/> if the current month instance is virtual;
     /// otherwise returns <see langword="false"/>.
     /// </summary>
-    public bool IsVirtual => Month == Egyptian13Calendar.VirtualMonth;
+    public bool IsVirtual => Month == Egyptian13Schema.VirtualMonth;
 }
 
 public partial struct Ethiopic13Month // Complements
@@ -38,7 +38,7 @@ public partial struct Ethiopic13Month // Complements
     /// Returns <see langword="true"/> if the current month instance is virtual;
     /// otherwise returns <see langword="false"/>.
     /// </summary>
-    public bool IsVirtual => Month == Ethiopic13Calendar.VirtualMonth;
+    public bool IsVirtual => Month == Coptic13Schema.VirtualMonth;
 }
 
 public partial struct FrenchRepublican13Month // Complements
@@ -47,7 +47,7 @@ public partial struct FrenchRepublican13Month // Complements
     /// Returns <see langword="true"/> if the current month instance is virtual;
     /// otherwise returns <see langword="false"/>.
     /// </summary>
-    public bool IsVirtual => Month == FrenchRepublican13Calendar.VirtualMonth;
+    public bool IsVirtual => Month == FrenchRepublican13Schema.VirtualMonth;
 }
 
 public partial struct WorldMonth // Complements
@@ -66,5 +66,5 @@ public partial struct Zoroastrian13Month // Complements
     /// Returns <see langword="true"/> if the current month instance is virtual;
     /// otherwise returns <see langword="false"/>.
     /// </summary>
-    public bool IsVirtual => Month == Zoroastrian13Calendar.VirtualMonth;
+    public bool IsVirtual => Month == Egyptian13Schema.VirtualMonth;
 }

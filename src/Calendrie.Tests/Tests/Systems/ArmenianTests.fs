@@ -457,9 +457,6 @@ module Bundles13 =
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.None
 
         [<Fact>]
-        static member VirtualMonth() = Armenian13Calendar.VirtualMonth === 13
-
-        [<Fact>]
         static member MinYear() = Armenian13Calendar.MinYear === StandardScope.MinYear
 
         [<Fact>]
