@@ -111,7 +111,7 @@ public readonly partial struct CivilTriple :
 
     public override string ToString()
     {
-        s_Schema.GetDateParts(DaysSinceEpoch, out int y, out int m, out int d);
+        var (y, m, d) = this;
         return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} (Civil)");
     }
 

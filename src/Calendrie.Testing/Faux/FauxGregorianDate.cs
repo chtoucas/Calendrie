@@ -32,24 +32,22 @@ public readonly partial struct FauxGregorianDate :
     private const int MinDaysSinceEpoch = 0;
     private static readonly int s_MaxDaysSinceEpoch = FauxGregorianCalendar.Instance.MaxDaysSinceEpoch;
 
-    private readonly int _daysSinceEpoch;
-
     public FauxGregorianDate(int year, int month, int day)
     {
-        _daysSinceEpoch = Calendar.CountDaysSinceEpoch(year, month, day);
+        DaysSinceEpoch = Calendar.CountDaysSinceEpoch(year, month, day);
     }
 
     public FauxGregorianDate(int year, int dayOfYear)
     {
-        _daysSinceEpoch = Calendar.CountDaysSinceEpoch(year, dayOfYear);
+        DaysSinceEpoch = Calendar.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     internal FauxGregorianDate(int daysSinceEpoch)
     {
-        _daysSinceEpoch = daysSinceEpoch;
+        DaysSinceEpoch = daysSinceEpoch;
     }
 
-    // NB: MinValue = new(MinDaysSinceEpoch) = default
+    // NB: MinValue = new(MinDaysSinceEpoch) = new(0) = default
     public static FauxGregorianDate MinValue { get; }
     public static FauxGregorianDate MaxValue { get; } = new(s_MaxDaysSinceEpoch);
 
@@ -57,20 +55,20 @@ public readonly partial struct FauxGregorianDate :
 
     static Calendar IDate.Calendar => Calendar;
 
-    public DayNumber DayNumber => s_Epoch + _daysSinceEpoch;
-    public int DaysSinceEpoch => _daysSinceEpoch;
+    public DayNumber DayNumber => s_Epoch + DaysSinceEpoch;
+    public int DaysSinceEpoch { get; }
 
     public Ord CenturyOfEra => Ord.FromInt32(Century);
     public int Century => YearNumbering.GetCentury(Year);
     public Ord YearOfEra => Ord.FromInt32(Year);
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
-    public int Year => Calendar.GetYear(_daysSinceEpoch);
+    public int Year => Calendar.GetYear(DaysSinceEpoch);
 
     public int Month
     {
         get
         {
-            Calendar.GetDateParts(_daysSinceEpoch, out _, out int m, out _);
+            Calendar.GetDateParts(DaysSinceEpoch, out _, out int m, out _);
             return m;
         }
     }
@@ -79,7 +77,7 @@ public readonly partial struct FauxGregorianDate :
     {
         get
         {
-            _ = Calendar.GetYear(_daysSinceEpoch, out int doy);
+            _ = Calendar.GetYear(DaysSinceEpoch, out int doy);
             return doy;
         }
     }
@@ -88,27 +86,26 @@ public readonly partial struct FauxGregorianDate :
     {
         get
         {
-            Calendar.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+            Calendar.GetDateParts(DaysSinceEpoch, out _, out _, out int d);
             return d;
         }
     }
 
     public DayOfWeek DayOfWeek => DayNumber.DayOfWeek;
 
-    public bool IsIntercalary => Calendar.IsIntercalaryDay(_daysSinceEpoch);
+    public bool IsIntercalary => Calendar.IsIntercalaryDay(DaysSinceEpoch);
     bool IDateable.IsSupplementary => false;
 
     public override string ToString()
     {
-        Calendar.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({FauxGregorianCalendar.DisplayName})");
+        var (y, m, d) = this;
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Calendar})");
     }
-
     public void Deconstruct(out int year, out int month, out int day) =>
-        Calendar.GetDateParts(_daysSinceEpoch, out year, out month, out day);
+        Calendar.GetDateParts(DaysSinceEpoch, out year, out month, out day);
 
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Calendar.GetYear(_daysSinceEpoch, out dayOfYear);
+        year = Calendar.GetYear(DaysSinceEpoch, out dayOfYear);
 }
 
 public partial struct FauxGregorianDate // Factories & conversions
@@ -164,8 +161,8 @@ public partial struct FauxGregorianDate // Factories & conversions
 
 public partial struct FauxGregorianDate // Counting
 {
-    public int CountRemainingDaysInYear() => Calendar.CountDaysInYearAfter(_daysSinceEpoch);
-    public int CountRemainingDaysInMonth() => Calendar.CountDaysInMonthAfter(_daysSinceEpoch);
+    public int CountRemainingDaysInYear() => Calendar.CountDaysInYearAfter(DaysSinceEpoch);
+    public int CountRemainingDaysInMonth() => Calendar.CountDaysInMonthAfter(DaysSinceEpoch);
 }
 
 public partial struct FauxGregorianDate // Adjustments
@@ -186,33 +183,33 @@ public partial struct FauxGregorianDate // Adjustments
 public partial struct FauxGregorianDate // IEquatable
 {
     public static bool operator ==(FauxGregorianDate left, FauxGregorianDate right) =>
-        left._daysSinceEpoch == right._daysSinceEpoch;
+        left.DaysSinceEpoch == right.DaysSinceEpoch;
     public static bool operator !=(FauxGregorianDate left, FauxGregorianDate right) =>
-        left._daysSinceEpoch != right._daysSinceEpoch;
+        left.DaysSinceEpoch != right.DaysSinceEpoch;
 
-    public bool Equals(FauxGregorianDate other) => _daysSinceEpoch == other._daysSinceEpoch;
+    public bool Equals(FauxGregorianDate other) => DaysSinceEpoch == other.DaysSinceEpoch;
 
     public override bool Equals([NotNullWhen(true)] object? obj) =>
         obj is FauxGregorianDate date && Equals(date);
 
-    public override int GetHashCode() => _daysSinceEpoch;
+    public override int GetHashCode() => DaysSinceEpoch;
 }
 
 public partial struct FauxGregorianDate // IComparable
 {
     public static bool operator <(FauxGregorianDate left, FauxGregorianDate right) =>
-        left._daysSinceEpoch < right._daysSinceEpoch;
+        left.DaysSinceEpoch < right.DaysSinceEpoch;
     public static bool operator <=(FauxGregorianDate left, FauxGregorianDate right) =>
-        left._daysSinceEpoch <= right._daysSinceEpoch;
+        left.DaysSinceEpoch <= right.DaysSinceEpoch;
     public static bool operator >(FauxGregorianDate left, FauxGregorianDate right) =>
-        left._daysSinceEpoch > right._daysSinceEpoch;
+        left.DaysSinceEpoch > right.DaysSinceEpoch;
     public static bool operator >=(FauxGregorianDate left, FauxGregorianDate right) =>
-        left._daysSinceEpoch >= right._daysSinceEpoch;
+        left.DaysSinceEpoch >= right.DaysSinceEpoch;
 
     public static FauxGregorianDate Min(FauxGregorianDate x, FauxGregorianDate y) => x < y ? x : y;
     public static FauxGregorianDate Max(FauxGregorianDate x, FauxGregorianDate y) => x > y ? x : y;
 
-    public int CompareTo(FauxGregorianDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
+    public int CompareTo(FauxGregorianDate other) => DaysSinceEpoch.CompareTo(other.DaysSinceEpoch);
 
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
@@ -232,16 +229,15 @@ public partial struct FauxGregorianDate // Math
     public static FauxGregorianDate operator --(FauxGregorianDate value) => value.PlusDays(-1);
 #pragma warning restore CA2225 // Operator overloads have named alternates
 
-    public int CountDaysSince(FauxGregorianDate other) => _daysSinceEpoch - other._daysSinceEpoch;
+    public int CountDaysSince(FauxGregorianDate other) => DaysSinceEpoch - other.DaysSinceEpoch;
 
     public FauxGregorianDate PlusDays(int days)
     {
-        int daysSinceEpoch = checked(_daysSinceEpoch + days);
+        int daysSinceEpoch = checked(DaysSinceEpoch + days);
 
-        if (daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch)
-            throw new OverflowException();
-
-        return new(daysSinceEpoch);
+        return daysSinceEpoch < MinDaysSinceEpoch || daysSinceEpoch > s_MaxDaysSinceEpoch
+            ? throw new OverflowException()
+            : new(daysSinceEpoch);
     }
 
     public FauxGregorianDate PlusYears(int years) => Calendar.AddYears(this, years);

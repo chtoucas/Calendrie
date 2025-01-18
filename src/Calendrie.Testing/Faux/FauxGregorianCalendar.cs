@@ -12,12 +12,10 @@ using Calendrie.Hemerology;
 
 public sealed partial class FauxGregorianCalendar : UserCalendar, IDateProvider<FauxGregorianDate>
 {
-    internal const string DisplayName = "Gregorian";
-
     public const int MonthsInYear = 12;
 
     public FauxGregorianCalendar()
-        : base(DisplayName,
+        : base("Gregorian",
             MinMaxYearScope.CreateMaximalOnOrAfterYear1<GregorianSchema>(DayZero.NewStyle))
     {
         Debug.Assert(Scope != null);
