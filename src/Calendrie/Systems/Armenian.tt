@@ -7,9 +7,6 @@
         epochDaysSinceZeroValue: "201_442",
         maxDaysSinceEpochValue:  "3_649_634")
     {
-        EnableMonth = true,
-        EnableYear = true,
-
         EnableIsIntercalaryDay = false,
         EnableIsLeapYear = false,
 

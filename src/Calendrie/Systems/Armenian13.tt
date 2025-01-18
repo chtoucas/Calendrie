@@ -9,9 +9,6 @@
     {
         DisplayName = "Armenian",
 
-        EnableMonth = true,
-        EnableYear = true,
-
         EnableIsIntercalaryDay = false,
         EnableIsLeapYear = false,
 

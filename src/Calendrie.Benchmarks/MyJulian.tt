@@ -10,8 +10,6 @@
         DisplayName = "Plain Standard Julian",
 
         EnableDateCustomMath = true,
-        EnableMonth = true,
-        EnableYear = true,
 
         EnableIsSupplementaryDay = false,
         EnableNullable = true,

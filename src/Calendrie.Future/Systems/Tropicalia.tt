@@ -4,8 +4,6 @@
 <#= new ZeroCalendarTemplate(this, "TropicaliaSchema", maxDaysSinceEpochValue: "3_652_055")
     {
         EnableDateCustomMath = true,
-        EnableMonth = true,
-        EnableYear = true,
 
         EnableIsSupplementaryDay = false,
         EnablePragmas = true,

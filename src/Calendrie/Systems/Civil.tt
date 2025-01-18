@@ -11,9 +11,6 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
         ScopeClass = "CivilScope";
 
         EnableCalendar = false;
-        EnableDate = true;
-        EnableMonth = true;
-        EnableYear = true;
 
         EnableIsSupplementaryDay = false;
         EnablePragmas = true;

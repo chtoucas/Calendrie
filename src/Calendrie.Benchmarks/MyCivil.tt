@@ -6,8 +6,6 @@
         DisplayName = "Plain Standard Civil",
 
         EnableDateCustomMath = true,
-        EnableMonth = true,
-        EnableYear = true,
 
         EnableIsSupplementaryDay = false,
         EnableNullable = true,
