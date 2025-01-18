@@ -36,6 +36,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Armenian13.tt</DependentUpon>
     </Compile>
+    <Compile Update="Systems\Civil.g.cs">
+      <DependentUpon>Civil.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Systems\Coptic.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -45,6 +50,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Coptic13.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Egyptian.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Egyptian.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Egyptian13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Egyptian13.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Ethiopic.g.cs">
       <DesignTime>True</DesignTime>
@@ -56,20 +71,40 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Ethiopic13.tt</DependentUpon>
     </Compile>
+    <Compile Update="Systems\FrenchRepublican.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FrenchRepublican.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\FrenchRepublican13.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FrenchRepublican13.tt</DependentUpon>
+    </Compile>
     <Compile Update="Systems\Gregorian.g.cs">
       <DependentUpon>Gregorian.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Systems\Civil.g.cs">
-      <DependentUpon>Civil.tt</DependentUpon>
+    <Compile Update="Systems\InternationalFixed.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DependentUpon>InternationalFixed.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Julian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Julian.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Persian2820.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Persian2820.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Positivist.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Positivist.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\TabularIslamic.g.cs">
       <DesignTime>True</DesignTime>

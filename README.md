@@ -43,9 +43,10 @@ These calendars support dates in the range from 1 to 9999 of years.
 - Egyptian calendar (*)
 - Ethiopic calendar (*)
 - French Republican calendar (*), an arithmetisation of the astronomical calendar
-- International fixed calendar
+- International Fixed calendar
 - Pax calendar
 - Persian calendar, an arithmetisation of the astronomical calendar
+- Positivist calendar
 - Tabular Islamic calendar, an arithmetisation of the astronomical calendar
 - Tropicalia calendar (**)
 - World calendar aka Universal calendar

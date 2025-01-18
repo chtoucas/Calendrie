@@ -27,6 +27,15 @@ public partial class Coptic13Calendar // Complements
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
 }
 
+public partial class Egyptian13Calendar // Complements
+{
+    /// <summary>
+    /// Represents the virtual month number.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = Egyptian13Schema.VirtualMonth;
+}
+
 public partial class Ethiopic13Calendar // Complements
 {
     /// <summary>
@@ -34,6 +43,15 @@ public partial class Ethiopic13Calendar // Complements
     /// <para>This field is constant equal to 13.</para>
     /// </summary>
     public const int VirtualMonth = Coptic13Schema.VirtualMonth;
+}
+
+public partial class FrenchRepublican13Calendar // Complements
+{
+    /// <summary>
+    /// Represents the virtual month number.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int VirtualMonth = FrenchRepublican13Schema.VirtualMonth;
 }
 
 public partial class Zoroastrian13Calendar // Complements
