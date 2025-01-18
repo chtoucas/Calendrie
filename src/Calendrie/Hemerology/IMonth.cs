@@ -5,6 +5,7 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
+// No universal month-unit, an IMonth entirely depends on the underlying calendar.
 // No IAbsoluteMonth or IAffineMonth. Interconversion can only be achieved after
 // converting a month to a range of days.
 

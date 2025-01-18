@@ -1,17 +1,18 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Samples.RegularSchemaPrototypeFacts
+module Calendrie.Tests.SamplesTests
 
 open Calendrie
 open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Facts.Core
+open Calendrie.Testing.Facts.Hemerology
 
 open Samples
 
-// Test a non-proleptic prototype.
+// Testing a non-proleptic prototype.
 
 [<Sealed>]
 [<TestPerformance(TestPerformance.SlowBundle)>]
@@ -36,3 +37,11 @@ type CivilPrototypeTests() =
     override _.GetStartOfMonth_DoesNotOverflow() = ()
     override _.KernelDoesNotOverflow() = ()
 
+// Testing an affine date.
+
+[<Sealed>]
+[<TestExcludeFrom(TestExcludeFrom.Regular)>]
+type DateableFacts() =
+    inherit IDateableFacts<CivilTriple, StandardGregorianDataSet>()
+
+        override __.GetDate(y, m, d) = new CivilTriple(y, m, d)

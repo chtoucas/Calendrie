@@ -5,6 +5,7 @@ namespace Calendrie.Hemerology;
 
 using System.Numerics;
 
+// No universal year-unit, an IYear entirely depends on the underlying calendar.
 // No IAbsoluteYear or IAffineYear. Interconversion can only be achieved after
 // converting a year to a range of days.
 

@@ -95,7 +95,6 @@
     <Compile Include="Tests\Systems\TropicaliaTests.fs" />
     <Compile Include="Tests\Systems\WorldTests.fs" />
     <Compile Include="Tests\Systems\ZoroastrianTests.fs" />
-    <Compile Include="Tests\Samples\CivilPrototypeFacts.fs" />
     <Compile Include="Tests\ValueTypeTests.fs" />
     <Compile Include="Tests\DayNumberTests.fs" />
     <Compile Include="Tests\OrdTests.fs" />
@@ -105,6 +104,7 @@
     <Compile Include="Tests\AdditionRulesetTests.fs" />
     <Compile Include="Tests\YearNumberingTests.fs" />
     <Compile Include="Tests\CSharpTests.fs" />
+    <Compile Include="Tests\SamplesTests.fs" />
     <Compile Include="Program.fs" />
     <None Include="Calendrie.Tests.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
