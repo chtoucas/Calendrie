@@ -180,9 +180,6 @@ module Bundles =
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
 
         [<Fact>]
-        static member MonthsInYear() = JulianCalendar.MonthsInYear === 12
-
-        [<Fact>]
         static member MinYear() = JulianCalendar.MinYear === JulianScope.MinYear
 
         [<Fact>]

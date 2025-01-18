@@ -15,12 +15,6 @@ using Calendrie.Hemerology;
 public sealed class GregorianCalendar : Calendar
 {
     /// <summary>
-    /// Represents the total number of months in a year.
-    /// <para>This field is constant equal to 12.</para>
-    /// </summary>
-    public const int MonthsInYear = GJSchema.MonthsInYear;
-
-    /// <summary>
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
