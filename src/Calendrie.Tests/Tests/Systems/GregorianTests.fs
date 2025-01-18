@@ -214,6 +214,10 @@ module Bundles =
     // Date type
     //
 
+    let private defaultDateMath   = new GregorianDateMath(AdditionRule.Truncate)
+    let private overspillDateMath = new GregorianDateMath(AdditionRule.Overspill)
+    let private exactDateMath     = new GregorianDateMath(AdditionRule.Exact)
+
     [<Sealed>]
     type DateFacts() =
         inherit IDateFacts<GregorianDate, UnboundedGregorianDataSet>()
@@ -248,6 +252,10 @@ module Bundles =
             // With other rules (Overspill or Exact), the result of adding
             // 3 years would be 1/3/2027 which is too late -> diff = 2 years.
             other.PlusYears(3) === new GregorianDate(2027, 2, 28) // Truncation happens here
+            // Math
+            defaultDateMath.CountYearsBetween(other, date)   |> fst === 3
+            overspillDateMath.CountYearsBetween(other, date) |> fst === 2
+            exactDateMath.CountYearsBetween(other, date)     |> fst === 2
 
         // Same as above but with dates switched.
         [<Fact>]
@@ -259,6 +267,10 @@ module Bundles =
             date.CountYearsSince(other) === -2
             other.PlusYears(-2) === new GregorianDate(2025, 2, 28)
             other.PlusYears(-3) === new GregorianDate(2024, 2, 28) // too early
+            // Math
+            defaultDateMath.CountYearsBetween(other, date)   |> fst === -2
+            overspillDateMath.CountYearsBetween(other, date) |> fst === -2
+            exactDateMath.CountYearsBetween(other, date)     |> fst === -2
 
         [<Fact>]
         static member ``CountYearsSince() where only "date" is an intercalary day (b)`` () =
@@ -271,6 +283,10 @@ module Bundles =
             // 3 years would be 1/3/2027 which is too late -> diff = 2 years.
             other.PlusYears(2) === new GregorianDate(2026, 2, 28) // Truncation happens here
             other.PlusYears(3) === new GregorianDate(2027, 2, 28) // too late
+            // Math
+            defaultDateMath.CountYearsBetween(other, date)   |> fst === 2
+            overspillDateMath.CountYearsBetween(other, date) |> fst === 2
+            exactDateMath.CountYearsBetween(other, date)     |> fst === 2
 
         // Same as above but with dates switched.
         [<Fact>]
@@ -282,6 +298,10 @@ module Bundles =
             date.CountYearsSince(other) === -2
             other.PlusYears(-2) === new GregorianDate(2025, 2, 27)
             other.PlusYears(-3) === new GregorianDate(2024, 2, 27) // too early
+            // Math
+            defaultDateMath.CountYearsBetween(other, date)   |> fst === -2
+            overspillDateMath.CountYearsBetween(other, date) |> fst === -2
+            exactDateMath.CountYearsBetween(other, date)     |> fst === -2
 
         [<Fact>]
         static member ``CountYearsSince() where both dates are intercalary`` () =
@@ -292,6 +312,16 @@ module Bundles =
             // Act & Assert
             date.CountYearsSince(other) === 4
             other.CountYearsSince(date) === -4
+            let mutable x = new GregorianDate()
+            // Math
+            defaultDateMath.CountYearsBetween(other, date, &x) === 4
+            defaultDateMath.CountYearsBetween(date, other, &x) === -4
+            defaultDateMath.CountYearsBetween(other, date, &x)   ===  4
+            defaultDateMath.CountYearsBetween(date, other, &x)   === -4
+            overspillDateMath.CountYearsBetween(other, date, &x) ===  4
+            overspillDateMath.CountYearsBetween(date, other, &x) === -4
+            exactDateMath.CountYearsBetween(other, date, &x)     ===  4
+            exactDateMath.CountYearsBetween(date, other, &x)     === -4
 
     [<Sealed>]
     type UnsafeDateFactoryFacts() =
@@ -305,8 +335,7 @@ module Bundles =
 
     [<Sealed>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<GregorianDate, UnboundedGregorianDataSet>(
-            new GregorianDateMath(AdditionRule.Truncate))
+        inherit DefaultDateMathFacts<GregorianDate, UnboundedGregorianDataSet>(defaultDateMath)
 
     //
     // Month type
