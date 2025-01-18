@@ -249,6 +249,10 @@ module Bundles =
             // Act & Assert
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
+        //
+        // World-only methods
+        //
+
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
         static member ``WorldMonth.CountDaysInWorldMonth()`` (info: YemoAnd<int>) =
             let (y, m, daysInMonth) = info.Deconstruct()

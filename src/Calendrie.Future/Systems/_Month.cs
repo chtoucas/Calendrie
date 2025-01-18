@@ -5,7 +5,7 @@ namespace Calendrie.Systems;
 
 public partial struct PaxMonth // Complements
 {
-    public bool IsPaxMonth
+    public bool IsPaxMonthOfYear
     {
         get
         {
@@ -21,7 +21,7 @@ public partial struct PaxMonth // Complements
         {
             var sch = Calendar.Schema;
             sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-            return sch.IsLastMonthOfYear(Year, Month);
+            return sch.IsLastMonthOfYear(y, m);
         }
     }
 }

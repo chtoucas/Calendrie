@@ -234,7 +234,7 @@ module Bundles =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new PaxMonth(y, m)
-            let date = new PaxDate(y, m, d);
+            let date = new PaxDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -249,17 +249,17 @@ module Bundles =
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
-        static member ``PaxMonth.IsPaxMonth`` (info: YemoAnd<bool, bool>) =
-            let (y, m, isPaxMonth, _) = info.Deconstruct()
-            let month = new PaxMonth(y, m);
-
-            month.IsPaxMonth === isPaxMonth
+        static member ``PaxMonth.IsPaxMonthOfYear`` (info: YemoAnd<bool, bool>) =
+            let (y, m, isPaxMonthOfYear, _) = info.Deconstruct()
+            let month = new PaxMonth(y, m)
+            // Act & Assert
+            month.IsPaxMonthOfYear === isPaxMonthOfYear
 
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
         static member ``PaxMonth.IsLastMonthOfYear`` (info: YemoAnd<bool, bool>) =
             let (y, m, _, isLastMonthOfYear) = info.Deconstruct()
-            let month = new PaxMonth(y, m);
-
+            let month = new PaxMonth(y, m)
+            // Act & Assert
             month.IsLastMonthOfYear === isLastMonthOfYear
 
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
@@ -288,7 +288,7 @@ module Bundles =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new PaxYear(y)
-            let date = new PaxMonth(y, m);
+            let date = new PaxMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -302,7 +302,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new PaxYear(y)
-            let date = new PaxDate(y, doy);
+            let date = new PaxDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
@@ -319,6 +319,6 @@ module Bundles =
         [<Theory; MemberData(nameof(YearFacts.MoreYearInfoData))>]
         static member ``PaxYear.CountWeeks()`` (info: YearAnd<int>) =
             let (y, weeksInYear) = info.Deconstruct()
-            let year = new PaxYear(y);
-
+            let year = new PaxYear(y)
+            // Act & Assert
             year.CountWeeks() === weeksInYear
