@@ -13,7 +13,7 @@ param(
     [ValidateSet('Debug', 'Release')]
     [Alias('c')] [string] $Configuration = 'Debug',
 
-    [Alias('X')] [switch] $Extras,
+    [Alias('X')] [switch] $Extended,
                  [switch] $NoBuild,
 
     [Alias('h')] [switch] $Help
@@ -30,7 +30,7 @@ Run the test suite.
 
 Usage: test.ps1 [arguments]
      -Plan           specify the test plan. Default = "default"
-  -X|-Extras         enable even more tests related to the prototypal schemas.
+  -X|-Extended       enable even more tests related to the prototypal schemas.
                      Only effective if -NoBuild is not enabled. Notice that it
                      does not change the test plans "default" and "regular".
   -c|-Configuration  configuration to test the solution for. Default = "Debug"
@@ -64,12 +64,12 @@ try {
     pushd $RootDir
 
     $args = @("-c:$configuration")
-    if ($Extras) {
+    if ($Extended) {
         $args += "/p:EnableMorePrototypalTests=true"
 
         if ($NoBuild) {
             Write-Host -ForegroundColor Red `
-                'The option -NoBuild is NOT compatible with the option -Extras (-X)'
+                'The option -NoBuild is NOT compatible with the option -Extended (-X)'
             exit
         }
     }
@@ -81,18 +81,18 @@ try {
             # - tests excluded from the plan Regular
             # - slow tests
             $filter = 'ExcludeFrom!=Regular&Performance!~Slow'
-            if ($Extras) {
+            if ($Extended) {
                 Write-Host -ForegroundColor Yellow `
-                    'The option -Extras (-X) has no effect on the "default" plan'
+                    'The option -Extended (-X) has no effect on the "default" plan'
             }
         }
         'regular' {
             # Regular test suite, excludes
             # - tests excluded from the plan Regular
             $filter = 'ExcludeFrom!=Regular'
-            if ($Extras) {
+            if ($Extended) {
                 Write-Host -ForegroundColor Yellow `
-                    'The option -Extras (-X) has no effect on the "regular" plan'
+                    'The option -Extended (-X) has no effect on the "regular" plan'
             }
         }
         'more' {
