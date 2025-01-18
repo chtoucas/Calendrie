@@ -53,10 +53,13 @@ public partial class CalendarTemplate : CSharpTemplate
     public string MaxDaysSinceEpoch { get; set; } = "MaxDaysSinceEpoch";
     public string MaxDaysSinceEpochValue { get; }
 
-    // Fake "integer" value, therefore if not set the T4 output will be invalid.
+    // Fake "integer" value therefore, if not set, the T4 output will be invalid.
     public string MaxMonthsSinceEpochValue { get; set; } = "XXX";
 
-    public bool EnableIsSupplementary { get; set; } = true;
+    public bool EnableIsIntercalaryDay { get; set; } = true;
+    public bool EnableIsSupplementaryDay { get; set; } = true;
+    // EnableIsIntercalaryMonth is handled automatically.
+    public bool EnableIsLeapYear { get; set; } = true;
 
     // Depends on the EditorConfig. If CA is enabled on generated files, this
     // is not necessary.
@@ -70,7 +73,6 @@ public partial class CalendarTemplate : CSharpTemplate
     public bool EnableMonth { get; set; }
     public bool EnableMonthCustomMath { get; set; }
     public bool EnableYear { get; set; }
-    // Temporary property until we decide what to do with clocks.
     public bool EnableClock { get; set; }
 
     protected sealed override void WriteContent()

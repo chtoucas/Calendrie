@@ -4,12 +4,16 @@
 <#= new ZeroCalendarTemplate(this, "GregorianSchema", maxDaysSinceEpochValue: "3_652_058")
     {
         DisplayName = "Plain Standard Civil",
+
         EnableDateCustomMath = true,
         EnableMonth = true,
         EnableYear = true,
-        EnableIsSupplementary = false,
+
+        EnableIsSupplementaryDay = false,
         EnableNullable = true,
+
         ImportCalendrieSystemsNamespace = true,
+
         MaxMonthsSinceEpochValue = "119_987", // Should be OK but haven't checked yet
         MonthsInYear = 12
     }.Execute() #>

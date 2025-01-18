@@ -22,7 +22,7 @@ using static Calendrie.Core.CalendricalConstants;
 #region Persian2820Calendar
 
 /// <summary>
-/// Represents the Persian2820 calendar.
+/// Represents the Persian calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
@@ -39,7 +39,7 @@ public sealed partial class Persian2820Calendar : Calendar
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "Persian2820";
+    internal const string DisplayName = "Persian";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Persian2820Calendar"/> class.
@@ -79,7 +79,7 @@ public sealed partial class Persian2820Calendar : Calendar
 #region Persian2820Date
 
 /// <summary>
-/// Represents the Persian2820 date.
+/// Represents the Persian date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="Persian2820Date"/> is an immutable struct.</para>
@@ -254,16 +254,7 @@ public partial struct Persian2820Date // Preamble
         }
     }
 
-    /// <inheritdoc />
-    public bool IsSupplementary
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return sch.IsSupplementaryDay(y, m, d);
-        }
-    }
+    bool IDateable.IsSupplementary => false;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

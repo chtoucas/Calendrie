@@ -1164,7 +1164,7 @@ public partial struct MyCivilMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => GregorianSchema.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => GregorianSchema.MonthsInYear - Month;
 
     /// <inheritdoc />
     [Pure]

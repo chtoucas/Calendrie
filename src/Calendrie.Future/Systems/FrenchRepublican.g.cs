@@ -22,7 +22,7 @@ using static Calendrie.Core.CalendricalConstants;
 #region FrenchRepublicanCalendar
 
 /// <summary>
-/// Represents the FrenchRepublican calendar.
+/// Represents the French Republican calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
@@ -39,7 +39,7 @@ public sealed partial class FrenchRepublicanCalendar : Calendar
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "FrenchRepublican";
+    internal const string DisplayName = "French Republican";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FrenchRepublicanCalendar"/> class.
@@ -79,7 +79,7 @@ public sealed partial class FrenchRepublicanCalendar : Calendar
 #region FrenchRepublicanDate
 
 /// <summary>
-/// Represents the FrenchRepublican date.
+/// Represents the French Republican date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="FrenchRepublicanDate"/> is an immutable struct.</para>

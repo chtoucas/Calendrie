@@ -76,9 +76,19 @@ Options disponibles
   définit deux constantes MinYear (= 1) et MaxYear ; nécessaire pour que
   l'arithmétique fonctionne.
 
-- EnableIsSupplementary : quand cette propriété retourne "false", la propriété
+- EnableIsIntercalaryDay : quand cette propriété retourne "false", la propriété
+  IsIntercalary est rendue comme suit :
+  > bool IDateable.IsIntercalary => false;
+  Valeur par défaut = true
+
+- EnableIsSupplementaryDay : quand cette propriété retourne "false", la propriété
   IsSupplementary est rendue comme suit :
   > bool IDateable.IsSupplementary => false;
+  Valeur par défaut = true
+
+- EnableIsLeapYear : quand cette propriété retourne "false", la propriété
+  IsLeap est rendue comme suit :
+  > bool IYear.IsLeap => false;
   Valeur par défaut = true
 
 Pour les calendriers produits en dehors des deux projets principaux, les deux

@@ -223,6 +223,7 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <inheritdoc />
     public DayOfWeek DayOfWeek => DayNumber.DayOfWeek;
 
+<#+ if (EnableIsIntercalaryDay) { #>
     /// <inheritdoc />
     public bool IsIntercalary
     {
@@ -234,7 +235,11 @@ public partial struct <#= Prefix #>Date // Preamble
         }
     }
 
-<#+ if (EnableIsSupplementary) { #>
+<#+ } else { #>
+    bool IDateable.IsIntercalary => false;
+
+<#+ } #>
+<#+ if (EnableIsSupplementaryDay) { #>
     /// <inheritdoc />
     public bool IsSupplementary
     {

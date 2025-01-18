@@ -7,6 +7,11 @@
         epochDaysSinceZeroValue: "-272_788",
         maxDaysSinceEpochValue:  "3_649_634")
     {
+        DisplayName = "Egyptian",
+
+        EnableIsIntercalaryDay = false,
+        EnableIsLeapYear = false,
+
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 13
     }.Execute() #>

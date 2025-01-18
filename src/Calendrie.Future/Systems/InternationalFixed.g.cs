@@ -22,7 +22,7 @@ using static Calendrie.Core.CalendricalConstants;
 #region InternationalFixedCalendar
 
 /// <summary>
-/// Represents the InternationalFixed calendar.
+/// Represents the International Fixed calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
@@ -39,7 +39,7 @@ public sealed partial class InternationalFixedCalendar : Calendar
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "InternationalFixed";
+    internal const string DisplayName = "International Fixed";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InternationalFixedCalendar"/> class.
@@ -79,7 +79,7 @@ public sealed partial class InternationalFixedCalendar : Calendar
 #region InternationalFixedDate
 
 /// <summary>
-/// Represents the InternationalFixed date.
+/// Represents the International Fixed date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="InternationalFixedDate"/> is an immutable struct.</para>

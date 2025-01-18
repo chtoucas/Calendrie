@@ -8,6 +8,10 @@
         maxDaysSinceEpochValue:  "3_649_634")
     {
         DisplayName = "Zoroastrian",
+
+        EnableIsIntercalaryDay = false,
+        EnableIsLeapYear = false,
+
         MaxMonthsSinceEpochValue = "129_986",
         MonthsInYear = 13
     }.Execute() #>

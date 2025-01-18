@@ -1177,7 +1177,7 @@ public partial struct MyJulianMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => JulianSchema.MonthsInYear - 1;
+    public int CountRemainingMonthsInYear() => JulianSchema.MonthsInYear - Month;
 
     /// <inheritdoc />
     [Pure]

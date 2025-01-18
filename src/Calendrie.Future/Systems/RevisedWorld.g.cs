@@ -22,7 +22,7 @@ using static Calendrie.Core.CalendricalConstants;
 #region RevisedWorldCalendar
 
 /// <summary>
-/// Represents the RevisedWorld calendar.
+/// Represents the Revised World calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
@@ -39,7 +39,7 @@ public sealed partial class RevisedWorldCalendar : Calendar
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "RevisedWorld";
+    internal const string DisplayName = "Revised World";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RevisedWorldCalendar"/> class.
@@ -79,7 +79,7 @@ public sealed partial class RevisedWorldCalendar : Calendar
 #region RevisedWorldDate
 
 /// <summary>
-/// Represents the RevisedWorld date.
+/// Represents the Revised World date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="RevisedWorldDate"/> is an immutable struct.</para>

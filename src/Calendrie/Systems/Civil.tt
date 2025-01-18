@@ -15,7 +15,7 @@ public sealed class CivilTemplate : ZeroCalendarTemplate
         EnableMonth = true;
         EnableYear = true;
 
-        EnableIsSupplementary = false;
+        EnableIsSupplementaryDay = false;
         EnablePragmas = true;
 
         MaxMonthsSinceEpochValue = "119_987";

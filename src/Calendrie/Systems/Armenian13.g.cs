@@ -243,16 +243,7 @@ public partial struct Armenian13Date // Preamble
     /// <inheritdoc />
     public DayOfWeek DayOfWeek => DayNumber.DayOfWeek;
 
-    /// <inheritdoc />
-    public bool IsIntercalary
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return sch.IsIntercalaryDay(y, m, d);
-        }
-    }
+    bool IDateable.IsIntercalary => false;
 
     /// <inheritdoc />
     public bool IsSupplementary

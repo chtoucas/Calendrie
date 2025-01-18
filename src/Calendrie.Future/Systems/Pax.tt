@@ -12,6 +12,9 @@
         EnableMonth = true,
         EnableMonthCustomMath = true,
         EnableYear = true,
-        EnableIsSupplementary = false,
+
+        EnableIsIntercalaryDay = false,
+        EnableIsSupplementaryDay = false,
+
         MaxMonthsSinceEpochValue = "131_761"
     }.Execute() #>

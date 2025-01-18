@@ -8,7 +8,9 @@
         maxDaysSinceEpochValue:  "3_543_311")
     {
         DisplayName = "Tabular Islamic",
-        EnableIsSupplementary = false,
+
+        EnableIsSupplementaryDay = false,
+
         MaxMonthsSinceEpochValue = "119_987",
         MonthsInYear = 12
     }.Execute() #>

@@ -249,16 +249,7 @@ public partial struct TropicaliaDate // Preamble
         }
     }
 
-    /// <inheritdoc />
-    public bool IsSupplementary
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-            return sch.IsSupplementaryDay(y, m, d);
-        }
-    }
+    bool IDateable.IsSupplementary => false;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

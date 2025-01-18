@@ -8,12 +8,16 @@
         maxDaysSinceEpochValue:  "3_651_769")
     {
         DisplayName = "Plain Standard Julian",
+
         EnableDateCustomMath = true,
         EnableMonth = true,
         EnableYear = true,
-        EnableIsSupplementary = false,
+
+        EnableIsSupplementaryDay = false,
         EnableNullable = true,
+
         ImportCalendrieSystemsNamespace = true,
+
         MaxMonthsSinceEpochValue = "119_987", // Should be OK but haven't checked yet
         MonthsInYear = 12
     }.Execute() #>

@@ -7,6 +7,8 @@
         epochDaysSinceZeroValue: "654_414",
         maxDaysSinceEpochValue:  "3_652_056")
     {
+        DisplayName = "French Republican",
+
         MaxMonthsSinceEpochValue = "131_761",
         MonthsInYear = 13
     }.Execute() #>

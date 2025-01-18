@@ -22,7 +22,7 @@ using static Calendrie.Core.CalendricalConstants;
 #region Egyptian13Calendar
 
 /// <summary>
-/// Represents the Egyptian13 calendar.
+/// Represents the Egyptian calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
@@ -39,7 +39,7 @@ public sealed partial class Egyptian13Calendar : Calendar
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "Egyptian13";
+    internal const string DisplayName = "Egyptian";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Egyptian13Calendar"/> class.
@@ -79,7 +79,7 @@ public sealed partial class Egyptian13Calendar : Calendar
 #region Egyptian13Date
 
 /// <summary>
-/// Represents the Egyptian13 date.
+/// Represents the Egyptian date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
 /// <para><see cref="Egyptian13Date"/> is an immutable struct.</para>
@@ -243,16 +243,7 @@ public partial struct Egyptian13Date // Preamble
     /// <inheritdoc />
     public DayOfWeek DayOfWeek => DayNumber.DayOfWeek;
 
-    /// <inheritdoc />
-    public bool IsIntercalary
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return sch.IsIntercalaryDay(y, m, d);
-        }
-    }
+    bool IDateable.IsIntercalary => false;
 
     /// <inheritdoc />
     public bool IsSupplementary

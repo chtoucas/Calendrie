@@ -15,7 +15,7 @@ public sealed class GregorianTemplate : ZeroCalendarTemplate
         EnableMonth = true;
         EnableYear = true;
 
-        EnableIsSupplementary = false;
+        EnableIsSupplementaryDay = false;
         EnablePragmas = true;
 
         //MinMonthsSinceEpochValue = "-11_999_988";

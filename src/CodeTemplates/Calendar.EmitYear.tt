@@ -153,8 +153,12 @@ public partial struct <#= Prefix #>Year // Preamble
     // is greater than 0, one can ignore this subtlety.
     public int Year => _yearsSinceEpoch + 1;
 
+<#+ if (EnableIsLeapYear) { #>
     /// <inheritdoc />
     public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+<#+ } else { #>
+    bool IYear.IsLeap => false;
+<#+ } #>
 
     /// <summary>
     /// Returns a culture-independent string representation of the current
