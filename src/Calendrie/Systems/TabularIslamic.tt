@@ -9,6 +9,9 @@
     {
         DisplayName = "Tabular Islamic",
 
+        EnableMonth = true,
+        EnableYear = true,
+
         EnableIsSupplementaryDay = false,
 
         MaxMonthsSinceEpochValue = "119_987",

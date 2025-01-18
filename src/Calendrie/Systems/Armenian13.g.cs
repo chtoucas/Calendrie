@@ -13,6 +13,7 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -900,6 +901,1100 @@ public partial struct Armenian13Date // Non-standard math ops
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return new Armenian13Date(daysSinceEpoch);
+    }
+}
+
+#endregion
+
+#region Armenian13Month
+
+/// <summary>
+/// Represents the Armenian month.
+/// <para><i>All</i> months within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="Armenian13Month"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct Armenian13Month :
+    IMonth<Armenian13Month>,
+    IUnsafeFactory<Armenian13Month>,
+    // A month viewed as a finite sequence of days
+    IDaySegment<Armenian13Date>,
+    ISetMembership<Armenian13Date>,
+    // Arithmetic
+    ISubtractionOperators<Armenian13Month, Armenian13Month, int>
+{ }
+
+public partial struct Armenian13Month // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 129_986.</para></summary>
+    private const int MaxMonthsSinceEpoch = 129_986;
+
+    /// <summary>
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.Armenian"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly int _monthsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Armenian13Month"/> struct
+    /// to the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    public Armenian13Month(int year, int month)
+    {
+        // The calendar being regular, no need to use the Scope:
+        // > Armenian13Calendar.Instance.Scope.ValidateYearMonth(year, month);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > Egyptian13Schema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Armenian13Month"/> struct.
+    /// <para>This constructor does NOT validate its parameters.</para>
+    /// </summary>
+    private Armenian13Month(int monthsSinceEpoch)
+    {
+        _monthsSinceEpoch = monthsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="Armenian13Month"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported month.</returns>
+    //
+    // MinValue = new(0) = new() = default(Armenian13Month)
+    public static Armenian13Month MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="Armenian13Month"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported month.</returns>
+    public static Armenian13Month MaxValue { get; } = new(MaxMonthsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static Armenian13Calendar Calendar => Armenian13Calendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
+    /// </summary>
+    public int Year =>
+        // NB: both dividend and divisor are >= 0.
+        1 + _monthsSinceEpoch / Egyptian13Schema.MonthsInYear;
+
+    /// <inheritdoc />
+    public int Month
+    {
+        get
+        {
+            var (_, m) = this;
+            return m;
+        }
+    }
+
+    /// <inheritdoc />
+    bool IMonth.IsIntercalary => false;
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString()
+    {
+        var (y, m) = this;
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Armenian13Calendar.DisplayName})");
+    }
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int month)
+    {
+        // See RegularSchema.GetMonthParts().
+        // NB: both dividend and divisor are >= 0.
+        year = 1 + MathN.Divide(_monthsSinceEpoch, Egyptian13Schema.MonthsInYear, out int m0);
+        month = 1 + m0;
+    }
+}
+
+public partial struct Armenian13Month // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static Armenian13Month Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="Armenian13Month"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static Armenian13Month? TryCreate(int year, int month)
+    {
+        // The calendar being regular, no need to use the PreValidator.
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear
+            || month < 1 || month > Egyptian13Schema.MonthsInYear)
+        {
+            return null;
+        }
+
+        return UnsafeCreate(year, month);
+    }
+
+    // Explicit implementation: Armenian13Month being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IMonth<Armenian13Month>.TryCreate(int year, int month, out Armenian13Month result)
+    {
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Month"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static Armenian13Month UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new Armenian13Month(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Month"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static Armenian13Month UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
+
+    [Pure]
+    static Armenian13Month IUnsafeFactory<Armenian13Month>.UnsafeCreate(int monthsSinceEpoch) =>
+        UnsafeCreate(monthsSinceEpoch);
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceEpoch(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        Egyptian13Schema.MonthsInYear * (y - 1) + m - 1;
+}
+
+public partial struct Armenian13Month // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Month"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static Armenian13Month FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
+        return new Armenian13Month(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Month"/> struct
+    /// from the specified <see cref="Armenian13Date"/> value.
+    /// </summary>
+    [Pure]
+    public static Armenian13Month FromDate(Armenian13Date date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+}
+
+public partial struct Armenian13Month // Counting
+{
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedMonthsInYear() => Month - 1;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingMonthsInYear() => Egyptian13Schema.MonthsInYear - Month;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearBeforeMonth(y, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
+    }
+}
+
+public partial struct Armenian13Month // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public Armenian13Month WithYear(int newYear)
+    {
+        int m = Month;
+
+        // Even when "newYear" is valid, we should re-check "m", but the calendar
+        // being regular this is not needed here.
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
+
+        return UnsafeCreate(newYear, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public Armenian13Month WithMonth(int newMonth)
+    {
+        int y = Year;
+
+        // We already know that "y" is valid, we only need to check "newMonth".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > Egyptian13Schema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
+        return UnsafeCreate(y, newMonth);
+    }
+}
+
+public partial struct Armenian13Month // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
+    public Armenian13Date MinDay
+    {
+        get
+        {
+            var (y, m) = this;
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
+            return Armenian13Date.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
+    public Armenian13Date MaxDay
+    {
+        get
+        {
+            var (y, m) = this;
+            var sch = Calendar.Schema;
+            int d = sch.CountDaysInMonth(y, m);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
+            return Armenian13Date.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInMonth(y, m);
+    }
+
+    /// <summary>
+    /// Converts the current instance to a range of days.
+    /// </summary>
+    [Pure]
+    public Range<Armenian13Date> ToRange()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(Armenian13Date.UnsafeCreate(startOfMonth), daysInMonth);
+    }
+
+    [Pure]
+    Range<Armenian13Date> IDaySegment<Armenian13Date>.ToDayRange() => ToRange();
+
+    /// <summary>
+    /// Returns an enumerable collection of all days in this month instance.
+    /// </summary>
+    [Pure]
+    public IEnumerable<Armenian13Date> ToEnumerable()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfMonth, daysInMonth)
+               select Armenian13Date.UnsafeCreate(daysSinceEpoch);
+    }
+
+    [Pure]
+    IEnumerable<Armenian13Date> IDaySegment<Armenian13Date>.EnumerateDays() => ToEnumerable();
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(Armenian13Date date)
+    {
+        var (y, m) = this;
+        Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
+        return y1 == y && m1 == m;
+    }
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this month
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public Armenian13Date GetDayOfMonth(int dayOfMonth)
+    {
+        var (y, m) = this;
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return Armenian13Date.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct Armenian13Month // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(Armenian13Month left, Armenian13Month right) =>
+        left._monthsSinceEpoch == right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(Armenian13Month left, Armenian13Month right) =>
+        left._monthsSinceEpoch != right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(Armenian13Month other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is Armenian13Month month && Equals(month);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _monthsSinceEpoch;
+}
+
+public partial struct Armenian13Month // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(Armenian13Month left, Armenian13Month right) =>
+        left._monthsSinceEpoch < right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(Armenian13Month left, Armenian13Month right) =>
+        left._monthsSinceEpoch <= right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(Armenian13Month left, Armenian13Month right) =>
+        left._monthsSinceEpoch > right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(Armenian13Month left, Armenian13Month right) =>
+        left._monthsSinceEpoch >= right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static Armenian13Month Min(Armenian13Month x, Armenian13Month y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static Armenian13Month Max(Armenian13Month x, Armenian13Month y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(Armenian13Month other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is Armenian13Month month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(Armenian13Month), obj);
+}
+
+public partial struct Armenian13Month // Standard math ops
+{
+    /// <summary>
+    /// Subtracts the two specified months and returns the number of months
+    /// between them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
+    public static int operator -(Armenian13Month left, Armenian13Month right) => left.CountMonthsSince(right);
+
+    /// <summary>
+    /// Adds a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static Armenian13Month operator +(Armenian13Month value, int months) => value.PlusMonths(months);
+
+    /// <summary>
+    /// Subtracts a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static Armenian13Month operator -(Armenian13Month value, int months) => value.PlusMonths(-months);
+
+    /// <summary>
+    /// Adds one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
+    public static Armenian13Month operator ++(Armenian13Month value) => value.NextMonth();
+
+    /// <summary>
+    /// Subtracts one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
+    public static Armenian13Month operator --(Armenian13Month value) => value.PreviousMonth();
+
+    /// <summary>
+    /// Counts the number of whole months elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(Armenian13Month other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to MaxMonthsSinceEpoch.
+        _monthsSinceEpoch - other._monthsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of months to the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [Pure]
+    public Armenian13Month PlusMonths(int months)
+    {
+        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthOverflow();
+        return new Armenian13Month(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the month after the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [Pure]
+    public Armenian13Month NextMonth()
+    {
+        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        return new Armenian13Month(_monthsSinceEpoch + 1);
+    }
+
+    /// <summary>
+    /// Obtains the month before the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [Pure]
+    public Armenian13Month PreviousMonth()
+    {
+        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new Armenian13Month(_monthsSinceEpoch - 1);
+    }
+}
+
+public partial struct Armenian13Month // Non-standard math ops
+{
+    /// <summary>
+    /// Adds a number of years to the year field of this month instance, yielding
+    /// a new month.
+    /// <para>In the particular case of the Armenian13 calendar, this
+    /// operation is exact.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported months.</exception>
+    [Pure]
+    public Armenian13Month PlusYears(int years)
+    {
+        var (y, m) = this;
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        return UnsafeCreate(newY, m);
+    }
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(Armenian13Month other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
+}
+
+#endregion
+
+#region Armenian13Year
+
+/// <summary>
+/// Represents the Armenian13 year.
+/// <para><i>All</i> years within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="Armenian13Year"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct Armenian13Year :
+    IYear<Armenian13Year>,
+    // A year viewed as a finite sequence of months
+    IMonthSegment<Armenian13Month>,
+    ISetMembership<Armenian13Month>,
+    // A year viewed as a finite sequence of days
+    IDaySegment<Armenian13Date>,
+    ISetMembership<Armenian13Date>,
+    // Arithmetic
+    ISubtractionOperators<Armenian13Year, Armenian13Year, int>
+{ }
+
+public partial struct Armenian13Year // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 9998.</para></summary>
+    private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
+
+    /// <summary>
+    /// Represents the count of consecutive years since the epoch
+    /// <see cref="DayZero.Armenian"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly ushort _yearsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Armenian13Year"/> struct
+    /// to the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    public Armenian13Year(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        _yearsSinceEpoch = (ushort)(year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Armenian13Year"/> struct.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    private Armenian13Year(ushort yearsSinceEpoch)
+    {
+        _yearsSinceEpoch = yearsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="Armenian13Year"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported year.</returns>
+    //
+    // MinValue = new(1) = new() = default(Armenian13Year)
+    public static Armenian13Year MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="Armenian13Year"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported year.</returns>
+    public static Armenian13Year MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static Armenian13Calendar Calendar => Armenian13Calendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// </summary>
+    //
+    // Actually, this property returns the algebraic year, but since its value
+    // is greater than 0, one can ignore this subtlety.
+    public int Year => _yearsSinceEpoch + 1;
+
+    bool IYear.IsLeap => false;
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({Armenian13Calendar.DisplayName})");
+}
+
+public partial struct Armenian13Year // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static Armenian13Year Create(int year) => new(year);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="Armenian13Year"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static Armenian13Year? TryCreate(int year)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        return ok ? UnsafeCreate(year) : null;
+    }
+
+    // Explicit implementation: Armenian13Year being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IYear<Armenian13Year>.TryCreate(int year, out Armenian13Year result)
+    {
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Year"/> struct
+    /// from the specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static Armenian13Year UnsafeCreate(int year) => new((ushort)(year - 1));
+}
+
+public partial struct Armenian13Year // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Year"/> struct
+    /// from the specified <see cref="Armenian13Month"/> value.
+    /// </summary>
+    [Pure]
+    public static Armenian13Year FromMonth(Armenian13Month month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Armenian13Year"/> struct
+    /// from the specified <see cref="Armenian13Date"/> value.
+    /// </summary>
+    [Pure]
+    public static Armenian13Year FromDate(Armenian13Date date) => UnsafeCreate(date.Year);
+}
+
+public partial struct Armenian13Year // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 13.</para>
+    /// </summary>
+    public const int MonthCount = Egyptian13Schema.MonthsInYear;
+
+    /// <inheritdoc />
+    public Armenian13Month MinMonth => Armenian13Month.UnsafeCreate(Year, 1);
+
+    /// <inheritdoc />
+    public Armenian13Month MaxMonth => Armenian13Month.UnsafeCreate(Year, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<Armenian13Month>.CountMonths() => MonthCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<Armenian13Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<Armenian13Month> EnumerateMonths()
+    {
+        int startOfYear = Armenian13Month.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select Armenian13Month.UnsafeCreate(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(Armenian13Month month) => month.Year == Year;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public Armenian13Month GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > Egyptian13Schema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return Armenian13Month.UnsafeCreate(Year, month);
+    }
+}
+
+public partial struct Armenian13Year // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
+    public Armenian13Date MinDay
+    {
+        get
+        {
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return Armenian13Date.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
+    public Armenian13Date MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int doy = sch.CountDaysInYear(Year);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
+            return Armenian13Date.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<Armenian13Date> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+        return Range.StartingAt(Armenian13Date.UnsafeCreate(startOfYear), daysInYear);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<Armenian13Date> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfYear, daysInYear)
+               select Armenian13Date.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(Armenian13Date date) => date.Year == Year;
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this year instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public Armenian13Date GetDayOfYear(int dayOfYear)
+    {
+        var chr = Calendar;
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
+        return Armenian13Date.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct Armenian13Year // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(Armenian13Year left, Armenian13Year right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(Armenian13Year left, Armenian13Year right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(Armenian13Year other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is Armenian13Year year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _yearsSinceEpoch;
+}
+
+public partial struct Armenian13Year // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(Armenian13Year left, Armenian13Year right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(Armenian13Year left, Armenian13Year right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(Armenian13Year left, Armenian13Year right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(Armenian13Year left, Armenian13Year right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static Armenian13Year Min(Armenian13Year x, Armenian13Year y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static Armenian13Year Max(Armenian13Year x, Armenian13Year y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(Armenian13Year other) =>
+        _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is Armenian13Year year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(Armenian13Year), obj);
+}
+
+public partial struct Armenian13Year // Math ops
+{
+    /// <summary>
+    /// Subtracts the two specified years and returns the number of years between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
+    public static int operator -(Armenian13Year left, Armenian13Year right) => left.CountYearsSince(right);
+
+    /// <summary>
+    /// Adds a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static Armenian13Year operator +(Armenian13Year value, int years) => value.PlusYears(years);
+
+    /// <summary>
+    /// Subtracts a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the range
+    /// of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static Armenian13Year operator -(Armenian13Year value, int years) => value.PlusYears(-years);
+
+    /// <summary>
+    /// Adds one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
+    public static Armenian13Year operator ++(Armenian13Year value) => value.NextYear();
+
+    /// <summary>
+    /// Subtracts one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
+    public static Armenian13Year operator --(Armenian13Year value) => value.PreviousYear();
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified year.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(Armenian13Year other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to (MaxYear - 1).
+        _yearsSinceEpoch - other._yearsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of years to the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported years.
+    /// </exception>
+    [Pure]
+    public Armenian13Year PlusYears(int years)
+    {
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new Armenian13Year((ushort)yearsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the year after the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [Pure]
+    public Armenian13Year NextYear()
+    {
+        if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new Armenian13Year((ushort)(_yearsSinceEpoch + 1));
+    }
+
+    /// <summary>
+    /// Obtains the year before the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [Pure]
+    public Armenian13Year PreviousYear()
+    {
+        if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
+        return new Armenian13Year((ushort)(_yearsSinceEpoch - 1));
     }
 }
 

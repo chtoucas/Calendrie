@@ -13,6 +13,7 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -900,6 +901,1101 @@ public partial struct TabularIslamicDate // Non-standard math ops
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return new TabularIslamicDate(daysSinceEpoch);
+    }
+}
+
+#endregion
+
+#region TabularIslamicMonth
+
+/// <summary>
+/// Represents the Tabular Islamic month.
+/// <para><i>All</i> months within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="TabularIslamicMonth"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct TabularIslamicMonth :
+    IMonth<TabularIslamicMonth>,
+    IUnsafeFactory<TabularIslamicMonth>,
+    // A month viewed as a finite sequence of days
+    IDaySegment<TabularIslamicDate>,
+    ISetMembership<TabularIslamicDate>,
+    // Arithmetic
+    ISubtractionOperators<TabularIslamicMonth, TabularIslamicMonth, int>
+{ }
+
+public partial struct TabularIslamicMonth // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 119_987.</para></summary>
+    private const int MaxMonthsSinceEpoch = 119_987;
+
+    /// <summary>
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.TabularIslamic"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly int _monthsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicMonth"/> struct
+    /// to the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    public TabularIslamicMonth(int year, int month)
+    {
+        // The calendar being regular, no need to use the Scope:
+        // > TabularIslamicCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > TabularIslamicSchema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicMonth"/> struct.
+    /// <para>This constructor does NOT validate its parameters.</para>
+    /// </summary>
+    private TabularIslamicMonth(int monthsSinceEpoch)
+    {
+        _monthsSinceEpoch = monthsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="TabularIslamicMonth"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported month.</returns>
+    //
+    // MinValue = new(0) = new() = default(TabularIslamicMonth)
+    public static TabularIslamicMonth MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="TabularIslamicMonth"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported month.</returns>
+    public static TabularIslamicMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TabularIslamicCalendar Calendar => TabularIslamicCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
+    /// </summary>
+    public int Year =>
+        // NB: both dividend and divisor are >= 0.
+        1 + _monthsSinceEpoch / TabularIslamicSchema.MonthsInYear;
+
+    /// <inheritdoc />
+    public int Month
+    {
+        get
+        {
+            var (_, m) = this;
+            return m;
+        }
+    }
+
+    /// <inheritdoc />
+    bool IMonth.IsIntercalary => false;
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString()
+    {
+        var (y, m) = this;
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({TabularIslamicCalendar.DisplayName})");
+    }
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int month)
+    {
+        // See RegularSchema.GetMonthParts().
+        // NB: both dividend and divisor are >= 0.
+        year = 1 + MathN.Divide(_monthsSinceEpoch, TabularIslamicSchema.MonthsInYear, out int m0);
+        month = 1 + m0;
+    }
+}
+
+public partial struct TabularIslamicMonth // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static TabularIslamicMonth Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="TabularIslamicMonth"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static TabularIslamicMonth? TryCreate(int year, int month)
+    {
+        // The calendar being regular, no need to use the PreValidator.
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear
+            || month < 1 || month > TabularIslamicSchema.MonthsInYear)
+        {
+            return null;
+        }
+
+        return UnsafeCreate(year, month);
+    }
+
+    // Explicit implementation: TabularIslamicMonth being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IMonth<TabularIslamicMonth>.TryCreate(int year, int month, out TabularIslamicMonth result)
+    {
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicMonth"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static TabularIslamicMonth UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new TabularIslamicMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicMonth"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static TabularIslamicMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
+
+    [Pure]
+    static TabularIslamicMonth IUnsafeFactory<TabularIslamicMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        UnsafeCreate(monthsSinceEpoch);
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceEpoch(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        TabularIslamicSchema.MonthsInYear * (y - 1) + m - 1;
+}
+
+public partial struct TabularIslamicMonth // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static TabularIslamicMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
+        return new TabularIslamicMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicMonth"/> struct
+    /// from the specified <see cref="TabularIslamicDate"/> value.
+    /// </summary>
+    [Pure]
+    public static TabularIslamicMonth FromDate(TabularIslamicDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+}
+
+public partial struct TabularIslamicMonth // Counting
+{
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedMonthsInYear() => Month - 1;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingMonthsInYear() => TabularIslamicSchema.MonthsInYear - Month;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearBeforeMonth(y, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
+    }
+}
+
+public partial struct TabularIslamicMonth // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public TabularIslamicMonth WithYear(int newYear)
+    {
+        int m = Month;
+
+        // Even when "newYear" is valid, we should re-check "m", but the calendar
+        // being regular this is not needed here.
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
+
+        return UnsafeCreate(newYear, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public TabularIslamicMonth WithMonth(int newMonth)
+    {
+        int y = Year;
+
+        // We already know that "y" is valid, we only need to check "newMonth".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > TabularIslamicSchema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
+        return UnsafeCreate(y, newMonth);
+    }
+}
+
+public partial struct TabularIslamicMonth // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
+    public TabularIslamicDate MinDay
+    {
+        get
+        {
+            var (y, m) = this;
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
+            return TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
+    public TabularIslamicDate MaxDay
+    {
+        get
+        {
+            var (y, m) = this;
+            var sch = Calendar.Schema;
+            int d = sch.CountDaysInMonth(y, m);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
+            return TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInMonth(y, m);
+    }
+
+    /// <summary>
+    /// Converts the current instance to a range of days.
+    /// </summary>
+    [Pure]
+    public Range<TabularIslamicDate> ToRange()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(TabularIslamicDate.UnsafeCreate(startOfMonth), daysInMonth);
+    }
+
+    [Pure]
+    Range<TabularIslamicDate> IDaySegment<TabularIslamicDate>.ToDayRange() => ToRange();
+
+    /// <summary>
+    /// Returns an enumerable collection of all days in this month instance.
+    /// </summary>
+    [Pure]
+    public IEnumerable<TabularIslamicDate> ToEnumerable()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfMonth, daysInMonth)
+               select TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    [Pure]
+    IEnumerable<TabularIslamicDate> IDaySegment<TabularIslamicDate>.EnumerateDays() => ToEnumerable();
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(TabularIslamicDate date)
+    {
+        var (y, m) = this;
+        Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
+        return y1 == y && m1 == m;
+    }
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this month
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public TabularIslamicDate GetDayOfMonth(int dayOfMonth)
+    {
+        var (y, m) = this;
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct TabularIslamicMonth // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(TabularIslamicMonth left, TabularIslamicMonth right) =>
+        left._monthsSinceEpoch == right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(TabularIslamicMonth left, TabularIslamicMonth right) =>
+        left._monthsSinceEpoch != right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(TabularIslamicMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is TabularIslamicMonth month && Equals(month);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _monthsSinceEpoch;
+}
+
+public partial struct TabularIslamicMonth // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(TabularIslamicMonth left, TabularIslamicMonth right) =>
+        left._monthsSinceEpoch < right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(TabularIslamicMonth left, TabularIslamicMonth right) =>
+        left._monthsSinceEpoch <= right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(TabularIslamicMonth left, TabularIslamicMonth right) =>
+        left._monthsSinceEpoch > right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(TabularIslamicMonth left, TabularIslamicMonth right) =>
+        left._monthsSinceEpoch >= right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static TabularIslamicMonth Min(TabularIslamicMonth x, TabularIslamicMonth y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static TabularIslamicMonth Max(TabularIslamicMonth x, TabularIslamicMonth y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(TabularIslamicMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is TabularIslamicMonth month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(TabularIslamicMonth), obj);
+}
+
+public partial struct TabularIslamicMonth // Standard math ops
+{
+    /// <summary>
+    /// Subtracts the two specified months and returns the number of months
+    /// between them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
+    public static int operator -(TabularIslamicMonth left, TabularIslamicMonth right) => left.CountMonthsSince(right);
+
+    /// <summary>
+    /// Adds a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static TabularIslamicMonth operator +(TabularIslamicMonth value, int months) => value.PlusMonths(months);
+
+    /// <summary>
+    /// Subtracts a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static TabularIslamicMonth operator -(TabularIslamicMonth value, int months) => value.PlusMonths(-months);
+
+    /// <summary>
+    /// Adds one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
+    public static TabularIslamicMonth operator ++(TabularIslamicMonth value) => value.NextMonth();
+
+    /// <summary>
+    /// Subtracts one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
+    public static TabularIslamicMonth operator --(TabularIslamicMonth value) => value.PreviousMonth();
+
+    /// <summary>
+    /// Counts the number of whole months elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(TabularIslamicMonth other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to MaxMonthsSinceEpoch.
+        _monthsSinceEpoch - other._monthsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of months to the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [Pure]
+    public TabularIslamicMonth PlusMonths(int months)
+    {
+        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthOverflow();
+        return new TabularIslamicMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the month after the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [Pure]
+    public TabularIslamicMonth NextMonth()
+    {
+        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        return new TabularIslamicMonth(_monthsSinceEpoch + 1);
+    }
+
+    /// <summary>
+    /// Obtains the month before the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [Pure]
+    public TabularIslamicMonth PreviousMonth()
+    {
+        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new TabularIslamicMonth(_monthsSinceEpoch - 1);
+    }
+}
+
+public partial struct TabularIslamicMonth // Non-standard math ops
+{
+    /// <summary>
+    /// Adds a number of years to the year field of this month instance, yielding
+    /// a new month.
+    /// <para>In the particular case of the TabularIslamic calendar, this
+    /// operation is exact.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported months.</exception>
+    [Pure]
+    public TabularIslamicMonth PlusYears(int years)
+    {
+        var (y, m) = this;
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        return UnsafeCreate(newY, m);
+    }
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(TabularIslamicMonth other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
+}
+
+#endregion
+
+#region TabularIslamicYear
+
+/// <summary>
+/// Represents the TabularIslamic year.
+/// <para><i>All</i> years within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="TabularIslamicYear"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct TabularIslamicYear :
+    IYear<TabularIslamicYear>,
+    // A year viewed as a finite sequence of months
+    IMonthSegment<TabularIslamicMonth>,
+    ISetMembership<TabularIslamicMonth>,
+    // A year viewed as a finite sequence of days
+    IDaySegment<TabularIslamicDate>,
+    ISetMembership<TabularIslamicDate>,
+    // Arithmetic
+    ISubtractionOperators<TabularIslamicYear, TabularIslamicYear, int>
+{ }
+
+public partial struct TabularIslamicYear // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 9998.</para></summary>
+    private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
+
+    /// <summary>
+    /// Represents the count of consecutive years since the epoch
+    /// <see cref="DayZero.TabularIslamic"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly ushort _yearsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicYear"/> struct
+    /// to the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    public TabularIslamicYear(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        _yearsSinceEpoch = (ushort)(year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicYear"/> struct.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    private TabularIslamicYear(ushort yearsSinceEpoch)
+    {
+        _yearsSinceEpoch = yearsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="TabularIslamicYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported year.</returns>
+    //
+    // MinValue = new(1) = new() = default(TabularIslamicYear)
+    public static TabularIslamicYear MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="TabularIslamicYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported year.</returns>
+    public static TabularIslamicYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TabularIslamicCalendar Calendar => TabularIslamicCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// </summary>
+    //
+    // Actually, this property returns the algebraic year, but since its value
+    // is greater than 0, one can ignore this subtlety.
+    public int Year => _yearsSinceEpoch + 1;
+
+    /// <inheritdoc />
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({TabularIslamicCalendar.DisplayName})");
+}
+
+public partial struct TabularIslamicYear // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static TabularIslamicYear Create(int year) => new(year);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="TabularIslamicYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static TabularIslamicYear? TryCreate(int year)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        return ok ? UnsafeCreate(year) : null;
+    }
+
+    // Explicit implementation: TabularIslamicYear being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IYear<TabularIslamicYear>.TryCreate(int year, out TabularIslamicYear result)
+    {
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicYear"/> struct
+    /// from the specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static TabularIslamicYear UnsafeCreate(int year) => new((ushort)(year - 1));
+}
+
+public partial struct TabularIslamicYear // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicYear"/> struct
+    /// from the specified <see cref="TabularIslamicMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static TabularIslamicYear FromMonth(TabularIslamicMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="TabularIslamicYear"/> struct
+    /// from the specified <see cref="TabularIslamicDate"/> value.
+    /// </summary>
+    [Pure]
+    public static TabularIslamicYear FromDate(TabularIslamicDate date) => UnsafeCreate(date.Year);
+}
+
+public partial struct TabularIslamicYear // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthCount = TabularIslamicSchema.MonthsInYear;
+
+    /// <inheritdoc />
+    public TabularIslamicMonth MinMonth => TabularIslamicMonth.UnsafeCreate(Year, 1);
+
+    /// <inheritdoc />
+    public TabularIslamicMonth MaxMonth => TabularIslamicMonth.UnsafeCreate(Year, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<TabularIslamicMonth>.CountMonths() => MonthCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<TabularIslamicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<TabularIslamicMonth> EnumerateMonths()
+    {
+        int startOfYear = TabularIslamicMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select TabularIslamicMonth.UnsafeCreate(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(TabularIslamicMonth month) => month.Year == Year;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public TabularIslamicMonth GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > TabularIslamicSchema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return TabularIslamicMonth.UnsafeCreate(Year, month);
+    }
+}
+
+public partial struct TabularIslamicYear // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
+    public TabularIslamicDate MinDay
+    {
+        get
+        {
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
+    public TabularIslamicDate MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int doy = sch.CountDaysInYear(Year);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
+            return TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<TabularIslamicDate> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+        return Range.StartingAt(TabularIslamicDate.UnsafeCreate(startOfYear), daysInYear);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<TabularIslamicDate> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfYear, daysInYear)
+               select TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(TabularIslamicDate date) => date.Year == Year;
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this year instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public TabularIslamicDate GetDayOfYear(int dayOfYear)
+    {
+        var chr = Calendar;
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
+        return TabularIslamicDate.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct TabularIslamicYear // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(TabularIslamicYear left, TabularIslamicYear right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(TabularIslamicYear left, TabularIslamicYear right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(TabularIslamicYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is TabularIslamicYear year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _yearsSinceEpoch;
+}
+
+public partial struct TabularIslamicYear // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(TabularIslamicYear left, TabularIslamicYear right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(TabularIslamicYear left, TabularIslamicYear right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(TabularIslamicYear left, TabularIslamicYear right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(TabularIslamicYear left, TabularIslamicYear right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static TabularIslamicYear Min(TabularIslamicYear x, TabularIslamicYear y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static TabularIslamicYear Max(TabularIslamicYear x, TabularIslamicYear y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(TabularIslamicYear other) =>
+        _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is TabularIslamicYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(TabularIslamicYear), obj);
+}
+
+public partial struct TabularIslamicYear // Math ops
+{
+    /// <summary>
+    /// Subtracts the two specified years and returns the number of years between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
+    public static int operator -(TabularIslamicYear left, TabularIslamicYear right) => left.CountYearsSince(right);
+
+    /// <summary>
+    /// Adds a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static TabularIslamicYear operator +(TabularIslamicYear value, int years) => value.PlusYears(years);
+
+    /// <summary>
+    /// Subtracts a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the range
+    /// of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static TabularIslamicYear operator -(TabularIslamicYear value, int years) => value.PlusYears(-years);
+
+    /// <summary>
+    /// Adds one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
+    public static TabularIslamicYear operator ++(TabularIslamicYear value) => value.NextYear();
+
+    /// <summary>
+    /// Subtracts one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
+    public static TabularIslamicYear operator --(TabularIslamicYear value) => value.PreviousYear();
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified year.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(TabularIslamicYear other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to (MaxYear - 1).
+        _yearsSinceEpoch - other._yearsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of years to the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported years.
+    /// </exception>
+    [Pure]
+    public TabularIslamicYear PlusYears(int years)
+    {
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new TabularIslamicYear((ushort)yearsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the year after the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [Pure]
+    public TabularIslamicYear NextYear()
+    {
+        if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new TabularIslamicYear((ushort)(_yearsSinceEpoch + 1));
+    }
+
+    /// <summary>
+    /// Obtains the year before the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [Pure]
+    public TabularIslamicYear PreviousYear()
+    {
+        if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
+        return new TabularIslamicYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 

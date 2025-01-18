@@ -13,6 +13,7 @@ namespace Calendrie.Systems;
 using System.Numerics;
 
 using Calendrie;
+using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -909,6 +910,1101 @@ public partial struct EthiopicDate // Non-standard math ops
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return new EthiopicDate(daysSinceEpoch);
+    }
+}
+
+#endregion
+
+#region EthiopicMonth
+
+/// <summary>
+/// Represents the Ethiopic month.
+/// <para><i>All</i> months within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="EthiopicMonth"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct EthiopicMonth :
+    IMonth<EthiopicMonth>,
+    IUnsafeFactory<EthiopicMonth>,
+    // A month viewed as a finite sequence of days
+    IDaySegment<EthiopicDate>,
+    ISetMembership<EthiopicDate>,
+    // Arithmetic
+    ISubtractionOperators<EthiopicMonth, EthiopicMonth, int>
+{ }
+
+public partial struct EthiopicMonth // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 119_987.</para></summary>
+    private const int MaxMonthsSinceEpoch = 119_987;
+
+    /// <summary>
+    /// Represents the count of consecutive months since the epoch
+    /// <see cref="DayZero.Ethiopic"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly int _monthsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicMonth"/> struct
+    /// to the specified month components.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">The specified components
+    /// do not form a valid month or <paramref name="year"/> is outside the
+    /// range of supported years.</exception>
+    public EthiopicMonth(int year, int month)
+    {
+        // The calendar being regular, no need to use the Scope:
+        // > EthiopicCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+        if (month < 1 || month > Coptic12Schema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicMonth"/> struct.
+    /// <para>This constructor does NOT validate its parameters.</para>
+    /// </summary>
+    private EthiopicMonth(int monthsSinceEpoch)
+    {
+        _monthsSinceEpoch = monthsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="EthiopicMonth"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported month.</returns>
+    //
+    // MinValue = new(0) = new() = default(EthiopicMonth)
+    public static EthiopicMonth MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="EthiopicMonth"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported month.</returns>
+    public static EthiopicMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static EthiopicCalendar Calendar => EthiopicCalendar.Instance;
+
+    static Calendar IMonth.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int MonthsSinceEpoch => _monthsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// <para>Actually, this property returns the algebraic year, but since its
+    /// value is greater than 0, one can ignore this subtlety.</para>
+    /// </summary>
+    public int Year =>
+        // NB: both dividend and divisor are >= 0.
+        1 + _monthsSinceEpoch / Coptic12Schema.MonthsInYear;
+
+    /// <inheritdoc />
+    public int Month
+    {
+        get
+        {
+            var (_, m) = this;
+            return m;
+        }
+    }
+
+    /// <inheritdoc />
+    bool IMonth.IsIntercalary => false;
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString()
+    {
+        var (y, m) = this;
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({EthiopicCalendar.DisplayName})");
+    }
+
+    /// <inheritdoc />
+    public void Deconstruct(out int year, out int month)
+    {
+        // See RegularSchema.GetMonthParts().
+        // NB: both dividend and divisor are >= 0.
+        year = 1 + MathN.Divide(_monthsSinceEpoch, Coptic12Schema.MonthsInYear, out int m0);
+        month = 1 + m0;
+    }
+}
+
+public partial struct EthiopicMonth // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static EthiopicMonth Create(int year, int month) => new(year, month);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="EthiopicMonth"/>
+    /// struct from the specified month components.
+    /// </summary>
+    [Pure]
+    public static EthiopicMonth? TryCreate(int year, int month)
+    {
+        // The calendar being regular, no need to use the PreValidator.
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear
+            || month < 1 || month > Coptic12Schema.MonthsInYear)
+        {
+            return null;
+        }
+
+        return UnsafeCreate(year, month);
+    }
+
+    // Explicit implementation: EthiopicMonth being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IMonth<EthiopicMonth>.TryCreate(int year, int month, out EthiopicMonth result)
+    {
+        var monthValue = TryCreate(year, month);
+        result = monthValue ?? default;
+        return monthValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="EthiopicMonth"/> struct
+    /// from the specified month components.
+    /// <para>This method does NOT validate its parameters.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static EthiopicMonth UnsafeCreate(int year, int month)
+    {
+        int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
+        return new EthiopicMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="EthiopicMonth"/> struct
+    /// from the specified count of consecutive months since the epoch.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static EthiopicMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
+
+    [Pure]
+    static EthiopicMonth IUnsafeFactory<EthiopicMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+        UnsafeCreate(monthsSinceEpoch);
+
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int CountMonthsSinceEpoch(int y, int m) =>
+        // See RegularSchema.CountMonthsSinceEpoch().
+        Coptic12Schema.MonthsInYear * (y - 1) + m - 1;
+}
+
+public partial struct EthiopicMonth // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="EthiopicMonth"/> struct
+    /// from the specified number of consecutive months since the epoch.
+    /// </summary>
+    [Pure]
+    public static EthiopicMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
+    {
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
+        return new EthiopicMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="EthiopicMonth"/> struct
+    /// from the specified <see cref="EthiopicDate"/> value.
+    /// </summary>
+    [Pure]
+    public static EthiopicMonth FromDate(EthiopicDate date)
+    {
+        var (y, m, _) = date;
+        return UnsafeCreate(y, m);
+    }
+}
+
+public partial struct EthiopicMonth // Counting
+{
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedMonthsInYear() => Month - 1;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingMonthsInYear() => Coptic12Schema.MonthsInYear - Month;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountElapsedDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearBeforeMonth(y, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountRemainingDaysInYear()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInYearAfterMonth(y, m);
+    }
+}
+
+public partial struct EthiopicMonth // Adjustments
+{
+    /// <inheritdoc />
+    [Pure]
+    public EthiopicMonth WithYear(int newYear)
+    {
+        int m = Month;
+
+        // Even when "newYear" is valid, we should re-check "m", but the calendar
+        // being regular this is not needed here.
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.ValidateYearMonth(newYear, m, nameof(newYear));
+        if (newYear < StandardScope.MinYear || newYear > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(newYear, nameof(newYear));
+
+        return UnsafeCreate(newYear, m);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public EthiopicMonth WithMonth(int newMonth)
+    {
+        int y = Year;
+
+        // We already know that "y" is valid, we only need to check "newMonth".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
+        if (newMonth < 1 || newMonth > Coptic12Schema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
+
+        return UnsafeCreate(y, newMonth);
+    }
+}
+
+public partial struct EthiopicMonth // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current month instance.
+    /// </summary>
+    public EthiopicDate MinDay
+    {
+        get
+        {
+            var (y, m) = this;
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
+            return EthiopicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current month instance.
+    /// </summary>
+    public EthiopicDate MaxDay
+    {
+        get
+        {
+            var (y, m) = this;
+            var sch = Calendar.Schema;
+            int d = sch.CountDaysInMonth(y, m);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
+            return EthiopicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays()
+    {
+        var (y, m) = this;
+        return Calendar.Schema.CountDaysInMonth(y, m);
+    }
+
+    /// <summary>
+    /// Converts the current instance to a range of days.
+    /// </summary>
+    [Pure]
+    public Range<EthiopicDate> ToRange()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+        return Range.StartingAt(EthiopicDate.UnsafeCreate(startOfMonth), daysInMonth);
+    }
+
+    [Pure]
+    Range<EthiopicDate> IDaySegment<EthiopicDate>.ToDayRange() => ToRange();
+
+    /// <summary>
+    /// Returns an enumerable collection of all days in this month instance.
+    /// </summary>
+    [Pure]
+    public IEnumerable<EthiopicDate> ToEnumerable()
+    {
+        var (y, m) = this;
+        var sch = Calendar.Schema;
+        int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
+        int daysInMonth = sch.CountDaysInMonth(y, m);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfMonth, daysInMonth)
+               select EthiopicDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    [Pure]
+    IEnumerable<EthiopicDate> IDaySegment<EthiopicDate>.EnumerateDays() => ToEnumerable();
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(EthiopicDate date)
+    {
+        var (y, m) = this;
+        Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
+        return y1 == y && m1 == m;
+    }
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this month
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public EthiopicDate GetDayOfMonth(int dayOfMonth)
+    {
+        var (y, m) = this;
+        var chr = Calendar;
+        chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
+        return EthiopicDate.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct EthiopicMonth // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(EthiopicMonth left, EthiopicMonth right) =>
+        left._monthsSinceEpoch == right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(EthiopicMonth left, EthiopicMonth right) =>
+        left._monthsSinceEpoch != right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(EthiopicMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is EthiopicMonth month && Equals(month);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _monthsSinceEpoch;
+}
+
+public partial struct EthiopicMonth // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(EthiopicMonth left, EthiopicMonth right) =>
+        left._monthsSinceEpoch < right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(EthiopicMonth left, EthiopicMonth right) =>
+        left._monthsSinceEpoch <= right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(EthiopicMonth left, EthiopicMonth right) =>
+        left._monthsSinceEpoch > right._monthsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(EthiopicMonth left, EthiopicMonth right) =>
+        left._monthsSinceEpoch >= right._monthsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static EthiopicMonth Min(EthiopicMonth x, EthiopicMonth y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static EthiopicMonth Max(EthiopicMonth x, EthiopicMonth y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(EthiopicMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is EthiopicMonth month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(EthiopicMonth), obj);
+}
+
+public partial struct EthiopicMonth // Standard math ops
+{
+    /// <summary>
+    /// Subtracts the two specified months and returns the number of months
+    /// between them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
+    public static int operator -(EthiopicMonth left, EthiopicMonth right) => left.CountMonthsSince(right);
+
+    /// <summary>
+    /// Adds a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static EthiopicMonth operator +(EthiopicMonth value, int months) => value.PlusMonths(months);
+
+    /// <summary>
+    /// Subtracts a number of months to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
+    public static EthiopicMonth operator -(EthiopicMonth value, int months) => value.PlusMonths(-months);
+
+    /// <summary>
+    /// Adds one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
+    public static EthiopicMonth operator ++(EthiopicMonth value) => value.NextMonth();
+
+    /// <summary>
+    /// Subtracts one month to the specified month, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
+    public static EthiopicMonth operator --(EthiopicMonth value) => value.PreviousMonth();
+
+    /// <summary>
+    /// Counts the number of whole months elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountMonthsSince(EthiopicMonth other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to MaxMonthsSinceEpoch.
+        _monthsSinceEpoch - other._monthsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of months to the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [Pure]
+    public EthiopicMonth PlusMonths(int months)
+    {
+        int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowMonthOverflow();
+        return new EthiopicMonth(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the month after the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported month.</exception>
+    [Pure]
+    public EthiopicMonth NextMonth()
+    {
+        if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
+        return new EthiopicMonth(_monthsSinceEpoch + 1);
+    }
+
+    /// <summary>
+    /// Obtains the month before the current instance, yielding a new month.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported month.</exception>
+    [Pure]
+    public EthiopicMonth PreviousMonth()
+    {
+        if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
+        return new EthiopicMonth(_monthsSinceEpoch - 1);
+    }
+}
+
+public partial struct EthiopicMonth // Non-standard math ops
+{
+    /// <summary>
+    /// Adds a number of years to the year field of this month instance, yielding
+    /// a new month.
+    /// <para>In the particular case of the Ethiopic calendar, this
+    /// operation is exact.</para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported months.</exception>
+    [Pure]
+    public EthiopicMonth PlusYears(int years)
+    {
+        var (y, m) = this;
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        return UnsafeCreate(newY, m);
+    }
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified month.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(EthiopicMonth other)
+    {
+        // Exact difference between two calendar years.
+        int years = Year - other.Year;
+
+        var newStart = other.PlusYears(years);
+        if (other < this)
+        {
+            if (newStart > this) years--;
+        }
+        else
+        {
+            if (newStart < this) years++;
+        }
+
+        return years;
+    }
+}
+
+#endregion
+
+#region EthiopicYear
+
+/// <summary>
+/// Represents the Ethiopic year.
+/// <para><i>All</i> years within the range [1..9999] of years are supported.
+/// </para>
+/// <para><see cref="EthiopicYear"/> is an immutable struct.</para>
+/// </summary>
+public readonly partial struct EthiopicYear :
+    IYear<EthiopicYear>,
+    // A year viewed as a finite sequence of months
+    IMonthSegment<EthiopicMonth>,
+    ISetMembership<EthiopicMonth>,
+    // A year viewed as a finite sequence of days
+    IDaySegment<EthiopicDate>,
+    ISetMembership<EthiopicDate>,
+    // Arithmetic
+    ISubtractionOperators<EthiopicYear, EthiopicYear, int>
+{ }
+
+public partial struct EthiopicYear // Preamble
+{
+    /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
+    /// <para>This field is a constant equal to 9998.</para></summary>
+    private const int MaxYearsSinceEpoch = StandardScope.MaxYear - 1;
+
+    /// <summary>
+    /// Represents the count of consecutive years since the epoch
+    /// <see cref="DayZero.Ethiopic"/>.
+    /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
+    /// </para>
+    /// </summary>
+    private readonly ushort _yearsSinceEpoch;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicYear"/> struct
+    /// to the specified year.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
+    /// outside the range of years supported values.</exception>
+    public EthiopicYear(int year)
+    {
+        if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
+
+        _yearsSinceEpoch = (ushort)(year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicYear"/> struct.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    private EthiopicYear(ushort yearsSinceEpoch)
+    {
+        _yearsSinceEpoch = yearsSinceEpoch;
+    }
+
+    /// <summary>
+    /// Gets the smallest possible value of <see cref="EthiopicYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The earliest supported year.</returns>
+    //
+    // MinValue = new(1) = new() = default(EthiopicYear)
+    public static EthiopicYear MinValue { get; }
+
+    /// <summary>
+    /// Gets the largest possible value of <see cref="EthiopicYear"/>.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    /// <returns>The latest supported year.</returns>
+    public static EthiopicYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+
+    /// <summary>
+    /// Gets the companion calendar.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static EthiopicCalendar Calendar => EthiopicCalendar.Instance;
+
+    static Calendar IYear.Calendar => Calendar;
+
+    /// <inheritdoc />
+    public int YearsSinceEpoch => _yearsSinceEpoch;
+
+    /// <summary>
+    /// Gets the century of the era.
+    /// </summary>
+    public Ord CenturyOfEra => Ord.FromInt32(Century);
+
+    /// <summary>
+    /// Gets the century number.
+    /// </summary>
+    public int Century => YearNumbering.GetCentury(Year);
+
+    /// <summary>
+    /// Gets the year of the era.
+    /// </summary>
+    public Ord YearOfEra => Ord.FromInt32(Year);
+
+    /// <summary>
+    /// Gets the year of the century.
+    /// <para>The result is in the range from 1 to 100.</para>
+    /// </summary>
+    public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
+
+    /// <summary>
+    /// Gets the year number.
+    /// </summary>
+    //
+    // Actually, this property returns the algebraic year, but since its value
+    // is greater than 0, one can ignore this subtlety.
+    public int Year => _yearsSinceEpoch + 1;
+
+    /// <inheritdoc />
+    public bool IsLeap => Calendar.Schema.IsLeapYear(Year);
+
+    /// <summary>
+    /// Returns a culture-independent string representation of the current
+    /// instance.
+    /// </summary>
+    [Pure]
+    public override string ToString() =>
+        FormattableString.Invariant($"{Year:D4} ({EthiopicCalendar.DisplayName})");
+}
+
+public partial struct EthiopicYear // Factories
+{
+    /// <inheritdoc />
+    [Pure]
+    public static EthiopicYear Create(int year) => new(year);
+
+    /// <summary>
+    /// Attempts to create a new instance of the <see cref="EthiopicYear"/>
+    /// struct from the specified year.
+    /// </summary>
+    [Pure]
+    public static EthiopicYear? TryCreate(int year)
+    {
+        bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
+        return ok ? UnsafeCreate(year) : null;
+    }
+
+    // Explicit implementation: EthiopicYear being a value type, better
+    // to use the other TryCreate().
+    [Pure]
+    static bool IYear<EthiopicYear>.TryCreate(int year, out EthiopicYear result)
+    {
+        var yearValue = TryCreate(year);
+        result = yearValue ?? default;
+        return yearValue.HasValue;
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="EthiopicYear"/> struct
+    /// from the specified year.
+    /// <para>This method does NOT validate its parameter.</para>
+    /// </summary>
+    [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static EthiopicYear UnsafeCreate(int year) => new((ushort)(year - 1));
+}
+
+public partial struct EthiopicYear // Conversions
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="EthiopicYear"/> struct
+    /// from the specified <see cref="EthiopicMonth"/> value.
+    /// </summary>
+    [Pure]
+    public static EthiopicYear FromMonth(EthiopicMonth month) => UnsafeCreate(month.Year);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="EthiopicYear"/> struct
+    /// from the specified <see cref="EthiopicDate"/> value.
+    /// </summary>
+    [Pure]
+    public static EthiopicYear FromDate(EthiopicDate date) => UnsafeCreate(date.Year);
+}
+
+public partial struct EthiopicYear // IMonthSegment
+{
+    /// <summary>
+    /// Represents the total number of months in a year.
+    /// <para>This field is constant equal to 12.</para>
+    /// </summary>
+    public const int MonthCount = Coptic12Schema.MonthsInYear;
+
+    /// <inheritdoc />
+    public EthiopicMonth MinMonth => EthiopicMonth.UnsafeCreate(Year, 1);
+
+    /// <inheritdoc />
+    public EthiopicMonth MaxMonth => EthiopicMonth.UnsafeCreate(Year, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    int IMonthSegment<EthiopicMonth>.CountMonths() => MonthCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<EthiopicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<EthiopicMonth> EnumerateMonths()
+    {
+        int startOfYear = EthiopicMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+
+        return from monthsSinceEpoch
+               in Enumerable.Range(startOfYear, MonthCount)
+               select EthiopicMonth.UnsafeCreate(monthsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the current year instance contains
+    /// the specified month; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(EthiopicMonth month) => month.Year == Year;
+
+    /// <summary>
+    /// Obtains the month corresponding to the specified month of this year
+    /// instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public EthiopicMonth GetMonthOfYear(int month)
+    {
+        // We already know that "y" is valid, we only need to check "month".
+        // The calendar being regular, no need to use the Scope:
+        // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
+        if (month < 1 || month > Coptic12Schema.MonthsInYear)
+            ThrowHelpers.ThrowMonthOutOfRange(month);
+
+        return EthiopicMonth.UnsafeCreate(Year, month);
+    }
+}
+
+public partial struct EthiopicYear // IDaySegment
+{
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
+    public EthiopicDate MinDay
+    {
+        get
+        {
+            int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return EthiopicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
+    public EthiopicDate MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int doy = sch.CountDaysInYear(Year);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
+            return EthiopicDate.UnsafeCreate(daysSinceEpoch);
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<EthiopicDate> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+        return Range.StartingAt(EthiopicDate.UnsafeCreate(startOfYear), daysInYear);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<EthiopicDate> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        int daysInYear = sch.CountDaysInYear(Year);
+
+        return from daysSinceEpoch
+               in Enumerable.Range(startOfYear, daysInYear)
+               select EthiopicDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(EthiopicDate date) => date.Year == Year;
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this year instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public EthiopicDate GetDayOfYear(int dayOfYear)
+    {
+        var chr = Calendar;
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
+        return EthiopicDate.UnsafeCreate(daysSinceEpoch);
+    }
+}
+
+public partial struct EthiopicYear // IEquatable
+{
+    /// <inheritdoc />
+    public static bool operator ==(EthiopicYear left, EthiopicYear right) =>
+        left._yearsSinceEpoch == right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    public static bool operator !=(EthiopicYear left, EthiopicYear right) =>
+        left._yearsSinceEpoch != right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public bool Equals(EthiopicYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public override bool Equals([NotNullWhen(true)] object? obj) =>
+        obj is EthiopicYear year && Equals(year);
+
+    /// <inheritdoc />
+    [Pure]
+    public override int GetHashCode() => _yearsSinceEpoch;
+}
+
+public partial struct EthiopicYear // IComparable
+{
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// earlier than the right one.
+    /// </summary>
+    public static bool operator <(EthiopicYear left, EthiopicYear right) =>
+        left._yearsSinceEpoch < right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is earlier
+    /// than or equal to the right one.
+    /// </summary>
+    public static bool operator <=(EthiopicYear left, EthiopicYear right) =>
+        left._yearsSinceEpoch <= right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is strictly
+    /// later than the right one.
+    /// </summary>
+    public static bool operator >(EthiopicYear left, EthiopicYear right) =>
+        left._yearsSinceEpoch > right._yearsSinceEpoch;
+
+    /// <summary>
+    /// Compares the two specified instances to see if the left one is later than
+    /// or equal to the right one.
+    /// </summary>
+    public static bool operator >=(EthiopicYear left, EthiopicYear right) =>
+        left._yearsSinceEpoch >= right._yearsSinceEpoch;
+
+    /// <inheritdoc />
+    [Pure]
+    public static EthiopicYear Min(EthiopicYear x, EthiopicYear y) => x < y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public static EthiopicYear Max(EthiopicYear x, EthiopicYear y) => x > y ? x : y;
+
+    /// <inheritdoc />
+    [Pure]
+    public int CompareTo(EthiopicYear other) =>
+        _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is EthiopicYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(EthiopicYear), obj);
+}
+
+public partial struct EthiopicYear // Math ops
+{
+    /// <summary>
+    /// Subtracts the two specified years and returns the number of years between
+    /// them.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
+    public static int operator -(EthiopicYear left, EthiopicYear right) => left.CountYearsSince(right);
+
+    /// <summary>
+    /// Adds a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static EthiopicYear operator +(EthiopicYear value, int years) => value.PlusYears(years);
+
+    /// <summary>
+    /// Subtracts a number of years to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the range
+    /// of supported years.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
+    public static EthiopicYear operator -(EthiopicYear value, int years) => value.PlusYears(-years);
+
+    /// <summary>
+    /// Adds one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
+    public static EthiopicYear operator ++(EthiopicYear value) => value.NextYear();
+
+    /// <summary>
+    /// Subtracts one year to the specified year, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
+    public static EthiopicYear operator --(EthiopicYear value) => value.PreviousYear();
+
+    /// <summary>
+    /// Counts the number of whole years elapsed since the specified year.
+    /// </summary>
+    [Pure]
+    public int CountYearsSince(EthiopicYear other) =>
+        // No need to use a checked context here. Indeed, the absolute value of
+        // the result is at most equal to (MaxYear - 1).
+        _yearsSinceEpoch - other._yearsSinceEpoch;
+
+    /// <summary>
+    /// Adds a number of years to the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported years.
+    /// </exception>
+    [Pure]
+    public EthiopicYear PlusYears(int years)
+    {
+        int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
+        if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new EthiopicYear((ushort)yearsSinceEpoch);
+    }
+
+    /// <summary>
+    /// Obtains the year after the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// latest supported year.</exception>
+    [Pure]
+    public EthiopicYear NextYear()
+    {
+        if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
+        return new EthiopicYear((ushort)(_yearsSinceEpoch + 1));
+    }
+
+    /// <summary>
+    /// Obtains the year before the current instance, yielding a new year.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// earliest supported year.</exception>
+    [Pure]
+    public EthiopicYear PreviousYear()
+    {
+        if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
+        return new EthiopicYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 
