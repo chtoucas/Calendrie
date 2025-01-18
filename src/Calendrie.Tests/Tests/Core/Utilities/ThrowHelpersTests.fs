@@ -29,6 +29,12 @@ module ArgumentOutOfRangeExns =
         outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowDayOutOfRange(1, "paramName"))
 
     [<Fact>]
+    let ThrowWeekOfYearOutOfRange () =
+        outOfRangeExn "weekOfYear" (fun () -> ThrowHelpers.ThrowWeekOfYearOutOfRange(1))
+        outOfRangeExn "weekOfYear" (fun () -> ThrowHelpers.ThrowWeekOfYearOutOfRange(1, null))
+        outOfRangeExn "paramName" (fun () -> ThrowHelpers.ThrowWeekOfYearOutOfRange(1, "paramName"))
+
+    [<Fact>]
     let ThrowDayOfYearOutOfRange () =
         outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.ThrowDayOfYearOutOfRange(1))
         outOfRangeExn "dayOfYear" (fun () -> ThrowHelpers.ThrowDayOfYearOutOfRange(1, null))

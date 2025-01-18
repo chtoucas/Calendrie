@@ -61,6 +61,17 @@ internal partial class ThrowHelpers // ArgumentOutOfRangeException
             "The value of the day of the month was out of range");
 
     /// <summary>
+    /// The value of the week of the year was out of range.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"/>
+    [DoesNotReturn]
+    public static void ThrowWeekOfYearOutOfRange(int weekOfYear, string? paramName = null) =>
+        throw new ArgumentOutOfRangeException(
+            paramName ?? nameof(weekOfYear),
+            weekOfYear,
+            "The value of the week of the year was out of range");
+
+    /// <summary>
     /// The value of the day of the year was out of range.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"/>

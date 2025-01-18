@@ -5,8 +5,8 @@ namespace Calendrie.Testing.Data.Schemas;
 
 public partial class PaxDataSet // Supplementary data
 {
-    //public static DataGroup<DaysSinceEpochYewedaInfo> DaysSinceEpochYewedaInfoData { get; } =
-    //    DataGroup.Create(DaysSinceEpochYewedaInfos);
+    public static DataGroup<DaysSinceEpochYewedaInfo> DaysSinceEpochYewedaInfoData { get; } =
+        DataGroup.Create(DaysSinceEpochYewedaInfos);
 
     /// <summary>Year, weeks in year.</summary>
     public static DataGroup<YearAnd<int>> MoreYearInfoData { get; } =
@@ -49,24 +49,24 @@ public partial class PaxDataSet // Supplementary data
         new(LeapYear, 14, false, true),
     ];
 
-    //public static DataGroup<WeekInfo> WeekInfoData { get; } =
-    //[
-    //    // Common year.
-    //    new(CommonYear, 1, false),
-    //    new(CommonYear, 48, false),
-    //    new(CommonYear, 49, false),
-    //    new(CommonYear, 50, false),
-    //    new(CommonYear, 51, false),
-    //    new(CommonYear, 52, false),
-    //    // Leap year.
-    //    new(LeapYear, 1, false),
-    //    new(LeapYear, 48, false),
-    //    new(LeapYear, 49, true),
-    //    new(LeapYear, 50, false),
-    //    new(LeapYear, 51, false),
-    //    new(LeapYear, 52, false),
-    //    new(LeapYear, 53, false),
-    //];
+    public static DataGroup<WeekInfo> WeekInfoData { get; } =
+    [
+        // Common year.
+        new(CommonYear, 1, false),
+        new(CommonYear, 48, false),
+        new(CommonYear, 49, false),
+        new(CommonYear, 50, false),
+        new(CommonYear, 51, false),
+        new(CommonYear, 52, false),
+        // Leap year.
+        new(LeapYear, 1, false),
+        new(LeapYear, 48, false),
+        new(LeapYear, 49, true),
+        new(LeapYear, 50, false),
+        new(LeapYear, 51, false),
+        new(LeapYear, 52, false),
+        new(LeapYear, 53, false),
+    ];
 
     /// <summary>Year, invalid week of the year.</summary>
     public static TheoryData<int, int> InvalidWeekOfYearData { get; } = new()
@@ -77,27 +77,27 @@ public partial class PaxDataSet // Supplementary data
         { LeapYear, 54 },
     };
 
-    //internal static IEnumerable<DaysSinceEpochYewedaInfo> DaysSinceEpochYewedaInfos
-    //{
-    //    get
-    //    {
-    //        // First week.
-    //        yield return new(0, 1, 1, DayOfWeek.Sunday);
-    //        yield return new(1, 1, 1, DayOfWeek.Monday);
-    //        yield return new(2, 1, 1, DayOfWeek.Tuesday);
-    //        yield return new(3, 1, 1, DayOfWeek.Wednesday);
-    //        yield return new(4, 1, 1, DayOfWeek.Thursday);
-    //        yield return new(5, 1, 1, DayOfWeek.Friday);
-    //        yield return new(6, 1, 1, DayOfWeek.Saturday);
-    //        // Second week.
-    //        yield return new(7, 1, 2, DayOfWeek.Sunday);
-    //        yield return new(13, 1, 2, DayOfWeek.Saturday);
-    //        // Last week of first year.
-    //        yield return new(357, 1, 52, DayOfWeek.Sunday);
-    //        yield return new(363, 1, 52, DayOfWeek.Saturday);
-    //        // First week of second year.
-    //        yield return new(364, 2, 1, DayOfWeek.Sunday);
-    //        yield return new(370, 2, 1, DayOfWeek.Saturday);
-    //    }
-    //}
+    internal static IEnumerable<DaysSinceEpochYewedaInfo> DaysSinceEpochYewedaInfos
+    {
+        get
+        {
+            // First week.
+            yield return new(0, 1, 1, DayOfWeek.Sunday);
+            yield return new(1, 1, 1, DayOfWeek.Monday);
+            yield return new(2, 1, 1, DayOfWeek.Tuesday);
+            yield return new(3, 1, 1, DayOfWeek.Wednesday);
+            yield return new(4, 1, 1, DayOfWeek.Thursday);
+            yield return new(5, 1, 1, DayOfWeek.Friday);
+            yield return new(6, 1, 1, DayOfWeek.Saturday);
+            // Second week.
+            yield return new(7, 1, 2, DayOfWeek.Sunday);
+            yield return new(13, 1, 2, DayOfWeek.Saturday);
+            // Last week of first year.
+            yield return new(357, 1, 52, DayOfWeek.Sunday);
+            yield return new(363, 1, 52, DayOfWeek.Saturday);
+            // First week of second year.
+            yield return new(364, 2, 1, DayOfWeek.Sunday);
+            yield return new(370, 2, 1, DayOfWeek.Saturday);
+        }
+    }
 }

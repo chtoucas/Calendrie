@@ -131,6 +131,37 @@ public readonly record struct DayNumberInfo(DayNumber DayNumber, Yemoda Yemoda)
     public static DaysSinceEpochInfo operator -(DayNumberInfo x, DayNumber epoch) => new(x.DayNumber - epoch, x.Yemoda);
 }
 
+// REVIEW(data): use Yeweda, does not exist yet... idem with DayNumberYewedaInfo
+public readonly record struct DaysSinceEpochYewedaInfo(int DaysSinceEpoch, Yewe Yewe, DayOfWeek DayOfWeek)
+{
+    public DaysSinceEpochYewedaInfo(int daysSinceEpoch, int y, int woy, DayOfWeek dow)
+        : this(daysSinceEpoch, new Yewe(y, woy), dow) { }
+
+    public void Deconstruct(out int daysSinceEpoch, out int y, out int woy, out DayOfWeek dow)
+    {
+        daysSinceEpoch = DaysSinceEpoch;
+        (y, woy) = Yewe;
+        dow = DayOfWeek;
+    }
+
+    [Pure]
+    public DayNumberYewedaInfo ToDayNumberYewedaInfo(DayNumber epoch) =>
+        new(epoch + DaysSinceEpoch, Yewe, DayOfWeek);
+}
+
+public readonly record struct DayNumberYewedaInfo(DayNumber DayNumber, Yewe Yewe, DayOfWeek DayOfWeek)
+{
+    public DayNumberYewedaInfo(DayNumber dayNumber, int y, int woy, DayOfWeek dow)
+        : this(dayNumber, new Yewe(y, woy), dow) { }
+
+    public void Deconstruct(out DayNumber dayNumber, out int y, out int woy, out DayOfWeek dow)
+    {
+        dayNumber = DayNumber;
+        (y, woy) = Yewe;
+        dow = DayOfWeek;
+    }
+}
+
 // It would have been nice to include DaysInYearAfterDate and
 // DaysInMonthAfterDate but then the type would have been too big to be a struct.
 public readonly record struct DateInfo
@@ -162,6 +193,12 @@ public readonly record struct DateInfo
         (y, m, d) = Yemoda;
         doy = DayOfYear;
     }
+}
+
+public readonly record struct WeekInfo(Yewe Yewe, bool IsIntercalary)
+{
+    public WeekInfo(int y, int woy, bool isIntercalary)
+        : this(new Yewe(y, woy), isIntercalary) { }
 }
 
 public readonly record struct MonthInfo(
