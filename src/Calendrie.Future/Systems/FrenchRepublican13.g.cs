@@ -936,8 +936,8 @@ public readonly partial struct FrenchRepublican13Month :
 public partial struct FrenchRepublican13Month // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
-    /// <para>This field is a constant equal to 131_761.</para></summary>
-    private const int MaxMonthsSinceEpoch = 131_761;
+    /// <para>This field is a constant equal to 129_986.</para></summary>
+    private const int MaxMonthsSinceEpoch = 129_986;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch

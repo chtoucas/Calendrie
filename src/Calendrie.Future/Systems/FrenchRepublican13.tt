@@ -9,6 +9,6 @@
     {
         DisplayName = "French Republican",
 
-        MaxMonthsSinceEpochValue = "131_761",
+        MaxMonthsSinceEpochValue = "129_986",
         MonthsInYear = 13
     }.Execute() #>
