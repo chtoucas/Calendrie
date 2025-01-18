@@ -249,16 +249,7 @@ public partial struct PaxDate // Preamble
         }
     }
 
-    /// <inheritdoc />
-    public bool IsSupplementary
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return sch.IsSupplementaryDay(y, m, d);
-        }
-    }
+    bool IDateable.IsSupplementary => false;
 
     /// <summary>
     /// Returns a culture-independent string representation of the current

@@ -10,6 +10,7 @@ open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
+open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Hemerology
 open Calendrie.Testing.Facts.Systems
 
@@ -227,6 +228,8 @@ module Bundles =
     type MonthFacts() =
         inherit IMonthFacts<PaxMonth, PaxDate, StandardPaxDataSet>()
 
+        static member MoreMonthInfoData with get() = PaxDataSet.MoreMonthInfoData
+
         [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
@@ -240,6 +243,24 @@ module Bundles =
             let month = new PaxMonth(y, m)
             // Act & Assert
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+        //
+        // Pax-only methods
+        //
+
+        [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
+        static member ``PaxMonth.IsPaxMonth`` (info: YemoAnd<bool, bool>) =
+            let (y, m, isPaxMonth, _) = info.Deconstruct()
+            let month = new PaxMonth(y, m);
+
+            month.IsPaxMonth === isPaxMonth
+
+        [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
+        static member ``PaxMonth.IsLastMonthOfYear`` (info: YemoAnd<bool, bool>) =
+            let (y, m, _, isLastMonthOfYear) = info.Deconstruct()
+            let month = new PaxMonth(y, m);
+
+            month.IsLastMonthOfYear === isLastMonthOfYear
 
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     [<Sealed>]
@@ -260,6 +281,8 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type YearFacts() =
         inherit IYearFacts<PaxYear, PaxMonth, PaxDate, StandardPaxDataSet>()
+
+        static member MoreYearInfoData with get() = PaxDataSet.MoreYearInfoData
 
         [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
@@ -288,3 +311,14 @@ module Bundles =
             let year = new PaxYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
+
+        //
+        // Pax-only methods
+        //
+
+        [<Theory; MemberData(nameof(YearFacts.MoreYearInfoData))>]
+        static member ``PaxYear.CountWeeks()`` (info: YearAnd<int>) =
+            let (y, weeksInYear) = info.Deconstruct()
+            let year = new PaxYear(y);
+
+            year.CountWeeks() === weeksInYear
