@@ -25,3 +25,12 @@ public partial struct PaxMonth // Complements
         }
     }
 }
+
+public partial struct PaxYear // Complements
+{
+    /// <summary>
+    /// Obtains the number of weeks in the current instance.
+    /// </summary>
+    [Pure]
+    public int CountWeeks() => Calendar.Schema.CountWeeksInYear(Year);
+}
