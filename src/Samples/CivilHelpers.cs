@@ -21,11 +21,11 @@ using CalendrieRange = Calendrie.Core.Intervals.Range;
 /// Provides static helpers and extension methods related to the Civil calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public static partial class Civil { }
+public static partial class CivilHelpers { }
 
 // Year and month characteristics
 //
-public partial class Civil
+public partial class CivilHelpers
 {
     /// <summary>
     /// Determines whether the specified year is leap or not.
@@ -53,7 +53,7 @@ public partial class Civil
 
 // Kind of IDateProvider<CivilDate>
 //
-public partial class Civil
+public partial class CivilHelpers
 {
     /// <summary>
     /// Enumerates the days in the specified year.
@@ -102,7 +102,7 @@ public partial class Civil
 
 // CivilDate extension methods
 //
-public partial class Civil
+public partial class CivilHelpers
 {
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
@@ -127,7 +127,7 @@ public partial class Civil
 
 // CivilMonth extension methods
 //
-public partial class Civil
+public partial class CivilHelpers
 {
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
@@ -143,7 +143,7 @@ public partial class Civil
 
 // CivilDate interconversion
 //
-public partial class Civil
+public partial class CivilHelpers
 {
     // Conversion of a CivilDate value to JulianDate value is already available
     // via ToJulianDate().
@@ -182,7 +182,7 @@ public partial class Civil
 
 // CivilMonth interconversion
 //
-public partial class Civil
+public partial class CivilHelpers
 {
     // NB: interconversion to XXXMonth is NOT possible.
 
@@ -220,7 +220,7 @@ public partial class Civil
 
 // CivilYear interconversion
 //
-public partial class Civil
+public partial class CivilHelpers
 {
     // Notes:
     // - Interconversion to XXXYear is NOT possible.

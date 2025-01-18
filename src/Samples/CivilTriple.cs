@@ -8,7 +8,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 
 using Calendrie;
+using Calendrie.Core;
 using Calendrie.Hemerology;
+
+using CalendrieRange = Calendrie.Core.Intervals.Range;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -23,16 +26,32 @@ public readonly partial struct CivilTriple :
     IAffineDate<CivilTriple>,
     ISubtractionOperators<CivilTriple, CivilTriple, int>
 {
+    public const int MinYear = 1;
+    public const int MaxYear = 9999;
+
+    // WARNING: s_Schema MUST be defined before s_Segment.
+    private static readonly CivilPrototype s_Schema = new();
+    private static readonly CalendricalSegment s_Segment =
+        CalendricalSegment.Create(s_Schema, CalendrieRange.Create(MinYear, MaxYear));
+
+    // MinYear = 1 => MinDaysSinceEpoch = 0.
+    private const int MinDaysSinceEpoch = 0;
+    private static int MaxDaysSinceEpoch => s_Segment.SupportedDays.Max;
+
     public CivilTriple(int year, int month, int day)
     {
-        CivilTripleScope.ValidateYearMonthDay(year, month, day);
-        DaysSinceEpoch = Schema.CountDaysSinceEpoch(year, month, day);
+        if (year < MinYear || year > MaxYear) throw new ArgumentOutOfRangeException(nameof(year));
+        s_Schema.PreValidator.ValidateMonthDay(year, month, day);
+
+        DaysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     public CivilTriple(int year, int dayOfYear)
     {
-        CivilTripleScope.ValidateOrdinal(year, dayOfYear);
-        DaysSinceEpoch = Schema.CountDaysSinceEpoch(year, dayOfYear);
+        if (year < MinYear || year > MaxYear) throw new ArgumentOutOfRangeException(nameof(year));
+        s_Schema.PreValidator.ValidateDayOfYear(year, dayOfYear);
+
+        DaysSinceEpoch = s_Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     private CivilTriple(int daysSinceEpoch)
@@ -42,7 +61,7 @@ public readonly partial struct CivilTriple :
 
     // MinValue = new(MinDaysSinceEpoch) = new(0) = default
     public static CivilTriple MinValue { get; }
-    public static CivilTriple MaxValue { get; } = new(CivilTripleScope.MaxDaysSinceEpoch);
+    public static CivilTriple MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     public int DaysSinceEpoch { get; }
 
@@ -50,13 +69,13 @@ public readonly partial struct CivilTriple :
     public int Century => YearNumbering.GetCentury(Year);
     public Ord YearOfEra => Ord.FromInt32(Year);
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
-    public int Year => Schema.GetYear(DaysSinceEpoch);
+    public int Year => s_Schema.GetYear(DaysSinceEpoch);
 
     public int Month
     {
         get
         {
-            Schema.GetDateParts(DaysSinceEpoch, out _, out int m, out _);
+            s_Schema.GetDateParts(DaysSinceEpoch, out _, out int m, out _);
             return m;
         }
     }
@@ -65,7 +84,7 @@ public readonly partial struct CivilTriple :
     {
         get
         {
-            _ = Schema.GetYear(DaysSinceEpoch, out int doy);
+            _ = s_Schema.GetYear(DaysSinceEpoch, out int doy);
             return doy;
         }
     }
@@ -74,7 +93,7 @@ public readonly partial struct CivilTriple :
     {
         get
         {
-            Schema.GetDateParts(DaysSinceEpoch, out _, out _, out int d);
+            s_Schema.GetDateParts(DaysSinceEpoch, out _, out _, out int d);
             return d;
         }
     }
@@ -83,33 +102,31 @@ public readonly partial struct CivilTriple :
     {
         get
         {
-            Schema.GetDateParts(DaysSinceEpoch, out int y, out int m, out int d);
-            return Schema.IsIntercalaryDay(y, m, d);
+            s_Schema.GetDateParts(DaysSinceEpoch, out int y, out int m, out int d);
+            return s_Schema.IsIntercalaryDay(y, m, d);
         }
     }
 
     bool IDateable.IsSupplementary => false;
 
-    private static CivilPrototype Schema => CivilTripleScope.Schema;
-
     public override string ToString()
     {
-        Schema.GetDateParts(DaysSinceEpoch, out int y, out int m, out int d);
+        s_Schema.GetDateParts(DaysSinceEpoch, out int y, out int m, out int d);
         return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} (Civil)");
     }
 
     public void Deconstruct(out int year, out int month, out int day) =>
-        Schema.GetDateParts(DaysSinceEpoch, out year, out month, out day);
+        s_Schema.GetDateParts(DaysSinceEpoch, out year, out month, out day);
 
     public void Deconstruct(out int year, out int dayOfYear) =>
-        year = Schema.GetYear(DaysSinceEpoch, out dayOfYear);
+        year = s_Schema.GetYear(DaysSinceEpoch, out dayOfYear);
 }
 
 public partial struct CivilTriple // Factories
 {
     public static CivilTriple FromDaysSinceEpoch(int daysSinceEpoch)
     {
-        return CivilTripleScope.CheckDaysSinceEpoch(daysSinceEpoch)
+        return daysSinceEpoch >= MinDaysSinceEpoch && daysSinceEpoch <= MaxDaysSinceEpoch
             ? new(daysSinceEpoch)
             : throw new ArgumentOutOfRangeException(nameof(daysSinceEpoch));
     }
@@ -122,7 +139,7 @@ public partial struct CivilTriple // Counting
     public int CountRemainingDaysInYear()
     {
         var (y, doy) = this;
-        return Schema.CountDaysInYear(y) - doy;
+        return s_Schema.CountDaysInYear(y) - doy;
     }
 
     public int CountElapsedDaysInMonth() => Day - 1;
@@ -130,7 +147,7 @@ public partial struct CivilTriple // Counting
     public int CountRemainingDaysInMonth()
     {
         var (y, m, d) = this;
-        return Schema.CountDaysInMonth(y, m) - d;
+        return s_Schema.CountDaysInMonth(y, m) - d;
     }
 }
 
@@ -190,7 +207,7 @@ public partial struct CivilTriple // Math
     public CivilTriple PlusDays(int days)
     {
         int daysSinceEpoch = checked(DaysSinceEpoch + days);
-        return CivilTripleScope.CheckDaysSinceEpoch(daysSinceEpoch)
+        return daysSinceEpoch >= MinDaysSinceEpoch && daysSinceEpoch <= MaxDaysSinceEpoch
             ? new(daysSinceEpoch)
             : throw new OverflowException();
     }
@@ -217,12 +234,12 @@ public partial struct CivilTriple // Math
         var (y, m, d) = this;
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
-        if (!CivilTripleScope.CheckYear(newY)) throw new OverflowException();
+        if (newY < MinYear || newY > MaxYear) throw new OverflowException();
 
         // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, Schema.CountDaysInMonth(newY, m));
+        int newD = Math.Min(d, s_Schema.CountDaysInMonth(newY, m));
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, m, newD);
+        int daysSinceEpoch = s_Schema.CountDaysSinceEpoch(newY, m, newD);
         return new CivilTriple(daysSinceEpoch);
     }
 
@@ -230,14 +247,14 @@ public partial struct CivilTriple // Math
     {
         var (y, m, d) = this;
         // Exact addition of months to a calendar month.
-        int newM = 1 + modulo(checked(m - 1 + months), Schema.MonthsInYear, out int y0);
+        int newM = 1 + modulo(checked(m - 1 + months), s_Schema.MonthsInYear, out int y0);
         int newY = checked(y + y0);
-        if (!CivilTripleScope.CheckYear(newY)) throw new OverflowException();
+        if (newY < MinYear || newY > MaxYear) throw new OverflowException();
 
         // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, Schema.CountDaysInMonth(newY, newM));
+        int newD = Math.Min(d, s_Schema.CountDaysInMonth(newY, newM));
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        int daysSinceEpoch = s_Schema.CountDaysSinceEpoch(newY, newM, newD);
         return new CivilTriple(daysSinceEpoch);
 
         static int modulo(int i, int n, out int q)
@@ -277,7 +294,7 @@ public partial struct CivilTriple // Math
         var (y, m, _) = this;
 
         // Exact difference between two calendar months.
-        int months = checked(Schema.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(s_Schema.MonthsInYear * (y - y0) + m - m0);
 
         var newStart = other.PlusMonths(months);
 
