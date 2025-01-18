@@ -10,13 +10,13 @@ using Calendrie.Hemerology;
 
 // This is a plain implementation, there is plenty room left to apply various optimizations.
 
-public sealed partial class SimpleGregorianCalendar : UserCalendar, IDateProvider<SimpleGregorianDate>
+public sealed partial class FauxGregorianCalendar : UserCalendar, IDateProvider<FauxGregorianDate>
 {
     internal const string DisplayName = "Gregorian";
 
     public const int MonthsInYear = 12;
 
-    public SimpleGregorianCalendar()
+    public FauxGregorianCalendar()
         : base(DisplayName,
             MinMaxYearScope.CreateMaximalOnOrAfterYear1<GregorianSchema>(DayZero.NewStyle))
     {
@@ -30,10 +30,10 @@ public sealed partial class SimpleGregorianCalendar : UserCalendar, IDateProvide
         PreValidator = Schema.PreValidator;
     }
 
-    public static SimpleGregorianDate MinDate => SimpleGregorianDate.MinValue;
-    public static SimpleGregorianDate MaxDate => SimpleGregorianDate.MaxValue;
+    public static FauxGregorianDate MinDate => FauxGregorianDate.MinValue;
+    public static FauxGregorianDate MaxDate => FauxGregorianDate.MaxValue;
 
-    internal static SimpleGregorianCalendar Instance { get; } = new();
+    internal static FauxGregorianCalendar Instance { get; } = new();
 
     public int MinYear { get; }
     public int MaxYear { get; }
@@ -65,9 +65,9 @@ public sealed partial class SimpleGregorianCalendar : UserCalendar, IDateProvide
     }
 }
 
-public partial class SimpleGregorianCalendar // IDateProvider<MyGregorianDate>
+public partial class FauxGregorianCalendar // IDateProvider<MyGregorianDate>
 {
-    public IEnumerable<SimpleGregorianDate> GetDaysInYear(int year)
+    public IEnumerable<FauxGregorianDate> GetDaysInYear(int year)
     {
         Scope.ValidateYear(year);
 
@@ -76,10 +76,10 @@ public partial class SimpleGregorianCalendar // IDateProvider<MyGregorianDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select new SimpleGregorianDate(daysSinceEpoch);
+               select new FauxGregorianDate(daysSinceEpoch);
     }
 
-    public IEnumerable<SimpleGregorianDate> GetDaysInMonth(int year, int month)
+    public IEnumerable<FauxGregorianDate> GetDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
 
@@ -88,39 +88,39 @@ public partial class SimpleGregorianCalendar // IDateProvider<MyGregorianDate>
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select new SimpleGregorianDate(daysSinceEpoch);
+               select new FauxGregorianDate(daysSinceEpoch);
     }
 
-    public SimpleGregorianDate GetStartOfYear(int year)
+    public FauxGregorianDate GetStartOfYear(int year)
     {
         Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetStartOfYear(year);
-        return new SimpleGregorianDate(daysSinceEpoch);
+        return new FauxGregorianDate(daysSinceEpoch);
     }
 
-    public SimpleGregorianDate GetEndOfYear(int year)
+    public FauxGregorianDate GetEndOfYear(int year)
     {
         Scope.ValidateYear(year);
         int daysSinceEpoch = Schema.GetEndOfYear(year);
-        return new SimpleGregorianDate(daysSinceEpoch);
+        return new FauxGregorianDate(daysSinceEpoch);
     }
 
-    public SimpleGregorianDate GetStartOfMonth(int year, int month)
+    public FauxGregorianDate GetStartOfMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
-        return new SimpleGregorianDate(daysSinceEpoch);
+        return new FauxGregorianDate(daysSinceEpoch);
     }
 
-    public SimpleGregorianDate GetEndOfMonth(int year, int month)
+    public FauxGregorianDate GetEndOfMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
         int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
-        return new SimpleGregorianDate(daysSinceEpoch);
+        return new FauxGregorianDate(daysSinceEpoch);
     }
 }
 
-public partial class SimpleGregorianCalendar // Date helpers (ctors, factories & conversions)
+public partial class FauxGregorianCalendar // Date helpers (ctors, factories & conversions)
 {
     internal int CountDaysSinceEpoch(int year, int month, int day)
     {
@@ -157,7 +157,7 @@ public partial class SimpleGregorianCalendar // Date helpers (ctors, factories &
         : null;
 }
 
-public partial class SimpleGregorianCalendar // Date helpers (no validation)
+public partial class FauxGregorianCalendar // Date helpers (no validation)
 {
     // These methods do not validate their parameters because they don't need to.
 
@@ -182,9 +182,9 @@ public partial class SimpleGregorianCalendar // Date helpers (no validation)
         Schema.CountDaysInMonthAfter(daysSinceEpoch);
 }
 
-public partial class SimpleGregorianCalendar // Date helpers
+public partial class FauxGregorianCalendar // Date helpers
 {
-    internal SimpleGregorianDate AdjustYear(SimpleGregorianDate date, int newYear)
+    internal FauxGregorianDate AdjustYear(FauxGregorianDate date, int newYear)
     {
         var (_, m, d) = date;
         Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
@@ -193,7 +193,7 @@ public partial class SimpleGregorianCalendar // Date helpers
         return new(daysSinceEpoch);
     }
 
-    internal SimpleGregorianDate AdjustMonth(SimpleGregorianDate date, int newMonth)
+    internal FauxGregorianDate AdjustMonth(FauxGregorianDate date, int newMonth)
     {
         var (y, _, d) = date;
         PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
@@ -202,7 +202,7 @@ public partial class SimpleGregorianCalendar // Date helpers
         return new(daysSinceEpoch);
     }
 
-    internal SimpleGregorianDate AdjustDayOfMonth(SimpleGregorianDate date, int newDay)
+    internal FauxGregorianDate AdjustDayOfMonth(FauxGregorianDate date, int newDay)
     {
         var (y, m, _) = date;
         PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
@@ -211,7 +211,7 @@ public partial class SimpleGregorianCalendar // Date helpers
         return new(daysSinceEpoch);
     }
 
-    internal SimpleGregorianDate AdjustDayOfYear(SimpleGregorianDate date, int newDayOfYear)
+    internal FauxGregorianDate AdjustDayOfYear(FauxGregorianDate date, int newDayOfYear)
     {
         int y = date.Year;
         PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
@@ -220,7 +220,7 @@ public partial class SimpleGregorianCalendar // Date helpers
         return new(daysSinceEpoch);
     }
 
-    internal SimpleGregorianDate AddYears(SimpleGregorianDate date, int years)
+    internal FauxGregorianDate AddYears(FauxGregorianDate date, int years)
     {
         var (y, m, d) = date;
         // Exact addition of years to a calendar year.
@@ -231,10 +231,10 @@ public partial class SimpleGregorianCalendar // Date helpers
         int newD = Math.Min(d, Schema.CountDaysInMonth(newY, m));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, m, newD);
-        return new SimpleGregorianDate(daysSinceEpoch);
+        return new FauxGregorianDate(daysSinceEpoch);
     }
 
-    internal SimpleGregorianDate AddMonths(SimpleGregorianDate date, int months)
+    internal FauxGregorianDate AddMonths(FauxGregorianDate date, int months)
     {
         var (y, m, d) = date;
         // Exact addition of months to a calendar month.
@@ -246,7 +246,7 @@ public partial class SimpleGregorianCalendar // Date helpers
         int newD = Math.Min(d, Schema.CountDaysInMonth(newY, newM));
 
         int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
-        return new SimpleGregorianDate(daysSinceEpoch);
+        return new FauxGregorianDate(daysSinceEpoch);
 
         static int mod(int i, int n, out int q)
         {
