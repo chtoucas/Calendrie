@@ -12,6 +12,6 @@
         EnableIsIntercalaryDay = false,
         EnableIsLeapYear = false,
 
-        MaxMonthsSinceEpochValue = "119_987",
+        MaxMonthsSinceEpochValue = "129_986",
         MonthsInYear = 13
     }.Execute() #>

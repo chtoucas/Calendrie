@@ -927,8 +927,8 @@ public readonly partial struct Egyptian13Month :
 public partial struct Egyptian13Month // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
-    /// <para>This field is a constant equal to 119_987.</para></summary>
-    private const int MaxMonthsSinceEpoch = 119_987;
+    /// <para>This field is a constant equal to 129_986.</para></summary>
+    private const int MaxMonthsSinceEpoch = 129_986;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch
