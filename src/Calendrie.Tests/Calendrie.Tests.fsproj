@@ -92,8 +92,8 @@
     <Compile Include="Tests\Systems\Persian2820Tests.fs" />
     <Compile Include="Tests\Systems\PositivistTests.fs" />
     <Compile Include="Tests\Systems\RevisedWorldTests.fs" />
-    <Compile Include="Tests\Systems\TropicaliaTests.fs" />
     <Compile Include="Tests\Systems\TabularIslamicTests.fs" />
+    <Compile Include="Tests\Systems\TropicaliaTests.fs" />
     <Compile Include="Tests\Systems\WorldTests.fs" />
     <Compile Include="Tests\Systems\ZoroastrianTests.fs" />
     <Compile Include="Tests\Samples\CivilPrototypeFacts.fs" />

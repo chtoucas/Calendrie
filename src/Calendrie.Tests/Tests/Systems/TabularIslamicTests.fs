@@ -15,6 +15,8 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
+let private calendarDataSet = StandardTabularIslamicDataSet.Instance
+
 module Prelude =
     [<Fact>]
     let ``Value of TabularIslamicCalendar.Epoch.DaysZinceZero`` () =
@@ -43,9 +45,8 @@ module Prelude =
 #endif
 
 module Conversions =
-    let private calendarDataSet = StandardTabularIslamicDataSet.Instance
-
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = TabularIslamicDate -> GregorianDate
@@ -53,6 +54,34 @@ module Conversions =
 
     type JulianDateCaster = TabularIslamicDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = TabularIslamicDate.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``TabularIslamicMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new TabularIslamicDate(y, m, d)
+        let exp = new TabularIslamicMonth(y, m)
+        // Act & Assert
+        TabularIslamicMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``TabularIslamicYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new TabularIslamicDate(y, m, d)
+        let exp = new TabularIslamicYear(y)
+        // Act & Assert
+        TabularIslamicYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``TabularIslamicYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new TabularIslamicMonth(y, m)
+        let exp = new TabularIslamicYear(y)
+        // Act & Assert
+        TabularIslamicYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -185,3 +214,68 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<TabularIslamicDate, StandardTabularIslamicDataSet>()
+
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<TabularIslamicMonth, TabularIslamicDate, StandardTabularIslamicDataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new TabularIslamicMonth(y, m)
+            let date = new TabularIslamicDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new TabularIslamicMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<TabularIslamicMonth, StandardTabularIslamicDataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<TabularIslamicYear, TabularIslamicMonth, TabularIslamicDate, StandardTabularIslamicDataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new TabularIslamicYear(y)
+            let date = new TabularIslamicMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new TabularIslamicYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new TabularIslamicYear(y)
+            let date = new TabularIslamicDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new TabularIslamicYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

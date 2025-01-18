@@ -63,6 +63,7 @@ module Conversions =
     let private calendarDataSet = StandardCoptic12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = CopticDate -> GregorianDate
@@ -70,6 +71,34 @@ module Conversions =
 
     type JulianDateCaster = CopticDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = CopticDate.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``CopticMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new CopticDate(y, m, d)
+        let exp = new CopticMonth(y, m)
+        // Act & Assert
+        CopticMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``CopticYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new CopticDate(y, m, d)
+        let exp = new CopticYear(y)
+        // Act & Assert
+        CopticYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``CopticYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new CopticMonth(y, m)
+        let exp = new CopticYear(y)
+        // Act & Assert
+        CopticYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -174,6 +203,7 @@ module Conversions13 =
     let private calendarDataSet = StandardCoptic13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Coptic13Date -> GregorianDate
@@ -181,6 +211,34 @@ module Conversions13 =
 
     type JulianDateCaster = Coptic13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Coptic13Date.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Coptic13Month:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Coptic13Date(y, m, d)
+        let exp = new Coptic13Month(y, m)
+        // Act & Assert
+        Coptic13Month.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Coptic13Year:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Coptic13Date(y, m, d)
+        let exp = new Coptic13Year(y)
+        // Act & Assert
+        Coptic13Year.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Coptic13Year:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Coptic13Month(y, m)
+        let exp = new Coptic13Year(y)
+        // Act & Assert
+        Coptic13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -282,6 +340,8 @@ module Conversions13 =
         op_Explicit_Julian Coptic13Date.MaxValue === exp
 
 module Bundles =
+    let private calendarDataSet = StandardCoptic12DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -321,7 +381,74 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new CopticDate(y, m, d)
 
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<CopticMonth, CopticDate, StandardCoptic12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new CopticMonth(y, m)
+            let date = new CopticDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new CopticMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<CopticMonth, StandardCoptic12DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<CopticYear, CopticMonth, CopticDate, StandardCoptic12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new CopticYear(y)
+            let date = new CopticMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new CopticYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new CopticYear(y)
+            let date = new CopticDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new CopticYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
+
 module Bundles13 =
+    let private calendarDataSet = StandardCoptic13DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -363,3 +490,68 @@ module Bundles13 =
         inherit IEpagomenalDayFacts<Coptic13Date, StandardCoptic13DataSet>()
 
         override __.GetDate(y, m, d) = new Coptic13Date(y, m, d)
+
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<Coptic13Month, Coptic13Date, StandardCoptic13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new Coptic13Month(y, m)
+            let date = new Coptic13Date(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new Coptic13Month(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<Coptic13Month, StandardCoptic13DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<Coptic13Year, Coptic13Month, Coptic13Date, StandardCoptic13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new Coptic13Year(y)
+            let date = new Coptic13Month(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new Coptic13Year(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new Coptic13Year(y)
+            let date = new Coptic13Date(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new Coptic13Year(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

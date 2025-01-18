@@ -64,6 +64,7 @@ module Conversions =
     let private calendarDataSet = StandardZoroastrian12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = ZoroastrianDate -> GregorianDate
@@ -71,6 +72,34 @@ module Conversions =
 
     type JulianDateCaster = ZoroastrianDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = ZoroastrianDate.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ZoroastrianMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new ZoroastrianDate(y, m, d)
+        let exp = new ZoroastrianMonth(y, m)
+        // Act & Assert
+        ZoroastrianMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ZoroastrianYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new ZoroastrianDate(y, m, d)
+        let exp = new ZoroastrianYear(y)
+        // Act & Assert
+        ZoroastrianYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``ZoroastrianYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new ZoroastrianMonth(y, m)
+        let exp = new ZoroastrianYear(y)
+        // Act & Assert
+        ZoroastrianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -175,6 +204,7 @@ module Conversions13 =
     let private calendarDataSet = StandardZoroastrian13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Zoroastrian13Date -> GregorianDate
@@ -182,6 +212,34 @@ module Conversions13 =
 
     type JulianDateCaster = Zoroastrian13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Zoroastrian13Date.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Zoroastrian13Month:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Zoroastrian13Date(y, m, d)
+        let exp = new Zoroastrian13Month(y, m)
+        // Act & Assert
+        Zoroastrian13Month.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Zoroastrian13Year:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Zoroastrian13Date(y, m, d)
+        let exp = new Zoroastrian13Year(y)
+        // Act & Assert
+        Zoroastrian13Year.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Zoroastrian13Year:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Zoroastrian13Month(y, m)
+        let exp = new Zoroastrian13Year(y)
+        // Act & Assert
+        Zoroastrian13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -283,6 +341,8 @@ module Conversions13 =
         op_Explicit_Julian Zoroastrian13Date.MaxValue === exp
 
 module Bundles =
+    let private calendarDataSet = StandardZoroastrian12DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -322,7 +382,74 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new ZoroastrianDate(y, m, d)
 
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<ZoroastrianMonth, ZoroastrianDate, StandardZoroastrian12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new ZoroastrianMonth(y, m)
+            let date = new ZoroastrianDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new ZoroastrianMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<ZoroastrianMonth, StandardZoroastrian12DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<ZoroastrianYear, ZoroastrianMonth, ZoroastrianDate, StandardZoroastrian12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new ZoroastrianYear(y)
+            let date = new ZoroastrianMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new ZoroastrianYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new ZoroastrianYear(y)
+            let date = new ZoroastrianDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new ZoroastrianYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
+
 module Bundles13 =
+    let private calendarDataSet = StandardZoroastrian13DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -364,3 +491,68 @@ module Bundles13 =
         inherit IEpagomenalDayFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>()
 
         override __.GetDate(y, m, d) = new Zoroastrian13Date(y, m, d)
+
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<Zoroastrian13Month, Zoroastrian13Date, StandardZoroastrian13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new Zoroastrian13Month(y, m)
+            let date = new Zoroastrian13Date(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new Zoroastrian13Month(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<Zoroastrian13Month, StandardZoroastrian13DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<Zoroastrian13Year, Zoroastrian13Month, Zoroastrian13Date, StandardZoroastrian13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new Zoroastrian13Year(y)
+            let date = new Zoroastrian13Month(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new Zoroastrian13Year(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new Zoroastrian13Year(y)
+            let date = new Zoroastrian13Date(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new Zoroastrian13Year(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

@@ -64,6 +64,7 @@ module Conversions =
     let private calendarDataSet = StandardEthiopic12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = EthiopicDate -> GregorianDate
@@ -71,6 +72,34 @@ module Conversions =
 
     type JulianDateCaster = EthiopicDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = EthiopicDate.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``EthiopicMonth:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new EthiopicDate(y, m, d)
+        let exp = new EthiopicMonth(y, m)
+        // Act & Assert
+        EthiopicMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``EthiopicYear:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new EthiopicDate(y, m, d)
+        let exp = new EthiopicYear(y)
+        // Act & Assert
+        EthiopicYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``EthiopicYear:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new EthiopicMonth(y, m)
+        let exp = new EthiopicYear(y)
+        // Act & Assert
+        EthiopicYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -175,6 +204,7 @@ module Conversions13 =
     let private calendarDataSet = StandardEthiopic13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Ethiopic13Date -> GregorianDate
@@ -182,6 +212,34 @@ module Conversions13 =
 
     type JulianDateCaster = Ethiopic13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Ethiopic13Date.op_Explicit
+
+    //
+    // FromXXX()
+    //
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Ethiopic13Month:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Ethiopic13Date(y, m, d)
+        let exp = new Ethiopic13Month(y, m)
+        // Act & Assert
+        Ethiopic13Month.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Ethiopic13Year:FromDate()`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Ethiopic13Date(y, m, d)
+        let exp = new Ethiopic13Year(y)
+        // Act & Assert
+        Ethiopic13Year.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Ethiopic13Year:FromMonth()`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Ethiopic13Month(y, m)
+        let exp = new Ethiopic13Year(y)
+        // Act & Assert
+        Ethiopic13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -283,6 +341,8 @@ module Conversions13 =
         op_Explicit_Julian Ethiopic13Date.MaxValue === exp
 
 module Bundles =
+    let private calendarDataSet = StandardEthiopic12DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -322,7 +382,74 @@ module Bundles =
 
         override __.GetDate(y, m, d) = new EthiopicDate(y, m, d)
 
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<EthiopicMonth, EthiopicDate, StandardEthiopic12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new EthiopicMonth(y, m)
+            let date = new EthiopicDate(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new EthiopicMonth(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<EthiopicMonth, StandardEthiopic12DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<EthiopicYear, EthiopicMonth, EthiopicDate, StandardEthiopic12DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new EthiopicYear(y)
+            let date = new EthiopicMonth(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new EthiopicYear(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new EthiopicYear(y)
+            let date = new EthiopicDate(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new EthiopicYear(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
+
 module Bundles13 =
+    let private calendarDataSet = StandardEthiopic13DataSet.Instance
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -364,3 +491,68 @@ module Bundles13 =
         inherit IEpagomenalDayFacts<Ethiopic13Date, StandardEthiopic13DataSet>()
 
         override __.GetDate(y, m, d) = new Ethiopic13Date(y, m, d)
+
+    //
+    // Month type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type MonthFacts() =
+        inherit IMonthFacts<Ethiopic13Month, Ethiopic13Date, StandardEthiopic13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfMonth()`` (info: DateInfo) =
+            let y, m, d = info.Yemoda.Deconstruct()
+            let year = new Ethiopic13Month(y, m)
+            let date = new Ethiopic13Date(y, m, d);
+            // Act & Assert
+            year.GetDayOfMonth(d) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        static member ``GetDayOfMonth() with an invalid day`` y m d =
+            let month = new Ethiopic13Month(y, m)
+            // Act & Assert
+            outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type UnsafeMonthFactoryFacts() =
+        inherit IUnsafeMonthFactoryFacts<Ethiopic13Month, StandardEthiopic13DataSet>()
+
+    //
+    // Year type
+    //
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type YearFacts() =
+        inherit IYearFacts<Ethiopic13Year, Ethiopic13Month, Ethiopic13Date, StandardEthiopic13DataSet>()
+
+        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        static member ``GetMonthOfYear()`` (info: MonthInfo) =
+            let y, m = info.Yemo.Deconstruct()
+            let year = new Ethiopic13Year(y)
+            let date = new Ethiopic13Month(y, m);
+            // Act & Assert
+            year.GetMonthOfYear(m) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        static member ``GetMonthOfYear() with an invalid month`` y m =
+            let year = new Ethiopic13Year(y)
+            // Act & Assert
+            outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
+
+        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        static member ``GetDayOfYear()`` (info: DateInfo) =
+            let y, doy = info.Yedoy.Deconstruct()
+            let year = new Ethiopic13Year(y)
+            let date = new Ethiopic13Date(y, doy);
+            // Act & Assert
+            year.GetDayOfYear(doy) === date
+
+        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+            let year = new Ethiopic13Year(y)
+            // Act & Assert
+            outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
