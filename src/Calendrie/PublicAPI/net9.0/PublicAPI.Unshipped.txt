@@ -477,8 +477,6 @@ Calendrie.Hemerology.IDaySegment<TDate>.EnumerateDays() -> System.Collections.Ge
 Calendrie.Hemerology.IDaySegment<TDate>.MaxDay.get -> TDate
 Calendrie.Hemerology.IDaySegment<TDate>.MinDay.get -> TDate
 Calendrie.Hemerology.IDaySegment<TDate>.ToDayRange() -> Calendrie.Core.Intervals.Range<TDate>
-Calendrie.Hemerology.IEpagomenalDay
-Calendrie.Hemerology.IEpagomenalDay.IsEpagomenal(out int epagomenalNumber) -> bool
 Calendrie.Hemerology.IMonth
 Calendrie.Hemerology.IMonth.Calendar.get -> Calendrie.Hemerology.Calendar!
 Calendrie.Hemerology.IMonth.Century.get -> int

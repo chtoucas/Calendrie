@@ -19,7 +19,6 @@ open Xunit
 
 open type Calendrie.Extensions.GregorianDateExtensions
 
-let private chr = GregorianCalendar.Instance
 // NB: notice the use of UnboundedGregorianDataSet.
 let private calendarDataSet = UnboundedGregorianDataSet.Instance
 
@@ -170,6 +169,8 @@ module Conversions =
         GregorianDate.op_Explicit GregorianDate.MaxValue === exp
 
 module Extensions =
+    let private chr = GregorianCalendar.Instance
+
     let dayOfWeekData = calendarDataSet.DayOfWeekData
     let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(chr.Scope.Domain)
 
@@ -195,7 +196,7 @@ module Extensions =
 module Bundles =
     [<Sealed>]
     type CalendaTests() =
-        inherit CalendarFacts<GregorianCalendar, UnboundedGregorianDataSet>(chr)
+        inherit CalendarFacts<GregorianCalendar, UnboundedGregorianDataSet>(GregorianCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
@@ -357,7 +358,7 @@ module Bundles =
             let month = new GregorianMonth(-999_998, 1);
             month.ToString() === "01/999999 BCE (Gregorian)"
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(MonthFacts.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new GregorianMonth(y, m)
@@ -365,7 +366,7 @@ module Bundles =
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        [<Theory; MemberData(nameof(MonthFacts.InvalidDayFieldData))>]
         static member ``GetDayOfMonth() with an invalid day`` y m d =
             let month = new GregorianMonth(y, m)
             // Act & Assert
@@ -398,7 +399,7 @@ module Bundles =
             let year = new GregorianYear(-999_998);
             year.ToString() === "999999 BCE (Gregorian)"
 
-        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new GregorianYear(y)
@@ -406,13 +407,13 @@ module Bundles =
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidMonthFieldData))>]
         static member ``GetMonthOfYear() with an invalid month`` y m =
             let year = new GregorianYear(y)
             // Act & Assert
             outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.DateInfoData))>]
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new GregorianYear(y)
@@ -420,7 +421,7 @@ module Bundles =
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidDayOfYearFieldData))>]
         static member ``GetDayOfYear() with an invalid day of the year`` y doy =
             let year = new GregorianYear(y)
             // Act & Assert

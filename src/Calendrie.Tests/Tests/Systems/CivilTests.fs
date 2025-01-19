@@ -19,7 +19,6 @@ open Xunit
 
 open type Calendrie.Extensions.CivilDateExtensions
 
-let private chr = CivilCalendar.Instance
 let private calendarDataSet = StandardGregorianDataSet.Instance
 
 module Prelude =
@@ -318,6 +317,8 @@ module Conversions =
         (CivilYear.MaxValue : GregorianYear) === exp
 
 module Extensions =
+    let private chr = CivilCalendar.Instance
+
     let dayOfWeekData = calendarDataSet.DayOfWeekData
     let dayNumberToDayOfWeekData = CalCalDataSet.GetDayNumberToDayOfWeekData(chr.Scope.Domain)
 
@@ -343,7 +344,7 @@ module Extensions =
 module Bundles =
     [<Sealed>]
     type CalendaTests() =
-        inherit CalendarFacts<CivilCalendar, StandardGregorianDataSet>(chr)
+        inherit CalendarFacts<CivilCalendar, StandardGregorianDataSet>(CivilCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
@@ -470,7 +471,7 @@ module Bundles =
     type MonthFacts() =
         inherit IMonthFacts<CivilMonth, CivilDate, StandardGregorianDataSet>()
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(MonthFacts.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new CivilMonth(y, m)
@@ -478,7 +479,7 @@ module Bundles =
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        [<Theory; MemberData(nameof(MonthFacts.InvalidDayFieldData))>]
         static member ``GetDayOfMonth() with an invalid day`` y m d =
             let month = new CivilMonth(y, m)
             // Act & Assert
@@ -496,7 +497,7 @@ module Bundles =
     type YearFacts() =
         inherit IYearFacts<CivilYear, CivilMonth, CivilDate, StandardGregorianDataSet>()
 
-        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new CivilYear(y)
@@ -504,13 +505,13 @@ module Bundles =
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidMonthFieldData))>]
         static member ``GetMonthOfYear() with an invalid month`` y m =
             let year = new CivilYear(y)
             // Act & Assert
             outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.DateInfoData))>]
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new CivilYear(y)
@@ -518,7 +519,7 @@ module Bundles =
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidDayOfYearFieldData))>]
         static member ``GetDayOfYear() with an invalid day of the year`` y doy =
             let year = new CivilYear(y)
             // Act & Assert
