@@ -3,6 +3,8 @@
 
 namespace Calendrie.Systems;
 
+// TODO(code): create a PaxWeek type.
+
 public partial struct PaxMonth // Complements
 {
     public bool IsPaxMonthOfYear
