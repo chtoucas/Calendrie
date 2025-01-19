@@ -246,7 +246,7 @@ module Bundles =
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
         //
-        // World-only
+        // Featurettes
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]

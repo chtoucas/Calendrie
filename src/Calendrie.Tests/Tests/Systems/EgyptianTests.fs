@@ -368,7 +368,7 @@ module Bundles =
         static member EpagomenalDayInfoData with get() = DateFacts.DataSet.EpagomenalDayInfoData
 
         //
-        // Egyptian-only
+        // Featurettes
         //
 
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
@@ -492,7 +492,7 @@ module Bundles13 =
         static member EpagomenalDayInfoData with get() = DateFacts.DataSet.EpagomenalDayInfoData
 
         //
-        // Egyptian-only
+        // Featurettes
         //
 
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
@@ -547,7 +547,7 @@ module Bundles13 =
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
         //
-        // Egyptian-only
+        // Featurettes
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MonthInfoData))>]

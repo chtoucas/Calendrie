@@ -245,7 +245,7 @@ module Bundles =
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
         //
-        // Pax-only
+        // Featurettes
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
@@ -313,7 +313,7 @@ module Bundles =
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
 
         //
-        // Pax-only
+        // Featurettes
         //
 
         [<Theory; MemberData(nameof(YearFacts.MoreYearInfoData))>]
