@@ -91,6 +91,8 @@ type Coptic12Tests() =
 type Coptic13Tests() =
     inherit LimitSchemaFacts<Coptic13Schema, Coptic13DataSet>(new Coptic13Schema())
 
+    static member EpagomenalDayInfoData with get() = Coptic13Tests.DataSet.EpagomenalDayInfoData
+
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
     override x.Profile_Prop() = x.SchemaUT.Profile === CalendricalProfile.Other
@@ -109,9 +111,36 @@ type Coptic13Tests() =
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<Coptic13Schema>()
 
+    //
+    // Coptic-only
+    //
+
+    [<Theory; MemberData(nameof(Coptic13Tests.DateInfoData))>]
+    member x.``IsEpagomenalDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act
+        let isEpagomenal, epanum = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        info.IsSupplementary === isEpagomenal
+        if isEpagomenal then
+            epanum > 0 |> ok
+        else
+            epanum === 0
+
+    [<Theory; MemberData(nameof(Coptic13Tests.EpagomenalDayInfoData))>]
+    member x.``IsEpagomenalDay() check out param`` (info: YemodaAnd<int>) =
+        let y, m, d, epanum = info.Deconstruct()
+        // Act
+        let isEpagomenal, epagomenalNumber = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        isEpagomenal |> ok
+        epagomenalNumber === epanum
+
 [<Sealed>]
 type Egyptian12Tests() =
     inherit LimitSchemaFacts<Egyptian12Schema, Egyptian12DataSet>(new Egyptian12Schema())
+
+    static member EpagomenalDayInfoData with get() = Egyptian12Tests.DataSet.EpagomenalDayInfoData
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.AnnusVagus
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.None
@@ -122,9 +151,36 @@ type Egyptian12Tests() =
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<Egyptian12Schema>()
 
+    //
+    // Egyptian-only
+    //
+
+    [<Theory; MemberData(nameof(Egyptian12Tests.DateInfoData))>]
+    member x.``IsEpagomenalDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act
+        let isEpagomenal, epanum = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        info.IsSupplementary === isEpagomenal
+        if isEpagomenal then
+            epanum > 0 |> ok
+        else
+            epanum === 0
+
+    [<Theory; MemberData(nameof(Egyptian12Tests.EpagomenalDayInfoData))>]
+    member x.``IsEpagomenalDay() check out param`` (info: YemodaAnd<int>) =
+        let y, m, d, epanum = info.Deconstruct()
+        // Act
+        let isEpagomenal, epagomenalNumber = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        isEpagomenal |> ok
+        epagomenalNumber === epanum
+
 [<Sealed>]
 type Egyptian13Tests() =
     inherit LimitSchemaFacts<Egyptian13Schema, Egyptian13DataSet>(new Egyptian13Schema())
+
+    static member EpagomenalDayInfoData with get() = Egyptian13Tests.DataSet.EpagomenalDayInfoData
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.AnnusVagus
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.None
@@ -135,9 +191,36 @@ type Egyptian13Tests() =
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<Egyptian13Schema>()
 
+    //
+    // Egyptian-only
+    //
+
+    [<Theory; MemberData(nameof(Egyptian13Tests.DateInfoData))>]
+    member x.``IsEpagomenalDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act
+        let isEpagomenal, epanum = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        info.IsSupplementary === isEpagomenal
+        if isEpagomenal then
+            epanum > 0 |> ok
+        else
+            epanum === 0
+
+    [<Theory; MemberData(nameof(Egyptian13Tests.EpagomenalDayInfoData))>]
+    member x.``IsEpagomenalDay() check out param`` (info: YemodaAnd<int>) =
+        let y, m, d, epanum = info.Deconstruct()
+        // Act
+        let isEpagomenal, epagomenalNumber = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        isEpagomenal |> ok
+        epagomenalNumber === epanum
+
 [<Sealed>]
 type FrenchRepublican12Tests() =
     inherit LimitSchemaFacts<FrenchRepublican12Schema, FrenchRepublican12DataSet>(new FrenchRepublican12Schema())
+
+    static member EpagomenalDayInfoData with get() = FrenchRepublican12Tests.DataSet.EpagomenalDayInfoData
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -148,9 +231,36 @@ type FrenchRepublican12Tests() =
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<FrenchRepublican12Schema>()
 
+    //
+    // FrenchRepublican-only
+    //
+
+    [<Theory; MemberData(nameof(FrenchRepublican12Tests.DateInfoData))>]
+    member x.``IsEpagomenalDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act
+        let isEpagomenal, epanum = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        info.IsSupplementary === isEpagomenal
+        if isEpagomenal then
+            epanum > 0 |> ok
+        else
+            epanum === 0
+
+    [<Theory; MemberData(nameof(FrenchRepublican12Tests.EpagomenalDayInfoData))>]
+    member x.``IsEpagomenalDay() check out param`` (info: YemodaAnd<int>) =
+        let y, m, d, epanum = info.Deconstruct()
+        // Act
+        let isEpagomenal, epagomenalNumber = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        isEpagomenal |> ok
+        epagomenalNumber === epanum
+
 [<Sealed>]
 type FrenchRepublican13Tests() =
     inherit LimitSchemaFacts<FrenchRepublican13Schema, FrenchRepublican13DataSet>(new FrenchRepublican13Schema())
+
+    static member EpagomenalDayInfoData with get() = FrenchRepublican13Tests.DataSet.EpagomenalDayInfoData
 
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Solar
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Days
@@ -160,6 +270,31 @@ type FrenchRepublican13Tests() =
 
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<FrenchRepublican13Schema>()
+
+    //
+    // FrenchRepublican-only
+    //
+
+    [<Theory; MemberData(nameof(FrenchRepublican13Tests.DateInfoData))>]
+    member x.``IsEpagomenalDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act
+        let isEpagomenal, epanum = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        info.IsSupplementary === isEpagomenal
+        if isEpagomenal then
+            epanum > 0 |> ok
+        else
+            epanum === 0
+
+    [<Theory; MemberData(nameof(FrenchRepublican13Tests.EpagomenalDayInfoData))>]
+    member x.``IsEpagomenalDay() check out param`` (info: YemodaAnd<int>) =
+        let y, m, d, epanum = info.Deconstruct()
+        // Act
+        let isEpagomenal, epagomenalNumber = x.SchemaUT.IsEpagomenalDay(y, m, d)
+        // Assert
+        isEpagomenal |> ok
+        epagomenalNumber === epanum
 
 [<Sealed>]
 type GregorianTests() =

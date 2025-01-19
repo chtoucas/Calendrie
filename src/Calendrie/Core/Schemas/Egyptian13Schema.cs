@@ -20,7 +20,6 @@ using Ptolemaic13 = PtolemaicSchema.Thirteen;
 /// </remarks>
 public sealed partial class Egyptian13Schema :
     EgyptianSchema,
-    IEpagomenalDayFeaturette,
     IDaysInMonths,
     ISchemaActivator<Egyptian13Schema>
 {
@@ -69,8 +68,14 @@ public sealed partial class Egyptian13Schema :
 
 public partial class Egyptian13Schema // Year, month or day infos
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified date is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// </summary>
     [Pure]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public bool IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) =>
         Ptolemaic13.IsEpagomenalDay(m, d, out epagomenalNumber);
 

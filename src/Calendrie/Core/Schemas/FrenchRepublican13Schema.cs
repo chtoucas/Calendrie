@@ -12,7 +12,6 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 public sealed partial class FrenchRepublican13Schema :
     FrenchRepublicanSchema,
-    IEpagomenalDayFeaturette,
     IDaysInMonths,
     ISchemaActivator<FrenchRepublican13Schema>
 {
@@ -68,8 +67,14 @@ public sealed partial class FrenchRepublican13Schema :
 
 public partial class FrenchRepublican13Schema // Year, month or day infos
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified date is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// </summary>
     [Pure]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public bool IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) =>
         Thirteen.IsEpagomenalDay(m, d, out epagomenalNumber);
 
