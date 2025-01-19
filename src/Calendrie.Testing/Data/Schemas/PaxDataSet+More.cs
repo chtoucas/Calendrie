@@ -49,6 +49,7 @@ public partial class PaxDataSet // Supplementary data
         new(LeapYear, 14, false, true),
     ];
 
+    /// <summary>Year, week of the year (Yewe), isIntercalary.</summary>
     public static DataGroup<WeekInfo> WeekInfoData { get; } =
     [
         // Common year.

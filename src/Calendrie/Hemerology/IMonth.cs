@@ -104,8 +104,6 @@ public interface IMonth
     /// </summary>
     [Pure] int CountRemainingMonthsInYear();
 
-    // REVIEW(code): CountElapsedDaysInYear() and CountRemainingDaysInYear()?
-
     /// <summary>
     /// Obtains the number of whole days in the year elapsed since the start of
     /// the year and before this month instance.

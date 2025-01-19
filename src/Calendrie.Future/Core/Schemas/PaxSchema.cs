@@ -101,7 +101,7 @@ public sealed partial class PaxSchema :
 public partial class PaxSchema // ILeapWeekSchema
 {
     /// <inheritdoc />
-    public DayOfWeek FirstDayOfWeek => DayOfWeek.Sunday;
+    public DayOfWeek FirstDayOfWeek { get; } = DayOfWeek.Sunday;
 
     /// <inheritdoc />
     [Pure]

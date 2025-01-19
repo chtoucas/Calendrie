@@ -11,6 +11,7 @@ open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
 open Calendrie.Core.Validation
 open Calendrie.Testing
+open Calendrie.Testing.Data
 open Calendrie.Testing.Data.Bounded
 open Calendrie.Testing.Data.Schemas
 open Calendrie.Testing.Facts.Core
@@ -186,6 +187,11 @@ type FauxLunisolarTests() =
 type PaxTests() =
     inherit ICalendricalSchemaFacts<PaxSchema, PaxDataSet>(new PaxSchema())
 
+    static member MoreYearInfoData with get() = PaxDataSet.MoreYearInfoData
+    static member MoreMonthInfoData with get() = PaxDataSet.MoreMonthInfoData
+    static member WeekInfoData with get() = PaxDataSet.WeekInfoData
+    static member DaysSinceEpochYewedaInfoData with get() = PaxDataSet.DaysSinceEpochYewedaInfoData
+
     override x.Algorithm_Prop() = x.SchemaUT.Algorithm === CalendricalAlgorithm.Arithmetical
     override x.Family_Prop() = x.SchemaUT.Family === CalendricalFamily.Other
     override x.PeriodicAdjustments_Prop() = x.SchemaUT.PeriodicAdjustments === CalendricalAdjustments.Weeks
@@ -201,6 +207,48 @@ type PaxTests() =
 
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<PaxSchema>()
+
+    //
+    // Pax-only
+    //
+
+    [<Theory; MemberData(nameof(PaxTests.MoreMonthInfoData))>]
+    member x.``IsPaxMonth()`` (info: YemoAnd<bool, bool>) =
+        let (y, m, isPaxMonthOfYear, _) = info.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.IsPaxMonth(y, m) === isPaxMonthOfYear
+
+    [<Theory; MemberData(nameof(PaxTests.MoreMonthInfoData))>]
+    member x.``IsLastMonthOfYear()`` (info: YemoAnd<bool, bool>) =
+        let (y, m, _, isLastMonthOfYear) = info.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.IsLastMonthOfYear(y, m) === isLastMonthOfYear
+
+    //
+    // ILeapWeekSchema
+    //
+
+    [<Fact>]
+    member x.``Property FirstDayOfWeek``() =
+        x.SchemaUT.FirstDayOfWeek === DayOfWeek.Sunday
+
+    [<Theory; MemberData(nameof(PaxTests.WeekInfoData))>]
+    member x.``IsIntercalaryWeek()`` (info: WeekInfo) =
+        let (y, woy) = info.Yewe.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.IsIntercalaryWeek(y, woy) === info.IsIntercalary
+
+    [<Theory; MemberData(nameof(PaxTests.MoreYearInfoData))>]
+    member x.``CountWeeksInYear()`` (info: YearAnd<int>) =
+        let (y, weeksInYear) = info.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.CountWeeksInYear(y) === weeksInYear
+
+    [<Theory; MemberData(nameof(PaxTests.DaysSinceEpochYewedaInfoData))>]
+    member x.``CountDaysSinceEpoch()`` (info: DaysSinceEpochYewedaInfo) =
+        let (daysSinceEpoch, y, woy, dow) = info.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.CountDaysSinceEpoch(y, woy, dow) === daysSinceEpoch
 
 [<Sealed>]
 type Persian2820Tests() =
