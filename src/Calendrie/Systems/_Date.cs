@@ -5,9 +5,15 @@ namespace Calendrie.Systems;
 
 using Calendrie.Hemerology;
 
-public partial struct ArmenianDate : IEpagomenalDay // Complements
+public partial struct ArmenianDate // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -19,7 +25,13 @@ public partial struct ArmenianDate : IEpagomenalDay // Complements
 
 public partial struct Armenian13Date : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -31,7 +43,13 @@ public partial struct Armenian13Date : IEpagomenalDay // Complements
 
 public partial struct CopticDate : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -43,7 +61,13 @@ public partial struct CopticDate : IEpagomenalDay // Complements
 
 public partial struct Coptic13Date : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -55,7 +79,13 @@ public partial struct Coptic13Date : IEpagomenalDay // Complements
 
 public partial struct EgyptianDate : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -67,7 +97,13 @@ public partial struct EgyptianDate : IEpagomenalDay // Complements
 
 public partial struct Egyptian13Date : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -79,7 +115,13 @@ public partial struct Egyptian13Date : IEpagomenalDay // Complements
 
 public partial struct EthiopicDate : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -91,7 +133,13 @@ public partial struct EthiopicDate : IEpagomenalDay // Complements
 
 public partial struct Ethiopic13Date : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -103,7 +151,13 @@ public partial struct Ethiopic13Date : IEpagomenalDay // Complements
 
 public partial struct FrenchRepublicanDate : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -115,7 +169,13 @@ public partial struct FrenchRepublicanDate : IEpagomenalDay // Complements
 
 public partial struct FrenchRepublican13Date : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -125,9 +185,14 @@ public partial struct FrenchRepublican13Date : IEpagomenalDay // Complements
     }
 }
 
-public partial struct WorldDate : IBlankDay // Complements
+public partial struct WorldDate // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Returns <see langword="true"/> if the current instance is a blank day;
+    /// otherwise returns <see langword="false"/>.
+    /// <para>A blank day does not belong to any month and is kept outside the
+    /// weekday cycle.</para>
+    /// </summary>
     public bool IsBlank
     {
         get
@@ -141,7 +206,13 @@ public partial struct WorldDate : IBlankDay // Complements
 
 public partial struct ZoroastrianDate : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
@@ -153,7 +224,13 @@ public partial struct ZoroastrianDate : IEpagomenalDay // Complements
 
 public partial struct Zoroastrian13Date : IEpagomenalDay // Complements
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the current instance is an epagomenal day or not, and
+    /// also returns the epagomenal number of the day in an output parameter,
+    /// zero if the date is not an epagomenal day.
+    /// <para>Epagomenal days are usually found in descendants of the Egyptian
+    /// calendar.</para>
+    /// </summary>
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {

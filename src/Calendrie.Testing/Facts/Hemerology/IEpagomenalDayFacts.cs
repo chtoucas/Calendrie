@@ -6,7 +6,7 @@ namespace Calendrie.Testing.Facts.Hemerology;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
-public abstract class IEpagomenalDayFacts<TDate, TDataSet> :
+internal abstract class IEpagomenalDayFacts<TDate, TDataSet> :
     CalendarDataConsumer<TDataSet>
     where TDate : IEpagomenalDay
     where TDataSet : ICalendarDataSet, IEpagomenalDataSet, ISingleton<TDataSet>

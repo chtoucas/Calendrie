@@ -8,7 +8,7 @@ namespace Calendrie.Hemerology;
 /// <para>The epagomenal days are usually found in descendants of the Egyptian
 /// calendar.</para>
 /// </summary>
-public interface IEpagomenalDay
+internal interface IEpagomenalDay
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
