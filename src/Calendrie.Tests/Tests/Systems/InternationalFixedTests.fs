@@ -225,7 +225,7 @@ module Bundles =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new InternationalFixedMonth(y, m)
-            let date = new InternationalFixedDate(y, m, d);
+            let date = new InternationalFixedDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -253,7 +253,7 @@ module Bundles =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new InternationalFixedYear(y)
-            let date = new InternationalFixedMonth(y, m);
+            let date = new InternationalFixedMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -267,7 +267,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new InternationalFixedYear(y)
-            let date = new InternationalFixedDate(y, doy);
+            let date = new InternationalFixedDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 

@@ -374,7 +374,7 @@ module Bundles =
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
         static member ``IsEpagomenal()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
-            let date = new ArmenianDate(y, m, d);
+            let date = new ArmenianDate(y, m, d)
             // Act
             let isEpagomenal, epanum = date.IsEpagomenal()
             // Assert
@@ -387,7 +387,7 @@ module Bundles =
         [<Theory; MemberData(nameof(DateFacts.EpagomenalDayInfoData))>]
         static member ``IsEpagomenal() check out param`` (info: YemodaAnd<int>) =
             let y, m, d, epanum = info.Deconstruct()
-            let date = new ArmenianDate(y, m, d);
+            let date = new ArmenianDate(y, m, d)
             // Act
             let isEpagomenal, epagomenalNumber = date.IsEpagomenal()
             // Assert
@@ -412,7 +412,7 @@ module Bundles =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new ArmenianMonth(y, m)
-            let date = new ArmenianDate(y, m, d);
+            let date = new ArmenianDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -440,7 +440,7 @@ module Bundles =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new ArmenianYear(y)
-            let date = new ArmenianMonth(y, m);
+            let date = new ArmenianMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -454,7 +454,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new ArmenianYear(y)
-            let date = new ArmenianDate(y, doy);
+            let date = new ArmenianDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
@@ -498,7 +498,7 @@ module Bundles13 =
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
         static member ``IsEpagomenal()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
-            let date = new Armenian13Date(y, m, d);
+            let date = new Armenian13Date(y, m, d)
             // Act
             let isEpagomenal, epanum = date.IsEpagomenal()
             // Assert
@@ -511,7 +511,7 @@ module Bundles13 =
         [<Theory; MemberData(nameof(DateFacts.EpagomenalDayInfoData))>]
         static member ``IsEpagomenal() check out param`` (info: YemodaAnd<int>) =
             let y, m, d, epanum = info.Deconstruct()
-            let date = new Armenian13Date(y, m, d);
+            let date = new Armenian13Date(y, m, d)
             // Act
             let isEpagomenal, epagomenalNumber = date.IsEpagomenal()
             // Assert
@@ -536,7 +536,7 @@ module Bundles13 =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new Armenian13Month(y, m)
-            let date = new Armenian13Date(y, m, d);
+            let date = new Armenian13Date(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -575,7 +575,7 @@ module Bundles13 =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new Armenian13Year(y)
-            let date = new Armenian13Month(y, m);
+            let date = new Armenian13Month(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -589,7 +589,7 @@ module Bundles13 =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new Armenian13Year(y)
-            let date = new Armenian13Date(y, doy);
+            let date = new Armenian13Date(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 

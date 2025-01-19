@@ -222,17 +222,17 @@ module Bundles =
 
         [<Fact>]
         static member ``ToString() 31/12/999999`` () =
-            let date = new GregorianDate(999_999, 12, 31);
+            let date = new GregorianDate(999_999, 12, 31)
             date.ToString() === "31/12/999999 (Gregorian)"
 
         [<Fact>]
         static member ``ToString() 31/12/0001 BCE`` () =
-            let date = new GregorianDate(0, 12, 31);
+            let date = new GregorianDate(0, 12, 31)
             date.ToString() === "31/12/0001 BCE (Gregorian)"
 
         [<Fact>]
         static member ``ToString() 01/01/999999 BCE`` () =
-            let date = new GregorianDate(-999_998, 1, 1);
+            let date = new GregorianDate(-999_998, 1, 1)
             date.ToString() === "01/01/999999 BCE (Gregorian)"
 
         //
@@ -345,24 +345,24 @@ module Bundles =
 
         [<Fact>]
         static member ``ToString() 12/999999`` () =
-            let month = new GregorianMonth(999_999, 12);
+            let month = new GregorianMonth(999_999, 12)
             month.ToString() === "12/999999 (Gregorian)"
 
         [<Fact>]
         static member ``ToString() 12/0001 BCE`` () =
-            let month = new GregorianMonth(0, 12);
+            let month = new GregorianMonth(0, 12)
             month.ToString() === "12/0001 BCE (Gregorian)"
 
         [<Fact>]
         static member ``ToString() 01/999999 BCE`` () =
-            let month = new GregorianMonth(-999_998, 1);
+            let month = new GregorianMonth(-999_998, 1)
             month.ToString() === "01/999999 BCE (Gregorian)"
 
         [<Theory; MemberData(nameof(MonthFacts.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new GregorianMonth(y, m)
-            let date = new GregorianDate(y, m, d);
+            let date = new GregorianDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -386,24 +386,24 @@ module Bundles =
 
         [<Fact>]
         static member ``ToString() 999999`` () =
-            let year = new GregorianYear(999_999);
+            let year = new GregorianYear(999_999)
             year.ToString() === "999999 (Gregorian)"
 
         [<Fact>]
         static member ``ToString() 0001 BCE`` () =
-            let year = new GregorianYear(0);
+            let year = new GregorianYear(0)
             year.ToString() === "0001 BCE (Gregorian)"
 
         [<Fact>]
         static member ``ToString() 999999 BCE`` () =
-            let year = new GregorianYear(-999_998);
+            let year = new GregorianYear(-999_998)
             year.ToString() === "999999 BCE (Gregorian)"
 
         [<Theory; MemberData(nameof(YearFacts.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new GregorianYear(y)
-            let date = new GregorianMonth(y, m);
+            let date = new GregorianMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -417,7 +417,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new GregorianYear(y)
-            let date = new GregorianDate(y, doy);
+            let date = new GregorianDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 

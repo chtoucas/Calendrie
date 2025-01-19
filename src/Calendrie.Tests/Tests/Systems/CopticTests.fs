@@ -373,7 +373,7 @@ module Bundles =
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
         static member ``IsEpagomenal()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
-            let date = new CopticDate(y, m, d);
+            let date = new CopticDate(y, m, d)
             // Act
             let isEpagomenal, epanum = date.IsEpagomenal()
             // Assert
@@ -386,7 +386,7 @@ module Bundles =
         [<Theory; MemberData(nameof(DateFacts.EpagomenalDayInfoData))>]
         static member ``IsEpagomenal() check out param`` (info: YemodaAnd<int>) =
             let y, m, d, epanum = info.Deconstruct()
-            let date = new CopticDate(y, m, d);
+            let date = new CopticDate(y, m, d)
             // Act
             let isEpagomenal, epagomenalNumber = date.IsEpagomenal()
             // Assert
@@ -411,7 +411,7 @@ module Bundles =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new CopticMonth(y, m)
-            let date = new CopticDate(y, m, d);
+            let date = new CopticDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -439,7 +439,7 @@ module Bundles =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new CopticYear(y)
-            let date = new CopticMonth(y, m);
+            let date = new CopticMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -453,7 +453,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new CopticYear(y)
-            let date = new CopticDate(y, doy);
+            let date = new CopticDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
@@ -497,7 +497,7 @@ module Bundles13 =
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
         static member ``IsEpagomenal()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
-            let date = new Coptic13Date(y, m, d);
+            let date = new Coptic13Date(y, m, d)
             // Act
             let isEpagomenal, epanum = date.IsEpagomenal()
             // Assert
@@ -510,7 +510,7 @@ module Bundles13 =
         [<Theory; MemberData(nameof(DateFacts.EpagomenalDayInfoData))>]
         static member ``IsEpagomenal() check out param`` (info: YemodaAnd<int>) =
             let y, m, d, epanum = info.Deconstruct()
-            let date = new Coptic13Date(y, m, d);
+            let date = new Coptic13Date(y, m, d)
             // Act
             let isEpagomenal, epagomenalNumber = date.IsEpagomenal()
             // Assert
@@ -535,7 +535,7 @@ module Bundles13 =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new Coptic13Month(y, m)
-            let date = new Coptic13Date(y, m, d);
+            let date = new Coptic13Date(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -574,7 +574,7 @@ module Bundles13 =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new Coptic13Year(y)
-            let date = new Coptic13Month(y, m);
+            let date = new Coptic13Month(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -588,7 +588,7 @@ module Bundles13 =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new Coptic13Year(y)
-            let date = new Coptic13Date(y, doy);
+            let date = new Coptic13Date(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 

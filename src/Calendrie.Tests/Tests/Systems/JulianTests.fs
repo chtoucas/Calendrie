@@ -196,17 +196,17 @@ module Bundles =
 
         [<Fact>]
         static member ``ToString() 31/12/999999`` () =
-            let date = new JulianDate(999_999, 12, 31);
+            let date = new JulianDate(999_999, 12, 31)
             date.ToString() === "31/12/999999 (Julian)"
 
         [<Fact>]
         static member ``ToString() 31/12/0001 BCE`` () =
-            let date = new JulianDate(0, 12, 31);
+            let date = new JulianDate(0, 12, 31)
             date.ToString() === "31/12/0001 BCE (Julian)"
 
         [<Fact>]
         static member ``ToString() 01/01/999999 BCE`` () =
-            let date = new JulianDate(-999_998, 1, 1);
+            let date = new JulianDate(-999_998, 1, 1)
             date.ToString() === "01/01/999999 BCE (Julian)"
 
     [<Sealed>]
@@ -228,24 +228,24 @@ module Bundles =
 
         [<Fact>]
         static member ``ToString() 12/999999`` () =
-            let month = new JulianMonth(999_999, 12);
+            let month = new JulianMonth(999_999, 12)
             month.ToString() === "12/999999 (Julian)"
 
         [<Fact>]
         static member ``ToString() 12/0001 BCE`` () =
-            let month = new JulianMonth(0, 12);
+            let month = new JulianMonth(0, 12)
             month.ToString() === "12/0001 BCE (Julian)"
 
         [<Fact>]
         static member ``ToString() 01/999999 BCE`` () =
-            let month = new JulianMonth(-999_998, 1);
+            let month = new JulianMonth(-999_998, 1)
             month.ToString() === "01/999999 BCE (Julian)"
 
         [<Theory; MemberData(nameof(MonthFacts.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new JulianMonth(y, m)
-            let date = new JulianDate(y, m, d);
+            let date = new JulianDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -269,24 +269,24 @@ module Bundles =
 
         [<Fact>]
         static member ``ToString() 999999`` () =
-            let year = new JulianYear(999_999);
+            let year = new JulianYear(999_999)
             year.ToString() === "999999 (Julian)"
 
         [<Fact>]
         static member ``ToString() 0001 BCE`` () =
-            let year = new JulianYear(0);
+            let year = new JulianYear(0)
             year.ToString() === "0001 BCE (Julian)"
 
         [<Fact>]
         static member ``ToString() 999999 BCE`` () =
-            let year = new JulianYear(-999_998);
+            let year = new JulianYear(-999_998)
             year.ToString() === "999999 BCE (Julian)"
 
         [<Theory; MemberData(nameof(YearFacts.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new JulianYear(y)
-            let date = new JulianMonth(y, m);
+            let date = new JulianMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -300,7 +300,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new JulianYear(y)
-            let date = new JulianDate(y, doy);
+            let date = new JulianDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 

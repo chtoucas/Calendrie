@@ -225,7 +225,7 @@ module Bundles =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new Persian2820Month(y, m)
-            let date = new Persian2820Date(y, m, d);
+            let date = new Persian2820Date(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -253,7 +253,7 @@ module Bundles =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new Persian2820Year(y)
-            let date = new Persian2820Month(y, m);
+            let date = new Persian2820Month(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -267,7 +267,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new Persian2820Year(y)
-            let date = new Persian2820Date(y, doy);
+            let date = new Persian2820Date(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 

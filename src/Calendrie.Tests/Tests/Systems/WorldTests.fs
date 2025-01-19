@@ -236,7 +236,7 @@ module Bundles =
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new WorldMonth(y, m)
-            let date = new WorldDate(y, m, d);
+            let date = new WorldDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
@@ -253,7 +253,7 @@ module Bundles =
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
         static member ``WorldMonth.CountDaysInWorldMonth()`` (info: YemoAnd<int>) =
             let (y, m, daysInMonth) = info.Deconstruct()
-            let month = new WorldMonth(y, m);
+            let month = new WorldMonth(y, m)
 
             month.CountDaysInWorldMonth() === daysInMonth
 
@@ -275,7 +275,7 @@ module Bundles =
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new WorldYear(y)
-            let date = new WorldMonth(y, m);
+            let date = new WorldMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
@@ -289,7 +289,7 @@ module Bundles =
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new WorldYear(y)
-            let date = new WorldDate(y, doy);
+            let date = new WorldDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
