@@ -12,18 +12,19 @@ using Calendrie.Testing.Data;
 /// <summary>
 /// Provides facts about the <see cref="LimitSchema"/> type.
 /// </summary>
-public abstract partial class LimitSchemaFacts<TDataSet> :
-    ICalendricalSchemaFacts<LimitSchema, TDataSet>
+public abstract partial class LimitSchemaFacts<TSchema, TDataSet> :
+    ICalendricalSchemaFacts<TSchema, TDataSet>
+    where TSchema : LimitSchema
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    protected LimitSchemaFacts(LimitSchema schema) : base(schema) { }
+    protected LimitSchemaFacts(TSchema schema) : base(schema) { }
 
     // This property is actually part of CalendricalSchema but being internal
     // it's not publicly testable.
     [Fact] public abstract void Profile_Prop();
 }
 
-public partial class LimitSchemaFacts<TDataSet> // Properties
+public partial class LimitSchemaFacts<TSchema, TDataSet> // Properties
 {
     [Fact]
     public sealed override void Algorithm_Prop() =>
@@ -38,7 +39,7 @@ public partial class LimitSchemaFacts<TDataSet> // Properties
         Assert.Equal(Range.Maximal32, SchemaUT.SupportedYearsCore);
 }
 
-public partial class LimitSchemaFacts<TDataSet> // Methods
+public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
 {
     #region GetMonthParts()
 
@@ -319,7 +320,7 @@ public partial class LimitSchemaFacts<TDataSet> // Methods
     #endregion
 }
 
-public partial class LimitSchemaFacts<TDataSet> // Overflows
+public partial class LimitSchemaFacts<TSchema, TDataSet> // Overflows
 {
     [Fact]
     public sealed override void KernelDoesNotOverflow()
