@@ -3,6 +3,8 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core.Schemas;
+
 // TODO(code): blank-days should be kept outside the week cycle, review all
 // methods that compute the days of the week.
 
@@ -44,9 +46,8 @@ public partial struct ArmenianDate // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+        return Egyptian12Schema.IsEpagomenalDayImpl(d, out epagomenalNumber);
     }
 }
 
@@ -60,9 +61,8 @@ public partial struct Armenian13Date // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+        return Egyptian13Schema.IsEpagomenalDayImpl(m, d, out epagomenalNumber);
     }
 }
 
@@ -76,9 +76,8 @@ public partial struct CopticDate // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+        return Coptic12Schema.IsEpagomenalDayImpl(d, out epagomenalNumber);
     }
 }
 
@@ -92,9 +91,8 @@ public partial struct Coptic13Date // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+        return Coptic13Schema.IsEpagomenalDayImpl(m, d, out epagomenalNumber);
     }
 }
 
@@ -108,9 +106,8 @@ public partial struct EgyptianDate // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+        return Egyptian12Schema.IsEpagomenalDayImpl(d, out epagomenalNumber);
     }
 }
 
@@ -124,9 +121,8 @@ public partial struct Egyptian13Date // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+        return Egyptian13Schema.IsEpagomenalDayImpl(m, d, out epagomenalNumber);
     }
 }
 
@@ -140,9 +136,8 @@ public partial struct EthiopicDate // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+        return Coptic12Schema.IsEpagomenalDayImpl(d, out epagomenalNumber);
     }
 }
 
@@ -156,9 +151,8 @@ public partial struct Ethiopic13Date // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+        return Coptic13Schema.IsEpagomenalDayImpl(m, d, out epagomenalNumber);
     }
 }
 
@@ -172,9 +166,8 @@ public partial struct FrenchRepublicanDate // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+        return FrenchRepublican12Schema.IsEpagomenalDayImpl(d, out epagomenalNumber);
     }
 }
 
@@ -188,9 +181,8 @@ public partial struct FrenchRepublican13Date // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+        return FrenchRepublican13Schema.IsEpagomenalDayImpl(m, d, out epagomenalNumber);
     }
 }
 
@@ -206,9 +198,8 @@ public partial struct InternationalFixedDate // Complements
     {
         get
         {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return sch.IsBlankDay(y, m, d);
+            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+            return InternationalFixedSchema.IsBlankDayImpl(d);
         }
     }
 }
@@ -225,9 +216,8 @@ public partial struct PositivistDate // Complements
     {
         get
         {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return sch.IsBlankDay(y, m, d);
+            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+            return PositivistSchema.IsBlankDayImpl(d);
         }
     }
 }
@@ -244,9 +234,8 @@ public partial struct WorldDate // Complements
     {
         get
         {
-            var sch = Calendar.Schema;
-            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-            return sch.IsBlankDay(y, m, d);
+            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+            return WorldSchema.IsBlankDayImpl(m, d);
         }
     }
 }
@@ -261,9 +250,8 @@ public partial struct ZoroastrianDate // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
+        return Egyptian12Schema.IsEpagomenalDayImpl(d, out epagomenalNumber);
     }
 }
 
@@ -277,8 +265,7 @@ public partial struct Zoroastrian13Date // Complements
     [Pure]
     public bool IsEpagomenal(out int epagomenalNumber)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+        Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out int m, out int d);
+        return Egyptian13Schema.IsEpagomenalDayImpl(m, d, out epagomenalNumber);
     }
 }

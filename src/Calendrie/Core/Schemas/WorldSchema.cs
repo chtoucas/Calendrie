@@ -110,9 +110,15 @@ public partial class WorldSchema // Year, month or day infos
     /// Determines whether the specified date is a blank day or not.
     /// </summary>
     [Pure]
+    internal static bool IsBlankDayImpl(int m, int d) => d == 31 && (m == 6 || m == 12);
+
+    /// <summary>
+    /// Determines whether the specified date is a blank day or not.
+    /// </summary>
+    [Pure]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
-    public bool IsBlankDay(int y, int m, int d) => d == 31 && (m == 6 || m == 12);
+    public bool IsBlankDay(int y, int m, int d) => IsBlankDayImpl(m, d);
 
     /// <inheritdoc />
     [Pure]
@@ -130,7 +136,7 @@ public partial class WorldSchema // Year, month or day infos
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsSupplementaryDay(int y, int m, int d) => IsBlankDay(y, m, d);
+    public sealed override bool IsSupplementaryDay(int y, int m, int d) => IsBlankDayImpl(m, d);
 }
 
 public partial class WorldSchema // Counting months and days within a year or a month
