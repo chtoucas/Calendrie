@@ -11,9 +11,9 @@ using Calendrie;
 using Calendrie.Core;
 using Calendrie.Hemerology;
 
-using CalendrieRange = Calendrie.Core.Intervals.Range;
-
 using static Calendrie.Core.CalendricalConstants;
+
+using CalendrieRange = Calendrie.Core.Intervals.Range;
 
 // Demonstration that almost all operations only depend on the schema.
 //
