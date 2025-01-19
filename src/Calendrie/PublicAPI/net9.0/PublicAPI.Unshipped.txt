@@ -1923,6 +1923,7 @@ Calendrie.Systems.InternationalFixedDate.Equals(Calendrie.Systems.InternationalF
 Calendrie.Systems.InternationalFixedDate.InternationalFixedDate() -> void
 Calendrie.Systems.InternationalFixedDate.InternationalFixedDate(int year, int dayOfYear) -> void
 Calendrie.Systems.InternationalFixedDate.InternationalFixedDate(int year, int month, int day) -> void
+Calendrie.Systems.InternationalFixedDate.IsBlank.get -> bool
 Calendrie.Systems.InternationalFixedDate.IsIntercalary.get -> bool
 Calendrie.Systems.InternationalFixedDate.IsSupplementary.get -> bool
 Calendrie.Systems.InternationalFixedDate.Month.get -> int
@@ -2251,6 +2252,7 @@ Calendrie.Systems.PositivistDate.DaysSinceEpoch.get -> int
 Calendrie.Systems.PositivistDate.Deconstruct(out int year, out int dayOfYear) -> void
 Calendrie.Systems.PositivistDate.Deconstruct(out int year, out int month, out int day) -> void
 Calendrie.Systems.PositivistDate.Equals(Calendrie.Systems.PositivistDate other) -> bool
+Calendrie.Systems.PositivistDate.IsBlank.get -> bool
 Calendrie.Systems.PositivistDate.IsIntercalary.get -> bool
 Calendrie.Systems.PositivistDate.IsSupplementary.get -> bool
 Calendrie.Systems.PositivistDate.Month.get -> int
