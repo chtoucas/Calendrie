@@ -30,10 +30,10 @@ public interface ILeapWeekSchema : ICalendricalSchema
     [Pure] int CountWeeksInYear(int y);
 
     /// <summary>
-    /// Counts the number of consecutive days from the epoch to the
-    /// specified day of a week.
+    /// Counts the number of consecutive days from the epoch to the specified
+    /// day of a week.
     /// </summary>
     [Pure] int CountDaysSinceEpoch(int y, int woy, DayOfWeek dow);
 
-    void GetWeekdateParts(int daysSinceEpoch, out int y, out int woy, out DayOfWeek dow);
+    void GetWeekdateParts(int weeksSinceEpoch, out int y, out int woy, out DayOfWeek dow);
 }

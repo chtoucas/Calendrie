@@ -121,7 +121,7 @@ public partial class PaxSchema // ILeapWeekSchema
         GetStartOfYear(y) + 7 * (woy - 1) + (int)dow;
 
     /// <inheritdoc />
-    public void GetWeekdateParts(int daysSinceEpoch, out int y, out int woy, out DayOfWeek dow)
+    public void GetWeekdateParts(int weeksSinceEpoch, out int y, out int woy, out DayOfWeek dow)
     {
         throw new NotImplementedException();
     }
