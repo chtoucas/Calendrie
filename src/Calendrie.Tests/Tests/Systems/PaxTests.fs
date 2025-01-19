@@ -230,7 +230,7 @@ module Bundles =
 
         static member MoreMonthInfoData with get() = PaxDataSet.MoreMonthInfoData
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(MonthFacts.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new PaxMonth(y, m)
@@ -238,14 +238,14 @@ module Bundles =
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        [<Theory; MemberData(nameof(MonthFacts.InvalidDayFieldData))>]
         static member ``GetDayOfMonth() with an invalid day`` y m d =
             let month = new PaxMonth(y, m)
             // Act & Assert
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
         //
-        // Pax-only methods
+        // Pax-only
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
@@ -284,7 +284,7 @@ module Bundles =
 
         static member MoreYearInfoData with get() = PaxDataSet.MoreYearInfoData
 
-        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new PaxYear(y)
@@ -292,13 +292,13 @@ module Bundles =
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidMonthFieldData))>]
         static member ``GetMonthOfYear() with an invalid month`` y m =
             let year = new PaxYear(y)
             // Act & Assert
             outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.DateInfoData))>]
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new PaxYear(y)
@@ -306,14 +306,14 @@ module Bundles =
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidDayOfYearFieldData))>]
         static member ``GetDayOfYear() with an invalid day of the year`` y doy =
             let year = new PaxYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))
 
         //
-        // Pax-only methods
+        // Pax-only
         //
 
         [<Theory; MemberData(nameof(YearFacts.MoreYearInfoData))>]

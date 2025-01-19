@@ -368,7 +368,7 @@ module Bundles =
         static member EpagomenalDayInfoData with get() = DateFacts.DataSet.EpagomenalDayInfoData
 
         //
-        // Armenian-only property
+        // Armenian-only
         //
 
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
@@ -492,7 +492,7 @@ module Bundles13 =
         static member EpagomenalDayInfoData with get() = DateFacts.DataSet.EpagomenalDayInfoData
 
         //
-        // Armenian-only property
+        // Armenian-only
         //
 
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
@@ -547,7 +547,7 @@ module Bundles13 =
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
         //
-        // Armenian13-only property
+        // Armenian-only
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MonthInfoData))>]

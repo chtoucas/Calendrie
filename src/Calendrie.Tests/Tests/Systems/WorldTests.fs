@@ -208,7 +208,7 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<WorldDate, StandardWorldDataSet>()
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
         static member ``Property IsBlank`` (info: DateInfo) =
             let (y, m, d) = info.Yemoda.Deconstruct()
             let date = new WorldDate(y, m, d)
@@ -232,7 +232,7 @@ module Bundles =
 
         static member MoreMonthInfoData with get() = WorldDataSet.MoreMonthInfoData
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(MonthFacts.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
             let year = new WorldMonth(y, m)
@@ -240,14 +240,14 @@ module Bundles =
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayFieldData))>]
+        [<Theory; MemberData(nameof(MonthFacts.InvalidDayFieldData))>]
         static member ``GetDayOfMonth() with an invalid day`` y m d =
             let month = new WorldMonth(y, m)
             // Act & Assert
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
         //
-        // World-only methods
+        // World-only
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MoreMonthInfoData))>]
@@ -271,7 +271,7 @@ module Bundles =
     type YearFacts() =
         inherit IYearFacts<WorldYear, WorldMonth, WorldDate, StandardWorldDataSet>()
 
-        [<Theory; MemberData(nameof(calendarDataSet.MonthInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let year = new WorldYear(y)
@@ -279,13 +279,13 @@ module Bundles =
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidMonthFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidMonthFieldData))>]
         static member ``GetMonthOfYear() with an invalid month`` y m =
             let year = new WorldYear(y)
             // Act & Assert
             outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
 
-        [<Theory; MemberData(nameof(calendarDataSet.DateInfoData))>]
+        [<Theory; MemberData(nameof(YearFacts.DateInfoData))>]
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
             let year = new WorldYear(y)
@@ -293,7 +293,7 @@ module Bundles =
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
-        [<Theory; MemberData(nameof(calendarDataSet.InvalidDayOfYearFieldData))>]
+        [<Theory; MemberData(nameof(YearFacts.InvalidDayOfYearFieldData))>]
         static member ``GetDayOfYear() with an invalid day of the year`` y doy =
             let year = new WorldYear(y)
             // Act & Assert

@@ -3,8 +3,6 @@
 
 namespace Calendrie.Systems;
 
-using Calendrie.Hemerology;
-
 public partial struct ArmenianDate // Complements
 {
     /// <summary>
@@ -23,7 +21,7 @@ public partial struct ArmenianDate // Complements
     }
 }
 
-public partial struct Armenian13Date : IEpagomenalDay // Complements
+public partial struct Armenian13Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -41,7 +39,7 @@ public partial struct Armenian13Date : IEpagomenalDay // Complements
     }
 }
 
-public partial struct CopticDate : IEpagomenalDay // Complements
+public partial struct CopticDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -59,7 +57,7 @@ public partial struct CopticDate : IEpagomenalDay // Complements
     }
 }
 
-public partial struct Coptic13Date : IEpagomenalDay // Complements
+public partial struct Coptic13Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -77,7 +75,7 @@ public partial struct Coptic13Date : IEpagomenalDay // Complements
     }
 }
 
-public partial struct EgyptianDate : IEpagomenalDay // Complements
+public partial struct EgyptianDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -95,7 +93,7 @@ public partial struct EgyptianDate : IEpagomenalDay // Complements
     }
 }
 
-public partial struct Egyptian13Date : IEpagomenalDay // Complements
+public partial struct Egyptian13Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -113,7 +111,7 @@ public partial struct Egyptian13Date : IEpagomenalDay // Complements
     }
 }
 
-public partial struct EthiopicDate : IEpagomenalDay // Complements
+public partial struct EthiopicDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -131,7 +129,7 @@ public partial struct EthiopicDate : IEpagomenalDay // Complements
     }
 }
 
-public partial struct Ethiopic13Date : IEpagomenalDay // Complements
+public partial struct Ethiopic13Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -149,7 +147,7 @@ public partial struct Ethiopic13Date : IEpagomenalDay // Complements
     }
 }
 
-public partial struct FrenchRepublicanDate : IEpagomenalDay // Complements
+public partial struct FrenchRepublicanDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -167,7 +165,7 @@ public partial struct FrenchRepublicanDate : IEpagomenalDay // Complements
     }
 }
 
-public partial struct FrenchRepublican13Date : IEpagomenalDay // Complements
+public partial struct FrenchRepublican13Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -204,7 +202,7 @@ public partial struct WorldDate // Complements
     }
 }
 
-public partial struct ZoroastrianDate : IEpagomenalDay // Complements
+public partial struct ZoroastrianDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -222,7 +220,7 @@ public partial struct ZoroastrianDate : IEpagomenalDay // Complements
     }
 }
 
-public partial struct Zoroastrian13Date : IEpagomenalDay // Complements
+public partial struct Zoroastrian13Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
