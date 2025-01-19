@@ -81,7 +81,7 @@ public partial class Coptic13Schema // Year, month or day infos
     /// zero if the date is not an epagomenal day.
     /// </summary>
     [Pure]
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "A date has 3 components")]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public bool IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) =>
         IsEpagomenalDayImpl(m, d, out epagomenalNumber);

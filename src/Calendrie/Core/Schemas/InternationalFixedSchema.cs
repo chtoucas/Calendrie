@@ -115,7 +115,7 @@ public partial class InternationalFixedSchema // Year, month or day infos
     /// Determines whether the specified date is a blank day or not.
     /// </summary>
     [Pure]
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "A date has 3 components")]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public bool IsBlankDay(int y, int m, int d) => IsBlankDayImpl(d);
 
