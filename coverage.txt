@@ -1,24 +1,24 @@
 Summary
-  Generated on: 18/01/2025 - 08:28:40
+  Generated on: 19/01/2025 - 08:43:00
   Parser: OpenCover
   Assemblies: 3
-  Classes: 230
-  Files: 178
-  Line coverage: 94.9%
-  Covered lines: 16999
-  Uncovered lines: 905
-  Coverable lines: 17904
-  Total lines: 67398
-  Branch coverage: 94.2% (4845 of 5139)
-  Covered branches: 4845
-  Total branches: 5139
-  Method coverage: 95.7% (6139 of 6412)
-  Full method coverage: 81% (5195 of 6412)
-  Covered methods: 6139
-  Fully covered methods: 5195
-  Total methods: 6412
+  Classes: 234
+  Files: 182
+  Line coverage: 94.6%
+  Covered lines: 17040
+  Uncovered lines: 968
+  Coverable lines: 18008
+  Total lines: 68030
+  Branch coverage: 94% (4849 of 5155)
+  Covered branches: 4849
+  Total branches: 5155
+  Method coverage: 95.4% (6166 of 6463)
+  Full method coverage: 80.7% (5219 of 6463)
+  Covered methods: 6166
+  Fully covered methods: 5219
+  Total methods: 6463
 
-Calendrie                                                99.9%
+Calendrie                                                 100%
   Calendrie.Core.CalendricalSchema                        100%
   Calendrie.Core.CalendricalSegment                       100%
   Calendrie.Core.CalendricalSegmentBuilder                100%
@@ -87,7 +87,7 @@ Calendrie                                                99.9%
   Calendrie.Hemerology.IAbsoluteDate                      100%
   Calendrie.Hemerology.IDateable                          100%
   Calendrie.Hemerology.IDayFieldMath<T>                   100%
-  Calendrie.Hemerology.IMonth                               0%
+  Calendrie.Hemerology.IMonth                             100%
   Calendrie.Hemerology.IMonthFieldMath<T>                 100%
   Calendrie.Hemerology.IYearFieldMath<T>                  100%
   Calendrie.MonthParts                                    100%
@@ -179,8 +179,8 @@ Calendrie                                                99.9%
   Calendrie.Systems.ZoroastrianYear                       100%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Future                                         98.8%
-  Calendrie.Core.Schemas.PaxSchema                         90%
+Calendrie.Future                                           99%
+  Calendrie.Core.Schemas.PaxSchema                         96%
   Calendrie.Core.Schemas.Tropicalia3031Schema             100%
   Calendrie.Core.Schemas.Tropicalia3130Schema             100%
   Calendrie.Core.Schemas.TropicaliaSchema                 100%
@@ -209,7 +209,7 @@ Calendrie.Future                                         98.8%
   Calendrie.Systems.TropicaliaMonth                       100%
   Calendrie.Systems.TropicaliaYear                        100%
 
-Calendrie.Sketches                                       47.8%
+Calendrie.Sketches                                       46.6%
   Calendrie.AdditionRuleset                               100%
   Calendrie.Core.Arithmetic.PlainArithmetic                 0%
   Calendrie.Core.Arithmetic.RegularArithmetic               0%
@@ -227,6 +227,7 @@ Calendrie.Sketches                                       47.8%
   Calendrie.Core.Utilities.MathU                          100%
   Calendrie.Core.Validation.GregorianPreValidator2        100%
   Calendrie.Core.Validation.JulianPreValidator2           100%
+  Calendrie.Core.Yewe                                    39.6%
   Calendrie.Extensions.CivilDateExtensions                100%
   Calendrie.Extensions.DayNumberExtensions                 20%
   Calendrie.Extensions.GregorianDateExtensions            100%
@@ -247,6 +248,9 @@ Calendrie.Sketches                                       47.8%
   Calendrie.Hemerology.MinMaxYearOrdinalPartsProvider    15.2%
   Calendrie.Hemerology.MinMaxYearScope                    100%
   Calendrie.Hemerology.PlainMonthMath<T1, T2>               0%
+  Calendrie.Horology.LocalSystemClock                       0%
+  Calendrie.Horology.SystemClocks                           0%
+  Calendrie.Horology.UtcSystemClock                         0%
   Calendrie.Moment                                         50%
   Calendrie.Systems.CivilAnnual                             0%
   Calendrie.Systems.GregorianReform                       100%
