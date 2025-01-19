@@ -100,7 +100,6 @@ public sealed partial class PaxSchema :
 
 public partial class PaxSchema // ILeapWeekSchema
 {
-    /// <inheritdoc />
     public DayOfWeek FirstDayOfWeek { get; } = DayOfWeek.Sunday;
 
     /// <inheritdoc />
@@ -120,7 +119,6 @@ public partial class PaxSchema // ILeapWeekSchema
         // we do not have to use the adjusted day of the week.
         GetStartOfYear(y) + 7 * (woy - 1) + (int)dow;
 
-    /// <inheritdoc />
     public void GetWeekdateParts(int weeksSinceEpoch, out int y, out int woy, out DayOfWeek dow)
     {
         throw new NotImplementedException();
