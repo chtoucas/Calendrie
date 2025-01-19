@@ -3,6 +3,12 @@
 
 namespace Calendrie.Systems;
 
+// TODO(code): blank-days should be kept outside the week cycle, review all
+// methods that compute the days of the week.
+
+// Epagomenal days
+// ---------------
+//
 // Epagomenal days are usually found in descendants of the Egyptian calendar.
 // Un jour épagomène est un des 5 ou 6 jours ajoutés en fin d'année
 // d'un calendrier composé de 12 mois de 30 jours pour synchroniser les
@@ -10,6 +16,23 @@ namespace Calendrie.Systems;
 // Un jour épagomène ne fait partie d'aucun mois, cependant pour des
 // questions d'ordre technique on le rattache au douzième mois.
 // Ex. : le jour de la révolution du calendrier républicain.
+//
+// Blank days
+// ----------
+//
+// The use of blank-days can be traced back to Rev. Hugh Jones (1745) and
+// was rediscovered later by Abbot Marco Mastrofini (1834).
+// Also it seems that the "same idea had been thought of ~1650 years earlier
+// c. 100 BCE and incorporated into the calendar used by the Qumran
+// community"; see the wikipedia page
+// https://en.wikipedia.org/wiki/Hugh_Jones_(professor)
+//
+// A blank-day schema is a solar schema that adds one extra blank day on
+// common years and two on leap years. A blank day does not belong to any month
+// and is kept outside the weekday cycle.
+// For technical reasons, we pretend that a blank day is the last day of
+// the preceding month.
+// Blank-day calendars belong to the larger family of perennial calendars.
 
 public partial struct ArmenianDate // Complements
 {
@@ -168,6 +191,44 @@ public partial struct FrenchRepublican13Date // Complements
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
         return sch.IsEpagomenalDay(y, m, d, out epagomenalNumber);
+    }
+}
+
+public partial struct InternationalFixedDate // Complements
+{
+    /// <summary>
+    /// Returns <see langword="true"/> if the current instance is a blank day;
+    /// otherwise returns <see langword="false"/>.
+    /// <para>A blank day does not belong to any month and is kept outside the
+    /// weekday cycle.</para>
+    /// </summary>
+    public bool IsBlank
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return sch.IsBlankDay(y, m, d);
+        }
+    }
+}
+
+public partial struct PositivistDate // Complements
+{
+    /// <summary>
+    /// Returns <see langword="true"/> if the current instance is a blank day;
+    /// otherwise returns <see langword="false"/>.
+    /// <para>A blank day does not belong to any month and is kept outside the
+    /// weekday cycle.</para>
+    /// </summary>
+    public bool IsBlank
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+            return sch.IsBlankDay(y, m, d);
+        }
     }
 }
 

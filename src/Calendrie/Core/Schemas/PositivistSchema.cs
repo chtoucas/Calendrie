@@ -24,7 +24,6 @@ namespace Calendrie.Core.Schemas;
 /// </remarks>
 public sealed partial class PositivistSchema :
     LimitSchema,
-    IBlankDayFeaturette,
     ISchemaActivator<PositivistSchema>
 {
     /// <summary>
@@ -86,8 +85,12 @@ public sealed partial class PositivistSchema :
 
 public partial class PositivistSchema // Year, month or day infos
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified date is a blank day or not.
+    /// </summary>
     [Pure]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public bool IsBlankDay(int y, int m, int d) => d > 28;
 
     /// <inheritdoc />

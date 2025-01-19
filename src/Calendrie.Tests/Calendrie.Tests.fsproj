@@ -49,7 +49,6 @@
     <Compile Include="Tests\Core\Prototyping\PrototypalSchemaSlimTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\CalendricalSchemaTests.fs" />
     <Compile Include="Tests\Core\Schemas\DaysInMonthDistributionTestSuite.fs" />
-    <Compile Include="Tests\Core\Schemas\FeaturetteTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\GregorianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\JulianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\LimitSchemaTestSuite.fs" />

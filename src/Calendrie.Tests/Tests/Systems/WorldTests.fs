@@ -212,9 +212,8 @@ module Bundles =
         static member ``Property IsBlank`` (info: DateInfo) =
             let (y, m, d) = info.Yemoda.Deconstruct()
             let date = new WorldDate(y, m, d)
-
+            // Act & Assert
             date.IsBlank === date.IsSupplementary
-
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

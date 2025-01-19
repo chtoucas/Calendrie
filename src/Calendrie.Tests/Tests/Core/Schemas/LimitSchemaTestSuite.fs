@@ -63,7 +63,7 @@ type Coptic12Tests() =
     static member CreateInstance() = SchemaActivatorFacts.Test<Coptic12Schema>()
 
     //
-    // Coptic-only
+    // Featurettes
     //
 
     [<Theory; MemberData(nameof(Coptic12Tests.DateInfoData))>]
@@ -112,7 +112,7 @@ type Coptic13Tests() =
     static member CreateInstance() = SchemaActivatorFacts.Test<Coptic13Schema>()
 
     //
-    // Coptic-only
+    // Featurettes
     //
 
     [<Theory; MemberData(nameof(Coptic13Tests.DateInfoData))>]
@@ -152,7 +152,7 @@ type Egyptian12Tests() =
     static member CreateInstance() = SchemaActivatorFacts.Test<Egyptian12Schema>()
 
     //
-    // Egyptian-only
+    // Featurettes
     //
 
     [<Theory; MemberData(nameof(Egyptian12Tests.DateInfoData))>]
@@ -192,7 +192,7 @@ type Egyptian13Tests() =
     static member CreateInstance() = SchemaActivatorFacts.Test<Egyptian13Schema>()
 
     //
-    // Egyptian-only
+    // Featurettes
     //
 
     [<Theory; MemberData(nameof(Egyptian13Tests.DateInfoData))>]
@@ -232,7 +232,7 @@ type FrenchRepublican12Tests() =
     static member CreateInstance() = SchemaActivatorFacts.Test<FrenchRepublican12Schema>()
 
     //
-    // FrenchRepublican-only
+    // Featurettes
     //
 
     [<Theory; MemberData(nameof(FrenchRepublican12Tests.DateInfoData))>]
@@ -272,7 +272,7 @@ type FrenchRepublican13Tests() =
     static member CreateInstance() = SchemaActivatorFacts.Test<FrenchRepublican13Schema>()
 
     //
-    // FrenchRepublican-only
+    // Featurettes
     //
 
     [<Theory; MemberData(nameof(FrenchRepublican13Tests.DateInfoData))>]
@@ -321,6 +321,16 @@ type InternationalFixedTests() =
 
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<InternationalFixedSchema>()
+
+    //
+    // Featurettes
+    //
+
+    [<Theory; MemberData(nameof(FrenchRepublican13Tests.DateInfoData))>]
+    member x.``IsBlankDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.IsBlankDay(y, m, d) === info.IsSupplementary
 
 [<Sealed>]
 type JulianTests() =
@@ -371,7 +381,7 @@ type PaxTests() =
     static member CreateInstance() = SchemaActivatorFacts.Test<PaxSchema>()
 
     //
-    // Pax-only
+    // Featurettes
     //
 
     [<Theory; MemberData(nameof(PaxTests.MoreMonthInfoData))>]
@@ -454,6 +464,16 @@ type PositivistTests() =
 
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<PositivistSchema>()
+
+    //
+    // Featurettes
+    //
+
+    [<Theory; MemberData(nameof(PositivistTests.DateInfoData))>]
+    member x.``IsBlankDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.IsBlankDay(y, m, d) === info.IsSupplementary
 
 [<Sealed>]
 type TabularIslamicTests() =
@@ -547,3 +567,13 @@ type WorldTests() =
 
     [<Fact>]
     static member CreateInstance() = SchemaActivatorFacts.Test<WorldSchema>()
+
+    //
+    // Featurettes
+    //
+
+    [<Theory; MemberData(nameof(WorldTests.DateInfoData))>]
+    member x.``IsBlankDay()`` (info: DateInfo) =
+        let y, m, d = info.Yemoda.Deconstruct()
+        // Act & Assert
+        x.SchemaUT.IsBlankDay(y, m, d) === info.IsSupplementary

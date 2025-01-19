@@ -207,6 +207,13 @@ module Bundles =
     type DateFacts() =
         inherit IDateFacts<InternationalFixedDate, StandardInternationalFixedDataSet>()
 
+        [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
+        static member ``Property IsBlank`` (info: DateInfo) =
+            let (y, m, d) = info.Yemoda.Deconstruct()
+            let date = new InternationalFixedDate(y, m, d)
+            // Act & Assert
+            date.IsBlank === date.IsSupplementary
+
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
