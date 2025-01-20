@@ -191,7 +191,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public static DayNumber FromGregorianParts(int year, int month, int day)
     {
-        ValidateYear(year);
+        if (year < MinSupportedYear || year > MaxSupportedYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
         GregorianPreValidator.Instance.ValidateMonthDay(year, month, day);
 
         int daysSinceZero = (int)GregorianFormulae.CountDaysSinceEpoch((long)year, month, day);
@@ -208,7 +209,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public static DayNumber FromGregorianOrdinalParts(int year, int dayOfYear)
     {
-        ValidateYear(year);
+        if (year < MinSupportedYear || year > MaxSupportedYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
         GregorianPreValidator.Instance.ValidateDayOfYear(year, dayOfYear);
 
         // NB: Here we can use GregorianFormulae instead of GregorianFormulae64.
@@ -224,7 +226,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public DateParts GetGregorianParts()
     {
-        CheckGregorianOverflow();
+        if (_daysSinceZero < MinGregorianDaysSinceZero || _daysSinceZero > MaxGregorianDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
 
         GregorianFormulae.GetDateParts(_daysSinceZero, out long y, out int m, out int d);
         return new DateParts((int)y, m, d);
@@ -238,7 +241,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public OrdinalParts GetGregorianOrdinalParts()
     {
-        CheckGregorianOverflow();
+        if (_daysSinceZero < MinGregorianDaysSinceZero || _daysSinceZero > MaxGregorianDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
 
         int y = (int)GregorianFormulae.GetYear((long)_daysSinceZero);
         // We could have used
@@ -258,7 +262,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public int GetGregorianYear()
     {
-        CheckGregorianOverflow();
+        if (_daysSinceZero < MinGregorianDaysSinceZero || _daysSinceZero > MaxGregorianDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
 
         return (int)GregorianFormulae.GetYear((long)_daysSinceZero);
     }
@@ -291,7 +296,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public static DayNumber FromJulianParts(int year, int month, int day)
     {
-        ValidateYear(year);
+        if (year < MinSupportedYear || year > MaxSupportedYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
         JulianPreValidator.Instance.ValidateMonthDay(year, month, day);
 
         int daysSinceEpoch = (int)JulianFormulae.CountDaysSinceEpoch((long)year, month, day);
@@ -309,7 +315,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public static DayNumber FromJulianOrdinalParts(int year, int dayOfYear)
     {
-        ValidateYear(year);
+        if (year < MinSupportedYear || year > MaxSupportedYear)
+            ThrowHelpers.ThrowYearOutOfRange(year);
         JulianPreValidator.Instance.ValidateDayOfYear(year, dayOfYear);
 
         int daysSinceEpoch = JulianFormulae.GetStartOfYear(year) + dayOfYear - 1;
@@ -325,7 +332,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public DateParts GetJulianParts()
     {
-        CheckJulianOverflow();
+        if (_daysSinceZero < MinJulianDaysSinceZero || _daysSinceZero > MaxJulianDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
 
         int daysSinceEpoch = DaysFromJulianEpochToZero + _daysSinceZero;
         JulianFormulae.GetDateParts(daysSinceEpoch, out long y, out int m, out int d);
@@ -340,7 +348,8 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public OrdinalParts GetJulianOrdinalParts()
     {
-        CheckJulianOverflow();
+        if (_daysSinceZero < MinJulianDaysSinceZero || _daysSinceZero > MaxJulianDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
 
         int daysSinceEpoch = DaysFromJulianEpochToZero + _daysSinceZero;
         int y = (int)JulianFormulae.GetYear((long)daysSinceEpoch);
@@ -356,51 +365,17 @@ public partial struct DayNumber // Gregorian/Julian conversions
     [Pure]
     public int GetJulianYear()
     {
-        CheckJulianOverflow();
+        if (_daysSinceZero < MinJulianDaysSinceZero || _daysSinceZero > MaxJulianDaysSinceZero)
+            ThrowHelpers.ThrowDateOverflow();
 
         int daysSinceEpoch = DaysFromJulianEpochToZero + _daysSinceZero;
         return (int)JulianFormulae.GetYear((long)daysSinceEpoch);
     }
 
     #endregion
-    #region Validation helpers
-
-    /// <summary>
-    /// Validates the specified Gregorian or Julian year.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException" />
-    private static void ValidateYear(int year)
-    {
-        if (year < MinSupportedYear || year > MaxSupportedYear)
-            ThrowHelpers.ThrowYearOutOfRange(year);
-    }
-
-    /// <summary>
-    /// Checks that the operation does not overflow the range of supported
-    /// Gregorian values.
-    /// </summary>
-    /// <exception cref="OverflowException" />
-    private void CheckGregorianOverflow()
-    {
-        if (_daysSinceZero < MinGregorianDaysSinceZero || _daysSinceZero > MaxGregorianDaysSinceZero)
-            ThrowHelpers.ThrowDateOverflow();
-    }
-
-    /// <summary>
-    /// Checks that the operation does not overflow the range of supported Julian
-    /// values.
-    /// </summary>
-    /// <exception cref="OverflowException" />
-    private void CheckJulianOverflow()
-    {
-        if (_daysSinceZero < MinJulianDaysSinceZero || _daysSinceZero > MaxJulianDaysSinceZero)
-            ThrowHelpers.ThrowDateOverflow();
-    }
-
-    #endregion
 }
 
-public partial struct DayNumber // Adjust the day of the week
+public partial struct DayNumber // Find close by day of the week
 {
     private static readonly DayNumber s_ThreeDaysBeforeMaxValue = MaxValue - 3;
 

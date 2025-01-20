@@ -48,7 +48,7 @@ public interface IDayFieldMath<TSelf>
     // Math operations based on the week unit
     //
     // Being default interface methods and types implementing this interface
-    // being most certainly value types, it should override them. Even for
+    // being most certainly value types, they should override them. Even for
     // reference types, it's a good idea to implement them explicitely in order
     // to make them available to all derived classes.
 
