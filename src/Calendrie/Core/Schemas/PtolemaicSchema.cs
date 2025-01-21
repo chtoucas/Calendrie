@@ -19,7 +19,7 @@ using Calendrie.Core.Utilities;
 /// <para>We propose an alternative form using a virtual thirteenth month to
 /// hold the epagomenal days: 1/13 to 5/13 (6/13 on a leap year).</para>
 /// </remarks>
-public abstract partial class PtolemaicSchema : LimitSchema
+public abstract partial class PtolemaicSchema : CalendricalSchema
 {
     /// <summary>
     /// Represents the number of days in a common year.

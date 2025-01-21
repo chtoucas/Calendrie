@@ -5,37 +5,6 @@ namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
 
-#region Developer Notes
-
-// LimitSchema puts limits on the range of admissible values for the year but
-// more importantly also for the month of the year and the day of the month,
-// therefore it cannot be used to represent schemas with __unusually long years
-// or months__.
-//
-// This class is public but has an internal ctor since we cannot guarantee
-// that a derived class follows the rules defined above.
-//
-// Les limites DefaultMinYear/DefaultMaxYear ont été fixées afin de pouvoir
-// utiliser Yemoda & co, mais aussi afin d'éviter des dépassements
-// arithmétiques. Sans cela on pourrait parfois aller beaucoup plus loin
-// (à condition de rester dans les limites de Int32), d'où l'interface
-// ICalendricalSchema permettant de définir des schémas dépourvus des
-// contraintes liées à Yemoda & co.
-// Il est à noter qu'en pratique on peut très bien ignorer ces derniers.
-// Ceci est plus important qu'il n'y paraît, car Yemoda impose aussi des
-// limites sur les mois et les jours, ce qui pourrait être gênant si on
-// décide d'écrire des schémas pour les calendriers chinois ou maya.
-//
-// Par défaut, on n'utilise pas Yemoda.Min/MaxYear: les valeurs sont trop
-// grandes et nous obligerait à utiliser des Int64 pour effectuer un
-// certain nombre de calculs.
-//
-// Enfin, ces limites sont tout à fait théoriques. Un schéma n'est pas
-// un calendrier. Pour ces derniers, on utilisera des valeurs bien
-// inférieures (voir scopes).
-
-#endregion
-
 /// <summary>
 /// Represents a limit schema and provides a base for derived classes.
 /// <para>A limit schema impose limits on the range of date parts. All results
@@ -47,21 +16,10 @@ using Calendrie.Core.Intervals;
 public abstract partial class LimitSchema : CalendricalSchema
 {
     /// <summary>
-    /// Represents the default value for the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para>
-    /// </summary>
-    private protected const int DefaultMinYear = -999_998;
-
-    /// <summary>
-    /// Represents the default value for the latest supported year.
-    /// <para>This field is a constant equal to 999_999.</para>
-    /// </summary>
-    private protected const int DefaultMaxYear = 999_999;
-
-    /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="LimitSchema"/> class.
-    /// <para>All methods MUST work with years in <see cref="DefaultSupportedYears"/>.
+    /// <para>All methods MUST work with years in
+    /// <see cref="CalendricalSchema.DefaultSupportedYears"/>.
     /// In particular, methods must work with negative years.</para>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
@@ -78,66 +36,8 @@ public abstract partial class LimitSchema : CalendricalSchema
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     private protected LimitSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
-        : base(supportedYears, minDaysInYear, minDaysInMonth)
-    {
-        if (!supportedYears.IsSubsetOf(MaxSupportedYears))
-        {
-            throw new ArgumentException(
-                "The value was not a subinterval of Yemoda.SupportedYears.",
-                nameof(supportedYears));
-        }
-    }
-
-    /// <summary>
-    /// Gets the default value for <see cref="ICalendricalSchema.SupportedYears"/>,
-    /// that is the interval [-999_998..999_999].
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static Range<int> DefaultSupportedYears { get; } = new(DefaultMinYear, DefaultMaxYear);
-
-    /// <summary>
-    /// Gets the maximum value for <see cref="ICalendricalSchema.SupportedYears"/>,
-    /// that is the interval [<see cref="Yemoda.MinYear"/>..<see cref="Yemoda.MaxYear"/>]
-    /// i.e. [-2_097_151, 2_097_152].
-    /// <para>It matches the value of <see cref="Yemoda.SupportedYears"/>.</para>
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static Range<int> MaxSupportedYears => Yemoda.SupportedYears;
-
-    private Range<int> _supportedYearsCore = Range.Maximal32;
-    /// <summary>
-    /// Gets the core domain, the interval of years for which the <i>core</i>
-    /// methods are known not to overflow.
-    /// <para>The core methods are those inherited from <see cref="ICalendricalCore"/>.
-    /// </para>
-    /// <para>The default value is equal to the whole range of 32-bit signed
-    /// integers.</para>
-    /// <para>For methods expecting a month or day parameters, we assume that
-    /// they are within the ranges defined by <see cref="Yemoda"/>.
-    /// </para>
-    /// <para>See also <seealso cref="ICalendricalPreValidator"/>.</para>
-    /// </summary>
-    /// <exception cref="ArgumentException"><paramref name="value"/>
-    /// is not a subinterval of <see cref="CalendricalSchema.SupportedYears"/>.
-    /// </exception>
-    public Range<int> SupportedYearsCore
-    {
-        get => _supportedYearsCore;
-        protected init
-        {
-            if (!value.IsSupersetOf(SupportedYears))
-            {
-                throw new ArgumentException(
-                    "The value was not a subinterval of CalendricalSchema.SupportedYears.",
-                    nameof(value));
-            }
-
-            _supportedYearsCore = value;
-        }
-    }
+        : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 }
-
-#if ENABLE_COMPACT_PARTS
 
 public partial class LimitSchema // Conversions
 {
@@ -261,19 +161,19 @@ public partial class LimitSchema // Dates in a given year or month
         return new Yemoda(y, m, d);
     }
 
-    /// <summary>
-    /// Obtains the month and day of the month for the last day of the specified
-    /// year; the results are given in output parameters.
-    /// </summary>
-    //
-    // The default implementation
-    // > m = CountMonthsInYear(y);
-    // > d = CountDaysInMonth(y, m);
-    // is rather inefficient, indeed "m" and "d" are often constant.
-    // For instance, for regular schemas, we can write:
-    // > m = MonthsInYear;
-    // > d = CountDaysInMonth(y, MonthsInYear);
-    public abstract void GetDatePartsAtEndOfYear(int y, out int m, out int d);
+    ///// <summary>
+    ///// Obtains the month and day of the month for the last day of the specified
+    ///// year; the results are given in output parameters.
+    ///// </summary>
+    ////
+    //// The default implementation
+    //// > m = CountMonthsInYear(y);
+    //// > d = CountDaysInMonth(y, m);
+    //// is rather inefficient, indeed "m" and "d" are often constant.
+    //// For instance, for regular schemas, we can write:
+    //// > m = MonthsInYear;
+    //// > d = CountDaysInMonth(y, MonthsInYear);
+    //public abstract void GetDatePartsAtEndOfYear(int y, out int m, out int d);
 
     /// <summary>
     /// Obtains the ordinal date parts for the last day of the specified year.
@@ -335,24 +235,3 @@ public partial class LimitSchema // Dates in a given year or month
         return new Yedoy(y, doy);
     }
 }
-
-#else
-
-public partial class LimitSchema
-{
-    /// <summary>
-    /// Obtains the month and day of the month for the last day of the specified
-    /// year; the results are given in output parameters.
-    /// </summary>
-    //
-    // The default implementation
-    // > m = CountMonthsInYear(y);
-    // > d = CountDaysInMonth(y, m);
-    // is rather inefficient, indeed "m" and "d" are often constant.
-    // For instance, for regular schemas, we can write:
-    // > m = MonthsInYear;
-    // > d = CountDaysInMonth(y, MonthsInYear);
-    public abstract void GetDatePartsAtEndOfYear(int y, out int m, out int d);
-}
-
-#endif

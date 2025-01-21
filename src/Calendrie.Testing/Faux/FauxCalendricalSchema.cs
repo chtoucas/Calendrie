@@ -18,8 +18,7 @@ public partial class FauxCalendricalSchema : CalendricalSchema
     private const int DefaultMinDaysInYear = 365;
     private const int DefaultMinDaysInMonth = 28;
 
-    public FauxCalendricalSchema()
-        : base(Yemoda.SupportedYears, DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
+    public FauxCalendricalSchema() : base(DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
 
     // Base constructor.
     protected FauxCalendricalSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
@@ -30,6 +29,10 @@ public partial class FauxCalendricalSchema : CalendricalSchema
         : base(supportedYears, DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
     private FauxCalendricalSchema(int minDaysInYear, int minDaysInMonth)
         : base(Yemoda.SupportedYears, minDaysInYear, minDaysInMonth) { }
+
+    // Constructors to test the properties.
+    public FauxCalendricalSchema(Range<int> supportedYears, Range<int> supportedYearsCore)
+        : this(supportedYears) { SupportedYearsCore = supportedYearsCore; }
 
     // Pre-defined instances.
     public static FauxCalendricalSchema Regular12 => new FauxRegularSchema(12);
@@ -109,6 +112,11 @@ public partial class FauxCalendricalSchema // Props & methods
 
     [Pure] public sealed override int GetStartOfYearInMonths(int y) => 0;
     [Pure] public sealed override int GetStartOfYear(int y) => 0;
+    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
+    {
+        m = CountMonthsInYear(y);
+        d = CountDaysInMonth(y, m);
+    }
 }
 
 public partial class FauxCalendricalSchema // Profiles

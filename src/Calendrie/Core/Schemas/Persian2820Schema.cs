@@ -39,7 +39,7 @@ using Calendrie.Core.Utilities;
 /// by calendar researchers, among them the Iranian astronomers Malakpour (2004) and Sayyâd (2000)";
 /// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</remarks>
 public sealed partial class Persian2820Schema :
-    LimitSchema,
+    CalendricalSchema,
     IDaysInMonths,
     ISchemaActivator<Persian2820Schema>
 {

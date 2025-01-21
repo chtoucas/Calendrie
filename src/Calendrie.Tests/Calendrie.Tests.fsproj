@@ -51,7 +51,7 @@
     <Compile Include="Tests\Core\Schemas\DaysInMonthDistributionTestSuite.fs" />
     <Compile Include="Tests\Core\Schemas\GregorianFormulaeTests.fs" />
     <Compile Include="Tests\Core\Schemas\JulianFormulaeTests.fs" />
-    <Compile Include="Tests\Core\Schemas\LimitSchemaTestSuite.fs" />
+    <Compile Include="Tests\Core\Schemas\CalendricalSchemaTestSuite.fs" />
     <Compile Include="Tests\Core\Utilities\MathNTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathTTests.fs" />
     <Compile Include="Tests\Core\Utilities\MathUTests.fs" />

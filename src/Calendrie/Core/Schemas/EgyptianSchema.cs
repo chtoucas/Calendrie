@@ -9,7 +9,7 @@ using Calendrie.Core.Utilities;
 /// Represents an Egyptian schema and provides a base for derived classes.
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
-public abstract partial class EgyptianSchema : LimitSchema
+public abstract partial class EgyptianSchema : CalendricalSchema
 {
     /// <summary>
     /// Represents the number of days in a year.

@@ -251,12 +251,10 @@ public partial class PaxSchema // Counting months and days since the epoch
 
 public partial class PaxSchema // Dates in a given year or month
 {
-#if !PROTOTYPING
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
         m = IsLeapYear(y) ? 14 : 13;
         d = 28;
     }
-#endif
 }

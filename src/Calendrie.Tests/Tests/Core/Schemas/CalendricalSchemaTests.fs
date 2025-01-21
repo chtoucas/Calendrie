@@ -73,55 +73,55 @@ module Prelude =
 module LimitSchemaPrelude =
     [<Fact>]
     let ``Constructor expects supportedYears:Min to be >= MaxSupportedYears:Min`` () =
-        let maxrange = LimitSchema.MaxSupportedYears
+        let maxrange = CalendricalSchema.MaxSupportedYears
         let range = maxrange.WithMin(maxrange.Min - 1)
 
-        argExn "supportedYears" (fun () -> new FauxLimitSchema(range))
+        argExn "supportedYears" (fun () -> new FauxCalendricalSchema(range))
 
     [<Fact>]
     let ``Constructor expects supportedYears:Max to be <= MaxSupportedYears:Max`` () =
-        let maxrange = LimitSchema.MaxSupportedYears
+        let maxrange = CalendricalSchema.MaxSupportedYears
         let range = maxrange.WithMax(maxrange.Max + 1)
 
-        argExn "supportedYears" (fun () -> new FauxLimitSchema(range))
+        argExn "supportedYears" (fun () -> new FauxCalendricalSchema(range))
 
     [<Fact>]
     let ``Constructor succeeds with supportedYears = DefaultSupportedYears`` () =
-        new FauxLimitSchema(LimitSchema.DefaultSupportedYears) |> ignore
+        new FauxCalendricalSchema(CalendricalSchema.DefaultSupportedYears) |> ignore
 
     [<Fact>]
     let ``Constructor succeeds with supportedYears = MaxSupportedYears`` () =
-        new FauxLimitSchema(LimitSchema.MaxSupportedYears) |> ignore
+        new FauxCalendricalSchema(CalendricalSchema.MaxSupportedYears) |> ignore
 
     [<Fact>]
     let ``Constructor throws when supportedYearsCore is not a superset of supportedYears`` () =
         let range = Range.Create(1, 100)
         let rangeCore = Range.Create(2, 99)
 
-        argExn "value" (fun () -> new FauxLimitSchema(range, rangeCore))
+        argExn "value" (fun () -> new FauxCalendricalSchema(range, rangeCore))
 
     [<Fact>]
     let ``Constructor succeeds when supportedYearsCore = supportedYears`` () =
         let range = Range.Create(1, 100)
-        new FauxLimitSchema(range, range) |> ignore
+        new FauxCalendricalSchema(range, range) |> ignore
 
     [<Fact>]
     let ``Constructor succeeds when supportedYearsCore is a superset of supportedYears`` () =
         let range = Range.Create(1, 100)
         let rangeCore = Range.Create(0, 101)
-        new FauxLimitSchema(range, rangeCore) |> ignore
+        new FauxCalendricalSchema(range, rangeCore) |> ignore
 
     [<Fact>]
     let ``Default value for SupportedYearsCore is any int`` () =
-        let sch = new FauxLimitSchema()
+        let sch = new FauxCalendricalSchema()
 
         sch.SupportedYearsCore === Range.Maximal32
 
     [<Fact>]
     let ``Default value for SupportedYears is DefaultSupportedYears`` () =
-        let sch = new FauxLimitSchema()
+        let sch = new FauxCalendricalSchema()
 
-        sch.SupportedYears === LimitSchema.DefaultSupportedYears
+        sch.SupportedYears === CalendricalSchema.DefaultSupportedYears
 
 module Coptic13Case =
     [<Fact>]

@@ -90,12 +90,9 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
         if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
 
-#if ENABLE_COMPACT_PARTS
-        return Schema.GetMonthParts(monthsSinceEpoch);
-#else
+        //return Schema.GetMonthParts(monthsSinceEpoch);
         Schema.GetMonthParts(monthsSinceEpoch, out int y1, out int m1);
         return new Yemo(y1, m1);
-#endif
     }
 
     /// <inheritdoc />

@@ -13,7 +13,7 @@ using Calendrie.Core.Utilities;
 /// Provides a base for the Gregorian and Julian schemas.
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
-public abstract partial class GJSchema : LimitSchema, IDaysInMonths
+public abstract partial class GJSchema : CalendricalSchema, IDaysInMonths
 {
     /// <summary>
     /// Represents the number of months in a year.

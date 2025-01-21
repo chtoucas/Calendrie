@@ -4,7 +4,6 @@
 namespace Calendrie.Testing.Facts.Core;
 
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
 using Calendrie.Testing.Data;
 
 // Sync with ICalendricalPartsFactoryFacts.
@@ -13,33 +12,12 @@ using Calendrie.Testing.Data;
 /// Provides facts about the <see cref="LimitSchema"/> type.
 /// </summary>
 public abstract partial class LimitSchemaFacts<TSchema, TDataSet> :
-    ICalendricalSchemaFacts<TSchema, TDataSet>
+    CalendricalSchemaFacts<TSchema, TDataSet>
     where TSchema : LimitSchema
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
     protected LimitSchemaFacts(TSchema schema) : base(schema) { }
-
-    // This property is actually part of CalendricalSchema but being internal
-    // it's not publicly testable.
-    [Fact] public abstract void Profile_Prop();
 }
-
-public partial class LimitSchemaFacts<TSchema, TDataSet> // Properties
-{
-    [Fact]
-    public sealed override void Algorithm_Prop() =>
-        Assert.Equal(CalendricalAlgorithm.Arithmetical, SchemaUT.Algorithm);
-
-    [Fact]
-    public override void SupportedYears_Prop() =>
-        Assert.Equal(LimitSchema.DefaultSupportedYears, SchemaUT.SupportedYears);
-
-    [Fact]
-    public virtual void SupportedYearsCore_Prop() =>
-        Assert.Equal(Range.Maximal32, SchemaUT.SupportedYearsCore);
-}
-
-#if ENABLE_COMPACT_PARTS
 
 public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
 {
@@ -219,7 +197,7 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
     #region GetDatePartsAtEndOfYear()
 
     [Theory, MemberData(nameof(EndOfYearPartsData))]
-    public void GetDatePartsAtEndOfYear(Yemoda ymd)
+    public void GetDatePartsAtEndOfYear_Yemoda(Yemoda ymd)
     {
         // Act
         var actual = SchemaUT.GetDatePartsAtEndOfYear(ymd.Year);
@@ -322,75 +300,9 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
     #endregion
 }
 
-#else
-
-public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
-{
-    [Theory, MemberData(nameof(EndOfYearPartsData))]
-    public void GetDatePartsAtEndOfYear(Yemoda ymd)
-    {
-        // Act
-        SchemaUT.GetDatePartsAtEndOfYear(ymd.Year, out int m, out int d);
-        var actual = new Yemoda(ymd.Year, m, d);
-        // Assert
-        Assert.Equal(ymd, actual);
-    }
-}
-
-#endif
 
 public partial class LimitSchemaFacts<TSchema, TDataSet> // Overflows
 {
-    [Fact]
-    public sealed override void KernelDoesNotOverflow()
-    {
-        var (minYearCore, maxYearCore) = SchemaUT.SupportedYearsCore.Endpoints;
-
-        _ = SchemaUT.IsLeapYear(minYearCore);
-        _ = SchemaUT.IsLeapYear(maxYearCore);
-
-        // NB: right now, it works w/ Int32.Min(Max)Year but it might change
-        // in the future with new lunisolar schemas.
-        _ = SchemaUT.CountMonthsInYear(int.MinValue);
-        _ = SchemaUT.CountMonthsInYear(int.MaxValue);
-
-        _ = SchemaUT.CountDaysInYear(minYearCore);
-        _ = SchemaUT.CountDaysInYear(maxYearCore);
-
-        for (int m = 1; m <= MaxMonth; m++)
-        {
-            _ = SchemaUT.IsIntercalaryMonth(int.MinValue, m);
-            _ = SchemaUT.IsIntercalaryMonth(int.MaxValue, m);
-
-            _ = SchemaUT.CountDaysInMonth(minYearCore, m);
-            _ = SchemaUT.CountDaysInMonth(maxYearCore, m);
-
-            for (int d = 1; d <= MaxDay; d++)
-            {
-                _ = SchemaUT.IsIntercalaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsIntercalaryDay(int.MaxValue, m, d);
-
-                _ = SchemaUT.IsSupplementaryDay(int.MinValue, m, d);
-                _ = SchemaUT.IsSupplementaryDay(int.MaxValue, m, d);
-            }
-        }
-
-        if (minYearCore != int.MinValue)
-        {
-            AssertEx.Overflows(() => SchemaUT.IsLeapYear(int.MinValue));
-            AssertEx.Overflows(() => SchemaUT.CountDaysInYear(int.MinValue));
-        }
-        if (maxYearCore != int.MaxValue)
-        {
-            AssertEx.Overflows(() => SchemaUT.IsLeapYear(int.MaxValue));
-            AssertEx.Overflows(() => SchemaUT.CountDaysInYear(int.MaxValue));
-        }
-    }
-
-    [Fact] public void GetYear﹍Plain_DoesNotUnderflow() => _ = SchemaUT.GetYear(MinDaysSinceEpoch);
-    [Fact] public void GetYear﹍Plain_DoesNotOverflow() => _ = SchemaUT.GetYear(MaxDaysSinceEpoch);
-
-#if ENABLE_COMPACT_PARTS
     [Fact] public void GetDateParts﹍DaysSinceEpoch_DoesNotUnderflow() => _ = SchemaUT.GetDateParts(MinDaysSinceEpoch);
     [Fact] public void GetDateParts﹍DaysSinceEpoch_DoesNotOverflow() => _ = SchemaUT.GetDateParts(MaxDaysSinceEpoch);
 
@@ -423,5 +335,4 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Overflows
     [Fact] public void GetDatePartsAtEndOfMonth_DoesNotOverflow() => _ = SchemaUT.GetDatePartsAtEndOfMonth(MaxYear, MaxMonth);
     [Fact] public void GetOrdinalPartsAtEndOfMonth_DoesNotUnderflow() => _ = SchemaUT.GetOrdinalPartsAtEndOfMonth(MinYear, 1);
     [Fact] public void GetOrdinalPartsAtEndOfMonth_DoesNotOverflow() => _ = SchemaUT.GetOrdinalPartsAtEndOfMonth(MaxYear, MaxMonth);
-#endif
 }

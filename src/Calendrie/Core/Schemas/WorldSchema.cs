@@ -31,7 +31,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class WorldSchema :
-    LimitSchema,
+    CalendricalSchema,
     ISchemaActivator<WorldSchema>
 {
     /// <summary>
