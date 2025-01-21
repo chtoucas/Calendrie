@@ -14,7 +14,7 @@ public abstract class RegularSchema : CalendricalSchema
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="CalendricalSchema"/> class.
-    /// <para>All methods MUST work with years in
+    /// <para>All methods MUST work with years within the range
     /// <see cref="CalendricalSchema.DefaultSupportedYears"/>. In particular,
     /// methods must work with negative years.</para>
     /// </summary>

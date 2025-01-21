@@ -4,6 +4,7 @@ abstract Calendrie.Core.CalendricalSchema.CountDaysInYear(int y) -> int
 abstract Calendrie.Core.CalendricalSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 abstract Calendrie.Core.CalendricalSchema.CountMonthsInYear(int y) -> int
 abstract Calendrie.Core.CalendricalSchema.Family.get -> Calendrie.CalendricalFamily
+abstract Calendrie.Core.CalendricalSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
 abstract Calendrie.Core.CalendricalSchema.GetMonth(int y, int doy, out int d) -> int
 abstract Calendrie.Core.CalendricalSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
 abstract Calendrie.Core.CalendricalSchema.GetStartOfYear(int y) -> int
@@ -15,7 +16,6 @@ abstract Calendrie.Core.CalendricalSchema.IsLeapYear(int y) -> bool
 abstract Calendrie.Core.CalendricalSchema.IsRegular(out int monthsInYear) -> bool
 abstract Calendrie.Core.CalendricalSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 abstract Calendrie.Core.CalendricalSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-abstract Calendrie.Core.LimitSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
 abstract Calendrie.Core.RegularSchema.MonthsInYear.get -> int
 abstract Calendrie.Hemerology.CalendarScope.CheckOrdinal(int year, int dayOfYear) -> bool
 abstract Calendrie.Hemerology.CalendarScope.CheckYear(int year) -> bool
@@ -27,7 +27,6 @@ abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonth(int year, int mont
 abstract Calendrie.Hemerology.CalendarScope.ValidateYearMonthDay(int year, int month, int day, string? paramName = null) -> void
 Calendrie.AdditionRule
 Calendrie.AdditionRule.Exact = 2 -> Calendrie.AdditionRule
-Calendrie.AdditionRule.Overflow = 3 -> Calendrie.AdditionRule
 Calendrie.AdditionRule.Overspill = 1 -> Calendrie.AdditionRule
 Calendrie.AdditionRule.Truncate = 0 -> Calendrie.AdditionRule
 Calendrie.CalendricalAdjustments
@@ -51,6 +50,7 @@ Calendrie.Core.CalendricalConstants
 Calendrie.Core.CalendricalSchema
 Calendrie.Core.CalendricalSchema.Algorithm.get -> Calendrie.CalendricalAlgorithm
 Calendrie.Core.CalendricalSchema.CalendricalSchema(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.CalendricalSchema.CalendricalSchema(int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.CalendricalSchema.CountDaysInMonthAfter(int daysSinceEpoch) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInMonthAfter(int y, int doy) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInMonthAfter(int y, int m, int d) -> int
@@ -74,6 +74,8 @@ Calendrie.Core.CalendricalSchema.PreValidator.init -> void
 Calendrie.Core.CalendricalSchema.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.CalendricalSchema.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.CalendricalSchema.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
+Calendrie.Core.CalendricalSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
+Calendrie.Core.CalendricalSchema.SupportedYearsCore.init -> void
 Calendrie.Core.CalendricalSegment
 Calendrie.Core.CalendricalSegment.IsComplete.get -> bool
 Calendrie.Core.CalendricalSegment.MaxIsEndOfYear.get -> bool
@@ -257,24 +259,6 @@ Calendrie.Core.Intervals.UpperRay<T>.SetEquals(Calendrie.Core.Intervals.UpperRay
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay() -> void
 Calendrie.Core.Intervals.UpperRay<T>.UpperRay(T min) -> void
 Calendrie.Core.ISchemaActivator<TSchema>
-Calendrie.Core.LimitSchema
-Calendrie.Core.LimitSchema.GetDateParts(int daysSinceEpoch) -> Calendrie.Core.Yemoda
-Calendrie.Core.LimitSchema.GetDateParts(int y, int doy) -> Calendrie.Core.Yemoda
-Calendrie.Core.LimitSchema.GetDateParts(int y, int m, int d) -> Calendrie.Core.Yemoda
-Calendrie.Core.LimitSchema.GetDatePartsAtEndOfMonth(int y, int m) -> Calendrie.Core.Yemoda
-Calendrie.Core.LimitSchema.GetDatePartsAtEndOfYear(int y) -> Calendrie.Core.Yemoda
-Calendrie.Core.LimitSchema.GetDatePartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yemoda
-Calendrie.Core.LimitSchema.GetDatePartsAtStartOfYear(int y) -> Calendrie.Core.Yemoda
-Calendrie.Core.LimitSchema.GetMonthParts(int monthsSinceEpoch) -> Calendrie.Core.Yemo
-Calendrie.Core.LimitSchema.GetMonthPartsAtEndOfYear(int y) -> Calendrie.Core.Yemo
-Calendrie.Core.LimitSchema.GetMonthPartsAtStartOfYear(int y) -> Calendrie.Core.Yemo
-Calendrie.Core.LimitSchema.GetOrdinalParts(int daysSinceEpoch) -> Calendrie.Core.Yedoy
-Calendrie.Core.LimitSchema.GetOrdinalParts(int y, int m, int d) -> Calendrie.Core.Yedoy
-Calendrie.Core.LimitSchema.GetOrdinalPartsAtEndOfMonth(int y, int m) -> Calendrie.Core.Yedoy
-Calendrie.Core.LimitSchema.GetOrdinalPartsAtEndOfYear(int y) -> Calendrie.Core.Yedoy
-Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfMonth(int y, int m) -> Calendrie.Core.Yedoy
-Calendrie.Core.LimitSchema.GetOrdinalPartsAtStartOfYear(int y) -> Calendrie.Core.Yedoy
-Calendrie.Core.LimitSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
 Calendrie.Core.PartsAdapter
 Calendrie.Core.PartsAdapter.GetDateParts(int daysSinceEpoch) -> Calendrie.DateParts
 Calendrie.Core.PartsAdapter.GetDateParts(int y, int doy) -> Calendrie.DateParts
@@ -298,6 +282,7 @@ Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(bool pr
 Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.RegularSchema
 Calendrie.Core.RegularSchema.RegularSchema(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.RegularSchema.RegularSchema(int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.Schemas.CivilSchema
 Calendrie.Core.Schemas.Coptic12Schema
 Calendrie.Core.Schemas.Coptic12Schema.IsEpagomenalDay(int y, int m, int d, out int epagomenalNumber) -> bool
@@ -327,35 +312,6 @@ Calendrie.Core.Schemas.TabularIslamicSchema
 Calendrie.Core.Schemas.WorldSchema
 Calendrie.Core.Schemas.WorldSchema.CountDaysInWorldMonth(int y, int m) -> int
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
-Calendrie.Core.Yedoy
-Calendrie.Core.Yedoy.CompareTo(Calendrie.Core.Yedoy other) -> int
-Calendrie.Core.Yedoy.DayOfYear.get -> int
-Calendrie.Core.Yedoy.Deconstruct(out int year, out int dayOfYear) -> void
-Calendrie.Core.Yedoy.Equals(Calendrie.Core.Yedoy other) -> bool
-Calendrie.Core.Yedoy.StartOfYear.get -> Calendrie.Core.Yedoy
-Calendrie.Core.Yedoy.Year.get -> int
-Calendrie.Core.Yedoy.Yedoy() -> void
-Calendrie.Core.Yemo
-Calendrie.Core.Yemo.CompareTo(Calendrie.Core.Yemo other) -> int
-Calendrie.Core.Yemo.Deconstruct(out int year, out int month) -> void
-Calendrie.Core.Yemo.Equals(Calendrie.Core.Yemo other) -> bool
-Calendrie.Core.Yemo.GetDayOfMonth(int day) -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemo.Month.get -> int
-Calendrie.Core.Yemo.StartOfMonth.get -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemo.StartOfYear.get -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemo.Year.get -> int
-Calendrie.Core.Yemo.Yemo() -> void
-Calendrie.Core.Yemoda
-Calendrie.Core.Yemoda.CompareTo(Calendrie.Core.Yemoda other) -> int
-Calendrie.Core.Yemoda.Day.get -> int
-Calendrie.Core.Yemoda.Deconstruct(out int year, out int month, out int day) -> void
-Calendrie.Core.Yemoda.Equals(Calendrie.Core.Yemoda other) -> bool
-Calendrie.Core.Yemoda.Month.get -> int
-Calendrie.Core.Yemoda.StartOfMonth.get -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemoda.StartOfYear.get -> Calendrie.Core.Yemoda
-Calendrie.Core.Yemoda.Year.get -> int
-Calendrie.Core.Yemoda.Yemo.get -> Calendrie.Core.Yemo
-Calendrie.Core.Yemoda.Yemoda() -> void
 Calendrie.DateParts
 Calendrie.DateParts.CompareTo(Calendrie.DateParts other) -> int
 Calendrie.DateParts.DateParts() -> void
@@ -2790,25 +2746,25 @@ Calendrie.YearNumbering
 const Calendrie.Core.CalendricalConstants.DaysInWanderingYear = 365 -> int
 const Calendrie.Core.CalendricalConstants.DaysInWeek = 7 -> int
 const Calendrie.Core.CalendricalConstants.DaysPer4JulianYearCycle = 1461 -> int
-const Calendrie.Core.Schemas.Coptic12Schema.MonthsInYear = 12 -> int
-const Calendrie.Core.Schemas.Coptic13Schema.MonthsInYear = 13 -> int
+const Calendrie.Core.Schemas.Coptic12Schema.MonthsPerYear = 12 -> int
+const Calendrie.Core.Schemas.Coptic13Schema.MonthsPerYear = 13 -> int
 const Calendrie.Core.Schemas.Coptic13Schema.VirtualMonth = 13 -> int
 const Calendrie.Core.Schemas.CopticSchema.DaysInCopticMonth = 30 -> int
 const Calendrie.Core.Schemas.CopticSchema.DaysPer4YearCycle = 1461 -> int
-const Calendrie.Core.Schemas.Egyptian12Schema.MonthsInYear = 12 -> int
-const Calendrie.Core.Schemas.Egyptian13Schema.MonthsInYear = 13 -> int
+const Calendrie.Core.Schemas.Egyptian12Schema.MonthsPerYear = 12 -> int
+const Calendrie.Core.Schemas.Egyptian13Schema.MonthsPerYear = 13 -> int
 const Calendrie.Core.Schemas.Egyptian13Schema.VirtualMonth = 13 -> int
 const Calendrie.Core.Schemas.EgyptianSchema.DaysInEgyptianMonth = 30 -> int
 const Calendrie.Core.Schemas.EgyptianSchema.DaysInYear = 365 -> int
-const Calendrie.Core.Schemas.FrenchRepublican12Schema.MonthsInYear = 12 -> int
-const Calendrie.Core.Schemas.FrenchRepublican13Schema.MonthsInYear = 13 -> int
+const Calendrie.Core.Schemas.FrenchRepublican12Schema.MonthsPerYear = 12 -> int
+const Calendrie.Core.Schemas.FrenchRepublican13Schema.MonthsPerYear = 13 -> int
 const Calendrie.Core.Schemas.FrenchRepublican13Schema.VirtualMonth = 13 -> int
 const Calendrie.Core.Schemas.FrenchRepublicanSchema.DaysInFrenchRepublicanMonth = 30 -> int
 const Calendrie.Core.Schemas.FrenchRepublicanSchema.DaysPer4000YearCycle = 1460969 -> long
 const Calendrie.Core.Schemas.GJSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.GJSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.GJSchema.DaysInYearAfterFebruary = 306 -> int
-const Calendrie.Core.Schemas.GJSchema.MonthsInYear = 12 -> int
+const Calendrie.Core.Schemas.GJSchema.MonthsPerYear = 12 -> int
 const Calendrie.Core.Schemas.GregorianSchema.DaysPer100YearSubcycle = 36524 -> int
 const Calendrie.Core.Schemas.GregorianSchema.DaysPer400YearCycle = 146097 -> int
 const Calendrie.Core.Schemas.GregorianSchema.DaysPer4YearSubcycle = 1461 -> int
@@ -2816,44 +2772,30 @@ const Calendrie.Core.Schemas.InternationalFixedSchema.DaysInCommonYear = 365 -> 
 const Calendrie.Core.Schemas.InternationalFixedSchema.DaysInInternationalFixedMonth = 28 -> int
 const Calendrie.Core.Schemas.InternationalFixedSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.InternationalFixedSchema.DaysPer400YearCycle = 146097 -> int
-const Calendrie.Core.Schemas.InternationalFixedSchema.MonthsInYear = 13 -> int
+const Calendrie.Core.Schemas.InternationalFixedSchema.MonthsPerYear = 13 -> int
 const Calendrie.Core.Schemas.JulianSchema.DaysPer4YearCycle = 1461 -> int
 const Calendrie.Core.Schemas.Persian2820Schema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.Persian2820Schema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.Persian2820Schema.DaysInYearBeforeJuly = 186 -> int
 const Calendrie.Core.Schemas.Persian2820Schema.DaysPer128YearSubcycle = 46751 -> int
 const Calendrie.Core.Schemas.Persian2820Schema.DaysPer2820YearCycle = 1029983 -> int
-const Calendrie.Core.Schemas.Persian2820Schema.MonthsInYear = 12 -> int
+const Calendrie.Core.Schemas.Persian2820Schema.MonthsPerYear = 12 -> int
 const Calendrie.Core.Schemas.Persian2820Schema.Year0 = 474 -> int
 const Calendrie.Core.Schemas.PositivistSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.PositivistSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.PositivistSchema.DaysInPositivistMonth = 28 -> int
 const Calendrie.Core.Schemas.PositivistSchema.DaysPer400YearCycle = 146097 -> int
-const Calendrie.Core.Schemas.PositivistSchema.MonthsInYear = 13 -> int
+const Calendrie.Core.Schemas.PositivistSchema.MonthsPerYear = 13 -> int
 const Calendrie.Core.Schemas.PtolemaicSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.PtolemaicSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.TabularIslamicSchema.DaysInCommonYear = 354 -> int
 const Calendrie.Core.Schemas.TabularIslamicSchema.DaysInLeapYear = 355 -> int
 const Calendrie.Core.Schemas.TabularIslamicSchema.DaysPer30YearCycle = 10631 -> int
-const Calendrie.Core.Schemas.TabularIslamicSchema.MonthsInYear = 12 -> int
+const Calendrie.Core.Schemas.TabularIslamicSchema.MonthsPerYear = 12 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysPer400YearCycle = 146097 -> int
-const Calendrie.Core.Schemas.WorldSchema.MonthsInYear = 12 -> int
-const Calendrie.Core.Yedoy.MaxDayOfYear = 1024 -> int
-const Calendrie.Core.Yedoy.MaxYear = 2097152 -> int
-const Calendrie.Core.Yedoy.MinDayOfYear = 1 -> int
-const Calendrie.Core.Yedoy.MinYear = -2097151 -> int
-const Calendrie.Core.Yemo.MaxMonth = 16 -> int
-const Calendrie.Core.Yemo.MaxYear = 2097152 -> int
-const Calendrie.Core.Yemo.MinMonth = 1 -> int
-const Calendrie.Core.Yemo.MinYear = -2097151 -> int
-const Calendrie.Core.Yemoda.MaxDay = 64 -> int
-const Calendrie.Core.Yemoda.MaxMonth = 16 -> int
-const Calendrie.Core.Yemoda.MaxYear = 2097152 -> int
-const Calendrie.Core.Yemoda.MinDay = 1 -> int
-const Calendrie.Core.Yemoda.MinMonth = 1 -> int
-const Calendrie.Core.Yemoda.MinYear = -2097151 -> int
+const Calendrie.Core.Schemas.WorldSchema.MonthsPerYear = 12 -> int
 const Calendrie.DayNumber.MaxDaysSinceZero = 2147483646 -> int
 const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
 const Calendrie.Ord.MaxAlgebraicValue = 2147483647 -> int
@@ -2905,15 +2847,6 @@ override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetMonth(int y, int d
 override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetStartOfYear(int y) -> int
 override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetYear(int daysSinceEpoch) -> int
 override Calendrie.Core.Prototyping.RegularSchemaPrototype.GetYear(int daysSinceEpoch, out int doy) -> int
-override Calendrie.Core.Yedoy.Equals(object? obj) -> bool
-override Calendrie.Core.Yedoy.GetHashCode() -> int
-override Calendrie.Core.Yedoy.ToString() -> string!
-override Calendrie.Core.Yemo.Equals(object? obj) -> bool
-override Calendrie.Core.Yemo.GetHashCode() -> int
-override Calendrie.Core.Yemo.ToString() -> string!
-override Calendrie.Core.Yemoda.Equals(object? obj) -> bool
-override Calendrie.Core.Yemoda.GetHashCode() -> int
-override Calendrie.Core.Yemoda.ToString() -> string!
 override Calendrie.DayNumber.Equals(object? obj) -> bool
 override Calendrie.DayNumber.GetHashCode() -> int
 override Calendrie.DayNumber.ToString() -> string!
@@ -3115,56 +3048,37 @@ override sealed Calendrie.Core.Schemas.CivilSchema.GetDateParts(int daysSinceEpo
 override sealed Calendrie.Core.Schemas.CivilSchema.GetStartOfYear(int y) -> int
 override sealed Calendrie.Core.Schemas.CivilSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.CivilSchema.IsLeapYear(int y) -> bool
+override sealed Calendrie.Core.Schemas.CivilSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.Coptic12Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Coptic12Schema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.Coptic12Schema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.Coptic12Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.Coptic12Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Coptic12Schema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Coptic12Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.Coptic12Schema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.Coptic12Schema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Coptic12Schema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.Coptic12Schema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.Coptic12Schema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.Coptic12Schema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.Coptic13Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Coptic13Schema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.Coptic13Schema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.Coptic13Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.Coptic13Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Coptic13Schema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Coptic13Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.Coptic13Schema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.Coptic13Schema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Coptic13Schema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.Coptic13Schema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.Coptic13Schema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.Coptic13Schema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.CopticSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
 override sealed Calendrie.Core.Schemas.CopticSchema.GetStartOfYear(int y) -> int
 override sealed Calendrie.Core.Schemas.CopticSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.CopticSchema.IsLeapYear(int y) -> bool
 override sealed Calendrie.Core.Schemas.Egyptian12Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Egyptian12Schema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.Egyptian12Schema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.Egyptian12Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.Egyptian12Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Egyptian12Schema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Egyptian12Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.Egyptian12Schema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.Egyptian12Schema.GetStartOfYearInMonths(int y) -> int
-override sealed Calendrie.Core.Schemas.Egyptian12Schema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.Egyptian12Schema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.Egyptian12Schema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.Egyptian13Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Egyptian13Schema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.Egyptian13Schema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.Egyptian13Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.Egyptian13Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Egyptian13Schema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Egyptian13Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.Egyptian13Schema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.Egyptian13Schema.GetStartOfYearInMonths(int y) -> int
-override sealed Calendrie.Core.Schemas.Egyptian13Schema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.Egyptian13Schema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.Egyptian13Schema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.EgyptianSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.EgyptianSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.EgyptianSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
@@ -3173,33 +3087,22 @@ override sealed Calendrie.Core.Schemas.EgyptianSchema.GetStartOfYear(int y) -> i
 override sealed Calendrie.Core.Schemas.EgyptianSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.EgyptianSchema.GetYear(int daysSinceEpoch, out int doy) -> int
 override sealed Calendrie.Core.Schemas.EgyptianSchema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.EgyptianSchema.IsIntercalaryMonth(int y, int m) -> bool
 override sealed Calendrie.Core.Schemas.EgyptianSchema.IsLeapYear(int y) -> bool
 override sealed Calendrie.Core.Schemas.EgyptianSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.FrenchRepublican12Schema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.CountDaysInMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.FrenchRepublican13Schema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublicanSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublicanSchema.GetStartOfYear(int y) -> int
 override sealed Calendrie.Core.Schemas.FrenchRepublicanSchema.GetYear(int daysSinceEpoch) -> int
@@ -3208,17 +3111,10 @@ override sealed Calendrie.Core.Schemas.FrenchRepublicanSchema.IsLeapYear(int y) 
 override sealed Calendrie.Core.Schemas.GJSchema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.GJSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.GJSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.GJSchema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.GJSchema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.GJSchema.Family.get -> Calendrie.CalendricalFamily
 override sealed Calendrie.Core.Schemas.GJSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.GJSchema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.GJSchema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.GJSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
-override sealed Calendrie.Core.Schemas.GJSchema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.GJSchema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.GJSchema.IsIntercalaryMonth(int y, int m) -> bool
-override sealed Calendrie.Core.Schemas.GJSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.GJSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.GJSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.GregorianSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
@@ -3226,115 +3122,88 @@ override sealed Calendrie.Core.Schemas.GregorianSchema.GetDateParts(int daysSinc
 override sealed Calendrie.Core.Schemas.GregorianSchema.GetStartOfYear(int y) -> int
 override sealed Calendrie.Core.Schemas.GregorianSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.GregorianSchema.IsLeapYear(int y) -> bool
+override sealed Calendrie.Core.Schemas.GregorianSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
-override sealed Calendrie.Core.Schemas.InternationalFixedSchema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.InternationalFixedSchema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.Family.get -> Calendrie.CalendricalFamily
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.InternationalFixedSchema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.InternationalFixedSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.GetStartOfYear(int y) -> int
-override sealed Calendrie.Core.Schemas.InternationalFixedSchema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.InternationalFixedSchema.IsIntercalaryMonth(int y, int m) -> bool
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.IsLeapYear(int y) -> bool
-override sealed Calendrie.Core.Schemas.InternationalFixedSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.InternationalFixedSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.InternationalFixedSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.JulianSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
 override sealed Calendrie.Core.Schemas.JulianSchema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 override sealed Calendrie.Core.Schemas.JulianSchema.GetStartOfYear(int y) -> int
 override sealed Calendrie.Core.Schemas.JulianSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.JulianSchema.IsLeapYear(int y) -> bool
+override sealed Calendrie.Core.Schemas.JulianSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.CountDaysInYearBeforeMonth(int y, int m) -> int
-override sealed Calendrie.Core.Schemas.Persian2820Schema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.Persian2820Schema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.Family.get -> Calendrie.CalendricalFamily
 override sealed Calendrie.Core.Schemas.Persian2820Schema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.Persian2820Schema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.Persian2820Schema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
 override sealed Calendrie.Core.Schemas.Persian2820Schema.GetStartOfYear(int y) -> int
-override sealed Calendrie.Core.Schemas.Persian2820Schema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.Persian2820Schema.IsIntercalaryMonth(int y, int m) -> bool
 override sealed Calendrie.Core.Schemas.Persian2820Schema.IsLeapYear(int y) -> bool
-override sealed Calendrie.Core.Schemas.Persian2820Schema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.Persian2820Schema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.Persian2820Schema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.Persian2820Schema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.PositivistSchema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
-override sealed Calendrie.Core.Schemas.PositivistSchema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.PositivistSchema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.Family.get -> Calendrie.CalendricalFamily
 override sealed Calendrie.Core.Schemas.PositivistSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.PositivistSchema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.PositivistSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
 override sealed Calendrie.Core.Schemas.PositivistSchema.GetStartOfYear(int y) -> int
-override sealed Calendrie.Core.Schemas.PositivistSchema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.PositivistSchema.IsIntercalaryMonth(int y, int m) -> bool
 override sealed Calendrie.Core.Schemas.PositivistSchema.IsLeapYear(int y) -> bool
-override sealed Calendrie.Core.Schemas.PositivistSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.PositivistSchema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.PositivistSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.PositivistSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.PtolemaicSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.PtolemaicSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.PtolemaicSchema.Family.get -> Calendrie.CalendricalFamily
-override sealed Calendrie.Core.Schemas.PtolemaicSchema.IsIntercalaryMonth(int y, int m) -> bool
 override sealed Calendrie.Core.Schemas.PtolemaicSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
-override sealed Calendrie.Core.Schemas.TabularIslamicSchema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.TabularIslamicSchema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.Family.get -> Calendrie.CalendricalFamily
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.TabularIslamicSchema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.TabularIslamicSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.GetStartOfYear(int y) -> int
-override sealed Calendrie.Core.Schemas.TabularIslamicSchema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsIntercalaryMonth(int y, int m) -> bool
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsLeapYear(int y) -> bool
-override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.TabularIslamicSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.TabularIslamicSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
 override sealed Calendrie.Core.Schemas.WorldSchema.CountDaysInMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.CountDaysInYear(int y) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.CountDaysInYearBeforeMonth(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.CountDaysSinceEpoch(int y, int m, int d) -> int
-override sealed Calendrie.Core.Schemas.WorldSchema.CountMonthsInYear(int y) -> int
-override sealed Calendrie.Core.Schemas.WorldSchema.CountMonthsSinceEpoch(int y, int m) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.Family.get -> Calendrie.CalendricalFamily
 override sealed Calendrie.Core.Schemas.WorldSchema.GetDatePartsAtEndOfYear(int y, out int m, out int d) -> void
-override sealed Calendrie.Core.Schemas.WorldSchema.GetEndOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.GetMonth(int y, int doy, out int d) -> int
-override sealed Calendrie.Core.Schemas.WorldSchema.GetMonthParts(int monthsSinceEpoch, out int y, out int m) -> void
 override sealed Calendrie.Core.Schemas.WorldSchema.GetStartOfYear(int y) -> int
-override sealed Calendrie.Core.Schemas.WorldSchema.GetStartOfYearInMonths(int y) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.GetYear(int daysSinceEpoch) -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.IsIntercalaryDay(int y, int m, int d) -> bool
-override sealed Calendrie.Core.Schemas.WorldSchema.IsIntercalaryMonth(int y, int m) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.IsLeapYear(int y) -> bool
-override sealed Calendrie.Core.Schemas.WorldSchema.IsRegular(out int monthsInYear) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.IsSupplementaryDay(int y, int m, int d) -> bool
+override sealed Calendrie.Core.Schemas.WorldSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
+static Calendrie.Core.CalendricalSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
+static Calendrie.Core.CalendricalSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximalOnOrAfterYear1(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
@@ -3418,34 +3287,6 @@ static Calendrie.Core.Intervals.UpperRay.Complement(this Calendrie.Core.Interval
 static Calendrie.Core.Intervals.UpperRay.StartingAt<T>(T min) -> Calendrie.Core.Intervals.UpperRay<T>
 static Calendrie.Core.Intervals.UpperRay<T>.operator !=(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
 static Calendrie.Core.Intervals.UpperRay<T>.operator ==(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
-static Calendrie.Core.LimitSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.LimitSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.Yedoy.Create(int year, int dayOfYear) -> Calendrie.Core.Yedoy
-static Calendrie.Core.Yedoy.MaxValue.get -> Calendrie.Core.Yedoy
-static Calendrie.Core.Yedoy.MinValue.get -> Calendrie.Core.Yedoy
-static Calendrie.Core.Yedoy.operator !=(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
-static Calendrie.Core.Yedoy.operator <(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
-static Calendrie.Core.Yedoy.operator <=(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
-static Calendrie.Core.Yedoy.operator ==(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
-static Calendrie.Core.Yedoy.operator >(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
-static Calendrie.Core.Yedoy.operator >=(Calendrie.Core.Yedoy left, Calendrie.Core.Yedoy right) -> bool
-static Calendrie.Core.Yemo.Create(int year, int month) -> Calendrie.Core.Yemo
-static Calendrie.Core.Yemo.operator !=(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
-static Calendrie.Core.Yemo.operator <(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
-static Calendrie.Core.Yemo.operator <=(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
-static Calendrie.Core.Yemo.operator ==(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
-static Calendrie.Core.Yemo.operator >(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
-static Calendrie.Core.Yemo.operator >=(Calendrie.Core.Yemo left, Calendrie.Core.Yemo right) -> bool
-static Calendrie.Core.Yemoda.Create(int year, int month, int day) -> Calendrie.Core.Yemoda
-static Calendrie.Core.Yemoda.MaxValue.get -> Calendrie.Core.Yemoda
-static Calendrie.Core.Yemoda.MinValue.get -> Calendrie.Core.Yemoda
-static Calendrie.Core.Yemoda.operator !=(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
-static Calendrie.Core.Yemoda.operator <(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
-static Calendrie.Core.Yemoda.operator <=(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
-static Calendrie.Core.Yemoda.operator ==(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
-static Calendrie.Core.Yemoda.operator >(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
-static Calendrie.Core.Yemoda.operator >=(Calendrie.Core.Yemoda left, Calendrie.Core.Yemoda right) -> bool
-static Calendrie.Core.Yemoda.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
 static Calendrie.DateParts.AtStartOfMonth(int y, int m) -> Calendrie.DateParts
 static Calendrie.DateParts.AtStartOfYear(int y) -> Calendrie.DateParts
 static Calendrie.DateParts.operator <(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
