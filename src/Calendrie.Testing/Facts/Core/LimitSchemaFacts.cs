@@ -39,6 +39,8 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Properties
         Assert.Equal(Range.Maximal32, SchemaUT.SupportedYearsCore);
 }
 
+#if ENABLE_COMPACT_PARTS
+
 public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
 {
     #region GetMonthParts()
@@ -320,6 +322,23 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
     #endregion
 }
 
+#else
+
+public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
+{
+    [Theory, MemberData(nameof(EndOfYearPartsData))]
+    public void GetDatePartsAtEndOfYear(Yemoda ymd)
+    {
+        // Act
+        SchemaUT.GetDatePartsAtEndOfYear(ymd.Year, out int m, out int d);
+        var actual = new Yemoda(ymd.Year, m, d);
+        // Assert
+        Assert.Equal(ymd, actual);
+    }
+}
+
+#endif
+
 public partial class LimitSchemaFacts<TSchema, TDataSet> // Overflows
 {
     [Fact]
@@ -371,6 +390,7 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Overflows
     [Fact] public void GetYear﹍Plain_DoesNotUnderflow() => _ = SchemaUT.GetYear(MinDaysSinceEpoch);
     [Fact] public void GetYear﹍Plain_DoesNotOverflow() => _ = SchemaUT.GetYear(MaxDaysSinceEpoch);
 
+#if ENABLE_COMPACT_PARTS
     [Fact] public void GetDateParts﹍DaysSinceEpoch_DoesNotUnderflow() => _ = SchemaUT.GetDateParts(MinDaysSinceEpoch);
     [Fact] public void GetDateParts﹍DaysSinceEpoch_DoesNotOverflow() => _ = SchemaUT.GetDateParts(MaxDaysSinceEpoch);
 
@@ -403,4 +423,5 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Overflows
     [Fact] public void GetDatePartsAtEndOfMonth_DoesNotOverflow() => _ = SchemaUT.GetDatePartsAtEndOfMonth(MaxYear, MaxMonth);
     [Fact] public void GetOrdinalPartsAtEndOfMonth_DoesNotUnderflow() => _ = SchemaUT.GetOrdinalPartsAtEndOfMonth(MinYear, 1);
     [Fact] public void GetOrdinalPartsAtEndOfMonth_DoesNotOverflow() => _ = SchemaUT.GetOrdinalPartsAtEndOfMonth(MaxYear, MaxMonth);
+#endif
 }

@@ -103,10 +103,7 @@ public abstract partial class LimitSchema : CalendricalSchema
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Range<int> MaxSupportedYears => Yemoda.SupportedYears;
-}
 
-public partial class LimitSchema // Properties
-{
     private Range<int> _supportedYearsCore = Range.Maximal32;
     /// <summary>
     /// Gets the core domain, the interval of years for which the <i>core</i>
@@ -139,6 +136,8 @@ public partial class LimitSchema // Properties
         }
     }
 }
+
+#if ENABLE_COMPACT_PARTS
 
 public partial class LimitSchema // Conversions
 {
@@ -336,3 +335,24 @@ public partial class LimitSchema // Dates in a given year or month
         return new Yedoy(y, doy);
     }
 }
+
+#else
+
+public partial class LimitSchema
+{
+    /// <summary>
+    /// Obtains the month and day of the month for the last day of the specified
+    /// year; the results are given in output parameters.
+    /// </summary>
+    //
+    // The default implementation
+    // > m = CountMonthsInYear(y);
+    // > d = CountDaysInMonth(y, m);
+    // is rather inefficient, indeed "m" and "d" are often constant.
+    // For instance, for regular schemas, we can write:
+    // > m = MonthsInYear;
+    // > d = CountDaysInMonth(y, MonthsInYear);
+    public abstract void GetDatePartsAtEndOfYear(int y, out int m, out int d);
+}
+
+#endif
