@@ -173,7 +173,7 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
     /// <see cref="CalendricalSchema"/> class.
     /// </summary>
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/>
-    /// is not a subinterval of <see cref="Yemoda.SupportedYears"/>.</exception>
+    /// is not a subinterval of <see cref="MaxSupportedYears"/>.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     protected CalendricalSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
@@ -201,12 +201,13 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
 
     /// <summary>
     /// Gets the maximum value for <see cref="ICalendricalSchema.SupportedYears"/>,
-    /// that is the interval [<see cref="Yemoda.MinYear"/>..<see cref="Yemoda.MaxYear"/>]
-    /// i.e. [-2_097_151, 2_097_152].
-    /// <para>It matches the value of <see cref="Yemoda.SupportedYears"/>.</para>
+    /// that is the interval [-2_097_151, 2_097_152].
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Range<int> MaxSupportedYears => Yemoda.SupportedYears;
+    //
+    // It matches the value of <see cref="Yemoda.SupportedYears"/>.
+    //public static Range<int> MaxSupportedYears => Yemoda.SupportedYears;
+    public static Range<int> MaxSupportedYears { get; } = Range.Create(1 - (1 << 21), 1 << 21);
 
     private Range<int> _supportedYearsCore = Range.Maximal32;
     /// <summary>
@@ -216,14 +217,17 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
     /// </para>
     /// <para>The default value is equal to the whole range of 32-bit signed
     /// integers.</para>
+    /// <para>For methods expecting a month parameters, we assume that
+    /// they are within the range [1..16].</para>
     /// <para>For methods expecting a month or day parameters, we assume that
-    /// they are within the ranges defined by <see cref="Yemoda"/>.
-    /// </para>
+    /// they are within the range [1..64].</para>
     /// <para>See also <seealso cref="ICalendricalPreValidator"/>.</para>
     /// </summary>
     /// <exception cref="ArgumentException"><paramref name="value"/>
     /// is not a subinterval of <see cref="SupportedYears"/>.
     /// </exception>
+    //
+    // The fixed limits for the month and day parameters are related to Yemoda.
     public Range<int> SupportedYearsCore
     {
         get => _supportedYearsCore;
