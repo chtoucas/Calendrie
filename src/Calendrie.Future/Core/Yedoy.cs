@@ -174,7 +174,7 @@ public readonly partial struct Yedoy :
     /// representable; one of the value is too large to be handled by the system.
     /// </exception>
     [Pure]
-    public static Yedoy Create(int year, int dayOfYear)
+    internal static Yedoy Create(int year, int dayOfYear)
     {
         if (year < MinYear || year > MaxYear)
         {

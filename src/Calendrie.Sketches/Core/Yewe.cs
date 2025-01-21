@@ -170,7 +170,7 @@ public readonly partial struct Yewe :
     /// representable; one of the value is too large to be handled by the system.
     /// </exception>
     [Pure]
-    public static Yewe Create(int year, int weekOfYear)
+    internal static Yewe Create(int year, int weekOfYear)
     {
         if (year < MinYear || year > MaxYear)
         {

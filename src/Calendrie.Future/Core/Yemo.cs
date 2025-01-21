@@ -165,7 +165,7 @@ public readonly partial struct Yemo :
     /// representable; one of the value is too large to be handled by the system.
     /// </exception>
     [Pure]
-    public static Yemo Create(int year, int month)
+    internal static Yemo Create(int year, int month)
     {
         if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year);
         if (month < MinMonth || month > MaxMonth) ThrowHelpers.ThrowMonthOutOfRange(month);

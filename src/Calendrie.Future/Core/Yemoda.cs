@@ -296,7 +296,7 @@ public readonly partial struct Yemoda :
     /// not representable; one of the value is too large to be handled by the
     /// system.</exception>
     [Pure]
-    public static Yemoda Create(int year, int month, int day)
+    internal static Yemoda Create(int year, int month, int day)
     {
         if (year < MinYear || year > MaxYear) ThrowHelpers.ThrowYearOutOfRange(year);
         if (month < MinMonth || month > MaxMonth) ThrowHelpers.ThrowMonthOutOfRange(month);
