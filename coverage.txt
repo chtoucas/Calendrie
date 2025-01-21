@@ -1,22 +1,22 @@
 Summary
-  Generated on: 19/01/2025 - 08:43:00
+  Generated on: 21/01/2025 - 12:23:12
   Parser: OpenCover
   Assemblies: 3
   Classes: 234
   Files: 182
-  Line coverage: 94.6%
-  Covered lines: 17040
-  Uncovered lines: 968
-  Coverable lines: 18008
-  Total lines: 68030
-  Branch coverage: 94% (4849 of 5155)
-  Covered branches: 4849
-  Total branches: 5155
-  Method coverage: 95.4% (6166 of 6463)
-  Full method coverage: 80.7% (5219 of 6463)
-  Covered methods: 6166
-  Fully covered methods: 5219
-  Total methods: 6463
+  Line coverage: 94.2%
+  Covered lines: 16863
+  Uncovered lines: 1032
+  Coverable lines: 17895
+  Total lines: 67433
+  Branch coverage: 94% (4877 of 5183)
+  Covered branches: 4877
+  Total branches: 5183
+  Method coverage: 94.9% (6070 of 6390)
+  Full method coverage: 80.2% (5126 of 6390)
+  Covered methods: 6070
+  Fully covered methods: 5126
+  Total methods: 6390
 
 Calendrie                                                 100%
   Calendrie.Core.CalendricalSchema                        100%
@@ -35,8 +35,6 @@ Calendrie                                                 100%
   Calendrie.Core.Intervals.RangeSet<T>                    100%
   Calendrie.Core.Intervals.UpperRay                       100%
   Calendrie.Core.Intervals.UpperRay<T>                    100%
-  Calendrie.Core.LimitSchema                              100%
-  Calendrie.Core.MonthsCalculator                         100%
   Calendrie.Core.PartsAdapter                             100%
   Calendrie.Core.Prototyping.NonRegularSchemaPrototype    100%
   Calendrie.Core.Prototyping.PrototypeHelpers             100%
@@ -76,9 +74,6 @@ Calendrie                                                 100%
   Calendrie.Core.Validation.PlainPreValidator             100%
   Calendrie.Core.Validation.Solar12PreValidator           100%
   Calendrie.Core.Validation.Solar13PreValidator           100%
-  Calendrie.Core.Yedoy                                    100%
-  Calendrie.Core.Yemo                                     100%
-  Calendrie.Core.Yemoda                                   100%
   Calendrie.DateParts                                     100%
   Calendrie.DayNumber                                     100%
   Calendrie.DayZero                                       100%
@@ -180,16 +175,19 @@ Calendrie                                                 100%
   Calendrie.YearNumbering                                 100%
 
 Calendrie.Future                                           99%
-  Calendrie.Core.Schemas.PaxSchema                         96%
+  Calendrie.Core.Schemas.PaxSchema                       88.8%
   Calendrie.Core.Schemas.Tropicalia3031Schema             100%
   Calendrie.Core.Schemas.Tropicalia3130Schema             100%
   Calendrie.Core.Schemas.TropicaliaSchema                 100%
   Calendrie.Core.Schemas.TropicalistaSchema               100%
   Calendrie.Core.TemporalArithmetic                      83.3%
   Calendrie.Core.Validation.PaxPreValidator               100%
+  Calendrie.Core.Yedoy                                    100%
+  Calendrie.Core.Yemo                                     100%
+  Calendrie.Core.Yemoda                                   100%
   Calendrie.Hemerology.CalendarSans                       100%
-  Calendrie.Hemerology.DateMath<T>                         97%
-  Calendrie.Hemerology.MonthMath<T>                        90%
+  Calendrie.Hemerology.DateMath<T>                       98.4%
+  Calendrie.Hemerology.MonthMath<T>                      92.3%
   Calendrie.Hemerology.UserCalendar                       100%
   Calendrie.Systems.CivilDateMath                         100%
   Calendrie.Systems.DateMathPlain<T1, T2>                93.3%
@@ -209,7 +207,7 @@ Calendrie.Future                                           99%
   Calendrie.Systems.TropicaliaMonth                       100%
   Calendrie.Systems.TropicaliaYear                        100%
 
-Calendrie.Sketches                                       46.6%
+Calendrie.Sketches                                       45.1%
   Calendrie.AdditionRuleset                               100%
   Calendrie.Core.Arithmetic.PlainArithmetic                 0%
   Calendrie.Core.Arithmetic.RegularArithmetic               0%
@@ -218,6 +216,8 @@ Calendrie.Sketches                                       46.6%
   Calendrie.Core.Intervals.IntervalExtra                  100%
   Calendrie.Core.Intervals.Lavretni                       100%
   Calendrie.Core.Intervals.Unbounded<T>                   100%
+  Calendrie.Core.LimitSchema                                0%
+  Calendrie.Core.MonthsCalculator                        28.5%
   Calendrie.Core.OffsettedSchema<T>                         0%
   Calendrie.Core.OverflowChecker                            0%
   Calendrie.Core.Prototyping.PrototypalSchema            97.7%
