@@ -39,7 +39,7 @@ using Calendrie.Core.Utilities;
 /// by calendar researchers, among them the Iranian astronomers Malakpour (2004) and Sayyâd (2000)";
 /// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</remarks>
 public sealed partial class Persian2820Schema :
-    CalendricalSchema,
+    RegularSchema,
     IDaysInMonths,
     ISchemaActivator<Persian2820Schema>
 {
@@ -97,6 +97,9 @@ public sealed partial class Persian2820Schema :
     }
 
     /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
+    /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
 
     /// <inheritdoc />
@@ -124,14 +127,6 @@ public sealed partial class Persian2820Schema :
     /// <inheritdoc />
     [Pure]
     static Persian2820Schema ISchemaActivator<Persian2820Schema>.CreateInstance() => new();
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsPerYear;
-        return true;
-    }
 }
 
 public partial class Persian2820Schema // Year, month or day infos
@@ -149,10 +144,6 @@ public partial class Persian2820Schema // Year, month or day infos
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
-
-    /// <inheritdoc />
-    [Pure]
     public sealed override bool IsIntercalaryDay(int y, int m, int d) => m == 12 && d == 30;
 
     /// <inheritdoc />
@@ -162,10 +153,6 @@ public partial class Persian2820Schema // Year, month or day infos
 
 public partial class Persian2820Schema // Counting months and days within a year or a month
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
-
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
@@ -186,15 +173,6 @@ public partial class Persian2820Schema // Counting months and days within a year
 
 public partial class Persian2820Schema // Conversions
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m) =>
-        MonthsCalculator.Regular12.CountMonthsSinceEpoch(y, m);
-
-    /// <inheritdoc />
-    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) =>
-        MonthsCalculator.Regular12.GetMonthParts(monthsSinceEpoch, out y, out m);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetMonth(int y, int doy, out int d)
@@ -223,16 +201,6 @@ public partial class Persian2820Schema // Conversions
 
 public partial class Persian2820Schema // Counting months and days since the epoch
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetStartOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetStartOfYear(y);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetEndOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetEndOfYear(y);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y)

@@ -23,7 +23,7 @@ namespace Calendrie.Core.Schemas;
 /// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
 /// </remarks>
 public sealed partial class InternationalFixedSchema :
-    CalendricalSchema,
+    RegularSchema,
     IDaysInMonths,
     ISchemaActivator<InternationalFixedSchema>
 {
@@ -66,6 +66,9 @@ public sealed partial class InternationalFixedSchema :
     internal InternationalFixedSchema() : base(DaysInCommonYear, 28) { }
 
     /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
+    /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
 
     /// <inheritdoc />
@@ -93,14 +96,6 @@ public sealed partial class InternationalFixedSchema :
     /// <inheritdoc />
     [Pure]
     static InternationalFixedSchema ISchemaActivator<InternationalFixedSchema>.CreateInstance() => new();
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsPerYear;
-        return true;
-    }
 }
 
 public partial class InternationalFixedSchema // Year, month or day infos
@@ -125,10 +120,6 @@ public partial class InternationalFixedSchema // Year, month or day infos
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
-
-    /// <inheritdoc />
-    [Pure]
     public sealed override bool IsIntercalaryDay(int y, int m, int d) =>
         // We check the day first since it is the rarest case.
         d == 29 && m == 6;
@@ -140,10 +131,6 @@ public partial class InternationalFixedSchema // Year, month or day infos
 
 public partial class InternationalFixedSchema // Counting months and days within a year or a month
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
-
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
@@ -168,17 +155,8 @@ public partial class InternationalFixedSchema // Conversions
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m) =>
-        MonthsCalculator.Regular13.CountMonthsSinceEpoch(y, m);
-
-    /// <inheritdoc />
-    [Pure]
     public sealed override int CountDaysSinceEpoch(int y, int m, int d) =>
         GregorianFormulae.GetStartOfYear(y) + CountDaysInYearBeforeMonth(y, m) + d - 1;
-
-    /// <inheritdoc />
-    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) =>
-        MonthsCalculator.Regular13.GetMonthParts(monthsSinceEpoch, out y, out m);
 
     /// <inheritdoc />
     [Pure]
@@ -214,16 +192,6 @@ public partial class InternationalFixedSchema // Conversions
 
 public partial class InternationalFixedSchema // Counting months and days since the epoch
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetStartOfYearInMonths(int y) =>
-        MonthsCalculator.Regular13.GetStartOfYear(y);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetEndOfYearInMonths(int y) =>
-        MonthsCalculator.Regular13.GetEndOfYear(y);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);

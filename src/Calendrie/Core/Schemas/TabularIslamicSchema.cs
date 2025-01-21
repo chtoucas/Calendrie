@@ -13,7 +13,7 @@ using Calendrie.Core.Utilities;
 /// </para>
 /// </summary>
 public sealed partial class TabularIslamicSchema :
-    CalendricalSchema,
+    RegularSchema,
     IDaysInMonths,
     ISchemaActivator<TabularIslamicSchema>
 {
@@ -63,6 +63,9 @@ public sealed partial class TabularIslamicSchema :
     public sealed override CalendricalAdjustments PeriodicAdjustments =>
         CalendricalAdjustments.Days;
 
+    /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
     /// <summary>
     /// Gets the number of days in each month of a common year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
@@ -85,14 +88,6 @@ public sealed partial class TabularIslamicSchema :
     /// <inheritdoc />
     [Pure]
     static TabularIslamicSchema ISchemaActivator<TabularIslamicSchema>.CreateInstance() => new();
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsPerYear;
-        return true;
-    }
 }
 
 public partial class TabularIslamicSchema // Year, month or day infos
@@ -100,10 +95,6 @@ public partial class TabularIslamicSchema // Year, month or day infos
     /// <inheritdoc />
     [Pure]
     public sealed override bool IsLeapYear(int y) => MathZ.Modulo(checked(14 + 11 * y), 30) < 11;
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
 
     /// <inheritdoc />
     [Pure]
@@ -116,10 +107,6 @@ public partial class TabularIslamicSchema // Year, month or day infos
 
 public partial class TabularIslamicSchema // Counting months and days within a year or a month
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
-
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
@@ -137,15 +124,6 @@ public partial class TabularIslamicSchema // Counting months and days within a y
 
 public partial class TabularIslamicSchema // Conversions
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m) =>
-        MonthsCalculator.Regular12.CountMonthsSinceEpoch(y, m);
-
-    /// <inheritdoc />
-    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) =>
-        MonthsCalculator.Regular12.GetMonthParts(monthsSinceEpoch, out y, out m);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysSinceEpoch(int y, int m, int d) =>
@@ -172,16 +150,6 @@ public partial class TabularIslamicSchema // Conversions
 
 public partial class TabularIslamicSchema // Counting months and days since the epoch
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetStartOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetStartOfYear(y);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetEndOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetEndOfYear(y);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y) =>

@@ -24,6 +24,9 @@ public sealed partial class Coptic12Schema :
     /// </summary>
     internal Coptic12Schema() : base(30) { }
 
+    /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
     /// <summary>
     /// Gets the number of days in each month of a common year.
     /// <para>The span index matches the month index <i>minus one</i>.</para>
@@ -46,14 +49,6 @@ public sealed partial class Coptic12Schema :
     /// <inheritdoc />
     [Pure]
     static Coptic12Schema ISchemaActivator<Coptic12Schema>.CreateInstance() => new();
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsPerYear;
-        return true;
-    }
 }
 
 public partial class Coptic12Schema // Year, month or day infos
@@ -91,25 +86,12 @@ public partial class Coptic12Schema // Counting months and days within a year or
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
-
-    /// <inheritdoc />
-    [Pure]
     public sealed override int CountDaysInMonth(int y, int m) =>
         Twelve.CountDaysInMonth(IsLeapYear(y), m);
 }
 
 public partial class Coptic12Schema // Conversions
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m) =>
-        MonthsCalculator.Regular12.CountMonthsSinceEpoch(y, m);
-
-    /// <inheritdoc />
-    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) =>
-        MonthsCalculator.Regular12.GetMonthParts(monthsSinceEpoch, out y, out m);
-
     /// <inheritdoc />
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
@@ -121,19 +103,6 @@ public partial class Coptic12Schema // Conversions
     [Pure]
     public sealed override int GetMonth(int y, int doy, out int d) =>
         Twelve.GetMonth(doy - 1, out d);
-}
-
-public partial class Coptic12Schema // Counting months and days since the epoch
-{
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetStartOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetStartOfYear(y);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetEndOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetEndOfYear(y);
 }
 
 public partial class Coptic12Schema // Dates in a given year or month

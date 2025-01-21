@@ -31,7 +31,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class WorldSchema :
-    CalendricalSchema,
+    RegularSchema,
     ISchemaActivator<WorldSchema>
 {
     /// <summary>
@@ -71,6 +71,9 @@ public sealed partial class WorldSchema :
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Days;
 
     /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
+    /// <inheritdoc />
     [Pure]
     static WorldSchema ISchemaActivator<WorldSchema>.CreateInstance() => new();
 
@@ -94,14 +97,6 @@ public sealed partial class WorldSchema :
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "A month has 2 components")]
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Static would force us to validate the parameters")]
     public int CountDaysInWorldMonth(int y, int m) => CountDaysInWorldMonthImpl(m);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsPerYear;
-        return true;
-    }
 }
 
 public partial class WorldSchema // Year, month or day infos
@@ -126,10 +121,6 @@ public partial class WorldSchema // Year, month or day infos
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
-
-    /// <inheritdoc />
-    [Pure]
     public sealed override bool IsIntercalaryDay(int y, int m, int d) =>
         // We check the day first since it is the rarest case.
         d == 31 && m == 6;
@@ -141,10 +132,6 @@ public partial class WorldSchema // Year, month or day infos
 
 public partial class WorldSchema // Counting months and days within a year or a month
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
-
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
@@ -176,17 +163,8 @@ public partial class WorldSchema // Conversions
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m) =>
-        MonthsCalculator.Regular12.CountMonthsSinceEpoch(y, m);
-
-    /// <inheritdoc />
-    [Pure]
     public sealed override int CountDaysSinceEpoch(int y, int m, int d) =>
         GregorianFormulae.GetStartOfYear(y) + CountDaysInYearBeforeMonth(y, m) + d - 1;
-
-    /// <inheritdoc />
-    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) =>
-        MonthsCalculator.Regular12.GetMonthParts(monthsSinceEpoch, out y, out m);
 
     /// <inheritdoc />
     [Pure]
@@ -229,16 +207,6 @@ public partial class WorldSchema // Conversions
 
 public partial class WorldSchema // Counting months and days since the epoch
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetStartOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetStartOfYear(y);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetEndOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetEndOfYear(y);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);

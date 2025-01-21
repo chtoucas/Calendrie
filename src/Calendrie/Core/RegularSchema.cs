@@ -6,8 +6,6 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(code): use it as a base for all regular schemas. Remove MonthsCalculator.
-
 /// <summary>
 /// Represents a regular schema and provides a base for derived classes.
 /// </summary>

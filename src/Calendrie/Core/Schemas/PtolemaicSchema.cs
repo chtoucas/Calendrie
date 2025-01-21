@@ -19,7 +19,7 @@ using Calendrie.Core.Utilities;
 /// <para>We propose an alternative form using a virtual thirteenth month to
 /// hold the epagomenal days: 1/13 to 5/13 (6/13 on a leap year).</para>
 /// </remarks>
-public abstract partial class PtolemaicSchema : CalendricalSchema
+public abstract partial class PtolemaicSchema : RegularSchema
 {
     /// <summary>
     /// Represents the number of days in a common year.
@@ -45,13 +45,6 @@ public abstract partial class PtolemaicSchema : CalendricalSchema
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments =>
         CalendricalAdjustments.Days;
-}
-
-public partial class PtolemaicSchema // Year, month or day infos
-{
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
 }
 
 public partial class PtolemaicSchema // Counting months and days within a year or a month

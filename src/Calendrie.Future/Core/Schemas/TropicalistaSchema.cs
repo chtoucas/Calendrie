@@ -9,7 +9,7 @@ using Calendrie.Core.Utilities;
 /// Provides a base for the "Tropicália" schemas.
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-public abstract partial class TropicalistaSchema : CalendricalSchema
+public abstract partial class TropicalistaSchema : RegularSchema
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -58,12 +58,7 @@ public abstract partial class TropicalistaSchema : CalendricalSchema
         CalendricalAdjustments.Days;
 
     /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsPerYear;
-        return true;
-    }
+    public sealed override int MonthsInYear => MonthsPerYear;
 }
 
 public partial class TropicalistaSchema // Year, month or day infos
@@ -81,19 +76,11 @@ public partial class TropicalistaSchema // Year, month or day infos
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
-
-    /// <inheritdoc />
-    [Pure]
     public sealed override bool IsSupplementaryDay(int y, int m, int d) => false;
 }
 
 public partial class TropicalistaSchema // Counting months and days within a year or a month
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
-
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
@@ -102,15 +89,6 @@ public partial class TropicalistaSchema // Counting months and days within a yea
 
 public partial class TropicalistaSchema // Conversions
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m) =>
-        MonthsCalculator.Regular12.CountMonthsSinceEpoch(y, m);
-
-    /// <inheritdoc />
-    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) =>
-        MonthsCalculator.Regular12.GetMonthParts(monthsSinceEpoch, out y, out m);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch)
@@ -122,16 +100,6 @@ public partial class TropicalistaSchema // Conversions
 
 public partial class TropicalistaSchema // Counting months and days since the epoch
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetStartOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetStartOfYear(y);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetEndOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetEndOfYear(y);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y)
