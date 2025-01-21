@@ -34,7 +34,7 @@ public partial struct CivilMonth // Preamble
         // > CivilScope.ValidateYearMonthImpl(year, month);
         if (year < CivilScope.MinYear || year > CivilScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > GJSchema.MonthsInYear)
+        if (month < 1 || month > GJSchema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
@@ -107,7 +107,7 @@ public partial struct CivilMonth // Preamble
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
-        1 + _monthsSinceEpoch / GJSchema.MonthsInYear;
+        1 + _monthsSinceEpoch / GJSchema.MonthsPerYear;
 
     /// <inheritdoc />
     public int Month
@@ -138,7 +138,7 @@ public partial struct CivilMonth // Preamble
     {
         // See RegularSchema.GetMonthParts().
         // NB: both dividend and divisor are >= 0.
-        year = 1 + MathN.Divide(_monthsSinceEpoch, GJSchema.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(_monthsSinceEpoch, GJSchema.MonthsPerYear, out int m0);
         month = 1 + m0;
     }
 }

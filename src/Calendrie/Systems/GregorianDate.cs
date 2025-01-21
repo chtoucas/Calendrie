@@ -680,7 +680,7 @@ public partial struct GregorianDate // Non-standard math ops
         GregorianFormulae.GetDateParts(other._daysSinceZero, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(GJSchema.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(GJSchema.MonthsPerYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -730,7 +730,7 @@ public partial struct GregorianDate // Non-standard math ops
     {
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(
-            checked(m - 1 + months), GJSchema.MonthsInYear, out int y0);
+            checked(m - 1 + months), GJSchema.MonthsPerYear, out int y0);
         int newY = checked(y + y0);
         if (newY < GregorianScope.MinYear || newY > GregorianScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();

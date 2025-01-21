@@ -19,7 +19,7 @@ public abstract partial class GJSchema : CalendricalSchema, IDaysInMonths
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = 12;
+    public const int MonthsPerYear = 12;
 
     /// <summary>
     /// Represents the number of days in a common year.
@@ -86,7 +86,7 @@ public abstract partial class GJSchema : CalendricalSchema, IDaysInMonths
     [Pure]
     public sealed override bool IsRegular(out int monthsInYear)
     {
-        monthsInYear = MonthsInYear;
+        monthsInYear = MonthsPerYear;
         return true;
     }
 }
@@ -110,7 +110,7 @@ public partial class GJSchema // Counting months and days within a year or a mon
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
 
     /// <inheritdoc />
     [Pure]

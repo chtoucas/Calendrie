@@ -27,7 +27,7 @@ public sealed partial class Egyptian13Schema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    public const int MonthsInYear = 13;
+    public const int MonthsPerYear = 13;
 
     /// <summary>
     /// Represents the virtual month.
@@ -61,7 +61,7 @@ public sealed partial class Egyptian13Schema :
     [Pure]
     public sealed override bool IsRegular(out int monthsInYear)
     {
-        monthsInYear = MonthsInYear;
+        monthsInYear = MonthsPerYear;
         return true;
     }
 }
@@ -98,7 +98,7 @@ public partial class Egyptian13Schema // Counting months and days within a year 
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
 
     /// <inheritdoc />
     [Pure]
@@ -147,6 +147,6 @@ public partial class Egyptian13Schema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsInYear; d = 5;
+        m = MonthsPerYear; d = 5;
     }
 }

@@ -45,12 +45,12 @@ public sealed class GregorianDateMath : DateMath<GregorianDate>
     protected sealed override GregorianDate AddMonthsCore(
         int y, int m, int d, int months, out int roundoff)
     {
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), GJSchema.MonthsInYear, out int years);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), GJSchema.MonthsPerYear, out int years);
         return AddYearsCore(y, newM, d, years, out roundoff);
     }
 
     /// <inheritdoc />
     [Pure]
     protected sealed override int CountMonthsBetween(int y0, int m0, int y1, int m1) =>
-        checked((y1 - y0) * GJSchema.MonthsInYear + m1 - m0);
+        checked((y1 - y0) * GJSchema.MonthsPerYear + m1 - m0);
 }

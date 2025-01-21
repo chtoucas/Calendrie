@@ -21,7 +21,7 @@ public sealed partial class TabularIslamicSchema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = 12;
+    public const int MonthsPerYear = 12;
 
     /// <summary>
     /// Represents the number of days per 30-year cycle.
@@ -90,7 +90,7 @@ public sealed partial class TabularIslamicSchema :
     [Pure]
     public sealed override bool IsRegular(out int monthsInYear)
     {
-        monthsInYear = MonthsInYear;
+        monthsInYear = MonthsPerYear;
         return true;
     }
 }
@@ -118,7 +118,7 @@ public partial class TabularIslamicSchema // Counting months and days within a y
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
 
     /// <inheritdoc />
     [Pure]

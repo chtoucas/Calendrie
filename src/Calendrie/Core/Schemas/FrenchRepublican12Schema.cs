@@ -18,7 +18,7 @@ public sealed partial class FrenchRepublican12Schema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 12.</para>
     /// </summary>
-    public const int MonthsInYear = 12;
+    public const int MonthsPerYear = 12;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FrenchRepublican12Schema"/>
@@ -53,7 +53,7 @@ public sealed partial class FrenchRepublican12Schema :
     [Pure]
     public sealed override bool IsRegular(out int monthsInYear)
     {
-        monthsInYear = MonthsInYear;
+        monthsInYear = MonthsPerYear;
         return true;
     }
 }
@@ -93,7 +93,7 @@ public partial class FrenchRepublican12Schema // Counting months and days within
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
 
     /// <inheritdoc />
     [Pure]

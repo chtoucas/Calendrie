@@ -109,7 +109,7 @@ public partial struct <#= Prefix #>Month // Preamble
         // > <#= Prefix #>Calendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > <#= SchemaClass #>.MonthsInYear)
+        if (month < 1 || month > <#= SchemaClass #>.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
@@ -179,7 +179,7 @@ public partial struct <#= Prefix #>Month // Preamble
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
-        1 + _monthsSinceEpoch / <#= SchemaClass #>.MonthsInYear;
+        1 + _monthsSinceEpoch / <#= SchemaClass #>.MonthsPerYear;
 
     /// <inheritdoc />
     public int Month
@@ -210,7 +210,7 @@ public partial struct <#= Prefix #>Month // Preamble
     {
         // See RegularSchema.GetMonthParts().
         // NB: both dividend and divisor are >= 0.
-        year = 1 + MathN.Divide(_monthsSinceEpoch, <#= SchemaClass #>.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(_monthsSinceEpoch, <#= SchemaClass #>.MonthsPerYear, out int m0);
         month = 1 + m0;
     }
 }
@@ -379,7 +379,7 @@ public partial struct <#= Prefix #>Month // Factories
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < <#= ScopeClass #>.MinYear || year > <#= ScopeClass #>.MaxYear
-            || month < 1 || month > <#= SchemaClass #>.MonthsInYear)
+            || month < 1 || month > <#= SchemaClass #>.MonthsPerYear)
         {
             return null;
         }
@@ -424,7 +424,7 @@ public partial struct <#= Prefix #>Month // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        <#= SchemaClass #>.MonthsInYear * (y - 1) + m - 1;
+        <#= SchemaClass #>.MonthsPerYear * (y - 1) + m - 1;
 }
 <#+
     } // T4: End of EmitMonthFactoriesRegular()
@@ -559,7 +559,7 @@ public partial struct <#= Prefix #>Month // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => <#= SchemaClass #>.MonthsInYear - Month;
+    public int CountRemainingMonthsInYear() => <#= SchemaClass #>.MonthsPerYear - Month;
 
     /// <inheritdoc />
     [Pure]
@@ -646,7 +646,7 @@ public partial struct <#= Prefix #>Month // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > <#= SchemaClass #>.MonthsInYear)
+        if (newMonth < 1 || newMonth > <#= SchemaClass #>.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);

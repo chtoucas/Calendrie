@@ -841,7 +841,7 @@ public partial struct EthiopicDate // Non-standard math ops
         sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar months.
-        int months = checked(Coptic12Schema.MonthsInYear * (y - y0) + m - m0);
+        int months = checked(Coptic12Schema.MonthsPerYear * (y - y0) + m - m0);
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
@@ -894,7 +894,7 @@ public partial struct EthiopicDate // Non-standard math ops
     private static EthiopicDate AddMonths(Coptic12Schema sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), Coptic12Schema.MonthsInYear, out int y0);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), Coptic12Schema.MonthsPerYear, out int y0);
         int newY = checked(y + y0);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
@@ -954,7 +954,7 @@ public partial struct EthiopicMonth // Preamble
         // > EthiopicCalendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > Coptic12Schema.MonthsInYear)
+        if (month < 1 || month > Coptic12Schema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
@@ -1024,7 +1024,7 @@ public partial struct EthiopicMonth // Preamble
     /// </summary>
     public int Year =>
         // NB: both dividend and divisor are >= 0.
-        1 + _monthsSinceEpoch / Coptic12Schema.MonthsInYear;
+        1 + _monthsSinceEpoch / Coptic12Schema.MonthsPerYear;
 
     /// <inheritdoc />
     public int Month
@@ -1055,7 +1055,7 @@ public partial struct EthiopicMonth // Preamble
     {
         // See RegularSchema.GetMonthParts().
         // NB: both dividend and divisor are >= 0.
-        year = 1 + MathN.Divide(_monthsSinceEpoch, Coptic12Schema.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(_monthsSinceEpoch, Coptic12Schema.MonthsPerYear, out int m0);
         month = 1 + m0;
     }
 }
@@ -1075,7 +1075,7 @@ public partial struct EthiopicMonth // Factories
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear
-            || month < 1 || month > Coptic12Schema.MonthsInYear)
+            || month < 1 || month > Coptic12Schema.MonthsPerYear)
         {
             return null;
         }
@@ -1120,7 +1120,7 @@ public partial struct EthiopicMonth // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        Coptic12Schema.MonthsInYear * (y - 1) + m - 1;
+        Coptic12Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
 public partial struct EthiopicMonth // Conversions
@@ -1157,7 +1157,7 @@ public partial struct EthiopicMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => Coptic12Schema.MonthsInYear - Month;
+    public int CountRemainingMonthsInYear() => Coptic12Schema.MonthsPerYear - Month;
 
     /// <inheritdoc />
     [Pure]
@@ -1203,7 +1203,7 @@ public partial struct EthiopicMonth // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > Coptic12Schema.MonthsInYear)
+        if (newMonth < 1 || newMonth > Coptic12Schema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
@@ -1708,7 +1708,7 @@ public partial struct EthiopicYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = Coptic12Schema.MonthsInYear;
+    public const int MonthCount = Coptic12Schema.MonthsPerYear;
 
     /// <inheritdoc />
     public EthiopicMonth MinMonth => EthiopicMonth.UnsafeCreate(Year, 1);
@@ -1754,7 +1754,7 @@ public partial struct EthiopicYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        if (month < 1 || month > Coptic12Schema.MonthsInYear)
+        if (month < 1 || month > Coptic12Schema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         return EthiopicMonth.UnsafeCreate(Year, month);

@@ -31,7 +31,7 @@ public sealed partial class InternationalFixedSchema :
     /// Represents the number of months in a year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    public const int MonthsInYear = 13;
+    public const int MonthsPerYear = 13;
 
     /// <summary>
     /// Represents the number of days per 400-year cycle.
@@ -98,7 +98,7 @@ public sealed partial class InternationalFixedSchema :
     [Pure]
     public sealed override bool IsRegular(out int monthsInYear)
     {
-        monthsInYear = MonthsInYear;
+        monthsInYear = MonthsPerYear;
         return true;
     }
 }
@@ -142,7 +142,7 @@ public partial class InternationalFixedSchema // Counting months and days within
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
 
     /// <inheritdoc />
     [Pure]
@@ -234,6 +234,6 @@ public partial class InternationalFixedSchema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsInYear; d = 29;
+        m = MonthsPerYear; d = 29;
     }
 }

@@ -348,7 +348,7 @@ public partial struct CivilMonth // Factories
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < CivilScope.MinYear || year > CivilScope.MaxYear
-            || month < 1 || month > CivilSchema.MonthsInYear)
+            || month < 1 || month > CivilSchema.MonthsPerYear)
         {
             return null;
         }
@@ -393,7 +393,7 @@ public partial struct CivilMonth // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        CivilSchema.MonthsInYear * (y - 1) + m - 1;
+        CivilSchema.MonthsPerYear * (y - 1) + m - 1;
 }
 
 public partial struct CivilMonth // Conversions
@@ -430,7 +430,7 @@ public partial struct CivilMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => CivilSchema.MonthsInYear - Month;
+    public int CountRemainingMonthsInYear() => CivilSchema.MonthsPerYear - Month;
 
     /// <inheritdoc />
     [Pure]
@@ -476,7 +476,7 @@ public partial struct CivilMonth // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > CivilSchema.MonthsInYear)
+        if (newMonth < 1 || newMonth > CivilSchema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
@@ -774,7 +774,7 @@ public partial struct CivilYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = CivilSchema.MonthsInYear;
+    public const int MonthCount = CivilSchema.MonthsPerYear;
 
     /// <inheritdoc />
     public CivilMonth MinMonth => CivilMonth.UnsafeCreate(Year, 1);
@@ -820,7 +820,7 @@ public partial struct CivilYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        if (month < 1 || month > CivilSchema.MonthsInYear)
+        if (month < 1 || month > CivilSchema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         return CivilMonth.UnsafeCreate(Year, month);

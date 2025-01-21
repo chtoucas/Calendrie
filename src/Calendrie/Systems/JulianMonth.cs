@@ -59,7 +59,7 @@ public partial struct JulianMonth // Preamble
         // > JulianScope.ValidateYearMonthImpl(year, month);
         if (year < JulianScope.MinYear || year > JulianScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > GJSchema.MonthsInYear)
+        if (month < 1 || month > GJSchema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         _monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
@@ -125,7 +125,7 @@ public partial struct JulianMonth // Preamble
     /// <para>Actually, this property returns the algebraic year, but since its
     /// value is greater than 0, one can ignore this subtlety.</para>
     /// </summary>
-    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, GJSchema.MonthsInYear);
+    public int Year => 1 + MathZ.Divide(_monthsSinceEpoch, GJSchema.MonthsPerYear);
 
     /// <inheritdoc />
     public int Month
@@ -165,7 +165,7 @@ public partial struct JulianMonth // Preamble
     public void Deconstruct(out int year, out int month)
     {
         // See RegularSchema.GetMonthParts().
-        year = 1 + MathZ.Divide(_monthsSinceEpoch, GJSchema.MonthsInYear, out int m0);
+        year = 1 + MathZ.Divide(_monthsSinceEpoch, GJSchema.MonthsPerYear, out int m0);
         month = 1 + m0;
     }
 }

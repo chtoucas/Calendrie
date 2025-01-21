@@ -130,7 +130,7 @@ public partial struct JulianMonth // Factories
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < JulianScope.MinYear || year > JulianScope.MaxYear
-            || month < 1 || month > JulianSchema.MonthsInYear)
+            || month < 1 || month > JulianSchema.MonthsPerYear)
         {
             return null;
         }
@@ -175,7 +175,7 @@ public partial struct JulianMonth // Factories
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CountMonthsSinceEpoch(int y, int m) =>
         // See RegularSchema.CountMonthsSinceEpoch().
-        JulianSchema.MonthsInYear * (y - 1) + m - 1;
+        JulianSchema.MonthsPerYear * (y - 1) + m - 1;
 }
 
 public partial struct JulianMonth // Counting
@@ -186,7 +186,7 @@ public partial struct JulianMonth // Counting
 
     /// <inheritdoc />
     [Pure]
-    public int CountRemainingMonthsInYear() => JulianSchema.MonthsInYear - Month;
+    public int CountRemainingMonthsInYear() => JulianSchema.MonthsPerYear - Month;
 
     /// <inheritdoc />
     [Pure]
@@ -232,7 +232,7 @@ public partial struct JulianMonth // Adjustments
         // We already know that "y" is valid, we only need to check "newMonth".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(y, newMonth, nameof(newMonth));
-        if (newMonth < 1 || newMonth > JulianSchema.MonthsInYear)
+        if (newMonth < 1 || newMonth > JulianSchema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(newMonth, nameof(newMonth));
 
         return UnsafeCreate(y, newMonth);
@@ -384,7 +384,7 @@ public partial struct JulianYear // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to 12.</para>
     /// </summary>
-    public const int MonthCount = JulianSchema.MonthsInYear;
+    public const int MonthCount = JulianSchema.MonthsPerYear;
 
     /// <inheritdoc />
     public JulianMonth MinMonth => JulianMonth.UnsafeCreate(Year, 1);
@@ -430,7 +430,7 @@ public partial struct JulianYear // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        if (month < 1 || month > JulianSchema.MonthsInYear)
+        if (month < 1 || month > JulianSchema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         return JulianMonth.UnsafeCreate(Year, month);

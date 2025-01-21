@@ -22,7 +22,7 @@ public sealed partial class Egyptian12Schema :
 {
     /// <summary>Represents the number of months in a year.</summary>
     /// <remarks>This field is a constant equal to 12.</remarks>
-    public const int MonthsInYear = 12;
+    public const int MonthsPerYear = 12;
 
     /// <summary>Initializes a new instance of the <see cref="Egyptian12Schema"/> class.</summary>
     internal Egyptian12Schema() : base(30) { }
@@ -48,7 +48,7 @@ public sealed partial class Egyptian12Schema :
     [Pure]
     public sealed override bool IsRegular(out int monthsInYear)
     {
-        monthsInYear = MonthsInYear;
+        monthsInYear = MonthsPerYear;
         return true;
     }
 }
@@ -85,7 +85,7 @@ public partial class Egyptian12Schema // Counting months and days within a year 
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsInYear;
+    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
 
     /// <inheritdoc />
     [Pure]
@@ -134,6 +134,6 @@ public partial class Egyptian12Schema // Dates in a given year or month
     /// <inheritdoc />
     public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
     {
-        m = MonthsInYear; d = 35;
+        m = MonthsPerYear; d = 35;
     }
 }

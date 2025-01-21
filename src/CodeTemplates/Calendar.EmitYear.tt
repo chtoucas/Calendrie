@@ -246,7 +246,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
     /// Represents the total number of months in a year.
     /// <para>This field is constant equal to <#= MonthsInYear #>.</para>
     /// </summary>
-    public const int MonthCount = <#= SchemaClass #>.MonthsInYear;
+    public const int MonthCount = <#= SchemaClass #>.MonthsPerYear;
 
     /// <inheritdoc />
     public <#= Prefix #>Month MinMonth => <#= Prefix #>Month.UnsafeCreate(Year, 1);
@@ -292,7 +292,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
         // > Calendar.Scope.PreValidator.ValidateMonth(Year, month);
-        if (month < 1 || month > <#= SchemaClass #>.MonthsInYear)
+        if (month < 1 || month > <#= SchemaClass #>.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
         return <#= Prefix #>Month.UnsafeCreate(Year, month);
