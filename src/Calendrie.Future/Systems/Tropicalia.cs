@@ -8,6 +8,17 @@ using Calendrie.Core.Utilities;
 
 // This is a place to experiment additions to the API.
 
+// TODO(code): expand the doc for ALL non-standard math ops (experimental or
+// not), idem with the other date types and the AdditionRule too.
+// Truncate (end of month), CountDaysSince() but may be CountDaysTill()...
+// Experimental non-standard math ops: GregorianDate and JulianDate too.
+// Naming: newStart or ???
+// The default behaviour of CountYearsSince() seems not entirely coherent
+// (see CivilTests). Mots certainly the same happens with CountMonthsSince().
+// Add more tests in CivilTests and GregorianTests.
+// Add a warning about the data (CountYearsBetweenData & co) which only
+// offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
+
 // REVIEW(code): non-standard math ops (experimental), also for month types.
 // Probably, only for CivilDate, GregorianDate and JulianDate.
 // For the others, use DateMath.
@@ -15,6 +26,13 @@ using Calendrie.Core.Utilities;
 
 public partial struct TropicaliaDate // Non-standard math ops (plain implementation)
 {
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance using the
+    /// specified rounding rule, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates -or- <see cref="AdditionRule.Overflow"/> was
+    /// selected and the addition was not exact.</exception>
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusYears(int years, AdditionRule rule)
     {
@@ -23,6 +41,13 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
     }
 
+    /// <summary>
+    /// Adds a number of years to the year field of this date instance and also
+    /// returns the roundoff in an output parameter, yielding a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusYears(int years, out int roundoff)
     {
@@ -30,6 +55,13 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return AddYears(y, m, d, years, out roundoff);
     }
 
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance using
+    /// the specified rounding rule, yielding a new date.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates -or- <see cref="AdditionRule.Overflow"/> was
+    /// selected and the addition was not exact.</exception>
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusMonths(int months, AdditionRule rule)
     {
@@ -38,6 +70,13 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return roundoff == 0 ? newDate : Adjust(newDate, roundoff, rule);
     }
 
+    /// <summary>
+    /// Adds a number of months to the month field of this date instance and also
+    /// returns the roundoff in an output parameter, yielding a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusMonths(int months, out int roundoff)
     {
@@ -45,6 +84,10 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return AddMonths(y, m, d, months, out roundoff);
     }
 
+    /// <summary>
+    /// Counts the number of years elapsed since the specified date using the
+    /// specified rounding rule.
+    /// </summary>
     [Pure, ExcludeFromCodeCoverage]
     public int CountYearsSince(TropicaliaDate other, AdditionRule rule, out TropicaliaDate newStart)
     {
@@ -65,6 +108,10 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
         return years;
     }
 
+    /// <summary>
+    /// Counts the number of months elapsed since the specified date using the
+    /// specified rounding rule.
+    /// </summary>
     [Pure, ExcludeFromCodeCoverage]
     public int CountMonthsSince(TropicaliaDate other, AdditionRule rule, out TropicaliaDate newStart)
     {
