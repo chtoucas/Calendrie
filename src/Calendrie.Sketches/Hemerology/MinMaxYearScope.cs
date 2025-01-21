@@ -92,7 +92,7 @@ public sealed class MinMaxYearScope : CalendarScope
         return new MinMaxYearScope(segment, epoch);
     }
 
-#if true || ENABLE_GENERIC_FACTORIES
+#if FORCE_ENABLE_GENERIC_FACTORIES || ENABLE_GENERIC_FACTORIES
     // Always enabled for MyGregorianDate which is used for a bunch of tests.
 
     /// <summary>

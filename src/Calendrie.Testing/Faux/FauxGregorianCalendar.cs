@@ -16,7 +16,7 @@ public sealed partial class FauxGregorianCalendar : UserCalendar, IDateProvider<
 
     public FauxGregorianCalendar()
         : base("Gregorian",
-            MinMaxYearScope.CreateMaximalOnOrAfterYear1<GregorianSchema>(DayZero.NewStyle))
+            MinMaxYearScope.CreateMaximalOnOrAfterYear1(new GregorianSchema(), DayZero.NewStyle))
     {
         Debug.Assert(Scope != null);
 
