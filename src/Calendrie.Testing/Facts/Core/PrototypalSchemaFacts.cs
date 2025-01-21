@@ -38,7 +38,7 @@ public abstract class PrototypalSchemaFacts<TDataSet> :
         // Min/MaxYear? We can't take Int32.Min/MaxValue, that's why we override
         // the base method... Yemoda.Min/MaxValue is something not too small that
         // should work most of the time.
-        // See also LimitSchemaFacts.KernelDoesNotOverflow()
+        // See also CalendricalSchemaFacts.KernelDoesNotOverflow()
 
         var kernel = SchemaUT as ICalendricalCore;
 

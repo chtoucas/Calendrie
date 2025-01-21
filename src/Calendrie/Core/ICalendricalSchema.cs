@@ -14,45 +14,43 @@ using Calendrie.Core.Intervals;
 //
 // ICalendricalCore
 // └─ ICalendricalSchema
-//    ├─ OffsettedSchema                            DRAFT
-//    ├─ PrototypalSchema                           DRAFT
-//    │  └─ PrototypalSchemaSlim                    DRAFT
+//    ├─ LimitSchema                                Calendrie.Sketches
+//    ├─ OffsettedSchema                            Calendrie.Sketches
+//    ├─ PrototypalSchema                           Calendrie.Sketches
+//    │  └─ PrototypalSchemaSlim                    Calendrie.Sketches
 //    └─ CalendricalSchema [A]
+//       ├─ RegularSchemaPrototype
 //       ├─ NonRegularSchemaPrototype
-//       ├─ LimitSchema [A]
-//       │  ├─ InternationalFixedSchema
-//       │  ├─ Persian2820Schema
-//       │  ├─ PaxSchema                            DRAFT
-//       │  ├─ PositivistSchema
-//       │  ├─ TabularIslamicSchema
-//       │  ├─ WorldSchema
-//       │  ├─ EgyptianSchema [A]
-//       │  │  ├─ Egyptian12Schema
-//       │  │  └─ Egyptian13Schema
-//       │  ├─ GJSchema [A]
-//       │  │  ├─ CivilSchema
-//       │  │  ├─ GregorianSchema
-//       │  │  └─ JulianSchema
-//       │  ├─ PtolemaicSchema [A]
-//       │  │  ├─ CopticSchema [A]
-//       │  │  │  ├─ Coptic12Schema
-//       │  │  │  └─ Coptic13Schema
-//       │  │  └─ FrenchRepublicanSchema [A]
-//       │  │     ├─ FrenchRepublican12Schema
-//       │  │     └─ FrenchRepublican13Schema
-//       │  └─ TropicalistaSchema [A]
-//       │     ├─ TropicaliaSchema
-//       │     ├─ Tropicalia3031Schema
-//       │     └─ Tropicalia3130Schema
-//       └─ RegularSchema
-//          └─ RegularSchemaPrototype
+//       │  └─ PaxSchema                            Calendrie.Future
+//       └─ RegularSchema [A]
+//          ├─ InternationalFixedSchema
+//          ├─ Persian2820Schema
+//          ├─ PositivistSchema
+//          ├─ TabularIslamicSchema
+//          ├─ WorldSchema
+//          ├─ EgyptianSchema [A]
+//          │  ├─ Egyptian12Schema
+//          │  └─ Egyptian13Schema
+//          ├─ GJSchema [A]
+//          │  ├─ CivilSchema
+//          │  ├─ GregorianSchema
+//          │  └─ JulianSchema
+//          ├─ PtolemaicSchema [A]
+//          │  ├─ CopticSchema [A]
+//          │  │  ├─ Coptic12Schema
+//          │  │  └─ Coptic13Schema
+//          │  └─ FrenchRepublicanSchema [A]
+//          │     ├─ FrenchRepublican12Schema
+//          │     └─ FrenchRepublican13Schema
+//          └─ TropicalistaSchema [A]
+//             ├─ TropicaliaSchema
+//             ├─ Tropicalia3031Schema              Calendrie.Future
+//             └─ Tropicalia3130Schema              Calendrie.Future
 //
 // Annotation: [A] = abstract
 //
 // Comments
 // --------
-//
-// LimitSchema adds methods using Yemoda, Yemo or Yedoy are added to LimitSchema.
 //
 // Everything related to ICalendricalArithmetic should be excluded too if we
 // wish to completely ignore Yemoda and Yedoy dependent methods, but we
@@ -66,7 +64,7 @@ using Calendrie.Core.Intervals;
 // exceptionally large range of years, which is not the case of schemas
 // extending CalendricalSchema.
 //
-// There are methods that should work even if year is outside the interval
+// There are methods that should work even if the year is outside the interval
 // [MinYear, MaxYear]:
 // - IsLeapYear(y)
 // - IsIntercalaryMonth(y, m)

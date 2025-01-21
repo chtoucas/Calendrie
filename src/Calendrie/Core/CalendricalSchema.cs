@@ -113,13 +113,10 @@ using static Calendrie.Core.CalendricalConstants;
 
 #endregion
 
-// LimitSchema puts limits on the range of admissible values for the year but
-// more importantly also for the month of the year and the day of the month,
-// therefore it cannot be used to represent schemas with __unusually long years
-// or months__.
-//
-// This class is public but has an internal ctor since we cannot guarantee
-// that a derived class follows the rules defined above.
+// CalendricalSchema puts limits on the range of admissible values for the year,
+// therefore it should not be used to represent schemas with __unusually long
+// years__. These limits are not enforced beyond the ctor, therefore they are
+// purely informative.
 //
 // Les limites DefaultMinYear/DefaultMaxYear ont été fixées afin de pouvoir
 // utiliser Yemoda & co, mais aussi afin d'éviter des dépassements

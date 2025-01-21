@@ -37,7 +37,7 @@ public sealed partial class PaxSchema :
 #if PROTOTYPING
     NonRegularSchemaPrototype,
 #else
-    LimitSchema,
+    CalendricalSchema,
 #endif
     ILeapWeekSchema,
     ISchemaActivator<PaxSchema>
