@@ -53,6 +53,9 @@ public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<Gregori
         PreValidator = GregorianPreValidator.Instance;
     }
 
+    /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
     /// <summary>
     /// Gets the number of days in each century of the first 4-century cycle, the one starting
     /// at century 0.

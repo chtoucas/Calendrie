@@ -13,7 +13,7 @@ using Calendrie.Core.Utilities;
 /// Provides a base for the Gregorian and Julian schemas.
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
-public abstract partial class GJSchema : CalendricalSchema, IDaysInMonths
+public abstract partial class GJSchema : RegularSchema, IDaysInMonths
 {
     /// <summary>
     /// Represents the number of months in a year.
@@ -44,6 +44,9 @@ public abstract partial class GJSchema : CalendricalSchema, IDaysInMonths
     /// Called from constructors in derived classes to initialize the <see cref="GJSchema"/>
     /// class.
     /// </summary>
+    /// <exception cref="ArgumentException"><paramref name="supportedYears"/>
+    /// is not a subinterval of <see cref="CalendricalSchema.MaxSupportedYears"/>.
+    /// </exception>
     private protected GJSchema(Range<int> supportedYears) : base(supportedYears, DaysInCommonYear, 28)
     {
         Debug.Assert(supportedYears.IsSubsetOf(DefaultSupportedYears));
@@ -81,22 +84,10 @@ public abstract partial class GJSchema : CalendricalSchema, IDaysInMonths
     [Pure]
     static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
         leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsRegular(out int monthsInYear)
-    {
-        monthsInYear = MonthsPerYear;
-        return true;
-    }
 }
 
 public partial class GJSchema // Year, month or day infos
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
-
     /// <inheritdoc />
     [Pure]
     public sealed override bool IsIntercalaryDay(int y, int m, int d) => m == 2 && d == 29;
@@ -108,10 +99,6 @@ public partial class GJSchema // Year, month or day infos
 
 public partial class GJSchema // Counting months and days within a year or a month
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsInYear(int y) => MonthsPerYear;
-
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
@@ -143,15 +130,6 @@ public partial class GJSchema // Counting months and days within a year or a mon
 
 public partial class GJSchema // Conversions
 {
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int CountMonthsSinceEpoch(int y, int m) =>
-        MonthsCalculator.Regular12.CountMonthsSinceEpoch(y, m);
-
-    /// <inheritdoc />
-    public sealed override void GetMonthParts(int monthsSinceEpoch, out int y, out int m) =>
-        MonthsCalculator.Regular12.GetMonthParts(monthsSinceEpoch, out y, out m);
-
     /// <inheritdoc />
     [Pure]
     public sealed override int GetMonth(int y, int doy, out int d)
@@ -187,19 +165,6 @@ public partial class GJSchema // Conversions
 
         return m;
     }
-}
-
-public partial class GJSchema // Counting months and days since the epoch
-{
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetStartOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetStartOfYear(y);
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override int GetEndOfYearInMonths(int y) =>
-        MonthsCalculator.Regular12.GetEndOfYear(y);
 }
 
 public partial class GJSchema // Dates in a given year or month

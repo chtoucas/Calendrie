@@ -30,6 +30,9 @@ public sealed partial class JulianSchema : GJSchema, ISchemaActivator<JulianSche
     }
 
     /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
+    /// <inheritdoc />
     [Pure]
     static JulianSchema ISchemaActivator<JulianSchema>.CreateInstance() => new();
 }

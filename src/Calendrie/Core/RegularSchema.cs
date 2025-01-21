@@ -6,8 +6,7 @@ namespace Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
-// TODO(code): use it as a base for all regular schemas.
-// Most certainly remove MonthsCalculator and remove partially LimitSchema.
+// TODO(code): use it as a base for all regular schemas. Remove MonthsCalculator.
 
 /// <summary>
 /// Represents a regular schema and provides a base for derived classes.
@@ -15,7 +14,20 @@ using Calendrie.Core.Utilities;
 public abstract class RegularSchema : CalendricalSchema
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RegularSchema"/> class.
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="CalendricalSchema"/> class.
+    /// <para>All methods MUST work with years in
+    /// <see cref="CalendricalSchema.DefaultSupportedYears"/>. In particular,
+    /// methods must work with negative years.</para>
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
+    /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
+    protected RegularSchema(int minDaysInYear, int minDaysInMonth)
+       : this(DefaultSupportedYears, minDaysInYear, minDaysInMonth) { }
+
+    /// <summary>
+    /// Called from constructors in derived classes to initialize the
+    /// <see cref="RegularSchema"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>

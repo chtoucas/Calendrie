@@ -28,6 +28,9 @@ public sealed partial class CivilSchema : GJSchema, ISchemaActivator<CivilSchema
     }
 
     /// <inheritdoc />
+    public sealed override int MonthsInYear => MonthsPerYear;
+
+    /// <inheritdoc />
     [Pure]
     static CivilSchema ISchemaActivator<CivilSchema>.CreateInstance() => new();
 }

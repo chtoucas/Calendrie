@@ -9,7 +9,7 @@ using Calendrie.Core.Utilities;
 /// Represents an Egyptian schema and provides a base for derived classes.
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
-public abstract partial class EgyptianSchema : CalendricalSchema
+public abstract partial class EgyptianSchema : RegularSchema
 {
     /// <summary>
     /// Represents the number of days in a year.
@@ -28,6 +28,8 @@ public abstract partial class EgyptianSchema : CalendricalSchema
     /// Called from constructors in derived classes to initialize the
     /// <see cref="EgyptianSchema"/> class.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInMonth"/>
+    /// is a negative integer.</exception>
     private protected EgyptianSchema(int minDaysInMonth) : base(DaysInYear, minDaysInMonth) { }
 
     /// <inheritdoc />
@@ -43,10 +45,6 @@ public partial class EgyptianSchema // Year, month or day infos
     /// <inheritdoc />
     [Pure]
     public sealed override bool IsLeapYear(int y) => false;
-
-    /// <inheritdoc />
-    [Pure]
-    public sealed override bool IsIntercalaryMonth(int y, int m) => false;
 
     /// <inheritdoc />
     [Pure]
