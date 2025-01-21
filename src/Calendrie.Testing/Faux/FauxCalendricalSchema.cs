@@ -147,4 +147,13 @@ public partial class FauxCalendricalSchema // Profiles
         new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
         new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
     ];
+
+    public static CalendricalSchema WithBadProfile => new FauxSchemaWithBadProfile();
+
+    private sealed class FauxSchemaWithBadProfile : FauxCalendricalSchema
+    {
+#pragma warning disable CA1822 // Mark members as static
+        internal new CalendricalProfile Profile => (CalendricalProfile)5;
+#pragma warning restore CA1822
+    }
 }

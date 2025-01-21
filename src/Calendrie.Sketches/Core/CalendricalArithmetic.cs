@@ -7,6 +7,7 @@ using Calendrie.Core.Arithmetic;
 using Calendrie.Core.Intervals;
 
 // TODO(code): CalendricalArithmetic
+// NOTHING guarantee that the values are representable by Yemoda & co.
 // - I don't like the ctor (its use of Segment)
 // - We could add more math ops
 //   - CountYearsBetween(Yemoda, Yemoda)
@@ -39,7 +40,7 @@ public abstract class CalendricalArithmetic
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
     /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
     /// </exception>
-    protected CalendricalArithmetic(LimitSchema schema, Range<int> supportedYears)
+    protected CalendricalArithmetic(CalendricalSchema schema, Range<int> supportedYears)
     {
         ArgumentNullException.ThrowIfNull(schema);
 
@@ -54,7 +55,7 @@ public abstract class CalendricalArithmetic
     /// <summary>
     /// Gets the underlying schema.
     /// </summary>
-    protected LimitSchema Schema { get; }
+    protected CalendricalSchema Schema { get; }
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -86,7 +87,8 @@ public abstract class CalendricalArithmetic
     /// is NOT a subinterval of the range of supported years by <paramref name="schema"/>.
     /// </exception>
     [Pure]
-    public static CalendricalArithmetic CreateDefault(LimitSchema schema, Range<int> supportedYears)
+    public static CalendricalArithmetic CreateDefault(
+        CalendricalSchema schema, Range<int> supportedYears)
     {
         ArgumentNullException.ThrowIfNull(schema);
 

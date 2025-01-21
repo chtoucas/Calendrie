@@ -14,7 +14,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <summary>
 /// Represents a <b>fake</b> lunisolar schema.
 /// </summary>
-public sealed class FauxLunisolarSchema : LimitSchema, IDaysInMonths
+public sealed class FauxLunisolarSchema : CalendricalSchema, IDaysInMonths
 {
     public const int MonthsPer4YearCycle = 49;
     public const int DaysPer4YearCycle = 1446;

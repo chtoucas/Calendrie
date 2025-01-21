@@ -23,7 +23,7 @@ module Prelude =
 
     [<Fact>]
     let ``ICalendricalPreValidator.CreateDefault() "unreachable" case`` () =
-        let sch = FauxLimitSchema.WithBadProfile
+        let sch = FauxCalendricalSchema.WithBadProfile
 
         ICalendricalPreValidator.CreateDefault(sch) |> is<PlainPreValidator>
 

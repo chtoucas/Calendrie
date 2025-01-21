@@ -32,7 +32,7 @@ type CivilTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
     override x.SupportedYears_Prop() =
-        let range = LimitSchema.DefaultSupportedYears.WithMin(1)
+        let range = CalendricalSchema.DefaultSupportedYears.WithMin(1)
         x.SchemaUT.SupportedYears === range
 
     [<Fact>]
@@ -371,7 +371,7 @@ type PaxTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (false, 0)
 
     override x.SupportedYears_Prop() = ()
-        //let range = LimitSchema.DefaultSupportedYears.WithMin(1)
+        //let range = CalendricalSchema.DefaultSupportedYears.WithMin(1)
         //x.SchemaUT.SupportedYears === range
 
     [<Fact>]

@@ -20,7 +20,7 @@ internal sealed class PlainArithmetic : CalendricalArithmetic
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
     /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
     /// </exception>
-    public PlainArithmetic(LimitSchema schema, Range<int> supportedYears)
+    public PlainArithmetic(CalendricalSchema schema, Range<int> supportedYears)
         : base(schema, supportedYears) { }
 
     //

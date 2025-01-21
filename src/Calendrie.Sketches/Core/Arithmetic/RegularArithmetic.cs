@@ -29,7 +29,7 @@ internal sealed class RegularArithmetic : CalendricalArithmetic
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
     /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
     /// </exception>
-    public RegularArithmetic(LimitSchema schema, Range<int> supportedYears)
+    public RegularArithmetic(CalendricalSchema schema, Range<int> supportedYears)
         : base(schema, supportedYears)
     {
         Debug.Assert(schema != null);

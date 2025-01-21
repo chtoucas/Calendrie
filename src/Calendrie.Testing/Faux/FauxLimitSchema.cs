@@ -6,8 +6,6 @@ namespace Calendrie.Testing.Faux;
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
 
-using static Calendrie.Core.CalendricalConstants;
-
 public abstract class FauxLimitSchemaBase : LimitSchema
 {
     protected FauxLimitSchemaBase(int minDaysInYear, int minDaysInMonth)
@@ -116,44 +114,5 @@ public partial class FauxLimitSchema // Props & methods
     {
         m = CountMonthsInYear(y);
         d = CountDaysInMonth(y, m);
-    }
-}
-
-public partial class FauxLimitSchema // Profiles
-{
-    public static readonly TheoryData<FauxLimitSchema> NotLunar =
-    [
-        new FauxRegularSchema(Lunar.MonthsInYear + 1, Lunar.MinDaysInYear, Lunar.MinDaysInMonth),
-        new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear - 1, Lunar.MinDaysInMonth),
-        new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear, Lunar.MinDaysInMonth - 1),
-    ];
-
-    public static readonly TheoryData<FauxLimitSchema> NotLunisolar =
-    [
-        new FauxLimitSchema(Lunisolar.MinDaysInYear - 1, Lunisolar.MinDaysInMonth),
-        new FauxLimitSchema(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth - 1),
-    ];
-
-    public static readonly TheoryData<FauxLimitSchema> NotSolar12 =
-    [
-        new FauxRegularSchema(Solar12.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
-    ];
-
-    public static readonly TheoryData<FauxLimitSchema> NotSolar13 =
-    [
-        new FauxRegularSchema(Solar13.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
-    ];
-
-    public static LimitSchema WithBadProfile => new FauxSchemaWithBadProfile();
-
-    private sealed class FauxSchemaWithBadProfile : FauxLimitSchema
-    {
-#pragma warning disable CA1822 // Mark members as static
-        internal new CalendricalProfile Profile => (CalendricalProfile)5;
-#pragma warning restore CA1822
     }
 }
