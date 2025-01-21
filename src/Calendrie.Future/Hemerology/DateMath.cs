@@ -42,7 +42,8 @@ public abstract class DateMath<TDate>
     public AdditionRule AdditionRule { get; }
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified date.
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
@@ -56,7 +57,8 @@ public abstract class DateMath<TDate>
     }
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified date.
+    /// Adds a number of years to the year field of the specified date, yielding
+    /// a new date.
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow either
     /// the capacity of <see cref="int"/> or the range of supported dates.
