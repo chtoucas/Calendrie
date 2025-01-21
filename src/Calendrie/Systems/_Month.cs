@@ -5,6 +5,8 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 
+// REVIEW(code): add CountDaysInInternationalFixedMonth() and CountDaysInPositivistMonth()?
+
 public partial struct Armenian13Month // Complements
 {
     /// <summary>
