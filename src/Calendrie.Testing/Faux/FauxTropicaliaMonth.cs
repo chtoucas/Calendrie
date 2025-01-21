@@ -17,10 +17,10 @@ public readonly struct FauxTropicaliaMonth : IMonth, IEquatable<FauxTropicaliaMo
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
-        if (month < 1 || month > TropicalistaSchema.MonthsInYear)
+        if (month < 1 || month > TropicalistaSchema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
-        MonthsSinceEpoch = TropicalistaSchema.MonthsInYear * (year - 1) + month - 1;
+        MonthsSinceEpoch = TropicalistaSchema.MonthsPerYear * (year - 1) + month - 1;
     }
 
     public static TropicaliaCalendar Calendar => TropicaliaCalendar.Instance;
@@ -32,7 +32,7 @@ public readonly struct FauxTropicaliaMonth : IMonth, IEquatable<FauxTropicaliaMo
     public int Century => YearNumbering.GetCentury(Year);
     public Ord YearOfEra => Ord.FromInt32(Year);
     public int YearOfCentury => YearNumbering.GetYearOfCentury(Year);
-    public int Year => 1 + MonthsSinceEpoch / TropicalistaSchema.MonthsInYear;
+    public int Year => 1 + MonthsSinceEpoch / TropicalistaSchema.MonthsPerYear;
 
     public int Month { get { var (_, m) = this; return m; } }
 
@@ -40,11 +40,11 @@ public readonly struct FauxTropicaliaMonth : IMonth, IEquatable<FauxTropicaliaMo
 
     public void Deconstruct(out int year, out int month)
     {
-        year = 1 + MathN.Divide(MonthsSinceEpoch, TropicalistaSchema.MonthsInYear, out int m0);
+        year = 1 + MathN.Divide(MonthsSinceEpoch, TropicalistaSchema.MonthsPerYear, out int m0);
         month = 1 + m0;
     }
 
-    public int CountRemainingMonthsInYear() => TropicalistaSchema.MonthsInYear - Month;
+    public int CountRemainingMonthsInYear() => TropicalistaSchema.MonthsPerYear - Month;
 
     public int CountElapsedDaysInYear()
     {

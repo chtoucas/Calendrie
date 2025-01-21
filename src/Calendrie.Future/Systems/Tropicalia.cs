@@ -81,7 +81,7 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     [Pure, ExcludeFromCodeCoverage]
     private static TropicaliaDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), TropicalistaSchema.MonthsInYear, out int years);
+        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), TropicalistaSchema.MonthsPerYear, out int years);
         return AddYears(y, newM, d, years, out roundoff);
     }
 }
