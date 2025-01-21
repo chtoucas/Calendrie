@@ -38,7 +38,7 @@ public static class EnumDataSet
     public static TheoryData<AdditionRule> InvalidAdditionRuleData { get; } =
     [
         (AdditionRule)(-1),
-        AdditionRule.Overflow + 1,
+        AdditionRule.Exact + 1,
     ];
 
     /// <summary>
@@ -49,7 +49,6 @@ public static class EnumDataSet
         AdditionRule.Truncate,
         AdditionRule.Overspill,
         AdditionRule.Exact,
-        AdditionRule.Overflow,
     ];
 
     /// <summary>

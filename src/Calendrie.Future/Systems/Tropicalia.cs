@@ -31,8 +31,7 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     /// specified rounding rule, yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates -or- <see cref="AdditionRule.Overflow"/> was
-    /// selected and the addition was not exact.</exception>
+    /// range of supported dates.</exception>
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusYears(int years, AdditionRule rule)
     {
@@ -60,8 +59,7 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     /// the specified rounding rule, yielding a new date.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates -or- <see cref="AdditionRule.Overflow"/> was
-    /// selected and the addition was not exact.</exception>
+    /// range of supported dates.</exception>
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusMonths(int months, AdditionRule rule)
     {
@@ -174,7 +172,6 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
             AdditionRule.Truncate => date,
             AdditionRule.Overspill => date.NextDay(),
             AdditionRule.Exact => date.PlusDays(roundoff),
-            AdditionRule.Overflow => throw new OverflowException(),
 
             _ => throw new NotSupportedException(),
         };

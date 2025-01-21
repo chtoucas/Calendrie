@@ -3,7 +3,9 @@
 
 namespace Calendrie;
 
-// REVIEW(code): supprimer la valeur Overflow?
+// Initialement, on proposait aussi une valeur Overflow, mais je pense que c'est
+// une mauvaise idée car cela reviendrait à utiliser une exception pour une
+// situation non-exceptionnelle.
 
 #region Developer Notes
 
@@ -71,10 +73,4 @@ public enum AdditionRule
     /// the target month (resp. year).
     /// </summary>
     Exact,
-
-    /// <summary>
-    /// When the result is not a valid day (resp. month), throw an exception of
-    /// type <see cref="OverflowException"/>.
-    /// </summary>
-    Overflow,
 }

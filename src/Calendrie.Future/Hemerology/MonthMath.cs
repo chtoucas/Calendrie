@@ -116,7 +116,6 @@ public abstract class MonthMath<TMonth>
             AdditionRule.Truncate => month,
             AdditionRule.Overspill => month.NextMonth(),
             AdditionRule.Exact => month.PlusMonths(roundoff),
-            AdditionRule.Overflow => throw new OverflowException(),
 
             _ => throw new NotSupportedException(),
         };

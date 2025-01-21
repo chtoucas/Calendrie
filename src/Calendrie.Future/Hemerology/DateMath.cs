@@ -198,7 +198,6 @@ public abstract class DateMath<TDate>
             AdditionRule.Truncate => date,
             AdditionRule.Overspill => date.NextDay(),
             AdditionRule.Exact => date.PlusDays(roundoff),
-            AdditionRule.Overflow => throw new OverflowException(),
 
             _ => throw new NotSupportedException(),
         };
