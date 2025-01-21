@@ -211,12 +211,3 @@ public partial class WorldSchema // Counting months and days since the epoch
     [Pure]
     public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);
 }
-
-public partial class WorldSchema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = MonthsPerYear; d = 31;
-    }
-}

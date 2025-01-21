@@ -210,13 +210,3 @@ public partial class Persian2820Schema // Counting months and days since the epo
         return DaysPer2820YearCycle * C + DaysInCommonYear * (Y - 1) + (31 * Y - 5) / 128;
     }
 }
-
-public partial class Persian2820Schema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = MonthsPerYear;
-        d = IsLeapYear(y) ? 30 : 29;
-    }
-}

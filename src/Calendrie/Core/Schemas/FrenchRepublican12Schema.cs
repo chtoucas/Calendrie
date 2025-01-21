@@ -106,10 +106,3 @@ public partial class FrenchRepublican12Schema // Conversions
     public sealed override int GetMonth(int y, int doy, out int d) =>
         Twelve.GetMonth(doy - 1, out d);
 }
-
-public partial class FrenchRepublican12Schema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d) =>
-        Twelve.GetEndOfYearParts(IsLeapYear(y), out m, out d);
-}

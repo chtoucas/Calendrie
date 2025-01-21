@@ -155,13 +155,3 @@ public partial class TabularIslamicSchema // Counting months and days since the 
     public sealed override int GetStartOfYear(int y) =>
         DaysInCommonYear * (y - 1) + MathZ.Divide(3 + 11 * y, 30);
 }
-
-public partial class TabularIslamicSchema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = 12;
-        d = IsLeapYear(y) ? 30 : 29;
-    }
-}

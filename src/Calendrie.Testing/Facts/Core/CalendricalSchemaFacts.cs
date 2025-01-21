@@ -37,20 +37,6 @@ public partial class CalendricalSchemaFacts<TSchema, TDataSet> // Properties
         Assert.Equal(Range.Maximal32, SchemaUT.SupportedYearsCore);
 }
 
-public partial class CalendricalSchemaFacts<TSchema, TDataSet> // Methods
-{
-    [Theory, MemberData(nameof(EndOfYearPartsData))]
-    public void GetDatePartsAtEndOfYear(Yemoda ymd)
-    {
-        int y = ymd.Year;
-        // Act
-        SchemaUT.GetDatePartsAtEndOfYear(y, out int m, out int d);
-        var actual = new Yemoda(y, m, d);
-        // Assert
-        Assert.Equal(ymd, actual);
-    }
-}
-
 public partial class CalendricalSchemaFacts<TSchema, TDataSet> // Overflows
 {
     [Fact]

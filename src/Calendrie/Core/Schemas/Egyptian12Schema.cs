@@ -97,12 +97,3 @@ public partial class Egyptian12Schema // Conversions
     public sealed override int GetMonth(int y, int doy, out int d) =>
         Ptolemaic12.GetMonth(doy - 1, out d);
 }
-
-public partial class Egyptian12Schema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = MonthsPerYear; d = 35;
-    }
-}

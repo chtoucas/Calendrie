@@ -86,9 +86,4 @@ public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
 
     public sealed override int CountDaysInYear(int y) => _kernel.CountDaysInYear(y);
     public sealed override int CountDaysInMonth(int y, int m) => _kernel.CountDaysInMonth(y, m);
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = CountMonthsInYear(y);
-        d = CountDaysInMonth(y, m);
-    }
 }

@@ -591,20 +591,3 @@ public partial class CalendricalSchema // Counting months and days since the epo
     [Pure]
     public int GetEndOfMonth(int y, int m) => GetStartOfMonth(y, m) + CountDaysInMonth(y, m) - 1;
 }
-
-public partial class CalendricalSchema // Dates in a given year or month
-{
-    /// <summary>
-    /// Obtains the month and day of the month for the last day of the specified
-    /// year; the results are given in output parameters.
-    /// </summary>
-    //
-    // The default implementation
-    // > m = CountMonthsInYear(y);
-    // > d = CountDaysInMonth(y, m);
-    // is rather inefficient, indeed "m" and "d" are often constant.
-    // For instance, for regular schemas, we can write:
-    // > m = MonthsInYear;
-    // > d = CountDaysInMonth(y, MonthsInYear);
-    public abstract void GetDatePartsAtEndOfYear(int y, out int m, out int d);
-}

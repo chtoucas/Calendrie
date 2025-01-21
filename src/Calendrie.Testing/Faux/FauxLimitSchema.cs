@@ -110,9 +110,4 @@ public partial class FauxLimitSchema // Props & methods
 
     [Pure] public sealed override int GetStartOfYearInMonths(int y) => 0;
     [Pure] public sealed override int GetStartOfYear(int y) => 0;
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = CountMonthsInYear(y);
-        d = CountDaysInMonth(y, m);
-    }
 }

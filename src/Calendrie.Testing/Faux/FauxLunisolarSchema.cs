@@ -89,18 +89,4 @@ public sealed class FauxLunisolarSchema : CalendricalSchema, IDaysInMonths
 
     [Pure]
     public sealed override int GetStartOfYear(int y) => DaysInCommonYear * --y + 30 * (y >> 2);
-
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        if (IsLeapYear(y))
-        {
-            m = MonthsInLeapYear;
-            d = 30;
-        }
-        else
-        {
-            m = MonthsInCommonYear;
-            d = 29;
-        }
-    }
 }

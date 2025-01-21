@@ -197,7 +197,7 @@ public partial class LimitSchemaFacts<TSchema, TDataSet> // Methods
     #region GetDatePartsAtEndOfYear()
 
     [Theory, MemberData(nameof(EndOfYearPartsData))]
-    public void GetDatePartsAtEndOfYear_Yemoda(Yemoda ymd)
+    public void GetDatePartsAtEndOfYear(Yemoda ymd)
     {
         // Act
         var actual = SchemaUT.GetDatePartsAtEndOfYear(ymd.Year);

@@ -114,10 +114,3 @@ public partial class Coptic13Schema // Conversions
     public sealed override int GetMonth(int y, int doy, out int d) =>
         Thirteen.GetMonth(doy - 1, out d);
 }
-
-public partial class Coptic13Schema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d) =>
-        Thirteen.GetEndOfYearParts(IsLeapYear(y), out m, out d);
-}

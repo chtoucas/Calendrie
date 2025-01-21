@@ -56,11 +56,6 @@ public sealed partial class CivilPrototype : RegularSchemaPrototype
         int c = y / 100;
         return DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
     }
-
-    public override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = 12; d = 31;
-    }
 }
 
 public partial class CivilPrototype // ICalendricalCore

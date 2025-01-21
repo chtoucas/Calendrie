@@ -102,12 +102,6 @@ public partial class PtolemaicSchema // Twelve & Thirteen
 
             return m;
         }
-
-        public static void GetEndOfYearParts(bool leapYear, out int m, out int d)
-        {
-            m = 12;
-            d = leapYear ? 36 : 35;
-        }
     }
 
     internal static class Thirteen
@@ -140,11 +134,5 @@ public partial class PtolemaicSchema // Twelve & Thirteen
         [Pure]
         public static int GetMonth(int d0y, out int d) =>
             MathN.AugmentedDivide(d0y, 30, out d);
-
-        public static void GetEndOfYearParts(bool leapYear, out int m, out int d)
-        {
-            m = 13;
-            d = leapYear ? 6 : 5;
-        }
     }
 }

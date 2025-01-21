@@ -248,13 +248,3 @@ public partial class PaxSchema // Counting months and days since the epoch
         return 364 * y + 7 * (18 * C - (C >> 2) + Y / 6 + Y / 99);
     }
 }
-
-public partial class PaxSchema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = IsLeapYear(y) ? 14 : 13;
-        d = 28;
-    }
-}

@@ -196,12 +196,3 @@ public partial class InternationalFixedSchema // Counting months and days since 
     [Pure]
     public sealed override int GetStartOfYear(int y) => GregorianFormulae.GetStartOfYear(y);
 }
-
-public partial class InternationalFixedSchema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = MonthsPerYear; d = 29;
-    }
-}

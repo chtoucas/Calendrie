@@ -166,12 +166,3 @@ public partial class GJSchema // Conversions
         return m;
     }
 }
-
-public partial class GJSchema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = 12; d = 31;
-    }
-}

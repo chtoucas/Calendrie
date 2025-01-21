@@ -154,26 +154,21 @@ public partial class LimitSchema // Dates in a given year or month
     /// <summary>
     /// Obtains the date parts for the last day of the specified year.
     /// </summary>
+    //
+    // The default implementation
+    // > m = CountMonthsInYear(y);
+    // > d = CountDaysInMonth(y, m);
+    // is rather inefficient, indeed "m" and "d" are often constant.
+    // For instance, for regular schemas, we can write:
+    // > m = MonthsInYear;
+    // > d = CountDaysInMonth(y, MonthsInYear);
     [Pure]
-    public Yemoda GetDatePartsAtEndOfYear(int y)
+    public virtual Yemoda GetDatePartsAtEndOfYear(int y)
     {
-        GetDatePartsAtEndOfYear(y, out int m, out int d);
+        int m = CountMonthsInYear(y);
+        int d = CountDaysInMonth(y, m);
         return new Yemoda(y, m, d);
     }
-
-    ///// <summary>
-    ///// Obtains the month and day of the month for the last day of the specified
-    ///// year; the results are given in output parameters.
-    ///// </summary>
-    ////
-    //// The default implementation
-    //// > m = CountMonthsInYear(y);
-    //// > d = CountDaysInMonth(y, m);
-    //// is rather inefficient, indeed "m" and "d" are often constant.
-    //// For instance, for regular schemas, we can write:
-    //// > m = MonthsInYear;
-    //// > d = CountDaysInMonth(y, MonthsInYear);
-    //public abstract void GetDatePartsAtEndOfYear(int y, out int m, out int d);
 
     /// <summary>
     /// Obtains the ordinal date parts for the last day of the specified year.

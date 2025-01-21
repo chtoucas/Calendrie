@@ -98,13 +98,3 @@ public partial class Tropicalia3130Schema // Conversions
         return m;
     }
 }
-
-public partial class Tropicalia3130Schema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = 12;
-        d = IsLeapYearImpl(y) ? 30 : 29;
-    }
-}

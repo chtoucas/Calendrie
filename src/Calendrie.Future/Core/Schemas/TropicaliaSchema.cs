@@ -134,12 +134,3 @@ public partial class TropicaliaSchema // Conversions
         return m;
     }
 }
-
-public partial class TropicaliaSchema // Dates in a given year or month
-{
-    /// <inheritdoc />
-    public sealed override void GetDatePartsAtEndOfYear(int y, out int m, out int d)
-    {
-        m = 12; d = 31;
-    }
-}
