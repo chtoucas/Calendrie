@@ -11,7 +11,8 @@ public interface IYearFieldMath<TSelf>
     where TSelf : IYearFieldMath<TSelf>
 {
     /// <summary>
-    /// Counts the number of whole years elapsed since the specified value.
+    /// Counts the number of whole years from the specified <typeparamref name="TSelf"/>
+    /// value to the current instance.
     /// </summary>
     [Pure] int CountYearsSince(TSelf other);
 

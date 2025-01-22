@@ -15,7 +15,8 @@ public interface IDayFieldMath<TSelf>
     where TSelf : IDayFieldMath<TSelf>
 {
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified value.
+    /// Counts the number of whole days from the specified <typeparamref name="TSelf"/>
+    /// value to the current instance.
     /// </summary>
     [Pure] int CountDaysSince(TSelf other);
 
@@ -53,7 +54,8 @@ public interface IDayFieldMath<TSelf>
     // to make them available to all derived classes.
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified value.
+    /// Counts the number of whole weeks from the specified <typeparamref name="TSelf"/>
+    /// value to the current instance.
     /// </summary>
     [Pure] int CountWeeksSince(TSelf other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
 

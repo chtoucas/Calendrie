@@ -8,10 +8,6 @@ using Calendrie.Core.Utilities;
 
 using Endpoint = CalendricalSegment.Endpoint;
 
-// We validate before and after calling a method from the method:
-// - before, to respect the schema layout (_supportedYears)
-// - after, to stay within the limits of Yemoda/Yedoy (_partsFactory)
-
 /// <summary>
 /// Represents a builder for <see cref="CalendricalSegment"/>.
 /// <para>This class cannot be inherited.</para>
@@ -189,8 +185,8 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <exception cref="InvalidOperationException">(Getter) The minimum is not
     /// set.</exception>
     /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified date
-    /// parts are invalid or outside the range of supported values by the schema.
-    /// </exception>
+    /// parts are invalid -or- outside the range of supported values by the
+    /// schema.</exception>
     public DateParts MinDateParts
     {
         get => Min.DateParts;
@@ -206,8 +202,8 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <exception cref="InvalidOperationException">(Getter) The maximum is not
     /// set.</exception>
     /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified date
-    /// parts are invalid or outside the range of supported values by the schema.
-    /// </exception>
+    /// parts are invalid -or- outside the range of supported values by the
+    /// schema.</exception>
     public DateParts MaxDateParts
     {
         get => Max.DateParts;
@@ -223,7 +219,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <exception cref="InvalidOperationException">(Getter) The minimum is not
     /// set.</exception>
     /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified
-    /// ordinal date parts are invalid or outside the range of supported values
+    /// ordinal date parts are invalid -or- outside the range of supported values
     /// by the schema.</exception>
     public OrdinalParts MinOrdinalParts
     {
@@ -239,7 +235,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// <exception cref="InvalidOperationException">(Getter) The maximum is not
     /// set.</exception>
     /// <exception cref="ArgumentOutOfRangeException">(Setter) The specified
-    /// ordinal date parts are invalid or outside the range of supported values
+    /// ordinal date parts are invalid -or- outside the range of supported values
     /// by the schema.</exception>
     public OrdinalParts MaxOrdinalParts
     {
@@ -301,7 +297,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     /// is not a subinterval of the range of years supported by the schema.
     /// </exception>
     //
-    // This method throw an ArgumentException not an ArgumentOutOfRangeException,
+    // This method throws an ArgumentException not an ArgumentOutOfRangeException,
     // therefore it's not equivalent to set Min and Max separately.
     internal void SetSupportedYears(Range<int> supportedYears)
     {
