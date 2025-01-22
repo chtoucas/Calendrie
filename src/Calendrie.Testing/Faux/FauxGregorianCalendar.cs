@@ -218,9 +218,12 @@ public partial class FauxGregorianCalendar // Date helpers
         return new(daysSinceEpoch);
     }
 
-    internal FauxGregorianDate AddYears(FauxGregorianDate date, int years)
+    //
+    // Math
+    //
+
+    internal FauxGregorianDate AddYears(int y, int m, int d, int years)
     {
-        var (y, m, d) = date;
         // Exact addition of years to a calendar year.
         int newY = checked(y + years);
         if (!Scope.CheckYear(newY)) throw new OverflowException();
@@ -232,33 +235,49 @@ public partial class FauxGregorianCalendar // Date helpers
         return new FauxGregorianDate(daysSinceEpoch);
     }
 
-    internal FauxGregorianDate AddMonths(FauxGregorianDate date, int months)
+    internal FauxGregorianDate AddYears(int y, int m, int d, int years, out int roundoff)
     {
-        var (y, m, d) = date;
-        // Exact addition of months to a calendar month.
-        int newM = 1 + mod(checked(m - 1 + months), MonthsInYear, out int y0);
-        int newY = checked(y + y0);
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
         if (!Scope.CheckYear(newY)) throw new OverflowException();
 
-        // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, Schema.CountDaysInMonth(newY, newM));
+        int daysInMonth = GregorianFormulae.CountDaysInMonth(newY, m);
+        roundoff = Math.Max(0, d - daysInMonth);
+        // On retourne le dernier jour du mois si d > daysInMonth.
+        int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, m, newD);
         return new FauxGregorianDate(daysSinceEpoch);
+    }
 
-        static int mod(int i, int n, out int q)
+    internal FauxGregorianDate AddMonths(int y, int m, int d, int months)
+    {
+        // Exact addition of months to a calendar month.
+        int newM = 1 + Modulo(checked(m - 1 + months), MonthsInYear, out int years);
+
+        return AddYears(y, newM, d, years);
+    }
+
+    internal FauxGregorianDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    {
+        // Exact addition of months to a calendar month.
+        int newM = 1 + Modulo(checked(m - 1 + months), MonthsInYear, out int years);
+
+        return AddYears(y, newM, d, years, out roundoff);
+    }
+
+    private static int Modulo(int i, int n, out int q)
+    {
+        Debug.Assert(n > 0);
+
+        q = i / n;
+        int r = i % n;
+        if (i < 0 && r != 0)
         {
-            Debug.Assert(n > 0);
-
-            q = i / n;
-            int r = i % n;
-            if (i < 0 && r != 0)
-            {
-                q--;
-                r += n;
-            }
-            return r;
+            q--;
+            r += n;
         }
+        return r;
     }
 }
 

@@ -240,13 +240,29 @@ public partial struct FauxGregorianDate // Math
             : new(daysSinceEpoch);
     }
 
-    public FauxGregorianDate PlusYears(int years) => Calendar.AddYears(this, years);
-    public FauxGregorianDate PlusMonths(int months) => Calendar.AddMonths(this, months);
+    public FauxGregorianDate PlusYears(int years)
+    {
+        var (y, m, d) = this;
+        return Calendar.AddYears(y, m, d, years);
+    }
 
-    public FauxGregorianDate PlusYears(int years, out int roundoff) =>
-        throw new NotImplementedException();
-    public FauxGregorianDate PlusMonths(int months, out int roundoff) =>
-        throw new NotImplementedException();
+    public FauxGregorianDate PlusMonths(int months)
+    {
+        var (y, m, d) = this;
+        return Calendar.AddMonths(y, m, d, months);
+    }
+
+    public FauxGregorianDate PlusYears(int years, out int roundoff)
+    {
+        var (y, m, d) = this;
+        return Calendar.AddYears(y, m, d, years, out roundoff);
+    }
+
+    public FauxGregorianDate PlusMonths(int months, out int roundoff)
+    {
+        var (y, m, d) = this;
+        return Calendar.AddMonths(y, m, d, months, out roundoff);
+    }
 
     public int CountYearsSince(FauxGregorianDate other)
     {

@@ -305,6 +305,9 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // Act & Assert
         AssertEx.Overflows(() => date.PlusYears(int.MinValue));
         AssertEx.Overflows(() => date.PlusYears(int.MaxValue));
+
+        AssertEx.Overflows(() => date.PlusYears(int.MinValue, out _));
+        AssertEx.Overflows(() => date.PlusYears(int.MaxValue, out _));
     }
 
     [Fact]
@@ -316,6 +319,11 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         Assert.Equal(MinDate, MinDate.PlusYears(0));
         _ = MinDate.PlusYears(years);
         AssertEx.Overflows(() => MinDate.PlusYears(years + 1));
+
+        AssertEx.Overflows(() => MinDate.PlusYears(-1, out _));
+        Assert.Equal(MinDate, MinDate.PlusYears(0, out _));
+        _ = MinDate.PlusYears(years, out _);
+        AssertEx.Overflows(() => MinDate.PlusYears(years + 1, out _));
     }
 
     [Fact]
@@ -327,6 +335,11 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         _ = MaxDate.PlusYears(-years);
         Assert.Equal(MaxDate, MaxDate.PlusYears(0));
         AssertEx.Overflows(() => MaxDate.PlusYears(1));
+
+        AssertEx.Overflows(() => MaxDate.PlusYears(-years - 1, out _));
+        _ = MaxDate.PlusYears(-years, out _);
+        Assert.Equal(MaxDate, MaxDate.PlusYears(0, out _));
+        AssertEx.Overflows(() => MaxDate.PlusYears(1, out _));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -336,6 +349,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(date, date.PlusYears(0));
+        Assert.Equal(date, date.PlusYears(0, out _));
     }
 
     [Theory, MemberData(nameof(AddYearsData))]
@@ -347,6 +361,9 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // Act & Assert
         Assert.Equal(other, date.PlusYears(years));
         Assert.Equal(date, other.PlusYears(-years));
+
+        Assert.Equal(other, date.PlusYears(years, out _));
+        Assert.Equal(date, other.PlusYears(-years, out _));
     }
 
     #endregion
@@ -435,10 +452,17 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // Act & Assert
         AssertEx.Overflows(() => date.PlusMonths(int.MinValue));
         AssertEx.Overflows(() => date.PlusMonths(int.MaxValue));
+
+        AssertEx.Overflows(() => date.PlusMonths(int.MinValue, out _));
+        AssertEx.Overflows(() => date.PlusMonths(int.MaxValue, out _));
     }
 
     [Fact]
-    public void PlusMonths_AtMinDate() => Assert.Equal(MinDate, MinDate.PlusMonths(0));
+    public void PlusMonths_AtMinDate()
+    {
+        Assert.Equal(MinDate, MinDate.PlusMonths(0));
+        Assert.Equal(MinDate, MinDate.PlusMonths(0, out _));
+    }
 
     [Fact]
     public void PlusMonths_AtMaxDate()
@@ -446,6 +470,9 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // Act & Assert
         Assert.Equal(MaxDate, MaxDate.PlusMonths(0));
         AssertEx.Overflows(() => MaxDate.PlusMonths(1));
+
+        Assert.Equal(MaxDate, MaxDate.PlusMonths(0, out _));
+        AssertEx.Overflows(() => MaxDate.PlusMonths(1, out _));
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
@@ -455,6 +482,7 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         var date = TDate.Create(y, m, d);
         // Act & Assert
         Assert.Equal(date, date.PlusMonths(0));
+        Assert.Equal(date, date.PlusMonths(0, out _));
     }
 
     [Theory, MemberData(nameof(AddMonthsData))]
@@ -466,6 +494,9 @@ public partial class IDateFacts<TDate, TDataSet> // Math
         // Act & Assert
         Assert.Equal(other, date.PlusMonths(months));
         Assert.Equal(date, other.PlusMonths(-months));
+
+        Assert.Equal(other, date.PlusMonths(months, out _));
+        Assert.Equal(date, other.PlusMonths(-months, out _));
     }
 
     #endregion
