@@ -8,6 +8,7 @@ module Calendrie.Tests.Systems.CivilTests
 open System
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -360,9 +361,9 @@ module Bundles =
     // Date type
     //
 
-    let private defaultDateMath   = new CivilDateMath(AdditionRule.Truncate)
-    let private overspillDateMath = new CivilDateMath(AdditionRule.Overspill)
-    let private exactDateMath     = new CivilDateMath(AdditionRule.Exact)
+    let private defaultDateMath   = new DateMath<CivilDate>(AdditionRule.Truncate)
+    let private overspillDateMath = new DateMath<CivilDate>(AdditionRule.Overspill)
+    let private exactDateMath     = new DateMath<CivilDate>(AdditionRule.Exact)
 
     [<Sealed>]
     type DateFacts() =

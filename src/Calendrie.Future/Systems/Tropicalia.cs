@@ -10,3 +10,4 @@ namespace Calendrie.Systems;
 // Add more tests in CivilTests and GregorianTests.
 // Add a warning about the data (CountYearsBetweenData & co) which only
 // offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
+// Supprimer EmitDateCustomMath(Non)Regular()

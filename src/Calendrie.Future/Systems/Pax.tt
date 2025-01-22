@@ -8,7 +8,7 @@
         maxDaysSinceEpochValue:  "3_652_060",
         regular: false)
     {
-        EnableDateCustomMath = true,
+        EnableDateCustomMath = false,
         EnableMonthCustomMath = true,
 
         EnableIsIntercalaryDay = false,

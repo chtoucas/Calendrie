@@ -1005,26 +1005,6 @@ public partial struct PaxDate // Non-standard math ops
 
 #endregion
 
-#region PaxDateMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="PaxDate"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class PaxDateMath : DateMathPlain<PaxDate, PaxCalendar>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PaxDateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public PaxDateMath(AdditionRule rule) : base(rule) { }
-}
-
-#endregion
-
 #region PaxMonth
 
 /// <summary>

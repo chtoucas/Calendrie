@@ -8,6 +8,7 @@ module Calendrie.Tests.Systems.GregorianTests
 open System
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -212,9 +213,9 @@ module Bundles =
     // Date type
     //
 
-    let private defaultDateMath   = new GregorianDateMath(AdditionRule.Truncate)
-    let private overspillDateMath = new GregorianDateMath(AdditionRule.Overspill)
-    let private exactDateMath     = new GregorianDateMath(AdditionRule.Exact)
+    let private defaultDateMath   = new DateMath<GregorianDate>(AdditionRule.Truncate)
+    let private overspillDateMath = new DateMath<GregorianDate>(AdditionRule.Overspill)
+    let private exactDateMath     = new DateMath<GregorianDate>(AdditionRule.Exact)
 
     [<Sealed>]
     type DateFacts() =

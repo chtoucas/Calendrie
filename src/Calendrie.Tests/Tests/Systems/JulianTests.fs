@@ -8,6 +8,7 @@ module Calendrie.Tests.Systems.JulianTests
 open System
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -216,7 +217,7 @@ module Bundles =
     [<Sealed>]
     type DefaultDateMathFacts() =
         inherit DefaultDateMathFacts<JulianDate, UnboundedJulianDataSet>(
-            new JulianDateMath(AdditionRule.Truncate))
+            new DateMath<JulianDate>(AdditionRule.Truncate))
 
     //
     // Month type

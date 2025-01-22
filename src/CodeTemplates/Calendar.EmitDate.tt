@@ -1098,7 +1098,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public sealed class <#= Prefix #>DateMath : DateMathRegular<<#= Prefix #>Date, <#= Prefix #>Calendar>
+public sealed class <#= Prefix #>DateMath : DateMath<<#= Prefix #>Date>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>DateMath"/> class.
@@ -1120,7 +1120,7 @@ public sealed class <#= Prefix #>DateMath : DateMathRegular<<#= Prefix #>Date, <
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public sealed class <#= Prefix #>DateMath : DateMathPlain<<#= Prefix #>Date, <#= Prefix #>Calendar>
+public sealed class <#= Prefix #>DateMath : DateMath<<#= Prefix #>Date>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>DateMath"/> class.
