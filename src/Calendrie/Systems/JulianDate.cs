@@ -649,6 +649,22 @@ public partial struct JulianDate // Non-standard math ops
     }
 
     /// <summary>
+    /// Adds the specified number of years to the year part of this date instance
+    /// and also returns the roundoff in an output parameter, yielding a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public JulianDate PlusYears(int years, out int roundoff)
+    {
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        // TO BE FIXED
+        roundoff = 0;
+        return AddYears(y, m, d, years);
+    }
+
+    /// <summary>
     /// Adds the specified number of months to the month part of this date
     /// instance, yielding a new date.
     /// <para>This method may truncate the result to ensure that it returns a
@@ -661,6 +677,23 @@ public partial struct JulianDate // Non-standard math ops
     public JulianDate PlusMonths(int months)
     {
         JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return AddMonths(y, m, d, months);
+    }
+
+    /// <summary>
+    /// Adds the specified number of months to the month part of this date
+    /// instance and also returns the roundoff in an output parameter, yielding
+    /// a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public JulianDate PlusMonths(int months, out int roundoff)
+    {
+        JulianFormulae.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        // TO BE FIXED
+        roundoff = 0;
         return AddMonths(y, m, d, months);
     }
 
