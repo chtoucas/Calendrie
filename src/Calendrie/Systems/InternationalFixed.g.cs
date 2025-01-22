@@ -775,6 +775,7 @@ public partial struct InternationalFixedDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -791,6 +792,7 @@ public partial struct InternationalFixedDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -869,6 +871,7 @@ public partial struct InternationalFixedDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -892,22 +895,17 @@ public partial struct InternationalFixedDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
     private static InternationalFixedDate AddMonths(InternationalFixedSchema sch, int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(checked(m - 1 + months), InternationalFixedSchema.MonthsPerYear, out int y0);
-        int newY = checked(y + y0);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
+        int newM = 1 + MathZ.Modulo(
+            checked(m - 1 + months), InternationalFixedSchema.MonthsPerYear, out int years);
 
-        // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return new InternationalFixedDate(daysSinceEpoch);
+        return AddYears(sch, y, newM, d, years);
     }
 }
 

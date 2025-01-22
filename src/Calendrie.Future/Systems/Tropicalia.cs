@@ -29,8 +29,8 @@ using Calendrie.Core.Utilities;
 public partial struct TropicaliaDate // Non-standard math ops (plain implementation)
 {
     /// <summary>
-    /// Adds a number of years to the year field of this date instance and also
-    /// returns the roundoff in an output parameter, yielding a new date.
+    /// Adds the specified number of years to the year part of this date instance
+    /// and also returns the roundoff in an output parameter, yielding a new date.
     /// </summary>
     /// <returns>The end of the target month when roundoff &gt; 0.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
@@ -44,8 +44,9 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     }
 
     /// <summary>
-    /// Adds a number of months to the month field of this date instance and also
-    /// returns the roundoff in an output parameter, yielding a new date.
+    /// Adds the specified number of months to the month part of this date
+    /// instance and also returns the roundoff in an output parameter, yielding
+    /// a new date.
     /// </summary>
     /// <returns>The end of the target month when roundoff &gt; 0.</returns>
     /// <exception cref="OverflowException">The operation would overflow the

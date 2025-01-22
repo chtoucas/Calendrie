@@ -403,6 +403,7 @@ public partial struct CivilDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -418,6 +419,7 @@ public partial struct CivilDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -497,6 +499,7 @@ public partial struct CivilDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -520,6 +523,7 @@ public partial struct CivilDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -527,15 +531,8 @@ public partial struct CivilDate // Non-standard math ops
     {
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(
-            checked(m - 1 + months), GJSchema.MonthsPerYear, out int y0);
-        int newY = checked(y + y0);
-        if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
+            checked(m - 1 + months), GJSchema.MonthsPerYear, out int years);
 
-        // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, GregorianFormulae.CountDaysInMonth(newY, newM));
-
-        int daysSinceZero = CivilFormulae.CountDaysSinceEpoch(newY, newM, newD);
-        return new CivilDate(daysSinceZero);
+        return AddYears(y, newM, d, years);
     }
 }

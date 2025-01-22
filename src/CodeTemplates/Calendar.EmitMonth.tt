@@ -1157,6 +1157,8 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
     /// <para>This method may truncate the to ensure that it returns a valid
     /// month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The last month of the target year when truncation happens.
+    /// </returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
     [Pure]
@@ -1203,6 +1205,8 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The last month of the target year when truncation happens.
+    /// </returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]

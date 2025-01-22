@@ -624,6 +624,7 @@ public partial struct GregorianDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -639,6 +640,7 @@ public partial struct GregorianDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -714,6 +716,7 @@ public partial struct GregorianDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -737,6 +740,7 @@ public partial struct GregorianDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -744,15 +748,8 @@ public partial struct GregorianDate // Non-standard math ops
     {
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(
-            checked(m - 1 + months), GJSchema.MonthsPerYear, out int y0);
-        int newY = checked(y + y0);
-        if (newY < GregorianScope.MinYear || newY > GregorianScope.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
+            checked(m - 1 + months), GJSchema.MonthsPerYear, out int years);
 
-        // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, GregorianFormulae.CountDaysInMonth(newY, newM));
-
-        int daysSinceZero = GregorianFormulae.CountDaysSinceEpoch(newY, newM, newD);
-        return new GregorianDate(daysSinceZero);
+        return AddYears(y, newM, d, years);
     }
 }

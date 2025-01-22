@@ -762,6 +762,7 @@ public partial struct PaxDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -778,6 +779,7 @@ public partial struct PaxDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -856,6 +858,7 @@ public partial struct PaxDate // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -880,6 +883,7 @@ public partial struct PaxDate // Non-standard math ops
     /// <para>This method may truncate the (naïve) result to ensure that it
     /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The end of the target month when truncation happens.</returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
@@ -1488,6 +1492,8 @@ public partial struct PaxMonth // Non-standard math ops
     /// <para>This method may truncate the to ensure that it returns a valid
     /// month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The last month of the target year when truncation happens.
+    /// </returns>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
     [Pure]
@@ -1534,6 +1540,8 @@ public partial struct PaxMonth // Non-standard math ops
     /// <para>This method may truncate the result to ensure that it returns a
     /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
+    /// <returns>The last month of the target year when truncation happens.
+    /// </returns>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
