@@ -505,7 +505,7 @@ public partial struct Coptic13Date // Adjustments
     }
 }
 
-public partial struct Coptic13Date // Find close by day of the week
+public partial struct Coptic13Date // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -685,7 +685,8 @@ public partial struct Coptic13Date // Standard math ops
     public static Coptic13Date operator --(Coptic13Date value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(Coptic13Date other) =>
@@ -736,7 +737,8 @@ public partial struct Coptic13Date // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(Coptic13Date other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

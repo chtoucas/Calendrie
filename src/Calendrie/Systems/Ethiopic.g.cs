@@ -505,7 +505,7 @@ public partial struct EthiopicDate // Adjustments
     }
 }
 
-public partial struct EthiopicDate // Find close by day of the week
+public partial struct EthiopicDate // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -685,7 +685,8 @@ public partial struct EthiopicDate // Standard math ops
     public static EthiopicDate operator --(EthiopicDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(EthiopicDate other) =>
@@ -736,7 +737,8 @@ public partial struct EthiopicDate // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(EthiopicDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

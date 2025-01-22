@@ -532,7 +532,7 @@ public partial struct <#= Prefix #>Date // Adjustments
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Date // Find close by day of the week
+public partial struct <#= Prefix #>Date // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -730,7 +730,8 @@ public partial struct <#= Prefix #>Date // Standard math ops
     public static <#= Prefix #>Date operator --(<#= Prefix #>Date value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(<#= Prefix #>Date other) =>
@@ -781,7 +782,8 @@ public partial struct <#= Prefix #>Date // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(<#= Prefix #>Date other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

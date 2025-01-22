@@ -505,7 +505,7 @@ public partial struct PositivistDate // Adjustments
     }
 }
 
-public partial struct PositivistDate // Find close by day of the week
+public partial struct PositivistDate // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -685,7 +685,8 @@ public partial struct PositivistDate // Standard math ops
     public static PositivistDate operator --(PositivistDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(PositivistDate other) =>
@@ -736,7 +737,8 @@ public partial struct PositivistDate // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(PositivistDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

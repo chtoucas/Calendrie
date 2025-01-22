@@ -505,7 +505,7 @@ public partial struct WorldDate // Adjustments
     }
 }
 
-public partial struct WorldDate // Find close by day of the week
+public partial struct WorldDate // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -685,7 +685,8 @@ public partial struct WorldDate // Standard math ops
     public static WorldDate operator --(WorldDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(WorldDate other) =>
@@ -736,7 +737,8 @@ public partial struct WorldDate // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(WorldDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

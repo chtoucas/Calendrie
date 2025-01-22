@@ -54,7 +54,7 @@ public partial struct CivilDate // Counting
     public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceZero);
 }
 
-public partial struct CivilDate // Find close by day of the week
+public partial struct CivilDate // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -233,7 +233,8 @@ public partial struct CivilDate // Standard math ops
     public static CivilDate operator --(CivilDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(CivilDate other) =>
@@ -284,7 +285,8 @@ public partial struct CivilDate // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(CivilDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

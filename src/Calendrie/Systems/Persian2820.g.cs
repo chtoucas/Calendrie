@@ -496,7 +496,7 @@ public partial struct Persian2820Date // Adjustments
     }
 }
 
-public partial struct Persian2820Date // Find close by day of the week
+public partial struct Persian2820Date // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -676,7 +676,8 @@ public partial struct Persian2820Date // Standard math ops
     public static Persian2820Date operator --(Persian2820Date value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(Persian2820Date other) =>
@@ -727,7 +728,8 @@ public partial struct Persian2820Date // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(Persian2820Date other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

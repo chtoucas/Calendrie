@@ -496,7 +496,7 @@ public partial struct TabularIslamicDate // Adjustments
     }
 }
 
-public partial struct TabularIslamicDate // Find close by day of the week
+public partial struct TabularIslamicDate // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -676,7 +676,8 @@ public partial struct TabularIslamicDate // Standard math ops
     public static TabularIslamicDate operator --(TabularIslamicDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(TabularIslamicDate other) =>
@@ -727,7 +728,8 @@ public partial struct TabularIslamicDate // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(TabularIslamicDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);

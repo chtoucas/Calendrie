@@ -426,7 +426,7 @@ public partial struct <#= Prefix #>Date // Conversions
     {
         WriteLine();
 #>
-public partial struct <#= Prefix #>Date // Find close by day of the week
+public partial struct <#= Prefix #>Date // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]

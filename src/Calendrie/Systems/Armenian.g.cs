@@ -496,7 +496,7 @@ public partial struct ArmenianDate // Adjustments
     }
 }
 
-public partial struct ArmenianDate // Find close by day of the week
+public partial struct ArmenianDate // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
@@ -676,7 +676,8 @@ public partial struct ArmenianDate // Standard math ops
     public static ArmenianDate operator --(ArmenianDate value) => value.PreviousDay();
 
     /// <summary>
-    /// Counts the number of whole days elapsed since the specified date.
+    /// Counts the number of whole days from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountDaysSince(ArmenianDate other) =>
@@ -727,7 +728,8 @@ public partial struct ArmenianDate // Standard math ops
     //
 
     /// <summary>
-    /// Counts the number of weeks elapsed since the specified date.
+    /// Counts the number of whole weeks from <paramref name="other"/> to this
+    /// date instance.
     /// </summary>
     [Pure]
     public int CountWeeksSince(ArmenianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
