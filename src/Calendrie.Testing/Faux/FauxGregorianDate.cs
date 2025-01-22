@@ -243,6 +243,11 @@ public partial struct FauxGregorianDate // Math
     public FauxGregorianDate PlusYears(int years) => Calendar.AddYears(this, years);
     public FauxGregorianDate PlusMonths(int months) => Calendar.AddMonths(this, months);
 
+    public FauxGregorianDate PlusYears(int years, out int roundoff) =>
+        throw new NotImplementedException();
+    public FauxGregorianDate PlusMonths(int months, out int roundoff) =>
+        throw new NotImplementedException();
+
     public int CountYearsSince(FauxGregorianDate other)
     {
         // Exact difference between two calendar years.
