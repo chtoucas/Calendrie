@@ -832,9 +832,9 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public <#= Prefix #>Date PlusYears(int years)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-        return AddYears(sch, y, m, d, years);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return chr.AddYears(y, m, d, years);
     }
 
     /// <summary>
@@ -849,9 +849,9 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public <#= Prefix #>Date PlusMonths(int months)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-        return AddMonths(sch, y, m, d, months);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return chr.AddMonths(y, m, d, months);
     }
 
     /// <summary>
@@ -863,15 +863,15 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public int CountYearsSince(<#= Prefix #>Date other)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(sch, y0, m0, d0, years);
+        var newStart = chr.AddYears(y0, m0, d0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -893,7 +893,8 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public int CountMonthsSince(<#= Prefix #>Date other)
     {
-        var sch = Calendar.Schema;
+        var chr = Calendar;
+        var sch = chr.Schema;
         sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out _);
         sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
 
@@ -902,7 +903,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
-        var newStart = AddMonths(sch, y0, m0, d0, months);
+        var newStart = chr.AddMonths(y0, m0, d0, months);
 
         if (other < this)
         {
@@ -915,49 +916,6 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 
         return months;
     }
-
-    /// <summary>
-    /// Adds a number of years to the year part of the specified date, yielding
-    /// a new date.
-    /// <para>This method may truncate the result to ensure that it returns a
-    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The end of the target month when truncation happens.</returns>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static <#= Prefix #>Date AddYears(<#= SchemaClass #> sch, int y, int m, int d, int years)
-    {
-        // Exact addition of years to a calendar year.
-        int newY = checked(y + years);
-        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
-
-        // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
-
-        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, m, newD);
-        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
-    }
-
-    /// <summary>
-    /// Adds a number of months to the month part of the specified date, yielding
-    /// a new date.
-    /// <para>This method may truncate the result to ensure that it returns a
-    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The end of the target month when truncation happens.</returns>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static <#= Prefix #>Date AddMonths(<#= SchemaClass #> sch, int y, int m, int d, int months)
-    {
-        // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(
-            checked(m - 1 + months), <#= SchemaClass #>.MonthsPerYear, out int years);
-
-        return AddYears(sch, y, newM, d, years);
-    }
 }
 <#+
     } // T4: End of EmitDateMathNonStandardRegular
@@ -968,11 +926,6 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 #>
 public partial struct <#= Prefix #>Date // Non-standard math ops
 {
-    /// <summary>Represents the maximum value for the number of consecutive
-    /// months from the epoch.
-    /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para></summary>
-    private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
-
     /// <summary>
     /// Adds the specified number of years to the year part of this date instance,
     /// yielding a new date.
@@ -985,9 +938,9 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public <#= Prefix #>Date PlusYears(int years)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-        return AddYears(sch, y, m, d, years);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return chr.AddYears(y, m, d, years);
     }
 
     /// <summary>
@@ -1002,9 +955,9 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public <#= Prefix #>Date PlusMonths(int months)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
-        return AddMonths(sch, y, m, d, months);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
+        return chr.AddMonths(y, m, d, months);
     }
 
     /// <summary>
@@ -1016,15 +969,15 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public int CountYearsSince(<#= Prefix #>Date other)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(sch, y0, m0, d0, years);
+        var newStart = chr.AddYears(y0, m0, d0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -1046,6 +999,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
     [Pure]
     public int CountMonthsSince(<#= Prefix #>Date other)
     {
+        var chr = Calendar;
         var sch = Calendar.Schema;
         sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out _);
         sch.GetDateParts(other._<#= DaysSinceEpochVar #>, out int y0, out int m0, out int d0);
@@ -1055,7 +1009,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
-        var newStart = AddMonths(sch, y0, m0, d0, months);
+        var newStart = chr.AddMonths(y0, m0, d0, months);
 
         if (other < this)
         {
@@ -1067,57 +1021,6 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
         }
 
         return months;
-    }
-
-    /// <summary>
-    /// Adds a number of years to the year part of the specified date, yielding
-    /// a new date.
-    /// <para>This method may truncate the result to ensure that it returns a
-    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The end of the target month when truncation happens.</returns>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static <#= Prefix #>Date AddYears(<#= SchemaClass #> sch, int y, int m, int d, int years)
-    {
-        // Exact addition of years to a calendar year.
-        int newY = checked(y + years);
-        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
-
-        // NB: AdditionRule.Truncate.
-        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
-        int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
-
-        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
-    }
-
-    /// <summary>
-    /// Adds a number of months to the month part of the specified date,
-    /// yielding a new date.
-    /// <para>This method may truncate the (naïve) result to ensure that it
-    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The end of the target month when truncation happens.</returns>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static <#= Prefix #>Date AddMonths(<#= SchemaClass #> sch, int y, int m, int d, int months)
-    {
-        // Exact addition of months to a calendar month.
-        int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowDateOverflow();
-
-        sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
-
-        // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, sch.CountDaysInMonth(newY, newM));
-
-        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
-        return new <#= Prefix #>Date(<#= DaysSinceEpochVar #>);
     }
 }
 <#+
