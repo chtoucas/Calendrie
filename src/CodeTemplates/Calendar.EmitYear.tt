@@ -2,7 +2,7 @@
 
 public partial class CalendarTemplate
 {
-    protected virtual void EmitYear()
+    protected void EmitYear()
     {
 #>
 

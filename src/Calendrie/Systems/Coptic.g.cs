@@ -69,6 +69,104 @@ public sealed partial class CopticCalendar : Calendar
     internal Coptic12Schema Schema { get; }
 }
 
+public partial class CopticCalendar // Math
+{
+    /// <summary>
+    /// Adds the specified number of years to the year part of the specified date,
+    /// yielding a new date.
+    /// <para>This method may truncate the result to the end of the target month
+    /// to ensure that it returns a valid date; see <see cref="AdditionRule.Truncate"/>.
+    /// </para>
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal CopticDate AddYears(int y, int m, int d, int years)
+    {
+        var sch = Schema;
+
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
+        return CopticDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Adds the specified number of years to the year part of the specified date
+    /// and also returns the roundoff in an output parameter, yielding a new date.
+    /// <para><paramref name="roundoff"/> corresponds to the number of days that
+    /// were cut off, which is greater than or equal to 0, the latter only
+    /// happening when the operation is exact.</para>
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal CopticDate AddYears(int y, int m, int d, int years, out int roundoff)
+    {
+        var sch = Schema;
+
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        int daysInMonth = sch.CountDaysInMonth(newY, m);
+        roundoff = Math.Max(0, d - daysInMonth);
+        // On retourne le dernier jour du mois si d > daysInMonth.
+        int newD = roundoff == 0 ? d : daysInMonth;
+
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
+        return CopticDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    /// <summary>
+    /// Adds the specified number of months to the month part of the specified
+    /// date, yielding a new date.
+    /// <para>This method may truncate the result to the end of the target month
+    /// to ensure that it returns a valid date; see <see cref="AdditionRule.Truncate"/>.
+    /// </para>
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal CopticDate AddMonths(int y, int m, int d, int months)
+    {
+        // Exact addition of months to a calendar month.
+        int newM = 1 + MathZ.Modulo(
+            checked(m - 1 + months), Coptic12Schema.MonthsPerYear, out int years);
+
+        return AddYears(y, newM, d, years);
+    }
+
+    /// <summary>
+    /// Adds the specified number of months to the month part of the specified
+    /// date and also returns the roundoff in an output parameter, yielding a
+    /// new date.
+    /// <para><paramref name="roundoff"/> corresponds to the number of days that
+    /// were cut off, which is greater than or equal to 0, the latter only
+    /// happening when the operation is exact.</para>
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal CopticDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    {
+        // Exact addition of months to a calendar month.
+        int newM = 1 + MathZ.Modulo(
+            checked(m - 1 + months), Coptic12Schema.MonthsPerYear, out int years);
+
+        return AddYears(y, newM, d, years, out roundoff);
+    }
+}
+
 #endregion
 
 #region CopticDate
@@ -781,9 +879,24 @@ public partial struct CopticDate // Non-standard math ops
     [Pure]
     public CopticDate PlusYears(int years)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return AddYears(sch, y, m, d, years);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return chr.AddYears(y, m, d, years);
+    }
+
+    /// <summary>
+    /// Adds the specified number of years to the year part of this date instance
+    /// and also returns the roundoff in an output parameter, yielding a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public CopticDate PlusYears(int years, out int roundoff)
+    {
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return chr.AddYears(y, m, d, years, out roundoff);
     }
 
     /// <summary>
@@ -798,9 +911,25 @@ public partial struct CopticDate // Non-standard math ops
     [Pure]
     public CopticDate PlusMonths(int months)
     {
+        var chr = Calendar;
+        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
+        return chr.AddMonths(y, m, d, months);
+    }
+
+    /// <summary>
+    /// Adds the specified number of months to the month part of this date
+    /// instance and also returns the roundoff in an output parameter, yielding
+    /// a new date.
+    /// </summary>
+    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    public CopticDate PlusMonths(int months, out int roundoff)
+    {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return AddMonths(sch, y, m, d, months);
+        return Calendar.AddMonths(y, m, d, months, out roundoff);
     }
 
     /// <summary>
@@ -812,15 +941,15 @@ public partial struct CopticDate // Non-standard math ops
     [Pure]
     public int CountYearsSince(CopticDate other)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
+        var chr = Calendar;
+        chr.Schema.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(sch, y0, m0, d0, years);
+        var newStart = chr.AddYears(y0, m0, d0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -842,7 +971,8 @@ public partial struct CopticDate // Non-standard math ops
     [Pure]
     public int CountMonthsSince(CopticDate other)
     {
-        var sch = Calendar.Schema;
+        var chr = Calendar;
+        var sch = chr.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out _);
         sch.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
 
@@ -851,7 +981,7 @@ public partial struct CopticDate // Non-standard math ops
 
         // To avoid extracting (y0, m0, d0) twice, we inline:
         // > var newStart = other.PlusMonths(months);
-        var newStart = AddMonths(sch, y0, m0, d0, months);
+        var newStart = chr.AddMonths(y0, m0, d0, months);
 
         if (other < this)
         {
@@ -863,49 +993,6 @@ public partial struct CopticDate // Non-standard math ops
         }
 
         return months;
-    }
-
-    /// <summary>
-    /// Adds a number of years to the year part of the specified date, yielding
-    /// a new date.
-    /// <para>This method may truncate the result to ensure that it returns a
-    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The end of the target month when truncation happens.</returns>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static CopticDate AddYears(Coptic12Schema sch, int y, int m, int d, int years)
-    {
-        // Exact addition of years to a calendar year.
-        int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
-
-        // NB: AdditionRule.Truncate.
-        int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
-        return new CopticDate(daysSinceEpoch);
-    }
-
-    /// <summary>
-    /// Adds a number of months to the month part of the specified date, yielding
-    /// a new date.
-    /// <para>This method may truncate the result to ensure that it returns a
-    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The end of the target month when truncation happens.</returns>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static CopticDate AddMonths(Coptic12Schema sch, int y, int m, int d, int months)
-    {
-        // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(
-            checked(m - 1 + months), Coptic12Schema.MonthsPerYear, out int years);
-
-        return AddYears(sch, y, newM, d, years);
     }
 }
 

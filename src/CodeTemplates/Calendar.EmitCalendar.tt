@@ -2,7 +2,7 @@
 
 public partial class CalendarTemplate
 {
-    protected virtual void EmitCalendar()
+    protected void EmitCalendar()
     {
         // WARNING: the constructors of the schema and the scope MUST have a
         // fixed form as one can see below.
