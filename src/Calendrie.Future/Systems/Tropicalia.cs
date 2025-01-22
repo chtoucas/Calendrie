@@ -4,8 +4,7 @@
 namespace Calendrie.Systems;
 
 // TODO(code): add PlusYears(roundoff) to all month types.
-// Missing date types: Civil, Gregorian & Julian types. PARTIAL IMPLS !!!
-// Interfaces: currently in IDateBase, but shloudn't it be in IYearFieldMath and
+// Interfaces: currently in IDateBase, but shouldn't it be in IYearFieldMath and
 // IMonthFieldMath.
 // XML doc. Naming: newStart or ???
 // Add more tests in CivilTests and GregorianTests.

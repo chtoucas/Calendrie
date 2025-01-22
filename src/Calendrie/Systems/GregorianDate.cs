@@ -645,9 +645,7 @@ public partial struct GregorianDate // Non-standard math ops
     public GregorianDate PlusYears(int years, out int roundoff)
     {
         GregorianFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        // TO BE FIXED
-        roundoff = 0;
-        return AddYears(y, m, d, years);
+        return AddYears(y, m, d, years, out roundoff);
     }
 
     /// <summary>
@@ -678,9 +676,7 @@ public partial struct GregorianDate // Non-standard math ops
     public GregorianDate PlusMonths(int months, out int roundoff)
     {
         GregorianFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        // TO BE FIXED
-        roundoff = 0;
-        return AddMonths(y, m, d, months);
+        return AddMonths(y, m, d, months, out roundoff);
     }
 
     /// <summary>
@@ -743,6 +739,10 @@ public partial struct GregorianDate // Non-standard math ops
         return months;
     }
 
+    //
+    // Helpers
+    //
+
     /// <summary>
     /// Adds a number of years to the year part of the specified date, yielding
     /// a new date.
@@ -767,6 +767,23 @@ public partial struct GregorianDate // Non-standard math ops
         return new GregorianDate(daysSinceZero);
     }
 
+    [Pure]
+    private static GregorianDate AddYears(int y, int m, int d, int years, out int roundoff)
+    {
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < GregorianScope.MinYear || newY > GregorianScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        int daysInMonth = GregorianFormulae.CountDaysInMonth(newY, m);
+        roundoff = Math.Max(0, d - daysInMonth);
+        // On retourne le dernier jour du mois si d > daysInMonth.
+        int newD = roundoff == 0 ? d : daysInMonth;
+
+        int daysSinceEpoch = GregorianFormulae.CountDaysSinceEpoch(newY, m, newD);
+        return new GregorianDate(daysSinceEpoch);
+    }
+
     /// <summary>
     /// Adds a number of months to the month part of the specified date,
     /// yielding a new date.
@@ -784,5 +801,14 @@ public partial struct GregorianDate // Non-standard math ops
             checked(m - 1 + months), GJSchema.MonthsPerYear, out int years);
 
         return AddYears(y, newM, d, years);
+    }
+
+    [Pure]
+    private static GregorianDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    {
+        int newM = 1 + MathZ.Modulo(
+            checked(m - 1 + months), GJSchema.MonthsPerYear, out int years);
+
+        return AddYears(y, newM, d, years, out roundoff);
     }
 }

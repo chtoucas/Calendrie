@@ -424,9 +424,7 @@ public partial struct CivilDate // Non-standard math ops
     public CivilDate PlusYears(int years, out int roundoff)
     {
         CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        // TO BE FIXED
-        roundoff = 0;
-        return AddYears(y, m, d, years);
+        return AddYears(y, m, d, years, out roundoff);
     }
 
     /// <summary>
@@ -457,9 +455,7 @@ public partial struct CivilDate // Non-standard math ops
     public CivilDate PlusMonths(int months, out int roundoff)
     {
         CivilFormulae.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
-        // TO BE FIXED
-        roundoff = 0;
-        return AddMonths(y, m, d, months);
+        return AddMonths(y, m, d, months, out roundoff);
     }
 
     /// <summary>
@@ -550,6 +546,23 @@ public partial struct CivilDate // Non-standard math ops
         return new CivilDate(daysSinceZero);
     }
 
+    [Pure]
+    private static CivilDate AddYears(int y, int m, int d, int years, out int roundoff)
+    {
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < CivilScope.MinYear || newY > CivilScope.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        int daysInMonth = GregorianFormulae.CountDaysInMonth(newY, m);
+        roundoff = Math.Max(0, d - daysInMonth);
+        // On retourne le dernier jour du mois si d > daysInMonth.
+        int newD = roundoff == 0 ? d : daysInMonth;
+
+        int daysSinceEpoch = CivilFormulae.CountDaysSinceEpoch(newY, m, newD);
+        return new CivilDate(daysSinceEpoch);
+    }
+
     /// <summary>
     /// Adds a number of months to the month part of the specified date,
     /// yielding a new date.
@@ -567,5 +580,15 @@ public partial struct CivilDate // Non-standard math ops
             checked(m - 1 + months), GJSchema.MonthsPerYear, out int years);
 
         return AddYears(y, newM, d, years);
+    }
+
+    [Pure]
+    private static CivilDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    {
+        // Exact addition of months to a calendar month.
+        int newM = 1 + MathZ.Modulo(
+            checked(m - 1 + months), GJSchema.MonthsPerYear, out int years);
+
+        return AddYears(y, newM, d, years, out roundoff);
     }
 }
