@@ -147,9 +147,9 @@ public partial class PaxCalendar // Math
     internal PaxDate AddMonths(int y, int m, int d, int months)
     {
 #if DEBUG
+        Debug.Assert(MinMonthsSinceEpoch == 0);
         Debug.Assert(MaxMonthsSinceEpoch == 131_761);
 #endif
-
         var sch = Schema;
 
         // Exact addition of months to a calendar month.
@@ -170,6 +170,7 @@ public partial class PaxCalendar // Math
     internal PaxDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
 #if DEBUG
+        Debug.Assert(MinMonthsSinceEpoch == 0);
         Debug.Assert(MaxMonthsSinceEpoch == 131_761);
 #endif
 

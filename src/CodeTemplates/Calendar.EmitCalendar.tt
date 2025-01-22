@@ -266,9 +266,9 @@ public partial class <#= Prefix #>Calendar // Math
     internal <#= Prefix #>Date AddMonths(int y, int m, int d, int months)
     {
 #if DEBUG
+        Debug.Assert(MinMonthsSinceEpoch == 0);
         Debug.Assert(MaxMonthsSinceEpoch == <#= MaxMonthsSinceEpochValue #>);
 #endif
-
         var sch = Schema;
 
         // Exact addition of months to a calendar month.
@@ -289,6 +289,7 @@ public partial class <#= Prefix #>Calendar // Math
     internal <#= Prefix #>Date AddMonths(int y, int m, int d, int months, out int roundoff)
     {
 #if DEBUG
+        Debug.Assert(MinMonthsSinceEpoch == 0);
         Debug.Assert(MaxMonthsSinceEpoch == <#= MaxMonthsSinceEpochValue #>);
 #endif
 
