@@ -335,7 +335,8 @@ public partial struct JulianMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of whole years elapsed since the specified month.
+    /// Counts the number of whole years from <paramref name="other"/> to this
+    /// month instance.
     /// </summary>
     [Pure]
     public int CountYearsSince(JulianMonth other)

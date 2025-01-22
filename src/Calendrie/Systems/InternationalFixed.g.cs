@@ -800,7 +800,8 @@ public partial struct InternationalFixedDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of whole years elapsed since the specified date.
+    /// Counts the number of whole years from <paramref name="other"/> to this
+    /// date instance.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -829,7 +830,8 @@ public partial struct InternationalFixedDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of whole months elapsed since the specified date.
+    /// Counts the number of whole months from <paramref name="other"/> to this
+    /// date instance.
     /// <para>Beware, the result may not be exact. Behind the scene, it uses
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
@@ -1500,7 +1502,8 @@ public partial struct InternationalFixedMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Counts the number of whole years elapsed since the specified month.
+    /// Counts the number of whole years from <paramref name="other"/> to this
+    /// month instance.
     /// </summary>
     [Pure]
     public int CountYearsSince(InternationalFixedMonth other)
