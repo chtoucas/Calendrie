@@ -20,25 +20,27 @@ public partial class TropicaliaCalendar // Complements
     [Pure]
     internal TropicaliaDate AddYears(TropicaliaDate date, int years, out int roundoff)
     {
-        Schema.GetDateParts(date.DaysSinceZero, out int y, out int m, out int d);
+        var sch = Schema;
+        sch.GetDateParts(date.DaysSinceZero, out int y, out int m, out int d);
 
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
-        int daysInMonth = Schema.CountDaysInMonth(newY, m);
+        int daysInMonth = sch.CountDaysInMonth(newY, m);
         roundoff = Math.Max(0, d - daysInMonth);
         // On retourne le dernier jour du mois si d > daysInMonth.
         int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, m, newD);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
         return TropicaliaDate.UnsafeCreate(daysSinceEpoch);
     }
 
     [Pure]
     internal TropicaliaDate AddMonths(TropicaliaDate date, int months, out int roundoff)
     {
-        Schema.GetDateParts(date.DaysSinceZero, out int y, out int m, out int d);
+        var sch = Schema;
+        sch.GetDateParts(date.DaysSinceZero, out int y, out int m, out int d);
 
         int newM = 1 + MathZ.Modulo(
             checked(m - 1 + months), TropicalistaSchema.MonthsPerYear, out int years);
@@ -50,12 +52,12 @@ public partial class TropicaliaCalendar // Complements
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
-        int daysInMonth = Schema.CountDaysInMonth(newY, newM);
+        int daysInMonth = sch.CountDaysInMonth(newY, newM);
         roundoff = Math.Max(0, d - daysInMonth);
         // On retourne le dernier jour du mois si d > daysInMonth.
         int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return TropicaliaDate.UnsafeCreate(daysSinceEpoch);
     }
 }

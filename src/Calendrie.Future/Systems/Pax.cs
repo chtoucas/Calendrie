@@ -12,13 +12,14 @@ public partial class PaxCalendar // Complements
     [Pure]
     internal PaxDate AddYears(PaxDate date, int years, out int roundoff)
     {
-        Schema.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
+        var sch = Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
 
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
-        int monthsInYear = Schema.CountMonthsInYear(newY);
+        int monthsInYear = sch.CountMonthsInYear(newY);
         int newM;
         int newD;
         if (m > monthsInYear)
@@ -31,9 +32,9 @@ public partial class PaxCalendar // Complements
             roundoff = d;
             for (int i = monthsInYear + 1; i < m; i++)
             {
-                roundoff += Schema.CountDaysInMonth(y, i);
+                roundoff += sch.CountDaysInMonth(y, i);
             }
-            int daysInMonth = Schema.CountDaysInMonth(newY, monthsInYear);
+            int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
             roundoff += Math.Max(0, d - daysInMonth);
 
             newM = monthsInYear;
@@ -42,7 +43,7 @@ public partial class PaxCalendar // Complements
         }
         else
         {
-            int daysInMonth = Schema.CountDaysInMonth(newY, m);
+            int daysInMonth = sch.CountDaysInMonth(newY, m);
             roundoff = Math.Max(0, d - daysInMonth);
 
             newM = m;
@@ -50,27 +51,34 @@ public partial class PaxCalendar // Complements
             newD = roundoff == 0 ? d : daysInMonth;
         }
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return PaxDate.UnsafeCreate(daysSinceEpoch);
     }
 
     [Pure]
     internal PaxDate AddMonths(PaxDate date, int months, out int roundoff)
     {
-        Schema.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
+#if RELEASE
+        const int MaxMonthsSinceEpoch = 131_761;
+#else
+        Debug.Assert(MaxMonthsSinceEpoch == 131_761);
+#endif
 
-        int monthsSinceEpoch = checked(Schema.CountMonthsSinceEpoch(y, m) + months);
-        //if (monthsSinceEpoch < _minMonthsSinceEpoch || monthsSinceEpoch > _maxMonthsSinceEpoch)
-        //    ThrowHelpers.ThrowDateOverflow();
+        var sch = Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out int d);
 
-        Schema.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
+        int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
 
-        int daysInMonth = Schema.CountDaysInMonth(newY, newM);
+        sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
+
+        int daysInMonth = sch.CountDaysInMonth(newY, newM);
         roundoff = Math.Max(0, d - daysInMonth);
         // On retourne le dernier jour du mois si d > daysInMonth.
         int newD = roundoff == 0 ? d : daysInMonth;
 
-        int daysSinceEpoch = Schema.CountDaysSinceEpoch(newY, newM, newD);
+        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return PaxDate.UnsafeCreate(daysSinceEpoch);
     }
 }

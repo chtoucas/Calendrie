@@ -231,21 +231,25 @@ public class Calendar
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive days from the epoch.
+    /// <para>WARNING: this property is not available in RELEASE mode.</para>
     /// </summary>
     internal int MinDaysSinceEpoch => Scope.Segment.SupportedDays.Min;
 
     /// <summary>
     /// Gets the maximum value for the number of consecutive days from the epoch.
+    /// <para>WARNING: this property is not available in RELEASE mode.</para>
     /// </summary>
     internal int MaxDaysSinceEpoch => Scope.Segment.SupportedDays.Max;
 
     /// <summary>
     /// Gets the minimum value for the number of consecutive months from the epoch.
+    /// <para>WARNING: this property is not available in RELEASE mode.</para>
     /// </summary>
     internal int MinMonthsSinceEpoch => Scope.Segment.SupportedMonths.Min;
 
     /// <summary>
     /// Gets the maximum value for the number of consecutive months from the epoch.
+    /// <para>WARNING: this property is not available in RELEASE mode.</para>
     /// </summary>
     internal int MaxMonthsSinceEpoch => Scope.Segment.SupportedMonths.Max;
 #endif
