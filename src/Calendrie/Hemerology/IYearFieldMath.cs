@@ -17,7 +17,7 @@ public interface IYearFieldMath<TSelf>
     [Pure] int CountYearsSince(TSelf other);
 
     /// <summary>
-    /// Adds a number of years to the year field of the current instance,
+    /// Adds a number of years to the year part of the current instance,
     /// yielding a new value.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either

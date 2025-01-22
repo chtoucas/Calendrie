@@ -17,7 +17,7 @@ public interface IMonthFieldMath<TSelf>
     [Pure] int CountMonthsSince(TSelf other);
 
     /// <summary>
-    /// Adds a number of months to the month field of the current instance,
+    /// Adds a number of months to the month part of the current instance,
     /// yielding a new value.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either

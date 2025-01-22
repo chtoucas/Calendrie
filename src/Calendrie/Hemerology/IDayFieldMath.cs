@@ -21,7 +21,7 @@ public interface IDayFieldMath<TSelf>
     [Pure] int CountDaysSince(TSelf other);
 
     /// <summary>
-    /// Adds a number of days to the day field of the current instance,
+    /// Adds a number of days to the day part of the current instance,
     /// yielding a new value.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
@@ -60,8 +60,8 @@ public interface IDayFieldMath<TSelf>
     [Pure] int CountWeeksSince(TSelf other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
 
     /// <summary>
-    /// Adds a number of weeks to the day field of the current instance,
-    /// yielding a new value.
+    /// Adds a number of weeks to the day part of the current instance, yielding
+    /// a new value.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of the day field or the range of supported values.

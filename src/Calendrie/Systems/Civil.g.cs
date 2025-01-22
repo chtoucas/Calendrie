@@ -651,8 +651,8 @@ public partial struct CivilMonth // Standard math ops
 public partial struct CivilMonth // Non-standard math ops
 {
     /// <summary>
-    /// Adds a number of years to the year field of this month instance, yielding
-    /// a new month.
+    /// Adds the specified number of years to the year part of this month
+    /// instance, yielding a new date.
     /// <para>In the particular case of the Civil calendar, this
     /// operation is exact.</para>
     /// </summary>

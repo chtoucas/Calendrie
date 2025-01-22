@@ -755,10 +755,10 @@ public partial struct PaxDate // Non-standard math ops
     private const int MaxMonthsSinceEpoch = 131_761;
 
     /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
-    /// a new date.
-    /// <para>This method may truncate the (naïve) result to ensure that it
-    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
+    /// Adds the specified number of years to the year part of this date instance,
+    /// yielding a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -771,10 +771,10 @@ public partial struct PaxDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of months to the month field of this date instance,
-    /// yielding a new date.
-    /// <para>This method may truncate the (naïve) result to ensure that it
-    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
+    /// Adds the specified number of months to the month part of this date
+    /// instance, yielding a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -849,10 +849,10 @@ public partial struct PaxDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified date, yielding
+    /// Adds a number of years to the year part of the specified date, yielding
     /// a new date.
-    /// <para>This method may truncate the (naïve) result to ensure that it
-    /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -873,7 +873,7 @@ public partial struct PaxDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of months to the month field of the specified date,
+    /// Adds a number of months to the month part of the specified date,
     /// yielding a new date.
     /// <para>This method may truncate the (naïve) result to ensure that it
     /// returns a valid date; see <see cref="AdditionRule.Truncate"/>.</para>
@@ -1481,10 +1481,10 @@ public partial struct PaxMonth // Standard math ops
 public partial struct PaxMonth // Non-standard math ops
 {
     /// <summary>
-    /// Adds a number of years to the year field of this month instance, yielding
-    /// a new month.
-    /// <para>This method may truncate the (naïve) to ensure that it returns a
-    /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
+    /// Adds the specified number of years to the year part of this month
+    /// instance, yielding a new date.
+    /// <para>This method may truncate the to ensure that it returns a valid
+    /// month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -1527,9 +1527,9 @@ public partial struct PaxMonth // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified date, yielding
+    /// Adds a number of years to the year part of the specified month, yielding
     /// a new date.
-    /// <para>This method may truncate the (naïve) to ensure that it returns a
+    /// <para>This method may truncate the result to ensure that it returns a
     /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the

@@ -633,8 +633,10 @@ public partial struct JulianDate // Standard math ops
 public partial struct JulianDate // Non-standard math ops
 {
     /// <summary>
-    /// Adds a number of years to the year field of this date instance, yielding
-    /// a new date.
+    /// Adds the specified number of years to the year part of this date instance,
+    /// yielding a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
@@ -646,8 +648,10 @@ public partial struct JulianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of months to the month field of this date instance,
-    /// yielding a new date.
+    /// Adds the specified number of months to the month part of this date
+    /// instance, yielding a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
@@ -719,8 +723,10 @@ public partial struct JulianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of years to the year field of the specified date, yielding
+    /// Adds a number of years to the year part of the specified date, yielding
     /// a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
@@ -740,8 +746,10 @@ public partial struct JulianDate // Non-standard math ops
     }
 
     /// <summary>
-    /// Adds a number of months to the month field of the specified date,
+    /// Adds a number of months to the month part of the specified date,
     /// yielding a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid date; see <see cref="AdditionRule.Truncate"/>.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
