@@ -38,8 +38,9 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusYears(int years, out int roundoff)
     {
-        var (y, m, d) = this;
-        return AddYears(y, m, d, years, out roundoff);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+        return AddYears(sch, y, m, d, years, out roundoff);
     }
 
     /// <summary>
@@ -52,8 +53,9 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     [Pure, ExcludeFromCodeCoverage]
     public TropicaliaDate PlusMonths(int months, out int roundoff)
     {
-        var (y, m, d) = this;
-        return AddMonths(y, m, d, months, out roundoff);
+        var sch = Calendar.Schema;
+        sch.GetDateParts(_daysSinceZero, out int y, out int m, out int d);
+        return AddMonths(sch, y, m, d, months, out roundoff);
     }
 
     //
@@ -61,10 +63,9 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     //
 
     [Pure, ExcludeFromCodeCoverage]
-    private static TropicaliaDate AddYears(int y, int m, int d, int years, out int roundoff)
+    private static TropicaliaDate AddYears(
+        TropicaliaSchema sch, int y, int m, int d, int years, out int roundoff)
     {
-        var sch = Calendar.Schema;
-
         int newY = checked(y + years);
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
@@ -79,9 +80,10 @@ public partial struct TropicaliaDate // Non-standard math ops (plain implementat
     }
 
     [Pure, ExcludeFromCodeCoverage]
-    private static TropicaliaDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    private static TropicaliaDate AddMonths(
+        TropicaliaSchema sch, int y, int m, int d, int months, out int roundoff)
     {
         int newM = 1 + MathZ.Modulo(checked(m - 1 + months), TropicalistaSchema.MonthsPerYear, out int years);
-        return AddYears(y, newM, d, years, out roundoff);
+        return AddYears(sch, y, newM, d, years, out roundoff);
     }
 }
