@@ -190,6 +190,15 @@ public partial class <#= Prefix #>Calendar // Math
 #>
 public partial class <#= Prefix #>Calendar // Math
 {
+#if RELEASE
+    /// <summary>
+    /// Represents the maximum value for the number of consecutive months from
+    /// the epoch.
+    /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para>
+    /// </summary>
+    private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
+#endif
+
     [Pure]
     internal <#= Prefix #>Date AddYears(int y, int m, int d, int years)
     {
@@ -211,15 +220,52 @@ public partial class <#= Prefix #>Calendar // Math
     [Pure]
     internal <#= Prefix #>Date AddYears(int y, int m, int d, int years, out int roundoff)
     {
-        throw new NotImplementedException();
+        var sch = Schema;
+
+        int newY = checked(y + years);
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowDateOverflow();
+
+        int monthsInYear = sch.CountMonthsInYear(newY);
+        int newM;
+        int newD;
+        if (m > monthsInYear)
+        {
+            // The target year newY has less months than the year y, we
+            // return the end of the target year.
+            // roundoff =
+            //   "days" after the end of (y, monthsInYear) until (y, m, d) included
+            //   + diff between end of (y, monthsInYear) and (newY, monthsInYear)
+            roundoff = d;
+            for (int i = monthsInYear + 1; i < m; i++)
+            {
+                roundoff += sch.CountDaysInMonth(y, i);
+            }
+            int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
+            roundoff += Math.Max(0, d - daysInMonth);
+
+            newM = monthsInYear;
+            // On retourne le dernier jour du mois si d > daysInMonth.
+            newD = roundoff == 0 ? d : daysInMonth;
+        }
+        else
+        {
+            int daysInMonth = sch.CountDaysInMonth(newY, m);
+            roundoff = Math.Max(0, d - daysInMonth);
+
+            newM = m;
+            // On retourne le dernier jour du mois si d > daysInMonth.
+            newD = roundoff == 0 ? d : daysInMonth;
+        }
+
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 
     [Pure]
     internal <#= Prefix #>Date AddMonths(int y, int m, int d, int months)
     {
-#if RELEASE
-        const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
-#else
+#if DEBUG
         Debug.Assert(MaxMonthsSinceEpoch == <#= MaxMonthsSinceEpochValue #>);
 #endif
 
@@ -242,7 +288,25 @@ public partial class <#= Prefix #>Calendar // Math
     [Pure]
     internal <#= Prefix #>Date AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-        throw new NotImplementedException();
+#if DEBUG
+        Debug.Assert(MaxMonthsSinceEpoch == <#= MaxMonthsSinceEpochValue #>);
+#endif
+
+        var sch = Schema;
+
+        int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
+        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+            ThrowHelpers.ThrowDateOverflow();
+
+        sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
+
+        int daysInMonth = sch.CountDaysInMonth(newY, newM);
+        roundoff = Math.Max(0, d - daysInMonth);
+        // On retourne le dernier jour du mois si d > daysInMonth.
+        int newD = roundoff == 0 ? d : daysInMonth;
+
+        int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
+        return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
 }
 <#+
