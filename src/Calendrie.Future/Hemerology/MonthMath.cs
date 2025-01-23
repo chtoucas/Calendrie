@@ -13,7 +13,7 @@ using Calendrie.Core.Utilities;
 /// <para>When the underlying calendar is regular, there is little to no reason
 /// to use this class. Indeed, <i>all</i> operations are exact.</para>
 /// </summary>
-public sealed class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
+public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -32,6 +32,20 @@ public sealed class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
     /// Gets the strategy employed to resolve ambiguities.
     /// </summary>
     public AdditionRule AdditionRule { get; }
+
+    /// <summary>
+    /// Calculates the exact difference (expressed in years and months) between
+    /// the two specified months.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
+    [Pure]
+    public (int Years, int Months) Subtract(TMonth start, TMonth end)
+    {
+        int years = CountYearsBetween(start, end, out var newStart);
+        int months = end.CountMonthsSince(newStart);
+        return (years, months);
+    }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified month.

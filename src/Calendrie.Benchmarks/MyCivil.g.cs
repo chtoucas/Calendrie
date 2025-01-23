@@ -979,6 +979,32 @@ public partial struct MyCivilDate // Non-standard math ops
 
 #endregion
 
+#region MyCivilDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="MyCivilDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class MyCivilDateMath : DateMath<MyCivilDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MyCivilDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    private MyCivilDateMath(AdditionRule rule) : base(rule) { }
+
+    public static MyCivilDateMath Truncate => new(AdditionRule.Truncate);
+
+    public static MyCivilDateMath Overspill => new(AdditionRule.Overspill);
+
+    public static MyCivilDateMath Exact => new(AdditionRule.Exact);
+}
+
+#endregion
+
 #region MyCivilMonth
 
 /// <summary>

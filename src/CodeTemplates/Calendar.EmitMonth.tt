@@ -40,15 +40,12 @@ public partial class CalendarTemplate
 
 #endregion
 <#+
-        if (EnableMonthCustomMath) {
+        if (EnableMonthCustomMath && !IsRegular) {
 #>
 
 #region <#= Prefix #>MonthMath
 <#+
-            if (!IsRegular)
-            {
-                EmitMonthCustomMathNonRegular();
-            }
+            EmitMonthCustomMathNonRegular();
 #>
 
 #endregion
@@ -1227,14 +1224,20 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public sealed class <#= Prefix #>MonthMath : MonthMathPlain<<#= Prefix #>Month, <#= Prefix #>Calendar>
+public sealed class <#= Prefix #>MonthMath : MonthMath<<#= Prefix #>Month>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>MonthMath"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public <#= Prefix #>MonthMath(AdditionRule rule) : base(rule) { }
+    private <#= Prefix #>MonthMath(AdditionRule rule) : base(rule) { }
+
+    public static <#= Prefix #>MonthMath Truncate => new(AdditionRule.Truncate);
+
+    public static <#= Prefix #>MonthMath Overspill => new(AdditionRule.Overspill);
+
+    public static <#= Prefix #>MonthMath Exact => new(AdditionRule.Exact);
 }
 <#+
     } // T4: End of EmitMonthCustomMathNonRegular

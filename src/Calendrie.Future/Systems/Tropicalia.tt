@@ -3,7 +3,8 @@
 <#@ include file="$(CalendrieT4Directory)ZeroCalendar.tt" once="true" #>
 <#= new ZeroCalendarTemplate(this, "TropicaliaSchema", maxDaysSinceEpochValue: "3_652_055")
     {
-        EnableDateCustomMath = false,
+        EnableDateCustomMath = true,
+        EnableMonthCustomMath = true, // verification that this does nothing
 
         EnableIsSupplementaryDay = false,
         EnablePragmas = true,

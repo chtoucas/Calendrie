@@ -11,7 +11,7 @@ namespace Calendrie.Systems;
 // Add a warning about the data (CountYearsBetweenData & co) which only
 // offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
 // Supprimer EmitDateCustomMath(Non)Regular()
-// Ajouter à DateMath CountPeriodBetween(), mieux DateDifference ?
+// Ajouter Subtract() aux types date et mois ?
 
 // Operations on "Yemoda" (and "Yedoy")
 //

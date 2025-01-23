@@ -992,6 +992,32 @@ public partial struct MyJulianDate // Non-standard math ops
 
 #endregion
 
+#region MyJulianDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="MyJulianDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class MyJulianDateMath : DateMath<MyJulianDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MyJulianDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    private MyJulianDateMath(AdditionRule rule) : base(rule) { }
+
+    public static MyJulianDateMath Truncate => new(AdditionRule.Truncate);
+
+    public static MyJulianDateMath Overspill => new(AdditionRule.Overspill);
+
+    public static MyJulianDateMath Exact => new(AdditionRule.Exact);
+}
+
+#endregion
+
 #region MyJulianMonth
 
 /// <summary>

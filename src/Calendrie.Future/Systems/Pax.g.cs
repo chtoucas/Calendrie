@@ -1059,6 +1059,32 @@ public partial struct PaxDate // Non-standard math ops
 
 #endregion
 
+#region PaxDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="PaxDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class PaxDateMath : DateMath<PaxDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PaxDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    private PaxDateMath(AdditionRule rule) : base(rule) { }
+
+    public static PaxDateMath Truncate => new(AdditionRule.Truncate);
+
+    public static PaxDateMath Overspill => new(AdditionRule.Overspill);
+
+    public static PaxDateMath Exact => new(AdditionRule.Exact);
+}
+
+#endregion
+
 #region PaxMonth
 
 /// <summary>
@@ -1674,6 +1700,32 @@ public partial struct PaxMonth // Non-standard math ops
 
         return years;
     }
+}
+
+#endregion
+
+#region PaxMonthMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="PaxMonth"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class PaxMonthMath : MonthMath<PaxMonth>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PaxMonthMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    private PaxMonthMath(AdditionRule rule) : base(rule) { }
+
+    public static PaxMonthMath Truncate => new(AdditionRule.Truncate);
+
+    public static PaxMonthMath Overspill => new(AdditionRule.Overspill);
+
+    public static PaxMonthMath Exact => new(AdditionRule.Exact);
 }
 
 #endregion

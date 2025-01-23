@@ -15,7 +15,7 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
-public sealed class DateMath<TDate> where TDate : struct, IDateBase<TDate>
+public class DateMath<TDate> where TDate : struct, IDateBase<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -34,6 +34,21 @@ public sealed class DateMath<TDate> where TDate : struct, IDateBase<TDate>
     /// Gets the strategy employed to resolve ambiguities.
     /// </summary>
     public AdditionRule AdditionRule { get; }
+
+    /// <summary>
+    /// Calculates the exact difference (expressed in years, months and days)
+    /// between the two specified dates.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
+    [Pure]
+    public (int Years, int Months, int Days) Subtract(TDate start, TDate end)
+    {
+        int years = CountYearsBetween(start, end, out var newStart);
+        int months = CountMonthsBetween(newStart, end, out newStart);
+        int days = end.CountDaysSince(newStart);
+        return (years, months, days);
+    }
 
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding

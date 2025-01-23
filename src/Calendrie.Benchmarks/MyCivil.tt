@@ -5,7 +5,7 @@
     {
         DisplayName = "Plain Standard Civil",
 
-        EnableDateCustomMath = false,
+        EnableDateCustomMath = true,
 
         EnableIsSupplementaryDay = false,
         EnableNullable = true,

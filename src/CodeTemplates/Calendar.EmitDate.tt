@@ -36,14 +36,7 @@ public partial class CalendarTemplate
 
 #region <#= Prefix #>DateMath
 <#+
-            if (IsRegular)
-            {
-                EmitDateCustomMathRegular();
-            }
-            else
-            {
-                EmitDateCustomMathNonRegular();
-            }
+            EmitDateCustomMath();
 #>
 
 #endregion
@@ -1088,7 +1081,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 <#+
     } // T4: End of EmitDateMathNonStandardNonRegular
 
-    protected virtual void EmitDateCustomMathRegular()
+    protected virtual void EmitDateCustomMath()
     {
         WriteLine();
 #>
@@ -1105,32 +1098,16 @@ public sealed class <#= Prefix #>DateMath : DateMath<<#= Prefix #>Date>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public <#= Prefix #>DateMath(AdditionRule rule) : base(rule) { }
-}
-<#+
-    } // T4: End of EmitMonthCustomMathRegular
+    private <#= Prefix #>DateMath(AdditionRule rule) : base(rule) { }
 
-    protected virtual void EmitDateCustomMathNonRegular()
-    {
-        WriteLine();
-#>
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="<#= Prefix #>Date"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class <#= Prefix #>DateMath : DateMath<<#= Prefix #>Date>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="<#= Prefix #>DateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public <#= Prefix #>DateMath(AdditionRule rule) : base(rule) { }
+    public static <#= Prefix #>DateMath Truncate => new(AdditionRule.Truncate);
+
+    public static <#= Prefix #>DateMath Overspill => new(AdditionRule.Overspill);
+
+    public static <#= Prefix #>DateMath Exact => new(AdditionRule.Exact);
 }
 <#+
-    } // T4: End of EmitMonthCustomMathNonRegular
+    } // T4: End of EmitDateCustomMath
 
 } // T4: End of CalendarTemplate
 

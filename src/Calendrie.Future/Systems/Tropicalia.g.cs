@@ -978,6 +978,32 @@ public partial struct TropicaliaDate // Non-standard math ops
 
 #endregion
 
+#region TropicaliaDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="TropicaliaDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class TropicaliaDateMath : DateMath<TropicaliaDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
+    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    private TropicaliaDateMath(AdditionRule rule) : base(rule) { }
+
+    public static TropicaliaDateMath Truncate => new(AdditionRule.Truncate);
+
+    public static TropicaliaDateMath Overspill => new(AdditionRule.Overspill);
+
+    public static TropicaliaDateMath Exact => new(AdditionRule.Exact);
+}
+
+#endregion
+
 #region TropicaliaMonth
 
 /// <summary>
