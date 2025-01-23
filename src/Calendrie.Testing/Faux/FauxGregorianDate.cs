@@ -5,7 +5,6 @@ namespace Calendrie.Testing.Faux;
 
 using System.Numerics;
 
-using Calendrie;
 using Calendrie.Hemerology;
 
 // NB: not really a "faux". This class is used to test

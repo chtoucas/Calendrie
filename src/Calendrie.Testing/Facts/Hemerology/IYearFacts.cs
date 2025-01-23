@@ -3,7 +3,6 @@
 
 namespace Calendrie.Testing.Facts.Hemerology;
 
-using Calendrie;
 using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
