@@ -73,7 +73,9 @@ public abstract class MonthMath0<TMonth>
         // > var newStart = AddYears(start, years);
         newStart = addYears(y0, m0, years);
         if (start < end)
+        {
             if (newStart > end) newStart = addYears(y0, m0, --years);
+        }
         else
         {
             if (newStart < end) newStart = addYears(y0, m0, ++years);

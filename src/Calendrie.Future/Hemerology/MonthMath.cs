@@ -12,7 +12,7 @@ using Calendrie.Core.Utilities;
 /// strategy.</para>
 /// </summary>
 public class MonthMath<TMonth>
-    where TMonth : struct, IMonth<TMonth>
+    where TMonth : struct, IMonthBase<TMonth>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the

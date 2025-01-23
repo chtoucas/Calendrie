@@ -18,7 +18,7 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
-public class DateMath<TDate> where TDate : struct, IDate<TDate>
+public class DateMath<TDate> where TDate : struct, IDateBase<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
