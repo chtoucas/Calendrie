@@ -15,14 +15,14 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
-public class DateMath<TDate> where TDate : struct, IDateBase<TDate>
+public sealed class DateMath<TDate> where TDate : struct, IDateBase<TDate>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="DateMath{TDate}"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    /// is not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public DateMath(AdditionRule rule)
     {
         Requires.Defined(rule);
@@ -64,6 +64,30 @@ public class DateMath<TDate> where TDate : struct, IDateBase<TDate>
 
     /// <summary>
     /// Counts the number of years between the two specified dates.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
+    [Pure]
+    public int CountYearsBetween(TDate start, TDate end)
+    {
+        // Exact difference between two calendar years.
+        int years = end.Year - start.Year;
+
+        var newStart = AddYears(start, years);
+        if (start < end)
+        {
+            if (newStart > end) years--;
+        }
+        else
+        {
+            if (newStart < end) years++;
+        }
+
+        return years;
+    }
+
+    /// <summary>
+    /// Counts the number of years between the two specified dates.
     /// <para><paramref name="newStart"/> is the result of adding the found
     /// number (of years) to <paramref name="start"/>.</para>
     /// <para>If <paramref name="start"/> &lt;= <paramref name="end"/>, then
@@ -92,6 +116,33 @@ public class DateMath<TDate> where TDate : struct, IDateBase<TDate>
         }
 
         return years;
+    }
+
+    /// <summary>
+    /// Counts the number of months between the two specified dates.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
+    [Pure]
+    public int CountMonthsBetween(TDate start, TDate end)
+    {
+        var (y0, m0, _) = start;
+        var (y1, m1, _) = end;
+
+        // Exact difference between two calendar months.
+        int months = CountMonthsBetween(y0, m0, y1, m1);
+
+        var newStart = AddMonths(start, months);
+        if (start < end)
+        {
+            if (newStart > end) months--;
+        }
+        else
+        {
+            if (newStart < end) months++;
+        }
+
+        return months;
     }
 
     /// <summary>

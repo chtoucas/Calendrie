@@ -13,15 +13,14 @@ using Calendrie.Core.Utilities;
 /// <para>When the underlying calendar is regular, there is little to no reason
 /// to use this class. Indeed, <i>all</i> operations are exact.</para>
 /// </summary>
-public class MonthMath<TMonth>
-    where TMonth : struct, IMonthBase<TMonth>
+public sealed class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="MonthMath{TMonth}"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    /// is not a known member of the enum <see cref="AdditionRule"/>.</exception>
     public MonthMath(AdditionRule rule)
     {
         Requires.Defined(rule);
@@ -45,6 +44,30 @@ public class MonthMath<TMonth>
     {
         var newMonth = month.PlusYears(years, out int roundoff);
         return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
+    }
+
+    /// <summary>
+    /// Counts the number of years between the two specified months.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// capacity of <see cref="int"/>.</exception>
+    [Pure]
+    public int CountYearsBetween(TMonth start, TMonth end)
+    {
+        // Exact difference between two calendar years.
+        int years = end.Year - start.Year;
+
+        var newStart = AddYears(start, years);
+        if (start < end)
+        {
+            if (newStart > end) years--;
+        }
+        else
+        {
+            if (newStart < end) years++;
+        }
+
+        return years;
     }
 
     /// <summary>

@@ -36,22 +36,3 @@ namespace Calendrie.Systems;
 // The non-standard ops:
 // - AddYears(Yemo, years)
 // - AddYears(Yemo, years, out roundoff)
-
-public partial class TropicaliaCalendar : ICalendarMath<TropicaliaDate>
-{
-    [Pure]
-    TropicaliaDate ICalendarMath<TropicaliaDate>.AddYears(int y, int m, int d, int years) =>
-        AddYears(y, m, d, years);
-
-    [Pure]
-    TropicaliaDate ICalendarMath<TropicaliaDate>.AddYears(int y, int m, int d, int years, out int roundoff) =>
-        AddYears(y, m, d, years, out roundoff);
-
-    [Pure]
-    TropicaliaDate ICalendarMath<TropicaliaDate>.AddMonths(int y, int m, int d, int months) =>
-        AddMonths(y, m, d, months);
-
-    [Pure]
-    TropicaliaDate ICalendarMath<TropicaliaDate>.AddMonths(int y, int m, int d, int months, out int roundoff) =>
-        AddMonths(y, m, d, months, out roundoff);
-}
