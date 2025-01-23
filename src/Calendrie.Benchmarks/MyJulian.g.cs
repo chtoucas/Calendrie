@@ -992,26 +992,6 @@ public partial struct MyJulianDate // Non-standard math ops
 
 #endregion
 
-#region MyJulianDateMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="MyJulianDate"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class MyJulianDateMath : DateMathRegular<MyJulianDate, MyJulianCalendar>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MyJulianDateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public MyJulianDateMath(AdditionRule rule) : base(rule) { }
-}
-
-#endregion
-
 #region MyJulianMonth
 
 /// <summary>
@@ -1585,8 +1565,8 @@ public partial struct MyJulianMonth // Non-standard math ops
     /// <summary>
     /// Adds the specified number of years to the year part of this month
     /// instance, yielding a new date.
-    /// <para>In the particular case of the MyJulian calendar, this
-    /// operation is exact.</para>
+    /// <para>The underlying calendar being regular, this operation is <i>always</i>
+    /// exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -1600,6 +1580,13 @@ public partial struct MyJulianMonth // Non-standard math ops
             ThrowHelpers.ThrowMonthOverflow();
 
         return UnsafeCreate(newY, m);
+    }
+
+    [Pure]
+    MyJulianMonth IMonthBase<MyJulianMonth>.PlusYears(int years, out int roundoff)
+    {
+        roundoff = 0;
+        return PlusYears(years);
     }
 
     /// <summary>

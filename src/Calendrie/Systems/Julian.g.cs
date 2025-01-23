@@ -317,8 +317,8 @@ public partial struct JulianMonth // Non-standard math ops
     /// <summary>
     /// Adds the specified number of years to the year part of this month
     /// instance, yielding a new date.
-    /// <para>In the particular case of the Julian calendar, this
-    /// operation is exact.</para>
+    /// <para>The underlying calendar being regular, this operation is <i>always</i>
+    /// exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -332,6 +332,13 @@ public partial struct JulianMonth // Non-standard math ops
             ThrowHelpers.ThrowMonthOverflow();
 
         return UnsafeCreate(newY, m);
+    }
+
+    [Pure]
+    JulianMonth IMonthBase<JulianMonth>.PlusYears(int years, out int roundoff)
+    {
+        roundoff = 0;
+        return PlusYears(years);
     }
 
     /// <summary>

@@ -1637,6 +1637,14 @@ public partial struct PaxMonth // Non-standard math ops
         return chr.AddYears(y, m, years);
     }
 
+    [Pure]
+    public PaxMonth PlusYears(int years, out int roundoff)
+    {
+        var chr = Calendar;
+        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        return chr.AddYears(y, m, years, out roundoff);
+    }
+
     /// <summary>
     /// Counts the number of whole years from <paramref name="other"/> to this
     /// month instance.

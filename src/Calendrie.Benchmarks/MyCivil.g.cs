@@ -979,26 +979,6 @@ public partial struct MyCivilDate // Non-standard math ops
 
 #endregion
 
-#region MyCivilDateMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="MyCivilDate"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class MyCivilDateMath : DateMathRegular<MyCivilDate, MyCivilCalendar>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MyCivilDateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public MyCivilDateMath(AdditionRule rule) : base(rule) { }
-}
-
-#endregion
-
 #region MyCivilMonth
 
 /// <summary>
@@ -1572,8 +1552,8 @@ public partial struct MyCivilMonth // Non-standard math ops
     /// <summary>
     /// Adds the specified number of years to the year part of this month
     /// instance, yielding a new date.
-    /// <para>In the particular case of the MyCivil calendar, this
-    /// operation is exact.</para>
+    /// <para>The underlying calendar being regular, this operation is <i>always</i>
+    /// exact.</para>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
@@ -1587,6 +1567,13 @@ public partial struct MyCivilMonth // Non-standard math ops
             ThrowHelpers.ThrowMonthOverflow();
 
         return UnsafeCreate(newY, m);
+    }
+
+    [Pure]
+    MyCivilMonth IMonthBase<MyCivilMonth>.PlusYears(int years, out int roundoff)
+    {
+        roundoff = 0;
+        return PlusYears(years);
     }
 
     /// <summary>

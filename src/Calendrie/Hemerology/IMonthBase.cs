@@ -60,4 +60,13 @@ public interface IMonthBase<TSelf> :
     /// <exception cref="ArgumentOutOfRangeException">The resulting month would
     /// be invalid.</exception>
     [Pure] TSelf WithMonth(int newMonth);
+
+    /// <summary>
+    /// Adds a number of years to the year part of the current instance and
+    /// also returns the roundoff in an output parameter, yielding a new value.
+    /// </summary>
+    /// <exception cref="OverflowException">The operation would overflow either
+    /// the capacity of the year field or the range of supported values.
+    /// </exception>
+    [Pure] TSelf PlusYears(int years, out int roundoff);
 }
