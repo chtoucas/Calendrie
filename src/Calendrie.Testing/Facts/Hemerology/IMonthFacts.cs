@@ -574,6 +574,9 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
         // Act & Assert
         AssertEx.Overflows(() => month.PlusYears(int.MinValue));
         AssertEx.Overflows(() => month.PlusYears(int.MaxValue));
+
+        AssertEx.Overflows(() => month.PlusYears(int.MinValue, out _));
+        AssertEx.Overflows(() => month.PlusYears(int.MaxValue, out _));
     }
 
     [Fact]
@@ -585,6 +588,12 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
         Assert.Equal(MinMonth, MinMonth.PlusYears(0));
         _ = MinMonth.PlusYears(years);
         AssertEx.Overflows(() => MinMonth.PlusYears(years + 1));
+
+        AssertEx.Overflows(() => MinMonth.PlusYears(-1, out _));
+        Assert.Equal(MinMonth, MinMonth.PlusYears(0, out int roundoff));
+        Assert.Equal(0, roundoff);
+        _ = MinMonth.PlusYears(years, out _);
+        AssertEx.Overflows(() => MinMonth.PlusYears(years + 1, out _));
     }
 
     [Fact]
@@ -596,6 +605,12 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
         _ = MaxMonth.PlusYears(-years);
         Assert.Equal(MaxMonth, MaxMonth.PlusYears(0));
         AssertEx.Overflows(() => MaxMonth.PlusYears(1));
+
+        AssertEx.Overflows(() => MaxMonth.PlusYears(-years - 1, out _));
+        _ = MaxMonth.PlusYears(-years, out _);
+        Assert.Equal(MaxMonth, MaxMonth.PlusYears(0, out int roundoff));
+        Assert.Equal(0, roundoff);
+        AssertEx.Overflows(() => MaxMonth.PlusYears(1, out _));
     }
 
     [Fact]
@@ -609,6 +624,11 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
         _ = month.PlusYears(minYs);
         _ = month.PlusYears(maxYs);
         AssertEx.Overflows(() => month.PlusYears(maxYs + 1));
+
+        AssertEx.Overflows(() => month.PlusYears(minYs - 1, out _));
+        _ = month.PlusYears(minYs, out _);
+        _ = month.PlusYears(maxYs, out _);
+        AssertEx.Overflows(() => month.PlusYears(maxYs + 1, out _));
     }
 
     [Theory, MemberData(nameof(MonthInfoData))]
@@ -618,6 +638,8 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
         var month = TMonth.Create(y, m);
         // Act & Assert
         Assert.Equal(month, month.PlusYears(0));
+        Assert.Equal(month, month.PlusYears(0, out int roundoff));
+        Assert.Equal(0, roundoff);
     }
 
     [Theory, MemberData(nameof(AddYearsMonthData))]
@@ -627,8 +649,10 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Math
         var month = GetMonth(info.First);
         var other = GetMonth(info.Second);
         // Act & Assert
-        Assert.Equal(other, month.PlusYears(years));
-        Assert.Equal(month, other.PlusYears(-years));
+        Assert.Equal(other, month.PlusYears(years, out int roundoff));
+        Assert.Equal(0, roundoff);
+        Assert.Equal(month, other.PlusYears(-years, out roundoff));
+        Assert.Equal(0, roundoff);
     }
 
     #endregion
