@@ -97,24 +97,6 @@ public abstract class CalendricalArithmetic
             : new PlainArithmetic(schema, supportedYears);
     }
 
-    //
-    // Operations on "Yemoda" (and "Yedoy")
-    //
-    // The standard ops, those based on the day unit:
-    // - AddDays(Yemoda, days)
-    // - NextDay(Yemoda)
-    // - PreviousDay(Yemoda)
-    // - CountDaysBetween(Yemoda, Yemoda)
-    // The non-standard ops, those using the year or month units:
-    // - AddYears(Yemoda, years)
-    // - AddYears(Yemoda, years, out roundoff)
-    // - AddMonths(Yemoda, months)
-    // - AddMonths(Yemoda, months, out roundoff)
-    //
-    // NB: we don't impl the std ops here because all our date types are based
-    // on the count of consecutive days since the epoch (daysSinceEpoch),
-    // therefore these ops are trivial.
-
     /// <summary>
     /// Adds a number of years to the year field of the specified date, yielding
     /// a new date.
@@ -176,18 +158,6 @@ public abstract class CalendricalArithmetic
         roundoff = Math.Max(0, d - daysInMonth);
         return new Yemoda(newY, newM, roundoff == 0 ? d : daysInMonth);
     }
-
-    //
-    // Operations on "Yemo"
-    //
-    // The standard ops, those based on the month unit:
-    // - AddMonths(Yemo, months)
-    // - NextMonth(Yemo)
-    // - PreviousMonth(Yemo)
-    // - CountMonthsBetween(Yemo, Yemo)
-    // The non-standard ops:
-    // - AddYears(Yemo, years)
-    // - AddYears(Yemo, years, out roundoff)
 
     /// <summary>
     /// Adds a number of months to the month field of the specified month,
