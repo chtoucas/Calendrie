@@ -199,6 +199,10 @@ public partial class <#= Prefix #>Calendar // Math
     private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
 #endif
 
+    //
+    // <#= Prefix #>Date
+    //
+
     [Pure]
     internal <#= Prefix #>Date AddYears(int y, int m, int d, int years)
     {
@@ -308,6 +312,56 @@ public partial class <#= Prefix #>Calendar // Math
 
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, newM, newD);
         return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
+    }
+
+    //
+    // <#= Prefix #>Month
+    //
+
+    /// <summary>
+    /// Adds a number of years to the year part of the specified month, yielding
+    /// a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
+    /// </summary>
+    /// <returns>The last month of the target year when truncation happens.
+    /// </returns>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal <#= Prefix #>Month AddYears(int y, int m, int years)
+    {
+        var sch = Schema;
+
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
+
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
+        return <#= Prefix #>Month.UnsafeCreate(monthsSinceEpoch);
+    }
+
+    [Pure]
+    internal <#= Prefix #>Month AddYears(int y, int m, int years, out int roundoff)
+    {
+        var sch = Schema;
+
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        int monthsInYear = sch.CountMonthsInYear(newY);
+        roundoff = Math.Max(0, m - monthsInYear);
+        // On retourne le dernier mois de l'année si m > monthsInYear.
+        int newM = roundoff == 0 ? m : monthsInYear;
+
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
+        return <#= Prefix #>Month.UnsafeCreate(monthsSinceEpoch);
     }
 }
 <#+

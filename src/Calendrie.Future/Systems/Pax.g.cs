@@ -80,6 +80,10 @@ public partial class PaxCalendar // Math
     private const int MaxMonthsSinceEpoch = 131_761;
 #endif
 
+    //
+    // PaxDate
+    //
+
     [Pure]
     internal PaxDate AddYears(int y, int m, int d, int years)
     {
@@ -189,6 +193,56 @@ public partial class PaxCalendar // Math
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return PaxDate.UnsafeCreate(daysSinceEpoch);
+    }
+
+    //
+    // PaxMonth
+    //
+
+    /// <summary>
+    /// Adds a number of years to the year part of the specified month, yielding
+    /// a new date.
+    /// <para>This method may truncate the result to ensure that it returns a
+    /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
+    /// </summary>
+    /// <returns>The last month of the target year when truncation happens.
+    /// </returns>
+    /// <exception cref="OverflowException">The calculation would overflow the
+    /// range of supported dates.</exception>
+    [Pure]
+    internal PaxMonth AddYears(int y, int m, int years)
+    {
+        var sch = Schema;
+
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        // NB: AdditionRule.Truncate.
+        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
+
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
+        return PaxMonth.UnsafeCreate(monthsSinceEpoch);
+    }
+
+    [Pure]
+    internal PaxMonth AddYears(int y, int m, int years, out int roundoff)
+    {
+        var sch = Schema;
+
+        // Exact addition of years to a calendar year.
+        int newY = checked(y + years);
+        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
+            ThrowHelpers.ThrowMonthOverflow();
+
+        int monthsInYear = sch.CountMonthsInYear(newY);
+        roundoff = Math.Max(0, m - monthsInYear);
+        // On retourne le dernier mois de l'année si m > monthsInYear.
+        int newM = roundoff == 0 ? m : monthsInYear;
+
+        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
+        return PaxMonth.UnsafeCreate(monthsSinceEpoch);
     }
 }
 
@@ -1578,9 +1632,9 @@ public partial struct PaxMonth // Non-standard math ops
     [Pure]
     public PaxMonth PlusYears(int years)
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return AddYears(sch, y, m, years);
+        var chr = Calendar;
+        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        return chr.AddYears(y, m, years);
     }
 
     /// <summary>
@@ -1592,15 +1646,15 @@ public partial struct PaxMonth // Non-standard math ops
     [Pure]
     public int CountYearsSince(PaxMonth other)
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(other._monthsSinceEpoch, out int y0, out int m0);
+        var chr = Calendar;
+        chr.Schema.GetMonthParts(other._monthsSinceEpoch, out int y0, out int m0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(sch, y0, m0, years);
+        var newStart = chr.AddYears(y0, m0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -1611,31 +1665,6 @@ public partial struct PaxMonth // Non-standard math ops
         }
 
         return years;
-    }
-
-    /// <summary>
-    /// Adds a number of years to the year part of the specified month, yielding
-    /// a new date.
-    /// <para>This method may truncate the result to ensure that it returns a
-    /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The last month of the target year when truncation happens.
-    /// </returns>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static PaxMonth AddYears(PaxSchema sch, int y, int m, int years)
-    {
-        // Exact addition of years to a calendar year.
-        int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
-            ThrowHelpers.ThrowMonthOverflow();
-
-        // NB: AdditionRule.Truncate.
-        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
-
-        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
-        return new PaxMonth(monthsSinceEpoch);
     }
 }
 

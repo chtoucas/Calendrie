@@ -1164,9 +1164,9 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
     [Pure]
     public <#= Prefix #>Month PlusYears(int years)
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-        return AddYears(sch, y, m, years);
+        var chr = Calendar;
+        chr.Schema.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
+        return chr.AddYears(y, m, years);
     }
 
     /// <summary>
@@ -1178,15 +1178,15 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
     [Pure]
     public int CountYearsSince(<#= Prefix #>Month other)
     {
-        var sch = Calendar.Schema;
-        sch.GetMonthParts(other._monthsSinceEpoch, out int y0, out int m0);
+        var chr = Calendar;
+        chr.Schema.GetMonthParts(other._monthsSinceEpoch, out int y0, out int m0);
 
         // Exact difference between two calendar years.
         int years = Year - y0;
 
         // To avoid extracting y0 twice, we inline:
         // > var newStart = other.PlusYears(years);
-        var newStart = AddYears(sch, y0, m0, years);
+        var newStart = chr.AddYears(y0, m0, years);
         if (other < this)
         {
             if (newStart > this) years--;
@@ -1197,31 +1197,6 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
         }
 
         return years;
-    }
-
-    /// <summary>
-    /// Adds a number of years to the year part of the specified month, yielding
-    /// a new date.
-    /// <para>This method may truncate the result to ensure that it returns a
-    /// valid month; see <see cref="AdditionRule.Truncate"/>.</para>
-    /// </summary>
-    /// <returns>The last month of the target year when truncation happens.
-    /// </returns>
-    /// <exception cref="OverflowException">The calculation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    private static <#= Prefix #>Month AddYears(<#= Prefix #>Schema sch, int y, int m, int years)
-    {
-        // Exact addition of years to a calendar year.
-        int newY = checked(y + years);
-        if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
-            ThrowHelpers.ThrowMonthOverflow();
-
-        // NB: AdditionRule.Truncate.
-        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
-
-        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
     }
 }
 <#+
