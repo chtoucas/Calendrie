@@ -252,9 +252,9 @@ module Bundles =
             // 3 years would be 1/3/2027 which is too late -> diff = 2 years.
             other.PlusYears(3) === new GregorianDate(2027, 2, 28) // Truncation happens here
             // Math
-            defaultDateMath.CountYearsBetween(other, date)   |> fst === 3
-            overspillDateMath.CountYearsBetween(other, date) |> fst === 2
-            exactDateMath.CountYearsBetween(other, date)     |> fst === 2
+            defaultDateMath.CountYearsBetween(other, date)   === 3
+            overspillDateMath.CountYearsBetween(other, date) === 2
+            exactDateMath.CountYearsBetween(other, date)     === 2
 
         // Same as above but with dates switched.
         [<Fact>]
@@ -267,9 +267,9 @@ module Bundles =
             other.PlusYears(-2) === new GregorianDate(2025, 2, 28)
             other.PlusYears(-3) === new GregorianDate(2024, 2, 28) // too early
             // Math
-            defaultDateMath.CountYearsBetween(other, date)   |> fst === -2
-            overspillDateMath.CountYearsBetween(other, date) |> fst === -2
-            exactDateMath.CountYearsBetween(other, date)     |> fst === -2
+            defaultDateMath.CountYearsBetween(other, date)   === -2
+            overspillDateMath.CountYearsBetween(other, date) === -2
+            exactDateMath.CountYearsBetween(other, date)     === -2
 
         [<Fact>]
         static member ``CountYearsSince() where only "date" is an intercalary day (b)`` () =
@@ -283,9 +283,9 @@ module Bundles =
             other.PlusYears(2) === new GregorianDate(2026, 2, 28) // Truncation happens here
             other.PlusYears(3) === new GregorianDate(2027, 2, 28) // too late
             // Math
-            defaultDateMath.CountYearsBetween(other, date)   |> fst === 2
-            overspillDateMath.CountYearsBetween(other, date) |> fst === 2
-            exactDateMath.CountYearsBetween(other, date)     |> fst === 2
+            defaultDateMath.CountYearsBetween(other, date)   === 2
+            overspillDateMath.CountYearsBetween(other, date) === 2
+            exactDateMath.CountYearsBetween(other, date)     === 2
 
         // Same as above but with dates switched.
         [<Fact>]
@@ -298,9 +298,9 @@ module Bundles =
             other.PlusYears(-2) === new GregorianDate(2025, 2, 27)
             other.PlusYears(-3) === new GregorianDate(2024, 2, 27) // too early
             // Math
-            defaultDateMath.CountYearsBetween(other, date)   |> fst === -2
-            overspillDateMath.CountYearsBetween(other, date) |> fst === -2
-            exactDateMath.CountYearsBetween(other, date)     |> fst === -2
+            defaultDateMath.CountYearsBetween(other, date)   === -2
+            overspillDateMath.CountYearsBetween(other, date) === -2
+            exactDateMath.CountYearsBetween(other, date)     === -2
 
         [<Fact>]
         static member ``CountYearsSince() where both dates are intercalary`` () =

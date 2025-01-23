@@ -120,6 +120,9 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
     {
         int years = SupportedYears.Count() - 1;
         // Act & Assert
+        _ = MonthMathUT.CountYearsBetween(MinMonth, MaxMonth);
+        _ = MonthMathUT.CountYearsBetween(MaxMonth, MinMonth);
+
         Assert.Equal(years, MonthMathUT.CountYearsBetween(MinMonth, MaxMonth, out var newStart));
         Assert.Equal(MinMonth.PlusYears(years), newStart);
         Assert.Equal(-years, MonthMathUT.CountYearsBetween(MaxMonth, MinMonth, out newStart));
@@ -132,6 +135,8 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var (y, m) = info.Yemo;
         var month = TMonth.Create(y, m);
         // Act & Assert
+        Assert.Equal(0, MonthMathUT.CountYearsBetween(month, month));
+
         Assert.Equal(0, MonthMathUT.CountYearsBetween(month, month, out var newStart));
         Assert.Equal(month, newStart);
     }
@@ -143,6 +148,12 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var start = GetMonth(info.First);
         var end = GetMonth(info.Second);
         // Act & Assert
+        Assert.Equal(years, MonthMathUT.CountYearsBetween(start, end));
+        // WARNING: this is not true in general. It just happens that
+        // CountYearsBetweenData only provides cases where the result is exact.
+        // If it changes in the future, we should remove the following two lines.
+        Assert.Equal(-years, MonthMathUT.CountYearsBetween(end, start));
+
         Assert.Equal(years, MonthMathUT.CountYearsBetween(start, end, out var newStart));
         Assert.Equal(start.PlusYears(years), newStart);
         // WARNING: this is not true in general. It just happens that
@@ -163,6 +174,9 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var exp1 = TMonth.Create(1999, 4);
         var exp2 = TMonth.Create(1901, 3);
         // Act & Assert
+        Assert.Equal(99, MonthMathUT.CountYearsBetween(start, end));
+        Assert.Equal(-99, MonthMathUT.CountYearsBetween(end, start));
+
         Assert.Equal(99, MonthMathUT.CountYearsBetween(start, end, out var newStart));
         Assert.Equal(start.PlusYears(99), newStart);
         Assert.Equal(exp1, newStart);
