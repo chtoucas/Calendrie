@@ -1678,26 +1678,6 @@ public partial struct PaxMonth // Non-standard math ops
 
 #endregion
 
-#region PaxMonthMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="PaxMonth"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class PaxMonthMath : MonthMathPlain<PaxMonth, PaxCalendar>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PaxMonthMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public PaxMonthMath(AdditionRule rule) : base(rule) { }
-}
-
-#endregion
-
 #region PaxYear
 
 /// <summary>

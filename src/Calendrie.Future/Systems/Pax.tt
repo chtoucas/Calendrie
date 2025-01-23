@@ -9,7 +9,7 @@
         regular: false)
     {
         EnableDateCustomMath = false,
-        EnableMonthCustomMath = true,
+        EnableMonthCustomMath = false,
 
         EnableIsIntercalaryDay = false,
         EnableIsSupplementaryDay = false,

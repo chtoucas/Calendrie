@@ -15,7 +15,7 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public class PlainMonthMath<TMonth, TCalendar> : MonthMath<TMonth>
+public class PlainMonthMath<TMonth, TCalendar> : MonthMath0<TMonth>
     where TMonth : struct, IMonth<TMonth>
     where TCalendar : Calendar
 {

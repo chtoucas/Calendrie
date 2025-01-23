@@ -16,7 +16,7 @@ using Calendrie.Hemerology;
 /// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
 /// </para>
 /// </summary>
-public class MonthMathPlain<TMonth, TCalendar> : MonthMath<TMonth>
+public class MonthMathPlain<TMonth, TCalendar> : MonthMath0<TMonth>
     where TMonth : struct, IMonth<TMonth>, IUnsafeFactory<TMonth>
     where TCalendar : Calendar
 {

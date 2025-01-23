@@ -3,6 +3,8 @@
 
 namespace Calendrie.Hemerology;
 
+using System.Numerics;
+
 using Calendrie.Core.Utilities;
 
 /// <summary>
@@ -11,16 +13,16 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
-public class MonthMath<TMonth>
-    where TMonth : struct, IMonth<TMonth>
+public abstract class MonthMath0<TMonth>
+    where TMonth : struct, IMonth, IMonthFieldMath<TMonth>, IComparisonOperators<TMonth, TMonth, bool>
 {
     /// <summary>
     /// Called from constructors in derived classes to initialize the
-    /// <see cref="MonthMath{TMonth}"/> class.
+    /// <see cref="MonthMath0{TMonth}"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    public MonthMath(AdditionRule rule)
+    protected MonthMath0(AdditionRule rule)
     {
         Requires.Defined(rule);
 
@@ -41,7 +43,8 @@ public class MonthMath<TMonth>
     [Pure]
     public TMonth AddYears(TMonth month, int years)
     {
-        var newMonth = month.PlusYears(years, out int roundoff);
+        var (y, m) = month;
+        var newMonth = AddYearsCore(y, m, years, out int roundoff);
         return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
     }
 
@@ -59,23 +62,40 @@ public class MonthMath<TMonth>
     [Pure]
     public int CountYearsBetween(TMonth start, TMonth end, out TMonth newStart)
     {
-        // Exact difference between two calendar years.
-        int years = end.Year - start.Year;
+        var (y0, m0) = start;
 
-        newStart = AddYears(start, years);
+        // Exact difference between two calendar years.
+        int years = end.Year - y0;
+
+        // To avoid extracting (y0, m0) more than once, we inline:
+        // > var newStart = AddYears(start, years);
+        newStart = addYears(y0, m0, years);
         if (start < end)
         {
-            if (newStart > end) newStart = AddYears(start, --years);
-            Debug.Assert(newStart <= end);
+            if (newStart > end) newStart = addYears(y0, m0, --years);
         }
         else
         {
-            if (newStart < end) newStart = AddYears(start, ++years);
-            Debug.Assert(newStart >= end);
+            if (newStart < end) newStart = addYears(y0, m0, ++years);
         }
 
         return years;
+
+        [Pure]
+        TMonth addYears(int y, int m, int years)
+        {
+            var newMonth = AddYearsCore(y, m, years, out int roundoff);
+            return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
+        }
     }
+
+    /// <summary>
+    /// Adds a number of years to the year field of the specified month.
+    /// </summary>
+    /// <exception cref="OverflowException">The calculation would overflow either
+    /// the capacity of <see cref="int"/> or the range of supported months.
+    /// </exception>
+    [Pure] protected abstract TMonth AddYearsCore(int y, int m, int years, out int roundoff);
 
     /// <summary>
     /// Adjusts the result using the specified rule.
