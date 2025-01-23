@@ -998,6 +998,33 @@ public partial struct EthiopicDate // Non-standard math ops
 
 #endregion
 
+#region EthiopicDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="EthiopicDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class EthiopicDateMath : DateMath<EthiopicDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public EthiopicDateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="EthiopicDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static EthiopicDateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region EthiopicMonth
 
 /// <summary>

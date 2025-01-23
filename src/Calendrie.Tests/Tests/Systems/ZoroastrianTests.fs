@@ -399,6 +399,12 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<ZoroastrianDate, StandardZoroastrian12DataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<ZoroastrianDate, StandardZoroastrian12DataSet>(
+            ZoroastrianDateMath.Default)
+
     //
     // Month type
     //
@@ -522,6 +528,12 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>(
+            Zoroastrian13DateMath.Default)
 
     //
     // Month type

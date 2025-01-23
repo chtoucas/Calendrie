@@ -989,6 +989,33 @@ public partial struct TabularIslamicDate // Non-standard math ops
 
 #endregion
 
+#region TabularIslamicDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="TabularIslamicDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class TabularIslamicDateMath : DateMath<TabularIslamicDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public TabularIslamicDateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="TabularIslamicDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TabularIslamicDateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region TabularIslamicMonth
 
 /// <summary>

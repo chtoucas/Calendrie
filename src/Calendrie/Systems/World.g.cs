@@ -998,6 +998,33 @@ public partial struct WorldDate // Non-standard math ops
 
 #endregion
 
+#region WorldDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="WorldDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class WorldDateMath : DateMath<WorldDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WorldDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public WorldDateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="WorldDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static WorldDateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region WorldMonth
 
 /// <summary>

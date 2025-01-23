@@ -216,8 +216,7 @@ module Bundles =
 
     [<Sealed>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<JulianDate, UnboundedJulianDataSet>(
-            new DateMath<JulianDate>(AdditionRule.Truncate))
+        inherit DefaultDateMathFacts<JulianDate, UnboundedJulianDataSet>(JulianDateMath.Default)
 
     //
     // Month type

@@ -998,6 +998,33 @@ public partial struct PositivistDate // Non-standard math ops
 
 #endregion
 
+#region PositivistDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="PositivistDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class PositivistDateMath : DateMath<PositivistDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PositivistDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public PositivistDateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="PositivistDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static PositivistDateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region PositivistMonth
 
 /// <summary>

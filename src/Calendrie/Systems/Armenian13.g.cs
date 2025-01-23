@@ -989,6 +989,33 @@ public partial struct Armenian13Date // Non-standard math ops
 
 #endregion
 
+#region Armenian13DateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="Armenian13Date"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class Armenian13DateMath : DateMath<Armenian13Date>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Armenian13DateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public Armenian13DateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="Armenian13DateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static Armenian13DateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region Armenian13Month
 
 /// <summary>

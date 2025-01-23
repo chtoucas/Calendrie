@@ -9,8 +9,6 @@
     {
         DisplayName = "Plain Standard Julian",
 
-        EnableDateCustomMath = true,
-
         EnableIsSupplementaryDay = false,
         EnableNullable = true,
 

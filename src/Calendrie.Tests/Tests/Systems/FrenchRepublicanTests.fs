@@ -399,6 +399,12 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>(
+            FrenchRepublicanDateMath.Default)
+
     //
     // Month type
     //
@@ -522,6 +528,12 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>(
+            FrenchRepublican13DateMath.Default)
 
     //
     // Month type

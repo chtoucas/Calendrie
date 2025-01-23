@@ -361,9 +361,9 @@ module Bundles =
     // Date type
     //
 
-    let private defaultDateMath   = new DateMath<CivilDate>(AdditionRule.Truncate)
-    let private overspillDateMath = new DateMath<CivilDate>(AdditionRule.Overspill)
-    let private exactDateMath     = new DateMath<CivilDate>(AdditionRule.Exact)
+    let private defaultDateMath   = CivilDateMath.Default
+    let private overspillDateMath = new CivilDateMath(AdditionRule.Overspill)
+    let private exactDateMath     = new CivilDateMath(AdditionRule.Exact)
 
     [<Sealed>]
     type DateFacts() =
@@ -462,7 +462,7 @@ module Bundles =
 
     [<Sealed>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<CivilDate, StandardGregorianDataSet>(defaultDateMath)
+        inherit DefaultDateMathFacts<CivilDate, StandardGregorianDataSet>(CivilDateMath.Default)
 
     //
     // Month type

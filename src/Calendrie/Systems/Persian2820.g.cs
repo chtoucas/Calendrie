@@ -989,6 +989,33 @@ public partial struct Persian2820Date // Non-standard math ops
 
 #endregion
 
+#region Persian2820DateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="Persian2820Date"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class Persian2820DateMath : DateMath<Persian2820Date>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Persian2820DateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public Persian2820DateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="Persian2820DateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static Persian2820DateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region Persian2820Month
 
 /// <summary>

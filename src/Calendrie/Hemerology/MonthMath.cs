@@ -7,7 +7,7 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Provides non-standard mathematical operations for the
-/// <typeparamref name="TMonth"/> type and provides a base for derived classes.
+/// <typeparamref name="TMonth"/> type.
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// <para>When the underlying calendar is regular, there is little to no reason
@@ -18,8 +18,8 @@ public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
     /// <summary>
     /// Initializes a new instance of the <see cref="MonthMath{TDate}"/> class.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// is not a known member of the enum <see cref="AdditionRule"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
     public MonthMath(AdditionRule rule)
     {
         Requires.Defined(rule);

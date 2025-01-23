@@ -998,6 +998,33 @@ public partial struct InternationalFixedDate // Non-standard math ops
 
 #endregion
 
+#region InternationalFixedDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="InternationalFixedDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class InternationalFixedDateMath : DateMath<InternationalFixedDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InternationalFixedDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public InternationalFixedDateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="InternationalFixedDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static InternationalFixedDateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region InternationalFixedMonth
 
 /// <summary>

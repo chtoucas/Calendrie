@@ -217,7 +217,7 @@ module Bundles =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
         inherit DefaultDateMathFacts<TropicaliaDate, StandardTropicaliaDataSet>(
-            new DateMath<TropicaliaDate>(AdditionRule.Truncate))
+            TropicaliaDateMath.Default)
 
     //
     // Month type

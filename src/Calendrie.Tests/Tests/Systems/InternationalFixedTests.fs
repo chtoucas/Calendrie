@@ -219,6 +219,12 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<InternationalFixedDate, StandardInternationalFixedDataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<InternationalFixedDate, StandardInternationalFixedDataSet>(
+            InternationalFixedDateMath.Default)
+
     //
     // Month type
     //

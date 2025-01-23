@@ -399,6 +399,12 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<ArmenianDate, StandardArmenian12DataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<ArmenianDate, StandardArmenian12DataSet>(
+            ArmenianDateMath.Default)
+
     //
     // Month type
     //
@@ -522,6 +528,12 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<Armenian13Date, StandardArmenian13DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<Armenian13Date, StandardArmenian13DataSet>(
+            Armenian13DateMath.Default)
 
     //
     // Month type

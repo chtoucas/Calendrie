@@ -399,6 +399,12 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<EgyptianDate, StandardEgyptian12DataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<EgyptianDate, StandardEgyptian12DataSet>(
+            EgyptianDateMath.Default)
+
     //
     // Month type
     //
@@ -522,6 +528,12 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<Egyptian13Date, StandardEgyptian13DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<Egyptian13Date, StandardEgyptian13DataSet>(
+            Egyptian13DateMath.Default)
 
     //
     // Month type

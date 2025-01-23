@@ -212,6 +212,12 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<TabularIslamicDate, StandardTabularIslamicDataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<TabularIslamicDate, StandardTabularIslamicDataSet>(
+            TabularIslamicDateMath.Default)
+
     //
     // Month type
     //

@@ -1072,15 +1072,16 @@ public sealed class PaxDateMath : DateMath<PaxDate>
     /// <summary>
     /// Initializes a new instance of the <see cref="PaxDateMath"/> class.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    private PaxDateMath(AdditionRule rule) : base(rule) { }
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public PaxDateMath(AdditionRule rule) : base(rule) { }
 
-    public static PaxDateMath Truncate => new(AdditionRule.Truncate);
-
-    public static PaxDateMath Overspill => new(AdditionRule.Overspill);
-
-    public static PaxDateMath Exact => new(AdditionRule.Exact);
+    /// <summary>
+    /// Gets an instance of the <see cref="PaxDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static PaxDateMath Default { get; } = new(AdditionRule.Truncate);
 }
 
 #endregion
@@ -1717,15 +1718,16 @@ public sealed class PaxMonthMath : MonthMath<PaxMonth>
     /// <summary>
     /// Initializes a new instance of the <see cref="PaxMonthMath"/> class.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
-    /// was not a known member of the enum <see cref="AdditionRule"/>.</exception>
-    private PaxMonthMath(AdditionRule rule) : base(rule) { }
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public PaxMonthMath(AdditionRule rule) : base(rule) { }
 
-    public static PaxMonthMath Truncate => new(AdditionRule.Truncate);
-
-    public static PaxMonthMath Overspill => new(AdditionRule.Overspill);
-
-    public static PaxMonthMath Exact => new(AdditionRule.Exact);
+    /// <summary>
+    /// Gets an instance of the <see cref="PaxMonthMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static PaxMonthMath Default { get; } = new(AdditionRule.Truncate);
 }
 
 #endregion

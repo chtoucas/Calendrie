@@ -989,6 +989,33 @@ public partial struct ZoroastrianDate // Non-standard math ops
 
 #endregion
 
+#region ZoroastrianDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="ZoroastrianDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class ZoroastrianDateMath : DateMath<ZoroastrianDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public ZoroastrianDateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="ZoroastrianDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static ZoroastrianDateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region ZoroastrianMonth
 
 /// <summary>

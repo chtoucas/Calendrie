@@ -398,6 +398,11 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<CopticDate, StandardCoptic12DataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<CopticDate, StandardCoptic12DataSet>(CopticDateMath.Default)
+
     //
     // Month type
     //
@@ -521,6 +526,11 @@ module Bundles13 =
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<Coptic13Date, StandardCoptic13DataSet>()
+
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<Coptic13Date, StandardCoptic13DataSet>(Coptic13DateMath.Default)
 
     //
     // Month type

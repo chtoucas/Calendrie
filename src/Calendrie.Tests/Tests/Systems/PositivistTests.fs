@@ -219,6 +219,12 @@ module Bundles =
     type UnsafeDateFactoryFacts() =
         inherit IUnsafeDateFactoryFacts<PositivistDate, StandardPositivistDataSet>()
 
+    [<Sealed>]
+    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    type DefaultDateMathFacts() =
+        inherit DefaultDateMathFacts<PositivistDate, StandardPositivistDataSet>(
+            PositivistDateMath.Default)
+
     //
     // Month type
     //

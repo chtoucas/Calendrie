@@ -998,6 +998,33 @@ public partial struct FrenchRepublicanDate // Non-standard math ops
 
 #endregion
 
+#region FrenchRepublicanDateMath
+
+/// <summary>
+/// Provides non-standard mathematical operations for the
+/// <see cref="FrenchRepublicanDate"/> type.
+/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
+/// </para>
+/// </summary>
+public sealed class FrenchRepublicanDateMath : DateMath<FrenchRepublicanDate>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FrenchRepublicanDateMath"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
+    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
+    public FrenchRepublicanDateMath(AdditionRule rule) : base(rule) { }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="FrenchRepublicanDateMath"/> class
+    /// using the default strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static FrenchRepublicanDateMath Default { get; } = new(AdditionRule.Truncate);
+}
+
+#endregion
+
 #region FrenchRepublicanMonth
 
 /// <summary>
