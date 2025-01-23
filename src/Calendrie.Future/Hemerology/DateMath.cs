@@ -7,10 +7,7 @@ using Calendrie.Core.Utilities;
 
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
 // utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser
-// la même règle AdditionRule. Pour simplifier, on utilise une règle commune
-// définie à la construction de PowerMath. Une autre manière de procéder aurait
-// été de définir des méthodes AddYears(TDate date, int years, AdditionRule rule)
-// et CountYearsBetween(TDate start, TDate end, AdditionRule rule).
+// la même règle AdditionRule.
 
 /// <summary>
 /// Provides non-standard mathematical operations for the
@@ -138,7 +135,7 @@ public class DateMath<TDate> where TDate : struct, IDateBase<TDate>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    protected virtual int CountMonthsBetween(int y0, int m0, int y1, int m1)
+    private static int CountMonthsBetween(int y0, int m0, int y1, int m1)
     {
         var sch = TDate.Calendar.Scope.Schema;
         return checked(sch.CountMonthsSinceEpoch(y1, m1) - sch.CountMonthsSinceEpoch(y0, m0));

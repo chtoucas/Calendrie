@@ -10,6 +10,8 @@ using Calendrie.Core.Utilities;
 /// <typeparamref name="TMonth"/> type and provides a base for derived classes.
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
+/// <para>When the underlying calendar is regular, there is little to no reason
+/// to use this class. Indeed, <i>all</i> operations are exact.</para>
 /// </summary>
 public class MonthMath<TMonth>
     where TMonth : struct, IMonthBase<TMonth>
