@@ -1,22 +1,22 @@
 Summary
-  Generated on: 21/01/2025 - 12:23:12
+  Generated on: 23/01/2025 - 10:24:48
   Parser: OpenCover
   Assemblies: 3
-  Classes: 234
-  Files: 182
-  Line coverage: 94.2%
-  Covered lines: 16863
-  Uncovered lines: 1032
-  Coverable lines: 17895
-  Total lines: 67433
-  Branch coverage: 94% (4877 of 5183)
-  Covered branches: 4877
-  Total branches: 5183
-  Method coverage: 94.9% (6070 of 6390)
-  Full method coverage: 80.2% (5126 of 6390)
-  Covered methods: 6070
-  Fully covered methods: 5126
-  Total methods: 6390
+  Classes: 224
+  Files: 175
+  Line coverage: 94.4%
+  Covered lines: 17348
+  Uncovered lines: 1015
+  Coverable lines: 18363
+  Total lines: 68842
+  Branch coverage: 94% (4878 of 5187)
+  Covered branches: 4878
+  Total branches: 5187
+  Method coverage: 95% (6140 of 6457)
+  Full method coverage: 79.8% (5158 of 6457)
+  Covered methods: 6140
+  Fully covered methods: 5158
+  Total methods: 6457
 
 Calendrie                                                 100%
   Calendrie.Core.CalendricalSchema                        100%
@@ -174,8 +174,8 @@ Calendrie                                                 100%
   Calendrie.Systems.ZoroastrianYear                       100%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Future                                           99%
-  Calendrie.Core.Schemas.PaxSchema                       88.8%
+Calendrie.Future                                         99.2%
+  Calendrie.Core.Schemas.PaxSchema                         96%
   Calendrie.Core.Schemas.Tropicalia3031Schema             100%
   Calendrie.Core.Schemas.Tropicalia3130Schema             100%
   Calendrie.Core.Schemas.TropicaliaSchema                 100%
@@ -186,28 +186,19 @@ Calendrie.Future                                           99%
   Calendrie.Core.Yemo                                     100%
   Calendrie.Core.Yemoda                                   100%
   Calendrie.Hemerology.CalendarSans                       100%
-  Calendrie.Hemerology.DateMath<T>                       98.4%
-  Calendrie.Hemerology.MonthMath<T>                      92.3%
+  Calendrie.Hemerology.DateMath<T>                       98.8%
+  Calendrie.Hemerology.MonthMath<T>                      93.6%
   Calendrie.Hemerology.UserCalendar                       100%
-  Calendrie.Systems.CivilDateMath                         100%
-  Calendrie.Systems.DateMathPlain<T1, T2>                93.3%
-  Calendrie.Systems.DateMathRegular<T1, T2>               100%
-  Calendrie.Systems.GregorianDateMath                     100%
-  Calendrie.Systems.JulianDateMath                        100%
-  Calendrie.Systems.MonthMathPlain<T1, T2>                100%
-  Calendrie.Systems.PaxCalendar                           100%
+  Calendrie.Systems.PaxCalendar                          96.7%
   Calendrie.Systems.PaxDate                               100%
-  Calendrie.Systems.PaxDateMath                           100%
   Calendrie.Systems.PaxMonth                              100%
-  Calendrie.Systems.PaxMonthMath                          100%
   Calendrie.Systems.PaxYear                               100%
   Calendrie.Systems.TropicaliaCalendar                    100%
   Calendrie.Systems.TropicaliaDate                        100%
-  Calendrie.Systems.TropicaliaDateMath                    100%
   Calendrie.Systems.TropicaliaMonth                       100%
   Calendrie.Systems.TropicaliaYear                        100%
 
-Calendrie.Sketches                                       45.1%
+Calendrie.Sketches                                       45.4%
   Calendrie.AdditionRuleset                               100%
   Calendrie.Core.Arithmetic.PlainArithmetic                 0%
   Calendrie.Core.Arithmetic.RegularArithmetic               0%
@@ -247,7 +238,6 @@ Calendrie.Sketches                                       45.1%
   Calendrie.Hemerology.MinMaxYearDayNumberProvider       17.9%
   Calendrie.Hemerology.MinMaxYearOrdinalPartsProvider    15.2%
   Calendrie.Hemerology.MinMaxYearScope                    100%
-  Calendrie.Hemerology.PlainMonthMath<T1, T2>               0%
   Calendrie.Horology.LocalSystemClock                       0%
   Calendrie.Horology.SystemClocks                           0%
   Calendrie.Horology.UtcSystemClock                         0%
