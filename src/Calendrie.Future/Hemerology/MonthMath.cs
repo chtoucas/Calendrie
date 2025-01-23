@@ -16,8 +16,7 @@ using Calendrie.Core.Utilities;
 public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
 {
     /// <summary>
-    /// Called from constructors in derived classes to initialize the
-    /// <see cref="MonthMath{TMonth}"/> class.
+    /// Initializes a new instance of the <see cref="MonthMath{TDate}"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// is not a known member of the enum <see cref="AdditionRule"/>.</exception>

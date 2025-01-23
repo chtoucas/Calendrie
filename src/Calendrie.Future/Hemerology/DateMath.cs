@@ -18,8 +18,7 @@ using Calendrie.Core.Utilities;
 public class DateMath<TDate> where TDate : struct, IDateBase<TDate>
 {
     /// <summary>
-    /// Called from constructors in derived classes to initialize the
-    /// <see cref="DateMath{TDate}"/> class.
+    /// Initializes a new instance of the <see cref="DateMath{TDate}"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="rule"/>
     /// is not a known member of the enum <see cref="AdditionRule"/>.</exception>
