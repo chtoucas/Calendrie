@@ -1,11 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology;
+namespace Calendrie.Systems;
 
 using System.Numerics;
 
+using Calendrie;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
 // utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser

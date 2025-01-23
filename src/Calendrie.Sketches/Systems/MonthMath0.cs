@@ -1,11 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Hemerology;
+namespace Calendrie.Systems;
 
 using System.Numerics;
 
+using Calendrie;
 using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
 
 /// <summary>
 /// Provides non-standard mathematical operations for the
@@ -71,9 +73,7 @@ public abstract class MonthMath0<TMonth>
         // > var newStart = AddYears(start, years);
         newStart = addYears(y0, m0, years);
         if (start < end)
-        {
             if (newStart > end) newStart = addYears(y0, m0, --years);
-        }
         else
         {
             if (newStart < end) newStart = addYears(y0, m0, ++years);

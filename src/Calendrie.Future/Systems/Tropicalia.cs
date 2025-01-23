@@ -6,12 +6,12 @@ namespace Calendrie.Systems;
 // TODO(code): add PlusYears(roundoff) to all month types.
 // Interfaces: currently in IDateBase, but shouldn't it be in IYearFieldMath and
 // IMonthFieldMath.
-// XML doc. Naming: newStart or ???
+// XML doc.
 // Add more tests in CivilTests and GregorianTests.
 // Add a warning about the data (CountYearsBetweenData & co) which only
 // offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
 // Supprimer EmitDateCustomMath(Non)Regular()
-// Ajouter à DateMath CountPeriodBetween()
+// Ajouter à DateMath CountPeriodBetween(), mieux DateDifference ?
 
 // Operations on "Yemoda" (and "Yedoy")
 //
