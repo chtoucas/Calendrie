@@ -70,9 +70,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public bool EnableCalendar { get; set; } = true;
     public bool EnableDate { get; set; } = true;
-    public bool EnableDateCustomMath { get; set; }
     public bool EnableMonth { get; set; } = true;
-    public bool EnableMonthCustomMath { get; set; } = true;
     public bool EnableYear { get; set; } = true;
     public bool EnableClock { get; set; }
 

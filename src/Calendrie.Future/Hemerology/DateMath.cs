@@ -10,15 +10,15 @@ using Calendrie.Core.Utilities;
 // la même règle AdditionRule.
 
 /// <summary>
-/// Provides non-standard mathematical operations for the <see cref="IDateBase{TSelf}"/>
-/// and <see cref="IMonthBase{TSelf}"/> types.
+/// Provides non-standard mathematical operations for the
+/// <see cref="IDateBase{TSelf}"/> type.
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
 public class DateMath
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DateMath{TDate}"/> class.
+    /// Initializes a new instance of the <see cref="DateMath"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
     /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
@@ -29,8 +29,15 @@ public class DateMath
         AdditionRule = rule;
     }
 
+    /// <summary>
+    /// Gets an instance of the <see cref="DateMath"/> class using the default
+    /// strategy.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
     public static DateMath Default { get; } = new(AdditionRule.Truncate);
+
     public static DateMath Overspill { get; } = new(AdditionRule.Overspill);
+
     public static DateMath Exact { get; } = new(AdditionRule.Exact);
 
     /// <summary>

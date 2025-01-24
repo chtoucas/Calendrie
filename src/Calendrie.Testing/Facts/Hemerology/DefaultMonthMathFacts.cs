@@ -9,24 +9,20 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about the <see cref="MonthMath{TMonth}"/> type.
+/// Provides facts about the <see cref="MonthMath"/> type.
 /// </summary>
 public class DefaultMonthMathFacts<TMonth, TDataSet> :
     CalendricalDataConsumer<TDataSet>
     where TMonth : struct, IMonth<TMonth>
     where TDataSet : ICalendricalDataSet, ISingleton<TDataSet>
 {
-    public DefaultMonthMathFacts(MonthMath<TMonth> monthMath)
+    public DefaultMonthMathFacts()
     {
-        ArgumentNullException.ThrowIfNull(monthMath);
-        if (monthMath.AdditionRule != AdditionRule.Truncate)
-            throw new ArgumentException(null, nameof(monthMath));
-
-        MonthMathUT = monthMath;
+        MathUT = new MonthMath(AdditionRule.Truncate);
         SupportedYears = TMonth.Calendar.Scope.Segment.SupportedYears;
     }
 
-    protected MonthMath<TMonth> MonthMathUT { get; }
+    protected MonthMath MathUT { get; }
 
     protected TMonth MinMonth => TMonth.MinValue;
     protected TMonth MaxMonth => TMonth.MaxValue;
@@ -53,8 +49,8 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
     {
         var month = TMonth.Create(1, 1);
         // Act & Assert
-        AssertEx.Overflows(() => MonthMathUT.AddYears(month, int.MinValue));
-        AssertEx.Overflows(() => MonthMathUT.AddYears(month, int.MaxValue));
+        AssertEx.Overflows(() => MathUT.AddYears(month, int.MinValue));
+        AssertEx.Overflows(() => MathUT.AddYears(month, int.MaxValue));
     }
 
     [Fact]
@@ -62,10 +58,10 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
     {
         int years = SupportedYears.Count() - 1;
         // Act & Assert
-        AssertEx.Overflows(() => MonthMathUT.AddYears(MinMonth, -1));
-        Assert.Equal(MinMonth, MonthMathUT.AddYears(MinMonth, 0));
-        _ = MonthMathUT.AddYears(MinMonth, years);
-        AssertEx.Overflows(() => MonthMathUT.AddYears(MinMonth, years + 1));
+        AssertEx.Overflows(() => MathUT.AddYears(MinMonth, -1));
+        Assert.Equal(MinMonth, MathUT.AddYears(MinMonth, 0));
+        _ = MathUT.AddYears(MinMonth, years);
+        AssertEx.Overflows(() => MathUT.AddYears(MinMonth, years + 1));
     }
 
     [Fact]
@@ -73,10 +69,10 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
     {
         int years = SupportedYears.Count() - 1;
         // Act & Assert
-        AssertEx.Overflows(() => MonthMathUT.AddYears(MaxMonth, -years - 1));
-        _ = MonthMathUT.AddYears(MaxMonth, -years);
-        Assert.Equal(MaxMonth, MonthMathUT.AddYears(MaxMonth, 0));
-        AssertEx.Overflows(() => MonthMathUT.AddYears(MaxMonth, 1));
+        AssertEx.Overflows(() => MathUT.AddYears(MaxMonth, -years - 1));
+        _ = MathUT.AddYears(MaxMonth, -years);
+        Assert.Equal(MaxMonth, MathUT.AddYears(MaxMonth, 0));
+        AssertEx.Overflows(() => MathUT.AddYears(MaxMonth, 1));
     }
 
     [Fact]
@@ -86,10 +82,10 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         int minYs = MinMonth.Year - month.Year;
         int maxYs = MaxMonth.Year - month.Year;
         // Act & Assert
-        AssertEx.Overflows(() => MonthMathUT.AddYears(month, minYs - 1));
-        _ = MonthMathUT.AddYears(month, minYs);
-        _ = MonthMathUT.AddYears(month, maxYs);
-        AssertEx.Overflows(() => MonthMathUT.AddYears(month, maxYs + 1));
+        AssertEx.Overflows(() => MathUT.AddYears(month, minYs - 1));
+        _ = MathUT.AddYears(month, minYs);
+        _ = MathUT.AddYears(month, maxYs);
+        AssertEx.Overflows(() => MathUT.AddYears(month, maxYs + 1));
     }
 
     [Theory, MemberData(nameof(MonthInfoData))]
@@ -98,7 +94,7 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var (y, m) = info.Yemo;
         var month = TMonth.Create(y, m);
         // Act & Assert
-        Assert.Equal(month, MonthMathUT.AddYears(month, 0));
+        Assert.Equal(month, MathUT.AddYears(month, 0));
     }
 
     [Theory, MemberData(nameof(AddYearsMonthData))]
@@ -108,8 +104,8 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var month = GetMonth(info.First);
         var other = GetMonth(info.Second);
         // Act & Assert
-        Assert.Equal(other, MonthMathUT.AddYears(month, years));
-        Assert.Equal(month, MonthMathUT.AddYears(other, -years));
+        Assert.Equal(other, MathUT.AddYears(month, years));
+        Assert.Equal(month, MathUT.AddYears(other, -years));
     }
 
     #endregion
@@ -120,12 +116,12 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
     {
         int years = SupportedYears.Count() - 1;
         // Act & Assert
-        _ = MonthMathUT.CountYearsBetween(MinMonth, MaxMonth);
-        _ = MonthMathUT.CountYearsBetween(MaxMonth, MinMonth);
+        _ = MathUT.CountYearsBetween(MinMonth, MaxMonth);
+        _ = MathUT.CountYearsBetween(MaxMonth, MinMonth);
 
-        Assert.Equal(years, MonthMathUT.CountYearsBetween(MinMonth, MaxMonth, out var newStart));
+        Assert.Equal(years, MathUT.CountYearsBetween(MinMonth, MaxMonth, out var newStart));
         Assert.Equal(MinMonth.PlusYears(years), newStart);
-        Assert.Equal(-years, MonthMathUT.CountYearsBetween(MaxMonth, MinMonth, out newStart));
+        Assert.Equal(-years, MathUT.CountYearsBetween(MaxMonth, MinMonth, out newStart));
         Assert.Equal(MaxMonth.PlusYears(-years), newStart);
     }
 
@@ -135,9 +131,9 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var (y, m) = info.Yemo;
         var month = TMonth.Create(y, m);
         // Act & Assert
-        Assert.Equal(0, MonthMathUT.CountYearsBetween(month, month));
+        Assert.Equal(0, MathUT.CountYearsBetween(month, month));
 
-        Assert.Equal(0, MonthMathUT.CountYearsBetween(month, month, out var newStart));
+        Assert.Equal(0, MathUT.CountYearsBetween(month, month, out var newStart));
         Assert.Equal(month, newStart);
     }
 
@@ -148,18 +144,18 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var start = GetMonth(info.First);
         var end = GetMonth(info.Second);
         // Act & Assert
-        Assert.Equal(years, MonthMathUT.CountYearsBetween(start, end));
+        Assert.Equal(years, MathUT.CountYearsBetween(start, end));
         // WARNING: this is not true in general. It just happens that
         // CountYearsBetweenData only provides cases where the result is exact.
         // If it changes in the future, we should remove the following two lines.
-        Assert.Equal(-years, MonthMathUT.CountYearsBetween(end, start));
+        Assert.Equal(-years, MathUT.CountYearsBetween(end, start));
 
-        Assert.Equal(years, MonthMathUT.CountYearsBetween(start, end, out var newStart));
+        Assert.Equal(years, MathUT.CountYearsBetween(start, end, out var newStart));
         Assert.Equal(start.PlusYears(years), newStart);
         // WARNING: this is not true in general. It just happens that
         // CountYearsBetweenData only provides cases where the result is exact.
         // If it changes in the future, we should remove the following two lines.
-        Assert.Equal(-years, MonthMathUT.CountYearsBetween(end, start, out newStart));
+        Assert.Equal(-years, MathUT.CountYearsBetween(end, start, out newStart));
         Assert.Equal(end.PlusYears(-years), newStart);
     }
 
@@ -174,13 +170,13 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
         var exp1 = TMonth.Create(1999, 4);
         var exp2 = TMonth.Create(1901, 3);
         // Act & Assert
-        Assert.Equal(99, MonthMathUT.CountYearsBetween(start, end));
-        Assert.Equal(-99, MonthMathUT.CountYearsBetween(end, start));
+        Assert.Equal(99, MathUT.CountYearsBetween(start, end));
+        Assert.Equal(-99, MathUT.CountYearsBetween(end, start));
 
-        Assert.Equal(99, MonthMathUT.CountYearsBetween(start, end, out var newStart));
+        Assert.Equal(99, MathUT.CountYearsBetween(start, end, out var newStart));
         Assert.Equal(start.PlusYears(99), newStart);
         Assert.Equal(exp1, newStart);
-        Assert.Equal(-99, MonthMathUT.CountYearsBetween(end, start, out newStart));
+        Assert.Equal(-99, MathUT.CountYearsBetween(end, start, out newStart));
         Assert.Equal(end.PlusYears(-99), newStart);
         Assert.Equal(exp2, newStart);
     }

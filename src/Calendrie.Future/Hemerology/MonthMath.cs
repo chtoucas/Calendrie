@@ -7,16 +7,16 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Provides non-standard mathematical operations for the
-/// <typeparamref name="TMonth"/> type.
+/// <see cref="IMonthBase{TSelf}"/> type.
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// <para>When the underlying calendar is regular, there is little to no reason
 /// to use this class. Indeed, <i>all</i> operations are exact.</para>
 /// </summary>
-public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
+public class MonthMath
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MonthMath{TDate}"/> class.
+    /// Initializes a new instance of the <see cref="MonthMath"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
     /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
@@ -39,7 +39,8 @@ public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public (int Years, int Months) Subtract(TMonth start, TMonth end)
+    public (int Years, int Months) Subtract<TMonth>(TMonth start, TMonth end)
+        where TMonth : struct, IMonthBase<TMonth>
     {
         int years = CountYearsBetween(start, end, out var newStart);
         int months = end.CountMonthsSince(newStart);
@@ -53,7 +54,8 @@ public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    public TMonth AddYears(TMonth month, int years)
+    public TMonth AddYears<TMonth>(TMonth month, int years)
+        where TMonth : struct, IMonthBase<TMonth>
     {
         var newMonth = month.PlusYears(years, out int roundoff);
         return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
@@ -65,7 +67,8 @@ public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public int CountYearsBetween(TMonth start, TMonth end)
+    public int CountYearsBetween<TMonth>(TMonth start, TMonth end)
+        where TMonth : struct, IMonthBase<TMonth>
     {
         // Exact difference between two calendar years.
         int years = end.Year - start.Year;
@@ -95,7 +98,8 @@ public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public int CountYearsBetween(TMonth start, TMonth end, out TMonth newStart)
+    public int CountYearsBetween<TMonth>(TMonth start, TMonth end, out TMonth newStart)
+        where TMonth : struct, IMonthBase<TMonth>
     {
         // Exact difference between two calendar years.
         int years = end.Year - start.Year;
@@ -122,7 +126,8 @@ public class MonthMath<TMonth> where TMonth : struct, IMonthBase<TMonth>
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    private TMonth Adjust(TMonth month, int roundoff)
+    private TMonth Adjust<TMonth>(TMonth month, int roundoff)
+        where TMonth : struct, IMonthBase<TMonth>
     {
         // Si on ne filtrait pas roundoff > 0, il faudrait prendre en compte
         // le cas roundoff = 0 et retourner month (résultat exact).

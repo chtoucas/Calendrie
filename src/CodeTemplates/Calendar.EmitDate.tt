@@ -31,17 +31,6 @@ public partial class CalendarTemplate
 
 #endregion
 <#+
-        if (EnableDateCustomMath) {
-#>
-
-#region <#= Prefix #>DateMath
-<#+
-            EmitDateCustomMath();
-#>
-
-#endregion
-<#+
-        }
     }
 
     protected virtual void EmitDateDecl()
@@ -1080,35 +1069,6 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
 }
 <#+
     } // T4: End of EmitDateMathNonStandardNonRegular
-
-    protected virtual void EmitDateCustomMath()
-    {
-        WriteLine();
-#>
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="<#= Prefix #>Date"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class <#= Prefix #>DateMath : DateMath<<#= Prefix #>Date>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="<#= Prefix #>DateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
-    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
-    public <#= Prefix #>DateMath(AdditionRule rule) : base(rule) { }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="<#= Prefix #>DateMath"/> class
-    /// using the default strategy.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static <#= Prefix #>DateMath Default { get; } = new(AdditionRule.Truncate);
-}
-<#+
-    } // T4: End of EmitDateCustomMath
 
 } // T4: End of CalendarTemplate
 

@@ -40,17 +40,6 @@ public partial class CalendarTemplate
 
 #endregion
 <#+
-        if (EnableMonthCustomMath && !IsRegular) {
-#>
-
-#region <#= Prefix #>MonthMath
-<#+
-            EmitMonthCustomMathNonRegular();
-#>
-
-#endregion
-<#+
-        }
     }
 
     protected virtual void EmitMonthDecl()
@@ -1213,35 +1202,6 @@ public partial struct <#= Prefix #>Month // Non-standard math ops
 }
 <#+
     } // T4: End of EmitMonthMathNonStandardNonRegular
-
-    protected virtual void EmitMonthCustomMathNonRegular()
-    {
-        WriteLine();
-#>
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="<#= Prefix #>Month"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class <#= Prefix #>MonthMath : MonthMath<<#= Prefix #>Month>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="<#= Prefix #>MonthMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
-    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
-    public <#= Prefix #>MonthMath(AdditionRule rule) : base(rule) { }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="<#= Prefix #>MonthMath"/> class
-    /// using the default strategy.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static <#= Prefix #>MonthMath Default { get; } = new(AdditionRule.Truncate);
-}
-<#+
-    } // T4: End of EmitMonthCustomMathNonRegular
 
 } // T4: End of CalendarTemplate
 

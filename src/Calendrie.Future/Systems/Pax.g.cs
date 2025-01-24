@@ -1678,33 +1678,6 @@ public partial struct PaxMonth // Non-standard math ops
 
 #endregion
 
-#region PaxMonthMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="PaxMonth"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class PaxMonthMath : MonthMath<PaxMonth>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PaxMonthMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
-    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
-    public PaxMonthMath(AdditionRule rule) : base(rule) { }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="PaxMonthMath"/> class
-    /// using the default strategy.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static PaxMonthMath Default { get; } = new(AdditionRule.Truncate);
-}
-
-#endregion
-
 #region PaxYear
 
 /// <summary>

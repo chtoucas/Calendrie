@@ -9,7 +9,7 @@ using Calendrie.Hemerology;
 using Calendrie.Testing.Data;
 
 /// <summary>
-/// Provides facts about the <see cref="DateMath{TDate}"/> type.
+/// Provides facts about the <see cref="DateMath"/> type.
 /// </summary>
 public class DefaultDateMathFacts<TDate, TDataSet> :
     CalendricalDataConsumer<TDataSet>
