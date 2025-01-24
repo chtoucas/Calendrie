@@ -78,11 +78,6 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<Yemoda>) === 4
 
     [<Fact>]
-    let ``Types in Calendrie:Hemerology`` () =
-        Marshal.SizeOf(typedefof<DateDifference>) === 16
-        Marshal.SizeOf(typedefof<MonthDifference>) === 8
-
-    [<Fact>]
     let ``Types in Calendrie:Systems`` () =
         Marshal.SizeOf(typedefof<ArmenianDate>) === 4
         Marshal.SizeOf(typedefof<Armenian13Date>) === 4

@@ -51,6 +51,9 @@ public partial class DateMath
     public DateDifference Subtract<TDate>(TDate start, TDate end)
         where TDate : struct, IDateBase<TDate>
     {
+        // Fast track.
+        if (start == end) return DateDifference.Zero;
+
         // Le résultat est exact car on effectue les calculs de proche en proche.
         // > end = start.PlusYears(years).PlusMonths(months).PlusWeeks(weeks).PlusDays(days)
         // À chaque étape, la valeur utilisée est la valeur maximale telle que
@@ -62,7 +65,7 @@ public partial class DateMath
         int years = CountYearsBetween(start, end, out var newStart);
         int months = CountMonthsBetween(newStart, end, out newStart);
         int days = end.CountDaysSince(newStart);
-        return DateDifference.Create(years, months, days);
+        return DateDifference.Create(years, months, days, start < end ? 1 : -1);
     }
 
     /// <summary>

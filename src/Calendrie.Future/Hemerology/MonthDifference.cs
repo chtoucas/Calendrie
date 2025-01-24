@@ -80,7 +80,7 @@ public readonly record struct MonthDifference :
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is MonthDifference diff ? CompareTo(diff)
+        : obj is MonthDifference other ? CompareTo(other)
         : ThrowHelpers.ThrowNonComparable(typeof(MonthDifference), obj);
 
     /// <inheritdoc />

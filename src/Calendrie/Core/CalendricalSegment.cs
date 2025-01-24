@@ -225,30 +225,15 @@ public sealed class CalendricalSegment
         /// <para><c>(null &gt; null)</c> evaluates to false</para>
         /// </summary>
         public static bool IsGreaterThan(Endpoint? left, Endpoint? right) =>
+            // Using .NET comparison ops would have been nicer but, since this
+            // type is internal, it would have made full code coverage almost
+            // impossible to achieve.
+            //
+            // WARNING: we do not follow the .NET convention here.
+            // Comparison w/ null always returns false, even null >= null and
+            // null <= null.
             left is not null
             && right is not null
             && left.DaysSinceEpoch > right.DaysSinceEpoch;
-
-        // Using .NET comparison ops would have been nicer but, since this
-        // type is internal, it would have made full code coverage almost
-        // impossible to achieve.
-        //
-        // Comparison w/ null always returns false, even null >= null and
-        // null <= null.
-
-        //public static bool operator <(Endpoint? left, Endpoint? right) =>
-        //    left is not null && right is not null && left.CompareTo(right) < 0;
-        //public static bool operator <=(Endpoint? left, Endpoint? right) =>
-        //    left is not null && right is not null && left.CompareTo(right) <= 0;
-        //public static bool operator >(Endpoint? left, Endpoint? right) =>
-        //    left is not null && right is not null && left.CompareTo(right) > 0;
-        //public static bool operator >=(Endpoint? left, Endpoint? right) =>
-        //    left is not null && right is not null && left.CompareTo(right) >= 0;
-
-        //public int CompareTo(Endpoint other)
-        //{
-        //    ArgumentNullException.ThrowIfNull(other);
-        //    return DaysSinceEpoch.CompareTo(other.DaysSinceEpoch);
-        //}
     }
 }
