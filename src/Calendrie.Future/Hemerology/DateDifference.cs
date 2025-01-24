@@ -12,6 +12,9 @@ using static Calendrie.Core.CalendricalConstants;
 // FIXME(code): comparison shouldn't be lexicographic but be on the "absolute"*
 // values, idem with MonthDifference. Terminer Create().
 // Check that all params are >= 0 or <= 0, not mixed.
+// The result is ALWAYS in its normal "canonical" form which makes comparison
+// of lengths doable.
+// Two values should only be compared when coming from the same calendar.
 
 /// <summary>
 /// Represents the result of <see cref="DateMath.Subtract{TDate}(TDate, TDate)"/>,

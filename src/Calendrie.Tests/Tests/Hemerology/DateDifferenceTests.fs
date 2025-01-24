@@ -89,3 +89,22 @@ module Factories =
         x.Weeks  === -w
         x.Days   === -d
         x.Sign   === -1
+
+module Comparison =
+    [<Fact>]
+    let ``Zero w/ anything`` () =
+        // Zero / Zero
+        DateDifference.Zero >  DateDifference.Zero |> nok
+        DateDifference.Zero >= DateDifference.Zero |> ok
+        DateDifference.Zero <  DateDifference.Zero |> nok
+        DateDifference.Zero <= DateDifference.Zero |> ok
+        // Zero / Positive
+        DateDifference.CreatePositive(1, 2, 3) >  DateDifference.Zero |> ok
+        DateDifference.CreatePositive(1, 2, 3) >= DateDifference.Zero |> ok
+        DateDifference.CreatePositive(1, 2, 3) <  DateDifference.Zero |> nok
+        DateDifference.CreatePositive(1, 2, 3) <= DateDifference.Zero |> nok
+        // Zero / Negative
+        DateDifference.CreateNegative(1, 2, 3) >  DateDifference.Zero |> ok
+        DateDifference.CreateNegative(1, 2, 3) >= DateDifference.Zero |> ok
+        DateDifference.CreateNegative(1, 2, 3) <  DateDifference.Zero |> nok
+        DateDifference.CreateNegative(1, 2, 3) <= DateDifference.Zero |> nok

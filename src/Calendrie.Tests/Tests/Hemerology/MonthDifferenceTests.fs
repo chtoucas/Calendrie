@@ -68,3 +68,58 @@ module Factories =
         x.Years  === -1
         x.Months === -2
         x.Sign   === -1
+
+module Comparison =
+    [<Fact>]
+    let ``Zero w/ anything`` () =
+        // Zero / Zero
+        MonthDifference.Zero >  MonthDifference.Zero |> nok
+        MonthDifference.Zero >= MonthDifference.Zero |> ok
+        MonthDifference.Zero <  MonthDifference.Zero |> nok
+        MonthDifference.Zero <= MonthDifference.Zero |> ok
+        // Zero / Positive
+        MonthDifference.CreatePositive(1, 2) >  MonthDifference.Zero |> ok
+        MonthDifference.CreatePositive(1, 2) >= MonthDifference.Zero |> ok
+        MonthDifference.CreatePositive(1, 2) <  MonthDifference.Zero |> nok
+        MonthDifference.CreatePositive(1, 2) <= MonthDifference.Zero |> nok
+        // Zero / Negative
+        MonthDifference.CreateNegative(1, 2) >  MonthDifference.Zero |> ok
+        MonthDifference.CreateNegative(1, 2) >= MonthDifference.Zero |> ok
+        MonthDifference.CreateNegative(1, 2) <  MonthDifference.Zero |> nok
+        MonthDifference.CreateNegative(1, 2) <= MonthDifference.Zero |> nok
+
+    [<Fact>]
+    let ``Positive or Negative, same length`` () =
+        // Positive / Positive
+        MonthDifference.CreatePositive(1, 2) >  MonthDifference.CreatePositive(1, 2) |> nok
+        MonthDifference.CreatePositive(1, 2) >= MonthDifference.CreatePositive(1, 2) |> ok
+        MonthDifference.CreatePositive(1, 2) <  MonthDifference.CreatePositive(1, 2) |> nok
+        MonthDifference.CreatePositive(1, 2) <= MonthDifference.CreatePositive(1, 2) |> ok
+        // Positive / Negative
+        MonthDifference.CreatePositive(1, 2) >  MonthDifference.CreateNegative(1, 2) |> nok
+        MonthDifference.CreatePositive(1, 2) >= MonthDifference.CreateNegative(1, 2) |> ok
+        MonthDifference.CreatePositive(1, 2) <  MonthDifference.CreateNegative(1, 2) |> nok
+        MonthDifference.CreatePositive(1, 2) <= MonthDifference.CreateNegative(1, 2) |> ok
+        // Negative / Negative
+        MonthDifference.CreateNegative(1, 2) >  MonthDifference.CreateNegative(1, 2) |> nok
+        MonthDifference.CreateNegative(1, 2) >= MonthDifference.CreateNegative(1, 2) |> ok
+        MonthDifference.CreateNegative(1, 2) <  MonthDifference.CreateNegative(1, 2) |> nok
+        MonthDifference.CreateNegative(1, 2) <= MonthDifference.CreateNegative(1, 2) |> ok
+
+    [<Fact>]
+    let ``Positive or Negative, diff length`` () =
+        // Positive / Positive
+        MonthDifference.CreatePositive(1, 3) >  MonthDifference.CreatePositive(1, 2) |> ok
+        MonthDifference.CreatePositive(1, 3) >= MonthDifference.CreatePositive(1, 2) |> ok
+        MonthDifference.CreatePositive(1, 3) <  MonthDifference.CreatePositive(1, 2) |> nok
+        MonthDifference.CreatePositive(1, 3) <= MonthDifference.CreatePositive(1, 2) |> nok
+        // Positive / Negative
+        MonthDifference.CreatePositive(1, 3) >  MonthDifference.CreateNegative(1, 2) |> ok
+        MonthDifference.CreatePositive(1, 3) >= MonthDifference.CreateNegative(1, 2) |> ok
+        MonthDifference.CreatePositive(1, 3) <  MonthDifference.CreateNegative(1, 2) |> nok
+        MonthDifference.CreatePositive(1, 3) <= MonthDifference.CreateNegative(1, 2) |> nok
+        // Negative / Negative
+        MonthDifference.CreateNegative(1, 3) >  MonthDifference.CreateNegative(1, 2) |> ok
+        MonthDifference.CreateNegative(1, 3) >= MonthDifference.CreateNegative(1, 2) |> ok
+        MonthDifference.CreateNegative(1, 3) <  MonthDifference.CreateNegative(1, 2) |> nok
+        MonthDifference.CreateNegative(1, 3) <= MonthDifference.CreateNegative(1, 2) |> nok
