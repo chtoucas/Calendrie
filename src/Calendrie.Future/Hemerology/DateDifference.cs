@@ -209,7 +209,7 @@ public partial record DateDifference // Math
     /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
-    public static DateDifference operator +(DateDifference? value)
+    public static DateDifference operator +(DateDifference value)
     {
         ArgumentNullException.ThrowIfNull(value);
         return value;
@@ -218,7 +218,7 @@ public partial record DateDifference // Math
     /// <inheritdoc />
     /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
     /// </exception>
-    public static DateDifference operator -(DateDifference? value)
+    public static DateDifference operator -(DateDifference value)
     {
         ArgumentNullException.ThrowIfNull(value);
         return value.Negate();
