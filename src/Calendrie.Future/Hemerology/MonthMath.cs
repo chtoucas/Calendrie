@@ -11,7 +11,9 @@ using Calendrie.Core.Utilities;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// <para>When the underlying calendar is regular, there is little to no reason
-/// to use this class. Indeed, <i>all</i> operations are exact.</para>
+/// to use this class. Indeed, <i>all</i> operations are exact, therefore the
+/// same can be achieved using only the methods already provided by the
+/// <see cref="IMonthBase{TSelf}"/> type.</para>
 /// </summary>
 public class MonthMath
 {
