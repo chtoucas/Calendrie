@@ -16,13 +16,14 @@ using Calendrie.Core.Utilities;
 public class MonthMath
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DateMath"/> class using the
+    /// Initializes a new instance of the <see cref="MonthMath"/> class using the
     /// default strategy.
     /// </summary>
     public MonthMath() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MonthMath"/> class.
+    /// Initializes a new instance of the <see cref="MonthMath"/> class using the
+    /// specified strategy.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
     /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
@@ -45,12 +46,12 @@ public class MonthMath
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public (int Years, int Months) Subtract<TMonth>(TMonth start, TMonth end)
+    public MonthDifference Subtract<TMonth>(TMonth start, TMonth end)
         where TMonth : struct, IMonthBase<TMonth>
     {
         int years = CountYearsBetween(start, end, out var newStart);
         int months = end.CountMonthsSince(newStart);
-        return (years, months);
+        return new MonthDifference(years, months);
     }
 
     /// <summary>

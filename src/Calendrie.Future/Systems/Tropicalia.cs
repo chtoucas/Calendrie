@@ -3,6 +3,12 @@
 
 namespace Calendrie.Systems;
 
+using Calendrie.Core.Schemas;
+using Calendrie.Core.Utilities;
+using Calendrie.Hemerology;
+
+using static Calendrie.Core.CalendricalConstants;
+
 // TODO(code): XML doc.
 // Add more tests in CivilTests and GregorianTests.
 // Add a warning about the data (CountYearsBetweenData & co) which only
@@ -37,19 +43,33 @@ namespace Calendrie.Systems;
 public partial struct TropicaliaDate
 {
     /// <summary>
-    /// Calculates the exact difference (expressed in years, months and days)
-    /// between the two specified dates.
+    /// Calculates the exact difference (expressed in years, months, weeks and
+    /// days) between the two specified dates.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public static (int Years, int Months, int Days) Subtract(TropicaliaDate start, TropicaliaDate end)
+    public static DateDifference Subtract(TropicaliaDate start, TropicaliaDate end)
     {
         int years = end.CountYearsSince(start);
         var newStart = start.PlusYears(years);
         int months = end.CountMonthsSince(newStart);
         newStart = newStart.PlusMonths(months);
         int days = end.CountDaysSince(newStart);
-        return (years, months, days);
+        int weeks = MathZ.Divide(days, DaysInWeek, out days);
+        return new DateDifference(years, months, weeks, days);
+    }
+}
+
+public partial struct TropicaliaMonth
+{
+    /// <summary>
+    /// Calculates the exact difference (expressed in years and months) between
+    /// the two specified dates.
+    /// </summary>
+    [Pure]
+    public static MonthDifference Subtract(TropicaliaMonth start, TropicaliaMonth end)
+    {
+        int totalMonths = end.CountMonthsSince(start);
+        int years = MathZ.Divide(totalMonths, TropicalistaSchema.MonthsPerYear, out int months);
+        return new MonthDifference(years, months);
     }
 }

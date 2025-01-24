@@ -5,6 +5,8 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Core.Utilities;
 
+using static Calendrie.Core.CalendricalConstants;
+
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
 // utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser
 // la même règle AdditionRule.
@@ -24,7 +26,8 @@ public class DateMath
     public DateMath() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DateMath"/> class.
+    /// Initializes a new instance of the <see cref="DateMath"/> class using the
+    /// specified strategy.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
     /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
@@ -41,19 +44,20 @@ public class DateMath
     public AdditionRule AdditionRule { get; }
 
     /// <summary>
-    /// Calculates the exact difference (expressed in years, months and days)
-    /// between the two specified dates.
+    /// Calculates the exact difference (expressed in years, months, weeks and
+    /// days) between the two specified dates.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// capacity of <see cref="int"/>.</exception>
     [Pure]
-    public (int Years, int Months, int Days) Subtract<TDate>(TDate start, TDate end)
+    public DateDifference Subtract<TDate>(TDate start, TDate end)
         where TDate : struct, IDateBase<TDate>
     {
         int years = CountYearsBetween(start, end, out var newStart);
         int months = CountMonthsBetween(newStart, end, out newStart);
         int days = end.CountDaysSince(newStart);
-        return (years, months, days);
+        int weeks = MathZ.Divide(days, DaysInWeek, out days);
+        return new DateDifference(years, months, weeks, days);
     }
 
     /// <summary>
