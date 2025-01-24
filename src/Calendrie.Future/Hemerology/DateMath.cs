@@ -54,9 +54,9 @@ public partial class DateMath
         where TDate : struct, IDateBase<TDate>
     {
         // Le résultat est exact car on effectue les calculs de proche en proche.
-        // > start.PlusYears(years).PlusMonths(months).PlusWeeks(weeks).PlusDays(days);
-        // À chaque étape, la valeur utilisée étant la valeur maximale telle que
-        // le résultat <= end. Attention, l'opération n'est pas réversible :
+        // > end = start.PlusYears(years).PlusMonths(months).PlusWeeks(weeks).PlusDays(days)
+        // À chaque étape, la valeur utilisée est la valeur maximale telle que
+        // le résultat soit <= end. Attention, l'opération n'est pas réversible :
         // > end.PlusDays(-days).PlusWeeks(-weeks).PlusMonths(-months).PlusYears(-years);
         // ne redonnera pas toujours "start". De même,
         // > Subtract(start, end) != - Subtract(end, start)
