@@ -18,7 +18,7 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
 {
     public DefaultMonthMathFacts()
     {
-        MathUT = new MonthMath(AdditionRule.Truncate);
+        MathUT = new MonthMath();
         SupportedYears = TMonth.Calendar.Scope.Segment.SupportedYears;
     }
 

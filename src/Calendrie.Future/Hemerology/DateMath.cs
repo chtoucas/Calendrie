@@ -18,6 +18,12 @@ using Calendrie.Core.Utilities;
 public class DateMath
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="DateMath"/> class using the
+    /// default strategy.
+    /// </summary>
+    public DateMath() { }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="DateMath"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
@@ -28,17 +34,6 @@ public class DateMath
 
         AdditionRule = rule;
     }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="DateMath"/> class using the default
-    /// strategy.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static DateMath Default { get; } = new(AdditionRule.Truncate);
-
-    public static DateMath Overspill { get; } = new(AdditionRule.Overspill);
-
-    public static DateMath Exact { get; } = new(AdditionRule.Exact);
 
     /// <summary>
     /// Gets the strategy employed to resolve ambiguities.

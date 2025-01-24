@@ -16,6 +16,12 @@ using Calendrie.Core.Utilities;
 public class MonthMath
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="DateMath"/> class using the
+    /// default strategy.
+    /// </summary>
+    public MonthMath() { }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MonthMath"/> class.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>

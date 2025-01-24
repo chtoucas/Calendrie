@@ -18,7 +18,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
 {
     public DefaultDateMathFacts()
     {
-        MathUT = new DateMath(AdditionRule.Truncate);
+        MathUT = new DateMath();
         SupportedYears = TDate.Calendar.Scope.Segment.SupportedYears;
     }
 
