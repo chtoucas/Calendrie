@@ -464,6 +464,68 @@ module Bundles =
             exactMath.CountYearsBetween(other, date, &x)     ===  4
             exactMath.CountYearsBetween(date, other, &x)     === -4
 
+        [<Fact>]
+        static member ``Substract() when start = end`` () =
+            let date = new CivilDate(1970, 3, 18)
+            // Act & Assert
+            defaultMath.Subtract(date, date) === DateDifference.Zero
+
+        [<Fact>]
+        static member ``Substract() when start < end`` () =
+            let start = new CivilDate(1970, 3, 18)
+            // Act & Assert
+            defaultMath.Subtract(start, new CivilDate(2024, 3, 18)) === new DateDifference(54, 0, 0, 0)
+            defaultMath.Subtract(start, new CivilDate(2024, 3, 19)) === new DateDifference(54, 0, 0, 1)
+            // 1 week
+            defaultMath.Subtract(start, new CivilDate(2024, 3, 25)) === new DateDifference(54, 0, 1, 0)
+            defaultMath.Subtract(start, new CivilDate(2024, 3, 26)) === new DateDifference(54, 0, 1, 1)
+            // 2 weeks
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 1))  === new DateDifference(54, 0, 2, 0)
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 2))  === new DateDifference(54, 0, 2, 1)
+            // 3 weeks
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 8))  === new DateDifference(54, 0, 3, 0)
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 9))  === new DateDifference(54, 0, 3, 1)
+            // 4 weeks
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 15)) === new DateDifference(54, 0, 4, 0)
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 16)) === new DateDifference(54, 0, 4, 1)
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 17)) === new DateDifference(54, 0, 4, 2)
+            // 1 month
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 18)) === new DateDifference(54, 1, 0, 0)
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 19)) === new DateDifference(54, 1, 0, 1)
+            // 1 month + 1 week
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 25)) === new DateDifference(54, 1, 1, 0)
+            defaultMath.Subtract(start, new CivilDate(2024, 4, 26)) === new DateDifference(54, 1, 1, 1)
+            // 1 year
+            defaultMath.Subtract(start, new CivilDate(2025, 3, 18)) === new DateDifference(55, 0, 0, 0)
+
+        [<Fact>]
+        static member ``Substract() when start > end`` () =
+            let date = new CivilDate(1970, 3, 18)
+            // Act & Assert
+            defaultMath.Subtract(new CivilDate(2024, 3, 18), date) === new DateDifference(-54, 0, 0, 0)
+            defaultMath.Subtract(new CivilDate(2024, 3, 19), date) === new DateDifference(-54, 0, 0, -1)
+            // 1 week
+            defaultMath.Subtract(new CivilDate(2024, 3, 25), date) === new DateDifference(-54, 0, -1, 0)
+            defaultMath.Subtract(new CivilDate(2024, 3, 26), date) === new DateDifference(-54, 0, -1, -1)
+            // 2 weeks
+            defaultMath.Subtract(new CivilDate(2024, 4, 1), date)  === new DateDifference(-54, 0, -2, 0)
+            defaultMath.Subtract(new CivilDate(2024, 4, 2), date)  === new DateDifference(-54, 0, -2, -1)
+            // 3 weeks
+            defaultMath.Subtract(new CivilDate(2024, 4, 8), date)  === new DateDifference(-54, 0, -3, 0)
+            defaultMath.Subtract(new CivilDate(2024, 4, 9), date)  === new DateDifference(-54, 0, -3, -1)
+            // 4 weeks
+            defaultMath.Subtract(new CivilDate(2024, 4, 15), date) === new DateDifference(-54, 0, -4, 0)
+            defaultMath.Subtract(new CivilDate(2024, 4, 16), date) === new DateDifference(-54, 0, -4, -1)
+            defaultMath.Subtract(new CivilDate(2024, 4, 17), date) === new DateDifference(-54, 0, -4, -2)
+            // 1 month
+            defaultMath.Subtract(new CivilDate(2024, 4, 18), date) === new DateDifference(-54, -1, 0, 0)
+            defaultMath.Subtract(new CivilDate(2024, 4, 19), date) === new DateDifference(-54, -1, 0, -1)
+            // 1 month + 1 week
+            defaultMath.Subtract(new CivilDate(2024, 4, 25), date) === new DateDifference(-54, -1, -1, 0)
+            defaultMath.Subtract(new CivilDate(2024, 4, 26), date) === new DateDifference(-54, -1, -1, -1)
+            // 1 year
+            defaultMath.Subtract(new CivilDate(2025, 3, 18), date) === new DateDifference(-55, 0, 0, 0)
+
     //
     // Month type
     //

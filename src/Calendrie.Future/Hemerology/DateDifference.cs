@@ -22,6 +22,8 @@ public readonly record struct DateDifference(int Years, int Months, int Weeks, i
     IComparable<DateDifference>,
     IComparable
 {
+    public static DateDifference Zero { get; }
+
     /// <inheritdoc />
     public static bool operator <(DateDifference left, DateDifference right) =>
         left.CompareTo(right) < 0;

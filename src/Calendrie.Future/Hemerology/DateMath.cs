@@ -56,14 +56,17 @@ public partial class DateMath
         // Le résultat est exact car on effectue les calculs de proche en proche.
         // > end = start.PlusYears(years).PlusMonths(months).PlusWeeks(weeks).PlusDays(days)
         // À chaque étape, la valeur utilisée est la valeur maximale telle que
-        // le résultat soit <= end. Attention, l'opération n'est pas réversible :
+        // le résultat soit <= end (si start <= end). Attention, l'opération
+        // n'est pas réversible :
         // > end.PlusDays(-days).PlusWeeks(-weeks).PlusMonths(-months).PlusYears(-years);
         // ne redonnera pas toujours "start". De même,
         // > Subtract(start, end) != - Subtract(end, start)
         int years = CountYearsBetween(start, end, out var newStart);
         int months = CountMonthsBetween(newStart, end, out newStart);
         int days = end.CountDaysSince(newStart);
-        int weeks = MathZ.Divide(days, DaysInWeek, out days);
+        // NB: pour une fois, on utilise la division euclidienne avec reste
+        // négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
+        int weeks = Math.DivRem(days, DaysInWeek, out days);
         return new DateDifference(years, months, weeks, days);
     }
 

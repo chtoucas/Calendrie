@@ -20,6 +20,8 @@ public readonly record struct MonthDifference(int Years, int Months) :
     IComparable<MonthDifference>,
     IComparable
 {
+    public static MonthDifference Zero { get; }
+
     /// <inheritdoc />
     public static bool operator <(MonthDifference left, MonthDifference right) =>
         left.CompareTo(right) < 0;
