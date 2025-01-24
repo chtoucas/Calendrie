@@ -401,7 +401,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<CopticDate, StandardCoptic12DataSet>(CopticDateMath.Default)
+        inherit DefaultDateMathFacts<CopticDate, StandardCoptic12DataSet>()
 
     //
     // Month type
@@ -530,7 +530,7 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<Coptic13Date, StandardCoptic13DataSet>(Coptic13DateMath.Default)
+        inherit DefaultDateMathFacts<Coptic13Date, StandardCoptic13DataSet>()
 
     //
     // Month type

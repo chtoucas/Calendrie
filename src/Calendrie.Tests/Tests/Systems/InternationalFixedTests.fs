@@ -222,8 +222,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<InternationalFixedDate, StandardInternationalFixedDataSet>(
-            InternationalFixedDateMath.Default)
+        inherit DefaultDateMathFacts<InternationalFixedDate, StandardInternationalFixedDataSet>()
 
     //
     // Month type

@@ -402,8 +402,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>(
-            FrenchRepublicanDateMath.Default)
+        inherit DefaultDateMathFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
 
     //
     // Month type
@@ -532,8 +531,7 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>(
-            FrenchRepublican13DateMath.Default)
+        inherit DefaultDateMathFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
 
     //
     // Month type

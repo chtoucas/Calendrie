@@ -215,8 +215,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<TabularIslamicDate, StandardTabularIslamicDataSet>(
-            TabularIslamicDateMath.Default)
+        inherit DefaultDateMathFacts<TabularIslamicDate, StandardTabularIslamicDataSet>()
 
     //
     // Month type

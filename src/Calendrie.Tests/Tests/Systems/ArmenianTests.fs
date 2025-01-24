@@ -402,8 +402,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<ArmenianDate, StandardArmenian12DataSet>(
-            ArmenianDateMath.Default)
+        inherit DefaultDateMathFacts<ArmenianDate, StandardArmenian12DataSet>()
 
     //
     // Month type
@@ -532,8 +531,7 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<Armenian13Date, StandardArmenian13DataSet>(
-            Armenian13DateMath.Default)
+        inherit DefaultDateMathFacts<Armenian13Date, StandardArmenian13DataSet>()
 
     //
     // Month type

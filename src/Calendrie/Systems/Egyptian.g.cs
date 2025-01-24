@@ -989,33 +989,6 @@ public partial struct EgyptianDate // Non-standard math ops
 
 #endregion
 
-#region EgyptianDateMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="EgyptianDate"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class EgyptianDateMath : DateMath<EgyptianDate>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="EgyptianDateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
-    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
-    public EgyptianDateMath(AdditionRule rule) : base(rule) { }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="EgyptianDateMath"/> class
-    /// using the default strategy.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static EgyptianDateMath Default { get; } = new(AdditionRule.Truncate);
-}
-
-#endregion
-
 #region EgyptianMonth
 
 /// <summary>

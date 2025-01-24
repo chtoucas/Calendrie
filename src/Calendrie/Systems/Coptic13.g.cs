@@ -998,33 +998,6 @@ public partial struct Coptic13Date // Non-standard math ops
 
 #endregion
 
-#region Coptic13DateMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="Coptic13Date"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class Coptic13DateMath : DateMath<Coptic13Date>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Coptic13DateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
-    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
-    public Coptic13DateMath(AdditionRule rule) : base(rule) { }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="Coptic13DateMath"/> class
-    /// using the default strategy.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static Coptic13DateMath Default { get; } = new(AdditionRule.Truncate);
-}
-
-#endregion
-
 #region Coptic13Month
 
 /// <summary>

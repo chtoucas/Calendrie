@@ -213,9 +213,9 @@ module Bundles =
     // Date type
     //
 
-    let private defaultDateMath   = GregorianDateMath.Default
-    let private overspillDateMath = new GregorianDateMath(AdditionRule.Overspill)
-    let private exactDateMath     = new GregorianDateMath(AdditionRule.Exact)
+    let private defaultDateMath   = DateMath.Default
+    let private overspillDateMath = new DateMath(AdditionRule.Overspill)
+    let private exactDateMath     = new DateMath(AdditionRule.Exact)
 
     [<Sealed>]
     type DateFacts() =
@@ -334,8 +334,7 @@ module Bundles =
 
     [<Sealed>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<GregorianDate, UnboundedGregorianDataSet>(
-            GregorianDateMath.Default)
+        inherit DefaultDateMathFacts<GregorianDate, UnboundedGregorianDataSet>()
 
     //
     // Month type

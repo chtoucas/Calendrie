@@ -998,33 +998,6 @@ public partial struct Ethiopic13Date // Non-standard math ops
 
 #endregion
 
-#region Ethiopic13DateMath
-
-/// <summary>
-/// Provides non-standard mathematical operations for the
-/// <see cref="Ethiopic13Date"/> type.
-/// <para>This class allows to customize the <see cref="AdditionRule"/> strategy.
-/// </para>
-/// </summary>
-public sealed class Ethiopic13DateMath : DateMath<Ethiopic13Date>
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Ethiopic13DateMath"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="rule"/>
-    /// is not a known member of the <see cref="AdditionRule"/> enum.</exception>
-    public Ethiopic13DateMath(AdditionRule rule) : base(rule) { }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="Ethiopic13DateMath"/> class
-    /// using the default strategy.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static Ethiopic13DateMath Default { get; } = new(AdditionRule.Truncate);
-}
-
-#endregion
-
 #region Ethiopic13Month
 
 /// <summary>

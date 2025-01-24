@@ -6,7 +6,6 @@ module Calendrie.Tests.Systems.PaxTests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
-open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -217,7 +216,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>(PaxDateMath.Default)
+        inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>()
 
     //
     // Month type

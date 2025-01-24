@@ -215,8 +215,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<Persian2820Date, StandardPersian2820DataSet>(
-            Persian2820DateMath.Default)
+        inherit DefaultDateMathFacts<Persian2820Date, StandardPersian2820DataSet>()
 
     //
     // Month type

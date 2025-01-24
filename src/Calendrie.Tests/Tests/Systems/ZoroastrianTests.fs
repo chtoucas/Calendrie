@@ -402,8 +402,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<ZoroastrianDate, StandardZoroastrian12DataSet>(
-            ZoroastrianDateMath.Default)
+        inherit DefaultDateMathFacts<ZoroastrianDate, StandardZoroastrian12DataSet>()
 
     //
     // Month type
@@ -532,8 +531,7 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>(
-            Zoroastrian13DateMath.Default)
+        inherit DefaultDateMathFacts<Zoroastrian13Date, StandardZoroastrian13DataSet>()
 
     //
     // Month type

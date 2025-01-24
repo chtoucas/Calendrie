@@ -223,7 +223,7 @@ module Bundles =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DefaultDateMathFacts() =
-        inherit DefaultDateMathFacts<WorldDate, StandardWorldDataSet>(WorldDateMath.Default)
+        inherit DefaultDateMathFacts<WorldDate, StandardWorldDataSet>()
 
     //
     // Month type
