@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Core.Utilities;
 
-using static Calendrie.Core.CalendricalConstants;
-
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
 // utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser
 // la même règle AdditionRule. Idem avec l'"unité" mois.
@@ -64,10 +62,7 @@ public partial class DateMath
         int years = CountYearsBetween(start, end, out var newStart);
         int months = CountMonthsBetween(newStart, end, out newStart);
         int days = end.CountDaysSince(newStart);
-        // NB: pour une fois, on utilise la division euclidienne avec reste
-        // négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
-        int weeks = Math.DivRem(days, DaysInWeek, out days);
-        return new DateDifference(years, months, weeks, days);
+        return DateDifference.Create(years, months, days);
     }
 
     /// <summary>

@@ -352,8 +352,6 @@ module Bundles =
             // Math
             defaultMath.CountYearsBetween(other, date, &x)   === 4
             defaultMath.CountYearsBetween(date, other, &x)   === -4
-            defaultMath.CountYearsBetween(other, date, &x)   ===  4
-            defaultMath.CountYearsBetween(date, other, &x)   === -4
             overspillMath.CountYearsBetween(other, date, &x) ===  4
             overspillMath.CountYearsBetween(date, other, &x) === -4
             exactMath.CountYearsBetween(other, date, &x)     ===  4
