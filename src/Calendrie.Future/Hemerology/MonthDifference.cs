@@ -76,7 +76,7 @@ public partial record struct MonthDifference // Factories
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
-    public static MonthDifference CreatePositive(int years, int months)
+    internal static MonthDifference CreatePositive(int years, int months)
     {
         if (years == 0 && months == 0)
             throw new ArgumentException("All the parameters were equal to zero.");
@@ -93,7 +93,7 @@ public partial record struct MonthDifference // Factories
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
-    public static MonthDifference CreateNegative(int years, int months)
+    internal static MonthDifference CreateNegative(int years, int months)
     {
         if (years == 0 && months == 0)
             throw new ArgumentException("All the parameters were equal to zero.");

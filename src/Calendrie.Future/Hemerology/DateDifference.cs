@@ -9,9 +9,7 @@ using Calendrie.Core.Utilities;
 
 using static Calendrie.Core.CalendricalConstants;
 
-// FIXME(code): comparison shouldn't be lexicographic but be on the "absolute"*
-// values, idem with MonthDifference. Terminer Create().
-// Check that all params are >= 0 or <= 0, not mixed.
+// FIXME(code): explain comparison.
 // The result is ALWAYS in its normal "canonical" form which makes comparison
 // of lengths doable.
 // Two values should only be compared when coming from the same calendar.
@@ -115,7 +113,7 @@ public partial record DateDifference // Factories
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
-    public static DateDifference CreatePositive(int years, int months, int days)
+    internal static DateDifference CreatePositive(int years, int months, int days)
     {
         if (years == 0 && months == 0 && days == 0)
             throw new ArgumentException("All the parameters were equal to zero.");
@@ -133,7 +131,7 @@ public partial record DateDifference // Factories
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
-    public static DateDifference CreateNegative(int years, int months, int days)
+    internal static DateDifference CreateNegative(int years, int months, int days)
     {
         if (years == 0 && months == 0 && days == 0)
             throw new ArgumentException("All the parameters were equal to zero.");
