@@ -215,6 +215,7 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
     type DefaultDateMathFacts() =
         inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>()
 
@@ -267,9 +268,11 @@ module Bundles =
         inherit IUnsafeMonthFactoryFacts<PaxMonth, StandardPaxDataSet>()
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
+    // Do NOT exclude from Code Coverage or from the regular test plan.
+    // This is the only place right now where we test MonthaMath and where this
+    // is actually interesting as Pax is a non-regular calendar.
     type DefaultMonthMathFacts() =
-        inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>(PaxMonthMath.Default)
+        inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>()
 
     //
     // Year type
