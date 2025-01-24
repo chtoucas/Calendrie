@@ -1,22 +1,22 @@
 Summary
-  Generated on: 23/01/2025 - 10:24:48
+  Generated on: 24/01/2025 - 05:45:03
   Parser: OpenCover
   Assemblies: 3
-  Classes: 224
-  Files: 175
-  Line coverage: 94.4%
-  Covered lines: 17348
-  Uncovered lines: 1015
-  Coverable lines: 18363
-  Total lines: 68842
-  Branch coverage: 94% (4878 of 5187)
+  Classes: 219
+  Files: 171
+  Line coverage: 95.9%
+  Covered lines: 17345
+  Uncovered lines: 735
+  Coverable lines: 18080
+  Total lines: 67990
+  Branch coverage: 96.1% (4878 of 5073)
   Covered branches: 4878
-  Total branches: 5187
-  Method coverage: 95% (6140 of 6457)
-  Full method coverage: 79.8% (5158 of 6457)
-  Covered methods: 6140
-  Fully covered methods: 5158
-  Total methods: 6457
+  Total branches: 5073
+  Method coverage: 95.8% (6141 of 6408)
+  Full method coverage: 80.5% (5160 of 6408)
+  Covered methods: 6141
+  Fully covered methods: 5160
+  Total methods: 6408
 
 Calendrie                                                 100%
   Calendrie.Core.CalendricalSchema                        100%
@@ -174,7 +174,7 @@ Calendrie                                                 100%
   Calendrie.Systems.ZoroastrianYear                       100%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Future                                         99.2%
+Calendrie.Future                                         95.8%
   Calendrie.Core.Schemas.PaxSchema                         96%
   Calendrie.Core.Schemas.Tropicalia3031Schema             100%
   Calendrie.Core.Schemas.Tropicalia3130Schema             100%
@@ -186,23 +186,22 @@ Calendrie.Future                                         99.2%
   Calendrie.Core.Yemo                                     100%
   Calendrie.Core.Yemoda                                   100%
   Calendrie.Hemerology.CalendarSans                       100%
-  Calendrie.Hemerology.DateMath<T>                       98.8%
-  Calendrie.Hemerology.MonthMath<T>                      93.6%
+  Calendrie.Hemerology.DateDifference                       0%
+  Calendrie.Hemerology.DateMath                          91.3%
+  Calendrie.Hemerology.MonthDifference                      0%
+  Calendrie.Hemerology.MonthMath                         75.4%
   Calendrie.Hemerology.UserCalendar                       100%
   Calendrie.Systems.PaxCalendar                          96.7%
   Calendrie.Systems.PaxDate                               100%
   Calendrie.Systems.PaxMonth                              100%
   Calendrie.Systems.PaxYear                               100%
   Calendrie.Systems.TropicaliaCalendar                    100%
-  Calendrie.Systems.TropicaliaDate                        100%
-  Calendrie.Systems.TropicaliaMonth                       100%
+  Calendrie.Systems.TropicaliaDate                       96.4%
+  Calendrie.Systems.TropicaliaMonth                      97.4%
   Calendrie.Systems.TropicaliaYear                        100%
 
-Calendrie.Sketches                                       45.4%
+Calendrie.Sketches                                         56%
   Calendrie.AdditionRuleset                               100%
-  Calendrie.Core.Arithmetic.PlainArithmetic                 0%
-  Calendrie.Core.Arithmetic.RegularArithmetic               0%
-  Calendrie.Core.CalendricalArithmetic                      0%
   Calendrie.Core.DoomsdayRule                             100%
   Calendrie.Core.Intervals.IntervalExtra                  100%
   Calendrie.Core.Intervals.Lavretni                       100%
@@ -210,7 +209,6 @@ Calendrie.Sketches                                       45.4%
   Calendrie.Core.LimitSchema                                0%
   Calendrie.Core.MonthsCalculator                        28.5%
   Calendrie.Core.OffsettedSchema<T>                         0%
-  Calendrie.Core.OverflowChecker                            0%
   Calendrie.Core.Prototyping.PrototypalSchema            97.7%
   Calendrie.Core.Prototyping.PrototypalSchemaSlim        96.4%
   Calendrie.Core.Schemas.GregorianFormulae2               100%
@@ -226,9 +224,6 @@ Calendrie.Sketches                                       45.4%
   Calendrie.Extensions.Interconversion                      0%
   Calendrie.Extensions.JulianDateExtensions               100%
   Calendrie.Extensions.RangeExtensions                      0%
-  Calendrie.Hemerology.Arithmetic.NakedArithmetic           0%
-  Calendrie.Hemerology.Arithmetic.PlainArithmetic           0%
-  Calendrie.Hemerology.Arithmetic.RegularArithmetic         0%
   Calendrie.Hemerology.BoundedBelowCalendar              94.4%
   Calendrie.Hemerology.BoundedBelowDayNumberProvider     12.8%
   Calendrie.Hemerology.BoundedBelowScope                 88.5%
