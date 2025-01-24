@@ -13,8 +13,6 @@ using static Calendrie.Core.CalendricalConstants;
 // Add more tests in CivilTests and GregorianTests.
 // Add a warning about the data (CountYearsBetweenData & co) which only
 // offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
-// Ajouter Subtract() aux types date et mois ?
-// Fusionner DateMath et MonthMath ?
 
 // Operations on "Yemoda" (and "Yedoy")
 //

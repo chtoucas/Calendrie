@@ -9,7 +9,7 @@ using static Calendrie.Core.CalendricalConstants;
 
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
 // utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser
-// la même règle AdditionRule.
+// la même règle AdditionRule. Idem avec l'"unité" mois.
 
 /// <summary>
 /// Provides non-standard mathematical operations for the
@@ -17,7 +17,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// <para>This class allows to customize the <see cref="Calendrie.AdditionRule"/>
 /// strategy.</para>
 /// </summary>
-public class DateMath
+public partial class DateMath
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DateMath"/> class using the
@@ -210,6 +210,10 @@ public class DateMath
 
         return months;
     }
+
+    //
+    // Helpers
+    //
 
     /// <summary>
     /// Counts the (exact) number of months between the two specified months.

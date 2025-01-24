@@ -9,7 +9,7 @@ open System.Runtime.InteropServices
 open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
-open Calendrie.Core.Utilities
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -78,20 +78,34 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<Yemoda>) === 4
 
     [<Fact>]
+    let ``Types in Calendrie:Hemerology`` () =
+        Marshal.SizeOf(typedefof<DateDifference>) === 16
+        Marshal.SizeOf(typedefof<MonthDifference>) === 8
+
+    [<Fact>]
     let ``Types in Calendrie:Systems`` () =
-        Marshal.SizeOf(typedefof<Armenian13Date>) === 4
         Marshal.SizeOf(typedefof<ArmenianDate>) === 4
+        Marshal.SizeOf(typedefof<Armenian13Date>) === 4
         Marshal.SizeOf(typedefof<CivilDate>) === 4
-        Marshal.SizeOf(typedefof<Coptic13Date>) === 4
         Marshal.SizeOf(typedefof<CopticDate>) === 4
-        Marshal.SizeOf(typedefof<Ethiopic13Date>) === 4
+        Marshal.SizeOf(typedefof<Coptic13Date>) === 4
+        Marshal.SizeOf(typedefof<EgyptianDate>) === 4
+        Marshal.SizeOf(typedefof<Egyptian13Date>) === 4
         Marshal.SizeOf(typedefof<EthiopicDate>) === 4
+        Marshal.SizeOf(typedefof<Ethiopic13Date>) === 4
+        Marshal.SizeOf(typedefof<FrenchRepublicanDate>) === 4
+        Marshal.SizeOf(typedefof<FrenchRepublican13Date>) === 4
         Marshal.SizeOf(typedefof<GregorianDate>) === 4
+        Marshal.SizeOf(typedefof<InternationalFixedDate>) === 4
         Marshal.SizeOf(typedefof<JulianDate>) === 4
+        Marshal.SizeOf(typedefof<PaxDate>) === 4
+        Marshal.SizeOf(typedefof<Persian2820Date>) === 4
+        Marshal.SizeOf(typedefof<PositivistDate>) === 4
         Marshal.SizeOf(typedefof<TabularIslamicDate>) === 4
+        Marshal.SizeOf(typedefof<TropicaliaDate>) === 4
         Marshal.SizeOf(typedefof<WorldDate>) === 4
-        Marshal.SizeOf(typedefof<Zoroastrian13Date>) === 4
         Marshal.SizeOf(typedefof<ZoroastrianDate>) === 4
+        Marshal.SizeOf(typedefof<Zoroastrian13Date>) === 4
 
     // TODO(fact): test all models.
     // TODO(fact): add tests for the data types defined within THIS project.
