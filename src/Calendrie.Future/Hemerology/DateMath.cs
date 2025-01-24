@@ -65,7 +65,7 @@ public partial class DateMath
         int years = CountYearsBetween(start, end, out var newStart);
         int months = CountMonthsBetween(newStart, end, out newStart);
         int days = end.CountDaysSince(newStart);
-        return DateDifference.Create(years, months, days, start < end ? 1 : -1);
+        return DateDifference.UnsafeCreate(years, months, days, start < end ? 1 : -1);
     }
 
     /// <summary>

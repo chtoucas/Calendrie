@@ -10,7 +10,7 @@ using Calendrie.Core.Utilities;
 using static Calendrie.Core.CalendricalConstants;
 
 // FIXME(code): comparison shouldn't be lexicographic but be on the "absolute"*
-// values, idem with MonthDifference.
+// values, idem with MonthDifference. Terminer Create().
 // Check that all params are >= 0 or <= 0, not mixed.
 
 /// <summary>
@@ -18,7 +18,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// that is the exact difference between two dates.
 /// <para><see cref="DateDifference"/> is an immutable struct.</para>
 /// </summary>
-public partial record DateDifference :
+public sealed partial record DateDifference :
     // Comparison
     IEqualityOperators<DateDifference, DateDifference, bool>,
     IEquatable<DateDifference>,
@@ -32,7 +32,23 @@ public partial record DateDifference :
     /// <summary>
     /// Initializes a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
-    internal DateDifference(int years, int months, int weeks, int days, int sign)
+    private DateDifference(int years, int months, int days, int sign)
+    {
+        // NB: une fois n'est pas coutume, on utilise la division euclidienne
+        // à reste négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
+        int weeks = Math.DivRem(days, DaysInWeek, out days);
+
+        Years = years;
+        Months = months;
+        Weeks = weeks;
+        Days = days;
+        Sign = sign;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateDifference"/> struct.
+    /// </summary>
+    private DateDifference(int years, int months, int weeks, int days, int sign)
     {
         Years = years;
         Months = months;
@@ -79,17 +95,50 @@ public partial record DateDifference :
     /// </summary>
     public void Deconstruct(out int years, out int months, out int weeks, out int days) =>
         (years, months, weeks, days) = (Years, Months, Weeks, Days);
+}
+
+public partial record DateDifference // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="DateDifference"/> struct.
+    /// </summary>
+    internal static DateDifference UnsafeCreate(int years, int months, int days, int sign) =>
+        new(years, months, days, sign);
 
     /// <summary>
     /// Creates a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
-    internal static DateDifference Create(int years, int months, int days, int sign)
+    /// <exception cref="ArgumentException">All the parameters are equal to zero.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
+    /// less than zero.</exception>
+    public static DateDifference CreatePositive(int years, int months, int days)
     {
-        // NB: une fois n'est pas coutume, on utilise la division euclidienne
-        // à reste négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
-        int weeks = Math.DivRem(days, DaysInWeek, out days);
+        if (years == 0 && months == 0 && days == 0)
+            throw new ArgumentException("All the parameters were equal to zero.");
+        ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThan(days, 0);
 
-        return new DateDifference(years, months, weeks, days, sign);
+        return new DateDifference(years, months, days, 1);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="DateDifference"/> struct.
+    /// </summary>
+    /// <exception cref="ArgumentException">All the parameters are equal to zero.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
+    /// less than zero.</exception>
+    public static DateDifference CreateNegative(int years, int months, int days)
+    {
+        if (years == 0 && months == 0 && days == 0)
+            throw new ArgumentException("All the parameters were equal to zero.");
+        ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThan(days, 0);
+
+        return new DateDifference(-years, -months, -days, -1);
     }
 }
 
@@ -156,6 +205,8 @@ public partial record DateDifference // IComparable
 public partial record DateDifference // Math
 {
     /// <inheritdoc />
+    /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
+    /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
     public static DateDifference operator +(DateDifference? value)
     {
@@ -164,6 +215,8 @@ public partial record DateDifference // Math
     }
 
     /// <inheritdoc />
+    /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
+    /// </exception>
     public static DateDifference operator -(DateDifference? value)
     {
         ArgumentNullException.ThrowIfNull(value);

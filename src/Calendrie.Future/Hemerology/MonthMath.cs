@@ -51,9 +51,12 @@ public class MonthMath
     public MonthDifference Subtract<TMonth>(TMonth start, TMonth end)
         where TMonth : struct, IMonthBase<TMonth>
     {
+        // Fast track.
+        if (start == end) return MonthDifference.Zero;
+
         int years = CountYearsBetween(start, end, out var newStart);
         int months = end.CountMonthsSince(newStart);
-        return new MonthDifference(years, months);
+        return MonthDifference.UnsafeCreate(years, months, start < end ? 1 : -1);
     }
 
     /// <summary>

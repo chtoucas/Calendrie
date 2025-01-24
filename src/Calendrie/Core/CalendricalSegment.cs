@@ -225,10 +225,6 @@ public sealed class CalendricalSegment
         /// <para><c>(null &gt; null)</c> evaluates to false</para>
         /// </summary>
         public static bool IsGreaterThan(Endpoint? left, Endpoint? right) =>
-            // Using .NET comparison ops would have been nicer but, since this
-            // type is internal, it would have made full code coverage almost
-            // impossible to achieve.
-            //
             // WARNING: we do not follow the .NET convention here.
             // Comparison w/ null always returns false, even null >= null and
             // null <= null.

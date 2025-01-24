@@ -12,7 +12,7 @@ using Calendrie.Core.Utilities;
 /// that is the exact difference between two months.
 /// <para><see cref="MonthDifference"/> is an immutable struct.</para>
 /// </summary>
-public readonly record struct MonthDifference :
+public readonly partial record struct MonthDifference :
     // Comparison
     IEqualityOperators<MonthDifference, MonthDifference, bool>,
     IEquatable<MonthDifference>,
@@ -26,10 +26,11 @@ public readonly record struct MonthDifference :
     /// <summary>
     /// Initializes a new instance of the <see cref="MonthDifference"/> struct.
     /// </summary>
-    internal MonthDifference(int years, int months)
+    private MonthDifference(int years, int months, int sign)
     {
         Years = years;
         Months = months;
+        Sign = sign;
     }
 
     /// <summary>
@@ -49,10 +50,62 @@ public readonly record struct MonthDifference :
     public int Months { get; }
 
     /// <summary>
+    /// Gets the common sign shared by <see cref="Years"/> and <see cref="Months"/>.
+    /// <para>Returns +1 if positive, -1 if negative; otherwise returns 0.</para>
+    /// </summary>
+    public int Sign { get; }
+
+    /// <summary>
     /// Deconstructs the current instance into its components.
     /// </summary>
     public void Deconstruct(out int years, out int months) => (years, months) = (Years, Months);
+}
 
+public partial record struct MonthDifference // Factories
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="DateDifference"/> struct.
+    /// </summary>
+    internal static MonthDifference UnsafeCreate(int years, int months, int sign) =>
+        new(years, months, sign);
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="DateDifference"/> struct.
+    /// </summary>
+    /// <exception cref="ArgumentException">All the parameters are equal to zero.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
+    /// less than zero.</exception>
+    public static MonthDifference CreatePositive(int years, int months)
+    {
+        if (years == 0 && months == 0)
+            throw new ArgumentException("All the parameters were equal to zero.");
+        ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
+
+        return new MonthDifference(years, months, 1);
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="DateDifference"/> struct.
+    /// </summary>
+    /// <exception cref="ArgumentException">All the parameters are equal to zero.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
+    /// less than zero.</exception>
+    public static MonthDifference CreateNegative(int years, int months)
+    {
+        if (years == 0 && months == 0)
+            throw new ArgumentException("All the parameters were equal to zero.");
+        ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
+
+        return new MonthDifference(-years, -months, -1);
+    }
+}
+
+public partial record struct MonthDifference // IComparable
+{
     /// <inheritdoc />
     public static bool operator <(MonthDifference left, MonthDifference right) =>
         left.CompareTo(right) < 0;
@@ -73,8 +126,12 @@ public readonly record struct MonthDifference :
     [Pure]
     public int CompareTo(MonthDifference other)
     {
-        int c = Years.CompareTo(other.Years);
-        return c == 0 ? Months.CompareTo(other.Months) : c;
+        // We compare the "absolute" values!
+        var x = Sign > 0 ? this : -this;
+        var y = other.Sign > 0 ? other : -other;
+
+        int c = x.Years.CompareTo(y.Years);
+        return c == 0 ? x.Months.CompareTo(y.Months) : c;
     }
 
     [Pure]
@@ -82,7 +139,10 @@ public readonly record struct MonthDifference :
         obj is null ? 1
         : obj is MonthDifference other ? CompareTo(other)
         : ThrowHelpers.ThrowNonComparable(typeof(MonthDifference), obj);
+}
 
+public partial record struct MonthDifference // Math
+{
     /// <inheritdoc />
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
     public static MonthDifference operator +(MonthDifference value) => value;
@@ -93,5 +153,5 @@ public readonly record struct MonthDifference :
     /// <summary>
     /// Negates the current instance.
     /// </summary>
-    public MonthDifference Negate() => new(-Years, -Months);
+    public MonthDifference Negate() => new(-Years, -Months, -Sign);
 }
