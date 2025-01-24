@@ -361,7 +361,7 @@ module Bundles =
     // Date type
     //
 
-    let private defaultDateMath   = DateMath.Default
+    let private defaultDateMath   = new DateMath()
     let private overspillDateMath = new DateMath(AdditionRule.Overspill)
     let private exactDateMath     = new DateMath(AdditionRule.Exact)
 
