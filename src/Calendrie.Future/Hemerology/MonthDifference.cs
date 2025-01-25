@@ -119,7 +119,6 @@ public partial record struct MonthDifference // IComparable
     public int CompareTo(MonthDifference other)
     {
         // We compare the "absolute" values!
-        // NB: Years and Months have the same sign.
         var x = Abs(this);
         var y = Abs(other);
 
@@ -147,6 +146,8 @@ public partial record struct MonthDifference // Math
     /// not.
     /// </summary>
     public static bool IsZero(MonthDifference value) => value == Zero;
+
+    // NB: Years and Months have the same sign.
 
     /// <summary>
     /// Determines whether the specified value is greater than or equal to

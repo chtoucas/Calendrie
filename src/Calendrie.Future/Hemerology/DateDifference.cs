@@ -22,7 +22,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// that is the exact difference between two dates.
 /// <para><see cref="DateDifference"/> is an immutable struct.</para>
 /// </summary>
-public sealed partial record DateDifference :
+public readonly partial record struct DateDifference :
     // Comparison
     IEqualityOperators<DateDifference, DateDifference, bool>,
     IEquatable<DateDifference>,
@@ -91,7 +91,7 @@ public sealed partial record DateDifference :
         (years, months, weeks, days) = (Years, Months, Weeks, Days);
 }
 
-public partial record DateDifference // Factories
+public partial record struct DateDifference // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="DateDifference"/> struct.
@@ -136,48 +136,31 @@ public partial record DateDifference // Factories
     }
 }
 
-public partial record DateDifference // IComparable
+public partial record struct DateDifference // IComparable
 {
     /// <inheritdoc />
-    public static bool operator <(DateDifference? left, DateDifference? right) =>
-        Compare(left, right) < 0;
+    public static bool operator <(DateDifference left, DateDifference right) =>
+        left.CompareTo(right) < 0;
 
     /// <inheritdoc />
-    public static bool operator <=(DateDifference? left, DateDifference? right) =>
-        Compare(left, right) <= 0;
+    public static bool operator <=(DateDifference left, DateDifference right) =>
+        left.CompareTo(right) <= 0;
 
     /// <inheritdoc />
-    public static bool operator >(DateDifference? left, DateDifference? right) =>
-        Compare(left, right) > 0;
+    public static bool operator >(DateDifference left, DateDifference right) =>
+        left.CompareTo(right) > 0;
 
     /// <inheritdoc />
-    public static bool operator >=(DateDifference? left, DateDifference? right) =>
-        Compare(left, right) >= 0;
+    public static bool operator >=(DateDifference left, DateDifference right) =>
+        left.CompareTo(right) >= 0;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(DateDifference? other) => Compare(this, other);
-
-    [Pure]
-    int IComparable.CompareTo(object? obj) =>
-        obj is null ? 1
-        : obj is DateDifference other ? Compare(this, other)
-        : ThrowHelpers.ThrowNonComparable(typeof(DateDifference), obj);
-
-    [Pure]
-    private static int Compare(DateDifference? left, DateDifference? right)
+    public int CompareTo(DateDifference other)
     {
-        // "By definition, any object compares greater than null, and two null
-        // references compare equal to each other."
-        // https://learn.microsoft.com/en-us/dotnet/api/system.icomparable-1.compareto?view=net-9.0#remarks
-
-        if (ReferenceEquals(left, right)) return 0;
-        if (left is null) return -1;
-        if (right is null) return 1;
-
         // We compare the "absolute" values!
-        var x = Abs(left);
-        var y = Abs(right);
+        var x = Abs(this);
+        var y = Abs(other);
 
         int c = x.Years.CompareTo(y.Years);
         if (c == 0)
@@ -194,19 +177,21 @@ public partial record DateDifference // IComparable
         }
         return c;
     }
+
+    [Pure]
+    int IComparable.CompareTo(object? obj) =>
+        obj is null ? 1
+        : obj is DateDifference other ? CompareTo(other)
+        : ThrowHelpers.ThrowNonComparable(typeof(DateDifference), obj);
 }
 
-public partial record DateDifference // Math
+public partial record struct DateDifference // Math
 {
     /// <summary>
     /// Computes the absolute value of the specified <see cref="DateDifference"/>
     /// value.
     /// </summary>
-    public static DateDifference Abs(DateDifference value)
-    {
-        ArgumentNullException.ThrowIfNull(value);
-        return IsPositive(value) ? value : -value;
-    }
+    public static DateDifference Abs(DateDifference value) => IsPositive(value) ? value : -value;
 
     /// <summary>
     /// Determines whether the specified value is equal to <see cref="Zero"/> or
@@ -214,44 +199,30 @@ public partial record DateDifference // Math
     /// </summary>
     public static bool IsZero(DateDifference value) => value == Zero;
 
+    // NB: Years, Months, Weeks and Days have the same sign.
+
     /// <summary>
     /// Determines whether the specified <see cref="DateDifference"/> value
     /// is greater than or equal to <see cref="Zero"/>.
     /// </summary>
-    public static bool IsPositive(DateDifference value)
-    {
-        ArgumentNullException.ThrowIfNull(value);
-        return value.Years >= 0;
-    }
+    public static bool IsPositive(DateDifference value) => value.Years >= 0;
 
     /// <summary>
     /// Determines whether the specified <see cref="DateDifference"/> value
     /// is less than or equal to <see cref="Zero"/>.
     /// </summary>
-    public static bool IsNegative(DateDifference value)
-    {
-        ArgumentNullException.ThrowIfNull(value);
-        return value.Years <= 0;
-    }
+    public static bool IsNegative(DateDifference value) => value.Years <= 0;
 
     /// <inheritdoc />
     /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
-    public static DateDifference operator +(DateDifference value)
-    {
-        ArgumentNullException.ThrowIfNull(value);
-        return value;
-    }
+    public static DateDifference operator +(DateDifference value) => value;
 
     /// <inheritdoc />
     /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
     /// </exception>
-    public static DateDifference operator -(DateDifference value)
-    {
-        ArgumentNullException.ThrowIfNull(value);
-        return value.Negate();
-    }
+    public static DateDifference operator -(DateDifference value) => value.Negate();
 
     /// <summary>
     /// Negates the current instance.

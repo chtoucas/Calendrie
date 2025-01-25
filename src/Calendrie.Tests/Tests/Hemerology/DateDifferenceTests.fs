@@ -119,27 +119,6 @@ module Comparison =
     open NonStructuralComparison
 
     [<Fact>]
-    let ``When one of the params or both are null`` () =
-        let x = DateDifference.CreatePositive(1, 1, 1)
-        let none : DateDifference = null
-        // Act & Assert
-        // Both sides are null
-        none > none     |> nok
-        none >= none    |> ok
-        none < none     |> nok
-        none <= none    |> ok
-        // Left side is null
-        x > null        |> ok
-        x >= null       |> ok
-        x < null        |> nok
-        x <= null       |> nok
-        // Right side is null
-        null > x        |> nok
-        null >= x       |> nok
-        null < x        |> ok
-        null <= x       |> ok
-
-    [<Fact>]
     let ``Zero w/ anything`` () =
         // Zero / Zero
         DateDifference.Zero >  DateDifference.Zero |> nok
@@ -246,11 +225,6 @@ module Comparison =
         argExn "obj" (fun () -> (x :> IComparable).CompareTo(new obj()))
 
 module Math =
-    [<Fact>]
-    let ``Unary + and - throw with null`` () =
-        nullExn "value" (fun () -> DateDifference.op_UnaryPlus(null))
-        nullExn "value" (fun () -> DateDifference.op_UnaryNegation(null))
-
     [<Fact>]
     let ``Unary + and - on Zero`` () =
         let x = DateDifference.Zero
