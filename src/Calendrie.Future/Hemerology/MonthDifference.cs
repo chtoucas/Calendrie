@@ -69,14 +69,10 @@ public partial record struct MonthDifference // Factories
     /// <summary>
     /// Creates a new instance of the <see cref="MonthDifference"/> struct.
     /// </summary>
-    /// <exception cref="ArgumentException">All the parameters are equal to zero.
-    /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
     internal static MonthDifference CreatePositive(int years, int months)
     {
-        if (years == 0 && months == 0)
-            throw new ArgumentException("All the parameters were equal to zero.");
         ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
 
@@ -86,14 +82,10 @@ public partial record struct MonthDifference // Factories
     /// <summary>
     /// Creates a new instance of the <see cref="MonthDifference"/> struct.
     /// </summary>
-    /// <exception cref="ArgumentException">All the parameters are equal to zero.
-    /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
     internal static MonthDifference CreateNegative(int years, int months)
     {
-        if (years == 0 && months == 0)
-            throw new ArgumentException("All the parameters were equal to zero.");
         ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
 
@@ -152,7 +144,7 @@ public partial record struct MonthDifference // Math
     /// </summary>
     public static bool IsZero(MonthDifference value) => value == Zero;
 
-    // NB: Years and Months have the same sign.
+    // NB: Years and Months share the same sign.
 
     /// <summary>
     /// Determines whether the specified value is greater than or equal to

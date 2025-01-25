@@ -50,7 +50,7 @@ public readonly partial record struct DateDifference :
     /// Gets the zero difference.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static DateDifference Zero { get; } = new(0, 0, 0);
+    public static DateDifference Zero { get; }
 
     /// <summary>
     /// Gets the number of years.
@@ -96,14 +96,10 @@ public partial record struct DateDifference // Factories
     /// <summary>
     /// Creates a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
-    /// <exception cref="ArgumentException">All the parameters are equal to zero.
-    /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
     internal static DateDifference CreatePositive(int years, int months, int days)
     {
-        if (years == 0 && months == 0 && days == 0)
-            throw new ArgumentException("All the parameters were equal to zero.");
         ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(days, 0);
@@ -114,14 +110,10 @@ public partial record struct DateDifference // Factories
     /// <summary>
     /// Creates a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
-    /// <exception cref="ArgumentException">All the parameters are equal to zero.
-    /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">One of the parameters is
     /// less than zero.</exception>
     internal static DateDifference CreateNegative(int years, int months, int days)
     {
-        if (years == 0 && months == 0 && days == 0)
-            throw new ArgumentException("All the parameters were equal to zero.");
         ArgumentOutOfRangeException.ThrowIfLessThan(years, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(days, 0);
@@ -193,7 +185,7 @@ public partial record struct DateDifference // Math
     /// </summary>
     public static bool IsZero(DateDifference value) => value == Zero;
 
-    // NB: Years, Months, Weeks and Days have the same sign.
+    // NB: Years, Months, Weeks and Days share the same sign.
 
     /// <summary>
     /// Determines whether the specified <see cref="DateDifference"/> value
@@ -208,14 +200,10 @@ public partial record struct DateDifference // Math
     public static bool IsNegative(DateDifference value) => value.Years <= 0;
 
     /// <inheritdoc />
-    /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
-    /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
     public static DateDifference operator +(DateDifference value) => value;
 
     /// <inheritdoc />
-    /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
-    /// </exception>
     public static DateDifference operator -(DateDifference value) => value.Negate();
 
     /// <summary>

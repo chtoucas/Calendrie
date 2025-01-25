@@ -47,7 +47,7 @@ public partial class DateMath
     public AdditionRule AdditionRule { get; }
 
     /// <summary>
-    /// Calculates the exact difference (expressed in years, months, weeks and
+    /// Computes the exact difference (expressed in years, months, weeks and
     /// days) between the two specified dates.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the

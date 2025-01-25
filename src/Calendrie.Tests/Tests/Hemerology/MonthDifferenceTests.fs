@@ -51,8 +51,8 @@ module Prelude =
 
 module Factories =
     [<Fact>]
-    let ``CreatePositive() throws when years = months = days = 0 `` () =
-        argExn null (fun () -> MonthDifference.CreatePositive(0, 0))
+    let ``CreatePositive(0, 0) returns Zero `` () =
+        MonthDifference.CreatePositive(0, 0) === MonthDifference.Zero
 
     [<Fact>]
     let ``CreatePositive() throws when years or months < 0 `` () =
@@ -74,8 +74,8 @@ module Factories =
         MonthDifference.IsNegative(x) |> nok
 
     [<Fact>]
-    let ``CreateNegative() throws when years = months = days = 0 `` () =
-        argExn null (fun () -> MonthDifference.CreateNegative(0, 0))
+    let ``CreateNegative(0, 0) returns Zero `` () =
+        MonthDifference.CreatePositive(0, 0) === MonthDifference.Zero
 
     [<Fact>]
     let ``CreateNegative() throws when years or months < 0 `` () =

@@ -42,7 +42,7 @@ public class MonthMath
     public AdditionRule AdditionRule { get; }
 
     /// <summary>
-    /// Calculates the exact difference (expressed in years and months) between
+    /// Computes the exact difference (expressed in years and months) between
     /// the two specified months.
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
