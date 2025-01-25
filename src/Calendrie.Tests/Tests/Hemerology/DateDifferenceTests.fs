@@ -232,6 +232,11 @@ module Comparison =
 
 module Math =
     [<Fact>]
+    let ``Unary + and - throw with null`` () =
+        nullExn "value" (fun () -> DateDifference.op_UnaryPlus(null))
+        nullExn "value" (fun () -> DateDifference.op_UnaryNegation(null))
+
+    [<Fact>]
     let ``Unary + and - on Zero`` () =
         let x = DateDifference.Zero
         // Act & Assert
