@@ -132,11 +132,12 @@ public partial record struct MonthDifference // IComparable
 
 public partial record struct MonthDifference // Math
 {
-    /// <summary>
-    /// Computes the absolute value of the specified <see cref="MonthDifference"/>
-    /// value.
-    /// </summary>
-    public static MonthDifference Abs(MonthDifference value) => IsPositive(value) ? value : -value;
+    /// <inheritdoc />
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
+    public static MonthDifference operator +(MonthDifference value) => value;
+
+    /// <inheritdoc />
+    public static MonthDifference operator -(MonthDifference value) => value.Negate();
 
     /// <summary>
     /// Determines whether the specified value is equal to <see cref="Zero"/> or
@@ -158,12 +159,11 @@ public partial record struct MonthDifference // Math
     /// </summary>
     public static bool IsNegative(MonthDifference value) => value.Years <= 0;
 
-    /// <inheritdoc />
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
-    public static MonthDifference operator +(MonthDifference value) => value;
-
-    /// <inheritdoc />
-    public static MonthDifference operator -(MonthDifference value) => value.Negate();
+    /// <summary>
+    /// Computes the absolute value of the specified <see cref="MonthDifference"/>
+    /// value.
+    /// </summary>
+    public static MonthDifference Abs(MonthDifference value) => IsPositive(value) ? value : -value;
 
     /// <summary>
     /// Negates the current instance.

@@ -173,11 +173,12 @@ public partial record struct DateDifference // IComparable
 
 public partial record struct DateDifference // Math
 {
-    /// <summary>
-    /// Computes the absolute value of the specified <see cref="DateDifference"/>
-    /// value.
-    /// </summary>
-    public static DateDifference Abs(DateDifference value) => IsPositive(value) ? value : -value;
+    /// <inheritdoc />
+    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
+    public static DateDifference operator +(DateDifference value) => value;
+
+    /// <inheritdoc />
+    public static DateDifference operator -(DateDifference value) => value.Negate();
 
     /// <summary>
     /// Determines whether the specified value is equal to <see cref="Zero"/> or
@@ -199,12 +200,11 @@ public partial record struct DateDifference // Math
     /// </summary>
     public static bool IsNegative(DateDifference value) => value.Years <= 0;
 
-    /// <inheritdoc />
-    [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "Meaningless here")]
-    public static DateDifference operator +(DateDifference value) => value;
-
-    /// <inheritdoc />
-    public static DateDifference operator -(DateDifference value) => value.Negate();
+    /// <summary>
+    /// Computes the absolute value of the specified <see cref="DateDifference"/>
+    /// value.
+    /// </summary>
+    public static DateDifference Abs(DateDifference value) => IsPositive(value) ? value : -value;
 
     /// <summary>
     /// Negates the current instance.
