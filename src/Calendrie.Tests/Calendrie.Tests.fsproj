@@ -101,7 +101,6 @@
     <Compile Include="Tests\DayZeroTests.fs" />
     <Compile Include="Tests\MomentTests.fs" />
     <Compile Include="Tests\PartsTests.fs" />
-    <Compile Include="Tests\AdditionRulesetTests.fs" />
     <Compile Include="Tests\YearNumberingTests.fs" />
     <Compile Include="Tests\CSharpTests.fs" />
     <Compile Include="Tests\SamplesTests.fs" />

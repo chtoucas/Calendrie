@@ -11,8 +11,5 @@ public class CountDaysInMonthTests : JulianSchemaComparisons
     public int Formulae() => JulianFormulae.CountDaysInMonth(year, month);
 
     [Benchmark]
-    public int Formulae64() => JulianFormulae2.CountDaysInMonth(yearL, month);
-
-    [Benchmark]
     public int Schema() => schema.CountDaysInMonth(year, month);
 }

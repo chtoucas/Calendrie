@@ -64,7 +64,6 @@ module RuntimeSizes =
 
     [<Fact>]
     let ``Types in Calendrie`` () =
-        Marshal.SizeOf(typedefof<AdditionRuleset>) === 12
         Marshal.SizeOf(typedefof<DateParts>) === 12
         Marshal.SizeOf(typedefof<DayNumber>) === 4
         Marshal.SizeOf(typedefof<MonthParts>) === 8

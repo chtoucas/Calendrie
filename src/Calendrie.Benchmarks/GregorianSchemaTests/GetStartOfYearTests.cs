@@ -14,9 +14,6 @@ public class GetStartOfYearTests : GregorianSchemaComparisons
     public int Formulae_Civil() => CivilFormulae.GetStartOfYear(year);
 
     [Benchmark]
-    public long Formulae64() => GregorianFormulae2.GetStartOfYear(yearL);
-
-    [Benchmark]
     public int Schema() => schema.GetStartOfYear(year);
 
     [Benchmark]

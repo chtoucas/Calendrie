@@ -223,7 +223,7 @@ public static class GregorianMathDataSetUnambiguous
 /// <summary>
 /// Provides test data for <see cref="GregorianSchema"/> for math operations when the result is
 /// ambiguous.
-/// <para>This class provides data using the default <see cref="AdditionRuleset"/>.</para>
+/// <para>This class provides data using the default <see cref="AdditionRule"/> value.</para>
 /// <para>See also <seealso cref="GregorianDataSet"/> for test data for math operations when the result
 /// is unambiguous.</para>
 /// </summary>
@@ -239,8 +239,8 @@ public class GregorianMathDataSetCutOff : IAdvancedMathDataSet, ISingleton<Grego
         static Singleton() { }
     }
 
-    // Default rules.
-    public AdditionRuleset AdditionRuleset { get; }
+    // Default rule.
+    public AdditionRule AdditionRule { get; }
 
     /// <inheritdoc/>
     /// <remarks>Intercalary day, expected result in a common year, years to be added.</remarks>
@@ -337,13 +337,7 @@ public class GregorianMathDataSetNext : IAdvancedMathDataSet, ISingleton<Gregori
         static Singleton() { }
     }
 
-    public AdditionRuleset AdditionRuleset { get; } =
-        new()
-        {
-            DateRule = AdditionRule.Overspill,
-            OrdinalRule = AdditionRule.Overspill,
-            MonthRule = AdditionRule.Overspill
-        };
+    public AdditionRule AdditionRule => AdditionRule.Overspill;
 
     /// <inheritdoc/>
     /// <remarks>Intercalary day, expected result in a common year, years to be added.</remarks>

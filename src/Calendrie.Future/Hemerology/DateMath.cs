@@ -6,7 +6,6 @@ namespace Calendrie.Hemerology;
 using Calendrie.Core.Utilities;
 
 // TODO(code): XML doc. Explain comparison with DateDifference
-// Add more tests in CivilTests and GregorianTests.
 // Add a warning about the data (CountYearsBetweenData & co) which only
 // offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
 

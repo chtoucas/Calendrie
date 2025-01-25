@@ -61,18 +61,13 @@ let ``IsIntercalaryDay(int32)`` (x: DateInfo) =
 //
 
 [<Theory; MemberData(nameof(yearInfoData))>]
-let ``IsLeapYear(int64)`` (x: YearInfo) =
-    GregorianFormulae2.IsLeapYear(int64(x.Year)) === x.IsLeap
+let ``IsLeapYear(int32)`` (x: YearInfo) =
+    GregorianFormulae.IsLeapYear(x.Year) === x.IsLeap
 
 [<Fact>]
 let ``IsLeapYear(int32) does not overflow`` () =
     GregorianFormulae.IsLeapYear(Int32.MinValue) |> ignore
     GregorianFormulae.IsLeapYear(Int32.MaxValue) |> ignore
-
-[<Fact>]
-let ``IsLeapYear(int64) does not overflow`` () =
-    GregorianFormulae2.IsLeapYear(Int64.MinValue) |> ignore
-    GregorianFormulae2.IsLeapYear(Int64.MaxValue) |> ignore
 
 //
 // CountDaysInYear()
@@ -82,43 +77,10 @@ let ``IsLeapYear(int64) does not overflow`` () =
 let ``CountDaysInYear(int32)`` (x: YearInfo) =
     GregorianFormulae.CountDaysInYear(x.Year) === int(x.DaysInYear)
 
-[<Theory; MemberData(nameof(yearInfoData))>]
-let ``CountDaysInYear(int64)`` (x: YearInfo) =
-    GregorianFormulae2.CountDaysInYear(int64(x.Year)) === int(x.DaysInYear)
-
 [<Fact>]
 let ``CountDaysInYear(int32) does not overflow`` () =
     GregorianFormulae.CountDaysInYear(Int32.MinValue) |> ignore
     GregorianFormulae.CountDaysInYear(Int32.MaxValue) |> ignore
-
-[<Fact>]
-let ``CountDaysInYear(int64) does not overflow`` () =
-    GregorianFormulae2.CountDaysInYear(Int64.MinValue) |> ignore
-    GregorianFormulae2.CountDaysInYear(Int64.MaxValue) |> ignore
-
-//
-// CountDaysInYearBeforeMonth()
-//
-
-[<Theory; MemberData(nameof(monthInfoData))>]
-let ``CountDaysInYearBeforeMonth(int32)`` (x: MonthInfo) =
-    let y, m = x.Yemo.Deconstruct()
-    GregorianFormulae2.CountDaysInYearBeforeMonth(y, m) === int(x.DaysInYearBeforeMonth)
-
-[<Theory; MemberData(nameof(monthInfoData))>]
-let ``CountDaysInYearBeforeMonth(int64)`` (x: MonthInfo) =
-    let y, m = x.Yemo.Deconstruct()
-    GregorianFormulae2.CountDaysInYearBeforeMonth(int64(y), m) === int(x.DaysInYearBeforeMonth)
-
-[<Fact>]
-let ``CountDaysInYearBeforeMonth(int32) does not overflow`` () =
-    GregorianFormulae2.CountDaysInYearBeforeMonth(Int32.MinValue, MinMonth) |> ignore
-    GregorianFormulae2.CountDaysInYearBeforeMonth(Int32.MaxValue, MaxMonth) |> ignore
-
-[<Fact>]
-let ``CountDaysInYearBeforeMonth(int64) does not overflow`` () =
-    GregorianFormulae2.CountDaysInYearBeforeMonth(Int64.MinValue, MinMonth) |> ignore
-    GregorianFormulae2.CountDaysInYearBeforeMonth(Int64.MaxValue, MaxMonth) |> ignore
 
 //
 // CountDaysInMonth()
@@ -129,20 +91,10 @@ let ``CountDaysInMonth(int32)`` (x: MonthInfo) =
     let y, m = x.Yemo.Deconstruct()
     GregorianFormulae.CountDaysInMonth(y, m) === int(x.DaysInMonth)
 
-[<Theory; MemberData(nameof(monthInfoData))>]
-let ``CountDaysInMonth(int64)`` (x: MonthInfo) =
-    let y, m = x.Yemo.Deconstruct()
-    GregorianFormulae2.CountDaysInMonth(int64(y), m) === int(x.DaysInMonth)
-
 [<Fact>]
 let ``CountDaysInMonth(int32) does not overflow`` () =
     GregorianFormulae.CountDaysInMonth(Int32.MinValue, MinMonth) |> ignore
     GregorianFormulae.CountDaysInMonth(Int32.MaxValue, MaxMonth) |> ignore
-
-[<Fact>]
-let ``CountDaysInMonth(int64) does not overflow`` () =
-    GregorianFormulae2.CountDaysInMonth(Int64.MinValue, MinMonth) |> ignore
-    GregorianFormulae2.CountDaysInMonth(Int64.MaxValue, MaxMonth) |> ignore
 
 //
 // CountDaysSinceEpoch()
@@ -197,11 +149,6 @@ let ``CountDaysSinceEpoch(int64) does not overflow at Int64.Min/MaxValue (unchec
 //
 
 [<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
-let ``GetDateParts(int32)`` (x: DaysSinceEpochInfo) =
-    let daysSinceEpoch, ymd = x.Deconstruct()
-    GregorianFormulae2.GetDateParts(daysSinceEpoch) === ymd
-
-[<Theory; MemberData(nameof(daysSinceEpochInfoData))>]
 let ``GetDateParts(int64)`` (x: DaysSinceEpochInfo) =
     let daysSinceEpoch, y, m, d = x.Deconstruct()
     GregorianFormulae.GetDateParts(int64(daysSinceEpoch)) === (int64 y, m, d)
@@ -238,33 +185,6 @@ let ``GetDateParts(int64) overflows at Int64.Min/MaxValue`` () =
 let ``GetDateParts(int64) does not overflow at Int64.Min/MaxValue (unchecked)`` () =
     GregorianFormulae.GetDateParts(Int64.MinValue) |> ignore
     GregorianFormulae.GetDateParts(Int64.MaxValue) |> ignore
-#endif
-
-//
-// GetOrdinalParts()
-//
-
-[<Theory; MemberData(nameof(dateInfoData))>]
-let ``GetOrdinalParts(int32)`` (x: DateInfo) =
-    let y, m, d, doy = x.Deconstruct()
-    let daysSinceEpoch = GregorianFormulae.CountDaysSinceEpoch(y, m, d)
-    GregorianFormulae2.GetOrdinalParts(daysSinceEpoch) === new Yedoy(y, doy)
-
-[<Fact>]
-let ``GetOrdinalParts(int32) does not overflow at Min/MaxDaysSinceEpoch`` () =
-    GregorianFormulae2.GetOrdinalParts(minDaysSinceEpoch) |> ignore
-    GregorianFormulae2.GetOrdinalParts(maxDaysSinceEpoch) |> ignore
-
-#if DEBUG
-[<Fact>]
-let ``GetOrdinalParts(int32) overflows at Int32.Min/MaxValue`` () =
-    (fun () -> GregorianFormulae2.GetOrdinalParts(Int32.MinValue)) |> overflows
-    (fun () -> GregorianFormulae2.GetOrdinalParts(Int32.MaxValue)) |> overflows
-#else
-[<Fact>]
-let ``GetOrdinalParts(int32) does not overflow at Int32.Min/MaxValue (unchecked)`` () =
-    GregorianFormulae2.GetOrdinalParts(Int32.MinValue) |> ignore
-    GregorianFormulae2.GetOrdinalParts(Int32.MaxValue) |> ignore
 #endif
 
 //
@@ -321,10 +241,6 @@ let ``GetYear(int64) does not overflow at Int64.Min/MaxValue (unchecked)`` () =
 let ``GetStartOfYear(int32)`` (x: YearDaysSinceEpoch) =
     GregorianFormulae.GetStartOfYear(x.Year) === x.DaysSinceEpoch
 
-[<Theory; MemberData(nameof(startOfYearDaysSinceEpochData))>]
-let ``GetStartOfYear(int64)`` (x: YearDaysSinceEpoch) =
-    GregorianFormulae2.GetStartOfYear(int64(x.Year)) === int64 x.DaysSinceEpoch
-
 [<Fact>]
 let ``GetStartOfYear(int32) does not overflow`` () =
     GregorianFormulae.GetStartOfYear(minYear) |> ignore
@@ -340,46 +256,4 @@ let ``GetStartOfYear(int32) overflows at Int32.Min/MaxValue`` () =
 let ``GetStartOfYear(int32) does not overflow at Int32.Min/MaxValue (unchecked)`` () =
      GregorianFormulae.GetStartOfYear(Int32.MinValue) |> ignore
      GregorianFormulae.GetStartOfYear(Int32.MaxValue) |> ignore
-#endif
-
-[<Fact>]
-let ``GetStartOfYear(int64) does not overflow at Int32.Min/MaxValue`` () =
-    GregorianFormulae2.GetStartOfYear(int64(Int32.MinValue)) |> ignore
-    GregorianFormulae2.GetStartOfYear(int64(Int32.MaxValue)) |> ignore
-
-#if DEBUG
-[<Fact>]
-let ``GetStartOfYear(int64) overflows at Int64.Min/MaxValue`` () =
-    (fun () -> GregorianFormulae2.GetStartOfYear(Int64.MinValue)) |> overflows
-    (fun () -> GregorianFormulae2.GetStartOfYear(Int64.MaxValue)) |> overflows
-#else
-[<Fact>]
-let ``GetStartOfYear(int64) does not overflow at Int64.Min/MaxValue (unchecked)`` () =
-    GregorianFormulae2.GetStartOfYear(Int64.MinValue) |> ignore
-    GregorianFormulae2.GetStartOfYear(Int64.MaxValue) |> ignore
-#endif
-
-//
-// GetEndOfYear()
-//
-
-[<Theory; MemberData(nameof(endOfYearDaysSinceEpochData))>]
-let ``GetEndOfYear(int32)`` (x: YearDaysSinceEpoch) =
-    GregorianFormulae2.GetEndOfYear(x.Year) === x.DaysSinceEpoch
-
-[<Fact>]
-let ``GetEndOfYear(int32) does not overflow`` () =
-    GregorianFormulae2.GetEndOfYear(minYear) |> ignore
-    GregorianFormulae2.GetEndOfYear(maxYear) |> ignore
-
-#if DEBUG
-[<Fact>]
-let ``GetEndOfYear(int32) overflows at Int32.Min/MaxValue`` () =
-    (fun () -> GregorianFormulae2.GetEndOfYear(Int32.MinValue)) |> overflows
-    (fun () -> GregorianFormulae2.GetEndOfYear(Int32.MaxValue)) |> overflows
-#else
-[<Fact>]
-let ``GetEndOfYear(int32) does not overflow at Int32.Min/MaxValue (unchecked)`` () =
-     GregorianFormulae2.GetEndOfYear(Int32.MinValue) |> ignore
-     GregorianFormulae2.GetEndOfYear(Int32.MaxValue) |> ignore
 #endif

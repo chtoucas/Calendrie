@@ -10,8 +10,8 @@ namespace Calendrie.Testing.Data;
 // To be used as a provider for -ambiguous- data.
 public interface IAdvancedMathDataSet
 {
-    /// <summary>Gets the rules employed to resolve ambiguities.</summary>
-    AdditionRuleset AdditionRuleset { get; }
+    /// <summary>Gets the rule employed to resolve ambiguities.</summary>
+    AdditionRule AdditionRule { get; }
 
     /// <summary>Date, expected result, years to be added.</summary>
     DataGroup<YemodaPairAnd<int>> AddYearsData { get; }
