@@ -1,22 +1,22 @@
 Summary
-  Generated on: 25/01/2025 - 12:13:30
+  Generated on: 25/01/2025 - 17:46:10
   Parser: OpenCover
   Assemblies: 2
-  Classes: 176
-  Files: 126
-  Line coverage: 99.9%
-  Covered lines: 16570
-  Uncovered lines: 14
-  Coverable lines: 16584
-  Total lines: 62154
-  Branch coverage: 99.5% (4666 of 4689)
-  Covered branches: 4666
-  Total branches: 4689
-  Method coverage: 99.9% (5925 of 5927)
-  Full method coverage: 84.1% (4989 of 5927)
-  Covered methods: 5925
-  Fully covered methods: 4989
-  Total methods: 5927
+  Classes: 180
+  Files: 128
+  Line coverage: 98.9%
+  Covered lines: 16438
+  Uncovered lines: 175
+  Coverable lines: 16613
+  Total lines: 61952
+  Branch coverage: 97.8% (4636 of 4739)
+  Covered branches: 4636
+  Total branches: 4739
+  Method coverage: 98.8% (5866 of 5932)
+  Full method coverage: 83.3% (4944 of 5932)
+  Covered methods: 5866
+  Fully covered methods: 4944
+  Total methods: 5932
 
 Calendrie                                                 100%
   Calendrie.Core.CalendricalSchema                        100%
@@ -174,7 +174,7 @@ Calendrie                                                 100%
   Calendrie.Systems.ZoroastrianYear                       100%
   Calendrie.YearNumbering                                 100%
 
-Calendrie.Future                                         99.2%
+Calendrie.Future                                         91.1%
   Calendrie.Core.Schemas.PaxSchema                         96%
   Calendrie.Core.Schemas.Tropicalia3031Schema             100%
   Calendrie.Core.Schemas.Tropicalia3130Schema             100%
@@ -182,18 +182,22 @@ Calendrie.Future                                         99.2%
   Calendrie.Core.Schemas.TropicalistaSchema               100%
   Calendrie.Core.TemporalArithmetic                      83.3%
   Calendrie.Core.Validation.PaxPreValidator               100%
-  Calendrie.Core.Yedoy                                    100%
-  Calendrie.Core.Yemo                                     100%
-  Calendrie.Core.Yemoda                                   100%
   Calendrie.Hemerology.DateDifference                     100%
   Calendrie.Hemerology.DateMath                          98.9%
   Calendrie.Hemerology.MonthDifference                    100%
   Calendrie.Hemerology.MonthMath                         94.4%
+  Calendrie.Horology.LocalSystemClock                       0%
+  Calendrie.Horology.SystemClocks                           0%
+  Calendrie.Horology.UtcSystemClock                         0%
+  Calendrie.Moment                                         50%
   Calendrie.Systems.PaxCalendar                          96.7%
+  Calendrie.Systems.PaxClock                                0%
   Calendrie.Systems.PaxDate                               100%
   Calendrie.Systems.PaxMonth                              100%
   Calendrie.Systems.PaxYear                               100%
   Calendrie.Systems.TropicaliaCalendar                    100%
+  Calendrie.Systems.TropicaliaClock                         0%
   Calendrie.Systems.TropicaliaDate                        100%
   Calendrie.Systems.TropicaliaMonth                       100%
   Calendrie.Systems.TropicaliaYear                        100%
+  Calendrie.TimeOfDay                                    38.7%
