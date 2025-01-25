@@ -365,7 +365,9 @@ module Bundles =
         static member ``Substract() when start = end`` () =
             let date = new GregorianDate(1970, 3, 18)
             // Act & Assert
-            defaultMath.Subtract(date, date) === DateDifference.Zero
+            defaultMath.Subtract(date, date)   === DateDifference.Zero
+            overspillMath.Subtract(date, date) === DateDifference.Zero
+            exactMath.Subtract(date, date)     === DateDifference.Zero
 
         [<Fact>]
         static member ``Substract() when start < end`` () =

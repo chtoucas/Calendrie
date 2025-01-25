@@ -6,6 +6,7 @@ module Calendrie.Tests.Systems.PaxTests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -273,6 +274,64 @@ module Bundles =
     // is actually interesting as Pax is a non-regular calendar.
     type DefaultMonthMathFacts() =
         inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>()
+
+        static let defaultMath   = new MonthMath()
+        static let overspillMath = new MonthMath(AdditionRule.Overspill)
+        static let exactMath     = new MonthMath(AdditionRule.Exact)
+
+        //
+        // Substract()
+        //
+
+        [<Fact>]
+        static member ``Substract() when start = end`` () =
+            let month = new PaxMonth(4, 3)
+            // Act & Assert
+            defaultMath.Subtract(month, month)   === MonthDifference.Zero
+            overspillMath.Subtract(month, month) === MonthDifference.Zero
+            exactMath.Subtract(month, month)     === MonthDifference.Zero
+
+        [<Fact>]
+        static member ``Substract() when start < end`` () =
+            let month = new PaxMonth(4, 3)
+            // Act & Assert
+            defaultMath.Subtract(month, new PaxMonth(4, 4))  === MonthDifference.CreatePositive(0, 1)
+            defaultMath.Subtract(month, new PaxMonth(4, 13)) === MonthDifference.CreatePositive(0, 10)
+            defaultMath.Subtract(month, new PaxMonth(5, 1))  === MonthDifference.CreatePositive(0, 11)
+            defaultMath.Subtract(month, new PaxMonth(5, 2))  === MonthDifference.CreatePositive(0, 12)
+            defaultMath.Subtract(month, new PaxMonth(5, 3))  === MonthDifference.CreatePositive(1, 0)
+            defaultMath.Subtract(month, new PaxMonth(5, 4))  === MonthDifference.CreatePositive(1, 1)
+            defaultMath.Subtract(month, new PaxMonth(6, 2))  === MonthDifference.CreatePositive(1, 12)
+            defaultMath.Subtract(month, new PaxMonth(6, 3))  === MonthDifference.CreatePositive(2, 0)
+            defaultMath.Subtract(month, new PaxMonth(6, 4))  === MonthDifference.CreatePositive(2, 1)
+            // 6 is a leap year
+            defaultMath.Subtract(month, new PaxMonth(6, 14)) === MonthDifference.CreatePositive(2, 11)
+            defaultMath.Subtract(month, new PaxMonth(7, 1))  === MonthDifference.CreatePositive(2, 12)
+            defaultMath.Subtract(month, new PaxMonth(7, 2))  === MonthDifference.CreatePositive(2, 13)
+            defaultMath.Subtract(month, new PaxMonth(7, 3))  === MonthDifference.CreatePositive(3, 0)
+            defaultMath.Subtract(month, new PaxMonth(7, 4))  === MonthDifference.CreatePositive(3, 1)
+
+        [<Fact>]
+        static member ``Substract() when start > end`` () =
+            let month = new PaxMonth(4, 3)
+            // Act & Assert
+            defaultMath.Subtract(new PaxMonth(4, 4), month)  === MonthDifference.CreateNegative(0, 1)
+            defaultMath.Subtract(new PaxMonth(4, 13), month) === MonthDifference.CreateNegative(0, 10)
+            defaultMath.Subtract(new PaxMonth(5, 1), month)  === MonthDifference.CreateNegative(0, 11)
+            defaultMath.Subtract(new PaxMonth(5, 2), month)  === MonthDifference.CreateNegative(0, 12)
+            defaultMath.Subtract(new PaxMonth(5, 3), month)  === MonthDifference.CreateNegative(1, 0)
+            defaultMath.Subtract(new PaxMonth(5, 4), month)  === MonthDifference.CreateNegative(1, 1)
+            defaultMath.Subtract(new PaxMonth(6, 2), month)  === MonthDifference.CreateNegative(1, 12)
+            defaultMath.Subtract(new PaxMonth(6, 3), month)  === MonthDifference.CreateNegative(2, 0)
+            defaultMath.Subtract(new PaxMonth(6, 4), month)  === MonthDifference.CreateNegative(2, 1)
+            defaultMath.Subtract(new PaxMonth(6, 12), month) === MonthDifference.CreateNegative(2, 9)
+            // 6 is a leap year
+            defaultMath.Subtract(new PaxMonth(6, 13), month) === MonthDifference.CreateNegative(2, 10)
+            defaultMath.Subtract(new PaxMonth(6, 14), month) === MonthDifference.CreateNegative(2, 10)
+            defaultMath.Subtract(new PaxMonth(7, 1), month)  === MonthDifference.CreateNegative(2, 11)
+            defaultMath.Subtract(new PaxMonth(7, 2), month)  === MonthDifference.CreateNegative(2, 12)
+            defaultMath.Subtract(new PaxMonth(7, 3), month)  === MonthDifference.CreateNegative(3, 0)
+            defaultMath.Subtract(new PaxMonth(7, 4), month)  === MonthDifference.CreateNegative(3, 1)
 
     //
     // Year type
