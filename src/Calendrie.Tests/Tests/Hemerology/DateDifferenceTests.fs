@@ -20,6 +20,8 @@ module Prelude =
         zero.Months === 0
         zero.Days   === 0
 
+        DateDifference.Abs(zero) === zero
+        DateDifference.IsZero(zero)     |> ok
         DateDifference.IsPositive(zero) |> ok
         DateDifference.IsNegative(zero) |> ok
 
@@ -34,6 +36,7 @@ module Prelude =
         x.Weeks  === weeks
         x.Days   === days
 
+        DateDifference.IsZero(x) |> nok
         DateDifference.IsPositive(x) === (sign >= 0)
         DateDifference.IsNegative(x) === (sign <= 0)
 
@@ -74,6 +77,8 @@ module Factories =
         x.Weeks  === w
         x.Days   === d
 
+        DateDifference.Abs(x) === x
+        DateDifference.IsZero(x)     |> nok
         DateDifference.IsPositive(x) |> ok
         DateDifference.IsNegative(x) |> nok
 
@@ -105,6 +110,8 @@ module Factories =
         x.Weeks  === -w
         x.Days   === -d
 
+        DateDifference.Abs(x) === -x
+        DateDifference.IsZero(x)     |> nok
         DateDifference.IsPositive(x) |> nok
         DateDifference.IsNegative(x) |> ok
 

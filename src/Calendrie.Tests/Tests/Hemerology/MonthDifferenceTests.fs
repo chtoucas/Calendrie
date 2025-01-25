@@ -19,6 +19,8 @@ module Prelude =
         zero.Years  === 0
         zero.Months === 0
 
+        MonthDifference.Abs(zero) === zero
+        MonthDifference.IsZero(zero)     |> ok
         MonthDifference.IsPositive(zero) |> ok
         MonthDifference.IsNegative(zero) |> ok
 
@@ -33,6 +35,7 @@ module Prelude =
         x.Years  === years
         x.Months === months
 
+        MonthDifference.IsZero(x) |> nok
         MonthDifference.IsPositive(x) === (sign >= 0)
         MonthDifference.IsNegative(x) === (sign <= 0)
 
@@ -65,6 +68,8 @@ module Factories =
         x.Years  === 1
         x.Months === 2
 
+        MonthDifference.Abs(x) === x
+        MonthDifference.IsZero(x)     |> nok
         MonthDifference.IsPositive(x) |> ok
         MonthDifference.IsNegative(x) |> nok
 
@@ -86,6 +91,8 @@ module Factories =
         x.Years  === -1
         x.Months === -2
 
+        MonthDifference.Abs(x) === -x
+        MonthDifference.IsZero(x)     |> nok
         MonthDifference.IsPositive(x) |> nok
         MonthDifference.IsNegative(x) |> ok
 
