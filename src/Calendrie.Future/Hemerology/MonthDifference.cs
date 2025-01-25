@@ -7,6 +7,11 @@ using System.Numerics;
 
 using Calendrie.Core.Utilities;
 
+// The result is ALWAYS in its "minimal" form which makes comparison possible.
+// For instance, with the Gregorian calendar, it means that Months < 12.
+// Notice however that comparison between two values only makes sense when both
+// are produced by the same calendar and rule.
+
 /// <summary>
 /// Represents the result of <see cref="MonthMath.Subtract{TMonth}(TMonth, TMonth)"/>,
 /// that is the exact difference between two months.
