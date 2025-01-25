@@ -9,14 +9,13 @@ using Calendrie.Core.Utilities;
 
 using static Calendrie.Core.CalendricalConstants;
 
-// FIXME(code): explain comparison.
-// The result is ALWAYS in its most "minimal" form which makes comparison
-// of lengths doable. For instance, with the Gregorian calendar, it means that
+// The result is ALWAYS in its "minimal" form which makes comparison possible.
+// For instance, with the Gregorian calendar, it means that
 // - Months < 12
 // - Weeks < 5
 // - Days < 31
-// Comparison between two values only makes sense when both are produced by the
-// same calendar and rule.
+// Notice however that comparison between two values only makes sense when both
+// are produced by the same calendar and rule.
 
 /// <summary>
 /// Represents the result of <see cref="DateMath.Subtract{TDate}(TDate, TDate)"/>,
@@ -37,7 +36,7 @@ public sealed partial record DateDifference :
     /// <summary>
     /// Initializes a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
-    private DateDifference(int years, int months, int days, int sign)
+    private DateDifference(int years, int months, int days)
     {
         // NB: une fois n'est pas coutume, on utilise la division euclidienne
         // à reste négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
@@ -46,26 +45,24 @@ public sealed partial record DateDifference :
         Months = months;
         Weeks = Math.DivRem(days, DaysInWeek, out days);
         Days = days;
-        Sign = sign;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
-    private DateDifference(int years, int months, int weeks, int days, int sign)
+    private DateDifference(int years, int months, int weeks, int days)
     {
         Years = years;
         Months = months;
         Weeks = weeks;
         Days = days;
-        Sign = sign;
     }
 
     /// <summary>
     /// Gets the zero difference.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static DateDifference Zero { get; } = new(0, 0, 0, 0, sign: 0);
+    public static DateDifference Zero { get; } = new(0, 0, 0, 0);
 
     /// <summary>
     /// Gets the number of years.
@@ -88,13 +85,6 @@ public sealed partial record DateDifference :
     public int Days { get; }
 
     /// <summary>
-    /// Gets the common sign shared by <see cref="Years"/>, <see cref="Months"/>,
-    /// <see cref="Weeks"/> and <see cref="Days"/>.
-    /// <para>Returns +1 if positive, -1 if negative; otherwise returns 0.</para>
-    /// </summary>
-    public int Sign { get; }
-
-    /// <summary>
     /// Deconstructs the current instance into its components.
     /// </summary>
     public void Deconstruct(out int years, out int months, out int weeks, out int days) =>
@@ -106,8 +96,8 @@ public partial record DateDifference // Factories
     /// <summary>
     /// Creates a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
-    internal static DateDifference UnsafeCreate(int years, int months, int days, int sign) =>
-        new(years, months, days, sign);
+    internal static DateDifference UnsafeCreate(int years, int months, int days) =>
+        new(years, months, days);
 
     /// <summary>
     /// Creates a new instance of the <see cref="DateDifference"/> struct.
@@ -124,7 +114,7 @@ public partial record DateDifference // Factories
         ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(days, 0);
 
-        return new DateDifference(years, months, days, 1);
+        return new DateDifference(years, months, days);
     }
 
     /// <summary>
@@ -142,7 +132,7 @@ public partial record DateDifference // Factories
         ArgumentOutOfRangeException.ThrowIfLessThan(months, 0);
         ArgumentOutOfRangeException.ThrowIfLessThan(days, 0);
 
-        return new DateDifference(-years, -months, -days, -1);
+        return new DateDifference(-years, -months, -days);
     }
 }
 
@@ -186,8 +176,8 @@ public partial record DateDifference // IComparable
         if (right is null) return 1;
 
         // We compare the "absolute" values!
-        var x = left.Sign > 0 ? left : -left;
-        var y = right.Sign > 0 ? right : -right;
+        var x = Abs(left);
+        var y = Abs(right);
 
         int c = x.Years.CompareTo(y.Years);
         if (c == 0)
@@ -208,6 +198,42 @@ public partial record DateDifference // IComparable
 
 public partial record DateDifference // Math
 {
+    /// <summary>
+    /// Computes the absolute value of the specified <see cref="DateDifference"/>
+    /// value.
+    /// </summary>
+    public static DateDifference Abs(DateDifference value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return IsPositive(value) ? value : -value;
+    }
+
+    /// <summary>
+    /// Determines whether the specified value is equal to <see cref="Zero"/> or
+    /// not.
+    /// </summary>
+    public static bool IsZero(DateDifference value) => value == Zero;
+
+    /// <summary>
+    /// Determines whether the specified <see cref="DateDifference"/> value
+    /// is greater than or equal to <see cref="Zero"/>.
+    /// </summary>
+    public static bool IsPositive(DateDifference value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return value.Years >= 0;
+    }
+
+    /// <summary>
+    /// Determines whether the specified <see cref="DateDifference"/> value
+    /// is less than or equal to <see cref="Zero"/>.
+    /// </summary>
+    public static bool IsNegative(DateDifference value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return value.Years <= 0;
+    }
+
     /// <inheritdoc />
     /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.
     /// </exception>
@@ -230,5 +256,5 @@ public partial record DateDifference // Math
     /// <summary>
     /// Negates the current instance.
     /// </summary>
-    public DateDifference Negate() => new(-Years, -Months, -Weeks, -Days, -Sign);
+    public DateDifference Negate() => new(-Years, -Months, -Weeks, -Days);
 }

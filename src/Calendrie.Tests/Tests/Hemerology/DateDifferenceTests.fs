@@ -15,29 +15,33 @@ module Prelude =
     let ``Static property Zero`` () =
         let zero = DateDifference.Zero
         // Act & Assert
-        zero === DateDifference.UnsafeCreate(0, 0, 0, 0)
+        zero === DateDifference.UnsafeCreate(0, 0, 0)
         zero.Years  === 0
         zero.Months === 0
         zero.Days   === 0
-        zero.Sign   === 0
+
+        DateDifference.IsPositive(zero) |> ok
+        DateDifference.IsNegative(zero) |> ok
 
     [<Theory>]
     [<InlineData(1, 2, 3, 4, 1)>]
     [<InlineData(-1, -2, -3, -4, -1)>]
     let ``Instance properties`` (years, months, weeks, days, sign) =
-        let x = DateDifference.UnsafeCreate(years, months, days + 7 * weeks, sign)
+        let x = DateDifference.UnsafeCreate(years, months, days + 7 * weeks)
         // Act & Assert
         x.Years  === years
         x.Months === months
         x.Weeks  === weeks
         x.Days   === days
-        x.Sign   === sign
+
+        DateDifference.IsPositive(x) === (sign >= 0)
+        DateDifference.IsNegative(x) === (sign <= 0)
 
     [<Theory>]
-    [<InlineData(1, 2, 3, 4, 1)>]
-    [<InlineData(-1, -2, -3, -4, -1)>]
-    let Deconstructor (years, months, weeks, days, sign) =
-        let x = DateDifference.UnsafeCreate(years, months, days + 7 * weeks, sign)
+    [<InlineData(1, 2, 3, 4)>]
+    [<InlineData(-1, -2, -3, -4)>]
+    let Deconstructor (years, months, weeks, days) =
+        let x = DateDifference.UnsafeCreate(years, months, days + 7 * weeks)
         // Act & Assert
         x.Deconstruct() === (years, months, weeks, days)
 
@@ -64,12 +68,14 @@ module Factories =
         // Act
         let x = DateDifference.CreatePositive(1, 2, days)
         // Assert
-        x === DateDifference.UnsafeCreate(1, 2, days, 1)
+        x === DateDifference.UnsafeCreate(1, 2, days)
         x.Years  === 1
         x.Months === 2
         x.Weeks  === w
         x.Days   === d
-        x.Sign   === 1
+
+        DateDifference.IsPositive(x) |> ok
+        DateDifference.IsNegative(x) |> nok
 
     [<Fact>]
     let ``CreateNegative() throws when years = months = days = 0 `` () =
@@ -93,12 +99,14 @@ module Factories =
         // Act
         let x = DateDifference.CreateNegative(1, 2, days)
         // Assert
-        x === DateDifference.UnsafeCreate(-1, -2, -days, -1)
+        x === DateDifference.UnsafeCreate(-1, -2, -days)
         x.Years  === -1
         x.Months === -2
         x.Weeks  === -w
         x.Days   === -d
-        x.Sign   === -1
+
+        DateDifference.IsPositive(x) |> nok
+        DateDifference.IsNegative(x) |> ok
 
 module Comparison =
     open NonStructuralComparison

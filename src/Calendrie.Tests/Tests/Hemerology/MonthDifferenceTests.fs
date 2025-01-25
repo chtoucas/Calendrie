@@ -15,10 +15,12 @@ module Prelude =
     let ``Static property Zero`` () =
         let zero = MonthDifference.Zero
         // Act & Assert
-        zero === MonthDifference.UnsafeCreate(0, 0, 0)
+        zero === MonthDifference.UnsafeCreate(0, 0)
         zero.Years  === 0
         zero.Months === 0
-        zero.Sign   === 0
+
+        MonthDifference.IsPositive(zero) |> ok
+        MonthDifference.IsNegative(zero) |> ok
 
     [<Theory>]
     [<InlineData(1, 2, 1)>]
@@ -26,19 +28,21 @@ module Prelude =
     [<InlineData(-1, -2, -1)>]
     [<InlineData(-2, -1, -1)>]
     let ``Instance properties`` (years, months, sign) =
-        let x = MonthDifference.UnsafeCreate(years, months, sign)
+        let x = MonthDifference.UnsafeCreate(years, months)
         // Act & Assert
         x.Years  === years
         x.Months === months
-        x.Sign   === sign
+
+        MonthDifference.IsPositive(x) === (sign >= 0)
+        MonthDifference.IsNegative(x) === (sign <= 0)
 
     [<Theory>]
-    [<InlineData(1, 2, 1)>]
-    [<InlineData(2, 1, 1)>]
-    [<InlineData(-1, -2, -1)>]
-    [<InlineData(-2, -1, -1)>]
-    let Deconstructor (years, months, sign) =
-        let x = MonthDifference.UnsafeCreate(years, months, sign)
+    [<InlineData(1, 2)>]
+    [<InlineData(2, 1)>]
+    [<InlineData(-1, -2)>]
+    [<InlineData(-2, -1)>]
+    let Deconstructor (years, months) =
+        let x = MonthDifference.UnsafeCreate(years, months)
         // Act & Assert
         x.Deconstruct() === (years, months)
 
@@ -57,10 +61,12 @@ module Factories =
         // Act
         let x = MonthDifference.CreatePositive(1, 2)
         // Assert
-        x === MonthDifference.UnsafeCreate(1, 2, 1)
+        x === MonthDifference.UnsafeCreate(1, 2)
         x.Years  === 1
         x.Months === 2
-        x.Sign   === 1
+
+        MonthDifference.IsPositive(x) |> ok
+        MonthDifference.IsNegative(x) |> nok
 
     [<Fact>]
     let ``CreateNegative() throws when years = months = days = 0 `` () =
@@ -76,10 +82,12 @@ module Factories =
         // Act
         let x = MonthDifference.CreateNegative(1, 2)
         // Assert
-        x === MonthDifference.UnsafeCreate(-1, -2, -1)
+        x === MonthDifference.UnsafeCreate(-1, -2)
         x.Years  === -1
         x.Months === -2
-        x.Sign   === -1
+
+        MonthDifference.IsPositive(x) |> nok
+        MonthDifference.IsNegative(x) |> ok
 
 module Comparison =
     open NonStructuralComparison

@@ -3,11 +3,6 @@
 
 namespace Calendrie.Systems;
 
-// TODO(code): XML doc.
-// Add more tests in CivilTests and GregorianTests.
-// Add a warning about the data (CountYearsBetweenData & co) which only
-// offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
-
 // TODO(code): create a PaxWeek type.
 
 public partial struct PaxMonth // Complements

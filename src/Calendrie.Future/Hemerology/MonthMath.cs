@@ -56,7 +56,7 @@ public class MonthMath
 
         int years = CountYearsBetween(start, end, out var newStart);
         int months = end.CountMonthsSince(newStart);
-        return MonthDifference.UnsafeCreate(years, months, start < end ? 1 : -1);
+        return MonthDifference.UnsafeCreate(years, months);
     }
 
     /// <summary>
