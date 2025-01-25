@@ -10,9 +10,13 @@ using Calendrie.Core.Utilities;
 using static Calendrie.Core.CalendricalConstants;
 
 // FIXME(code): explain comparison.
-// The result is ALWAYS in its normal "canonical" form which makes comparison
-// of lengths doable.
-// Two values should only be compared when coming from the same calendar.
+// The result is ALWAYS in its most "minimal" form which makes comparison
+// of lengths doable. For instance, with the Gregorian calendar, it means that
+// - Months < 12
+// - Weeks < 5
+// - Days < 31
+// Comparison between two values only makes sense when both are produced by the
+// same calendar and rule.
 
 /// <summary>
 /// Represents the result of <see cref="DateMath.Subtract{TDate}(TDate, TDate)"/>,
@@ -37,11 +41,10 @@ public sealed partial record DateDifference :
     {
         // NB: une fois n'est pas coutume, on utilise la division euclidienne
         // à reste négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
-        int weeks = Math.DivRem(days, DaysInWeek, out days);
 
         Years = years;
         Months = months;
-        Weeks = weeks;
+        Weeks = Math.DivRem(days, DaysInWeek, out days);
         Days = days;
         Sign = sign;
     }

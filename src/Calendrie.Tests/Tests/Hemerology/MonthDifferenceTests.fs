@@ -3,6 +3,8 @@
 
 module Calendrie.Tests.Hemerology.MonthDifferenceTests
 
+open System
+
 open Calendrie.Hemerology
 open Calendrie.Testing
 
@@ -23,12 +25,22 @@ module Prelude =
     [<InlineData(2, 1, 1)>]
     [<InlineData(-1, -2, -1)>]
     [<InlineData(-2, -1, -1)>]
-    let ``Properties Years, Months, Weeks, Days and Sign`` (years, months, sign) =
+    let ``Instance properties`` (years, months, sign) =
         let x = MonthDifference.UnsafeCreate(years, months, sign)
         // Act & Assert
         x.Years  === years
         x.Months === months
         x.Sign   === sign
+
+    [<Theory>]
+    [<InlineData(1, 2, 1)>]
+    [<InlineData(2, 1, 1)>]
+    [<InlineData(-1, -2, -1)>]
+    [<InlineData(-2, -1, -1)>]
+    let Deconstructor (years, months, sign) =
+        let x = MonthDifference.UnsafeCreate(years, months, sign)
+        // Act & Assert
+        x.Deconstruct() === (years, months)
 
 module Factories =
     [<Fact>]
@@ -70,6 +82,8 @@ module Factories =
         x.Sign   === -1
 
 module Comparison =
+    open NonStructuralComparison
+
     [<Fact>]
     let ``Zero w/ anything`` () =
         // Zero / Zero
@@ -123,3 +137,82 @@ module Comparison =
         MonthDifference.CreateNegative(1, 3) >= MonthDifference.CreateNegative(1, 2) |> ok
         MonthDifference.CreateNegative(1, 3) <  MonthDifference.CreateNegative(1, 2) |> nok
         MonthDifference.CreateNegative(1, 3) <= MonthDifference.CreateNegative(1, 2) |> nok
+
+    //
+    // CompareTo()
+    //
+
+    [<Theory>]
+    [<InlineData(1, 2)>]
+    [<InlineData(2, 1)>]
+    let ``CompareTo() returns 0 when both objects are identical`` (years, months) =
+        let x = MonthDifference.CreatePositive(years, months)
+        // Act & Assert
+        x.CompareTo(x) === 0
+        (x :> IComparable).CompareTo(x) === 0
+
+    [<Fact>]
+    let ``CompareTo() when both objects are distinct`` () =
+        let x = MonthDifference.CreatePositive(1, 2)
+        let y = MonthDifference.CreatePositive(2, 0)
+        // Act & Assert
+        x.CompareTo(y) <= 0                     |> ok
+        (x :> IComparable).CompareTo(x) <= 0    |> ok
+        // Flipped
+        y.CompareTo(x) >= 0                     |> ok
+        (y :> IComparable).CompareTo(x) >= 0    |> ok
+
+    [<Theory>]
+    [<InlineData(1, 2)>]
+    [<InlineData(2, 1)>]
+    let ``CompareTo(obj) returns 1 when "obj" is null`` (years, months) =
+        let x = MonthDifference.CreatePositive(years, months)
+        // Act & Assert
+        (x :> IComparable).CompareTo(null) = 1
+
+    [<Theory>]
+    [<InlineData(1, 2)>]
+    [<InlineData(2, 1)>]
+    let ``CompareTo(obj) throws when "obj" is a plain object`` (years, months) =
+        let x = MonthDifference.CreatePositive(years, months)
+        // Act & Assert
+        argExn "obj" (fun () -> (x :> IComparable).CompareTo(new obj()))
+
+module Math =
+    [<Fact>]
+    let ``Unary + and - on Zero`` () =
+        let x = MonthDifference.Zero
+        // Act & Assert
+        +x === x
+        -x === x
+
+    [<Theory>]
+    [<InlineData(1, 2)>]
+    [<InlineData(2, 1)>]
+    let ``Unary +`` (years, months) =
+        let x = MonthDifference.CreatePositive(years, months)
+        let y = MonthDifference.CreateNegative(years, months)
+        // Act & Assert
+        +x === x
+        +y === y
+
+    [<Theory>]
+    [<InlineData(1, 2)>]
+    [<InlineData(2, 1)>]
+    let ``Unary -`` (years, months) =
+        let x = MonthDifference.CreatePositive(years, months)
+        let y = MonthDifference.CreateNegative(years, months)
+        // Act & Assert
+        -x === y
+        -y === x
+        +y === y
+
+    [<Theory>]
+    [<InlineData(1, 2)>]
+    [<InlineData(2, 1)>]
+    let ``Negate()`` (years, months) =
+        let x = MonthDifference.CreatePositive(years, months)
+        let y = MonthDifference.CreateNegative(years, months)
+        // Act & Assert
+        x.Negate() === y
+        y.Negate() === x

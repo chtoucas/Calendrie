@@ -3,6 +3,8 @@
 
 module Calendrie.Tests.Hemerology.DateDifferenceTests
 
+open System
+
 open Calendrie.Hemerology
 open Calendrie.Testing
 
@@ -22,7 +24,7 @@ module Prelude =
     [<Theory>]
     [<InlineData(1, 2, 3, 4, 1)>]
     [<InlineData(-1, -2, -3, -4, -1)>]
-    let ``Properties Years, Months, Weeks, Days and Sign`` (years, months, weeks, days, sign) =
+    let ``Instance properties`` (years, months, weeks, days, sign) =
         let x = DateDifference.UnsafeCreate(years, months, days + 7 * weeks, sign)
         // Act & Assert
         x.Years  === years
@@ -30,6 +32,14 @@ module Prelude =
         x.Weeks  === weeks
         x.Days   === days
         x.Sign   === sign
+
+    [<Theory>]
+    [<InlineData(1, 2, 3, 4, 1)>]
+    [<InlineData(-1, -2, -3, -4, -1)>]
+    let Deconstructor (years, months, weeks, days, sign) =
+        let x = DateDifference.UnsafeCreate(years, months, days + 7 * weeks, sign)
+        // Act & Assert
+        x.Deconstruct() === (years, months, weeks, days)
 
 module Factories =
     [<Fact>]
@@ -91,6 +101,8 @@ module Factories =
         x.Sign   === -1
 
 module Comparison =
+    open NonStructuralComparison
+
     [<Fact>]
     let ``Zero w/ anything`` () =
         // Zero / Zero
@@ -108,3 +120,106 @@ module Comparison =
         DateDifference.CreateNegative(1, 2, 3) >= DateDifference.Zero |> ok
         DateDifference.CreateNegative(1, 2, 3) <  DateDifference.Zero |> nok
         DateDifference.CreateNegative(1, 2, 3) <= DateDifference.Zero |> nok
+
+    //
+    // CompareTo()
+    //
+
+    [<Theory>]
+    [<InlineData(1, 2, 3)>]
+    [<InlineData(1, 3, 2)>]
+    [<InlineData(2, 1, 3)>]
+    [<InlineData(2, 3, 1)>]
+    [<InlineData(3, 1, 2)>]
+    [<InlineData(3, 2, 1)>]
+    let ``CompareTo() returns 0 when both objects are identical`` (years, months, days) =
+        let x = DateDifference.CreatePositive(years, months, days)
+        // Act & Assert
+        x.CompareTo(x) === 0
+        (x :> IComparable).CompareTo(x) === 0
+
+    [<Fact>]
+    let ``CompareTo() when both objects are distinct`` () =
+        let x = DateDifference.CreatePositive(1, 2, 3)
+        let y = DateDifference.CreatePositive(2, 0, 1)
+        // Act & Assert
+        x.CompareTo(y) <= 0                     |> ok
+        (x :> IComparable).CompareTo(x) <= 0    |> ok
+        // Flipped
+        y.CompareTo(x) >= 0                     |> ok
+        (y :> IComparable).CompareTo(x) >= 0    |> ok
+
+    [<Theory>]
+    [<InlineData(1, 2, 3)>]
+    [<InlineData(1, 3, 2)>]
+    [<InlineData(2, 1, 3)>]
+    [<InlineData(2, 3, 1)>]
+    [<InlineData(3, 1, 2)>]
+    [<InlineData(3, 2, 1)>]
+    let ``CompareTo(obj) returns 1 when "obj" is null`` (years, months, days) =
+        let x = DateDifference.CreatePositive(years, months, days)
+        // Act & Assert
+        (x :> IComparable).CompareTo(null) = 1
+
+    [<Theory>]
+    [<InlineData(1, 2, 3)>]
+    [<InlineData(1, 3, 2)>]
+    [<InlineData(2, 1, 3)>]
+    [<InlineData(2, 3, 1)>]
+    [<InlineData(3, 1, 2)>]
+    [<InlineData(3, 2, 1)>]
+    let ``CompareTo(obj) throws when "obj" is a plain object`` (years, months, days) =
+        let x = DateDifference.CreatePositive(years, months, days)
+        // Act & Assert
+        argExn "obj" (fun () -> (x :> IComparable).CompareTo(new obj()))
+
+module Math =
+    [<Fact>]
+    let ``Unary + and - on Zero`` () =
+        let x = DateDifference.Zero
+        // Act & Assert
+        +x === x
+        -x === x
+
+    [<Theory>]
+    [<InlineData(1, 2, 3)>]
+    [<InlineData(1, 3, 2)>]
+    [<InlineData(2, 1, 3)>]
+    [<InlineData(2, 3, 1)>]
+    [<InlineData(3, 1, 2)>]
+    [<InlineData(3, 2, 1)>]
+    let ``Unary +`` (years, months, days) =
+        let x = DateDifference.CreatePositive(years, months, days)
+        let y = DateDifference.CreateNegative(years, months, days)
+        // Act & Assert
+        +x === x
+        +y === y
+
+    [<Theory>]
+    [<InlineData(1, 2, 3)>]
+    [<InlineData(1, 3, 2)>]
+    [<InlineData(2, 1, 3)>]
+    [<InlineData(2, 3, 1)>]
+    [<InlineData(3, 1, 2)>]
+    [<InlineData(3, 2, 1)>]
+    let ``Unary -`` (years, months, days) =
+        let x = DateDifference.CreatePositive(years, months, days)
+        let y = DateDifference.CreateNegative(years, months, days)
+        // Act & Assert
+        -x === y
+        -y === x
+        +y === y
+
+    [<Theory>]
+    [<InlineData(1, 2, 3)>]
+    [<InlineData(1, 3, 2)>]
+    [<InlineData(2, 1, 3)>]
+    [<InlineData(2, 3, 1)>]
+    [<InlineData(3, 1, 2)>]
+    [<InlineData(3, 2, 1)>]
+    let ``Negate()`` (years, months, days) =
+        let x = DateDifference.CreatePositive(years, months, days)
+        let y = DateDifference.CreateNegative(years, months, days)
+        // Act & Assert
+        x.Negate() === y
+        y.Negate() === x
