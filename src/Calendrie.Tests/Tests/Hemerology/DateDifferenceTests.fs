@@ -104,6 +104,27 @@ module Comparison =
     open NonStructuralComparison
 
     [<Fact>]
+    let ``When one of the params or both are null`` () =
+        let x = DateDifference.CreatePositive(1, 1, 1)
+        let none : DateDifference = null
+        // Act & Assert
+        // Both sides are null
+        none > none     |> nok
+        none >= none    |> ok
+        none < none     |> nok
+        none <= none    |> ok
+        // Left side is null
+        x > null        |> ok
+        x >= null       |> ok
+        x < null        |> nok
+        x <= null       |> nok
+        // Right side is null
+        null > x        |> nok
+        null >= x       |> nok
+        null < x        |> ok
+        null <= x       |> ok
+
+    [<Fact>]
     let ``Zero w/ anything`` () =
         // Zero / Zero
         DateDifference.Zero >  DateDifference.Zero |> nok
@@ -138,6 +159,24 @@ module Comparison =
         DateDifference.CreateNegative(1, 2, 3) >= DateDifference.CreateNegative(1, 2, 3) |> ok
         DateDifference.CreateNegative(1, 2, 3) <  DateDifference.CreateNegative(1, 2, 3) |> nok
         DateDifference.CreateNegative(1, 2, 3) <= DateDifference.CreateNegative(1, 2, 3) |> ok
+
+    [<Fact>]
+    let ``Positive or Negative, diff length`` () =
+        // Positive / Positive
+        DateDifference.CreatePositive(1, 3, 0) >  DateDifference.CreatePositive(1, 2, 1) |> ok
+        DateDifference.CreatePositive(1, 3, 0) >= DateDifference.CreatePositive(1, 2, 1) |> ok
+        DateDifference.CreatePositive(1, 3, 0) <  DateDifference.CreatePositive(1, 2, 1) |> nok
+        DateDifference.CreatePositive(1, 3, 0) <= DateDifference.CreatePositive(1, 2, 1) |> nok
+        // Positive / Negative
+        DateDifference.CreatePositive(1, 3, 0) >  DateDifference.CreateNegative(1, 2, 1) |> ok
+        DateDifference.CreatePositive(1, 3, 0) >= DateDifference.CreateNegative(1, 2, 1) |> ok
+        DateDifference.CreatePositive(1, 3, 0) <  DateDifference.CreateNegative(1, 2, 1) |> nok
+        DateDifference.CreatePositive(1, 3, 0) <= DateDifference.CreateNegative(1, 2, 1) |> nok
+        // Negative / Negative
+        DateDifference.CreateNegative(1, 3, 0) >  DateDifference.CreateNegative(1, 2, 1) |> ok
+        DateDifference.CreateNegative(1, 3, 0) >= DateDifference.CreateNegative(1, 2, 1) |> ok
+        DateDifference.CreateNegative(1, 3, 0) <  DateDifference.CreateNegative(1, 2, 1) |> nok
+        DateDifference.CreateNegative(1, 3, 0) <= DateDifference.CreateNegative(1, 2, 1) |> nok
 
     //
     // CompareTo()

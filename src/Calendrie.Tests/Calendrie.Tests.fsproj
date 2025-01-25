@@ -63,7 +63,6 @@
     <Compile Include="Tests\Core\Validation\PreValidatorTestSuite.fs" />
     <Compile Include="Tests\Core\CalendricalSegmentBuilderTests.fs" />
     <Compile Include="Tests\Core\CalendricalSegmentTests.fs" />
-    <Compile Include="Tests\Core\MonthsCalculatorTests.fs" />
     <Compile Include="Tests\Core\PartsAdapterTests.fs" />
     <Compile Include="Tests\Core\PartsTests.fs" />
     <Compile Include="Tests\Core\TemporalArithmeticTests.fs" />
