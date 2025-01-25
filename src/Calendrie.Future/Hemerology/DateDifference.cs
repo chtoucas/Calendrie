@@ -33,36 +33,24 @@ public readonly partial record struct DateDifference :
     IUnaryPlusOperators<DateDifference, DateDifference>,
     IUnaryNegationOperators<DateDifference, DateDifference>
 {
+    private readonly int _days;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="DateDifference"/> struct.
     /// </summary>
     private DateDifference(int years, int months, int days)
     {
-        // NB: une fois n'est pas coutume, on utilise la division euclidienne
-        // à reste négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
-
         Years = years;
         Months = months;
-        Weeks = Math.DivRem(days, DaysInWeek, out days);
-        Days = days;
-    }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DateDifference"/> struct.
-    /// </summary>
-    private DateDifference(int years, int months, int weeks, int days)
-    {
-        Years = years;
-        Months = months;
-        Weeks = weeks;
-        Days = days;
+        _days = days;
     }
 
     /// <summary>
     /// Gets the zero difference.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static DateDifference Zero { get; } = new(0, 0, 0, 0);
+    public static DateDifference Zero { get; } = new(0, 0, 0);
 
     /// <summary>
     /// Gets the number of years.
@@ -74,21 +62,27 @@ public readonly partial record struct DateDifference :
     /// </summary>
     public int Months { get; }
 
+    // NB: une fois n'est pas coutume, on utilise la division euclidienne
+    // à reste négatif, d'où Math.DivRem() au lieu de MathZ.Divide().
+
     /// <summary>
     /// Gets the number of weeks.
     /// </summary>
-    public int Weeks { get; }
+    public int Weeks => _days / DaysInWeek;
 
     /// <summary>
     /// Gets the number of days.
     /// </summary>
-    public int Days { get; }
+    public int Days => _days % DaysInWeek;
 
     /// <summary>
     /// Deconstructs the current instance into its components.
     /// </summary>
-    public void Deconstruct(out int years, out int months, out int weeks, out int days) =>
-        (years, months, weeks, days) = (Years, Months, Weeks, Days);
+    public void Deconstruct(out int years, out int months, out int weeks, out int days)
+    {
+        (years, months) = (Years, Months);
+        weeks = Math.DivRem(_days, DaysInWeek, out days);
+    }
 }
 
 public partial record struct DateDifference // Factories
@@ -227,5 +221,5 @@ public partial record struct DateDifference // Math
     /// <summary>
     /// Negates the current instance.
     /// </summary>
-    public DateDifference Negate() => new(-Years, -Months, -Weeks, -Days);
+    public DateDifference Negate() => new(-Years, -Months, -_days);
 }
