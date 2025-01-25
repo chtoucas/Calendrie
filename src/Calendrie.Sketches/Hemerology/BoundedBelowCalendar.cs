@@ -7,7 +7,7 @@ namespace Calendrie.Hemerology;
 /// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>
 /// </summary>
-public class BoundedBelowCalendar : CalendarSans
+public partial class BoundedBelowCalendar : CalendarSans, IDateProvider<DayNumber>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="BoundedBelowCalendar"/>
@@ -22,8 +22,6 @@ public class BoundedBelowCalendar : CalendarSans
         MinDateParts = scope.MinDateParts;
         MinOrdinalParts = scope.MinOrdinalParts;
         MaxYear = scope.Segment.SupportedYears.Max;
-
-        DayNumberProvider = new BoundedBelowDayNumberProvider(scope);
     }
 
     // The following properties should remain public, otherwise an outsider
@@ -43,11 +41,6 @@ public class BoundedBelowCalendar : CalendarSans
     /// Gets the latest supported year.
     /// </summary>
     public int MaxYear { get; }
-
-    /// <summary>
-    /// Gets the provider for day numbers.
-    /// </summary>
-    public BoundedBelowDayNumberProvider DayNumberProvider { get; }
 
     // NB : pour optimiser les choses on pourrait traiter d'abord le cas
     // limite (première année ou premier mois) puis le cas général.
@@ -113,5 +106,98 @@ public class BoundedBelowCalendar : CalendarSans
     {
         var (y, m, d) = MinDateParts;
         return Schema.CountDaysInMonth(y, m) - d + 1;
+    }
+}
+
+public partial class BoundedBelowCalendar // IDateProvider
+{
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<DayNumber> GetDaysInYear(int year)
+    {
+        Scope.ValidateYear(year);
+        int startOfYear, daysInYear;
+        if (year == MinDateParts.Year)
+        {
+            startOfYear = Scope.Domain.Min - Epoch;
+            daysInYear = CountDaysInFirstYear();
+        }
+        else
+        {
+            startOfYear = Schema.GetStartOfYear(year);
+            daysInYear = Schema.CountDaysInYear(year);
+        }
+
+        return iterator();
+
+        IEnumerable<DayNumber> iterator()
+        {
+            return from daysSinceEpoch
+                   in Enumerable.Range(startOfYear, daysInYear)
+                   select Epoch + daysSinceEpoch;
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<DayNumber> GetDaysInMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        int startOfMonth, daysInMonth;
+        if (new MonthParts(year, month) == MinDateParts.MonthParts)
+        {
+            startOfMonth = Scope.Domain.Min - Epoch;
+            daysInMonth = CountDaysInFirstMonth();
+        }
+        else
+        {
+            startOfMonth = Schema.GetStartOfMonth(year, month);
+            daysInMonth = Schema.CountDaysInMonth(year, month);
+        }
+
+        return iterator();
+
+        IEnumerable<DayNumber> iterator()
+        {
+            return from daysSinceEpoch
+                   in Enumerable.Range(startOfMonth, daysInMonth)
+                   select Epoch + daysSinceEpoch;
+        }
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public DayNumber GetStartOfYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return year == MinDateParts.Year
+            ? throw new ArgumentOutOfRangeException(nameof(year))
+            : Epoch + Schema.GetStartOfYear(year);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public DayNumber GetEndOfYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return Epoch + Schema.GetEndOfYear(year);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public DayNumber GetStartOfMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return new MonthParts(year, month) == MinDateParts.MonthParts
+            ? throw new ArgumentOutOfRangeException(nameof(month))
+            : Epoch + Schema.GetStartOfMonth(year, month);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public DayNumber GetEndOfMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return Epoch + Schema.GetEndOfMonth(year, month);
     }
 }

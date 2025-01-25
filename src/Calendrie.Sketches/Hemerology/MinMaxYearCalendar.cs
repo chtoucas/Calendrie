@@ -6,7 +6,7 @@ namespace Calendrie.Hemerology;
 /// <summary>
 /// Represents a calendar with dates within a range of years.
 /// </summary>
-public class MinMaxYearCalendar : CalendarSans
+public partial class MinMaxYearCalendar : CalendarSans, IDateProvider<DateParts>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MinMaxYearCalendar"/> class.
@@ -18,10 +18,6 @@ public class MinMaxYearCalendar : CalendarSans
         Debug.Assert(scope != null);
 
         (MinYear, MaxYear) = scope.Segment.SupportedYears.Endpoints;
-
-        DayNumberProvider = new MinMaxYearDayNumberProvider(scope);
-        DatePartsProvider = new MinMaxYearDatePartsProvider(scope);
-        OrdinalPartsProvider = new MinMaxYearOrdinalPartsProvider(scope);
     }
 
     /// <summary>
@@ -33,21 +29,6 @@ public class MinMaxYearCalendar : CalendarSans
     /// Gets the latest supported year.
     /// </summary>
     public int MaxYear { get; }
-
-    /// <summary>
-    /// Gets the provider for day numbers.
-    /// </summary>
-    public MinMaxYearDayNumberProvider DayNumberProvider { get; }
-
-    /// <summary>
-    /// Gets the provider for date parts.
-    /// </summary>
-    public MinMaxYearDatePartsProvider DatePartsProvider { get; }
-
-    /// <summary>
-    /// Gets the provider for ordinal parts.
-    /// </summary>
-    public MinMaxYearOrdinalPartsProvider OrdinalPartsProvider { get; }
 
     /// <inheritdoc/>
     [Pure]
@@ -71,5 +52,85 @@ public class MinMaxYearCalendar : CalendarSans
     {
         Scope.ValidateYearMonth(year, month);
         return Schema.CountDaysInMonth(year, month);
+    }
+}
+
+public partial class MinMaxYearCalendar // IDateProvider
+{
+    /// <inheritdoc/>
+    [Pure]
+    public IEnumerable<DateParts> GetDaysInYear(int year)
+    {
+        // Check arg eagerly.
+        Scope.ValidateYear(year);
+
+        return iterator();
+
+        IEnumerable<DateParts> iterator()
+        {
+            int monthsInYear = Schema.CountMonthsInYear(year);
+
+            for (int m = 1; m <= monthsInYear; m++)
+            {
+                int daysInMonth = Schema.CountDaysInMonth(year, m);
+
+                for (int d = 1; d <= daysInMonth; d++)
+                {
+                    yield return new DateParts(year, m, d);
+                }
+            }
+        }
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public IEnumerable<DateParts> GetDaysInMonth(int year, int month)
+    {
+        // Check arg eagerly.
+        Scope.ValidateYearMonth(year, month);
+
+        return iterator();
+
+        IEnumerable<DateParts> iterator()
+        {
+            int daysInMonth = Schema.CountDaysInMonth(year, month);
+
+            for (int d = 1; d <= daysInMonth; d++)
+            {
+                yield return new DateParts(year, month, d);
+            }
+        }
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DateParts GetStartOfYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return DateParts.AtStartOfYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DateParts GetEndOfYear(int year)
+    {
+        Scope.ValidateYear(year);
+        return PartsAdapter.GetDatePartsAtEndOfYear(year);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DateParts GetStartOfMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return DateParts.AtStartOfMonth(year, month);
+    }
+
+    /// <inheritdoc/>
+    [Pure]
+    public DateParts GetEndOfMonth(int year, int month)
+    {
+        Scope.ValidateYearMonth(year, month);
+        return PartsAdapter.GetDatePartsAtEndOfMonth(year, month);
     }
 }
