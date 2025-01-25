@@ -17,6 +17,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
+using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -244,6 +245,69 @@ public partial class PaxCalendar // Math
         int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
         return PaxMonth.UnsafeCreate(monthsSinceEpoch);
     }
+}
+
+#endregion
+
+#region PaxClock
+
+/// <summary>
+/// Represents a clock for the Pax calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed partial class PaxClock
+{
+    /// <summary>
+    /// Represents the clock.
+    /// </summary>
+    private readonly IClock _clock;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PaxClock"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    public PaxClock(IClock clock)
+    {
+        ArgumentNullException.ThrowIfNull(clock);
+
+        _clock = clock;
+    }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="PaxClock"/> class for the
+    /// system clock using the current time zone setting on this machine.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static PaxClock Local => new(SystemClocks.Local);
+
+    /// <summary>
+    /// Gets an instance of the <see cref="PaxClock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static PaxClock Utc => new(SystemClocks.Utc);
+
+    /// <summary>
+    /// Obtains a <see cref="PaxDate"/> value representing the current
+    /// date.
+    /// </summary>
+    [Pure]
+    public PaxDate GetCurrentDate() => PaxDate.FromAbsoluteDate(_clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="PaxMonth"/> value representing the current
+    /// month.
+    /// </summary>
+    [Pure]
+    public PaxMonth GetCurrentMonth() => PaxMonth.FromDate(GetCurrentDate());
+
+    /// <summary>
+    /// Obtains a <see cref="PaxYear"/> value representing the current
+    /// year.
+    /// </summary>
+    [Pure]
+    public PaxYear GetCurrentYear() => PaxYear.FromDate(GetCurrentDate());
 }
 
 #endregion

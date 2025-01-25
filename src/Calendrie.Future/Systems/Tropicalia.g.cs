@@ -19,6 +19,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
+using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -167,6 +168,69 @@ public partial class TropicaliaCalendar // Math
 
         return AddYears(y, newM, d, years, out roundoff);
     }
+}
+
+#endregion
+
+#region TropicaliaClock
+
+/// <summary>
+/// Represents a clock for the Tropicalia calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed partial class TropicaliaClock
+{
+    /// <summary>
+    /// Represents the clock.
+    /// </summary>
+    private readonly IClock _clock;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaClock"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    public TropicaliaClock(IClock clock)
+    {
+        ArgumentNullException.ThrowIfNull(clock);
+
+        _clock = clock;
+    }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="TropicaliaClock"/> class for the
+    /// system clock using the current time zone setting on this machine.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TropicaliaClock Local => new(SystemClocks.Local);
+
+    /// <summary>
+    /// Gets an instance of the <see cref="TropicaliaClock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TropicaliaClock Utc => new(SystemClocks.Utc);
+
+    /// <summary>
+    /// Obtains a <see cref="TropicaliaDate"/> value representing the current
+    /// date.
+    /// </summary>
+    [Pure]
+    public TropicaliaDate GetCurrentDate() => TropicaliaDate.FromAbsoluteDate(_clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="TropicaliaMonth"/> value representing the current
+    /// month.
+    /// </summary>
+    [Pure]
+    public TropicaliaMonth GetCurrentMonth() => TropicaliaMonth.FromDate(GetCurrentDate());
+
+    /// <summary>
+    /// Obtains a <see cref="TropicaliaYear"/> value representing the current
+    /// year.
+    /// </summary>
+    [Pure]
+    public TropicaliaYear GetCurrentYear() => TropicaliaYear.FromDate(GetCurrentDate());
 }
 
 #endregion

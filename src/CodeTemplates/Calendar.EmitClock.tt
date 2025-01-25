@@ -2,11 +2,10 @@
 
 public partial class CalendarTemplate
 {
-    protected virtual void EmitClock()
+    protected void EmitClock()
     {
         WriteLine();
 #>
-
 #region <#= Prefix #>Clock
 
 /// <summary>
@@ -15,51 +14,61 @@ public partial class CalendarTemplate
 /// </summary>
 public sealed partial class <#= Prefix #>Clock
 {
+    /// <summary>
+    /// Represents the clock.
+    /// </summary>
     private readonly IClock _clock;
-    private readonly DayNumber _epoch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Clock"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
     /// <see langword="null"/>.</exception>
-    public <#= Prefix #>Clock(IClock clock) : this(<#= Prefix #>Date.Calendar.Epoch, clock) { }
-
-    private <#= Prefix #>Clock(DayNumber epoch, IClock clock)
+    public <#= Prefix #>Clock(IClock clock)
     {
         ArgumentNullException.ThrowIfNull(clock);
 
         _clock = clock;
-        _epoch = epoch;
     }
 
     /// <summary>
     /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the
     /// system clock using the current time zone setting on this machine.
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static <#= Prefix #>Clock Local { get; } = new(SystemClocks.Local);
+    public static <#= Prefix #>Clock Local => new(SystemClocks.Local);
 
     /// <summary>
     /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the
     /// system clock using the Coordinated Universal Time (UTC).
+    /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static <#= Prefix #>Clock Utc { get; } = new(SystemClocks.Utc);
-
-    /// <summary>
-    /// Obtains an instance of the <see cref="<#= Prefix #>Clock"/> class for
-    /// the specified clock.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
-    /// <see langword="null"/>.</exception>
-    [Pure]
-    public static <#= Prefix #>Clock GetClock(IClock clock) => new(clock);
+    public static <#= Prefix #>Clock Utc => new(SystemClocks.Utc);
 
     /// <summary>
     /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current
     /// date.
     /// </summary>
     [Pure]
-    public <#= Prefix #>Date GetCurrentDate() => new(_clock.Today() - _epoch);
+    public <#= Prefix #>Date GetCurrentDate() => <#= Prefix #>Date.FromAbsoluteDate(_clock.Today());
+<#+ if (EnableMonth) { #>
+
+    /// <summary>
+    /// Obtains a <see cref="<#= Prefix #>Month"/> value representing the current
+    /// month.
+    /// </summary>
+    [Pure]
+    public <#= Prefix #>Month GetCurrentMonth() => <#= Prefix #>Month.FromDate(GetCurrentDate());
+<#+ } #>
+<#+ if (EnableYear) { #>
+
+    /// <summary>
+    /// Obtains a <see cref="<#= Prefix #>Year"/> value representing the current
+    /// year.
+    /// </summary>
+    [Pure]
+    public <#= Prefix #>Year GetCurrentYear() => <#= Prefix #>Year.FromDate(GetCurrentDate());
+<#+ } #>
 }
 
 #endregion
