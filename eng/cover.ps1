@@ -44,6 +44,9 @@ Examples.
 > cover.ps1             # Run Coverlet then build an HTML report
 > cover.ps1 -NoReport   # Run Coverlet, do NOT build an HTML report
 
+Commonly used parameters:
+> cover.ps1 -NoBuild -Slow -Future
+
 "@
 }
 
