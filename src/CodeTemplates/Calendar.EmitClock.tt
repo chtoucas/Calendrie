@@ -36,14 +36,14 @@ public sealed partial class <#= Prefix #>Clock
     /// system clock using the current time zone setting on this machine.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static <#= Prefix #>Clock Local => new(SystemClocks.Local);
+    public static <#= Prefix #>Clock Local { get; } = new(SystemClocks.Local);
 
     /// <summary>
     /// Gets an instance of the <see cref="<#= Prefix #>Clock"/> class for the
     /// system clock using the Coordinated Universal Time (UTC).
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static <#= Prefix #>Clock Utc => new(SystemClocks.Utc);
+    public static <#= Prefix #>Clock Utc { get; } = new(SystemClocks.Utc);
 
     /// <summary>
     /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current
