@@ -8,9 +8,11 @@ param(
     [Alias('b')] [switch] $BinAndObj,
                  [switch] $PackagesLock,
                  [switch] $Vss,
-
                  [switch] $Soft,
-    [Alias('a')] [switch] $All,
+                 [switch] $All,
+
+    [Alias('r')] [switch] $Restore,
+
     [Alias('h')] [switch] $Help
 )
 
@@ -29,12 +31,13 @@ Usage: reset.ps1 [arguments]
      -PackagesLock  delete all files "packages.lock.json".
      -Vss           delete the folder ".vs" containing the Visual Studio settings
      -Soft          remove untracked files from the working tree
+     -Restore
+                    > dotnet restore
+                    > dotnet tool restore
   -a|-All
   -h|-Help          print this help then exit
 
 Related commands.
-> dotnet restore
-> dotnet tool restore
 > dotnet list package --outdated
 
 "@
@@ -99,6 +102,14 @@ try {
             # -Force because the folder is hidden.
             rm $vsDir -Recurse -Force
         }
+    }
+
+    if ($Restore) {
+        say "Restoring packages."
+        & dotnet restore
+
+        say "Restoring tools."
+        & dotnet tool restore
     }
 }
 catch {
