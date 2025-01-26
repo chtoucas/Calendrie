@@ -20,14 +20,14 @@ module Prelude =
     [<Fact>]
     let ``Static property Zero`` () =
         Moment.Zero.DayNumber === DayNumber.Zero
-        Moment.Zero.TimeOfDay === TimeOfDay.Midnight
+        Moment.Zero.InstantOfDay === InstantOfDay.Midnight
         Moment.Zero.SecondsSinceZero === 0L
         Moment.Zero.MillisecondsSinceZero === 0L
 
     [<Fact>]
     let ``Static property MinValue`` () =
         Moment.MinValue.DayNumber === DayNumber.MinValue
-        Moment.MinValue.TimeOfDay === TimeOfDay.MinValue
+        Moment.MinValue.InstantOfDay === InstantOfDay.MinValue
         // Along the way, we also check that the foll. props do not overflow.
         Moment.MinValue.SecondsSinceZero      |> ignore
         Moment.MinValue.MillisecondsSinceZero |> ignore
@@ -35,7 +35,7 @@ module Prelude =
     [<Fact>]
     let ``Static property MaxValue`` () =
         Moment.MaxValue.DayNumber === DayNumber.MaxValue
-        Moment.MaxValue.TimeOfDay === TimeOfDay.MaxValue
+        Moment.MaxValue.InstantOfDay === InstantOfDay.MaxValue
         // Along the way, we also check that the foll. props do not overflow.
         Moment.MaxValue.SecondsSinceZero      |> ignore
         Moment.MaxValue.MillisecondsSinceZero |> ignore

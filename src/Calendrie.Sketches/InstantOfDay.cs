@@ -50,8 +50,8 @@ public readonly partial struct InstantOfDay :
     public static InstantOfDay MinValue => Midnight;
 
     /// <summary>
-    /// Represents the largest possible value of a <see cref="TimeOfDay"/>; one
-    /// nanosecond before midnight.
+    /// Represents the largest possible value of a <see cref="InstantOfDay"/>;
+    /// one nanosecond before midnight.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static InstantOfDay MaxValue { get; } = new(NanosecondsPerDay - 1);

@@ -12,7 +12,7 @@ using static Calendrie.Core.TemporalConstants;
 // REVIEW(api): implement IFixedDate? Math ops? etc.
 
 /// <summary>
-/// Represents a moment with millisecond precision.
+/// Represents a moment with nanosecond precision.
 /// <para><see cref="Moment"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Moment :
@@ -29,15 +29,15 @@ public readonly partial struct Moment :
     private readonly DayNumber _dayNumber;
 
     /// <summary>
-    /// Represents the time of the day with millisecond precision.
+    /// Represents the time of the day with nanosecond precision.
     /// </summary>
-    private readonly TimeOfDay _timeOfDay;
+    private readonly InstantOfDay _timeOfDay;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Moment"/> struct from the
     /// specified day number and time of the day.
     /// </summary>
-    public Moment(DayNumber dayNumber, TimeOfDay timeOfDay)
+    public Moment(DayNumber dayNumber, InstantOfDay timeOfDay)
     {
         _dayNumber = dayNumber;
         _timeOfDay = timeOfDay;
@@ -55,13 +55,13 @@ public readonly partial struct Moment :
     /// Gets the smallest possible value of a <see cref="Moment"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Moment MinValue { get; } = new(DayNumber.MinValue, TimeOfDay.MinValue);
+    public static Moment MinValue { get; } = new(DayNumber.MinValue, InstantOfDay.MinValue);
 
     /// <summary>
     /// Gets the largest possible value of a <see cref="Moment"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Moment MaxValue { get; } = new(DayNumber.MaxValue, TimeOfDay.MaxValue);
+    public static Moment MaxValue { get; } = new(DayNumber.MaxValue, InstantOfDay.MaxValue);
 
     /// <summary>
     /// Gets the day number.
@@ -71,7 +71,7 @@ public readonly partial struct Moment :
     /// <summary>
     /// Gets the time of the day with millisecond precision.
     /// </summary>
-    public TimeOfDay TimeOfDay => _timeOfDay;
+    public InstantOfDay InstantOfDay => _timeOfDay;
 
     /// <summary>
     /// Gets the number of elapsed seconds since <see cref="Zero"/>.
@@ -92,13 +92,13 @@ public readonly partial struct Moment :
     /// </summary>
     [Pure]
     public override string ToString() =>
-        FormattableString.Invariant($"{DayNumber}+{TimeOfDay}");
+        FormattableString.Invariant($"{DayNumber}+{InstantOfDay}");
 
     /// <summary>
     /// Deconstructs this instance into its components.
     /// </summary>
-    public void Deconstruct(out DayNumber dayNumber, out TimeOfDay timeOfDay) =>
-        (dayNumber, timeOfDay) = (DayNumber, TimeOfDay);
+    public void Deconstruct(out DayNumber dayNumber, out InstantOfDay timeOfDay) =>
+        (dayNumber, timeOfDay) = (DayNumber, InstantOfDay);
 }
 
 public partial struct Moment // IEquatable

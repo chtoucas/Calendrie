@@ -5,8 +5,6 @@ namespace Calendrie.Horology;
 
 using Calendrie.Core;
 
-using static Calendrie.Core.TemporalConstants;
-
 // Beware, we use DateTime.Ticks but
 // > "It does not include the number of ticks that are attributable to leap seconds."
 // See
@@ -43,30 +41,26 @@ public sealed class UtcSystemClock : IClock
 
     /// <inheritdoc/>
     [Pure]
-    public Moment Now()
-    {
-        // This method works only because DateTime.Ticks does not account
-        // for leap seconds!
-        var now = DateTime.UtcNow;
-        // We could get tickOfDay directly from now.TimeOfDay.Ticks but to
-        // build TimeOfDay, DateTime does exactly what we do below.
-        ulong ticksSinceZero = (ulong)now.Ticks;
-        ulong daysSinceZero = TemporalArithmetic.DivideByTicksPerDay(ticksSinceZero, out ulong tickOfDay);
-        ulong millisecondOfDay = tickOfDay / TicksPerMillisecond;
-
-        // NB: the casts should always succeed.
-        var dayNumber = new DayNumber((int)daysSinceZero);
-        var timeOfDay = TimeOfDay.FromMillisecondOfDay((int)millisecondOfDay);
-
-        return new Moment(dayNumber, timeOfDay);
-    }
-
-    /// <inheritdoc/>
-    [Pure]
     public DayNumber Today()
     {
         // NB: the cast should always succeed.
         int daysSinceZero = (int)TemporalArithmetic.DivideByTicksPerDay(DateTime.UtcNow.Ticks);
         return new DayNumber(daysSinceZero);
     }
+
+    ///// <inheritdoc/>
+    //[Pure]
+    //public Moment Now()
+    //{
+    //    // This method works only because DateTime.Ticks does not account
+    //    // for leap seconds!
+    //    var now = DateTime.UtcNow;
+    //    long daysSinceZero = TemporalArithmetic.DivideByTicksPerDay(now.Ticks);
+
+    //    // NB: the casts should always succeed.
+    //    var dayNumber = new DayNumber((int)daysSinceZero);
+    //    var instantOfDay = InstantOfDay.FromTickOfDay(now.TimeOfDay.Ticks);
+
+    //    return new Moment(dayNumber, instantOfDay);
+    //}
 }
