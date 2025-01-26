@@ -331,7 +331,7 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromHour(int hour)
     {
-        if (hour < 0 || hour >= HoursPerDay) throw new ArgumentOutOfRangeException(nameof(hour));
+        if ((uint)hour >= HoursPerDay) throw new ArgumentOutOfRangeException(nameof(hour));
 
         return new TimeOfDay(Pack(hour, 0, 0));
     }
@@ -345,10 +345,8 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromHourMinute(int hour, int minute)
     {
-        if (hour < 0 || hour >= HoursPerDay)
-            throw new ArgumentOutOfRangeException(nameof(hour));
-        if (minute < 0 || minute >= MinutesPerHour)
-            throw new ArgumentOutOfRangeException(nameof(minute));
+        if ((uint)hour >= HoursPerDay) throw new ArgumentOutOfRangeException(nameof(hour));
+        if ((uint)minute >= MinutesPerHour) throw new ArgumentOutOfRangeException(nameof(minute));
 
         int bin = Pack(hour, minute, 0);
         return new TimeOfDay(bin);
@@ -363,12 +361,9 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromHourMinuteSecond(int hour, int minute, int second)
     {
-        if (hour < 0 || hour >= HoursPerDay)
-            throw new ArgumentOutOfRangeException(nameof(hour));
-        if (minute < 0 || minute >= MinutesPerHour)
-            throw new ArgumentOutOfRangeException(nameof(minute));
-        if (second < 0 || second >= SecondsPerMinute)
-            throw new ArgumentOutOfRangeException(nameof(second));
+        if ((uint)hour >= HoursPerDay) throw new ArgumentOutOfRangeException(nameof(hour));
+        if ((uint)minute >= MinutesPerHour) throw new ArgumentOutOfRangeException(nameof(minute));
+        if ((uint)second >= SecondsPerMinute) throw new ArgumentOutOfRangeException(nameof(second));
 
         int bin = Pack(hour, minute, second);
         return new TimeOfDay(bin);
@@ -384,13 +379,10 @@ public partial struct TimeOfDay // Factories, conversions...
     public static TimeOfDay FromHourMinuteSecondMillisecond(
         int hour, int minute, int second, int millisecond)
     {
-        if (hour < 0 || hour >= HoursPerDay)
-            throw new ArgumentOutOfRangeException(nameof(hour));
-        if (minute < 0 || minute >= MinutesPerHour)
-            throw new ArgumentOutOfRangeException(nameof(minute));
-        if (second < 0 || second >= SecondsPerMinute)
-            throw new ArgumentOutOfRangeException(nameof(second));
-        if (millisecond < 0 || millisecond >= MillisecondsPerSecond)
+        if ((uint)hour >= HoursPerDay) throw new ArgumentOutOfRangeException(nameof(hour));
+        if ((uint)minute >= MinutesPerHour) throw new ArgumentOutOfRangeException(nameof(minute));
+        if ((uint)second >= SecondsPerMinute) throw new ArgumentOutOfRangeException(nameof(second));
+        if ((uint)millisecond >= MillisecondsPerSecond)
             throw new ArgumentOutOfRangeException(nameof(millisecond));
 
         int bin = Pack(hour, minute, second, millisecond);
@@ -411,7 +403,7 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromMinuteOfDay(int minuteOfDay)
     {
-        if (minuteOfDay < 0 || minuteOfDay >= MinutesPerDay)
+        if ((uint)minuteOfDay >= MinutesPerDay)
             throw new ArgumentOutOfRangeException(nameof(minuteOfDay));
 
         int h = minuteOfDay / MinutesPerHour;
@@ -429,7 +421,7 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromSecondOfDay(int secondOfDay)
     {
-        if (secondOfDay < 0 || secondOfDay >= SecondsPerDay)
+        if ((uint)secondOfDay >= SecondsPerDay)
             throw new ArgumentOutOfRangeException(nameof(secondOfDay));
 
         int h = secondOfDay / SecondsPerHour;
@@ -448,7 +440,7 @@ public partial struct TimeOfDay // Factories, conversions...
     [Pure]
     public static TimeOfDay FromMillisecondOfDay(int millisecondOfDay)
     {
-        if (millisecondOfDay < 0 || millisecondOfDay >= MillisecondsPerDay)
+        if ((uint)millisecondOfDay >= MillisecondsPerDay)
             throw new ArgumentOutOfRangeException(nameof(millisecondOfDay));
 
         return FromMillisecondOfDayCore(millisecondOfDay);
@@ -551,27 +543,46 @@ public partial struct TimeOfDay // IEquatable
 
 public partial struct TimeOfDay // IComparable
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified times of the day to see if the left one is
+    /// strictly earlier than the right one.
+    /// </summary>
     public static bool operator <(TimeOfDay left, TimeOfDay right) => left._bin < right._bin;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified times of the day to see if the left one is
+    /// earlier than or equal to the right one.
+    /// </summary>
     public static bool operator <=(TimeOfDay left, TimeOfDay right) => left._bin <= right._bin;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified times of the day to see if the left one is
+    /// strictly later than the right one.
+    /// </summary>
     public static bool operator >(TimeOfDay left, TimeOfDay right) => left._bin > right._bin;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Compares the two specified times of the day to see if the left one is
+    /// later than or equal to the right one.
+    /// </summary>
     public static bool operator >=(TimeOfDay left, TimeOfDay right) => left._bin >= right._bin;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the earlier time of two specified times.
+    /// </summary>
     [Pure]
     public static TimeOfDay Min(TimeOfDay x, TimeOfDay y) => x < y ? x : y;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Obtains the later time of two specified times.
+    /// </summary>
     [Pure]
     public static TimeOfDay Max(TimeOfDay x, TimeOfDay y) => x > y ? x : y;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Indicates whether this instance is earlier, later or the same as the
+    /// specified one.
+    /// </summary>
     [Pure]
     public int CompareTo(TimeOfDay other) => _bin.CompareTo(other._bin);
 
