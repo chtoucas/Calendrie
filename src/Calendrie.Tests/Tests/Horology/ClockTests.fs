@@ -27,12 +27,9 @@ module TropicaliaClock =
         nullExn "clock" (fun () -> new TropicaliaClock(null))
 
     [<Fact>]
-    let ``Static property Local`` () =
+    let ``Static properties Local and Utc`` () =
         TropicaliaClock.Local.Clock ==& LocalSystemClock.Instance
-
-    [<Fact>]
-    let ``Static property Utc`` () =
-        TropicaliaClock.Utc.Clock ==& UtcSystemClock.Instance
+        TropicaliaClock.Utc.Clock   ==& UtcSystemClock.Instance
 
     [<Fact>]
     let ``GetCurrentXXX() and Today()`` () =
@@ -51,12 +48,9 @@ module PaxClock =
         nullExn "clock" (fun () -> new PaxClock(null))
 
     [<Fact>]
-    let ``Static property Local`` () =
+    let ``Static properties Local and Utc`` () =
         PaxClock.Local.Clock ==& LocalSystemClock.Instance
-
-    [<Fact>]
-    let ``Static property Utc`` () =
-        PaxClock.Utc.Clock ==& UtcSystemClock.Instance
+        PaxClock.Utc.Clock   ==& UtcSystemClock.Instance
 
     [<Fact>]
     let ``GetCurrentXXX() and Today()`` () =

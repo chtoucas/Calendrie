@@ -9,7 +9,7 @@ namespace Calendrie.Horology;
 public interface IClock
 {
     /// <summary>
-    /// Obtains a <see cref="DayNumber"/> value representing the current date.
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
     /// </summary>
     [Pure] DayNumber Today();
 }

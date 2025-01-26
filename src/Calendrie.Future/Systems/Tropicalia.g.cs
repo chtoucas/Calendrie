@@ -212,28 +212,25 @@ public sealed partial class TropicaliaClock : IClock
     public IClock Clock { get; }
 
     /// <summary>
-    /// Obtains a <see cref="DayNumber"/> value representing the current date.
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
     /// </summary>
     [Pure]
     public DayNumber Today() => Clock.Today();
 
     /// <summary>
-    /// Obtains a <see cref="TropicaliaDate"/> value representing the current
-    /// date.
+    /// Obtains a <see cref="TropicaliaDate"/> value representing the current date.
     /// </summary>
     [Pure]
     public TropicaliaDate GetCurrentDate() => TropicaliaDate.FromAbsoluteDate(Clock.Today());
 
     /// <summary>
-    /// Obtains a <see cref="TropicaliaMonth"/> value representing the current
-    /// month.
+    /// Obtains a <see cref="TropicaliaMonth"/> value representing the current month.
     /// </summary>
     [Pure]
     public TropicaliaMonth GetCurrentMonth() => TropicaliaMonth.FromDate(GetCurrentDate());
 
     /// <summary>
-    /// Obtains a <see cref="TropicaliaYear"/> value representing the current
-    /// year.
+    /// Obtains a <see cref="TropicaliaYear"/> value representing the current year.
     /// </summary>
     [Pure]
     public TropicaliaYear GetCurrentYear() => TropicaliaYear.FromDate(GetCurrentDate());

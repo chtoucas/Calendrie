@@ -16,6 +16,73 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
+using Calendrie.Horology;
+
+#region JulianClock
+
+/// <summary>
+/// Represents a clock for the Julian calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed partial class JulianClock : IClock
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JulianClock"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    public JulianClock(IClock clock)
+    {
+        ArgumentNullException.ThrowIfNull(clock);
+
+        Clock = clock;
+    }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="JulianClock"/> class for the
+    /// system clock using the current time zone setting on this machine.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static JulianClock Local { get; } = new(LocalSystemClock.Instance);
+
+    /// <summary>
+    /// Gets an instance of the <see cref="JulianClock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static JulianClock Utc { get; } = new(UtcSystemClock.Instance);
+
+    /// <summary>
+    /// Gets the clock used to provide the current day.
+    /// </summary>
+    public IClock Clock { get; }
+
+    /// <summary>
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
+    /// </summary>
+    [Pure]
+    public DayNumber Today() => Clock.Today();
+
+    /// <summary>
+    /// Obtains a <see cref="JulianDate"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public JulianDate GetCurrentDate() => JulianDate.FromAbsoluteDate(Clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="JulianMonth"/> value representing the current month.
+    /// </summary>
+    [Pure]
+    public JulianMonth GetCurrentMonth() => JulianMonth.FromDate(GetCurrentDate());
+
+    /// <summary>
+    /// Obtains a <see cref="JulianYear"/> value representing the current year.
+    /// </summary>
+    [Pure]
+    public JulianYear GetCurrentYear() => JulianYear.FromDate(GetCurrentDate());
+}
+
+#endregion
 
 #region JulianDate
 

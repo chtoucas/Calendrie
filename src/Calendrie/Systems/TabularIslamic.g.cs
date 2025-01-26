@@ -17,6 +17,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
+using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -165,6 +166,72 @@ public partial class TabularIslamicCalendar // Math
 
         return AddYears(y, newM, d, years, out roundoff);
     }
+}
+
+#endregion
+
+#region TabularIslamicClock
+
+/// <summary>
+/// Represents a clock for the Tabular Islamic calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed partial class TabularIslamicClock : IClock
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicClock"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    public TabularIslamicClock(IClock clock)
+    {
+        ArgumentNullException.ThrowIfNull(clock);
+
+        Clock = clock;
+    }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="TabularIslamicClock"/> class for the
+    /// system clock using the current time zone setting on this machine.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TabularIslamicClock Local { get; } = new(LocalSystemClock.Instance);
+
+    /// <summary>
+    /// Gets an instance of the <see cref="TabularIslamicClock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static TabularIslamicClock Utc { get; } = new(UtcSystemClock.Instance);
+
+    /// <summary>
+    /// Gets the clock used to provide the current day.
+    /// </summary>
+    public IClock Clock { get; }
+
+    /// <summary>
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
+    /// </summary>
+    [Pure]
+    public DayNumber Today() => Clock.Today();
+
+    /// <summary>
+    /// Obtains a <see cref="TabularIslamicDate"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public TabularIslamicDate GetCurrentDate() => TabularIslamicDate.FromAbsoluteDate(Clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="TabularIslamicMonth"/> value representing the current month.
+    /// </summary>
+    [Pure]
+    public TabularIslamicMonth GetCurrentMonth() => TabularIslamicMonth.FromDate(GetCurrentDate());
+
+    /// <summary>
+    /// Obtains a <see cref="TabularIslamicYear"/> value representing the current year.
+    /// </summary>
+    [Pure]
+    public TabularIslamicYear GetCurrentYear() => TabularIslamicYear.FromDate(GetCurrentDate());
 }
 
 #endregion

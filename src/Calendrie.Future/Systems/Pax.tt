@@ -8,8 +8,6 @@
         maxDaysSinceEpochValue:  "3_652_060",
         regular: false)
     {
-        EnableClock = true,
-
         EnableIsIntercalaryDay = false,
         EnableIsSupplementaryDay = false,
 

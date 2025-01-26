@@ -46,22 +46,20 @@ public sealed partial class <#= Prefix #>Clock : IClock
     public IClock Clock { get; }
 
     /// <summary>
-    /// Obtains a <see cref="DayNumber"/> value representing the current date.
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
     /// </summary>
     [Pure]
     public DayNumber Today() => Clock.Today();
 
     /// <summary>
-    /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current
-    /// date.
+    /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current date.
     /// </summary>
     [Pure]
     public <#= Prefix #>Date GetCurrentDate() => <#= Prefix #>Date.FromAbsoluteDate(Clock.Today());
 <#+ if (EnableMonth) { #>
 
     /// <summary>
-    /// Obtains a <see cref="<#= Prefix #>Month"/> value representing the current
-    /// month.
+    /// Obtains a <see cref="<#= Prefix #>Month"/> value representing the current month.
     /// </summary>
     [Pure]
     public <#= Prefix #>Month GetCurrentMonth() => <#= Prefix #>Month.FromDate(GetCurrentDate());
@@ -69,8 +67,7 @@ public sealed partial class <#= Prefix #>Clock : IClock
 <#+ if (EnableYear) { #>
 
     /// <summary>
-    /// Obtains a <see cref="<#= Prefix #>Year"/> value representing the current
-    /// year.
+    /// Obtains a <see cref="<#= Prefix #>Year"/> value representing the current year.
     /// </summary>
     [Pure]
     public <#= Prefix #>Year GetCurrentYear() => <#= Prefix #>Year.FromDate(GetCurrentDate());

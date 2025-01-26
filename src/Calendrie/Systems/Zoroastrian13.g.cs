@@ -17,6 +17,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
+using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -165,6 +166,72 @@ public partial class Zoroastrian13Calendar // Math
 
         return AddYears(y, newM, d, years, out roundoff);
     }
+}
+
+#endregion
+
+#region Zoroastrian13Clock
+
+/// <summary>
+/// Represents a clock for the Zoroastrian calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed partial class Zoroastrian13Clock : IClock
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Zoroastrian13Clock"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    public Zoroastrian13Clock(IClock clock)
+    {
+        ArgumentNullException.ThrowIfNull(clock);
+
+        Clock = clock;
+    }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="Zoroastrian13Clock"/> class for the
+    /// system clock using the current time zone setting on this machine.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static Zoroastrian13Clock Local { get; } = new(LocalSystemClock.Instance);
+
+    /// <summary>
+    /// Gets an instance of the <see cref="Zoroastrian13Clock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static Zoroastrian13Clock Utc { get; } = new(UtcSystemClock.Instance);
+
+    /// <summary>
+    /// Gets the clock used to provide the current day.
+    /// </summary>
+    public IClock Clock { get; }
+
+    /// <summary>
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
+    /// </summary>
+    [Pure]
+    public DayNumber Today() => Clock.Today();
+
+    /// <summary>
+    /// Obtains a <see cref="Zoroastrian13Date"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public Zoroastrian13Date GetCurrentDate() => Zoroastrian13Date.FromAbsoluteDate(Clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="Zoroastrian13Month"/> value representing the current month.
+    /// </summary>
+    [Pure]
+    public Zoroastrian13Month GetCurrentMonth() => Zoroastrian13Month.FromDate(GetCurrentDate());
+
+    /// <summary>
+    /// Obtains a <see cref="Zoroastrian13Year"/> value representing the current year.
+    /// </summary>
+    [Pure]
+    public Zoroastrian13Year GetCurrentYear() => Zoroastrian13Year.FromDate(GetCurrentDate());
 }
 
 #endregion

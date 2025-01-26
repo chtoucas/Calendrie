@@ -17,6 +17,7 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
+using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -165,6 +166,72 @@ public partial class InternationalFixedCalendar // Math
 
         return AddYears(y, newM, d, years, out roundoff);
     }
+}
+
+#endregion
+
+#region InternationalFixedClock
+
+/// <summary>
+/// Represents a clock for the International Fixed calendar.
+/// <para>This class cannot be inherited.</para>
+/// </summary>
+public sealed partial class InternationalFixedClock : IClock
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InternationalFixedClock"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
+    /// <see langword="null"/>.</exception>
+    public InternationalFixedClock(IClock clock)
+    {
+        ArgumentNullException.ThrowIfNull(clock);
+
+        Clock = clock;
+    }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="InternationalFixedClock"/> class for the
+    /// system clock using the current time zone setting on this machine.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static InternationalFixedClock Local { get; } = new(LocalSystemClock.Instance);
+
+    /// <summary>
+    /// Gets an instance of the <see cref="InternationalFixedClock"/> class for the
+    /// system clock using the Coordinated Universal Time (UTC).
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static InternationalFixedClock Utc { get; } = new(UtcSystemClock.Instance);
+
+    /// <summary>
+    /// Gets the clock used to provide the current day.
+    /// </summary>
+    public IClock Clock { get; }
+
+    /// <summary>
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
+    /// </summary>
+    [Pure]
+    public DayNumber Today() => Clock.Today();
+
+    /// <summary>
+    /// Obtains a <see cref="InternationalFixedDate"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public InternationalFixedDate GetCurrentDate() => InternationalFixedDate.FromAbsoluteDate(Clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="InternationalFixedMonth"/> value representing the current month.
+    /// </summary>
+    [Pure]
+    public InternationalFixedMonth GetCurrentMonth() => InternationalFixedMonth.FromDate(GetCurrentDate());
+
+    /// <summary>
+    /// Obtains a <see cref="InternationalFixedYear"/> value representing the current year.
+    /// </summary>
+    [Pure]
+    public InternationalFixedYear GetCurrentYear() => InternationalFixedYear.FromDate(GetCurrentDate());
 }
 
 #endregion

@@ -270,14 +270,14 @@ public sealed partial class PaxClock : IClock
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="PaxClock"/> class for the
+    /// Gets an instance of the <see cref="PaxClock"/> class for the
     /// system clock using the current time zone setting on this machine.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxClock Local { get; } = new(LocalSystemClock.Instance);
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="PaxClock"/> class for the
+    /// Gets an instance of the <see cref="PaxClock"/> class for the
     /// system clock using the Coordinated Universal Time (UTC).
     /// <para>This static property is thread-safe.</para>
     /// </summary>
@@ -289,28 +289,25 @@ public sealed partial class PaxClock : IClock
     public IClock Clock { get; }
 
     /// <summary>
-    /// Obtains a <see cref="DayNumber"/> value representing the current date.
+    /// Obtains a <see cref="DayNumber"/> value representing the current day.
     /// </summary>
     [Pure]
     public DayNumber Today() => Clock.Today();
 
     /// <summary>
-    /// Obtains a <see cref="PaxDate"/> value representing the current
-    /// date.
+    /// Obtains a <see cref="PaxDate"/> value representing the current date.
     /// </summary>
     [Pure]
     public PaxDate GetCurrentDate() => PaxDate.FromAbsoluteDate(Clock.Today());
 
     /// <summary>
-    /// Obtains a <see cref="PaxMonth"/> value representing the current
-    /// month.
+    /// Obtains a <see cref="PaxMonth"/> value representing the current month.
     /// </summary>
     [Pure]
     public PaxMonth GetCurrentMonth() => PaxMonth.FromDate(GetCurrentDate());
 
     /// <summary>
-    /// Obtains a <see cref="PaxYear"/> value representing the current
-    /// year.
+    /// Obtains a <see cref="PaxYear"/> value representing the current year.
     /// </summary>
     [Pure]
     public PaxYear GetCurrentYear() => PaxYear.FromDate(GetCurrentDate());
