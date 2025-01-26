@@ -12,13 +12,8 @@ public partial class CalendarTemplate
 /// Represents a clock for the <#= DisplayName #> calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class <#= Prefix #>Clock
+public sealed partial class <#= Prefix #>Clock : IClock
 {
-    /// <summary>
-    /// Represents the clock.
-    /// </summary>
-    private readonly IClock _clock;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Clock"/> class.
     /// </summary>
@@ -28,7 +23,7 @@ public sealed partial class <#= Prefix #>Clock
     {
         ArgumentNullException.ThrowIfNull(clock);
 
-        _clock = clock;
+        Clock = clock;
     }
 
     /// <summary>
@@ -46,11 +41,22 @@ public sealed partial class <#= Prefix #>Clock
     public static <#= Prefix #>Clock Utc { get; } = new(UtcSystemClock.Instance);
 
     /// <summary>
+    /// Gets the clock used to provide the current day.
+    /// </summary>
+    public IClock Clock { get; }
+
+    /// <summary>
+    /// Obtains a <see cref="DayNumber"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public DayNumber Today() => Clock.Today();
+
+    /// <summary>
     /// Obtains a <see cref="<#= Prefix #>Date"/> value representing the current
     /// date.
     /// </summary>
     [Pure]
-    public <#= Prefix #>Date GetCurrentDate() => <#= Prefix #>Date.FromAbsoluteDate(_clock.Today());
+    public <#= Prefix #>Date GetCurrentDate() => <#= Prefix #>Date.FromAbsoluteDate(Clock.Today());
 <#+ if (EnableMonth) { #>
 
     /// <summary>

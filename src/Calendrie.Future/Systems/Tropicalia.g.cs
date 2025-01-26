@@ -178,13 +178,8 @@ public partial class TropicaliaCalendar // Math
 /// Represents a clock for the Tropicalia calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class TropicaliaClock
+public sealed partial class TropicaliaClock : IClock
 {
-    /// <summary>
-    /// Represents the clock.
-    /// </summary>
-    private readonly IClock _clock;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaClock"/> class.
     /// </summary>
@@ -194,7 +189,7 @@ public sealed partial class TropicaliaClock
     {
         ArgumentNullException.ThrowIfNull(clock);
 
-        _clock = clock;
+        Clock = clock;
     }
 
     /// <summary>
@@ -212,11 +207,22 @@ public sealed partial class TropicaliaClock
     public static TropicaliaClock Utc { get; } = new(UtcSystemClock.Instance);
 
     /// <summary>
+    /// Gets the clock used to provide the current day.
+    /// </summary>
+    public IClock Clock { get; }
+
+    /// <summary>
+    /// Obtains a <see cref="DayNumber"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public DayNumber Today() => Clock.Today();
+
+    /// <summary>
     /// Obtains a <see cref="TropicaliaDate"/> value representing the current
     /// date.
     /// </summary>
     [Pure]
-    public TropicaliaDate GetCurrentDate() => TropicaliaDate.FromAbsoluteDate(_clock.Today());
+    public TropicaliaDate GetCurrentDate() => TropicaliaDate.FromAbsoluteDate(Clock.Today());
 
     /// <summary>
     /// Obtains a <see cref="TropicaliaMonth"/> value representing the current

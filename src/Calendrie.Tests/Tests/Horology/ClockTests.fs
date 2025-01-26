@@ -3,9 +3,8 @@
 
 module Calendrie.Tests.Horology.ClockTests
 
-open System
-
 open Calendrie
+open Calendrie.Horology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Faux
@@ -28,11 +27,20 @@ module TropicaliaClock =
         nullExn "clock" (fun () -> new TropicaliaClock(null))
 
     [<Fact>]
-    let ``GetCurrentXXX()`` () =
+    let ``Static property Local`` () =
+        TropicaliaClock.Local.Clock ==& LocalSystemClock.Instance
+
+    [<Fact>]
+    let ``Static property Utc`` () =
+        TropicaliaClock.Utc.Clock ==& UtcSystemClock.Instance
+
+    [<Fact>]
+    let ``GetCurrentXXX() and Today()`` () =
         let clock = new TropicaliaClock(FauxClock(daysSinceZero))
         let dayNumber = DayNumber.Zero + daysSinceZero
         let date = TropicaliaDate.FromAbsoluteDate(dayNumber)
         // Act & Assert
+        clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
         clock.GetCurrentMonth() === TropicaliaMonth.FromDate(date)
         clock.GetCurrentYear()  === TropicaliaYear.FromDate(date)
@@ -43,11 +51,20 @@ module PaxClock =
         nullExn "clock" (fun () -> new PaxClock(null))
 
     [<Fact>]
-    let ``GetCurrentXXX()`` () =
+    let ``Static property Local`` () =
+        PaxClock.Local.Clock ==& LocalSystemClock.Instance
+
+    [<Fact>]
+    let ``Static property Utc`` () =
+        PaxClock.Utc.Clock ==& UtcSystemClock.Instance
+
+    [<Fact>]
+    let ``GetCurrentXXX() and Today()`` () =
         let clock = new PaxClock(FauxClock(daysSinceZero))
         let dayNumber = DayNumber.Zero + daysSinceZero
         let date = PaxDate.FromAbsoluteDate(dayNumber)
         // Act & Assert
+        clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
         clock.GetCurrentMonth() === PaxMonth.FromDate(date)
         clock.GetCurrentYear()  === PaxYear.FromDate(date)

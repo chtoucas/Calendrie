@@ -255,13 +255,8 @@ public partial class PaxCalendar // Math
 /// Represents a clock for the Pax calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class PaxClock
+public sealed partial class PaxClock : IClock
 {
-    /// <summary>
-    /// Represents the clock.
-    /// </summary>
-    private readonly IClock _clock;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PaxClock"/> class.
     /// </summary>
@@ -271,29 +266,40 @@ public sealed partial class PaxClock
     {
         ArgumentNullException.ThrowIfNull(clock);
 
-        _clock = clock;
+        Clock = clock;
     }
 
     /// <summary>
-    /// Gets an instance of the <see cref="PaxClock"/> class for the
+    /// Gets a singleton instance of the <see cref="PaxClock"/> class for the
     /// system clock using the current time zone setting on this machine.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxClock Local { get; } = new(LocalSystemClock.Instance);
 
     /// <summary>
-    /// Gets an instance of the <see cref="PaxClock"/> class for the
+    /// Gets a singleton instance of the <see cref="PaxClock"/> class for the
     /// system clock using the Coordinated Universal Time (UTC).
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static PaxClock Utc { get; } = new(UtcSystemClock.Instance);
 
     /// <summary>
+    /// Gets the clock used to provide the current day.
+    /// </summary>
+    public IClock Clock { get; }
+
+    /// <summary>
+    /// Obtains a <see cref="DayNumber"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public DayNumber Today() => Clock.Today();
+
+    /// <summary>
     /// Obtains a <see cref="PaxDate"/> value representing the current
     /// date.
     /// </summary>
     [Pure]
-    public PaxDate GetCurrentDate() => PaxDate.FromAbsoluteDate(_clock.Today());
+    public PaxDate GetCurrentDate() => PaxDate.FromAbsoluteDate(Clock.Today());
 
     /// <summary>
     /// Obtains a <see cref="PaxMonth"/> value representing the current
