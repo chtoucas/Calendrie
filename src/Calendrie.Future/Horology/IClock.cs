@@ -12,9 +12,4 @@ public interface IClock
     /// Obtains a <see cref="DayNumber"/> value representing the current date.
     /// </summary>
     [Pure] DayNumber Today();
-
-    ///// <summary>
-    ///// Obtains a <see cref="Moment"/> value representing the current time.
-    ///// </summary>
-    //[Pure] Moment Now();
 }

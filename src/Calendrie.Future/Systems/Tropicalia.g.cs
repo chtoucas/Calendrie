@@ -202,14 +202,14 @@ public sealed partial class TropicaliaClock
     /// system clock using the current time zone setting on this machine.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static TropicaliaClock Local { get; } = new(SystemClocks.Local);
+    public static TropicaliaClock Local { get; } = new(LocalSystemClock.Instance);
 
     /// <summary>
     /// Gets an instance of the <see cref="TropicaliaClock"/> class for the
     /// system clock using the Coordinated Universal Time (UTC).
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static TropicaliaClock Utc { get; } = new(SystemClocks.Utc);
+    public static TropicaliaClock Utc { get; } = new(UtcSystemClock.Instance);
 
     /// <summary>
     /// Obtains a <see cref="TropicaliaDate"/> value representing the current

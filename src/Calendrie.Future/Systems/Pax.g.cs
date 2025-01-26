@@ -279,14 +279,14 @@ public sealed partial class PaxClock
     /// system clock using the current time zone setting on this machine.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PaxClock Local { get; } = new(SystemClocks.Local);
+    public static PaxClock Local { get; } = new(LocalSystemClock.Instance);
 
     /// <summary>
     /// Gets an instance of the <see cref="PaxClock"/> class for the
     /// system clock using the Coordinated Universal Time (UTC).
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static PaxClock Utc { get; } = new(SystemClocks.Utc);
+    public static PaxClock Utc { get; } = new(UtcSystemClock.Instance);
 
     /// <summary>
     /// Obtains a <see cref="PaxDate"/> value representing the current

@@ -26,41 +26,25 @@ using Calendrie.Core;
 
 /// <summary>
 /// Represents the system clock using the Coordinated Universal Time (UTC).
-/// <para>See <see cref="SystemClocks.Utc"/>.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed class UtcSystemClock : IClock
 {
-    /// <summary>
-    /// Represents a singleton instance of the <see cref="UtcSystemClock"/> class.
-    /// <para>This field is read-only.</para>
-    /// </summary>
-    internal static readonly UtcSystemClock Instance = new();
-
     private UtcSystemClock() { }
+
+    /// <summary>
+    /// Gets a singleton instance of the <see cref="UtcSystemClock"/> class.
+    /// <para>This static property is thread-safe.</para>
+    /// </summary>
+    public static UtcSystemClock Instance { get; } = new();
 
     /// <inheritdoc/>
     [Pure]
     public DayNumber Today()
     {
+        var now = DateTime.UtcNow;
         // NB: the cast should always succeed.
-        int daysSinceZero = (int)TemporalArithmetic.DivideByTicksPerDay(DateTime.UtcNow.Ticks);
+        int daysSinceZero = (int)TemporalArithmetic.DivideByTicksPerDay(now.Ticks);
         return new DayNumber(daysSinceZero);
     }
-
-    ///// <inheritdoc/>
-    //[Pure]
-    //public Moment Now()
-    //{
-    //    // This method works only because DateTime.Ticks does not account
-    //    // for leap seconds!
-    //    var now = DateTime.UtcNow;
-    //    long daysSinceZero = TemporalArithmetic.DivideByTicksPerDay(now.Ticks);
-
-    //    // NB: the casts should always succeed.
-    //    var dayNumber = new DayNumber((int)daysSinceZero);
-    //    var instantOfDay = InstantOfDay.FromTickOfDay(now.TimeOfDay.Ticks);
-
-    //    return new Moment(dayNumber, instantOfDay);
-    //}
 }
