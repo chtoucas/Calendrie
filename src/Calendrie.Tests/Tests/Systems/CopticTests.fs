@@ -6,6 +6,7 @@ module Calendrie.Tests.Systems.CopticTests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -400,9 +401,27 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<CopticDate, StandardCoptic12DataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new CopticDate(3, 12, 36)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: CopticDate * int = date.PlusYears(1)
+            result === (new CopticDate(4, 12, 35), 1)
+
+            date.PlusYears(1) === new CopticDate(4, 12, 35)
+
+            defaultMath.AddYears(date, 1)   === new CopticDate(4, 12, 35)
+            overspillMath.AddYears(date, 1) === new CopticDate(5, 1, 1)
+            exactMath.AddYears(date, 1)     === new CopticDate(5, 1, 1)
 
     //
     // Month type

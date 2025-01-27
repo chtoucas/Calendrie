@@ -6,6 +6,7 @@ module Calendrie.Tests.Systems.FrenchRepublicanTests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -401,9 +402,27 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<FrenchRepublicanDate, StandardFrenchRepublican12DataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new FrenchRepublicanDate(4, 12, 36)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: FrenchRepublicanDate * int = date.PlusYears(1)
+            result === (new FrenchRepublicanDate(5, 12, 35), 1)
+
+            date.PlusYears(1) === new FrenchRepublicanDate(5, 12, 35)
+
+            defaultMath.AddYears(date, 1)   === new FrenchRepublicanDate(5, 12, 35)
+            overspillMath.AddYears(date, 1) === new FrenchRepublicanDate(6, 1, 1)
+            exactMath.AddYears(date, 1)     === new FrenchRepublicanDate(6, 1, 1)
 
     //
     // Month type
@@ -531,9 +550,27 @@ module Bundles13 =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new FrenchRepublican13Date(4, 13, 6)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: FrenchRepublican13Date * int = date.PlusYears(1)
+            result === (new FrenchRepublican13Date(5, 13, 5), 1)
+
+            date.PlusYears(1) === new FrenchRepublican13Date(5, 13, 5)
+
+            defaultMath.AddYears(date, 1)   === new FrenchRepublican13Date(5, 13, 5)
+            overspillMath.AddYears(date, 1) === new FrenchRepublican13Date(6, 1, 1)
+            exactMath.AddYears(date, 1)     === new FrenchRepublican13Date(6, 1, 1)
 
     //
     // Month type

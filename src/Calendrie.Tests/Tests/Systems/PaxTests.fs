@@ -272,7 +272,7 @@ module Bundles =
     // Do NOT exclude from Code Coverage or from the regular test plan.
     // This is the only place right now where we test MonthaMath and where this
     // is actually interesting as Pax is a non-regular calendar.
-    type DefaultMonthMathFacts() =
+    type MonthMathFacts() =
         inherit DefaultMonthMathFacts<PaxMonth, StandardPaxDataSet>()
 
         static let defaultMath   = new MonthMath()
@@ -280,13 +280,18 @@ module Bundles =
         static let exactMath     = new MonthMath(AdditionRule.Exact)
 
         //
-        // AddYears()
+        // AddYears(), ¨PlusYears()
         //
 
         [<Fact>]
-        static member ``AddYears() intercalary month`` () =
+        static member ``AddYears() when roundof != 0`` () =
             let month = new PaxMonth(6, 14)
             // Act & Assert
+            let result: PaxMonth * int = month.PlusYears(1)
+            result === (new PaxMonth(7, 13), 1)
+
+            month.PlusYears(1) === new PaxMonth(7, 13)
+
             defaultMath.AddYears(month, 1)   === new PaxMonth(7, 13)
             overspillMath.AddYears(month, 1) === new PaxMonth(8, 1)
             exactMath.AddYears(month, 1)     === new PaxMonth(8, 1)
