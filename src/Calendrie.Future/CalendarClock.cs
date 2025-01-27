@@ -5,6 +5,7 @@ namespace Calendrie;
 
 using Calendrie.Hemerology;
 using Calendrie.Horology;
+using Calendrie.Systems;
 
 /// <summary>
 /// Represents a clock for the Civil calendar.
@@ -57,4 +58,22 @@ public sealed class CalendarClock : IClock
     {
         return TDate.FromDayNumber(Clock.Today());
     }
+
+    /// <summary>
+    /// Obtains a <see cref="CivilDate"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public CivilDate GetCurrentCivilDate() => CivilDate.FromAbsoluteDate(Clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="GregorianDate"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public GregorianDate GetCurrentGregorianDate() => GregorianDate.FromAbsoluteDate(Clock.Today());
+
+    /// <summary>
+    /// Obtains a <see cref="JulianDate"/> value representing the current date.
+    /// </summary>
+    [Pure]
+    public JulianDate GetCurrentJulianDate() => JulianDate.FromAbsoluteDate(Clock.Today());
 }

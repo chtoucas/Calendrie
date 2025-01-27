@@ -752,13 +752,6 @@ Calendrie.Systems.ArmenianYear.YearOfEra.get -> Calendrie.Ord
 Calendrie.Systems.ArmenianYear.YearsSinceEpoch.get -> int
 Calendrie.Systems.CivilCalendar
 Calendrie.Systems.CivilCalendar.CivilCalendar() -> void
-Calendrie.Systems.CivilClock
-Calendrie.Systems.CivilClock.CivilClock(Calendrie.Horology.IClock! clock) -> void
-Calendrie.Systems.CivilClock.Clock.get -> Calendrie.Horology.IClock!
-Calendrie.Systems.CivilClock.GetCurrentDate() -> Calendrie.Systems.CivilDate
-Calendrie.Systems.CivilClock.GetCurrentMonth() -> Calendrie.Systems.CivilMonth
-Calendrie.Systems.CivilClock.GetCurrentYear() -> Calendrie.Systems.CivilYear
-Calendrie.Systems.CivilClock.Today() -> Calendrie.DayNumber
 Calendrie.Systems.CivilDate
 Calendrie.Systems.CivilDate.Century.get -> int
 Calendrie.Systems.CivilDate.CenturyOfEra.get -> Calendrie.Ord
@@ -1785,13 +1778,6 @@ Calendrie.Systems.FrenchRepublicanYear.YearOfEra.get -> Calendrie.Ord
 Calendrie.Systems.FrenchRepublicanYear.YearsSinceEpoch.get -> int
 Calendrie.Systems.GregorianCalendar
 Calendrie.Systems.GregorianCalendar.GregorianCalendar() -> void
-Calendrie.Systems.GregorianClock
-Calendrie.Systems.GregorianClock.Clock.get -> Calendrie.Horology.IClock!
-Calendrie.Systems.GregorianClock.GetCurrentDate() -> Calendrie.Systems.GregorianDate
-Calendrie.Systems.GregorianClock.GetCurrentMonth() -> Calendrie.Systems.GregorianMonth
-Calendrie.Systems.GregorianClock.GetCurrentYear() -> Calendrie.Systems.GregorianYear
-Calendrie.Systems.GregorianClock.GregorianClock(Calendrie.Horology.IClock! clock) -> void
-Calendrie.Systems.GregorianClock.Today() -> Calendrie.DayNumber
 Calendrie.Systems.GregorianDate
 Calendrie.Systems.GregorianDate.Century.get -> int
 Calendrie.Systems.GregorianDate.CenturyOfEra.get -> Calendrie.Ord
@@ -2018,13 +2004,6 @@ Calendrie.Systems.InternationalFixedYear.YearsSinceEpoch.get -> int
 Calendrie.Systems.IUnsafeFactory<T>
 Calendrie.Systems.JulianCalendar
 Calendrie.Systems.JulianCalendar.JulianCalendar() -> void
-Calendrie.Systems.JulianClock
-Calendrie.Systems.JulianClock.Clock.get -> Calendrie.Horology.IClock!
-Calendrie.Systems.JulianClock.GetCurrentDate() -> Calendrie.Systems.JulianDate
-Calendrie.Systems.JulianClock.GetCurrentMonth() -> Calendrie.Systems.JulianMonth
-Calendrie.Systems.JulianClock.GetCurrentYear() -> Calendrie.Systems.JulianYear
-Calendrie.Systems.JulianClock.JulianClock(Calendrie.Horology.IClock! clock) -> void
-Calendrie.Systems.JulianClock.Today() -> Calendrie.DayNumber
 Calendrie.Systems.JulianDate
 Calendrie.Systems.JulianDate.Century.get -> int
 Calendrie.Systems.JulianDate.CenturyOfEra.get -> Calendrie.Ord
@@ -3580,8 +3559,6 @@ static Calendrie.Systems.ArmenianYear.operator >=(Calendrie.Systems.ArmenianYear
 static Calendrie.Systems.ArmenianYear.TryCreate(int year) -> Calendrie.Systems.ArmenianYear?
 static Calendrie.Systems.CivilCalendar.MaxYear.get -> int
 static Calendrie.Systems.CivilCalendar.MinYear.get -> int
-static Calendrie.Systems.CivilClock.Local.get -> Calendrie.Systems.CivilClock!
-static Calendrie.Systems.CivilClock.Utc.get -> Calendrie.Systems.CivilClock!
 static Calendrie.Systems.CivilDate.Calendar.get -> Calendrie.Systems.CivilCalendar!
 static Calendrie.Systems.CivilDate.Create(int year, int dayOfYear) -> Calendrie.Systems.CivilDate
 static Calendrie.Systems.CivilDate.Create(int year, int month, int day) -> Calendrie.Systems.CivilDate
@@ -4178,8 +4155,6 @@ static Calendrie.Systems.FrenchRepublicanYear.operator >=(Calendrie.Systems.Fren
 static Calendrie.Systems.FrenchRepublicanYear.TryCreate(int year) -> Calendrie.Systems.FrenchRepublicanYear?
 static Calendrie.Systems.GregorianCalendar.MaxYear.get -> int
 static Calendrie.Systems.GregorianCalendar.MinYear.get -> int
-static Calendrie.Systems.GregorianClock.Local.get -> Calendrie.Systems.GregorianClock!
-static Calendrie.Systems.GregorianClock.Utc.get -> Calendrie.Systems.GregorianClock!
 static Calendrie.Systems.GregorianDate.Calendar.get -> Calendrie.Systems.GregorianCalendar!
 static Calendrie.Systems.GregorianDate.Create(int year, int dayOfYear) -> Calendrie.Systems.GregorianDate
 static Calendrie.Systems.GregorianDate.Create(int year, int month, int day) -> Calendrie.Systems.GregorianDate
@@ -4311,8 +4286,6 @@ static Calendrie.Systems.InternationalFixedYear.operator >=(Calendrie.Systems.In
 static Calendrie.Systems.InternationalFixedYear.TryCreate(int year) -> Calendrie.Systems.InternationalFixedYear?
 static Calendrie.Systems.JulianCalendar.MaxYear.get -> int
 static Calendrie.Systems.JulianCalendar.MinYear.get -> int
-static Calendrie.Systems.JulianClock.Local.get -> Calendrie.Systems.JulianClock!
-static Calendrie.Systems.JulianClock.Utc.get -> Calendrie.Systems.JulianClock!
 static Calendrie.Systems.JulianDate.Calendar.get -> Calendrie.Systems.JulianCalendar!
 static Calendrie.Systems.JulianDate.Create(int year, int dayOfYear) -> Calendrie.Systems.JulianDate
 static Calendrie.Systems.JulianDate.Create(int year, int month, int day) -> Calendrie.Systems.JulianDate

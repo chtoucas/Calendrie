@@ -18,75 +18,8 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
-using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
-
-#region CivilClock
-
-/// <summary>
-/// Represents a clock for the Civil calendar.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed class CivilClock : IClock
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CivilClock"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
-    /// <see langword="null"/>.</exception>
-    public CivilClock(IClock clock)
-    {
-        ArgumentNullException.ThrowIfNull(clock);
-
-        Clock = clock;
-    }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="CivilClock"/> class for the
-    /// system clock using the current time zone setting on this machine.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static CivilClock Local { get; } = new(LocalSystemClock.Instance);
-
-    /// <summary>
-    /// Gets an instance of the <see cref="CivilClock"/> class for the
-    /// system clock using the Coordinated Universal Time (UTC).
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static CivilClock Utc { get; } = new(UtcSystemClock.Instance);
-
-    /// <summary>
-    /// Gets the clock used to provide the current day.
-    /// </summary>
-    public IClock Clock { get; }
-
-    /// <summary>
-    /// Obtains a <see cref="DayNumber"/> value representing the current day.
-    /// </summary>
-    [Pure]
-    public DayNumber Today() => Clock.Today();
-
-    /// <summary>
-    /// Obtains a <see cref="CivilDate"/> value representing the current date.
-    /// </summary>
-    [Pure]
-    public CivilDate GetCurrentDate() => CivilDate.FromAbsoluteDate(Clock.Today());
-
-    /// <summary>
-    /// Obtains a <see cref="CivilMonth"/> value representing the current month.
-    /// </summary>
-    [Pure]
-    public CivilMonth GetCurrentMonth() => CivilMonth.FromDate(GetCurrentDate());
-
-    /// <summary>
-    /// Obtains a <see cref="CivilYear"/> value representing the current year.
-    /// </summary>
-    [Pure]
-    public CivilYear GetCurrentYear() => CivilYear.FromDate(GetCurrentDate());
-}
-
-#endregion
 
 #region CivilDate
 

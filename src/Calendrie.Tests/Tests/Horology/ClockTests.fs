@@ -36,9 +36,13 @@ module CalendarClock =
         let dayNumber = DayNumber.Zero + daysSinceZero
         let date = CivilDate.FromAbsoluteDate(dayNumber)
         // Act & Assert
-        clock.Today()           === dayNumber
-        clock.GetCurrentDate()  === date
-        clock.GetCurrentDate<CivilDate>() === date
+        clock.Today()                   === dayNumber
+        clock.GetCurrentDate()          === date
+        clock.GetCurrentCivilDate()     === date
+        clock.GetCurrentGregorianDate() === GregorianDate.FromAbsoluteDate(dayNumber)
+        clock.GetCurrentJulianDate()    === JulianDate.FromAbsoluteDate(dayNumber)
+
+#if ENABLE_CLOCKS
 
 module CivilClock =
     [<Fact>]
@@ -102,8 +106,6 @@ module JulianClock =
         clock.GetCurrentDate()  === date
         clock.GetCurrentMonth() === JulianMonth.FromDate(date)
         clock.GetCurrentYear()  === JulianYear.FromDate(date)
-
-#if ENABLE_CLOCKS
 
 module ArmenianClock =
     [<Fact>]
