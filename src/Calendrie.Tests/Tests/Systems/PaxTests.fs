@@ -280,6 +280,18 @@ module Bundles =
         static let exactMath     = new MonthMath(AdditionRule.Exact)
 
         //
+        // AddYears()
+        //
+
+        [<Fact>]
+        static member ``AddYears() intercalary month`` () =
+            let month = new PaxMonth(6, 14)
+            // Act & Assert
+            defaultMath.AddYears(month, 1)   === new PaxMonth(7, 13)
+            overspillMath.AddYears(month, 1) === new PaxMonth(8, 1)
+            exactMath.AddYears(month, 1)     === new PaxMonth(8, 1)
+
+        //
         // Substract()
         //
 
