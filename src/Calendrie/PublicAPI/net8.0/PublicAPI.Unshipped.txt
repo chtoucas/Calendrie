@@ -311,6 +311,7 @@ Calendrie.Core.Schemas.TabularIslamicSchema
 Calendrie.Core.Schemas.WorldSchema
 Calendrie.Core.Schemas.WorldSchema.CountDaysInWorldMonth(int y, int m) -> int
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
+Calendrie.Core.TemporalConstants
 Calendrie.DateParts
 Calendrie.DateParts.CompareTo(Calendrie.DateParts other) -> int
 Calendrie.DateParts.DateParts() -> void
@@ -365,6 +366,26 @@ Calendrie.Hemerology.CalendarScope.PreValidator.init -> void
 Calendrie.Hemerology.CalendarScope.Schema.get -> Calendrie.Core.ICalendricalSchema!
 Calendrie.Hemerology.CalendarScope.Segment.get -> Calendrie.Core.CalendricalSegment!
 Calendrie.Hemerology.CalendarScope.Validate(Calendrie.DayNumber dayNumber, string? paramName = null) -> void
+Calendrie.Hemerology.DateDifference
+Calendrie.Hemerology.DateDifference.CompareTo(Calendrie.Hemerology.DateDifference other) -> int
+Calendrie.Hemerology.DateDifference.DateDifference() -> void
+Calendrie.Hemerology.DateDifference.Days.get -> int
+Calendrie.Hemerology.DateDifference.Deconstruct(out int years, out int months, out int weeks, out int days) -> void
+Calendrie.Hemerology.DateDifference.Months.get -> int
+Calendrie.Hemerology.DateDifference.Negate() -> Calendrie.Hemerology.DateDifference
+Calendrie.Hemerology.DateDifference.Weeks.get -> int
+Calendrie.Hemerology.DateDifference.Years.get -> int
+Calendrie.Hemerology.DateMath
+Calendrie.Hemerology.DateMath.AdditionRule.get -> Calendrie.AdditionRule
+Calendrie.Hemerology.DateMath.AddMonths<TDate>(TDate date, int months) -> TDate
+Calendrie.Hemerology.DateMath.AddYears<TDate>(TDate date, int years) -> TDate
+Calendrie.Hemerology.DateMath.CountMonthsBetween<TDate>(TDate start, TDate end) -> int
+Calendrie.Hemerology.DateMath.CountMonthsBetween<TDate>(TDate start, TDate end, out TDate newStart) -> int
+Calendrie.Hemerology.DateMath.CountYearsBetween<TDate>(TDate start, TDate end) -> int
+Calendrie.Hemerology.DateMath.CountYearsBetween<TDate>(TDate start, TDate end, out TDate newStart) -> int
+Calendrie.Hemerology.DateMath.DateMath() -> void
+Calendrie.Hemerology.DateMath.DateMath(Calendrie.AdditionRule rule) -> void
+Calendrie.Hemerology.DateMath.Subtract<TDate>(TDate start, TDate end) -> Calendrie.Hemerology.DateDifference
 Calendrie.Hemerology.IAbsoluteDate
 Calendrie.Hemerology.IAbsoluteDate.DayNumber.get -> Calendrie.DayNumber
 Calendrie.Hemerology.IAbsoluteDate.DayOfWeek.get -> System.DayOfWeek
@@ -490,6 +511,21 @@ Calendrie.Hemerology.IYearFieldMath<TSelf>.CountYearsSince(TSelf other) -> int
 Calendrie.Hemerology.IYearFieldMath<TSelf>.NextYear() -> TSelf
 Calendrie.Hemerology.IYearFieldMath<TSelf>.PlusYears(int years) -> TSelf
 Calendrie.Hemerology.IYearFieldMath<TSelf>.PreviousYear() -> TSelf
+Calendrie.Hemerology.MonthDifference
+Calendrie.Hemerology.MonthDifference.CompareTo(Calendrie.Hemerology.MonthDifference other) -> int
+Calendrie.Hemerology.MonthDifference.Deconstruct(out int years, out int months) -> void
+Calendrie.Hemerology.MonthDifference.MonthDifference() -> void
+Calendrie.Hemerology.MonthDifference.Months.get -> int
+Calendrie.Hemerology.MonthDifference.Negate() -> Calendrie.Hemerology.MonthDifference
+Calendrie.Hemerology.MonthDifference.Years.get -> int
+Calendrie.Hemerology.MonthMath
+Calendrie.Hemerology.MonthMath.AdditionRule.get -> Calendrie.AdditionRule
+Calendrie.Hemerology.MonthMath.AddYears<TMonth>(TMonth month, int years) -> TMonth
+Calendrie.Hemerology.MonthMath.CountYearsBetween<TMonth>(TMonth start, TMonth end) -> int
+Calendrie.Hemerology.MonthMath.CountYearsBetween<TMonth>(TMonth start, TMonth end, out TMonth newStart) -> int
+Calendrie.Hemerology.MonthMath.MonthMath() -> void
+Calendrie.Hemerology.MonthMath.MonthMath(Calendrie.AdditionRule rule) -> void
+Calendrie.Hemerology.MonthMath.Subtract<TMonth>(TMonth start, TMonth end) -> Calendrie.Hemerology.MonthDifference
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
@@ -2820,6 +2856,28 @@ const Calendrie.Core.Schemas.WorldSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysPer400YearCycle = 146097 -> int
 const Calendrie.Core.Schemas.WorldSchema.MonthsPerYear = 12 -> int
+const Calendrie.Core.TemporalConstants.HoursPerDay = 24 -> int
+const Calendrie.Core.TemporalConstants.MicrosecondsPerDay = 86400000000 -> long
+const Calendrie.Core.TemporalConstants.MicrosecondsPerHour = 3600000000 -> long
+const Calendrie.Core.TemporalConstants.MicrosecondsPerMinute = 60000000 -> int
+const Calendrie.Core.TemporalConstants.MicrosecondsPerSecond = 1000000 -> int
+const Calendrie.Core.TemporalConstants.MillisecondsPerDay = 86400000 -> int
+const Calendrie.Core.TemporalConstants.MillisecondsPerHour = 3600000 -> int
+const Calendrie.Core.TemporalConstants.MillisecondsPerMinute = 60000 -> int
+const Calendrie.Core.TemporalConstants.MillisecondsPerSecond = 1000 -> int
+const Calendrie.Core.TemporalConstants.MinutesPerDay = 1440 -> int
+const Calendrie.Core.TemporalConstants.MinutesPerHour = 60 -> int
+const Calendrie.Core.TemporalConstants.NanosecondsPerDay = 86400000000000 -> long
+const Calendrie.Core.TemporalConstants.NanosecondsPerHour = 3600000000000 -> long
+const Calendrie.Core.TemporalConstants.NanosecondsPerMinute = 60000000000 -> long
+const Calendrie.Core.TemporalConstants.NanosecondsPerSecond = 1000000000 -> int
+const Calendrie.Core.TemporalConstants.SecondsPerDay = 86400 -> int
+const Calendrie.Core.TemporalConstants.SecondsPerHour = 3600 -> int
+const Calendrie.Core.TemporalConstants.SecondsPerMinute = 60 -> int
+const Calendrie.Core.TemporalConstants.TicksPerDay = 864000000000 -> long
+const Calendrie.Core.TemporalConstants.TicksPerHour = 36000000000 -> long
+const Calendrie.Core.TemporalConstants.TicksPerMinute = 600000000 -> int
+const Calendrie.Core.TemporalConstants.TicksPerSecond = 10000000 -> int
 const Calendrie.DayNumber.MaxDaysSinceZero = 2147483646 -> int
 const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
 const Calendrie.Ord.MaxAlgebraicValue = 2147483647 -> int
@@ -3351,6 +3409,28 @@ static Calendrie.DayZero.SundayBeforeGregorian.get -> Calendrie.DayNumber
 static Calendrie.DayZero.TabularIslamic.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Tropicalia.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Zoroastrian.get -> Calendrie.DayNumber
+static Calendrie.Hemerology.DateDifference.Abs(Calendrie.Hemerology.DateDifference value) -> Calendrie.Hemerology.DateDifference
+static Calendrie.Hemerology.DateDifference.IsNegative(Calendrie.Hemerology.DateDifference value) -> bool
+static Calendrie.Hemerology.DateDifference.IsPositive(Calendrie.Hemerology.DateDifference value) -> bool
+static Calendrie.Hemerology.DateDifference.IsZero(Calendrie.Hemerology.DateDifference value) -> bool
+static Calendrie.Hemerology.DateDifference.operator +(Calendrie.Hemerology.DateDifference value) -> Calendrie.Hemerology.DateDifference
+static Calendrie.Hemerology.DateDifference.operator -(Calendrie.Hemerology.DateDifference value) -> Calendrie.Hemerology.DateDifference
+static Calendrie.Hemerology.DateDifference.operator <(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
+static Calendrie.Hemerology.DateDifference.operator <=(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
+static Calendrie.Hemerology.DateDifference.operator >(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
+static Calendrie.Hemerology.DateDifference.operator >=(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
+static Calendrie.Hemerology.DateDifference.Zero.get -> Calendrie.Hemerology.DateDifference
+static Calendrie.Hemerology.MonthDifference.Abs(Calendrie.Hemerology.MonthDifference value) -> Calendrie.Hemerology.MonthDifference
+static Calendrie.Hemerology.MonthDifference.IsNegative(Calendrie.Hemerology.MonthDifference value) -> bool
+static Calendrie.Hemerology.MonthDifference.IsPositive(Calendrie.Hemerology.MonthDifference value) -> bool
+static Calendrie.Hemerology.MonthDifference.IsZero(Calendrie.Hemerology.MonthDifference value) -> bool
+static Calendrie.Hemerology.MonthDifference.operator +(Calendrie.Hemerology.MonthDifference value) -> Calendrie.Hemerology.MonthDifference
+static Calendrie.Hemerology.MonthDifference.operator -(Calendrie.Hemerology.MonthDifference value) -> Calendrie.Hemerology.MonthDifference
+static Calendrie.Hemerology.MonthDifference.operator <(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
+static Calendrie.Hemerology.MonthDifference.operator <=(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
+static Calendrie.Hemerology.MonthDifference.operator >(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
+static Calendrie.Hemerology.MonthDifference.operator >=(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
+static Calendrie.Hemerology.MonthDifference.Zero.get -> Calendrie.Hemerology.MonthDifference
 static Calendrie.MonthParts.AtStartOfYear(int y) -> Calendrie.MonthParts
 static Calendrie.MonthParts.operator <(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
