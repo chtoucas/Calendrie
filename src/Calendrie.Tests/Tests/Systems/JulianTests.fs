@@ -8,6 +8,7 @@ module Calendrie.Tests.Systems.JulianTests
 open System
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -214,8 +215,27 @@ module Bundles =
         inherit IUnsafeDateFactoryFacts<JulianDate, UnboundedJulianDataSet>()
 
     [<Sealed>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<JulianDate, UnboundedJulianDataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new JulianDate(4, 2, 29)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: JulianDate * int = date.PlusYears(1)
+            result === (new JulianDate(5, 2, 28), 1)
+
+            date.PlusYears(1) === new JulianDate(5, 2, 28)
+
+            defaultMath.AddYears(date, 1)   === new JulianDate(5, 2, 28)
+            overspillMath.AddYears(date, 1) === new JulianDate(5, 3, 1)
+            exactMath.AddYears(date, 1)     === new JulianDate(5, 3, 1)
 
     //
     // Month type

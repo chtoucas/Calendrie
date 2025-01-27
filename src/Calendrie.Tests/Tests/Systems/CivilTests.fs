@@ -376,8 +376,27 @@ module Bundles =
         override __.GetDate(y, m, d) = new CivilDate(y, m, d)
 
     [<Sealed>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<CivilDate, StandardGregorianDataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new CivilDate(4, 2, 29)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: CivilDate * int = date.PlusYears(1)
+            result === (new CivilDate(5, 2, 28), 1)
+
+            date.PlusYears(1) === new CivilDate(5, 2, 28)
+
+            defaultMath.AddYears(date, 1)   === new CivilDate(5, 2, 28)
+            overspillMath.AddYears(date, 1) === new CivilDate(5, 3, 1)
+            exactMath.AddYears(date, 1)     === new CivilDate(5, 3, 1)
 
     //
     // Month type

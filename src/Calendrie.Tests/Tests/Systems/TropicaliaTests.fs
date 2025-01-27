@@ -6,6 +6,7 @@ module Calendrie.Tests.Systems.TropicaliaTests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -214,9 +215,28 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<TropicaliaDate, StandardTropicaliaDataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new TropicaliaDate(4, 2, 29)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: TropicaliaDate * int = date.PlusYears(1)
+            result === (new TropicaliaDate(5, 2, 28), 1)
+
+            date.PlusYears(1) === new TropicaliaDate(5, 2, 28)
+
+            defaultMath.AddYears(date, 1)   === new TropicaliaDate(5, 2, 28)
+            overspillMath.AddYears(date, 1) === new TropicaliaDate(5, 3, 1)
+            exactMath.AddYears(date, 1)     === new TropicaliaDate(5, 3, 1)
+
 
     //
     // Month type
