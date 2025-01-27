@@ -250,12 +250,16 @@ public partial class <#= Prefix #>Calendar // Math
         int newD;
         if (m > monthsInYear)
         {
-            // The target year newY has less months than the year y, we
-            // return the end of the target year.
+            // L'année cible newY a moins de mois que l'année y, on retourne le
+            // dernier jour valide de l'année newY.
             // roundoff =
             //   "days" after the end of (y, monthsInYear) until (y, m, d) included
             //   + diff between end of (y, monthsInYear) and (newY, monthsInYear)
             roundoff = d;
+            // En général, la boucle suivante est vide. Par exemple, pour le
+            // calendrier Pax, on aurait ici monthsInYear = 13 (année ordinaire)
+            // et m = 14 (mois intercalaire). Pour que ce ne soit pas le cas,
+            // il faudrait au moins 2 mois intercalaires.
             for (int i = monthsInYear + 1; i < m; i++)
             {
                 roundoff += sch.CountDaysInMonth(y, i);
@@ -263,7 +267,7 @@ public partial class <#= Prefix #>Calendar // Math
             int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
             roundoff += Math.Max(0, d - daysInMonth);
 
-            // On retourne le dernier jour valide.
+            // On retourne le dernier jour valide de l'année newY.
             newM = monthsInYear;
             newD = daysInMonth;
         }
