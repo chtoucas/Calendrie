@@ -215,10 +215,184 @@ module Bundles =
         inherit IUnsafeDateFactoryFacts<PaxDate, StandardPaxDataSet>()
 
     [<Sealed>]
-    [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<PaxDate, StandardPaxDataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        // 6 est une année bissextile
+        // 01/13/0006 + 1 année = 01/13/0007
+        // 07/13/0006 + 1 année = 07/13/0007
+        // 01/14/0006 + 1 année = 28/13/0007 (dernier jour de l'année) roundoff = 1
+        // 01/14/0006 - 1 année = 28/13/0005 (dernier jour de l'année) roundoff = 1
+        // 28/14/0006 + 1 année = 28/13/0007 (dernier jour de l'année) roundoff = 28
+        // 28/14/0006 - 1 année = 28/13/0005 (dernier jour de l'année) roundoff = 28
+
+        [<Fact>]
+        static member ``AddYears(01/13/0006, 1)`` () =
+            let date = new PaxDate(6, 13, 1)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(7, 13, 1), 0)
+
+            date.PlusYears(1) === new PaxDate(7, 13, 1)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(7, 13, 1)
+            overspillMath.AddYears(date, 1) === new PaxDate(7, 13, 1)
+            exactMath.AddYears(date, 1)     === new PaxDate(7, 13, 1)
+
+        [<Fact>]
+        static member ``AddYears(07/13/0006, 1)`` () =
+            let date = new PaxDate(6, 13, 7)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(7, 13, 7), 0)
+
+            date.PlusYears(1) === new PaxDate(7, 13, 7)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(7, 13, 7)
+            overspillMath.AddYears(date, 1) === new PaxDate(7, 13, 7)
+            exactMath.AddYears(date, 1)     === new PaxDate(7, 13, 7)
+
+        [<Fact>]
+        static member ``AddYears(01/14/0006, 1)`` () =
+            let date = new PaxDate(6, 14, 1)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(7, 13, 28), 1)
+
+            date.PlusYears(1) === new PaxDate(7, 13, 28)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(7, 13, 28)
+            overspillMath.AddYears(date, 1) === new PaxDate(8, 1, 1)
+            exactMath.AddYears(date, 1)     === new PaxDate(8, 1, 1)
+
+        [<Fact>]
+        static member ``AddYears(01/14/0006, -1)`` () =
+            let date = new PaxDate(6, 14, 1)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(-1)
+            result === (new PaxDate(5, 13, 28), 1)
+
+            date.PlusYears(-1) === new PaxDate(5, 13, 28)
+
+            defaultMath.AddYears(date, -1)   === new PaxDate(5, 13, 28)
+            overspillMath.AddYears(date, -1) === new PaxDate(6, 1, 1)
+            exactMath.AddYears(date, -1)     === new PaxDate(6, 1, 1)
+
+        [<Fact>]
+        static member ``AddYears(28/14/0006, 1)`` () =
+            let date = new PaxDate(6, 14, 28)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(7, 13, 28), 28)
+
+            date.PlusYears(1) === new PaxDate(7, 13, 28)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(7, 13, 28)
+            overspillMath.AddYears(date, 1) === new PaxDate(8, 1, 1)
+            exactMath.AddYears(date, 1)     === new PaxDate(8, 1, 28)
+
+        [<Fact>]
+        static member ``AddYears(28/14/0006, -1)`` () =
+            let date = new PaxDate(6, 14, 28)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(-1)
+            result === (new PaxDate(5, 13, 28), 28)
+
+            date.PlusYears(-1) === new PaxDate(5, 13, 28)
+
+            defaultMath.AddYears(date, -1)   === new PaxDate(5, 13, 28)
+            overspillMath.AddYears(date, -1) === new PaxDate(6, 1, 1)
+            exactMath.AddYears(date, -1)     === new PaxDate(6, 1, 28)
+
+        // 5 et 7 sont des années ordinaires
+        // 01/13/0005 + 1 année = 01/13/0006
+        // 07/13/0005 + 1 année = 07/13/0006
+        // 08/13/0005 + 1 année = 07/13/0006 (dernier jour de l'année) roundoff = 1
+        // 28/13/0005 + 1 année = 07/13/0006 (dernier jour de l'année) roundoff = 21
+        // 08/13/0007 - 1 année = 07/13/0006 (dernier jour de l'année) roundoff = 1
+        // 28/13/0007 - 1 année = 07/13/0006 (dernier jour de l'année) roundoff = 21
+
+        [<Fact>]
+        static member ``AddYears(01/13/0005, 1)`` () =
+            let date = new PaxDate(5, 13, 1)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(6, 13, 1), 0)
+
+            date.PlusYears(1) === new PaxDate(6, 13, 1)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(6, 13, 1)
+            overspillMath.AddYears(date, 1) === new PaxDate(6, 13, 1)
+            exactMath.AddYears(date, 1)     === new PaxDate(6, 13, 1)
+
+        [<Fact>]
+        static member ``AddYears(07/13/0005, 1)`` () =
+            let date = new PaxDate(5, 13, 7)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(6, 13, 7), 0)
+
+            date.PlusYears(1) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(6, 13, 7)
+            overspillMath.AddYears(date, 1) === new PaxDate(6, 13, 7)
+            exactMath.AddYears(date, 1)     === new PaxDate(6, 13, 7)
+
+        [<Fact>]
+        static member ``AddYears(08/13/0005, 1)`` () =
+            let date = new PaxDate(5, 13, 8)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(6, 13, 7), 1)
+
+            date.PlusYears(1) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(6, 13, 7)
+            overspillMath.AddYears(date, 1) === new PaxDate(6, 14, 1)
+            exactMath.AddYears(date, 1)     === new PaxDate(6, 14, 1)
+
+        [<Fact>]
+        static member ``AddYears(28/13/0005, 1)`` () =
+            let date = new PaxDate(5, 13, 28)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(1)
+            result === (new PaxDate(6, 13, 7), 21)
+
+            date.PlusYears(1) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddYears(date, 1)   === new PaxDate(6, 13, 7)
+            overspillMath.AddYears(date, 1) === new PaxDate(6, 14, 1)
+            exactMath.AddYears(date, 1)     === new PaxDate(6, 14, 21)
+
+        [<Fact>]
+        static member ``AddYears(08/13/0007, -1)`` () =
+            let date = new PaxDate(7, 13, 8)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(-1)
+            result === (new PaxDate(6, 13, 7), 1)
+
+            date.PlusYears(-1) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddYears(date, -1)   === new PaxDate(6, 13, 7)
+            overspillMath.AddYears(date, -1) === new PaxDate(6, 14, 1)
+            exactMath.AddYears(date, -1)     === new PaxDate(6, 14, 1)
+
+        [<Fact>]
+        static member ``AddYears(28/13/0007, -1)`` () =
+            let date = new PaxDate(7, 13, 28)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusYears(-1)
+            result === (new PaxDate(6, 13, 7), 21)
+
+            date.PlusYears(-1) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddYears(date, -1)   === new PaxDate(6, 13, 7)
+            overspillMath.AddYears(date, -1) === new PaxDate(6, 14, 1)
+            exactMath.AddYears(date, -1)     === new PaxDate(6, 14, 21)
 
     //
     // Month type

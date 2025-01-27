@@ -95,8 +95,19 @@ public partial class PaxCalendar // Math
             ThrowHelpers.ThrowDateOverflow();
 
         // NB: AdditionRule.Truncate.
-        int newM = Math.Min(m, sch.CountMonthsInYear(newY));
-        int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
+        int monthsInYear = sch.CountMonthsInYear(newY);
+        int newM;
+        int newD;
+        if (m > monthsInYear)
+        {
+            newM = monthsInYear;
+            newD = sch.CountDaysInMonth(newY, monthsInYear);
+        }
+        else
+        {
+            newM = m;
+            newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
+        }
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, newM, newD);
         return PaxDate.UnsafeCreate(daysSinceEpoch);
@@ -129,9 +140,9 @@ public partial class PaxCalendar // Math
             int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
             roundoff += Math.Max(0, d - daysInMonth);
 
+            // On retourne le dernier jour valide.
             newM = monthsInYear;
-            // On retourne le dernier jour du mois si d > daysInMonth.
-            newD = roundoff == 0 ? d : daysInMonth;
+            newD = daysInMonth;
         }
         else
         {
