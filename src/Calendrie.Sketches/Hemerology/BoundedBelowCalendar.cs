@@ -7,7 +7,7 @@ namespace Calendrie.Hemerology;
 /// Represents a calendar with dates on or after a given date.
 /// <para>The aforementioned date can NOT be the start of a year.</para>
 /// </summary>
-public partial class BoundedBelowCalendar : CalendarSans, IDateProvider<DayNumber>
+public partial class BoundedBelowCalendar : CalendarSans, IDateProvider<DateParts>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="BoundedBelowCalendar"/>
@@ -113,7 +113,7 @@ public partial class BoundedBelowCalendar // IDateProvider
 {
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<DayNumber> GetDaysInYear(int year)
+    public IEnumerable<DateParts> GetDaysInYear(int year)
     {
         Scope.ValidateYear(year);
         int startOfYear, daysInYear;
@@ -130,17 +130,17 @@ public partial class BoundedBelowCalendar // IDateProvider
 
         return iterator();
 
-        IEnumerable<DayNumber> iterator()
+        IEnumerable<DateParts> iterator()
         {
             return from daysSinceEpoch
                    in Enumerable.Range(startOfYear, daysInYear)
-                   select Epoch + daysSinceEpoch;
+                   select PartsAdapter.GetDateParts(daysSinceEpoch);
         }
     }
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<DayNumber> GetDaysInMonth(int year, int month)
+    public IEnumerable<DateParts> GetDaysInMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
         int startOfMonth, daysInMonth;
@@ -157,47 +157,52 @@ public partial class BoundedBelowCalendar // IDateProvider
 
         return iterator();
 
-        IEnumerable<DayNumber> iterator()
+        IEnumerable<DateParts> iterator()
         {
             return from daysSinceEpoch
                    in Enumerable.Range(startOfMonth, daysInMonth)
-                   select Epoch + daysSinceEpoch;
+                   select PartsAdapter.GetDateParts(daysSinceEpoch);
         }
     }
 
     /// <inheritdoc />
     [Pure]
-    public DayNumber GetStartOfYear(int year)
+    public DateParts GetStartOfYear(int year)
     {
         Scope.ValidateYear(year);
-        return year == MinDateParts.Year
-            ? throw new ArgumentOutOfRangeException(nameof(year))
-            : Epoch + Schema.GetStartOfYear(year);
+        ArgumentOutOfRangeException.ThrowIfEqual(year, MinDateParts.Year);
+
+        int daysSinceEpoch = Schema.GetStartOfYear(year);
+        return PartsAdapter.GetDateParts(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public DayNumber GetEndOfYear(int year)
+    public DateParts GetEndOfYear(int year)
     {
         Scope.ValidateYear(year);
-        return Epoch + Schema.GetEndOfYear(year);
+        int daysSinceEpoch = Schema.GetEndOfYear(year);
+        return PartsAdapter.GetDateParts(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public DayNumber GetStartOfMonth(int year, int month)
+    public DateParts GetStartOfMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
-        return new MonthParts(year, month) == MinDateParts.MonthParts
-            ? throw new ArgumentOutOfRangeException(nameof(month))
-            : Epoch + Schema.GetStartOfMonth(year, month);
+        if (new MonthParts(year, month) == MinDateParts.MonthParts)
+            throw new ArgumentOutOfRangeException(nameof(year));
+
+        int daysSinceEpoch = Schema.GetStartOfMonth(year, month);
+        return PartsAdapter.GetDateParts(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public DayNumber GetEndOfMonth(int year, int month)
+    public DateParts GetEndOfMonth(int year, int month)
     {
         Scope.ValidateYearMonth(year, month);
-        return Epoch + Schema.GetEndOfMonth(year, month);
+        int daysSinceEpoch = Schema.GetEndOfMonth(year, month);
+        return PartsAdapter.GetDateParts(daysSinceEpoch);
     }
 }
