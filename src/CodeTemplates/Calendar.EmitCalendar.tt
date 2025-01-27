@@ -111,6 +111,7 @@ public partial class <#= Prefix #>Calendar // Math
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, m, newD);
         return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
+<#+ if (EnableIsLeapYear) { #>
 
     /// <summary>
     /// Adds the specified number of years to the year part of the specified date
@@ -140,6 +141,7 @@ public partial class <#= Prefix #>Calendar // Math
         int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(newY, m, newD);
         return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
     }
+<#+ } #>
 
     /// <summary>
     /// Adds the specified number of months to the month part of the specified
@@ -159,6 +161,7 @@ public partial class <#= Prefix #>Calendar // Math
 
         return AddYears(y, newM, d, years);
     }
+<#+ if (EnableIsLeapYear) { #>
 
     /// <summary>
     /// Adds the specified number of months to the month part of the specified
@@ -180,6 +183,7 @@ public partial class <#= Prefix #>Calendar // Math
 
         return AddYears(y, newM, d, years, out roundoff);
     }
+<#+ } #>
 }
 <#+
     } // T4: End of EmitCalendarMathRegular()

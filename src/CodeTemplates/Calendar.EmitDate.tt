@@ -819,6 +819,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
         return chr.AddYears(y, m, d, years);
     }
 
+<#+ if (EnableIsLeapYear) { #>
     /// <summary>
     /// Adds the specified number of years to the year part of this date instance
     /// and also returns the roundoff in an output parameter, yielding a new date.
@@ -833,6 +834,14 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
         chr.Schema.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
         return chr.AddYears(y, m, d, years, out roundoff);
     }
+<#+ } else { #>
+    [Pure]
+    <#= Prefix #>Date IDateBase<<#= Prefix #>Date>.PlusYears(int years, out int roundoff)
+    {
+        roundoff = 0;
+        return PlusYears(years);
+    }
+<#+ } #>
 
     /// <summary>
     /// Adds the specified number of months to the month part of this date
@@ -851,6 +860,7 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
         return chr.AddMonths(y, m, d, months);
     }
 
+<#+ if (EnableIsLeapYear) { #>
     /// <summary>
     /// Adds the specified number of months to the month part of this date
     /// instance and also returns the roundoff in an output parameter, yielding
@@ -866,6 +876,14 @@ public partial struct <#= Prefix #>Date // Non-standard math ops
         sch.GetDateParts(_<#= DaysSinceEpochVar #>, out int y, out int m, out int d);
         return Calendar.AddMonths(y, m, d, months, out roundoff);
     }
+<#+ } else { #>
+    [Pure]
+    <#= Prefix #>Date IDateBase<<#= Prefix #>Date>.PlusMonths(int months, out int roundoff)
+    {
+        roundoff = 0;
+        return PlusMonths(months);
+    }
+<#+ } #>
 
     /// <summary>
     /// Counts the number of whole years from <paramref name="other"/> to this

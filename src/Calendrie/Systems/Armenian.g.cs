@@ -98,35 +98,6 @@ public partial class ArmenianCalendar // Math
     }
 
     /// <summary>
-    /// Adds the specified number of years to the year part of the specified date
-    /// and also returns the roundoff in an output parameter, yielding a new date.
-    /// <para><paramref name="roundoff"/> corresponds to the number of days that
-    /// were cut off, which is greater than or equal to 0, the latter only
-    /// happening when the operation is exact.</para>
-    /// </summary>
-    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    internal ArmenianDate AddYears(int y, int m, int d, int years, out int roundoff)
-    {
-        var sch = Schema;
-
-        // Exact addition of years to a calendar year.
-        int newY = checked(y + years);
-        if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
-            ThrowHelpers.ThrowDateOverflow();
-
-        int daysInMonth = sch.CountDaysInMonth(newY, m);
-        roundoff = Math.Max(0, d - daysInMonth);
-        // On retourne le dernier jour du mois si d > daysInMonth.
-        int newD = roundoff == 0 ? d : daysInMonth;
-
-        int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
-        return ArmenianDate.UnsafeCreate(daysSinceEpoch);
-    }
-
-    /// <summary>
     /// Adds the specified number of months to the month part of the specified
     /// date, yielding a new date.
     /// <para>This method may truncate the result to the end of the target month
@@ -143,27 +114,6 @@ public partial class ArmenianCalendar // Math
             checked(m - 1 + months), Egyptian12Schema.MonthsPerYear, out int years);
 
         return AddYears(y, newM, d, years);
-    }
-
-    /// <summary>
-    /// Adds the specified number of months to the month part of the specified
-    /// date and also returns the roundoff in an output parameter, yielding a
-    /// new date.
-    /// <para><paramref name="roundoff"/> corresponds to the number of days that
-    /// were cut off, which is greater than or equal to 0, the latter only
-    /// happening when the operation is exact.</para>
-    /// </summary>
-    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates.</exception>
-    [Pure]
-    internal ArmenianDate AddMonths(int y, int m, int d, int months, out int roundoff)
-    {
-        // Exact addition of months to a calendar month.
-        int newM = 1 + MathZ.Modulo(
-            checked(m - 1 + months), Egyptian12Schema.MonthsPerYear, out int years);
-
-        return AddYears(y, newM, d, years, out roundoff);
     }
 }
 
@@ -875,19 +825,11 @@ public partial struct ArmenianDate // Non-standard math ops
         return chr.AddYears(y, m, d, years);
     }
 
-    /// <summary>
-    /// Adds the specified number of years to the year part of this date instance
-    /// and also returns the roundoff in an output parameter, yielding a new date.
-    /// </summary>
-    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates.</exception>
     [Pure]
-    public ArmenianDate PlusYears(int years, out int roundoff)
+    ArmenianDate IDateBase<ArmenianDate>.PlusYears(int years, out int roundoff)
     {
-        var chr = Calendar;
-        chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return chr.AddYears(y, m, d, years, out roundoff);
+        roundoff = 0;
+        return PlusYears(years);
     }
 
     /// <summary>
@@ -907,20 +849,11 @@ public partial struct ArmenianDate // Non-standard math ops
         return chr.AddMonths(y, m, d, months);
     }
 
-    /// <summary>
-    /// Adds the specified number of months to the month part of this date
-    /// instance and also returns the roundoff in an output parameter, yielding
-    /// a new date.
-    /// </summary>
-    /// <returns>The end of the target month when roundoff &gt; 0.</returns>
-    /// <exception cref="OverflowException">The operation would overflow the
-    /// range of supported dates.</exception>
     [Pure]
-    public ArmenianDate PlusMonths(int months, out int roundoff)
+    ArmenianDate IDateBase<ArmenianDate>.PlusMonths(int months, out int roundoff)
     {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return Calendar.AddMonths(y, m, d, months, out roundoff);
+        roundoff = 0;
+        return PlusMonths(months);
     }
 
     /// <summary>
