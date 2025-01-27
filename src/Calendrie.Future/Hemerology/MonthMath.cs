@@ -70,7 +70,7 @@ public class MonthMath
         where TMonth : struct, IMonthBase<TMonth>
     {
         var newMonth = month.PlusYears(years, out int roundoff);
-        return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff);
+        return roundoff == 0 ? newMonth : Adjust(newMonth, roundoff, AdditionRule);
     }
 
     /// <summary>
@@ -138,7 +138,7 @@ public class MonthMath
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    private TMonth Adjust<TMonth>(TMonth month, int roundoff)
+    internal static TMonth Adjust<TMonth>(TMonth month, int roundoff, AdditionRule rule)
         where TMonth : struct, IMonthBase<TMonth>
     {
         // Si on ne filtrait pas roundoff > 0, il faudrait prendre en compte
@@ -146,7 +146,7 @@ public class MonthMath
         Debug.Assert(roundoff > 0);
 
         // NB: month is the last month of a year.
-        return AdditionRule switch
+        return rule switch
         {
             AdditionRule.Truncate => month,
             AdditionRule.Overspill => month.NextMonth(),

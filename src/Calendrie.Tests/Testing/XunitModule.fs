@@ -54,6 +54,10 @@ let inline outOfRangeExn paramName (testCode: unit -> obj) =
 let inline keyNotFoundExn (testCode: unit -> obj) =
     Assert.Throws<KeyNotFoundException>(testCode) |> ignore
 
+/// Verifies that an NotSupportedException is thrown.
+let inline notSupportedExn (testCode: unit -> obj) =
+    Assert.Throws<NotSupportedException>(testCode) |> ignore
+
 ///// Verifies that an OverflowException is thrown.
 //let inline overflows (testCode: unit -> obj) = Assert.Throws<OverflowException>(testCode) |> ignore
 

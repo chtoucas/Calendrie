@@ -84,7 +84,7 @@ public partial class DateMath
         where TDate : struct, IDateBase<TDate>
     {
         var newDate = date.PlusYears(years, out int roundoff);
-        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff, AdditionRule);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public partial class DateMath
         where TDate : struct, IDateBase<TDate>
     {
         var newDate = date.PlusMonths(months, out int roundoff);
-        return roundoff == 0 ? newDate : Adjust(newDate, roundoff);
+        return roundoff == 0 ? newDate : Adjust(newDate, roundoff, AdditionRule);
     }
 
     /// <summary>
@@ -247,7 +247,7 @@ public partial class DateMath
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    private TDate Adjust<TDate>(TDate date, int roundoff)
+    internal static TDate Adjust<TDate>(TDate date, int roundoff, AdditionRule rule)
         where TDate : struct, IDateBase<TDate>
     {
         // Si on ne filtrait pas roundoff > 0, il faudrait prendre en compte
@@ -255,7 +255,7 @@ public partial class DateMath
         Debug.Assert(roundoff > 0);
 
         // NB: date is the last day of a month.
-        return AdditionRule switch
+        return rule switch
         {
             AdditionRule.Truncate => date,
             AdditionRule.Overspill => date.NextDay(),
