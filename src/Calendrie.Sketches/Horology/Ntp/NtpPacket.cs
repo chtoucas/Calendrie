@@ -35,10 +35,8 @@ namespace Calendrie.Horology.Ntp;
 /// <summary>
 /// Represents an NTP packet.
 /// <para><see cref="NtpPacket"/> is an immutable struct.</para>
-/// </summary>
-/// <remarks>
 /// <para>Beware, <see cref="NtpPacket"/> is a HUGE struct.</para>
-/// </remarks>
+/// </summary>
 internal readonly struct NtpPacket
 {
     /// <summary>
@@ -71,10 +69,11 @@ internal readonly struct NtpPacket
     public required Timestamp64 TransmitTimestamp { get; init; }
 
     /// <summary>
-    /// Reads an <see cref="NtpPacket"/> value from the beginning of a read-only span of bytes.
+    /// Reads an <see cref="NtpPacket"/> value from the beginning of a read-only
+    /// span of bytes.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is too small to contain an
-    /// <see cref="NtpPacket"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is
+    /// too small to contain an <see cref="NtpPacket"/>.</exception>
     [Pure]
     public static NtpPacket ReadFrom(ReadOnlySpan<byte> buf)
     {

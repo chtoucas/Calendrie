@@ -40,15 +40,15 @@ public sealed class SntpClient
     public const int DefaultPort = 123;
 
     /// <summary>
-    /// Represents the default amount of time in milliseconds after which a synchronous call Send
-    /// will time out.
+    /// Represents the default amount of time in milliseconds after which a
+    /// synchronous call Send will time out.
     /// <para>This field is a constant equal to 500 milliseconds.</para>
     /// </summary>
     public const int DefaultSendTimeout = 500;
 
     /// <summary>
-    /// Represents the default amount of time in milliseconds after which a synchronous call Receive
-    /// will time out.
+    /// Represents the default amount of time in milliseconds after which a
+    /// synchronous call Receive will time out.
     /// <para>This field is a constant equal to 500 milliseconds.</para>
     /// </summary>
     public const int DefaultReceiveTimeout = 500;
@@ -93,14 +93,15 @@ public sealed class SntpClient
     }
 
     /// <summary>
-    /// Gets or sets a value that specifies the amount of time in milliseconds after which a
-    /// synchronous send call to the undelying socket will time out.
+    /// Gets or sets a value that specifies the amount of time in milliseconds
+    /// after which a synchronous send call to the undelying socket will time out.
     /// </summary>
     public int SendTimeout { get; set; } = DefaultSendTimeout;
 
     /// <summary>
-    /// Gets or sets a value that specifies the amount of time in milliseconds after which a
-    /// synchronous receive call to the undelying socket will time out.
+    /// Gets or sets a value that specifies the amount of time in milliseconds
+    /// after which a synchronous receive call to the undelying socket will time
+    /// out.
     /// </summary>
     public int ReceiveTimeout { get; set; } = DefaultReceiveTimeout;
 
@@ -115,11 +116,13 @@ public sealed class SntpClient
 
     /// <summary>
     /// Enables or disables the version check.
-    /// <para>There are still old (or bogus?) NTP servers always returning 3, therefore the
-    /// default behaviour is to not check the version number.</para>
+    /// <para>There are still old (or bogus?) NTP servers always returning 3,
+    /// therefore the default behaviour is to not check the version number.</para>
     /// </summary>
-    /// <value>true if this instance checks that the version number found in the NTP response
-    /// matches <see cref="Version"/>; otherwise returns false.</value>
+    /// <value>true if this instance checks that the version number found in the
+    /// NTP response matches <see cref="Version"/>; otherwise returns false.
+    /// </value>
+    //
     // An NTP server may always return 3, e.g. "time.windows.com"
     // or "time.nist.gov".
     public bool EnableVersionCheck { get; set; }
@@ -134,7 +137,6 @@ public sealed class SntpClient
     /// </summary>
     private byte FirstByte
     {
-        // CIL code size = 12 bytes <= 32 bytes.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
@@ -217,8 +219,8 @@ public sealed class SntpClient
         requestTimestamp.WriteTo(bytes, NtpPacket.TransmitTimestampOffset);
 
         var buf = new ArraySegment<byte>(bytes);
-        await sock.SendAsync(buf, SocketFlags.None).ConfigureAwait(false);
-        await sock.ReceiveAsync(buf, SocketFlags.None).ConfigureAwait(false);
+        _ = await sock.SendAsync(buf, SocketFlags.None).ConfigureAwait(false);
+        _ = await sock.ReceiveAsync(buf, SocketFlags.None).ConfigureAwait(false);
 
         long endTicks = stopwatch.ElapsedTicks;
 
@@ -230,7 +232,8 @@ public sealed class SntpClient
     }
 
     /// <summary>
-    /// Reads an <see cref="NtpResponse"/> value from the beginning of a read-only span of bytes.
+    /// Reads an <see cref="NtpResponse"/> value from the beginning of a
+    /// read-only span of bytes.
     /// </summary>
     [Pure]
     private NtpResponse ReadResponse(
@@ -275,8 +278,10 @@ public sealed class SntpClient
     }
 
     /// <summary>
-    /// Checks the specified packet according to RFC 4330, section 5 (client operations).
+    /// Checks the specified packet according to RFC 4330, section 5 (client
+    /// operations).
     /// </summary>
+    //
     // Simple check (unicast mode):
     // - Mode == NtpMode.Server (4)
     // - StratumLevel <= MaxStratumLevel (15)

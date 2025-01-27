@@ -15,14 +15,14 @@ public sealed class NtpException : Exception
     public NtpException() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NtpException"/> class with the specified
-    /// message.
+    /// Initializes a new instance of the <see cref="NtpException"/> class with
+    /// the specified message.
     /// </summary>
     public NtpException(string message) : base(message) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NtpException"/> class with the specified
-    /// message and inner exception.
+    /// Initializes a new instance of the <see cref="NtpException"/> class with
+    /// the specified message and inner exception.
     /// </summary>
     public NtpException(string message, Exception innerException)
         : base(message, innerException) { }

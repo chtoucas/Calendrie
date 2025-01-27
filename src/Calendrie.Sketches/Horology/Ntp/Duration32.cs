@@ -12,8 +12,8 @@ using static Calendrie.Core.TemporalConstants;
 
 /// <summary>
 /// Represents a 32-bit NTP short format; see RFC 5905, section 6.
-/// <para>This type uses its own unit for fractional seconds which differs from the one defined in
-/// <see cref="Timestamp64"/> by a factor of 2^16.</para>
+/// <para>This type uses its own unit for fractional seconds which differs from
+/// the one defined in <see cref="Timestamp64"/> by a factor of 2^16.</para>
 /// <para><see cref="Duration32"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Duration32 :
@@ -61,7 +61,8 @@ public readonly partial struct Duration32 :
 
     /// <summary>
     /// Gets a duration representing exactly one fractional second.
-    /// <para>This is the shortest duration longer than <see cref="Zero"/>.</para>
+    /// <para>This is the shortest duration longer than <see cref="Zero"/>.
+    /// </para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Duration32 Epsilon { get; } = new(0, 1);
@@ -127,10 +128,11 @@ public readonly partial struct Duration32 :
 public partial struct Duration32 // Binary helpers
 {
     /// <summary>
-    /// Reads a <see cref="Duration32"/> value from the beginning of a read-only span of bytes.
+    /// Reads a <see cref="Duration32"/> value from the beginning of a read-only
+    /// span of bytes.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is too small to contain a
-    /// <see cref="Duration32"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is
+    /// too small to contain a <see cref="Duration32"/>.</exception>
     [Pure]
     internal static Duration32 ReadFrom(ReadOnlySpan<byte> buf)
     {
@@ -145,16 +147,12 @@ public partial struct Duration32 // Binary helpers
 
 public partial struct Duration32 // IEquatable
 {
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="Duration32"/> are equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator ==(Duration32 left, Duration32 right) =>
         left._seconds == right._seconds
         && left._fractionalSeconds == right._fractionalSeconds;
 
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="Duration32"/> are not equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator !=(Duration32 left, Duration32 right) =>
         left._seconds != right._seconds
         || left._fractionalSeconds != right._fractionalSeconds;

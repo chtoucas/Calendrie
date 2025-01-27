@@ -12,8 +12,10 @@ public sealed class NtpResponse
     /// <summary>
     /// Initializes a new instance of the <see cref="NtpResponse"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="serverInfo"/> is null.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="timeInfo"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="serverInfo"/> is
+    /// <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="timeInfo"/> is
+    /// <see langword="null"/>.</exception>
     public NtpResponse(NtpServerInfo serverInfo, NtpTimeInfo timeInfo)
     {
         ServerInfo = serverInfo ?? throw new ArgumentNullException(nameof(serverInfo));
@@ -44,8 +46,8 @@ public sealed class NtpResponse
 public sealed record NtpServerInfo
 {
     /// <summary>
-    /// Gets the leap indicator, warning of an impending leap second to be inserted/deleted in
-    /// the last minute of the current day.
+    /// Gets the leap indicator, warning of an impending leap second to be
+    /// inserted/deleted in the last minute of the current day.
     /// </summary>
     public required LeapIndicator LeapIndicator { get; init; }
 
@@ -83,7 +85,8 @@ public sealed record NtpServerInfo
     public StratumFamily StratumFamily { get; private init; }
 
     /// <summary>
-    /// Gets the log base 2 of the maximum interval between successive messages in seconds.
+    /// Gets the log base 2 of the maximum interval between successive messages
+    /// in seconds.
     /// <para>The result is in the range from -128 to 127.</para>
     /// </summary>
     public required int PollExponent { get; init; }
@@ -121,7 +124,8 @@ public sealed record NtpServerInfo
     public required ReferenceId ReferenceId { get; init; }
 
     /// <summary>
-    /// Gets the NTP code identifying the particular server or reference clock -or- a "kiss code".
+    /// Gets the NTP code identifying the particular server or reference clock
+    /// -or- a "kiss code".
     /// </summary>
     public NtpCode NtpCode => ReferenceId.ToNtpCodeFor(StratumFamily);
 
@@ -138,25 +142,26 @@ public sealed record NtpServerInfo
 public sealed record NtpTimeInfo
 {
     /// <summary>
-    /// Gets the time at which the <i>client</i> sent the request, according to the client clock.
+    /// Gets the time at which the <i>client</i> sent the request, according to
+    /// the client clock.
     /// </summary>
     public required Timestamp64 RequestTimestamp { get; init; }
 
     /// <summary>
-    /// Gets the time at which the <i>server</i> received the request, according to the server
-    /// clock.
+    /// Gets the time at which the <i>server</i> received the request, according
+    /// to the server clock.
     /// </summary>
     public required Timestamp64 ReceiveTimestamp { get; init; }
 
     /// <summary>
-    /// Gets the time at which the <i>server</i> sent the response, according to the server
-    /// clock.
+    /// Gets the time at which the <i>server</i> sent the response, according to
+    /// the server clock.
     /// </summary>
     public required Timestamp64 TransmitTimestamp { get; init; }
 
     /// <summary>
-    /// Gets the time at which the <i>client</i> received the response, according to the client
-    /// clock.
+    /// Gets the time at which the <i>client</i> received the response, according
+    /// to the client clock.
     /// </summary>
     public required Timestamp64 ResponseTimestamp { get; init; }
 
@@ -182,7 +187,8 @@ public sealed record NtpTimeInfo
         ResponseTimestamp - RequestTimestamp - (TransmitTimestamp - ReceiveTimestamp);
 
     /// <summary>
-    /// Gets the offset for the system clock relative to the primary synchonization source.
+    /// Gets the offset for the system clock relative to the primary
+    /// synchonization source.
     /// </summary>
     public Duration64 ClockOffset =>
         (ReceiveTimestamp - RequestTimestamp + (TransmitTimestamp - ResponseTimestamp)) / 2;

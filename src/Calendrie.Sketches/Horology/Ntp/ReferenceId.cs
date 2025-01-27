@@ -27,14 +27,15 @@ public readonly partial struct ReferenceId :
     internal uint Value => _value;
 
     /// <summary>
-    /// Returns a culture-independent string representation of the current instance.
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString() => ToHexString();
 
     /// <summary>
-    /// Converts the current instance to its equivalent string representation that is encoded with
-    /// uppercase hex characters.
+    /// Converts the current instance to its equivalent string representation
+    /// that is encoded with uppercase hex characters.
     /// </summary>
     [Pure]
     public string ToHexString()
@@ -47,16 +48,18 @@ public readonly partial struct ReferenceId :
     }
 
     /// <summary>
-    /// Reads a <see cref="ReferenceId"/> value from the beginning of a read-only span of bytes.
+    /// Reads a <see cref="ReferenceId"/> value from the beginning of a read-only
+    /// span of bytes.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is too small to contain a
-    /// <see cref="ReferenceId"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is
+    /// too small to contain a <see cref="ReferenceId"/>.</exception>
     [Pure]
     internal static ReferenceId ReadFrom(ReadOnlySpan<byte> buf) =>
         new(BitConverter.ToUInt32(buf));
 
     /// <summary>
-    /// Obtains a binary view, four bytes in network order, of the current instance.
+    /// Obtains a binary view, four bytes in network order, of the current
+    /// instance.
     /// </summary>
     [Pure]
     public ReadOnlySpan<byte> AsBytes() => BitConverter.GetBytes(_value).AsSpan();
@@ -200,17 +203,11 @@ public partial struct ReferenceId
 
 public partial struct ReferenceId // IEquatable
 {
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="ReferenceId"/> are
-    /// equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator ==(ReferenceId left, ReferenceId right) =>
         left._value == right._value;
 
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="ReferenceId"/> are not
-    /// equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator !=(ReferenceId left, ReferenceId right) =>
         left._value != right._value;
 

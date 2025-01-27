@@ -81,7 +81,8 @@ public readonly partial struct Timestamp64 :
 
     /// <summary>
     /// Gets the prime epoch, that is the epoch of first NTP era (numbered 0).
-    /// <para>The Monday 1st of January, 1900 CE within the Gregorian calendar.</para>
+    /// <para>The Monday 1st of January, 1900 CE within the Gregorian calendar.
+    /// </para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Timestamp64 Zero { get; }
@@ -104,7 +105,8 @@ public readonly partial struct Timestamp64 :
     public int PseudoEra => 1 - (int)(_secondOfEra >> 31);
 
     /// <summary>
-    /// Gets the second of the NTP era, i.e. the number of elapsed seconds since <see cref="Zero"/>.
+    /// Gets the second of the NTP era, i.e. the number of elapsed seconds since
+    /// <see cref="Zero"/>.
     /// </summary>
     public long SecondOfEra => _secondOfEra;
 
@@ -120,7 +122,8 @@ public readonly partial struct Timestamp64 :
         ConvertSecondOfEraToFractionalSeconds(_secondOfEra) | _fractionOfSecond;
 
     /// <summary>
-    /// Returns a culture-independent string representation of the current instance.
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString() =>
@@ -143,8 +146,8 @@ public readonly partial struct Timestamp64 :
         + ConvertFractionOfSecondToNanosecondOfSecond(_fractionOfSecond));
 
     /// <summary>
-    /// Randomizes the sub-milliseconds part of the current instance, yielding a new
-    /// <see cref="Timestamp64"/>.
+    /// Randomizes the sub-milliseconds part of the current instance, yielding
+    /// a new <see cref="Timestamp64"/>.
     /// </summary>
     [Pure]
     internal Timestamp64 RandomizeSubMilliseconds(IRandomNumberGenerator rng)
@@ -204,7 +207,8 @@ public partial struct Timestamp64 // Time helpers
 
     /// <summary>
     /// Converts a fraction of the second to a millisecond of the second.
-    /// <para>The result is in the range from 0 (included) to 1000 (excluded).</para>
+    /// <para>The result is in the range from 0 (included) to 1000 (excluded).
+    /// </para>
     /// </summary>
     [Pure]
     // CIL code size = 13 bytes <= 32 bytes.
@@ -224,7 +228,8 @@ public partial struct Timestamp64 // Time helpers
 
     /// <summary>
     /// Converts a fraction of the second to a nanosecond of the second.
-    /// <para>The result is in the range from 0 (included) to 1_000_000_000 (excluded).</para>
+    /// <para>The result is in the range from 0 (included) to 1_000_000_000
+    /// (excluded).</para>
     /// </summary>
     [Pure]
     // CIL code size = 13 bytes <= 32 bytes.
@@ -255,10 +260,11 @@ public partial struct Timestamp64 // Time helpers
 public partial struct Timestamp64 // Binary helpers
 {
     /// <summary>
-    /// Reads a <see cref="Timestamp64"/> value from the beginning of a read-only span of bytes.
+    /// Reads a <see cref="Timestamp64"/> value from the beginning of a read-only
+    /// span of bytes.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is too small to contain a
-    /// <see cref="Timestamp64"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is
+    /// too small to contain a <see cref="Timestamp64"/>.</exception>
     [Pure]
     internal static Timestamp64 ReadFrom(ReadOnlySpan<byte> buf)
     {
@@ -273,8 +279,8 @@ public partial struct Timestamp64 // Binary helpers
     /// <summary>
     /// Writes the current instance into a span of bytes.
     /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is too small to contain a
-    /// <see cref="Timestamp64"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="buf"/> is
+    /// too small to contain a <see cref="Timestamp64"/>.</exception>
     internal void WriteTo(Span<byte> buf, int index)
     {
         BinaryPrimitives.WriteUInt32BigEndian(buf[index..], _secondOfEra);
@@ -291,7 +297,8 @@ public partial struct Timestamp64 // Conversions
     private static readonly DateTime s_Epoch = new(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
     /// <summary>
-    /// Creates a new instance of <see cref="Timestamp64"/> from the specified time.
+    /// Creates a new instance of <see cref="Timestamp64"/> from the specified
+    /// time.
     /// </summary>
     [Pure]
     public static Timestamp64 FromDateTime(DateTime time)
@@ -315,16 +322,12 @@ public partial struct Timestamp64 // Conversions
 
 public partial struct Timestamp64 // IEquatable
 {
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="Timestamp64"/> are equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator ==(Timestamp64 left, Timestamp64 right) =>
         left._secondOfEra == right._secondOfEra
         && left._fractionOfSecond == right._fractionOfSecond;
 
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="Timestamp64"/> are not equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator !=(Timestamp64 left, Timestamp64 right) =>
         left._secondOfEra != right._secondOfEra
         || left._fractionOfSecond != right._fractionOfSecond;
@@ -386,17 +389,19 @@ public partial struct Timestamp64 // IComparable
 public partial struct Timestamp64 // Arithmetic
 {
     /// <summary>
-    /// Subtracts the two specified timestamps and returns the duration between them.
+    /// Subtracts the two specified timestamps and returns the duration between
+    /// them.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the range of
-    /// <see cref="ulong"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of <see cref="ulong"/>.</exception>
     public static Duration64 operator -(Timestamp64 left, Timestamp64 right) => left.Subtract(right);
 
     /// <summary>
-    /// Subtracts a timestamp from the current instance and returns the duration between them.
+    /// Subtracts a timestamp from the current instance and returns the duration
+    /// between them.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the range of
-    /// <see cref="ulong"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of <see cref="ulong"/>.</exception>
     [Pure]
     public Duration64 Subtract(Timestamp64 other)
     {

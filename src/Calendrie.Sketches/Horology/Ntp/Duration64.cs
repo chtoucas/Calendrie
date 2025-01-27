@@ -14,7 +14,8 @@ using static Calendrie.Core.TemporalConstants;
 
 /// <summary>
 /// Represents a 64-bit duration.
-/// <para>This type uses the unit for fractional seconds defined in <see cref="Timestamp64"/>.</para>
+/// <para>This type uses the unit for fractional seconds defined in
+/// <see cref="Timestamp64"/>.</para>
 /// <para><see cref="Duration64"/> is an immutable struct.</para>
 /// </summary>
 public readonly partial struct Duration64 :
@@ -52,7 +53,8 @@ public readonly partial struct Duration64 :
 
     /// <summary>
     /// Gets a duration representing exactly one fractional second.
-    /// <para>This is the shortest duration greater than <see cref="Zero"/>.</para>
+    /// <para>This is the shortest duration greater than <see cref="Zero"/>.
+    /// </para>
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Duration64 Epsilon { get; } = new(1);
@@ -101,7 +103,8 @@ public readonly partial struct Duration64 :
     public double TotalSeconds => _totalFractionalSeconds / (double)Timestamp64.FractionalSecondsPerSecond;
 
     /// <summary>
-    /// Returns a culture-independent string representation of the current instance.
+    /// Returns a culture-independent string representation of the current
+    /// instance.
     /// </summary>
     [Pure]
     public override string ToString() => FormattableString.Invariant($"{_totalFractionalSeconds}");
@@ -109,15 +112,11 @@ public readonly partial struct Duration64 :
 
 public partial struct Duration64 // IEquatable
 {
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="Duration64"/> are equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator ==(Duration64 left, Duration64 right) =>
         left._totalFractionalSeconds == right._totalFractionalSeconds;
 
-    /// <summary>
-    /// Determines whether two specified instances of <see cref="Duration64"/> are not equal.
-    /// </summary>
+    /// <inheritdoc />
     public static bool operator !=(Duration64 left, Duration64 right) =>
         left._totalFractionalSeconds != right._totalFractionalSeconds;
 
@@ -176,14 +175,14 @@ public partial struct Duration64 // IComparable
 public partial struct Duration64 // Arithmetic
 {
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the range of
-    /// <see cref="long"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of <see cref="long"/>.</exception>
     public static Duration64 operator +(Duration64 left, Duration64 right) =>
         new(checked(left._totalFractionalSeconds + right._totalFractionalSeconds));
 
     /// <inheritdoc />
-    /// <exception cref="OverflowException">The operation would overflow the range of
-    /// <see cref="long"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of <see cref="long"/>.</exception>
     public static Duration64 operator -(Duration64 left, Duration64 right) =>
         new(checked(left._totalFractionalSeconds - right._totalFractionalSeconds));
 
@@ -194,8 +193,8 @@ public partial struct Duration64 // Arithmetic
     /// <summary>
     /// Adds a duration to the current instance, yielding a new duration.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the range of
-    /// <see cref="long"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of <see cref="long"/>.</exception>
     [Pure]
     public Duration64 Add(Duration64 other) =>
         new(checked(_totalFractionalSeconds + other._totalFractionalSeconds));
@@ -203,8 +202,8 @@ public partial struct Duration64 // Arithmetic
     /// <summary>
     /// Subtracts a duration from the current, yielding a new duration.
     /// </summary>
-    /// <exception cref="OverflowException">The operation would overflow the range of
-    /// <see cref="long"/>.</exception>
+    /// <exception cref="OverflowException">The operation would overflow the
+    /// range of <see cref="long"/>.</exception>
     [Pure]
     public Duration64 Subtract(Duration64 other) =>
         new(checked(_totalFractionalSeconds - other._totalFractionalSeconds));
