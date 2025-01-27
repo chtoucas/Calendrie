@@ -40,6 +40,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public bool IsRegular { get; }
     public int MonthsInYear { get; set; }
+    public int DaysInYear { get; set; }
 
     // NB: we don't check the setter because these are design time templates:
     // if "value" is null or invalid, then the T4 transformation will fail right

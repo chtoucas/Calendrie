@@ -22,7 +22,15 @@ public partial class CalendarTemplate
             EmitYearMonthSegmentNonRegular();
         }
 
-        EmitYearDaySegment();
+        if (EnableIsLeapYear)
+        {
+            EmitYearDaySegment();
+        }
+        else
+        {
+            EmitYearDaySegmentFixed();
+        }
+
         EmitYearEquatable();
         EmitYearComparable();
         EmitYearMath();
@@ -381,6 +389,92 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 }
 <#+
     } // T4: End of EmitYearMonthSegmentNonRegular()
+
+    protected virtual void EmitYearDaySegmentFixed()
+    {
+        WriteLine();
+#>
+public partial struct <#= Prefix #>Year // IDaySegment
+{
+    /// <summary>
+    /// Represents the total number of days in a year.
+    /// <para>This field is constant equal to <#= DaysInYear #>.</para>
+    /// </summary>
+    public const int DayCount = <#= SchemaClass #>.DaysPerYear;
+
+    /// <summary>
+    /// Gets the the start of the current year instance.
+    /// </summary>
+    public <#= Prefix #>Date MinDay
+    {
+        get
+        {
+            int <#= DaysSinceEpochVar #> = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
+        }
+    }
+
+    /// <summary>
+    /// Gets the the end of the current year instance.
+    /// </summary>
+    public <#= Prefix #>Date MaxDay
+    {
+        get
+        {
+            var sch = Calendar.Schema;
+            int <#= DaysSinceEpochVar #> = sch.CountDaysSinceEpoch(Year, DayCount);
+            return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
+        }
+    }
+
+    [Pure]
+    int IDaySegment<<#= Prefix #>Date>.CountDays() => DayCount;
+
+    /// <inheritdoc />
+    [Pure]
+    public Range<<#= Prefix #>Date> ToDayRange()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfYear), DayCount);
+    }
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<<#= Prefix #>Date> EnumerateDays()
+    {
+        var sch = Calendar.Schema;
+        int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
+
+        return from <#= DaysSinceEpochVar #>
+               in Enumerable.Range(startOfYear, DayCount)
+               select <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the year month instance contains
+    /// the specified date; otherwise returns <see langword="false"/>.
+    /// </summary>
+    [Pure]
+    public bool Contains(<#= Prefix #>Date date) => date.Year == Year;
+
+    /// <summary>
+    /// Obtains the date corresponding to the specified day of this year instance.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
+    /// is outside the range of valid values.</exception>
+    [Pure]
+    public <#= Prefix #>Date GetDayOfYear(int dayOfYear)
+    {
+        var chr = Calendar;
+        // We already know that "y" is valid, we only need to check "dayOfYear".
+        chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
+        int <#= DaysSinceEpochVar #> = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
+        return <#= Prefix #>Date.UnsafeCreate(<#= DaysSinceEpochVar #>);
+    }
+}
+<#+
+    } // T4: End of EmitYearDaySegmentFixed()
 
     protected virtual void EmitYearDaySegment()
     {

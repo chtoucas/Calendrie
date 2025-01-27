@@ -11,6 +11,7 @@
 
         EnableIsIntercalaryDay = false,
         EnableIsLeapYear = false,
+        EnablePragmas = true,
 
         MaxMonthsSinceEpochValue = "129_986",
         MonthsInYear = 13

@@ -15,14 +15,14 @@ public abstract partial class EgyptianSchema : RegularSchema
     /// Represents the number of days in a year.
     /// <para>This field is constant equal to 365.</para>
     /// </summary>
-    public const int DaysInYear = CalendricalConstants.DaysInWanderingYear;
+    public const int DaysPerYear = CalendricalConstants.DaysInWanderingYear;
 
     /// <summary>
     /// Represents the genuine number of days in a month (excluding the
     /// epagomenal days that are not formally part of the twelfth month).
     /// <para>This field is constant equal to 30.</para>
     /// </summary>
-    public const int DaysInEgyptianMonth = 30;
+    public const int DaysPerEgyptianMonth = 30;
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -30,7 +30,7 @@ public abstract partial class EgyptianSchema : RegularSchema
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInMonth"/>
     /// is a negative integer.</exception>
-    private protected EgyptianSchema(int minDaysInMonth) : base(DaysInYear, minDaysInMonth) { }
+    private protected EgyptianSchema(int minDaysInMonth) : base(DaysPerYear, minDaysInMonth) { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.AnnusVagus;
@@ -55,7 +55,7 @@ public partial class EgyptianSchema // Counting months and days within a year or
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInYear(int y) => DaysInYear;
+    public sealed override int CountDaysInYear(int y) => DaysPerYear;
 
     /// <inheritdoc />
     [Pure]
@@ -67,13 +67,13 @@ public partial class EgyptianSchema // Conversions
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysSinceEpoch(int y, int m, int d) =>
-        DaysInYear * (y - 1) + 30 * (m - 1) + d - 1;
+        DaysPerYear * (y - 1) + 30 * (m - 1) + d - 1;
 
     /// <inheritdoc />
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch, out int doy)
     {
-        int y = 1 + MathZ.Divide(daysSinceEpoch, DaysInYear, out int d0y);
+        int y = 1 + MathZ.Divide(daysSinceEpoch, DaysPerYear, out int d0y);
         doy = 1 + d0y;
         return y;
     }
@@ -81,12 +81,12 @@ public partial class EgyptianSchema // Conversions
     /// <inheritdoc />
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch) =>
-        1 + MathZ.Divide(daysSinceEpoch, DaysInYear);
+        1 + MathZ.Divide(daysSinceEpoch, DaysPerYear);
 }
 
 public partial class EgyptianSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int GetStartOfYear(int y) => DaysInYear * (y - 1);
+    public sealed override int GetStartOfYear(int y) => DaysPerYear * (y - 1);
 }

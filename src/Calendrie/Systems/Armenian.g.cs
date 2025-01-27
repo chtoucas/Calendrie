@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#pragma warning disable IDE0002 // Simplify Member Access (Style) ✓
+
 namespace Calendrie.Systems;
 
 using System.Numerics;
@@ -1784,6 +1786,12 @@ public partial struct ArmenianYear // IMonthSegment
 public partial struct ArmenianYear // IDaySegment
 {
     /// <summary>
+    /// Represents the total number of days in a year.
+    /// <para>This field is constant equal to 365.</para>
+    /// </summary>
+    public const int DayCount = Egyptian12Schema.DaysPerYear;
+
+    /// <summary>
     /// Gets the the start of the current year instance.
     /// </summary>
     public ArmenianDate MinDay
@@ -1803,15 +1811,13 @@ public partial struct ArmenianYear // IDaySegment
         get
         {
             var sch = Calendar.Schema;
-            int doy = sch.CountDaysInYear(Year);
-            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
+            int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, DayCount);
             return ArmenianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
-    /// <inheritdoc />
     [Pure]
-    public int CountDays() => Calendar.Schema.CountDaysInYear(Year);
+    int IDaySegment<ArmenianDate>.CountDays() => DayCount;
 
     /// <inheritdoc />
     [Pure]
@@ -1819,8 +1825,7 @@ public partial struct ArmenianYear // IDaySegment
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(ArmenianDate.UnsafeCreate(startOfYear), daysInYear);
+        return Range.StartingAt(ArmenianDate.UnsafeCreate(startOfYear), DayCount);
     }
 
     /// <inheritdoc />
@@ -1829,10 +1834,9 @@ public partial struct ArmenianYear // IDaySegment
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        int daysInYear = sch.CountDaysInYear(Year);
 
         return from daysSinceEpoch
-               in Enumerable.Range(startOfYear, daysInYear)
+               in Enumerable.Range(startOfYear, DayCount)
                select ArmenianDate.UnsafeCreate(daysSinceEpoch);
     }
 

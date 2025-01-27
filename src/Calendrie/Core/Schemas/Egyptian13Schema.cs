@@ -101,7 +101,7 @@ public partial class Egyptian13Schema // Conversions
     /// <inheritdoc />
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
-        y = 1 + MathZ.Divide(daysSinceEpoch, DaysInYear, out int d0y);
+        y = 1 + MathZ.Divide(daysSinceEpoch, DaysPerYear, out int d0y);
         m = Ptolemaic13.GetMonth(d0y, out d);
     }
 
