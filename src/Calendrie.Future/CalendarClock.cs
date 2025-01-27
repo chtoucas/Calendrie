@@ -8,7 +8,7 @@ using Calendrie.Horology;
 using Calendrie.Systems;
 
 /// <summary>
-/// Represents a clock for the Civil calendar.
+/// Represents a clock.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
 public sealed class CalendarClock : IClock

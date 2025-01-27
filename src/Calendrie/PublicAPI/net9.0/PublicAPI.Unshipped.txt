@@ -311,7 +311,6 @@ Calendrie.Core.Schemas.TabularIslamicSchema
 Calendrie.Core.Schemas.WorldSchema
 Calendrie.Core.Schemas.WorldSchema.CountDaysInWorldMonth(int y, int m) -> int
 Calendrie.Core.Schemas.WorldSchema.IsBlankDay(int y, int m, int d) -> bool
-Calendrie.Core.TemporalConstants
 Calendrie.DateParts
 Calendrie.DateParts.CompareTo(Calendrie.DateParts other) -> int
 Calendrie.DateParts.DateParts() -> void
@@ -491,12 +490,6 @@ Calendrie.Hemerology.IYearFieldMath<TSelf>.CountYearsSince(TSelf other) -> int
 Calendrie.Hemerology.IYearFieldMath<TSelf>.NextYear() -> TSelf
 Calendrie.Hemerology.IYearFieldMath<TSelf>.PlusYears(int years) -> TSelf
 Calendrie.Hemerology.IYearFieldMath<TSelf>.PreviousYear() -> TSelf
-Calendrie.Horology.IClock
-Calendrie.Horology.IClock.Today() -> Calendrie.DayNumber
-Calendrie.Horology.LocalSystemClock
-Calendrie.Horology.LocalSystemClock.Today() -> Calendrie.DayNumber
-Calendrie.Horology.UtcSystemClock
-Calendrie.Horology.UtcSystemClock.Today() -> Calendrie.DayNumber
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
@@ -2845,28 +2838,6 @@ const Calendrie.Core.Schemas.WorldSchema.DaysInCommonYear = 365 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysInLeapYear = 366 -> int
 const Calendrie.Core.Schemas.WorldSchema.DaysPer400YearCycle = 146097 -> int
 const Calendrie.Core.Schemas.WorldSchema.MonthsPerYear = 12 -> int
-const Calendrie.Core.TemporalConstants.HoursPerDay = 24 -> int
-const Calendrie.Core.TemporalConstants.MicrosecondsPerDay = 86400000000 -> long
-const Calendrie.Core.TemporalConstants.MicrosecondsPerHour = 3600000000 -> long
-const Calendrie.Core.TemporalConstants.MicrosecondsPerMinute = 60000000 -> int
-const Calendrie.Core.TemporalConstants.MicrosecondsPerSecond = 1000000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerDay = 86400000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerHour = 3600000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerMinute = 60000 -> int
-const Calendrie.Core.TemporalConstants.MillisecondsPerSecond = 1000 -> int
-const Calendrie.Core.TemporalConstants.MinutesPerDay = 1440 -> int
-const Calendrie.Core.TemporalConstants.MinutesPerHour = 60 -> int
-const Calendrie.Core.TemporalConstants.NanosecondsPerDay = 86400000000000 -> long
-const Calendrie.Core.TemporalConstants.NanosecondsPerHour = 3600000000000 -> long
-const Calendrie.Core.TemporalConstants.NanosecondsPerMinute = 60000000000 -> long
-const Calendrie.Core.TemporalConstants.NanosecondsPerSecond = 1000000000 -> int
-const Calendrie.Core.TemporalConstants.SecondsPerDay = 86400 -> int
-const Calendrie.Core.TemporalConstants.SecondsPerHour = 3600 -> int
-const Calendrie.Core.TemporalConstants.SecondsPerMinute = 60 -> int
-const Calendrie.Core.TemporalConstants.TicksPerDay = 864000000000 -> long
-const Calendrie.Core.TemporalConstants.TicksPerHour = 36000000000 -> long
-const Calendrie.Core.TemporalConstants.TicksPerMinute = 600000000 -> int
-const Calendrie.Core.TemporalConstants.TicksPerSecond = 10000000 -> int
 const Calendrie.DayNumber.MaxDaysSinceZero = 2147483646 -> int
 const Calendrie.DayNumber.MinDaysSinceZero = -2147483647 -> int
 const Calendrie.Ord.MaxAlgebraicValue = 2147483647 -> int
@@ -3392,8 +3363,6 @@ static Calendrie.DayZero.SundayBeforeGregorian.get -> Calendrie.DayNumber
 static Calendrie.DayZero.TabularIslamic.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Tropicalia.get -> Calendrie.DayNumber
 static Calendrie.DayZero.Zoroastrian.get -> Calendrie.DayNumber
-static Calendrie.Horology.LocalSystemClock.Instance.get -> Calendrie.Horology.LocalSystemClock!
-static Calendrie.Horology.UtcSystemClock.Instance.get -> Calendrie.Horology.UtcSystemClock!
 static Calendrie.MonthParts.AtStartOfYear(int y) -> Calendrie.MonthParts
 static Calendrie.MonthParts.operator <(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
