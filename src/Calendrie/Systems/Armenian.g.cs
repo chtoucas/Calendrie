@@ -17,7 +17,6 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
-using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -166,72 +165,6 @@ public partial class ArmenianCalendar // Math
 
         return AddYears(y, newM, d, years, out roundoff);
     }
-}
-
-#endregion
-
-#region ArmenianClock
-
-/// <summary>
-/// Represents a clock for the Armenian calendar.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed partial class ArmenianClock : IClock
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ArmenianClock"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
-    /// <see langword="null"/>.</exception>
-    public ArmenianClock(IClock clock)
-    {
-        ArgumentNullException.ThrowIfNull(clock);
-
-        Clock = clock;
-    }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="ArmenianClock"/> class for the
-    /// system clock using the current time zone setting on this machine.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static ArmenianClock Local { get; } = new(LocalSystemClock.Instance);
-
-    /// <summary>
-    /// Gets an instance of the <see cref="ArmenianClock"/> class for the
-    /// system clock using the Coordinated Universal Time (UTC).
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static ArmenianClock Utc { get; } = new(UtcSystemClock.Instance);
-
-    /// <summary>
-    /// Gets the clock used to provide the current day.
-    /// </summary>
-    public IClock Clock { get; }
-
-    /// <summary>
-    /// Obtains a <see cref="DayNumber"/> value representing the current day.
-    /// </summary>
-    [Pure]
-    public DayNumber Today() => Clock.Today();
-
-    /// <summary>
-    /// Obtains a <see cref="ArmenianDate"/> value representing the current date.
-    /// </summary>
-    [Pure]
-    public ArmenianDate GetCurrentDate() => ArmenianDate.FromAbsoluteDate(Clock.Today());
-
-    /// <summary>
-    /// Obtains a <see cref="ArmenianMonth"/> value representing the current month.
-    /// </summary>
-    [Pure]
-    public ArmenianMonth GetCurrentMonth() => ArmenianMonth.FromDate(GetCurrentDate());
-
-    /// <summary>
-    /// Obtains a <see cref="ArmenianYear"/> value representing the current year.
-    /// </summary>
-    [Pure]
-    public ArmenianYear GetCurrentYear() => ArmenianYear.FromDate(GetCurrentDate());
 }
 
 #endregion

@@ -72,7 +72,7 @@ public partial class CalendarTemplate : CSharpTemplate
     public bool EnableDate { get; set; } = true;
     public bool EnableMonth { get; set; } = true;
     public bool EnableYear { get; set; } = true;
-    public bool EnableClock { get; set; } = true;
+    public bool EnableClock { get; set; }
 
     protected sealed override void WriteContent()
     {

@@ -12,7 +12,7 @@ public partial class CalendarTemplate
 /// Represents a clock for the <#= DisplayName #> calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class <#= Prefix #>Clock : IClock
+public sealed class <#= Prefix #>Clock : IClock
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Clock"/> class.

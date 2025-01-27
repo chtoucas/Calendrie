@@ -17,7 +17,6 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
-using Calendrie.Horology;
 
 using static Calendrie.Core.CalendricalConstants;
 
@@ -166,72 +165,6 @@ public partial class Persian2820Calendar // Math
 
         return AddYears(y, newM, d, years, out roundoff);
     }
-}
-
-#endregion
-
-#region Persian2820Clock
-
-/// <summary>
-/// Represents a clock for the Persian calendar.
-/// <para>This class cannot be inherited.</para>
-/// </summary>
-public sealed partial class Persian2820Clock : IClock
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Persian2820Clock"/> class.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="clock"/> is
-    /// <see langword="null"/>.</exception>
-    public Persian2820Clock(IClock clock)
-    {
-        ArgumentNullException.ThrowIfNull(clock);
-
-        Clock = clock;
-    }
-
-    /// <summary>
-    /// Gets an instance of the <see cref="Persian2820Clock"/> class for the
-    /// system clock using the current time zone setting on this machine.
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static Persian2820Clock Local { get; } = new(LocalSystemClock.Instance);
-
-    /// <summary>
-    /// Gets an instance of the <see cref="Persian2820Clock"/> class for the
-    /// system clock using the Coordinated Universal Time (UTC).
-    /// <para>This static property is thread-safe.</para>
-    /// </summary>
-    public static Persian2820Clock Utc { get; } = new(UtcSystemClock.Instance);
-
-    /// <summary>
-    /// Gets the clock used to provide the current day.
-    /// </summary>
-    public IClock Clock { get; }
-
-    /// <summary>
-    /// Obtains a <see cref="DayNumber"/> value representing the current day.
-    /// </summary>
-    [Pure]
-    public DayNumber Today() => Clock.Today();
-
-    /// <summary>
-    /// Obtains a <see cref="Persian2820Date"/> value representing the current date.
-    /// </summary>
-    [Pure]
-    public Persian2820Date GetCurrentDate() => Persian2820Date.FromAbsoluteDate(Clock.Today());
-
-    /// <summary>
-    /// Obtains a <see cref="Persian2820Month"/> value representing the current month.
-    /// </summary>
-    [Pure]
-    public Persian2820Month GetCurrentMonth() => Persian2820Month.FromDate(GetCurrentDate());
-
-    /// <summary>
-    /// Obtains a <see cref="Persian2820Year"/> value representing the current year.
-    /// </summary>
-    [Pure]
-    public Persian2820Year GetCurrentYear() => Persian2820Year.FromDate(GetCurrentDate());
 }
 
 #endregion

@@ -22,7 +22,7 @@ Features
 - Optional custom math for the date and month types
 - User-defined calendars
 - Most calendrical calculations are obtained using algorithms based on the
-  discrete geometry of the calendars
+  discrete geometry of calendars
 
 ### Pre-defined Calendars
 

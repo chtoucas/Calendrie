@@ -24,7 +24,7 @@ using Calendrie.Horology;
 /// Represents a clock for the Gregorian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class GregorianClock : IClock
+public sealed class GregorianClock : IClock
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianClock"/> class.

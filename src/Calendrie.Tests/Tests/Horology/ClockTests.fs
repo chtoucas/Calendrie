@@ -20,6 +20,91 @@ let ``FauxClock:Today() sanity checks`` () =
     // Act & Assert
     clock.Today() === dayNumber
 
+module CalendarClock =
+    [<Fact>]
+    let ``Constructor throws when clock is null`` () =
+        nullExn "clock" (fun () -> new CalendarClock(null))
+
+    [<Fact>]
+    let ``Static properties Local and Utc`` () =
+        CalendarClock.Local.Clock ==& LocalSystemClock.Instance
+        CalendarClock.Utc.Clock   ==& UtcSystemClock.Instance
+
+    [<Fact>]
+    let ``GetCurrentXXX() and Today()`` () =
+        let clock = new CalendarClock(FauxClock(daysSinceZero))
+        let dayNumber = DayNumber.Zero + daysSinceZero
+        let date = CivilDate.FromAbsoluteDate(dayNumber)
+        // Act & Assert
+        clock.Today()           === dayNumber
+        clock.GetCurrentDate()  === date
+        clock.GetCurrentDate<CivilDate>() === date
+
+module CivilClock =
+    [<Fact>]
+    let ``Constructor throws when clock is null`` () =
+        nullExn "clock" (fun () -> new CivilClock(null))
+
+    [<Fact>]
+    let ``Static properties Local and Utc`` () =
+        CivilClock.Local.Clock ==& LocalSystemClock.Instance
+        CivilClock.Utc.Clock   ==& UtcSystemClock.Instance
+
+    [<Fact>]
+    let ``GetCurrentXXX() and Today()`` () =
+        let clock = new CivilClock(FauxClock(daysSinceZero))
+        let dayNumber = DayNumber.Zero + daysSinceZero
+        let date = CivilDate.FromAbsoluteDate(dayNumber)
+        // Act & Assert
+        clock.Today()           === dayNumber
+        clock.GetCurrentDate()  === date
+        clock.GetCurrentMonth() === CivilMonth.FromDate(date)
+        clock.GetCurrentYear()  === CivilYear.FromDate(date)
+
+module GregorianClock =
+    [<Fact>]
+    let ``Constructor throws when clock is null`` () =
+        nullExn "clock" (fun () -> new GregorianClock(null))
+
+    [<Fact>]
+    let ``Static properties Local and Utc`` () =
+        GregorianClock.Local.Clock ==& LocalSystemClock.Instance
+        GregorianClock.Utc.Clock   ==& UtcSystemClock.Instance
+
+    [<Fact>]
+    let ``GetCurrentXXX() and Today()`` () =
+        let clock = new GregorianClock(FauxClock(daysSinceZero))
+        let dayNumber = DayNumber.Zero + daysSinceZero
+        let date = GregorianDate.FromAbsoluteDate(dayNumber)
+        // Act & Assert
+        clock.Today()           === dayNumber
+        clock.GetCurrentDate()  === date
+        clock.GetCurrentMonth() === GregorianMonth.FromDate(date)
+        clock.GetCurrentYear()  === GregorianYear.FromDate(date)
+
+module JulianClock =
+    [<Fact>]
+    let ``Constructor throws when clock is null`` () =
+        nullExn "clock" (fun () -> new JulianClock(null))
+
+    [<Fact>]
+    let ``Static properties Local and Utc`` () =
+        JulianClock.Local.Clock ==& LocalSystemClock.Instance
+        JulianClock.Utc.Clock   ==& UtcSystemClock.Instance
+
+    [<Fact>]
+    let ``GetCurrentXXX() and Today()`` () =
+        let clock = new JulianClock(FauxClock(daysSinceZero))
+        let dayNumber = DayNumber.Zero + daysSinceZero
+        let date = JulianDate.FromAbsoluteDate(dayNumber)
+        // Act & Assert
+        clock.Today()           === dayNumber
+        clock.GetCurrentDate()  === date
+        clock.GetCurrentMonth() === JulianMonth.FromDate(date)
+        clock.GetCurrentYear()  === JulianYear.FromDate(date)
+
+#if ENABLE_CLOCKS
+
 module ArmenianClock =
     [<Fact>]
     let ``Constructor throws when clock is null`` () =
@@ -61,27 +146,6 @@ module Armenian13Clock =
         clock.GetCurrentDate()  === date
         clock.GetCurrentMonth() === Armenian13Month.FromDate(date)
         clock.GetCurrentYear()  === Armenian13Year.FromDate(date)
-
-module CivilClock =
-    [<Fact>]
-    let ``Constructor throws when clock is null`` () =
-        nullExn "clock" (fun () -> new CivilClock(null))
-
-    [<Fact>]
-    let ``Static properties Local and Utc`` () =
-        CivilClock.Local.Clock ==& LocalSystemClock.Instance
-        CivilClock.Utc.Clock   ==& UtcSystemClock.Instance
-
-    [<Fact>]
-    let ``GetCurrentXXX() and Today()`` () =
-        let clock = new CivilClock(FauxClock(daysSinceZero))
-        let dayNumber = DayNumber.Zero + daysSinceZero
-        let date = CivilDate.FromAbsoluteDate(dayNumber)
-        // Act & Assert
-        clock.Today()           === dayNumber
-        clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === CivilMonth.FromDate(date)
-        clock.GetCurrentYear()  === CivilYear.FromDate(date)
 
 module CopticClock =
     [<Fact>]
@@ -251,27 +315,6 @@ module FrenchRepublican13Clock =
         clock.GetCurrentMonth() === FrenchRepublican13Month.FromDate(date)
         clock.GetCurrentYear()  === FrenchRepublican13Year.FromDate(date)
 
-module GregorianClock =
-    [<Fact>]
-    let ``Constructor throws when clock is null`` () =
-        nullExn "clock" (fun () -> new GregorianClock(null))
-
-    [<Fact>]
-    let ``Static properties Local and Utc`` () =
-        GregorianClock.Local.Clock ==& LocalSystemClock.Instance
-        GregorianClock.Utc.Clock   ==& UtcSystemClock.Instance
-
-    [<Fact>]
-    let ``GetCurrentXXX() and Today()`` () =
-        let clock = new GregorianClock(FauxClock(daysSinceZero))
-        let dayNumber = DayNumber.Zero + daysSinceZero
-        let date = GregorianDate.FromAbsoluteDate(dayNumber)
-        // Act & Assert
-        clock.Today()           === dayNumber
-        clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === GregorianMonth.FromDate(date)
-        clock.GetCurrentYear()  === GregorianYear.FromDate(date)
-
 module InternationalFixedClock =
     [<Fact>]
     let ``Constructor throws when clock is null`` () =
@@ -292,27 +335,6 @@ module InternationalFixedClock =
         clock.GetCurrentDate()  === date
         clock.GetCurrentMonth() === InternationalFixedMonth.FromDate(date)
         clock.GetCurrentYear()  === InternationalFixedYear.FromDate(date)
-
-module JulianClock =
-    [<Fact>]
-    let ``Constructor throws when clock is null`` () =
-        nullExn "clock" (fun () -> new JulianClock(null))
-
-    [<Fact>]
-    let ``Static properties Local and Utc`` () =
-        JulianClock.Local.Clock ==& LocalSystemClock.Instance
-        JulianClock.Utc.Clock   ==& UtcSystemClock.Instance
-
-    [<Fact>]
-    let ``GetCurrentXXX() and Today()`` () =
-        let clock = new JulianClock(FauxClock(daysSinceZero))
-        let dayNumber = DayNumber.Zero + daysSinceZero
-        let date = JulianDate.FromAbsoluteDate(dayNumber)
-        // Act & Assert
-        clock.Today()           === dayNumber
-        clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === JulianMonth.FromDate(date)
-        clock.GetCurrentYear()  === JulianYear.FromDate(date)
 
 module PaxClock =
     [<Fact>]
@@ -481,3 +503,5 @@ module Zoroastrian13Clock =
         clock.GetCurrentDate()  === date
         clock.GetCurrentMonth() === Zoroastrian13Month.FromDate(date)
         clock.GetCurrentYear()  === Zoroastrian13Year.FromDate(date)
+
+#endif

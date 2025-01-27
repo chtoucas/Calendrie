@@ -24,7 +24,7 @@ using Calendrie.Horology;
 /// Represents a clock for the Julian calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class JulianClock : IClock
+public sealed class JulianClock : IClock
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianClock"/> class.

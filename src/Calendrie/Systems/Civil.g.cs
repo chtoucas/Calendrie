@@ -28,7 +28,7 @@ using static Calendrie.Core.CalendricalConstants;
 /// Represents a clock for the Civil calendar.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class CivilClock : IClock
+public sealed class CivilClock : IClock
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilClock"/> class.
