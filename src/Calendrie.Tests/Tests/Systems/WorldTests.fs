@@ -6,6 +6,7 @@ module Calendrie.Tests.Systems.WorldTests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -222,9 +223,27 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<WorldDate, StandardWorldDataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new WorldDate(4, 6, 31)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: WorldDate * int = date.PlusYears(1)
+            result === (new WorldDate(5, 6, 30), 1)
+
+            date.PlusYears(1) === new WorldDate(5, 6, 30)
+
+            defaultMath.AddYears(date, 1)   === new WorldDate(5, 6, 30)
+            overspillMath.AddYears(date, 1) === new WorldDate(5, 7, 1)
+            exactMath.AddYears(date, 1)     === new WorldDate(5, 7, 1)
 
     //
     // Month type

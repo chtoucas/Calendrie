@@ -6,6 +6,7 @@ module Calendrie.Tests.Systems.PositivistTests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -221,9 +222,27 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<PositivistDate, StandardPositivistDataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new PositivistDate(4, 13, 30)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: PositivistDate * int = date.PlusYears(1)
+            result === (new PositivistDate(5, 13, 29), 1)
+
+            date.PlusYears(1) === new PositivistDate(5, 13, 29)
+
+            defaultMath.AddYears(date, 1)   === new PositivistDate(5, 13, 29)
+            overspillMath.AddYears(date, 1) === new PositivistDate(6, 1, 1)
+            exactMath.AddYears(date, 1)     === new PositivistDate(6, 1, 1)
 
     //
     // Month type

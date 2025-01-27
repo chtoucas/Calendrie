@@ -6,6 +6,7 @@ module Calendrie.Tests.Systems.Persian2820Tests
 #nowarn 3391 // Implicit conversion to DayNumber or GregorianDate
 
 open Calendrie
+open Calendrie.Hemerology
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data
@@ -214,9 +215,27 @@ module Bundles =
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
-    [<TestExcludeFrom(TestExcludeFrom.CodeCoverage)>]
-    type DefaultDateMathFacts() =
+    type DateMathFacts() =
         inherit DefaultDateMathFacts<Persian2820Date, StandardPersian2820DataSet>()
+
+        static let defaultMath   = new DateMath()
+        static let overspillMath = new DateMath(AdditionRule.Overspill)
+        static let exactMath     = new DateMath(AdditionRule.Exact)
+
+        [<Fact>]
+        static member ``PlusYears() when roundof != 0`` () =
+            let date = new Persian2820Date(4, 12, 30)
+            // Act & Assert
+            date.IsIntercalary |> ok
+
+            let result: Persian2820Date * int = date.PlusYears(1)
+            result === (new Persian2820Date(5, 12, 29), 1)
+
+            date.PlusYears(1) === new Persian2820Date(5, 12, 29)
+
+            defaultMath.AddYears(date, 1)   === new Persian2820Date(5, 12, 29)
+            overspillMath.AddYears(date, 1) === new Persian2820Date(6, 1, 1)
+            exactMath.AddYears(date, 1)     === new Persian2820Date(6, 1, 1)
 
     //
     // Month type
