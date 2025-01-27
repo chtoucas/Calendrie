@@ -26,7 +26,7 @@ public sealed class LocalSystemClock : IClock
     {
         var now = DateTime.Now;
         // NB: the cast should always succeed.
-        int daysSinceZero = (int)TemporalArithmetic.DivideByTicksPerDay(now.Ticks);
+        int daysSinceZero = (int)TemporalArithmetic.DivideByTicksPerDay((ulong)now.Ticks);
         return new DayNumber(daysSinceZero);
     }
 }

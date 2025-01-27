@@ -47,16 +47,16 @@ internal partial class TemporalArithmetic // TicksPerDay
     private const long TicksPerDayOddPart = TicksPerDay >> TicksPerDayTwoAdicOrder;
 
     /// <summary>
-    /// <c>daysSinceZero = ticksSinceZero / TicksPerDay</c>
+    /// <para><c>daysSinceZero = ticksSinceZero / TicksPerDay</c></para>
     /// <para><paramref name="ticksSinceZero"/> MUST be &gt;= 0.</para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static long DivideByTicksPerDay(long ticksSinceZero)
+    public static ulong DivideByTicksPerDay(ulong ticksSinceZero)
     {
-        Debug.Assert(ticksSinceZero >= 0);
+        //Debug.Assert(ticksSinceZero >= 0);
 
-        return (long)((ulong)(ticksSinceZero >> TicksPerDayTwoAdicOrder) / TicksPerDayOddPart);
+        return (ticksSinceZero >> TicksPerDayTwoAdicOrder) / TicksPerDayOddPart;
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ internal partial class TemporalArithmetic // TicksPerDay
     }
 
     /// <summary>
-    /// <c>ticksSinceZero = TicksPerDay * daysSinceZero</c>
+    /// <para><c>ticksSinceZero = TicksPerDay * daysSinceZero</c></para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -100,7 +100,7 @@ internal partial class TemporalArithmetic // NanosecondsPerHour
         NanosecondsPerHour >> NanosecondsPerHourTwoAdicOrder;
 
     /// <summary>
-    /// <c>hourOfDay = nanosecondOfDay / NanosecondsPerHour</c>
+    /// <para><c>hourOfDay = nanosecondOfDay / NanosecondsPerHour</c></para>
     /// <para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para>
     /// </summary>
     [Pure]
@@ -115,7 +115,7 @@ internal partial class TemporalArithmetic // NanosecondsPerHour
     }
 
     /// <summary>
-    /// <c>nanosecondOfDay = NanosecondsPerHour * hourOfDay</c>
+    /// <para><c>nanosecondOfDay = NanosecondsPerHour * hourOfDay</c></para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -145,7 +145,7 @@ internal partial class TemporalArithmetic // NanosecondsPerMinute
         NanosecondsPerMinute >> NanosecondsPerMinuteTwoAdicOrder;
 
     /// <summary>
-    /// <c>minuteOfDay = nanosecondOfDay / NanosecondsPerMinute</c>
+    /// <para><c>minuteOfDay = nanosecondOfDay / NanosecondsPerMinute</c></para>
     /// <para><paramref name="nanosecondOfDay"/> MUST be &gt;= 0.</para>
     /// </summary>
     [Pure]
@@ -160,7 +160,7 @@ internal partial class TemporalArithmetic // NanosecondsPerMinute
     }
 
     /// <summary>
-    /// <c>nanosecondOfDay = NanosecondsPerMinute * minuteOfDay</c>
+    /// <para><c>nanosecondOfDay = NanosecondsPerMinute * minuteOfDay</c></para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -191,7 +191,7 @@ internal partial class TemporalArithmetic // NanosecondsPerSecond (disabled)
         NanosecondsPerSecond >> NanosecondsPerSecondTwoAdicOrder;
 
     /// <summary>
-    /// <c>secondOfDay = nanosecondOfDay / NanosecondsPerSecond</c>
+    /// <para><c>secondOfDay = nanosecondOfDay / NanosecondsPerSecond</c></para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -204,7 +204,7 @@ internal partial class TemporalArithmetic // NanosecondsPerSecond (disabled)
     }
 
     /// <summary>
-    /// <c>nanosecondOfDay = NanosecondsPerSecond * secondOfDay</c>
+    /// <para><c>nanosecondOfDay = NanosecondsPerSecond * secondOfDay</c></para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -234,7 +234,7 @@ internal partial class TemporalArithmetic // NanosecondsPerMillisecond (disabled
         NanosecondsPerMillisecond >> NanosecondsPerMillisecondTwoAdicOrder;
 
     /// <summary>
-    /// <c>millisecondOfDay = nanosecondOfDay / NanosecondsPerMillisecond</c>
+    /// <para><c>millisecondOfDay = nanosecondOfDay / NanosecondsPerMillisecond</c></para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -247,7 +247,7 @@ internal partial class TemporalArithmetic // NanosecondsPerMillisecond (disabled
     }
 
     /// <summary>
-    /// <c>nanosecondOfDay = NanosecondsPerMillisecond * millisecondOfDay</c>
+    /// <para><c>nanosecondOfDay = NanosecondsPerMillisecond * millisecondOfDay</c></para>
     /// </summary>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

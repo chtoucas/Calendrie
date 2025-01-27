@@ -3,7 +3,10 @@
 
 module Calendrie.Tests.Horology.ClockTests
 
+open System
+
 open Calendrie
+open Calendrie.Core
 open Calendrie.Horology
 open Calendrie.Systems
 open Calendrie.Testing
@@ -11,7 +14,26 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
-let private daysSinceZero = LocalSystemClock.Instance.Today().DaysSinceZero
+// This value should work for all calendars: 27/1/2025 (Gregorian).
+let private daysSinceZero = 739_277;
+
+[<Fact>]
+let ``LocalSystemClock:Today()`` () =
+    let mid = int(DateTime.Now.Ticks / TemporalConstants.TicksPerDay)
+    // Act
+    let daysSinceZero = LocalSystemClock.Instance.Today().DaysSinceZero
+    // Assert
+    daysSinceZero >= mid - 1 |> ok
+    daysSinceZero <= mid + 1 |> ok
+
+[<Fact>]
+let ``UtcSystemClock:Today()`` () =
+    let mid = int(DateTime.Now.Ticks / TemporalConstants.TicksPerDay)
+    // Act
+    let daysSinceZero = UtcSystemClock.Instance.Today().DaysSinceZero
+    // Assert
+    daysSinceZero >= mid - 1 |> ok
+    daysSinceZero <= mid + 1 |> ok
 
 [<Fact>]
 let ``FauxClock:Today() sanity checks`` () =

@@ -12,6 +12,7 @@ open Calendrie.Core
 open Calendrie.Testing
 
 open Xunit
+open FsCheck.Xunit
 
 [<Literal>]
 let private RandomFrom = 11
@@ -37,17 +38,31 @@ type ZeroToTwentyThreeData() as self =
 // TicksPerDay
 //
 
+[<Property>]
+let ``DivideByTicksPerDay()`` (ticksSinceZero) =
+    // Act
+    let daysSinceZero = TemporalArithmetic.DivideByTicksPerDay(ticksSinceZero)
+    // Assert
+    daysSinceZero === ticksSinceZero / uint64(TemporalConstants.TicksPerDay)
+
+[<Property>]
+let ``DivideByTicksPerDay(out)`` (ticksSinceZero) =
+    // Act
+    let (daysSinceZero, tickOfDay) = TemporalArithmetic.DivideByTicksPerDay(ticksSinceZero)
+    // Assert
+    tickOfDay     === ticksSinceZero % uint64(TemporalConstants.TicksPerDay)
+    daysSinceZero === ticksSinceZero / uint64(TemporalConstants.TicksPerDay)
+
 [<Theory; ClassData(typeof<MultiplierData>)>]
-let ``DivideByTicksPerDay()`` (mul: int) =
-    let mul64 = int64(mul)
+let ``DivideByTicksPerDay() using mul`` (mul: uint64) =
 
-    TemporalArithmetic.DivideByTicksPerDay(mul64 * TemporalConstants.TicksPerDay) === mul64
+    TemporalArithmetic.DivideByTicksPerDay(mul * uint64(TemporalConstants.TicksPerDay)) === mul
 
-[<Fact>]
-let ``DivideByTicksPerDay() fuzzy`` () =
-    let mul64 = getFuzzyMul64ForTicksPerDay()
+//[<Fact>]
+//let ``DivideByTicksPerDay() fuzzy`` () =
+//    let mul64 = getFuzzyMul64ForTicksPerDay()
 
-    TemporalArithmetic.DivideByTicksPerDay(mul64 * TemporalConstants.TicksPerDay) === mul64
+//    TemporalArithmetic.DivideByTicksPerDay(mul64 * TemporalConstants.TicksPerDay) === mul64
 
 [<Theory; ClassData(typeof<MultiplierData>)>]
 let ``MultiplyByTicksPerDay()`` (mul: int) =

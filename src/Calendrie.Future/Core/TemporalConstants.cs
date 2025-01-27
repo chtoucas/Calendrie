@@ -175,7 +175,8 @@ public partial class TemporalConstants // Misc, ticks
     /// Represents the number of ticks in one second.
     /// <para>This field is a constant equal to 10_000_000.</para>
     /// </summary>
-    // 1 second = 10^7 ticks, see TimeSpan.
+    //
+    //1 second = 10^7 ticks, see TimeSpan.
     public const int TicksPerSecond = 10 * MicrosecondsPerSecond;
 
     /// <summary>
