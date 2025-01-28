@@ -20,14 +20,12 @@ public partial record QuasiAffineForm
     /// <summary>
     /// Initializes a new instance of the <see cref="QuasiAffineForm"/> record.
     /// </summary>
-#pragma warning disable IDE1006 // Naming Styles
-    public QuasiAffineForm(int A, int B, int Remainder)
+    public QuasiAffineForm(int a, int b, int remainder)
     {
-        _a = A != 0 ? A : throw new ArgumentOutOfRangeException(nameof(A));
-        _b = B != 0 ? B : throw new ArgumentOutOfRangeException(nameof(B));
-        R = Remainder;
+        _a = a != 0 ? a : throw new ArgumentOutOfRangeException(nameof(a));
+        _b = b != 0 ? b : throw new ArgumentOutOfRangeException(nameof(b));
+        R = remainder;
     }
-#pragma warning restore IDE1006
 
     // A != 0 means that all forms can be reversed.
     public int A

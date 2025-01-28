@@ -59,13 +59,12 @@ public sealed partial class BoolArray : IReadOnlyList<bool>
 public partial class BoolArray
 {
     /// <summary>
-    /// Returns true if the value true is isolated in the sequence; otherwise returns false.
-    /// </summary>
-    /// <remarks>
-    /// <para>The value true is said to be isolated if the sequence does NOT contain a
-    /// subsequence {true, true}.</para>
+    /// Returns <see langword="true"/>  if the value true is isolated in the
+    /// sequence; otherwise returns <see langword="false"/>.
+    /// <para>The value true is said to be isolated if the sequence does NOT
+    /// contain a subsequence {true, true}.</para>
     /// <para>Beware, this method returns false for the singleton {1}.</para>
-    /// </remarks>
+    /// </summary>
     [Pure]
     public bool IsTrueIsolated()
     {

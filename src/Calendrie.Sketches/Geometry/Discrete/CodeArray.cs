@@ -41,7 +41,8 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     /// <summary>
     /// Initializes a new instance of the <see cref="CodeArray"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="codes"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="codes"/> is null.
+    /// </exception>
     public CodeArray(int[] codes)
     {
         ArgumentNullException.ThrowIfNull(codes);
@@ -80,13 +81,15 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     public bool Reducible => Height < 2;
 
     /// <summary>
-    /// Returns true if the current instance is a <i>non-constant</i> sequence convertible to a
-    /// <see cref="BoolArray"/>; otherwise returns false.
+    /// Returns <see langword="true"/> if the current instance is a
+    /// <i>non-constant</i> sequence convertible to a <see cref="BoolArray"/>;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool StrictlyReducible => Height == 1;
 
     /// <summary>
-    /// Gets the difference between the maximum and the minimum values in the sequence.
+    /// Gets the difference between the maximum and the minimum values in the
+    /// sequence.
     /// </summary>
     public int Height => Max - Min;
 
@@ -355,8 +358,8 @@ public partial class CodeArray // Conversions, manips
     [Pure]
     public CodeArray Rotate(int start)
     {
-        if (start <= 0 || Count <= start)
-            throw new ArgumentOutOfRangeException(nameof(start));
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(start, 0);
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(start, Count);
 
         return new(ArrayHelpers.Rotate(_codes, start));
     }
