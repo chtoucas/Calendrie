@@ -526,6 +526,12 @@ Calendrie.Hemerology.MonthMath.CountYearsBetween<TMonth>(TMonth start, TMonth en
 Calendrie.Hemerology.MonthMath.MonthMath() -> void
 Calendrie.Hemerology.MonthMath.MonthMath(Calendrie.AdditionRule rule) -> void
 Calendrie.Hemerology.MonthMath.Subtract<TMonth>(TMonth start, TMonth end) -> Calendrie.Hemerology.MonthDifference
+Calendrie.Horology.IClock
+Calendrie.Horology.IClock.Today() -> Calendrie.DayNumber
+Calendrie.Horology.LocalSystemClock
+Calendrie.Horology.LocalSystemClock.Today() -> Calendrie.DayNumber
+Calendrie.Horology.UtcSystemClock
+Calendrie.Horology.UtcSystemClock.Today() -> Calendrie.DayNumber
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
 Calendrie.MonthParts.Month.get -> int
@@ -3431,6 +3437,8 @@ static Calendrie.Hemerology.MonthDifference.operator <=(Calendrie.Hemerology.Mon
 static Calendrie.Hemerology.MonthDifference.operator >(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
 static Calendrie.Hemerology.MonthDifference.operator >=(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
 static Calendrie.Hemerology.MonthDifference.Zero.get -> Calendrie.Hemerology.MonthDifference
+static Calendrie.Horology.LocalSystemClock.Instance.get -> Calendrie.Horology.LocalSystemClock!
+static Calendrie.Horology.UtcSystemClock.Instance.get -> Calendrie.Horology.UtcSystemClock!
 static Calendrie.MonthParts.AtStartOfYear(int y) -> Calendrie.MonthParts
 static Calendrie.MonthParts.operator <(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
