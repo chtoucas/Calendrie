@@ -73,10 +73,12 @@ public partial class BoundedBelowScopeTests : CalendricalDataConsumer<GregorianD
             () => BoundedBelowScope.Create<GregorianSchema>(DayZero.NewStyle, new(y, m, d), 9999));
 #endif
 
-    [Theory(Skip = "MinDateParts cannot be the start of a year."), MemberData(nameof(DateInfoData))]
+    [Theory, MemberData(nameof(DateInfoData))]
     public void Create(DateInfo info)
     {
         var (y, m, d, doy) = info;
+        // MinDateParts cannot be the start of a year.
+        if (d == 1 && m == 1) return;
         // Act
         var scope = BoundedBelowScope.Create(s_Schema, DayZero.NewStyle, new(y, m, d), 9999);
         var minDate = scope.Segment.MinMaxDateParts.LowerValue;

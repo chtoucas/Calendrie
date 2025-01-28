@@ -3,6 +3,7 @@
 
 module Calendrie.Tests.Systems.GregorianReformTests
 
+open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
 

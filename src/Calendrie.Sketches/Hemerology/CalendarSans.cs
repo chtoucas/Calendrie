@@ -5,8 +5,6 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Core;
 
-// TODO(code): remove Schema and PartsAdapter?
-
 /// <summary>
 /// Represents a calendar without a dedicated companion date type and provides
 /// a base for derived classes.

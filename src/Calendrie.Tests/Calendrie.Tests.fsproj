@@ -76,8 +76,6 @@
     <Compile Include="Tests\Hemerology\CalendarTests.fs" />
     <Compile Include="Tests\Hemerology\MinMaxYearCalendarTests.fs" />
     <Compile Include="Tests\Horology\ClockTests.fs" />
-    <Compile Include="Tests\Systems\GregorianReformTests.fs" />
-    <Compile Include="Tests\Systems\RomanKalendarTests.fs" />
     <Compile Include="Tests\Systems\StandardScopeTests.fs" />
     <Compile Include="Tests\Systems\StandardScopeTestSuite.fs" />
     <Compile Include="Tests\Systems\ProlepticScopeTestSuite.fs" />
@@ -104,6 +102,8 @@
     <Compile Include="Tests\MomentTests.fs" />
     <Compile Include="Tests\PartsTests.fs" />
     <Compile Include="Tests\YearNumberingTests.fs" />
+    <Compile Include="Tests\GregorianReformTests.fs" />
+    <Compile Include="Tests\RomanKalendarTests.fs" />
     <Compile Include="Tests\CSharpTests.fs" />
     <Compile Include="Tests\SamplesTests.fs" />
     <Compile Include="Program.fs" />

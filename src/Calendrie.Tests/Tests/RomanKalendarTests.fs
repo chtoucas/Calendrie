@@ -5,6 +5,7 @@ module Calendrie.Tests.Systems.RomanKalendarTests
 
 open System
 
+open Calendrie
 open Calendrie.Systems
 open Calendrie.Testing
 open Calendrie.Testing.Data

@@ -1,7 +1,9 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Systems;
+namespace Calendrie;
+
+using Calendrie.Systems;
 
 // La réforme grégorienne entraîne une rupture dans la suite des jours
 // ou des mois. Le passage officiel du calendrier julien au calendrier
