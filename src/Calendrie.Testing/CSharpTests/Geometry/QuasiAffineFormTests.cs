@@ -11,11 +11,11 @@ public class QuasiAffineFormTests
 {
     [Fact]
     public static void Constructor_InvalidA() =>
-        AssertEx.ThrowsAoorexn("A", () => new QuasiAffineForm(0, 1, 1));
+        AssertEx.ThrowsAoorexn("a", () => new QuasiAffineForm(0, 1, 1));
 
     [Fact]
     public static void Constructor_InvalidB() =>
-        AssertEx.ThrowsAoorexn("B", () => new QuasiAffineForm(1, 0, 1));
+        AssertEx.ThrowsAoorexn("b", () => new QuasiAffineForm(1, 0, 1));
 
     [Fact]
     public static void Deconstructor()
