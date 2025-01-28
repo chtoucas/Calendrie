@@ -31,6 +31,8 @@ public class ApiTests
         }
     }
 
+    // TODO(code): no public static methods, implements ISchemaActivator.
+
     [Fact(Skip = "CreateInstance()")]
     public static void Schema_CreateInstance()
     {
@@ -52,7 +54,7 @@ public class ApiTests
 
             if (getInstance is null)
             {
-                AssertEx.Fails($"Method {methodName} not found for {type}.");
+                AssertEx.Fails($"Method \"{methodName}\" not found for {type}.");
                 continue;
             }
 
