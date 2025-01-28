@@ -3,12 +3,12 @@
 
 namespace Calendrie;
 
+#region Developer Notes
+
 // Initialement, on proposait aussi une valeur Overflow, mais je pense que c'est
 // une mauvaise idée car cela reviendrait à utiliser une exception pour une
 // situation non-exceptionnelle.
-
-#region Developer Notes
-
+//
 // Exemples (calendriers grégorien et julien) quand le résultat d'une opération
 // arithmétique n'est pas exact (roundoff > 0).
 //
