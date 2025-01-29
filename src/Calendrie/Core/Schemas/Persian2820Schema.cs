@@ -87,14 +87,14 @@ public sealed partial class Persian2820Schema :
     /// have 86 years followed by two 128-year cycles and one 132-year cycle.
     /// </para>
     /// </summary>
-    public const int Year0 = 474;
+    public const int YearZero = 474;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Persian2820Schema"/> class.
     /// </summary>
     internal Persian2820Schema() : base(DaysPerCommonYear, 29)
     {
-        SupportedYearsCore = Range.StartingAt(int.MinValue + Year0);
+        SupportedYearsCore = Range.StartingAt(int.MinValue + YearZero);
     }
 
     /// <inheritdoc />
@@ -136,10 +136,10 @@ public partial class Persian2820Schema // Year, month or day infos
     [Pure]
     public sealed override bool IsLeapYear(int y)
     {
-        checked { y -= Year0; }
+        checked { y -= YearZero; }
         // WARNING: even if MinYear > 0, after the above shift "y" may
         // become negative.
-        int Y = Year0 + MathZ.Modulo(y, 2820);
+        int Y = YearZero + MathZ.Modulo(y, 2820);
         return 31 * (Y + 38) % 128 < 31;
     }
 
@@ -188,7 +188,7 @@ public partial class Persian2820Schema // Conversions
     [Pure]
     public sealed override int GetYear(int daysSinceEpoch)
     {
-        daysSinceEpoch -= GetStartOfYear(Year0 + 1);
+        daysSinceEpoch -= GetStartOfYear(YearZero + 1);
         // WARNING: even if MinYear > 0, after the above shift
         // daysSinceEpoch may become negative.
         int C = MathZ.Divide(daysSinceEpoch, DaysPer2820YearCycle, out int D);
@@ -196,7 +196,7 @@ public partial class Persian2820Schema // Conversions
         // numbered (DaysPer2820Years - 1) and requires a special treatment.
         int Y = D == DaysPer2820YearCycle - 1 ? 2820
             : (128 * D + DaysPer128YearSubcycle + 127) / DaysPer128YearSubcycle;
-        return Year0 + 2820 * C + Y;
+        return YearZero + 2820 * C + Y;
     }
 }
 
@@ -206,8 +206,8 @@ public partial class Persian2820Schema // Counting months and days since the epo
     [Pure]
     public sealed override int GetStartOfYear(int y)
     {
-        y -= Year0;
-        int Y = Year0 + MathZ.Modulo(y, 2820, out int C);
+        y -= YearZero;
+        int Y = YearZero + MathZ.Modulo(y, 2820, out int C);
         return DaysPer2820YearCycle * C + DaysPerCommonYear * (Y - 1) + (31 * Y - 5) / 128;
     }
 }

@@ -433,7 +433,7 @@ type Persian2820Tests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
     override x.SupportedYearsCore_Prop() =
-        x.SchemaUT.SupportedYearsCore === Range.StartingAt(Int32.MinValue + Persian2820Schema.Year0)
+        x.SchemaUT.SupportedYearsCore === Range.StartingAt(Int32.MinValue + Persian2820Schema.YearZero)
 
     [<Fact>]
     member x.``CountDaysInMonth() may overflow when y = Int32.MinValue``() =
@@ -445,7 +445,7 @@ type Persian2820Tests() =
         // No underflow if m < 12.
         [for m in 1 .. 11 -> sch.CountDaysInMonth(Int32.MinValue, m)] |> ignore
 
-        for y0 in 0 .. (Persian2820Schema.Year0 - 1) do
+        for y0 in 0 .. (Persian2820Schema.YearZero - 1) do
             for m in 12 .. x.MaxMonth do
                 (fun () -> sch.CountDaysInMonth(Int32.MinValue + y0, m)) |> overflows
 

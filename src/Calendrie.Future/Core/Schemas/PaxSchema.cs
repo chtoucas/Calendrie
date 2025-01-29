@@ -218,7 +218,8 @@ public partial class PaxSchema // Counting months and days within a year or a mo
 
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInYearBeforeMonth(int y, int m) => m == 14 ? 343 : 28 * (m - 1);
+    public sealed override int CountDaysInYearBeforeMonth(int y, int m) =>
+        m == 14 ? 343 : 28 * (m - 1);
 }
 
 public partial class PaxSchema // Conversions

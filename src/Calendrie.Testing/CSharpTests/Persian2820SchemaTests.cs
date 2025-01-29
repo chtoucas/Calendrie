@@ -12,21 +12,21 @@ public class Persian2820SchemaTests
 
     [Fact]
     public static void IsLeapYear_ZerothCycle() =>
-        TestIsLeapYear_WholeCycle(Persian2820Schema.Year0 - 2 * 2820);
+        TestIsLeapYear_WholeCycle(Persian2820Schema.YearZero - 2 * 2820);
 
     [Fact]
     public static void IsLeapYear_FirstCycle() =>
         // Normalement on n'accepte pas les années négatives, mais on fait
         // une exception pour pouvoir tester les premières années.
-        TestIsLeapYear_WholeCycle(Persian2820Schema.Year0 - 2820);
+        TestIsLeapYear_WholeCycle(Persian2820Schema.YearZero - 2820);
 
     [Fact]
     public static void IsLeapYear_FirstWholeCycle() =>
-        TestIsLeapYear_WholeCycle(Persian2820Schema.Year0);
+        TestIsLeapYear_WholeCycle(Persian2820Schema.YearZero);
 
     [Fact]
     public static void IsLeapYear_SecondWholeCycle() =>
-        TestIsLeapYear_WholeCycle(Persian2820Schema.Year0 + 2820);
+        TestIsLeapYear_WholeCycle(Persian2820Schema.YearZero + 2820);
 
     // NB: y = last year before the start of the cycle.
     private static void TestIsLeapYear_WholeCycle(int y)
