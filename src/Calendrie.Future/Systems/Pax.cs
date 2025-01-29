@@ -6,7 +6,7 @@ namespace Calendrie.Systems;
 using Calendrie;
 using Calendrie.Core.Utilities;
 
-// FIXME(code): AddYears/Months() for non-regular calendars.
+// FIXME(code): T4 for AddYears/Months() for non-regular calendars.
 // Rework Min/MaxMonthsSinceEpoch.
 // TODO(code): create a PaxWeek type.
 
@@ -36,13 +36,20 @@ public partial class PaxCalendar // Math
             ThrowHelpers.ThrowDateOverflow();
 
         // NB: AdditionRule.Truncate.
-        int monthsInYear = sch.CountMonthsInYear(newY);
         int newM;
         int newD;
+        int monthsInYear = sch.CountMonthsInYear(newY);
         if (m > monthsInYear)
         {
-            newM = monthsInYear;
-            newD = sch.CountDaysInMonth(newY, monthsInYear);
+            // Pour le calendrier Pax, cela signifie que y est une année
+            // bissextile, mais pas newY, et que m = 14.
+            //
+            // On retourne le dernier jour valide de l'année (ordinaire) newY
+            // autrement dit le 28/13.
+            // > newM = monthsInYear;
+            // > newD = sch.CountDaysInMonth(newY, monthsInYear);
+            newM = 13;
+            newD = 28;
         }
         else
         {
@@ -63,17 +70,21 @@ public partial class PaxCalendar // Math
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
-        int monthsInYear = sch.CountMonthsInYear(newY);
         int newM;
         int newD;
+        int monthsInYear = sch.CountMonthsInYear(newY);
         if (m > monthsInYear)
         {
+            // Pour le calendrier Pax, cela signifie que y est une année
+            // bissextile, mais pas newY, et que m = 14.
             roundoff = d;
-            int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
 
-            // On retourne le dernier jour valide de l'année newY.
-            newM = monthsInYear;
-            newD = daysInMonth;
+            // On retourne le dernier jour valide de l'année (ordinaire) newY
+            // autrement dit le 28/13.
+            // > newM = monthsInYear;
+            // > newD = sch.CountDaysInMonth(newY, monthsInYear);
+            newM = 13;
+            newD = 28;
         }
         else
         {
