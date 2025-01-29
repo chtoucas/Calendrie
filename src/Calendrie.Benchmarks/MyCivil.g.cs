@@ -594,7 +594,7 @@ public partial struct MyCivilDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new MyCivilDate(daysSinceZero);
     }
@@ -607,7 +607,7 @@ public partial struct MyCivilDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysPerWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new MyCivilDate(daysSinceZero);
     }
@@ -629,7 +629,7 @@ public partial struct MyCivilDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new MyCivilDate(daysSinceZero);
     }
@@ -641,7 +641,7 @@ public partial struct MyCivilDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new MyCivilDate(daysSinceZero);
     }
@@ -820,7 +820,7 @@ public partial struct MyCivilDate // Standard math ops
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(MyCivilDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(MyCivilDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -829,21 +829,21 @@ public partial struct MyCivilDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public MyCivilDate PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public MyCivilDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public MyCivilDate NextWeek() => PlusDays(DaysInWeek);
+    public MyCivilDate NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public MyCivilDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public MyCivilDate PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
 public partial struct MyCivilDate // Non-standard math ops

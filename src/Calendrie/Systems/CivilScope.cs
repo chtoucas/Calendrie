@@ -65,7 +65,7 @@ internal sealed class CivilScope : CalendarScope
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool CheckYearMonthImpl(int year, int month) =>
         year >= MinYear && year <= MaxYear
-        && month >= 1 && month <= Solar12.MonthsInYear;
+        && month >= 1 && month <= Solar12.MonthsPerYear;
 
     /// <summary>
     /// Checks whether the specified date components are valid or not.
@@ -73,9 +73,9 @@ internal sealed class CivilScope : CalendarScope
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool CheckYearMonthDayImpl(int year, int month, int day) =>
         year >= MinYear && year <= MaxYear
-        && month >= 1 && month <= Solar12.MonthsInYear
+        && month >= 1 && month <= Solar12.MonthsPerYear
         && day >= 1
-        && (day <= Solar.MinDaysInMonth || day <= GregorianFormulae.CountDaysInMonth(year, month));
+        && (day <= Solar.MinDaysPerMonth || day <= GregorianFormulae.CountDaysInMonth(year, month));
 
     /// <summary>
     /// Checks whether the specified ordinal components are valid or not.
@@ -84,7 +84,7 @@ internal sealed class CivilScope : CalendarScope
     public static bool CheckOrdinalImpl(int year, int dayOfYear) =>
         year >= MinYear && year <= MaxYear
         && dayOfYear >= 1
-        && (dayOfYear <= Solar.MinDaysInYear || dayOfYear <= GregorianFormulae.CountDaysInYear(year));
+        && (dayOfYear <= Solar.MinDaysPerYear || dayOfYear <= GregorianFormulae.CountDaysInYear(year));
 
     //
     // Hard validation
@@ -115,7 +115,7 @@ internal sealed class CivilScope : CalendarScope
     {
         if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear)
+        if (month < 1 || month > Solar12.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
     }
 
@@ -129,10 +129,10 @@ internal sealed class CivilScope : CalendarScope
     {
         if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
-        if (month < 1 || month > Solar12.MonthsInYear)
+        if (month < 1 || month > Solar12.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
-            || (day > Solar.MinDaysInMonth
+            || (day > Solar.MinDaysPerMonth
                 && day > GregorianFormulae.CountDaysInMonth(year, month)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
@@ -150,7 +150,7 @@ internal sealed class CivilScope : CalendarScope
         if (year < MinYear || year > MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year, paramName);
         if (dayOfYear < 1
-            || (dayOfYear > Solar.MinDaysInYear
+            || (dayOfYear > Solar.MinDaysPerYear
                 && dayOfYear > GregorianFormulae.CountDaysInYear(year)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);

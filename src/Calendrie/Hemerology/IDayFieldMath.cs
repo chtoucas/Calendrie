@@ -57,7 +57,7 @@ public interface IDayFieldMath<TSelf>
     /// Counts the number of whole weeks from the specified <typeparamref name="TSelf"/>
     /// value to the current instance.
     /// </summary>
-    [Pure] int CountWeeksSince(TSelf other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    [Pure] int CountWeeksSince(TSelf other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the day part of the current instance, yielding
@@ -66,7 +66,7 @@ public interface IDayFieldMath<TSelf>
     /// <exception cref="OverflowException">The operation would overflow either
     /// the capacity of the day field or the range of supported values.
     /// </exception>
-    [Pure] TSelf PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    [Pure] TSelf PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Returns the value obtained after adding seven days to the day field of
@@ -74,7 +74,7 @@ public interface IDayFieldMath<TSelf>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported value.</exception>
-    [Pure] TSelf NextWeek() => PlusDays(DaysInWeek);
+    [Pure] TSelf NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Returns the value obtained after subtracting seven days to the day field
@@ -82,5 +82,5 @@ public interface IDayFieldMath<TSelf>
     /// </summary>
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported value.</exception>
-    [Pure] TSelf PreviousWeek() => PlusDays(-DaysInWeek);
+    [Pure] TSelf PreviousWeek() => PlusDays(-DaysPerWeek);
 }

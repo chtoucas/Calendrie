@@ -447,7 +447,7 @@ public partial struct JulianDate // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(daysSinceEpoch);
     }
@@ -460,7 +460,7 @@ public partial struct JulianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ); ;
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysPerWeek : δ); ;
         if (daysSinceEpoch < MinDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(daysSinceEpoch);
     }
@@ -484,7 +484,7 @@ public partial struct JulianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(daysSinceEpoch);
     }
@@ -496,7 +496,7 @@ public partial struct JulianDate // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new JulianDate(daysSinceEpoch);
     }
@@ -604,7 +604,7 @@ public partial struct JulianDate // Standard math ops
     /// Counts the number of weeks elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(JulianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(JulianDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -613,21 +613,21 @@ public partial struct JulianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public JulianDate PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public JulianDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public JulianDate NextWeek() => PlusDays(DaysInWeek);
+    public JulianDate NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public JulianDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public JulianDate PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
 public partial struct JulianDate // Non-standard math ops

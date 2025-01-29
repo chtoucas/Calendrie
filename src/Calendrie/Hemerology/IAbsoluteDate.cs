@@ -199,7 +199,7 @@ public interface IAbsoluteDate
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - date.DayOfWeek;
-        return date + (δ >= 0 ? δ - DaysInWeek : δ);
+        return date + (δ >= 0 ? δ - DaysPerWeek : δ);
     }
 
     /// <summary>
@@ -222,7 +222,7 @@ public interface IAbsoluteDate
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - date.DayOfWeek;
-        return δ == 0 ? date : date + (δ > 0 ? δ - DaysInWeek : δ);
+        return δ == 0 ? date : date + (δ > 0 ? δ - DaysPerWeek : δ);
     }
 
     /// <summary>
@@ -265,7 +265,7 @@ public interface IAbsoluteDate
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - date.DayOfWeek;
-        return δ == 0 ? date : date + (δ < 0 ? δ + DaysInWeek : δ);
+        return δ == 0 ? date : date + (δ < 0 ? δ + DaysPerWeek : δ);
     }
 
     /// <summary>
@@ -286,7 +286,7 @@ public interface IAbsoluteDate
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - date.DayOfWeek;
-        return date + (δ <= 0 ? δ + DaysInWeek : δ);
+        return date + (δ <= 0 ? δ + DaysPerWeek : δ);
     }
 }
 

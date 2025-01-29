@@ -15,7 +15,7 @@ public abstract partial class EgyptianSchema : RegularSchema
     /// Represents the number of days in a year.
     /// <para>This field is constant equal to 365.</para>
     /// </summary>
-    public const int DaysPerYear = CalendricalConstants.DaysInWanderingYear;
+    public const int DaysPerYear = CalendricalConstants.DaysPerWanderingYear;
 
     /// <summary>
     /// Represents the genuine number of days in a month (excluding the

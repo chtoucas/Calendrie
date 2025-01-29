@@ -660,7 +660,7 @@ public partial struct TropicaliaDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new TropicaliaDate(daysSinceZero);
     }
@@ -673,7 +673,7 @@ public partial struct TropicaliaDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysPerWeek : δ);
         if (daysSinceZero < 0) ThrowHelpers.ThrowDateOverflow();
         return new TropicaliaDate(daysSinceZero);
     }
@@ -695,7 +695,7 @@ public partial struct TropicaliaDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new TropicaliaDate(daysSinceZero);
     }
@@ -707,7 +707,7 @@ public partial struct TropicaliaDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new TropicaliaDate(daysSinceZero);
     }
@@ -886,7 +886,7 @@ public partial struct TropicaliaDate // Standard math ops
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(TropicaliaDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(TropicaliaDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -895,21 +895,21 @@ public partial struct TropicaliaDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public TropicaliaDate PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public TropicaliaDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public TropicaliaDate NextWeek() => PlusDays(DaysInWeek);
+    public TropicaliaDate NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public TropicaliaDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public TropicaliaDate PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
 public partial struct TropicaliaDate // Non-standard math ops

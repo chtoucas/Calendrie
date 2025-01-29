@@ -220,14 +220,14 @@ public partial struct CivilTriple // Math
 
     public int CountWeeksSince(CivilTriple other)
     {
-        return divide(CountDaysSince(other), DaysInWeek);
+        return divide(CountDaysSince(other), DaysPerWeek);
 
         static int divide(int m, int n) => m >= 0 || m % n == 0 ? m / n : (m / n - 1);
     }
 
-    public CivilTriple PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
-    public CivilTriple NextWeek() => PlusDays(DaysInWeek);
-    public CivilTriple PreviousWeek() => PlusDays(-DaysInWeek);
+    public CivilTriple PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
+    public CivilTriple NextWeek() => PlusDays(DaysPerWeek);
+    public CivilTriple PreviousWeek() => PlusDays(-DaysPerWeek);
 
     public CivilTriple PlusYears(int years)
     {

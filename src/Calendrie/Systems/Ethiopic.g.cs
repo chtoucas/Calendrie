@@ -612,7 +612,7 @@ public partial struct EthiopicDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new EthiopicDate(daysSinceEpoch);
     }
@@ -625,7 +625,7 @@ public partial struct EthiopicDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new EthiopicDate(daysSinceEpoch);
     }
@@ -648,7 +648,7 @@ public partial struct EthiopicDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new EthiopicDate(daysSinceEpoch);
     }
@@ -660,7 +660,7 @@ public partial struct EthiopicDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new EthiopicDate(daysSinceEpoch);
     }
@@ -839,7 +839,7 @@ public partial struct EthiopicDate // Standard math ops
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(EthiopicDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(EthiopicDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -848,21 +848,21 @@ public partial struct EthiopicDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public EthiopicDate PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public EthiopicDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public EthiopicDate NextWeek() => PlusDays(DaysInWeek);
+    public EthiopicDate NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public EthiopicDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public EthiopicDate PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
 public partial struct EthiopicDate // Non-standard math ops

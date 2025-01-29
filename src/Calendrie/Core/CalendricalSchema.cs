@@ -258,27 +258,27 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
         return this switch
         {
             {
-                MinDaysInYear: >= Solar.MinDaysInYear,      // 365
-                MinDaysInMonth: >= Solar.MinDaysInMonth,    // 28
+                MinDaysInYear: >= Solar.MinDaysPerYear,      // 365
+                MinDaysInMonth: >= Solar.MinDaysPerMonth,    // 28
             } => monthsInYear switch
             {
-                Solar12.MonthsInYear => CalendricalProfile.Solar12,
-                Solar13.MonthsInYear => CalendricalProfile.Solar13,
+                Solar12.MonthsPerYear => CalendricalProfile.Solar12,
+                Solar13.MonthsPerYear => CalendricalProfile.Solar13,
                 // Notice that MinDaysInMonth >= 7.
                 _ => CalendricalProfile.Other,
             },
 
             {
-                MinDaysInYear: >= Lunar.MinDaysInYear,      // 354
-                MinDaysInMonth: >= Lunar.MinDaysInMonth,    // 29
-            } => monthsInYear == Lunar.MonthsInYear
+                MinDaysInYear: >= Lunar.MinDaysPerYear,      // 354
+                MinDaysInMonth: >= Lunar.MinDaysPerMonth,    // 29
+            } => monthsInYear == Lunar.MonthsPerYear
                 ? CalendricalProfile.Lunar
                 // Notice that MinDaysInMonth >= 7.
                 : CalendricalProfile.Other,
 
             {
-                MinDaysInYear: >= Lunisolar.MinDaysInYear,  // 353
-                MinDaysInMonth: >= Lunisolar.MinDaysInMonth,// 29
+                MinDaysInYear: >= Lunisolar.MinDaysPerYear,  // 353
+                MinDaysInMonth: >= Lunisolar.MinDaysPerMonth,// 29
             } => monthsInYear == 0
                 ? CalendricalProfile.Lunisolar
                 // Notice that MinDaysInMonth >= 7.

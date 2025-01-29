@@ -603,7 +603,7 @@ public partial struct TabularIslamicDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new TabularIslamicDate(daysSinceEpoch);
     }
@@ -616,7 +616,7 @@ public partial struct TabularIslamicDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new TabularIslamicDate(daysSinceEpoch);
     }
@@ -639,7 +639,7 @@ public partial struct TabularIslamicDate // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new TabularIslamicDate(daysSinceEpoch);
     }
@@ -651,7 +651,7 @@ public partial struct TabularIslamicDate // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new TabularIslamicDate(daysSinceEpoch);
     }
@@ -830,7 +830,7 @@ public partial struct TabularIslamicDate // Standard math ops
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(TabularIslamicDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(TabularIslamicDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -839,21 +839,21 @@ public partial struct TabularIslamicDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public TabularIslamicDate PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public TabularIslamicDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public TabularIslamicDate NextWeek() => PlusDays(DaysInWeek);
+    public TabularIslamicDate NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public TabularIslamicDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public TabularIslamicDate PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
 public partial struct TabularIslamicDate // Non-standard math ops

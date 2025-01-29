@@ -612,7 +612,7 @@ public partial struct FrenchRepublican13Date // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new FrenchRepublican13Date(daysSinceEpoch);
     }
@@ -625,7 +625,7 @@ public partial struct FrenchRepublican13Date // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
         return new FrenchRepublican13Date(daysSinceEpoch);
     }
@@ -648,7 +648,7 @@ public partial struct FrenchRepublican13Date // Find a close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new FrenchRepublican13Date(daysSinceEpoch);
     }
@@ -660,7 +660,7 @@ public partial struct FrenchRepublican13Date // Find a close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
         return new FrenchRepublican13Date(daysSinceEpoch);
     }
@@ -839,7 +839,7 @@ public partial struct FrenchRepublican13Date // Standard math ops
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(FrenchRepublican13Date other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(FrenchRepublican13Date other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -848,21 +848,21 @@ public partial struct FrenchRepublican13Date // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public FrenchRepublican13Date PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public FrenchRepublican13Date PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public FrenchRepublican13Date NextWeek() => PlusDays(DaysInWeek);
+    public FrenchRepublican13Date NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public FrenchRepublican13Date PreviousWeek() => PlusDays(-DaysInWeek);
+    public FrenchRepublican13Date PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
 public partial struct FrenchRepublican13Date // Non-standard math ops

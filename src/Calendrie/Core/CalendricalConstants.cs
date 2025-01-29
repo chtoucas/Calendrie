@@ -16,7 +16,7 @@ public static class CalendricalConstants
     //
     // Nombre de jours dans une année vague ("wandering year"),
     // l'approximation la plus grossière de l'année tropique.
-    public const int DaysInWanderingYear = 365;
+    public const int DaysPerWanderingYear = 365;
 
     /// <summary>
     /// Represents the number of days per cycle of four julian years.
@@ -28,17 +28,17 @@ public static class CalendricalConstants
     // Cycle de 4 ans = 1 année bissextile
     // Durée d'un cycle = (4 * 365 + 1) jours = 1461 jours.
     // Année julienne := 365,25 jours.
-    public const int DaysPer4JulianYearCycle = 4 * DaysInWanderingYear + 1;
+    public const int DaysPer4JulianYearCycle = 4 * DaysPerWanderingYear + 1;
 
     /// <summary>
     /// Represents the number of days in a week.
     /// <para>This field is constant equal to 7.</para>
     /// </summary>
-    public const int DaysInWeek = 7;
+    public const int DaysPerWeek = 7;
 
     /// <summary>
-    /// Provides constants common to <see cref="CalendricalProfile.Solar12"/> and
-    /// <see cref="CalendricalProfile.Solar13"/>.
+    /// Provides constants common to <see cref="CalendricalProfile.Solar12"/>
+    /// and <see cref="CalendricalProfile.Solar13"/>.
     /// <para>This class cannot be inherited.</para>
     /// </summary>
     internal static class Solar
@@ -48,14 +48,14 @@ public static class CalendricalConstants
         /// year.
         /// <para>This field is a constant equal to 365.</para>
         /// </summary>
-        public const int MinDaysInYear = 365;
+        public const int MinDaysPerYear = 365;
 
         /// <summary>
         /// Represents the minimum total number of days there is at least in a
         /// month.
         /// <para>This field is a constant equal to 28.</para>
         /// </summary>
-        public const int MinDaysInMonth = 28;
+        public const int MinDaysPerMonth = 28;
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public static class CalendricalConstants
         /// Represents the number of months in a year.
         /// <para>This field is a constant equal to 12.</para>
         /// </summary>
-        public const int MonthsInYear = 12;
+        public const int MonthsPerYear = 12;
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public static class CalendricalConstants
         /// Represents the number of months in a year.
         /// <para>This field is a constant equal to 13.</para>
         /// </summary>
-        public const int MonthsInYear = 13;
+        public const int MonthsPerYear = 13;
     }
 
     /// <summary>
@@ -94,14 +94,14 @@ public static class CalendricalConstants
         /// Represents the number of months in a year.
         /// <para>This field is a constant equal to 12.</para>
         /// </summary>
-        public const int MonthsInYear = 12;
+        public const int MonthsPerYear = 12;
 
         /// <summary>
         /// Represents the minimum total number of days there is at least in a
         /// year.
         /// <para>This field is a constant equal to 354.</para>
         /// </summary>
-        public const int MinDaysInYear = 354;
+        public const int MinDaysPerYear = 354;
 
         /// <summary>
         /// Represents the minimum total number of days there is at least in a
@@ -110,7 +110,7 @@ public static class CalendricalConstants
         /// (29-day long).</para>
         /// <para>This field is a constant equal to 29.</para>
         /// </summary>
-        public const int MinDaysInMonth = 29;
+        public const int MinDaysPerMonth = 29;
     }
 
     /// <summary>
@@ -120,15 +120,17 @@ public static class CalendricalConstants
     internal static class Lunisolar
     {
         /// <summary>
-        /// Represents the minimum total number of days there is at least in a year.
+        /// Represents the minimum total number of days there is at least in a
+        /// year.
         /// <para>This field is a constant equal to 353.</para>
         /// </summary>
-        public const int MinDaysInYear = 353;
+        public const int MinDaysPerYear = 353;
 
         /// <summary>
-        /// Represents the minimum total number of days there is at least in a month.
+        /// Represents the minimum total number of days there is at least in a
+        /// month.
         /// <para>This field is a constant equal to 29.</para>
         /// </summary>
-        public const int MinDaysInMonth = 29;
+        public const int MinDaysPerMonth = 29;
     }
 }

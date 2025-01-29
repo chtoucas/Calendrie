@@ -20,6 +20,6 @@ public static class JulianDateExtensions
     {
         var (y, m, d) = date;
         int doomsday = DoomsdayRule.GetJulianDoomsday(y, m);
-        return (DayOfWeek)MathZ.Modulo(doomsday + d, DaysInWeek);
+        return (DayOfWeek)MathZ.Modulo(doomsday + d, DaysPerWeek);
     }
 }

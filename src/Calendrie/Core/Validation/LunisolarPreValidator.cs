@@ -46,12 +46,12 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     public bool CheckMonthDay(int y, int month, int day) =>
         month >= 1 && month <= _schema.CountMonthsInYear(y)
         && day >= 1
-        && (day <= Lunisolar.MinDaysInMonth || day <= _schema.CountDaysInMonth(y, month));
+        && (day <= Lunisolar.MinDaysPerMonth || day <= _schema.CountDaysInMonth(y, month));
 
     /// <inheritdoc />
     public bool CheckDayOfYear(int y, int dayOfYear) =>
         dayOfYear >= 1
-        && (dayOfYear <= Lunisolar.MinDaysInYear || dayOfYear <= _schema.CountDaysInYear(y));
+        && (dayOfYear <= Lunisolar.MinDaysPerYear || dayOfYear <= _schema.CountDaysInYear(y));
 
     //
     // Hard validation
@@ -70,7 +70,7 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
         if (month < 1 || month > _schema.CountMonthsInYear(y))
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
-            || (day > Lunisolar.MinDaysInMonth
+            || (day > Lunisolar.MinDaysPerMonth
                 && day > _schema.CountDaysInMonth(y, month)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
@@ -81,7 +81,7 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     public void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1
-            || (dayOfYear > Lunisolar.MinDaysInYear
+            || (dayOfYear > Lunisolar.MinDaysPerYear
                 && dayOfYear > _schema.CountDaysInYear(y)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
@@ -92,7 +92,7 @@ internal sealed class LunisolarPreValidator : ICalendricalPreValidator
     public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
     {
         if (day < 1
-            || (day > Lunisolar.MinDaysInMonth
+            || (day > Lunisolar.MinDaysPerMonth
                 && day > _schema.CountDaysInMonth(y, m)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);

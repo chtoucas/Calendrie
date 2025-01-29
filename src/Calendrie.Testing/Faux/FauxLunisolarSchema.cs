@@ -25,7 +25,7 @@ public sealed class FauxLunisolarSchema : CalendricalSchema, IDaysInMonths
     public const int DaysInCommonYear = 354;
     public const int DaysInLeapYear = 384;
 
-    public FauxLunisolarSchema() : base(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth) { }
+    public FauxLunisolarSchema() : base(Lunisolar.MinDaysPerYear, Lunisolar.MinDaysPerMonth) { }
 
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
         [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];

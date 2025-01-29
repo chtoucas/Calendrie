@@ -66,7 +66,7 @@ public sealed partial class Persian2820Schema :
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 365.</para>
     /// </summary>
-    public const int DaysPerCommonYear = CalendricalConstants.DaysInWanderingYear;
+    public const int DaysPerCommonYear = CalendricalConstants.DaysPerWanderingYear;
 
     /// <summary>
     /// Represents the number of days in a leap year.

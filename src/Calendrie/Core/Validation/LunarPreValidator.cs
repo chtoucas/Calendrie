@@ -38,18 +38,18 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
 
     /// <inheritdoc />
     public bool CheckMonth(int y, int month) =>
-        month >= 1 && month <= Lunar.MonthsInYear;
+        month >= 1 && month <= Lunar.MonthsPerYear;
 
     /// <inheritdoc />
     public bool CheckMonthDay(int y, int month, int day) =>
-        month >= 1 && month <= Lunar.MonthsInYear
+        month >= 1 && month <= Lunar.MonthsPerYear
         && day >= 1
-        && (day <= Lunar.MinDaysInMonth || day <= _schema.CountDaysInMonth(y, month));
+        && (day <= Lunar.MinDaysPerMonth || day <= _schema.CountDaysInMonth(y, month));
 
     /// <inheritdoc />
     public bool CheckDayOfYear(int y, int dayOfYear) =>
         dayOfYear >= 1
-        && (dayOfYear <= Lunar.MinDaysInYear || dayOfYear <= _schema.CountDaysInYear(y));
+        && (dayOfYear <= Lunar.MinDaysPerYear || dayOfYear <= _schema.CountDaysInYear(y));
 
     //
     // Hard validation
@@ -58,17 +58,17 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     /// <inheritdoc />
     public void ValidateMonth(int y, int month, string? paramName = null)
     {
-        if (month < 1 || month > Lunar.MonthsInYear)
+        if (month < 1 || month > Lunar.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
     }
 
     /// <inheritdoc />
     public void ValidateMonthDay(int y, int month, int day, string? paramName = null)
     {
-        if (month < 1 || month > Lunar.MonthsInYear)
+        if (month < 1 || month > Lunar.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month, paramName);
         if (day < 1
-            || (day > Lunar.MinDaysInMonth
+            || (day > Lunar.MinDaysPerMonth
                 && day > _schema.CountDaysInMonth(y, month)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);
@@ -79,7 +79,7 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     public void ValidateDayOfYear(int y, int dayOfYear, string? paramName = null)
     {
         if (dayOfYear < 1
-            || (dayOfYear > Lunar.MinDaysInYear
+            || (dayOfYear > Lunar.MinDaysPerYear
                 && dayOfYear > _schema.CountDaysInYear(y)))
         {
             ThrowHelpers.ThrowDayOfYearOutOfRange(dayOfYear, paramName);
@@ -90,7 +90,7 @@ internal sealed class LunarPreValidator : ICalendricalPreValidator
     public void ValidateDayOfMonth(int y, int m, int day, string? paramName = null)
     {
         if (day < 1
-            || (day > Lunar.MinDaysInMonth
+            || (day > Lunar.MinDaysPerMonth
                 && day > _schema.CountDaysInMonth(y, m)))
         {
             ThrowHelpers.ThrowDayOutOfRange(day, paramName);

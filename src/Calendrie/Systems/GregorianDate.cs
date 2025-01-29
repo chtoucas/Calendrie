@@ -434,7 +434,7 @@ public partial struct GregorianDate // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceZero < MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new GregorianDate(daysSinceZero);
     }
@@ -447,7 +447,7 @@ public partial struct GregorianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysInWeek : δ); ;
+        int daysSinceZero = _daysSinceZero + (δ > 0 ? δ - DaysPerWeek : δ); ;
         if (daysSinceZero < MinDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new GregorianDate(daysSinceZero);
     }
@@ -470,7 +470,7 @@ public partial struct GregorianDate // Find close by day of the week
 
         int δ = dayOfWeek - DayOfWeek;
         if (δ == 0) return this;
-        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new GregorianDate(daysSinceZero);
     }
@@ -482,7 +482,7 @@ public partial struct GregorianDate // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysInWeek : δ);
+        int daysSinceZero = _daysSinceZero + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceZero > MaxDaysSinceZero) ThrowHelpers.ThrowDateOverflow();
         return new GregorianDate(daysSinceZero);
     }
@@ -590,7 +590,7 @@ public partial struct GregorianDate // Standard math ops
     /// Counts the number of weeks elapsed since the specified date.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(GregorianDate other) => MathZ.Divide(CountDaysSince(other), DaysInWeek);
+    public int CountWeeksSince(GregorianDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -599,21 +599,21 @@ public partial struct GregorianDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public GregorianDate PlusWeeks(int weeks) => PlusDays(DaysInWeek * weeks);
+    public GregorianDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public GregorianDate NextWeek() => PlusDays(DaysInWeek);
+    public GregorianDate NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public GregorianDate PreviousWeek() => PlusDays(-DaysInWeek);
+    public GregorianDate PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
 public partial struct GregorianDate // Non-standard math ops

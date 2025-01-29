@@ -20,6 +20,6 @@ public static class CivilDateExtensions
     {
         var (y, m, d) = date;
         int doomsday = DoomsdayRule.GetGregorianDoomsday(y, m);
-        return (DayOfWeek)MathZ.Modulo(doomsday + d, DaysInWeek);
+        return (DayOfWeek)MathZ.Modulo(doomsday + d, DaysPerWeek);
     }
 }

@@ -118,29 +118,29 @@ public partial class FauxCalendricalSchema // Profiles
 {
     public static readonly TheoryData<FauxCalendricalSchema> NotLunar =
     [
-        new FauxRegularSchema(Lunar.MonthsInYear + 1, Lunar.MinDaysInYear, Lunar.MinDaysInMonth),
-        new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear - 1, Lunar.MinDaysInMonth),
-        new FauxRegularSchema(Lunar.MonthsInYear, Lunar.MinDaysInYear, Lunar.MinDaysInMonth - 1),
+        new FauxRegularSchema(Lunar.MonthsPerYear + 1, Lunar.MinDaysPerYear, Lunar.MinDaysPerMonth),
+        new FauxRegularSchema(Lunar.MonthsPerYear, Lunar.MinDaysPerYear - 1, Lunar.MinDaysPerMonth),
+        new FauxRegularSchema(Lunar.MonthsPerYear, Lunar.MinDaysPerYear, Lunar.MinDaysPerMonth - 1),
     ];
 
     public static readonly TheoryData<FauxCalendricalSchema> NotLunisolar =
     [
-        new FauxCalendricalSchema(Lunisolar.MinDaysInYear - 1, Lunisolar.MinDaysInMonth),
-        new FauxCalendricalSchema(Lunisolar.MinDaysInYear, Lunisolar.MinDaysInMonth - 1),
+        new FauxCalendricalSchema(Lunisolar.MinDaysPerYear - 1, Lunisolar.MinDaysPerMonth),
+        new FauxCalendricalSchema(Lunisolar.MinDaysPerYear, Lunisolar.MinDaysPerMonth - 1),
     ];
 
     public static readonly TheoryData<FauxCalendricalSchema> NotSolar12 =
     [
-        new FauxRegularSchema(Solar12.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar12.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
+        new FauxRegularSchema(Solar12.MonthsPerYear + 1, Solar.MinDaysPerYear, Solar.MinDaysPerMonth),
+        new FauxRegularSchema(Solar12.MonthsPerYear, Solar.MinDaysPerYear - 1, Solar.MinDaysPerMonth),
+        new FauxRegularSchema(Solar12.MonthsPerYear, Solar.MinDaysPerYear, Solar.MinDaysPerMonth - 1),
     ];
 
     public static readonly TheoryData<FauxCalendricalSchema> NotSolar13 =
     [
-        new FauxRegularSchema(Solar13.MonthsInYear + 1, Solar.MinDaysInYear, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear - 1, Solar.MinDaysInMonth),
-        new FauxRegularSchema(Solar13.MonthsInYear, Solar.MinDaysInYear, Solar.MinDaysInMonth - 1),
+        new FauxRegularSchema(Solar13.MonthsPerYear + 1, Solar.MinDaysPerYear, Solar.MinDaysPerMonth),
+        new FauxRegularSchema(Solar13.MonthsPerYear, Solar.MinDaysPerYear - 1, Solar.MinDaysPerMonth),
+        new FauxRegularSchema(Solar13.MonthsPerYear, Solar.MinDaysPerYear, Solar.MinDaysPerMonth - 1),
     ];
 
     public static CalendricalSchema WithBadProfile => new FauxSchemaWithBadProfile();

@@ -148,7 +148,7 @@ public readonly partial struct DayNumber :
     /// </summary>
     public DayOfWeek DayOfWeek =>
         // Zero is a Monday.
-        (DayOfWeek)MathZ.Modulo((int)DayOfWeek.Monday + _daysSinceZero, DaysInWeek);
+        (DayOfWeek)MathZ.Modulo((int)DayOfWeek.Monday + _daysSinceZero, DaysPerWeek);
 
     DayNumber IAbsoluteDate.DayNumber => this;
 
@@ -386,7 +386,7 @@ public partial struct DayNumber // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return this + (δ >= 0 ? δ - DaysInWeek : δ);
+        return this + (δ >= 0 ? δ - DaysPerWeek : δ);
     }
 
     /// <inheritdoc/>
@@ -396,7 +396,7 @@ public partial struct DayNumber // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return δ == 0 ? this : this + (δ > 0 ? δ - DaysInWeek : δ);
+        return δ == 0 ? this : this + (δ > 0 ? δ - DaysPerWeek : δ);
     }
 
     /// <inheritdoc/>
@@ -416,7 +416,7 @@ public partial struct DayNumber // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return δ == 0 ? this : this + (δ < 0 ? δ + DaysInWeek : δ);
+        return δ == 0 ? this : this + (δ < 0 ? δ + DaysPerWeek : δ);
     }
 
     /// <inheritdoc/>
@@ -426,7 +426,7 @@ public partial struct DayNumber // Find close by day of the week
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
-        return this + (δ <= 0 ? δ + DaysInWeek : δ);
+        return this + (δ <= 0 ? δ + DaysPerWeek : δ);
     }
 
     //
@@ -448,8 +448,8 @@ public partial struct DayNumber // Find close by day of the week
         {
             daysSinceZero = dayNumber.DaysSinceZero + dayShift;
             // DayNumber.Zero is a Monday.
-            daysSinceZero -= MathZ.Modulo(daysSinceZero + (DayOfWeek.Monday - dayOfWeek), DaysInWeek);
-            daysSinceZero -= DaysInWeek * weeks;
+            daysSinceZero -= MathZ.Modulo(daysSinceZero + (DayOfWeek.Monday - dayOfWeek), DaysPerWeek);
+            daysSinceZero -= DaysPerWeek * weeks;
         }
 
         return Zero + daysSinceZero;
@@ -470,8 +470,8 @@ public partial struct DayNumber // Find close by day of the week
         {
             daysSinceZero = dayNumber.DaysSinceZero + dayShift;
             // DayNumber.Zero is a Monday.
-            daysSinceZero += MathZ.Modulo(-daysSinceZero - (DayOfWeek.Monday - dayOfWeek), DaysInWeek);
-            daysSinceZero += DaysInWeek * weeks;
+            daysSinceZero += MathZ.Modulo(-daysSinceZero - (DayOfWeek.Monday - dayOfWeek), DaysPerWeek);
+            daysSinceZero += DaysPerWeek * weeks;
         }
 
         return Zero + daysSinceZero;

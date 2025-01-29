@@ -68,12 +68,12 @@ public readonly partial record struct DateDifference :
     /// <summary>
     /// Gets the number of weeks.
     /// </summary>
-    public int Weeks => _days / DaysInWeek;
+    public int Weeks => _days / DaysPerWeek;
 
     /// <summary>
     /// Gets the number of days.
     /// </summary>
-    public int Days => _days % DaysInWeek;
+    public int Days => _days % DaysPerWeek;
 
     /// <summary>
     /// Deconstructs the current instance into its components.
@@ -81,7 +81,7 @@ public readonly partial record struct DateDifference :
     public void Deconstruct(out int years, out int months, out int weeks, out int days)
     {
         (years, months) = (Years, Months);
-        weeks = Math.DivRem(_days, DaysInWeek, out days);
+        weeks = Math.DivRem(_days, DaysPerWeek, out days);
     }
 }
 
