@@ -397,6 +397,19 @@ module Bundles =
         // AddMonths()
 
         [<Fact>]
+        static member ``AddMonths(07/13/0005, 13)`` () =
+            let date = new PaxDate(5, 13, 7)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusMonths(13)
+            result === (new PaxDate(6, 13, 7), 0)
+
+            date.PlusMonths(13) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddMonths(date, 13)   === new PaxDate(6, 13, 7)
+            overspillMath.AddMonths(date, 13) === new PaxDate(6, 13, 7)
+            exactMath.AddMonths(date, 13)     === new PaxDate(6, 13, 7)
+
+        [<Fact>]
         static member ``AddMonths(08/13/0005, 13)`` () =
             let date = new PaxDate(5, 13, 8)
             // Act & Assert
