@@ -10,6 +10,8 @@ using Calendrie.Core.Prototyping;
 #endif
 using Calendrie.Core.Validation;
 
+using static Calendrie.Core.CalendricalConstants;
+
 // Month 12 = Columbus
 // Common year:
 // - month 13 = December
@@ -44,35 +46,59 @@ public sealed partial class PaxSchema :
     ISchemaActivator<PaxSchema>
 {
     /// <summary>
-    /// Represents the number of days in a common year.
+    /// Represents the number of months in a common year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
     public const int MonthsPerCommonYear = 13;
 
     /// <summary>
-    /// Represents the number of days in a leap year.
+    /// Represents the number of months in a leap year.
     /// <para>This field is a constant equal to 14.</para>
     /// </summary>
-    public const int MonthsPerLeapYear = 14;
+    public const int MonthsPerLeapYear = MonthsPerCommonYear + 1;
+
+    /// <summary>
+    /// Represents the number of weeks in a common year.
+    /// <para>This field is a constant equal to 52.</para>
+    /// </summary>
+    public const int WeeksPerCommonYear = 52;
+
+    /// <summary>
+    /// Represents the number of weeks in a leap year.
+    /// <para>This field is a constant equal to 53.</para>
+    /// </summary>
+    public const int WeeksPerLeapYear = WeeksPerCommonYear + 1;
 
     /// <summary>
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
     /// <para>On average, a year is 365.2425 days long.</para>
     /// </summary>
-    public const int DaysPer400YearCycle = 400 * 364 + 71 * 7;
+    public const int DaysPer400YearCycle = 400 * DaysPerCommonYear + 71 * DaysInPaxMonth;
 
     /// <summary>
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 364.</para>
     /// </summary>
-    public const int DaysPerCommonYear = 364;
+    public const int DaysPerCommonYear = WeeksPerCommonYear * DaysPerWeek;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 371.</para>
     /// </summary>
-    public const int DaysPerLeapYear = 371;
+    public const int DaysPerLeapYear = DaysPerCommonYear + DaysInPaxMonth;
+
+    /// <summary>
+    /// Represents the number of days in a month that is not the Pax month.
+    /// <para>This field is constant equal to 28.</para>
+    /// </summary>
+    private const int DaysInMonth = 28;
+
+    /// <summary>
+    /// Represents the number of days in a Pax month.
+    /// <para>This field is constant equal to 7.</para>
+    /// </summary>
+    private const int DaysInPaxMonth = 7;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PaxSchema"/> class.
@@ -109,7 +135,7 @@ public sealed partial class PaxSchema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
-        [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 7, 28];
+        [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, DaysInPaxMonth, 28];
 
     /// <inheritdoc />
     [Pure]
@@ -156,14 +182,14 @@ public partial class PaxSchema // ILeapWeekSchema
 
     /// <inheritdoc />
     [Pure]
-    public int CountWeeksInYear(int y) => IsLeapYear(y) ? 53 : 52;
+    public int CountWeeksInYear(int y) => IsLeapYear(y) ? WeeksPerLeapYear : WeeksPerCommonYear;
 
     /// <inheritdoc />
     [Pure]
     public int CountDaysSinceEpoch(int y, int woy, DayOfWeek dow) =>
         // The first day of the week is a Sunday not a Monday, therefore
         // we do not have to use the adjusted day of the week.
-        GetStartOfYear(y) + 7 * (woy - 1) + (int)dow;
+        GetStartOfYear(y) + DaysPerWeek * (woy - 1) + (int)dow;
 
     public void GetWeekdateParts(int weeksSinceEpoch, out int y, out int woy, out DayOfWeek dow)
     {
@@ -214,12 +240,13 @@ public partial class PaxSchema // Counting months and days within a year or a mo
 
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInMonth(int y, int m) => IsPaxMonth(y, m) ? 7 : 28;
+    public sealed override int CountDaysInMonth(int y, int m) =>
+        IsPaxMonth(y, m) ? DaysInPaxMonth : DaysInMonth;
 
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYearBeforeMonth(int y, int m) =>
-        m == 14 ? 343 : 28 * (m - 1);
+        m == 14 ? 343 : DaysInMonth * (m - 1);
 }
 
 public partial class PaxSchema // Conversions
@@ -256,8 +283,8 @@ public partial class PaxSchema // Conversions
         if (doy < 337 || !IsLeapYear(y))
         {
             int d0y = doy - 1;
-            m = 1 + d0y / 28;
-            d = 1 + d0y % 28;
+            m = 1 + d0y / DaysInMonth;
+            d = 1 + d0y % DaysInMonth;
         }
         else if (doy < 344)
         {
@@ -294,6 +321,6 @@ public partial class PaxSchema // Counting months and days since the epoch
         y--;
         int C = y / 100;
         int Y = y % 100;
-        return 364 * y + 7 * (18 * C - (C >> 2) + Y / 6 + Y / 99);
+        return DaysPerCommonYear * y + 7 * (18 * C - (C >> 2) + Y / 6 + Y / 99);
     }
 }
