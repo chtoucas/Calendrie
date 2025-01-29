@@ -8,7 +8,7 @@ using System.Numerics;
 using Calendrie.Hemerology;
 
 // Test aux limites.
-internal static class DayOfWeekAdjusterTester
+public static class DayOfWeekAdjusterTester
 {
     [Pure]
     public static DayOfWeekAdjusterTester<T> NearMinValue<T>(T min)
@@ -21,7 +21,7 @@ internal static class DayOfWeekAdjusterTester
         new(max, testNext: true, (x, n) => x + n);
 }
 
-internal sealed partial class DayOfWeekAdjusterTester<T>
+public sealed partial class DayOfWeekAdjusterTester<T>
     where T : IAbsoluteDate<T>
 {
     private readonly bool _testNext;
@@ -100,7 +100,7 @@ internal sealed partial class DayOfWeekAdjusterTester<T>
         dow == DayOfWeek.Saturday ? DayOfWeek.Sunday : dow + 1;
 }
 
-internal partial class DayOfWeekAdjusterTester<T> // Previous() & PreviousOrSame()
+public partial class DayOfWeekAdjusterTester<T> // Previous() & PreviousOrSame()
 {
     public void TestPrevious()
     {
@@ -233,7 +233,7 @@ internal partial class DayOfWeekAdjusterTester<T> // Previous() & PreviousOrSame
     }
 }
 
-internal partial class DayOfWeekAdjusterTester<T> // Nearest()
+public partial class DayOfWeekAdjusterTester<T> // Nearest()
 {
     [Fact]
     public void TestNearest()
@@ -303,7 +303,7 @@ internal partial class DayOfWeekAdjusterTester<T> // Nearest()
     }
 }
 
-internal partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
+public partial class DayOfWeekAdjusterTester<T> // Next() & NextOrSame()
 {
     public void TestNextOrSame()
     {
