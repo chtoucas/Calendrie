@@ -3,7 +3,7 @@
 
 namespace Calendrie;
 
-// TODO(code): value names
+// TODO(code): value names, règles (voir Developer Notes)
 
 #region Developer Notes
 
@@ -12,9 +12,9 @@ namespace Calendrie;
 //
 // Règle : quand une addition naïve donnerait un résultat invalide, on
 // sélectionne le dernier jour valide précédent.
-// Cette règle est simple à retenir mais ne donne pas nécessairement le
-// résultat le plus naturel, tout particulièrement quand le calendrier n'est pas
-// régulier.
+// Cette règle est simple à retenir mais ne donne pas nécessairement un résultat
+// très naturel, tout particulièrement quand le calendrier n'est pas régulier
+// (Pax) ou dans les variantes à 13 mois des calendriers réguliers.
 //
 // ## Calendrier grégorien régulier
 // Seul le jour intercalaire d'une année bissextile pose problème.
