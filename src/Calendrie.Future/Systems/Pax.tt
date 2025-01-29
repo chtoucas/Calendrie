@@ -1,15 +1,26 @@
 ﻿<#@ template hostspecific="true" #>
 <#@ output extension=".g.cs" #>
 <#@ include file="$(CalendrieT4Directory)Calendar.tt" once="true" #>
-<#= new CalendarTemplate(this,
-        "PaxSchema",
-        "DayZero.SundayBeforeGregorian",
-        epochDaysSinceZeroValue: "-1",
-        maxDaysSinceEpochValue:  "3_652_060",
-        regular: false)
-    {
-        EnableIsIntercalaryDay = false,
-        EnableIsSupplementaryDay = false,
+<#= new PaxTemplate(this).Execute() #><#+
 
-        MaxMonthsSinceEpochValue = "131_761"
-    }.Execute() #>
+public sealed class PaxTemplate : CalendarTemplate
+{
+    public PaxTemplate(TextTransformation parent)
+        : base(
+            parent,
+            "PaxSchema",
+            "DayZero.SundayBeforeGregorian",
+            epochDaysSinceZeroValue: "-1",
+            maxDaysSinceEpochValue: "3_652_060",
+            regular: false)
+    {
+        EnableIsIntercalaryDay = false;
+        EnableIsSupplementaryDay = false;
+
+        MaxMonthsSinceEpochValue = "131_761";
+    }
+
+    protected override void EmitCalendarMathNonRegular() { }
+}
+
+#>

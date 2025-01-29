@@ -267,7 +267,7 @@ public partial class <#= Prefix #>Calendar // Math
                 roundoff += sch.CountDaysInMonth(y, i);
             }
             int daysInMonth = sch.CountDaysInMonth(newY, monthsInYear);
-            roundoff += Math.Max(0, d - daysInMonth);
+            // TODO(code): roundoff += Math.Max(0, d - daysInMonth);
 
             // On retourne le dernier jour valide de l'année newY.
             newM = monthsInYear;
