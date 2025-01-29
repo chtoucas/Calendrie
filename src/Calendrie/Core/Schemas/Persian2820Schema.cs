@@ -54,44 +54,45 @@ public sealed partial class Persian2820Schema :
     /// <para>This field is a constant equal to 1_029_983.</para>
     /// </summary>
     /// <remarks>On average, a year is approximately 365.242196... days long.</remarks>
-    public const int DaysPer2820YearCycle = 2820 * DaysInCommonYear + 683;
+    public const int DaysPer2820YearCycle = 2820 * DaysPerCommonYear + 683;
 
     /// <summary>
     /// Represents the number of days per 128-year subcycle.
     /// <para>This field is a constant equal to 46_751.</para>
     /// </summary>
-    public const int DaysPer128YearSubcycle = 97 * DaysInCommonYear + 31 * DaysInLeapYear;
+    public const int DaysPer128YearSubcycle = 97 * DaysPerCommonYear + 31 * DaysPerLeapYear;
 
     /// <summary>
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 365.</para>
     /// </summary>
-    public const int DaysInCommonYear = CalendricalConstants.DaysInWanderingYear;
+    public const int DaysPerCommonYear = CalendricalConstants.DaysInWanderingYear;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 366.</para>
     /// </summary>
-    public const int DaysInLeapYear = DaysInCommonYear + 1;
+    public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
     /// Represents the number of whole days elapsed since the start of the
     /// year and before July.
     /// <para>This field is constant equal to 186.</para>
     /// </summary>
-    public const int DaysInYearBeforeJuly = 186;
+    public const int DaysPerYearBeforeJuly = 186;
 
     /// <summary>
     /// Represents the year "zero" of the first whole 2820-year cycle.
+    /// <para>The first 2820-year cycle is the range 475-3295. Before that we
+    /// have 86 years followed by two 128-year cycles and one 132-year cycle.
+    /// </para>
     /// </summary>
-    /// <remarks>The first 2820-year cycle is the range 475-3295. Before that we have 86 years
-    /// followed by two 128-year cycles and one 132-year cycle.</remarks>
     public const int Year0 = 474;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Persian2820Schema"/> class.
     /// </summary>
-    internal Persian2820Schema() : base(DaysInCommonYear, 29)
+    internal Persian2820Schema() : base(DaysPerCommonYear, 29)
     {
         SupportedYearsCore = Range.StartingAt(int.MinValue + Year0);
     }
@@ -156,7 +157,7 @@ public partial class Persian2820Schema // Counting months and days within a year
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
-        IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+        IsLeapYear(y) ? DaysPerLeapYear : DaysPerCommonYear;
 
     /// <inheritdoc />
     [Pure]
@@ -178,7 +179,7 @@ public partial class Persian2820Schema // Conversions
     public sealed override int GetMonth(int y, int doy, out int d)
     {
         int d0y = doy - 1;
-        int m = d0y < DaysInYearBeforeJuly ? 1 + d0y / 31 : 1 + (d0y - 6) / 30;
+        int m = d0y < DaysPerYearBeforeJuly ? 1 + d0y / 31 : 1 + (d0y - 6) / 30;
         d = 1 + d0y - CountDaysInYearBeforeMonth(y, m);
         return m;
     }
@@ -207,6 +208,6 @@ public partial class Persian2820Schema // Counting months and days since the epo
     {
         y -= Year0;
         int Y = Year0 + MathZ.Modulo(y, 2820, out int C);
-        return DaysPer2820YearCycle * C + DaysInCommonYear * (Y - 1) + (31 * Y - 5) / 128;
+        return DaysPer2820YearCycle * C + DaysPerCommonYear * (Y - 1) + (31 * Y - 5) / 128;
     }
 }

@@ -18,13 +18,13 @@ internal sealed class PaxPreValidator : ICalendricalPreValidator
     /// Represents the minimal total number of days there is at least in a year.
     /// <para>This field is a constant equal to 364.</para>
     /// </summary>
-    private const int MinDaysInYear = 364;
+    private const int MinDaysInYear = PaxSchema.DaysPerCommonYear;
 
     /// <summary>
     /// Represents the minimal total number of months there is at least in a year.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    private const int MinMonthsInYear = 13;
+    private const int MinMonthsInYear = PaxSchema.MonthsPerCommonYear;
 
     /// <summary>
     /// Represents the schema.

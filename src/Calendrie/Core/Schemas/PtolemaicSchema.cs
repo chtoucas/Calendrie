@@ -25,19 +25,19 @@ public abstract partial class PtolemaicSchema : RegularSchema
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 365.</para>
     /// </summary>
-    public const int DaysInCommonYear = CalendricalConstants.DaysInWanderingYear;
+    public const int DaysPerCommonYear = CalendricalConstants.DaysInWanderingYear;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 366.</para>
     /// </summary>
-    public const int DaysInLeapYear = DaysInCommonYear + 1;
+    public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="PtolemaicSchema"/> class.
     /// </summary>
-    private protected PtolemaicSchema(int minDaysInMonth) : base(DaysInCommonYear, minDaysInMonth) { }
+    private protected PtolemaicSchema(int minDaysInMonth) : base(DaysPerCommonYear, minDaysInMonth) { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
@@ -52,7 +52,7 @@ public partial class PtolemaicSchema // Counting months and days within a year o
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
-        IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+        IsLeapYear(y) ? DaysPerLeapYear : DaysPerCommonYear;
 
     /// <inheritdoc />
     [Pure]

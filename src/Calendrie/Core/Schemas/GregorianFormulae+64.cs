@@ -26,7 +26,7 @@ internal partial class GregorianFormulae // 64-bit versions
 
         long C = MathZ.Divide(y, 100L, out long Y);
 
-        return -GJSchema.DaysInYearAfterFebruary
+        return -GJSchema.DaysPerYearAfterFebruary
             + (GregorianSchema.DaysPer400YearCycle * C >> 2)
             + (GregorianSchema.DaysPer4YearSubcycle * Y >> 2)
             + (int)((uint)(153 * m + 2) / 5 + d) - 1;
@@ -39,7 +39,7 @@ internal partial class GregorianFormulae // 64-bit versions
     /// </summary>
     public static void GetDateParts(long daysSinceEpoch, out long y, out int m, out int d)
     {
-        daysSinceEpoch += GJSchema.DaysInYearAfterFebruary;
+        daysSinceEpoch += GJSchema.DaysPerYearAfterFebruary;
 
         long C = MathZ.Divide((daysSinceEpoch << 2) + 3, GregorianSchema.DaysPer400YearCycle);
         long D = daysSinceEpoch - (GregorianSchema.DaysPer400YearCycle * C >> 2);
@@ -72,7 +72,7 @@ internal partial class GregorianFormulae // 64-bit versions
     {
         long y = MathZ.Divide(400 * (daysSinceEpoch + 2), GregorianSchema.DaysPer400YearCycle);
         long c = MathZ.Divide(y, 100);
-        long startOfYearAfter = GJSchema.DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        long startOfYearAfter = GJSchema.DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
 
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }

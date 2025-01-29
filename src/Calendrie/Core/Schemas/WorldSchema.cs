@@ -52,18 +52,18 @@ public sealed partial class WorldSchema :
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 365.</para>
     /// </summary>
-    public const int DaysInCommonYear = GJSchema.DaysInCommonYear;
+    public const int DaysPerCommonYear = GJSchema.DaysPerCommonYear;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 366.</para>
     /// </summary>
-    public const int DaysInLeapYear = DaysInCommonYear + 1;
+    public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldSchema"/> class.
     /// </summary>
-    internal WorldSchema() : base(DaysInCommonYear, 30) { }
+    internal WorldSchema() : base(DaysPerCommonYear, 30) { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
@@ -155,7 +155,7 @@ public partial class WorldSchema // Counting months and days within a year or a 
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
-        GregorianFormulae.IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+        GregorianFormulae.IsLeapYear(y) ? DaysPerLeapYear : DaysPerCommonYear;
 
     /// <inheritdoc />
     [Pure]

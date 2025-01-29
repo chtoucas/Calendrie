@@ -21,7 +21,7 @@ public sealed partial class TropicaliaSchema :
     /// included.
     /// <para>This field is constant equal to 306.</para>
     /// </summary>
-    public const int DaysInYearAfterFebruary = 306;
+    public const int DaysPerYearAfterFebruary = 306;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaSchema"/>
@@ -94,7 +94,7 @@ public partial class TropicaliaSchema // Conversions
         int C = y >> 7;
         int Y = y & 127;
 
-        return -DaysInYearAfterFebruary + DaysPer128YearCycle * C
+        return -DaysPerYearAfterFebruary + DaysPer128YearCycle * C
             + 365 * Y + (Y >> 2) + (153 * m + 2) / 5 + d - 1;
     }
 

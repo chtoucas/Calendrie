@@ -60,14 +60,14 @@ public partial class JulianSchema // Conversions
             m -= 3;
         }
 
-        return -DaysInYearAfterFebruary
+        return -DaysPerYearAfterFebruary
             + (DaysPer4YearCycle * y >> 2) + (int)((uint)(153 * m + 2) / 5) + d - 1;
     }
 
     /// <inheritdoc />
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
-        daysSinceEpoch += DaysInYearAfterFebruary;
+        daysSinceEpoch += DaysPerYearAfterFebruary;
 
         y = MathZ.Divide((daysSinceEpoch << 2) + 3, DaysPer4YearCycle);
         int d0y = daysSinceEpoch - (DaysPer4YearCycle * y >> 2);
@@ -99,6 +99,6 @@ public partial class JulianSchema // Counting months and days since the epoch
     public sealed override int GetStartOfYear(int y)
     {
         y--;
-        return DaysInCommonYear * y + (y >> 2);
+        return DaysPerCommonYear * y + (y >> 2);
     }
 }

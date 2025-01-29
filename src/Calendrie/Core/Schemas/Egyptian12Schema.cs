@@ -40,8 +40,7 @@ public sealed partial class Egyptian12Schema :
 
     /// <inheritdoc />
     [Pure]
-    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
-        DaysInMonth;
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) => DaysInMonth;
 
     /// <inheritdoc />
     [Pure]

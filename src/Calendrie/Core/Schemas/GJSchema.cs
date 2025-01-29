@@ -25,20 +25,20 @@ public abstract partial class GJSchema : RegularSchema, IDaysInMonths
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 365.</para>
     /// </summary>
-    public const int DaysInCommonYear = CalendricalConstants.DaysInWanderingYear;
+    public const int DaysPerCommonYear = CalendricalConstants.DaysInWanderingYear;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 366.</para>
     /// </summary>
-    public const int DaysInLeapYear = DaysInCommonYear + 1;
+    public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
     /// Represents the number of days from march to december, both
     /// included.
     /// <para>This field is constant equal to 306.</para>
     /// </summary>
-    public const int DaysInYearAfterFebruary = 306;
+    public const int DaysPerYearAfterFebruary = 306;
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the <see cref="GJSchema"/>
@@ -47,7 +47,7 @@ public abstract partial class GJSchema : RegularSchema, IDaysInMonths
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/>
     /// is not a subinterval of <see cref="CalendricalSchema.MaxSupportedYears"/>.
     /// </exception>
-    private protected GJSchema(Range<int> supportedYears) : base(supportedYears, DaysInCommonYear, 28)
+    private protected GJSchema(Range<int> supportedYears) : base(supportedYears, DaysPerCommonYear, 28)
     {
         Debug.Assert(supportedYears.IsSubsetOf(DefaultSupportedYears));
     }
@@ -102,7 +102,7 @@ public partial class GJSchema // Counting months and days within a year or a mon
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
-        IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+        IsLeapYear(y) ? DaysPerLeapYear : DaysPerCommonYear;
 
     /// <inheritdoc />
     [Pure]

@@ -227,11 +227,11 @@ module GregorianConversion =
     let ``Ordinal parts for DayNumber:MaxSupportedYear`` () =
         GregorianFormulae.IsLeapYear(DayNumber.MaxSupportedYear) |> ok
 
-        let dayNumber = DayNumber.FromGregorianOrdinalParts(DayNumber.MaxSupportedYear, GJSchema.DaysInLeapYear)
+        let dayNumber = DayNumber.FromGregorianOrdinalParts(DayNumber.MaxSupportedYear, GJSchema.DaysPerLeapYear)
         dayNumber === DayNumber.GregorianDomain.Max
 
         let ydoy = dayNumber.GetGregorianOrdinalParts()
-        ydoy.Deconstruct() === (DayNumber.MaxSupportedYear, GJSchema.DaysInLeapYear)
+        ydoy.Deconstruct() === (DayNumber.MaxSupportedYear, GJSchema.DaysPerLeapYear)
 
         dayNumber.GetGregorianYear() === DayNumber.MaxSupportedYear
 
@@ -370,11 +370,11 @@ module JulianConversion =
     let ``Ordinal parts for DayNumber:MaxSupportedYear`` () =
         JulianFormulae.IsLeapYear(DayNumber.MaxSupportedYear) |> ok
 
-        let dayNumber = DayNumber.FromJulianOrdinalParts(DayNumber.MaxSupportedYear, GJSchema.DaysInLeapYear)
+        let dayNumber = DayNumber.FromJulianOrdinalParts(DayNumber.MaxSupportedYear, GJSchema.DaysPerLeapYear)
         dayNumber === DayNumber.JulianDomain.Max
 
         let ydoy = dayNumber.GetJulianOrdinalParts()
-        ydoy.Deconstruct() === (DayNumber.MaxSupportedYear, GJSchema.DaysInLeapYear)
+        ydoy.Deconstruct() === (DayNumber.MaxSupportedYear, GJSchema.DaysPerLeapYear)
 
         dayNumber.GetJulianYear() === DayNumber.MaxSupportedYear
 

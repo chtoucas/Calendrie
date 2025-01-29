@@ -44,13 +44,13 @@ public sealed partial class PositivistSchema :
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 365.</para>
     /// </summary>
-    public const int DaysInCommonYear = GJSchema.DaysInCommonYear;
+    public const int DaysPerCommonYear = GJSchema.DaysPerCommonYear;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 366.</para>
     /// </summary>
-    public const int DaysInLeapYear = DaysInCommonYear + 1;
+    public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
     /// Represents the genuine number of days in a month (excluding the blank days that are
@@ -58,12 +58,12 @@ public sealed partial class PositivistSchema :
     /// <para>This field is constant equal to 28.</para>
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
-    public const int DaysInPositivistMonth = 28;
+    public const int DaysPerPositivistMonth = 28;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PositivistSchema"/> class.
     /// </summary>
-    internal PositivistSchema() : base(DaysInCommonYear, 28) { }
+    internal PositivistSchema() : base(DaysPerCommonYear, 28) { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
@@ -133,7 +133,7 @@ public partial class PositivistSchema // Counting months and days within a year 
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
-        GregorianFormulae.IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+        GregorianFormulae.IsLeapYear(y) ? DaysPerLeapYear : DaysPerCommonYear;
 
     /// <inheritdoc />
     [Pure]

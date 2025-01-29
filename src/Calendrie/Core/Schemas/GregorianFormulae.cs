@@ -35,7 +35,7 @@ internal static partial class GregorianFormulae
     /// </summary>
     [Pure]
     public static int CountDaysInYear(int y) =>
-        IsLeapYear(y) ? GJSchema.DaysInLeapYear : GJSchema.DaysInCommonYear;
+        IsLeapYear(y) ? GJSchema.DaysPerLeapYear : GJSchema.DaysPerCommonYear;
 
     /// <summary>
     /// Obtains the number of days in the specified month.
@@ -65,7 +65,7 @@ internal static partial class GregorianFormulae
 
         int C = MathZ.Divide(y, 100, out int Y);
 
-        return -GJSchema.DaysInYearAfterFebruary
+        return -GJSchema.DaysPerYearAfterFebruary
             + (GregorianSchema.DaysPer400YearCycle * C >> 2)
             + (GregorianSchema.DaysPer4YearSubcycle * Y >> 2)
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
@@ -86,7 +86,7 @@ internal static partial class GregorianFormulae
     /// </summary>
     public static void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
-        daysSinceEpoch += GJSchema.DaysInYearAfterFebruary;
+        daysSinceEpoch += GJSchema.DaysPerYearAfterFebruary;
 
         int C = MathZ.Divide((daysSinceEpoch << 2) + 3, GregorianSchema.DaysPer400YearCycle);
         int D = daysSinceEpoch - (GregorianSchema.DaysPer400YearCycle * C >> 2);
@@ -132,7 +132,7 @@ internal static partial class GregorianFormulae
     {
         int y = (int)MathZ.Divide(400L * (daysSinceEpoch + 2), GregorianSchema.DaysPer400YearCycle);
         int c = MathZ.Divide(y, 100);
-        int startOfYearAfter = GJSchema.DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        int startOfYearAfter = GJSchema.DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
 
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
@@ -146,6 +146,6 @@ internal static partial class GregorianFormulae
     {
         y--;
         int c = MathZ.Divide(y, 100);
-        return GJSchema.DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        return GJSchema.DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
     }
 }

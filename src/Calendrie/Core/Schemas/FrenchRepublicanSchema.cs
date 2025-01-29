@@ -27,7 +27,7 @@ public abstract partial class FrenchRepublicanSchema : PtolemaicSchema
     /// epagomenal days that are not formally part of the twelfth month).
     /// <para>This field is constant to 30.</para>
     /// </summary>
-    public const int DaysInFrenchRepublicanMonth = 30;
+    public const int DaysPerFrenchRepublicanMonth = 30;
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -98,6 +98,6 @@ public partial class FrenchRepublicanSchema // Counting months and days since th
         y--;
         int c = MathZ.Divide(y, 100);
         int millennium = MathZ.Divide(c, 10);
-        return DaysInCommonYear * y + (y >> 2) - c + (c >> 2) - (millennium >> 2);
+        return DaysPerCommonYear * y + (y >> 2) - c + (c >> 2) - (millennium >> 2);
     }
 }

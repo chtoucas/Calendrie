@@ -29,7 +29,7 @@ internal static partial class JulianFormulae
     /// </summary>
     [Pure]
     public static int CountDaysInYear(int y) =>
-        IsLeapYear(y) ? GJSchema.DaysInLeapYear : GJSchema.DaysInCommonYear;
+        IsLeapYear(y) ? GJSchema.DaysPerLeapYear : GJSchema.DaysPerCommonYear;
 
     /// <summary>
     /// Obtains the number of days in the specified month.
@@ -57,7 +57,7 @@ internal static partial class JulianFormulae
             m -= 3;
         }
 
-        return -GJSchema.DaysInYearAfterFebruary
+        return -GJSchema.DaysPerYearAfterFebruary
             + (JulianSchema.DaysPer4YearCycle * y >> 2)
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
     }
@@ -77,7 +77,7 @@ internal static partial class JulianFormulae
     /// </summary>
     public static void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
-        daysSinceEpoch += GJSchema.DaysInYearAfterFebruary;
+        daysSinceEpoch += GJSchema.DaysPerYearAfterFebruary;
 
         y = MathZ.Divide((daysSinceEpoch << 2) + 3, JulianSchema.DaysPer4YearCycle);
         int d0y = daysSinceEpoch - (JulianSchema.DaysPer4YearCycle * y >> 2);
@@ -125,6 +125,6 @@ internal static partial class JulianFormulae
     public static int GetStartOfYear(int y)
     {
         y--;
-        return GJSchema.DaysInCommonYear * y + (y >> 2);
+        return GJSchema.DaysPerCommonYear * y + (y >> 2);
     }
 }

@@ -178,10 +178,10 @@ module GregorianCase =
         int(daysIn4YearCycle[2]) === daysInYear2
         int(daysIn4YearCycle[3]) === daysInYear3
 
-        daysInYear0 === GJSchema.DaysInLeapYear // Year 0 is leap
-        daysInYear1 === GJSchema.DaysInCommonYear
-        daysInYear2 === GJSchema.DaysInCommonYear
-        daysInYear3 === GJSchema.DaysInCommonYear
+        daysInYear0 === GJSchema.DaysPerLeapYear // Year 0 is leap
+        daysInYear1 === GJSchema.DaysPerCommonYear
+        daysInYear2 === GJSchema.DaysPerCommonYear
+        daysInYear3 === GJSchema.DaysPerCommonYear
 
         let sum = Array.sum <| daysIn4YearCycle.ToArray()
         int(sum) === GregorianSchema.DaysPer4YearSubcycle

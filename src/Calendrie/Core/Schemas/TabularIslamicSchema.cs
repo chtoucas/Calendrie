@@ -28,19 +28,19 @@ public sealed partial class TabularIslamicSchema :
     /// <para>This field is a constant equal to 10_631.</para>
     /// </summary>
     /// <remarks>On average, a year is 354.36666... days long.</remarks>
-    public const int DaysPer30YearCycle = 19 * DaysInCommonYear + 11 * 355;
+    public const int DaysPer30YearCycle = 19 * DaysPerCommonYear + 11 * 355;
 
     /// <summary>
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 354.</para>
     /// </summary>
-    public const int DaysInCommonYear = 354;
+    public const int DaysPerCommonYear = 354;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 355.</para>
     /// </summary>
-    public const int DaysInLeapYear = DaysInCommonYear + 1;
+    public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicSchema"/>
@@ -51,7 +51,7 @@ public sealed partial class TabularIslamicSchema :
         // Dans cette méthode, on va multiplier daysSinceEpoch par 30.
         // Pour rester dans les limites de Int32,
         // 2^31 / 30 * 355 (DaysInLeapYear) = 201K années max
-        : base(Range.Create(-199_999, 200_000), DaysInCommonYear, 29)
+        : base(Range.Create(-199_999, 200_000), DaysPerCommonYear, 29)
     {
         SupportedYearsCore = SupportedYears;
     }
@@ -110,7 +110,7 @@ public partial class TabularIslamicSchema // Counting months and days within a y
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
-        IsLeapYear(y) ? DaysInLeapYear : DaysInCommonYear;
+        IsLeapYear(y) ? DaysPerLeapYear : DaysPerCommonYear;
 
     /// <inheritdoc />
     [Pure]
@@ -153,5 +153,5 @@ public partial class TabularIslamicSchema // Counting months and days since the 
     /// <inheritdoc />
     [Pure]
     public sealed override int GetStartOfYear(int y) =>
-        DaysInCommonYear * (y - 1) + MathZ.Divide(3 + 11 * y, 30);
+        DaysPerCommonYear * (y - 1) + MathZ.Divide(3 + 11 * y, 30);
 }

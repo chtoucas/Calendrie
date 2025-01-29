@@ -37,7 +37,7 @@ internal static class CivilFormulae
 
         int C = MathN.Divide(y, 100, out int Y);
 
-        return -GJSchema.DaysInYearAfterFebruary
+        return -GJSchema.DaysPerYearAfterFebruary
             + (GregorianSchema.DaysPer400YearCycle * C >> 2)
             + (GregorianSchema.DaysPer4YearSubcycle * Y >> 2)
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
@@ -60,7 +60,7 @@ internal static class CivilFormulae
     {
         Debug.Assert(daysSinceEpoch >= 0);
 
-        daysSinceEpoch += GJSchema.DaysInYearAfterFebruary;
+        daysSinceEpoch += GJSchema.DaysPerYearAfterFebruary;
 
         int C = (int)((uint)((daysSinceEpoch << 2) + 3) / GregorianSchema.DaysPer400YearCycle);
         int D = daysSinceEpoch - (GregorianSchema.DaysPer400YearCycle * C >> 2);
@@ -109,7 +109,7 @@ internal static class CivilFormulae
         // Int64 to prevent overflows.
         int y = (int)(400L * (daysSinceEpoch + 2) / GregorianSchema.DaysPer400YearCycle);
         int c = y / 100;
-        int startOfYearAfter = GJSchema.DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        int startOfYearAfter = GJSchema.DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
 
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
@@ -125,6 +125,6 @@ internal static class CivilFormulae
 
         y--;
         int c = y / 100;
-        return GJSchema.DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        return GJSchema.DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
     }
 }

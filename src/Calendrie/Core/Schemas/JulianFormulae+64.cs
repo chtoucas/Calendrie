@@ -24,7 +24,7 @@ internal partial class JulianFormulae // 64-bit versions
             m -= 3;
         }
 
-        return -GJSchema.DaysInYearAfterFebruary
+        return -GJSchema.DaysPerYearAfterFebruary
             + (JulianSchema.DaysPer4YearCycle * y >> 2)
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
     }
@@ -36,7 +36,7 @@ internal partial class JulianFormulae // 64-bit versions
     /// </summary>
     public static void GetDateParts(long daysSinceEpoch, out long y, out int m, out int d)
     {
-        daysSinceEpoch += GJSchema.DaysInYearAfterFebruary;
+        daysSinceEpoch += GJSchema.DaysPerYearAfterFebruary;
 
         y = MathZ.Divide((daysSinceEpoch << 2) + 3, JulianSchema.DaysPer4YearCycle);
         int d0y = (int)(daysSinceEpoch - (JulianSchema.DaysPer4YearCycle * y >> 2));

@@ -22,7 +22,7 @@ public abstract partial class TropicalistaSchema : RegularSchema
     /// <para>This field is a constant equal to 46_751.</para>
     /// </summary>
     /// <remarks>On average, a year is 365.2421875 days long.</remarks>
-    public const int DaysPer128YearCycle = 128 * DaysInCommonYear + 31;
+    public const int DaysPer128YearCycle = 128 * DaysPerCommonYear + 31;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 4-year subcycle.
@@ -35,20 +35,20 @@ public abstract partial class TropicalistaSchema : RegularSchema
     /// Represents the number of days in a common year.
     /// <para>This field is a constant equal to 365.</para>
     /// </summary>
-    public const int DaysInCommonYear = CalendricalConstants.DaysInWanderingYear;
+    public const int DaysPerCommonYear = CalendricalConstants.DaysInWanderingYear;
 
     /// <summary>
     /// Represents the number of days in a leap year.
     /// <para>This field is a constant equal to 366.</para>
     /// </summary>
-    public const int DaysInLeapYear = DaysInCommonYear + 1;
+    public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="TropicalistaSchema"/> class.
     /// </summary>
     private protected TropicalistaSchema(int minDaysInMonth)
-        : base(DaysInCommonYear, minDaysInMonth) { }
+        : base(DaysPerCommonYear, minDaysInMonth) { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
@@ -84,7 +84,7 @@ public partial class TropicalistaSchema // Counting months and days within a yea
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYear(int y) =>
-        IsLeapYearImpl(y) ? DaysInLeapYear : DaysInCommonYear;
+        IsLeapYearImpl(y) ? DaysPerLeapYear : DaysPerCommonYear;
 }
 
 public partial class TropicalistaSchema // Conversions

@@ -24,7 +24,7 @@ public abstract partial class CopticSchema : PtolemaicSchema
     /// epagomenal days that are not formally part of the twelfth month).
     /// <para>This field is constant equal to 30.</para>
     /// </summary>
-    public const int DaysInCopticMonth = 30;
+    public const int DaysPerCopticMonth = 30;
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -62,5 +62,5 @@ public partial class CopticSchema // Counting months and days since the epoch
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int GetStartOfYear(int y) => DaysInCommonYear * (y - 1) + (y >> 2);
+    public sealed override int GetStartOfYear(int y) => DaysPerCommonYear * (y - 1) + (y >> 2);
 }

@@ -44,6 +44,18 @@ public sealed partial class PaxSchema :
     ISchemaActivator<PaxSchema>
 {
     /// <summary>
+    /// Represents the number of days in a common year.
+    /// <para>This field is a constant equal to 13.</para>
+    /// </summary>
+    public const int MonthsPerCommonYear = 13;
+
+    /// <summary>
+    /// Represents the number of days in a leap year.
+    /// <para>This field is a constant equal to 14.</para>
+    /// </summary>
+    public const int MonthsPerLeapYear = 14;
+
+    /// <summary>
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
     /// <para>On average, a year is 365.2425 days long.</para>
@@ -51,13 +63,29 @@ public sealed partial class PaxSchema :
     public const int DaysPer400YearCycle = 400 * 364 + 71 * 7;
 
     /// <summary>
+    /// Represents the number of days in a common year.
+    /// <para>This field is a constant equal to 364.</para>
+    /// </summary>
+    public const int DaysPerCommonYear = 364;
+
+    /// <summary>
+    /// Represents the number of days in a leap year.
+    /// <para>This field is a constant equal to 371.</para>
+    /// </summary>
+    public const int DaysPerLeapYear = 371;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PaxSchema"/> class.
     /// </summary>
 #if PROTOTYPING
     internal PaxSchema()
-        : base(proleptic: false, minMonthsInYear: 13, minDaysInYear: 364, minDaysInMonth: 7)
+        : base(
+            proleptic: false,
+            minMonthsInYear: MonthsPerCommonYear,
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth: 7)
 #else
-    internal PaxSchema() : base(DefaultSupportedYears.WithMin(1), 364, 7)
+    internal PaxSchema() : base(DefaultSupportedYears.WithMin(1), DaysPerCommonYear, 7)
 #endif
     {
         PreValidator = new PaxPreValidator(this);
@@ -173,14 +201,16 @@ public partial class PaxSchema // Counting months and days within a year or a mo
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountMonthsInYear(int y) => IsLeapYear(y) ? 14 : 13;
+    public sealed override int CountMonthsInYear(int y) =>
+        IsLeapYear(y) ? MonthsPerLeapYear : MonthsPerCommonYear;
 
     /// <inheritdoc />
     //
     // 364 days = 13 months of 28 days
     // 371 days = 364 days + 7 days (Pax month)
     [Pure]
-    public sealed override int CountDaysInYear(int y) => IsLeapYear(y) ? 371 : 364;
+    public sealed override int CountDaysInYear(int y) =>
+        IsLeapYear(y) ? DaysPerLeapYear : DaysPerCommonYear;
 
     /// <inheritdoc />
     [Pure]

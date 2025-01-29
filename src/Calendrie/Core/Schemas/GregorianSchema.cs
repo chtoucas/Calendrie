@@ -30,13 +30,13 @@ public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<Gregori
     /// <para>This field is a constant equal to 146_097.</para>
     /// </summary>
     /// <remarks>On average, a year is 365.2425 days long.</remarks>
-    public const int DaysPer400YearCycle = 400 * DaysInCommonYear + 97;
+    public const int DaysPer400YearCycle = 400 * DaysPerCommonYear + 97;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 100-year subcycle.
     /// <para>This field is a constant equal to 36_524.</para>
     /// </summary>
-    public const int DaysPer100YearSubcycle = 100 * DaysInCommonYear + 24;
+    public const int DaysPer100YearSubcycle = 100 * DaysPerCommonYear + 24;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 4-year subcycle.
@@ -103,7 +103,7 @@ public partial class GregorianSchema // Conversions
 
         int C = MathZ.Divide(y, 100, out int Y);
 
-        return -DaysInYearAfterFebruary
+        return -DaysPerYearAfterFebruary
             + (DaysPer400YearCycle * C >> 2) + (DaysPer4YearSubcycle * Y >> 2)
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
     }
@@ -111,7 +111,7 @@ public partial class GregorianSchema // Conversions
     /// <inheritdoc />
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
-        daysSinceEpoch += DaysInYearAfterFebruary;
+        daysSinceEpoch += DaysPerYearAfterFebruary;
 
         // Position within the 400-year cycle.
         int C = MathZ.Divide((daysSinceEpoch << 2) + 3, DaysPer400YearCycle);
@@ -143,7 +143,7 @@ public partial class GregorianSchema // Conversions
         // Int64 to prevent overflows.
         int y = (int)MathZ.Divide(400L * (daysSinceEpoch + 2), DaysPer400YearCycle);
         int c = MathZ.Divide(y, 100);
-        int startOfYearAfter = DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        int startOfYearAfter = DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
 
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
@@ -157,6 +157,6 @@ public partial class GregorianSchema // Counting months and days since the epoch
     {
         y--;
         int c = MathZ.Divide(y, 100);
-        return DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        return DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
     }
 }

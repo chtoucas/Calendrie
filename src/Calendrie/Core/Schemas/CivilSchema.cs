@@ -61,7 +61,7 @@ public partial class CivilSchema // Conversions
 
         int C = MathN.Divide(y, 100, out int Y);
 
-        return -DaysInYearAfterFebruary
+        return -DaysPerYearAfterFebruary
             + (GregorianSchema.DaysPer400YearCycle * C >> 2)
             + (GregorianSchema.DaysPer4YearSubcycle * Y >> 2)
             + (int)((uint)(153 * m + 2) / 5) + d - 1;
@@ -70,7 +70,7 @@ public partial class CivilSchema // Conversions
     /// <inheritdoc />
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
-        daysSinceEpoch += DaysInYearAfterFebruary;
+        daysSinceEpoch += DaysPerYearAfterFebruary;
 
         int C = (int)((uint)((daysSinceEpoch << 2) + 3) / GregorianSchema.DaysPer400YearCycle);
         int D = daysSinceEpoch - (GregorianSchema.DaysPer400YearCycle * C >> 2);
@@ -100,7 +100,7 @@ public partial class CivilSchema // Conversions
     {
         int y = (int)(400L * (daysSinceEpoch + 2) / GregorianSchema.DaysPer400YearCycle);
         int c = y / 100;
-        int startOfYearAfter = DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        int startOfYearAfter = DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
 
         return daysSinceEpoch < startOfYearAfter ? y : y + 1;
     }
@@ -114,6 +114,6 @@ public partial class CivilSchema // Counting months and days since the epoch
     {
         y--;
         int c = y / 100;
-        return DaysInCommonYear * y + (y >> 2) - c + (c >> 2);
+        return DaysPerCommonYear * y + (y >> 2) - c + (c >> 2);
     }
 }
