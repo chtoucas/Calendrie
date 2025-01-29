@@ -41,8 +41,8 @@ public partial class PaxCalendar // Math
         int monthsInYear = sch.CountMonthsInYear(newY);
         if (m > monthsInYear)
         {
-            // Pour le calendrier Pax, cela signifie que y est une année
-            // bissextile, mais pas newY, et que m = 14.
+            // Pour le calendrier Pax, cela signifie que "y" est une année
+            // bissextile, mais pas "newY", et que m = 14.
             //
             // On retourne le dernier jour valide de l'année (ordinaire) newY
             // autrement dit le 28/13.
@@ -75,8 +75,8 @@ public partial class PaxCalendar // Math
         int monthsInYear = sch.CountMonthsInYear(newY);
         if (m > monthsInYear)
         {
-            // Pour le calendrier Pax, cela signifie que y est une année
-            // bissextile, mais pas newY, et que m = 14.
+            // Pour le calendrier Pax, cela signifie que "y" est une année
+            // bissextile, mais pas "newY", et que m = 14.
             roundoff = d;
 
             // On retourne le dernier jour valide de l'année (ordinaire) newY
