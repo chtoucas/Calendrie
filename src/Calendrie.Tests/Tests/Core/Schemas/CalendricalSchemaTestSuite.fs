@@ -19,7 +19,7 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
-// TODO(fact): Pax (unfinished) and lunisolar (fake).
+// TODO(fact): Pax (unfinished).
 
 [<Sealed>]
 type CivilTests() =

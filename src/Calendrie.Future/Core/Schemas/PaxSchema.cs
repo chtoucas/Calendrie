@@ -40,15 +40,14 @@ public sealed partial class PaxSchema :
     CalendricalSchema,
 #endif
     ILeapWeekSchema,
+    IDaysInMonths,
     ISchemaActivator<PaxSchema>
 {
     /// <summary>
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
+    /// <para>On average, a year is 365.2425 days long.</para>
     /// </summary>
-    /// <remarks>
-    /// On average, a year is 365.2425 days long.
-    /// </remarks>
     public const int DaysPer400YearCycle = 400 * 364 + 71 * 7;
 
     /// <summary>
@@ -69,6 +68,25 @@ public sealed partial class PaxSchema :
 
     /// <inheritdoc />
     public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.Weeks;
+
+    /// <summary>
+    /// Gets the number of days in each month of a common year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28];
+
+    /// <summary>
+    /// Gets the number of days in each month of a leap year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 7, 28];
+
+    /// <inheritdoc />
+    [Pure]
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     /// <inheritdoc />
     [Pure]

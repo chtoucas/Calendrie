@@ -24,6 +24,7 @@ namespace Calendrie.Core.Schemas;
 /// </remarks>
 public sealed partial class PositivistSchema :
     RegularSchema,
+    IDaysInMonths,
     ISchemaActivator<PositivistSchema>
 {
     /// <summary>
@@ -72,6 +73,25 @@ public sealed partial class PositivistSchema :
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
+
+    /// <summary>
+    /// Gets the number of days in each month of a common year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29];
+
+    /// <summary>
+    /// Gets the number of days in each month of a leap year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 30];
+
+    /// <inheritdoc />
+    [Pure]
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     /// <inheritdoc />
     [Pure]

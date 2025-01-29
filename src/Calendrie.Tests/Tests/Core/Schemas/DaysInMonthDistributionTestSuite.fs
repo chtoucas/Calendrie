@@ -10,8 +10,6 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
-// TODO(fact): Pax (unfinished), Positivist (unfinished), lunisolar (fake), World (unfinished).
-
 let private test = IDaysInMonthsFacts.Test
 
 [<Fact>]
@@ -55,8 +53,16 @@ let FauxLunisolarTests () =
     test(new FauxLunisolarSchema(), FauxLunisolarDataSet.CommonYear, FauxLunisolarDataSet.LeapYear)
 
 [<Fact>]
+let PaxTests () =
+    test(new PaxSchema(), PaxDataSet.CommonYear, PaxDataSet.LeapYear)
+
+[<Fact>]
 let Persian2820Tests () =
     test(new Persian2820Schema(), Persian2820DataSet.CommonYear, Persian2820DataSet.LeapYear)
+
+[<Fact>]
+let PositivistTests () =
+    test(new PositivistSchema(), PositivistDataSet.CommonYear, PositivistDataSet.LeapYear)
 
 [<Fact>]
 let TabularIslamicTests () =
@@ -73,3 +79,7 @@ let Tropicalia3031Tests () =
 [<Fact>]
 let Tropicalia3130Tests () =
     test(new Tropicalia3130Schema(), Tropicalia3130DataSet.CommonYear, Tropicalia3130DataSet.LeapYear)
+
+[<Fact>]
+let WorldTests () =
+    test(new WorldSchema(), WorldDataSet.CommonYear, WorldDataSet.LeapYear)

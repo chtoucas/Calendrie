@@ -32,6 +32,7 @@ namespace Calendrie.Core.Schemas;
 /// </summary>
 public sealed partial class WorldSchema :
     RegularSchema,
+    IDaysInMonths,
     ISchemaActivator<WorldSchema>
 {
     /// <summary>
@@ -72,6 +73,25 @@ public sealed partial class WorldSchema :
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
+
+    /// <summary>
+    /// Gets the number of days in each month of a common year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        [31, 30, 30, 31, 30, 30, 31, 30, 30, 31, 30, 31];
+
+    /// <summary>
+    /// Gets the number of days in each month of a leap year.
+    /// <para>The span index matches the month index <i>minus one</i>.</para>
+    /// </summary>
+    private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        [31, 30, 30, 31, 30, 31, 31, 30, 30, 31, 30, 31];
+
+    /// <inheritdoc />
+    [Pure]
+    static ReadOnlySpan<byte> IDaysInMonths.GetDaysInMonthsOfYear(bool leapYear) =>
+        leapYear ? DaysInMonthsOfLeapYear : DaysInMonthsOfCommonYear;
 
     /// <inheritdoc />
     [Pure]

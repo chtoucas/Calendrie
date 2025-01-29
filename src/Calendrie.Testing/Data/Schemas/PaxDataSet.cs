@@ -11,8 +11,8 @@ using Calendrie.Core.Schemas;
 /// </summary>
 public sealed partial class PaxDataSet : SchemaDataSet, ISingleton<PaxDataSet>
 {
-    private const int CommonYear = 3;
-    private const int LeapYear = 6;
+    public const int CommonYear = 3;
+    public const int LeapYear = 6;
 
     private PaxDataSet() : base(new PaxSchema(), CommonYear, LeapYear) { }
 

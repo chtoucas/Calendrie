@@ -15,8 +15,6 @@ open Calendrie.Testing.Faux
 
 open Xunit
 
-// TODO(fact): lunisolar (fake).
-
 // Quand on teste la propriété PreValidatorUT, c'est juste pour être sûr qu'on
 // teste bien les 8 types de pré-validateurs.
 
