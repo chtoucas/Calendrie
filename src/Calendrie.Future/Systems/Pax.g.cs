@@ -122,6 +122,8 @@ public partial class PaxCalendar // Math
         if (newY < StandardScope.MinYear || newY > StandardScope.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
+        // FIXME(code): AddYears/Months() for non-regular calendars.
+
         int monthsInYear = sch.CountMonthsInYear(newY);
         int newM;
         int newD;

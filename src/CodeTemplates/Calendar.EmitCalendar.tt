@@ -245,6 +245,8 @@ public partial class <#= Prefix #>Calendar // Math
         if (newY < <#= ScopeClass #>.MinYear || newY > <#= ScopeClass #>.MaxYear)
             ThrowHelpers.ThrowDateOverflow();
 
+        // FIXME(code): AddYears/Months() for non-regular calendars.
+
         int monthsInYear = sch.CountMonthsInYear(newY);
         int newM;
         int newD;

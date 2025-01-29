@@ -31,7 +31,7 @@ Usage: reset.ps1 [arguments]
      -PackagesLock  delete all files "packages.lock.json".
      -Vss           delete the folder ".vs" containing the Visual Studio settings
      -Soft          remove untracked files from the working tree
-     -Restore
+     -Restore       restore packages and tools
                     > dotnet restore
                     > dotnet tool restore
   -a|-All
