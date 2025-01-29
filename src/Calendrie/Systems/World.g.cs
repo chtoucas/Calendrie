@@ -1050,6 +1050,16 @@ public partial struct WorldMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="WorldMonth"/> struct
+    /// from the specified <see cref="WorldDate"/> value.
+    /// </summary>
+    public WorldMonth(WorldDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="WorldMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1231,11 +1241,7 @@ public partial struct WorldMonth // Conversions
     /// from the specified <see cref="WorldDate"/> value.
     /// </summary>
     [Pure]
-    public static WorldMonth FromDate(WorldDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static WorldMonth FromDate(WorldDate date) => new(date);
 }
 
 public partial struct WorldMonth // Counting
@@ -1670,6 +1676,24 @@ public partial struct WorldYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="WorldYear"/> struct
+    /// from the specified <see cref="WorldMonth"/> value.
+    /// </summary>
+    public WorldYear(WorldMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="WorldYear"/> struct
+    /// from the specified <see cref="WorldDate"/> value.
+    /// </summary>
+    public WorldYear(WorldDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="WorldYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1789,14 +1813,14 @@ public partial struct WorldYear // Conversions
     /// from the specified <see cref="WorldMonth"/> value.
     /// </summary>
     [Pure]
-    public static WorldYear FromMonth(WorldMonth month) => UnsafeCreate(month.Year);
+    public static WorldYear FromMonth(WorldMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="WorldYear"/> struct
     /// from the specified <see cref="WorldDate"/> value.
     /// </summary>
     [Pure]
-    public static WorldYear FromDate(WorldDate date) => UnsafeCreate(date.Year);
+    public static WorldYear FromDate(WorldDate date) => new(date);
 }
 
 public partial struct WorldYear // IMonthSegment

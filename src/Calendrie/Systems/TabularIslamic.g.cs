@@ -1041,6 +1041,16 @@ public partial struct TabularIslamicMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicMonth"/> struct
+    /// from the specified <see cref="TabularIslamicDate"/> value.
+    /// </summary>
+    public TabularIslamicMonth(TabularIslamicDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1222,11 +1232,7 @@ public partial struct TabularIslamicMonth // Conversions
     /// from the specified <see cref="TabularIslamicDate"/> value.
     /// </summary>
     [Pure]
-    public static TabularIslamicMonth FromDate(TabularIslamicDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static TabularIslamicMonth FromDate(TabularIslamicDate date) => new(date);
 }
 
 public partial struct TabularIslamicMonth // Counting
@@ -1661,6 +1667,24 @@ public partial struct TabularIslamicYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicYear"/> struct
+    /// from the specified <see cref="TabularIslamicMonth"/> value.
+    /// </summary>
+    public TabularIslamicYear(TabularIslamicMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TabularIslamicYear"/> struct
+    /// from the specified <see cref="TabularIslamicDate"/> value.
+    /// </summary>
+    public TabularIslamicYear(TabularIslamicDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="TabularIslamicYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1780,14 +1804,14 @@ public partial struct TabularIslamicYear // Conversions
     /// from the specified <see cref="TabularIslamicMonth"/> value.
     /// </summary>
     [Pure]
-    public static TabularIslamicYear FromMonth(TabularIslamicMonth month) => UnsafeCreate(month.Year);
+    public static TabularIslamicYear FromMonth(TabularIslamicMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="TabularIslamicYear"/> struct
     /// from the specified <see cref="TabularIslamicDate"/> value.
     /// </summary>
     [Pure]
-    public static TabularIslamicYear FromDate(TabularIslamicDate date) => UnsafeCreate(date.Year);
+    public static TabularIslamicYear FromDate(TabularIslamicDate date) => new(date);
 }
 
 public partial struct TabularIslamicYear // IMonthSegment

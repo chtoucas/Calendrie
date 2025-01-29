@@ -1097,6 +1097,16 @@ public partial struct TropicaliaMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct
+    /// from the specified <see cref="TropicaliaDate"/> value.
+    /// </summary>
+    public TropicaliaMonth(TropicaliaDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1278,11 +1288,7 @@ public partial struct TropicaliaMonth // Conversions
     /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
-    public static TropicaliaMonth FromDate(TropicaliaDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static TropicaliaMonth FromDate(TropicaliaDate date) => new(date);
 }
 
 public partial struct TropicaliaMonth // Counting
@@ -1717,6 +1723,24 @@ public partial struct TropicaliaYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct
+    /// from the specified <see cref="TropicaliaMonth"/> value.
+    /// </summary>
+    public TropicaliaYear(TropicaliaMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct
+    /// from the specified <see cref="TropicaliaDate"/> value.
+    /// </summary>
+    public TropicaliaYear(TropicaliaDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="TropicaliaYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1836,14 +1860,14 @@ public partial struct TropicaliaYear // Conversions
     /// from the specified <see cref="TropicaliaMonth"/> value.
     /// </summary>
     [Pure]
-    public static TropicaliaYear FromMonth(TropicaliaMonth month) => UnsafeCreate(month.Year);
+    public static TropicaliaYear FromMonth(TropicaliaMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
     /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
     [Pure]
-    public static TropicaliaYear FromDate(TropicaliaDate date) => UnsafeCreate(date.Year);
+    public static TropicaliaYear FromDate(TropicaliaDate date) => new(date);
 }
 
 public partial struct TropicaliaYear // IMonthSegment

@@ -1050,6 +1050,16 @@ public partial struct InternationalFixedMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="InternationalFixedMonth"/> struct
+    /// from the specified <see cref="InternationalFixedDate"/> value.
+    /// </summary>
+    public InternationalFixedMonth(InternationalFixedDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="InternationalFixedMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1231,11 +1241,7 @@ public partial struct InternationalFixedMonth // Conversions
     /// from the specified <see cref="InternationalFixedDate"/> value.
     /// </summary>
     [Pure]
-    public static InternationalFixedMonth FromDate(InternationalFixedDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static InternationalFixedMonth FromDate(InternationalFixedDate date) => new(date);
 }
 
 public partial struct InternationalFixedMonth // Counting
@@ -1670,6 +1676,24 @@ public partial struct InternationalFixedYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="InternationalFixedYear"/> struct
+    /// from the specified <see cref="InternationalFixedMonth"/> value.
+    /// </summary>
+    public InternationalFixedYear(InternationalFixedMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InternationalFixedYear"/> struct
+    /// from the specified <see cref="InternationalFixedDate"/> value.
+    /// </summary>
+    public InternationalFixedYear(InternationalFixedDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="InternationalFixedYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1789,14 +1813,14 @@ public partial struct InternationalFixedYear // Conversions
     /// from the specified <see cref="InternationalFixedMonth"/> value.
     /// </summary>
     [Pure]
-    public static InternationalFixedYear FromMonth(InternationalFixedMonth month) => UnsafeCreate(month.Year);
+    public static InternationalFixedYear FromMonth(InternationalFixedMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="InternationalFixedYear"/> struct
     /// from the specified <see cref="InternationalFixedDate"/> value.
     /// </summary>
     [Pure]
-    public static InternationalFixedYear FromDate(InternationalFixedDate date) => UnsafeCreate(date.Year);
+    public static InternationalFixedYear FromDate(InternationalFixedDate date) => new(date);
 }
 
 public partial struct InternationalFixedYear // IMonthSegment

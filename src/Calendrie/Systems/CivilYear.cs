@@ -36,6 +36,24 @@ public partial struct CivilYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="CivilYear"/> struct
+    /// from the specified <see cref="CivilMonth"/> value.
+    /// </summary>
+    public CivilYear(CivilMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CivilYear"/> struct
+    /// from the specified <see cref="CivilDate"/> value.
+    /// </summary>
+    public CivilYear(CivilDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CivilYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>

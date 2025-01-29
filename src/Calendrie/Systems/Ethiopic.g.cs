@@ -1050,6 +1050,16 @@ public partial struct EthiopicMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicMonth"/> struct
+    /// from the specified <see cref="EthiopicDate"/> value.
+    /// </summary>
+    public EthiopicMonth(EthiopicDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="EthiopicMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1231,11 +1241,7 @@ public partial struct EthiopicMonth // Conversions
     /// from the specified <see cref="EthiopicDate"/> value.
     /// </summary>
     [Pure]
-    public static EthiopicMonth FromDate(EthiopicDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static EthiopicMonth FromDate(EthiopicDate date) => new(date);
 }
 
 public partial struct EthiopicMonth // Counting
@@ -1670,6 +1676,24 @@ public partial struct EthiopicYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicYear"/> struct
+    /// from the specified <see cref="EthiopicMonth"/> value.
+    /// </summary>
+    public EthiopicYear(EthiopicMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EthiopicYear"/> struct
+    /// from the specified <see cref="EthiopicDate"/> value.
+    /// </summary>
+    public EthiopicYear(EthiopicDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="EthiopicYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1789,14 +1813,14 @@ public partial struct EthiopicYear // Conversions
     /// from the specified <see cref="EthiopicMonth"/> value.
     /// </summary>
     [Pure]
-    public static EthiopicYear FromMonth(EthiopicMonth month) => UnsafeCreate(month.Year);
+    public static EthiopicYear FromMonth(EthiopicMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="EthiopicYear"/> struct
     /// from the specified <see cref="EthiopicDate"/> value.
     /// </summary>
     [Pure]
-    public static EthiopicYear FromDate(EthiopicDate date) => UnsafeCreate(date.Year);
+    public static EthiopicYear FromDate(EthiopicDate date) => new(date);
 }
 
 public partial struct EthiopicYear // IMonthSegment

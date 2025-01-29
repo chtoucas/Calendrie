@@ -925,8 +925,18 @@ public partial struct PaxMonth // Preamble
     {
         var chr = PaxCalendar.Instance;
         chr.Scope.ValidateYearMonth(year, month);
-
         _monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PaxMonth"/> struct
+    /// from the specified <see cref="PaxDate"/> value.
+    /// </summary>
+    public PaxMonth(PaxDate date)
+    {
+        var sch = PaxCalendar.Instance.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
+        _monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
     }
 
     /// <summary>
@@ -1102,13 +1112,7 @@ public partial struct PaxMonth // Conversions
     /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
     [Pure]
-    public static PaxMonth FromDate(PaxDate date)
-    {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
-        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
-        return new PaxMonth(monthsSinceEpoch);
-    }
+    public static PaxMonth FromDate(PaxDate date) => new(date);
 }
 
 public partial struct PaxMonth // Counting
@@ -1550,6 +1554,24 @@ public partial struct PaxYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified <see cref="PaxMonth"/> value.
+    /// </summary>
+    public PaxYear(PaxMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PaxYear"/> struct
+    /// from the specified <see cref="PaxDate"/> value.
+    /// </summary>
+    public PaxYear(PaxDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PaxYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1669,14 +1691,14 @@ public partial struct PaxYear // Conversions
     /// from the specified <see cref="PaxMonth"/> value.
     /// </summary>
     [Pure]
-    public static PaxYear FromMonth(PaxMonth month) => UnsafeCreate(month.Year);
+    public static PaxYear FromMonth(PaxMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="PaxYear"/> struct
     /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
     [Pure]
-    public static PaxYear FromDate(PaxDate date) => UnsafeCreate(date.Year);
+    public static PaxYear FromDate(PaxDate date) => new(date);
 }
 
 public partial struct PaxYear // IMonthSegment

@@ -1050,6 +1050,16 @@ public partial struct CopticMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="CopticMonth"/> struct
+    /// from the specified <see cref="CopticDate"/> value.
+    /// </summary>
+    public CopticMonth(CopticDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CopticMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1231,11 +1241,7 @@ public partial struct CopticMonth // Conversions
     /// from the specified <see cref="CopticDate"/> value.
     /// </summary>
     [Pure]
-    public static CopticMonth FromDate(CopticDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static CopticMonth FromDate(CopticDate date) => new(date);
 }
 
 public partial struct CopticMonth // Counting
@@ -1670,6 +1676,24 @@ public partial struct CopticYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="CopticYear"/> struct
+    /// from the specified <see cref="CopticMonth"/> value.
+    /// </summary>
+    public CopticYear(CopticMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CopticYear"/> struct
+    /// from the specified <see cref="CopticDate"/> value.
+    /// </summary>
+    public CopticYear(CopticDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CopticYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1789,14 +1813,14 @@ public partial struct CopticYear // Conversions
     /// from the specified <see cref="CopticMonth"/> value.
     /// </summary>
     [Pure]
-    public static CopticYear FromMonth(CopticMonth month) => UnsafeCreate(month.Year);
+    public static CopticYear FromMonth(CopticMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="CopticYear"/> struct
     /// from the specified <see cref="CopticDate"/> value.
     /// </summary>
     [Pure]
-    public static CopticYear FromDate(CopticDate date) => UnsafeCreate(date.Year);
+    public static CopticYear FromDate(CopticDate date) => new(date);
 }
 
 public partial struct CopticYear // IMonthSegment

@@ -1050,6 +1050,16 @@ public partial struct PositivistMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="PositivistMonth"/> struct
+    /// from the specified <see cref="PositivistDate"/> value.
+    /// </summary>
+    public PositivistMonth(PositivistDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PositivistMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1231,11 +1241,7 @@ public partial struct PositivistMonth // Conversions
     /// from the specified <see cref="PositivistDate"/> value.
     /// </summary>
     [Pure]
-    public static PositivistMonth FromDate(PositivistDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static PositivistMonth FromDate(PositivistDate date) => new(date);
 }
 
 public partial struct PositivistMonth // Counting
@@ -1670,6 +1676,24 @@ public partial struct PositivistYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="PositivistYear"/> struct
+    /// from the specified <see cref="PositivistMonth"/> value.
+    /// </summary>
+    public PositivistYear(PositivistMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PositivistYear"/> struct
+    /// from the specified <see cref="PositivistDate"/> value.
+    /// </summary>
+    public PositivistYear(PositivistDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PositivistYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1789,14 +1813,14 @@ public partial struct PositivistYear // Conversions
     /// from the specified <see cref="PositivistMonth"/> value.
     /// </summary>
     [Pure]
-    public static PositivistYear FromMonth(PositivistMonth month) => UnsafeCreate(month.Year);
+    public static PositivistYear FromMonth(PositivistMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="PositivistYear"/> struct
     /// from the specified <see cref="PositivistDate"/> value.
     /// </summary>
     [Pure]
-    public static PositivistYear FromDate(PositivistDate date) => UnsafeCreate(date.Year);
+    public static PositivistYear FromDate(PositivistDate date) => new(date);
 }
 
 public partial struct PositivistYear // IMonthSegment

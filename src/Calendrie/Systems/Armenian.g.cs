@@ -976,6 +976,16 @@ public partial struct ArmenianMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="ArmenianMonth"/> struct
+    /// from the specified <see cref="ArmenianDate"/> value.
+    /// </summary>
+    public ArmenianMonth(ArmenianDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1157,11 +1167,7 @@ public partial struct ArmenianMonth // Conversions
     /// from the specified <see cref="ArmenianDate"/> value.
     /// </summary>
     [Pure]
-    public static ArmenianMonth FromDate(ArmenianDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static ArmenianMonth FromDate(ArmenianDate date) => new(date);
 }
 
 public partial struct ArmenianMonth // Counting
@@ -1596,6 +1602,24 @@ public partial struct ArmenianYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="ArmenianYear"/> struct
+    /// from the specified <see cref="ArmenianMonth"/> value.
+    /// </summary>
+    public ArmenianYear(ArmenianMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ArmenianYear"/> struct
+    /// from the specified <see cref="ArmenianDate"/> value.
+    /// </summary>
+    public ArmenianYear(ArmenianDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ArmenianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1714,14 +1738,14 @@ public partial struct ArmenianYear // Conversions
     /// from the specified <see cref="ArmenianMonth"/> value.
     /// </summary>
     [Pure]
-    public static ArmenianYear FromMonth(ArmenianMonth month) => UnsafeCreate(month.Year);
+    public static ArmenianYear FromMonth(ArmenianMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="ArmenianYear"/> struct
     /// from the specified <see cref="ArmenianDate"/> value.
     /// </summary>
     [Pure]
-    public static ArmenianYear FromDate(ArmenianDate date) => UnsafeCreate(date.Year);
+    public static ArmenianYear FromDate(ArmenianDate date) => new(date);
 }
 
 public partial struct ArmenianYear // IMonthSegment

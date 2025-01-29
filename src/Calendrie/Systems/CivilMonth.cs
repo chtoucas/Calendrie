@@ -41,6 +41,16 @@ public partial struct CivilMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="CivilMonth"/> struct
+    /// from the specified <see cref="CivilDate"/> value.
+    /// </summary>
+    public CivilMonth(CivilDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CivilMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>

@@ -66,6 +66,16 @@ public partial struct GregorianMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="CivilMonth"/> struct
+    /// from the specified <see cref="GregorianDate"/> value.
+    /// </summary>
+    public GregorianMonth(GregorianDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GregorianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -189,11 +199,7 @@ public partial struct GregorianMonth // Conversions
     /// from the specified <see cref="GregorianDate"/> value.
     /// </summary>
     [Pure]
-    public static GregorianMonth FromDate(GregorianDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static GregorianMonth FromDate(GregorianDate date) => new(date);
 }
 
 public partial struct GregorianMonth // IDaySegment

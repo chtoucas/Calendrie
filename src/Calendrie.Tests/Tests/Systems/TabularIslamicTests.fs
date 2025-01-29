@@ -283,7 +283,7 @@ module Bundles =
             year.GetMonthOfYear(m) === date
 
         [<Theory; MemberData(nameof(YearFacts.InvalidMonthFieldData))>]
-        static member ``GetMonthOfYear() with an invalid month`` y m =
+        static member ``GetMonthOfYear() with an invalid month`` (y: int) m =
             let year = new TabularIslamicYear(y)
             // Act & Assert
             outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
@@ -297,7 +297,7 @@ module Bundles =
             year.GetDayOfYear(doy) === date
 
         [<Theory; MemberData(nameof(YearFacts.InvalidDayOfYearFieldData))>]
-        static member ``GetDayOfYear() with an invalid day of the year`` y doy =
+        static member ``GetDayOfYear() with an invalid day of the year`` (y: int) doy =
             let year = new TabularIslamicYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

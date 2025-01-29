@@ -1031,6 +1031,16 @@ public partial struct MyCivilMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="MyCivilMonth"/> struct
+    /// from the specified <see cref="MyCivilDate"/> value.
+    /// </summary>
+    public MyCivilMonth(MyCivilDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MyCivilMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1212,11 +1222,7 @@ public partial struct MyCivilMonth // Conversions
     /// from the specified <see cref="MyCivilDate"/> value.
     /// </summary>
     [Pure]
-    public static MyCivilMonth FromDate(MyCivilDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static MyCivilMonth FromDate(MyCivilDate date) => new(date);
 }
 
 public partial struct MyCivilMonth // Counting
@@ -1651,6 +1657,24 @@ public partial struct MyCivilYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="MyCivilYear"/> struct
+    /// from the specified <see cref="MyCivilMonth"/> value.
+    /// </summary>
+    public MyCivilYear(MyCivilMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MyCivilYear"/> struct
+    /// from the specified <see cref="MyCivilDate"/> value.
+    /// </summary>
+    public MyCivilYear(MyCivilDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MyCivilYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1770,14 +1794,14 @@ public partial struct MyCivilYear // Conversions
     /// from the specified <see cref="MyCivilMonth"/> value.
     /// </summary>
     [Pure]
-    public static MyCivilYear FromMonth(MyCivilMonth month) => UnsafeCreate(month.Year);
+    public static MyCivilYear FromMonth(MyCivilMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="MyCivilYear"/> struct
     /// from the specified <see cref="MyCivilDate"/> value.
     /// </summary>
     [Pure]
-    public static MyCivilYear FromDate(MyCivilDate date) => UnsafeCreate(date.Year);
+    public static MyCivilYear FromDate(MyCivilDate date) => new(date);
 }
 
 public partial struct MyCivilYear // IMonthSegment

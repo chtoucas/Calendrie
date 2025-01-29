@@ -1041,6 +1041,16 @@ public partial struct Persian2820Month // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Persian2820Month"/> struct
+    /// from the specified <see cref="Persian2820Date"/> value.
+    /// </summary>
+    public Persian2820Month(Persian2820Date date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Persian2820Month"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1222,11 +1232,7 @@ public partial struct Persian2820Month // Conversions
     /// from the specified <see cref="Persian2820Date"/> value.
     /// </summary>
     [Pure]
-    public static Persian2820Month FromDate(Persian2820Date date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static Persian2820Month FromDate(Persian2820Date date) => new(date);
 }
 
 public partial struct Persian2820Month // Counting
@@ -1661,6 +1667,24 @@ public partial struct Persian2820Year // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Persian2820Year"/> struct
+    /// from the specified <see cref="Persian2820Month"/> value.
+    /// </summary>
+    public Persian2820Year(Persian2820Month month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Persian2820Year"/> struct
+    /// from the specified <see cref="Persian2820Date"/> value.
+    /// </summary>
+    public Persian2820Year(Persian2820Date date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Persian2820Year"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1780,14 +1804,14 @@ public partial struct Persian2820Year // Conversions
     /// from the specified <see cref="Persian2820Month"/> value.
     /// </summary>
     [Pure]
-    public static Persian2820Year FromMonth(Persian2820Month month) => UnsafeCreate(month.Year);
+    public static Persian2820Year FromMonth(Persian2820Month month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="Persian2820Year"/> struct
     /// from the specified <see cref="Persian2820Date"/> value.
     /// </summary>
     [Pure]
-    public static Persian2820Year FromDate(Persian2820Date date) => UnsafeCreate(date.Year);
+    public static Persian2820Year FromDate(Persian2820Date date) => new(date);
 }
 
 public partial struct Persian2820Year // IMonthSegment

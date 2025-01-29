@@ -63,6 +63,24 @@ public partial struct JulianYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianMonth"/> value.
+    /// </summary>
+    public JulianYear(JulianMonth month)
+    {
+        _yearsSinceEpoch = month.Year - 1;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JulianYear"/> struct
+    /// from the specified <see cref="JulianDate"/> value.
+    /// </summary>
+    public JulianYear(JulianDate date)
+    {
+        _yearsSinceEpoch = date.Year - 1;
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="JulianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>

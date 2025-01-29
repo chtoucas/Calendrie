@@ -66,6 +66,16 @@ public partial struct JulianMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="JulianMonth"/> struct
+    /// from the specified <see cref="JulianDate"/> value.
+    /// </summary>
+    public JulianMonth(JulianDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="JulianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -189,11 +199,7 @@ public partial struct JulianMonth // Conversions
     /// from the specified <see cref="JulianDate"/> value.
     /// </summary>
     [Pure]
-    public static JulianMonth FromDate(JulianDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static JulianMonth FromDate(JulianDate date) => new(date);
 }
 
 public partial struct JulianMonth // IDaySegment

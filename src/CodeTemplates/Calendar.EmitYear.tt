@@ -97,6 +97,24 @@ public partial struct <#= Prefix #>Year // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Year"/> struct
+    /// from the specified <see cref="<#= Prefix #>Month"/> value.
+    /// </summary>
+    public <#= Prefix #>Year(<#= Prefix #>Month month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Year"/> struct
+    /// from the specified <see cref="<#= Prefix #>Date"/> value.
+    /// </summary>
+    public <#= Prefix #>Year(<#= Prefix #>Date date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Year"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -232,14 +250,14 @@ public partial struct <#= Prefix #>Year // Conversions
     /// from the specified <see cref="<#= Prefix #>Month"/> value.
     /// </summary>
     [Pure]
-    public static <#= Prefix #>Year FromMonth(<#= Prefix #>Month month) => UnsafeCreate(month.Year);
+    public static <#= Prefix #>Year FromMonth(<#= Prefix #>Month month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
     [Pure]
-    public static <#= Prefix #>Year FromDate(<#= Prefix #>Date date) => UnsafeCreate(date.Year);
+    public static <#= Prefix #>Year FromDate(<#= Prefix #>Date date) => new(date);
 }
 <#+
     } // T4: End of EmitYearConversions()

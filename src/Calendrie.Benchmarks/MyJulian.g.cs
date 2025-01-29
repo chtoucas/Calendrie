@@ -1044,6 +1044,16 @@ public partial struct MyJulianMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="MyJulianMonth"/> struct
+    /// from the specified <see cref="MyJulianDate"/> value.
+    /// </summary>
+    public MyJulianMonth(MyJulianDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MyJulianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1225,11 +1235,7 @@ public partial struct MyJulianMonth // Conversions
     /// from the specified <see cref="MyJulianDate"/> value.
     /// </summary>
     [Pure]
-    public static MyJulianMonth FromDate(MyJulianDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static MyJulianMonth FromDate(MyJulianDate date) => new(date);
 }
 
 public partial struct MyJulianMonth // Counting
@@ -1664,6 +1670,24 @@ public partial struct MyJulianYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="MyJulianYear"/> struct
+    /// from the specified <see cref="MyJulianMonth"/> value.
+    /// </summary>
+    public MyJulianYear(MyJulianMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MyJulianYear"/> struct
+    /// from the specified <see cref="MyJulianDate"/> value.
+    /// </summary>
+    public MyJulianYear(MyJulianDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MyJulianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1783,14 +1807,14 @@ public partial struct MyJulianYear // Conversions
     /// from the specified <see cref="MyJulianMonth"/> value.
     /// </summary>
     [Pure]
-    public static MyJulianYear FromMonth(MyJulianMonth month) => UnsafeCreate(month.Year);
+    public static MyJulianYear FromMonth(MyJulianMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="MyJulianYear"/> struct
     /// from the specified <see cref="MyJulianDate"/> value.
     /// </summary>
     [Pure]
-    public static MyJulianYear FromDate(MyJulianDate date) => UnsafeCreate(date.Year);
+    public static MyJulianYear FromDate(MyJulianDate date) => new(date);
 }
 
 public partial struct MyJulianYear // IMonthSegment

@@ -63,6 +63,24 @@ public partial struct GregorianYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianYear"/> struct
+    /// from the specified <see cref="GregorianMonth"/> value.
+    /// </summary>
+    public GregorianYear(GregorianMonth month)
+    {
+        _yearsSinceEpoch = month.Year - 1;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GregorianYear"/> struct
+    /// from the specified <see cref="GregorianDate"/> value.
+    /// </summary>
+    public GregorianYear(GregorianDate date)
+    {
+        _yearsSinceEpoch = date.Year - 1;
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GregorianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>

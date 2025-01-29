@@ -976,6 +976,16 @@ public partial struct ZoroastrianMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianMonth"/> struct
+    /// from the specified <see cref="ZoroastrianDate"/> value.
+    /// </summary>
+    public ZoroastrianMonth(ZoroastrianDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1157,11 +1167,7 @@ public partial struct ZoroastrianMonth // Conversions
     /// from the specified <see cref="ZoroastrianDate"/> value.
     /// </summary>
     [Pure]
-    public static ZoroastrianMonth FromDate(ZoroastrianDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static ZoroastrianMonth FromDate(ZoroastrianDate date) => new(date);
 }
 
 public partial struct ZoroastrianMonth // Counting
@@ -1596,6 +1602,24 @@ public partial struct ZoroastrianYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianYear"/> struct
+    /// from the specified <see cref="ZoroastrianMonth"/> value.
+    /// </summary>
+    public ZoroastrianYear(ZoroastrianMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ZoroastrianYear"/> struct
+    /// from the specified <see cref="ZoroastrianDate"/> value.
+    /// </summary>
+    public ZoroastrianYear(ZoroastrianDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ZoroastrianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1714,14 +1738,14 @@ public partial struct ZoroastrianYear // Conversions
     /// from the specified <see cref="ZoroastrianMonth"/> value.
     /// </summary>
     [Pure]
-    public static ZoroastrianYear FromMonth(ZoroastrianMonth month) => UnsafeCreate(month.Year);
+    public static ZoroastrianYear FromMonth(ZoroastrianMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="ZoroastrianYear"/> struct
     /// from the specified <see cref="ZoroastrianDate"/> value.
     /// </summary>
     [Pure]
-    public static ZoroastrianYear FromDate(ZoroastrianDate date) => UnsafeCreate(date.Year);
+    public static ZoroastrianYear FromDate(ZoroastrianDate date) => new(date);
 }
 
 public partial struct ZoroastrianYear // IMonthSegment

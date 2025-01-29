@@ -1050,6 +1050,16 @@ public partial struct FrenchRepublicanMonth // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="FrenchRepublicanMonth"/> struct
+    /// from the specified <see cref="FrenchRepublicanDate"/> value.
+    /// </summary>
+    public FrenchRepublicanMonth(FrenchRepublicanDate date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="FrenchRepublicanMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -1231,11 +1241,7 @@ public partial struct FrenchRepublicanMonth // Conversions
     /// from the specified <see cref="FrenchRepublicanDate"/> value.
     /// </summary>
     [Pure]
-    public static FrenchRepublicanMonth FromDate(FrenchRepublicanDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static FrenchRepublicanMonth FromDate(FrenchRepublicanDate date) => new(date);
 }
 
 public partial struct FrenchRepublicanMonth // Counting
@@ -1670,6 +1676,24 @@ public partial struct FrenchRepublicanYear // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="FrenchRepublicanYear"/> struct
+    /// from the specified <see cref="FrenchRepublicanMonth"/> value.
+    /// </summary>
+    public FrenchRepublicanYear(FrenchRepublicanMonth month)
+    {
+        _yearsSinceEpoch = (ushort)(month.Year - 1);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FrenchRepublicanYear"/> struct
+    /// from the specified <see cref="FrenchRepublicanDate"/> value.
+    /// </summary>
+    public FrenchRepublicanYear(FrenchRepublicanDate date)
+    {
+        _yearsSinceEpoch = (ushort)(date.Year - 1);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="FrenchRepublicanYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
@@ -1789,14 +1813,14 @@ public partial struct FrenchRepublicanYear // Conversions
     /// from the specified <see cref="FrenchRepublicanMonth"/> value.
     /// </summary>
     [Pure]
-    public static FrenchRepublicanYear FromMonth(FrenchRepublicanMonth month) => UnsafeCreate(month.Year);
+    public static FrenchRepublicanYear FromMonth(FrenchRepublicanMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="FrenchRepublicanYear"/> struct
     /// from the specified <see cref="FrenchRepublicanDate"/> value.
     /// </summary>
     [Pure]
-    public static FrenchRepublicanYear FromDate(FrenchRepublicanDate date) => UnsafeCreate(date.Year);
+    public static FrenchRepublicanYear FromDate(FrenchRepublicanDate date) => new(date);
 }
 
 public partial struct FrenchRepublicanYear // IMonthSegment

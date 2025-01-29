@@ -417,11 +417,7 @@ public partial struct CivilMonth // Conversions
     /// from the specified <see cref="CivilDate"/> value.
     /// </summary>
     [Pure]
-    public static CivilMonth FromDate(CivilDate date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static CivilMonth FromDate(CivilDate date) => new(date);
 }
 
 public partial struct CivilMonth // Counting
@@ -768,14 +764,14 @@ public partial struct CivilYear // Conversions
     /// from the specified <see cref="CivilMonth"/> value.
     /// </summary>
     [Pure]
-    public static CivilYear FromMonth(CivilMonth month) => UnsafeCreate(month.Year);
+    public static CivilYear FromMonth(CivilMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="CivilYear"/> struct
     /// from the specified <see cref="CivilDate"/> value.
     /// </summary>
     [Pure]
-    public static CivilYear FromDate(CivilDate date) => UnsafeCreate(date.Year);
+    public static CivilYear FromDate(CivilDate date) => new(date);
 }
 
 public partial struct CivilYear // IMonthSegment

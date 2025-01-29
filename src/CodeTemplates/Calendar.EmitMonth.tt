@@ -102,6 +102,16 @@ public partial struct <#= Prefix #>Month // Preamble
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified <see cref="<#= Prefix #>Date"/> value.
+    /// </summary>
+    public <#= Prefix #>Month(<#= Prefix #>Date date)
+    {
+        var (y, m, _) = date;
+        _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="<#= Prefix #>Month"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
@@ -232,8 +242,18 @@ public partial struct <#= Prefix #>Month // Preamble
     {
         var chr = <#= Prefix #>Calendar.Instance;
         chr.Scope.ValidateYearMonth(year, month);
-
         _monthsSinceEpoch = chr.Schema.CountMonthsSinceEpoch(year, month);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="<#= Prefix #>Month"/> struct
+    /// from the specified <see cref="<#= Prefix #>Date"/> value.
+    /// </summary>
+    public <#= Prefix #>Month(<#= Prefix #>Date date)
+    {
+        var sch = <#= Prefix #>Calendar.Instance.Schema;
+        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
+        _monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
     }
 
     /// <summary>
@@ -438,11 +458,7 @@ public partial struct <#= Prefix #>Month // Conversions
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
     [Pure]
-    public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date)
-    {
-        var (y, m, _) = date;
-        return UnsafeCreate(y, m);
-    }
+    public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date) => new(date);
 }
 <#+
     } // T4: End of EmitMonthConversionsRegular()
@@ -522,13 +538,7 @@ public partial struct <#= Prefix #>Month // Conversions
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
     [Pure]
-    public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date)
-    {
-        var sch = Calendar.Schema;
-        sch.GetDateParts(date.DaysSinceEpoch, out int y, out int m, out _);
-        int monthsSinceEpoch = sch.CountMonthsSinceEpoch(y, m);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
-    }
+    public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date) => new(date);
 }
 <#+
     } // T4: End of EmitMonthConversionsNonRegular()
