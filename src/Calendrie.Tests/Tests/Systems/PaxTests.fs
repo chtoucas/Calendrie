@@ -394,6 +394,60 @@ module Bundles =
             overspillMath.AddYears(date, -1) === new PaxDate(6, 14, 1)
             exactMath.AddYears(date, -1)     === new PaxDate(6, 14, 21)
 
+        // AddMonths()
+
+        [<Fact>]
+        static member ``AddMonths(08/13/0005, 13)`` () =
+            let date = new PaxDate(5, 13, 8)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusMonths(13)
+            result === (new PaxDate(6, 13, 7), 1)
+
+            date.PlusMonths(13) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddMonths(date, 13)   === new PaxDate(6, 13, 7)
+            overspillMath.AddMonths(date, 13) === new PaxDate(6, 14, 1)
+            exactMath.AddMonths(date, 13)     === new PaxDate(6, 14, 1)
+
+        [<Fact>]
+        static member ``AddMonths(09/13/0005, 13)`` () =
+            let date = new PaxDate(5, 13, 9)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusMonths(13)
+            result === (new PaxDate(6, 13, 7), 2)
+
+            date.PlusMonths(13) === new PaxDate(6, 13, 7)
+
+            defaultMath.AddMonths(date, 13)   === new PaxDate(6, 13, 7)
+            overspillMath.AddMonths(date, 13) === new PaxDate(6, 14, 1)
+            exactMath.AddMonths(date, 13)     === new PaxDate(6, 14, 2)
+
+        [<Fact>]
+        static member ``AddMonths(08/13/0005, 14)`` () =
+            let date = new PaxDate(5, 13, 8)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusMonths(14)
+            result === (new PaxDate(6, 14, 8), 0)
+
+            date.PlusMonths(14) === new PaxDate(6, 14, 8)
+
+            defaultMath.AddMonths(date, 14)   === new PaxDate(6, 14, 8)
+            overspillMath.AddMonths(date, 14) === new PaxDate(6, 14, 8)
+            exactMath.AddMonths(date, 14)     === new PaxDate(6, 14, 8)
+
+        [<Fact>]
+        static member ``AddMonths(01/13/0006, 14)`` () =
+            let date = new PaxDate(6, 13, 1)
+            // Act & Assert
+            let result: PaxDate * int = date.PlusMonths(14)
+            result === (new PaxDate(7, 13, 1), 0)
+
+            date.PlusMonths(14) === new PaxDate(7, 13, 1)
+
+            defaultMath.AddMonths(date, 14)   === new PaxDate(7, 13, 1)
+            overspillMath.AddMonths(date, 14) === new PaxDate(7, 13, 1)
+            exactMath.AddMonths(date, 14)     === new PaxDate(7, 13, 1)
+
     //
     // Month type
     //

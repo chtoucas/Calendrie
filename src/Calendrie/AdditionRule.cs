@@ -3,7 +3,9 @@
 
 namespace Calendrie;
 
-// TODO(code): value names, règles (voir Developer Notes)
+// TODO(code): value names, règles et roundoff (voir Developer Notes)
+// Quelle valeur prendre pour roundoff (pas toujours cohérent, voir les
+// calendriers non-réguliers). Incohérences aussi entre AddYears() et AddMonths().
 
 #region Developer Notes
 

@@ -35,10 +35,10 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
         return TDate.Create(y, m, d);
     }
 
-    #region PlusYears()
+    #region AddYears()
 
     [Fact]
-    public void PlusYears_Overflows_WithMaxYears()
+    public void AddYears_Overflows_WithMaxYears()
     {
         var date = TDate.FromDayNumber(TDate.Calendar.Epoch);
         // Act & Assert
@@ -47,7 +47,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     }
 
     [Fact]
-    public void PlusYears_AtMinDate()
+    public void AddYears_AtMinDate()
     {
         int years = SupportedYears.Count() - 1;
         // Act & Assert
@@ -58,7 +58,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     }
 
     [Fact]
-    public void PlusYears_AtMaxDate()
+    public void AddYears_AtMaxDate()
     {
         int years = SupportedYears.Count() - 1;
         // Act & Assert
@@ -69,7 +69,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
-    public void PlusYears_Zero_IsNeutral(DateInfo info)
+    public void AddYears_Zero_IsNeutral(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
         var date = TDate.Create(y, m, d);
@@ -78,7 +78,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     }
 
     [Theory, MemberData(nameof(AddYearsData))]
-    public void PlusYears(YemodaPairAnd<int> info)
+    public void AddYears(YemodaPairAnd<int> info)
     {
         int years = info.Value;
         var date = GetDate(info.First);
@@ -162,10 +162,10 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
 
     #endregion
 
-    #region PlusMonths()
+    #region AddMonths()
 
     [Fact]
-    public void PlusMonths_Overflows_WithMaxMonths()
+    public void AddMonths_Overflows_WithMaxMonths()
     {
         var date = TDate.FromDayNumber(TDate.Calendar.Epoch);
         // Act & Assert
@@ -174,10 +174,10 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     }
 
     [Fact]
-    public void PlusMonths_AtMinDate() => Assert.Equal(MinDate, MathUT.AddMonths(MinDate, 0));
+    public void AddMonths_AtMinDate() => Assert.Equal(MinDate, MathUT.AddMonths(MinDate, 0));
 
     [Fact]
-    public void PlusMonths_AtMaxDate()
+    public void AddMonths_AtMaxDate()
     {
         // Act & Assert
         Assert.Equal(MaxDate, MathUT.AddMonths(MaxDate, 0));
@@ -185,7 +185,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     }
 
     [Theory, MemberData(nameof(DateInfoData))]
-    public void PlusMonths_Zero_IsNeutral(DateInfo info)
+    public void AddMonths_Zero_IsNeutral(DateInfo info)
     {
         var (y, m, d) = info.Yemoda;
         var date = TDate.Create(y, m, d);
@@ -194,7 +194,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     }
 
     [Theory, MemberData(nameof(AddMonthsData))]
-    public void PlusMonths(YemodaPairAnd<int> info)
+    public void AddMonths(YemodaPairAnd<int> info)
     {
         int months = info.Value;
         var date = GetDate(info.First);
