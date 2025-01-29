@@ -89,6 +89,24 @@ public sealed partial class PaxSchema :
     public const int DaysPerLeapYear = DaysPerCommonYear + DaysInPaxMonth;
 
     /// <summary>
+    /// Represents the Columbus month.
+    /// <para>This field is a constant equal to 12.</para>
+    /// </summary>
+    public const int ColumbusMonth = 12;
+
+    /// <summary>
+    /// Represents the Pax month of a leap year.
+    /// <para>This field is a constant equal to 13.</para>
+    /// </summary>
+    private const int PaxMonth = 13;
+
+    /// <summary>
+    /// Represents the Pax week of a leap year.
+    /// <para>This field is a constant equal to 49.</para>
+    /// </summary>
+    private const int PaxWeek = 49;
+
+    /// <summary>
     /// Represents the number of days in a month that is not the Pax month.
     /// <para>This field is constant equal to 28.</para>
     /// </summary>
@@ -147,15 +165,17 @@ public sealed partial class PaxSchema :
     static PaxSchema ISchemaActivator<PaxSchema>.CreateInstance() => new();
 
     /// <summary>
-    /// Determines whether the specified month is the Pax month of the year or
+    /// Determines whether the specified month is the Pax month of a year or
     /// not.
     /// </summary>
     [Pure]
-    public bool IsPaxMonth(int y, int m) => m == 13 && IsLeapYear(y);
+    public bool IsPaxMonth(int y, int m) => m == PaxMonth && IsLeapYear(y);
 
     /// <summary>
     /// Determines whether the specified month is the last month of the year or
     /// not.
+    /// <para>Whether the year is leap or not, the last month of the year is
+    /// called December.</para>
     /// </summary>
     [Pure]
     public bool IsLastMonthOfYear(int y, int m) => m == 14 || (m == 13 && !IsLeapYear(y));
@@ -174,11 +194,14 @@ public partial class PaxSchema // ILeapWeekSchema
 {
     public DayOfWeek FirstDayOfWeek { get; } = DayOfWeek.Sunday;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Determines whether the specified week is intercalary or not.
+    /// <para>An intercalary week is also called Pax.</para>
+    /// </summary>
     [Pure]
     public bool IsIntercalaryWeek(int y, int woy) =>
         // Intercalary week = the week of the Pax month on a leap year.
-        woy == 49 && IsLeapYear(y);
+        woy == PaxWeek && IsLeapYear(y);
 
     /// <inheritdoc />
     [Pure]
@@ -246,7 +269,8 @@ public partial class PaxSchema // Counting months and days within a year or a mo
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYearBeforeMonth(int y, int m) =>
-        m == 14 ? 343 : DaysInMonth * (m - 1);
+        // PaxWeek * DaysPerWeek = 49 * 7 = 343
+        m == 14 ? PaxWeek * DaysPerWeek : DaysInMonth * (m - 1);
 }
 
 public partial class PaxSchema // Conversions
