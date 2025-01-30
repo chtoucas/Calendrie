@@ -27,7 +27,15 @@ public sealed class CivilCalendar : Calendar
 
     private CivilCalendar(CivilSchema schema) : base(DisplayName, new CivilScope(schema))
     {
-        Debug.Assert(schema != null);
+        Debug.Assert(Epoch.DaysSinceZero == 0);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == 0);
+        Debug.Assert(MaxDaysSinceEpoch == 3_652_058);
+        Debug.Assert(MinMonthsSinceEpoch == 0);
+        Debug.Assert(MaxMonthsSinceEpoch == 119_987);
+#endif
+
         Schema = schema;
     }
 

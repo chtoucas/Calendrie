@@ -7,20 +7,10 @@ using Calendrie;
 using Calendrie.Core.Utilities;
 
 // FIXME(code): T4 for AddYears/Months() for non-regular calendars.
-// Rework Min/MaxMonthsSinceEpoch.
 // TODO(code): create a PaxWeek type.
 
 public partial class PaxCalendar // Math
 {
-#if RELEASE
-    /// <summary>
-    /// Represents the maximum value for the number of consecutive months from
-    /// the epoch.
-    /// <para>This field is a constant equal to 131_761.</para>
-    /// </summary>
-    private const int MaxMonthsSinceEpoch = 131_761;
-#endif
-
     //
     // PaxDate
     //
@@ -103,15 +93,11 @@ public partial class PaxCalendar // Math
     [Pure]
     internal PaxDate AddMonths(int y, int m, int d, int months)
     {
-#if DEBUG
-        Debug.Assert(MinMonthsSinceEpoch == 0);
-        Debug.Assert(MaxMonthsSinceEpoch == 131_761);
-#endif
         var sch = Schema;
 
         // Exact addition of months to a calendar month.
         int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+        if (unchecked((uint)monthsSinceEpoch) > PaxMonth.MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 
         sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
@@ -126,15 +112,10 @@ public partial class PaxCalendar // Math
     [Pure]
     internal PaxDate AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-#if DEBUG
-        Debug.Assert(MinMonthsSinceEpoch == 0);
-        Debug.Assert(MaxMonthsSinceEpoch == 131_761);
-#endif
-
         var sch = Schema;
 
         int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+        if (unchecked((uint)monthsSinceEpoch) > PaxMonth.MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 
         sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
@@ -201,6 +182,9 @@ public partial class PaxCalendar // Math
 
 public partial struct PaxMonth // Complements
 {
+    /// <summary>
+    /// Determines whether the current instance is the Pax month of a year or not.
+    /// </summary>
     public bool IsPaxMonthOfYear
     {
         get
@@ -211,6 +195,12 @@ public partial struct PaxMonth // Complements
         }
     }
 
+    /// <summary>
+    /// Determines whether the current instance is the last month of the year or
+    /// not.
+    /// <para>Whether the year is leap or not, the last month of the year is
+    /// called December.</para>
+    /// </summary>
     public bool IsLastMonthOfYear
     {
         get

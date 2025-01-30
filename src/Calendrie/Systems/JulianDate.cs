@@ -29,10 +29,11 @@ public partial struct JulianDate // Preamble
 
     /// <summary>Represents the minimum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_635.</para></summary>
-    private const int MinDaysSinceEpoch = -365_249_635;
+    internal const int MinDaysSinceEpoch = -365_249_635;
+
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to -365_249_633.</para></summary>
-    private const int MaxDaysSinceEpoch = 365_249_633;
+    internal const int MaxDaysSinceEpoch = 365_249_633;
 
     /// <summary>
     /// Represents the count of consecutive days since the Julian epoch.

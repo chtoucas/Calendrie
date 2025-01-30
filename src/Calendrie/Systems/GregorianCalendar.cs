@@ -27,7 +27,15 @@ public sealed class GregorianCalendar : Calendar
 
     private GregorianCalendar(GregorianSchema schema) : base(DisplayName, new GregorianScope(schema))
     {
-        Debug.Assert(schema != null);
+        Debug.Assert(Epoch.DaysSinceZero == 0);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == -365_242_135);
+        Debug.Assert(MaxDaysSinceEpoch == 365_242_133);
+        Debug.Assert(MinMonthsSinceEpoch == -11_999_988);
+        Debug.Assert(MaxMonthsSinceEpoch == 11_999_987);
+#endif
+
         Schema = schema;
     }
 

@@ -27,7 +27,15 @@ public sealed class JulianCalendar : Calendar
 
     private JulianCalendar(JulianSchema schema) : base(DisplayName, new JulianScope(schema))
     {
-        Debug.Assert(schema != null);
+        Debug.Assert(Epoch.DaysSinceZero == -2);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == -365_249_635);
+        Debug.Assert(MaxDaysSinceEpoch == 365_249_633);
+        Debug.Assert(MinMonthsSinceEpoch == -11_999_988);
+        Debug.Assert(MaxMonthsSinceEpoch == 11_999_987);
+#endif
+
         Schema = schema;
     }
 

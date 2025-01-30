@@ -44,6 +44,15 @@ public sealed partial class PaxCalendar : Calendar
     private PaxCalendar(PaxSchema schema)
         : base(DisplayName, new StandardScope(schema, DayZero.SundayBeforeGregorian))
     {
+        Debug.Assert(Epoch.DaysSinceZero == -1);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == 0);
+        Debug.Assert(MaxDaysSinceEpoch == 3_652_060);
+        Debug.Assert(MinMonthsSinceEpoch == 0);
+        Debug.Assert(MaxMonthsSinceEpoch == 131_761);
+#endif
+
         Schema = schema;
     }
 
@@ -90,11 +99,11 @@ public partial struct PaxDate // Preamble
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
     /// for the epoch <see cref="DayZero.SundayBeforeGregorian"/>.
     /// <para>This field is a constant equal to -1.</para></summary>
-    private const int EpochDaysSinceZero = -1;
+    internal const int EpochDaysSinceZero = -1;
 
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_652_060.</para></summary>
-    private const int MaxDaysSinceEpoch = 3_652_060;
+    internal const int MaxDaysSinceEpoch = 3_652_060;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch
@@ -904,7 +913,7 @@ public partial struct PaxMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 131_761.</para></summary>
-    private const int MaxMonthsSinceEpoch = 131_761;
+    internal const int MaxMonthsSinceEpoch = 131_761;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch

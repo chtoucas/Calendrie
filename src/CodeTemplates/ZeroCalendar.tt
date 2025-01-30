@@ -22,7 +22,7 @@ public partial struct <#= Prefix #>Date // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.
     /// <para>This field is a constant equal to <#= MaxDaysSinceEpochValue #>.</para></summary>
-    private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
+    internal const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
 
     /// <summary>
     /// Represents the count of consecutive days since the Gregorian epoch.

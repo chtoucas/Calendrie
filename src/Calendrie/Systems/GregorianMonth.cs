@@ -32,11 +32,11 @@ public partial struct GregorianMonth // Preamble
 {
     /// <summary>Represents the minimum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to -11_999_988.</para></summary>
-    private const int MinMonthsSinceEpoch = -11_999_988;
+    internal const int MinMonthsSinceEpoch = -11_999_988;
 
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 11_999_987.</para></summary>
-    private const int MaxMonthsSinceEpoch = 11_999_987;
+    internal const int MaxMonthsSinceEpoch = 11_999_987;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch

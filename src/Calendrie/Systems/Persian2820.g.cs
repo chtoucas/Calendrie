@@ -44,6 +44,15 @@ public sealed partial class Persian2820Calendar : Calendar
     private Persian2820Calendar(Persian2820Schema schema)
         : base(DisplayName, new StandardScope(schema, DayZero.Persian))
     {
+        Debug.Assert(Epoch.DaysSinceZero == 226_895);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == 0);
+        Debug.Assert(MaxDaysSinceEpoch == 3_652_055);
+        Debug.Assert(MinMonthsSinceEpoch == 0);
+        Debug.Assert(MaxMonthsSinceEpoch == 119_987);
+#endif
+
         Schema = schema;
     }
 
@@ -188,11 +197,11 @@ public partial struct Persian2820Date // Preamble
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
     /// for the epoch <see cref="DayZero.Persian"/>.
     /// <para>This field is a constant equal to 226_895.</para></summary>
-    private const int EpochDaysSinceZero = 226_895;
+    internal const int EpochDaysSinceZero = 226_895;
 
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_652_055.</para></summary>
-    private const int MaxDaysSinceEpoch = 3_652_055;
+    internal const int MaxDaysSinceEpoch = 3_652_055;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch
@@ -1011,7 +1020,7 @@ public partial struct Persian2820Month // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
-    private const int MaxMonthsSinceEpoch = 119_987;
+    internal const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch

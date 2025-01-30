@@ -60,11 +60,11 @@ public partial struct <#= Prefix #>Date // Preamble
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
     /// for the epoch <see cref="<#= Epoch #>"/>.
     /// <para>This field is a constant equal to <#= EpochDaysSinceZeroValue #>.</para></summary>
-    private const int EpochDaysSinceZero = <#= EpochDaysSinceZeroValue #>;
+    internal const int EpochDaysSinceZero = <#= EpochDaysSinceZeroValue #>;
 
     /// <summary>Represents the maximum value of <see cref="_<#= DaysSinceEpochVar #>"/>.
     /// <para>This field is a constant equal to <#= MaxDaysSinceEpochValue #>.</para></summary>
-    private const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
+    internal const int <#= MaxDaysSinceEpoch #> = <#= MaxDaysSinceEpochValue #>;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch

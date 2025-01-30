@@ -53,6 +53,15 @@ public sealed partial class <#= Prefix #>Calendar : Calendar
     private <#= Prefix #>Calendar(<#= SchemaClass #> schema)
         : base(DisplayName, new <#= ScopeClass #>(schema, <#= Epoch #>))
     {
+        Debug.Assert(Epoch.DaysSinceZero == <#= EpochDaysSinceZeroValue #>);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == 0);
+        Debug.Assert(MaxDaysSinceEpoch == <#= MaxDaysSinceEpochValue #>);
+        Debug.Assert(MinMonthsSinceEpoch == 0);
+        Debug.Assert(MaxMonthsSinceEpoch == <#= MaxMonthsSinceEpochValue #>);
+#endif
+
         Schema = schema;
     }
 
@@ -194,15 +203,6 @@ public partial class <#= Prefix #>Calendar // Math
 #>
 public partial class <#= Prefix #>Calendar // Math
 {
-#if RELEASE
-    /// <summary>
-    /// Represents the maximum value for the number of consecutive months from
-    /// the epoch.
-    /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para>
-    /// </summary>
-    private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
-#endif
-
     //
     // <#= Prefix #>Date
     //
@@ -290,15 +290,11 @@ public partial class <#= Prefix #>Calendar // Math
     [Pure]
     internal <#= Prefix #>Date AddMonths(int y, int m, int d, int months)
     {
-#if DEBUG
-        Debug.Assert(MinMonthsSinceEpoch == 0);
-        Debug.Assert(MaxMonthsSinceEpoch == <#= MaxMonthsSinceEpochValue #>);
-#endif
         var sch = Schema;
 
         // Exact addition of months to a calendar month.
         int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+        if (unchecked((uint)monthsSinceEpoch) > <#= Prefix #>Month.MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 
         sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);
@@ -313,15 +309,10 @@ public partial class <#= Prefix #>Calendar // Math
     [Pure]
     internal <#= Prefix #>Date AddMonths(int y, int m, int d, int months, out int roundoff)
     {
-#if DEBUG
-        Debug.Assert(MinMonthsSinceEpoch == 0);
-        Debug.Assert(MaxMonthsSinceEpoch == <#= MaxMonthsSinceEpochValue #>);
-#endif
-
         var sch = Schema;
 
         int monthsSinceEpoch = checked(sch.CountMonthsSinceEpoch(y, m) + months);
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
+        if (unchecked((uint)monthsSinceEpoch) > <#= Prefix #>Month.MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowDateOverflow();
 
         sch.GetMonthParts(monthsSinceEpoch, out int newY, out int newM);

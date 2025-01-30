@@ -72,7 +72,7 @@ public partial struct <#= Prefix #>Month // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para></summary>
-    private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
+    internal const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch
@@ -221,7 +221,7 @@ public partial struct <#= Prefix #>Month // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to <#= MaxMonthsSinceEpochValue #>.</para></summary>
-    private const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
+    internal const int MaxMonthsSinceEpoch = <#= MaxMonthsSinceEpochValue #>;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch

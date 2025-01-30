@@ -47,6 +47,15 @@ public sealed partial class TropicaliaCalendar : Calendar
     private TropicaliaCalendar(TropicaliaSchema schema)
         : base(DisplayName, new StandardScope(schema, DayZero.NewStyle))
     {
+        Debug.Assert(Epoch.DaysSinceZero == 0);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == 0);
+        Debug.Assert(MaxDaysSinceEpoch == 3_652_055);
+        Debug.Assert(MinMonthsSinceEpoch == 0);
+        Debug.Assert(MaxMonthsSinceEpoch == 119_987);
+#endif
+
         Schema = schema;
     }
 
@@ -256,7 +265,7 @@ public partial struct TropicaliaDate // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_daysSinceZero"/>.
     /// <para>This field is a constant equal to 3_652_055.</para></summary>
-    private const int MaxDaysSinceZero = 3_652_055;
+    internal const int MaxDaysSinceZero = 3_652_055;
 
     /// <summary>
     /// Represents the count of consecutive days since the Gregorian epoch.
@@ -1067,7 +1076,7 @@ public partial struct TropicaliaMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
-    private const int MaxMonthsSinceEpoch = 119_987;
+    internal const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch

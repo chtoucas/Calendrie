@@ -44,6 +44,15 @@ public sealed partial class EthiopicCalendar : Calendar
     private EthiopicCalendar(Coptic12Schema schema)
         : base(DisplayName, new StandardScope(schema, DayZero.Ethiopic))
     {
+        Debug.Assert(Epoch.DaysSinceZero == 2795);
+#if DEBUG
+        // The next four properties only exist in DEBUG mode.
+        Debug.Assert(MinDaysSinceEpoch == 0);
+        Debug.Assert(MaxDaysSinceEpoch == 3_652_134);
+        Debug.Assert(MinMonthsSinceEpoch == 0);
+        Debug.Assert(MaxMonthsSinceEpoch == 119_987);
+#endif
+
         Schema = schema;
     }
 
@@ -188,11 +197,11 @@ public partial struct EthiopicDate // Preamble
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
     /// for the epoch <see cref="DayZero.Ethiopic"/>.
     /// <para>This field is a constant equal to 2795.</para></summary>
-    private const int EpochDaysSinceZero = 2795;
+    internal const int EpochDaysSinceZero = 2795;
 
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_652_134.</para></summary>
-    private const int MaxDaysSinceEpoch = 3_652_134;
+    internal const int MaxDaysSinceEpoch = 3_652_134;
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch
@@ -1020,7 +1029,7 @@ public partial struct EthiopicMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
-    private const int MaxMonthsSinceEpoch = 119_987;
+    internal const int MaxMonthsSinceEpoch = 119_987;
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch
