@@ -1244,13 +1244,6 @@ public partial struct CopticMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new CopticMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CopticMonth"/> struct
-    /// from the specified <see cref="CopticDate"/> value.
-    /// </summary>
-    [Pure]
-    public static CopticMonth FromDate(CopticDate date) => new(date);
 }
 
 public partial struct CopticMonth // Counting
@@ -1813,23 +1806,6 @@ public partial struct CopticYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static CopticYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct CopticYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="CopticYear"/> struct
-    /// from the specified <see cref="CopticMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static CopticYear FromMonth(CopticMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CopticYear"/> struct
-    /// from the specified <see cref="CopticDate"/> value.
-    /// </summary>
-    [Pure]
-    public static CopticYear FromDate(CopticDate date) => new(date);
 }
 
 public partial struct CopticYear // IMonthSegment

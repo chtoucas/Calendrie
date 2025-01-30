@@ -17,54 +17,121 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Prelude =
+    let private calendarDataSet = StandardCoptic12DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
+    [<Fact>]
     let ``Value of CopticCalendar.Epoch.DaysZinceZero`` () =
         CopticCalendar.Instance.Epoch.DaysSinceZero === 103_604
-    [<Fact>]
-    let ``Value of Coptic13Calendar.Epoch.DaysZinceZero`` () =
-        Coptic13Calendar.Instance.Epoch.DaysSinceZero === 103_604
 
     [<Fact>]
     let ``default(CopticDate) is CopticCalendar.Epoch`` () =
         Unchecked.defaultof<CopticDate>.DayNumber === CopticCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
+    let ``Value of CopticCalendar.MinDaysSinceEpoch`` () =
+        CopticCalendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of CopticCalendar.MaxDaysSinceEpoch`` () =
+        CopticCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
+
+    [<Fact>]
+    let ``Value of CopticCalendar.MinMonthsSinceEpoch`` () =
+        CopticCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of CopticCalendar.MaxMonthsSinceEpoch`` () =
+        CopticCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+#endif
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``CopticMonth(CopticDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new CopticDate(y, m, d)
+        let exp = new CopticMonth(y, m)
+        // Act & Assert
+        new CopticMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``CopticYear(CopticDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new CopticDate(y, m, d)
+        let exp = new CopticYear(y)
+        // Act & Assert
+        new CopticYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``CopticYear(CopticMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new CopticMonth(y, m)
+        let exp = new CopticYear(y)
+        // Act & Assert
+        new CopticYear(month) === exp
+
+module Prelude13 =
+    let private calendarDataSet = StandardCoptic13DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
+    [<Fact>]
+    let ``Value of Coptic13Calendar.Epoch.DaysZinceZero`` () =
+        Coptic13Calendar.Instance.Epoch.DaysSinceZero === 103_604
+
     [<Fact>]
     let ``default(Coptic13Date) is Coptic13Calendar.Epoch`` () =
         Unchecked.defaultof<Coptic13Date>.DayNumber === Coptic13Calendar.Instance.Epoch
 
 #if DEBUG
     [<Fact>]
-    let ``Value of CopticCalendar.MinDaysSinceEpoch`` () =
-        CopticCalendar.Instance.MinDaysSinceEpoch === 0
-    [<Fact>]
     let ``Value of Coptic13Calendar.MinDaysSinceEpoch`` () =
         Coptic13Calendar.Instance.MinDaysSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of CopticCalendar.MaxDaysSinceEpoch`` () =
-        CopticCalendar.Instance.MaxDaysSinceEpoch === 3_652_134
     [<Fact>]
     let ``Value of Coptic13Calendar.MaxDaysSinceEpoch`` () =
         Coptic13Calendar.Instance.MaxDaysSinceEpoch === 3_652_134
 
     [<Fact>]
-    let ``Value of CopticCalendar.MinMonthsSinceEpoch`` () =
-        CopticCalendar.Instance.MinMonthsSinceEpoch === 0
-    [<Fact>]
     let ``Value of Coptic13Calendar.MinMonthsSinceEpoch`` () =
         Coptic13Calendar.Instance.MinMonthsSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of CopticCalendar.MaxMonthsSinceEpoch`` () =
-        CopticCalendar.Instance.MaxMonthsSinceEpoch === 119_987
     [<Fact>]
     let ``Value of Coptic13Calendar.MaxMonthsSinceEpoch`` () =
         Coptic13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Coptic13Month(Coptic13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Coptic13Date(y, m, d)
+        let exp = new Coptic13Month(y, m)
+        // Act & Assert
+        new Coptic13Month(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Coptic13Year(Coptic13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Coptic13Date(y, m, d)
+        let exp = new Coptic13Year(y)
+        // Act & Assert
+        new Coptic13Year(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Coptic13Year(Coptic13Month)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Coptic13Month(y, m)
+        let exp = new Coptic13Year(y)
+        // Act & Assert
+        new Coptic13Year(month) === exp
+
 module Conversions =
     let private calendarDataSet = StandardCoptic12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = CopticDate -> GregorianDate
@@ -72,34 +139,6 @@ module Conversions =
 
     type JulianDateCaster = CopticDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = CopticDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``CopticMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new CopticDate(y, m, d)
-        let exp = new CopticMonth(y, m)
-        // Act & Assert
-        CopticMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``CopticYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new CopticDate(y, m, d)
-        let exp = new CopticYear(y)
-        // Act & Assert
-        CopticYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``CopticYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new CopticMonth(y, m)
-        let exp = new CopticYear(y)
-        // Act & Assert
-        CopticYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -204,7 +243,6 @@ module Conversions13 =
     let private calendarDataSet = StandardCoptic13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Coptic13Date -> GregorianDate
@@ -212,34 +250,6 @@ module Conversions13 =
 
     type JulianDateCaster = Coptic13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Coptic13Date.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Coptic13Month:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Coptic13Date(y, m, d)
-        let exp = new Coptic13Month(y, m)
-        // Act & Assert
-        Coptic13Month.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Coptic13Year:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Coptic13Date(y, m, d)
-        let exp = new Coptic13Year(y)
-        // Act & Assert
-        Coptic13Year.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``Coptic13Year:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new Coptic13Month(y, m)
-        let exp = new Coptic13Year(y)
-        // Act & Assert
-        Coptic13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
