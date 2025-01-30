@@ -34,7 +34,7 @@ public partial class PaxCalendar // Math
             // Pour le calendrier Pax, cela signifie que "y" est une année
             // bissextile, mais pas "newY", et que m = 14.
             //
-            // On retourne le dernier jour valide de l'année (ordinaire) newY
+            // On retourne le dernier jour valide de l'année (ordinaire) "newY"
             // autrement dit le 28/13.
             // > newM = monthsInYear;
             // > newD = sch.CountDaysInMonth(newY, monthsInYear);
@@ -69,7 +69,7 @@ public partial class PaxCalendar // Math
             // bissextile, mais pas "newY", et que m = 14.
             roundoff = d;
 
-            // On retourne le dernier jour valide de l'année (ordinaire) newY
+            // On retourne le dernier jour valide de l'année (ordinaire) "newY"
             // autrement dit le 28/13.
             // > newM = monthsInYear;
             // > newD = sch.CountDaysInMonth(newY, monthsInYear);
