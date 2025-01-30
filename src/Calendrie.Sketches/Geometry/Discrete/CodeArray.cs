@@ -41,8 +41,8 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     /// <summary>
     /// Initializes a new instance of the <see cref="CodeArray"/> class.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="codes"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException"><paramref name="codes"/> is
+    /// <see langword="null"/>.</exception>
     public CodeArray(int[] codes)
     {
         ArgumentNullException.ThrowIfNull(codes);
@@ -67,17 +67,16 @@ public sealed partial class CodeArray : IReadOnlyList<int>
     public int Max { get; }
 
     /// <summary>
-    /// Returns true if the current sequence is constant; otherwise returns false.
+    /// Returns <see langword="true"/> if the current sequence is constant;
+    /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool Constant => Height == 0;
 
     /// <summary>
-    /// Returns true if the current instance is convertible to a <see cref="BoolArray"/>;
-    /// otherwise returns false.
-    /// </summary>
-    /// <remarks>
+    /// Returns <see langword="true"/> if the current instance is convertible to
+    /// a <see cref="BoolArray"/>; otherwise returns <see langword="false"/>.
     /// <para>It simply means that <see cref="Height"/> is equal to 0 or 1.</para>
-    /// </remarks>
+    /// </summary>
     public bool Reducible => Height < 2;
 
     /// <summary>
@@ -344,7 +343,7 @@ public partial class CodeArray // Conversions, manips
         return new BoolArray(arr);
     }
 
-    // REVIEW: public?
+    // REVIEW(code): public?
     // NB: l'opération inverse n'a pas vraiment de sens.
     // En effet une forme "constante" correspond à plusieurs codes.
     // Par ex., (4, 1, 0) correspond aussi bien au singleton {4} qu'aux

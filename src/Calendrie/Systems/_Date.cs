@@ -5,7 +5,7 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 
-// TODO(code): blank-days should be kept outside the week cycle, review all
+// FIXME(code): blank-days should be kept outside the week cycle, review all
 // methods that compute the days of the week.
 
 // Epagomenal days

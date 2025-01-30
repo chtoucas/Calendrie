@@ -22,8 +22,10 @@ public partial record QuasiAffineForm
     /// </summary>
     public QuasiAffineForm(int a, int b, int remainder)
     {
-        _a = a != 0 ? a : throw new ArgumentOutOfRangeException(nameof(a));
-        _b = b != 0 ? b : throw new ArgumentOutOfRangeException(nameof(b));
+        ArgumentOutOfRangeException.ThrowIfEqual(a, 0);
+        ArgumentOutOfRangeException.ThrowIfEqual(b, 0);
+        _a = a;
+        _b = b;
         R = remainder;
     }
 
@@ -31,14 +33,22 @@ public partial record QuasiAffineForm
     public int A
     {
         get => _a;
-        init => _a = value != 0 ? value : throw new ArgumentOutOfRangeException(nameof(value));
+        init
+        {
+            ArgumentOutOfRangeException.ThrowIfEqual(value, 0);
+            _a = value;
+        }
     }
 
     // B != 0 means that we can always compute the value of the form.
     public int B
     {
         get => _b;
-        init => _b = value != 0 ? value : throw new ArgumentOutOfRangeException(nameof(value));
+        init
+        {
+            ArgumentOutOfRangeException.ThrowIfEqual(value, 0);
+            _b = value;
+        }
     }
 
     /// <summary>
@@ -139,7 +149,7 @@ public partial record QuasiAffineForm
     #endregion
     #region Translation de vecteur (g, 1) : (x, y) -> (x - g, y - 1)
 
-    // FIXME: On pourrait utiliser aussi (a, b, r - ga + b).
+    // FIXME(code): On pourrait utiliser aussi (a, b, r - ga + b).
     // https://en.wikipedia.org/wiki/Transformation_matrix#Examples_in_2_dimensions
 
     // (a, b, r) -> (a, b, r - ga + b)

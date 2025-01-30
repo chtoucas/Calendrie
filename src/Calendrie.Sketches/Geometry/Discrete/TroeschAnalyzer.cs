@@ -12,10 +12,11 @@ public sealed partial class TroeschAnalyzer
     private AnalyzeResult? _result;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TroeschAnalyzer"/> class with the specified
-    /// code.
+    /// Initializes a new instance of the <see cref="TroeschAnalyzer"/> class
+    /// with the specified code.
     /// </summary>
-    /// <exception cref="ArgumentNullException"><paramref name="input"/> is null.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="input"/> is
+    /// <see langword="null"/>.</exception>
     public TroeschAnalyzer(CodeArray input)
     {
         Input = input ?? throw new ArgumentNullException(nameof(input));
@@ -35,8 +36,9 @@ public sealed partial class TroeschAnalyzer
     private AnalyzeResult Result => _result ?? throw new InvalidOperationException();
 
     /// <summary>
-    /// Returns true if <paramref name="input"/> is the code of a segment of a discrete straight
-    /// line; otherwise returns false.
+    /// Returns <see langword="true"/> if <paramref name="input"/> is the code
+    /// of a segment of a discrete straight line; otherwise returns
+    /// <see langword="false"/>.
     /// </summary>
     [Pure]
     public static bool TryConvertCodeToForm(
