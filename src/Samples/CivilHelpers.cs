@@ -138,7 +138,6 @@ public partial class CivilHelpers
     /// Obtains the last day of the year to which belongs the specified date.
     /// </summary>
     public static CivilDate GetEndOfYear(this CivilMonth month) => new CivilYear(month).MaxDay;
-
 }
 
 // CivilDate interconversion
