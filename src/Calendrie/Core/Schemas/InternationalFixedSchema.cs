@@ -79,6 +79,7 @@ public sealed partial class InternationalFixedSchema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        // Quarters: 84, 84, 84, 84, 29.
         [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29];
 
     /// <summary>
@@ -86,6 +87,7 @@ public sealed partial class InternationalFixedSchema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        // Quarters: 84, 85, 84, 84, 29.
         [28, 28, 28, 28, 28, 29, 28, 28, 28, 28, 28, 28, 29];
 
     /// <inheritdoc />

@@ -36,6 +36,7 @@ public sealed partial class Egyptian12Schema :
     /// </summary>
     internal static ReadOnlySpan<byte> DaysInMonth =>
         // No leap years.
+        // Quarters: 90, 90, 90, 90 + 5.
         [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
 
     /// <inheritdoc />

@@ -34,8 +34,7 @@ public abstract partial class GJSchema : RegularSchema, IDaysInMonths
     public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
-    /// Represents the number of days from march to december, both
-    /// included.
+    /// Represents the number of days from march to december, both included.
     /// <para>This field is constant equal to 306.</para>
     /// </summary>
     public const int DaysPerYearAfterFebruary = 306;
@@ -71,6 +70,7 @@ public abstract partial class GJSchema : RegularSchema, IDaysInMonths
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        // Quarters: 90, 91, 92, 92.
         [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     /// <summary>
@@ -78,6 +78,7 @@ public abstract partial class GJSchema : RegularSchema, IDaysInMonths
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        // Quarters: 91, 91, 92, 92.
         [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     /// <inheritdoc />

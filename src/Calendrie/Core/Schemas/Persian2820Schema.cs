@@ -111,6 +111,7 @@ public sealed partial class Persian2820Schema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        // Quarters: 93, 93, 90, 89.
         [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
 
     /// <summary>
@@ -118,6 +119,7 @@ public sealed partial class Persian2820Schema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        // Quarters: 93, 93, 90, 90.
         [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30];
 
     /// <inheritdoc />

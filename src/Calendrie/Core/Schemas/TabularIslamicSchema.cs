@@ -71,6 +71,7 @@ public sealed partial class TabularIslamicSchema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        // Quarters: 89, 88, 89, 88.
         [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
 
     /// <summary>
@@ -78,6 +79,7 @@ public sealed partial class TabularIslamicSchema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        // Quarters: 89, 88, 89, 89.
         [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 30];
 
     /// <inheritdoc />

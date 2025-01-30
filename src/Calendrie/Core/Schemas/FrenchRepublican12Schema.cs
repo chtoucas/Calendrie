@@ -34,6 +34,7 @@ public sealed partial class FrenchRepublican12Schema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        // Quarters: 90, 90, 90, 90 + 5.
         [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
 
     /// <summary>
@@ -41,6 +42,7 @@ public sealed partial class FrenchRepublican12Schema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        // Quarters: 90, 90, 90, 90 + 6.
         [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 36];
 
     /// <inheritdoc />

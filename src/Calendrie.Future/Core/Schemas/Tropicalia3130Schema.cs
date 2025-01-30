@@ -25,6 +25,7 @@ public sealed partial class Tropicalia3130Schema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        // Quarters: 92, 91, 92, 90.
         [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 29];
 
     /// <summary>
@@ -32,6 +33,7 @@ public sealed partial class Tropicalia3130Schema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        // Quarters: 92, 91, 92, 91.
         [31, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30];
 
     /// <inheritdoc />

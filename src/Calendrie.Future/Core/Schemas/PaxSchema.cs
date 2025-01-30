@@ -146,6 +146,7 @@ public sealed partial class PaxSchema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfCommonYear =>
+        // Quarters: 84, 84, 84, 84, 28.
         [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28];
 
     /// <summary>
@@ -153,6 +154,7 @@ public sealed partial class PaxSchema :
     /// <para>The span index matches the month index <i>minus one</i>.</para>
     /// </summary>
     private static ReadOnlySpan<byte> DaysInMonthsOfLeapYear =>
+        // Quarters: 84, 84, 84, 84, 7 + 28.
         [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, DaysInPaxMonth, 28];
 
     /// <inheritdoc />
