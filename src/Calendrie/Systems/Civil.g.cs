@@ -411,13 +411,6 @@ public partial struct CivilMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new CivilMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilMonth"/> struct
-    /// from the specified <see cref="CivilDate"/> value.
-    /// </summary>
-    [Pure]
-    public static CivilMonth FromDate(CivilDate date) => new(date);
 }
 
 public partial struct CivilMonth // Counting
@@ -755,23 +748,6 @@ public partial struct CivilYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static CivilYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct CivilYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct
-    /// from the specified <see cref="CivilMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static CivilYear FromMonth(CivilMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="CivilYear"/> struct
-    /// from the specified <see cref="CivilDate"/> value.
-    /// </summary>
-    [Pure]
-    public static CivilYear FromDate(CivilDate date) => new(date);
 }
 
 public partial struct CivilYear // IMonthSegment

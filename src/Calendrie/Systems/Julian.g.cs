@@ -369,23 +369,6 @@ public partial struct JulianMonth // Non-standard math ops
 
 #region JulianYear
 
-public partial struct JulianYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianYear"/> struct
-    /// from the specified <see cref="JulianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static JulianYear FromMonth(JulianMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianYear"/> struct
-    /// from the specified <see cref="JulianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static JulianYear FromDate(JulianDate date) => new(date);
-}
-
 public partial struct JulianYear // IMonthSegment
 {
     /// <summary>

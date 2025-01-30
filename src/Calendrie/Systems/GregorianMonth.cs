@@ -193,13 +193,6 @@ public partial struct GregorianMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new GregorianMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianMonth"/> struct
-    /// from the specified <see cref="GregorianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static GregorianMonth FromDate(GregorianDate date) => new(date);
 }
 
 public partial struct GregorianMonth // IDaySegment

@@ -23,6 +23,8 @@ open type Calendrie.Extensions.CivilDateExtensions
 let private calendarDataSet = StandardGregorianDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
     [<Fact>]
@@ -58,6 +60,30 @@ module Prelude =
 
         date.DaysSinceZero === daysSinceEpoch
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``CivilMonth(CivilDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new CivilDate(y, m, d)
+        let exp = new CivilMonth(y, m)
+        // Act & Assert
+        new CivilMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``CivilYear(CivilDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new CivilDate(y, m, d)
+        let exp = new CivilYear(y)
+        // Act & Assert
+        new CivilYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``CivilYear(CivilMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new CivilMonth(y, m)
+        let exp = new CivilYear(y)
+        // Act & Assert
+        new CivilYear(month) === exp
+
 module Factories =
     let dateInfoData = calendarDataSet.DateInfoData
     let monthsSinceEpochInfoData = calendarDataSet.MonthsSinceEpochInfoData
@@ -89,34 +115,6 @@ module Conversions =
     let monthInfoData = calendarDataSet.MonthInfoData
     let yearInfoData = calendarDataSet.YearInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``CivilMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new CivilDate(y, m, d)
-        let exp = new CivilMonth(y, m)
-        // Act & Assert
-        CivilMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``CivilYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new CivilDate(y, m, d)
-        let exp = new CivilYear(y)
-        // Act & Assert
-        CivilYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``CivilYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new CivilMonth(y, m)
-        let exp = new CivilYear(y)
-        // Act & Assert
-        CivilYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

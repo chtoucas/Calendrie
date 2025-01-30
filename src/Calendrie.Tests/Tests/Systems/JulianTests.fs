@@ -24,6 +24,9 @@ open type Calendrie.Extensions.JulianDateExtensions
 let private calendarDataSet = UnboundedJulianDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     // Test for Benchmars.PlainJulian
     [<Fact>]
     let ``Value of PlainJulian.MaxDaysSinceEpoch`` () =
@@ -52,6 +55,30 @@ module Prelude =
         JulianCalendar.Instance.MaxMonthsSinceEpoch === 11_999_987
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``JulianMonth(JulianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new JulianDate(y, m, d)
+        let exp = new JulianMonth(y, m)
+        // Act & Assert
+        new JulianMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``JulianYear(JulianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new JulianDate(y, m, d)
+        let exp = new JulianYear(y)
+        // Act & Assert
+        new JulianYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``JulianYear(JulianMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new JulianMonth(y, m)
+        let exp = new JulianYear(y)
+        // Act & Assert
+        new JulianYear(month) === exp
+
 module Factories =
     let dateInfoData = calendarDataSet.DateInfoData
 
@@ -79,37 +106,9 @@ module Factories =
 
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
-    //
-    // FromXXX()
-    //
     // NB: FromAbsoluteDate(GregorianDate) is tested in GregorianTests alongside ToJulianDate().
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``JulianMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new JulianDate(y, m, d)
-        let exp = new JulianMonth(y, m)
-        // Act & Assert
-        JulianMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``JulianYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new JulianDate(y, m, d)
-        let exp = new JulianYear(y)
-        // Act & Assert
-        JulianYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``JulianYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new JulianMonth(y, m)
-        let exp = new JulianYear(y)
-        // Act & Assert
-        JulianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

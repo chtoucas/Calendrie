@@ -107,22 +107,22 @@ public partial class CivilHelpers
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
     /// </summary>
-    public static CivilDate GetStartOfYear(this CivilDate date) => CivilYear.FromDate(date).MinDay;
+    public static CivilDate GetStartOfYear(this CivilDate date) => new CivilYear(date).MinDay;
 
     /// <summary>
     /// Obtains the last day of the year to which belongs the specified date.
     /// </summary>
-    public static CivilDate GetEndOfYear(this CivilDate date) => CivilYear.FromDate(date).MaxDay;
+    public static CivilDate GetEndOfYear(this CivilDate date) => new CivilYear(date).MaxDay;
 
     /// <summary>
     /// Obtains the first day of the month to which belongs the specified date.
     /// </summary>
-    public static CivilDate GetStartOfMonth(this CivilDate date) => CivilMonth.FromDate(date).MinDay;
+    public static CivilDate GetStartOfMonth(this CivilDate date) => new CivilMonth(date).MinDay;
 
     /// <summary>
     /// Obtains the last day of the month to which belongs the specified date.
     /// </summary>
-    public static CivilDate GetEndOfMonth(this CivilDate date) => CivilMonth.FromDate(date).MaxDay;
+    public static CivilDate GetEndOfMonth(this CivilDate date) => new CivilMonth(date).MaxDay;
 }
 
 // CivilMonth extension methods
@@ -132,12 +132,12 @@ public partial class CivilHelpers
     /// <summary>
     /// Obtains the first day of the year to which belongs the specified date.
     /// </summary>
-    public static CivilDate GetStartOfYear(this CivilMonth month) => CivilYear.FromMonth(month).MinDay;
+    public static CivilDate GetStartOfYear(this CivilMonth month) => new CivilYear(month).MinDay;
 
     /// <summary>
     /// Obtains the last day of the year to which belongs the specified date.
     /// </summary>
-    public static CivilDate GetEndOfYear(this CivilMonth month) => CivilYear.FromMonth(month).MaxDay;
+    public static CivilDate GetEndOfYear(this CivilMonth month) => new CivilYear(month).MaxDay;
 
 }
 

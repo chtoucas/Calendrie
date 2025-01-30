@@ -63,7 +63,7 @@ module Prelude =
         let date = new GregorianDate(y, m, d)
         let exp = new GregorianMonth(y, m)
         // Act & Assert
-        GregorianMonth.FromDate(date) === exp
+        new GregorianMonth(date) === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``GregorianYear(GregorianDate)`` (x: DateInfo) =
@@ -71,7 +71,7 @@ module Prelude =
         let date = new GregorianDate(y, m, d)
         let exp = new GregorianYear(y)
         // Act & Assert
-        GregorianYear.FromDate(date) === exp
+        new GregorianYear(date) === exp
 
     [<Theory; MemberData(nameof(monthInfoData))>]
     let ``GregorianYear(GregorianMonth)`` (x: MonthInfo) =
@@ -79,7 +79,7 @@ module Prelude =
         let month = new GregorianMonth(y, m)
         let exp = new GregorianYear(y)
         // Act & Assert
-        GregorianYear.FromMonth(month) === exp
+        new GregorianYear(month) === exp
 
 module Factories =
     let dateInfoData = calendarDataSet.DateInfoData
