@@ -24,6 +24,8 @@ open type Calendrie.Extensions.GregorianDateExtensions
 let private calendarDataSet = UnboundedGregorianDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
     let daysSinceEpochInfoData = calendarDataSet.DaysSinceEpochInfoData
 
     [<Fact>]
@@ -55,6 +57,30 @@ module Prelude =
 
         date.DaysSinceZero === daysSinceEpoch
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``GregorianMonth(GregorianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new GregorianDate(y, m, d)
+        let exp = new GregorianMonth(y, m)
+        // Act & Assert
+        GregorianMonth.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``GregorianYear(GregorianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new GregorianDate(y, m, d)
+        let exp = new GregorianYear(y)
+        // Act & Assert
+        GregorianYear.FromDate(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``GregorianYear(GregorianMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new GregorianMonth(y, m)
+        let exp = new GregorianYear(y)
+        // Act & Assert
+        GregorianYear.FromMonth(month) === exp
+
 module Factories =
     let dateInfoData = calendarDataSet.DateInfoData
 
@@ -82,37 +108,9 @@ module Factories =
 
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
-    //
-    // FromXXX()
-    //
     // NB: FromAbsoluteDate(JulianDate) is tested in JulianTests alongside ToGregorianDate().
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``GregorianMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new GregorianDate(y, m, d)
-        let exp = new GregorianMonth(y, m)
-        // Act & Assert
-        GregorianMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``GregorianYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new GregorianDate(y, m, d)
-        let exp = new GregorianYear(y)
-        // Act & Assert
-        GregorianYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``GregorianYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new GregorianMonth(y, m)
-        let exp = new GregorianYear(y)
-        // Act & Assert
-        GregorianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

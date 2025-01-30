@@ -62,7 +62,7 @@ public sealed class <#= Prefix #>Clock : IClock
     /// Obtains a <see cref="<#= Prefix #>Month"/> value representing the current month.
     /// </summary>
     [Pure]
-    public <#= Prefix #>Month GetCurrentMonth() => <#= Prefix #>Month.FromDate(GetCurrentDate());
+    public <#= Prefix #>Month GetCurrentMonth() => new(GetCurrentDate());
 <#+ } #>
 <#+ if (EnableYear) { #>
 
@@ -70,7 +70,7 @@ public sealed class <#= Prefix #>Clock : IClock
     /// Obtains a <see cref="<#= Prefix #>Year"/> value representing the current year.
     /// </summary>
     [Pure]
-    public <#= Prefix #>Year GetCurrentYear() => <#= Prefix #>Year.FromDate(GetCurrentDate());
+    public <#= Prefix #>Year GetCurrentYear() => new(GetCurrentDate());
 <#+ } #>
 }
 

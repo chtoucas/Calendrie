@@ -1120,7 +1120,7 @@ public partial struct PaxMonth // Conversions
     /// Creates a new instance of the <see cref="PaxMonth"/> struct
     /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static PaxMonth FromDate(PaxDate date) => new(date);
 }
 
@@ -1699,14 +1699,14 @@ public partial struct PaxYear // Conversions
     /// Creates a new instance of the <see cref="PaxYear"/> struct
     /// from the specified <see cref="PaxMonth"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static PaxYear FromMonth(PaxMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="PaxYear"/> struct
     /// from the specified <see cref="PaxDate"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static PaxYear FromDate(PaxDate date) => new(date);
 }
 

@@ -82,8 +82,8 @@ module TropicaliaClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === TropicaliaMonth.FromDate(date)
-        clock.GetCurrentYear()  === TropicaliaYear.FromDate(date)
+        clock.GetCurrentMonth() === new TropicaliaMonth(date)
+        clock.GetCurrentYear()  === new TropicaliaYear(date)
 
 #if ENABLE_CLOCKS
 
@@ -105,8 +105,8 @@ module ArmenianClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === ArmenianMonth.FromDate(date)
-        clock.GetCurrentYear()  === ArmenianYear.FromDate(date)
+        clock.GetCurrentMonth() === new ArmenianMonth(date)
+        clock.GetCurrentYear()  === new ArmenianYear(date)
 
 module Armenian13Clock =
     [<Fact>]
@@ -126,8 +126,8 @@ module Armenian13Clock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === Armenian13Month.FromDate(date)
-        clock.GetCurrentYear()  === Armenian13Year.FromDate(date)
+        clock.GetCurrentMonth() === new Armenian13Month(date)
+        clock.GetCurrentYear()  === new Armenian13Year(date)
 
 module CivilClock =
     [<Fact>]
@@ -147,8 +147,8 @@ module CivilClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === CivilMonth.FromDate(date)
-        clock.GetCurrentYear()  === CivilYear.FromDate(date)
+        clock.GetCurrentMonth() === new CivilMonth(date)
+        clock.GetCurrentYear()  === new CivilYear(date)
 
 module CopticClock =
     [<Fact>]
@@ -168,8 +168,8 @@ module CopticClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === CopticMonth.FromDate(date)
-        clock.GetCurrentYear()  === CopticYear.FromDate(date)
+        clock.GetCurrentMonth() === new CopticMonth(date)
+        clock.GetCurrentYear()  === new CopticYear(date)
 
 module Coptic13Clock =
     [<Fact>]
@@ -189,8 +189,8 @@ module Coptic13Clock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === Coptic13Month.FromDate(date)
-        clock.GetCurrentYear()  === Coptic13Year.FromDate(date)
+        clock.GetCurrentMonth() === new Coptic13Month(date)
+        clock.GetCurrentYear()  === new Coptic13Year(date)
 
 module EgyptianClock =
     [<Fact>]
@@ -210,8 +210,8 @@ module EgyptianClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === EgyptianMonth.FromDate(date)
-        clock.GetCurrentYear()  === EgyptianYear.FromDate(date)
+        clock.GetCurrentMonth() === new EgyptianMonth(date)
+        clock.GetCurrentYear()  === new EgyptianYear(date)
 
 module Egyptian13Clock =
     [<Fact>]
@@ -231,8 +231,8 @@ module Egyptian13Clock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === Egyptian13Month.FromDate(date)
-        clock.GetCurrentYear()  === Egyptian13Year.FromDate(date)
+        clock.GetCurrentMonth() === new Egyptian13Month(date)
+        clock.GetCurrentYear()  === new Egyptian13Year(date)
 
 module EthiopicClock =
     [<Fact>]
@@ -252,8 +252,8 @@ module EthiopicClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === EthiopicMonth.FromDate(date)
-        clock.GetCurrentYear()  === EthiopicYear.FromDate(date)
+        clock.GetCurrentMonth() === new EthiopicMonth(date)
+        clock.GetCurrentYear()  === new EthiopicYear(date)
 
 module Ethiopic13Clock =
     [<Fact>]
@@ -273,8 +273,8 @@ module Ethiopic13Clock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === Ethiopic13Month.FromDate(date)
-        clock.GetCurrentYear()  === Ethiopic13Year.FromDate(date)
+        clock.GetCurrentMonth() === new Ethiopic13Month(date)
+        clock.GetCurrentYear()  === new Ethiopic13Year(date)
 
 module FrenchRepublicanClock =
     [<Fact>]
@@ -294,8 +294,8 @@ module FrenchRepublicanClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === FrenchRepublicanMonth.FromDate(date)
-        clock.GetCurrentYear()  === FrenchRepublicanYear.FromDate(date)
+        clock.GetCurrentMonth() === new FrenchRepublicanMonth(date)
+        clock.GetCurrentYear()  === new FrenchRepublicanYear(date)
 
 module FrenchRepublican13Clock =
     [<Fact>]
@@ -315,8 +315,8 @@ module FrenchRepublican13Clock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === FrenchRepublican13Month.FromDate(date)
-        clock.GetCurrentYear()  === FrenchRepublican13Year.FromDate(date)
+        clock.GetCurrentMonth() === new FrenchRepublican13Month(date)
+        clock.GetCurrentYear()  === new FrenchRepublican13Year(date)
 
 module GregorianClock =
     [<Fact>]
@@ -336,8 +336,8 @@ module GregorianClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === GregorianMonth.FromDate(date)
-        clock.GetCurrentYear()  === GregorianYear.FromDate(date)
+        clock.GetCurrentMonth() === new GregorianMonth(date)
+        clock.GetCurrentYear()  === new GregorianYear(date)
 
 module InternationalFixedClock =
     [<Fact>]
@@ -357,8 +357,8 @@ module InternationalFixedClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === InternationalFixedMonth.FromDate(date)
-        clock.GetCurrentYear()  === InternationalFixedYear.FromDate(date)
+        clock.GetCurrentMonth() === new InternationalFixedMonth(date)
+        clock.GetCurrentYear()  === new InternationalFixedYear(date)
 
 module JulianClock =
     [<Fact>]
@@ -378,8 +378,8 @@ module JulianClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === JulianMonth.FromDate(date)
-        clock.GetCurrentYear()  === JulianYear.FromDate(date)
+        clock.GetCurrentMonth() === new JulianMonth(date)
+        clock.GetCurrentYear()  === new JulianYear(date)
 
 module PaxClock =
     [<Fact>]
@@ -399,8 +399,8 @@ module PaxClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === PaxMonth.FromDate(date)
-        clock.GetCurrentYear()  === PaxYear.FromDate(date)
+        clock.GetCurrentMonth() === new PaxMonth(date)
+        clock.GetCurrentYear()  === new PaxYear(date)
 
 module Persian2820Clock =
     [<Fact>]
@@ -420,8 +420,8 @@ module Persian2820Clock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === Persian2820Month.FromDate(date)
-        clock.GetCurrentYear()  === Persian2820Year.FromDate(date)
+        clock.GetCurrentMonth() === new Persian2820Month(date)
+        clock.GetCurrentYear()  === new Persian2820Year(date)
 
 module PositivistClock =
     [<Fact>]
@@ -441,8 +441,8 @@ module PositivistClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === PositivistMonth.FromDate(date)
-        clock.GetCurrentYear()  === PositivistYear.FromDate(date)
+        clock.GetCurrentMonth() === new PositivistMonth(date)
+        clock.GetCurrentYear()  === new PositivistYear(date)
 
 module TabularIslamicClock =
     [<Fact>]
@@ -462,8 +462,8 @@ module TabularIslamicClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === TabularIslamicMonth.FromDate(date)
-        clock.GetCurrentYear()  === TabularIslamicYear.FromDate(date)
+        clock.GetCurrentMonth() === new TabularIslamicMonth(date)
+        clock.GetCurrentYear()  === new TabularIslamicYear(date)
 
 module WorldClock =
     [<Fact>]
@@ -483,8 +483,8 @@ module WorldClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === WorldMonth.FromDate(date)
-        clock.GetCurrentYear()  === WorldYear.FromDate(date)
+        clock.GetCurrentMonth() === new WorldMonth(date)
+        clock.GetCurrentYear()  === new WorldYear(date)
 
 module ZoroastrianClock =
     [<Fact>]
@@ -504,8 +504,8 @@ module ZoroastrianClock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === ZoroastrianMonth.FromDate(date)
-        clock.GetCurrentYear()  === ZoroastrianYear.FromDate(date)
+        clock.GetCurrentMonth() === new ZoroastrianMonth(date)
+        clock.GetCurrentYear()  === new ZoroastrianYear(date)
 
 module Zoroastrian13Clock =
     [<Fact>]
@@ -525,7 +525,7 @@ module Zoroastrian13Clock =
         // Act & Assert
         clock.Today()           === dayNumber
         clock.GetCurrentDate()  === date
-        clock.GetCurrentMonth() === Zoroastrian13Month.FromDate(date)
-        clock.GetCurrentYear()  === Zoroastrian13Year.FromDate(date)
+        clock.GetCurrentMonth() === new Zoroastrian13Month(date)
+        clock.GetCurrentYear()  === new Zoroastrian13Year(date)
 
 #endif

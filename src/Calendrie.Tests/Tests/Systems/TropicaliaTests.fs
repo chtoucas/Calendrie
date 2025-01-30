@@ -19,6 +19,9 @@ open Xunit
 let private calendarDataSet = StandardTropicaliaDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of TropicaliaCalendar.Epoch.DaysZinceZero`` () =
         TropicaliaCalendar.Instance.Epoch.DaysSinceZero === 0
@@ -45,9 +48,32 @@ module Prelude =
         TropicaliaCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``TropicaliaMonth(TropicaliaDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new TropicaliaDate(y, m, d)
+        let exp = new TropicaliaMonth(y, m)
+        // Act & Assert
+        new TropicaliaMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``TropicaliaYear(TropicaliaDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new TropicaliaDate(y, m, d)
+        let exp = new TropicaliaYear(y)
+        // Act & Assert
+        new TropicaliaYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``TropicaliaYear(TropicaliaMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new TropicaliaMonth(y, m)
+        let exp = new TropicaliaYear(y)
+        // Act & Assert
+        new TropicaliaYear(month) === exp
+
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = TropicaliaDate -> GregorianDate
@@ -55,34 +81,6 @@ module Conversions =
 
     type JulianDateCaster = TropicaliaDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = TropicaliaDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``TropicaliaMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new TropicaliaDate(y, m, d)
-        let exp = new TropicaliaMonth(y, m)
-        // Act & Assert
-        TropicaliaMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``TropicaliaYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new TropicaliaDate(y, m, d)
-        let exp = new TropicaliaYear(y)
-        // Act & Assert
-        TropicaliaYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``TropicaliaYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new TropicaliaMonth(y, m)
-        let exp = new TropicaliaYear(y)
-        // Act & Assert
-        TropicaliaYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

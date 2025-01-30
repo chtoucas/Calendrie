@@ -236,13 +236,13 @@ public sealed class TropicaliaClock : IClock
     /// Obtains a <see cref="TropicaliaMonth"/> value representing the current month.
     /// </summary>
     [Pure]
-    public TropicaliaMonth GetCurrentMonth() => TropicaliaMonth.FromDate(GetCurrentDate());
+    public TropicaliaMonth GetCurrentMonth() => new(GetCurrentDate());
 
     /// <summary>
     /// Obtains a <see cref="TropicaliaYear"/> value representing the current year.
     /// </summary>
     [Pure]
-    public TropicaliaYear GetCurrentYear() => TropicaliaYear.FromDate(GetCurrentDate());
+    public TropicaliaYear GetCurrentYear() => new(GetCurrentDate());
 }
 
 #endregion
@@ -1296,7 +1296,7 @@ public partial struct TropicaliaMonth // Conversions
     /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
     /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static TropicaliaMonth FromDate(TropicaliaDate date) => new(date);
 }
 
@@ -1868,14 +1868,14 @@ public partial struct TropicaliaYear // Conversions
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
     /// from the specified <see cref="TropicaliaMonth"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static TropicaliaYear FromMonth(TropicaliaMonth month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
     /// from the specified <see cref="TropicaliaDate"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static TropicaliaYear FromDate(TropicaliaDate date) => new(date);
 }
 

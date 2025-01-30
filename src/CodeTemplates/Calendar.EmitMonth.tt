@@ -457,7 +457,7 @@ public partial struct <#= Prefix #>Month // Conversions
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date) => new(date);
 }
 <#+
@@ -537,7 +537,7 @@ public partial struct <#= Prefix #>Month // Conversions
     /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static <#= Prefix #>Month FromDate(<#= Prefix #>Date date) => new(date);
 }
 <#+

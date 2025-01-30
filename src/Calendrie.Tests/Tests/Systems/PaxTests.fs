@@ -20,6 +20,9 @@ open Xunit
 let private calendarDataSet = StandardPaxDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of PaxCalendar.Epoch.DaysZinceZero`` () =
         PaxCalendar.Instance.Epoch.DaysSinceZero === -1
@@ -46,9 +49,32 @@ module Prelude =
         PaxCalendar.Instance.MaxMonthsSinceEpoch === 131_761
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``PaxMonth(PaxDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new PaxDate(y, m, d)
+        let exp = new PaxMonth(y, m)
+        // Act & Assert
+        new PaxMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``PaxYear(PaxDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new PaxDate(y, m, d)
+        let exp = new PaxYear(y)
+        // Act & Assert
+        new PaxYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``PaxYear(PaxMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new PaxMonth(y, m)
+        let exp = new PaxYear(y)
+        // Act & Assert
+        new PaxYear(month) === exp
+
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = PaxDate -> GregorianDate
@@ -56,34 +82,6 @@ module Conversions =
 
     type JulianDateCaster = PaxDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = PaxDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``PaxMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new PaxDate(y, m, d)
-        let exp = new PaxMonth(y, m)
-        // Act & Assert
-        PaxMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``PaxYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new PaxDate(y, m, d)
-        let exp = new PaxYear(y)
-        // Act & Assert
-        PaxYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``PaxYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new PaxMonth(y, m)
-        let exp = new PaxYear(y)
-        // Act & Assert
-        PaxYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

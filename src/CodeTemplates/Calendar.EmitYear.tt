@@ -249,14 +249,14 @@ public partial struct <#= Prefix #>Year // Conversions
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
     /// from the specified <see cref="<#= Prefix #>Month"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static <#= Prefix #>Year FromMonth(<#= Prefix #>Month month) => new(month);
 
     /// <summary>
     /// Creates a new instance of the <see cref="<#= Prefix #>Year"/> struct
     /// from the specified <see cref="<#= Prefix #>Date"/> value.
     /// </summary>
-    [Pure]
+    [Pure, Obsolete("Use the constructor instead.")]
     public static <#= Prefix #>Year FromDate(<#= Prefix #>Date date) => new(date);
 }
 <#+
