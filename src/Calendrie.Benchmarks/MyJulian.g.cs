@@ -1238,13 +1238,6 @@ public partial struct MyJulianMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new MyJulianMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
-    /// from the specified <see cref="MyJulianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static MyJulianMonth FromDate(MyJulianDate date) => new(date);
 }
 
 public partial struct MyJulianMonth // Counting
@@ -1807,23 +1800,6 @@ public partial struct MyJulianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static MyJulianYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct MyJulianYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="MyJulianYear"/> struct
-    /// from the specified <see cref="MyJulianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static MyJulianYear FromMonth(MyJulianMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="MyJulianYear"/> struct
-    /// from the specified <see cref="MyJulianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static MyJulianYear FromDate(MyJulianDate date) => new(date);
 }
 
 public partial struct MyJulianYear // IMonthSegment
