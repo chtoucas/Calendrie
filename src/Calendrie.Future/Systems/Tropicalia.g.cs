@@ -1291,13 +1291,6 @@ public partial struct TropicaliaMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new TropicaliaMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
-    /// from the specified <see cref="TropicaliaDate"/> value.
-    /// </summary>
-    [Pure, Obsolete("Use the constructor instead.")]
-    public static TropicaliaMonth FromDate(TropicaliaDate date) => new(date);
 }
 
 public partial struct TropicaliaMonth // Counting
@@ -1860,23 +1853,6 @@ public partial struct TropicaliaYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static TropicaliaYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct TropicaliaYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
-    /// from the specified <see cref="TropicaliaMonth"/> value.
-    /// </summary>
-    [Pure, Obsolete("Use the constructor instead.")]
-    public static TropicaliaYear FromMonth(TropicaliaMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaYear"/> struct
-    /// from the specified <see cref="TropicaliaDate"/> value.
-    /// </summary>
-    [Pure, Obsolete("Use the constructor instead.")]
-    public static TropicaliaYear FromDate(TropicaliaDate date) => new(date);
 }
 
 public partial struct TropicaliaYear // IMonthSegment

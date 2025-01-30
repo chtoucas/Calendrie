@@ -1115,13 +1115,6 @@ public partial struct PaxMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new PaxMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxMonth"/> struct
-    /// from the specified <see cref="PaxDate"/> value.
-    /// </summary>
-    [Pure, Obsolete("Use the constructor instead.")]
-    public static PaxMonth FromDate(PaxDate date) => new(date);
 }
 
 public partial struct PaxMonth // Counting
@@ -1691,23 +1684,6 @@ public partial struct PaxYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static PaxYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct PaxYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct
-    /// from the specified <see cref="PaxMonth"/> value.
-    /// </summary>
-    [Pure, Obsolete("Use the constructor instead.")]
-    public static PaxYear FromMonth(PaxMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxYear"/> struct
-    /// from the specified <see cref="PaxDate"/> value.
-    /// </summary>
-    [Pure, Obsolete("Use the constructor instead.")]
-    public static PaxYear FromDate(PaxDate date) => new(date);
 }
 
 public partial struct PaxYear // IMonthSegment

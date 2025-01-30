@@ -1170,13 +1170,6 @@ public partial struct ArmenianMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new ArmenianMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianMonth"/> struct
-    /// from the specified <see cref="ArmenianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static ArmenianMonth FromDate(ArmenianDate date) => new(date);
 }
 
 public partial struct ArmenianMonth // Counting
@@ -1738,23 +1731,6 @@ public partial struct ArmenianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static ArmenianYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct ArmenianYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianYear"/> struct
-    /// from the specified <see cref="ArmenianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static ArmenianYear FromMonth(ArmenianMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianYear"/> struct
-    /// from the specified <see cref="ArmenianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static ArmenianYear FromDate(ArmenianDate date) => new(date);
 }
 
 public partial struct ArmenianYear // IMonthSegment

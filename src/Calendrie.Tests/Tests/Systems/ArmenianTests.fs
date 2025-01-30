@@ -16,55 +16,121 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Prelude =
+    let private calendarDataSet = StandardArmenian12DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of ArmenianCalendar.Epoch.DaysZinceZero`` () =
         ArmenianCalendar.Instance.Epoch.DaysSinceZero === 201_442
-    [<Fact>]
-    let ``Value of Armenian13Calendar.Epoch.DaysZinceZero`` () =
-        Armenian13Calendar.Instance.Epoch.DaysSinceZero === 201_442
 
     [<Fact>]
     let ``default(ArmenianDate) is ArmenianCalendar.Epoch`` () =
         Unchecked.defaultof<ArmenianDate>.DayNumber === ArmenianCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MinDaysSinceEpoch`` () =
+        ArmenianCalendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MaxDaysSinceEpoch`` () =
+        ArmenianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
+
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MinMonthsSinceEpoch`` () =
+        ArmenianCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of ArmenianCalendar.MaxMonthsSinceEpoch`` () =
+        ArmenianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+#endif
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ArmenianMonth(ArmenianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new ArmenianDate(y, m, d)
+        let exp = new ArmenianMonth(y, m)
+        // Act & Assert
+        new ArmenianMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ArmenianYear(ArmenianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new ArmenianDate(y, m, d)
+        let exp = new ArmenianYear(y)
+        // Act & Assert
+        new ArmenianYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``ArmenianYear(ArmenianMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new ArmenianMonth(y, m)
+        let exp = new ArmenianYear(y)
+        // Act & Assert
+        new ArmenianYear(month) === exp
+
+module Prelude13 =
+    let private calendarDataSet = StandardArmenian13DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
+    [<Fact>]
+    let ``Value of Armenian13Calendar.Epoch.DaysZinceZero`` () =
+        Armenian13Calendar.Instance.Epoch.DaysSinceZero === 201_442
+
     [<Fact>]
     let ``default(Armenian13Date) is Armenian13Calendar.Epoch`` () =
         Unchecked.defaultof<Armenian13Date>.DayNumber === Armenian13Calendar.Instance.Epoch
 
 #if DEBUG
     [<Fact>]
-    let ``Value of ArmenianCalendar.MinDaysSinceEpoch`` () =
-        ArmenianCalendar.Instance.MinDaysSinceEpoch === 0
-    [<Fact>]
     let ``Value of Armenian13Calendar.MinDaysSinceEpoch`` () =
         Armenian13Calendar.Instance.MinDaysSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of ArmenianCalendar.MaxDaysSinceEpoch`` () =
-        ArmenianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
     [<Fact>]
     let ``Value of Armenian13Calendar.MaxDaysSinceEpoch`` () =
         Armenian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
 
     [<Fact>]
-    let ``Value of ArmenianCalendar.MinMonthsSinceEpoch`` () =
-        ArmenianCalendar.Instance.MinMonthsSinceEpoch === 0
-    [<Fact>]
     let ``Value of Armenian13Calendar.MinMonthsSinceEpoch`` () =
         Armenian13Calendar.Instance.MinMonthsSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of ArmenianCalendar.MaxMonthsSinceEpoch`` () =
-        ArmenianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
     [<Fact>]
     let ``Value of Armenian13Calendar.MaxMonthsSinceEpoch`` () =
         Armenian13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Armenian13Month(Armenian13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Armenian13Date(y, m, d)
+        let exp = new Armenian13Month(y, m)
+        // Act & Assert
+        new Armenian13Month(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Armenian13Year(Armenian13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Armenian13Date(y, m, d)
+        let exp = new Armenian13Year(y)
+        // Act & Assert
+        new Armenian13Year(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Armenian13Year(Armenian13Month)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Armenian13Month(y, m)
+        let exp = new Armenian13Year(y)
+        // Act & Assert
+        new Armenian13Year(month) === exp
+
 module Conversions =
     let private calendarDataSet = StandardArmenian12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = ArmenianDate -> GregorianDate
@@ -72,34 +138,6 @@ module Conversions =
 
     type JulianDateCaster = ArmenianDate -> JulianDate
     let op_Explicit_Julian: JulianDateCaster = ArmenianDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``ArmenianMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new ArmenianDate(y, m, d)
-        let exp = new ArmenianMonth(y, m)
-        // Act & Assert
-        ArmenianMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``ArmenianYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new ArmenianDate(y, m, d)
-        let exp = new ArmenianYear(y)
-        // Act & Assert
-        ArmenianYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``ArmenianYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new ArmenianMonth(y, m)
-        let exp = new ArmenianYear(y)
-        // Act & Assert
-        ArmenianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -204,7 +242,6 @@ module Conversions13 =
     let private calendarDataSet = StandardArmenian13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Armenian13Date -> GregorianDate
@@ -212,34 +249,6 @@ module Conversions13 =
 
     type JulianDateCaster = Armenian13Date -> JulianDate
     let op_Explicit_Julian: JulianDateCaster = Armenian13Date.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Armenian13Month:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Armenian13Date(y, m, d)
-        let exp = new Armenian13Month(y, m)
-        // Act & Assert
-        Armenian13Month.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Armenian13Year:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Armenian13Date(y, m, d)
-        let exp = new Armenian13Year(y)
-        // Act & Assert
-        Armenian13Year.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``Armenian13Year:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new Armenian13Month(y, m)
-        let exp = new Armenian13Year(y)
-        // Act & Assert
-        Armenian13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
