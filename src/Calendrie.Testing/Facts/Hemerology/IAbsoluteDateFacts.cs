@@ -99,16 +99,6 @@ public partial class IAbsoluteDateFacts<TDate, TDataSet> // Factories
         Assert.Equal(m, date.Month);
         Assert.Equal(d, date.Day);
     }
-
-    //[Fact]
-    //public void Today()
-    //{
-    //    // This test may fail if there is a change of day between the two calls
-    //    // to Today().
-    //    var today = DayNumber.Today();
-    //    // Act & Assert
-    //    Assert.Equal(today, TDate.Today().DayNumber);
-    //}
 }
 
 public partial class IAbsoluteDateFacts<TDate, TDataSet> // Adjust the day of the week
