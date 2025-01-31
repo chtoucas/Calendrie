@@ -6,7 +6,8 @@ namespace Calendrie.Systems;
 using Calendrie.Core.Schemas;
 
 // FIXME(code): blank-days should be kept outside the week cycle, review all
-// methods that compute the days of the week.
+// methods that compute the days of the week. Add custom props (Leapyear Day,
+// Worldsday, etc.)
 
 // Blank days
 // ----------
@@ -33,14 +34,7 @@ public partial struct InternationalFixedDate // Complements
     /// <para>A blank day does not belong to any month and is kept outside the
     /// weekday cycle.</para>
     /// </summary>
-    public bool IsBlank
-    {
-        get
-        {
-            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
-            return InternationalFixedSchema.IsBlankDayImpl(d);
-        }
-    }
+    public bool IsBlank => InternationalFixedSchema.IsBlankDayImpl(Day);
 }
 
 public partial struct PositivistDate // Complements
@@ -51,14 +45,7 @@ public partial struct PositivistDate // Complements
     /// <para>A blank day does not belong to any month and is kept outside the
     /// weekday cycle.</para>
     /// </summary>
-    public bool IsBlank
-    {
-        get
-        {
-            Calendar.Schema.GetDateParts(_daysSinceEpoch, out _, out _, out int d);
-            return PositivistSchema.IsBlankDayImpl(d);
-        }
-    }
+    public bool IsBlank => PositivistSchema.IsBlankDayImpl(Day);
 }
 
 public partial struct WorldDate // Complements
