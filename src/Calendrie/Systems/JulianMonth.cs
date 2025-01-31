@@ -232,7 +232,7 @@ public partial struct JulianMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<JulianDate> ToRange()
+    public Segment<JulianDate> ToRange()
     {
         var (y, m) = this;
         int startOfMonth = JulianFormulae.CountDaysSinceEpoch(y, m, 1);
@@ -241,7 +241,7 @@ public partial struct JulianMonth // IDaySegment
     }
 
     [Pure]
-    Range<JulianDate> IDaySegment<JulianDate>.ToDayRange() => ToRange();
+    Segment<JulianDate> IDaySegment<JulianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.

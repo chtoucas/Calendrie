@@ -299,7 +299,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
     //
     // This method throws an ArgumentException not an ArgumentOutOfRangeException,
     // therefore it's not equivalent to set Min and Max separately.
-    internal void SetSupportedYears(Range<int> supportedYears)
+    internal void SetSupportedYears(Segment<int> supportedYears)
     {
         if (!supportedYears.IsSubsetOf(_schema.SupportedYears))
         {

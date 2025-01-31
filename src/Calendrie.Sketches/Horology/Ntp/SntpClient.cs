@@ -75,7 +75,7 @@ public sealed class SntpClient
         EndPoint = endpoint ?? throw new ArgumentNullException(nameof(endpoint));
     }
 
-    public static Range<int> SupportedVersions { get; } = Range.Create(3, 4);
+    public static Segment<int> SupportedVersions { get; } = Range.Create(3, 4);
 
     private int _version = DefaultVersion;
     /// <summary>

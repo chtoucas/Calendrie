@@ -27,7 +27,7 @@ public class DefaultMonthMathFacts<TMonth, TDataSet> :
     protected TMonth MinMonth => TMonth.MinValue;
     protected TMonth MaxMonth => TMonth.MaxValue;
 
-    protected Range<int> SupportedYears { get; }
+    protected Segment<int> SupportedYears { get; }
 
     protected static TMonth GetMonth(Yemo ym)
     {

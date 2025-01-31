@@ -1391,7 +1391,7 @@ public partial struct TropicaliaMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<TropicaliaDate> ToRange()
+    public Segment<TropicaliaDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1401,7 +1401,7 @@ public partial struct TropicaliaMonth // IDaySegment
     }
 
     [Pure]
-    Range<TropicaliaDate> IDaySegment<TropicaliaDate>.ToDayRange() => ToRange();
+    Segment<TropicaliaDate> IDaySegment<TropicaliaDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1870,7 +1870,7 @@ public partial struct TropicaliaYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<TropicaliaMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<TropicaliaMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1943,7 +1943,7 @@ public partial struct TropicaliaYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<TropicaliaDate> ToDayRange()
+    public Segment<TropicaliaDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

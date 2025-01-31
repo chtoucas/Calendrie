@@ -17,14 +17,14 @@ public partial class Lavretni // Intersection
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static SegmentSet<T> Intersect<T>(LowerRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static SegmentSet<T> Intersect<T>(LowerRay<T> x, Segment<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Intersect(y, x);
 
     /// <summary>
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static SegmentSet<T> Intersect<T>(UpperRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static SegmentSet<T> Intersect<T>(UpperRay<T> x, Segment<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Intersect(y, x);
 
     /// <summary>
@@ -41,14 +41,14 @@ public partial class Lavretni // Convex hull
     /// Obtains the smallest range containing the two specified intervals.
     /// </summary>
     [Pure]
-    public static LowerRay<T> Span<T>(LowerRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static LowerRay<T> Span<T>(LowerRay<T> x, Segment<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Span(y, x);
 
     /// <summary>
     /// Obtains the smallest range containing the two specified intervals.
     /// </summary>
     [Pure]
-    public static UpperRay<T> Span<T>(UpperRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static UpperRay<T> Span<T>(UpperRay<T> x, Segment<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Span(y, x);
 
     /// <summary>
@@ -66,14 +66,14 @@ public partial class Lavretni // Disjoint
     /// Determines whether the two specified intervals are disjoint or not.
     /// </summary>
     [Pure]
-    public static bool Disjoint<T>(LowerRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static bool Disjoint<T>(LowerRay<T> x, Segment<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Disjoint(y, x);
 
     /// <summary>
     /// Determines whether the two specified intervals are disjoint or not.
     /// </summary>
     [Pure]
-    public static bool Disjoint<T>(UpperRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static bool Disjoint<T>(UpperRay<T> x, Segment<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Disjoint(y, x);
 
     /// <summary>
@@ -93,7 +93,7 @@ public partial class Lavretni // Coalesce
     /// </summary>
     /// <returns><see langword="null"/> if the set union is not an interval.</returns>
     [Pure]
-    public static LowerRay<int>? Coalesce(LowerRay<int> x, Range<int> y) =>
+    public static LowerRay<int>? Coalesce(LowerRay<int> x, Segment<int> y) =>
         Interval.Coalesce(y, x);
 
     /// <summary>
@@ -101,7 +101,7 @@ public partial class Lavretni // Coalesce
     /// </summary>
     /// <returns><see langword="null"/> if the set union is not an interval.</returns>
     [Pure]
-    public static UpperRay<int>? Coalesce(UpperRay<int> x, Range<int> y) =>
+    public static UpperRay<int>? Coalesce(UpperRay<int> x, Segment<int> y) =>
         Interval.Coalesce(y, x);
 
     /// <summary>
@@ -121,7 +121,7 @@ public partial class Lavretni // Coalesce
     /// </summary>
     /// <returns><see langword="null"/> if the set union is not an interval.</returns>
     [Pure]
-    public static LowerRay<DayNumber>? Coalesce(LowerRay<DayNumber> x, Range<DayNumber> y) =>
+    public static LowerRay<DayNumber>? Coalesce(LowerRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Coalesce(y, x);
 
     /// <summary>
@@ -129,7 +129,7 @@ public partial class Lavretni // Coalesce
     /// </summary>
     /// <returns><see langword="null"/> if the set union is not an interval.</returns>
     [Pure]
-    public static UpperRay<DayNumber>? Coalesce(UpperRay<DayNumber> x, Range<DayNumber> y) =>
+    public static UpperRay<DayNumber>? Coalesce(UpperRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Coalesce(y, x);
 
     /// <summary>
@@ -153,7 +153,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static SegmentSet<int> Gap(LowerRay<int> x, Range<int> y) =>
+    public static SegmentSet<int> Gap(LowerRay<int> x, Segment<int> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -161,7 +161,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static SegmentSet<int> Gap(UpperRay<int> x, Range<int> y) =>
+    public static SegmentSet<int> Gap(UpperRay<int> x, Segment<int> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -180,7 +180,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static SegmentSet<DayNumber> Gap(LowerRay<DayNumber> x, Range<DayNumber> y) =>
+    public static SegmentSet<DayNumber> Gap(LowerRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -188,7 +188,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static SegmentSet<DayNumber> Gap(UpperRay<DayNumber> x, Range<DayNumber> y) =>
+    public static SegmentSet<DayNumber> Gap(UpperRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -212,7 +212,7 @@ public partial class Lavretni // Adjacency
     /// empty gap between them.</para>
     /// </summary>
     [Pure]
-    public static bool Adjacent(LowerRay<int> x, Range<int> y) =>
+    public static bool Adjacent(LowerRay<int> x, Segment<int> y) =>
         Interval.Adjacent(y, x);
 
     /// <summary>
@@ -221,7 +221,7 @@ public partial class Lavretni // Adjacency
     /// empty gap between them.</para>
     /// </summary>
     [Pure]
-    public static bool Adjacent(UpperRay<int> x, Range<int> y) =>
+    public static bool Adjacent(UpperRay<int> x, Segment<int> y) =>
         Interval.Adjacent(y, x);
 
     /// <summary>
@@ -242,7 +242,7 @@ public partial class Lavretni // Adjacency
     /// empty gap between them.</para>
     /// </summary>
     [Pure]
-    public static bool Adjacent(LowerRay<DayNumber> x, Range<DayNumber> y) =>
+    public static bool Adjacent(LowerRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Adjacent(y, x);
 
     /// <summary>
@@ -251,7 +251,7 @@ public partial class Lavretni // Adjacency
     /// empty gap between them.</para>
     /// </summary>
     [Pure]
-    public static bool Adjacent(UpperRay<DayNumber> x, Range<DayNumber> y) =>
+    public static bool Adjacent(UpperRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Adjacent(y, x);
 
     /// <summary>
@@ -276,7 +276,7 @@ public partial class Lavretni // Connectedness
     /// too.</para>
     /// </summary>
     [Pure]
-    public static bool Connected(LowerRay<int> x, Range<int> y) =>
+    public static bool Connected(LowerRay<int> x, Segment<int> y) =>
         Interval.Connected(y, x);
 
     /// <summary>
@@ -285,7 +285,7 @@ public partial class Lavretni // Connectedness
     /// too.</para>
     /// </summary>
     [Pure]
-    public static bool Connected(UpperRay<int> x, Range<int> y) =>
+    public static bool Connected(UpperRay<int> x, Segment<int> y) =>
         Interval.Connected(y, x);
 
     /// <summary>
@@ -306,7 +306,7 @@ public partial class Lavretni // Connectedness
     /// too.</para>
     /// </summary>
     [Pure]
-    public static bool Connected(LowerRay<DayNumber> x, Range<DayNumber> y) =>
+    public static bool Connected(LowerRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Connected(y, x);
 
     /// <summary>
@@ -315,7 +315,7 @@ public partial class Lavretni // Connectedness
     /// too.</para>
     /// </summary>
     [Pure]
-    public static bool Connected(UpperRay<DayNumber> x, Range<DayNumber> y) =>
+    public static bool Connected(UpperRay<DayNumber> x, Segment<DayNumber> y) =>
         Interval.Connected(y, x);
 
     /// <summary>

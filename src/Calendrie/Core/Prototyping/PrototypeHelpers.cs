@@ -13,9 +13,9 @@ using Calendrie.Core.Intervals;
 
 internal static class PrototypeHelpers
 {
-    public static Range<int> Standard => Range.Create(1, 9999);
-    public static Range<int> Proleptic => Range.Create(-9998, 9999);
+    public static Segment<int> Standard => Range.Create(1, 9999);
+    public static Segment<int> Proleptic => Range.Create(-9998, 9999);
 
-    public static Range<int> GetSupportedYears(bool proleptic) =>
+    public static Segment<int> GetSupportedYears(bool proleptic) =>
         proleptic ? Proleptic : Standard;
 }

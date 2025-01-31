@@ -66,7 +66,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Properties
     [Fact]
     public void SupportedDays_Prop()
     {
-        var supportedDays = new Range<int>(MinDaysSinceEpoch, MaxDaysSinceEpoch);
+        var supportedDays = new Segment<int>(MinDaysSinceEpoch, MaxDaysSinceEpoch);
         // Act & Assert
         Assert.Equal(supportedDays, SchemaUT.SupportedDays);
         // Lazy prop: we duplicate the test to ensure full test coverage.
@@ -76,7 +76,7 @@ public partial class ICalendricalSchemaFacts<TSchema, TDataSet> // Properties
     [Fact]
     public void SupportedMonths_Prop()
     {
-        var domain = new Range<int>(MinMonthsSinceEpoch, MaxMonthsSinceEpoch);
+        var domain = new Segment<int>(MinMonthsSinceEpoch, MaxMonthsSinceEpoch);
         // Act & Assert
         Assert.Equal(domain, SchemaUT.SupportedMonths);
         // Lazy prop: we duplicate the test to ensure full test coverage.

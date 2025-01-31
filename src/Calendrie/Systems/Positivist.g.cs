@@ -1344,7 +1344,7 @@ public partial struct PositivistMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<PositivistDate> ToRange()
+    public Segment<PositivistDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1354,7 +1354,7 @@ public partial struct PositivistMonth // IDaySegment
     }
 
     [Pure]
-    Range<PositivistDate> IDaySegment<PositivistDate>.ToDayRange() => ToRange();
+    Segment<PositivistDate> IDaySegment<PositivistDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1823,7 +1823,7 @@ public partial struct PositivistYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<PositivistMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<PositivistMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1896,7 +1896,7 @@ public partial struct PositivistYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<PositivistDate> ToDayRange()
+    public Segment<PositivistDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

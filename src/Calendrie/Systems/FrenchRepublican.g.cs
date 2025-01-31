@@ -1344,7 +1344,7 @@ public partial struct FrenchRepublicanMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<FrenchRepublicanDate> ToRange()
+    public Segment<FrenchRepublicanDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1354,7 +1354,7 @@ public partial struct FrenchRepublicanMonth // IDaySegment
     }
 
     [Pure]
-    Range<FrenchRepublicanDate> IDaySegment<FrenchRepublicanDate>.ToDayRange() => ToRange();
+    Segment<FrenchRepublicanDate> IDaySegment<FrenchRepublicanDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1823,7 +1823,7 @@ public partial struct FrenchRepublicanYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<FrenchRepublicanMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<FrenchRepublicanMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1896,7 +1896,7 @@ public partial struct FrenchRepublicanYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<FrenchRepublicanDate> ToDayRange()
+    public Segment<FrenchRepublicanDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

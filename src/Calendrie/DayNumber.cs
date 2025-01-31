@@ -43,7 +43,7 @@ using static Calendrie.Core.CalendricalConstants;
 // DayNumber (e.g. it cannot be a field); otherwise the CoreCLR will throw a
 // TypeLoadException. It seems to be a known limitation in some CLR
 // implementations.
-// NB: it would work fine if either Range<T> or DayNumber was not a struct.
+// NB: it would work fine if either Segment<T> or DayNumber was not a struct.
 // https://github.com/dotnet/runtime/issues/5479
 // https://github.com/dotnet/runtime/issues/11179
 // https://github.com/dotnet/roslyn/issues/10126#issuecomment-204471882
@@ -176,7 +176,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// Gets the range of supported Gregorian values for a <see cref="DayNumber"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Range<DayNumber> GregorianDomain =>
+    public static Segment<DayNumber> GregorianDomain =>
         Range.UnsafeCreate<DayNumber>(
             new(MinGregorianDaysSinceZero),
             new(MaxGregorianDaysSinceZero));
@@ -281,7 +281,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// Gets the range of supported Julian values for a <see cref="DayNumber"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Range<DayNumber> JulianDomain =>
+    public static Segment<DayNumber> JulianDomain =>
         Range.UnsafeCreate<DayNumber>(
             new(MinJulianDaysSinceZero),
             new(MaxJulianDaysSinceZero));

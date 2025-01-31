@@ -229,7 +229,7 @@ public readonly partial struct Yemoda :
     /// Gets the interval [<see cref="MinYear"/>..<see cref="MaxYear"/>].
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Range<int> SupportedYears { get; } = new(MinYear, MaxYear);
+    public static Segment<int> SupportedYears { get; } = new(MinYear, MaxYear);
 
     /// <summary>
     /// Gets the algebraic year from this instance.

@@ -1344,7 +1344,7 @@ public partial struct EthiopicMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<EthiopicDate> ToRange()
+    public Segment<EthiopicDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1354,7 +1354,7 @@ public partial struct EthiopicMonth // IDaySegment
     }
 
     [Pure]
-    Range<EthiopicDate> IDaySegment<EthiopicDate>.ToDayRange() => ToRange();
+    Segment<EthiopicDate> IDaySegment<EthiopicDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1823,7 +1823,7 @@ public partial struct EthiopicYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<EthiopicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<EthiopicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1896,7 +1896,7 @@ public partial struct EthiopicYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<EthiopicDate> ToDayRange()
+    public Segment<EthiopicDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

@@ -6,9 +6,9 @@ namespace Calendrie.Testing.Data;
 using Calendrie.Core.Intervals;
 
 public sealed record RangeRangeInfo(
-    Range<int> First,
-    Range<int> Second,
-    Range<int> Span,
+    Segment<int> First,
+    Segment<int> Second,
+    Segment<int> Span,
     SegmentSet<int> Intersection,
     SegmentSet<int> Gap,
     bool Disjoint,
@@ -17,7 +17,7 @@ public sealed record RangeRangeInfo(
 
 public sealed record LowerRayRangeInfo(
     LowerRay<int> First,
-    Range<int> Second,
+    Segment<int> Second,
     LowerRay<int> Span,
     SegmentSet<int> Intersection,
     SegmentSet<int> Gap,
@@ -27,7 +27,7 @@ public sealed record LowerRayRangeInfo(
 
 public sealed record UpperRayRangeInfo(
     UpperRay<int> First,
-    Range<int> Second,
+    Segment<int> Second,
     UpperRay<int> Span,
     SegmentSet<int> Intersection,
     SegmentSet<int> Gap,

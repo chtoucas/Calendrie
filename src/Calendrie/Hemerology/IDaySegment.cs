@@ -25,7 +25,7 @@ public interface IDaySegment<TDate>
     /// <summary>
     /// Converts the current instance to a range of days.
     /// </summary>
-    [Pure] Range<TDate> ToDayRange();
+    [Pure] Segment<TDate> ToDayRange();
 
     /// <summary>
     /// Obtains the sequence of all days in the current instance.

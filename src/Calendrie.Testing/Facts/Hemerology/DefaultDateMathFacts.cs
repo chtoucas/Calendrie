@@ -27,7 +27,7 @@ public class DefaultDateMathFacts<TDate, TDataSet> :
     protected TDate MinDate => TDate.MinValue;
     protected TDate MaxDate => TDate.MaxValue;
 
-    protected Range<int> SupportedYears { get; }
+    protected Segment<int> SupportedYears { get; }
 
     protected static TDate GetDate(Yemoda ymd)
     {

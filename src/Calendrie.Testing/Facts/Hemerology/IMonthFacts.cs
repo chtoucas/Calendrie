@@ -26,7 +26,7 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> :
     protected TMonth MinMonth => TMonth.MinValue;
     protected TMonth MaxMonth => TMonth.MaxValue;
 
-    protected Range<int> SupportedYears { get; }
+    protected Segment<int> SupportedYears { get; }
     protected SupportedYearsTester SupportedYearsTester { get; }
 
     protected static TMonth GetMonth(Yemo ym)

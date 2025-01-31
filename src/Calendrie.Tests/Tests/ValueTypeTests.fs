@@ -37,12 +37,12 @@ module RuntimeSizes =
         sizeof<OrderedPair<int32>>() === 8
         sizeof<OrderedPair<int64>>() === 16
         sizeof<OrderedPair<double>>() === 16
-        // Range<T>, two T's.
-        sizeof<Range<byte>>() === 2
-        sizeof<Range<int16>>() === 4
-        sizeof<Range<int32>>() === 8
-        sizeof<Range<int64>>() === 16
-        sizeof<Range<double>>() === 16
+        // Segment<T>, two T's.
+        sizeof<Segment<byte>>() === 2
+        sizeof<Segment<int16>>() === 4
+        sizeof<Segment<int32>>() === 8
+        sizeof<Segment<int64>>() === 16
+        sizeof<Segment<double>>() === 16
         // SegmentSet<T>, two T's and one int32.
         sizeof<SegmentSet<byte>>() === 8
         sizeof<SegmentSet<int16>>() === 8

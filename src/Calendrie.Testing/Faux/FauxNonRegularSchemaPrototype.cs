@@ -13,7 +13,7 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
 
     private FauxNonRegularSchemaPrototype(
         ICalendricalCore kernel,
-        Range<int> supportedYears,
+        Segment<int> supportedYears,
         int minMonthsInYear,
         int minDaysInYear,
         int minDaysInMonth)
@@ -38,7 +38,7 @@ public sealed class FauxNonRegularSchemaPrototype : NonRegularSchemaPrototype
     }
 
     public static FauxNonRegularSchemaPrototype Create(
-        ICalendricalSchema schema, Range<int> supportedYears, int minMonthsInYear)
+        ICalendricalSchema schema, Segment<int> supportedYears, int minMonthsInYear)
     {
         ArgumentNullException.ThrowIfNull(schema);
 

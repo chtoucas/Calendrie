@@ -25,7 +25,7 @@ public interface IMonthSegment<TMonth>
     /// <summary>
     /// Converts the current instance to a range of months.
     /// </summary>
-    [Pure] Range<TMonth> ToMonthRange();
+    [Pure] Segment<TMonth> ToMonthRange();
 
     /// <summary>
     /// Obtains the sequence of all months in the current instance.

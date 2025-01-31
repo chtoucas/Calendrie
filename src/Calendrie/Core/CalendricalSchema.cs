@@ -173,7 +173,7 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
     /// is not a subinterval of <see cref="MaxSupportedYears"/>.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
-    protected CalendricalSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    protected CalendricalSchema(Segment<int> supportedYears, int minDaysInYear, int minDaysInMonth)
     {
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInYear, 0);
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minDaysInMonth, 0);
@@ -194,7 +194,7 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
     /// that is the interval [-999_998..999_999].
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Range<int> DefaultSupportedYears { get; } = new(DefaultMinYear, DefaultMaxYear);
+    public static Segment<int> DefaultSupportedYears { get; } = new(DefaultMinYear, DefaultMaxYear);
 
     /// <summary>
     /// Gets the maximum value for <see cref="ICalendricalSchema.SupportedYears"/>,
@@ -203,10 +203,10 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
     /// </summary>
     //
     // It matches the value of <see cref="Yemoda.SupportedYears"/>.
-    //public static Range<int> MaxSupportedYears => Yemoda.SupportedYears;
-    public static Range<int> MaxSupportedYears { get; } = Range.Create(1 - (1 << 21), 1 << 21);
+    //public static Segment<int> MaxSupportedYears => Yemoda.SupportedYears;
+    public static Segment<int> MaxSupportedYears { get; } = Range.Create(1 - (1 << 21), 1 << 21);
 
-    private Range<int> _supportedYearsCore = Range.Maximal32;
+    private Segment<int> _supportedYearsCore = Range.Maximal32;
     /// <summary>
     /// Gets the core domain, the interval of years for which the <i>core</i>
     /// methods are known not to overflow.
@@ -225,7 +225,7 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
     /// </exception>
     //
     // The fixed limits for the month and day parameters are related to Yemoda.
-    public Range<int> SupportedYearsCore
+    public Segment<int> SupportedYearsCore
     {
         get => _supportedYearsCore;
         protected init
@@ -307,18 +307,18 @@ public partial class CalendricalSchema // Properties
     public int MinDaysInMonth { get; }
 
     /// <inheritdoc />
-    public Range<int> SupportedYears { get; }
+    public Segment<int> SupportedYears { get; }
 
-    private Range<int>? _domain;
+    private Segment<int>? _domain;
     /// <inheritdoc />
-    public Range<int> SupportedDays =>
-        _domain ??= new Range<int>(SupportedYears.Endpoints.Select(GetStartOfYear, GetEndOfYear));
+    public Segment<int> SupportedDays =>
+        _domain ??= new Segment<int>(SupportedYears.Endpoints.Select(GetStartOfYear, GetEndOfYear));
 
-    private Range<int>? _supportedMonths;
+    private Segment<int>? _supportedMonths;
     /// <inheritdoc />
-    public Range<int> SupportedMonths =>
+    public Segment<int> SupportedMonths =>
         _supportedMonths ??=
-        new Range<int>(SupportedYears.Endpoints.Select(GetStartOfYearInMonths, GetEndOfYearInMonths));
+        new Segment<int>(SupportedYears.Endpoints.Select(GetStartOfYearInMonths, GetEndOfYearInMonths));
 
     /// <inheritdoc />
     [Pure]

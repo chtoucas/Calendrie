@@ -1338,7 +1338,7 @@ public partial struct MyJulianMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<MyJulianDate> ToRange()
+    public Segment<MyJulianDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1348,7 +1348,7 @@ public partial struct MyJulianMonth // IDaySegment
     }
 
     [Pure]
-    Range<MyJulianDate> IDaySegment<MyJulianDate>.ToDayRange() => ToRange();
+    Segment<MyJulianDate> IDaySegment<MyJulianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1817,7 +1817,7 @@ public partial struct MyJulianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<MyJulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<MyJulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1890,7 +1890,7 @@ public partial struct MyJulianYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<MyJulianDate> ToDayRange()
+    public Segment<MyJulianDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

@@ -1270,7 +1270,7 @@ public partial struct Armenian13Month // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<Armenian13Date> ToRange()
+    public Segment<Armenian13Date> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1280,7 +1280,7 @@ public partial struct Armenian13Month // IDaySegment
     }
 
     [Pure]
-    Range<Armenian13Date> IDaySegment<Armenian13Date>.ToDayRange() => ToRange();
+    Segment<Armenian13Date> IDaySegment<Armenian13Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1748,7 +1748,7 @@ public partial struct Armenian13Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<Armenian13Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<Armenian13Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1825,7 +1825,7 @@ public partial struct Armenian13Year // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<Armenian13Date> ToDayRange()
+    public Segment<Armenian13Date> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

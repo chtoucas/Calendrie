@@ -29,7 +29,7 @@ public abstract class RegularSchema : CalendricalSchema
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
-    protected RegularSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    protected RegularSchema(Segment<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 
     /// <summary>

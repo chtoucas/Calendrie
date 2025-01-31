@@ -41,7 +41,7 @@ public abstract partial class CalendarScope
     /// <summary>
     /// Gets the range of supported <see cref="DayNumber"/> values.
     /// </summary>
-    public Range<DayNumber> Domain { get; }
+    public Segment<DayNumber> Domain { get; }
 
     /// <summary>
     /// Gets the segment of supported days.

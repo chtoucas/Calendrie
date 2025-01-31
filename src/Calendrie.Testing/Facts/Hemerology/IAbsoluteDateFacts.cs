@@ -23,13 +23,13 @@ public abstract partial class IAbsoluteDateFacts<TDate, TDataSet> :
     where TDate : struct, IDateable, IAbsoluteDate<TDate>
     where TDataSet : ICalendarDataSet, ISingleton<TDataSet>
 {
-    protected IAbsoluteDateFacts(Range<DayNumber> domain)
+    protected IAbsoluteDateFacts(Segment<DayNumber> domain)
     {
         Domain = domain;
         DomainTester = new DomainTester(domain);
     }
 
-    protected Range<DayNumber> Domain { get; }
+    protected Segment<DayNumber> Domain { get; }
     protected DomainTester DomainTester { get; }
 
     protected TDate MinDate => TDate.MinValue;

@@ -16,23 +16,23 @@ using System.Numerics;
 /// <para>An instance may be reduced to a single value.</para>
 /// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.
 /// </para>
-/// <para><see cref="Range{T}"/> is an immutable struct.</para>
+/// <para><see cref="Segment{T}"/> is an immutable struct.</para>
 /// </summary>
 /// <typeparam name="T">The type of the interval's elements.</typeparam>
-public readonly partial struct Range<T> :
+public readonly partial struct Segment<T> :
     ISegment<T>,
-    ISetComparable<Range<T>>,
-    IEqualityOperators<Range<T>, Range<T>, bool>,
-    IEquatable<Range<T>>
+    ISetComparable<Segment<T>>,
+    IEqualityOperators<Segment<T>, Segment<T>, bool>,
+    IEquatable<Segment<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Range{T}"/> struct
+    /// Initializes a new instance of the <see cref="Segment{T}"/> struct
     /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
     /// less than <paramref name="min"/>.</exception>
-    public Range(T min, T max)
+    public Segment(T min, T max)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(max, min, nameof(max));
 
@@ -40,11 +40,11 @@ public readonly partial struct Range<T> :
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Range{T}"/> struct from the
+    /// Initializes a new instance of the <see cref="Segment{T}"/> struct from the
     /// specified endpoints.
     /// </summary>
     // Public version: see Range.FromEndpoints().
-    internal Range(OrderedPair<T> endpoints) { Endpoints = endpoints; }
+    internal Segment(OrderedPair<T> endpoints) { Endpoints = endpoints; }
 
     /// <inheritdoc />
     public OrderedPair<T> Endpoints { get; }
@@ -95,18 +95,18 @@ public readonly partial struct Range<T> :
         : FormattableString.Invariant($"[{Min}..{Max}]");
 }
 
-public partial struct Range<T> // Adjustments
+public partial struct Segment<T> // Adjustments
 {
     #region Adjustments
 
     /// <summary>
-    /// Adjusts the minimum to the specified value, yielding a new <see cref="Range{T}"/>
+    /// Adjusts the minimum to the specified value, yielding a new <see cref="Segment{T}"/>
     /// instance representing the interval [<paramref name="min"/>, <see cref="Max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="min"/> is
     /// greater than <see cref="Max"/>.</exception>
     [Pure]
-    public Range<T> WithMin(T min)
+    public Segment<T> WithMin(T min)
     {
         // We don't write
         // > new(min, Max)
@@ -118,18 +118,18 @@ public partial struct Range<T> // Adjustments
     }
 
     /// <summary>
-    /// Adjusts the maximum to the specified value, yielding a new <see cref="Range{T}"/>
+    /// Adjusts the maximum to the specified value, yielding a new <see cref="Segment{T}"/>
     /// instance representing the interval [<see cref="Min"/>, <paramref name="max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
     /// less than <see cref="Min"/>.</exception>
     [Pure]
-    public Range<T> WithMax(T max) => new(Min, max);
+    public Segment<T> WithMax(T max) => new(Min, max);
 
     #endregion
 }
 
-public partial struct Range<T> // ISet...
+public partial struct Segment<T> // ISet...
 {
     #region Membership
 
@@ -142,63 +142,63 @@ public partial struct Range<T> // ISet...
 
     /// <inheritdoc />
     [Pure]
-    public bool IsSubsetOf(Range<T> other) =>
+    public bool IsSubsetOf(Segment<T> other) =>
         other.Min.CompareTo(Min) <= 0 && Max.CompareTo(other.Max) <= 0;
 
     /// <inheritdoc />
     [Pure]
-    public bool IsProperSubsetOf(Range<T> other) => this != other && IsSubsetOf(other);
+    public bool IsProperSubsetOf(Segment<T> other) => this != other && IsSubsetOf(other);
 
     /// <inheritdoc />
     [Pure]
-    public bool IsSupersetOf(Range<T> other) =>
+    public bool IsSupersetOf(Segment<T> other) =>
         Min.CompareTo(other.Min) <= 0 && other.Max.CompareTo(Max) <= 0;
 
     /// <inheritdoc />
     [Pure]
-    public bool IsProperSupersetOf(Range<T> other) => this != other && IsSupersetOf(other);
+    public bool IsProperSupersetOf(Segment<T> other) => this != other && IsSupersetOf(other);
 
     #endregion
     #region Equality
 
     /// <inheritdoc />
     [Pure]
-    public bool SetEquals(Range<T> other) => Endpoints == other.Endpoints;
+    public bool SetEquals(Segment<T> other) => Endpoints == other.Endpoints;
 
     #endregion
 }
 
-public partial struct Range<T> // IEquatable
+public partial struct Segment<T> // IEquatable
 {
     /// <summary>
-    /// Determines whether two specified instances of <see cref="Range{T}"/> are
+    /// Determines whether two specified instances of <see cref="Segment{T}"/> are
     /// equal.
     /// </summary>
-    public static bool operator ==(Range<T> left, Range<T> right) =>
+    public static bool operator ==(Segment<T> left, Segment<T> right) =>
         left.Endpoints == right.Endpoints;
 
     /// <summary>
-    /// Determines whether two specified instances of <see cref="Range{T}"/> are
+    /// Determines whether two specified instances of <see cref="Segment{T}"/> are
     /// not equal.
     /// </summary>
-    public static bool operator !=(Range<T> left, Range<T> right) =>
+    public static bool operator !=(Segment<T> left, Segment<T> right) =>
         left.Endpoints != right.Endpoints;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(Range<T> other) => Endpoints == other.Endpoints;
+    public bool Equals(Segment<T> other) => Endpoints == other.Endpoints;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is Range<T> range && Equals(range);
+        obj is Segment<T> range && Equals(range);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => Endpoints.GetHashCode();
 }
 
-public partial struct Range<T> // Strict partial order
+public partial struct Segment<T> // Strict partial order
 {
 #if false
 
@@ -206,39 +206,39 @@ public partial struct Range<T> // Strict partial order
     /// Compares the two specified instances to see if the left one is before
     /// the right one.
     /// </summary>
-    public static bool operator <(Range<T> left, Range<T> right) =>
+    public static bool operator <(Segment<T> left, Segment<T> right) =>
         left.Max.CompareTo(right.Min) < 0;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is after the
     /// right one.
     /// </summary>
-    public static bool operator >(Range<T> left, Range<T> right) =>
+    public static bool operator >(Segment<T> left, Segment<T> right) =>
         right.Max.CompareTo(left.Min) < 0;
 
     /// <summary>
     /// Compares the two specified values to see if the left one is before the
     /// right one.
     /// </summary>
-    public static bool operator <(Range<T> left, T right) => left.Max.CompareTo(right) < 0;
+    public static bool operator <(Segment<T> left, T right) => left.Max.CompareTo(right) < 0;
 
     /// <summary>
     /// Compares the two specified values to see if the left one is before the
     /// right one.
     /// </summary>
-    public static bool operator >(Range<T> left, T right) => left.Min.CompareTo(right) > 0;
+    public static bool operator >(Segment<T> left, T right) => left.Min.CompareTo(right) > 0;
 
     /// <summary>
     /// Compares the two specified values to see if the left one is before the
     /// right one.
     /// </summary>
-    public static bool operator <(T left, Range<T> right) => left.CompareTo(right.Min) < 0;
+    public static bool operator <(T left, Segment<T> right) => left.CompareTo(right.Min) < 0;
 
     /// <summary>
     /// Compares the two specified values to see if the left one is before the
     /// right one.
     /// </summary>
-    public static bool operator >(T left, Range<T> right) => left.CompareTo(right.Max) > 0;
+    public static bool operator >(T left, Segment<T> right) => left.CompareTo(right.Max) > 0;
 
 #endif
 }

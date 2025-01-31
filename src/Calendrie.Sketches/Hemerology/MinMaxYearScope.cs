@@ -47,7 +47,7 @@ public sealed class MinMaxYearScope : CalendarScope
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/> is
     /// NOT a subinterval of the range of supported years by <typeparamref name="TSchema"/>.
     /// </exception>
-    public static MinMaxYearScope Create<TSchema>(DayNumber epoch, Range<int> supportedYears)
+    public static MinMaxYearScope Create<TSchema>(DayNumber epoch, Segment<int> supportedYears)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
         return Create(TSchema.CreateInstance(), epoch, supportedYears);
@@ -63,7 +63,7 @@ public sealed class MinMaxYearScope : CalendarScope
     /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
     /// </exception>
     [Pure]
-    public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch, Range<int> supportedYears)
+    public static MinMaxYearScope Create(ICalendricalSchema schema, DayNumber epoch, Segment<int> supportedYears)
     {
         var segment = CalendricalSegment.Create(schema, supportedYears);
         return new MinMaxYearScope(segment, epoch);

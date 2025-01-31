@@ -231,12 +231,12 @@ type GlobalArbitraries =
     // Calendrie.Core.Intervals
     //
 
-    /// Obtains an arbitrary for Range<int>.
+    /// Obtains an arbitrary for Segment<int>.
     static member GetRangeArbitrary() =
         Arb.fromGen <| gen {
             let! i = Arb.generate<int>
             let! j = Arb.generate<int>
-            return if i < j then new Range<int>(i, j) else new Range<int>(j, i)
+            return if i < j then new Segment<int>(i, j) else new Segment<int>(j, i)
         }
 
     /// Obtains an arbitrary for SegmentSet<int>.

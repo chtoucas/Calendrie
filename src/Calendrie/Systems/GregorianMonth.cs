@@ -232,7 +232,7 @@ public partial struct GregorianMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<GregorianDate> ToRange()
+    public Segment<GregorianDate> ToRange()
     {
         var (y, m) = this;
         int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
@@ -241,7 +241,7 @@ public partial struct GregorianMonth // IDaySegment
     }
 
     [Pure]
-    Range<GregorianDate> IDaySegment<GregorianDate>.ToDayRange() => ToRange();
+    Segment<GregorianDate> IDaySegment<GregorianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.

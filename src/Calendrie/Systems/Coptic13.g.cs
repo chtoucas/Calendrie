@@ -1344,7 +1344,7 @@ public partial struct Coptic13Month // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<Coptic13Date> ToRange()
+    public Segment<Coptic13Date> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1354,7 +1354,7 @@ public partial struct Coptic13Month // IDaySegment
     }
 
     [Pure]
-    Range<Coptic13Date> IDaySegment<Coptic13Date>.ToDayRange() => ToRange();
+    Segment<Coptic13Date> IDaySegment<Coptic13Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1823,7 +1823,7 @@ public partial struct Coptic13Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<Coptic13Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<Coptic13Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1896,7 +1896,7 @@ public partial struct Coptic13Year // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<Coptic13Date> ToDayRange()
+    public Segment<Coptic13Date> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

@@ -674,7 +674,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<<#= Prefix #>Date> ToRange()
+    public Segment<<#= Prefix #>Date> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -684,7 +684,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 
     [Pure]
-    Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
+    Segment<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -784,7 +784,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<<#= Prefix #>Date> ToRange()
+    public Segment<<#= Prefix #>Date> ToRange()
     {
         var sch = Calendar.Schema;
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
@@ -794,7 +794,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
     }
 
     [Pure]
-    Range<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
+    Segment<<#= Prefix #>Date> IDaySegment<<#= Prefix #>Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.

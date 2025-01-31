@@ -43,7 +43,7 @@ public partial class CalCalDataSet // Day of the week
         InitDayNumberToDayOfWeekData();
 
     [Pure]
-    public static TheoryData<DayNumber, DayOfWeek> GetDayNumberToDayOfWeekData(Range<DayNumber> domain)
+    public static TheoryData<DayNumber, DayOfWeek> GetDayNumberToDayOfWeekData(Segment<DayNumber> domain)
     {
         var source = DaysSinceRataDieToDayOfWeek;
         var data = new TheoryData<DayNumber, DayOfWeek>();

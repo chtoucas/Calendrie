@@ -21,17 +21,17 @@ public partial class FauxCalendricalSchema : CalendricalSchema
     public FauxCalendricalSchema() : base(DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
 
     // Base constructor.
-    protected FauxCalendricalSchema(Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+    protected FauxCalendricalSchema(Segment<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth) { }
 
     // Constructors to be able to test the base constructors; see also WithMinDaysInXXX().
-    public FauxCalendricalSchema(Range<int> supportedYears)
+    public FauxCalendricalSchema(Segment<int> supportedYears)
         : base(supportedYears, DefaultMinDaysInYear, DefaultMinDaysInMonth) { }
     private FauxCalendricalSchema(int minDaysInYear, int minDaysInMonth)
         : base(Yemoda.SupportedYears, minDaysInYear, minDaysInMonth) { }
 
     // Constructors to test the properties.
-    public FauxCalendricalSchema(Range<int> supportedYears, Range<int> supportedYearsCore)
+    public FauxCalendricalSchema(Segment<int> supportedYears, Segment<int> supportedYearsCore)
         : this(supportedYears) { SupportedYearsCore = supportedYearsCore; }
 
     // Pre-defined instances.

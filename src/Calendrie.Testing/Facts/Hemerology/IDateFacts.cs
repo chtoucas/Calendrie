@@ -24,7 +24,7 @@ public partial class IDateFacts<TDate, TDataSet> :
         SupportedYearsTester = new SupportedYearsTester(supportedYears);
     }
 
-    protected Range<int> SupportedYears { get; }
+    protected Segment<int> SupportedYears { get; }
     protected SupportedYearsTester SupportedYearsTester { get; }
 
     protected sealed override TDate GetDate(int y, int m, int d) => TDate.Create(y, m, d);

@@ -1335,7 +1335,7 @@ public partial struct TabularIslamicMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<TabularIslamicDate> ToRange()
+    public Segment<TabularIslamicDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1345,7 +1345,7 @@ public partial struct TabularIslamicMonth // IDaySegment
     }
 
     [Pure]
-    Range<TabularIslamicDate> IDaySegment<TabularIslamicDate>.ToDayRange() => ToRange();
+    Segment<TabularIslamicDate> IDaySegment<TabularIslamicDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1814,7 +1814,7 @@ public partial struct TabularIslamicYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<TabularIslamicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<TabularIslamicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1887,7 +1887,7 @@ public partial struct TabularIslamicYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<TabularIslamicDate> ToDayRange()
+    public Segment<TabularIslamicDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

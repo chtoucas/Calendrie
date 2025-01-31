@@ -120,7 +120,7 @@ public partial interface ICalendricalSchema : ICalendricalCore
     /// </summary>
     /// <returns>The range from the first day of the first supported year to the
     /// last day of the last supported year.</returns>
-    Range<int> SupportedDays { get; }
+    Segment<int> SupportedDays { get; }
 
     /// <summary>
     /// Gets the range of supported months, that is the range of supported
@@ -129,12 +129,12 @@ public partial interface ICalendricalSchema : ICalendricalCore
     /// </summary>
     /// <returns>The range from the first month of the first supported year to
     /// the last month of the last supported year.</returns>
-    Range<int> SupportedMonths { get; }
+    Segment<int> SupportedMonths { get; }
 
     /// <summary>
     /// Gets the range of years for which the methods are known not to overflow.
     /// </summary>
-    Range<int> SupportedYears { get; }
+    Segment<int> SupportedYears { get; }
 
     /// <summary>
     /// Gets the pre-validator for this schema.

@@ -1325,7 +1325,7 @@ public partial struct MyCivilMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<MyCivilDate> ToRange()
+    public Segment<MyCivilDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1335,7 +1335,7 @@ public partial struct MyCivilMonth // IDaySegment
     }
 
     [Pure]
-    Range<MyCivilDate> IDaySegment<MyCivilDate>.ToDayRange() => ToRange();
+    Segment<MyCivilDate> IDaySegment<MyCivilDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1804,7 +1804,7 @@ public partial struct MyCivilYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<MyCivilMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<MyCivilMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1877,7 +1877,7 @@ public partial struct MyCivilYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<MyCivilDate> ToDayRange()
+    public Segment<MyCivilDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

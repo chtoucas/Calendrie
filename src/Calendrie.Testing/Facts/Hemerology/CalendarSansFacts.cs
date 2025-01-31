@@ -33,7 +33,7 @@ public abstract partial class CalendarSansFacts<TCalendar, TDataSet> :
 
     protected SupportedYearsTester SupportedYearsTester { get; }
 
-    protected Range<DayNumber> Domain { get; }
+    protected Segment<DayNumber> Domain { get; }
     protected DomainTester DomainTester { get; }
 
     [Fact] public abstract void IsRegular();

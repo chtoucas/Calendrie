@@ -46,7 +46,7 @@ public abstract partial class GJSchema : RegularSchema, IDaysInMonths
     /// <exception cref="ArgumentException"><paramref name="supportedYears"/>
     /// is not a subinterval of <see cref="CalendricalSchema.MaxSupportedYears"/>.
     /// </exception>
-    private protected GJSchema(Range<int> supportedYears) : base(supportedYears, DaysPerCommonYear, 28)
+    private protected GJSchema(Segment<int> supportedYears) : base(supportedYears, DaysPerCommonYear, 28)
     {
         Debug.Assert(supportedYears.IsSubsetOf(DefaultSupportedYears));
     }

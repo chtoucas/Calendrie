@@ -1344,7 +1344,7 @@ public partial struct WorldMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<WorldDate> ToRange()
+    public Segment<WorldDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1354,7 +1354,7 @@ public partial struct WorldMonth // IDaySegment
     }
 
     [Pure]
-    Range<WorldDate> IDaySegment<WorldDate>.ToDayRange() => ToRange();
+    Segment<WorldDate> IDaySegment<WorldDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1823,7 +1823,7 @@ public partial struct WorldYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<WorldMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<WorldMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1896,7 +1896,7 @@ public partial struct WorldYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<WorldDate> ToDayRange()
+    public Segment<WorldDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

@@ -38,7 +38,7 @@ public abstract partial class NonRegularSchemaPrototype : CalendricalSchema
     /// <paramref name="minDaysInYear"/> or <paramref name="minDaysInMonth"/> is
     /// a negative integer.</exception>
     protected NonRegularSchemaPrototype(
-        Range<int> supportedYears, int minMonthsInYear, int minDaysInYear, int minDaysInMonth)
+        Segment<int> supportedYears, int minMonthsInYear, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(minMonthsInYear, 0);

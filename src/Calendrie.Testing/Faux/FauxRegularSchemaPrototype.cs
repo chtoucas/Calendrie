@@ -13,7 +13,7 @@ public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
 
     private FauxRegularSchemaPrototype(
         ICalendricalCore kernel,
-        Range<int> supportedYears,
+        Segment<int> supportedYears,
         int monthsInYear,
         int minDaysInYear,
         int minDaysInMonth)
@@ -39,7 +39,7 @@ public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
         MonthsInYear = monthsInYear;
     }
 
-    public static RegularSchemaPrototype Create(ICalendricalSchema schema, Range<int> supportedYears)
+    public static RegularSchemaPrototype Create(ICalendricalSchema schema, Segment<int> supportedYears)
     {
         ArgumentNullException.ThrowIfNull(schema);
 

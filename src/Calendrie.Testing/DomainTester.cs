@@ -7,7 +7,7 @@ using Calendrie.Core.Intervals;
 
 public sealed class DomainTester
 {
-    public DomainTester(Range<DayNumber> domain)
+    public DomainTester(Segment<DayNumber> domain)
     {
         // Un peu naïf mais pour le moment on s'en contentera pour le moment.
         var (min, max) = domain.Endpoints;

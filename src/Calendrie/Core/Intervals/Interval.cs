@@ -20,7 +20,7 @@ public partial class Interval // Intersection
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static SegmentSet<T> Intersect<T>(Range<T> x, Range<T> y)
+    public static SegmentSet<T> Intersect<T>(Segment<T> x, Segment<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         // [a, b] ⋂ [m, n] = [max(a, m), min(b, n)]
@@ -56,7 +56,7 @@ public partial class Interval // Intersection
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static SegmentSet<T> Intersect<T>(Range<T> x, LowerRay<T> y)
+    public static SegmentSet<T> Intersect<T>(Segment<T> x, LowerRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return x.Min.CompareTo(y.Max) > 0 ? SegmentSet<T>.Empty
@@ -67,7 +67,7 @@ public partial class Interval // Intersection
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static SegmentSet<T> Intersect<T>(Range<T> x, UpperRay<T> y)
+    public static SegmentSet<T> Intersect<T>(Segment<T> x, UpperRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return y.Min.CompareTo(x.Max) > 0 ? SegmentSet<T>.Empty
@@ -119,7 +119,7 @@ public partial class Interval // Convex hull
     /// Obtains the smallest range containing the two specified intervals.
     /// </summary>
     [Pure]
-    public static Range<T> Span<T>(Range<T> x, Range<T> y)
+    public static Segment<T> Span<T>(Segment<T> x, Segment<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         // hull([a, b] ⋃ [m, n]) = [min(a, m), max(b, n)]
@@ -134,7 +134,7 @@ public partial class Interval // Convex hull
     /// Obtains the smallest range containing the two specified intervals.
     /// </summary>
     [Pure]
-    public static LowerRay<T> Span<T>(Range<T> x, LowerRay<T> y)
+    public static LowerRay<T> Span<T>(Segment<T> x, LowerRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return new(MathT.Max(x.Max, y.Max));
@@ -144,7 +144,7 @@ public partial class Interval // Convex hull
     /// Obtains the smallest range containing the two specified intervals.
     /// </summary>
     [Pure]
-    public static UpperRay<T> Span<T>(Range<T> x, UpperRay<T> y)
+    public static UpperRay<T> Span<T>(Segment<T> x, UpperRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return new(MathT.Min(x.Min, y.Min));
@@ -160,7 +160,7 @@ public partial class Interval // Disjoint
     /// Determines whether the two specified intervals are disjoint or not.
     /// </summary>
     [Pure]
-    public static bool Disjoint<T>(Range<T> x, Range<T> y)
+    public static bool Disjoint<T>(Segment<T> x, Segment<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         // [a, b] ⋂ [m, n] = {} iff a > n or m > b
@@ -173,7 +173,7 @@ public partial class Interval // Disjoint
     /// Determines whether the two specified intervals are disjoint or not.
     /// </summary>
     [Pure]
-    public static bool Disjoint<T>(Range<T> x, LowerRay<T> y)
+    public static bool Disjoint<T>(Segment<T> x, LowerRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return y.Max.CompareTo(x.Min) < 0;
@@ -183,7 +183,7 @@ public partial class Interval // Disjoint
     /// Determines whether the two specified intervals are disjoint or not.
     /// </summary>
     [Pure]
-    public static bool Disjoint<T>(Range<T> x, UpperRay<T> y)
+    public static bool Disjoint<T>(Segment<T> x, UpperRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return x.Max.CompareTo(y.Min) < 0;

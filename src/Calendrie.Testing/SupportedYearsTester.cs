@@ -7,7 +7,7 @@ using Calendrie.Core.Intervals;
 
 public sealed class SupportedYearsTester
 {
-    public SupportedYearsTester(Range<int> supportedYears)
+    public SupportedYearsTester(Segment<int> supportedYears)
     {
         // Un peu naïf mais pour le moment on s'en contentera pour le moment.
         var (min, max) = supportedYears.Endpoints;

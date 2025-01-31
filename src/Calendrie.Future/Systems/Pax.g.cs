@@ -1214,7 +1214,7 @@ public partial struct PaxMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<PaxDate> ToRange()
+    public Segment<PaxDate> ToRange()
     {
         var sch = Calendar.Schema;
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
@@ -1224,7 +1224,7 @@ public partial struct PaxMonth // IDaySegment
     }
 
     [Pure]
-    Range<PaxDate> IDaySegment<PaxDate>.ToDayRange() => ToRange();
+    Segment<PaxDate> IDaySegment<PaxDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1711,7 +1711,7 @@ public partial struct PaxYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<PaxMonth> ToMonthRange()
+    public Segment<PaxMonth> ToMonthRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
@@ -1790,7 +1790,7 @@ public partial struct PaxYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<PaxDate> ToDayRange()
+    public Segment<PaxDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

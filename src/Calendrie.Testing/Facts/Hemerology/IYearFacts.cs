@@ -28,7 +28,7 @@ public partial class IYearFacts<TYear, TMonth, TDate, TDataSet> :
     protected TYear MinYear => TYear.MinValue;
     protected TYear MaxYear => TYear.MaxValue;
 
-    protected Range<int> SupportedYears { get; }
+    protected Segment<int> SupportedYears { get; }
     protected SupportedYearsTester SupportedYearsTester { get; }
 
     /// <summary>

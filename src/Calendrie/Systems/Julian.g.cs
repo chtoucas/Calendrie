@@ -389,7 +389,7 @@ public partial struct JulianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<JulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<JulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]

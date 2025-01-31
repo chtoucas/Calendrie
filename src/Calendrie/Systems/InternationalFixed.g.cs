@@ -1344,7 +1344,7 @@ public partial struct InternationalFixedMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<InternationalFixedDate> ToRange()
+    public Segment<InternationalFixedDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1354,7 +1354,7 @@ public partial struct InternationalFixedMonth // IDaySegment
     }
 
     [Pure]
-    Range<InternationalFixedDate> IDaySegment<InternationalFixedDate>.ToDayRange() => ToRange();
+    Segment<InternationalFixedDate> IDaySegment<InternationalFixedDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1823,7 +1823,7 @@ public partial struct InternationalFixedYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<InternationalFixedMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<InternationalFixedMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1896,7 +1896,7 @@ public partial struct InternationalFixedYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<InternationalFixedDate> ToDayRange()
+    public Segment<InternationalFixedDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

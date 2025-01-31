@@ -1,14 +1,13 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-module Calendrie.Tests.Core.Intervals.RangeTests
+module Calendrie.Tests.Core.Intervals.SegmentTests
 
 open System
 open System.Linq
 
 open Calendrie
 open Calendrie.Core.Intervals
-open Calendrie.Core.Utilities
 open Calendrie.Testing
 
 open Xunit
@@ -18,9 +17,9 @@ open FsCheck.Xunit
 module Prelude =
     [<Fact>]
     let ``Default value`` () =
-        let v = new Range<int>(0, 0)
+        let v = new Segment<int>(0, 0)
 
-        Unchecked.defaultof<Range<int>> === v
+        Unchecked.defaultof<Segment<int>> === v
 
     [<Fact>]
     let ``Static property Range:Maximal32`` () =
@@ -43,7 +42,7 @@ module Prelude =
         segment.UpperEnd === Int32.MaxValue
 
         // Constructor
-        let other = new Range<int>(Int32.MinValue, Int32.MaxValue)
+        let other = new Segment<int>(Int32.MinValue, Int32.MaxValue)
         v === other
 
 module Factories =
@@ -72,7 +71,7 @@ module Factories =
         segment.UpperEnd === x.Max
 
         // Constructor
-        let other = new Range<int>(x.Min, x.Max)
+        let other = new Segment<int>(x.Min, x.Max)
         v === other
 
     [<Property>]
@@ -96,7 +95,7 @@ module Factories =
         segment.UpperEnd === i
 
         // Constructor
-        let other = new Range<int>(i, i)
+        let other = new Segment<int>(i, i)
         v === other
 
     [<Property>]
@@ -120,7 +119,7 @@ module Factories =
         segment.UpperEnd === i
 
         // Constructor
-        let other = new Range<int>(i, i)
+        let other = new Segment<int>(i, i)
         v === other
 
     [<Property>]
@@ -145,7 +144,7 @@ module Factories =
         segment.UpperEnd === Int16.MaxValue
 
         // Constructor
-        let other = new Range<int16>(Int16.MinValue, Int16.MaxValue)
+        let other = new Segment<int16>(Int16.MinValue, Int16.MaxValue)
         v === other
 
     [<Property>]
@@ -169,7 +168,7 @@ module Factories =
         segment.UpperEnd === Int32.MaxValue
 
         // Constructor
-        let other = new Range<int>(i, Int32.MaxValue)
+        let other = new Segment<int>(i, Int32.MaxValue)
         v === other
 
     [<Property>]
@@ -195,7 +194,7 @@ module Factories =
         segment.UpperEnd === j
 
         // Constructor
-        let other = new Range<int>(i, j)
+        let other = new Segment<int>(i, j)
         v === other
 
     [<Property>]
@@ -219,7 +218,7 @@ module Factories =
         segment.UpperEnd === i
 
         // Constructor
-        let other = new Range<int>(Int32.MinValue, i)
+        let other = new Segment<int>(Int32.MinValue, i)
         v === other
 
     [<Property>]
@@ -245,7 +244,7 @@ module Factories =
         segment.UpperEnd === i
 
         // Constructor
-        let other = new Range<int>(j, i)
+        let other = new Segment<int>(j, i)
         v === other
 
     [<Property>]
@@ -273,7 +272,7 @@ module Factories =
         segment.UpperEnd === x.UpperValue
 
         // Constructor
-        let other = new Range<int>(x.LowerValue, x.UpperValue)
+        let other = new Segment<int>(x.LowerValue, x.UpperValue)
         v === other
 
 module Adjustments =
@@ -330,7 +329,7 @@ module SetOperations =
         v.Contains(i)
 
     [<Property>]
-    let ``Contains()`` (x: Range<int>) = x <> Range.Maximal32 &&&& (
+    let ``Contains()`` (x: Segment<int>) = x <> Range.Maximal32 &&&& (
         x.Contains(Int32.MinValue)  |> nok
         x.Contains(x.Min - 1)       |> nok
         x.Contains(x.Min)           |> ok
@@ -419,7 +418,7 @@ module SetOperations =
         v.IsProperSupersetOf(w2) |> nok
 
     [<Property>]
-    let ``Set inclusion of a range with itself`` (x: Range<int>) =
+    let ``Set inclusion of a range with itself`` (x: Segment<int>) =
         x.IsSubsetOf(x)         |> ok
         x.IsSupersetOf(x)       |> ok
         x.IsProperSubsetOf(x)   |> nok
@@ -517,28 +516,28 @@ module SetOperations =
     //
 
     [<Property>]
-    let ``SetEquals() when both ranges are identical`` (x: Range<int>) =
+    let ``SetEquals() when both ranges are identical`` (x: Segment<int>) =
         x.SetEquals(x)
 
     [<Property>]
-    let ``SetEquals() when both ranges are distinct`` (x: Range<int>) (y: Range<int>) = x <> y &&&& (
+    let ``SetEquals() when both ranges are distinct`` (x: Segment<int>) (y: Segment<int>) = x <> y &&&& (
         not (x.SetEquals(y))
     )
 
 module Extensions =
     //
-    // Range<int>
+    // Segment<int>
     //
 
     [<Fact>]
-    let ``Range<int>:Count() and LongCount()`` () =
+    let ``Segment<int>:Count() and LongCount()`` () =
         let v = Range.Create(1, 4)
 
         v.Count() === 4
         v.LongCount() === 4L
 
     [<Fact>]
-    let ``Range<int>:Count() and LongCount() for a singleton`` () =
+    let ``Segment<int>:Count() and LongCount() for a singleton`` () =
         let v = Range.Singleton(1)
 
         v.Count() === 1
@@ -565,32 +564,32 @@ module Extensions =
         v.ToEnumerable()
 
     [<Fact>]
-    let ``Range<int>:ToEnumerable() singleton case`` () =
+    let ``Segment<int>:ToEnumerable() singleton case`` () =
         let v = Range.Singleton(4)
         let q = Enumerable.Range(4, 1)
 
         v.ToEnumerable() === q
 
     [<Fact>]
-    let ``Range<int>:ToEnumerable()`` () =
+    let ``Segment<int>:ToEnumerable()`` () =
         let v = Range.Create(1, 4)
         let q = Enumerable.Range(1, 4)
 
         v.ToEnumerable() === q
 
     //
-    // Range<DayNumber>
+    // Segment<DayNumber>
     //
 
     [<Fact>]
-    let ``Range<DayNumber>:Count() and LongCount()`` () =
+    let ``Segment<DayNumber>:Count() and LongCount()`` () =
         let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
 
         v.Count() === 4
         v.LongCount() === 4L
 
     [<Fact>]
-    let ``Range<DayNumber>:Count() and LongCount() for a singleton`` () =
+    let ``Segment<DayNumber>:Count() and LongCount() for a singleton`` () =
         let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle)
 
         v.Count() === 1
@@ -610,14 +609,14 @@ module Extensions =
         v.LongCount() === count
 
     [<Fact>]
-    let ``Range<DayNumber>:ToEnumerable() singleton case`` () =
+    let ``Segment<DayNumber>:ToEnumerable() singleton case`` () =
         let v = Range.Singleton(DayZero.OldStyle)
         let q = seq { yield DayZero.OldStyle }
 
         v.ToEnumerable() === q
 
     [<Fact>]
-    let ``Range<DayNumber>:ToEnumerable()`` () =
+    let ``Segment<DayNumber>:ToEnumerable()`` () =
         let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
         let q = seq {
             yield DayZero.OldStyle
@@ -635,13 +634,13 @@ module Equality =
     let private xyArbitrary = Arb.fromGen <| gen {
         let! range =
             Gen.elements [ (0, 1); (1, 2); (2, 3) ]
-            |> Gen.map (fun (i, j) -> new Range<int>(i, j))
-        return new Range<int>(1, 1), range
+            |> Gen.map (fun (i, j) -> new Segment<int>(i, j))
+        return new Segment<int>(1, 1), range
     }
 
     // fsharplint:disable Hints
     [<Property>]
-    let ``Equality when both operands are identical`` (x: Range<int>) =
+    let ``Equality when both operands are identical`` (x: Segment<int>) =
         x = x
         .&. not (x <> x)
         .&. x.Equals(x)
@@ -661,10 +660,10 @@ module Equality =
     // fsharplint:enable
 
     [<Property>]
-    let ``Equals(obj) returns false when "obj" is null or is a plain object`` (x: Range<int>) =
+    let ``Equals(obj) returns false when "obj" is null or is a plain object`` (x: Segment<int>) =
         not (x.Equals(null))
         .&. not (x.Equals(new obj()))
 
     [<Property>]
-    let ``GetHashCode() is invariant`` (x: Range<int>) =
+    let ``GetHashCode() is invariant`` (x: Segment<int>) =
         x.GetHashCode() = x.GetHashCode()

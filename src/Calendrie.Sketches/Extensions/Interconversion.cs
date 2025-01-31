@@ -9,7 +9,7 @@ using Calendrie.Systems;
 
 // TODO(code): specialized versions for years and months.
 // Interconversion of a range. ToEnumerable()
-// Range<Year>.Count(), ToEnumerable(), GetCalendar().
+// Segment<Year>.Count(), ToEnumerable(), GetCalendar().
 
 public static class Interconversion
 {
@@ -43,21 +43,21 @@ public static class Interconversion
     }
 
     [Pure]
-    public static Range<TDate> ConvertTo<TDate>(this Range<CivilDate> range)
+    public static Segment<TDate> ConvertTo<TDate>(this Segment<CivilDate> range)
         where TDate : struct, IAbsoluteDate<TDate>
     {
         return Interconvert<CivilDate, TDate>(range);
     }
 
     [Pure]
-    public static Range<TDate> ConvertTo<TDate>(this CivilMonth month)
+    public static Segment<TDate> ConvertTo<TDate>(this CivilMonth month)
         where TDate : struct, IAbsoluteDate<TDate>
     {
         return Interconvert<CivilDate, TDate>(month);
     }
 
     [Pure]
-    public static Range<TDate> ConvertTo<TDate>(this CivilYear year)
+    public static Segment<TDate> ConvertTo<TDate>(this CivilYear year)
         where TDate : struct, IAbsoluteDate<TDate>
     {
         return Interconvert<CivilDate, TDate>(year);
@@ -68,7 +68,7 @@ public static class Interconversion
     //
 
     [Pure]
-    private static Range<TOut> Interconvert<TIn, TOut>(this Range<TIn> @this)
+    private static Segment<TOut> Interconvert<TIn, TOut>(this Segment<TIn> @this)
         where TIn : struct, IAbsoluteDate<TIn>
         where TOut : struct, IAbsoluteDate<TOut>
     {
@@ -80,7 +80,7 @@ public static class Interconversion
     }
 
     [Pure]
-    private static Range<TOut> Interconvert<TIn, TOut>(this IDaySegment<TIn> @this)
+    private static Segment<TOut> Interconvert<TIn, TOut>(this IDaySegment<TIn> @this)
         where TIn : struct, IAbsoluteDate<TIn>
         where TOut : struct, IAbsoluteDate<TOut>
     {

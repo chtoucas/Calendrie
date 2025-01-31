@@ -60,7 +60,7 @@ public sealed class CalendricalSegment
     /// </summary>
     /// <returns>The range from the first day of the first supported year to the
     /// last day of the last supported year.</returns>
-    public Range<int> SupportedDays { get; }
+    public Segment<int> SupportedDays { get; }
 
     /// <summary>
     /// Gets the range of supported months, that is the range of supported
@@ -68,12 +68,12 @@ public sealed class CalendricalSegment
     /// </summary>
     /// <returns>The range from the first month of the first supported year to
     /// the last month of the last supported year.</returns>
-    public Range<int> SupportedMonths { get; }
+    public Segment<int> SupportedMonths { get; }
 
     /// <summary>
     /// Gets the range of supported (algebraic) years.
     /// </summary>
-    public Range<int> SupportedYears { get; }
+    public Segment<int> SupportedYears { get; }
 
     /// <summary>
     /// Gets the pair of earliest and latest supported date parts.
@@ -118,7 +118,7 @@ public sealed class CalendricalSegment
     /// NOT a subinterval of the range of supported years by
     /// <typeparamref name="TSchema"/>.</exception>
     [Pure]
-    public static CalendricalSegment Create<TSchema>(Range<int> supportedYears)
+    public static CalendricalSegment Create<TSchema>(Segment<int> supportedYears)
         where TSchema : ICalendricalSchema, ISchemaActivator<TSchema>
     {
         return Create(TSchema.CreateInstance(), supportedYears);
@@ -134,7 +134,7 @@ public sealed class CalendricalSegment
     /// NOT a subinterval of the range of supported years by <paramref name="schema"/>.
     /// </exception>
     [Pure]
-    public static CalendricalSegment Create(ICalendricalSchema schema, Range<int> supportedYears)
+    public static CalendricalSegment Create(ICalendricalSchema schema, Segment<int> supportedYears)
     {
         var builder = new CalendricalSegmentBuilder(schema);
         builder.SetSupportedYears(supportedYears);

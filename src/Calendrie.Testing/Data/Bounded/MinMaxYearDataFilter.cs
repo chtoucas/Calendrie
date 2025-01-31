@@ -8,12 +8,12 @@ using Calendrie.Core.Intervals;
 
 public sealed class MinMaxYearDataFilter : IDataFilter
 {
-    public MinMaxYearDataFilter(Range<int> supportedYears)
+    public MinMaxYearDataFilter(Segment<int> supportedYears)
     {
         SupportedYears = supportedYears;
     }
 
-    public Range<int> SupportedYears { get; }
+    public Segment<int> SupportedYears { get; }
 
     public bool Filter(Yemoda x) => SupportedYears.Contains(x.Year);
     public bool Filter(Yemo x) => SupportedYears.Contains(x.Year);

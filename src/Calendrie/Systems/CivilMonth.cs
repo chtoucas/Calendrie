@@ -205,7 +205,7 @@ public partial struct CivilMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<CivilDate> ToRange()
+    public Segment<CivilDate> ToRange()
     {
         var (y, m) = this;
         int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
@@ -213,7 +213,7 @@ public partial struct CivilMonth // IDaySegment
     }
 
     [Pure]
-    Range<CivilDate> IDaySegment<CivilDate>.ToDayRange() => ToRange();
+    Segment<CivilDate> IDaySegment<CivilDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.

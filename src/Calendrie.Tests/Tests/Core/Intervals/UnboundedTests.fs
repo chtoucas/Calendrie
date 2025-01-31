@@ -89,7 +89,7 @@ module SetOperations =
         x.IsProperSupersetOf(y) |> ok
 
     [<Property>]
-    let ``Set inclusion with a range`` (y: Range<int>) =
+    let ``Set inclusion with a range`` (y: Segment<int>) =
         let x = Unbounded<int>.Instance
 
         x.IsSubsetOf(y)         |> nok
@@ -126,7 +126,7 @@ module SetOperations =
         not (x.SetEquals(y))
 
     [<Property>]
-    let ``SetEquals() with a range`` (y: Range<int>) =
+    let ``SetEquals() with a range`` (y: Segment<int>) =
         let x = Unbounded<int>.Instance
 
         not (x.SetEquals(y))

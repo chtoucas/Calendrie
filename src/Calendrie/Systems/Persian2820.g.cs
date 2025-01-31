@@ -1335,7 +1335,7 @@ public partial struct Persian2820Month // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<Persian2820Date> ToRange()
+    public Segment<Persian2820Date> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1345,7 +1345,7 @@ public partial struct Persian2820Month // IDaySegment
     }
 
     [Pure]
-    Range<Persian2820Date> IDaySegment<Persian2820Date>.ToDayRange() => ToRange();
+    Segment<Persian2820Date> IDaySegment<Persian2820Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1814,7 +1814,7 @@ public partial struct Persian2820Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<Persian2820Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<Persian2820Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1887,7 +1887,7 @@ public partial struct Persian2820Year // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<Persian2820Date> ToDayRange()
+    public Segment<Persian2820Date> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

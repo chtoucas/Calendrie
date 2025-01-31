@@ -153,7 +153,7 @@ public partial class CivilHelpers
     /// <exception cref="ArgumentOutOfRangeException"/>
     public static CivilDate FromJulianDate(this JulianDate date) => CivilDate.FromAbsoluteDate(date);
 
-    public static Range<JulianDate> ToJulianRange(this Range<CivilDate> range)
+    public static Segment<JulianDate> ToJulianRange(this Segment<CivilDate> range)
     {
         var (min, max) = range.Endpoints;
         return CalendrieRange.Create(min.ToJulianDate(), max.ToJulianDate());
@@ -171,7 +171,7 @@ public partial class CivilHelpers
         return TDate.FromDayNumber(date.DayNumber);
     }
 
-    public static Range<TDate> ToAbsoluteDateRange<TDate>(this Range<CivilDate> range)
+    public static Segment<TDate> ToAbsoluteDateRange<TDate>(this Segment<CivilDate> range)
         where TDate : struct, IAbsoluteDate<TDate>
     {
         var (min, max) = range.Endpoints;
@@ -189,7 +189,7 @@ public partial class CivilHelpers
     /// Converts the specified month to a range of <see cref="JulianDate"/>
     /// values (first version).
     /// </summary>
-    public static Range<JulianDate> ToJulianRange(this CivilMonth month)
+    public static Segment<JulianDate> ToJulianRange(this CivilMonth month)
     {
         var (startOfMonth, endOfMonth) = month.ToRange().Endpoints;
         return CalendrieRange.Create(startOfMonth.ToJulianDate(), endOfMonth.ToJulianDate());
@@ -199,14 +199,14 @@ public partial class CivilHelpers
     /// Converts the specified month to a range of <see cref="JulianDate"/>
     /// values (second version).
     /// </summary>
-    public static Range<JulianDate> ToJulianRange2(this CivilMonth month) =>
+    public static Segment<JulianDate> ToJulianRange2(this CivilMonth month) =>
         CalendrieRange.FromEndpoints(from x in month.ToRange().Endpoints select x.ToJulianDate());
 
     /// <summary>
     /// Converts the specified month to a range of <see cref="JulianDate"/>
     /// values (third version).
     /// </summary>
-    public static Range<JulianDate> ToJulianRange3(this CivilMonth month) =>
+    public static Segment<JulianDate> ToJulianRange3(this CivilMonth month) =>
         CalendrieRange.Create(month.MinDay.ToJulianDate(), month.MaxDay.ToJulianDate());
 
     /// <summary>
@@ -229,7 +229,7 @@ public partial class CivilHelpers
     /// <summary>
     /// Converts the specified year to a range of <see cref="JulianDate"/> values.
     /// </summary>
-    public static Range<JulianDate> ToJulianDayRange(this CivilYear year)
+    public static Segment<JulianDate> ToJulianDayRange(this CivilYear year)
     {
         var (startOfYear, endOfYear) = year.ToDayRange().Endpoints;
         return CalendrieRange.Create(startOfYear.ToJulianDate(), endOfYear.ToJulianDate());

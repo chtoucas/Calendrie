@@ -67,7 +67,7 @@ module Factories =
     [<Property>]
     let ``SegmentSet:FromEndpoints()`` (x: OrderedPair<int>) =
         let v = SegmentSet.FromEndpoints(x)
-        let range = new Range<int>(x.LowerValue, x.UpperValue)
+        let range = new Segment<int>(x.LowerValue, x.UpperValue)
 
         let isSingleton = x.LowerValue = x.UpperValue
 
@@ -86,7 +86,7 @@ module Factories =
 module Equality =
     open NonStructuralComparison
 
-    /// Arbitrary for (x, y) where x and y are Range<int> instances such that x <> y.
+    /// Arbitrary for (x, y) where x and y are Segment<int> instances such that x <> y.
     let private xyArbitrary = Arb.fromGen <| gen {
         let! range =
             Gen.elements [ (0, 1); (1, 2); (2, 3) ]

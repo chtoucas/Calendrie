@@ -1270,7 +1270,7 @@ public partial struct ZoroastrianMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Range<ZoroastrianDate> ToRange()
+    public Segment<ZoroastrianDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1280,7 +1280,7 @@ public partial struct ZoroastrianMonth // IDaySegment
     }
 
     [Pure]
-    Range<ZoroastrianDate> IDaySegment<ZoroastrianDate>.ToDayRange() => ToRange();
+    Segment<ZoroastrianDate> IDaySegment<ZoroastrianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
@@ -1748,7 +1748,7 @@ public partial struct ZoroastrianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<ZoroastrianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<ZoroastrianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1825,7 +1825,7 @@ public partial struct ZoroastrianYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Range<ZoroastrianDate> ToDayRange()
+    public Segment<ZoroastrianDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);

@@ -13,7 +13,7 @@ open FsCheck.Xunit
 
 // We also test IntervalExtra and Lavretni.
 
-let private maprange (range: Range<int>) =
+let private maprange (range: Segment<int>) =
     let endpoints = range.Endpoints.Select(fun i -> DayNumber.Zero + i)
     Range.FromEndpoints(endpoints)
 let private maprangeset (set: SegmentSet<int>) =

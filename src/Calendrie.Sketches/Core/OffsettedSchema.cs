@@ -99,20 +99,20 @@ public partial class OffsettedSchema<TSchema> // ICalendricalSchema
     /// <inheritdoc />
     public int MinDaysInMonth => Schema.MinDaysInMonth;
 
-    private Range<int>? _supportedDays;
+    private Segment<int>? _supportedDays;
     /// <inheritdoc />
-    public Range<int> SupportedDays =>
-        _supportedDays ??= new Range<int>(
+    public Segment<int> SupportedDays =>
+        _supportedDays ??= new Segment<int>(
             SupportedYears.Endpoints.Select(GetStartOfYear, GetEndOfYear));
 
-    private Range<int>? _supportedMonths;
+    private Segment<int>? _supportedMonths;
     /// <inheritdoc />
-    public Range<int> SupportedMonths =>
-        _supportedMonths ??= new Range<int>(
+    public Segment<int> SupportedMonths =>
+        _supportedMonths ??= new Segment<int>(
             SupportedYears.Endpoints.Select(GetStartOfYearInMonths, GetEndOfYearInMonths));
 
     /// <inheritdoc />
-    public Range<int> SupportedYears => Schema.SupportedYears;
+    public Segment<int> SupportedYears => Schema.SupportedYears;
 
     /// <inheritdoc />
     public ICalendricalPreValidator PreValidator => Schema.PreValidator;

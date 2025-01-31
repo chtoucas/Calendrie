@@ -32,7 +32,7 @@ public abstract partial class RegularSchemaPrototype : RegularSchema
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInYear"/>
     /// or <paramref name="minDaysInMonth"/> is a negative integer.</exception>
     protected RegularSchemaPrototype(
-        Range<int> supportedYears, int minDaysInYear, int minDaysInMonth)
+        Segment<int> supportedYears, int minDaysInYear, int minDaysInMonth)
         : base(supportedYears, minDaysInYear, minDaysInMonth)
     {
         IsProleptic = supportedYears.Min < 1;

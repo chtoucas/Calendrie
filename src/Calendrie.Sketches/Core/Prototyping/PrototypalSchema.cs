@@ -92,7 +92,7 @@ public partial class PrototypalSchema : ICalendricalCore, ICalendricalSchema
 #pragma warning restore IDE1006
 #pragma warning restore CA1051
 
-    private Range<int> _supportedYears;
+    private Segment<int> _supportedYears;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PrototypalSchema"/> class.
@@ -207,19 +207,19 @@ public partial class PrototypalSchema // ICalendricalCore
 
 public partial class PrototypalSchema // ICalendricalSchema (1)
 {
-    private Range<int>? _supportedDays;
+    private Segment<int>? _supportedDays;
     /// <inheritdoc />
-    public Range<int> SupportedDays =>
-        _supportedDays ??= new Range<int>(
+    public Segment<int> SupportedDays =>
+        _supportedDays ??= new Segment<int>(
             SupportedYears.Endpoints.Select(
                 GetStartOfYear,
                 _proxy.GetEndOfYear));
 
-    private Range<int>? _supportedMonths;
+    private Segment<int>? _supportedMonths;
     /// <inheritdoc />
-    public Range<int> SupportedMonths =>
+    public Segment<int> SupportedMonths =>
         _supportedMonths ??=
-        new Range<int>(
+        new Segment<int>(
             SupportedYears.Endpoints.Select(
                 GetStartOfYearInMonths,
                 _proxy.GetEndOfYearInMonths));
@@ -231,7 +231,7 @@ public partial class PrototypalSchema // ICalendricalSchema (1)
     // "y" or "daysSinceEpoch" are big.
     // Only override this property if both methods can handle big values
     // efficiently.
-    public Range<int> SupportedYears
+    public Segment<int> SupportedYears
     {
         get => _supportedYears;
         init

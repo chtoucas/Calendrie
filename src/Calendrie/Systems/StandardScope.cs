@@ -38,7 +38,7 @@ internal sealed class StandardScope : CalendarScope
     /// <summary>
     /// Represents the range of supported years.
     /// </summary>
-    public static readonly Range<int> SupportedYears = Range.Create(MinYear, MaxYear);
+    public static readonly Segment<int> SupportedYears = Range.Create(MinYear, MaxYear);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StandardScope"/> class.

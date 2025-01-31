@@ -8,7 +8,7 @@ using Calendrie.Core.Intervals;
 public static class RangeExtensions
 {
     [Pure]
-    public static Range<TItem> Flatten<T, TItem>(this Range<T> @this)
+    public static Segment<TItem> Flatten<T, TItem>(this Segment<T> @this)
         where T : struct, IEquatable<T>, IComparable<T>, ISegment<TItem>
         where TItem : struct, IEquatable<TItem>, IComparable<TItem>
     {
@@ -17,7 +17,7 @@ public static class RangeExtensions
     }
 
     [Pure]
-    public static bool IsSupersetOf<T, TRange>(this Range<T> @this, TRange range)
+    public static bool IsSupersetOf<T, TRange>(this Segment<T> @this, TRange range)
         where T : struct, IEquatable<T>, IComparable<T>
         where TRange : ISegment<T>
     {

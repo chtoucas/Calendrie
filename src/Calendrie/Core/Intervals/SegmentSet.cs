@@ -5,7 +5,7 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-// REVIEW(code): add factory Create(Range<T>), Singleton()?
+// REVIEW(code): add factory Create(Segment<T>), Singleton()?
 
 // SegmentSet<T> is the return type for Intersect() and Gap().
 //
@@ -79,7 +79,7 @@ public static class SegmentSet
 /// Represents a (possibly empty) closed bounded interval.
 /// <para>An instance may be empty or reduced to a single value.</para>
 /// <para><i>Unless you need to take the intersection of two ranges, you most
-/// certainly should use <see cref="Range{T}"/> instead.</i></para>
+/// certainly should use <see cref="Segment{T}"/> instead.</i></para>
 /// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.
 /// </para>
 /// <para><see cref="SegmentSet{T}"/> is an immutable struct.</para>
@@ -139,10 +139,10 @@ public readonly partial struct SegmentSet<T> :
     public bool IsEmpty => !_isInhabited;
 
     /// <summary>
-    /// Returns a <see cref="Range{T}"/> view of this range.
+    /// Returns a <see cref="Segment{T}"/> view of this range.
     /// </summary>
     /// <exception cref="InvalidOperationException">The set is empty.</exception>
-    public Range<T> Range => _isInhabited ? new Range<T>(_endpoints)
+    public Segment<T> Range => _isInhabited ? new Segment<T>(_endpoints)
         : throw new InvalidOperationException("The set was empty.");
 
     /// <summary>
