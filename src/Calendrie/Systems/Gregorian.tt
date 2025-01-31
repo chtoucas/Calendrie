@@ -47,7 +47,6 @@ using Calendrie.Horology;
     // Month type
     protected sealed override void EmitMonthDecl() { }
     protected sealed override void EmitMonthPreambleRegular() { }
-    protected sealed override void EmitMonthConversions() { }
     protected sealed override void EmitMonthDaySegmentRegular() { }
     protected sealed override void EmitMonthMath() { }
 
