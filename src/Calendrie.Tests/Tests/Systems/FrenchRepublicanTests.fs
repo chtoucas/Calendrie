@@ -17,55 +17,121 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Prelude =
+    let private calendarDataSet = StandardFrenchRepublican12DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of FrenchRepublicanCalendar.Epoch.DaysZinceZero`` () =
         FrenchRepublicanCalendar.Instance.Epoch.DaysSinceZero === 654_414
-    [<Fact>]
-    let ``Value of FrenchRepublican13Calendar.Epoch.DaysZinceZero`` () =
-        FrenchRepublican13Calendar.Instance.Epoch.DaysSinceZero === 654_414
 
     [<Fact>]
     let ``default(FrenchRepublicanDate) is FrenchRepublicanCalendar.Epoch`` () =
         Unchecked.defaultof<FrenchRepublicanDate>.DayNumber === FrenchRepublicanCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
+    let ``Value of FrenchRepublicanCalendar.MinDaysSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of FrenchRepublicanCalendar.MaxDaysSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MaxDaysSinceEpoch === 3_652_056
+
+    [<Fact>]
+    let ``Value of FrenchRepublicanCalendar.MinMonthsSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of FrenchRepublicanCalendar.MaxMonthsSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+#endif
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublicanMonth(FrenchRepublicanDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublicanDate(y, m, d)
+        let exp = new FrenchRepublicanMonth(y, m)
+        // Act & Assert
+        new FrenchRepublicanMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublicanYear(FrenchRepublicanDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublicanDate(y, m, d)
+        let exp = new FrenchRepublicanYear(y)
+        // Act & Assert
+        new FrenchRepublicanYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``FrenchRepublicanYear(FrenchRepublicanMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new FrenchRepublicanMonth(y, m)
+        let exp = new FrenchRepublicanYear(y)
+        // Act & Assert
+        new FrenchRepublicanYear(month) === exp
+
+module Prelude13 =
+    let private calendarDataSet = StandardFrenchRepublican13DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
+    [<Fact>]
+    let ``Value of FrenchRepublican13Calendar.Epoch.DaysZinceZero`` () =
+        FrenchRepublican13Calendar.Instance.Epoch.DaysSinceZero === 654_414
+
     [<Fact>]
     let ``default(FrenchRepublican13Date) is FrenchRepublican13Calendar.Epoch`` () =
         Unchecked.defaultof<FrenchRepublican13Date>.DayNumber === FrenchRepublican13Calendar.Instance.Epoch
 
 #if DEBUG
     [<Fact>]
-    let ``Value of FrenchRepublicanCalendar.MinDaysSinceEpoch`` () =
-        FrenchRepublicanCalendar.Instance.MinDaysSinceEpoch === 0
-    [<Fact>]
     let ``Value of FrenchRepublican13Calendar.MinDaysSinceEpoch`` () =
         FrenchRepublican13Calendar.Instance.MinDaysSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of FrenchRepublicanCalendar.MaxDaysSinceEpoch`` () =
-        FrenchRepublicanCalendar.Instance.MaxDaysSinceEpoch === 3_652_056
     [<Fact>]
     let ``Value of FrenchRepublican13Calendar.MaxDaysSinceEpoch`` () =
         FrenchRepublican13Calendar.Instance.MaxDaysSinceEpoch === 3_652_056
 
     [<Fact>]
-    let ``Value of FrenchRepublicanCalendar.MinMonthsSinceEpoch`` () =
-        FrenchRepublicanCalendar.Instance.MinMonthsSinceEpoch === 0
-    [<Fact>]
     let ``Value of FrenchRepublican13Calendar.MinMonthsSinceEpoch`` () =
         FrenchRepublican13Calendar.Instance.MinMonthsSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of FrenchRepublicanCalendar.MaxMonthsSinceEpoch`` () =
-        FrenchRepublicanCalendar.Instance.MaxMonthsSinceEpoch === 119_987
     [<Fact>]
     let ``Value of FrenchRepublican13Calendar.MaxMonthsSinceEpoch`` () =
         FrenchRepublican13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublican13Month(FrenchRepublican13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublican13Date(y, m, d)
+        let exp = new FrenchRepublican13Month(y, m)
+        // Act & Assert
+        new FrenchRepublican13Month(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``FrenchRepublican13Year(FrenchRepublican13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new FrenchRepublican13Date(y, m, d)
+        let exp = new FrenchRepublican13Year(y)
+        // Act & Assert
+        new FrenchRepublican13Year(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``FrenchRepublican13Year(FrenchRepublican13Month)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new FrenchRepublican13Month(y, m)
+        let exp = new FrenchRepublican13Year(y)
+        // Act & Assert
+        new FrenchRepublican13Year(month) === exp
+
 module Conversions =
     let private calendarDataSet = StandardFrenchRepublican12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = FrenchRepublicanDate -> GregorianDate
@@ -73,34 +139,6 @@ module Conversions =
 
     type JulianDateCaster = FrenchRepublicanDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = FrenchRepublicanDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FrenchRepublicanMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new FrenchRepublicanDate(y, m, d)
-        let exp = new FrenchRepublicanMonth(y, m)
-        // Act & Assert
-        FrenchRepublicanMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FrenchRepublicanYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new FrenchRepublicanDate(y, m, d)
-        let exp = new FrenchRepublicanYear(y)
-        // Act & Assert
-        FrenchRepublicanYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``FrenchRepublicanYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new FrenchRepublicanMonth(y, m)
-        let exp = new FrenchRepublicanYear(y)
-        // Act & Assert
-        FrenchRepublicanYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -205,7 +243,6 @@ module Conversions13 =
     let private calendarDataSet = StandardFrenchRepublican13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = FrenchRepublican13Date -> GregorianDate
@@ -213,34 +250,6 @@ module Conversions13 =
 
     type JulianDateCaster = FrenchRepublican13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = FrenchRepublican13Date.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FrenchRepublican13Month:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
-        let exp = new FrenchRepublican13Month(y, m)
-        // Act & Assert
-        FrenchRepublican13Month.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FrenchRepublican13Year:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
-        let exp = new FrenchRepublican13Year(y)
-        // Act & Assert
-        FrenchRepublican13Year.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``FrenchRepublican13Year:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new FrenchRepublican13Month(y, m)
-        let exp = new FrenchRepublican13Year(y)
-        // Act & Assert
-        FrenchRepublican13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

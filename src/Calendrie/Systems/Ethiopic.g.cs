@@ -1244,13 +1244,6 @@ public partial struct EthiopicMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new EthiopicMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="EthiopicMonth"/> struct
-    /// from the specified <see cref="EthiopicDate"/> value.
-    /// </summary>
-    [Pure]
-    public static EthiopicMonth FromDate(EthiopicDate date) => new(date);
 }
 
 public partial struct EthiopicMonth // Counting
@@ -1813,23 +1806,6 @@ public partial struct EthiopicYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static EthiopicYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct EthiopicYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="EthiopicYear"/> struct
-    /// from the specified <see cref="EthiopicMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static EthiopicYear FromMonth(EthiopicMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="EthiopicYear"/> struct
-    /// from the specified <see cref="EthiopicDate"/> value.
-    /// </summary>
-    [Pure]
-    public static EthiopicYear FromDate(EthiopicDate date) => new(date);
 }
 
 public partial struct EthiopicYear // IMonthSegment

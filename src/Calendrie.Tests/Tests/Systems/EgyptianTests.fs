@@ -16,55 +16,121 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Prelude =
+    let private calendarDataSet = StandardEgyptian12DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of EgyptianCalendar.Epoch.DaysZinceZero`` () =
         EgyptianCalendar.Instance.Epoch.DaysSinceZero === -272_788
-    [<Fact>]
-    let ``Value of Egyptian13Calendar.Epoch.DaysZinceZero`` () =
-        Egyptian13Calendar.Instance.Epoch.DaysSinceZero === -272_788
 
     [<Fact>]
     let ``default(EgyptianDate) is EgyptianCalendar.Epoch`` () =
         Unchecked.defaultof<EgyptianDate>.DayNumber === EgyptianCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
+    let ``Value of EgyptianCalendar.MinDaysSinceEpoch`` () =
+        EgyptianCalendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of EgyptianCalendar.MaxDaysSinceEpoch`` () =
+        EgyptianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
+
+    [<Fact>]
+    let ``Value of EgyptianCalendar.MinMonthsSinceEpoch`` () =
+        EgyptianCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of EgyptianCalendar.MaxMonthsSinceEpoch`` () =
+        EgyptianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+#endif
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``EgyptianMonth(EgyptianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new EgyptianDate(y, m, d)
+        let exp = new EgyptianMonth(y, m)
+        // Act & Assert
+        new EgyptianMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``EgyptianYear(EgyptianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new EgyptianDate(y, m, d)
+        let exp = new EgyptianYear(y)
+        // Act & Assert
+        new EgyptianYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``EgyptianYear(EgyptianMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new EgyptianMonth(y, m)
+        let exp = new EgyptianYear(y)
+        // Act & Assert
+        new EgyptianYear(month) === exp
+
+module Prelude13 =
+    let private calendarDataSet = StandardEgyptian13DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
+    [<Fact>]
+    let ``Value of Egyptian13Calendar.Epoch.DaysZinceZero`` () =
+        Egyptian13Calendar.Instance.Epoch.DaysSinceZero === -272_788
+
     [<Fact>]
     let ``default(Egyptian13Date) is Egyptian13Calendar.Epoch`` () =
         Unchecked.defaultof<Egyptian13Date>.DayNumber === Egyptian13Calendar.Instance.Epoch
 
 #if DEBUG
     [<Fact>]
-    let ``Value of EgyptianCalendar.MinDaysSinceEpoch`` () =
-        EgyptianCalendar.Instance.MinDaysSinceEpoch === 0
-    [<Fact>]
     let ``Value of Egyptian13Calendar.MinDaysSinceEpoch`` () =
         Egyptian13Calendar.Instance.MinDaysSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of EgyptianCalendar.MaxDaysSinceEpoch`` () =
-        EgyptianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
     [<Fact>]
     let ``Value of Egyptian13Calendar.MaxDaysSinceEpoch`` () =
         Egyptian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
 
     [<Fact>]
-    let ``Value of EgyptianCalendar.MinMonthsSinceEpoch`` () =
-        EgyptianCalendar.Instance.MinMonthsSinceEpoch === 0
-    [<Fact>]
     let ``Value of Egyptian13Calendar.MinMonthsSinceEpoch`` () =
         Egyptian13Calendar.Instance.MinMonthsSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of EgyptianCalendar.MaxMonthsSinceEpoch`` () =
-        EgyptianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
     [<Fact>]
     let ``Value of Egyptian13Calendar.MaxMonthsSinceEpoch`` () =
         Egyptian13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Egyptian13Month(Egyptian13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Egyptian13Date(y, m, d)
+        let exp = new Egyptian13Month(y, m)
+        // Act & Assert
+        new Egyptian13Month(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Egyptian13Year(Egyptian13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Egyptian13Date(y, m, d)
+        let exp = new Egyptian13Year(y)
+        // Act & Assert
+        new Egyptian13Year(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Egyptian13Year(Egyptian13Month)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Egyptian13Month(y, m)
+        let exp = new Egyptian13Year(y)
+        // Act & Assert
+        new Egyptian13Year(month) === exp
+
 module Conversions =
     let private calendarDataSet = StandardEgyptian12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = EgyptianDate -> GregorianDate
@@ -72,34 +138,6 @@ module Conversions =
 
     type JulianDateCaster = EgyptianDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = EgyptianDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``EgyptianMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new EgyptianDate(y, m, d)
-        let exp = new EgyptianMonth(y, m)
-        // Act & Assert
-        EgyptianMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``EgyptianYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new EgyptianDate(y, m, d)
-        let exp = new EgyptianYear(y)
-        // Act & Assert
-        EgyptianYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``EgyptianYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new EgyptianMonth(y, m)
-        let exp = new EgyptianYear(y)
-        // Act & Assert
-        EgyptianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -204,7 +242,6 @@ module Conversions13 =
     let private calendarDataSet = StandardEgyptian13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Egyptian13Date -> GregorianDate
@@ -212,34 +249,6 @@ module Conversions13 =
 
     type JulianDateCaster = Egyptian13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Egyptian13Date.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Egyptian13Month:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Egyptian13Date(y, m, d)
-        let exp = new Egyptian13Month(y, m)
-        // Act & Assert
-        Egyptian13Month.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Egyptian13Year:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Egyptian13Date(y, m, d)
-        let exp = new Egyptian13Year(y)
-        // Act & Assert
-        Egyptian13Year.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``Egyptian13Year:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new Egyptian13Month(y, m)
-        let exp = new Egyptian13Year(y)
-        // Act & Assert
-        Egyptian13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

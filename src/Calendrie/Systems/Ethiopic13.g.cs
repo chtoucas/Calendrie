@@ -1244,13 +1244,6 @@ public partial struct Ethiopic13Month // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new Ethiopic13Month(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="Ethiopic13Month"/> struct
-    /// from the specified <see cref="Ethiopic13Date"/> value.
-    /// </summary>
-    [Pure]
-    public static Ethiopic13Month FromDate(Ethiopic13Date date) => new(date);
 }
 
 public partial struct Ethiopic13Month // Counting
@@ -1813,23 +1806,6 @@ public partial struct Ethiopic13Year // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static Ethiopic13Year UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct Ethiopic13Year // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="Ethiopic13Year"/> struct
-    /// from the specified <see cref="Ethiopic13Month"/> value.
-    /// </summary>
-    [Pure]
-    public static Ethiopic13Year FromMonth(Ethiopic13Month month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="Ethiopic13Year"/> struct
-    /// from the specified <see cref="Ethiopic13Date"/> value.
-    /// </summary>
-    [Pure]
-    public static Ethiopic13Year FromDate(Ethiopic13Date date) => new(date);
 }
 
 public partial struct Ethiopic13Year // IMonthSegment

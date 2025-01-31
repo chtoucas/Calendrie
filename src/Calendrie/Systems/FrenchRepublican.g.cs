@@ -1244,13 +1244,6 @@ public partial struct FrenchRepublicanMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new FrenchRepublicanMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="FrenchRepublicanMonth"/> struct
-    /// from the specified <see cref="FrenchRepublicanDate"/> value.
-    /// </summary>
-    [Pure]
-    public static FrenchRepublicanMonth FromDate(FrenchRepublicanDate date) => new(date);
 }
 
 public partial struct FrenchRepublicanMonth // Counting
@@ -1813,23 +1806,6 @@ public partial struct FrenchRepublicanYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FrenchRepublicanYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct FrenchRepublicanYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="FrenchRepublicanYear"/> struct
-    /// from the specified <see cref="FrenchRepublicanMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static FrenchRepublicanYear FromMonth(FrenchRepublicanMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="FrenchRepublicanYear"/> struct
-    /// from the specified <see cref="FrenchRepublicanDate"/> value.
-    /// </summary>
-    [Pure]
-    public static FrenchRepublicanYear FromDate(FrenchRepublicanDate date) => new(date);
 }
 
 public partial struct FrenchRepublicanYear // IMonthSegment

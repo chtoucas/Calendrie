@@ -1170,13 +1170,6 @@ public partial struct EgyptianMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new EgyptianMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="EgyptianMonth"/> struct
-    /// from the specified <see cref="EgyptianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static EgyptianMonth FromDate(EgyptianDate date) => new(date);
 }
 
 public partial struct EgyptianMonth // Counting
@@ -1738,23 +1731,6 @@ public partial struct EgyptianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static EgyptianYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct EgyptianYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="EgyptianYear"/> struct
-    /// from the specified <see cref="EgyptianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static EgyptianYear FromMonth(EgyptianMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="EgyptianYear"/> struct
-    /// from the specified <see cref="EgyptianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static EgyptianYear FromDate(EgyptianDate date) => new(date);
 }
 
 public partial struct EgyptianYear // IMonthSegment
