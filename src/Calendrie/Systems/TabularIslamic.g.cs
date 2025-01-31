@@ -1235,13 +1235,6 @@ public partial struct TabularIslamicMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new TabularIslamicMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="TabularIslamicMonth"/> struct
-    /// from the specified <see cref="TabularIslamicDate"/> value.
-    /// </summary>
-    [Pure]
-    public static TabularIslamicMonth FromDate(TabularIslamicDate date) => new(date);
 }
 
 public partial struct TabularIslamicMonth // Counting
@@ -1804,23 +1797,6 @@ public partial struct TabularIslamicYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static TabularIslamicYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct TabularIslamicYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="TabularIslamicYear"/> struct
-    /// from the specified <see cref="TabularIslamicMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static TabularIslamicYear FromMonth(TabularIslamicMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="TabularIslamicYear"/> struct
-    /// from the specified <see cref="TabularIslamicDate"/> value.
-    /// </summary>
-    [Pure]
-    public static TabularIslamicYear FromDate(TabularIslamicDate date) => new(date);
 }
 
 public partial struct TabularIslamicYear // IMonthSegment

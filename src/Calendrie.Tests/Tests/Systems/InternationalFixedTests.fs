@@ -19,6 +19,9 @@ open Xunit
 let private calendarDataSet = StandardInternationalFixedDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of InternationalFixedCalendar.Epoch.DaysZinceZero`` () =
         InternationalFixedCalendar.Instance.Epoch.DaysSinceZero === 0
@@ -45,9 +48,32 @@ module Prelude =
         InternationalFixedCalendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``InternationalFixedMonth(InternationalFixedDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = new InternationalFixedMonth(y, m)
+        // Act & Assert
+        new InternationalFixedMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``InternationalFixedYear(InternationalFixedDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new InternationalFixedDate(y, m, d)
+        let exp = new InternationalFixedYear(y)
+        // Act & Assert
+        new InternationalFixedYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``InternationalFixedYear(InternationalFixedMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new InternationalFixedMonth(y, m)
+        let exp = new InternationalFixedYear(y)
+        // Act & Assert
+        new InternationalFixedYear(month) === exp
+
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = InternationalFixedDate -> GregorianDate
@@ -55,34 +81,6 @@ module Conversions =
 
     type JulianDateCaster = InternationalFixedDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = InternationalFixedDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``InternationalFixedMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new InternationalFixedDate(y, m, d)
-        let exp = new InternationalFixedMonth(y, m)
-        // Act & Assert
-        InternationalFixedMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``InternationalFixedYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new InternationalFixedDate(y, m, d)
-        let exp = new InternationalFixedYear(y)
-        // Act & Assert
-        InternationalFixedYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``InternationalFixedYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new InternationalFixedMonth(y, m)
-        let exp = new InternationalFixedYear(y)
-        // Act & Assert
-        InternationalFixedYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

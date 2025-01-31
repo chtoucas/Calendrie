@@ -19,6 +19,9 @@ open Xunit
 let private calendarDataSet = StandardPositivistDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of PositivistCalendar.Epoch.DaysZinceZero`` () =
         PositivistCalendar.Instance.Epoch.DaysSinceZero === 653_054
@@ -45,9 +48,32 @@ module Prelude =
         PositivistCalendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``PositivistMonth(PositivistDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new PositivistDate(y, m, d)
+        let exp = new PositivistMonth(y, m)
+        // Act & Assert
+        new PositivistMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``PositivistYear(PositivistDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new PositivistDate(y, m, d)
+        let exp = new PositivistYear(y)
+        // Act & Assert
+        new PositivistYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``PositivistYear(PositivistMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new PositivistMonth(y, m)
+        let exp = new PositivistYear(y)
+        // Act & Assert
+        new PositivistYear(month) === exp
+
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = PositivistDate -> GregorianDate
@@ -55,34 +81,6 @@ module Conversions =
 
     type JulianDateCaster = PositivistDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = PositivistDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``PositivistMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new PositivistDate(y, m, d)
-        let exp = new PositivistMonth(y, m)
-        // Act & Assert
-        PositivistMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``PositivistYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new PositivistDate(y, m, d)
-        let exp = new PositivistYear(y)
-        // Act & Assert
-        PositivistYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``PositivistYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new PositivistMonth(y, m)
-        let exp = new PositivistYear(y)
-        // Act & Assert
-        PositivistYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

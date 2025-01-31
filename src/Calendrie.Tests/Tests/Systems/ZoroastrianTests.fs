@@ -16,55 +16,121 @@ open Calendrie.Testing.Facts.Systems
 open Xunit
 
 module Prelude =
+    let private calendarDataSet = StandardZoroastrian12DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of ZoroastrianCalendar.Epoch.DaysZinceZero`` () =
         ZoroastrianCalendar.Instance.Epoch.DaysSinceZero === 230_637
-    [<Fact>]
-    let ``Value of Zoroastrian13Calendar.Epoch.DaysZinceZero`` () =
-        Zoroastrian13Calendar.Instance.Epoch.DaysSinceZero === 230_637
 
     [<Fact>]
     let ``default(ZoroastrianDate) is ZoroastrianCalendar.Epoch`` () =
         Unchecked.defaultof<ZoroastrianDate>.DayNumber === ZoroastrianCalendar.Instance.Epoch
+
+#if DEBUG
+    [<Fact>]
+    let ``Value of ZoroastrianCalendar.MinDaysSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MinDaysSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of ZoroastrianCalendar.MaxDaysSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
+
+    [<Fact>]
+    let ``Value of ZoroastrianCalendar.MinMonthsSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MinMonthsSinceEpoch === 0
+
+    [<Fact>]
+    let ``Value of ZoroastrianCalendar.MaxMonthsSinceEpoch`` () =
+        ZoroastrianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
+#endif
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ZoroastrianMonth(ZoroastrianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new ZoroastrianDate(y, m, d)
+        let exp = new ZoroastrianMonth(y, m)
+        // Act & Assert
+        new ZoroastrianMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``ZoroastrianYear(ZoroastrianDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new ZoroastrianDate(y, m, d)
+        let exp = new ZoroastrianYear(y)
+        // Act & Assert
+        new ZoroastrianYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``ZoroastrianYear(ZoroastrianMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new ZoroastrianMonth(y, m)
+        let exp = new ZoroastrianYear(y)
+        // Act & Assert
+        new ZoroastrianYear(month) === exp
+
+module Prelude13 =
+    let private calendarDataSet = StandardZoroastrian13DataSet.Instance
+
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
+    [<Fact>]
+    let ``Value of Zoroastrian13Calendar.Epoch.DaysZinceZero`` () =
+        Zoroastrian13Calendar.Instance.Epoch.DaysSinceZero === 230_637
+
     [<Fact>]
     let ``default(Zoroastrian13Date) is Zoroastrian13Calendar.Epoch`` () =
         Unchecked.defaultof<Zoroastrian13Date>.DayNumber === Zoroastrian13Calendar.Instance.Epoch
 
 #if DEBUG
     [<Fact>]
-    let ``Value of ZoroastrianCalendar.MinDaysSinceEpoch`` () =
-        ZoroastrianCalendar.Instance.MinDaysSinceEpoch === 0
-    [<Fact>]
     let ``Value of Zoroastrian13Calendar.MinDaysSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MinDaysSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of ZoroastrianCalendar.MaxDaysSinceEpoch`` () =
-        ZoroastrianCalendar.Instance.MaxDaysSinceEpoch === 3_649_634
     [<Fact>]
     let ``Value of Zoroastrian13Calendar.MaxDaysSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MaxDaysSinceEpoch === 3_649_634
 
     [<Fact>]
-    let ``Value of ZoroastrianCalendar.MinMonthsSinceEpoch`` () =
-        ZoroastrianCalendar.Instance.MinMonthsSinceEpoch === 0
-    [<Fact>]
     let ``Value of Zoroastrian13Calendar.MinMonthsSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MinMonthsSinceEpoch === 0
 
-    [<Fact>]
-    let ``Value of ZoroastrianCalendar.MaxMonthsSinceEpoch`` () =
-        ZoroastrianCalendar.Instance.MaxMonthsSinceEpoch === 119_987
     [<Fact>]
     let ``Value of Zoroastrian13Calendar.MaxMonthsSinceEpoch`` () =
         Zoroastrian13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Zoroastrian13Month(Zoroastrian13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Zoroastrian13Date(y, m, d)
+        let exp = new Zoroastrian13Month(y, m)
+        // Act & Assert
+        new Zoroastrian13Month(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Zoroastrian13Year(Zoroastrian13Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Zoroastrian13Date(y, m, d)
+        let exp = new Zoroastrian13Year(y)
+        // Act & Assert
+        new Zoroastrian13Year(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Zoroastrian13Year(Zoroastrian13Month)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Zoroastrian13Month(y, m)
+        let exp = new Zoroastrian13Year(y)
+        // Act & Assert
+        new Zoroastrian13Year(month) === exp
+
 module Conversions =
     let private calendarDataSet = StandardZoroastrian12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = ZoroastrianDate -> GregorianDate
@@ -72,34 +138,6 @@ module Conversions =
 
     type JulianDateCaster = ZoroastrianDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = ZoroastrianDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``ZoroastrianMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new ZoroastrianDate(y, m, d)
-        let exp = new ZoroastrianMonth(y, m)
-        // Act & Assert
-        ZoroastrianMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``ZoroastrianYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new ZoroastrianDate(y, m, d)
-        let exp = new ZoroastrianYear(y)
-        // Act & Assert
-        ZoroastrianYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``ZoroastrianYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new ZoroastrianMonth(y, m)
-        let exp = new ZoroastrianYear(y)
-        // Act & Assert
-        ZoroastrianYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
@@ -204,7 +242,6 @@ module Conversions13 =
     let private calendarDataSet = StandardZoroastrian13DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Zoroastrian13Date -> GregorianDate
@@ -212,34 +249,6 @@ module Conversions13 =
 
     type JulianDateCaster = Zoroastrian13Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Zoroastrian13Date.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Zoroastrian13Month:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Zoroastrian13Date(y, m, d)
-        let exp = new Zoroastrian13Month(y, m)
-        // Act & Assert
-        Zoroastrian13Month.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Zoroastrian13Year:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Zoroastrian13Date(y, m, d)
-        let exp = new Zoroastrian13Year(y)
-        // Act & Assert
-        Zoroastrian13Year.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``Zoroastrian13Year:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new Zoroastrian13Month(y, m)
-        let exp = new Zoroastrian13Year(y)
-        // Act & Assert
-        Zoroastrian13Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

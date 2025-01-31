@@ -1244,13 +1244,6 @@ public partial struct WorldMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new WorldMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="WorldMonth"/> struct
-    /// from the specified <see cref="WorldDate"/> value.
-    /// </summary>
-    [Pure]
-    public static WorldMonth FromDate(WorldDate date) => new(date);
 }
 
 public partial struct WorldMonth // Counting
@@ -1813,23 +1806,6 @@ public partial struct WorldYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static WorldYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct WorldYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="WorldYear"/> struct
-    /// from the specified <see cref="WorldMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static WorldYear FromMonth(WorldMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="WorldYear"/> struct
-    /// from the specified <see cref="WorldDate"/> value.
-    /// </summary>
-    [Pure]
-    public static WorldYear FromDate(WorldDate date) => new(date);
 }
 
 public partial struct WorldYear // IMonthSegment

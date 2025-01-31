@@ -1170,13 +1170,6 @@ public partial struct ZoroastrianMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new ZoroastrianMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ZoroastrianMonth"/> struct
-    /// from the specified <see cref="ZoroastrianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static ZoroastrianMonth FromDate(ZoroastrianDate date) => new(date);
 }
 
 public partial struct ZoroastrianMonth // Counting
@@ -1738,23 +1731,6 @@ public partial struct ZoroastrianYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static ZoroastrianYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct ZoroastrianYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="ZoroastrianYear"/> struct
-    /// from the specified <see cref="ZoroastrianMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static ZoroastrianYear FromMonth(ZoroastrianMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ZoroastrianYear"/> struct
-    /// from the specified <see cref="ZoroastrianDate"/> value.
-    /// </summary>
-    [Pure]
-    public static ZoroastrianYear FromDate(ZoroastrianDate date) => new(date);
 }
 
 public partial struct ZoroastrianYear // IMonthSegment

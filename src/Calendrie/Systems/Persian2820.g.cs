@@ -1235,13 +1235,6 @@ public partial struct Persian2820Month // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new Persian2820Month(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="Persian2820Month"/> struct
-    /// from the specified <see cref="Persian2820Date"/> value.
-    /// </summary>
-    [Pure]
-    public static Persian2820Month FromDate(Persian2820Date date) => new(date);
 }
 
 public partial struct Persian2820Month // Counting
@@ -1804,23 +1797,6 @@ public partial struct Persian2820Year // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static Persian2820Year UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct Persian2820Year // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="Persian2820Year"/> struct
-    /// from the specified <see cref="Persian2820Month"/> value.
-    /// </summary>
-    [Pure]
-    public static Persian2820Year FromMonth(Persian2820Month month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="Persian2820Year"/> struct
-    /// from the specified <see cref="Persian2820Date"/> value.
-    /// </summary>
-    [Pure]
-    public static Persian2820Year FromDate(Persian2820Date date) => new(date);
 }
 
 public partial struct Persian2820Year // IMonthSegment

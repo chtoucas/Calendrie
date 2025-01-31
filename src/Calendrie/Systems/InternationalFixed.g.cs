@@ -1244,13 +1244,6 @@ public partial struct InternationalFixedMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new InternationalFixedMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="InternationalFixedMonth"/> struct
-    /// from the specified <see cref="InternationalFixedDate"/> value.
-    /// </summary>
-    [Pure]
-    public static InternationalFixedMonth FromDate(InternationalFixedDate date) => new(date);
 }
 
 public partial struct InternationalFixedMonth // Counting
@@ -1813,23 +1806,6 @@ public partial struct InternationalFixedYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static InternationalFixedYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct InternationalFixedYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="InternationalFixedYear"/> struct
-    /// from the specified <see cref="InternationalFixedMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static InternationalFixedYear FromMonth(InternationalFixedMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="InternationalFixedYear"/> struct
-    /// from the specified <see cref="InternationalFixedDate"/> value.
-    /// </summary>
-    [Pure]
-    public static InternationalFixedYear FromDate(InternationalFixedDate date) => new(date);
 }
 
 public partial struct InternationalFixedYear // IMonthSegment

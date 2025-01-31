@@ -20,6 +20,9 @@ open Xunit
 let private calendarDataSet = StandardWorldDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of WorldCalendar.Epoch.DaysZinceZero`` () =
         WorldCalendar.Instance.Epoch.DaysSinceZero === -1
@@ -46,9 +49,32 @@ module Prelude =
         WorldCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``WorldMonth(WorldDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = new WorldMonth(y, m)
+        // Act & Assert
+        new WorldMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``WorldYear(WorldDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new WorldDate(y, m, d)
+        let exp = new WorldYear(y)
+        // Act & Assert
+        new WorldYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``WorldYear(WorldMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new WorldMonth(y, m)
+        let exp = new WorldYear(y)
+        // Act & Assert
+        new WorldYear(month) === exp
+
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = WorldDate -> GregorianDate
@@ -56,34 +82,6 @@ module Conversions =
 
     type JulianDateCaster = WorldDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = WorldDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``WorldMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new WorldDate(y, m, d)
-        let exp = new WorldMonth(y, m)
-        // Act & Assert
-        WorldMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``WorldYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new WorldDate(y, m, d)
-        let exp = new WorldYear(y)
-        // Act & Assert
-        WorldYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``WorldYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new WorldMonth(y, m)
-        let exp = new WorldYear(y)
-        // Act & Assert
-        WorldYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

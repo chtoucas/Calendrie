@@ -19,6 +19,9 @@ open Xunit
 let private calendarDataSet = StandardTabularIslamicDataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of TabularIslamicCalendar.Epoch.DaysZinceZero`` () =
         TabularIslamicCalendar.Instance.Epoch.DaysSinceZero === 227_014
@@ -45,9 +48,32 @@ module Prelude =
         TabularIslamicCalendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``TabularIslamicMonth(TabularIslamicDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new TabularIslamicDate(y, m, d)
+        let exp = new TabularIslamicMonth(y, m)
+        // Act & Assert
+        new TabularIslamicMonth(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``TabularIslamicYear(TabularIslamicDate)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new TabularIslamicDate(y, m, d)
+        let exp = new TabularIslamicYear(y)
+        // Act & Assert
+        new TabularIslamicYear(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``TabularIslamicYear(TabularIslamicMonth)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new TabularIslamicMonth(y, m)
+        let exp = new TabularIslamicYear(y)
+        // Act & Assert
+        new TabularIslamicYear(month) === exp
+
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = TabularIslamicDate -> GregorianDate
@@ -55,34 +81,6 @@ module Conversions =
 
     type JulianDateCaster = TabularIslamicDate -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = TabularIslamicDate.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``TabularIslamicMonth:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new TabularIslamicDate(y, m, d)
-        let exp = new TabularIslamicMonth(y, m)
-        // Act & Assert
-        TabularIslamicMonth.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``TabularIslamicYear:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new TabularIslamicDate(y, m, d)
-        let exp = new TabularIslamicYear(y)
-        // Act & Assert
-        TabularIslamicYear.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``TabularIslamicYear:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new TabularIslamicMonth(y, m)
-        let exp = new TabularIslamicYear(y)
-        // Act & Assert
-        TabularIslamicYear.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber

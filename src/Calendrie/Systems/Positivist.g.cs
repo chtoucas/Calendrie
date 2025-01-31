@@ -1244,13 +1244,6 @@ public partial struct PositivistMonth // Conversions
             ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
         return new PositivistMonth(monthsSinceEpoch);
     }
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PositivistMonth"/> struct
-    /// from the specified <see cref="PositivistDate"/> value.
-    /// </summary>
-    [Pure]
-    public static PositivistMonth FromDate(PositivistDate date) => new(date);
 }
 
 public partial struct PositivistMonth // Counting
@@ -1813,23 +1806,6 @@ public partial struct PositivistYear // Factories
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static PositivistYear UnsafeCreate(int year) => new((ushort)(year - 1));
-}
-
-public partial struct PositivistYear // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="PositivistYear"/> struct
-    /// from the specified <see cref="PositivistMonth"/> value.
-    /// </summary>
-    [Pure]
-    public static PositivistYear FromMonth(PositivistMonth month) => new(month);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="PositivistYear"/> struct
-    /// from the specified <see cref="PositivistDate"/> value.
-    /// </summary>
-    [Pure]
-    public static PositivistYear FromDate(PositivistDate date) => new(date);
 }
 
 public partial struct PositivistYear // IMonthSegment

@@ -19,6 +19,9 @@ open Xunit
 let private calendarDataSet = StandardPersian2820DataSet.Instance
 
 module Prelude =
+    let dateInfoData = calendarDataSet.DateInfoData
+    let monthInfoData = calendarDataSet.MonthInfoData
+
     [<Fact>]
     let ``Value of Persian2820Calendar.Epoch.DaysZinceZero`` () =
         Persian2820Calendar.Instance.Epoch.DaysSinceZero === 226_895
@@ -45,9 +48,32 @@ module Prelude =
         Persian2820Calendar.Instance.MaxMonthsSinceEpoch === 119_987
 #endif
 
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Persian2820Month(Persian2820Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Persian2820Date(y, m, d)
+        let exp = new Persian2820Month(y, m)
+        // Act & Assert
+        new Persian2820Month(date) === exp
+
+    [<Theory; MemberData(nameof(dateInfoData))>]
+    let ``Persian2820Year(Persian2820Date)`` (x: DateInfo) =
+        let y, m, d = x.Yemoda.Deconstruct()
+        let date = new Persian2820Date(y, m, d)
+        let exp = new Persian2820Year(y)
+        // Act & Assert
+        new Persian2820Year(date) === exp
+
+    [<Theory; MemberData(nameof(monthInfoData))>]
+    let ``Persian2820Year(Persian2820Month)`` (x: MonthInfo) =
+        let y, m = x.Yemo.Deconstruct()
+        let month = new Persian2820Month(y, m)
+        let exp = new Persian2820Year(y)
+        // Act & Assert
+        new Persian2820Year(month) === exp
+
 module Conversions =
     let dateInfoData = calendarDataSet.DateInfoData
-    let monthInfoData = calendarDataSet.MonthInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
     type GregorianDateCaster = Persian2820Date -> GregorianDate
@@ -55,34 +81,6 @@ module Conversions =
 
     type JulianDateCaster = Persian2820Date -> JulianDate
     let op_Explicit_Julian : JulianDateCaster = Persian2820Date.op_Explicit
-
-    //
-    // FromXXX()
-    //
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Persian2820Month:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Persian2820Date(y, m, d)
-        let exp = new Persian2820Month(y, m)
-        // Act & Assert
-        Persian2820Month.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Persian2820Year:FromDate()`` (x: DateInfo) =
-        let y, m, d = x.Yemoda.Deconstruct()
-        let date = new Persian2820Date(y, m, d)
-        let exp = new Persian2820Year(y)
-        // Act & Assert
-        Persian2820Year.FromDate(date) === exp
-
-    [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``Persian2820Year:FromMonth()`` (x: MonthInfo) =
-        let y, m = x.Yemo.Deconstruct()
-        let month = new Persian2820Month(y, m)
-        let exp = new Persian2820Year(y)
-        // Act & Assert
-        Persian2820Year.FromMonth(month) === exp
 
     //
     // Conversion to DayNumber
