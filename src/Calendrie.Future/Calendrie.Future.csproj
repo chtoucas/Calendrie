@@ -19,6 +19,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Systems\InternationalFixed.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InternationalFixed.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Positivist.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Positivist.tt</DependentUpon>
+    </Compile>
     <Compile Update="Systems\Pax.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -28,6 +38,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Tropicalia.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\World.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>World.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

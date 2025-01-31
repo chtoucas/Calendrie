@@ -5,8 +5,6 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 
-// REVIEW(code): add CountDaysInInternationalFixedMonth() and CountDaysInPositivistMonth()?
-
 public partial struct Armenian13Month // Complements
 {
     /// <summary>
@@ -50,16 +48,6 @@ public partial struct FrenchRepublican13Month // Complements
     /// otherwise returns <see langword="false"/>.
     /// </summary>
     public bool IsVirtual => Month == FrenchRepublican13Schema.VirtualMonth;
-}
-
-public partial struct WorldMonth // Complements
-{
-    /// <summary>
-    /// Obtains the genuine number of days in this month instance (excluding the
-    /// blank days that are formally outside any month).
-    /// </summary>
-    [Pure]
-    public int CountDaysInWorldMonth() => WorldSchema.CountDaysInWorldMonthImpl(Month);
 }
 
 public partial struct Zoroastrian13Month // Complements

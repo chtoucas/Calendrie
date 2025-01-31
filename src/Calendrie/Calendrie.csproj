@@ -86,11 +86,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Systems\InternationalFixed.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>InternationalFixed.tt</DependentUpon>
-    </Compile>
     <Compile Update="Systems\Julian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -101,20 +96,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Persian2820.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Positivist.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Positivist.tt</DependentUpon>
-    </Compile>
     <Compile Update="Systems\TabularIslamic.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TabularIslamic.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Systems\World.g.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>World.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Zoroastrian.g.cs">
       <DesignTime>True</DesignTime>
