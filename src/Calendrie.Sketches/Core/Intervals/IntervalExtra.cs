@@ -122,16 +122,16 @@ public partial class IntervalExtra // Gap
     /// </summary>
     /// <returns>The empty interval.</returns>
     [Pure]
-    public static RangeSet<int> Gap(LowerRay<int> x, LowerRay<int> y) =>
-        RangeSet<int>.Empty;
+    public static SegmentSet<int> Gap(LowerRay<int> x, LowerRay<int> y) =>
+        SegmentSet<int>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
     /// <returns>The empty interval.</returns>
     [Pure]
-    public static RangeSet<int> Gap(UpperRay<int> x, UpperRay<int> y) =>
-        RangeSet<int>.Empty;
+    public static SegmentSet<int> Gap(UpperRay<int> x, UpperRay<int> y) =>
+        SegmentSet<int>.Empty;
 
     #endregion
     #region DayNumber
@@ -141,16 +141,16 @@ public partial class IntervalExtra // Gap
     /// </summary>
     /// <returns>The empty interval.</returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(LowerRay<DayNumber> x, LowerRay<DayNumber> y) =>
-        RangeSet<DayNumber>.Empty;
+    public static SegmentSet<DayNumber> Gap(LowerRay<DayNumber> x, LowerRay<DayNumber> y) =>
+        SegmentSet<DayNumber>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
     /// </summary>
     /// <returns>The empty interval.</returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(UpperRay<DayNumber> x, UpperRay<DayNumber> y) =>
-        RangeSet<DayNumber>.Empty;
+    public static SegmentSet<DayNumber> Gap(UpperRay<DayNumber> x, UpperRay<DayNumber> y) =>
+        SegmentSet<DayNumber>.Empty;
 
     #endregion
 }

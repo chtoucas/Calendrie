@@ -37,7 +37,7 @@
     <Compile Include="Tests\Core\Intervals\OrderedPairTests.fs" />
     <Compile Include="Tests\Core\Intervals\IntervalTests.fs" />
     <Compile Include="Tests\Core\Intervals\LowerRayTests.fs" />
-    <Compile Include="Tests\Core\Intervals\RangeSetTests.fs" />
+    <Compile Include="Tests\Core\Intervals\SegmentSetTests.fs" />
     <Compile Include="Tests\Core\Intervals\RangeTests.fs" />
     <Compile Include="Tests\Core\Intervals\UpperRayTests.fs" />
     <Compile Include="Tests\Core\Intervals\UnboundedTests.fs" />

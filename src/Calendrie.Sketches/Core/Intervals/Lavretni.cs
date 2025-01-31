@@ -17,21 +17,21 @@ public partial class Lavretni // Intersection
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static RangeSet<T> Intersect<T>(LowerRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static SegmentSet<T> Intersect<T>(LowerRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Intersect(y, x);
 
     /// <summary>
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static RangeSet<T> Intersect<T>(UpperRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static SegmentSet<T> Intersect<T>(UpperRay<T> x, Range<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Intersect(y, x);
 
     /// <summary>
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static RangeSet<T> Intersect<T>(UpperRay<T> x, LowerRay<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
+    public static SegmentSet<T> Intersect<T>(UpperRay<T> x, LowerRay<T> y) where T : struct, IEquatable<T>, IComparable<T> =>
         Interval.Intersect(y, x);
 }
 
@@ -153,7 +153,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static RangeSet<int> Gap(LowerRay<int> x, Range<int> y) =>
+    public static SegmentSet<int> Gap(LowerRay<int> x, Range<int> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -161,7 +161,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static RangeSet<int> Gap(UpperRay<int> x, Range<int> y) =>
+    public static SegmentSet<int> Gap(UpperRay<int> x, Range<int> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -169,7 +169,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static RangeSet<int> Gap(UpperRay<int> x, LowerRay<int> y) =>
+    public static SegmentSet<int> Gap(UpperRay<int> x, LowerRay<int> y) =>
         Interval.Gap(y, x);
 
     #endregion
@@ -180,7 +180,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(LowerRay<DayNumber> x, Range<DayNumber> y) =>
+    public static SegmentSet<DayNumber> Gap(LowerRay<DayNumber> x, Range<DayNumber> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -188,7 +188,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(UpperRay<DayNumber> x, Range<DayNumber> y) =>
+    public static SegmentSet<DayNumber> Gap(UpperRay<DayNumber> x, Range<DayNumber> y) =>
         Interval.Gap(y, x);
 
     /// <summary>
@@ -196,7 +196,7 @@ public partial class Lavretni // Gap
     /// </summary>
     /// <returns>The empty interval if the two intervals overlap or are adjacent.</returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(UpperRay<DayNumber> x, LowerRay<DayNumber> y) =>
+    public static SegmentSet<DayNumber> Gap(UpperRay<DayNumber> x, LowerRay<DayNumber> y) =>
         Interval.Gap(y, x);
 
     #endregion

@@ -239,12 +239,12 @@ type GlobalArbitraries =
             return if i < j then new Range<int>(i, j) else new Range<int>(j, i)
         }
 
-    /// Obtains an arbitrary for RangeSet<int>.
-    static member GetRangeSetArbitrary() =
+    /// Obtains an arbitrary for SegmentSet<int>.
+    static member GetSegmentSetArbitrary() =
         Arb.fromGen <| gen {
             let! i = Arb.generate<int>
             let! j = Arb.generate<int>
-            return if i < j then new RangeSet<int>(i, j) else new RangeSet<int>(j, i)
+            return if i < j then new SegmentSet<int>(i, j) else new SegmentSet<int>(j, i)
         }
 
     /// Obtains an arbitrary for LowerRay<int>.

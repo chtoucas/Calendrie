@@ -7,17 +7,17 @@ using System.Numerics;
 
 // REVIEW(code): add factory Create(Range<T>), Singleton()?
 
-// RangeSet<T> is the return type for Intersect() and Gap().
+// SegmentSet<T> is the return type for Intersect() and Gap().
 //
-// Beware, if the runtime size of RangeSet<T> and IntervalBoundary<T> is
+// Beware, if the runtime size of SegmentSet<T> and IntervalBoundary<T> is
 // equal to 12 bytes w/ Int32, it starts to be too large w/ Int64 or Double
 // (24 bytes); see Calendrie.ValueTypeFacts.
 
 /// <summary>
-/// Provides static helpers for <see cref="RangeSet{T}"/>.
+/// Provides static helpers for <see cref="SegmentSet{T}"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public static class RangeSet
+public static class SegmentSet
 {
     #region Factories
 
@@ -27,32 +27,32 @@ public static class RangeSet
     /// identity.</para>
     /// </summary>
     [Pure]
-    public static RangeSet<T> Empty<T>()
+    public static SegmentSet<T> Empty<T>()
         where T : struct, IEquatable<T>, IComparable<T>
     {
-        return RangeSet<T>.Empty;
+        return SegmentSet<T>.Empty;
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct
+    /// Creates a new instance of the <see cref="SegmentSet{T}"/> struct
     /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
     /// less than <paramref name="min"/>.</exception>
     [Pure]
-    public static RangeSet<T> Create<T>(T min, T max)
+    public static SegmentSet<T> Create<T>(T min, T max)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return new(min, max);
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct
+    /// Creates a new instance of the <see cref="SegmentSet{T}"/> struct
     /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// <para>This factory method does NOT validate its parameters.</para>
     /// </summary>
     [Pure]
-    internal static RangeSet<T> UnsafeCreate<T>(T min, T max)
+    internal static SegmentSet<T> UnsafeCreate<T>(T min, T max)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return new(OrderedPair.UnsafeCreate(min, max));
@@ -62,11 +62,11 @@ public static class RangeSet
     #region Conversions
 
     /// <summary>
-    /// Creates a new instance of the <see cref="RangeSet{T}"/> struct from the
+    /// Creates a new instance of the <see cref="SegmentSet{T}"/> struct from the
     /// specified endpoints.
     /// </summary>
     [Pure]
-    public static RangeSet<T> FromEndpoints<T>(OrderedPair<T> endpoints)
+    public static SegmentSet<T> FromEndpoints<T>(OrderedPair<T> endpoints)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         return new(endpoints);
@@ -82,12 +82,12 @@ public static class RangeSet
 /// certainly should use <see cref="Range{T}"/> instead.</i></para>
 /// <para><typeparamref name="T"/> SHOULD be an <i>immutable</i> value type.
 /// </para>
-/// <para><see cref="RangeSet{T}"/> is an immutable struct.</para>
+/// <para><see cref="SegmentSet{T}"/> is an immutable struct.</para>
 /// </summary>
 /// <typeparam name="T">The type of the interval's elements.</typeparam>
-public readonly partial struct RangeSet<T> :
-    IEqualityOperators<RangeSet<T>, RangeSet<T>, bool>,
-    IEquatable<RangeSet<T>>
+public readonly partial struct SegmentSet<T> :
+    IEqualityOperators<SegmentSet<T>, SegmentSet<T>, bool>,
+    IEquatable<SegmentSet<T>>
     where T : struct, IEquatable<T>, IComparable<T>
 {
     // Default value = empty set, _isInhabited = false and _endpoints = (default(T), default(T)).
@@ -101,12 +101,12 @@ public readonly partial struct RangeSet<T> :
     private readonly bool _isInhabited;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeSet{T}"/> struct
+    /// Initializes a new instance of the <see cref="SegmentSet{T}"/> struct
     /// representing the range [<paramref name="min"/>..<paramref name="max"/>].
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is
     /// less than <paramref name="min"/>.</exception>
-    public RangeSet(T min, T max)
+    public SegmentSet(T min, T max)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(max, min);
 
@@ -115,11 +115,11 @@ public readonly partial struct RangeSet<T> :
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeSet{T}"/> struct from
+    /// Initializes a new instance of the <see cref="SegmentSet{T}"/> struct from
     /// the specified endpoints.
     /// </summary>
-    // Public version: see RangeSet.FromEndpoints().
-    internal RangeSet(OrderedPair<T> endpoints)
+    // Public version: see SegmentSet.FromEndpoints().
+    internal SegmentSet(OrderedPair<T> endpoints)
     {
         _endpoints = endpoints;
         _isInhabited = true;
@@ -130,7 +130,7 @@ public readonly partial struct RangeSet<T> :
     /// <para>The empty range is both an intersection absorber and a span
     /// identity.</para>
     /// </summary>
-    internal static RangeSet<T> Empty { get; }
+    internal static SegmentSet<T> Empty { get; }
 
     /// <summary>
     /// Returns <see langword="true"/> if this range is empty; otherwise returns
@@ -152,30 +152,30 @@ public readonly partial struct RangeSet<T> :
     public override string ToString() => _isInhabited ? Range.ToString() : "[]";
 }
 
-public partial struct RangeSet<T> // IEquatable
+public partial struct SegmentSet<T> // IEquatable
 {
     /// <summary>
-    /// Determines whether two specified instances of <see cref="RangeSet{T}"/>
+    /// Determines whether two specified instances of <see cref="SegmentSet{T}"/>
     /// are equal.
     /// </summary>
-    public static bool operator ==(RangeSet<T> left, RangeSet<T> right) => left.Equals(right);
+    public static bool operator ==(SegmentSet<T> left, SegmentSet<T> right) => left.Equals(right);
 
     /// <summary>
-    /// Determines whether two specified instances of <see cref="RangeSet{T}"/>
+    /// Determines whether two specified instances of <see cref="SegmentSet{T}"/>
     /// are not equal.
     /// </summary>
-    public static bool operator !=(RangeSet<T> left, RangeSet<T> right) => !left.Equals(right);
+    public static bool operator !=(SegmentSet<T> left, SegmentSet<T> right) => !left.Equals(right);
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(RangeSet<T> other) =>
+    public bool Equals(SegmentSet<T> other) =>
         _isInhabited == other._isInhabited
         && _endpoints.Equals(other._endpoints);
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is RangeSet<T> range && Equals(range);
+        obj is SegmentSet<T> range && Equals(range);
 
     /// <inheritdoc />
     [Pure]

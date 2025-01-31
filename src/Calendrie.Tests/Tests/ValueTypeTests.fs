@@ -43,12 +43,12 @@ module RuntimeSizes =
         sizeof<Range<int32>>() === 8
         sizeof<Range<int64>>() === 16
         sizeof<Range<double>>() === 16
-        // RangeSet<T>, two T's and one int32.
-        sizeof<RangeSet<byte>>() === 8
-        sizeof<RangeSet<int16>>() === 8
-        sizeof<RangeSet<int32>>() === 12
-        sizeof<RangeSet<int64>>() === 24   // BIG struct
-        sizeof<RangeSet<double>>() === 24  // BIG struct
+        // SegmentSet<T>, two T's and one int32.
+        sizeof<SegmentSet<byte>>() === 8
+        sizeof<SegmentSet<int16>>() === 8
+        sizeof<SegmentSet<int32>>() === 12
+        sizeof<SegmentSet<int64>>() === 24   // BIG struct
+        sizeof<SegmentSet<double>>() === 24  // BIG struct
         // UpperRay<T>, one T.
         sizeof<UpperRay<byte>>() === 1
         sizeof<UpperRay<int16>>() === 2

@@ -97,7 +97,7 @@ public partial class Interval // Gap
     // Alternative impl but may overflow.
     // > int min = Math.Min(x.Max, y.Max) + 1;
     // > int max = Math.Max(x.Min, y.Min) - 1;
-    // > return min > max ? RangeSet<int>.Empty : RangeSet.UnsafeCreate(min, max);
+    // > return min > max ? SegmentSet<int>.Empty : SegmentSet.UnsafeCreate(min, max);
 
     #region Int32
 
@@ -107,10 +107,10 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<int> Gap(Range<int> x, Range<int> y) =>
+    public static SegmentSet<int> Gap(Range<int> x, Range<int> y) =>
         x.Max < y.Min ? GapCore(x.Max, y.Min)
         : y.Max < x.Min ? GapCore(y.Max, x.Min)
-        : RangeSet<int>.Empty;
+        : SegmentSet<int>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
@@ -118,8 +118,8 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<int> Gap(Range<int> x, LowerRay<int> y) =>
-        y.Max < x.Min ? GapCore(y.Max, x.Min) : RangeSet<int>.Empty;
+    public static SegmentSet<int> Gap(Range<int> x, LowerRay<int> y) =>
+        y.Max < x.Min ? GapCore(y.Max, x.Min) : SegmentSet<int>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
@@ -127,8 +127,8 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<int> Gap(Range<int> x, UpperRay<int> y) =>
-        x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<int>.Empty;
+    public static SegmentSet<int> Gap(Range<int> x, UpperRay<int> y) =>
+        x.Max < y.Min ? GapCore(x.Max, y.Min) : SegmentSet<int>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
@@ -136,16 +136,16 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<int> Gap(LowerRay<int> x, UpperRay<int> y) =>
-        x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<int>.Empty;
+    public static SegmentSet<int> Gap(LowerRay<int> x, UpperRay<int> y) =>
+        x.Max < y.Min ? GapCore(x.Max, y.Min) : SegmentSet<int>.Empty;
 
-    private static RangeSet<int> GapCore(int max, int min)
+    private static SegmentSet<int> GapCore(int max, int min)
     {
         // max < min => both ops do not overflow.
         int x = max + 1;
         int y = min - 1;
 
-        return x > y ? RangeSet<int>.Empty : RangeSet.UnsafeCreate(x, y);
+        return x > y ? SegmentSet<int>.Empty : SegmentSet.UnsafeCreate(x, y);
     }
 
     #endregion
@@ -157,10 +157,10 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(Range<DayNumber> x, Range<DayNumber> y) =>
+    public static SegmentSet<DayNumber> Gap(Range<DayNumber> x, Range<DayNumber> y) =>
          x.Max < y.Min ? GapCore(x.Max, y.Min)
         : y.Max < x.Min ? GapCore(y.Max, x.Min)
-        : RangeSet<DayNumber>.Empty;
+        : SegmentSet<DayNumber>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
@@ -168,8 +168,8 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(Range<DayNumber> x, LowerRay<DayNumber> y) =>
-        y.Max < x.Min ? GapCore(y.Max, x.Min) : RangeSet<DayNumber>.Empty;
+    public static SegmentSet<DayNumber> Gap(Range<DayNumber> x, LowerRay<DayNumber> y) =>
+        y.Max < x.Min ? GapCore(y.Max, x.Min) : SegmentSet<DayNumber>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
@@ -177,8 +177,8 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(Range<DayNumber> x, UpperRay<DayNumber> y) =>
-         x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<DayNumber>.Empty;
+    public static SegmentSet<DayNumber> Gap(Range<DayNumber> x, UpperRay<DayNumber> y) =>
+         x.Max < y.Min ? GapCore(x.Max, y.Min) : SegmentSet<DayNumber>.Empty;
 
     /// <summary>
     /// Obtains the largest interval lying between the two specified intervals.
@@ -186,16 +186,16 @@ public partial class Interval // Gap
     /// <returns>The empty interval if the two intervals overlap or are adjacent.
     /// </returns>
     [Pure]
-    public static RangeSet<DayNumber> Gap(LowerRay<DayNumber> x, UpperRay<DayNumber> y) =>
-         x.Max < y.Min ? GapCore(x.Max, y.Min) : RangeSet<DayNumber>.Empty;
+    public static SegmentSet<DayNumber> Gap(LowerRay<DayNumber> x, UpperRay<DayNumber> y) =>
+         x.Max < y.Min ? GapCore(x.Max, y.Min) : SegmentSet<DayNumber>.Empty;
 
-    private static RangeSet<DayNumber> GapCore(DayNumber max, DayNumber min)
+    private static SegmentSet<DayNumber> GapCore(DayNumber max, DayNumber min)
     {
         // max < min => both ops do not overflow.
         var x = max + 1;
         var y = min - 1;
 
-        return x > y ? RangeSet<DayNumber>.Empty : RangeSet.UnsafeCreate(x, y);
+        return x > y ? SegmentSet<DayNumber>.Empty : SegmentSet.UnsafeCreate(x, y);
     }
 
     #endregion

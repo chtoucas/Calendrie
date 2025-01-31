@@ -16,12 +16,12 @@ open FsCheck.Xunit
 let private maprange (range: Range<int>) =
     let endpoints = range.Endpoints.Select(fun i -> DayNumber.Zero + i)
     Range.FromEndpoints(endpoints)
-let private maprangeset (set: RangeSet<int>) =
+let private maprangeset (set: SegmentSet<int>) =
     if set.IsEmpty then
-        RangeSet<DayNumber>.Empty
+        SegmentSet<DayNumber>.Empty
     else
         let endpoints = set.Range.Endpoints.Select(fun i -> DayNumber.Zero + i)
-        RangeSet.FromEndpoints(endpoints)
+        SegmentSet.FromEndpoints(endpoints)
 let private maplowerray (ray: LowerRay<int>) =
     LowerRay.EndingAt(DayNumber.Zero + ray.Max)
 let private mapupperray (ray: UpperRay<int>) =
@@ -32,7 +32,7 @@ module Prelude =
     let ``Range with itself`` (x: Pair<int>) =
         let v = Range.Create(x.Min, x.Max)
 
-        Interval.Intersect(v, v) === RangeSet.Create(x.Min, x.Max)
+        Interval.Intersect(v, v) === SegmentSet.Create(x.Min, x.Max)
 
         let coalesce = Interval.Coalesce(v, v)
         coalesce.HasValue |> ok
@@ -49,7 +49,7 @@ module Prelude =
     let ``Range with itself when singleton`` (i: int) =
         let v = Range.Singleton(i)
 
-        Interval.Intersect(v, v) === RangeSet.Create(i, i)
+        Interval.Intersect(v, v) === SegmentSet.Create(i, i)
 
         let coalesce = Interval.Coalesce(v, v)
         coalesce.HasValue |> ok

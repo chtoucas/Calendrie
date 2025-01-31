@@ -20,7 +20,7 @@ public partial class Interval // Intersection
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static RangeSet<T> Intersect<T>(Range<T> x, Range<T> y)
+    public static SegmentSet<T> Intersect<T>(Range<T> x, Range<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
         // [a, b] ⋂ [m, n] = [max(a, m), min(b, n)]
@@ -29,7 +29,7 @@ public partial class Interval // Intersection
         var min = MathT.Max(x.Min, y.Min);
         var max = MathT.Min(x.Max, y.Max);
 
-        return min.CompareTo(max) > 0 ? RangeSet<T>.Empty : RangeSet.UnsafeCreate(min, max);
+        return min.CompareTo(max) > 0 ? SegmentSet<T>.Empty : SegmentSet.UnsafeCreate(min, max);
     }
 
     /// <summary>
@@ -56,33 +56,33 @@ public partial class Interval // Intersection
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static RangeSet<T> Intersect<T>(Range<T> x, LowerRay<T> y)
+    public static SegmentSet<T> Intersect<T>(Range<T> x, LowerRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
-        return x.Min.CompareTo(y.Max) > 0 ? RangeSet<T>.Empty
-            : RangeSet.UnsafeCreate(x.Min, MathT.Min(x.Max, y.Max));
+        return x.Min.CompareTo(y.Max) > 0 ? SegmentSet<T>.Empty
+            : SegmentSet.UnsafeCreate(x.Min, MathT.Min(x.Max, y.Max));
     }
 
     /// <summary>
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static RangeSet<T> Intersect<T>(Range<T> x, UpperRay<T> y)
+    public static SegmentSet<T> Intersect<T>(Range<T> x, UpperRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
-        return y.Min.CompareTo(x.Max) > 0 ? RangeSet<T>.Empty
-            : RangeSet.UnsafeCreate(MathT.Max(x.Min, y.Min), x.Max);
+        return y.Min.CompareTo(x.Max) > 0 ? SegmentSet<T>.Empty
+            : SegmentSet.UnsafeCreate(MathT.Max(x.Min, y.Min), x.Max);
     }
 
     /// <summary>
     /// Obtains the set intersection of the two specified intervals.
     /// </summary>
     [Pure]
-    public static RangeSet<T> Intersect<T>(LowerRay<T> x, UpperRay<T> y)
+    public static SegmentSet<T> Intersect<T>(LowerRay<T> x, UpperRay<T> y)
         where T : struct, IEquatable<T>, IComparable<T>
     {
-        return y.Min.CompareTo(x.Max) > 0 ? RangeSet<T>.Empty
-            : RangeSet.UnsafeCreate(y.Min, x.Max);
+        return y.Min.CompareTo(x.Max) > 0 ? SegmentSet<T>.Empty
+            : SegmentSet.UnsafeCreate(y.Min, x.Max);
     }
 }
 

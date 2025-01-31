@@ -631,7 +631,7 @@ module Extensions =
 module Equality =
     open NonStructuralComparison
 
-    /// Arbitrary for (x, y) where x and y are RangeSet<int> instances such that x <> y.
+    /// Arbitrary for (x, y) where x and y are SegmentSet<int> instances such that x <> y.
     let private xyArbitrary = Arb.fromGen <| gen {
         let! range =
             Gen.elements [ (0, 1); (1, 2); (2, 3) ]
