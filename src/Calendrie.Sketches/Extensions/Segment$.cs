@@ -5,7 +5,7 @@ namespace Calendrie.Extensions;
 
 using Calendrie.Core.Intervals;
 
-public static class RangeExtensions
+public static class SegmentExtensions
 {
     [Pure]
     public static Segment<TItem> Flatten<T, TItem>(this Segment<T> @this)
@@ -17,9 +17,9 @@ public static class RangeExtensions
     }
 
     [Pure]
-    public static bool IsSupersetOf<T, TRange>(this Segment<T> @this, TRange range)
+    public static bool IsSupersetOf<T, TSegment>(this Segment<T> @this, TSegment range)
         where T : struct, IEquatable<T>, IComparable<T>
-        where TRange : ISegment<T>
+        where TSegment : ISegment<T>
     {
         // Simpler (faster) version of
         // > range.IsSupersetOf(seg.ToRangeOfDays());

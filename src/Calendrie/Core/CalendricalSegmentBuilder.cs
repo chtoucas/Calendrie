@@ -271,7 +271,7 @@ public partial class CalendricalSegmentBuilder // Builder methods
         var set = Interval.Intersect(_schema.SupportedYears, Segment.StartingAt(1));
         if (set.IsEmpty) return false;
 
-        Min = GetEndpointAtStartOfYear(set.Range.Min);
+        Min = GetEndpointAtStartOfYear(set.Segment.Min);
         return true;
     }
 

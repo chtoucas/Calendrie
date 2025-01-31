@@ -5,7 +5,7 @@ namespace Calendrie.Testing.Data;
 
 using Calendrie.Core.Intervals;
 
-public sealed record RangeRangeInfo(
+public sealed record SegmentSegmentInfo(
     Segment<int> First,
     Segment<int> Second,
     Segment<int> Span,
@@ -15,7 +15,7 @@ public sealed record RangeRangeInfo(
     bool Adjacent,
     bool Connected);
 
-public sealed record LowerRayRangeInfo(
+public sealed record LowerRaySegmentInfo(
     LowerRay<int> First,
     Segment<int> Second,
     LowerRay<int> Span,
@@ -25,7 +25,7 @@ public sealed record LowerRayRangeInfo(
     bool Adjacent,
     bool Connected);
 
-public sealed record UpperRayRangeInfo(
+public sealed record UpperRaySegmentInfo(
     UpperRay<int> First,
     Segment<int> Second,
     UpperRay<int> Span,
@@ -46,7 +46,7 @@ public sealed record LowerRayUpperRayInfo(
 
 public static class IntervalDataSet
 {
-    public static DataGroup<RangeRangeInfo> RangeRangeInfoData { get; } =
+    public static DataGroup<SegmentSegmentInfo> SegmentSegmentInfoData { get; } =
     [
         //
         // Overlapping ranges
@@ -84,7 +84,7 @@ public static class IntervalDataSet
         new(new(1, 4), new(6, 9), new(1, 9), SegmentSet<int>.Empty, new(5, 5), true, false, false),
     ];
 
-    public static DataGroup<LowerRayRangeInfo> LowerRayRangeInfoData { get; } =
+    public static DataGroup<LowerRaySegmentInfo> LowerRaySegmentInfoData { get; } =
     [
         //
         // Overlapping intervals
@@ -114,7 +114,7 @@ public static class IntervalDataSet
         new(new(5), new(8, 9), new(9), SegmentSet<int>.Empty, new(6, 7), true, false, false),
     ];
 
-    public static DataGroup<UpperRayRangeInfo> UpperRayRangeInfoData { get; } =
+    public static DataGroup<UpperRaySegmentInfo> UpperRaySegmentInfoData { get; } =
     [
         //
         // Overlapping intervals

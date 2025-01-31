@@ -48,7 +48,7 @@ Calendrie.CalendricalFamily.Solar = 2 -> Calendrie.CalendricalFamily
 Calendrie.Core.CalendricalConstants
 Calendrie.Core.CalendricalSchema
 Calendrie.Core.CalendricalSchema.Algorithm.get -> Calendrie.CalendricalAlgorithm
-Calendrie.Core.CalendricalSchema.CalendricalSchema(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.CalendricalSchema.CalendricalSchema(Calendrie.Core.Intervals.Segment<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.CalendricalSchema.CalendricalSchema(int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.CalendricalSchema.CountDaysInMonthAfter(int daysSinceEpoch) -> int
 Calendrie.Core.CalendricalSchema.CountDaysInMonthAfter(int y, int doy) -> int
@@ -70,10 +70,10 @@ Calendrie.Core.CalendricalSchema.MinDaysInMonth.get -> int
 Calendrie.Core.CalendricalSchema.MinDaysInYear.get -> int
 Calendrie.Core.CalendricalSchema.PreValidator.get -> Calendrie.Core.ICalendricalPreValidator!
 Calendrie.Core.CalendricalSchema.PreValidator.init -> void
-Calendrie.Core.CalendricalSchema.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.CalendricalSchema.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.CalendricalSchema.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.CalendricalSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Range<int>
+Calendrie.Core.CalendricalSchema.SupportedDays.get -> Calendrie.Core.Intervals.Segment<int>
+Calendrie.Core.CalendricalSchema.SupportedMonths.get -> Calendrie.Core.Intervals.Segment<int>
+Calendrie.Core.CalendricalSchema.SupportedYears.get -> Calendrie.Core.Intervals.Segment<int>
+Calendrie.Core.CalendricalSchema.SupportedYearsCore.get -> Calendrie.Core.Intervals.Segment<int>
 Calendrie.Core.CalendricalSchema.SupportedYearsCore.init -> void
 Calendrie.Core.CalendricalSegment
 Calendrie.Core.CalendricalSegment.IsComplete.get -> bool
@@ -82,9 +82,9 @@ Calendrie.Core.CalendricalSegment.MinIsStartOfYear.get -> bool
 Calendrie.Core.CalendricalSegment.MinMaxDateParts.get -> Calendrie.Core.Intervals.OrderedPair<Calendrie.DateParts>
 Calendrie.Core.CalendricalSegment.MinMaxMonthParts.get -> Calendrie.Core.Intervals.OrderedPair<Calendrie.MonthParts>
 Calendrie.Core.CalendricalSegment.MinMaxOrdinalParts.get -> Calendrie.Core.Intervals.OrderedPair<Calendrie.OrdinalParts>
-Calendrie.Core.CalendricalSegment.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.CalendricalSegment.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.CalendricalSegment.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
+Calendrie.Core.CalendricalSegment.SupportedDays.get -> Calendrie.Core.Intervals.Segment<int>
+Calendrie.Core.CalendricalSegment.SupportedMonths.get -> Calendrie.Core.Intervals.Segment<int>
+Calendrie.Core.CalendricalSegment.SupportedYears.get -> Calendrie.Core.Intervals.Segment<int>
 Calendrie.Core.CalendricalSegmentBuilder
 Calendrie.Core.CalendricalSegmentBuilder.BuildSegment() -> Calendrie.Core.CalendricalSegment!
 Calendrie.Core.CalendricalSegmentBuilder.CalendricalSegmentBuilder(Calendrie.Core.ICalendricalSchema! schema) -> void
@@ -162,9 +162,9 @@ Calendrie.Core.ICalendricalSchema.GetYear(int daysSinceEpoch, out int doy) -> in
 Calendrie.Core.ICalendricalSchema.MinDaysInMonth.get -> int
 Calendrie.Core.ICalendricalSchema.MinDaysInYear.get -> int
 Calendrie.Core.ICalendricalSchema.PreValidator.get -> Calendrie.Core.ICalendricalPreValidator!
-Calendrie.Core.ICalendricalSchema.SupportedDays.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.ICalendricalSchema.SupportedMonths.get -> Calendrie.Core.Intervals.Range<int>
-Calendrie.Core.ICalendricalSchema.SupportedYears.get -> Calendrie.Core.Intervals.Range<int>
+Calendrie.Core.ICalendricalSchema.SupportedDays.get -> Calendrie.Core.Intervals.Segment<int>
+Calendrie.Core.ICalendricalSchema.SupportedMonths.get -> Calendrie.Core.Intervals.Segment<int>
+Calendrie.Core.ICalendricalSchema.SupportedYears.get -> Calendrie.Core.Intervals.Segment<int>
 Calendrie.Core.Intervals.IInterval<T>
 Calendrie.Core.Intervals.IInterval<T>.IsLeftBounded.get -> bool
 Calendrie.Core.Intervals.IInterval<T>.IsLeftOpen.get -> bool
@@ -213,34 +213,34 @@ Calendrie.Core.Intervals.OrderedPair<T>.OrderedPair(T x, T y) -> void
 Calendrie.Core.Intervals.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! lowerValueSelector, System.Func<T, TResult>! upperValueSelector) -> Calendrie.Core.Intervals.OrderedPair<TResult>
 Calendrie.Core.Intervals.OrderedPair<T>.Select<TResult>(System.Func<T, TResult>! selector) -> Calendrie.Core.Intervals.OrderedPair<TResult>
 Calendrie.Core.Intervals.OrderedPair<T>.UpperValue.get -> T
-Calendrie.Core.Intervals.Range
-Calendrie.Core.Intervals.Range<T>
-Calendrie.Core.Intervals.Range<T>.Contains(T value) -> bool
-Calendrie.Core.Intervals.Range<T>.Endpoints.get -> Calendrie.Core.Intervals.OrderedPair<T>
-Calendrie.Core.Intervals.Range<T>.Equals(Calendrie.Core.Intervals.Range<T> other) -> bool
-Calendrie.Core.Intervals.Range<T>.IsLeftBounded.get -> bool
-Calendrie.Core.Intervals.Range<T>.IsLeftOpen.get -> bool
-Calendrie.Core.Intervals.Range<T>.IsProperSubsetOf(Calendrie.Core.Intervals.Range<T> other) -> bool
-Calendrie.Core.Intervals.Range<T>.IsProperSupersetOf(Calendrie.Core.Intervals.Range<T> other) -> bool
-Calendrie.Core.Intervals.Range<T>.IsRightBounded.get -> bool
-Calendrie.Core.Intervals.Range<T>.IsRightOpen.get -> bool
-Calendrie.Core.Intervals.Range<T>.IsSingleton.get -> bool
-Calendrie.Core.Intervals.Range<T>.IsSubsetOf(Calendrie.Core.Intervals.Range<T> other) -> bool
-Calendrie.Core.Intervals.Range<T>.IsSupersetOf(Calendrie.Core.Intervals.Range<T> other) -> bool
-Calendrie.Core.Intervals.Range<T>.Max.get -> T
-Calendrie.Core.Intervals.Range<T>.Min.get -> T
-Calendrie.Core.Intervals.Range<T>.Range() -> void
-Calendrie.Core.Intervals.Range<T>.Range(T min, T max) -> void
-Calendrie.Core.Intervals.Range<T>.SetEquals(Calendrie.Core.Intervals.Range<T> other) -> bool
-Calendrie.Core.Intervals.Range<T>.WithMax(T max) -> Calendrie.Core.Intervals.Range<T>
-Calendrie.Core.Intervals.Range<T>.WithMin(T min) -> Calendrie.Core.Intervals.Range<T>
-Calendrie.Core.Intervals.RangeSet
-Calendrie.Core.Intervals.RangeSet<T>
-Calendrie.Core.Intervals.RangeSet<T>.Equals(Calendrie.Core.Intervals.RangeSet<T> other) -> bool
-Calendrie.Core.Intervals.RangeSet<T>.IsEmpty.get -> bool
-Calendrie.Core.Intervals.RangeSet<T>.Range.get -> Calendrie.Core.Intervals.Range<T>
-Calendrie.Core.Intervals.RangeSet<T>.RangeSet() -> void
-Calendrie.Core.Intervals.RangeSet<T>.RangeSet(T min, T max) -> void
+Calendrie.Core.Intervals.Segment
+Calendrie.Core.Intervals.Segment<T>
+Calendrie.Core.Intervals.Segment<T>.Contains(T value) -> bool
+Calendrie.Core.Intervals.Segment<T>.Endpoints.get -> Calendrie.Core.Intervals.OrderedPair<T>
+Calendrie.Core.Intervals.Segment<T>.Equals(Calendrie.Core.Intervals.Segment<T> other) -> bool
+Calendrie.Core.Intervals.Segment<T>.IsLeftBounded.get -> bool
+Calendrie.Core.Intervals.Segment<T>.IsLeftOpen.get -> bool
+Calendrie.Core.Intervals.Segment<T>.IsProperSubsetOf(Calendrie.Core.Intervals.Segment<T> other) -> bool
+Calendrie.Core.Intervals.Segment<T>.IsProperSupersetOf(Calendrie.Core.Intervals.Segment<T> other) -> bool
+Calendrie.Core.Intervals.Segment<T>.IsRightBounded.get -> bool
+Calendrie.Core.Intervals.Segment<T>.IsRightOpen.get -> bool
+Calendrie.Core.Intervals.Segment<T>.IsSingleton.get -> bool
+Calendrie.Core.Intervals.Segment<T>.IsSubsetOf(Calendrie.Core.Intervals.Segment<T> other) -> bool
+Calendrie.Core.Intervals.Segment<T>.IsSupersetOf(Calendrie.Core.Intervals.Segment<T> other) -> bool
+Calendrie.Core.Intervals.Segment<T>.Max.get -> T
+Calendrie.Core.Intervals.Segment<T>.Min.get -> T
+Calendrie.Core.Intervals.Segment<T>.Segment() -> void
+Calendrie.Core.Intervals.Segment<T>.Segment(T min, T max) -> void
+Calendrie.Core.Intervals.Segment<T>.SetEquals(Calendrie.Core.Intervals.Segment<T> other) -> bool
+Calendrie.Core.Intervals.Segment<T>.WithMax(T max) -> Calendrie.Core.Intervals.Segment<T>
+Calendrie.Core.Intervals.Segment<T>.WithMin(T min) -> Calendrie.Core.Intervals.Segment<T>
+Calendrie.Core.Intervals.SegmentSet
+Calendrie.Core.Intervals.SegmentSet<T>
+Calendrie.Core.Intervals.SegmentSet<T>.Equals(Calendrie.Core.Intervals.SegmentSet<T> other) -> bool
+Calendrie.Core.Intervals.SegmentSet<T>.IsEmpty.get -> bool
+Calendrie.Core.Intervals.SegmentSet<T>.Segment.get -> Calendrie.Core.Intervals.Segment<T>
+Calendrie.Core.Intervals.SegmentSet<T>.SegmentSet() -> void
+Calendrie.Core.Intervals.SegmentSet<T>.SegmentSet(T min, T max) -> void
 Calendrie.Core.Intervals.UpperRay
 Calendrie.Core.Intervals.UpperRay<T>
 Calendrie.Core.Intervals.UpperRay<T>.Contains(T value) -> bool
@@ -274,13 +274,13 @@ Calendrie.Core.Prototyping.NonRegularSchemaPrototype
 Calendrie.Core.Prototyping.NonRegularSchemaPrototype.IsProleptic.get -> bool
 Calendrie.Core.Prototyping.NonRegularSchemaPrototype.MinMonthsInYear.get -> int
 Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(bool proleptic, int minMonthsInYear, int minDaysInYear, int minDaysInMonth) -> void
-Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minMonthsInYear, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.NonRegularSchemaPrototype.NonRegularSchemaPrototype(Calendrie.Core.Intervals.Segment<int> supportedYears, int minMonthsInYear, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.Prototyping.RegularSchemaPrototype
 Calendrie.Core.Prototyping.RegularSchemaPrototype.IsProleptic.get -> bool
 Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(bool proleptic, int minDaysInYear, int minDaysInMonth) -> void
-Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.Prototyping.RegularSchemaPrototype.RegularSchemaPrototype(Calendrie.Core.Intervals.Segment<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.RegularSchema
-Calendrie.Core.RegularSchema.RegularSchema(Calendrie.Core.Intervals.Range<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
+Calendrie.Core.RegularSchema.RegularSchema(Calendrie.Core.Intervals.Segment<int> supportedYears, int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.RegularSchema.RegularSchema(int minDaysInYear, int minDaysInMonth) -> void
 Calendrie.Core.Schemas.CivilSchema
 Calendrie.Core.Schemas.Coptic12Schema
@@ -359,7 +359,7 @@ Calendrie.Hemerology.CalendarScope.CalendarScope(Calendrie.Core.CalendricalSegme
 Calendrie.Hemerology.CalendarScope.CheckLowerBound(Calendrie.DayNumber dayNumber) -> void
 Calendrie.Hemerology.CalendarScope.CheckOverflow(Calendrie.DayNumber dayNumber) -> void
 Calendrie.Hemerology.CalendarScope.CheckUpperBound(Calendrie.DayNumber dayNumber) -> void
-Calendrie.Hemerology.CalendarScope.Domain.get -> Calendrie.Core.Intervals.Range<Calendrie.DayNumber>
+Calendrie.Hemerology.CalendarScope.Domain.get -> Calendrie.Core.Intervals.Segment<Calendrie.DayNumber>
 Calendrie.Hemerology.CalendarScope.Epoch.get -> Calendrie.DayNumber
 Calendrie.Hemerology.CalendarScope.PreValidator.get -> Calendrie.Core.ICalendricalPreValidator!
 Calendrie.Hemerology.CalendarScope.PreValidator.init -> void
@@ -452,7 +452,7 @@ Calendrie.Hemerology.IDaySegment<TDate>.CountDays() -> int
 Calendrie.Hemerology.IDaySegment<TDate>.EnumerateDays() -> System.Collections.Generic.IEnumerable<TDate>!
 Calendrie.Hemerology.IDaySegment<TDate>.MaxDay.get -> TDate
 Calendrie.Hemerology.IDaySegment<TDate>.MinDay.get -> TDate
-Calendrie.Hemerology.IDaySegment<TDate>.ToDayRange() -> Calendrie.Core.Intervals.Range<TDate>
+Calendrie.Hemerology.IDaySegment<TDate>.ToDayRange() -> Calendrie.Core.Intervals.Segment<TDate>
 Calendrie.Hemerology.IMonth
 Calendrie.Hemerology.IMonth.Calendar.get -> Calendrie.Hemerology.Calendar!
 Calendrie.Hemerology.IMonth.Century.get -> int
@@ -488,7 +488,7 @@ Calendrie.Hemerology.IMonthSegment<TMonth>.CountMonths() -> int
 Calendrie.Hemerology.IMonthSegment<TMonth>.EnumerateMonths() -> System.Collections.Generic.IEnumerable<TMonth>!
 Calendrie.Hemerology.IMonthSegment<TMonth>.MaxMonth.get -> TMonth
 Calendrie.Hemerology.IMonthSegment<TMonth>.MinMonth.get -> TMonth
-Calendrie.Hemerology.IMonthSegment<TMonth>.ToMonthRange() -> Calendrie.Core.Intervals.Range<TMonth>
+Calendrie.Hemerology.IMonthSegment<TMonth>.ToMonthRange() -> Calendrie.Core.Intervals.Segment<TMonth>
 Calendrie.Hemerology.IYear
 Calendrie.Hemerology.IYear.Calendar.get -> Calendrie.Hemerology.Calendar!
 Calendrie.Hemerology.IYear.Century.get -> int
@@ -637,7 +637,7 @@ Calendrie.Systems.Armenian13Month.PlusMonths(int months) -> Calendrie.Systems.Ar
 Calendrie.Systems.Armenian13Month.PlusYears(int years) -> Calendrie.Systems.Armenian13Month
 Calendrie.Systems.Armenian13Month.PreviousMonth() -> Calendrie.Systems.Armenian13Month
 Calendrie.Systems.Armenian13Month.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.Armenian13Date>!
-Calendrie.Systems.Armenian13Month.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Armenian13Date>
+Calendrie.Systems.Armenian13Month.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Armenian13Date>
 Calendrie.Systems.Armenian13Month.WithMonth(int newMonth) -> Calendrie.Systems.Armenian13Month
 Calendrie.Systems.Armenian13Month.WithYear(int newYear) -> Calendrie.Systems.Armenian13Month
 Calendrie.Systems.Armenian13Month.Year.get -> int
@@ -666,8 +666,8 @@ Calendrie.Systems.Armenian13Year.MinMonth.get -> Calendrie.Systems.Armenian13Mon
 Calendrie.Systems.Armenian13Year.NextYear() -> Calendrie.Systems.Armenian13Year
 Calendrie.Systems.Armenian13Year.PlusYears(int years) -> Calendrie.Systems.Armenian13Year
 Calendrie.Systems.Armenian13Year.PreviousYear() -> Calendrie.Systems.Armenian13Year
-Calendrie.Systems.Armenian13Year.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Armenian13Date>
-Calendrie.Systems.Armenian13Year.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Armenian13Month>
+Calendrie.Systems.Armenian13Year.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Armenian13Date>
+Calendrie.Systems.Armenian13Year.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Armenian13Month>
 Calendrie.Systems.Armenian13Year.Year.get -> int
 Calendrie.Systems.Armenian13Year.YearOfCentury.get -> int
 Calendrie.Systems.Armenian13Year.YearOfEra.get -> Calendrie.Ord
@@ -749,7 +749,7 @@ Calendrie.Systems.ArmenianMonth.PlusMonths(int months) -> Calendrie.Systems.Arme
 Calendrie.Systems.ArmenianMonth.PlusYears(int years) -> Calendrie.Systems.ArmenianMonth
 Calendrie.Systems.ArmenianMonth.PreviousMonth() -> Calendrie.Systems.ArmenianMonth
 Calendrie.Systems.ArmenianMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.ArmenianDate>!
-Calendrie.Systems.ArmenianMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.ArmenianDate>
+Calendrie.Systems.ArmenianMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.ArmenianDate>
 Calendrie.Systems.ArmenianMonth.WithMonth(int newMonth) -> Calendrie.Systems.ArmenianMonth
 Calendrie.Systems.ArmenianMonth.WithYear(int newYear) -> Calendrie.Systems.ArmenianMonth
 Calendrie.Systems.ArmenianMonth.Year.get -> int
@@ -778,8 +778,8 @@ Calendrie.Systems.ArmenianYear.MinMonth.get -> Calendrie.Systems.ArmenianMonth
 Calendrie.Systems.ArmenianYear.NextYear() -> Calendrie.Systems.ArmenianYear
 Calendrie.Systems.ArmenianYear.PlusYears(int years) -> Calendrie.Systems.ArmenianYear
 Calendrie.Systems.ArmenianYear.PreviousYear() -> Calendrie.Systems.ArmenianYear
-Calendrie.Systems.ArmenianYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.ArmenianDate>
-Calendrie.Systems.ArmenianYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.ArmenianMonth>
+Calendrie.Systems.ArmenianYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.ArmenianDate>
+Calendrie.Systems.ArmenianYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.ArmenianMonth>
 Calendrie.Systems.ArmenianYear.Year.get -> int
 Calendrie.Systems.ArmenianYear.YearOfCentury.get -> int
 Calendrie.Systems.ArmenianYear.YearOfEra.get -> Calendrie.Ord
@@ -863,7 +863,7 @@ Calendrie.Systems.CivilMonth.PlusYears(int years) -> Calendrie.Systems.CivilMont
 Calendrie.Systems.CivilMonth.PreviousMonth() -> Calendrie.Systems.CivilMonth
 Calendrie.Systems.CivilMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.CivilDate>!
 Calendrie.Systems.CivilMonth.ToGregorianMonth() -> Calendrie.Systems.GregorianMonth
-Calendrie.Systems.CivilMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.CivilDate>
+Calendrie.Systems.CivilMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.CivilDate>
 Calendrie.Systems.CivilMonth.WithMonth(int newMonth) -> Calendrie.Systems.CivilMonth
 Calendrie.Systems.CivilMonth.WithYear(int newYear) -> Calendrie.Systems.CivilMonth
 Calendrie.Systems.CivilMonth.Year.get -> int
@@ -894,9 +894,9 @@ Calendrie.Systems.CivilYear.MinMonth.get -> Calendrie.Systems.CivilMonth
 Calendrie.Systems.CivilYear.NextYear() -> Calendrie.Systems.CivilYear
 Calendrie.Systems.CivilYear.PlusYears(int years) -> Calendrie.Systems.CivilYear
 Calendrie.Systems.CivilYear.PreviousYear() -> Calendrie.Systems.CivilYear
-Calendrie.Systems.CivilYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.CivilDate>
+Calendrie.Systems.CivilYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.CivilDate>
 Calendrie.Systems.CivilYear.ToGregorianYear() -> Calendrie.Systems.GregorianYear
-Calendrie.Systems.CivilYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.CivilMonth>
+Calendrie.Systems.CivilYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.CivilMonth>
 Calendrie.Systems.CivilYear.Year.get -> int
 Calendrie.Systems.CivilYear.YearOfCentury.get -> int
 Calendrie.Systems.CivilYear.YearOfEra.get -> Calendrie.Ord
@@ -982,7 +982,7 @@ Calendrie.Systems.Coptic13Month.PlusMonths(int months) -> Calendrie.Systems.Copt
 Calendrie.Systems.Coptic13Month.PlusYears(int years) -> Calendrie.Systems.Coptic13Month
 Calendrie.Systems.Coptic13Month.PreviousMonth() -> Calendrie.Systems.Coptic13Month
 Calendrie.Systems.Coptic13Month.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.Coptic13Date>!
-Calendrie.Systems.Coptic13Month.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Coptic13Date>
+Calendrie.Systems.Coptic13Month.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Coptic13Date>
 Calendrie.Systems.Coptic13Month.WithMonth(int newMonth) -> Calendrie.Systems.Coptic13Month
 Calendrie.Systems.Coptic13Month.WithYear(int newYear) -> Calendrie.Systems.Coptic13Month
 Calendrie.Systems.Coptic13Month.Year.get -> int
@@ -1013,8 +1013,8 @@ Calendrie.Systems.Coptic13Year.MinMonth.get -> Calendrie.Systems.Coptic13Month
 Calendrie.Systems.Coptic13Year.NextYear() -> Calendrie.Systems.Coptic13Year
 Calendrie.Systems.Coptic13Year.PlusYears(int years) -> Calendrie.Systems.Coptic13Year
 Calendrie.Systems.Coptic13Year.PreviousYear() -> Calendrie.Systems.Coptic13Year
-Calendrie.Systems.Coptic13Year.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Coptic13Date>
-Calendrie.Systems.Coptic13Year.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Coptic13Month>
+Calendrie.Systems.Coptic13Year.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Coptic13Date>
+Calendrie.Systems.Coptic13Year.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Coptic13Month>
 Calendrie.Systems.Coptic13Year.Year.get -> int
 Calendrie.Systems.Coptic13Year.YearOfCentury.get -> int
 Calendrie.Systems.Coptic13Year.YearOfEra.get -> Calendrie.Ord
@@ -1099,7 +1099,7 @@ Calendrie.Systems.CopticMonth.PlusMonths(int months) -> Calendrie.Systems.Coptic
 Calendrie.Systems.CopticMonth.PlusYears(int years) -> Calendrie.Systems.CopticMonth
 Calendrie.Systems.CopticMonth.PreviousMonth() -> Calendrie.Systems.CopticMonth
 Calendrie.Systems.CopticMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.CopticDate>!
-Calendrie.Systems.CopticMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.CopticDate>
+Calendrie.Systems.CopticMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.CopticDate>
 Calendrie.Systems.CopticMonth.WithMonth(int newMonth) -> Calendrie.Systems.CopticMonth
 Calendrie.Systems.CopticMonth.WithYear(int newYear) -> Calendrie.Systems.CopticMonth
 Calendrie.Systems.CopticMonth.Year.get -> int
@@ -1130,8 +1130,8 @@ Calendrie.Systems.CopticYear.MinMonth.get -> Calendrie.Systems.CopticMonth
 Calendrie.Systems.CopticYear.NextYear() -> Calendrie.Systems.CopticYear
 Calendrie.Systems.CopticYear.PlusYears(int years) -> Calendrie.Systems.CopticYear
 Calendrie.Systems.CopticYear.PreviousYear() -> Calendrie.Systems.CopticYear
-Calendrie.Systems.CopticYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.CopticDate>
-Calendrie.Systems.CopticYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.CopticMonth>
+Calendrie.Systems.CopticYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.CopticDate>
+Calendrie.Systems.CopticYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.CopticMonth>
 Calendrie.Systems.CopticYear.Year.get -> int
 Calendrie.Systems.CopticYear.YearOfCentury.get -> int
 Calendrie.Systems.CopticYear.YearOfEra.get -> Calendrie.Ord
@@ -1214,7 +1214,7 @@ Calendrie.Systems.Egyptian13Month.PlusMonths(int months) -> Calendrie.Systems.Eg
 Calendrie.Systems.Egyptian13Month.PlusYears(int years) -> Calendrie.Systems.Egyptian13Month
 Calendrie.Systems.Egyptian13Month.PreviousMonth() -> Calendrie.Systems.Egyptian13Month
 Calendrie.Systems.Egyptian13Month.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.Egyptian13Date>!
-Calendrie.Systems.Egyptian13Month.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Egyptian13Date>
+Calendrie.Systems.Egyptian13Month.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Egyptian13Date>
 Calendrie.Systems.Egyptian13Month.WithMonth(int newMonth) -> Calendrie.Systems.Egyptian13Month
 Calendrie.Systems.Egyptian13Month.WithYear(int newYear) -> Calendrie.Systems.Egyptian13Month
 Calendrie.Systems.Egyptian13Month.Year.get -> int
@@ -1243,8 +1243,8 @@ Calendrie.Systems.Egyptian13Year.MinMonth.get -> Calendrie.Systems.Egyptian13Mon
 Calendrie.Systems.Egyptian13Year.NextYear() -> Calendrie.Systems.Egyptian13Year
 Calendrie.Systems.Egyptian13Year.PlusYears(int years) -> Calendrie.Systems.Egyptian13Year
 Calendrie.Systems.Egyptian13Year.PreviousYear() -> Calendrie.Systems.Egyptian13Year
-Calendrie.Systems.Egyptian13Year.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Egyptian13Date>
-Calendrie.Systems.Egyptian13Year.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Egyptian13Month>
+Calendrie.Systems.Egyptian13Year.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Egyptian13Date>
+Calendrie.Systems.Egyptian13Year.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Egyptian13Month>
 Calendrie.Systems.Egyptian13Year.Year.get -> int
 Calendrie.Systems.Egyptian13Year.YearOfCentury.get -> int
 Calendrie.Systems.Egyptian13Year.YearOfEra.get -> Calendrie.Ord
@@ -1326,7 +1326,7 @@ Calendrie.Systems.EgyptianMonth.PlusMonths(int months) -> Calendrie.Systems.Egyp
 Calendrie.Systems.EgyptianMonth.PlusYears(int years) -> Calendrie.Systems.EgyptianMonth
 Calendrie.Systems.EgyptianMonth.PreviousMonth() -> Calendrie.Systems.EgyptianMonth
 Calendrie.Systems.EgyptianMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.EgyptianDate>!
-Calendrie.Systems.EgyptianMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.EgyptianDate>
+Calendrie.Systems.EgyptianMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.EgyptianDate>
 Calendrie.Systems.EgyptianMonth.WithMonth(int newMonth) -> Calendrie.Systems.EgyptianMonth
 Calendrie.Systems.EgyptianMonth.WithYear(int newYear) -> Calendrie.Systems.EgyptianMonth
 Calendrie.Systems.EgyptianMonth.Year.get -> int
@@ -1355,8 +1355,8 @@ Calendrie.Systems.EgyptianYear.MinMonth.get -> Calendrie.Systems.EgyptianMonth
 Calendrie.Systems.EgyptianYear.NextYear() -> Calendrie.Systems.EgyptianYear
 Calendrie.Systems.EgyptianYear.PlusYears(int years) -> Calendrie.Systems.EgyptianYear
 Calendrie.Systems.EgyptianYear.PreviousYear() -> Calendrie.Systems.EgyptianYear
-Calendrie.Systems.EgyptianYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.EgyptianDate>
-Calendrie.Systems.EgyptianYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.EgyptianMonth>
+Calendrie.Systems.EgyptianYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.EgyptianDate>
+Calendrie.Systems.EgyptianYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.EgyptianMonth>
 Calendrie.Systems.EgyptianYear.Year.get -> int
 Calendrie.Systems.EgyptianYear.YearOfCentury.get -> int
 Calendrie.Systems.EgyptianYear.YearOfEra.get -> Calendrie.Ord
@@ -1442,7 +1442,7 @@ Calendrie.Systems.Ethiopic13Month.PlusMonths(int months) -> Calendrie.Systems.Et
 Calendrie.Systems.Ethiopic13Month.PlusYears(int years) -> Calendrie.Systems.Ethiopic13Month
 Calendrie.Systems.Ethiopic13Month.PreviousMonth() -> Calendrie.Systems.Ethiopic13Month
 Calendrie.Systems.Ethiopic13Month.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.Ethiopic13Date>!
-Calendrie.Systems.Ethiopic13Month.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Ethiopic13Date>
+Calendrie.Systems.Ethiopic13Month.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Ethiopic13Date>
 Calendrie.Systems.Ethiopic13Month.WithMonth(int newMonth) -> Calendrie.Systems.Ethiopic13Month
 Calendrie.Systems.Ethiopic13Month.WithYear(int newYear) -> Calendrie.Systems.Ethiopic13Month
 Calendrie.Systems.Ethiopic13Month.Year.get -> int
@@ -1473,8 +1473,8 @@ Calendrie.Systems.Ethiopic13Year.MinMonth.get -> Calendrie.Systems.Ethiopic13Mon
 Calendrie.Systems.Ethiopic13Year.NextYear() -> Calendrie.Systems.Ethiopic13Year
 Calendrie.Systems.Ethiopic13Year.PlusYears(int years) -> Calendrie.Systems.Ethiopic13Year
 Calendrie.Systems.Ethiopic13Year.PreviousYear() -> Calendrie.Systems.Ethiopic13Year
-Calendrie.Systems.Ethiopic13Year.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Ethiopic13Date>
-Calendrie.Systems.Ethiopic13Year.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Ethiopic13Month>
+Calendrie.Systems.Ethiopic13Year.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Ethiopic13Date>
+Calendrie.Systems.Ethiopic13Year.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Ethiopic13Month>
 Calendrie.Systems.Ethiopic13Year.Year.get -> int
 Calendrie.Systems.Ethiopic13Year.YearOfCentury.get -> int
 Calendrie.Systems.Ethiopic13Year.YearOfEra.get -> Calendrie.Ord
@@ -1559,7 +1559,7 @@ Calendrie.Systems.EthiopicMonth.PlusMonths(int months) -> Calendrie.Systems.Ethi
 Calendrie.Systems.EthiopicMonth.PlusYears(int years) -> Calendrie.Systems.EthiopicMonth
 Calendrie.Systems.EthiopicMonth.PreviousMonth() -> Calendrie.Systems.EthiopicMonth
 Calendrie.Systems.EthiopicMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.EthiopicDate>!
-Calendrie.Systems.EthiopicMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.EthiopicDate>
+Calendrie.Systems.EthiopicMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.EthiopicDate>
 Calendrie.Systems.EthiopicMonth.WithMonth(int newMonth) -> Calendrie.Systems.EthiopicMonth
 Calendrie.Systems.EthiopicMonth.WithYear(int newYear) -> Calendrie.Systems.EthiopicMonth
 Calendrie.Systems.EthiopicMonth.Year.get -> int
@@ -1590,8 +1590,8 @@ Calendrie.Systems.EthiopicYear.MinMonth.get -> Calendrie.Systems.EthiopicMonth
 Calendrie.Systems.EthiopicYear.NextYear() -> Calendrie.Systems.EthiopicYear
 Calendrie.Systems.EthiopicYear.PlusYears(int years) -> Calendrie.Systems.EthiopicYear
 Calendrie.Systems.EthiopicYear.PreviousYear() -> Calendrie.Systems.EthiopicYear
-Calendrie.Systems.EthiopicYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.EthiopicDate>
-Calendrie.Systems.EthiopicYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.EthiopicMonth>
+Calendrie.Systems.EthiopicYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.EthiopicDate>
+Calendrie.Systems.EthiopicYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.EthiopicMonth>
 Calendrie.Systems.EthiopicYear.Year.get -> int
 Calendrie.Systems.EthiopicYear.YearOfCentury.get -> int
 Calendrie.Systems.EthiopicYear.YearOfEra.get -> Calendrie.Ord
@@ -1677,7 +1677,7 @@ Calendrie.Systems.FrenchRepublican13Month.PlusMonths(int months) -> Calendrie.Sy
 Calendrie.Systems.FrenchRepublican13Month.PlusYears(int years) -> Calendrie.Systems.FrenchRepublican13Month
 Calendrie.Systems.FrenchRepublican13Month.PreviousMonth() -> Calendrie.Systems.FrenchRepublican13Month
 Calendrie.Systems.FrenchRepublican13Month.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.FrenchRepublican13Date>!
-Calendrie.Systems.FrenchRepublican13Month.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.FrenchRepublican13Date>
+Calendrie.Systems.FrenchRepublican13Month.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.FrenchRepublican13Date>
 Calendrie.Systems.FrenchRepublican13Month.WithMonth(int newMonth) -> Calendrie.Systems.FrenchRepublican13Month
 Calendrie.Systems.FrenchRepublican13Month.WithYear(int newYear) -> Calendrie.Systems.FrenchRepublican13Month
 Calendrie.Systems.FrenchRepublican13Month.Year.get -> int
@@ -1708,8 +1708,8 @@ Calendrie.Systems.FrenchRepublican13Year.MinMonth.get -> Calendrie.Systems.Frenc
 Calendrie.Systems.FrenchRepublican13Year.NextYear() -> Calendrie.Systems.FrenchRepublican13Year
 Calendrie.Systems.FrenchRepublican13Year.PlusYears(int years) -> Calendrie.Systems.FrenchRepublican13Year
 Calendrie.Systems.FrenchRepublican13Year.PreviousYear() -> Calendrie.Systems.FrenchRepublican13Year
-Calendrie.Systems.FrenchRepublican13Year.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.FrenchRepublican13Date>
-Calendrie.Systems.FrenchRepublican13Year.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.FrenchRepublican13Month>
+Calendrie.Systems.FrenchRepublican13Year.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.FrenchRepublican13Date>
+Calendrie.Systems.FrenchRepublican13Year.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.FrenchRepublican13Month>
 Calendrie.Systems.FrenchRepublican13Year.Year.get -> int
 Calendrie.Systems.FrenchRepublican13Year.YearOfCentury.get -> int
 Calendrie.Systems.FrenchRepublican13Year.YearOfEra.get -> Calendrie.Ord
@@ -1794,7 +1794,7 @@ Calendrie.Systems.FrenchRepublicanMonth.PlusMonths(int months) -> Calendrie.Syst
 Calendrie.Systems.FrenchRepublicanMonth.PlusYears(int years) -> Calendrie.Systems.FrenchRepublicanMonth
 Calendrie.Systems.FrenchRepublicanMonth.PreviousMonth() -> Calendrie.Systems.FrenchRepublicanMonth
 Calendrie.Systems.FrenchRepublicanMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.FrenchRepublicanDate>!
-Calendrie.Systems.FrenchRepublicanMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.FrenchRepublicanDate>
+Calendrie.Systems.FrenchRepublicanMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.FrenchRepublicanDate>
 Calendrie.Systems.FrenchRepublicanMonth.WithMonth(int newMonth) -> Calendrie.Systems.FrenchRepublicanMonth
 Calendrie.Systems.FrenchRepublicanMonth.WithYear(int newYear) -> Calendrie.Systems.FrenchRepublicanMonth
 Calendrie.Systems.FrenchRepublicanMonth.Year.get -> int
@@ -1825,8 +1825,8 @@ Calendrie.Systems.FrenchRepublicanYear.MinMonth.get -> Calendrie.Systems.FrenchR
 Calendrie.Systems.FrenchRepublicanYear.NextYear() -> Calendrie.Systems.FrenchRepublicanYear
 Calendrie.Systems.FrenchRepublicanYear.PlusYears(int years) -> Calendrie.Systems.FrenchRepublicanYear
 Calendrie.Systems.FrenchRepublicanYear.PreviousYear() -> Calendrie.Systems.FrenchRepublicanYear
-Calendrie.Systems.FrenchRepublicanYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.FrenchRepublicanDate>
-Calendrie.Systems.FrenchRepublicanYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.FrenchRepublicanMonth>
+Calendrie.Systems.FrenchRepublicanYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.FrenchRepublicanDate>
+Calendrie.Systems.FrenchRepublicanYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.FrenchRepublicanMonth>
 Calendrie.Systems.FrenchRepublicanYear.Year.get -> int
 Calendrie.Systems.FrenchRepublicanYear.YearOfCentury.get -> int
 Calendrie.Systems.FrenchRepublicanYear.YearOfEra.get -> Calendrie.Ord
@@ -1908,7 +1908,7 @@ Calendrie.Systems.GregorianMonth.PlusMonths(int months) -> Calendrie.Systems.Gre
 Calendrie.Systems.GregorianMonth.PlusYears(int years) -> Calendrie.Systems.GregorianMonth
 Calendrie.Systems.GregorianMonth.PreviousMonth() -> Calendrie.Systems.GregorianMonth
 Calendrie.Systems.GregorianMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.GregorianDate>!
-Calendrie.Systems.GregorianMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.GregorianDate>
+Calendrie.Systems.GregorianMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.GregorianDate>
 Calendrie.Systems.GregorianMonth.WithMonth(int newMonth) -> Calendrie.Systems.GregorianMonth
 Calendrie.Systems.GregorianMonth.WithYear(int newYear) -> Calendrie.Systems.GregorianMonth
 Calendrie.Systems.GregorianMonth.Year.get -> int
@@ -1939,8 +1939,8 @@ Calendrie.Systems.GregorianYear.MinMonth.get -> Calendrie.Systems.GregorianMonth
 Calendrie.Systems.GregorianYear.NextYear() -> Calendrie.Systems.GregorianYear
 Calendrie.Systems.GregorianYear.PlusYears(int years) -> Calendrie.Systems.GregorianYear
 Calendrie.Systems.GregorianYear.PreviousYear() -> Calendrie.Systems.GregorianYear
-Calendrie.Systems.GregorianYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.GregorianDate>
-Calendrie.Systems.GregorianYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.GregorianMonth>
+Calendrie.Systems.GregorianYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.GregorianDate>
+Calendrie.Systems.GregorianYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.GregorianMonth>
 Calendrie.Systems.GregorianYear.Year.get -> int
 Calendrie.Systems.GregorianYear.YearOfCentury.get -> int
 Calendrie.Systems.GregorianYear.YearOfEra.get -> Calendrie.Ord
@@ -2025,7 +2025,7 @@ Calendrie.Systems.InternationalFixedMonth.PlusMonths(int months) -> Calendrie.Sy
 Calendrie.Systems.InternationalFixedMonth.PlusYears(int years) -> Calendrie.Systems.InternationalFixedMonth
 Calendrie.Systems.InternationalFixedMonth.PreviousMonth() -> Calendrie.Systems.InternationalFixedMonth
 Calendrie.Systems.InternationalFixedMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.InternationalFixedDate>!
-Calendrie.Systems.InternationalFixedMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.InternationalFixedDate>
+Calendrie.Systems.InternationalFixedMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.InternationalFixedDate>
 Calendrie.Systems.InternationalFixedMonth.WithMonth(int newMonth) -> Calendrie.Systems.InternationalFixedMonth
 Calendrie.Systems.InternationalFixedMonth.WithYear(int newYear) -> Calendrie.Systems.InternationalFixedMonth
 Calendrie.Systems.InternationalFixedMonth.Year.get -> int
@@ -2056,8 +2056,8 @@ Calendrie.Systems.InternationalFixedYear.MinMonth.get -> Calendrie.Systems.Inter
 Calendrie.Systems.InternationalFixedYear.NextYear() -> Calendrie.Systems.InternationalFixedYear
 Calendrie.Systems.InternationalFixedYear.PlusYears(int years) -> Calendrie.Systems.InternationalFixedYear
 Calendrie.Systems.InternationalFixedYear.PreviousYear() -> Calendrie.Systems.InternationalFixedYear
-Calendrie.Systems.InternationalFixedYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.InternationalFixedDate>
-Calendrie.Systems.InternationalFixedYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.InternationalFixedMonth>
+Calendrie.Systems.InternationalFixedYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.InternationalFixedDate>
+Calendrie.Systems.InternationalFixedYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.InternationalFixedMonth>
 Calendrie.Systems.InternationalFixedYear.Year.get -> int
 Calendrie.Systems.InternationalFixedYear.YearOfCentury.get -> int
 Calendrie.Systems.InternationalFixedYear.YearOfEra.get -> Calendrie.Ord
@@ -2140,7 +2140,7 @@ Calendrie.Systems.JulianMonth.PlusMonths(int months) -> Calendrie.Systems.Julian
 Calendrie.Systems.JulianMonth.PlusYears(int years) -> Calendrie.Systems.JulianMonth
 Calendrie.Systems.JulianMonth.PreviousMonth() -> Calendrie.Systems.JulianMonth
 Calendrie.Systems.JulianMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.JulianDate>!
-Calendrie.Systems.JulianMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.JulianDate>
+Calendrie.Systems.JulianMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.JulianDate>
 Calendrie.Systems.JulianMonth.WithMonth(int newMonth) -> Calendrie.Systems.JulianMonth
 Calendrie.Systems.JulianMonth.WithYear(int newYear) -> Calendrie.Systems.JulianMonth
 Calendrie.Systems.JulianMonth.Year.get -> int
@@ -2171,8 +2171,8 @@ Calendrie.Systems.JulianYear.MinMonth.get -> Calendrie.Systems.JulianMonth
 Calendrie.Systems.JulianYear.NextYear() -> Calendrie.Systems.JulianYear
 Calendrie.Systems.JulianYear.PlusYears(int years) -> Calendrie.Systems.JulianYear
 Calendrie.Systems.JulianYear.PreviousYear() -> Calendrie.Systems.JulianYear
-Calendrie.Systems.JulianYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.JulianDate>
-Calendrie.Systems.JulianYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.JulianMonth>
+Calendrie.Systems.JulianYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.JulianDate>
+Calendrie.Systems.JulianYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.JulianMonth>
 Calendrie.Systems.JulianYear.Year.get -> int
 Calendrie.Systems.JulianYear.YearOfCentury.get -> int
 Calendrie.Systems.JulianYear.YearOfEra.get -> Calendrie.Ord
@@ -2255,7 +2255,7 @@ Calendrie.Systems.Persian2820Month.PlusMonths(int months) -> Calendrie.Systems.P
 Calendrie.Systems.Persian2820Month.PlusYears(int years) -> Calendrie.Systems.Persian2820Month
 Calendrie.Systems.Persian2820Month.PreviousMonth() -> Calendrie.Systems.Persian2820Month
 Calendrie.Systems.Persian2820Month.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.Persian2820Date>!
-Calendrie.Systems.Persian2820Month.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Persian2820Date>
+Calendrie.Systems.Persian2820Month.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Persian2820Date>
 Calendrie.Systems.Persian2820Month.WithMonth(int newMonth) -> Calendrie.Systems.Persian2820Month
 Calendrie.Systems.Persian2820Month.WithYear(int newYear) -> Calendrie.Systems.Persian2820Month
 Calendrie.Systems.Persian2820Month.Year.get -> int
@@ -2286,8 +2286,8 @@ Calendrie.Systems.Persian2820Year.Persian2820Year(Calendrie.Systems.Persian2820M
 Calendrie.Systems.Persian2820Year.Persian2820Year(int year) -> void
 Calendrie.Systems.Persian2820Year.PlusYears(int years) -> Calendrie.Systems.Persian2820Year
 Calendrie.Systems.Persian2820Year.PreviousYear() -> Calendrie.Systems.Persian2820Year
-Calendrie.Systems.Persian2820Year.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Persian2820Date>
-Calendrie.Systems.Persian2820Year.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Persian2820Month>
+Calendrie.Systems.Persian2820Year.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Persian2820Date>
+Calendrie.Systems.Persian2820Year.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Persian2820Month>
 Calendrie.Systems.Persian2820Year.Year.get -> int
 Calendrie.Systems.Persian2820Year.YearOfCentury.get -> int
 Calendrie.Systems.Persian2820Year.YearOfEra.get -> Calendrie.Ord
@@ -2372,7 +2372,7 @@ Calendrie.Systems.PositivistMonth.PositivistMonth(Calendrie.Systems.PositivistDa
 Calendrie.Systems.PositivistMonth.PositivistMonth(int year, int month) -> void
 Calendrie.Systems.PositivistMonth.PreviousMonth() -> Calendrie.Systems.PositivistMonth
 Calendrie.Systems.PositivistMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.PositivistDate>!
-Calendrie.Systems.PositivistMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.PositivistDate>
+Calendrie.Systems.PositivistMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.PositivistDate>
 Calendrie.Systems.PositivistMonth.WithMonth(int newMonth) -> Calendrie.Systems.PositivistMonth
 Calendrie.Systems.PositivistMonth.WithYear(int newYear) -> Calendrie.Systems.PositivistMonth
 Calendrie.Systems.PositivistMonth.Year.get -> int
@@ -2403,8 +2403,8 @@ Calendrie.Systems.PositivistYear.PositivistYear(Calendrie.Systems.PositivistDate
 Calendrie.Systems.PositivistYear.PositivistYear(Calendrie.Systems.PositivistMonth month) -> void
 Calendrie.Systems.PositivistYear.PositivistYear(int year) -> void
 Calendrie.Systems.PositivistYear.PreviousYear() -> Calendrie.Systems.PositivistYear
-Calendrie.Systems.PositivistYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.PositivistDate>
-Calendrie.Systems.PositivistYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.PositivistMonth>
+Calendrie.Systems.PositivistYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.PositivistDate>
+Calendrie.Systems.PositivistYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.PositivistMonth>
 Calendrie.Systems.PositivistYear.Year.get -> int
 Calendrie.Systems.PositivistYear.YearOfCentury.get -> int
 Calendrie.Systems.PositivistYear.YearOfEra.get -> Calendrie.Ord
@@ -2487,7 +2487,7 @@ Calendrie.Systems.TabularIslamicMonth.TabularIslamicMonth() -> void
 Calendrie.Systems.TabularIslamicMonth.TabularIslamicMonth(Calendrie.Systems.TabularIslamicDate date) -> void
 Calendrie.Systems.TabularIslamicMonth.TabularIslamicMonth(int year, int month) -> void
 Calendrie.Systems.TabularIslamicMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.TabularIslamicDate>!
-Calendrie.Systems.TabularIslamicMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.TabularIslamicDate>
+Calendrie.Systems.TabularIslamicMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.TabularIslamicDate>
 Calendrie.Systems.TabularIslamicMonth.WithMonth(int newMonth) -> Calendrie.Systems.TabularIslamicMonth
 Calendrie.Systems.TabularIslamicMonth.WithYear(int newYear) -> Calendrie.Systems.TabularIslamicMonth
 Calendrie.Systems.TabularIslamicMonth.Year.get -> int
@@ -2518,8 +2518,8 @@ Calendrie.Systems.TabularIslamicYear.TabularIslamicYear() -> void
 Calendrie.Systems.TabularIslamicYear.TabularIslamicYear(Calendrie.Systems.TabularIslamicDate date) -> void
 Calendrie.Systems.TabularIslamicYear.TabularIslamicYear(Calendrie.Systems.TabularIslamicMonth month) -> void
 Calendrie.Systems.TabularIslamicYear.TabularIslamicYear(int year) -> void
-Calendrie.Systems.TabularIslamicYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.TabularIslamicDate>
-Calendrie.Systems.TabularIslamicYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.TabularIslamicMonth>
+Calendrie.Systems.TabularIslamicYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.TabularIslamicDate>
+Calendrie.Systems.TabularIslamicYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.TabularIslamicMonth>
 Calendrie.Systems.TabularIslamicYear.Year.get -> int
 Calendrie.Systems.TabularIslamicYear.YearOfCentury.get -> int
 Calendrie.Systems.TabularIslamicYear.YearOfEra.get -> Calendrie.Ord
@@ -2602,7 +2602,7 @@ Calendrie.Systems.WorldMonth.PlusMonths(int months) -> Calendrie.Systems.WorldMo
 Calendrie.Systems.WorldMonth.PlusYears(int years) -> Calendrie.Systems.WorldMonth
 Calendrie.Systems.WorldMonth.PreviousMonth() -> Calendrie.Systems.WorldMonth
 Calendrie.Systems.WorldMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.WorldDate>!
-Calendrie.Systems.WorldMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.WorldDate>
+Calendrie.Systems.WorldMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.WorldDate>
 Calendrie.Systems.WorldMonth.WithMonth(int newMonth) -> Calendrie.Systems.WorldMonth
 Calendrie.Systems.WorldMonth.WithYear(int newYear) -> Calendrie.Systems.WorldMonth
 Calendrie.Systems.WorldMonth.WorldMonth() -> void
@@ -2632,8 +2632,8 @@ Calendrie.Systems.WorldYear.MinMonth.get -> Calendrie.Systems.WorldMonth
 Calendrie.Systems.WorldYear.NextYear() -> Calendrie.Systems.WorldYear
 Calendrie.Systems.WorldYear.PlusYears(int years) -> Calendrie.Systems.WorldYear
 Calendrie.Systems.WorldYear.PreviousYear() -> Calendrie.Systems.WorldYear
-Calendrie.Systems.WorldYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.WorldDate>
-Calendrie.Systems.WorldYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.WorldMonth>
+Calendrie.Systems.WorldYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.WorldDate>
+Calendrie.Systems.WorldYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.WorldMonth>
 Calendrie.Systems.WorldYear.WorldYear() -> void
 Calendrie.Systems.WorldYear.WorldYear(Calendrie.Systems.WorldDate date) -> void
 Calendrie.Systems.WorldYear.WorldYear(Calendrie.Systems.WorldMonth month) -> void
@@ -2717,7 +2717,7 @@ Calendrie.Systems.Zoroastrian13Month.PlusMonths(int months) -> Calendrie.Systems
 Calendrie.Systems.Zoroastrian13Month.PlusYears(int years) -> Calendrie.Systems.Zoroastrian13Month
 Calendrie.Systems.Zoroastrian13Month.PreviousMonth() -> Calendrie.Systems.Zoroastrian13Month
 Calendrie.Systems.Zoroastrian13Month.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.Zoroastrian13Date>!
-Calendrie.Systems.Zoroastrian13Month.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Zoroastrian13Date>
+Calendrie.Systems.Zoroastrian13Month.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Zoroastrian13Date>
 Calendrie.Systems.Zoroastrian13Month.WithMonth(int newMonth) -> Calendrie.Systems.Zoroastrian13Month
 Calendrie.Systems.Zoroastrian13Month.WithYear(int newYear) -> Calendrie.Systems.Zoroastrian13Month
 Calendrie.Systems.Zoroastrian13Month.Year.get -> int
@@ -2745,8 +2745,8 @@ Calendrie.Systems.Zoroastrian13Year.MinMonth.get -> Calendrie.Systems.Zoroastria
 Calendrie.Systems.Zoroastrian13Year.NextYear() -> Calendrie.Systems.Zoroastrian13Year
 Calendrie.Systems.Zoroastrian13Year.PlusYears(int years) -> Calendrie.Systems.Zoroastrian13Year
 Calendrie.Systems.Zoroastrian13Year.PreviousYear() -> Calendrie.Systems.Zoroastrian13Year
-Calendrie.Systems.Zoroastrian13Year.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Zoroastrian13Date>
-Calendrie.Systems.Zoroastrian13Year.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.Zoroastrian13Month>
+Calendrie.Systems.Zoroastrian13Year.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Zoroastrian13Date>
+Calendrie.Systems.Zoroastrian13Year.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.Zoroastrian13Month>
 Calendrie.Systems.Zoroastrian13Year.Year.get -> int
 Calendrie.Systems.Zoroastrian13Year.YearOfCentury.get -> int
 Calendrie.Systems.Zoroastrian13Year.YearOfEra.get -> Calendrie.Ord
@@ -2829,7 +2829,7 @@ Calendrie.Systems.ZoroastrianMonth.PlusMonths(int months) -> Calendrie.Systems.Z
 Calendrie.Systems.ZoroastrianMonth.PlusYears(int years) -> Calendrie.Systems.ZoroastrianMonth
 Calendrie.Systems.ZoroastrianMonth.PreviousMonth() -> Calendrie.Systems.ZoroastrianMonth
 Calendrie.Systems.ZoroastrianMonth.ToEnumerable() -> System.Collections.Generic.IEnumerable<Calendrie.Systems.ZoroastrianDate>!
-Calendrie.Systems.ZoroastrianMonth.ToRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.ZoroastrianDate>
+Calendrie.Systems.ZoroastrianMonth.ToRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.ZoroastrianDate>
 Calendrie.Systems.ZoroastrianMonth.WithMonth(int newMonth) -> Calendrie.Systems.ZoroastrianMonth
 Calendrie.Systems.ZoroastrianMonth.WithYear(int newYear) -> Calendrie.Systems.ZoroastrianMonth
 Calendrie.Systems.ZoroastrianMonth.Year.get -> int
@@ -2857,8 +2857,8 @@ Calendrie.Systems.ZoroastrianYear.MinMonth.get -> Calendrie.Systems.ZoroastrianM
 Calendrie.Systems.ZoroastrianYear.NextYear() -> Calendrie.Systems.ZoroastrianYear
 Calendrie.Systems.ZoroastrianYear.PlusYears(int years) -> Calendrie.Systems.ZoroastrianYear
 Calendrie.Systems.ZoroastrianYear.PreviousYear() -> Calendrie.Systems.ZoroastrianYear
-Calendrie.Systems.ZoroastrianYear.ToDayRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.ZoroastrianDate>
-Calendrie.Systems.ZoroastrianYear.ToMonthRange() -> Calendrie.Core.Intervals.Range<Calendrie.Systems.ZoroastrianMonth>
+Calendrie.Systems.ZoroastrianYear.ToDayRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.ZoroastrianDate>
+Calendrie.Systems.ZoroastrianYear.ToMonthRange() -> Calendrie.Core.Intervals.Segment<Calendrie.Systems.ZoroastrianMonth>
 Calendrie.Systems.ZoroastrianYear.Year.get -> int
 Calendrie.Systems.ZoroastrianYear.YearOfCentury.get -> int
 Calendrie.Systems.ZoroastrianYear.YearOfEra.get -> Calendrie.Ord
@@ -2979,12 +2979,12 @@ override Calendrie.Core.Intervals.LowerRay<T>.ToString() -> string!
 override Calendrie.Core.Intervals.OrderedPair<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.OrderedPair<T>.GetHashCode() -> int
 override Calendrie.Core.Intervals.OrderedPair<T>.ToString() -> string!
-override Calendrie.Core.Intervals.Range<T>.Equals(object? obj) -> bool
-override Calendrie.Core.Intervals.Range<T>.GetHashCode() -> int
-override Calendrie.Core.Intervals.Range<T>.ToString() -> string!
-override Calendrie.Core.Intervals.RangeSet<T>.Equals(object? obj) -> bool
-override Calendrie.Core.Intervals.RangeSet<T>.GetHashCode() -> int
-override Calendrie.Core.Intervals.RangeSet<T>.ToString() -> string!
+override Calendrie.Core.Intervals.Segment<T>.Equals(object? obj) -> bool
+override Calendrie.Core.Intervals.Segment<T>.GetHashCode() -> int
+override Calendrie.Core.Intervals.Segment<T>.ToString() -> string!
+override Calendrie.Core.Intervals.SegmentSet<T>.Equals(object? obj) -> bool
+override Calendrie.Core.Intervals.SegmentSet<T>.GetHashCode() -> int
+override Calendrie.Core.Intervals.SegmentSet<T>.ToString() -> string!
 override Calendrie.Core.Intervals.UpperRay<T>.Equals(object? obj) -> bool
 override Calendrie.Core.Intervals.UpperRay<T>.GetHashCode() -> int
 override Calendrie.Core.Intervals.UpperRay<T>.ToString() -> string!
@@ -3343,54 +3343,54 @@ override sealed Calendrie.Core.Schemas.WorldSchema.IsLeapYear(int y) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.IsSupplementaryDay(int y, int m, int d) -> bool
 override sealed Calendrie.Core.Schemas.WorldSchema.MonthsInYear.get -> int
 override sealed Calendrie.Core.Schemas.WorldSchema.PeriodicAdjustments.get -> Calendrie.CalendricalAdjustments
-static Calendrie.Core.CalendricalSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.CalendricalSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Range<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
+static Calendrie.Core.CalendricalSchema.DefaultSupportedYears.get -> Calendrie.Core.Intervals.Segment<int>
+static Calendrie.Core.CalendricalSchema.MaxSupportedYears.get -> Calendrie.Core.Intervals.Segment<int>
+static Calendrie.Core.CalendricalSegment.Create(Calendrie.Core.ICalendricalSchema! schema, Calendrie.Core.Intervals.Segment<int> supportedYears) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximal(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.CalendricalSegment.CreateMaximalOnOrAfterYear1(Calendrie.Core.ICalendricalSchema! schema) -> Calendrie.Core.CalendricalSegment!
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
 static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.LowerRay<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
-static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> bool
-static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Range<Calendrie.DayNumber> y) -> bool
-static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
-static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> bool
-static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.Range<int> y) -> bool
-static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
-static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber>?
-static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Range<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.Range<Calendrie.DayNumber>?
-static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber>?
-static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> Calendrie.Core.Intervals.LowerRay<int>?
-static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.Range<int> y) -> Calendrie.Core.Intervals.Range<int>?
-static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> Calendrie.Core.Intervals.UpperRay<int>?
+static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> bool
+static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> y) -> bool
+static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
+static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> bool
+static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.Segment<int> y) -> bool
+static Calendrie.Core.Intervals.Interval.Adjacent(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
+static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber>?
+static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.Segment<Calendrie.DayNumber>?
+static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber>?
+static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> Calendrie.Core.Intervals.LowerRay<int>?
+static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.Segment<int> y) -> Calendrie.Core.Intervals.Segment<int>?
+static Calendrie.Core.Intervals.Interval.Coalesce(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> Calendrie.Core.Intervals.UpperRay<int>?
 static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
 static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.LowerRay<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
-static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> bool
-static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Range<Calendrie.DayNumber> y) -> bool
-static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
-static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> bool
-static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.Range<int> y) -> bool
-static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
+static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> bool
+static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> y) -> bool
+static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> bool
+static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> bool
+static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.Segment<int> y) -> bool
+static Calendrie.Core.Intervals.Interval.Connected(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> bool
 static Calendrie.Core.Intervals.Interval.Disjoint<T>(Calendrie.Core.Intervals.LowerRay<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> bool
-static Calendrie.Core.Intervals.Interval.Disjoint<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> bool
-static Calendrie.Core.Intervals.Interval.Disjoint<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.Range<T> y) -> bool
-static Calendrie.Core.Intervals.Interval.Disjoint<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> bool
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.RangeSet<Calendrie.DayNumber>
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.LowerRay<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> Calendrie.Core.Intervals.RangeSet<int>
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.RangeSet<Calendrie.DayNumber>
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Range<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.RangeSet<Calendrie.DayNumber>
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Range<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.RangeSet<Calendrie.DayNumber>
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> Calendrie.Core.Intervals.RangeSet<int>
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.Range<int> y) -> Calendrie.Core.Intervals.RangeSet<int>
-static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Range<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> Calendrie.Core.Intervals.RangeSet<int>
+static Calendrie.Core.Intervals.Interval.Disjoint<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> bool
+static Calendrie.Core.Intervals.Interval.Disjoint<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.Segment<T> y) -> bool
+static Calendrie.Core.Intervals.Interval.Disjoint<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> bool
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.SegmentSet<Calendrie.DayNumber>
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.LowerRay<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> Calendrie.Core.Intervals.SegmentSet<int>
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.SegmentSet<Calendrie.DayNumber>
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.SegmentSet<Calendrie.DayNumber>
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> x, Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> y) -> Calendrie.Core.Intervals.SegmentSet<Calendrie.DayNumber>
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.LowerRay<int> y) -> Calendrie.Core.Intervals.SegmentSet<int>
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.Segment<int> y) -> Calendrie.Core.Intervals.SegmentSet<int>
+static Calendrie.Core.Intervals.Interval.Gap(Calendrie.Core.Intervals.Segment<int> x, Calendrie.Core.Intervals.UpperRay<int> y) -> Calendrie.Core.Intervals.SegmentSet<int>
 static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.LowerRay<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> Calendrie.Core.Intervals.LowerRay<T>
-static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.LowerRay<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.RangeSet<T>
-static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> Calendrie.Core.Intervals.RangeSet<T>
-static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.Range<T> y) -> Calendrie.Core.Intervals.RangeSet<T>
-static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.RangeSet<T>
+static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.LowerRay<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.SegmentSet<T>
+static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> Calendrie.Core.Intervals.SegmentSet<T>
+static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.Segment<T> y) -> Calendrie.Core.Intervals.SegmentSet<T>
+static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.SegmentSet<T>
 static Calendrie.Core.Intervals.Interval.Intersect<T>(Calendrie.Core.Intervals.UpperRay<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.UpperRay<T>
-static Calendrie.Core.Intervals.Interval.Span<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> Calendrie.Core.Intervals.LowerRay<T>
-static Calendrie.Core.Intervals.Interval.Span<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.Range<T> y) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Interval.Span<T>(Calendrie.Core.Intervals.Range<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.UpperRay<T>
+static Calendrie.Core.Intervals.Interval.Span<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> Calendrie.Core.Intervals.LowerRay<T>
+static Calendrie.Core.Intervals.Interval.Span<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.Segment<T> y) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Interval.Span<T>(Calendrie.Core.Intervals.Segment<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.UpperRay<T>
 static Calendrie.Core.Intervals.Interval.Union<T>(Calendrie.Core.Intervals.LowerRay<T> x, Calendrie.Core.Intervals.LowerRay<T> y) -> Calendrie.Core.Intervals.LowerRay<T>
 static Calendrie.Core.Intervals.Interval.Union<T>(Calendrie.Core.Intervals.UpperRay<T> x, Calendrie.Core.Intervals.UpperRay<T> y) -> Calendrie.Core.Intervals.UpperRay<T>
 static Calendrie.Core.Intervals.LowerRay.Complement(this Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber> ray) -> Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber>
@@ -3401,28 +3401,28 @@ static Calendrie.Core.Intervals.LowerRay<T>.operator ==(Calendrie.Core.Intervals
 static Calendrie.Core.Intervals.OrderedPair.Create<T>(T x, T y) -> Calendrie.Core.Intervals.OrderedPair<T>
 static Calendrie.Core.Intervals.OrderedPair<T>.operator !=(Calendrie.Core.Intervals.OrderedPair<T> left, Calendrie.Core.Intervals.OrderedPair<T> right) -> bool
 static Calendrie.Core.Intervals.OrderedPair<T>.operator ==(Calendrie.Core.Intervals.OrderedPair<T> left, Calendrie.Core.Intervals.OrderedPair<T> right) -> bool
-static Calendrie.Core.Intervals.Range.Count(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> range) -> int
-static Calendrie.Core.Intervals.Range.Count(this Calendrie.Core.Intervals.Range<int> range) -> int
-static Calendrie.Core.Intervals.Range.Create<T>(T min, T max) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.EndingAt<T>(T max) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.EndingAt<T>(T max, int length) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.FromEndpoints<T>(Calendrie.Core.Intervals.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.LongCount(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> range) -> long
-static Calendrie.Core.Intervals.Range.LongCount(this Calendrie.Core.Intervals.Range<int> range) -> long
-static Calendrie.Core.Intervals.Range.Maximal32.get -> Calendrie.Core.Intervals.Range<int>
-static Calendrie.Core.Intervals.Range.Maximal<T>() -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.Singleton<T>(T value) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.StartingAt<T>(T min) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.StartingAt<T>(T min, int length) -> Calendrie.Core.Intervals.Range<T>
-static Calendrie.Core.Intervals.Range.ToEnumerable(this Calendrie.Core.Intervals.Range<Calendrie.DayNumber> range) -> System.Collections.Generic.IEnumerable<Calendrie.DayNumber>!
-static Calendrie.Core.Intervals.Range.ToEnumerable(this Calendrie.Core.Intervals.Range<int> range) -> System.Collections.Generic.IEnumerable<int>!
-static Calendrie.Core.Intervals.Range<T>.operator !=(Calendrie.Core.Intervals.Range<T> left, Calendrie.Core.Intervals.Range<T> right) -> bool
-static Calendrie.Core.Intervals.Range<T>.operator ==(Calendrie.Core.Intervals.Range<T> left, Calendrie.Core.Intervals.Range<T> right) -> bool
-static Calendrie.Core.Intervals.RangeSet.Create<T>(T min, T max) -> Calendrie.Core.Intervals.RangeSet<T>
-static Calendrie.Core.Intervals.RangeSet.Empty<T>() -> Calendrie.Core.Intervals.RangeSet<T>
-static Calendrie.Core.Intervals.RangeSet.FromEndpoints<T>(Calendrie.Core.Intervals.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.RangeSet<T>
-static Calendrie.Core.Intervals.RangeSet<T>.operator !=(Calendrie.Core.Intervals.RangeSet<T> left, Calendrie.Core.Intervals.RangeSet<T> right) -> bool
-static Calendrie.Core.Intervals.RangeSet<T>.operator ==(Calendrie.Core.Intervals.RangeSet<T> left, Calendrie.Core.Intervals.RangeSet<T> right) -> bool
+static Calendrie.Core.Intervals.Segment.Count(this Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> range) -> int
+static Calendrie.Core.Intervals.Segment.Count(this Calendrie.Core.Intervals.Segment<int> range) -> int
+static Calendrie.Core.Intervals.Segment.Create<T>(T min, T max) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.EndingAt<T>(T max) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.EndingAt<T>(T max, int length) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.FromEndpoints<T>(Calendrie.Core.Intervals.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.LongCount(this Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> range) -> long
+static Calendrie.Core.Intervals.Segment.LongCount(this Calendrie.Core.Intervals.Segment<int> range) -> long
+static Calendrie.Core.Intervals.Segment.Maximal32.get -> Calendrie.Core.Intervals.Segment<int>
+static Calendrie.Core.Intervals.Segment.Maximal<T>() -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.Singleton<T>(T value) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.StartingAt<T>(T min) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.StartingAt<T>(T min, int length) -> Calendrie.Core.Intervals.Segment<T>
+static Calendrie.Core.Intervals.Segment.ToEnumerable(this Calendrie.Core.Intervals.Segment<Calendrie.DayNumber> range) -> System.Collections.Generic.IEnumerable<Calendrie.DayNumber>!
+static Calendrie.Core.Intervals.Segment.ToEnumerable(this Calendrie.Core.Intervals.Segment<int> range) -> System.Collections.Generic.IEnumerable<int>!
+static Calendrie.Core.Intervals.Segment<T>.operator !=(Calendrie.Core.Intervals.Segment<T> left, Calendrie.Core.Intervals.Segment<T> right) -> bool
+static Calendrie.Core.Intervals.Segment<T>.operator ==(Calendrie.Core.Intervals.Segment<T> left, Calendrie.Core.Intervals.Segment<T> right) -> bool
+static Calendrie.Core.Intervals.SegmentSet.Create<T>(T min, T max) -> Calendrie.Core.Intervals.SegmentSet<T>
+static Calendrie.Core.Intervals.SegmentSet.Empty<T>() -> Calendrie.Core.Intervals.SegmentSet<T>
+static Calendrie.Core.Intervals.SegmentSet.FromEndpoints<T>(Calendrie.Core.Intervals.OrderedPair<T> endpoints) -> Calendrie.Core.Intervals.SegmentSet<T>
+static Calendrie.Core.Intervals.SegmentSet<T>.operator !=(Calendrie.Core.Intervals.SegmentSet<T> left, Calendrie.Core.Intervals.SegmentSet<T> right) -> bool
+static Calendrie.Core.Intervals.SegmentSet<T>.operator ==(Calendrie.Core.Intervals.SegmentSet<T> left, Calendrie.Core.Intervals.SegmentSet<T> right) -> bool
 static Calendrie.Core.Intervals.UpperRay.Complement(this Calendrie.Core.Intervals.UpperRay<Calendrie.DayNumber> ray) -> Calendrie.Core.Intervals.LowerRay<Calendrie.DayNumber>
 static Calendrie.Core.Intervals.UpperRay.Complement(this Calendrie.Core.Intervals.UpperRay<int> ray) -> Calendrie.Core.Intervals.LowerRay<int>
 static Calendrie.Core.Intervals.UpperRay.StartingAt<T>(T min) -> Calendrie.Core.Intervals.UpperRay<T>
@@ -3438,8 +3438,8 @@ static Calendrie.DayNumber.FromGregorianOrdinalParts(int year, int dayOfYear) ->
 static Calendrie.DayNumber.FromGregorianParts(int year, int month, int day) -> Calendrie.DayNumber
 static Calendrie.DayNumber.FromJulianOrdinalParts(int year, int dayOfYear) -> Calendrie.DayNumber
 static Calendrie.DayNumber.FromJulianParts(int year, int month, int day) -> Calendrie.DayNumber
-static Calendrie.DayNumber.GregorianDomain.get -> Calendrie.Core.Intervals.Range<Calendrie.DayNumber>
-static Calendrie.DayNumber.JulianDomain.get -> Calendrie.Core.Intervals.Range<Calendrie.DayNumber>
+static Calendrie.DayNumber.GregorianDomain.get -> Calendrie.Core.Intervals.Segment<Calendrie.DayNumber>
+static Calendrie.DayNumber.JulianDomain.get -> Calendrie.Core.Intervals.Segment<Calendrie.DayNumber>
 static Calendrie.DayNumber.Max(Calendrie.DayNumber x, Calendrie.DayNumber y) -> Calendrie.DayNumber
 static Calendrie.DayNumber.MaxValue.get -> Calendrie.DayNumber
 static Calendrie.DayNumber.Min(Calendrie.DayNumber x, Calendrie.DayNumber y) -> Calendrie.DayNumber

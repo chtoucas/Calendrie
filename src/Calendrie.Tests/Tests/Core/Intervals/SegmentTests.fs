@@ -22,7 +22,7 @@ module Prelude =
         Unchecked.defaultof<Segment<int>> === v
 
     [<Fact>]
-    let ``Static property Range:Maximal32`` () =
+    let ``Static property Segment:Maximal32`` () =
         let v = Segment.Maximal32
         let endpoints = OrderedPair.Create(Int32.MinValue, Int32.MaxValue)
 
@@ -47,11 +47,11 @@ module Prelude =
 
 module Factories =
     [<Property>]
-    let ``Range:Create() throws when max < min`` (x: Pair<int>) =
+    let ``Segment:Create() throws when max < min`` (x: Pair<int>) =
         outOfRangeExn "max" (fun () -> Segment.Create(x.Max, x.Min))
 
     [<Property>]
-    let ``Range:Create()`` (x: Pair<int>) =
+    let ``Segment:Create()`` (x: Pair<int>) =
         let v = Segment.Create(x.Min, x.Max)
         let endpoints = OrderedPair.Create(x.Min, x.Max)
 
@@ -75,7 +75,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:Create() when singleton`` (i: int) =
+    let ``Segment:Create() when singleton`` (i: int) =
         let v = Segment.Create(i, i)
         let endpoints = OrderedPair.Create(i, i)
 
@@ -99,7 +99,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:Singleton()`` (i: int) =
+    let ``Segment:Singleton()`` (i: int) =
         let v = Segment.Singleton(i)
         let endpoints = OrderedPair.Create(i, i)
 
@@ -123,7 +123,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:Maximal()`` () =
+    let ``Segment:Maximal()`` () =
         // We test this method w/ int16. For int, see Maximal32 below.
         let v = Segment.Maximal<int16>()
         let endpoints = OrderedPair.Create(Int16.MinValue, Int16.MaxValue)
@@ -148,7 +148,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:StartingAt()`` (i: int) =
+    let ``Segment:StartingAt()`` (i: int) =
         let v = Segment.StartingAt(i)
         let endpoints = OrderedPair.Create(i, Int32.MaxValue)
 
@@ -172,7 +172,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:StartingAt(length)`` (i: int) =
+    let ``Segment:StartingAt(length)`` (i: int) =
         let len = 10
         let v = Segment.StartingAt(i, len)
         let j = i + len - 1
@@ -198,7 +198,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:EndingAt()`` (i: int) =
+    let ``Segment:EndingAt()`` (i: int) =
         let v = Segment.EndingAt(i)
         let endpoints = OrderedPair.Create(Int32.MinValue, i)
 
@@ -222,7 +222,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:EndingAt(length)`` (i: int) =
+    let ``Segment:EndingAt(length)`` (i: int) =
         let len = 10
         let v = Segment.EndingAt(i, len)
         let j = i - (len - 1)
@@ -248,7 +248,7 @@ module Factories =
         v === other
 
     [<Property>]
-    let ``Range:FromEndpoints()`` (x: OrderedPair<int>) =
+    let ``Segment:FromEndpoints()`` (x: OrderedPair<int>) =
         let v = Segment.FromEndpoints(x)
         let isSingleton = x.LowerValue = x.UpperValue
 
@@ -316,14 +316,14 @@ module SetOperations =
     //
 
     [<Fact>]
-    let ``Range:Maximal32:Contains(Int32:Min/MaxValue)`` () =
+    let ``Segment:Maximal32:Contains(Int32:Min/MaxValue)`` () =
         let v = Segment.Maximal32
 
         v.Contains(Int32.MinValue) |> ok
         v.Contains(Int32.MaxValue) |> ok
 
     [<Property>]
-    let ``Range:Maximal32:Contains() always returns true`` (i: int) =
+    let ``Segment:Maximal32:Contains() always returns true`` (i: int) =
         let v = Segment.Maximal32
 
         v.Contains(i)
@@ -544,20 +544,20 @@ module Extensions =
         v.LongCount() === 1L
 
     [<Fact>]
-    let ``Range:Maximal32:Count() overflows`` () =
+    let ``Segment:Maximal32:Count() overflows`` () =
         let v = Segment.Maximal32
 
         (fun () -> v.Count()) |> overflows
 
     [<Fact>]
-    let ``Range:Maximal32:LongCount()`` () =
+    let ``Segment:Maximal32:LongCount()`` () =
         let v = Segment.Maximal32
         let count = (int64)Int32.MaxValue - (int64)Int32.MinValue + 1L
 
         v.LongCount() === count
 
     [<Fact>]
-    let ``Range:Maximal32:ToEnumerable() does not overflow`` () =
+    let ``Segment:Maximal32:ToEnumerable() does not overflow`` () =
         let v = Segment.Maximal32
 
         //(fun () -> v.ToEnumerable()) |> overflows
@@ -596,13 +596,13 @@ module Extensions =
         v.LongCount() === 1L
 
     [<Fact>]
-    let ``Range:Maximum<DayNumber>():Count() overflows`` () =
+    let ``Segment:Maximum<DayNumber>():Count() overflows`` () =
         let v = Segment.Maximal<DayNumber>()
 
         (fun () -> v.Count()) |> overflows
 
     [<Fact>]
-    let ``Range:Maximum<DayNumber>():LongCount()`` () =
+    let ``Segment:Maximum<DayNumber>():LongCount()`` () =
         let v = Segment.Maximal<DayNumber>()
         let count = (int64)DayNumber.MaxDaysSinceZero - (int64)DayNumber.MinDaysSinceZero + 1L
 

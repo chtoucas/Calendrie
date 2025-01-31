@@ -20,7 +20,7 @@ let private maprangeset (set: SegmentSet<int>) =
     if set.IsEmpty then
         SegmentSet<DayNumber>.Empty
     else
-        let endpoints = set.Range.Endpoints.Select(fun i -> DayNumber.Zero + i)
+        let endpoints = set.Segment.Endpoints.Select(fun i -> DayNumber.Zero + i)
         SegmentSet.FromEndpoints(endpoints)
 let private maplowerray (ray: LowerRay<int>) =
     LowerRay.EndingAt(DayNumber.Zero + ray.Max)
@@ -29,7 +29,7 @@ let private mapupperray (ray: UpperRay<int>) =
 
 module Prelude =
     [<Property>]
-    let ``Range with itself`` (x: Pair<int>) =
+    let ``Segment with itself`` (x: Pair<int>) =
         let v = Segment.Create(x.Min, x.Max)
 
         Interval.Intersect(v, v) === SegmentSet.Create(x.Min, x.Max)
@@ -46,7 +46,7 @@ module Prelude =
         Interval.Connected(v, v)    |> ok
 
     [<Property>]
-    let ``Range with itself when singleton`` (i: int) =
+    let ``Segment with itself when singleton`` (i: int) =
         let v = Segment.Singleton(i)
 
         Interval.Intersect(v, v) === SegmentSet.Create(i, i)
@@ -101,17 +101,17 @@ module Prelude =
 // - Connected (specialized)
 // - Coalesce (specialized)
 module SetOps =
-    let rangeRangeInfoData = IntervalDataSet.RangeRangeInfoData
-    let lowerRayRangeInfoData = IntervalDataSet.LowerRayRangeInfoData
-    let upperRayRangeInfoData = IntervalDataSet.UpperRayRangeInfoData
+    let segmentSegmentInfoData = IntervalDataSet.SegmentSegmentInfoData
+    let lowerRaySegmentInfoData = IntervalDataSet.LowerRaySegmentInfoData
+    let upperRaySegmentInfoData = IntervalDataSet.UpperRaySegmentInfoData
     let lowerRayUpperRayInfoData = IntervalDataSet.LowerRayUpperRayInfoData
 
     //
-    // Range and Range
+    // Segment and Segment
     //
 
-    [<Theory; MemberData(nameof(rangeRangeInfoData))>]
-    let ``(Range, Range)`` (data: RangeRangeInfo) =
+    [<Theory; MemberData(nameof(segmentSegmentInfoData))>]
+    let ``(Segment, Segment)`` (data: SegmentSegmentInfo) =
         let v = data.First
         let w = data.Second
         let span  = data.Span
@@ -143,8 +143,8 @@ module SetOps =
             Interval.Coalesce(v, w) |> Assert.Null
             Interval.Coalesce(w, v) |> Assert.Null
 
-    [<Theory; MemberData(nameof(rangeRangeInfoData))>]
-    let ``(Range, Range) for DayNumber's`` (data: RangeRangeInfo) =
+    [<Theory; MemberData(nameof(segmentSegmentInfoData))>]
+    let ``(Segment, Segment) for DayNumber's`` (data: SegmentSegmentInfo) =
         let v = data.First              |> maprange
         let w = data.Second             |> maprange
         let span  = data.Span           |> maprange
@@ -177,11 +177,11 @@ module SetOps =
             Interval.Coalesce(v, w) |> Assert.Null
 
     //
-    // Range and LowerRay
+    // Segment and LowerRay
     //
 
-    [<Theory; MemberData(nameof(lowerRayRangeInfoData))>]
-    let ``(Range, LowerRay)`` (data: LowerRayRangeInfo) =
+    [<Theory; MemberData(nameof(lowerRaySegmentInfoData))>]
+    let ``(Segment, LowerRay)`` (data: LowerRaySegmentInfo) =
         let w = data.First
         let v = data.Second
         let span  = data.Span
@@ -213,8 +213,8 @@ module SetOps =
             Interval.Coalesce(v, w) |> Assert.Null
             Lavretni.Coalesce(w, v) |> Assert.Null
 
-    [<Theory; MemberData(nameof(lowerRayRangeInfoData))>]
-    let ``(Range, LowerRay) for DayNumber's`` (data: LowerRayRangeInfo) =
+    [<Theory; MemberData(nameof(lowerRaySegmentInfoData))>]
+    let ``(Segment, LowerRay) for DayNumber's`` (data: LowerRaySegmentInfo) =
         let w = data.First              |> maplowerray
         let v = data.Second             |> maprange
         let span  = data.Span           |> maplowerray
@@ -247,11 +247,11 @@ module SetOps =
             Lavretni.Coalesce(w, v) |> Assert.Null
 
     //
-    // Range and UpperRay
+    // Segment and UpperRay
     //
 
-    [<Theory; MemberData(nameof(upperRayRangeInfoData))>]
-    let ``(Range, UpperRay)`` (data: UpperRayRangeInfo) =
+    [<Theory; MemberData(nameof(upperRaySegmentInfoData))>]
+    let ``(Segment, UpperRay)`` (data: UpperRaySegmentInfo) =
         let w = data.First
         let v = data.Second
         let span  = data.Span
@@ -283,8 +283,8 @@ module SetOps =
             Interval.Coalesce(v, w) |> Assert.Null
             Lavretni.Coalesce(w, v) |> Assert.Null
 
-    [<Theory; MemberData(nameof(upperRayRangeInfoData))>]
-    let ``(Range, UpperRay) for DayNumber's`` (data: UpperRayRangeInfo) =
+    [<Theory; MemberData(nameof(upperRaySegmentInfoData))>]
+    let ``(Segment, UpperRay) for DayNumber's`` (data: UpperRaySegmentInfo) =
         let w = data.First              |> mapupperray
         let v = data.Second             |> maprange
         let span  = data.Span           |> mapupperray

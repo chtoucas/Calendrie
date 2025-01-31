@@ -142,14 +142,14 @@ public readonly partial struct SegmentSet<T> :
     /// Returns a <see cref="Segment{T}"/> view of this range.
     /// </summary>
     /// <exception cref="InvalidOperationException">The set is empty.</exception>
-    public Segment<T> Range => _isInhabited ? new Segment<T>(_endpoints)
+    public Segment<T> Segment => _isInhabited ? new Segment<T>(_endpoints)
         : throw new InvalidOperationException("The set was empty.");
 
     /// <summary>
     /// Returns a culture-independent string representation of this range.
     /// </summary>
     [Pure]
-    public override string ToString() => _isInhabited ? Range.ToString() : "[]";
+    public override string ToString() => _isInhabited ? Segment.ToString() : "[]";
 }
 
 public partial struct SegmentSet<T> // IEquatable

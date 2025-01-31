@@ -5,8 +5,7 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-// FIXME(code): now that the BCL has a type Range, we should change the name. Segment?
-// Strict partial order. For other types too. External comparer?
+// FIXME(code): strict partial order. For other types too. External comparer?
 
 /// <summary>
 /// Represents a closed bounded interval.
@@ -43,7 +42,8 @@ public readonly partial struct Segment<T> :
     /// Initializes a new instance of the <see cref="Segment{T}"/> struct from the
     /// specified endpoints.
     /// </summary>
-    // Public version: see Range.FromEndpoints().
+    //
+    // Public version: see Segment.FromEndpoints().
     internal Segment(OrderedPair<T> endpoints) { Endpoints = endpoints; }
 
     /// <inheritdoc />
