@@ -11,8 +11,6 @@ public partial class CalendarTemplate
         EmitYearDecl();
         EmitYearPreamble();
         EmitYearFactories();
-        // Disabled: no conversions.
-        //EmitYearConversions();
 
         if (IsRegular)
         {
@@ -239,16 +237,6 @@ public partial struct <#= Prefix #>Year // Factories
 }
 <#+
     } // T4: End of EmitYearFactories()
-
-    protected virtual void EmitYearConversions()
-    {
-        WriteLine();
-#>
-public partial struct <#= Prefix #>Year // Conversions
-{
-}
-<#+
-    } // T4: End of EmitYearConversions()
 
     protected virtual void EmitYearMonthSegmentRegular()
     {
