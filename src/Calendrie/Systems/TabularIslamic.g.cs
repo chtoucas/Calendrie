@@ -1232,21 +1232,6 @@ public partial struct TabularIslamicMonth // Factories
         TabularIslamicSchema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct TabularIslamicMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="TabularIslamicMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static TabularIslamicMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new TabularIslamicMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct TabularIslamicMonth // Counting
 {
     /// <inheritdoc />

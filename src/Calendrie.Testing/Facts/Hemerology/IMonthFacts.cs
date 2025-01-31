@@ -111,8 +111,8 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Prelude
     [Theory, MemberData(nameof(MonthsSinceEpochInfoData))]
     public void MonthsSinceEpoch_Prop(MonthsSinceEpochInfo info)
     {
-        int monthsSinceEpoch = info.MonthsSinceEpoch;
-        var month = TMonth.FromMonthsSinceEpoch(monthsSinceEpoch);
+        var (monthsSinceEpoch, y, m) = info;
+        var month = TMonth.Create(y, m);
         // Act & Assert
         Assert.Equal(monthsSinceEpoch, month.MonthsSinceEpoch);
     }
@@ -121,9 +121,8 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Prelude
     public void IsIntercalary_Prop(MonthInfo info)
     {
         var (y, m) = info.Yemo;
-        // Act
         var month = TMonth.Create(y, m);
-        // Assert
+        // Act & Assert
         Assert.Equal(info.IsIntercalary, month.IsIntercalary);
     }
 }
@@ -170,33 +169,6 @@ public partial class IMonthFacts<TMonth, TDate, TDataSet> // Factories
         bool result = TMonth.TryCreate(y, m, out var month);
         // Assert
         Assert.True(result);
-        Assert.Equal(y, month.Year);
-        Assert.Equal(m, month.Month);
-    }
-
-    #endregion
-}
-
-public partial class IMonthFacts<TMonth, TDate, TDataSet> // Conversions
-{
-    #region FromMonthsSinceEpoch()
-
-    [Fact]
-    public void FromMonthsSinceEpoch_InvalidMonthsSinceEpoch()
-    {
-        AssertEx.ThrowsAoorexn("monthsSinceEpoch",
-            () => TMonth.FromMonthsSinceEpoch(TMonth.MinValue.MonthsSinceEpoch - 1));
-        AssertEx.ThrowsAoorexn("monthsSinceEpoch",
-            () => TMonth.FromMonthsSinceEpoch(TMonth.MaxValue.MonthsSinceEpoch + 1));
-    }
-
-    [Theory, MemberData(nameof(MonthsSinceEpochInfoData))]
-    public void FromMonthsSinceEpoch(MonthsSinceEpochInfo info)
-    {
-        var (monthsSinceEpoch, y, m) = info;
-        // Act
-        var month = TMonth.FromMonthsSinceEpoch(monthsSinceEpoch);
-        // Assert
         Assert.Equal(y, month.Year);
         Assert.Equal(m, month.Month);
     }

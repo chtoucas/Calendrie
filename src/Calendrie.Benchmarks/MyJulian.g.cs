@@ -1235,21 +1235,6 @@ public partial struct MyJulianMonth // Factories
         JulianSchema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct MyJulianMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="MyJulianMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static MyJulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new MyJulianMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct MyJulianMonth // Counting
 {
     /// <inheritdoc />

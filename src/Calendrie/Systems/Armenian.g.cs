@@ -1167,21 +1167,6 @@ public partial struct ArmenianMonth // Factories
         Egyptian12Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct ArmenianMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="ArmenianMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static ArmenianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new ArmenianMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct ArmenianMonth // Counting
 {
     /// <inheritdoc />

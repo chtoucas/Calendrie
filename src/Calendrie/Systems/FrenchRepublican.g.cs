@@ -1241,21 +1241,6 @@ public partial struct FrenchRepublicanMonth // Factories
         FrenchRepublican12Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct FrenchRepublicanMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="FrenchRepublicanMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static FrenchRepublicanMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new FrenchRepublicanMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct FrenchRepublicanMonth // Counting
 {
     /// <inheritdoc />

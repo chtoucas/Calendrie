@@ -1288,21 +1288,6 @@ public partial struct TropicaliaMonth // Factories
         TropicaliaSchema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct TropicaliaMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="TropicaliaMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static TropicaliaMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new TropicaliaMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct TropicaliaMonth // Counting
 {
     /// <inheritdoc />

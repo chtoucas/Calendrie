@@ -1241,21 +1241,6 @@ public partial struct EthiopicMonth // Factories
         Coptic12Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct EthiopicMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="EthiopicMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static EthiopicMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new EthiopicMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct EthiopicMonth // Counting
 {
     /// <inheritdoc />

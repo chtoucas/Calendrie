@@ -1112,21 +1112,6 @@ public partial struct PaxMonth // Factories
         UnsafeCreate(monthsSinceEpoch);
 }
 
-public partial struct PaxMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="PaxMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static PaxMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new PaxMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct PaxMonth // Counting
 {
     /// <inheritdoc />

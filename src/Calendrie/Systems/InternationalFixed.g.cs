@@ -1241,21 +1241,6 @@ public partial struct InternationalFixedMonth // Factories
         InternationalFixedSchema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct InternationalFixedMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="InternationalFixedMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static InternationalFixedMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new InternationalFixedMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct InternationalFixedMonth // Counting
 {
     /// <inheritdoc />

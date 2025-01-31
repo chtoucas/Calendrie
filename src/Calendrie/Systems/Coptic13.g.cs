@@ -1241,21 +1241,6 @@ public partial struct Coptic13Month // Factories
         Coptic13Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct Coptic13Month // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="Coptic13Month"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static Coptic13Month FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new Coptic13Month(monthsSinceEpoch);
-    }
-}
-
 public partial struct Coptic13Month // Counting
 {
     /// <inheritdoc />

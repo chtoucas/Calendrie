@@ -1232,21 +1232,6 @@ public partial struct Persian2820Month // Factories
         Persian2820Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct Persian2820Month // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="Persian2820Month"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static Persian2820Month FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new Persian2820Month(monthsSinceEpoch);
-    }
-}
-
 public partial struct Persian2820Month // Counting
 {
     /// <inheritdoc />

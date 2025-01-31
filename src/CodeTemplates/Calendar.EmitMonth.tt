@@ -14,7 +14,6 @@ public partial class CalendarTemplate
         {
             EmitMonthPreambleRegular();
             EmitMonthFactoriesRegular();
-            EmitMonthConversions();
             EmitMonthCountingRegular();
             EmitMonthAdjustmentsRegular();
             EmitMonthDaySegmentRegular();
@@ -27,7 +26,6 @@ public partial class CalendarTemplate
         {
             EmitMonthPreambleNonRegular();
             EmitMonthFactoriesNonRegular();
-            EmitMonthConversions();
             EmitMonthCountingNonRegular();
             EmitMonthAdjustmentsNonRegular();
             EmitMonthDaySegmentNonRegular();
@@ -486,27 +484,6 @@ public partial struct <#= Prefix #>Month // Factories
 }
 <#+
     } // T4: End of EmitMonthFactoriesNonRegular()
-
-    protected virtual void EmitMonthConversions()
-    {
-        WriteLine();
-#>
-public partial struct <#= Prefix #>Month // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="<#= Prefix #>Month"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static <#= Prefix #>Month FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new <#= Prefix #>Month(monthsSinceEpoch);
-    }
-}
-<#+
-    } // T4: End of EmitMonthConversions()
 
     protected virtual void EmitMonthCountingRegular()
     {
