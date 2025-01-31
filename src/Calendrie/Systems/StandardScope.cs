@@ -8,6 +8,8 @@ using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using SegmentFactory = Core.Intervals.Segment;
+
 /// <summary>
 /// Represents a scope for a calendar supporting <i>all</i> dates within the
 /// range [1..9999] of years.
@@ -38,7 +40,7 @@ internal sealed class StandardScope : CalendarScope
     /// <summary>
     /// Represents the range of supported years.
     /// </summary>
-    public static readonly Segment<int> SupportedYears = Core.Intervals.Segment.Create(MinYear, MaxYear);
+    public static readonly Segment<int> SupportedYears = SegmentFactory.Create(MinYear, MaxYear);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StandardScope"/> class.
@@ -53,7 +55,7 @@ internal sealed class StandardScope : CalendarScope
     {
         // Check the constants Min/MaxYear.
         Debug.Assert(Segment != null);
-        Debug.Assert(Segment.SupportedYears == Core.Intervals.Segment.UnsafeCreate(MinYear, MaxYear));
+        Debug.Assert(Segment.SupportedYears == SegmentFactory.UnsafeCreate(MinYear, MaxYear));
     }
 
     //

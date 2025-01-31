@@ -7,6 +7,8 @@ using Calendrie.Core;
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Utilities;
 
+using SegmentFactory = Core.Intervals.Segment;
+
 /// <summary>
 /// Defines the scope of application of a calendar, a range of days, and
 /// provides a base for derived classes.
@@ -30,7 +32,7 @@ public abstract partial class CalendarScope
         PreValidator = Schema.PreValidator;
 
         Epoch = epoch;
-        Domain = Core.Intervals.Segment.FromEndpoints(segment.SupportedDays.Endpoints.Select(x => epoch + x));
+        Domain = SegmentFactory.FromEndpoints(segment.SupportedDays.Endpoints.Select(x => epoch + x));
     }
 
     /// <summary>

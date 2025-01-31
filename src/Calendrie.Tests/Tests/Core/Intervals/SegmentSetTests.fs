@@ -22,7 +22,7 @@ module Prelude =
         let v = SegmentSet<int>.Empty
 
         v.IsEmpty |> ok
-        throws<InvalidOperationException> (fun () -> v.Range)
+        throws<InvalidOperationException> (fun () -> v.Segment)
         v.ToString() === "[]"
 
 module Factories =
@@ -31,7 +31,7 @@ module Factories =
         let v = SegmentSet.Empty<int>()
 
         v.IsEmpty |> ok
-        throws<InvalidOperationException> (fun () -> v.Range)
+        throws<InvalidOperationException> (fun () -> v.Segment)
         v.ToString() === "[]"
 
     [<Property>]
@@ -44,7 +44,7 @@ module Factories =
         let range = Segment.Create(x.Min, x.Max)
 
         v.IsEmpty |> nok
-        v.Range === range
+        v.Segment === range
         v.ToString() === sprintf "[%i..%i]" x.Min x.Max
 
         // Constructor
@@ -57,7 +57,7 @@ module Factories =
         let range = Segment.Singleton(i)
 
         v.IsEmpty |> nok
-        v.Range === range
+        v.Segment === range
         v.ToString() === sprintf "[%i]" i
 
         // Constructor
@@ -72,7 +72,7 @@ module Factories =
         let isSingleton = x.LowerValue = x.UpperValue
 
         v.IsEmpty |> nok
-        v.Range === range
+        v.Segment === range
         v.ToString() ===
             if isSingleton then
                 sprintf "[%i]" x.LowerValue

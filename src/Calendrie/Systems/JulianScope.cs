@@ -10,6 +10,8 @@ using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
 
+using SegmentFactory = Core.Intervals.Segment;
+
 using static Calendrie.Core.CalendricalConstants;
 
 /// <summary>
@@ -41,7 +43,7 @@ internal sealed class JulianScope : CalendarScope
     /// <summary>
     /// Represents the range of supported years.
     /// </summary>
-    public static readonly Segment<int> SupportedYears = Core.Intervals.Segment.Create(MinYear, MaxYear);
+    public static readonly Segment<int> SupportedYears = SegmentFactory.Create(MinYear, MaxYear);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JulianScope"/> class.
@@ -53,7 +55,7 @@ internal sealed class JulianScope : CalendarScope
     {
         // Check the constants Min/MaxYear.
         Debug.Assert(Segment != null);
-        Debug.Assert(Segment.SupportedYears == Core.Intervals.Segment.UnsafeCreate(MinYear, MaxYear));
+        Debug.Assert(Segment.SupportedYears == SegmentFactory.UnsafeCreate(MinYear, MaxYear));
         // Check that this scope uses the largest possible range of years.
         Debug.Assert(schema.SupportedYears == SupportedYears);
     }
