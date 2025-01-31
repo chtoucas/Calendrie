@@ -209,7 +209,7 @@ public partial struct CivilMonth // IDaySegment
     {
         var (y, m) = this;
         int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
-        return Range.StartingAt(MinDay, daysInMonth);
+        return Segment.StartingAt(MinDay, daysInMonth);
     }
 
     [Pure]

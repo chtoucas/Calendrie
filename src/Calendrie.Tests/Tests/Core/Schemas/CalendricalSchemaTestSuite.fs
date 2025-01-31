@@ -51,7 +51,7 @@ type Coptic12Tests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
     override x.SupportedYearsCore_Prop() =
-        x.SchemaUT.SupportedYearsCore === Range.EndingAt(Int32.MaxValue - 1)
+        x.SchemaUT.SupportedYearsCore === Segment.EndingAt(Int32.MaxValue - 1)
 
     [<Fact>]
     member x.``CountDaysInMonth() overflows when y = Int32.MaxValue``() =
@@ -100,7 +100,7 @@ type Coptic13Tests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 13)
 
     override x.SupportedYearsCore_Prop() =
-        x.SchemaUT.SupportedYearsCore === Range.EndingAt(Int32.MaxValue - 1)
+        x.SchemaUT.SupportedYearsCore === Segment.EndingAt(Int32.MaxValue - 1)
 
     [<Fact>]
     member x.``CountDaysInMonth() overflows when y = Int32.MaxValue``() =
@@ -433,7 +433,7 @@ type Persian2820Tests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
     override x.SupportedYearsCore_Prop() =
-        x.SchemaUT.SupportedYearsCore === Range.StartingAt(Int32.MinValue + Persian2820Schema.YearZero)
+        x.SchemaUT.SupportedYearsCore === Segment.StartingAt(Int32.MinValue + Persian2820Schema.YearZero)
 
     [<Fact>]
     member x.``CountDaysInMonth() may overflow when y = Int32.MinValue``() =
@@ -488,10 +488,10 @@ type TabularIslamicTests() =
     override x.IsRegular() = x.SchemaUT.IsRegular() === (true, 12)
 
     override x.SupportedYears_Prop() =
-        x.SchemaUT.SupportedYears === Range.Create(-199_999, 200_000)
+        x.SchemaUT.SupportedYears === Segment.Create(-199_999, 200_000)
 
     override x.SupportedYearsCore_Prop() =
-        x.SchemaUT.SupportedYearsCore === Range.Create(-199_999, 200_000)
+        x.SchemaUT.SupportedYearsCore === Segment.Create(-199_999, 200_000)
 
     [<Fact>]
     member x.``CountDaysInMonth() may overflow when y = Int32.MinValue``() =

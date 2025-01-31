@@ -1331,7 +1331,7 @@ public partial struct MyCivilMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(MyCivilDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(MyCivilDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1804,7 +1804,7 @@ public partial struct MyCivilYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<MyCivilMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<MyCivilMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1882,7 +1882,7 @@ public partial struct MyCivilYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(MyCivilDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(MyCivilDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

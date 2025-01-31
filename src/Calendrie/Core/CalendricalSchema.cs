@@ -204,9 +204,9 @@ public abstract partial class CalendricalSchema : ICalendricalSchema
     //
     // It matches the value of <see cref="Yemoda.SupportedYears"/>.
     //public static Segment<int> MaxSupportedYears => Yemoda.SupportedYears;
-    public static Segment<int> MaxSupportedYears { get; } = Range.Create(1 - (1 << 21), 1 << 21);
+    public static Segment<int> MaxSupportedYears { get; } = Segment.Create(1 - (1 << 21), 1 << 21);
 
-    private Segment<int> _supportedYearsCore = Range.Maximal32;
+    private Segment<int> _supportedYearsCore = Segment.Maximal32;
     /// <summary>
     /// Gets the core domain, the interval of years for which the <i>core</i>
     /// methods are known not to overflow.

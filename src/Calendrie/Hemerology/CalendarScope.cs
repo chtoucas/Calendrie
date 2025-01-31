@@ -30,7 +30,7 @@ public abstract partial class CalendarScope
         PreValidator = Schema.PreValidator;
 
         Epoch = epoch;
-        Domain = Range.FromEndpoints(segment.SupportedDays.Endpoints.Select(x => epoch + x));
+        Domain = Core.Intervals.Segment.FromEndpoints(segment.SupportedDays.Endpoints.Select(x => epoch + x));
     }
 
     /// <summary>

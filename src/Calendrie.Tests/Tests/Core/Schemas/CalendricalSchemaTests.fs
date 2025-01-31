@@ -41,27 +41,27 @@ module Prelude =
 
     [<Fact>]
     let ``Constructor throws when supportedYearsCore is not a superset of supportedYears`` () =
-        let range = Range.Create(1, 100)
-        let rangeCore = Range.Create(2, 99)
+        let range = Segment.Create(1, 100)
+        let rangeCore = Segment.Create(2, 99)
 
         argExn "value" (fun () -> new FauxCalendricalSchema(range, rangeCore))
 
     [<Fact>]
     let ``Constructor succeeds when supportedYearsCore = supportedYears`` () =
-        let range = Range.Create(1, 100)
+        let range = Segment.Create(1, 100)
         new FauxCalendricalSchema(range, range) |> ignore
 
     [<Fact>]
     let ``Constructor succeeds when supportedYearsCore is a superset of supportedYears`` () =
-        let range = Range.Create(1, 100)
-        let rangeCore = Range.Create(0, 101)
+        let range = Segment.Create(1, 100)
+        let rangeCore = Segment.Create(0, 101)
         new FauxCalendricalSchema(range, rangeCore) |> ignore
 
     [<Fact>]
     let ``Default value for SupportedYearsCore is any int`` () =
         let sch = new FauxCalendricalSchema()
 
-        sch.SupportedYearsCore === Range.Maximal32
+        sch.SupportedYearsCore === Segment.Maximal32
 
     [<Fact>]
     let ``Default value for SupportedYears is DefaultSupportedYears`` () =

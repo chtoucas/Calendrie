@@ -1344,7 +1344,7 @@ public partial struct MyJulianMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(MyJulianDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(MyJulianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1817,7 +1817,7 @@ public partial struct MyJulianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<MyJulianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<MyJulianMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1895,7 +1895,7 @@ public partial struct MyJulianYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(MyJulianDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(MyJulianDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

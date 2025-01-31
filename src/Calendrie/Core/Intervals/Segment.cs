@@ -5,11 +5,6 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-// Name conflict with BCL System.Range: use an alias, either
-// > using BclRange = System.Range;
-// or
-// > using CalendrieRange = Calendrie.Core.Intervals.Range;
-//
 // Enumerable:
 // - ToEnumerable() for structs
 // - Impl IEnumerable<T> for classes
@@ -18,9 +13,9 @@ using System.Numerics;
 /// Provides static helpers and extension methods for <see cref="Segment{T}"/>.
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public static partial class Range { }
+public static partial class Segment { }
 
-public partial class Range // Factories
+public partial class Segment // Factories
 {
     /// <summary>
     /// Creates a new instance of the <see cref="Segment{T}"/> struct representing
@@ -116,7 +111,7 @@ public partial class Range // Factories
     }
 }
 
-public partial class Range // Conversions, transformations
+public partial class Segment // Conversions, transformations
 {
     /// <summary>
     /// Creates a new instance of the <see cref="Segment{T}"/> struct from the
@@ -130,7 +125,7 @@ public partial class Range // Conversions, transformations
     }
 }
 
-public partial class Range // Segment<int>
+public partial class Segment // Segment<int>
 {
     // A range of int's is finite and enumerable.
 
@@ -176,7 +171,7 @@ public partial class Range // Segment<int>
     }
 }
 
-public partial class Range // Segment<DayNumber>
+public partial class Segment // Segment<DayNumber>
 {
     // A range of DayNumber's is finite and enumerable.
 

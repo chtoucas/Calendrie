@@ -23,7 +23,7 @@ module Prelude =
 
     [<Fact>]
     let ``Static property Range:Maximal32`` () =
-        let v = Range.Maximal32
+        let v = Segment.Maximal32
         let endpoints = OrderedPair.Create(Int32.MinValue, Int32.MaxValue)
 
         v.Endpoints === endpoints
@@ -48,11 +48,11 @@ module Prelude =
 module Factories =
     [<Property>]
     let ``Range:Create() throws when max < min`` (x: Pair<int>) =
-        outOfRangeExn "max" (fun () -> Range.Create(x.Max, x.Min))
+        outOfRangeExn "max" (fun () -> Segment.Create(x.Max, x.Min))
 
     [<Property>]
     let ``Range:Create()`` (x: Pair<int>) =
-        let v = Range.Create(x.Min, x.Max)
+        let v = Segment.Create(x.Min, x.Max)
         let endpoints = OrderedPair.Create(x.Min, x.Max)
 
         v.Endpoints === endpoints
@@ -76,7 +76,7 @@ module Factories =
 
     [<Property>]
     let ``Range:Create() when singleton`` (i: int) =
-        let v = Range.Create(i, i)
+        let v = Segment.Create(i, i)
         let endpoints = OrderedPair.Create(i, i)
 
         v.Endpoints === endpoints
@@ -100,7 +100,7 @@ module Factories =
 
     [<Property>]
     let ``Range:Singleton()`` (i: int) =
-        let v = Range.Singleton(i)
+        let v = Segment.Singleton(i)
         let endpoints = OrderedPair.Create(i, i)
 
         v.Endpoints === endpoints
@@ -125,7 +125,7 @@ module Factories =
     [<Property>]
     let ``Range:Maximal()`` () =
         // We test this method w/ int16. For int, see Maximal32 below.
-        let v = Range.Maximal<int16>()
+        let v = Segment.Maximal<int16>()
         let endpoints = OrderedPair.Create(Int16.MinValue, Int16.MaxValue)
 
         v.Endpoints === endpoints
@@ -149,7 +149,7 @@ module Factories =
 
     [<Property>]
     let ``Range:StartingAt()`` (i: int) =
-        let v = Range.StartingAt(i)
+        let v = Segment.StartingAt(i)
         let endpoints = OrderedPair.Create(i, Int32.MaxValue)
 
         v.Endpoints === endpoints
@@ -174,7 +174,7 @@ module Factories =
     [<Property>]
     let ``Range:StartingAt(length)`` (i: int) =
         let len = 10
-        let v = Range.StartingAt(i, len)
+        let v = Segment.StartingAt(i, len)
         let j = i + len - 1
         let endpoints = OrderedPair.Create(i, j)
 
@@ -199,7 +199,7 @@ module Factories =
 
     [<Property>]
     let ``Range:EndingAt()`` (i: int) =
-        let v = Range.EndingAt(i)
+        let v = Segment.EndingAt(i)
         let endpoints = OrderedPair.Create(Int32.MinValue, i)
 
         v.Endpoints === endpoints
@@ -224,7 +224,7 @@ module Factories =
     [<Property>]
     let ``Range:EndingAt(length)`` (i: int) =
         let len = 10
-        let v = Range.EndingAt(i, len)
+        let v = Segment.EndingAt(i, len)
         let j = i - (len - 1)
         let endpoints = OrderedPair.Create(j, i)
 
@@ -249,7 +249,7 @@ module Factories =
 
     [<Property>]
     let ``Range:FromEndpoints()`` (x: OrderedPair<int>) =
-        let v = Range.FromEndpoints(x)
+        let v = Segment.FromEndpoints(x)
         let isSingleton = x.LowerValue = x.UpperValue
 
         v.Endpoints === x
@@ -278,7 +278,7 @@ module Factories =
 module Adjustments =
     [<Fact>]
     let ``WithMin() throws when min > range:Max`` () =
-        let v = Range.Create(1, 4)
+        let v = Segment.Create(1, 4)
 
         outOfRangeExn "min" (fun () -> v.WithMin(5))
 
@@ -288,14 +288,14 @@ module Adjustments =
     [<InlineData -1>]
     [<InlineData -2>]
     let ``WithMin()`` (i: int) =
-        let v = Range.Create(1, 4)
-        let range = Range.Create(i, 4)
+        let v = Segment.Create(1, 4)
+        let range = Segment.Create(i, 4)
 
         v.WithMin(i) === range
 
     [<Fact>]
     let ``WithMax() throws when max < range:Min`` () =
-        let v = Range.Create(1, 4)
+        let v = Segment.Create(1, 4)
 
         outOfRangeExn "max" (fun () -> v.WithMax(0))
 
@@ -305,8 +305,8 @@ module Adjustments =
     [<InlineData 6>]
     [<InlineData 7>]
     let ``WithMax()`` (i: int) =
-        let v = Range.Create(1, 4)
-        let range = Range.Create(1, i)
+        let v = Segment.Create(1, 4)
+        let range = Segment.Create(1, i)
 
         v.WithMax(i) === range
 
@@ -317,19 +317,19 @@ module SetOperations =
 
     [<Fact>]
     let ``Range:Maximal32:Contains(Int32:Min/MaxValue)`` () =
-        let v = Range.Maximal32
+        let v = Segment.Maximal32
 
         v.Contains(Int32.MinValue) |> ok
         v.Contains(Int32.MaxValue) |> ok
 
     [<Property>]
     let ``Range:Maximal32:Contains() always returns true`` (i: int) =
-        let v = Range.Maximal32
+        let v = Segment.Maximal32
 
         v.Contains(i)
 
     [<Property>]
-    let ``Contains()`` (x: Segment<int>) = x <> Range.Maximal32 &&&& (
+    let ``Contains()`` (x: Segment<int>) = x <> Segment.Maximal32 &&&& (
         x.Contains(Int32.MinValue)  |> nok
         x.Contains(x.Min - 1)       |> nok
         x.Contains(x.Min)           |> ok
@@ -340,7 +340,7 @@ module SetOperations =
 
     [<Fact>]
     let ``Contains() when not a singleton`` () =
-        let v = Range.Create(1, 4)
+        let v = Segment.Create(1, 4)
 
         not (v.Contains(Int32.MinValue)) |> ok
         not (v.Contains(0))              |> ok
@@ -357,7 +357,7 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a singleton with itself`` () =
-        let v = Range.Singleton(1)
+        let v = Segment.Singleton(1)
 
         v.IsSubsetOf(v)   |> ok
         v.IsSupersetOf(v) |> ok
@@ -367,8 +367,8 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a singleton with another singleton`` () =
-        let v = Range.Singleton(1)
-        let w = Range.Singleton(2)
+        let v = Segment.Singleton(1)
+        let w = Segment.Singleton(2)
 
         v.IsSubsetOf(w)   |> nok
         v.IsSupersetOf(w) |> nok
@@ -378,10 +378,10 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a singleton with an overlapping (proper) range`` () =
-        let v = Range.Singleton(1)
-        let w1 = Range.Create(1, 2) // v is the left endpoint
-        let w2 = Range.Create(0, 1) // v is the right endpoint
-        let w3 = Range.Create(0, 2) // v is an inner point
+        let v = Segment.Singleton(1)
+        let w1 = Segment.Create(1, 2) // v is the left endpoint
+        let w2 = Segment.Create(0, 1) // v is the right endpoint
+        let w3 = Segment.Create(0, 2) // v is an inner point
 
         v.IsSubsetOf(w1) |> ok
         v.IsSubsetOf(w2) |> ok
@@ -401,9 +401,9 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a singleton with a disjoint (proper) range`` () =
-        let v = Range.Singleton(1)
-        let w1 = Range.Create(2, 3)  // v is on the left side
-        let w2 = Range.Create(-1, 0) // v is on the right side
+        let v = Segment.Singleton(1)
+        let w1 = Segment.Create(2, 3)  // v is on the left side
+        let w2 = Segment.Create(-1, 0) // v is on the right side
 
         v.IsSubsetOf(w1) |> nok
         v.IsSubsetOf(w2) |> nok
@@ -426,10 +426,10 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a range with an overlapping (proper) range and no inclusion`` () =
-        let v = Range.Create(1, 4)
-        let w1 = Range.Create(4, 7) // v.Max = w.Min
-        let w2 = Range.Create(0, 1) // v.Min = w.Max
-        let w3 = Range.Create(0, 2) // non-degenerate intersection
+        let v = Segment.Create(1, 4)
+        let w1 = Segment.Create(4, 7) // v.Max = w.Min
+        let w2 = Segment.Create(0, 1) // v.Min = w.Max
+        let w3 = Segment.Create(0, 2) // non-degenerate intersection
 
         v.IsSubsetOf(w1) |> nok
         v.IsSubsetOf(w2) |> nok
@@ -449,10 +449,10 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a range with a proper superset`` () =
-        let v = Range.Create(1, 4)
-        let w1 = Range.Create(0, 4) // right endpoint in common
-        let w2 = Range.Create(1, 5) // left endpoint in common
-        let w3 = Range.Create(0, 5) // no endpoint in common
+        let v = Segment.Create(1, 4)
+        let w1 = Segment.Create(0, 4) // right endpoint in common
+        let w2 = Segment.Create(1, 5) // left endpoint in common
+        let w3 = Segment.Create(0, 5) // no endpoint in common
 
         v.IsSubsetOf(w1) |> ok
         v.IsSubsetOf(w2) |> ok
@@ -472,10 +472,10 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a range with a proper subset`` () =
-        let v = Range.Create(1, 4)
-        let w1 = Range.Create(1, 3) // left endpoint in common
-        let w2 = Range.Create(2, 4) // right endpoint in common
-        let w3 = Range.Create(2, 3) // no endpoint in common
+        let v = Segment.Create(1, 4)
+        let w1 = Segment.Create(1, 3) // left endpoint in common
+        let w2 = Segment.Create(2, 4) // right endpoint in common
+        let w3 = Segment.Create(2, 3) // no endpoint in common
 
         v.IsSubsetOf(w1) |> nok
         v.IsSubsetOf(w2) |> nok
@@ -495,9 +495,9 @@ module SetOperations =
 
     [<Fact>]
     let ``Set inclusion of a range with a disjoint range`` () =
-        let v = Range.Create(1, 4)
-        let w1 = Range.Create(5, 7)  // v is on the left side
-        let w2 = Range.Create(-1, 0) // v is on the right side
+        let v = Segment.Create(1, 4)
+        let w1 = Segment.Create(5, 7)  // v is on the left side
+        let w2 = Segment.Create(-1, 0) // v is on the right side
 
         v.IsSubsetOf(w1) |> nok
         v.IsSubsetOf(w2) |> nok
@@ -531,48 +531,48 @@ module Extensions =
 
     [<Fact>]
     let ``Segment<int>:Count() and LongCount()`` () =
-        let v = Range.Create(1, 4)
+        let v = Segment.Create(1, 4)
 
         v.Count() === 4
         v.LongCount() === 4L
 
     [<Fact>]
     let ``Segment<int>:Count() and LongCount() for a singleton`` () =
-        let v = Range.Singleton(1)
+        let v = Segment.Singleton(1)
 
         v.Count() === 1
         v.LongCount() === 1L
 
     [<Fact>]
     let ``Range:Maximal32:Count() overflows`` () =
-        let v = Range.Maximal32
+        let v = Segment.Maximal32
 
         (fun () -> v.Count()) |> overflows
 
     [<Fact>]
     let ``Range:Maximal32:LongCount()`` () =
-        let v = Range.Maximal32
+        let v = Segment.Maximal32
         let count = (int64)Int32.MaxValue - (int64)Int32.MinValue + 1L
 
         v.LongCount() === count
 
     [<Fact>]
     let ``Range:Maximal32:ToEnumerable() does not overflow`` () =
-        let v = Range.Maximal32
+        let v = Segment.Maximal32
 
         //(fun () -> v.ToEnumerable()) |> overflows
         v.ToEnumerable()
 
     [<Fact>]
     let ``Segment<int>:ToEnumerable() singleton case`` () =
-        let v = Range.Singleton(4)
+        let v = Segment.Singleton(4)
         let q = Enumerable.Range(4, 1)
 
         v.ToEnumerable() === q
 
     [<Fact>]
     let ``Segment<int>:ToEnumerable()`` () =
-        let v = Range.Create(1, 4)
+        let v = Segment.Create(1, 4)
         let q = Enumerable.Range(1, 4)
 
         v.ToEnumerable() === q
@@ -583,41 +583,41 @@ module Extensions =
 
     [<Fact>]
     let ``Segment<DayNumber>:Count() and LongCount()`` () =
-        let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
+        let v = Segment.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
 
         v.Count() === 4
         v.LongCount() === 4L
 
     [<Fact>]
     let ``Segment<DayNumber>:Count() and LongCount() for a singleton`` () =
-        let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle)
+        let v = Segment.Create(DayZero.OldStyle, DayZero.OldStyle)
 
         v.Count() === 1
         v.LongCount() === 1L
 
     [<Fact>]
     let ``Range:Maximum<DayNumber>():Count() overflows`` () =
-        let v = Range.Maximal<DayNumber>()
+        let v = Segment.Maximal<DayNumber>()
 
         (fun () -> v.Count()) |> overflows
 
     [<Fact>]
     let ``Range:Maximum<DayNumber>():LongCount()`` () =
-        let v = Range.Maximal<DayNumber>()
+        let v = Segment.Maximal<DayNumber>()
         let count = (int64)DayNumber.MaxDaysSinceZero - (int64)DayNumber.MinDaysSinceZero + 1L
 
         v.LongCount() === count
 
     [<Fact>]
     let ``Segment<DayNumber>:ToEnumerable() singleton case`` () =
-        let v = Range.Singleton(DayZero.OldStyle)
+        let v = Segment.Singleton(DayZero.OldStyle)
         let q = seq { yield DayZero.OldStyle }
 
         v.ToEnumerable() === q
 
     [<Fact>]
     let ``Segment<DayNumber>:ToEnumerable()`` () =
-        let v = Range.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
+        let v = Segment.Create(DayZero.OldStyle, DayZero.OldStyle + 3)
         let q = seq {
             yield DayZero.OldStyle
             yield DayZero.OldStyle + 1

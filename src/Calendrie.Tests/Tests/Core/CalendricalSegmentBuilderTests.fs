@@ -9,7 +9,6 @@ open Calendrie
 open Calendrie.Core
 open Calendrie.Core.Intervals
 open Calendrie.Core.Schemas
-open Calendrie.Core.Utilities
 open Calendrie.Testing
 
 open Xunit
@@ -235,9 +234,9 @@ module Setters =
 
         seg.IsComplete |> nok
 
-        seg.SupportedDays   === Range.Create(0, 31)
-        seg.SupportedMonths === Range.Create(0, 1)
-        seg.SupportedYears  === Range.Singleton(1)
+        seg.SupportedDays   === Segment.Create(0, 31)
+        seg.SupportedMonths === Segment.Create(0, 1)
+        seg.SupportedYears  === Segment.Singleton(1)
 
         seg.MinMaxDateParts    === minMaxDateParts
         seg.MinMaxOrdinalParts === minMaxOrdinalParts
@@ -246,7 +245,7 @@ module Setters =
     [<Fact>]
     let ``Build a segment using MinDateParts and MaxOrdinalParts`` () =
         let sch = new GregorianSchema()
-        let range = Range.Create(1, 2)
+        let range = Segment.Create(1, 2)
         let min = new DateParts(range.Min, 2, 1)
         let max = new OrdinalParts(range.Max, 364)
         let builder = new CalendricalSegmentBuilder(sch)
@@ -273,8 +272,8 @@ module Setters =
 
         seg.IsComplete |> nok
 
-        seg.SupportedDays   === Range.Create(31, 728)
-        seg.SupportedMonths === Range.Create(1, 23)
+        seg.SupportedDays   === Segment.Create(31, 728)
+        seg.SupportedMonths === Segment.Create(1, 23)
         seg.SupportedYears  === range
 
         seg.MinMaxDateParts    === minMaxDateParts
@@ -284,7 +283,7 @@ module Setters =
     [<Fact>]
     let ``Build a segment using MinOrdinalParts and MaxDateParts`` () =
         let sch = new GregorianSchema()
-        let range = Range.Create(1, 2)
+        let range = Segment.Create(1, 2)
         let min = new OrdinalParts(range.Min, 32)
         let max = new DateParts(range.Max, 12, 30)
         let builder = new CalendricalSegmentBuilder(sch)
@@ -311,8 +310,8 @@ module Setters =
 
         seg.IsComplete |> nok
 
-        seg.SupportedDays   === Range.Create(31, 728)
-        seg.SupportedMonths === Range.Create(1, 23)
+        seg.SupportedDays   === Segment.Create(31, 728)
+        seg.SupportedMonths === Segment.Create(1, 23)
         seg.SupportedYears  === range
 
         seg.MinMaxDateParts    === minMaxDateParts

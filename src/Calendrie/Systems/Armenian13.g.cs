@@ -1276,7 +1276,7 @@ public partial struct Armenian13Month // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(Armenian13Date.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(Armenian13Date.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1748,7 +1748,7 @@ public partial struct Armenian13Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<Armenian13Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<Armenian13Month> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1829,7 +1829,7 @@ public partial struct Armenian13Year // IDaySegment
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        return Range.StartingAt(Armenian13Date.UnsafeCreate(startOfYear), DayCount);
+        return Segment.StartingAt(Armenian13Date.UnsafeCreate(startOfYear), DayCount);
     }
 
     /// <inheritdoc />

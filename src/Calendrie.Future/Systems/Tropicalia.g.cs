@@ -1397,7 +1397,7 @@ public partial struct TropicaliaMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(TropicaliaDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(TropicaliaDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1870,7 +1870,7 @@ public partial struct TropicaliaYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<TropicaliaMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<TropicaliaMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1948,7 +1948,7 @@ public partial struct TropicaliaYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(TropicaliaDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(TropicaliaDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

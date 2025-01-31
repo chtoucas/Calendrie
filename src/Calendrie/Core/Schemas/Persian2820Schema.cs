@@ -94,7 +94,7 @@ public sealed partial class Persian2820Schema :
     /// </summary>
     internal Persian2820Schema() : base(DaysPerCommonYear, 29)
     {
-        SupportedYearsCore = Range.StartingAt(int.MinValue + YearZero);
+        SupportedYearsCore = Segment.StartingAt(int.MinValue + YearZero);
     }
 
     /// <inheritdoc />

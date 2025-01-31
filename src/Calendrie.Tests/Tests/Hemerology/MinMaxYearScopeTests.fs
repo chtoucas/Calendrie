@@ -21,25 +21,25 @@ open Xunit
 module Factories =
     [<Fact>]
     let ``Create() throws when "schema" is null`` () =
-        let range = Range.Create(1, 2)
+        let range = Segment.Create(1, 2)
 
         nullExn "schema" (fun () -> MinMaxYearScope.Create(null, DayZero.NewStyle, range))
 
     [<Fact>]
     let ``Create() throws when "range" is not a subinterval of schema.SupportedYears`` () =
-        let sch = new FauxCalendricalSchema(Range.Create(5, 10))
+        let sch = new FauxCalendricalSchema(Segment.Create(5, 10))
 
-        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Range.Create(3, 4)))
-        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Range.Create(3, 5)))
-        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Range.Create(3, 6)))
-        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Range.Create(9, 12)))
-        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Range.Create(10, 12)))
-        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Range.Create(11, 12)))
+        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Segment.Create(3, 4)))
+        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Segment.Create(3, 5)))
+        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Segment.Create(3, 6)))
+        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Segment.Create(9, 12)))
+        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Segment.Create(10, 12)))
+        argExn "supportedYears" (fun () -> MinMaxYearScope.Create(sch, DayZero.NewStyle, Segment.Create(11, 12)))
 
     [<Fact>]
     let ``Create()`` () =
-        let range = Range.Create(-2, 9)
-        let sch = new FauxCalendricalSchema(Range.Create(-9, 10))
+        let range = Segment.Create(-2, 9)
+        let sch = new FauxCalendricalSchema(Segment.Create(-9, 10))
         let scope = MinMaxYearScope.Create(sch, DayZero.NewStyle, range)
 
         scope.Segment.IsComplete |> ok
@@ -51,7 +51,7 @@ module Factories =
 
     [<Fact>]
     let ``CreateMaximal()`` () =
-        let range = Range.Create(-10, 10)
+        let range = Segment.Create(-10, 10)
         let sch = new FauxCalendricalSchema(range)
         let scope = MinMaxYearScope.CreateMaximal(sch, DayZero.NewStyle)
 
@@ -64,19 +64,19 @@ module Factories =
 
     [<Fact>]
     let ``CreateMaximalOnOrAfterYear1() throws when the schema only supports years <= 0`` () =
-        let range = Range.Create(-10, 0)
+        let range = Segment.Create(-10, 0)
         let sch = new FauxCalendricalSchema(range)
 
         argExn "schema" (fun () -> MinMaxYearScope.CreateMaximalOnOrAfterYear1(sch, DayZero.NewStyle))
 
     [<Fact>]
     let ``CreateMaximalOnOrAfterYear1()`` () =
-        let range = Range.Create(-10, 10)
+        let range = Segment.Create(-10, 10)
         let sch = new FauxCalendricalSchema(range)
         let scope = MinMaxYearScope.CreateMaximalOnOrAfterYear1(sch, DayZero.NewStyle)
 
         scope.Segment.IsComplete |> ok
-        scope.Segment.SupportedYears === Range.Create(1, 10)
+        scope.Segment.SupportedYears === Segment.Create(1, 10)
 
     [<Fact>]
     let ``StartingAt() throws for null schema`` () =
@@ -84,19 +84,19 @@ module Factories =
 
     [<Fact>]
     let ``StartingAt() throws when the year is out of range`` () =
-        let range = Range.Create(2, 10)
+        let range = Segment.Create(2, 10)
         let sch = new FauxCalendricalSchema(range)
 
         outOfRangeExn "year" (fun () -> MinMaxYearScope.StartingAt(sch, DayZero.NewStyle, 1))
 
     [<Fact>]
     let ``StartingAt()`` () =
-        let range = Range.Create(2, 10)
+        let range = Segment.Create(2, 10)
         let sch = new FauxCalendricalSchema(range)
         let scope = MinMaxYearScope.StartingAt(sch, DayZero.NewStyle, 3)
 
         scope.Segment.IsComplete |> ok
-        scope.Segment.SupportedYears === Range.Create(3, 10)
+        scope.Segment.SupportedYears === Segment.Create(3, 10)
 
     [<Fact>]
     let ``EndingAt() throws for null schema`` () =
@@ -104,19 +104,19 @@ module Factories =
 
     [<Fact>]
     let ``EndingAt() throws when the year is out of range`` () =
-        let range = Range.Create(2, 10)
+        let range = Segment.Create(2, 10)
         let sch = new FauxCalendricalSchema(range)
 
         outOfRangeExn "year" (fun () -> MinMaxYearScope.EndingAt(sch, DayZero.NewStyle, 1))
 
     [<Fact>]
     let ``EndingAt()`` () =
-        let range = Range.Create(2, 10)
+        let range = Segment.Create(2, 10)
         let sch = new FauxCalendricalSchema(range)
         let scope = MinMaxYearScope.EndingAt(sch, DayZero.NewStyle, 5)
 
         scope.Segment.IsComplete |> ok
-        scope.Segment.SupportedYears === Range.Create(2, 5)
+        scope.Segment.SupportedYears === Segment.Create(2, 5)
 
     [<Fact>]
     let ``Create(scope) throws when "schema" is null`` () =
@@ -124,7 +124,7 @@ module Factories =
 
     [<Fact>]
     let ``Create(scope) returns scope when it's a MinMaxYearScope`` () =
-        let range = Range.Create(-10, 0)
+        let range = Segment.Create(-10, 0)
         let sch = new FauxCalendricalSchema(range)
         let scope = MinMaxYearScope.CreateMaximal(sch, DayZero.NewStyle)
 
@@ -140,7 +140,7 @@ module Factories =
     let ``Create(scope)`` () =
         let epoch = DayZero.NewStyle + 123_456_789
         let sch = new GregorianSchema()
-        let seg = CalendricalSegment.Create(sch, Range.Create(1, 4))
+        let seg = CalendricalSegment.Create(sch, Segment.Create(1, 4))
         let scope = MinMaxYearScope.Create(new FauxCalendarScope(epoch, seg))
 
         scope.Epoch === epoch
@@ -150,7 +150,7 @@ module Bundles =
     let private scope = MinMaxYearScope.Create(
         new GregorianSchema(),
         DayZero.NewStyle,
-        Range.Create(MinMaxYearScopeDataSet.MinYear, MinMaxYearScopeDataSet.MaxYear))
+        Segment.Create(MinMaxYearScopeDataSet.MinYear, MinMaxYearScopeDataSet.MaxYear))
 
     [<Sealed>]
     type GregorianTests() =

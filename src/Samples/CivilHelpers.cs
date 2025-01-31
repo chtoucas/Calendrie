@@ -11,8 +11,6 @@ using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 using Calendrie.Systems;
 
-using CalendrieRange = Calendrie.Core.Intervals.Range;
-
 // Among other things, demonstrates a few things which can be done with the year
 // and month types. Without them, these methods would have been good candidates
 // for inclusion in the Civil calendar class.
@@ -156,7 +154,7 @@ public partial class CivilHelpers
     public static Segment<JulianDate> ToJulianRange(this Segment<CivilDate> range)
     {
         var (min, max) = range.Endpoints;
-        return CalendrieRange.Create(min.ToJulianDate(), max.ToJulianDate());
+        return Segment.Create(min.ToJulianDate(), max.ToJulianDate());
     }
 
     // General interconversion methods are possible but not very user-friendly.
@@ -175,7 +173,7 @@ public partial class CivilHelpers
         where TDate : struct, IAbsoluteDate<TDate>
     {
         var (min, max) = range.Endpoints;
-        return CalendrieRange.Create(min.ToAbsoluteDate<TDate>(), max.ToAbsoluteDate<TDate>());
+        return Segment.Create(min.ToAbsoluteDate<TDate>(), max.ToAbsoluteDate<TDate>());
     }
 }
 
@@ -192,7 +190,7 @@ public partial class CivilHelpers
     public static Segment<JulianDate> ToJulianRange(this CivilMonth month)
     {
         var (startOfMonth, endOfMonth) = month.ToRange().Endpoints;
-        return CalendrieRange.Create(startOfMonth.ToJulianDate(), endOfMonth.ToJulianDate());
+        return Segment.Create(startOfMonth.ToJulianDate(), endOfMonth.ToJulianDate());
     }
 
     /// <summary>
@@ -200,14 +198,14 @@ public partial class CivilHelpers
     /// values (second version).
     /// </summary>
     public static Segment<JulianDate> ToJulianRange2(this CivilMonth month) =>
-        CalendrieRange.FromEndpoints(from x in month.ToRange().Endpoints select x.ToJulianDate());
+        Segment.FromEndpoints(from x in month.ToRange().Endpoints select x.ToJulianDate());
 
     /// <summary>
     /// Converts the specified month to a range of <see cref="JulianDate"/>
     /// values (third version).
     /// </summary>
     public static Segment<JulianDate> ToJulianRange3(this CivilMonth month) =>
-        CalendrieRange.Create(month.MinDay.ToJulianDate(), month.MaxDay.ToJulianDate());
+        Segment.Create(month.MinDay.ToJulianDate(), month.MaxDay.ToJulianDate());
 
     /// <summary>
     /// Converts the specified month to an enumerable collection of
@@ -232,7 +230,7 @@ public partial class CivilHelpers
     public static Segment<JulianDate> ToJulianDayRange(this CivilYear year)
     {
         var (startOfYear, endOfYear) = year.ToDayRange().Endpoints;
-        return CalendrieRange.Create(startOfYear.ToJulianDate(), endOfYear.ToJulianDate());
+        return Segment.Create(startOfYear.ToJulianDate(), endOfYear.ToJulianDate());
     }
 
     /// <summary>

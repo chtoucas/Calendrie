@@ -231,7 +231,7 @@ public partial struct GregorianYear // IDaySegment
     {
         int startOfYear = GregorianFormulae.CountDaysSinceEpoch(Year, 1);
         int daysInYear = GregorianFormulae.CountDaysInYear(Year);
-        return Range.StartingAt(GregorianDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(GregorianDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

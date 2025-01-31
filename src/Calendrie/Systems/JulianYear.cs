@@ -231,7 +231,7 @@ public partial struct JulianYear // IDaySegment
     {
         int startOfYear = JulianFormulae.CountDaysSinceEpoch(Year, 1);
         int daysInYear = JulianFormulae.CountDaysInYear(Year);
-        return Range.StartingAt(JulianDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(JulianDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

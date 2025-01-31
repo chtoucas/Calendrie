@@ -9,11 +9,10 @@ using System.Numerics;
 
 using Calendrie;
 using Calendrie.Core;
+using Calendrie.Core.Intervals;
 using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
-
-using CalendrieRange = Calendrie.Core.Intervals.Range;
 
 // Demonstration that almost all operations only depend on the schema.
 //
@@ -32,7 +31,7 @@ public readonly partial struct CivilTriple :
     // WARNING: s_Schema MUST be defined before s_Segment.
     private static readonly CivilPrototype s_Schema = new();
     private static readonly CalendricalSegment s_Segment =
-        CalendricalSegment.Create(s_Schema, CalendrieRange.Create(MinYear, MaxYear));
+        CalendricalSegment.Create(s_Schema, Segment.Create(MinYear, MaxYear));
 
     // MinYear = 1 => MinDaysSinceEpoch = 0.
     private const int MinDaysSinceEpoch = 0;

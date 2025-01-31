@@ -10,7 +10,7 @@ public class MinMaxYearCalendarDataSet<TDataSet> : BoundedCalendarDataSet<TDataS
     where TDataSet : UnboundedCalendarDataSet
 {
     public MinMaxYearCalendarDataSet(TDataSet inner, int minYear, int maxYear)
-        : this(inner, Range.Create(minYear, maxYear)) { }
+        : this(inner, Segment.Create(minYear, maxYear)) { }
 
     public MinMaxYearCalendarDataSet(TDataSet inner, Segment<int> supportedYears)
         : base(inner, new MinMaxYearDataFilter(supportedYears))

@@ -1350,7 +1350,7 @@ public partial struct EthiopicMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(EthiopicDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(EthiopicDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1823,7 +1823,7 @@ public partial struct EthiopicYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<EthiopicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<EthiopicMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1901,7 +1901,7 @@ public partial struct EthiopicYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(EthiopicDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(EthiopicDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

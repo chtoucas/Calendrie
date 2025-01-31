@@ -680,7 +680,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -790,7 +790,7 @@ public partial struct <#= Prefix #>Month // IDaySegment
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]

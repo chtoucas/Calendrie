@@ -47,7 +47,7 @@ public class GregorianMinMaxYearCalendarTests :
             MinMaxYearScope.Create(
                 new GregorianSchema(),
                 DayZero.NewStyle,
-                Range.Create(FirstYear, LastYear)));
+                Segment.Create(FirstYear, LastYear)));
 
     [Fact]
     public void MinYear_Prop() => Assert.Equal(FirstYear, CalendarUT.MinYear);

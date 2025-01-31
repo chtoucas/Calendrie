@@ -12,8 +12,6 @@ using Calendrie.Core;
 using Calendrie.Core.Schemas;
 using Calendrie.Hemerology;
 
-using CalendrieRange = Calendrie.Core.Intervals.Range;
-
 public sealed partial class MyJulianCalendar : UserCalendar
 {
     internal const string DisplayName = "Julien";
@@ -22,7 +20,7 @@ public sealed partial class MyJulianCalendar : UserCalendar
 
     public MyJulianCalendar()
         : base(DisplayName,
-            MinMaxYearScope.Create<JulianSchema>(DayZero.OldStyle, CalendrieRange.Create(MinYear, MaxYear)))
+            MinMaxYearScope.Create<JulianSchema>(DayZero.OldStyle, Segment.Create(MinYear, MaxYear)))
     {
         UnderlyingSchema = (JulianSchema)Schema;
 

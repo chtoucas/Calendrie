@@ -1220,7 +1220,7 @@ public partial struct PaxMonth // IDaySegment
         sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(PaxDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(PaxDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1716,7 +1716,7 @@ public partial struct PaxYear // IMonthSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
         int monthsInYear = sch.CountMonthsInYear(Year);
-        return Range.StartingAt(PaxMonth.UnsafeCreate(startOfYear), monthsInYear);
+        return Segment.StartingAt(PaxMonth.UnsafeCreate(startOfYear), monthsInYear);
     }
 
     /// <inheritdoc />
@@ -1795,7 +1795,7 @@ public partial struct PaxYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(PaxDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(PaxDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

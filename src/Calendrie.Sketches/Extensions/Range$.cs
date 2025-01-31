@@ -13,7 +13,7 @@ public static class RangeExtensions
         where TItem : struct, IEquatable<TItem>, IComparable<TItem>
     {
         var (min, max) = @this.Endpoints;
-        return Range.UnsafeCreate(min.LowerEnd, max.UpperEnd);
+        return Segment.UnsafeCreate(min.LowerEnd, max.UpperEnd);
     }
 
     [Pure]

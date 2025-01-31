@@ -72,7 +72,7 @@ public partial class CalendarZoo
 
         internal static readonly MinMaxYearCalendar FrenchRevolutionary =
             new("French Revolutionary",
-                MinMaxYearScope.Create<Coptic12Schema>(DayZero.FrenchRepublican, Range.Create(1, 14)));
+                MinMaxYearScope.Create<Coptic12Schema>(DayZero.FrenchRepublican, Segment.Create(1, 14)));
     }
 }
 

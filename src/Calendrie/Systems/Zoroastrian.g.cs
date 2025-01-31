@@ -1276,7 +1276,7 @@ public partial struct ZoroastrianMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(ZoroastrianDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(ZoroastrianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1748,7 +1748,7 @@ public partial struct ZoroastrianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<ZoroastrianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<ZoroastrianMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1829,7 +1829,7 @@ public partial struct ZoroastrianYear // IDaySegment
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        return Range.StartingAt(ZoroastrianDate.UnsafeCreate(startOfYear), DayCount);
+        return Segment.StartingAt(ZoroastrianDate.UnsafeCreate(startOfYear), DayCount);
     }
 
     /// <inheritdoc />

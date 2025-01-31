@@ -262,7 +262,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<<#= Prefix #>Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<<#= Prefix #>Month> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -342,7 +342,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountMonthsSinceEpoch(Year, 1);
         int monthsInYear = sch.CountMonthsInYear(Year);
-        return Range.StartingAt(<#= Prefix #>Month.UnsafeCreate(startOfYear), monthsInYear);
+        return Segment.StartingAt(<#= Prefix #>Month.UnsafeCreate(startOfYear), monthsInYear);
     }
 
     /// <inheritdoc />
@@ -430,7 +430,7 @@ public partial struct <#= Prefix #>Year // IDaySegment
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfYear), DayCount);
+        return Segment.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfYear), DayCount);
     }
 
     /// <inheritdoc />
@@ -513,7 +513,7 @@ public partial struct <#= Prefix #>Year // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(<#= Prefix #>Date.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

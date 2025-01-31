@@ -1350,7 +1350,7 @@ public partial struct CopticMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(CopticDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(CopticDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1823,7 +1823,7 @@ public partial struct CopticYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<CopticMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<CopticMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1901,7 +1901,7 @@ public partial struct CopticYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(CopticDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(CopticDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

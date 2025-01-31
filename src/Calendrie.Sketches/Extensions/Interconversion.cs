@@ -73,7 +73,7 @@ public static class Interconversion
         where TOut : struct, IAbsoluteDate<TOut>
     {
         var (min, max) = @this.Endpoints;
-        return Range.Create(interconv(min), interconv(max));
+        return Segment.Create(interconv(min), interconv(max));
 
         [Pure]
         static TOut interconv(TIn value) => TOut.FromDayNumber(value.DayNumber);
@@ -87,7 +87,7 @@ public static class Interconversion
         ArgumentNullException.ThrowIfNull(@this);
 
         var (min, max) = @this.ToDayRange().Endpoints;
-        return Range.Create(interconv(min), interconv(max));
+        return Segment.Create(interconv(min), interconv(max));
 
         [Pure]
         static TOut interconv(TIn value) => TOut.FromDayNumber(value.DayNumber);

@@ -180,7 +180,7 @@ public partial struct CivilYear // IDaySegment
     public Segment<CivilDate> ToDayRange()
     {
         int daysInYear = GregorianFormulae.CountDaysInYear(Year);
-        return Range.StartingAt(MinDay, daysInYear);
+        return Segment.StartingAt(MinDay, daysInYear);
     }
 
     /// <inheritdoc />

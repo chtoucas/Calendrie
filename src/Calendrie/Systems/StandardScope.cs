@@ -38,7 +38,7 @@ internal sealed class StandardScope : CalendarScope
     /// <summary>
     /// Represents the range of supported years.
     /// </summary>
-    public static readonly Segment<int> SupportedYears = Range.Create(MinYear, MaxYear);
+    public static readonly Segment<int> SupportedYears = Core.Intervals.Segment.Create(MinYear, MaxYear);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StandardScope"/> class.
@@ -53,7 +53,7 @@ internal sealed class StandardScope : CalendarScope
     {
         // Check the constants Min/MaxYear.
         Debug.Assert(Segment != null);
-        Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
+        Debug.Assert(Segment.SupportedYears == Core.Intervals.Segment.UnsafeCreate(MinYear, MaxYear));
     }
 
     //

@@ -1350,7 +1350,7 @@ public partial struct FrenchRepublicanMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(FrenchRepublicanDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(FrenchRepublicanDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1823,7 +1823,7 @@ public partial struct FrenchRepublicanYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<FrenchRepublicanMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<FrenchRepublicanMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1901,7 +1901,7 @@ public partial struct FrenchRepublicanYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(FrenchRepublicanDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(FrenchRepublicanDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

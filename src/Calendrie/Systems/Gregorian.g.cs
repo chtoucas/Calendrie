@@ -389,7 +389,7 @@ public partial struct GregorianYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<GregorianMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<GregorianMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]

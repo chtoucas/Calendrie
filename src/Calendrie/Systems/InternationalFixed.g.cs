@@ -1350,7 +1350,7 @@ public partial struct InternationalFixedMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(InternationalFixedDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(InternationalFixedDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1823,7 +1823,7 @@ public partial struct InternationalFixedYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<InternationalFixedMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<InternationalFixedMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1901,7 +1901,7 @@ public partial struct InternationalFixedYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(InternationalFixedDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(InternationalFixedDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

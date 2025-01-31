@@ -41,7 +41,7 @@ module Factories =
     [<Property>]
     let ``SegmentSet:Create()`` (x: Pair<int>) =
         let v = SegmentSet.Create(x.Min, x.Max)
-        let range = Range.Create(x.Min, x.Max)
+        let range = Segment.Create(x.Min, x.Max)
 
         v.IsEmpty |> nok
         v.Range === range
@@ -54,7 +54,7 @@ module Factories =
     [<Property>]
     let ``SegmentSet:Create() when singleton`` (i: int) =
         let v = SegmentSet.Create(i, i)
-        let range = Range.Singleton(i)
+        let range = Segment.Singleton(i)
 
         v.IsEmpty |> nok
         v.Range === range

@@ -32,7 +32,7 @@ public abstract partial class CopticSchema : PtolemaicSchema
     /// </summary>
     private protected CopticSchema(int minDaysInMonth) : base(minDaysInMonth)
     {
-        SupportedYearsCore = Range.EndingAt(int.MaxValue - 1);
+        SupportedYearsCore = Segment.EndingAt(int.MaxValue - 1);
     }
 }
 

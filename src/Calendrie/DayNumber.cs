@@ -177,7 +177,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Segment<DayNumber> GregorianDomain =>
-        Range.UnsafeCreate<DayNumber>(
+        Segment.UnsafeCreate<DayNumber>(
             new(MinGregorianDaysSinceZero),
             new(MaxGregorianDaysSinceZero));
 
@@ -282,7 +282,7 @@ public partial struct DayNumber // Gregorian/Julian conversions
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     public static Segment<DayNumber> JulianDomain =>
-        Range.UnsafeCreate<DayNumber>(
+        Segment.UnsafeCreate<DayNumber>(
             new(MinJulianDaysSinceZero),
             new(MaxJulianDaysSinceZero));
 

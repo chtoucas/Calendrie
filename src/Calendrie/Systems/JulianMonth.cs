@@ -237,7 +237,7 @@ public partial struct JulianMonth // IDaySegment
         var (y, m) = this;
         int startOfMonth = JulianFormulae.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = JulianFormulae.CountDaysInMonth(y, m);
-        return Range.StartingAt(JulianDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(JulianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]

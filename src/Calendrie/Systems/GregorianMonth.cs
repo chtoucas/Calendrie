@@ -237,7 +237,7 @@ public partial struct GregorianMonth // IDaySegment
         var (y, m) = this;
         int startOfMonth = GregorianFormulae.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = GregorianFormulae.CountDaysInMonth(y, m);
-        return Range.StartingAt(GregorianDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(GregorianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]

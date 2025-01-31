@@ -23,14 +23,14 @@ module Prelude =
 
     [<Fact>]
     let ``Constructor throws when schema.MinYear > 1`` () =
-        let range = Range.Create(StandardScope.MinYear + 1, StandardScope.MaxYear)
+        let range = Segment.Create(StandardScope.MinYear + 1, StandardScope.MaxYear)
         let sch = new FauxCalendricalSchema(range)
 
         argExn "supportedYears" (fun () -> new StandardScope(sch, DayZero.OldStyle))
 
     [<Fact>]
     let ``Constructor throws when schema.MaxYear < 9999`` () =
-        let range = Range.Create(1, StandardScope.MaxYear - 1)
+        let range = Segment.Create(1, StandardScope.MaxYear - 1)
         let sch = new FauxCalendricalSchema(range)
 
         argExn "supportedYears" (fun () -> new StandardScope(sch, DayZero.OldStyle))
@@ -49,14 +49,14 @@ module Prelude =
         let scope = new StandardScope(sch, epoch)
         let minDayNumber = epoch + sch.GetStartOfYear(StandardScope.MinYear)
         let maxDayNumber = epoch + sch.GetEndOfYear(StandardScope.MaxYear)
-        let range = Range.Create(minDayNumber, maxDayNumber)
+        let range = Segment.Create(minDayNumber, maxDayNumber)
 
         scope.Domain === range
 
     [<Fact>]
     let ``Property SupportedYears`` () =
         let scope = new StandardScope(new FauxCalendricalSchema(), DayZero.OldStyle)
-        let range = Range.Create(StandardScope.MinYear, StandardScope.MaxYear)
+        let range = Segment.Create(StandardScope.MinYear, StandardScope.MaxYear)
 
         scope.Segment.SupportedYears === range
 

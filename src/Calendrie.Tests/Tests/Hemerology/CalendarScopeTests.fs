@@ -28,25 +28,25 @@ module Prelude =
     let ``Property Domain`` () =
         let epoch = DayZero.NewStyle + 123_456_789
         let sch = new GregorianSchema()
-        let supportedYears = Range.Create(1, 4)
+        let supportedYears = Segment.Create(1, 4)
         let scope = new FauxCalendarScope(epoch, CalendricalSegment.Create(sch, supportedYears))
 
         let minDayNumber = epoch + sch.GetStartOfYear(supportedYears.Min)
         let maxDayNumber = epoch + sch.GetEndOfYear(supportedYears.Max)
-        let range = Range.Create(minDayNumber, maxDayNumber)
+        let range = Segment.Create(minDayNumber, maxDayNumber)
 
         scope.Domain === range
 
     [<Fact>]
     let ``Property Segment`` () =
         let sch = new GregorianSchema()
-        let seg = CalendricalSegment.Create(sch, Range.Create(1, 4))
+        let seg = CalendricalSegment.Create(sch, Segment.Create(1, 4))
         let scope = new FauxCalendarScope(seg)
 
         scope.Segment ==& seg
 
 module DayNumberValidation =
-    let seg = CalendricalSegment.Create(new GregorianSchema(), Range.Create(1, 2))
+    let seg = CalendricalSegment.Create(new GregorianSchema(), Segment.Create(1, 2))
     let scope = new FauxCalendarScope(DayZero.NewStyle, seg)
 
     [<Fact>]

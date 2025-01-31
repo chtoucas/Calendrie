@@ -26,7 +26,7 @@ public class ScopeTests
 
     // Range [1..9999], plain
     private static readonly MinMaxYearScope s_MinMaxYearScope =
-        MinMaxYearScope.Create(new GregorianSchema(), DayZero.NewStyle, Range.Create(1, 9999));
+        MinMaxYearScope.Create(new GregorianSchema(), DayZero.NewStyle, Segment.Create(1, 9999));
 
     private int _yearFast, _monthFast, _dayFast;
     private int _yearSlow, _monthSlow, _daySlow;

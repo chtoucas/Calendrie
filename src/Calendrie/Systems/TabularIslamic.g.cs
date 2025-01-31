@@ -1341,7 +1341,7 @@ public partial struct TabularIslamicMonth // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(TabularIslamicDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(TabularIslamicDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1814,7 +1814,7 @@ public partial struct TabularIslamicYear // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<TabularIslamicMonth> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<TabularIslamicMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1892,7 +1892,7 @@ public partial struct TabularIslamicYear // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(TabularIslamicDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(TabularIslamicDate.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

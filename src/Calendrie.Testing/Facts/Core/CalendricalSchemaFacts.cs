@@ -34,7 +34,7 @@ public partial class CalendricalSchemaFacts<TSchema, TDataSet> // Properties
 
     [Fact]
     public virtual void SupportedYearsCore_Prop() =>
-        Assert.Equal(Range.Maximal32, SchemaUT.SupportedYearsCore);
+        Assert.Equal(Segment.Maximal32, SchemaUT.SupportedYearsCore);
 }
 
 public partial class CalendricalSchemaFacts<TSchema, TDataSet> // Overflows

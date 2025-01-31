@@ -25,9 +25,9 @@ public sealed class CalendricalSegment
 
         Schema = schema;
 
-        SupportedDays = Range.Create(min.DaysSinceEpoch, max.DaysSinceEpoch);
-        SupportedMonths = Range.Create(min.MonthsSinceEpoch, max.MonthsSinceEpoch);
-        SupportedYears = Range.Create(min.Year, max.Year);
+        SupportedDays = Segment.Create(min.DaysSinceEpoch, max.DaysSinceEpoch);
+        SupportedMonths = Segment.Create(min.MonthsSinceEpoch, max.MonthsSinceEpoch);
+        SupportedYears = Segment.Create(min.Year, max.Year);
 
         MinMaxDateParts = OrderedPair.UnsafeCreate(min.DateParts, max.DateParts);
         MinMaxOrdinalParts = OrderedPair.UnsafeCreate(min.OrdinalParts, max.OrdinalParts);

@@ -1341,7 +1341,7 @@ public partial struct Persian2820Month // IDaySegment
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Range.StartingAt(Persian2820Date.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(Persian2820Date.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
@@ -1814,7 +1814,7 @@ public partial struct Persian2820Year // IMonthSegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<Persian2820Month> ToMonthRange() => Range.StartingAt(MinMonth, MonthCount);
+    public Segment<Persian2820Month> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
 
     /// <inheritdoc />
     [Pure]
@@ -1892,7 +1892,7 @@ public partial struct Persian2820Year // IDaySegment
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Range.StartingAt(Persian2820Date.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(Persian2820Date.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />

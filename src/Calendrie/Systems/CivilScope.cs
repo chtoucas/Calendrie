@@ -4,7 +4,6 @@
 namespace Calendrie.Systems;
 
 using Calendrie.Core;
-using Calendrie.Core.Intervals;
 using Calendrie.Core.Schemas;
 using Calendrie.Core.Utilities;
 using Calendrie.Hemerology;
@@ -42,7 +41,7 @@ internal sealed class CivilScope : CalendarScope
     {
         // Check the constants Min/MaxYear.
         Debug.Assert(Segment != null);
-        Debug.Assert(Segment.SupportedYears == Range.UnsafeCreate(MinYear, MaxYear));
+        Debug.Assert(Segment.SupportedYears == Core.Intervals.Segment.UnsafeCreate(MinYear, MaxYear));
     }
 
     //
