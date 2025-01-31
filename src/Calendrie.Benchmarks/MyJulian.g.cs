@@ -76,6 +76,16 @@ public sealed partial class MyJulianCalendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.OldStyle;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.OldStyle + 3_651_769;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal JulianSchema Schema { get; }

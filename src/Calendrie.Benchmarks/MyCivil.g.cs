@@ -76,6 +76,16 @@ public sealed partial class MyCivilCalendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.NewStyle;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.NewStyle + 3_652_058;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal GregorianSchema Schema { get; }

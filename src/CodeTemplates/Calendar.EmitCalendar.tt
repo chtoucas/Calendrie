@@ -82,6 +82,16 @@ public sealed partial class <#= Prefix #>Calendar : Calendar
     public static int MaxYear => <#= ScopeClass #>.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = <#= Epoch #>;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = <#= Epoch #> + <#= MaxDaysSinceEpochValue #>;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal <#= SchemaClass #> Schema { get; }

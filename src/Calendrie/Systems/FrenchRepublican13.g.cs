@@ -73,6 +73,16 @@ public sealed partial class FrenchRepublican13Calendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.FrenchRepublican;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.FrenchRepublican + 3_652_056;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal FrenchRepublican13Schema Schema { get; }

@@ -73,6 +73,16 @@ public sealed partial class PositivistCalendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.Positivist;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.Positivist + 3_652_058;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal PositivistSchema Schema { get; }

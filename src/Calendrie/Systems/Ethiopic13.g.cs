@@ -73,6 +73,16 @@ public sealed partial class Ethiopic13Calendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.Ethiopic;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.Ethiopic + 3_652_134;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal Coptic13Schema Schema { get; }

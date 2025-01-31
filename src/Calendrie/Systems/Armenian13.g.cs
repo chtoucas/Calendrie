@@ -75,6 +75,16 @@ public sealed partial class Armenian13Calendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.Armenian;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.Armenian + 3_649_634;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal Egyptian13Schema Schema { get; }

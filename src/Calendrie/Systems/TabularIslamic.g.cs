@@ -73,6 +73,16 @@ public sealed partial class TabularIslamicCalendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.TabularIslamic;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.TabularIslamic + 3_543_311;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal TabularIslamicSchema Schema { get; }

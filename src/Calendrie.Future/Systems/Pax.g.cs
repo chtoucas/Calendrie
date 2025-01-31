@@ -73,6 +73,16 @@ public sealed partial class PaxCalendar : Calendar
     public static int MaxYear => StandardScope.MaxYear;
 
     /// <summary>
+    /// Gets the earliest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MinDayNumber { get; } = DayZero.SundayBeforeGregorian;
+
+    /// <summary>
+    /// Gets the latest supported <see cref="DayNumber"/> value.
+    /// </summary>
+    public static DayNumber MaxDayNumber { get; } = DayZero.SundayBeforeGregorian + 3_652_060;
+
+    /// <summary>
     /// Gets the schema.
     /// </summary>
     internal PaxSchema Schema { get; }
