@@ -52,8 +52,8 @@ public sealed partial class Persian2820Schema :
     /// <summary>
     /// Represents the number of days per 2820-year cycle.
     /// <para>This field is a constant equal to 1_029_983.</para>
+    /// <para>On average, a year is approximately 365.242196... days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is approximately 365.242196... days long.</remarks>
     public const int DaysPer2820YearCycle = 2820 * DaysPerCommonYear + 683;
 
     /// <summary>

@@ -18,8 +18,8 @@ public abstract partial class FrenchRepublicanSchema : PtolemaicSchema
     /// <summary>
     /// Represents the number of days in a 4000-year cycle.
     /// <para>This field is a constant equal to 1_460_969.</para>
+    /// <para>On average, a year is 365.24225 days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is 365.24225 days long.</remarks>
     public const long DaysPer4000YearCycle = 1_460_969L;
 
     /// <summary>

@@ -116,11 +116,14 @@ Conception d'un nouveau type de calendrier
 Tableau récapitulatif
 ---------------------
 
+Pour rappel, la durée de l'année tropique est, en moyenne, approximativement de
+365,242 189 jours, valeur qui diminue avec le temps.
+
 ### Calendriers pour lesquels l'année ∈ [-999_998, 999_999]
 
-            Epoch   DaysSinceEpoch              MonthsSinceEpoch
-Gregorian   0      -365_242_135 / 365_242_133  -11_999_988 / 11_999_987
-Julian     -2      -365_249_635 / 365_249_633  -11_999_988 / 11_999_987
+            Epoch   DaysSinceEpoch              MonthsSinceEpoch            Cycle   Moyenne
+Gregorian   0      -365_242_135 / 365_242_133  -11_999_988 / 11_999_987     400     365,242 5 =   146.097 / 400
+Julian     -2      -365_249_635 / 365_249_633  -11_999_988 / 11_999_987     4       365,25    =     1461 / 4
 
 ### Calendriers pour lesquels l'année ∈ [1, 9999]
 
@@ -128,30 +131,27 @@ Dans tous les cas,
   MinDaysSinceEpoch   = 0
   MinMonthsSinceEpoch = 0
 
-Pour rappel, la durée de l'année tropique est, en moyenne, approximativement de
-365,242 189+ jours, valeur qui diminue avec le temps.
-
-                    Epoch       MaxDaysSinceEpoch   MaxMonthsSinceEpoch
-Armenian            201_442     3_649_634           119_987
-Armenian13          201_442     3_649_634           129_986 (*)
-Civil               0           3_652_058           119_987
-Coptic              103_604     3_652_134           119_987
-Coptic13            103_604     3_652_134           129_986 (*)
-Egyptian           -272_788     3_649_634           119_987
-Egyptian13         -272_788     3_649_634           129_986 (*)
-Ethiopic            2795        3_652_134           119_987
-Ethiopic13          2795        3_652_134           129_986 (*)
-FrenchRepublican    654_414     3_652_056           119_987
-FrenchRepublican13  654_414     3_652_056           129_986 (*)
-InternationalFixed  0           3_652_058           129_986 (*)
-Pax                -1           3_652_060           131_761
-Persian2820         226_895     3_652_055           119_987
-Positivist          653_054     3_652_058           129_986 (*)
-TabularIslamic      227_014     3_543_311           119_987
-Tropicalia          0           3_652_055           119_987
-World              -1           3_652_058           119_987
-Zoroastrian         230_637     3_649_634           119_987
-Zoroastrian13       230_637     3_649_634           129_986 (*)
+                    Epoch       MaxDaysSinceEpoch   MaxMonthsSinceEpoch Cycle   Moyenne = nb de jours / années
+Armenian            201_442     3_649_634           119_987             1       365
+Armenian13          201_442     3_649_634           129_986 (*)         1       365
+Civil               0           3_652_058           119_987             400     365,242 5       =   146.097 / 400
+Coptic              103_604     3_652_134           119_987             4       365,25          =      1461 / 4
+Coptic13            103_604     3_652_134           129_986 (*)         4       365,25          =      1461 / 4
+Egyptian           -272_788     3_649_634           119_987             1       365
+Egyptian13         -272_788     3_649_634           129_986 (*)         1       365
+Ethiopic            2795        3_652_134           119_987             4       365,25          =      1461 / 4
+Ethiopic13          2795        3_652_134           129_986 (*)         4       365,25          =      1461 / 4
+FrenchRepublican    654_414     3_652_056           119_987             4000    365,242 25      = 1.460.969 / 4000
+FrenchRepublican13  654_414     3_652_056           129_986 (*)         4000    365,242 25      = 1.460.969 / 4000
+InternationalFixed  0           3_652_058           129_986 (*)         400     365,242 5       =   146.097 / 400
+Pax                -1           3_652_060           131_761             400     365,242 5       =   146.097 / 400
+Persian2820         226_895     3_652_055           119_987             2820    365.242 196...  = 1.029.983 / 2820
+Positivist          653_054     3_652_058           129_986 (*)         400     365,242 5       =   146.097 / 400
+TabularIslamic      227_014     3_543_311           119_987             30      354,366 666...  =    10.631 / 30
+Tropicalia          0           3_652_055           119_987             128     365,242 187...  =    46.751 / 128
+World              -1           3_652_058           119_987             400     365,242 5       =   146.097 / 400
+Zoroastrian         230_637     3_649_634           119_987             1       365
+Zoroastrian13       230_637     3_649_634           129_986 (*)         1       365
 
 (*) 129_986 = 119_987 + 9999
 

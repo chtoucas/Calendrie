@@ -20,16 +20,16 @@ public abstract partial class TropicalistaSchema : RegularSchema
     /// <summary>
     /// Represents the number of days per 128-year cycle.
     /// <para>This field is a constant equal to 46_751.</para>
+    /// <para>On average, a year is 365.2421875 days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is 365.2421875 days long.</remarks>
     public const int DaysPer128YearCycle = 128 * DaysPerCommonYear + 31;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 4-year subcycle.
     /// <para>This field is a constant equal to 1461.</para>
+    /// <para>On average, a year is 365.25 days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is 365.25 days long.</remarks>
-    public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPer4JulianYearCycle;
+    public const int AverageDaysPer4YearSubcycle = CalendricalConstants.DaysPer4JulianYearCycle;
 
     /// <summary>
     /// Represents the number of days in a common year.
@@ -94,7 +94,7 @@ public partial class TropicalistaSchema // Conversions
     public sealed override int GetYear(int daysSinceEpoch)
     {
         int C = MathZ.Divide(daysSinceEpoch, DaysPer128YearCycle, out int D);
-        return 1 + (C << 7) + ((D << 2) + 3) / DaysPer4YearSubcycle;
+        return 1 + (C << 7) + ((D << 2) + 3) / AverageDaysPer4YearSubcycle;
     }
 }
 

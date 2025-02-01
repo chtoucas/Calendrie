@@ -28,8 +28,8 @@ public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<Gregori
     /// <summary>
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
+    /// <para>On average, a year is 365.2425 days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is 365.2425 days long.</remarks>
     public const int DaysPer400YearCycle = 400 * DaysPerCommonYear + 97;
 
     /// <summary>

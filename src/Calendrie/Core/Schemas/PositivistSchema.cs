@@ -36,8 +36,8 @@ public sealed partial class PositivistSchema :
     /// <summary>
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
+    /// <para>On average, a year is 365.2425 days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is 365.2425 days long.</remarks>
     public const int DaysPer400YearCycle = GregorianSchema.DaysPer400YearCycle;
 
     /// <summary>

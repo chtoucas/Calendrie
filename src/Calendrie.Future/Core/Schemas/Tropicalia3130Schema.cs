@@ -82,8 +82,8 @@ public partial class Tropicalia3130Schema // Conversions
     {
         int C = MathZ.Divide(daysSinceEpoch, DaysPer128YearCycle, out int D);
 
-        int Y = ((D << 2) + 3) / DaysPer4YearSubcycle;
-        int d0y = D - (DaysPer4YearSubcycle * Y >> 2);
+        int Y = ((D << 2) + 3) / AverageDaysPer4YearSubcycle;
+        int d0y = D - (AverageDaysPer4YearSubcycle * Y >> 2);
 
         m = ((d0y << 1) + 61) / 61;
         d = 1 + d0y - 30 * (m - 1) - (m >> 1);

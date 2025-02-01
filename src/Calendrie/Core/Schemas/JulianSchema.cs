@@ -17,8 +17,8 @@ public sealed partial class JulianSchema : GJSchema, ISchemaActivator<JulianSche
     /// <summary>
     /// Represents the number of days per 4-year cycle.
     /// <para>This field is a constant equal to 1461.</para>
+    /// <para>On average, a year is 365.25 days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is 365.25 days long.</remarks>
     public const int DaysPer4YearCycle = CalendricalConstants.DaysPer4JulianYearCycle;
 
     /// <summary>
