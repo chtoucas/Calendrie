@@ -135,32 +135,40 @@ Dans tous les cas,
   MinDaysSinceEpoch   = 0
   MinMonthsSinceEpoch = 0
 
-                    Epoch       MaxDaysSinceEpoch   Cycle   Moyenne
-Armenian            201_442     3_649_634           1       365
-Civil               0           3_652_058           400     365,242 5       =   146.097 / 400
-Coptic              103_604     3_652_134           4       365,25          =      1461 / 4
-Egyptian           -272_788     3_649_634           1       365
-Ethiopic            2795        3_652_134           4       365,25          =      1461 / 4
-FrenchRepublican    654_414     3_652_056           4000    365,242 25      = 1.460.969 / 4000
-InternationalFixed  0           3_652_058           400     365,242 5       =   146.097 / 400
-Pax                -1           3_652_060           400     365,242 5       =   146.097 / 400
-Persian2820         226_895     3_652_055           2820    365,242 196...  = 1.029.983 / 2820
-Positivist          653_054     3_652_058           400     365,242 5       =   146.097 / 400
-TabularIslamic      227_014     3_543_311           30      354,366 666...  =    10.631 / 30
-Tropicalia          0           3_652_055           128     365,242 187...  =    46.751 / 128
-World              -1           3_652_058           400     365,242 5       =   146.097 / 400
-Zoroastrian         230_637     3_649_634           1       365
+Ci-dessous,
+- Cycle = nombre d'années dans un cycle
+- Biss. = nombre d'années bissextiles dans un cycle
+- Jours = nombre de jours dans une année commune / nombre de jours dans une année bissextile
+  On ne renseigne cette colonne que quand les valeurs ne sont pas égales à 365 / 366.
+
+                    Epoch       MaxDaysSinceEpoch   Cycle   Biss.   Jours       Moyenne
+Egyptian           -272_788     3_649_634           1       0                   365
+  Armenian          201_442     -                   -       -                   -
+  Zoroastrian       230_637     -                   -       -                   -
+Tropicalia          0           3_652_055           128     31                  365,242 187...  =    46.751 / 128
+Persian2820         226_895     3_652_055           2820    683                 365,242 196...  = 1.029.983 / 2820
+FrenchRepublican    654_414     3_652_056           4000                        365,242 25      = 1.460.969 / 4000
+Civil               0           3_652_058           400     97                  365,242 5       =   146.097 / 400
+InternationalFixed  0           3_652_058           400     97                  365,242 5       =   146.097 / 400
+Pax                -1           3_652_060           400     71      364 / 371   365,242 5       =   146.097 / 400
+Positivist          653_054     3_652_058           400     97                  365,242 5       =   146.097 / 400
+World              -1           3_652_058           400     97                  365,242 5       =   146.097 / 400
+Coptic              103_604     3_652_134           4       1                   365,25          =      1461 / 4
+  Ethiopic          2795        -                   -       -                   -
+
+TabularIslamic      227_014     3_543_311           30      11      354 / 355   354,366 666...  =    10.631 / 30
 
 Globalement,
   MinDayNumber = -272_788   (Egyptian et Egyptian13)
   MaxDayNumber = 4_306_470  (FrenchRepublican et FrenchRepublican13)
 
                     MaxMonthsSinceEpoch
-Armenian            119_987 / 129_986 (*)
 Civil               119_987
 Coptic              119_987 / 129_986 (*)
+  Ethiopic          -       / -
 Egyptian            119_987 / 129_986 (*)
-Ethiopic            119_987 / 129_986 (*)
+  Armenian          -       / -
+  Zoroastrian       -       / -
 FrenchRepublican    119_987 / 129_986 (*)
 InternationalFixed            129_986 (*)
 Pax                                        131_761
@@ -169,6 +177,5 @@ Positivist                    129_986 (*)
 TabularIslamic      119_987
 Tropicalia          119_987
 World               119_987
-Zoroastrian         119_987 / 129_986 (*)
 
 (*) 129_986 = 119_987 + 9999
