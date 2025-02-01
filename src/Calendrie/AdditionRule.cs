@@ -6,6 +6,9 @@ namespace Calendrie;
 // TODO(code): value names, règles et roundoff (voir Developer Notes)
 // Quelle valeur prendre pour roundoff (pas toujours cohérent, voir les
 // calendriers non-réguliers). Incohérences aussi entre AddYears() et AddMonths().
+// DateMath & co: XML doc. Explain comparison with DateDifference
+// Add a warning about the data (CountYearsBetweenData & co) which only
+// offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
 
 #region Developer Notes
 

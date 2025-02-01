@@ -94,6 +94,7 @@ Justifier l'utilisation des
 ### Documentation XML
 
 Utiliser <see langword="null"/>, idem pour "true" et "false".
+On évitera les sections <remarks>.
 
 ### Vérifier régulièrement
 
@@ -111,3 +112,49 @@ Conception d'un nouveau type de calendrier
 - nombre fixe de mois (régulier)
 - la règle pour déterminer si une année est bissextile ou pas devrait être la
   plus simple possible
+
+Tableau récapitulatif
+---------------------
+
+### Calendriers pour lesquels l'année ∈ [-999_998, 999_999]
+
+            Epoch   DaysSinceEpoch              MonthsSinceEpoch
+Gregorian   0      -365_242_135 / 365_242_133  -11_999_988 / 11_999_987
+Julian     -2      -365_249_635 / 365_249_633  -11_999_988 / 11_999_987
+
+### Calendriers pour lesquels l'année ∈ [1, 9999]
+
+Dans tous les cas,
+  MinDaysSinceEpoch   = 0
+  MinMonthsSinceEpoch = 0
+
+Pour rappel, la durée de l'année tropique est, en moyenne, approximativement de
+365,242 189+ jours, valeur qui diminue avec le temps.
+
+                    Epoch       MaxDaysSinceEpoch   Average         MaxMonthsSinceEpoch
+Armenian            201_442     3_649_634           364,999 989+     119_987
+Armenian13          201_442     3_649_634           364,999 989+     129_986 (*)
+Civil               0           3_652_058           365,242 324-     119_987
+Coptic              103_604     3_652_134           364,249 924+     119_987
+Coptic13            103_604     3_652_134           364,249 924+     129_986 (*)
+Egyptian           -272_788     3_649_634           364,999 899+     119_987
+Egyptian13         -272_788     3_649_634           364,999 899+     129_986 (*)
+Ethiopic            2795        3_652_134           365,249 924+     119_987
+Ethiopic13          2795        3_652_134           365,249 924+     129_986 (*)
+FrenchRepublican    654_414     3_652_056           365,242 124-     119_987
+FrenchRepublican13  654_414     3_652_056           365,242 124-     129_986 (*)
+InternationalFixed  0           3_652_058           365,242 324-     129_986 (*)
+Pax                -1           3_652_060           365,242 524-     131_761
+Persian2820         226_895     3_652_055           365,242 024-     119_987
+Positivist          653_054     3_652_058           365,242 324-     129_986 (*)
+TabularIslamic      227_014     3_543_311           354,366 536+     119_987
+Tropicalia          0           3_652_055           365,242 024-     119_987
+World              -1           3_652_058           365,242 324-     119_987
+Zoroastrian         230_637     3_649_634           364,999 899+     119_987
+Zoroastrian13       230_637     3_649_634           364,999 899+     129_986 (*)
+
+(*) 129_986 = 119_987 + 9999
+
+Globalement,
+  MinDayNumber = -272_788   (Egyptian et Egyptian13)
+  MaxDayNumber = 4_306_470  (FrenchRepublican et FrenchRepublican13)

@@ -5,10 +5,6 @@ namespace Calendrie.Hemerology;
 
 using Calendrie.Core.Utilities;
 
-// TODO(code): XML doc. Explain comparison with DateDifference
-// Add a warning about the data (CountYearsBetweenData & co) which only
-// offer symmetrical results; see DefaultDateMathFacts and DefaultMonthMathFacts.
-
 // AddYears() et CountYearsBetween() ne sont pas indépendantes car ce dernier
 // utilise le premier pour fonctionner. Les deux méthodes doivent donc utiliser
 // la même règle AdditionRule. Idem avec l'"unité" mois.
