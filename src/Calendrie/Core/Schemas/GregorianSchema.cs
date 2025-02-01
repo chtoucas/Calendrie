@@ -35,14 +35,15 @@ public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<Gregori
     /// <summary>
     /// Represents the <i>average</i> number of days per 100-year subcycle.
     /// <para>This field is a constant equal to 36_524.</para>
+    /// <para>On average, a year is 365.24 days long.</para>
     /// </summary>
     public const int DaysPer100YearSubcycle = 100 * DaysPerCommonYear + 24;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 4-year subcycle.
     /// <para>This field is a constant equal to 1461.</para>
+    /// <para>On average, a year is 365.25 days long.</para>
     /// </summary>
-    /// <remarks>On average, a year is 365.25 days long.</remarks>
     public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPer4JulianYearCycle;
 
     /// <summary>

@@ -59,6 +59,7 @@ public sealed partial class Persian2820Schema :
     /// <summary>
     /// Represents the number of days per 128-year subcycle.
     /// <para>This field is a constant equal to 46_751.</para>
+    /// <para>On average, a year is approximately 365.242187... days long.</para>
     /// </summary>
     public const int DaysPer128YearSubcycle = 97 * DaysPerCommonYear + 31 * DaysPerLeapYear;
 

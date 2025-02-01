@@ -28,7 +28,7 @@ public sealed partial class TabularIslamicSchema :
     /// <para>This field is a constant equal to 10_631.</para>
     /// <para>On average, a year is 354.366666... days long.</para>
     /// </summary>
-    public const int DaysPer30YearCycle = 19 * DaysPerCommonYear + 11 * 355;
+    public const int DaysPer30YearCycle = 30 * DaysPerCommonYear + 11;
 
     /// <summary>
     /// Represents the number of days in a common year.
