@@ -116,11 +116,11 @@ Conception d'un nouveau type de calendrier
 Tableau récapitulatif
 ---------------------
 
-### Calendriers pour lesquels l'année ∈ [-999_998, 999_999]
+### Calendriers pour lesquels l'année ∈ [-999.998, 999.999]
 
             Epoch   DaysSinceEpoch              MonthsSinceEpoch
-Gregorian   0      -365_242_135 / 365_242_133  -11_999_988 / 11_999_987
-Julian     -2      -365_249_635 / 365_249_633  -11_999_988 / 11_999_987
+Gregorian   0      -365.242.135 / 365.242.133  -11.999.988 / 11.999.987
+Julian     -2      -365.249.635 / 365.249.633  -11.999.988 / 11.999.987
 
 ### Calendriers pour lesquels l'année ∈ [1, 9999]
 
@@ -135,44 +135,47 @@ Dans tous les cas,
 Ci-dessous,
 - Cycle = nombre d'années dans un cycle
 - Biss. = nombre d'années bissextiles dans un cycle
-- Jours = nombre de jours dans une année commune / nombre de jours dans une année bissextile
-  On ne renseigne cette colonne que quand les valeurs ne sont pas égales à 365 / 366.
+- Jours = nombre de jours dans une année commune / nombre de jours dans une année
+  bissextile. On ne renseigne cette colonne que quand les valeurs ne sont pas
+  égales à 365 / 366.
 
                     Epoch       MaxDaysSinceEpoch   Cycle   Biss.   Jours       Moyenne
-Egyptian           -272_788     3_649_634           1       0                   365
-  Armenian          201_442     -                   -       -                   -
-  Zoroastrian       230_637     -                   -       -                   -
-Tropicalia          0           3_652_055           128     31                  365,242 187...  =    46.751 / 128
-Persian2820         226_895     3_652_055           2820    683                 365,242 196...  = 1.029.983 / 2820
-FrenchRepublican    654_414     3_652_056           4000    969                 365,242 25      = 1.460.969 / 4000
-Civil               0           3_652_058           400     97                  365,242 5       =   146.097 / 400
-InternationalFixed  0           3_652_058           400     97                  365,242 5       =   146.097 / 400
-Pax                -1           3_652_060           400     71      364 / 371   365,242 5       =   146.097 / 400
-Positivist          653_054     3_652_058           400     97                  365,242 5       =   146.097 / 400
-World              -1           3_652_058           400     97                  365,242 5       =   146.097 / 400
-Coptic              103_604     3_652_134           4       1                   365,25          =      1461 / 4
+Egyptian           -272.788     3.649.634           1       0                   365
+  Armenian          201.442     -                   -       -                   -
+  Zoroastrian       230.637     -                   -       -                   -
+Tropicalia          0           3.652.055           128     31                  365,242 187...  =    46.751 / 128
+Persian2820         226.895     3.652.055           2820    683                 365,242 196...  = 1.029.983 / 2820
+FrenchRepublican    654.414     3.652.056           4000    969                 365,242 25      = 1.460.969 / 4000
+Civil               0           3.652.058           400     97                  365,242 5       =   146.097 / 400
+InternationalFixed  0           3.652.058           400     97                  365,242 5       =   146.097 / 400
+Pax                -1           3.652.060           400     71      364 / 371   365,242 5       =   146.097 / 400
+Positivist          653.054     3.652.058           400     97                  365,242 5       =   146.097 / 400
+World              -1           3.652.058           400     97                  365,242 5       =   146.097 / 400
+Coptic              103.604     3.652.134           4       1                   365,25          =      1461 / 4
   Ethiopic          2795        -                   -       -                   -
 
-TabularIslamic      227_014     3_543_311           30      11      354 / 355   354,366 666...  =    10.631 / 30
+TabularIslamic      227.014     3.543.311           30      11      354 / 355   354,366 666...  =    10.631 / 30
 
 Globalement,
-  MinDayNumber = -272_788   (Egyptian et Egyptian13)
-  MaxDayNumber = 4_306_470  (FrenchRepublican et FrenchRepublican13)
+  MinDayNumber = -272.788   (Egyptian et Egyptian13)
+  MaxDayNumber = 4.306.470  (FrenchRepublican et FrenchRepublican13)
 
-                    MaxMonthsSinceEpoch
-Civil               119_987
-Coptic              119_987 / 129_986 (*)
+                    MaxMonthsSinceEpoch (*)
+Civil               119.987
+Coptic              119.987 / 129.986
   Ethiopic          -       / -
-Egyptian            119_987 / 129_986 (*)
+Egyptian            119.987 / 129.986
   Armenian          -       / -
   Zoroastrian       -       / -
-FrenchRepublican    119_987 / 129_986 (*)
-InternationalFixed            129_986 (*)
-Pax                                        131_761
-Persian2820         119_987
-Positivist                    129_986 (*)
-TabularIslamic      119_987
-Tropicalia          119_987
-World               119_987
+FrenchRepublican    119.987 / 129.986
+InternationalFixed            129.986
+Pax                                        131.761
+Persian2820         119.987
+Positivist                    129.986
+TabularIslamic      119.987
+Tropicalia          119.987
+World               119.987
 
-(*) 129_986 = 119_987 + 9999
+(*)
+119.987 = 12 * 9999 - 1 (calendrier régulier de 12 mois)
+129.986 = 13 * 9999 - 1 (calendrier régulier de 13 mois)
