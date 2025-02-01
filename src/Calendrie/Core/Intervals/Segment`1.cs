@@ -5,7 +5,7 @@ namespace Calendrie.Core.Intervals;
 
 using System.Numerics;
 
-// FIXME(code): strict partial order. For other types too. External comparer?
+// REVIEW(code): strict partial order. For other types too. External comparer?
 
 /// <summary>
 /// Represents a closed bounded interval.

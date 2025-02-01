@@ -6,8 +6,14 @@ namespace Calendrie.Systems;
 using Calendrie;
 using Calendrie.Core.Utilities;
 
-// FIXME(code): T4 for AddYears/Months() for non-regular calendars.
-// TODO(code): create a PaxWeek type.
+// FIXME(code): blank-days should be kept outside the week cycle, review all
+// methods that compute the days of the week.
+// Add custom props (Leapyear Day, Worldsday, etc.) and custom methods like
+// CountDaysInInternationalFixedMonth() or CountDaysInPositivistMonth()?
+//
+// TODO(code): T4 for AddYears/Months() for non-regular calendars.
+//
+// REVIEW(code): create a PaxWeek type.
 
 public partial class PaxCalendar // Math
 {
@@ -178,45 +184,4 @@ public partial class PaxCalendar // Math
         int monthsSinceEpoch = sch.CountMonthsSinceEpoch(newY, newM);
         return PaxMonth.UnsafeCreate(monthsSinceEpoch);
     }
-}
-
-public partial struct PaxMonth // Complements
-{
-    /// <summary>
-    /// Determines whether the current instance is the Pax month of a year or not.
-    /// </summary>
-    public bool IsPaxMonthOfYear
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-            return sch.IsPaxMonth(y, m);
-        }
-    }
-
-    /// <summary>
-    /// Determines whether the current instance is the last month of the year or
-    /// not.
-    /// <para>Whether the year is leap or not, the last month of the year is
-    /// called December.</para>
-    /// </summary>
-    public bool IsLastMonthOfYear
-    {
-        get
-        {
-            var sch = Calendar.Schema;
-            sch.GetMonthParts(_monthsSinceEpoch, out int y, out int m);
-            return sch.IsLastMonthOfYear(y, m);
-        }
-    }
-}
-
-public partial struct PaxYear // Complements
-{
-    /// <summary>
-    /// Obtains the number of weeks in the current instance.
-    /// </summary>
-    [Pure]
-    public int CountWeeks() => Calendar.Schema.CountWeeksInYear(Year);
 }

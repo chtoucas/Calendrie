@@ -6,19 +6,26 @@
     <DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);CONTRACTS_FULL</DefineConstants>
     <DefineConstants Condition=" '$(DefineConstants)' == '' ">CONTRACTS_FULL</DefineConstants>
 
-    <DefineConstants>$(DefineConstants);PATCH_DIVREM</DefineConstants>
-
     <!-- Project options:
       - ENABLE_CLOCKS
       - ENABLE_SERIALIZATION
       - ENABLE_GENERIC_FACTORIES
       - FORCE_ENABLE_GENERIC_FACTORIES
         Enable the generic factories used by the samples
+
+      Other compiler constants:
+      - PATCH_DIVREM
+      - __SIGN_ASSEMBLY__
+      - __HIDE_INTERNALS__
+      - __ENABLE_PREVIEW_FEATURES__
     -->
+
     <!--<DefineConstants>$(DefineConstants);ENABLE_CLOCKS</DefineConstants>-->
     <!--<DefineConstants>$(DefineConstants);ENABLE_SERIALIZATION</DefineConstants>-->
     <!--<DefineConstants>$(DefineConstants);ENABLE_GENERIC_FACTORIES</DefineConstants>-->
     <!--<DefineConstants>$(DefineConstants);FORCE_ENABLE_GENERIC_FACTORIES</DefineConstants>-->
+
+    <DefineConstants>$(DefineConstants);PATCH_DIVREM</DefineConstants>
 
     <DefineConstants Condition=" '$(EnableMorePrototypalTests)' == 'true' ">$(DefineConstants);ENABLE_MORE_PROTOTYPAL_TESTS</DefineConstants>
 

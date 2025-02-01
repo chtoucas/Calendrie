@@ -5,10 +5,6 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 
-// FIXME(code): blank-days should be kept outside the week cycle, review all
-// methods that compute the days of the week. Add custom props (Leapyear Day,
-// Worldsday, etc.)
-
 // Blank days
 // ----------
 //
