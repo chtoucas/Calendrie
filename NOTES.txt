@@ -116,20 +116,17 @@ Conception d'un nouveau type de calendrier
 Tableau récapitulatif
 ---------------------
 
-Pour rappel, la durée de l'année tropique est, en moyenne, approximativement de
-365,242 189 jours, valeur qui diminue avec le temps. Les meilleures approximations
-sont obtenues avec les calendriers suivants :
-- Tropicalia        365,242 187 j
-- Persian2920       365,242 196 j
-- French Republican 365,242 25  j
-
 ### Calendriers pour lesquels l'année ∈ [-999_998, 999_999]
 
-            Epoch   DaysSinceEpoch              MonthsSinceEpoch            Cycle   Moyenne
-Gregorian   0      -365_242_135 / 365_242_133  -11_999_988 / 11_999_987     400     365,242 5 =   146.097 / 400
-Julian     -2      -365_249_635 / 365_249_633  -11_999_988 / 11_999_987     4       365,25    =     1461 / 4
+            Epoch   DaysSinceEpoch              MonthsSinceEpoch
+Gregorian   0      -365_242_135 / 365_242_133  -11_999_988 / 11_999_987
+Julian     -2      -365_249_635 / 365_249_633  -11_999_988 / 11_999_987
 
 ### Calendriers pour lesquels l'année ∈ [1, 9999]
+
+Pour rappel, la durée de l'année tropique est, en moyenne, approximativement de
+365,242 189 jours, valeur qui diminue avec le temps. Les meilleures approximations
+sont obtenues avec les calendriers Tropicalia, Persian2920 et French Republican.
 
 Dans tous les cas,
   MinDaysSinceEpoch   = 0
