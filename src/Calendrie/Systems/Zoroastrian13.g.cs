@@ -1791,7 +1791,7 @@ public partial struct Zoroastrian13Year // IDaySegment
 {
     /// <summary>
     /// Represents the total number of days in a year.
-    /// <para>This field is constant equal to 0.</para>
+    /// <para>This field is constant equal to 365.</para>
     /// </summary>
     public const int DayCount = Egyptian13Schema.DaysPerYear;
 

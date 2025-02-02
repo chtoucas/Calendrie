@@ -14,5 +14,6 @@
         EnablePragmas = true,
 
         MaxMonthsSinceEpochValue = "129_986",
-        MonthsInYear = 13
+        MonthsInYear = 13,
+        DaysInYear = 365
     }.Execute() #>

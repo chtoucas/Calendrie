@@ -23,11 +23,14 @@ public partial class CalendarTemplate : CSharpTemplate
         if (String.IsNullOrWhiteSpace(epoch))
             throw new ArgumentException("The epoch can not be null or blank.", nameof(epoch));
 
-        SchemaClass = schemaClass;
-        Epoch = epoch;
-        EpochDaysSinceZeroValue = epochDaysSinceZeroValue;
         DisplayName = Name;
         Prefix = Name;
+
+        SchemaClass = schemaClass;
+
+        Epoch = epoch;
+        EpochDaysSinceZeroValue = epochDaysSinceZeroValue;
+
         MaxDaysSinceEpochValue = maxDaysSinceEpochValue;
 
         IsRegular = regular;
@@ -40,6 +43,7 @@ public partial class CalendarTemplate : CSharpTemplate
 
     public bool IsRegular { get; }
     public int MonthsInYear { get; set; }
+    // Only used when EnableIsLeapYear = false.
     public int DaysInYear { get; set; }
 
     // NB: we don't check the setter because these are design time templates:
@@ -77,8 +81,6 @@ public partial class CalendarTemplate : CSharpTemplate
 
     protected sealed override void WriteContent()
     {
-        // May be necessary, depends on the Code Analysis settings regarding
-        // generated files.
         if (EnableNullable) EmitNullable();
         if (EnablePragmas)  EmitPragmas();
 
@@ -120,7 +122,7 @@ namespace <#= Namespace #>;
     {
         WriteLine();
 
-        // Assumption: we import globally the following namespaces
+        // Assumption: we import the following namespaces globally
         // - System
         // - System.Collections.Generic
         // - System.Diagnostics
