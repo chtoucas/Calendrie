@@ -5,7 +5,6 @@ namespace Calendrie.Testing.Faux;
 
 using Calendrie.Core;
 using Calendrie.Core.Intervals;
-using Calendrie.Core.Prototyping;
 
 public sealed class FauxRegularSchemaPrototype : RegularSchemaPrototype
 {

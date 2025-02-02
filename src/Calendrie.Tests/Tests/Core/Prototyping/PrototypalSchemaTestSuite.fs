@@ -4,8 +4,8 @@
 module Calendrie.Tests.Core.Prototyping.PrototypalSchemaTestSuite
 
 open Calendrie
+open Calendrie.Core
 open Calendrie.Core.Schemas
-open Calendrie.Core.Prototyping
 open Calendrie.Core.Validation
 open Calendrie.Testing
 open Calendrie.Testing.Data.Schemas

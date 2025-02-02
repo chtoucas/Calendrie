@@ -5,7 +5,6 @@ module Calendrie.Tests.Core.Prototyping.PrototypalSchemaSlimTests
 
 open Calendrie.Core
 open Calendrie.Core.Schemas
-open Calendrie.Core.Prototyping
 open Calendrie.Testing
 
 open Xunit

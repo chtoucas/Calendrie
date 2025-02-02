@@ -5,9 +5,6 @@
 
 namespace Calendrie.Core.Schemas;
 
-#if PROTOTYPING
-using Calendrie.Core.Prototyping;
-#endif
 using Calendrie.Core.Validation;
 
 using static Calendrie.Core.CalendricalConstants;

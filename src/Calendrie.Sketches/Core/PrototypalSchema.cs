@@ -5,7 +5,7 @@
 
 #pragma warning disable CA1033 // Interface methods should be callable by child types
 
-namespace Calendrie.Core.Prototyping;
+namespace Calendrie.Core;
 
 using Calendrie.Core.Intervals;
 using Calendrie.Core.Validation;
