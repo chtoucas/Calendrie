@@ -20,6 +20,8 @@ public sealed class JulianTemplate : CalendarTemplate
         EnableIsSupplementaryDay = false;
         EnablePragmas = true;
 
+        EnableAutoConfig = false;
+
         //MinMonthsSinceEpochValue = "-11_999_988";
         MaxMonthsSinceEpochValue = "11_999_987";
         MonthsInYear = 12;

@@ -14,6 +14,5 @@
 
         ImportCalendrieSystemsNamespace = true,
 
-        MaxMonthsSinceEpochValue = "119_987", // Should be OK but haven't checked yet
         MonthsInYear = 12
     }.Execute() #>

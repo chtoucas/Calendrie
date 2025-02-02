@@ -79,8 +79,12 @@ public partial class CalendarTemplate : CSharpTemplate
     public bool EnableYear { get; set; } = true;
     public bool EnableClock { get; set; }
 
+    public bool EnableAutoConfig { get; set; } = true;
+
     protected sealed override void WriteContent()
     {
+        if (EnableAutoConfig) RunAutoConfig();
+
         if (EnableNullable) EmitNullable();
         if (EnablePragmas)  EmitPragmas();
 
@@ -93,6 +97,26 @@ public partial class CalendarTemplate : CSharpTemplate
         if (EnableMonth)    EmitMonth();
         if (EnableYear)     EmitYear();
     } // T4: End of WriteContent()
+
+    private void RunAutoConfig()
+    {
+        // Fixed calendar.
+        if (!EnableIsLeapYear) DaysInYear = 365;
+
+        // Regular calendar.
+        if (IsRegular)
+        {
+            switch (MonthsInYear)
+            {
+                case 0: throw new InvalidOperationException("MonthsInYear has not been set.");
+
+                // WARNING: these values are only valid for calendars using the
+                // "StandardScope".
+                case 12: MaxMonthsSinceEpochValue = "119_987"; break;
+                case 13: MaxMonthsSinceEpochValue = "129_986"; break;
+            }
+        }
+    }
 
     protected virtual void EmitNullable()
     {

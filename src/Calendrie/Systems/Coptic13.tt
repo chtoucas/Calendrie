@@ -9,6 +9,5 @@
     {
         DisplayName = "Coptic",
 
-        MaxMonthsSinceEpochValue = "129_986",
         MonthsInYear = 13
     }.Execute() #>

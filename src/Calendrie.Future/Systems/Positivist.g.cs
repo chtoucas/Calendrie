@@ -1807,7 +1807,7 @@ public partial struct PositivistYear // IMonthSegment
 {
     /// <summary>
     /// Represents the total number of months in a year.
-    /// <para>This field is constant equal to 12.</para>
+    /// <para>This field is constant equal to 13.</para>
     /// </summary>
     public const int MonthCount = PositivistSchema.MonthsPerYear;
 
