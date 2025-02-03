@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
 
+[assembly: InternalsVisibleTo("Calendrie.Benchmarks" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 [assembly: InternalsVisibleTo("Calendrie.Sketches" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 [assembly: InternalsVisibleTo("Calendrie.Testing" + Calendrie.AssemblyInfo.PublicKeySuffix)]
 [assembly: InternalsVisibleTo("Calendrie.Tests" + Calendrie.AssemblyInfo.PublicKeySuffix)]
-[assembly: InternalsVisibleTo("Calendrie.Benchmarks" + Calendrie.AssemblyInfo.PublicKeySuffix)]
