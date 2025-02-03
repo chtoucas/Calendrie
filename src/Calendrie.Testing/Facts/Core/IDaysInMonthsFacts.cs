@@ -4,7 +4,6 @@
 namespace Calendrie.Testing.Facts.Core;
 
 using Calendrie.Core;
-using Calendrie.Core.Schemas;
 
 internal static class IDaysInMonthsFacts
 {

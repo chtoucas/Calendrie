@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) Tran Ngoc Bich. All rights reserved.
 
-namespace Calendrie.Core.Schemas;
+namespace Calendrie.Core;
 
 // Keep this interface internal, it only exists to simplify testing.
 // This interface is expected to be implemented explicitely.

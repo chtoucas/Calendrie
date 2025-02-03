@@ -9,7 +9,7 @@ public static class EgyptianCycle
     /// Represents the number of years in a cycle.
     /// <para>This field is a constant equal to 1.</para>
     /// </summary>
-    public const int YearLength = 1;
+    public const int YearsPerCycle = 1;
 
     /// <summary>
     /// Represents the number of days in a year.

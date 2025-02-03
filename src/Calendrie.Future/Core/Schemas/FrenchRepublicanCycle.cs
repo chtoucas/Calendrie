@@ -9,7 +9,7 @@ public static class FrenchRepublicanCycle
     /// Represents the number of years in a cycle.
     /// <para>This field is a constant equal to 4000.</para>
     /// </summary>
-    public const int YearLength = 4000;
+    public const int YearsPerCycle = 4000;
 
     /// <summary>
     /// Represents the number of days in a common year.
@@ -34,5 +34,5 @@ public static class FrenchRepublicanCycle
     /// <para>This field is a constant equal to 1_460_969.</para>
     /// <para>On average, a year is 365.24225 days long.</para>
     /// </summary>
-    public const long DaysPerCycle = YearLength * DaysPerCommonYear + LeapYearsPerCycle;
+    public const long DaysPerCycle = YearsPerCycle * DaysPerCommonYear + LeapYearsPerCycle;
 }

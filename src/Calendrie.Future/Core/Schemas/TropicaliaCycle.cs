@@ -9,7 +9,7 @@ public static class TropicaliaCycle
     /// Represents the number of years in a cycle.
     /// <para>This field is a constant equal to 128.</para>
     /// </summary>
-    public const int YearLength = 128;
+    public const int YearsPerCycle = 128;
 
     /// <summary>
     /// Represents the number of days in a common year.
@@ -34,7 +34,7 @@ public static class TropicaliaCycle
     /// <para>This field is a constant equal to 46_751.</para>
     /// <para>On average, a year is 365.2421875 days long.</para>
     /// </summary>
-    public const int DaysPerCycle = YearLength * DaysPerCommonYear + LeapYearsPerCycle;
+    public const int DaysPerCycle = YearsPerCycle * DaysPerCommonYear + LeapYearsPerCycle;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 4-year subcycle.

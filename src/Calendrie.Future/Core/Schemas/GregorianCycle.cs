@@ -9,7 +9,7 @@ public static class GregorianCycle
     /// Represents the number of years in a cycle.
     /// <para>This field is a constant equal to 400.</para>
     /// </summary>
-    public const int YearLength = 400;
+    public const int YearsPerCycle = 400;
 
     /// <summary>
     /// Represents the number of days in a common year.
@@ -34,7 +34,7 @@ public static class GregorianCycle
     /// <para>This field is a constant equal to 146_097.</para>
     /// <para>On average, a year is 365.2425 days long.</para>
     /// </summary>
-    public const int DaysPerCycle = YearLength * DaysPerCommonYear + LeapYearsPerCycle;
+    public const int DaysPerCycle = YearsPerCycle * DaysPerCommonYear + LeapYearsPerCycle;
 
     /// <summary>
     /// Represents the <i>average</i> number of days per 100-year subcycle.

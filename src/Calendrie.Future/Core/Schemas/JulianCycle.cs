@@ -9,7 +9,7 @@ public static class JulianCycle
     /// Represents the number of years in a cycle.
     /// <para>This field is a constant equal to 4.</para>
     /// </summary>
-    public const int YearLength = 4;
+    public const int YearsPerCycle = 4;
 
     /// <summary>
     /// Represents the number of leap years per 4-year cycle.
