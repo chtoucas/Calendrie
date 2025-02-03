@@ -10,8 +10,11 @@ public class QuasiAffineBasis1
 {
     protected QuasiAffineBasis1(QuasiAffineForm form1, QuasiAffineForm form0)
     {
-        Form1 = form1 ?? throw new ArgumentNullException(nameof(form1));
-        Form0 = form0 ?? throw new ArgumentNullException(nameof(form0));
+        ArgumentNullException.ThrowIfNull(form1);
+        ArgumentNullException.ThrowIfNull(form0);
+
+        Form1 = form1;
+        Form0 = form0;
     }
 
     public QuasiAffineForm Form1 { get; }

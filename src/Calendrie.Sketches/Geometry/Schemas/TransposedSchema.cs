@@ -12,8 +12,11 @@ public sealed class TransposedSchema : IGeometricSchema
 
     public TransposedSchema(IGeometricSchema schema, IMonthRegularizer regularizer)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
-        _regularizer = regularizer ?? throw new ArgumentNullException(nameof(regularizer));
+        ArgumentNullException.ThrowIfNull(schema);
+        ArgumentNullException.ThrowIfNull(regularizer);
+
+        _schema = schema;
+        _regularizer = regularizer;
     }
 
     /// <inheritdoc />

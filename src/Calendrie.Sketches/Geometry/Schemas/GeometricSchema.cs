@@ -12,8 +12,11 @@ public abstract partial class GeometricSchema : IGeometricSchema
 {
     protected GeometricSchema(YearForm yearForm, MonthForm monthForm)
     {
-        YearForm = yearForm ?? throw new ArgumentNullException(nameof(yearForm));
-        MonthForm = monthForm ?? throw new ArgumentNullException(nameof(monthForm));
+        ArgumentNullException.ThrowIfNull(yearForm);
+        ArgumentNullException.ThrowIfNull(monthForm);
+
+        YearForm = yearForm;
+        MonthForm = monthForm;
 
         if (yearForm.Origin != monthForm.Origin)
         {

@@ -19,7 +19,9 @@ public sealed partial class TroeschAnalyzer
     /// <see langword="null"/>.</exception>
     public TroeschAnalyzer(CodeArray input)
     {
-        Input = input ?? throw new ArgumentNullException(nameof(input));
+        ArgumentNullException.ThrowIfNull(input);
+
+        Input = input;
     }
 
     public CodeArray Input { get; }

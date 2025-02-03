@@ -18,8 +18,11 @@ public sealed class NtpResponse
     /// <see langword="null"/>.</exception>
     public NtpResponse(NtpServerInfo serverInfo, NtpTimeInfo timeInfo)
     {
-        ServerInfo = serverInfo ?? throw new ArgumentNullException(nameof(serverInfo));
-        TimeInfo = timeInfo ?? throw new ArgumentNullException(nameof(timeInfo));
+        ArgumentNullException.ThrowIfNull(serverInfo);
+        ArgumentNullException.ThrowIfNull(timeInfo);
+
+        ServerInfo = serverInfo;
+        TimeInfo = timeInfo;
     }
 
     /// <summary>

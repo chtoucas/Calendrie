@@ -23,7 +23,9 @@ public sealed partial class ThirdOrderSchema : GeometricSchema
         MonthForm monthForm)
         : base(yearForm, monthForm)
     {
-        CenturyForm = centuryForm ?? throw new ArgumentNullException(nameof(centuryForm));
+        ArgumentNullException.ThrowIfNull(centuryForm);
+
+        CenturyForm = centuryForm;
 
         Debug.Assert(monthForm != null);
         if (centuryForm.Origin != monthForm.Origin)

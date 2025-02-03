@@ -15,7 +15,9 @@ public sealed class RebasedSchema : IGeometricSchema
 
     public RebasedSchema(IGeometricSchema schema, int daysToTargetEpoch)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
+
+        _schema = schema;
         _daysToTargetEpoch = daysToTargetEpoch;
     }
 

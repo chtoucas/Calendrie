@@ -19,7 +19,9 @@ public sealed partial class LongCycleSchema : IGeometricSchema
         int daysPerLongCycle,
         int yearsPerLongCycle)
     {
-        ShortCycleShema = shortCycleShema ?? throw new ArgumentNullException(nameof(shortCycleShema));
+        ArgumentNullException.ThrowIfNull(shortCycleShema);
+
+        ShortCycleShema = shortCycleShema;
         DaysPerLongCycle = daysPerLongCycle;
         YearsPerLongCycle = yearsPerLongCycle;
     }

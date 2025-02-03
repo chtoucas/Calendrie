@@ -72,7 +72,9 @@ public sealed class SntpClient
     /// </summary>
     public SntpClient(EndPoint endpoint)
     {
-        EndPoint = endpoint ?? throw new ArgumentNullException(nameof(endpoint));
+        ArgumentNullException.ThrowIfNull(endpoint);
+
+        EndPoint = endpoint;
     }
 
     public static Segment<int> SupportedVersions { get; } = Segment.Create(3, 4);
@@ -111,7 +113,11 @@ public sealed class SntpClient
     public IRandomNumberGenerator RandomNumberGenerator
     {
         get => _rng;
-        init => _rng = value ?? throw new ArgumentNullException(nameof(value));
+        init
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            _rng = value;
+        }
     }
 
     /// <summary>

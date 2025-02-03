@@ -12,7 +12,9 @@ public class SecondOrderSchemaExt
 
     public SecondOrderSchemaExt(SecondOrderSchema schema)
     {
-        _schema = schema ?? throw new ArgumentNullException(nameof(schema));
+        ArgumentNullException.ThrowIfNull(schema);
+
+        _schema = schema;
 
         MonthForm0 = schema.MonthForm.WithAlgebraicNumbering();
     }
