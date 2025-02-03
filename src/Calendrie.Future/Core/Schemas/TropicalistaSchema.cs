@@ -29,7 +29,7 @@ public abstract partial class TropicalistaSchema : RegularSchema
     /// <para>This field is a constant equal to 1461.</para>
     /// <para>On average, a year is 365.25 days long.</para>
     /// </summary>
-    public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPer4JulianYearCycle;
+    public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPerJulianCycle;
 
     /// <summary>
     /// Represents the number of days in a common year.

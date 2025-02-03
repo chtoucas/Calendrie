@@ -14,18 +14,6 @@ using Calendrie.Core.Validation;
 public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<GregorianSchema>
 {
     /// <summary>
-    /// Represents the earliest supported year.
-    /// <para>This field is a constant equal to -999_998.</para>
-    /// </summary>
-    internal const int MinYear = DefaultMinYear;
-
-    /// <summary>
-    /// Represents the latest supported year.
-    /// <para>This field is a constant equal to 999_999.</para>
-    /// </summary>
-    internal const int MaxYear = DefaultMaxYear;
-
-    /// <summary>
     /// Represents the number of days per 400-year cycle.
     /// <para>This field is a constant equal to 146_097.</para>
     /// <para>On average, a year is 365.2425 days long.</para>
@@ -44,7 +32,7 @@ public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<Gregori
     /// <para>This field is a constant equal to 1461.</para>
     /// <para>On average, a year is 365.25 days long.</para>
     /// </summary>
-    public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPer4JulianYearCycle;
+    public const int DaysPer4YearSubcycle = CalendricalConstants.DaysPerJulianCycle;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GregorianSchema"/> class.

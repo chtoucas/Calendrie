@@ -145,14 +145,6 @@ module GregorianCase =
     let daysInYearAfterDateData = dataSet.DaysInYearAfterDateData
     let daysInMonthAfterDateData = dataSet.DaysInMonthAfterDateData
 
-    [<Fact>]
-    let ``Constant MinYear`` () =
-        GregorianSchema.MinYear === sch.SupportedYears.Min
-
-    [<Fact>]
-    let ``Constant MaxYear`` () =
-        GregorianSchema.MaxYear === sch.SupportedYears.Max
-
     [<Theory>]
     [<InlineData -10>] [<InlineData -9>] [<InlineData -8>] [<InlineData -7>] [<InlineData -6>] [<InlineData -5>]
     [<InlineData -4>] [<InlineData -3>] [<InlineData -2>] [<InlineData -1>] [<InlineData 0>] [<InlineData 1>]

@@ -10,6 +10,10 @@ open Calendrie.Testing
 
 open Xunit
 
+let private sch = new GregorianSchema()
+let minYear = sch.SupportedYears.Min
+let maxYear = sch.SupportedYears.Max
+
 module Factories =
     [<Fact>]
     let ``Create() throws for null schema`` () =
@@ -19,8 +23,8 @@ module Factories =
     let ``Create() throws for an invalid date`` () =
         let sch = new GregorianSchema()
 
-        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(GregorianSchema.MinYear - 1, 12, 1), GregorianSchema.MaxYear))
-        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(GregorianSchema.MaxYear + 1, 12, 1), GregorianSchema.MaxYear))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(minYear - 1, 12, 1), maxYear))
+        outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(maxYear + 1, 12, 1), maxYear))
         outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 0, 1), 2))
         outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 13, 1), 2))
         outOfRangeExn "value" (fun () -> BoundedBelowScope.Create(sch, DayZero.NewStyle, new DateParts(1, 1, 0), 2))
@@ -28,7 +32,7 @@ module Factories =
 
     [<Fact>]
     let ``Create() throws for an invalid max year`` () =
-        outOfRangeExn "year" (fun () -> BoundedBelowScope.Create(new GregorianSchema(), DayZero.NewStyle, new DateParts(1, 12, 1), GregorianSchema.MaxYear + 1))
+        outOfRangeExn "year" (fun () -> BoundedBelowScope.Create(new GregorianSchema(), DayZero.NewStyle, new DateParts(1, 12, 1), maxYear + 1))
 
     [<Fact>]
     let ``Create()`` () =
@@ -61,4 +65,4 @@ module Factories =
         seg.MaxIsEndOfYear   |> ok
         seg.IsComplete       |> nok
 
-        seg.SupportedYears.Max === GregorianSchema.MaxYear
+        seg.SupportedYears.Max === maxYear

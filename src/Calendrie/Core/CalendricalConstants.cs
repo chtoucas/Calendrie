@@ -19,7 +19,7 @@ public static class CalendricalConstants
     public const int DaysPerWanderingYear = 365;
 
     /// <summary>
-    /// Represents the number of days per cycle of four julian years.
+    /// Represents the number of days in a Julian cycle of four years.
     /// <para>This field is constant equal to 1461.</para>
     /// <para>On average, a year is 365.25 days long.</para>
     /// </summary>
@@ -28,7 +28,7 @@ public static class CalendricalConstants
     // Cycle de 4 ans = 1 année bissextile
     // Durée d'un cycle = (4 * 365 + 1) jours = 1461 jours.
     // Année julienne := 365,25 jours.
-    public const int DaysPer4JulianYearCycle = 4 * DaysPerWanderingYear + 1;
+    public const int DaysPerJulianCycle = 4 * DaysPerWanderingYear + 1;
 
     /// <summary>
     /// Represents the number of days in a week.
