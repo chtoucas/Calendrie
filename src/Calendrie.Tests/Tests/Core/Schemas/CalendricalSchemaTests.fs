@@ -124,18 +124,18 @@ module Prelude =
 
 module Coptic13Case =
     [<Fact>]
-    let ``Constant field VirtualMonth`` () =
-        Coptic13Schema.VirtualMonth === 13
+    let ``Constant field IntercalaryMonth`` () =
+        Coptic13Schema.IntercalaryMonth === 13
 
 module Egyptian13Case =
     [<Fact>]
-    let ``Constant field VirtualMonth`` () =
-        Egyptian13Schema.VirtualMonth === 13
+    let ``Constant field IntercalaryMonth`` () =
+        Egyptian13Schema.IntercalaryMonth === 13
 
 module FrenchRepublican13Case =
     [<Fact>]
-    let ``Constant field VirtualMonth`` () =
-        FrenchRepublican13Schema.VirtualMonth === 13
+    let ``Constant field IntercalaryMonth`` () =
+        FrenchRepublican13Schema.IntercalaryMonth === 13
 
 module GregorianCase =
     let private dataSet = GregorianDataSet.Instance

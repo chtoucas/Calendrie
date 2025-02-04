@@ -22,10 +22,10 @@ public sealed partial class FrenchRepublican13Schema :
     public const int MonthsPerYear = 13;
 
     /// <summary>
-    /// Represents the virtual month.
+    /// Represents the intercalary month number.
     /// <para>This field is a constant equal to 13.</para>
     /// </summary>
-    public const int VirtualMonth = 13;
+    public const int IntercalaryMonth = 13;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FrenchRepublican13Schema"/>

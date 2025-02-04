@@ -609,11 +609,11 @@ module Bundles13 =
         //
 
         [<Theory; MemberData(nameof(MonthFacts.MonthInfoData))>]
-        static member ``Property IsVirtual`` (info: MonthInfo) =
+        static member ``Property IsIntercalary`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
             let month = new FrenchRepublican13Month(y, m)
             // Act & Assert
-            month.IsVirtual === (m = 13)
+            month.IsIntercalary === (m = 13)
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]

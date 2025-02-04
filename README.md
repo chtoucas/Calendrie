@@ -26,6 +26,13 @@ Features
 
 ### Pre-defined Calendars
 
+We say that a calendar is "retropolated" if it's extended backward to dates
+before its official introduction, supporting all dates from its epoch, the origin
+of the underlying era.
+
+A proleptic calendar is extended even further, supporting dates not only before
+its first adoption but also before its epoch.
+
 #### Proleptic calendars
 
 These calendars support dates in the range from 999.999 B.C.E. to 999.999 C.E.
@@ -36,24 +43,19 @@ of years.
 #### Retropolated calendars
 
 These calendars support dates in the range from 1 to 9999 of years.
-- Armenian calendar (*)
-- Civil calendar, same as the Gregorian calendar above but with a different range
+- Armenian
+- Civil, same as the Gregorian calendar above but with a different range
   of supported years
-- Coptic calendar (*)
-- Egyptian calendar (*)
-- Ethiopic calendar (*)
-- French Republican calendar (*), an arithmetisation of the astronomical calendar
-- International Fixed calendar
-- Pax calendar
-- Persian calendar, an arithmetisation of the astronomical calendar
-- Positivist calendar
-- Tabular Islamic calendar, an arithmetisation of the astronomical calendar
-- Tropicalia calendar (**)
-- World calendar aka Universal calendar
-- Zoroastrian calendar (*)
+- Coptic
+- Egyptian
+- Ethiopic
+- French Republican, an arithmetisation of the astronomical calendar
+- International Fixed
+- Pax
+- Persian, an arithmetisation of the astronomical calendar
+- Positivist
+- Tabular Islamic, an arithmetisation of the astronomical calendar
+- Tropicalia
+- World aka Universal
+- Zoroastrian
 
-(*) Calendar available in two forms: 12 months or 12 months plus a virtual
-thirteenth month.
-
-(**) The Tropicalia calendar is like the Gregorian calendar but with a much
-better rule to identify leap years.
