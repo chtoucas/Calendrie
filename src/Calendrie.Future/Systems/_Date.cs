@@ -61,3 +61,13 @@ public partial struct WorldDate // Complements
         }
     }
 }
+
+// Temporaire
+public static class EgyptianDateExtensions
+{
+    public static DayOfDecan GetDayOfDecan(this EgyptianDate date) =>
+        date.IsEpagomenal(out _) ? DayOfDecan.Blank : (DayOfDecan)(date.Day % 10);
+
+    public static DayOfDecan GetDayOfDecan(this Egyptian13Date date) =>
+        date.IsEpagomenal(out _) ? DayOfDecan.Blank : (DayOfDecan)(date.Day % 10);
+}
