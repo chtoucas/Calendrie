@@ -53,17 +53,21 @@ public sealed partial class PositivistSchema :
     public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
-    /// Represents the genuine number of days in a month (excluding the blank days that are
-    /// formally outside any month).
+    /// Represents the genuine number of days in a standard month (excluding
+    /// the blank days that are formally outside any month).
     /// <para>This field is constant equal to 28.</para>
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
-    public const int DaysPerPositivistMonth = 28;
+    public const int DaysPerMonth = 28;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PositivistSchema"/> class.
     /// </summary>
-    internal PositivistSchema() : base(DaysPerCommonYear, 28) { }
+    internal PositivistSchema()
+        : base(
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth: 28)
+    { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;
@@ -152,7 +156,7 @@ public partial class PositivistSchema // Conversions
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysSinceEpoch(int y, int m, int d) =>
-        GregorianFormulae.GetStartOfYear(y) + 28 * (m - 1) + d - 1;
+        GregorianFormulae.GetStartOfYear(y) + DaysPerMonth * (m - 1) + d - 1;
 
     /// <inheritdoc />
     [Pure]

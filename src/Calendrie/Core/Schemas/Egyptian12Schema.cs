@@ -25,7 +25,7 @@ public sealed partial class Egyptian12Schema :
     public const int MonthsPerYear = 12;
 
     /// <summary>Initializes a new instance of the <see cref="Egyptian12Schema"/> class.</summary>
-    internal Egyptian12Schema() : base(30) { }
+    internal Egyptian12Schema() : base(minDaysInMonth: 30) { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;

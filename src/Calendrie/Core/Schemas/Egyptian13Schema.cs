@@ -38,7 +38,7 @@ public sealed partial class Egyptian13Schema :
     /// <summary>
     /// Initializes a new instance of the <see cref="Egyptian13Schema"/> class.
     /// </summary>
-    internal Egyptian13Schema() : base(5) { }
+    internal Egyptian13Schema() : base(minDaysInMonth: 5) { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;

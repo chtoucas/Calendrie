@@ -63,7 +63,11 @@ public sealed partial class WorldSchema :
     /// <summary>
     /// Initializes a new instance of the <see cref="WorldSchema"/> class.
     /// </summary>
-    internal WorldSchema() : base(DaysPerCommonYear, 30) { }
+    internal WorldSchema()
+        : base(
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth: 30)
+    { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;

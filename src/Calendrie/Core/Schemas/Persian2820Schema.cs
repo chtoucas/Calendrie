@@ -34,10 +34,11 @@ using Calendrie.Core.Utilities;
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.
 /// </para>
+/// <para>This is not the calendar currently in use in Iran. Furthermore, it has
+/// "been criticized by calendar researchers, among them the Iranian astronomers
+/// Malakpour (2004) and Sayyâd (2000)";
+/// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</para>
 /// </summary>
-/// <remarks>This is not the calendar currently in use in Iran. Furthermore, it has "been criticized
-/// by calendar researchers, among them the Iranian astronomers Malakpour (2004) and Sayyâd (2000)";
-/// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</remarks>
 public sealed partial class Persian2820Schema :
     RegularSchema,
     IDaysInMonths,
@@ -93,7 +94,10 @@ public sealed partial class Persian2820Schema :
     /// <summary>
     /// Initializes a new instance of the <see cref="Persian2820Schema"/> class.
     /// </summary>
-    internal Persian2820Schema() : base(DaysPerCommonYear, 29)
+    internal Persian2820Schema()
+        : base(
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth: 29)
     {
         SupportedYearsCore = Segment.StartingAt(int.MinValue + YearZero);
     }

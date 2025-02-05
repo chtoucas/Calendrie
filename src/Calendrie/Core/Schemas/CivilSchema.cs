@@ -22,7 +22,7 @@ public sealed partial class CivilSchema : GJSchema, ISchemaActivator<CivilSchema
     /// <summary>
     /// Initializes a new instance of the <see cref="CivilSchema"/> class.
     /// </summary>
-    internal CivilSchema() : base(DefaultSupportedYears.WithMin(1))
+    internal CivilSchema() : base(supportedYears: DefaultSupportedYears.WithMin(1))
     {
         PreValidator = GregorianPreValidator.Instance;
     }

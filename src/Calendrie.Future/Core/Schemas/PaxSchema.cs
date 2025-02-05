@@ -104,10 +104,10 @@ public sealed partial class PaxSchema :
     private const int PaxWeek = 49;
 
     /// <summary>
-    /// Represents the number of days in a month that is not the Pax month.
+    /// Represents the number of days in a standard month.
     /// <para>This field is constant equal to 28.</para>
     /// </summary>
-    private const int DaysInMonth = 28;
+    private const int DaysPerMonth = 28;
 
     /// <summary>
     /// Represents the number of days in a Pax month.
@@ -126,7 +126,11 @@ public sealed partial class PaxSchema :
             minDaysInYear: DaysPerCommonYear,
             minDaysInMonth: 7)
 #else
-    internal PaxSchema() : base(DefaultSupportedYears.WithMin(1), DaysPerCommonYear, 7)
+    internal PaxSchema()
+        : base(
+            supportedYears: DefaultSupportedYears.WithMin(1),
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth: 7)
 #endif
     {
         PreValidator = new PaxPreValidator(this);
@@ -263,13 +267,13 @@ public partial class PaxSchema // Counting months and days within a year or a mo
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInMonth(int y, int m) =>
-        IsPaxMonth(y, m) ? DaysInPaxMonth : DaysInMonth;
+        IsPaxMonth(y, m) ? DaysInPaxMonth : DaysPerMonth;
 
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInYearBeforeMonth(int y, int m) =>
         // PaxWeek * DaysPerWeek = 49 * 7 = 343
-        m == 14 ? PaxWeek * DaysPerWeek : DaysInMonth * (m - 1);
+        m == 14 ? PaxWeek * DaysPerWeek : DaysPerMonth * (m - 1);
 }
 
 public partial class PaxSchema // Conversions
@@ -306,8 +310,8 @@ public partial class PaxSchema // Conversions
         if (doy < 337 || !IsLeapYear(y))
         {
             int d0y = doy - 1;
-            m = 1 + d0y / DaysInMonth;
-            d = 1 + d0y % DaysInMonth;
+            m = 1 + d0y / DaysPerMonth;
+            d = 1 + d0y % DaysPerMonth;
         }
         else if (doy < 344)
         {

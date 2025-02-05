@@ -31,7 +31,7 @@ public sealed partial class FrenchRepublican13Schema :
     /// Initializes a new instance of the <see cref="FrenchRepublican13Schema"/>
     /// class.
     /// </summary>
-    internal FrenchRepublican13Schema() : base(5) { }
+    internal FrenchRepublican13Schema() : base(minDaysInMonth: 5) { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;

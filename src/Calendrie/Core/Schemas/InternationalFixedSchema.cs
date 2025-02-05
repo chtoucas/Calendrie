@@ -53,17 +53,21 @@ public sealed partial class InternationalFixedSchema :
     public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
-    /// Represents the genuine number of days in a month (excluding the blank days that are
-    /// formally outside any month).
+    /// Represents the genuine number of days in a standard month (excluding the
+    /// blank days that are formally outside any month).
     /// <para>This field is constant equal to 28.</para>
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
-    public const int DaysPerInternationalFixedMonth = 28;
+    public const int DaysPerMonth = 28;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InternationalFixedSchema"/> class.
     /// </summary>
-    internal InternationalFixedSchema() : base(DaysPerCommonYear, 28) { }
+    internal InternationalFixedSchema()
+        : base(
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth: 28)
+    { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
@@ -142,7 +146,7 @@ public partial class InternationalFixedSchema // Counting months and days within
     [Pure]
     public sealed override int CountDaysInYearBeforeMonth(int y, int m)
     {
-        int count = 28 * (m - 1);
+        int count = DaysPerMonth * (m - 1);
         if (m > 6 && GregorianFormulae.IsLeapYear(y)) { count++; }
         return count;
     }

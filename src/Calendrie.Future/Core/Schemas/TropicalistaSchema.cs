@@ -48,7 +48,10 @@ public abstract partial class TropicalistaSchema : RegularSchema
     /// <see cref="TropicalistaSchema"/> class.
     /// </summary>
     private protected TropicalistaSchema(int minDaysInMonth)
-        : base(DaysPerCommonYear, minDaysInMonth) { }
+        : base(
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth)
+    { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;

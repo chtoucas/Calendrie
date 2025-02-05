@@ -18,7 +18,7 @@ public sealed partial class Tropicalia3130Schema :
     /// <summary>
     /// Initializes a new instance of the <see cref="Tropicalia3130Schema"/> class.
     /// </summary>
-    internal Tropicalia3130Schema() : base(29) { }
+    internal Tropicalia3130Schema() : base(minDaysInMonth: 29) { }
 
     /// <summary>
     /// Gets the number of days in each month of a common year.

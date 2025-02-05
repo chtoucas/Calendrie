@@ -85,6 +85,11 @@ Code C#
     dépassement arithmétique
   - on utilise "unchecked" uniquement si nécessaire
 
+### Règles de nommage
+
+Constantes
+- p.ex. DaysPerYear pour la constante et DaysInYear pour la propriété
+
 ### Code Analysis
 
 Justifier l'utilisation des

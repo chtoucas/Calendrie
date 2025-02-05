@@ -37,7 +37,11 @@ public abstract partial class PtolemaicSchema : RegularSchema
     /// Called from constructors in derived classes to initialize the
     /// <see cref="PtolemaicSchema"/> class.
     /// </summary>
-    private protected PtolemaicSchema(int minDaysInMonth) : base(DaysPerCommonYear, minDaysInMonth) { }
+    private protected PtolemaicSchema(int minDaysInMonth)
+        : base(
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth)
+    { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.Solar;

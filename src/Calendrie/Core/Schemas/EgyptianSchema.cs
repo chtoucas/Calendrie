@@ -18,11 +18,11 @@ public abstract partial class EgyptianSchema : RegularSchema
     public const int DaysPerYear = CalendricalConstants.DaysPerWanderingYear;
 
     /// <summary>
-    /// Represents the genuine number of days in a month (excluding the
-    /// epagomenal days that are not formally part of the twelfth month).
+    /// Represents the number of days in a standard month (excluding the
+    /// month holding the epagomenal days).
     /// <para>This field is constant equal to 30.</para>
     /// </summary>
-    public const int DaysPerEgyptianMonth = 30;
+    public const int DaysPerMonth = 30;
 
     /// <summary>
     /// Called from constructors in derived classes to initialize the
@@ -30,7 +30,11 @@ public abstract partial class EgyptianSchema : RegularSchema
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minDaysInMonth"/>
     /// is a negative integer.</exception>
-    private protected EgyptianSchema(int minDaysInMonth) : base(DaysPerYear, minDaysInMonth) { }
+    private protected EgyptianSchema(int minDaysInMonth)
+        : base(
+            minDaysInYear: DaysPerYear,
+            minDaysInMonth)
+    { }
 
     /// <inheritdoc />
     public sealed override CalendricalFamily Family => CalendricalFamily.AnnusVagus;
@@ -67,7 +71,7 @@ public partial class EgyptianSchema // Conversions
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysSinceEpoch(int y, int m, int d) =>
-        DaysPerYear * (y - 1) + 30 * (m - 1) + d - 1;
+        DaysPerYear * (y - 1) + DaysPerMonth * (m - 1) + d - 1;
 
     /// <inheritdoc />
     [Pure]

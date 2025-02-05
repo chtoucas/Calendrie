@@ -51,7 +51,10 @@ public sealed partial class TabularIslamicSchema :
         // Dans cette méthode, on va multiplier daysSinceEpoch par 30.
         // Pour rester dans les limites de Int32,
         // 2^31 / 30 * 355 (DaysInLeapYear) = 201K années max
-        : base(Segment.Create(-199_999, 200_000), DaysPerCommonYear, 29)
+        : base(
+            supportedYears: Segment.Create(-199_999, 200_000),
+            minDaysInYear: DaysPerCommonYear,
+            minDaysInMonth: 29)
     {
         SupportedYearsCore = SupportedYears;
     }

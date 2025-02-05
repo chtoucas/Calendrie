@@ -22,7 +22,7 @@ public sealed partial class Coptic12Schema :
     /// <summary>
     /// Initializes a new instance of the <see cref="Coptic12Schema"/> class.
     /// </summary>
-    internal Coptic12Schema() : base(30) { }
+    internal Coptic12Schema() : base(minDaysInMonth: 30) { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;

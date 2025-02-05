@@ -24,7 +24,7 @@ public sealed partial class FrenchRepublican12Schema :
     /// Initializes a new instance of the <see cref="FrenchRepublican12Schema"/>
     /// class.
     /// </summary>
-    internal FrenchRepublican12Schema() : base(30) { }
+    internal FrenchRepublican12Schema() : base(minDaysInMonth: 30) { }
 
     /// <inheritdoc />
     public sealed override int MonthsInYear => MonthsPerYear;
