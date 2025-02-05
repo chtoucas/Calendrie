@@ -23,13 +23,6 @@ public abstract partial class FrenchRepublicanSchema : PtolemaicSchema
     public const long DaysPer4000YearCycle = 4000 * DaysPerCommonYear + 969;
 
     /// <summary>
-    /// Represents the number of days in a standard month (excluding the
-    /// month holding the epagomenal days).
-    /// <para>This field is constant to 30.</para>
-    /// </summary>
-    public const int DaysPerMonth = 30;
-
-    /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="FrenchRepublicanSchema"/> class.
     /// </summary>

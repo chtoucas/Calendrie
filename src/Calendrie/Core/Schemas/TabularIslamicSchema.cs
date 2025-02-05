@@ -9,8 +9,7 @@ using Calendrie.Core.Utilities;
 /// <summary>
 /// Represents the proleptic Tabular Islamic schema.
 /// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.
-/// </para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class TabularIslamicSchema :
     RegularSchema,

@@ -40,8 +40,7 @@ public abstract partial class EgyptianSchema : RegularSchema
     public sealed override CalendricalFamily Family => CalendricalFamily.AnnusVagus;
 
     /// <inheritdoc />
-    public sealed override CalendricalAdjustments PeriodicAdjustments =>
-        CalendricalAdjustments.None;
+    public sealed override CalendricalAdjustments PeriodicAdjustments => CalendricalAdjustments.None;
 }
 
 public partial class EgyptianSchema // Year, month or day infos
@@ -63,7 +62,7 @@ public partial class EgyptianSchema // Counting months and days within a year or
 
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInYearBeforeMonth(int y, int m) => 30 * (m - 1);
+    public sealed override int CountDaysInYearBeforeMonth(int y, int m) => DaysPerMonth * (m - 1);
 }
 
 public partial class EgyptianSchema // Conversions

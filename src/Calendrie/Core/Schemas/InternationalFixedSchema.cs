@@ -12,16 +12,17 @@ namespace Calendrie.Core.Schemas;
 // Main flaws: blank-days, 13 months, position of the intercalary day.
 
 /// <summary>
-/// Represents the International Fixed schema proposed by Paul Delaporte and Moses Bruine
-/// Cotsworth (1913-1914).
-/// <para>The International Fixed calendar is a blank-day calendar using a 13-months schema of
-/// identical length (28 days). The extra month, called Sol, is inserted after June.</para>
-/// <para>The two blank-days are the Leap Day following June on leap years, and the Year Day
-/// following December (the thirteenth month).</para>
+/// Represents the International Fixed schema proposed by Paul Delaporte and
+/// Moses Bruine Cotsworth (1913-1914).
+/// <para>The International Fixed calendar is a blank-day calendar using a
+/// 13-months schema of identical length (28 days). The extra month, called Sol,
+/// is inserted after June.</para>
+/// <para>The two blank-days are the Leap Day following June on leap years, and
+/// the Year Day following December (the thirteenth month).</para>
+/// <para>For technical reasons, the blank-days are attached to the month
+/// preceding them.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-/// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
-/// </remarks>
 public sealed partial class InternationalFixedSchema :
     RegularSchema,
     IDaysInMonths,

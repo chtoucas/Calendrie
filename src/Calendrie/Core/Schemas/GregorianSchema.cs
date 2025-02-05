@@ -46,8 +46,8 @@ public sealed partial class GregorianSchema : GJSchema, ISchemaActivator<Gregori
     public sealed override int MonthsInYear => MonthsPerYear;
 
     /// <summary>
-    /// Gets the number of days in each century of the first 4-century cycle, the one starting
-    /// at century 0.
+    /// Gets the number of days in each century of the first 4-century cycle,
+    /// the one starting at century 0.
     /// <para>The span index matches the century number (0 to 3).</para>
     /// </summary>
     internal static ReadOnlySpan<ushort> DaysIn4CenturyCycle => [36_525, 36_524, 36_524, 36_524];

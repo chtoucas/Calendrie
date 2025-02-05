@@ -4,7 +4,7 @@
 namespace Calendrie.Core.Schemas;
 
 /// <summary>
-/// Represents the Coptic schema.
+/// Represents the Coptic schema; alternative form using only 12 months.
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>

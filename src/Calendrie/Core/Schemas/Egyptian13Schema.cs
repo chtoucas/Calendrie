@@ -5,19 +5,15 @@ namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Utilities;
 
-using Ptolemaic13 = PtolemaicSchema.Thirteen;
-
 /// <summary>
-/// Represents the Egyptian schema; alternative form using a virtual month to hold the
-/// epagomenal days, see also <seealso cref="Egyptian12Schema"/>.
+/// Represents the Egyptian schema.
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
+/// <para>A year is divided into 12 months of 30 days each, followed by 5
+/// epagomenal days.</para>
+/// <para>The epagomenal days are outside any month but, for technical reasons,
+/// we attach them to a virtual thirteenth month: 1/13 to 5/13.</para>
 /// </summary>
-/// <remarks>
-/// <para>A year is divided into 12 months of 30 days each, followed by 5 epagomenal days.</para>
-/// <para>The epagomenal days are outside any month but, for technical reasons, we attach them
-/// to a virtual thirteenth month: 1/13 to 5/13.</para>
-/// </remarks>
 public sealed partial class Egyptian13Schema :
     EgyptianSchema,
     IDaysInMonths,
@@ -69,8 +65,19 @@ public partial class Egyptian13Schema // Year, month or day infos
     /// zero if the date is not an epagomenal day.
     /// </summary>
     [Pure]
-    internal static bool IsEpagomenalDayImpl(int m, int d, out int epagomenalNumber) =>
-        Ptolemaic13.IsEpagomenalDay(m, d, out epagomenalNumber);
+    internal static bool IsEpagomenalDayImpl(int m, int d, out int epagomenalNumber)
+    {
+        if (m == IntercalaryMonth)
+        {
+            epagomenalNumber = d;
+            return true;
+        }
+        else
+        {
+            epagomenalNumber = 0;
+            return false;
+        }
+    }
 
     /// <summary>
     /// Determines whether the specified date is an epagomenal day or not, and
@@ -85,15 +92,15 @@ public partial class Egyptian13Schema // Year, month or day infos
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsSupplementaryDay(int y, int m, int d) =>
-        Ptolemaic13.IsSupplementaryDay(m);
+    public sealed override bool IsSupplementaryDay(int y, int m, int d) => m == IntercalaryMonth;
 }
 
 public partial class Egyptian13Schema // Counting months and days within a year or a month
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInMonth(int y, int m) => m == 13 ? 5 : 30;
+    public sealed override int CountDaysInMonth(int y, int m) =>
+        m == IntercalaryMonth ? 5 : DaysPerMonth;
 }
 
 public partial class Egyptian13Schema // Conversions
@@ -102,11 +109,15 @@ public partial class Egyptian13Schema // Conversions
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
         y = 1 + MathZ.Divide(daysSinceEpoch, DaysPerYear, out int d0y);
-        m = Ptolemaic13.GetMonth(d0y, out d);
+        m = GetMonth(d0y, out d);
     }
 
     /// <inheritdoc />
     [Pure]
     public sealed override int GetMonth(int y, int doy, out int d) =>
-        Ptolemaic13.GetMonth(doy - 1, out d);
+        GetMonth(doy - 1, out d);
+
+    [Pure]
+    private static int GetMonth(int d0y, out int d) =>
+        MathN.AugmentedDivide(d0y, DaysPerMonth, out d);
 }

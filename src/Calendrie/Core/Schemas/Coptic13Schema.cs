@@ -4,11 +4,9 @@
 namespace Calendrie.Core.Schemas;
 
 /// <summary>
-/// Represents the Coptic schema; alternative form using a virtual month
-/// to hold the epagomenal days; see also <seealso cref="Coptic12Schema"/>.
+/// Represents the Coptic schema.
 /// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.
-/// </para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class Coptic13Schema :
     CopticSchema,

@@ -5,26 +5,29 @@ namespace Calendrie.Core.Schemas;
 
 using Calendrie.Core.Utilities;
 
-using Ptolemaic12 = PtolemaicSchema.Twelve;
-
-/// <summary>Represents the Egyptian schema.</summary>
-/// <remarks>
+/// <summary>
+/// Represents the Egyptian schema; alternative form using only 12 months.
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
-/// <para>A year is divided into 12 months of 30 days each, followed by 5 epagomenal days.</para>
-/// <para>The epagomenal days are outside any month but, for technical reasons, we attach them to
-/// the twelfth month: 31/12 to 35/12.</para>
-/// </remarks>
+/// <para>A year is divided into 12 months of 30 days each, followed by 5
+/// epagomenal days.</para>
+/// <para>The epagomenal days are outside any month but, for technical reasons,
+/// we attach them to the twelfth month: 31/12 to 35/12.</para>
+/// </summary>
 public sealed partial class Egyptian12Schema :
     EgyptianSchema,
     IDaysInMonths,
     ISchemaActivator<Egyptian12Schema>
 {
-    /// <summary>Represents the number of months in a year.</summary>
-    /// <remarks>This field is a constant equal to 12.</remarks>
+    /// <summary>
+    /// Represents the number of months in a year.
+    /// <para>This field is a constant equal to 12.</para>
+    /// </summary>
     public const int MonthsPerYear = 12;
 
-    /// <summary>Initializes a new instance of the <see cref="Egyptian12Schema"/> class.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Egyptian12Schema"/> class.
+    /// </summary>
     internal Egyptian12Schema() : base(minDaysInMonth: 30) { }
 
     /// <inheritdoc />
@@ -56,8 +59,19 @@ public partial class Egyptian12Schema // Year, month or day infos
     /// zero if the date is not an epagomenal day.
     /// </summary>
     [Pure]
-    internal static bool IsEpagomenalDayImpl(int d, out int epagomenalNumber) =>
-        Ptolemaic12.IsEpagomenalDay(d, out epagomenalNumber);
+    internal static bool IsEpagomenalDayImpl(int d, out int epagomenalNumber)
+    {
+        if (d > DaysPerMonth)
+        {
+            epagomenalNumber = d - DaysPerMonth;
+            return true;
+        }
+        else
+        {
+            epagomenalNumber = 0;
+            return false;
+        }
+    }
 
     /// <summary>
     /// Determines whether the specified date is an epagomenal day or not, and
@@ -72,15 +86,14 @@ public partial class Egyptian12Schema // Year, month or day infos
 
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsSupplementaryDay(int y, int m, int d) =>
-        Ptolemaic12.IsSupplementaryDay(d);
+    public sealed override bool IsSupplementaryDay(int y, int m, int d) => d > DaysPerMonth;
 }
 
 public partial class Egyptian12Schema // Counting months and days within a year or a month
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override int CountDaysInMonth(int y, int m) => m == 12 ? 35 : 30;
+    public sealed override int CountDaysInMonth(int y, int m) => m == 12 ? 35 : DaysPerMonth;
 }
 
 public partial class Egyptian12Schema // Conversions
@@ -89,11 +102,26 @@ public partial class Egyptian12Schema // Conversions
     public sealed override void GetDateParts(int daysSinceEpoch, out int y, out int m, out int d)
     {
         y = 1 + MathZ.Divide(daysSinceEpoch, DaysPerYear, out int d0y);
-        m = Ptolemaic12.GetMonth(d0y, out d);
+        m = GetMonth(d0y, out d);
     }
 
     /// <inheritdoc />
     [Pure]
     public sealed override int GetMonth(int y, int doy, out int d) =>
-        Ptolemaic12.GetMonth(doy - 1, out d);
+        GetMonth(doy - 1, out d);
+
+    [Pure]
+    private static int GetMonth(int d0y, out int d)
+    {
+        int m = MathN.AugmentedDivide(d0y, DaysPerMonth, out d);
+
+        // Special case of the intercalary twelfth month (d0y > 329).
+        if (m == 13)
+        {
+            m = 12;
+            d += DaysPerMonth;
+        }
+
+        return m;
+    }
 }

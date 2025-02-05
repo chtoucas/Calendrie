@@ -12,16 +12,16 @@ namespace Calendrie.Core.Schemas;
 
 /// <summary>
 /// Represents the Positivist schema proposed by Auguste Comte (1849).
-/// <para>The Positivist calendar is a blank-day calendar using a 13-months schema of identical
-/// length (28 days).</para>
-/// <para>The blank-days are added after December: first "The Festival of All the Dead" (la Fête
-/// universelle des MORTS), then "The Festival of Holy Women" (la Fête générale des SAINTES
-/// FEMMES) on leap years.</para>
+/// <para>The Positivist calendar is a blank-day calendar using a 13-months
+/// schema of identical length (28 days).</para>
+/// <para>The blank-days are added after December: first "The Festival of All
+/// the Dead" (la Fête universelle des MORTS), then "The Festival of Holy Women"
+/// (la Fête générale des SAINTES FEMMES) on leap years.</para>
+/// <para>For technical reasons, the blank-days are attached to the month
+/// preceding them.</para>
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
-/// <remarks>For technical reasons, the blank-days are attached to the month preceding them.
-/// </remarks>
 public sealed partial class PositivistSchema :
     RegularSchema,
     IDaysInMonths,

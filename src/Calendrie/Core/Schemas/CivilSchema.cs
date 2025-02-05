@@ -14,8 +14,7 @@ using Calendrie.Core.Validation;
 /// <summary>
 /// Represents the Gregorian schema (year > 0).
 /// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.
-/// </para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class CivilSchema : GJSchema, ISchemaActivator<CivilSchema>
 {

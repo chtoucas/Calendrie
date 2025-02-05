@@ -20,13 +20,6 @@ public abstract partial class CopticSchema : PtolemaicSchema
     public const int DaysPer4YearCycle = CalendricalConstants.DaysPerJulianCycle;
 
     /// <summary>
-    /// Represents the number of days in a standard month (excluding the
-    /// month holding the epagomenal days).
-    /// <para>This field is constant equal to 30.</para>
-    /// </summary>
-    public const int DaysPerMonth = 30;
-
-    /// <summary>
     /// Called from constructors in derived classes to initialize the
     /// <see cref="CopticSchema"/> class.
     /// </summary>
@@ -40,9 +33,8 @@ public partial class CopticSchema // Year, month or day infos
 {
     /// <inheritdoc />
     [Pure]
-    public sealed override bool IsLeapYear(int y) =>
-        // Rule: y mod. 4 == 3.
-        (checked(y + 1) & 3) == 0;
+    // Rule: y mod. 4 == 3.
+    public sealed override bool IsLeapYear(int y) => (checked(y + 1) & 3) == 0;
 }
 
 public partial class CopticSchema // Conversions

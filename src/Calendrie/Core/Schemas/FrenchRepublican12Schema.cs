@@ -4,10 +4,10 @@
 namespace Calendrie.Core.Schemas;
 
 /// <summary>
-/// Represents the French Republican schema; see also <seealso cref="FrenchRepublican13Schema"/>.
+/// Represents the French Republican schema; alternative form using only 12
+/// months.
 /// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.
-/// </para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class FrenchRepublican12Schema :
     FrenchRepublicanSchema,
