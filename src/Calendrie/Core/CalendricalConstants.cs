@@ -11,7 +11,7 @@ public static class CalendricalConstants
 {
     /// <summary>
     /// Represents the number of days in a wandering year.
-    /// <para>This field is constant equal to 365.</para>
+    /// <para>This field is a constant equal to 365.</para>
     /// </summary>
     //
     // Nombre de jours dans une année vague ("wandering year"),
@@ -20,7 +20,7 @@ public static class CalendricalConstants
 
     /// <summary>
     /// Represents the number of days in a Julian cycle of four years.
-    /// <para>This field is constant equal to 1461.</para>
+    /// <para>This field is a constant equal to 1461.</para>
     /// <para>On average, a year is 365.25 days long.</para>
     /// </summary>
     //
@@ -32,7 +32,7 @@ public static class CalendricalConstants
 
     /// <summary>
     /// Represents the number of days in a week.
-    /// <para>This field is constant equal to 7.</para>
+    /// <para>This field is a constant equal to 7.</para>
     /// </summary>
     public const int DaysPerWeek = 7;
 

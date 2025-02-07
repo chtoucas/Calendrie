@@ -5,6 +5,8 @@ namespace Calendrie.Core.Schemas;
 
 /// <summary>
 /// Represents the French Republican schema.
+/// <para>A year is divided into 12 months of 30 days each, followed by 5 or 6
+/// epagomenal days.</para>
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>

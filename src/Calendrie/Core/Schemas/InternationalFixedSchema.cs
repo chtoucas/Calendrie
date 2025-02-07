@@ -14,14 +14,15 @@ namespace Calendrie.Core.Schemas;
 /// <summary>
 /// Represents the International Fixed schema proposed by Paul Delaporte and
 /// Moses Bruine Cotsworth (1913-1914).
-/// <para>The International Fixed calendar is a blank-day calendar using a
-/// 13-months schema of identical length (28 days). The extra month, called Sol,
-/// is inserted after June.</para>
+/// <para>The International Fixed calendar is a blank-day calendar for which the
+/// year is divided into 13 months of identical length (28 days). The extra month,
+/// called Sol, is inserted after June.</para>
 /// <para>The two blank-days are the Leap Day following June on leap years, and
 /// the Year Day following December (the thirteenth month).</para>
 /// <para>For technical reasons, the blank-days are attached to the month
 /// preceding them.</para>
 /// <para>This class cannot be inherited.</para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class InternationalFixedSchema :
     RegularSchema,
@@ -56,7 +57,7 @@ public sealed partial class InternationalFixedSchema :
     /// <summary>
     /// Represents the genuine number of days in a standard month (excluding the
     /// blank days that are formally outside any month).
-    /// <para>This field is constant equal to 28.</para>
+    /// <para>This field is a constant equal to 28.</para>
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
     public const int DaysPerMonth = 28;

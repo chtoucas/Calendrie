@@ -246,7 +246,7 @@ public partial struct <#= Prefix #>Year // IMonthSegment
 {
     /// <summary>
     /// Represents the total number of months in a year.
-    /// <para>This field is constant equal to <#= MonthsInYear #>.</para>
+    /// <para>This field is a constant equal to <#= MonthsInYear #>.</para>
     /// </summary>
     public const int MonthCount = <#= SchemaClass #>.MonthsPerYear;
 
@@ -392,7 +392,7 @@ public partial struct <#= Prefix #>Year // IDaySegment
 {
     /// <summary>
     /// Represents the total number of days in a year.
-    /// <para>This field is constant equal to <#= DaysInYear #>.</para>
+    /// <para>This field is a constant equal to <#= DaysInYear #>.</para>
     /// </summary>
     public const int DayCount = <#= SchemaClass #>.DaysPerYear;
 

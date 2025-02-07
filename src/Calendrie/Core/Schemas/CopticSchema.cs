@@ -33,7 +33,7 @@ public partial class CopticSchema // Year, month or day infos
 {
     /// <inheritdoc />
     [Pure]
-    // Rule: y mod. 4 == 3.
+    // Julian rule: y mod. 4 == 3.
     public sealed override bool IsLeapYear(int y) => (checked(y + 1) & 3) == 0;
 }
 

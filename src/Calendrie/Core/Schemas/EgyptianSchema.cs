@@ -7,20 +7,22 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents an Egyptian schema and provides a base for derived classes.
+/// <para>A schema is said to be egyptian if each year is divided into 12
+/// months of 30 days each, followed by 5 epagomenal days.</para>
 /// <para>This class can ONLY be inherited from within friend assemblies.</para>
 /// </summary>
 public abstract partial class EgyptianSchema : RegularSchema
 {
     /// <summary>
     /// Represents the number of days in a year.
-    /// <para>This field is constant equal to 365.</para>
+    /// <para>This field is a constant equal to 365.</para>
     /// </summary>
     public const int DaysPerYear = CalendricalConstants.DaysPerWanderingYear;
 
     /// <summary>
-    /// Represents the number of days in a standard month (excluding the
-    /// month holding the epagomenal days).
-    /// <para>This field is constant equal to 30.</para>
+    /// Represents the number of days in an ordinary month, therefore excluding
+    /// the intercalary month.
+    /// <para>This field is a constant equal to 30.</para>
     /// </summary>
     public const int DaysPerMonth = 30;
 

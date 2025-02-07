@@ -9,10 +9,6 @@ using Calendrie.Core.Utilities;
 /// Represents the Egyptian schema; alternative form using only 12 months.
 /// <para>This class cannot be inherited.</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
-/// <para>A year is divided into 12 months of 30 days each, followed by 5
-/// epagomenal days.</para>
-/// <para>The epagomenal days are outside any month but, for technical reasons,
-/// we attach them to the twelfth month: 31/12 to 35/12.</para>
 /// </summary>
 public sealed partial class Egyptian12Schema :
     EgyptianSchema,

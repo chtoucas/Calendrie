@@ -7,12 +7,10 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents the Egyptian schema.
-/// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// <para>A year is divided into 12 months of 30 days each, followed by 5
 /// epagomenal days.</para>
-/// <para>The epagomenal days are outside any month but, for technical reasons,
-/// we attach them to a virtual thirteenth month: 1/13 to 5/13.</para>
+/// <para>This class cannot be inherited.</para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class Egyptian13Schema :
     EgyptianSchema,

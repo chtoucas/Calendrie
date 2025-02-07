@@ -19,7 +19,7 @@ public sealed partial class TropicaliaSchema :
     /// <summary>
     /// Represents the number of days from march to december, both
     /// included.
-    /// <para>This field is constant equal to 306.</para>
+    /// <para>This field is a constant equal to 306.</para>
     /// </summary>
     public const int DaysPerYearAfterFebruary = 306;
 

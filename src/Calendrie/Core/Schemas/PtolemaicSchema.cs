@@ -10,11 +10,6 @@ using Calendrie.Core.Utilities;
 /// <para>A schema is said to be ptolemaic if each year is divided into 12
 /// months of 30 days each, followed by 5 (resp. 6) epagomenal days on a
 /// common (resp. leap) year.</para>
-/// <para>The epagomenal days are outside any month but, for technical
-/// reasons, we attach them to the twelfth month: 31/12 to 35/12 (36/12 on a
-/// leap year).</para>
-/// <para>We propose an alternative form using a virtual thirteenth month to
-/// hold the epagomenal days: 1/13 to 5/13 (6/13 on a leap year).</para>
 /// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public abstract partial class PtolemaicSchema : RegularSchema
@@ -32,9 +27,9 @@ public abstract partial class PtolemaicSchema : RegularSchema
     public const int DaysPerLeapYear = DaysPerCommonYear + 1;
 
     /// <summary>
-    /// Represents the number of days in a standard month (excluding the
-    /// month holding the epagomenal days).
-    /// <para>This field is constant equal to 30.</para>
+    /// Represents the number of days in an ordinary month, therefore excluding
+    /// the intercalary month.
+    /// <para>This field is a constant equal to 30.</para>
     /// </summary>
     public const int DaysPerMonth = 30;
 

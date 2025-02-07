@@ -31,13 +31,12 @@ using Calendrie.Core.Utilities;
 
 /// <summary>
 /// Represents the Persian schema, proposed arithmetical form by Ahmad Birashk.
-/// <para>This class cannot be inherited.</para>
-/// <para>This class can ONLY be initialized from within friend assemblies.
-/// </para>
 /// <para>This is not the calendar currently in use in Iran. Furthermore, it has
 /// "been criticized by calendar researchers, among them the Iranian astronomers
 /// Malakpour (2004) and Sayyâd (2000)";
 /// see http://aramis.obspm.fr/~heydari/divers/ir-cal-eng.pdf.</para>
+/// <para>This class cannot be inherited.</para>
+/// <para>This class can ONLY be initialized from within friend assemblies.</para>
 /// </summary>
 public sealed partial class Persian2820Schema :
     RegularSchema,
@@ -79,7 +78,7 @@ public sealed partial class Persian2820Schema :
     /// <summary>
     /// Represents the number of whole days elapsed since the start of the
     /// year and before July.
-    /// <para>This field is constant equal to 186.</para>
+    /// <para>This field is a constant equal to 186.</para>
     /// </summary>
     public const int DaysPerYearBeforeJuly = 186;
 

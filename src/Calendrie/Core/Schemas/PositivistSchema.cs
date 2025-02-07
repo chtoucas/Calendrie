@@ -12,8 +12,8 @@ namespace Calendrie.Core.Schemas;
 
 /// <summary>
 /// Represents the Positivist schema proposed by Auguste Comte (1849).
-/// <para>The Positivist calendar is a blank-day calendar using a 13-months
-/// schema of identical length (28 days).</para>
+/// <para>The Positivist calendar is a blank-day calendar for which the year is
+/// divided into 13 months of identical length (28 days).</para>
 /// <para>The blank-days are added after December: first "The Festival of All
 /// the Dead" (la Fête universelle des MORTS), then "The Festival of Holy Women"
 /// (la Fête générale des SAINTES FEMMES) on leap years.</para>
@@ -55,7 +55,7 @@ public sealed partial class PositivistSchema :
     /// <summary>
     /// Represents the genuine number of days in a standard month (excluding
     /// the blank days that are formally outside any month).
-    /// <para>This field is constant equal to 28.</para>
+    /// <para>This field is a constant equal to 28.</para>
     /// <para>See also <seealso cref="CountDaysInMonth(int, int)"/>.</para>
     /// </summary>
     public const int DaysPerMonth = 28;

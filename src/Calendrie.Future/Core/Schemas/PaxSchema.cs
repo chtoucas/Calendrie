@@ -105,13 +105,13 @@ public sealed partial class PaxSchema :
 
     /// <summary>
     /// Represents the number of days in a standard month.
-    /// <para>This field is constant equal to 28.</para>
+    /// <para>This field is a constant equal to 28.</para>
     /// </summary>
     private const int DaysPerMonth = 28;
 
     /// <summary>
     /// Represents the number of days in a Pax month.
-    /// <para>This field is constant equal to 7.</para>
+    /// <para>This field is a constant equal to 7.</para>
     /// </summary>
     private const int DaysInPaxMonth = 7;
 
