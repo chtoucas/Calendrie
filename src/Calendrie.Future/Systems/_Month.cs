@@ -5,6 +5,17 @@ namespace Calendrie.Systems;
 
 using Calendrie.Core.Schemas;
 
+public partial struct InternationalFixedMonth // Complements
+{
+    /// <summary>
+    /// Represents the genuine number of days in a month (excluding the blank
+    /// days that are formally outside any month).
+    /// <para>This field is a constant equal to 28.</para>
+    /// <para>See also <seealso cref="CountDays()"/>.</para>
+    /// </summary>
+    public const int DaysPerMonth = InternationalFixedSchema.DaysPerMonth;
+}
+
 public partial struct PaxMonth // Complements
 {
     /// <summary>
@@ -35,6 +46,17 @@ public partial struct PaxMonth // Complements
             return sch.IsLastMonthOfYear(y, m);
         }
     }
+}
+
+public partial struct PositivistMonth // Complements
+{
+    /// <summary>
+    /// Represents the genuine number of days in a month (excluding the blank
+    /// days that are formally outside any month).
+    /// <para>This field is a constant equal to 28.</para>
+    /// <para>See also <seealso cref="CountDays()"/>.</para>
+    /// </summary>
+    public const int DaysPerMonth = PositivistSchema.DaysPerMonth;
 }
 
 public partial struct WorldMonth // Complements

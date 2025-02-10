@@ -5,7 +5,9 @@ namespace Calendrie.Core.Schemas;
 
 // Not known at the time of its creation, a similar proposal, under the name
 // "Georgian Calendar", was made by Rev. Hugh Jones but much earlier, in 1745.
-// See http://myweb.ecu.edu/mccartyr/hirossa.html and
+// See
+// https://gallica.bnf.fr/ark:/12148/bpt6k21868f/
+// http://myweb.ecu.edu/mccartyr/hirossa.html
 // https://en.wikipedia.org/wiki/Hugh_Jones_(professor).
 //
 // Main flaws: blank-days, 13 months.
@@ -15,7 +17,7 @@ namespace Calendrie.Core.Schemas;
 /// <para>The Positivist calendar is a blank-day calendar for which the year is
 /// divided into 13 months of identical length (28 days).</para>
 /// <para>The blank-days are added after December: first "The Festival of All
-/// the Dead" (la Fête universelle des MORTS), then "The Festival of Holy Women"
+/// the Dead" (Fête générale des MORTS), then "The Festival of Holy Women"
 /// (la Fête générale des SAINTES FEMMES) on leap years.</para>
 /// <para>For technical reasons, the blank-days are attached to the month
 /// preceding them.</para>
@@ -148,7 +150,7 @@ public partial class PositivistSchema // Counting months and days within a year 
     /// <inheritdoc />
     [Pure]
     public sealed override int CountDaysInMonth(int y, int m) =>
-        m == 13 ? 28 + (GregorianFormulae.IsLeapYear(y) ? 2 : 1) : 28;
+        m == 13 ? (GregorianFormulae.IsLeapYear(y) ? 30 : 29) : 28;
 }
 
 public partial class PositivistSchema // Conversions

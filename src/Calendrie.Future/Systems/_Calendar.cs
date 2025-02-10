@@ -8,8 +8,7 @@ using Calendrie.Core.Utilities;
 
 // FIXME(code): blank-days should be kept outside the week cycle, review all
 // methods that compute the days of the week.
-// Add custom props (Leapyear Day, Worldsday, etc.) and custom methods like
-// CountDaysInInternationalFixedMonth() or CountDaysInPositivistMonth()?
+// Add custom props/methods (Leapyear Day, Worldsday, etc.).
 //
 // TODO(code): T4 for AddYears/Months() for non-regular calendars.
 //
