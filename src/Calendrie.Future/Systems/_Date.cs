@@ -66,13 +66,13 @@ public partial struct WorldDate // Complements
 // Temporaire
 public static class EgyptianDateExtensions
 {
-    public static DayOfDecan GetDayOfDecan(this Egyptian13Date date) =>
+    public static DayOfDecan GetDayOfDecan(this EgyptianDate date) =>
         date.IsEpagomenal(out _) ? DayOfDecan.Blank
             : (DayOfDecan)MathN.AdjustedModulo(date.Day, 10);
 
-    public static int GetDecanOfMonth(this Egyptian13Date date) =>
+    public static int GetDecanOfMonth(this EgyptianDate date) =>
         date.IsEpagomenal(out _) ? 0 : MathN.AdjustedDivide(date.Day, 10);
 
-    public static int GetDecanOfYear(this Egyptian13Date date) =>
+    public static int GetDecanOfYear(this EgyptianDate date) =>
         date.IsEpagomenal(out _) ? 0 : MathN.AdjustedDivide(date.DayOfYear, 10);
 }

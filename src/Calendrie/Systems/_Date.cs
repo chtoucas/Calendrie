@@ -16,7 +16,7 @@ using Calendrie.Core.Schemas;
 // questions d'ordre technique on le rattache au douzième mois.
 // Ex. : le jour de la révolution du calendrier républicain.
 
-public partial struct Armenian13Date // Complements
+public partial struct ArmenianDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -31,7 +31,7 @@ public partial struct Armenian13Date // Complements
     }
 }
 
-public partial struct Coptic13Date // Complements
+public partial struct CopticDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -46,7 +46,7 @@ public partial struct Coptic13Date // Complements
     }
 }
 
-public partial struct Egyptian13Date // Complements
+public partial struct EgyptianDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -61,7 +61,7 @@ public partial struct Egyptian13Date // Complements
     }
 }
 
-public partial struct Ethiopic13Date // Complements
+public partial struct EthiopicDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -76,7 +76,7 @@ public partial struct Ethiopic13Date // Complements
     }
 }
 
-public partial struct FrenchRepublican13Date // Complements
+public partial struct FrenchRepublicanDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -91,7 +91,7 @@ public partial struct FrenchRepublican13Date // Complements
     }
 }
 
-public partial struct Zoroastrian13Date // Complements
+public partial struct ZoroastrianDate // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and

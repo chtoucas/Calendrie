@@ -22,31 +22,31 @@ using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
 
-#region Egyptian13Calendar
+#region ZoroastrianCalendar
 
 /// <summary>
-/// Represents the Egyptian calendar.
+/// Represents the Zoroastrian calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class Egyptian13Calendar : Calendar
+public sealed partial class ZoroastrianCalendar : Calendar
 {
     /// <summary>
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "Egyptian";
+    internal const string DisplayName = "Zoroastrian";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Calendar"/> class.
+    /// Initializes a new instance of the <see cref="ZoroastrianCalendar"/> class.
     /// </summary>
-    public Egyptian13Calendar() : this(new Egyptian13Schema()) { }
+    public ZoroastrianCalendar() : this(new Egyptian13Schema()) { }
 
-    private Egyptian13Calendar(Egyptian13Schema schema)
-        : base(DisplayName, new StandardScope(schema, DayZero.Egyptian))
+    private ZoroastrianCalendar(Egyptian13Schema schema)
+        : base(DisplayName, new StandardScope(schema, DayZero.Zoroastrian))
     {
-        Debug.Assert(Epoch.DaysSinceZero == -272_788);
+        Debug.Assert(Epoch.DaysSinceZero == 230_637);
 #if DEBUG
         // The next four properties only exist in DEBUG mode.
         Debug.Assert(MinDaysSinceEpoch == 0);
@@ -59,10 +59,10 @@ public sealed partial class Egyptian13Calendar : Calendar
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="Egyptian13Calendar"/> class.
-    /// <para>See <see cref="Egyptian13Date.Calendar"/>.</para>
+    /// Gets a singleton instance of the <see cref="ZoroastrianCalendar"/> class.
+    /// <para>See <see cref="ZoroastrianDate.Calendar"/>.</para>
     /// </summary>
-    internal static Egyptian13Calendar Instance { get; } = new();
+    internal static ZoroastrianCalendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -77,12 +77,12 @@ public sealed partial class Egyptian13Calendar : Calendar
     /// <summary>
     /// Gets the earliest supported <see cref="DayNumber"/> value.
     /// </summary>
-    public static DayNumber MinDayNumber { get; } = DayZero.Egyptian;
+    public static DayNumber MinDayNumber { get; } = DayZero.Zoroastrian;
 
     /// <summary>
     /// Gets the latest supported <see cref="DayNumber"/> value.
     /// </summary>
-    public static DayNumber MaxDayNumber { get; } = DayZero.Egyptian + 3_649_634;
+    public static DayNumber MaxDayNumber { get; } = DayZero.Zoroastrian + 3_649_634;
 
     /// <summary>
     /// Gets the schema.
@@ -90,7 +90,7 @@ public sealed partial class Egyptian13Calendar : Calendar
     internal Egyptian13Schema Schema { get; }
 }
 
-public partial class Egyptian13Calendar // Math
+public partial class ZoroastrianCalendar // Math
 {
     /// <summary>
     /// Adds the specified number of years to the year part of the specified date,
@@ -102,7 +102,7 @@ public partial class Egyptian13Calendar // Math
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    internal Egyptian13Date AddYears(int y, int m, int d, int years)
+    internal ZoroastrianDate AddYears(int y, int m, int d, int years)
     {
         var sch = Schema;
 
@@ -115,7 +115,7 @@ public partial class Egyptian13Calendar // Math
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
-        return Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+        return ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -128,7 +128,7 @@ public partial class Egyptian13Calendar // Math
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    internal Egyptian13Date AddMonths(int y, int m, int d, int months)
+    internal ZoroastrianDate AddMonths(int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(
@@ -140,26 +140,26 @@ public partial class Egyptian13Calendar // Math
 
 #endregion
 
-#region Egyptian13Date
+#region ZoroastrianDate
 
 /// <summary>
-/// Represents the Egyptian date.
+/// Represents the Zoroastrian date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="Egyptian13Date"/> is an immutable struct.</para>
+/// <para><see cref="ZoroastrianDate"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct Egyptian13Date :
-    IDate<Egyptian13Date>,
-    IUnsafeFactory<Egyptian13Date>,
-    ISubtractionOperators<Egyptian13Date, Egyptian13Date, int>
+public readonly partial struct ZoroastrianDate :
+    IDate<ZoroastrianDate>,
+    IUnsafeFactory<ZoroastrianDate>,
+    ISubtractionOperators<ZoroastrianDate, ZoroastrianDate, int>
 { }
 
-public partial struct Egyptian13Date // Preamble
+public partial struct ZoroastrianDate // Preamble
 {
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
-    /// for the epoch <see cref="DayZero.Egyptian"/>.
-    /// <para>This field is a constant equal to -272_788.</para></summary>
-    internal const int EpochDaysSinceZero = -272_788;
+    /// for the epoch <see cref="DayZero.Zoroastrian"/>.
+    /// <para>This field is a constant equal to 230_637.</para></summary>
+    internal const int EpochDaysSinceZero = 230_637;
 
     /// <summary>Represents the maximum value of <see cref="_daysSinceEpoch"/>.
     /// <para>This field is a constant equal to 3_649_634.</para></summary>
@@ -167,72 +167,72 @@ public partial struct Egyptian13Date // Preamble
 
     /// <summary>
     /// Represents the count of consecutive days since the epoch
-    /// <see cref="DayZero.Egyptian"/>.
+    /// <see cref="DayZero.Zoroastrian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxDaysSinceEpoch"/>.
     /// </para>
     /// </summary>
     private readonly int _daysSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Date"/> struct
+    /// Initializes a new instance of the <see cref="ZoroastrianDate"/> struct
     /// to the specified date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid date or <paramref name="year"/> is outside the range
     /// of supported years.</exception>
-    public Egyptian13Date(int year, int month, int day)
+    public ZoroastrianDate(int year, int month, int day)
     {
-        var chr = Egyptian13Calendar.Instance;
+        var chr = ZoroastrianCalendar.Instance;
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Date"/> struct
+    /// Initializes a new instance of the <see cref="ZoroastrianDate"/> struct
     /// to the specified ordinal date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid ordinal date or <paramref name="year"/> is outside
     /// the range of supported years.</exception>
-    public Egyptian13Date(int year, int dayOfYear)
+    public ZoroastrianDate(int year, int dayOfYear)
     {
-        var chr = Egyptian13Calendar.Instance;
+        var chr = ZoroastrianCalendar.Instance;
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Date"/> struct.
+    /// Initializes a new instance of the <see cref="ZoroastrianDate"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    private Egyptian13Date(int daysSinceEpoch)
+    private ZoroastrianDate(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="Egyptian13Date"/>.
+    /// Gets the smallest possible value of <see cref="ZoroastrianDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported date.</returns>
     //
-    // MinValue = new(0) = new() = default(Egyptian13Date)
-    public static Egyptian13Date MinValue { get; }
+    // MinValue = new(0) = new() = default(ZoroastrianDate)
+    public static ZoroastrianDate MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="Egyptian13Date"/>.
+    /// Gets the largest possible value of <see cref="ZoroastrianDate"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported date.</returns>
-    public static Egyptian13Date MaxValue { get; } = new(MaxDaysSinceEpoch);
+    public static ZoroastrianDate MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Egyptian13Calendar Calendar => Egyptian13Calendar.Instance;
+    public static ZoroastrianCalendar Calendar => ZoroastrianCalendar.Instance;
 
     static Calendar IDate.Calendar => Calendar;
 
@@ -328,7 +328,7 @@ public partial struct Egyptian13Date // Preamble
     public override string ToString()
     {
         Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Egyptian13Calendar.DisplayName})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({ZoroastrianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -340,49 +340,49 @@ public partial struct Egyptian13Date // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct Egyptian13Date // Factories
+public partial struct ZoroastrianDate // Factories
 {
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Date Create(int year, int month, int day) => new(year, month, day);
+    public static ZoroastrianDate Create(int year, int month, int day) => new(year, month, day);
 
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Date Create(int year, int dayOfYear) => new(year, dayOfYear);
+    public static ZoroastrianDate Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="Egyptian13Date"/>
+    /// Attempts to create a new instance of the <see cref="ZoroastrianDate"/>
     /// struct from the specified date components.
     /// </summary>
     [Pure]
-    public static Egyptian13Date? TryCreate(int year, int month, int day)
+    public static ZoroastrianDate? TryCreate(int year, int month, int day)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
 
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="Egyptian13Date"/>
+    /// Attempts to create a new instance of the <see cref="ZoroastrianDate"/>
     /// struct from the specified ordinal components.
     /// </summary>
     [Pure]
-    public static Egyptian13Date? TryCreate(int year, int dayOfYear)
+    public static ZoroastrianDate? TryCreate(int year, int dayOfYear)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
 
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
-    // Explicit implementation: Egyptian13Date being a value type, better
+    // Explicit implementation: ZoroastrianDate being a value type, better
     // to use the others TryCreate().
 
     [Pure]
-    static bool IDate<Egyptian13Date>.TryCreate(int year, int month, int day, out Egyptian13Date result)
+    static bool IDate<ZoroastrianDate>.TryCreate(int year, int month, int day, out ZoroastrianDate result)
     {
         var dateValue = TryCreate(year, month, day);
         result = dateValue ?? default;
@@ -390,7 +390,7 @@ public partial struct Egyptian13Date // Factories
     }
 
     [Pure]
-    static bool IDate<Egyptian13Date>.TryCreate(int year, int dayOfYear, out Egyptian13Date result)
+    static bool IDate<ZoroastrianDate>.TryCreate(int year, int dayOfYear, out ZoroastrianDate result)
     {
         var dateValue = TryCreate(year, dayOfYear);
         result = dateValue ?? default;
@@ -401,42 +401,42 @@ public partial struct Egyptian13Date // Factories
     // lookup to the property Calendar.
 
     /// <summary>
-    /// Creates a new instance of the <see cref="Egyptian13Date"/> struct
+    /// Creates a new instance of the <see cref="ZoroastrianDate"/> struct
     /// from the specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static Egyptian13Date UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
+    internal static ZoroastrianDate UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
-    static Egyptian13Date IUnsafeFactory<Egyptian13Date>.UnsafeCreate(int daysSinceEpoch) =>
+    static ZoroastrianDate IUnsafeFactory<ZoroastrianDate>.UnsafeCreate(int daysSinceEpoch) =>
         UnsafeCreate(daysSinceEpoch);
 }
 
-public partial struct Egyptian13Date // Conversions
+public partial struct ZoroastrianDate // Conversions
 {
     /// <summary>
-    /// Defines an implicit conversion of a <see cref="Egyptian13Date"/> value
+    /// Defines an implicit conversion of a <see cref="ZoroastrianDate"/> value
     /// to a <see cref="Calendrie.DayNumber"/> value.
     /// <para>See also <seealso cref="DayNumber"/>.</para>
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
-    public static implicit operator DayNumber(Egyptian13Date date) => date.DayNumber;
+    public static implicit operator DayNumber(ZoroastrianDate date) => date.DayNumber;
 
     /// <summary>
-    /// Defines an explicit conversion of a <see cref="Egyptian13Date"/> value
+    /// Defines an explicit conversion of a <see cref="ZoroastrianDate"/> value
     /// to a <see cref="GregorianDate"/> value.
     /// <para>The conversion always succeeds.</para>
     /// </summary>
-    public static explicit operator GregorianDate(Egyptian13Date date) =>
+    public static explicit operator GregorianDate(ZoroastrianDate date) =>
         GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
 
     /// <summary>
-    /// Defines an explicit conversion of a <see cref="Egyptian13Date"/> value
+    /// Defines an explicit conversion of a <see cref="ZoroastrianDate"/> value
     /// to a <see cref="JulianDate"/> value.
     /// <para>The conversion always succeeds.</para>
     /// </summary>
-    public static explicit operator JulianDate(Egyptian13Date date) =>
+    public static explicit operator JulianDate(ZoroastrianDate date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
 
     // Why FromAbsoluteDate() rather than FromDayNumber()? Usability.
@@ -445,22 +445,22 @@ public partial struct Egyptian13Date // Conversions
     // Calendrie.Systems to DayNumber.
 
     /// <summary>
-    /// Creates a new instance of the <see cref="Egyptian13Date"/> struct
+    /// Creates a new instance of the <see cref="ZoroastrianDate"/> struct
     /// from the specified absolute value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>
     [Pure]
-    public static Egyptian13Date FromAbsoluteDate(DayNumber dayNumber)
+    public static ZoroastrianDate FromAbsoluteDate(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
         // NB: now that we have validated the day number, we know for sure that
         // the subtraction won't overflow.
-        return new Egyptian13Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+        return new ZoroastrianDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
     [Pure]
-    static Egyptian13Date IAbsoluteDate<Egyptian13Date>.FromDayNumber(DayNumber dayNumber) =>
+    static ZoroastrianDate IAbsoluteDate<ZoroastrianDate>.FromDayNumber(DayNumber dayNumber) =>
         FromAbsoluteDate(dayNumber);
 
     /// <summary>
@@ -478,7 +478,7 @@ public partial struct Egyptian13Date // Conversions
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
-public partial struct Egyptian13Date // Counting
+public partial struct ZoroastrianDate // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -497,11 +497,11 @@ public partial struct Egyptian13Date // Counting
     public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
-public partial struct Egyptian13Date // Adjustments
+public partial struct ZoroastrianDate // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date WithYear(int newYear)
+    public ZoroastrianDate WithYear(int newYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -513,12 +513,12 @@ public partial struct Egyptian13Date // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date WithMonth(int newMonth)
+    public ZoroastrianDate WithMonth(int newMonth)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -529,12 +529,12 @@ public partial struct Egyptian13Date // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date WithDay(int newDay)
+    public ZoroastrianDate WithDay(int newDay)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -545,12 +545,12 @@ public partial struct Egyptian13Date // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date WithDayOfYear(int newDayOfYear)
+    public ZoroastrianDate WithDayOfYear(int newDayOfYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -561,27 +561,27 @@ public partial struct Egyptian13Date // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 }
 
-public partial struct Egyptian13Date // Find a close by day of the week
+public partial struct ZoroastrianDate // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date Previous(DayOfWeek dayOfWeek)
+    public ZoroastrianDate Previous(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date PreviousOrSame(DayOfWeek dayOfWeek)
+    public ZoroastrianDate PreviousOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -589,22 +589,22 @@ public partial struct Egyptian13Date // Find a close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date Nearest(DayOfWeek dayOfWeek)
+    public ZoroastrianDate Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date NextOrSame(DayOfWeek dayOfWeek)
+    public ZoroastrianDate NextOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -612,103 +612,103 @@ public partial struct Egyptian13Date // Find a close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Date Next(DayOfWeek dayOfWeek)
+    public ZoroastrianDate Next(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 }
 
-public partial struct Egyptian13Date // IEquatable
+public partial struct ZoroastrianDate // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(Egyptian13Date left, Egyptian13Date right) =>
+    public static bool operator ==(ZoroastrianDate left, ZoroastrianDate right) =>
         left._daysSinceEpoch == right._daysSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(Egyptian13Date left, Egyptian13Date right) =>
+    public static bool operator !=(ZoroastrianDate left, ZoroastrianDate right) =>
         left._daysSinceEpoch != right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(Egyptian13Date other) => _daysSinceEpoch == other._daysSinceEpoch;
+    public bool Equals(ZoroastrianDate other) => _daysSinceEpoch == other._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is Egyptian13Date date && Equals(date);
+        obj is ZoroastrianDate date && Equals(date);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _daysSinceEpoch;
 }
 
-public partial struct Egyptian13Date // IComparable
+public partial struct ZoroastrianDate // IComparable
 {
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(Egyptian13Date left, Egyptian13Date right) =>
+    public static bool operator <(ZoroastrianDate left, ZoroastrianDate right) =>
         left._daysSinceEpoch < right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(Egyptian13Date left, Egyptian13Date right) =>
+    public static bool operator <=(ZoroastrianDate left, ZoroastrianDate right) =>
         left._daysSinceEpoch <= right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(Egyptian13Date left, Egyptian13Date right) =>
+    public static bool operator >(ZoroastrianDate left, ZoroastrianDate right) =>
         left._daysSinceEpoch > right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(Egyptian13Date left, Egyptian13Date right) =>
+    public static bool operator >=(ZoroastrianDate left, ZoroastrianDate right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Date Min(Egyptian13Date x, Egyptian13Date y) => x < y ? x : y;
+    public static ZoroastrianDate Min(ZoroastrianDate x, ZoroastrianDate y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Date Max(Egyptian13Date x, Egyptian13Date y) => x > y ? x : y;
+    public static ZoroastrianDate Max(ZoroastrianDate x, ZoroastrianDate y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(Egyptian13Date other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
+    public int CompareTo(ZoroastrianDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is Egyptian13Date date ? CompareTo(date)
-        : ThrowHelpers.ThrowNonComparable(typeof(Egyptian13Date), obj);
+        : obj is ZoroastrianDate date ? CompareTo(date)
+        : ThrowHelpers.ThrowNonComparable(typeof(ZoroastrianDate), obj);
 }
 
-public partial struct Egyptian13Date // Standard math ops
+public partial struct ZoroastrianDate // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
-    public static int operator -(Egyptian13Date left, Egyptian13Date right) => left.CountDaysSince(right);
+    public static int operator -(ZoroastrianDate left, ZoroastrianDate right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
@@ -717,7 +717,7 @@ public partial struct Egyptian13Date // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static Egyptian13Date operator +(Egyptian13Date value, int days) => value.PlusDays(days);
+    public static ZoroastrianDate operator +(ZoroastrianDate value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -726,7 +726,7 @@ public partial struct Egyptian13Date // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static Egyptian13Date operator -(Egyptian13Date value, int days) => value.PlusDays(-days);
+    public static ZoroastrianDate operator -(ZoroastrianDate value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -734,7 +734,7 @@ public partial struct Egyptian13Date // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
-    public static Egyptian13Date operator ++(Egyptian13Date value) => value.NextDay();
+    public static ZoroastrianDate operator ++(ZoroastrianDate value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
@@ -742,14 +742,14 @@ public partial struct Egyptian13Date // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
-    public static Egyptian13Date operator --(Egyptian13Date value) => value.PreviousDay();
+    public static ZoroastrianDate operator --(ZoroastrianDate value) => value.PreviousDay();
 
     /// <summary>
     /// Counts the number of whole days from <paramref name="other"/> to this
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountDaysSince(Egyptian13Date other) =>
+    public int CountDaysSince(ZoroastrianDate other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxDaysSinceEpoch.
         _daysSinceEpoch - other._daysSinceEpoch;
@@ -761,11 +761,11 @@ public partial struct Egyptian13Date // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public Egyptian13Date PlusDays(int days)
+    public ZoroastrianDate PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(daysSinceEpoch);
+        return new ZoroastrianDate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -774,10 +774,10 @@ public partial struct Egyptian13Date // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [Pure]
-    public Egyptian13Date NextDay()
+    public ZoroastrianDate NextDay()
     {
         if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(_daysSinceEpoch + 1);
+        return new ZoroastrianDate(_daysSinceEpoch + 1);
     }
 
     /// <summary>
@@ -786,10 +786,10 @@ public partial struct Egyptian13Date // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [Pure]
-    public Egyptian13Date PreviousDay()
+    public ZoroastrianDate PreviousDay()
     {
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
-        return new Egyptian13Date(_daysSinceEpoch - 1);
+        return new ZoroastrianDate(_daysSinceEpoch - 1);
     }
 
     //
@@ -801,7 +801,7 @@ public partial struct Egyptian13Date // Standard math ops
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(Egyptian13Date other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
+    public int CountWeeksSince(ZoroastrianDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -810,24 +810,24 @@ public partial struct Egyptian13Date // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public Egyptian13Date PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
+    public ZoroastrianDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public Egyptian13Date NextWeek() => PlusDays(DaysPerWeek);
+    public ZoroastrianDate NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public Egyptian13Date PreviousWeek() => PlusDays(-DaysPerWeek);
+    public ZoroastrianDate PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
-public partial struct Egyptian13Date // Non-standard math ops
+public partial struct ZoroastrianDate // Non-standard math ops
 {
     /// <summary>
     /// Adds the specified number of years to the year part of this date instance,
@@ -839,7 +839,7 @@ public partial struct Egyptian13Date // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public Egyptian13Date PlusYears(int years)
+    public ZoroastrianDate PlusYears(int years)
     {
         var chr = Calendar;
         chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -847,7 +847,7 @@ public partial struct Egyptian13Date // Non-standard math ops
     }
 
     [Pure]
-    Egyptian13Date IDateBase<Egyptian13Date>.PlusYears(int years, out int roundoff)
+    ZoroastrianDate IDateBase<ZoroastrianDate>.PlusYears(int years, out int roundoff)
     {
         roundoff = 0;
         return PlusYears(years);
@@ -863,7 +863,7 @@ public partial struct Egyptian13Date // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public Egyptian13Date PlusMonths(int months)
+    public ZoroastrianDate PlusMonths(int months)
     {
         var chr = Calendar;
         chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -871,7 +871,7 @@ public partial struct Egyptian13Date // Non-standard math ops
     }
 
     [Pure]
-    Egyptian13Date IDateBase<Egyptian13Date>.PlusMonths(int months, out int roundoff)
+    ZoroastrianDate IDateBase<ZoroastrianDate>.PlusMonths(int months, out int roundoff)
     {
         roundoff = 0;
         return PlusMonths(months);
@@ -884,7 +884,7 @@ public partial struct Egyptian13Date // Non-standard math ops
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(Egyptian13Date other)
+    public int CountYearsSince(ZoroastrianDate other)
     {
         var chr = Calendar;
         chr.Schema.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
@@ -914,7 +914,7 @@ public partial struct Egyptian13Date // Non-standard math ops
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountMonthsSince(Egyptian13Date other)
+    public int CountMonthsSince(ZoroastrianDate other)
     {
         var chr = Calendar;
         var sch = chr.Schema;
@@ -943,25 +943,25 @@ public partial struct Egyptian13Date // Non-standard math ops
 
 #endregion
 
-#region Egyptian13Month
+#region ZoroastrianMonth
 
 /// <summary>
-/// Represents the Egyptian month.
+/// Represents the Zoroastrian month.
 /// <para><i>All</i> months within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="Egyptian13Month"/> is an immutable struct.</para>
+/// <para><see cref="ZoroastrianMonth"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct Egyptian13Month :
-    IMonth<Egyptian13Month>,
-    IUnsafeFactory<Egyptian13Month>,
+public readonly partial struct ZoroastrianMonth :
+    IMonth<ZoroastrianMonth>,
+    IUnsafeFactory<ZoroastrianMonth>,
     // A month viewed as a finite sequence of days
-    IDaySegment<Egyptian13Date>,
-    ISetMembership<Egyptian13Date>,
+    IDaySegment<ZoroastrianDate>,
+    ISetMembership<ZoroastrianDate>,
     // Arithmetic
-    ISubtractionOperators<Egyptian13Month, Egyptian13Month, int>
+    ISubtractionOperators<ZoroastrianMonth, ZoroastrianMonth, int>
 { }
 
-public partial struct Egyptian13Month // Preamble
+public partial struct ZoroastrianMonth // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 129_986.</para></summary>
@@ -969,23 +969,23 @@ public partial struct Egyptian13Month // Preamble
 
     /// <summary>
     /// Represents the count of consecutive months since the epoch
-    /// <see cref="DayZero.Egyptian"/>.
+    /// <see cref="DayZero.Zoroastrian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxMonthsSinceEpoch"/>.
     /// </para>
     /// </summary>
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Month"/> struct
+    /// Initializes a new instance of the <see cref="ZoroastrianMonth"/> struct
     /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
     /// range of supported years.</exception>
-    public Egyptian13Month(int year, int month)
+    public ZoroastrianMonth(int year, int month)
     {
         // The calendar being regular, no need to use the Scope:
-        // > Egyptian13Calendar.Instance.Scope.ValidateYearMonth(year, month);
+        // > ZoroastrianCalendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
         if (month < 1 || month > Egyptian13Schema.MonthsPerYear)
@@ -995,45 +995,45 @@ public partial struct Egyptian13Month // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Month"/> struct
-    /// from the specified <see cref="Egyptian13Date"/> value.
+    /// Initializes a new instance of the <see cref="ZoroastrianMonth"/> struct
+    /// from the specified <see cref="ZoroastrianDate"/> value.
     /// </summary>
-    public Egyptian13Month(Egyptian13Date date)
+    public ZoroastrianMonth(ZoroastrianDate date)
     {
         var (y, m, _) = date;
         _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Month"/> struct.
+    /// Initializes a new instance of the <see cref="ZoroastrianMonth"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    private Egyptian13Month(int monthsSinceEpoch)
+    private ZoroastrianMonth(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="Egyptian13Month"/>.
+    /// Gets the smallest possible value of <see cref="ZoroastrianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported month.</returns>
     //
-    // MinValue = new(0) = new() = default(Egyptian13Month)
-    public static Egyptian13Month MinValue { get; }
+    // MinValue = new(0) = new() = default(ZoroastrianMonth)
+    public static ZoroastrianMonth MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="Egyptian13Month"/>.
+    /// Gets the largest possible value of <see cref="ZoroastrianMonth"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported month.</returns>
-    public static Egyptian13Month MaxValue { get; } = new(MaxMonthsSinceEpoch);
+    public static ZoroastrianMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Egyptian13Calendar Calendar => Egyptian13Calendar.Instance;
+    public static ZoroastrianCalendar Calendar => ZoroastrianCalendar.Instance;
 
     static Calendar IMonth.Calendar => Calendar;
 
@@ -1091,7 +1091,7 @@ public partial struct Egyptian13Month // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Egyptian13Calendar.DisplayName})");
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({ZoroastrianCalendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -1104,18 +1104,18 @@ public partial struct Egyptian13Month // Preamble
     }
 }
 
-public partial struct Egyptian13Month // Factories
+public partial struct ZoroastrianMonth // Factories
 {
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Month Create(int year, int month) => new(year, month);
+    public static ZoroastrianMonth Create(int year, int month) => new(year, month);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="Egyptian13Month"/>
+    /// Attempts to create a new instance of the <see cref="ZoroastrianMonth"/>
     /// struct from the specified month components.
     /// </summary>
     [Pure]
-    public static Egyptian13Month? TryCreate(int year, int month)
+    public static ZoroastrianMonth? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear
@@ -1127,10 +1127,10 @@ public partial struct Egyptian13Month // Factories
         return UnsafeCreate(year, month);
     }
 
-    // Explicit implementation: Egyptian13Month being a value type, better
+    // Explicit implementation: ZoroastrianMonth being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IMonth<Egyptian13Month>.TryCreate(int year, int month, out Egyptian13Month result)
+    static bool IMonth<ZoroastrianMonth>.TryCreate(int year, int month, out ZoroastrianMonth result)
     {
         var monthValue = TryCreate(year, month);
         result = monthValue ?? default;
@@ -1138,27 +1138,27 @@ public partial struct Egyptian13Month // Factories
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="Egyptian13Month"/> struct
+    /// Creates a new instance of the <see cref="ZoroastrianMonth"/> struct
     /// from the specified month components.
     /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static Egyptian13Month UnsafeCreate(int year, int month)
+    internal static ZoroastrianMonth UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new Egyptian13Month(monthsSinceEpoch);
+        return new ZoroastrianMonth(monthsSinceEpoch);
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="Egyptian13Month"/> struct
+    /// Creates a new instance of the <see cref="ZoroastrianMonth"/> struct
     /// from the specified count of consecutive months since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static Egyptian13Month UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
+    internal static ZoroastrianMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
 
     [Pure]
-    static Egyptian13Month IUnsafeFactory<Egyptian13Month>.UnsafeCreate(int monthsSinceEpoch) =>
+    static ZoroastrianMonth IUnsafeFactory<ZoroastrianMonth>.UnsafeCreate(int monthsSinceEpoch) =>
         UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1167,7 +1167,7 @@ public partial struct Egyptian13Month // Factories
         Egyptian13Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct Egyptian13Month // Counting
+public partial struct ZoroastrianMonth // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -1194,11 +1194,11 @@ public partial struct Egyptian13Month // Counting
     }
 }
 
-public partial struct Egyptian13Month // Adjustments
+public partial struct ZoroastrianMonth // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Month WithYear(int newYear)
+    public ZoroastrianMonth WithYear(int newYear)
     {
         int m = Month;
 
@@ -1214,7 +1214,7 @@ public partial struct Egyptian13Month // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public Egyptian13Month WithMonth(int newMonth)
+    public ZoroastrianMonth WithMonth(int newMonth)
     {
         int y = Year;
 
@@ -1228,25 +1228,25 @@ public partial struct Egyptian13Month // Adjustments
     }
 }
 
-public partial struct Egyptian13Month // IDaySegment
+public partial struct ZoroastrianMonth // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current month instance.
     /// </summary>
-    public Egyptian13Date MinDay
+    public ZoroastrianDate MinDay
     {
         get
         {
             var (y, m) = this;
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+            return ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
     /// <summary>
     /// Gets the the end of the current month instance.
     /// </summary>
-    public Egyptian13Date MaxDay
+    public ZoroastrianDate MaxDay
     {
         get
         {
@@ -1254,7 +1254,7 @@ public partial struct Egyptian13Month // IDaySegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-            return Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+            return ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1270,23 +1270,23 @@ public partial struct Egyptian13Month // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Segment<Egyptian13Date> ToRange()
+    public Segment<ZoroastrianDate> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Segment.StartingAt(Egyptian13Date.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(ZoroastrianDate.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
-    Segment<Egyptian13Date> IDaySegment<Egyptian13Date>.ToDayRange() => ToRange();
+    Segment<ZoroastrianDate> IDaySegment<ZoroastrianDate>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
     /// </summary>
     [Pure]
-    public IEnumerable<Egyptian13Date> ToEnumerable()
+    public IEnumerable<ZoroastrianDate> ToEnumerable()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1295,18 +1295,18 @@ public partial struct Egyptian13Month // IDaySegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+               select ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     [Pure]
-    IEnumerable<Egyptian13Date> IDaySegment<Egyptian13Date>.EnumerateDays() => ToEnumerable();
+    IEnumerable<ZoroastrianDate> IDaySegment<ZoroastrianDate>.EnumerateDays() => ToEnumerable();
 
     /// <summary>
     /// Returns <see langword="true"/> if the current month instance contains
     /// the specified date; otherwise returns <see langword="false"/>.
     /// </summary>
     [Pure]
-    public bool Contains(Egyptian13Date date)
+    public bool Contains(ZoroastrianDate date)
     {
         var (y, m) = this;
         Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
@@ -1320,97 +1320,97 @@ public partial struct Egyptian13Month // IDaySegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public Egyptian13Date GetDayOfMonth(int dayOfMonth)
+    public ZoroastrianDate GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+        return ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 
-public partial struct Egyptian13Month // IEquatable
+public partial struct ZoroastrianMonth // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(Egyptian13Month left, Egyptian13Month right) =>
+    public static bool operator ==(ZoroastrianMonth left, ZoroastrianMonth right) =>
         left._monthsSinceEpoch == right._monthsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(Egyptian13Month left, Egyptian13Month right) =>
+    public static bool operator !=(ZoroastrianMonth left, ZoroastrianMonth right) =>
         left._monthsSinceEpoch != right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(Egyptian13Month other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+    public bool Equals(ZoroastrianMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is Egyptian13Month month && Equals(month);
+        obj is ZoroastrianMonth month && Equals(month);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _monthsSinceEpoch;
 }
 
-public partial struct Egyptian13Month // IComparable
+public partial struct ZoroastrianMonth // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(Egyptian13Month left, Egyptian13Month right) =>
+    public static bool operator <(ZoroastrianMonth left, ZoroastrianMonth right) =>
         left._monthsSinceEpoch < right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(Egyptian13Month left, Egyptian13Month right) =>
+    public static bool operator <=(ZoroastrianMonth left, ZoroastrianMonth right) =>
         left._monthsSinceEpoch <= right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(Egyptian13Month left, Egyptian13Month right) =>
+    public static bool operator >(ZoroastrianMonth left, ZoroastrianMonth right) =>
         left._monthsSinceEpoch > right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(Egyptian13Month left, Egyptian13Month right) =>
+    public static bool operator >=(ZoroastrianMonth left, ZoroastrianMonth right) =>
         left._monthsSinceEpoch >= right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Month Min(Egyptian13Month x, Egyptian13Month y) => x < y ? x : y;
+    public static ZoroastrianMonth Min(ZoroastrianMonth x, ZoroastrianMonth y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Month Max(Egyptian13Month x, Egyptian13Month y) => x > y ? x : y;
+    public static ZoroastrianMonth Max(ZoroastrianMonth x, ZoroastrianMonth y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(Egyptian13Month other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+    public int CompareTo(ZoroastrianMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is Egyptian13Month month ? CompareTo(month)
-        : ThrowHelpers.ThrowNonComparable(typeof(Egyptian13Month), obj);
+        : obj is ZoroastrianMonth month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(ZoroastrianMonth), obj);
 }
 
-public partial struct Egyptian13Month // Standard math ops
+public partial struct ZoroastrianMonth // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified months and returns the number of months
     /// between them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
-    public static int operator -(Egyptian13Month left, Egyptian13Month right) => left.CountMonthsSince(right);
+    public static int operator -(ZoroastrianMonth left, ZoroastrianMonth right) => left.CountMonthsSince(right);
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.
@@ -1419,7 +1419,7 @@ public partial struct Egyptian13Month // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static Egyptian13Month operator +(Egyptian13Month value, int months) => value.PlusMonths(months);
+    public static ZoroastrianMonth operator +(ZoroastrianMonth value, int months) => value.PlusMonths(months);
 
     /// <summary>
     /// Subtracts a number of months to the specified month, yielding a new month.
@@ -1428,7 +1428,7 @@ public partial struct Egyptian13Month // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static Egyptian13Month operator -(Egyptian13Month value, int months) => value.PlusMonths(-months);
+    public static ZoroastrianMonth operator -(ZoroastrianMonth value, int months) => value.PlusMonths(-months);
 
     /// <summary>
     /// Adds one month to the specified month, yielding a new month.
@@ -1436,7 +1436,7 @@ public partial struct Egyptian13Month // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
-    public static Egyptian13Month operator ++(Egyptian13Month value) => value.NextMonth();
+    public static ZoroastrianMonth operator ++(ZoroastrianMonth value) => value.NextMonth();
 
     /// <summary>
     /// Subtracts one month to the specified month, yielding a new month.
@@ -1444,13 +1444,13 @@ public partial struct Egyptian13Month // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
-    public static Egyptian13Month operator --(Egyptian13Month value) => value.PreviousMonth();
+    public static ZoroastrianMonth operator --(ZoroastrianMonth value) => value.PreviousMonth();
 
     /// <summary>
     /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountMonthsSince(Egyptian13Month other) =>
+    public int CountMonthsSince(ZoroastrianMonth other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceEpoch.
         _monthsSinceEpoch - other._monthsSinceEpoch;
@@ -1462,12 +1462,12 @@ public partial struct Egyptian13Month // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    public Egyptian13Month PlusMonths(int months)
+    public ZoroastrianMonth PlusMonths(int months)
     {
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new Egyptian13Month(monthsSinceEpoch);
+        return new ZoroastrianMonth(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1476,10 +1476,10 @@ public partial struct Egyptian13Month // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [Pure]
-    public Egyptian13Month NextMonth()
+    public ZoroastrianMonth NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new Egyptian13Month(_monthsSinceEpoch + 1);
+        return new ZoroastrianMonth(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1488,14 +1488,14 @@ public partial struct Egyptian13Month // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [Pure]
-    public Egyptian13Month PreviousMonth()
+    public ZoroastrianMonth PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new Egyptian13Month(_monthsSinceEpoch - 1);
+        return new ZoroastrianMonth(_monthsSinceEpoch - 1);
     }
 }
 
-public partial struct Egyptian13Month // Non-standard math ops
+public partial struct ZoroastrianMonth // Non-standard math ops
 {
     /// <summary>
     /// Adds the specified number of years to the year part of this month
@@ -1506,7 +1506,7 @@ public partial struct Egyptian13Month // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
     [Pure]
-    public Egyptian13Month PlusYears(int years)
+    public ZoroastrianMonth PlusYears(int years)
     {
         var (y, m) = this;
         // Exact addition of years to a calendar year.
@@ -1518,7 +1518,7 @@ public partial struct Egyptian13Month // Non-standard math ops
     }
 
     [Pure]
-    Egyptian13Month IMonthBase<Egyptian13Month>.PlusYears(int years, out int roundoff)
+    ZoroastrianMonth IMonthBase<ZoroastrianMonth>.PlusYears(int years, out int roundoff)
     {
         roundoff = 0;
         return PlusYears(years);
@@ -1529,7 +1529,7 @@ public partial struct Egyptian13Month // Non-standard math ops
     /// month instance.
     /// </summary>
     [Pure]
-    public int CountYearsSince(Egyptian13Month other)
+    public int CountYearsSince(ZoroastrianMonth other)
     {
         // Exact difference between two calendar years.
         int years = Year - other.Year;
@@ -1550,27 +1550,27 @@ public partial struct Egyptian13Month // Non-standard math ops
 
 #endregion
 
-#region Egyptian13Year
+#region ZoroastrianYear
 
 /// <summary>
-/// Represents the Egyptian13 year.
+/// Represents the Zoroastrian year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="Egyptian13Year"/> is an immutable struct.</para>
+/// <para><see cref="ZoroastrianYear"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct Egyptian13Year :
-    IYear<Egyptian13Year>,
+public readonly partial struct ZoroastrianYear :
+    IYear<ZoroastrianYear>,
     // A year viewed as a finite sequence of months
-    IMonthSegment<Egyptian13Month>,
-    ISetMembership<Egyptian13Month>,
+    IMonthSegment<ZoroastrianMonth>,
+    ISetMembership<ZoroastrianMonth>,
     // A year viewed as a finite sequence of days
-    IDaySegment<Egyptian13Date>,
-    ISetMembership<Egyptian13Date>,
+    IDaySegment<ZoroastrianDate>,
+    ISetMembership<ZoroastrianDate>,
     // Arithmetic
-    ISubtractionOperators<Egyptian13Year, Egyptian13Year, int>
+    ISubtractionOperators<ZoroastrianYear, ZoroastrianYear, int>
 { }
 
-public partial struct Egyptian13Year // Preamble
+public partial struct ZoroastrianYear // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to 9998.</para></summary>
@@ -1578,19 +1578,19 @@ public partial struct Egyptian13Year // Preamble
 
     /// <summary>
     /// Represents the count of consecutive years since the epoch
-    /// <see cref="DayZero.Egyptian"/>.
+    /// <see cref="DayZero.Zoroastrian"/>.
     /// <para>This field is in the range from 0 to <see cref="MaxYearsSinceEpoch"/>.
     /// </para>
     /// </summary>
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Year"/> struct
+    /// Initializes a new instance of the <see cref="ZoroastrianYear"/> struct
     /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
-    public Egyptian13Year(int year)
+    public ZoroastrianYear(int year)
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -1599,53 +1599,53 @@ public partial struct Egyptian13Year // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Year"/> struct
-    /// from the specified <see cref="Egyptian13Month"/> value.
+    /// Initializes a new instance of the <see cref="ZoroastrianYear"/> struct
+    /// from the specified <see cref="ZoroastrianMonth"/> value.
     /// </summary>
-    public Egyptian13Year(Egyptian13Month month)
+    public ZoroastrianYear(ZoroastrianMonth month)
     {
         _yearsSinceEpoch = (ushort)(month.Year - 1);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Year"/> struct
-    /// from the specified <see cref="Egyptian13Date"/> value.
+    /// Initializes a new instance of the <see cref="ZoroastrianYear"/> struct
+    /// from the specified <see cref="ZoroastrianDate"/> value.
     /// </summary>
-    public Egyptian13Year(Egyptian13Date date)
+    public ZoroastrianYear(ZoroastrianDate date)
     {
         _yearsSinceEpoch = (ushort)(date.Year - 1);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Egyptian13Year"/> struct.
+    /// Initializes a new instance of the <see cref="ZoroastrianYear"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private Egyptian13Year(ushort yearsSinceEpoch)
+    private ZoroastrianYear(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="Egyptian13Year"/>.
+    /// Gets the smallest possible value of <see cref="ZoroastrianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported year.</returns>
     //
-    // MinValue = new(1) = new() = default(Egyptian13Year)
-    public static Egyptian13Year MinValue { get; }
+    // MinValue = new(1) = new() = default(ZoroastrianYear)
+    public static ZoroastrianYear MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="Egyptian13Year"/>.
+    /// Gets the largest possible value of <see cref="ZoroastrianYear"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported year.</returns>
-    public static Egyptian13Year MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+    public static ZoroastrianYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
     /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static Egyptian13Calendar Calendar => Egyptian13Calendar.Instance;
+    public static ZoroastrianCalendar Calendar => ZoroastrianCalendar.Instance;
 
     static Calendar IYear.Calendar => Calendar;
 
@@ -1689,30 +1689,30 @@ public partial struct Egyptian13Year // Preamble
     /// </summary>
     [Pure]
     public override string ToString() =>
-        FormattableString.Invariant($"{Year:D4} ({Egyptian13Calendar.DisplayName})");
+        FormattableString.Invariant($"{Year:D4} ({ZoroastrianCalendar.DisplayName})");
 }
 
-public partial struct Egyptian13Year // Factories
+public partial struct ZoroastrianYear // Factories
 {
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Year Create(int year) => new(year);
+    public static ZoroastrianYear Create(int year) => new(year);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="Egyptian13Year"/>
+    /// Attempts to create a new instance of the <see cref="ZoroastrianYear"/>
     /// struct from the specified year.
     /// </summary>
     [Pure]
-    public static Egyptian13Year? TryCreate(int year)
+    public static ZoroastrianYear? TryCreate(int year)
     {
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
         return ok ? UnsafeCreate(year) : null;
     }
 
-    // Explicit implementation: Egyptian13Year being a value type, better
+    // Explicit implementation: ZoroastrianYear being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IYear<Egyptian13Year>.TryCreate(int year, out Egyptian13Year result)
+    static bool IYear<ZoroastrianYear>.TryCreate(int year, out ZoroastrianYear result)
     {
         var yearValue = TryCreate(year);
         result = yearValue ?? default;
@@ -1720,45 +1720,45 @@ public partial struct Egyptian13Year // Factories
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="Egyptian13Year"/> struct
+    /// Creates a new instance of the <see cref="ZoroastrianYear"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Egyptian13Year UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static ZoroastrianYear UnsafeCreate(int year) => new((ushort)(year - 1));
 }
 
-public partial struct Egyptian13Year // IMonthSegment
+public partial struct ZoroastrianYear // IMonthSegment
 {
     /// <summary>
     /// Represents the total number of months in a year.
-    /// <para>This field is constant equal to 13.</para>
+    /// <para>This field is a constant equal to 13.</para>
     /// </summary>
     public const int MonthCount = Egyptian13Schema.MonthsPerYear;
 
     /// <inheritdoc />
-    public Egyptian13Month MinMonth => Egyptian13Month.UnsafeCreate(Year, 1);
+    public ZoroastrianMonth MinMonth => ZoroastrianMonth.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public Egyptian13Month MaxMonth => Egyptian13Month.UnsafeCreate(Year, MonthCount);
-
-    /// <inheritdoc />
-    [Pure]
-    int IMonthSegment<Egyptian13Month>.CountMonths() => MonthCount;
+    public ZoroastrianMonth MaxMonth => ZoroastrianMonth.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    public Segment<Egyptian13Month> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
+    int IMonthSegment<ZoroastrianMonth>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<Egyptian13Month> EnumerateMonths()
+    public Segment<ZoroastrianMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<ZoroastrianMonth> EnumerateMonths()
     {
-        int startOfYear = Egyptian13Month.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+        int startOfYear = ZoroastrianMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select Egyptian13Month.UnsafeCreate(monthsSinceEpoch);
+               select ZoroastrianMonth.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1766,7 +1766,7 @@ public partial struct Egyptian13Year // IMonthSegment
     /// the specified month; otherwise returns <see langword="false"/>.
     /// </summary>
     [Pure]
-    public bool Contains(Egyptian13Month month) => month.Year == Year;
+    public bool Contains(ZoroastrianMonth month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -1775,7 +1775,7 @@ public partial struct Egyptian13Year // IMonthSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public Egyptian13Month GetMonthOfYear(int month)
+    public ZoroastrianMonth GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
@@ -1783,65 +1783,65 @@ public partial struct Egyptian13Year // IMonthSegment
         if (month < 1 || month > Egyptian13Schema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
-        return Egyptian13Month.UnsafeCreate(Year, month);
+        return ZoroastrianMonth.UnsafeCreate(Year, month);
     }
 }
 
-public partial struct Egyptian13Year // IDaySegment
+public partial struct ZoroastrianYear // IDaySegment
 {
     /// <summary>
     /// Represents the total number of days in a year.
-    /// <para>This field is constant equal to 365.</para>
+    /// <para>This field is a constant equal to 365.</para>
     /// </summary>
     public const int DayCount = Egyptian13Schema.DaysPerYear;
 
     /// <summary>
     /// Gets the the start of the current year instance.
     /// </summary>
-    public Egyptian13Date MinDay
+    public ZoroastrianDate MinDay
     {
         get
         {
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+            return ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
     /// <summary>
     /// Gets the the end of the current year instance.
     /// </summary>
-    public Egyptian13Date MaxDay
+    public ZoroastrianDate MaxDay
     {
         get
         {
             var sch = Calendar.Schema;
             int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, DayCount);
-            return Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+            return ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
         }
     }
 
     [Pure]
-    int IDaySegment<Egyptian13Date>.CountDays() => DayCount;
+    int IDaySegment<ZoroastrianDate>.CountDays() => DayCount;
 
     /// <inheritdoc />
     [Pure]
-    public Segment<Egyptian13Date> ToDayRange()
+    public Segment<ZoroastrianDate> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
-        return Segment.StartingAt(Egyptian13Date.UnsafeCreate(startOfYear), DayCount);
+        return Segment.StartingAt(ZoroastrianDate.UnsafeCreate(startOfYear), DayCount);
     }
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<Egyptian13Date> EnumerateDays()
+    public IEnumerable<ZoroastrianDate> EnumerateDays()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, DayCount)
-               select Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+               select ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -1849,7 +1849,7 @@ public partial struct Egyptian13Year // IDaySegment
     /// the specified date; otherwise returns <see langword="false"/>.
     /// </summary>
     [Pure]
-    public bool Contains(Egyptian13Date date) => date.Year == Year;
+    public bool Contains(ZoroastrianDate date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -1857,98 +1857,98 @@ public partial struct Egyptian13Year // IDaySegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public Egyptian13Date GetDayOfYear(int dayOfYear)
+    public ZoroastrianDate GetDayOfYear(int dayOfYear)
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return Egyptian13Date.UnsafeCreate(daysSinceEpoch);
+        return ZoroastrianDate.UnsafeCreate(daysSinceEpoch);
     }
 }
 
-public partial struct Egyptian13Year // IEquatable
+public partial struct ZoroastrianYear // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(Egyptian13Year left, Egyptian13Year right) =>
+    public static bool operator ==(ZoroastrianYear left, ZoroastrianYear right) =>
         left._yearsSinceEpoch == right._yearsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(Egyptian13Year left, Egyptian13Year right) =>
+    public static bool operator !=(ZoroastrianYear left, ZoroastrianYear right) =>
         left._yearsSinceEpoch != right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(Egyptian13Year other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+    public bool Equals(ZoroastrianYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is Egyptian13Year year && Equals(year);
+        obj is ZoroastrianYear year && Equals(year);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _yearsSinceEpoch;
 }
 
-public partial struct Egyptian13Year // IComparable
+public partial struct ZoroastrianYear // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(Egyptian13Year left, Egyptian13Year right) =>
+    public static bool operator <(ZoroastrianYear left, ZoroastrianYear right) =>
         left._yearsSinceEpoch < right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(Egyptian13Year left, Egyptian13Year right) =>
+    public static bool operator <=(ZoroastrianYear left, ZoroastrianYear right) =>
         left._yearsSinceEpoch <= right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(Egyptian13Year left, Egyptian13Year right) =>
+    public static bool operator >(ZoroastrianYear left, ZoroastrianYear right) =>
         left._yearsSinceEpoch > right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(Egyptian13Year left, Egyptian13Year right) =>
+    public static bool operator >=(ZoroastrianYear left, ZoroastrianYear right) =>
         left._yearsSinceEpoch >= right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Year Min(Egyptian13Year x, Egyptian13Year y) => x < y ? x : y;
+    public static ZoroastrianYear Min(ZoroastrianYear x, ZoroastrianYear y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static Egyptian13Year Max(Egyptian13Year x, Egyptian13Year y) => x > y ? x : y;
+    public static ZoroastrianYear Max(ZoroastrianYear x, ZoroastrianYear y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(Egyptian13Year other) =>
+    public int CompareTo(ZoroastrianYear other) =>
         _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is Egyptian13Year year ? CompareTo(year)
-        : ThrowHelpers.ThrowNonComparable(typeof(Egyptian13Year), obj);
+        : obj is ZoroastrianYear year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(ZoroastrianYear), obj);
 }
 
-public partial struct Egyptian13Year // Math ops
+public partial struct ZoroastrianYear // Math ops
 {
     /// <summary>
     /// Subtracts the two specified years and returns the number of years between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
-    public static int operator -(Egyptian13Year left, Egyptian13Year right) => left.CountYearsSince(right);
+    public static int operator -(ZoroastrianYear left, ZoroastrianYear right) => left.CountYearsSince(right);
 
     /// <summary>
     /// Adds a number of years to the specified year, yielding a new year.
@@ -1956,7 +1956,7 @@ public partial struct Egyptian13Year // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static Egyptian13Year operator +(Egyptian13Year value, int years) => value.PlusYears(years);
+    public static ZoroastrianYear operator +(ZoroastrianYear value, int years) => value.PlusYears(years);
 
     /// <summary>
     /// Subtracts a number of years to the specified year, yielding a new year.
@@ -1964,7 +1964,7 @@ public partial struct Egyptian13Year // Math ops
     /// <exception cref="OverflowException">The operation would overflow the range
     /// of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static Egyptian13Year operator -(Egyptian13Year value, int years) => value.PlusYears(-years);
+    public static ZoroastrianYear operator -(ZoroastrianYear value, int years) => value.PlusYears(-years);
 
     /// <summary>
     /// Adds one year to the specified year, yielding a new year.
@@ -1972,7 +1972,7 @@ public partial struct Egyptian13Year // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
-    public static Egyptian13Year operator ++(Egyptian13Year value) => value.NextYear();
+    public static ZoroastrianYear operator ++(ZoroastrianYear value) => value.NextYear();
 
     /// <summary>
     /// Subtracts one year to the specified year, yielding a new year.
@@ -1980,13 +1980,13 @@ public partial struct Egyptian13Year // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
-    public static Egyptian13Year operator --(Egyptian13Year value) => value.PreviousYear();
+    public static ZoroastrianYear operator --(ZoroastrianYear value) => value.PreviousYear();
 
     /// <summary>
     /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
-    public int CountYearsSince(Egyptian13Year other) =>
+    public int CountYearsSince(ZoroastrianYear other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
         _yearsSinceEpoch - other._yearsSinceEpoch;
@@ -1998,11 +1998,11 @@ public partial struct Egyptian13Year // Math ops
     /// the capacity of <see cref="int"/> or the range of supported years.
     /// </exception>
     [Pure]
-    public Egyptian13Year PlusYears(int years)
+    public ZoroastrianYear PlusYears(int years)
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new Egyptian13Year((ushort)yearsSinceEpoch);
+        return new ZoroastrianYear((ushort)yearsSinceEpoch);
     }
 
     /// <summary>
@@ -2011,10 +2011,10 @@ public partial struct Egyptian13Year // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [Pure]
-    public Egyptian13Year NextYear()
+    public ZoroastrianYear NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new Egyptian13Year((ushort)(_yearsSinceEpoch + 1));
+        return new ZoroastrianYear((ushort)(_yearsSinceEpoch + 1));
     }
 
     /// <summary>
@@ -2023,10 +2023,10 @@ public partial struct Egyptian13Year // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [Pure]
-    public Egyptian13Year PreviousYear()
+    public ZoroastrianYear PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new Egyptian13Year((ushort)(_yearsSinceEpoch - 1));
+        return new ZoroastrianYear((ushort)(_yearsSinceEpoch - 1));
     }
 }
 

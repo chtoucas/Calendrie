@@ -16,7 +16,7 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-module Prelude =
+module Prelude12 =
     let private calendarDataSet = StandardFrenchRepublican12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
@@ -79,56 +79,56 @@ module Prelude13 =
     let monthInfoData = calendarDataSet.MonthInfoData
 
     [<Fact>]
-    let ``Value of FrenchRepublican13Calendar.Epoch.DaysZinceZero`` () =
-        FrenchRepublican13Calendar.Instance.Epoch.DaysSinceZero === 654_414
+    let ``Value of FrenchRepublicanCalendar.Epoch.DaysZinceZero`` () =
+        FrenchRepublicanCalendar.Instance.Epoch.DaysSinceZero === 654_414
 
     [<Fact>]
-    let ``default(FrenchRepublican13Date) is FrenchRepublican13Calendar.Epoch`` () =
-        Unchecked.defaultof<FrenchRepublican13Date>.DayNumber === FrenchRepublican13Calendar.Instance.Epoch
+    let ``default(FrenchRepublicanDate) is FrenchRepublicanCalendar.Epoch`` () =
+        Unchecked.defaultof<FrenchRepublicanDate>.DayNumber === FrenchRepublicanCalendar.Instance.Epoch
 
 #if DEBUG
     [<Fact>]
-    let ``Value of FrenchRepublican13Calendar.MinDaysSinceEpoch`` () =
-        FrenchRepublican13Calendar.Instance.MinDaysSinceEpoch === 0
+    let ``Value of FrenchRepublicanCalendar.MinDaysSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MinDaysSinceEpoch === 0
 
     [<Fact>]
-    let ``Value of FrenchRepublican13Calendar.MaxDaysSinceEpoch`` () =
-        FrenchRepublican13Calendar.Instance.MaxDaysSinceEpoch === 3_652_056
+    let ``Value of FrenchRepublicanCalendar.MaxDaysSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MaxDaysSinceEpoch === 3_652_056
 
     [<Fact>]
-    let ``Value of FrenchRepublican13Calendar.MinMonthsSinceEpoch`` () =
-        FrenchRepublican13Calendar.Instance.MinMonthsSinceEpoch === 0
+    let ``Value of FrenchRepublicanCalendar.MinMonthsSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MinMonthsSinceEpoch === 0
 
     [<Fact>]
-    let ``Value of FrenchRepublican13Calendar.MaxMonthsSinceEpoch`` () =
-        FrenchRepublican13Calendar.Instance.MaxMonthsSinceEpoch === 129_986
+    let ``Value of FrenchRepublicanCalendar.MaxMonthsSinceEpoch`` () =
+        FrenchRepublicanCalendar.Instance.MaxMonthsSinceEpoch === 129_986
 #endif
 
     [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FrenchRepublican13Month(FrenchRepublican13Date)`` (x: DateInfo) =
+    let ``FrenchRepublicanMonth(FrenchRepublicanDate)`` (x: DateInfo) =
         let y, m, d = x.Yemoda.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
-        let exp = new FrenchRepublican13Month(y, m)
+        let date = new FrenchRepublicanDate(y, m, d)
+        let exp = new FrenchRepublicanMonth(y, m)
         // Act & Assert
-        new FrenchRepublican13Month(date) === exp
+        new FrenchRepublicanMonth(date) === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``FrenchRepublican13Year(FrenchRepublican13Date)`` (x: DateInfo) =
+    let ``FrenchRepublicanYear(FrenchRepublicanDate)`` (x: DateInfo) =
         let y, m, d = x.Yemoda.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
-        let exp = new FrenchRepublican13Year(y)
+        let date = new FrenchRepublicanDate(y, m, d)
+        let exp = new FrenchRepublicanYear(y)
         // Act & Assert
-        new FrenchRepublican13Year(date) === exp
+        new FrenchRepublicanYear(date) === exp
 
     [<Theory; MemberData(nameof(monthInfoData))>]
-    let ``FrenchRepublican13Year(FrenchRepublican13Month)`` (x: MonthInfo) =
+    let ``FrenchRepublicanYear(FrenchRepublicanMonth)`` (x: MonthInfo) =
         let y, m = x.Yemo.Deconstruct()
-        let month = new FrenchRepublican13Month(y, m)
-        let exp = new FrenchRepublican13Year(y)
+        let month = new FrenchRepublicanMonth(y, m)
+        let exp = new FrenchRepublicanYear(y)
         // Act & Assert
-        new FrenchRepublican13Year(month) === exp
+        new FrenchRepublicanYear(month) === exp
 
-module Conversions =
+module Conversions12 =
     let private calendarDataSet = StandardFrenchRepublican12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
@@ -245,11 +245,11 @@ module Conversions13 =
     let dateInfoData = calendarDataSet.DateInfoData
     let dayNumberInfoData = calendarDataSet.DayNumberInfoData
 
-    type GregorianDateCaster = FrenchRepublican13Date -> GregorianDate
-    let op_Explicit_Gregorian : GregorianDateCaster = FrenchRepublican13Date.op_Explicit
+    type GregorianDateCaster = FrenchRepublicanDate -> GregorianDate
+    let op_Explicit_Gregorian : GregorianDateCaster = FrenchRepublicanDate.op_Explicit
 
-    type JulianDateCaster = FrenchRepublican13Date -> JulianDate
-    let op_Explicit_Julian : JulianDateCaster = FrenchRepublican13Date.op_Explicit
+    type JulianDateCaster = FrenchRepublicanDate -> JulianDate
+    let op_Explicit_Julian : JulianDateCaster = FrenchRepublicanDate.op_Explicit
 
     //
     // Conversion to DayNumber
@@ -258,7 +258,7 @@ module Conversions13 =
     [<Theory; MemberData(nameof(dayNumberInfoData))>]
     let ``Implicit conversion to DayNumber`` (x: DayNumberInfo) =
         let dayNumber, y, m, d = x.Deconstruct()
-        let date  = new FrenchRepublican13Date(y, m, d)
+        let date  = new FrenchRepublicanDate(y, m, d)
 
         date : DayNumber === dayNumber
 
@@ -269,42 +269,42 @@ module Conversions13 =
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ToGregorianDate()`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
+        let date = new FrenchRepublicanDate(y, m, d)
         let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
 
         date.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at FrenchRepublican13Date:MinValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
+    let ``ToGregorianDate() at FrenchRepublicanDate:MinValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
-        FrenchRepublican13Date.MinValue.ToGregorianDate() === exp
+        FrenchRepublicanDate.MinValue.ToGregorianDate() === exp
 
     [<Fact>]
-    let ``ToGregorianDate() at FrenchRepublican13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+    let ``ToGregorianDate() at FrenchRepublicanDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
 
-        FrenchRepublican13Date.MaxValue.ToGregorianDate() === exp
+        FrenchRepublicanDate.MaxValue.ToGregorianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
-    let ``Explicit conversion to FrenchRepublican13Date`` (x: DateInfo) =
+    let ``Explicit conversion to FrenchRepublicanDate`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
+        let date = new FrenchRepublicanDate(y, m, d)
         let exp = GregorianDate.FromAbsoluteDate(date.DayNumber)
 
         op_Explicit_Gregorian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at FrenchRepublican13Date:MinValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
+    let ``Explicit conversion to GregorianDate at FrenchRepublicanDate:MinValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
-        op_Explicit_Gregorian FrenchRepublican13Date.MinValue === exp
+        op_Explicit_Gregorian FrenchRepublicanDate.MinValue === exp
 
     [<Fact>]
-    let ``Explicit conversion to GregorianDate at FrenchRepublican13Date:MaxValue`` () =
-        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+    let ``Explicit conversion to GregorianDate at FrenchRepublicanDate:MaxValue`` () =
+        let exp = GregorianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
 
-        op_Explicit_Gregorian FrenchRepublican13Date.MaxValue === exp
+        op_Explicit_Gregorian FrenchRepublicanDate.MaxValue === exp
 
     //
     // Conversion to JulianDate
@@ -313,44 +313,44 @@ module Conversions13 =
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``ToJulianDate()`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
+        let date = new FrenchRepublicanDate(y, m, d)
         let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
 
         date.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at FrenchRepublican13Date:MinValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
+    let ``ToJulianDate() at FrenchRepublicanDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
-        FrenchRepublican13Date.MinValue.ToJulianDate() === exp
+        FrenchRepublicanDate.MinValue.ToJulianDate() === exp
 
     [<Fact>]
-    let ``ToJulianDate() at FrenchRepublican13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+    let ``ToJulianDate() at FrenchRepublicanDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
 
-        FrenchRepublican13Date.MaxValue.ToJulianDate() === exp
+        FrenchRepublicanDate.MaxValue.ToJulianDate() === exp
 
     [<Theory; MemberData(nameof(dateInfoData))>]
     let ``Explicit conversion to JulianDate`` (x: DateInfo) =
         let y, m, d, _ = x.Deconstruct()
-        let date = new FrenchRepublican13Date(y, m, d)
+        let date = new FrenchRepublicanDate(y, m, d)
         let exp = JulianDate.FromAbsoluteDate(date.DayNumber)
 
         op_Explicit_Julian date === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at FrenchRepublican13Date:MinValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MinValue.DayNumber)
+    let ``Explicit conversion to JulianDate at FrenchRepublicanDate:MinValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MinValue.DayNumber)
 
-        op_Explicit_Julian FrenchRepublican13Date.MinValue === exp
+        op_Explicit_Julian FrenchRepublicanDate.MinValue === exp
 
     [<Fact>]
-    let ``Explicit conversion to JulianDate at FrenchRepublican13Date:MaxValue`` () =
-        let exp = JulianDate.FromAbsoluteDate(FrenchRepublican13Date.MaxValue.DayNumber)
+    let ``Explicit conversion to JulianDate at FrenchRepublicanDate:MaxValue`` () =
+        let exp = JulianDate.FromAbsoluteDate(FrenchRepublicanDate.MaxValue.DayNumber)
 
-        op_Explicit_Julian FrenchRepublican13Date.MaxValue === exp
+        op_Explicit_Julian FrenchRepublicanDate.MaxValue === exp
 
-module Bundles =
+module Bundles12 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
@@ -502,17 +502,17 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =
-        inherit CalendarFacts<FrenchRepublican13Calendar, StandardFrenchRepublican13DataSet>(FrenchRepublican13Calendar.Instance)
+        inherit CalendarFacts<FrenchRepublicanCalendar, StandardFrenchRepublican13DataSet>(FrenchRepublicanCalendar.Instance)
 
         override x.Algorithm_Prop() = x.CalendarUT.Algorithm === CalendricalAlgorithm.Arithmetical
         override x.Family_Prop() = x.CalendarUT.Family === CalendricalFamily.Solar
         override x.PeriodicAdjustments_Prop() = x.CalendarUT.PeriodicAdjustments === CalendricalAdjustments.Days
 
         [<Fact>]
-        static member MinYear() = FrenchRepublican13Calendar.MinYear === StandardScope.MinYear
+        static member MinYear() = FrenchRepublicanCalendar.MinYear === StandardScope.MinYear
 
         [<Fact>]
-        static member MaxYear() = FrenchRepublican13Calendar.MaxYear === StandardScope.MaxYear
+        static member MaxYear() = FrenchRepublicanCalendar.MaxYear === StandardScope.MaxYear
 
     //
     // Date type
@@ -521,7 +521,7 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateFacts() =
-        inherit IDateFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+        inherit IDateFacts<FrenchRepublicanDate, StandardFrenchRepublican13DataSet>()
 
         static member EpagomenalDayInfoData with get() = DateFacts.DataSet.EpagomenalDayInfoData
 
@@ -532,7 +532,7 @@ module Bundles13 =
         [<Theory; MemberData(nameof(DateFacts.DateInfoData))>]
         static member ``IsEpagomenal()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
-            let date = new FrenchRepublican13Date(y, m, d)
+            let date = new FrenchRepublicanDate(y, m, d)
             // Act
             let isEpagomenal, epanum = date.IsEpagomenal()
             // Assert
@@ -545,7 +545,7 @@ module Bundles13 =
         [<Theory; MemberData(nameof(DateFacts.EpagomenalDayInfoData))>]
         static member ``IsEpagomenal() check out param`` (info: YemodaAnd<int>) =
             let y, m, d, epanum = info.Deconstruct()
-            let date = new FrenchRepublican13Date(y, m, d)
+            let date = new FrenchRepublicanDate(y, m, d)
             // Act
             let isEpagomenal, epagomenalNumber = date.IsEpagomenal()
             // Assert
@@ -555,12 +555,12 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeDateFactoryFacts() =
-        inherit IUnsafeDateFactoryFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+        inherit IUnsafeDateFactoryFacts<FrenchRepublicanDate, StandardFrenchRepublican13DataSet>()
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type DateMathFacts() =
-        inherit DefaultDateMathFacts<FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+        inherit DefaultDateMathFacts<FrenchRepublicanDate, StandardFrenchRepublican13DataSet>()
 
         static let defaultMath   = new DateMath()
         static let overspillMath = new DateMath(AdditionRule.Overspill)
@@ -568,18 +568,18 @@ module Bundles13 =
 
         [<Fact>]
         static member ``PlusYears() when roundof != 0`` () =
-            let date = new FrenchRepublican13Date(4, 13, 6)
+            let date = new FrenchRepublicanDate(4, 13, 6)
             // Act & Assert
             date.IsIntercalary |> ok
 
-            let result: FrenchRepublican13Date * int = date.PlusYears(1)
-            result === (new FrenchRepublican13Date(5, 13, 5), 1)
+            let result: FrenchRepublicanDate * int = date.PlusYears(1)
+            result === (new FrenchRepublicanDate(5, 13, 5), 1)
 
-            date.PlusYears(1) === new FrenchRepublican13Date(5, 13, 5)
+            date.PlusYears(1) === new FrenchRepublicanDate(5, 13, 5)
 
-            defaultMath.AddYears(date, 1)   === new FrenchRepublican13Date(5, 13, 5)
-            overspillMath.AddYears(date, 1) === new FrenchRepublican13Date(6, 1, 1)
-            exactMath.AddYears(date, 1)     === new FrenchRepublican13Date(6, 1, 1)
+            defaultMath.AddYears(date, 1)   === new FrenchRepublicanDate(5, 13, 5)
+            overspillMath.AddYears(date, 1) === new FrenchRepublicanDate(6, 1, 1)
+            exactMath.AddYears(date, 1)     === new FrenchRepublicanDate(6, 1, 1)
 
     //
     // Month type
@@ -588,19 +588,19 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type MonthFacts() =
-        inherit IMonthFacts<FrenchRepublican13Month, FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+        inherit IMonthFacts<FrenchRepublicanMonth, FrenchRepublicanDate, StandardFrenchRepublican13DataSet>()
 
         [<Theory; MemberData(nameof(MonthFacts.DateInfoData))>]
         static member ``GetDayOfMonth()`` (info: DateInfo) =
             let y, m, d = info.Yemoda.Deconstruct()
-            let year = new FrenchRepublican13Month(y, m)
-            let date = new FrenchRepublican13Date(y, m, d)
+            let year = new FrenchRepublicanMonth(y, m)
+            let date = new FrenchRepublicanDate(y, m, d)
             // Act & Assert
             year.GetDayOfMonth(d) === date
 
         [<Theory; MemberData(nameof(MonthFacts.InvalidDayFieldData))>]
         static member ``GetDayOfMonth() with an invalid day`` y m d =
-            let month = new FrenchRepublican13Month(y, m)
+            let month = new FrenchRepublicanMonth(y, m)
             // Act & Assert
             outOfRangeExn "day" (fun () -> month.GetDayOfMonth(d))
 
@@ -611,14 +611,14 @@ module Bundles13 =
         [<Theory; MemberData(nameof(MonthFacts.MonthInfoData))>]
         static member ``Property IsIntercalary`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
-            let month = new FrenchRepublican13Month(y, m)
+            let month = new FrenchRepublicanMonth(y, m)
             // Act & Assert
             month.IsIntercalary === (m = 13)
 
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type UnsafeMonthFactoryFacts() =
-        inherit IUnsafeMonthFactoryFacts<FrenchRepublican13Month, StandardFrenchRepublican13DataSet>()
+        inherit IUnsafeMonthFactoryFacts<FrenchRepublicanMonth, StandardFrenchRepublican13DataSet>()
 
     //
     // Year type
@@ -627,32 +627,32 @@ module Bundles13 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type YearFacts() =
-        inherit IYearFacts<FrenchRepublican13Year, FrenchRepublican13Month, FrenchRepublican13Date, StandardFrenchRepublican13DataSet>()
+        inherit IYearFacts<FrenchRepublicanYear, FrenchRepublicanMonth, FrenchRepublicanDate, StandardFrenchRepublican13DataSet>()
 
         [<Theory; MemberData(nameof(YearFacts.MonthInfoData))>]
         static member ``GetMonthOfYear()`` (info: MonthInfo) =
             let y, m = info.Yemo.Deconstruct()
-            let year = new FrenchRepublican13Year(y)
-            let date = new FrenchRepublican13Month(y, m)
+            let year = new FrenchRepublicanYear(y)
+            let date = new FrenchRepublicanMonth(y, m)
             // Act & Assert
             year.GetMonthOfYear(m) === date
 
         [<Theory; MemberData(nameof(YearFacts.InvalidMonthFieldData))>]
         static member ``GetMonthOfYear() with an invalid month`` (y: int) m =
-            let year = new FrenchRepublican13Year(y)
+            let year = new FrenchRepublicanYear(y)
             // Act & Assert
             outOfRangeExn "month" (fun () -> year.GetMonthOfYear(m))
 
         [<Theory; MemberData(nameof(YearFacts.DateInfoData))>]
         static member ``GetDayOfYear()`` (info: DateInfo) =
             let y, doy = info.Yedoy.Deconstruct()
-            let year = new FrenchRepublican13Year(y)
-            let date = new FrenchRepublican13Date(y, doy)
+            let year = new FrenchRepublicanYear(y)
+            let date = new FrenchRepublicanDate(y, doy)
             // Act & Assert
             year.GetDayOfYear(doy) === date
 
         [<Theory; MemberData(nameof(YearFacts.InvalidDayOfYearFieldData))>]
         static member ``GetDayOfYear() with an invalid day of the year`` (y: int) doy =
-            let year = new FrenchRepublican13Year(y)
+            let year = new FrenchRepublicanYear(y)
             // Act & Assert
             outOfRangeExn "dayOfYear" (fun () -> year.GetDayOfYear(doy))

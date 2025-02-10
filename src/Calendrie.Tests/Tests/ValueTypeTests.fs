@@ -75,37 +75,58 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<Yedoy>) === 4
         Marshal.SizeOf(typedefof<Yemo>) === 4
         Marshal.SizeOf(typedefof<Yemoda>) === 4
+        Marshal.SizeOf(typedefof<Yewe>) === 4
 
     [<Fact>]
     let ``Types in Calendrie:Systems`` () =
-        Marshal.SizeOf(typedefof<Armenian13Date>) === 4
-        Marshal.SizeOf(typedefof<Armenian13Month>) === 4
-        Marshal.SizeOf(typedefof<Armenian13Year>) === 2
+        Marshal.SizeOf(typedefof<ArmenianDate>) === 4
+        Marshal.SizeOf(typedefof<ArmenianMonth>) === 4
+        Marshal.SizeOf(typedefof<ArmenianYear>) === 2
         Marshal.SizeOf(typedefof<CivilDate>) === 4
-        Marshal.SizeOf(typedefof<Coptic13Date>) === 4
-        Marshal.SizeOf(typedefof<Coptic13Month>) === 4
-        Marshal.SizeOf(typedefof<Coptic13Year>) === 2
-        Marshal.SizeOf(typedefof<Egyptian13Date>) === 4
-        Marshal.SizeOf(typedefof<Egyptian13Month>) === 4
-        Marshal.SizeOf(typedefof<Egyptian13Year>) === 2
-        Marshal.SizeOf(typedefof<Ethiopic13Date>) === 4
-        Marshal.SizeOf(typedefof<Ethiopic13Month>) === 4
-        Marshal.SizeOf(typedefof<Ethiopic13Year>) === 2
-        Marshal.SizeOf(typedefof<FrenchRepublican13Date>) === 4
-        Marshal.SizeOf(typedefof<FrenchRepublican13Month>) === 4
-        Marshal.SizeOf(typedefof<FrenchRepublican13Year>) === 2
+        Marshal.SizeOf(typedefof<CivilMonth>) === 4
+        Marshal.SizeOf(typedefof<CivilYear>) === 2
+        Marshal.SizeOf(typedefof<CopticDate>) === 4
+        Marshal.SizeOf(typedefof<CopticMonth>) === 4
+        Marshal.SizeOf(typedefof<CopticYear>) === 2
+        Marshal.SizeOf(typedefof<EgyptianDate>) === 4
+        Marshal.SizeOf(typedefof<EgyptianMonth>) === 4
+        Marshal.SizeOf(typedefof<EgyptianYear>) === 2
+        Marshal.SizeOf(typedefof<EthiopicDate>) === 4
+        Marshal.SizeOf(typedefof<EthiopicMonth>) === 4
+        Marshal.SizeOf(typedefof<EthiopicYear>) === 2
+        Marshal.SizeOf(typedefof<FrenchRepublicanDate>) === 4
+        Marshal.SizeOf(typedefof<FrenchRepublicanMonth>) === 4
+        Marshal.SizeOf(typedefof<FrenchRepublicanYear>) === 2
         Marshal.SizeOf(typedefof<GregorianDate>) === 4
+        Marshal.SizeOf(typedefof<GregorianMonth>) === 4
+        Marshal.SizeOf(typedefof<GregorianYear>) === 4
         Marshal.SizeOf(typedefof<InternationalFixedDate>) === 4
+        Marshal.SizeOf(typedefof<InternationalFixedMonth>) === 4
+        Marshal.SizeOf(typedefof<InternationalFixedYear>) === 2
         Marshal.SizeOf(typedefof<JulianDate>) === 4
+        Marshal.SizeOf(typedefof<JulianMonth>) === 4
+        Marshal.SizeOf(typedefof<JulianYear>) === 4
         Marshal.SizeOf(typedefof<PaxDate>) === 4
+        Marshal.SizeOf(typedefof<PaxMonth>) === 4
+        Marshal.SizeOf(typedefof<PaxYear>) === 2
         Marshal.SizeOf(typedefof<Persian2820Date>) === 4
+        Marshal.SizeOf(typedefof<Persian2820Month>) === 4
+        Marshal.SizeOf(typedefof<Persian2820Year>) === 2
         Marshal.SizeOf(typedefof<PositivistDate>) === 4
+        Marshal.SizeOf(typedefof<PositivistMonth>) === 4
+        Marshal.SizeOf(typedefof<PositivistYear>) === 2
         Marshal.SizeOf(typedefof<TabularIslamicDate>) === 4
+        Marshal.SizeOf(typedefof<TabularIslamicMonth>) === 4
+        Marshal.SizeOf(typedefof<TabularIslamicYear>) === 2
         Marshal.SizeOf(typedefof<TropicaliaDate>) === 4
+        Marshal.SizeOf(typedefof<TropicaliaMonth>) === 4
+        Marshal.SizeOf(typedefof<TropicaliaYear>) === 2
         Marshal.SizeOf(typedefof<WorldDate>) === 4
-        Marshal.SizeOf(typedefof<Zoroastrian13Date>) === 4
-        Marshal.SizeOf(typedefof<Zoroastrian13Month>) === 4
-        Marshal.SizeOf(typedefof<Zoroastrian13Year>) === 2
+        Marshal.SizeOf(typedefof<WorldMonth>) === 4
+        Marshal.SizeOf(typedefof<WorldYear>) === 2
+        Marshal.SizeOf(typedefof<ZoroastrianDate>) === 4
+        Marshal.SizeOf(typedefof<ZoroastrianMonth>) === 4
+        Marshal.SizeOf(typedefof<ZoroastrianYear>) === 2
 
     // TODO(fact): test all models.
     // TODO(fact): add tests for the data types defined within THIS project.

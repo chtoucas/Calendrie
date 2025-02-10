@@ -26,35 +26,35 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Systems\Armenian13.g.cs">
+    <Compile Update="Systems\Armenian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Armenian13.tt</DependentUpon>
+      <DependentUpon>Armenian.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Civil.g.cs">
       <DependentUpon>Civil.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Systems\Coptic13.g.cs">
+    <Compile Update="Systems\Coptic.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Coptic13.tt</DependentUpon>
+      <DependentUpon>Coptic.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Egyptian13.g.cs">
+    <Compile Update="Systems\Egyptian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Egyptian13.tt</DependentUpon>
+      <DependentUpon>Egyptian.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Ethiopic13.g.cs">
+    <Compile Update="Systems\Ethiopic.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Ethiopic13.tt</DependentUpon>
+      <DependentUpon>Ethiopic.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\FrenchRepublican13.g.cs">
+    <Compile Update="Systems\FrenchRepublican.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>FrenchRepublican13.tt</DependentUpon>
+      <DependentUpon>FrenchRepublican.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Gregorian.g.cs">
       <DependentUpon>Gregorian.tt</DependentUpon>
@@ -76,10 +76,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TabularIslamic.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Zoroastrian13.g.cs">
+    <Compile Update="Systems\Zoroastrian.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Zoroastrian13.tt</DependentUpon>
+      <DependentUpon>Zoroastrian.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
