@@ -13,7 +13,7 @@ public class CtorTests
     public void GlobalSetup() =>
         (_year, _month, _day) = BenchmarkHelpers.CreateJulianParts();
 
-    [Benchmark(Description = "ArmenianDate")]
+    [Benchmark(Description = "Armenian12Date")]
     public Armenian12Date WithArmenian12Date() => new(_year, _month, _day);
 
     [Benchmark(Description = "Armenian13Date")]
@@ -22,14 +22,14 @@ public class CtorTests
     [Benchmark(Description = "CivilDate", Baseline = true)]
     public CivilDate WithCivilDate() => new(_year, _month, _day);
 
-    [Benchmark(Description = "CopticDate")]
-    public CopticDate WithCopticDate() => new(_year, _month, _day);
+    [Benchmark(Description = "Coptic12Date")]
+    public Coptic12Date WithCopticDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "Coptic13Date")]
     public Coptic13Date WithCoptic13Date() => new(_year, _month, _day);
 
-    [Benchmark(Description = "EthiopicDate")]
-    public EthiopicDate WithEthiopicDate() => new(_year, _month, _day);
+    [Benchmark(Description = "Ethiopic12Date")]
+    public Ethiopic12Date WithEthiopicDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "Ethiopic13Date")]
     public Ethiopic13Date WithEthiopic13Date() => new(_year, _month, _day);
@@ -49,8 +49,8 @@ public class CtorTests
     [Benchmark(Description = "WorldDate")]
     public WorldDate WithWorldDate() => new(_year, _month, _day);
 
-    [Benchmark(Description = "ZoroastrianDate")]
-    public ZoroastrianDate WithZoroastrianDate() => new(_year, _month, _day);
+    [Benchmark(Description = "Zoroastrian12Date")]
+    public Zoroastrian12Date WithZoroastrianDate() => new(_year, _month, _day);
 
     [Benchmark(Description = "Zoroastrian13Date")]
     public Zoroastrian13Date WithZoroastrian13Date() => new(_year, _month, _day);

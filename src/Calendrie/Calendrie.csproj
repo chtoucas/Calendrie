@@ -41,40 +41,40 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Systems\Coptic.g.cs">
+    <Compile Update="Systems\Coptic12.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Coptic.tt</DependentUpon>
+      <DependentUpon>Coptic12.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Coptic13.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Coptic13.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Egyptian.g.cs">
+    <Compile Update="Systems\Egyptian12.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Egyptian.tt</DependentUpon>
+      <DependentUpon>Egyptian12.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Egyptian13.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Egyptian13.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Ethiopic.g.cs">
+    <Compile Update="Systems\Ethiopic12.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Ethiopic.tt</DependentUpon>
+      <DependentUpon>Ethiopic12.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Ethiopic13.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Ethiopic13.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\FrenchRepublican.g.cs">
+    <Compile Update="Systems\FrenchRepublican12.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>FrenchRepublican.tt</DependentUpon>
+      <DependentUpon>FrenchRepublican12.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\FrenchRepublican13.g.cs">
       <DesignTime>True</DesignTime>
@@ -101,10 +101,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TabularIslamic.tt</DependentUpon>
     </Compile>
-    <Compile Update="Systems\Zoroastrian.g.cs">
+    <Compile Update="Systems\Zoroastrian12.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Zoroastrian.tt</DependentUpon>
+      <DependentUpon>Zoroastrian12.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Zoroastrian13.g.cs">
       <DesignTime>True</DesignTime>

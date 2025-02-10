@@ -20,28 +20,28 @@ using Calendrie.Hemerology;
 
 using static Calendrie.Core.CalendricalConstants;
 
-#region CopticCalendar
+#region Coptic12Calendar
 
 /// <summary>
-/// Represents the Coptic calendar.
+/// Represents the Coptic12 calendar.
 /// <para>This calendar is <i>retropolated</i>. It supports <i>all</i> dates
 /// within the range [1..9999] of years.</para>
 /// <para>This class cannot be inherited.</para>
 /// </summary>
-public sealed partial class CopticCalendar : Calendar
+public sealed partial class Coptic12Calendar : Calendar
 {
     /// <summary>
     /// Represents the display name.
     /// <para>This field is a constant.</para>
     /// </summary>
-    internal const string DisplayName = "Coptic";
+    internal const string DisplayName = "Coptic12";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticCalendar"/> class.
+    /// Initializes a new instance of the <see cref="Coptic12Calendar"/> class.
     /// </summary>
-    public CopticCalendar() : this(new Coptic12Schema()) { }
+    public Coptic12Calendar() : this(new Coptic12Schema()) { }
 
-    private CopticCalendar(Coptic12Schema schema)
+    private Coptic12Calendar(Coptic12Schema schema)
         : base(DisplayName, new StandardScope(schema, DayZero.Coptic))
     {
         Debug.Assert(Epoch.DaysSinceZero == 103_604);
@@ -57,10 +57,10 @@ public sealed partial class CopticCalendar : Calendar
     }
 
     /// <summary>
-    /// Gets a singleton instance of the <see cref="CopticCalendar"/> class.
-    /// <para>See <see cref="CopticDate.Calendar"/>.</para>
+    /// Gets a singleton instance of the <see cref="Coptic12Calendar"/> class.
+    /// <para>See <see cref="Coptic12Date.Calendar"/>.</para>
     /// </summary>
-    internal static CopticCalendar Instance { get; } = new();
+    internal static Coptic12Calendar Instance { get; } = new();
 
     /// <summary>
     /// Gets the earliest supported year.
@@ -88,7 +88,7 @@ public sealed partial class CopticCalendar : Calendar
     internal Coptic12Schema Schema { get; }
 }
 
-public partial class CopticCalendar // Math
+public partial class Coptic12Calendar // Math
 {
     /// <summary>
     /// Adds the specified number of years to the year part of the specified date,
@@ -100,7 +100,7 @@ public partial class CopticCalendar // Math
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    internal CopticDate AddYears(int y, int m, int d, int years)
+    internal Coptic12Date AddYears(int y, int m, int d, int years)
     {
         var sch = Schema;
 
@@ -113,7 +113,7 @@ public partial class CopticCalendar // Math
         int newD = Math.Min(d, sch.CountDaysInMonth(newY, m));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
-        return CopticDate.UnsafeCreate(daysSinceEpoch);
+        return Coptic12Date.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ public partial class CopticCalendar // Math
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    internal CopticDate AddYears(int y, int m, int d, int years, out int roundoff)
+    internal Coptic12Date AddYears(int y, int m, int d, int years, out int roundoff)
     {
         var sch = Schema;
 
@@ -142,7 +142,7 @@ public partial class CopticCalendar // Math
         int newD = roundoff == 0 ? d : daysInMonth;
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newY, m, newD);
-        return CopticDate.UnsafeCreate(daysSinceEpoch);
+        return Coptic12Date.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -155,7 +155,7 @@ public partial class CopticCalendar // Math
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    internal CopticDate AddMonths(int y, int m, int d, int months)
+    internal Coptic12Date AddMonths(int y, int m, int d, int months)
     {
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(
@@ -176,7 +176,7 @@ public partial class CopticCalendar // Math
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    internal CopticDate AddMonths(int y, int m, int d, int months, out int roundoff)
+    internal Coptic12Date AddMonths(int y, int m, int d, int months, out int roundoff)
     {
         // Exact addition of months to a calendar month.
         int newM = 1 + MathZ.Modulo(
@@ -188,21 +188,21 @@ public partial class CopticCalendar // Math
 
 #endregion
 
-#region CopticDate
+#region Coptic12Date
 
 /// <summary>
-/// Represents the Coptic date.
+/// Represents the Coptic12 date.
 /// <para><i>All</i> dates within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="CopticDate"/> is an immutable struct.</para>
+/// <para><see cref="Coptic12Date"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct CopticDate :
-    IDate<CopticDate>,
-    IUnsafeFactory<CopticDate>,
-    ISubtractionOperators<CopticDate, CopticDate, int>
+public readonly partial struct Coptic12Date :
+    IDate<Coptic12Date>,
+    IUnsafeFactory<Coptic12Date>,
+    ISubtractionOperators<Coptic12Date, Coptic12Date, int>
 { }
 
-public partial struct CopticDate // Preamble
+public partial struct Coptic12Date // Preamble
 {
     /// <summary>Represents the value of the property <see cref="DayNumber.DaysSinceZero"/>
     /// for the epoch <see cref="DayZero.Coptic"/>.
@@ -222,65 +222,65 @@ public partial struct CopticDate // Preamble
     private readonly int _daysSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticDate"/> struct
+    /// Initializes a new instance of the <see cref="Coptic12Date"/> struct
     /// to the specified date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid date or <paramref name="year"/> is outside the range
     /// of supported years.</exception>
-    public CopticDate(int year, int month, int day)
+    public Coptic12Date(int year, int month, int day)
     {
-        var chr = CopticCalendar.Instance;
+        var chr = Coptic12Calendar.Instance;
         chr.Scope.ValidateYearMonthDay(year, month, day);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticDate"/> struct
+    /// Initializes a new instance of the <see cref="Coptic12Date"/> struct
     /// to the specified ordinal date parts.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid ordinal date or <paramref name="year"/> is outside
     /// the range of supported years.</exception>
-    public CopticDate(int year, int dayOfYear)
+    public Coptic12Date(int year, int dayOfYear)
     {
-        var chr = CopticCalendar.Instance;
+        var chr = Coptic12Calendar.Instance;
         chr.Scope.ValidateOrdinal(year, dayOfYear);
 
         _daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticDate"/> struct.
+    /// Initializes a new instance of the <see cref="Coptic12Date"/> struct.
     /// <para>This constructor does NOT validate its parameter.</para>
     /// </summary>
-    private CopticDate(int daysSinceEpoch)
+    private Coptic12Date(int daysSinceEpoch)
     {
         _daysSinceEpoch = daysSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="CopticDate"/>.
+    /// Gets the smallest possible value of <see cref="Coptic12Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported date.</returns>
     //
-    // MinValue = new(0) = new() = default(CopticDate)
-    public static CopticDate MinValue { get; }
+    // MinValue = new(0) = new() = default(Coptic12Date)
+    public static Coptic12Date MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="CopticDate"/>.
+    /// Gets the largest possible value of <see cref="Coptic12Date"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported date.</returns>
-    public static CopticDate MaxValue { get; } = new(MaxDaysSinceEpoch);
+    public static Coptic12Date MaxValue { get; } = new(MaxDaysSinceEpoch);
 
     /// <summary>
     /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CopticCalendar Calendar => CopticCalendar.Instance;
+    public static Coptic12Calendar Calendar => Coptic12Calendar.Instance;
 
     static Calendar IDate.Calendar => Calendar;
 
@@ -385,7 +385,7 @@ public partial struct CopticDate // Preamble
     public override string ToString()
     {
         Calendar.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
-        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({CopticCalendar.DisplayName})");
+        return FormattableString.Invariant($"{d:D2}/{m:D2}/{y:D4} ({Coptic12Calendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -397,49 +397,49 @@ public partial struct CopticDate // Preamble
         year = Calendar.Schema.GetYear(_daysSinceEpoch, out dayOfYear);
 }
 
-public partial struct CopticDate // Factories
+public partial struct Coptic12Date // Factories
 {
     /// <inheritdoc />
     [Pure]
-    public static CopticDate Create(int year, int month, int day) => new(year, month, day);
+    public static Coptic12Date Create(int year, int month, int day) => new(year, month, day);
 
     /// <inheritdoc />
     [Pure]
-    public static CopticDate Create(int year, int dayOfYear) => new(year, dayOfYear);
+    public static Coptic12Date Create(int year, int dayOfYear) => new(year, dayOfYear);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CopticDate"/>
+    /// Attempts to create a new instance of the <see cref="Coptic12Date"/>
     /// struct from the specified date components.
     /// </summary>
     [Pure]
-    public static CopticDate? TryCreate(int year, int month, int day)
+    public static Coptic12Date? TryCreate(int year, int month, int day)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckYearMonthDay(year, month, day)) return null;
 
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, month, day);
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CopticDate"/>
+    /// Attempts to create a new instance of the <see cref="Coptic12Date"/>
     /// struct from the specified ordinal components.
     /// </summary>
     [Pure]
-    public static CopticDate? TryCreate(int year, int dayOfYear)
+    public static Coptic12Date? TryCreate(int year, int dayOfYear)
     {
         var chr = Calendar;
         if (!chr.Scope.CheckOrdinal(year, dayOfYear)) return null;
 
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(year, dayOfYear);
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
-    // Explicit implementation: CopticDate being a value type, better
+    // Explicit implementation: Coptic12Date being a value type, better
     // to use the others TryCreate().
 
     [Pure]
-    static bool IDate<CopticDate>.TryCreate(int year, int month, int day, out CopticDate result)
+    static bool IDate<Coptic12Date>.TryCreate(int year, int month, int day, out Coptic12Date result)
     {
         var dateValue = TryCreate(year, month, day);
         result = dateValue ?? default;
@@ -447,7 +447,7 @@ public partial struct CopticDate // Factories
     }
 
     [Pure]
-    static bool IDate<CopticDate>.TryCreate(int year, int dayOfYear, out CopticDate result)
+    static bool IDate<Coptic12Date>.TryCreate(int year, int dayOfYear, out Coptic12Date result)
     {
         var dateValue = TryCreate(year, dayOfYear);
         result = dateValue ?? default;
@@ -458,42 +458,42 @@ public partial struct CopticDate // Factories
     // lookup to the property Calendar.
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CopticDate"/> struct
+    /// Creates a new instance of the <see cref="Coptic12Date"/> struct
     /// from the specified count of consecutive days since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static CopticDate UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
+    internal static Coptic12Date UnsafeCreate(int daysSinceEpoch) => new(daysSinceEpoch);
 
     [Pure]
-    static CopticDate IUnsafeFactory<CopticDate>.UnsafeCreate(int daysSinceEpoch) =>
+    static Coptic12Date IUnsafeFactory<Coptic12Date>.UnsafeCreate(int daysSinceEpoch) =>
         UnsafeCreate(daysSinceEpoch);
 }
 
-public partial struct CopticDate // Conversions
+public partial struct Coptic12Date // Conversions
 {
     /// <summary>
-    /// Defines an implicit conversion of a <see cref="CopticDate"/> value
+    /// Defines an implicit conversion of a <see cref="Coptic12Date"/> value
     /// to a <see cref="Calendrie.DayNumber"/> value.
     /// <para>See also <seealso cref="DayNumber"/>.</para>
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See DayNumber")]
-    public static implicit operator DayNumber(CopticDate date) => date.DayNumber;
+    public static implicit operator DayNumber(Coptic12Date date) => date.DayNumber;
 
     /// <summary>
-    /// Defines an explicit conversion of a <see cref="CopticDate"/> value
+    /// Defines an explicit conversion of a <see cref="Coptic12Date"/> value
     /// to a <see cref="GregorianDate"/> value.
     /// <para>The conversion always succeeds.</para>
     /// </summary>
-    public static explicit operator GregorianDate(CopticDate date) =>
+    public static explicit operator GregorianDate(Coptic12Date date) =>
         GregorianDate.UnsafeCreate(date.DayNumber.DaysSinceZero);
 
     /// <summary>
-    /// Defines an explicit conversion of a <see cref="CopticDate"/> value
+    /// Defines an explicit conversion of a <see cref="Coptic12Date"/> value
     /// to a <see cref="JulianDate"/> value.
     /// <para>The conversion always succeeds.</para>
     /// </summary>
-    public static explicit operator JulianDate(CopticDate date) =>
+    public static explicit operator JulianDate(Coptic12Date date) =>
         JulianDate.UnsafeCreate(date.DayNumber);
 
     // Why FromAbsoluteDate() rather than FromDayNumber()? Usability.
@@ -502,22 +502,22 @@ public partial struct CopticDate // Conversions
     // Calendrie.Systems to DayNumber.
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CopticDate"/> struct
+    /// Creates a new instance of the <see cref="Coptic12Date"/> struct
     /// from the specified absolute value.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayNumber"/>
     /// is outside the range of supported values.</exception>
     [Pure]
-    public static CopticDate FromAbsoluteDate(DayNumber dayNumber)
+    public static Coptic12Date FromAbsoluteDate(DayNumber dayNumber)
     {
         Calendar.Scope.Validate(dayNumber);
         // NB: now that we have validated the day number, we know for sure that
         // the subtraction won't overflow.
-        return new CopticDate(dayNumber.DaysSinceZero - EpochDaysSinceZero);
+        return new Coptic12Date(dayNumber.DaysSinceZero - EpochDaysSinceZero);
     }
 
     [Pure]
-    static CopticDate IAbsoluteDate<CopticDate>.FromDayNumber(DayNumber dayNumber) =>
+    static Coptic12Date IAbsoluteDate<Coptic12Date>.FromDayNumber(DayNumber dayNumber) =>
         FromAbsoluteDate(dayNumber);
 
     /// <summary>
@@ -535,7 +535,7 @@ public partial struct CopticDate // Conversions
     public JulianDate ToJulianDate() => JulianDate.UnsafeCreate(DayNumber);
 }
 
-public partial struct CopticDate // Counting
+public partial struct Coptic12Date // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -554,11 +554,11 @@ public partial struct CopticDate // Counting
     public int CountRemainingDaysInMonth() => Calendar.Schema.CountDaysInMonthAfter(_daysSinceEpoch);
 }
 
-public partial struct CopticDate // Adjustments
+public partial struct Coptic12Date // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public CopticDate WithYear(int newYear)
+    public Coptic12Date WithYear(int newYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -570,12 +570,12 @@ public partial struct CopticDate // Adjustments
         chr.Scope.ValidateYearMonthDay(newYear, m, d, nameof(newYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(newYear, m, d);
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate WithMonth(int newMonth)
+    public Coptic12Date WithMonth(int newMonth)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -586,12 +586,12 @@ public partial struct CopticDate // Adjustments
         chr.Scope.PreValidator.ValidateMonthDay(y, newMonth, d, nameof(newMonth));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newMonth, d);
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate WithDay(int newDay)
+    public Coptic12Date WithDay(int newDay)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -602,12 +602,12 @@ public partial struct CopticDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, newDay, nameof(newDay));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, newDay);
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate WithDayOfYear(int newDayOfYear)
+    public Coptic12Date WithDayOfYear(int newDayOfYear)
     {
         var chr = Calendar;
         var sch = Calendar.Schema;
@@ -618,27 +618,27 @@ public partial struct CopticDate // Adjustments
         chr.Scope.PreValidator.ValidateDayOfYear(y, newDayOfYear, nameof(newDayOfYear));
 
         int daysSinceEpoch = sch.CountDaysSinceEpoch(y, newDayOfYear);
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 }
 
-public partial struct CopticDate // Find a close by day of the week
+public partial struct Coptic12Date // Find a close by day of the week
 {
     /// <inheritdoc />
     [Pure]
-    public CopticDate Previous(DayOfWeek dayOfWeek)
+    public Coptic12Date Previous(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ >= 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate PreviousOrSame(DayOfWeek dayOfWeek)
+    public Coptic12Date PreviousOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -646,22 +646,22 @@ public partial struct CopticDate // Find a close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ > 0 ? δ - DaysPerWeek : δ);
         if (daysSinceEpoch < 0) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate Nearest(DayOfWeek dayOfWeek)
+    public Coptic12Date Nearest(DayOfWeek dayOfWeek)
     {
         var nearest = DayNumber.Nearest(dayOfWeek);
         int daysSinceEpoch = nearest.DaysSinceZero - EpochDaysSinceZero;
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate NextOrSame(DayOfWeek dayOfWeek)
+    public Coptic12Date NextOrSame(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
@@ -669,103 +669,103 @@ public partial struct CopticDate // Find a close by day of the week
         if (δ == 0) return this;
         int daysSinceEpoch = _daysSinceEpoch + (δ < 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <inheritdoc />
     [Pure]
-    public CopticDate Next(DayOfWeek dayOfWeek)
+    public Coptic12Date Next(DayOfWeek dayOfWeek)
     {
         Requires.Defined(dayOfWeek);
 
         int δ = dayOfWeek - DayOfWeek;
         int daysSinceEpoch = _daysSinceEpoch + (δ <= 0 ? δ + DaysPerWeek : δ);
         if (daysSinceEpoch > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 }
 
-public partial struct CopticDate // IEquatable
+public partial struct Coptic12Date // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(CopticDate left, CopticDate right) =>
+    public static bool operator ==(Coptic12Date left, Coptic12Date right) =>
         left._daysSinceEpoch == right._daysSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(CopticDate left, CopticDate right) =>
+    public static bool operator !=(Coptic12Date left, Coptic12Date right) =>
         left._daysSinceEpoch != right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(CopticDate other) => _daysSinceEpoch == other._daysSinceEpoch;
+    public bool Equals(Coptic12Date other) => _daysSinceEpoch == other._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is CopticDate date && Equals(date);
+        obj is Coptic12Date date && Equals(date);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _daysSinceEpoch;
 }
 
-public partial struct CopticDate // IComparable
+public partial struct Coptic12Date // IComparable
 {
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(CopticDate left, CopticDate right) =>
+    public static bool operator <(Coptic12Date left, Coptic12Date right) =>
         left._daysSinceEpoch < right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(CopticDate left, CopticDate right) =>
+    public static bool operator <=(Coptic12Date left, Coptic12Date right) =>
         left._daysSinceEpoch <= right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(CopticDate left, CopticDate right) =>
+    public static bool operator >(Coptic12Date left, Coptic12Date right) =>
         left._daysSinceEpoch > right._daysSinceEpoch;
 
     /// <summary>
     /// Compares the two specified dates to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(CopticDate left, CopticDate right) =>
+    public static bool operator >=(Coptic12Date left, Coptic12Date right) =>
         left._daysSinceEpoch >= right._daysSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static CopticDate Min(CopticDate x, CopticDate y) => x < y ? x : y;
+    public static Coptic12Date Min(Coptic12Date x, Coptic12Date y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static CopticDate Max(CopticDate x, CopticDate y) => x > y ? x : y;
+    public static Coptic12Date Max(Coptic12Date x, Coptic12Date y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(CopticDate other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
+    public int CompareTo(Coptic12Date other) => _daysSinceEpoch.CompareTo(other._daysSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is CopticDate date ? CompareTo(date)
-        : ThrowHelpers.ThrowNonComparable(typeof(CopticDate), obj);
+        : obj is Coptic12Date date ? CompareTo(date)
+        : ThrowHelpers.ThrowNonComparable(typeof(Coptic12Date), obj);
 }
 
-public partial struct CopticDate // Standard math ops
+public partial struct Coptic12Date // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified dates and returns the number of days between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountDaysSince()")]
-    public static int operator -(CopticDate left, CopticDate right) => left.CountDaysSince(right);
+    public static int operator -(Coptic12Date left, Coptic12Date right) => left.CountDaysSince(right);
 
     /// <summary>
     /// Adds a number of days to the specified date, yielding a new date.
@@ -774,7 +774,7 @@ public partial struct CopticDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static CopticDate operator +(CopticDate value, int days) => value.PlusDays(days);
+    public static Coptic12Date operator +(Coptic12Date value, int days) => value.PlusDays(days);
 
     /// <summary>
     /// Subtracts a number of days to the specified date, yielding a new date.
@@ -783,7 +783,7 @@ public partial struct CopticDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusDays()")]
-    public static CopticDate operator -(CopticDate value, int days) => value.PlusDays(-days);
+    public static Coptic12Date operator -(Coptic12Date value, int days) => value.PlusDays(-days);
 
     /// <summary>
     /// Adds one day to the specified date, yielding a new date.
@@ -791,7 +791,7 @@ public partial struct CopticDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextDay()")]
-    public static CopticDate operator ++(CopticDate value) => value.NextDay();
+    public static Coptic12Date operator ++(Coptic12Date value) => value.NextDay();
 
     /// <summary>
     /// Subtracts one day to the specified date, yielding a new date.
@@ -799,14 +799,14 @@ public partial struct CopticDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousDay()")]
-    public static CopticDate operator --(CopticDate value) => value.PreviousDay();
+    public static Coptic12Date operator --(Coptic12Date value) => value.PreviousDay();
 
     /// <summary>
     /// Counts the number of whole days from <paramref name="other"/> to this
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountDaysSince(CopticDate other) =>
+    public int CountDaysSince(Coptic12Date other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxDaysSinceEpoch.
         _daysSinceEpoch - other._daysSinceEpoch;
@@ -818,11 +818,11 @@ public partial struct CopticDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public CopticDate PlusDays(int days)
+    public Coptic12Date PlusDays(int days)
     {
         int daysSinceEpoch = checked(_daysSinceEpoch + days);
         if (unchecked((uint)daysSinceEpoch) > MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(daysSinceEpoch);
+        return new Coptic12Date(daysSinceEpoch);
     }
 
     /// <summary>
@@ -831,10 +831,10 @@ public partial struct CopticDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported date.</exception>
     [Pure]
-    public CopticDate NextDay()
+    public Coptic12Date NextDay()
     {
         if (_daysSinceEpoch == MaxDaysSinceEpoch) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(_daysSinceEpoch + 1);
+        return new Coptic12Date(_daysSinceEpoch + 1);
     }
 
     /// <summary>
@@ -843,10 +843,10 @@ public partial struct CopticDate // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported date.</exception>
     [Pure]
-    public CopticDate PreviousDay()
+    public Coptic12Date PreviousDay()
     {
         if (_daysSinceEpoch == 0) ThrowHelpers.ThrowDateOverflow();
-        return new CopticDate(_daysSinceEpoch - 1);
+        return new Coptic12Date(_daysSinceEpoch - 1);
     }
 
     //
@@ -858,7 +858,7 @@ public partial struct CopticDate // Standard math ops
     /// date instance.
     /// </summary>
     [Pure]
-    public int CountWeeksSince(CopticDate other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
+    public int CountWeeksSince(Coptic12Date other) => MathZ.Divide(CountDaysSince(other), DaysPerWeek);
 
     /// <summary>
     /// Adds a number of weeks to the current instance, yielding a new value.
@@ -867,24 +867,24 @@ public partial struct CopticDate // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported dates.
     /// </exception>
     [Pure]
-    public CopticDate PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
+    public Coptic12Date PlusWeeks(int weeks) => PlusDays(DaysPerWeek * weeks);
 
     /// <summary>
     /// Obtains the date after the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public CopticDate NextWeek() => PlusDays(DaysPerWeek);
+    public Coptic12Date NextWeek() => PlusDays(DaysPerWeek);
 
     /// <summary>
     /// Obtains the date before the current instance falling on the same day of
     /// the week, yielding a new date.
     /// </summary>
     [Pure]
-    public CopticDate PreviousWeek() => PlusDays(-DaysPerWeek);
+    public Coptic12Date PreviousWeek() => PlusDays(-DaysPerWeek);
 }
 
-public partial struct CopticDate // Non-standard math ops
+public partial struct Coptic12Date // Non-standard math ops
 {
     /// <summary>
     /// Adds the specified number of years to the year part of this date instance,
@@ -896,7 +896,7 @@ public partial struct CopticDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public CopticDate PlusYears(int years)
+    public Coptic12Date PlusYears(int years)
     {
         var chr = Calendar;
         chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -911,7 +911,7 @@ public partial struct CopticDate // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public CopticDate PlusYears(int years, out int roundoff)
+    public Coptic12Date PlusYears(int years, out int roundoff)
     {
         var chr = Calendar;
         chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -928,7 +928,7 @@ public partial struct CopticDate // Non-standard math ops
     /// <exception cref="OverflowException">The calculation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public CopticDate PlusMonths(int months)
+    public Coptic12Date PlusMonths(int months)
     {
         var chr = Calendar;
         chr.Schema.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -944,7 +944,7 @@ public partial struct CopticDate // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported dates.</exception>
     [Pure]
-    public CopticDate PlusMonths(int months, out int roundoff)
+    public Coptic12Date PlusMonths(int months, out int roundoff)
     {
         var sch = Calendar.Schema;
         sch.GetDateParts(_daysSinceEpoch, out int y, out int m, out int d);
@@ -958,7 +958,7 @@ public partial struct CopticDate // Non-standard math ops
     /// <see cref="PlusYears(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountYearsSince(CopticDate other)
+    public int CountYearsSince(Coptic12Date other)
     {
         var chr = Calendar;
         chr.Schema.GetDateParts(other._daysSinceEpoch, out int y0, out int m0, out int d0);
@@ -988,7 +988,7 @@ public partial struct CopticDate // Non-standard math ops
     /// <see cref="PlusMonths(int)"/> which may apply a kind of truncation.</para>
     /// </summary>
     [Pure]
-    public int CountMonthsSince(CopticDate other)
+    public int CountMonthsSince(Coptic12Date other)
     {
         var chr = Calendar;
         var sch = chr.Schema;
@@ -1017,25 +1017,25 @@ public partial struct CopticDate // Non-standard math ops
 
 #endregion
 
-#region CopticMonth
+#region Coptic12Month
 
 /// <summary>
-/// Represents the Coptic month.
+/// Represents the Coptic12 month.
 /// <para><i>All</i> months within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="CopticMonth"/> is an immutable struct.</para>
+/// <para><see cref="Coptic12Month"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct CopticMonth :
-    IMonth<CopticMonth>,
-    IUnsafeFactory<CopticMonth>,
+public readonly partial struct Coptic12Month :
+    IMonth<Coptic12Month>,
+    IUnsafeFactory<Coptic12Month>,
     // A month viewed as a finite sequence of days
-    IDaySegment<CopticDate>,
-    ISetMembership<CopticDate>,
+    IDaySegment<Coptic12Date>,
+    ISetMembership<Coptic12Date>,
     // Arithmetic
-    ISubtractionOperators<CopticMonth, CopticMonth, int>
+    ISubtractionOperators<Coptic12Month, Coptic12Month, int>
 { }
 
-public partial struct CopticMonth // Preamble
+public partial struct Coptic12Month // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_monthsSinceEpoch"/>.
     /// <para>This field is a constant equal to 119_987.</para></summary>
@@ -1050,16 +1050,16 @@ public partial struct CopticMonth // Preamble
     private readonly int _monthsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticMonth"/> struct
+    /// Initializes a new instance of the <see cref="Coptic12Month"/> struct
     /// to the specified month components.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">The specified components
     /// do not form a valid month or <paramref name="year"/> is outside the
     /// range of supported years.</exception>
-    public CopticMonth(int year, int month)
+    public Coptic12Month(int year, int month)
     {
         // The calendar being regular, no need to use the Scope:
-        // > CopticCalendar.Instance.Scope.ValidateYearMonth(year, month);
+        // > Coptic12Calendar.Instance.Scope.ValidateYearMonth(year, month);
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
         if (month < 1 || month > Coptic12Schema.MonthsPerYear)
@@ -1069,45 +1069,45 @@ public partial struct CopticMonth // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticMonth"/> struct
-    /// from the specified <see cref="CopticDate"/> value.
+    /// Initializes a new instance of the <see cref="Coptic12Month"/> struct
+    /// from the specified <see cref="Coptic12Date"/> value.
     /// </summary>
-    public CopticMonth(CopticDate date)
+    public Coptic12Month(Coptic12Date date)
     {
         var (y, m, _) = date;
         _monthsSinceEpoch = CountMonthsSinceEpoch(y, m);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticMonth"/> struct.
+    /// Initializes a new instance of the <see cref="Coptic12Month"/> struct.
     /// <para>This constructor does NOT validate its parameters.</para>
     /// </summary>
-    private CopticMonth(int monthsSinceEpoch)
+    private Coptic12Month(int monthsSinceEpoch)
     {
         _monthsSinceEpoch = monthsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="CopticMonth"/>.
+    /// Gets the smallest possible value of <see cref="Coptic12Month"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported month.</returns>
     //
-    // MinValue = new(0) = new() = default(CopticMonth)
-    public static CopticMonth MinValue { get; }
+    // MinValue = new(0) = new() = default(Coptic12Month)
+    public static Coptic12Month MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="CopticMonth"/>.
+    /// Gets the largest possible value of <see cref="Coptic12Month"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported month.</returns>
-    public static CopticMonth MaxValue { get; } = new(MaxMonthsSinceEpoch);
+    public static Coptic12Month MaxValue { get; } = new(MaxMonthsSinceEpoch);
 
     /// <summary>
     /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CopticCalendar Calendar => CopticCalendar.Instance;
+    public static Coptic12Calendar Calendar => Coptic12Calendar.Instance;
 
     static Calendar IMonth.Calendar => Calendar;
 
@@ -1165,7 +1165,7 @@ public partial struct CopticMonth // Preamble
     public override string ToString()
     {
         var (y, m) = this;
-        return FormattableString.Invariant($"{m:D2}/{y:D4} ({CopticCalendar.DisplayName})");
+        return FormattableString.Invariant($"{m:D2}/{y:D4} ({Coptic12Calendar.DisplayName})");
     }
 
     /// <inheritdoc />
@@ -1178,18 +1178,18 @@ public partial struct CopticMonth // Preamble
     }
 }
 
-public partial struct CopticMonth // Factories
+public partial struct Coptic12Month // Factories
 {
     /// <inheritdoc />
     [Pure]
-    public static CopticMonth Create(int year, int month) => new(year, month);
+    public static Coptic12Month Create(int year, int month) => new(year, month);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CopticMonth"/>
+    /// Attempts to create a new instance of the <see cref="Coptic12Month"/>
     /// struct from the specified month components.
     /// </summary>
     [Pure]
-    public static CopticMonth? TryCreate(int year, int month)
+    public static Coptic12Month? TryCreate(int year, int month)
     {
         // The calendar being regular, no need to use the PreValidator.
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear
@@ -1201,10 +1201,10 @@ public partial struct CopticMonth // Factories
         return UnsafeCreate(year, month);
     }
 
-    // Explicit implementation: CopticMonth being a value type, better
+    // Explicit implementation: Coptic12Month being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IMonth<CopticMonth>.TryCreate(int year, int month, out CopticMonth result)
+    static bool IMonth<Coptic12Month>.TryCreate(int year, int month, out Coptic12Month result)
     {
         var monthValue = TryCreate(year, month);
         result = monthValue ?? default;
@@ -1212,27 +1212,27 @@ public partial struct CopticMonth // Factories
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CopticMonth"/> struct
+    /// Creates a new instance of the <see cref="Coptic12Month"/> struct
     /// from the specified month components.
     /// <para>This method does NOT validate its parameters.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static CopticMonth UnsafeCreate(int year, int month)
+    internal static Coptic12Month UnsafeCreate(int year, int month)
     {
         int monthsSinceEpoch = CountMonthsSinceEpoch(year, month);
-        return new CopticMonth(monthsSinceEpoch);
+        return new Coptic12Month(monthsSinceEpoch);
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CopticMonth"/> struct
+    /// Creates a new instance of the <see cref="Coptic12Month"/> struct
     /// from the specified count of consecutive months since the epoch.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static CopticMonth UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
+    internal static Coptic12Month UnsafeCreate(int monthsSinceEpoch) => new(monthsSinceEpoch);
 
     [Pure]
-    static CopticMonth IUnsafeFactory<CopticMonth>.UnsafeCreate(int monthsSinceEpoch) =>
+    static Coptic12Month IUnsafeFactory<Coptic12Month>.UnsafeCreate(int monthsSinceEpoch) =>
         UnsafeCreate(monthsSinceEpoch);
 
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1241,7 +1241,7 @@ public partial struct CopticMonth // Factories
         Coptic12Schema.MonthsPerYear * (y - 1) + m - 1;
 }
 
-public partial struct CopticMonth // Counting
+public partial struct Coptic12Month // Counting
 {
     /// <inheritdoc />
     [Pure]
@@ -1268,11 +1268,11 @@ public partial struct CopticMonth // Counting
     }
 }
 
-public partial struct CopticMonth // Adjustments
+public partial struct Coptic12Month // Adjustments
 {
     /// <inheritdoc />
     [Pure]
-    public CopticMonth WithYear(int newYear)
+    public Coptic12Month WithYear(int newYear)
     {
         int m = Month;
 
@@ -1288,7 +1288,7 @@ public partial struct CopticMonth // Adjustments
 
     /// <inheritdoc />
     [Pure]
-    public CopticMonth WithMonth(int newMonth)
+    public Coptic12Month WithMonth(int newMonth)
     {
         int y = Year;
 
@@ -1302,25 +1302,25 @@ public partial struct CopticMonth // Adjustments
     }
 }
 
-public partial struct CopticMonth // IDaySegment
+public partial struct Coptic12Month // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current month instance.
     /// </summary>
-    public CopticDate MinDay
+    public Coptic12Date MinDay
     {
         get
         {
             var (y, m) = this;
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(y, m, 1);
-            return CopticDate.UnsafeCreate(daysSinceEpoch);
+            return Coptic12Date.UnsafeCreate(daysSinceEpoch);
         }
     }
 
     /// <summary>
     /// Gets the the end of the current month instance.
     /// </summary>
-    public CopticDate MaxDay
+    public Coptic12Date MaxDay
     {
         get
         {
@@ -1328,7 +1328,7 @@ public partial struct CopticMonth // IDaySegment
             var sch = Calendar.Schema;
             int d = sch.CountDaysInMonth(y, m);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(y, m, d);
-            return CopticDate.UnsafeCreate(daysSinceEpoch);
+            return Coptic12Date.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1344,23 +1344,23 @@ public partial struct CopticMonth // IDaySegment
     /// Converts the current instance to a range of days.
     /// </summary>
     [Pure]
-    public Segment<CopticDate> ToRange()
+    public Segment<Coptic12Date> ToRange()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
         int startOfMonth = sch.CountDaysSinceEpoch(y, m, 1);
         int daysInMonth = sch.CountDaysInMonth(y, m);
-        return Segment.StartingAt(CopticDate.UnsafeCreate(startOfMonth), daysInMonth);
+        return Segment.StartingAt(Coptic12Date.UnsafeCreate(startOfMonth), daysInMonth);
     }
 
     [Pure]
-    Segment<CopticDate> IDaySegment<CopticDate>.ToDayRange() => ToRange();
+    Segment<Coptic12Date> IDaySegment<Coptic12Date>.ToDayRange() => ToRange();
 
     /// <summary>
     /// Returns an enumerable collection of all days in this month instance.
     /// </summary>
     [Pure]
-    public IEnumerable<CopticDate> ToEnumerable()
+    public IEnumerable<Coptic12Date> ToEnumerable()
     {
         var (y, m) = this;
         var sch = Calendar.Schema;
@@ -1369,18 +1369,18 @@ public partial struct CopticMonth // IDaySegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfMonth, daysInMonth)
-               select CopticDate.UnsafeCreate(daysSinceEpoch);
+               select Coptic12Date.UnsafeCreate(daysSinceEpoch);
     }
 
     [Pure]
-    IEnumerable<CopticDate> IDaySegment<CopticDate>.EnumerateDays() => ToEnumerable();
+    IEnumerable<Coptic12Date> IDaySegment<Coptic12Date>.EnumerateDays() => ToEnumerable();
 
     /// <summary>
     /// Returns <see langword="true"/> if the current month instance contains
     /// the specified date; otherwise returns <see langword="false"/>.
     /// </summary>
     [Pure]
-    public bool Contains(CopticDate date)
+    public bool Contains(Coptic12Date date)
     {
         var (y, m) = this;
         Calendar.Schema.GetDateParts(date.DaysSinceEpoch, out int y1, out int m1, out _);
@@ -1394,97 +1394,97 @@ public partial struct CopticMonth // IDaySegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfMonth"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public CopticDate GetDayOfMonth(int dayOfMonth)
+    public Coptic12Date GetDayOfMonth(int dayOfMonth)
     {
         var (y, m) = this;
         var chr = Calendar;
         chr.Scope.PreValidator.ValidateDayOfMonth(y, m, dayOfMonth);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(y, m, dayOfMonth);
-        return CopticDate.UnsafeCreate(daysSinceEpoch);
+        return Coptic12Date.UnsafeCreate(daysSinceEpoch);
     }
 }
 
-public partial struct CopticMonth // IEquatable
+public partial struct Coptic12Month // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(CopticMonth left, CopticMonth right) =>
+    public static bool operator ==(Coptic12Month left, Coptic12Month right) =>
         left._monthsSinceEpoch == right._monthsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(CopticMonth left, CopticMonth right) =>
+    public static bool operator !=(Coptic12Month left, Coptic12Month right) =>
         left._monthsSinceEpoch != right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(CopticMonth other) => _monthsSinceEpoch == other._monthsSinceEpoch;
+    public bool Equals(Coptic12Month other) => _monthsSinceEpoch == other._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is CopticMonth month && Equals(month);
+        obj is Coptic12Month month && Equals(month);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _monthsSinceEpoch;
 }
 
-public partial struct CopticMonth // IComparable
+public partial struct Coptic12Month // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(CopticMonth left, CopticMonth right) =>
+    public static bool operator <(Coptic12Month left, Coptic12Month right) =>
         left._monthsSinceEpoch < right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(CopticMonth left, CopticMonth right) =>
+    public static bool operator <=(Coptic12Month left, Coptic12Month right) =>
         left._monthsSinceEpoch <= right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(CopticMonth left, CopticMonth right) =>
+    public static bool operator >(Coptic12Month left, Coptic12Month right) =>
         left._monthsSinceEpoch > right._monthsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(CopticMonth left, CopticMonth right) =>
+    public static bool operator >=(Coptic12Month left, Coptic12Month right) =>
         left._monthsSinceEpoch >= right._monthsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static CopticMonth Min(CopticMonth x, CopticMonth y) => x < y ? x : y;
+    public static Coptic12Month Min(Coptic12Month x, Coptic12Month y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static CopticMonth Max(CopticMonth x, CopticMonth y) => x > y ? x : y;
+    public static Coptic12Month Max(Coptic12Month x, Coptic12Month y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(CopticMonth other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
+    public int CompareTo(Coptic12Month other) => _monthsSinceEpoch.CompareTo(other._monthsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is CopticMonth month ? CompareTo(month)
-        : ThrowHelpers.ThrowNonComparable(typeof(CopticMonth), obj);
+        : obj is Coptic12Month month ? CompareTo(month)
+        : ThrowHelpers.ThrowNonComparable(typeof(Coptic12Month), obj);
 }
 
-public partial struct CopticMonth // Standard math ops
+public partial struct Coptic12Month // Standard math ops
 {
     /// <summary>
     /// Subtracts the two specified months and returns the number of months
     /// between them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountMonthsSince()")]
-    public static int operator -(CopticMonth left, CopticMonth right) => left.CountMonthsSince(right);
+    public static int operator -(Coptic12Month left, Coptic12Month right) => left.CountMonthsSince(right);
 
     /// <summary>
     /// Adds a number of months to the specified month, yielding a new month.
@@ -1493,7 +1493,7 @@ public partial struct CopticMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static CopticMonth operator +(CopticMonth value, int months) => value.PlusMonths(months);
+    public static Coptic12Month operator +(Coptic12Month value, int months) => value.PlusMonths(months);
 
     /// <summary>
     /// Subtracts a number of months to the specified month, yielding a new month.
@@ -1502,7 +1502,7 @@ public partial struct CopticMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusMonths()")]
-    public static CopticMonth operator -(CopticMonth value, int months) => value.PlusMonths(-months);
+    public static Coptic12Month operator -(Coptic12Month value, int months) => value.PlusMonths(-months);
 
     /// <summary>
     /// Adds one month to the specified month, yielding a new month.
@@ -1510,7 +1510,7 @@ public partial struct CopticMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextMonth()")]
-    public static CopticMonth operator ++(CopticMonth value) => value.NextMonth();
+    public static Coptic12Month operator ++(Coptic12Month value) => value.NextMonth();
 
     /// <summary>
     /// Subtracts one month to the specified month, yielding a new month.
@@ -1518,13 +1518,13 @@ public partial struct CopticMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousMonth()")]
-    public static CopticMonth operator --(CopticMonth value) => value.PreviousMonth();
+    public static Coptic12Month operator --(Coptic12Month value) => value.PreviousMonth();
 
     /// <summary>
     /// Counts the number of whole months elapsed since the specified month.
     /// </summary>
     [Pure]
-    public int CountMonthsSince(CopticMonth other) =>
+    public int CountMonthsSince(Coptic12Month other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to MaxMonthsSinceEpoch.
         _monthsSinceEpoch - other._monthsSinceEpoch;
@@ -1536,12 +1536,12 @@ public partial struct CopticMonth // Standard math ops
     /// the capacity of <see cref="int"/> or the range of supported months.
     /// </exception>
     [Pure]
-    public CopticMonth PlusMonths(int months)
+    public Coptic12Month PlusMonths(int months)
     {
         int monthsSinceEpoch = checked(_monthsSinceEpoch + months);
         if (unchecked((uint)monthsSinceEpoch) > MaxMonthsSinceEpoch)
             ThrowHelpers.ThrowMonthOverflow();
-        return new CopticMonth(monthsSinceEpoch);
+        return new Coptic12Month(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1550,10 +1550,10 @@ public partial struct CopticMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported month.</exception>
     [Pure]
-    public CopticMonth NextMonth()
+    public Coptic12Month NextMonth()
     {
         if (_monthsSinceEpoch == MaxMonthsSinceEpoch) ThrowHelpers.ThrowMonthOverflow();
-        return new CopticMonth(_monthsSinceEpoch + 1);
+        return new Coptic12Month(_monthsSinceEpoch + 1);
     }
 
     /// <summary>
@@ -1562,14 +1562,14 @@ public partial struct CopticMonth // Standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported month.</exception>
     [Pure]
-    public CopticMonth PreviousMonth()
+    public Coptic12Month PreviousMonth()
     {
         if (_monthsSinceEpoch == 0) ThrowHelpers.ThrowMonthOverflow();
-        return new CopticMonth(_monthsSinceEpoch - 1);
+        return new Coptic12Month(_monthsSinceEpoch - 1);
     }
 }
 
-public partial struct CopticMonth // Non-standard math ops
+public partial struct Coptic12Month // Non-standard math ops
 {
     /// <summary>
     /// Adds the specified number of years to the year part of this month
@@ -1580,7 +1580,7 @@ public partial struct CopticMonth // Non-standard math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported months.</exception>
     [Pure]
-    public CopticMonth PlusYears(int years)
+    public Coptic12Month PlusYears(int years)
     {
         var (y, m) = this;
         // Exact addition of years to a calendar year.
@@ -1592,7 +1592,7 @@ public partial struct CopticMonth // Non-standard math ops
     }
 
     [Pure]
-    CopticMonth IMonthBase<CopticMonth>.PlusYears(int years, out int roundoff)
+    Coptic12Month IMonthBase<Coptic12Month>.PlusYears(int years, out int roundoff)
     {
         roundoff = 0;
         return PlusYears(years);
@@ -1603,7 +1603,7 @@ public partial struct CopticMonth // Non-standard math ops
     /// month instance.
     /// </summary>
     [Pure]
-    public int CountYearsSince(CopticMonth other)
+    public int CountYearsSince(Coptic12Month other)
     {
         // Exact difference between two calendar years.
         int years = Year - other.Year;
@@ -1624,27 +1624,27 @@ public partial struct CopticMonth // Non-standard math ops
 
 #endregion
 
-#region CopticYear
+#region Coptic12Year
 
 /// <summary>
-/// Represents the Coptic year.
+/// Represents the Coptic12 year.
 /// <para><i>All</i> years within the range [1..9999] of years are supported.
 /// </para>
-/// <para><see cref="CopticYear"/> is an immutable struct.</para>
+/// <para><see cref="Coptic12Year"/> is an immutable struct.</para>
 /// </summary>
-public readonly partial struct CopticYear :
-    IYear<CopticYear>,
+public readonly partial struct Coptic12Year :
+    IYear<Coptic12Year>,
     // A year viewed as a finite sequence of months
-    IMonthSegment<CopticMonth>,
-    ISetMembership<CopticMonth>,
+    IMonthSegment<Coptic12Month>,
+    ISetMembership<Coptic12Month>,
     // A year viewed as a finite sequence of days
-    IDaySegment<CopticDate>,
-    ISetMembership<CopticDate>,
+    IDaySegment<Coptic12Date>,
+    ISetMembership<Coptic12Date>,
     // Arithmetic
-    ISubtractionOperators<CopticYear, CopticYear, int>
+    ISubtractionOperators<Coptic12Year, Coptic12Year, int>
 { }
 
-public partial struct CopticYear // Preamble
+public partial struct Coptic12Year // Preamble
 {
     /// <summary>Represents the maximum value of <see cref="_yearsSinceEpoch"/>.
     /// <para>This field is a constant equal to 9998.</para></summary>
@@ -1659,12 +1659,12 @@ public partial struct CopticYear // Preamble
     private readonly ushort _yearsSinceEpoch;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticYear"/> struct
+    /// Initializes a new instance of the <see cref="Coptic12Year"/> struct
     /// to the specified year.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="year"/> is
     /// outside the range of years supported values.</exception>
-    public CopticYear(int year)
+    public Coptic12Year(int year)
     {
         if (year < StandardScope.MinYear || year > StandardScope.MaxYear)
             ThrowHelpers.ThrowYearOutOfRange(year);
@@ -1673,53 +1673,53 @@ public partial struct CopticYear // Preamble
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticYear"/> struct
-    /// from the specified <see cref="CopticMonth"/> value.
+    /// Initializes a new instance of the <see cref="Coptic12Year"/> struct
+    /// from the specified <see cref="Coptic12Month"/> value.
     /// </summary>
-    public CopticYear(CopticMonth month)
+    public Coptic12Year(Coptic12Month month)
     {
         _yearsSinceEpoch = (ushort)(month.Year - 1);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticYear"/> struct
-    /// from the specified <see cref="CopticDate"/> value.
+    /// Initializes a new instance of the <see cref="Coptic12Year"/> struct
+    /// from the specified <see cref="Coptic12Date"/> value.
     /// </summary>
-    public CopticYear(CopticDate date)
+    public Coptic12Year(Coptic12Date date)
     {
         _yearsSinceEpoch = (ushort)(date.Year - 1);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CopticYear"/> struct.
+    /// Initializes a new instance of the <see cref="Coptic12Year"/> struct.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
-    private CopticYear(ushort yearsSinceEpoch)
+    private Coptic12Year(ushort yearsSinceEpoch)
     {
         _yearsSinceEpoch = yearsSinceEpoch;
     }
 
     /// <summary>
-    /// Gets the smallest possible value of <see cref="CopticYear"/>.
+    /// Gets the smallest possible value of <see cref="Coptic12Year"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The earliest supported year.</returns>
     //
-    // MinValue = new(1) = new() = default(CopticYear)
-    public static CopticYear MinValue { get; }
+    // MinValue = new(1) = new() = default(Coptic12Year)
+    public static Coptic12Year MinValue { get; }
 
     /// <summary>
-    /// Gets the largest possible value of <see cref="CopticYear"/>.
+    /// Gets the largest possible value of <see cref="Coptic12Year"/>.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
     /// <returns>The latest supported year.</returns>
-    public static CopticYear MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
+    public static Coptic12Year MaxValue { get; } = new((ushort)MaxYearsSinceEpoch);
 
     /// <summary>
     /// Gets the companion calendar.
     /// <para>This static property is thread-safe.</para>
     /// </summary>
-    public static CopticCalendar Calendar => CopticCalendar.Instance;
+    public static Coptic12Calendar Calendar => Coptic12Calendar.Instance;
 
     static Calendar IYear.Calendar => Calendar;
 
@@ -1764,30 +1764,30 @@ public partial struct CopticYear // Preamble
     /// </summary>
     [Pure]
     public override string ToString() =>
-        FormattableString.Invariant($"{Year:D4} ({CopticCalendar.DisplayName})");
+        FormattableString.Invariant($"{Year:D4} ({Coptic12Calendar.DisplayName})");
 }
 
-public partial struct CopticYear // Factories
+public partial struct Coptic12Year // Factories
 {
     /// <inheritdoc />
     [Pure]
-    public static CopticYear Create(int year) => new(year);
+    public static Coptic12Year Create(int year) => new(year);
 
     /// <summary>
-    /// Attempts to create a new instance of the <see cref="CopticYear"/>
+    /// Attempts to create a new instance of the <see cref="Coptic12Year"/>
     /// struct from the specified year.
     /// </summary>
     [Pure]
-    public static CopticYear? TryCreate(int year)
+    public static Coptic12Year? TryCreate(int year)
     {
         bool ok = year >= StandardScope.MinYear && year <= StandardScope.MaxYear;
         return ok ? UnsafeCreate(year) : null;
     }
 
-    // Explicit implementation: CopticYear being a value type, better
+    // Explicit implementation: Coptic12Year being a value type, better
     // to use the other TryCreate().
     [Pure]
-    static bool IYear<CopticYear>.TryCreate(int year, out CopticYear result)
+    static bool IYear<Coptic12Year>.TryCreate(int year, out Coptic12Year result)
     {
         var yearValue = TryCreate(year);
         result = yearValue ?? default;
@@ -1795,45 +1795,45 @@ public partial struct CopticYear // Factories
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="CopticYear"/> struct
+    /// Creates a new instance of the <see cref="Coptic12Year"/> struct
     /// from the specified year.
     /// <para>This method does NOT validate its parameter.</para>
     /// </summary>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static CopticYear UnsafeCreate(int year) => new((ushort)(year - 1));
+    private static Coptic12Year UnsafeCreate(int year) => new((ushort)(year - 1));
 }
 
-public partial struct CopticYear // IMonthSegment
+public partial struct Coptic12Year // IMonthSegment
 {
     /// <summary>
     /// Represents the total number of months in a year.
-    /// <para>This field is constant equal to 12.</para>
+    /// <para>This field is a constant equal to 12.</para>
     /// </summary>
     public const int MonthCount = Coptic12Schema.MonthsPerYear;
 
     /// <inheritdoc />
-    public CopticMonth MinMonth => CopticMonth.UnsafeCreate(Year, 1);
+    public Coptic12Month MinMonth => Coptic12Month.UnsafeCreate(Year, 1);
 
     /// <inheritdoc />
-    public CopticMonth MaxMonth => CopticMonth.UnsafeCreate(Year, MonthCount);
-
-    /// <inheritdoc />
-    [Pure]
-    int IMonthSegment<CopticMonth>.CountMonths() => MonthCount;
+    public Coptic12Month MaxMonth => Coptic12Month.UnsafeCreate(Year, MonthCount);
 
     /// <inheritdoc />
     [Pure]
-    public Segment<CopticMonth> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
+    int IMonthSegment<Coptic12Month>.CountMonths() => MonthCount;
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<CopticMonth> EnumerateMonths()
+    public Segment<Coptic12Month> ToMonthRange() => Segment.StartingAt(MinMonth, MonthCount);
+
+    /// <inheritdoc />
+    [Pure]
+    public IEnumerable<Coptic12Month> EnumerateMonths()
     {
-        int startOfYear = CopticMonth.UnsafeCreate(Year, 1).MonthsSinceEpoch;
+        int startOfYear = Coptic12Month.UnsafeCreate(Year, 1).MonthsSinceEpoch;
 
         return from monthsSinceEpoch
                in Enumerable.Range(startOfYear, MonthCount)
-               select CopticMonth.UnsafeCreate(monthsSinceEpoch);
+               select Coptic12Month.UnsafeCreate(monthsSinceEpoch);
     }
 
     /// <summary>
@@ -1841,7 +1841,7 @@ public partial struct CopticYear // IMonthSegment
     /// the specified month; otherwise returns <see langword="false"/>.
     /// </summary>
     [Pure]
-    public bool Contains(CopticMonth month) => month.Year == Year;
+    public bool Contains(Coptic12Month month) => month.Year == Year;
 
     /// <summary>
     /// Obtains the month corresponding to the specified month of this year
@@ -1850,7 +1850,7 @@ public partial struct CopticYear // IMonthSegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="month"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public CopticMonth GetMonthOfYear(int month)
+    public Coptic12Month GetMonthOfYear(int month)
     {
         // We already know that "y" is valid, we only need to check "month".
         // The calendar being regular, no need to use the Scope:
@@ -1858,35 +1858,35 @@ public partial struct CopticYear // IMonthSegment
         if (month < 1 || month > Coptic12Schema.MonthsPerYear)
             ThrowHelpers.ThrowMonthOutOfRange(month);
 
-        return CopticMonth.UnsafeCreate(Year, month);
+        return Coptic12Month.UnsafeCreate(Year, month);
     }
 }
 
-public partial struct CopticYear // IDaySegment
+public partial struct Coptic12Year // IDaySegment
 {
     /// <summary>
     /// Gets the the start of the current year instance.
     /// </summary>
-    public CopticDate MinDay
+    public Coptic12Date MinDay
     {
         get
         {
             int daysSinceEpoch = Calendar.Schema.CountDaysSinceEpoch(Year, 1);
-            return CopticDate.UnsafeCreate(daysSinceEpoch);
+            return Coptic12Date.UnsafeCreate(daysSinceEpoch);
         }
     }
 
     /// <summary>
     /// Gets the the end of the current year instance.
     /// </summary>
-    public CopticDate MaxDay
+    public Coptic12Date MaxDay
     {
         get
         {
             var sch = Calendar.Schema;
             int doy = sch.CountDaysInYear(Year);
             int daysSinceEpoch = sch.CountDaysSinceEpoch(Year, doy);
-            return CopticDate.UnsafeCreate(daysSinceEpoch);
+            return Coptic12Date.UnsafeCreate(daysSinceEpoch);
         }
     }
 
@@ -1896,17 +1896,17 @@ public partial struct CopticYear // IDaySegment
 
     /// <inheritdoc />
     [Pure]
-    public Segment<CopticDate> ToDayRange()
+    public Segment<Coptic12Date> ToDayRange()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
         int daysInYear = sch.CountDaysInYear(Year);
-        return Segment.StartingAt(CopticDate.UnsafeCreate(startOfYear), daysInYear);
+        return Segment.StartingAt(Coptic12Date.UnsafeCreate(startOfYear), daysInYear);
     }
 
     /// <inheritdoc />
     [Pure]
-    public IEnumerable<CopticDate> EnumerateDays()
+    public IEnumerable<Coptic12Date> EnumerateDays()
     {
         var sch = Calendar.Schema;
         int startOfYear = sch.CountDaysSinceEpoch(Year, 1);
@@ -1914,7 +1914,7 @@ public partial struct CopticYear // IDaySegment
 
         return from daysSinceEpoch
                in Enumerable.Range(startOfYear, daysInYear)
-               select CopticDate.UnsafeCreate(daysSinceEpoch);
+               select Coptic12Date.UnsafeCreate(daysSinceEpoch);
     }
 
     /// <summary>
@@ -1922,7 +1922,7 @@ public partial struct CopticYear // IDaySegment
     /// the specified date; otherwise returns <see langword="false"/>.
     /// </summary>
     [Pure]
-    public bool Contains(CopticDate date) => date.Year == Year;
+    public bool Contains(Coptic12Date date) => date.Year == Year;
 
     /// <summary>
     /// Obtains the date corresponding to the specified day of this year instance.
@@ -1930,98 +1930,98 @@ public partial struct CopticYear // IDaySegment
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="dayOfYear"/>
     /// is outside the range of valid values.</exception>
     [Pure]
-    public CopticDate GetDayOfYear(int dayOfYear)
+    public Coptic12Date GetDayOfYear(int dayOfYear)
     {
         var chr = Calendar;
         // We already know that "y" is valid, we only need to check "dayOfYear".
         chr.Scope.PreValidator.ValidateDayOfYear(Year, dayOfYear);
         int daysSinceEpoch = chr.Schema.CountDaysSinceEpoch(Year, dayOfYear);
-        return CopticDate.UnsafeCreate(daysSinceEpoch);
+        return Coptic12Date.UnsafeCreate(daysSinceEpoch);
     }
 }
 
-public partial struct CopticYear // IEquatable
+public partial struct Coptic12Year // IEquatable
 {
     /// <inheritdoc />
-    public static bool operator ==(CopticYear left, CopticYear right) =>
+    public static bool operator ==(Coptic12Year left, Coptic12Year right) =>
         left._yearsSinceEpoch == right._yearsSinceEpoch;
 
     /// <inheritdoc />
-    public static bool operator !=(CopticYear left, CopticYear right) =>
+    public static bool operator !=(Coptic12Year left, Coptic12Year right) =>
         left._yearsSinceEpoch != right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public bool Equals(CopticYear other) => _yearsSinceEpoch == other._yearsSinceEpoch;
+    public bool Equals(Coptic12Year other) => _yearsSinceEpoch == other._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
     public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is CopticYear year && Equals(year);
+        obj is Coptic12Year year && Equals(year);
 
     /// <inheritdoc />
     [Pure]
     public override int GetHashCode() => _yearsSinceEpoch;
 }
 
-public partial struct CopticYear // IComparable
+public partial struct Coptic12Year // IComparable
 {
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// earlier than the right one.
     /// </summary>
-    public static bool operator <(CopticYear left, CopticYear right) =>
+    public static bool operator <(Coptic12Year left, Coptic12Year right) =>
         left._yearsSinceEpoch < right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is earlier
     /// than or equal to the right one.
     /// </summary>
-    public static bool operator <=(CopticYear left, CopticYear right) =>
+    public static bool operator <=(Coptic12Year left, Coptic12Year right) =>
         left._yearsSinceEpoch <= right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is strictly
     /// later than the right one.
     /// </summary>
-    public static bool operator >(CopticYear left, CopticYear right) =>
+    public static bool operator >(Coptic12Year left, Coptic12Year right) =>
         left._yearsSinceEpoch > right._yearsSinceEpoch;
 
     /// <summary>
     /// Compares the two specified instances to see if the left one is later than
     /// or equal to the right one.
     /// </summary>
-    public static bool operator >=(CopticYear left, CopticYear right) =>
+    public static bool operator >=(Coptic12Year left, Coptic12Year right) =>
         left._yearsSinceEpoch >= right._yearsSinceEpoch;
 
     /// <inheritdoc />
     [Pure]
-    public static CopticYear Min(CopticYear x, CopticYear y) => x < y ? x : y;
+    public static Coptic12Year Min(Coptic12Year x, Coptic12Year y) => x < y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public static CopticYear Max(CopticYear x, CopticYear y) => x > y ? x : y;
+    public static Coptic12Year Max(Coptic12Year x, Coptic12Year y) => x > y ? x : y;
 
     /// <inheritdoc />
     [Pure]
-    public int CompareTo(CopticYear other) =>
+    public int CompareTo(Coptic12Year other) =>
         _yearsSinceEpoch.CompareTo(other._yearsSinceEpoch);
 
     [Pure]
     int IComparable.CompareTo(object? obj) =>
         obj is null ? 1
-        : obj is CopticYear year ? CompareTo(year)
-        : ThrowHelpers.ThrowNonComparable(typeof(CopticYear), obj);
+        : obj is Coptic12Year year ? CompareTo(year)
+        : ThrowHelpers.ThrowNonComparable(typeof(Coptic12Year), obj);
 }
 
-public partial struct CopticYear // Math ops
+public partial struct Coptic12Year // Math ops
 {
     /// <summary>
     /// Subtracts the two specified years and returns the number of years between
     /// them.
     /// </summary>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See CountYearsSince()")]
-    public static int operator -(CopticYear left, CopticYear right) => left.CountYearsSince(right);
+    public static int operator -(Coptic12Year left, Coptic12Year right) => left.CountYearsSince(right);
 
     /// <summary>
     /// Adds a number of years to the specified year, yielding a new year.
@@ -2029,7 +2029,7 @@ public partial struct CopticYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// range of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static CopticYear operator +(CopticYear value, int years) => value.PlusYears(years);
+    public static Coptic12Year operator +(Coptic12Year value, int years) => value.PlusYears(years);
 
     /// <summary>
     /// Subtracts a number of years to the specified year, yielding a new year.
@@ -2037,7 +2037,7 @@ public partial struct CopticYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the range
     /// of supported years.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PlusYears()")]
-    public static CopticYear operator -(CopticYear value, int years) => value.PlusYears(-years);
+    public static Coptic12Year operator -(Coptic12Year value, int years) => value.PlusYears(-years);
 
     /// <summary>
     /// Adds one year to the specified year, yielding a new year.
@@ -2045,7 +2045,7 @@ public partial struct CopticYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See NextYear()")]
-    public static CopticYear operator ++(CopticYear value) => value.NextYear();
+    public static Coptic12Year operator ++(Coptic12Year value) => value.NextYear();
 
     /// <summary>
     /// Subtracts one year to the specified year, yielding a new year.
@@ -2053,13 +2053,13 @@ public partial struct CopticYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "See PreviousYear()")]
-    public static CopticYear operator --(CopticYear value) => value.PreviousYear();
+    public static Coptic12Year operator --(Coptic12Year value) => value.PreviousYear();
 
     /// <summary>
     /// Counts the number of whole years elapsed since the specified year.
     /// </summary>
     [Pure]
-    public int CountYearsSince(CopticYear other) =>
+    public int CountYearsSince(Coptic12Year other) =>
         // No need to use a checked context here. Indeed, the absolute value of
         // the result is at most equal to (MaxYear - 1).
         _yearsSinceEpoch - other._yearsSinceEpoch;
@@ -2071,11 +2071,11 @@ public partial struct CopticYear // Math ops
     /// the capacity of <see cref="int"/> or the range of supported years.
     /// </exception>
     [Pure]
-    public CopticYear PlusYears(int years)
+    public Coptic12Year PlusYears(int years)
     {
         int yearsSinceEpoch = checked(_yearsSinceEpoch + years);
         if (unchecked((uint)yearsSinceEpoch) > MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new CopticYear((ushort)yearsSinceEpoch);
+        return new Coptic12Year((ushort)yearsSinceEpoch);
     }
 
     /// <summary>
@@ -2084,10 +2084,10 @@ public partial struct CopticYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// latest supported year.</exception>
     [Pure]
-    public CopticYear NextYear()
+    public Coptic12Year NextYear()
     {
         if (_yearsSinceEpoch == MaxYearsSinceEpoch) ThrowHelpers.ThrowYearOverflow();
-        return new CopticYear((ushort)(_yearsSinceEpoch + 1));
+        return new Coptic12Year((ushort)(_yearsSinceEpoch + 1));
     }
 
     /// <summary>
@@ -2096,10 +2096,10 @@ public partial struct CopticYear // Math ops
     /// <exception cref="OverflowException">The operation would overflow the
     /// earliest supported year.</exception>
     [Pure]
-    public CopticYear PreviousYear()
+    public Coptic12Year PreviousYear()
     {
         if (_yearsSinceEpoch == 0) ThrowHelpers.ThrowYearOverflow();
-        return new CopticYear((ushort)(_yearsSinceEpoch - 1));
+        return new Coptic12Year((ushort)(_yearsSinceEpoch - 1));
     }
 }
 

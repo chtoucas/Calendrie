@@ -43,7 +43,7 @@ public partial struct Armenian13Date // Complements
     }
 }
 
-public partial struct CopticDate // Complements
+public partial struct Coptic12Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -70,7 +70,7 @@ public partial struct Coptic13Date // Complements
     }
 }
 
-public partial struct EgyptianDate // Complements
+public partial struct Egyptian12Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -97,7 +97,7 @@ public partial struct Egyptian13Date // Complements
     }
 }
 
-public partial struct EthiopicDate // Complements
+public partial struct Ethiopic12Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -124,7 +124,7 @@ public partial struct Ethiopic13Date // Complements
     }
 }
 
-public partial struct FrenchRepublicanDate // Complements
+public partial struct FrenchRepublican12Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and
@@ -151,7 +151,7 @@ public partial struct FrenchRepublican13Date // Complements
     }
 }
 
-public partial struct ZoroastrianDate // Complements
+public partial struct Zoroastrian12Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and

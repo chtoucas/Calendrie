@@ -15,7 +15,7 @@ open Calendrie.Testing.Facts.Systems
 
 open Xunit
 
-module Prelude =
+module Prelude12 =
     let private calendarDataSet = StandardArmenian12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
@@ -127,7 +127,7 @@ module Prelude13 =
         // Act & Assert
         new Armenian13Year(month) === exp
 
-module Conversions =
+module Conversions12 =
     let private calendarDataSet = StandardArmenian12DataSet.Instance
 
     let dateInfoData = calendarDataSet.DateInfoData
@@ -349,7 +349,7 @@ module Conversions13 =
 
         op_Explicit_Julian Armenian13Date.MaxValue === exp
 
-module Bundles =
+module Bundles12 =
     [<Sealed>]
     [<TestExcludeFrom(TestExcludeFrom.Regular)>]
     type CalendaTests() =

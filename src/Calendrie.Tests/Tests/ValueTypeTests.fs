@@ -81,13 +81,13 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<Armenian12Date>) === 4
         Marshal.SizeOf(typedefof<Armenian13Date>) === 4
         Marshal.SizeOf(typedefof<CivilDate>) === 4
-        Marshal.SizeOf(typedefof<CopticDate>) === 4
+        Marshal.SizeOf(typedefof<Coptic12Date>) === 4
         Marshal.SizeOf(typedefof<Coptic13Date>) === 4
-        Marshal.SizeOf(typedefof<EgyptianDate>) === 4
+        Marshal.SizeOf(typedefof<Egyptian12Date>) === 4
         Marshal.SizeOf(typedefof<Egyptian13Date>) === 4
-        Marshal.SizeOf(typedefof<EthiopicDate>) === 4
+        Marshal.SizeOf(typedefof<Ethiopic12Date>) === 4
         Marshal.SizeOf(typedefof<Ethiopic13Date>) === 4
-        Marshal.SizeOf(typedefof<FrenchRepublicanDate>) === 4
+        Marshal.SizeOf(typedefof<FrenchRepublican12Date>) === 4
         Marshal.SizeOf(typedefof<FrenchRepublican13Date>) === 4
         Marshal.SizeOf(typedefof<GregorianDate>) === 4
         Marshal.SizeOf(typedefof<InternationalFixedDate>) === 4
@@ -98,7 +98,7 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<TabularIslamicDate>) === 4
         Marshal.SizeOf(typedefof<TropicaliaDate>) === 4
         Marshal.SizeOf(typedefof<WorldDate>) === 4
-        Marshal.SizeOf(typedefof<ZoroastrianDate>) === 4
+        Marshal.SizeOf(typedefof<Zoroastrian12Date>) === 4
         Marshal.SizeOf(typedefof<Zoroastrian13Date>) === 4
 
     // TODO(fact): test all models.
