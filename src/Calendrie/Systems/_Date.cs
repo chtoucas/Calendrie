@@ -16,7 +16,7 @@ using Calendrie.Core.Schemas;
 // questions d'ordre technique on le rattache au douzième mois.
 // Ex. : le jour de la révolution du calendrier républicain.
 
-public partial struct ArmenianDate // Complements
+public partial struct Armenian12Date // Complements
 {
     /// <summary>
     /// Determines whether the current instance is an epagomenal day or not, and

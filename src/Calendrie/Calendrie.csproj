@@ -26,10 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Systems\Armenian.g.cs">
+    <Compile Update="Systems\Armenian12.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Armenian.tt</DependentUpon>
+      <DependentUpon>Armenian12.tt</DependentUpon>
     </Compile>
     <Compile Update="Systems\Armenian13.g.cs">
       <DesignTime>True</DesignTime>

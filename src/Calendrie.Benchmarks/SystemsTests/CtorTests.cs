@@ -14,7 +14,7 @@ public class CtorTests
         (_year, _month, _day) = BenchmarkHelpers.CreateJulianParts();
 
     [Benchmark(Description = "ArmenianDate")]
-    public ArmenianDate WithArmenianDate() => new(_year, _month, _day);
+    public Armenian12Date WithArmenian12Date() => new(_year, _month, _day);
 
     [Benchmark(Description = "Armenian13Date")]
     public Armenian13Date WithArmenian13Date() => new(_year, _month, _day);

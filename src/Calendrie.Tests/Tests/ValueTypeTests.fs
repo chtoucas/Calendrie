@@ -78,7 +78,7 @@ module RuntimeSizes =
 
     [<Fact>]
     let ``Types in Calendrie:Systems`` () =
-        Marshal.SizeOf(typedefof<ArmenianDate>) === 4
+        Marshal.SizeOf(typedefof<Armenian12Date>) === 4
         Marshal.SizeOf(typedefof<Armenian13Date>) === 4
         Marshal.SizeOf(typedefof<CivilDate>) === 4
         Marshal.SizeOf(typedefof<CopticDate>) === 4
