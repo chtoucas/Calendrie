@@ -1,22 +1,22 @@
 Summary
-  Generated on: 10/02/2025 - 07:06:32
+  Generated on: 10/02/2025 - 07:21:07
   Parser: OpenCover
   Assemblies: 2
   Classes: 155
   Files: 124
-  Line coverage: 99.8%
-  Covered lines: 12938
-  Uncovered lines: 13
-  Coverable lines: 12951
-  Total lines: 48650
-  Branch coverage: 99.7% (3717 of 3725)
-  Covered branches: 3717
-  Total branches: 3725
-  Method coverage: 99.8% (4590 of 4596)
-  Full method coverage: 83.7% (3850 of 4596)
-  Covered methods: 4590
-  Fully covered methods: 3850
-  Total methods: 4596
+  Line coverage: 99.9%
+  Covered lines: 12954
+  Uncovered lines: 6
+  Coverable lines: 12960
+  Total lines: 48674
+  Branch coverage: 99.8% (3723 of 3729)
+  Covered branches: 3723
+  Total branches: 3729
+  Method coverage: 99.9% (4594 of 4598)
+  Full method coverage: 83.7% (3851 of 4598)
+  Covered methods: 4594
+  Fully covered methods: 3851
+  Total methods: 4598
 
 Calendrie                                            100%
   Calendrie.Core.CalendricalSchema                   100%
@@ -145,7 +145,7 @@ Calendrie                                            100%
   Calendrie.Systems.ZoroastrianYear                  100%
   Calendrie.YearNumbering                            100%
 
-Calendrie.Future                                    99.6%
+Calendrie.Future                                    99.8%
   Calendrie.CalendarClock                            100%
   Calendrie.Core.Schemas.PaxSchema                  96.4%
   Calendrie.Core.Schemas.Tropicalia3031Schema        100%
@@ -153,7 +153,7 @@ Calendrie.Future                                    99.6%
   Calendrie.Core.Schemas.TropicaliaSchema            100%
   Calendrie.Core.Schemas.TropicalistaSchema          100%
   Calendrie.Core.Validation.PaxPreValidator          100%
-  Calendrie.IsoWeekdayExtensions                       0%
+  Calendrie.IsoWeekdayExtensions                     100%
   Calendrie.Systems.EgyptianDateExtensions             0%
   Calendrie.Systems.InternationalFixedCalendar       100%
   Calendrie.Systems.InternationalFixedDate           100%

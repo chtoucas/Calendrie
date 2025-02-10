@@ -28,6 +28,30 @@ public static class EnumDataSet
         DayOfWeek.Sunday,
     ];
 
+    /// <summary>
+    /// Gets invalid values for <see cref="IsoWeekday"/>.
+    /// </summary>
+    public static TheoryData<IsoWeekday> InvalidIsoWeekdayData { get; } =
+    [
+        0,
+        (IsoWeekday)8
+    ];
+
+    /// <summary>
+    /// Gets all legit values of <see cref="IsoWeekday"/>.
+    /// </summary>
+    public static TheoryData<IsoWeekday> IsoWeekdayData { get; } =
+    [
+        IsoWeekday.Monday,
+        IsoWeekday.Tuesday,
+        IsoWeekday.Wednesday,
+        IsoWeekday.Thursday,
+        IsoWeekday.Friday,
+        IsoWeekday.Saturday,
+        IsoWeekday.Sunday,
+    ];
+
+
     //
     // Calendrie
     //

@@ -84,11 +84,35 @@ public static class IsoWeekdayExtensions
     /// <see cref="DayOfWeek"/>.
     /// </summary>
     [Pure]
-    public static DayOfWeek ToDayOfWeek(this IsoWeekday isoWeekday)
+    public static DayOfWeek ToDayOfWeek(this IsoWeekday weekday)
     {
-        // FIXME(code=): validation.
-        //Requires.Defined(isoWeekday);
+        // TODO(code): move validation to Requires.
+        Defined(weekday);
 
-        return (DayOfWeek)((int)isoWeekday % 7);
+        return (DayOfWeek)((int)weekday % 7);
     }
+
+    /// <summary>
+    /// Validates that the specified value is a member of the enum
+    /// <see cref="IsoWeekday"/>.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="weekday"/>
+    /// was not a known member of the enum <see cref="IsoWeekday"/>.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static void Defined(
+        IsoWeekday weekday,
+        [CallerArgumentExpression(nameof(weekday))] string paramName = "")
+    {
+        if (IsoWeekday.Monday <= weekday && weekday <= IsoWeekday.Sunday) return;
+
+        fail(weekday, paramName);
+
+        [DoesNotReturn]
+        static void fail(IsoWeekday weekday, string paramName) =>
+            throw new ArgumentOutOfRangeException(
+                paramName,
+                weekday,
+                "The value of the day of the week must be in the range 0 through 7");
+    }
+
 }
