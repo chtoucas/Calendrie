@@ -180,21 +180,6 @@ public partial struct GregorianMonth // Preamble
     }
 }
 
-public partial struct GregorianMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="GregorianMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static GregorianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new GregorianMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct GregorianMonth // IDaySegment
 {
     /// <inheritdoc />

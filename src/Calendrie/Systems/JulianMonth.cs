@@ -180,21 +180,6 @@ public partial struct JulianMonth // Preamble
     }
 }
 
-public partial struct JulianMonth // Conversions
-{
-    /// <summary>
-    /// Creates a new instance of the <see cref="JulianMonth"/> struct
-    /// from the specified number of consecutive months since the epoch.
-    /// </summary>
-    [Pure]
-    public static JulianMonth FromMonthsSinceEpoch(int monthsSinceEpoch)
-    {
-        if (monthsSinceEpoch < MinMonthsSinceEpoch || monthsSinceEpoch > MaxMonthsSinceEpoch)
-            ThrowHelpers.ThrowMonthsSinceEpochOutOfRange(monthsSinceEpoch);
-        return new JulianMonth(monthsSinceEpoch);
-    }
-}
-
 public partial struct JulianMonth // IDaySegment
 {
     /// <inheritdoc />

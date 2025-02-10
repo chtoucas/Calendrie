@@ -2807,7 +2807,6 @@ static Calendrie.Systems.GregorianDate.TryCreate(int year, int dayOfYear) -> Cal
 static Calendrie.Systems.GregorianDate.TryCreate(int year, int month, int day) -> Calendrie.Systems.GregorianDate?
 static Calendrie.Systems.GregorianMonth.Calendar.get -> Calendrie.Systems.GregorianCalendar!
 static Calendrie.Systems.GregorianMonth.Create(int year, int month) -> Calendrie.Systems.GregorianMonth
-static Calendrie.Systems.GregorianMonth.FromMonthsSinceEpoch(int monthsSinceEpoch) -> Calendrie.Systems.GregorianMonth
 static Calendrie.Systems.GregorianMonth.Max(Calendrie.Systems.GregorianMonth x, Calendrie.Systems.GregorianMonth y) -> Calendrie.Systems.GregorianMonth
 static Calendrie.Systems.GregorianMonth.MaxValue.get -> Calendrie.Systems.GregorianMonth
 static Calendrie.Systems.GregorianMonth.Min(Calendrie.Systems.GregorianMonth x, Calendrie.Systems.GregorianMonth y) -> Calendrie.Systems.GregorianMonth
@@ -2869,7 +2868,6 @@ static Calendrie.Systems.JulianDate.TryCreate(int year, int dayOfYear) -> Calend
 static Calendrie.Systems.JulianDate.TryCreate(int year, int month, int day) -> Calendrie.Systems.JulianDate?
 static Calendrie.Systems.JulianMonth.Calendar.get -> Calendrie.Systems.JulianCalendar!
 static Calendrie.Systems.JulianMonth.Create(int year, int month) -> Calendrie.Systems.JulianMonth
-static Calendrie.Systems.JulianMonth.FromMonthsSinceEpoch(int monthsSinceEpoch) -> Calendrie.Systems.JulianMonth
 static Calendrie.Systems.JulianMonth.Max(Calendrie.Systems.JulianMonth x, Calendrie.Systems.JulianMonth y) -> Calendrie.Systems.JulianMonth
 static Calendrie.Systems.JulianMonth.MaxValue.get -> Calendrie.Systems.JulianMonth
 static Calendrie.Systems.JulianMonth.Min(Calendrie.Systems.JulianMonth x, Calendrie.Systems.JulianMonth y) -> Calendrie.Systems.JulianMonth
