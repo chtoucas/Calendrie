@@ -78,17 +78,22 @@ module RuntimeSizes =
 
     [<Fact>]
     let ``Types in Calendrie:Systems`` () =
-        Marshal.SizeOf(typedefof<Armenian12Date>) === 4
         Marshal.SizeOf(typedefof<Armenian13Date>) === 4
+        Marshal.SizeOf(typedefof<Armenian13Month>) === 4
+        Marshal.SizeOf(typedefof<Armenian13Year>) === 2
         Marshal.SizeOf(typedefof<CivilDate>) === 4
-        Marshal.SizeOf(typedefof<Coptic12Date>) === 4
         Marshal.SizeOf(typedefof<Coptic13Date>) === 4
-        Marshal.SizeOf(typedefof<Egyptian12Date>) === 4
+        Marshal.SizeOf(typedefof<Coptic13Month>) === 4
+        Marshal.SizeOf(typedefof<Coptic13Year>) === 2
         Marshal.SizeOf(typedefof<Egyptian13Date>) === 4
-        Marshal.SizeOf(typedefof<Ethiopic12Date>) === 4
+        Marshal.SizeOf(typedefof<Egyptian13Month>) === 4
+        Marshal.SizeOf(typedefof<Egyptian13Year>) === 2
         Marshal.SizeOf(typedefof<Ethiopic13Date>) === 4
-        Marshal.SizeOf(typedefof<FrenchRepublican12Date>) === 4
+        Marshal.SizeOf(typedefof<Ethiopic13Month>) === 4
+        Marshal.SizeOf(typedefof<Ethiopic13Year>) === 2
         Marshal.SizeOf(typedefof<FrenchRepublican13Date>) === 4
+        Marshal.SizeOf(typedefof<FrenchRepublican13Month>) === 4
+        Marshal.SizeOf(typedefof<FrenchRepublican13Year>) === 2
         Marshal.SizeOf(typedefof<GregorianDate>) === 4
         Marshal.SizeOf(typedefof<InternationalFixedDate>) === 4
         Marshal.SizeOf(typedefof<JulianDate>) === 4
@@ -98,8 +103,9 @@ module RuntimeSizes =
         Marshal.SizeOf(typedefof<TabularIslamicDate>) === 4
         Marshal.SizeOf(typedefof<TropicaliaDate>) === 4
         Marshal.SizeOf(typedefof<WorldDate>) === 4
-        Marshal.SizeOf(typedefof<Zoroastrian12Date>) === 4
         Marshal.SizeOf(typedefof<Zoroastrian13Date>) === 4
+        Marshal.SizeOf(typedefof<Zoroastrian13Month>) === 4
+        Marshal.SizeOf(typedefof<Zoroastrian13Year>) === 2
 
     // TODO(fact): test all models.
     // TODO(fact): add tests for the data types defined within THIS project.

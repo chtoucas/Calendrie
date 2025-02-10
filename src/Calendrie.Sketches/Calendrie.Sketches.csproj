@@ -19,6 +19,39 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Systems\Armenian12.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Armenian12.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Coptic12.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Coptic12.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Egyptian12.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Egyptian12.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Ethiopic12.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Ethiopic12.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\FrenchRepublican12.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FrenchRepublican12.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Systems\Zoroastrian12.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Zoroastrian12.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- T4 service -->
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
