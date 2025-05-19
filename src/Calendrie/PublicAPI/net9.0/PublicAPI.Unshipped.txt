@@ -318,6 +318,8 @@ Calendrie.DateParts.DateParts() -> void
 Calendrie.DateParts.DateParts(int Year, int Month, int Day) -> void
 Calendrie.DateParts.Day.get -> int
 Calendrie.DateParts.Day.init -> void
+Calendrie.DateParts.Deconstruct(out int Year, out int Month, out int Day) -> void
+Calendrie.DateParts.Equals(Calendrie.DateParts other) -> bool
 Calendrie.DateParts.Month.get -> int
 Calendrie.DateParts.Month.init -> void
 Calendrie.DateParts.MonthParts.get -> Calendrie.MonthParts
@@ -371,6 +373,7 @@ Calendrie.Hemerology.DateDifference.CompareTo(Calendrie.Hemerology.DateDifferenc
 Calendrie.Hemerology.DateDifference.DateDifference() -> void
 Calendrie.Hemerology.DateDifference.Days.get -> int
 Calendrie.Hemerology.DateDifference.Deconstruct(out int years, out int months, out int weeks, out int days) -> void
+Calendrie.Hemerology.DateDifference.Equals(Calendrie.Hemerology.DateDifference other) -> bool
 Calendrie.Hemerology.DateDifference.Months.get -> int
 Calendrie.Hemerology.DateDifference.Negate() -> Calendrie.Hemerology.DateDifference
 Calendrie.Hemerology.DateDifference.Weeks.get -> int
@@ -513,6 +516,7 @@ Calendrie.Hemerology.IYearFieldMath<TSelf>.PreviousYear() -> TSelf
 Calendrie.Hemerology.MonthDifference
 Calendrie.Hemerology.MonthDifference.CompareTo(Calendrie.Hemerology.MonthDifference other) -> int
 Calendrie.Hemerology.MonthDifference.Deconstruct(out int years, out int months) -> void
+Calendrie.Hemerology.MonthDifference.Equals(Calendrie.Hemerology.MonthDifference other) -> bool
 Calendrie.Hemerology.MonthDifference.MonthDifference() -> void
 Calendrie.Hemerology.MonthDifference.Months.get -> int
 Calendrie.Hemerology.MonthDifference.Negate() -> Calendrie.Hemerology.MonthDifference
@@ -533,6 +537,8 @@ Calendrie.Horology.UtcSystemClock
 Calendrie.Horology.UtcSystemClock.Today() -> Calendrie.DayNumber
 Calendrie.MonthParts
 Calendrie.MonthParts.CompareTo(Calendrie.MonthParts other) -> int
+Calendrie.MonthParts.Deconstruct(out int Year, out int Month) -> void
+Calendrie.MonthParts.Equals(Calendrie.MonthParts other) -> bool
 Calendrie.MonthParts.Month.get -> int
 Calendrie.MonthParts.Month.init -> void
 Calendrie.MonthParts.MonthParts() -> void
@@ -555,6 +561,8 @@ Calendrie.OrdinalParts
 Calendrie.OrdinalParts.CompareTo(Calendrie.OrdinalParts other) -> int
 Calendrie.OrdinalParts.DayOfYear.get -> int
 Calendrie.OrdinalParts.DayOfYear.init -> void
+Calendrie.OrdinalParts.Deconstruct(out int Year, out int DayOfYear) -> void
+Calendrie.OrdinalParts.Equals(Calendrie.OrdinalParts other) -> bool
 Calendrie.OrdinalParts.OrdinalParts() -> void
 Calendrie.OrdinalParts.OrdinalParts(int Year, int DayOfYear) -> void
 Calendrie.OrdinalParts.Year.get -> int
@@ -1948,13 +1956,18 @@ override Calendrie.Core.RegularSchemaPrototype.GetMonth(int y, int doy, out int 
 override Calendrie.Core.RegularSchemaPrototype.GetStartOfYear(int y) -> int
 override Calendrie.Core.RegularSchemaPrototype.GetYear(int daysSinceEpoch) -> int
 override Calendrie.Core.RegularSchemaPrototype.GetYear(int daysSinceEpoch, out int doy) -> int
+override Calendrie.DateParts.GetHashCode() -> int
 override Calendrie.DayNumber.Equals(object? obj) -> bool
 override Calendrie.DayNumber.GetHashCode() -> int
 override Calendrie.DayNumber.ToString() -> string!
 override Calendrie.Hemerology.Calendar.ToString() -> string!
+override Calendrie.Hemerology.DateDifference.GetHashCode() -> int
+override Calendrie.Hemerology.MonthDifference.GetHashCode() -> int
+override Calendrie.MonthParts.GetHashCode() -> int
 override Calendrie.Ord.Equals(object? obj) -> bool
 override Calendrie.Ord.GetHashCode() -> int
 override Calendrie.Ord.ToString() -> string!
+override Calendrie.OrdinalParts.GetHashCode() -> int
 override Calendrie.Systems.ArmenianDate.Equals(object? obj) -> bool
 override Calendrie.Systems.ArmenianDate.GetHashCode() -> int
 override Calendrie.Systems.ArmenianDate.ToString() -> string!
@@ -2297,8 +2310,10 @@ static Calendrie.Core.Intervals.UpperRay<T>.operator !=(Calendrie.Core.Intervals
 static Calendrie.Core.Intervals.UpperRay<T>.operator ==(Calendrie.Core.Intervals.UpperRay<T> left, Calendrie.Core.Intervals.UpperRay<T> right) -> bool
 static Calendrie.DateParts.AtStartOfMonth(int y, int m) -> Calendrie.DateParts
 static Calendrie.DateParts.AtStartOfYear(int y) -> Calendrie.DateParts
+static Calendrie.DateParts.operator !=(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
 static Calendrie.DateParts.operator <(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
 static Calendrie.DateParts.operator <=(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
+static Calendrie.DateParts.operator ==(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
 static Calendrie.DateParts.operator >(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
 static Calendrie.DateParts.operator >=(Calendrie.DateParts left, Calendrie.DateParts right) -> bool
 static Calendrie.DayNumber.FromGregorianOrdinalParts(int year, int dayOfYear) -> Calendrie.DayNumber
@@ -2345,10 +2360,12 @@ static Calendrie.Hemerology.DateDifference.Abs(Calendrie.Hemerology.DateDifferen
 static Calendrie.Hemerology.DateDifference.IsNegative(Calendrie.Hemerology.DateDifference value) -> bool
 static Calendrie.Hemerology.DateDifference.IsPositive(Calendrie.Hemerology.DateDifference value) -> bool
 static Calendrie.Hemerology.DateDifference.IsZero(Calendrie.Hemerology.DateDifference value) -> bool
+static Calendrie.Hemerology.DateDifference.operator !=(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
 static Calendrie.Hemerology.DateDifference.operator +(Calendrie.Hemerology.DateDifference value) -> Calendrie.Hemerology.DateDifference
 static Calendrie.Hemerology.DateDifference.operator -(Calendrie.Hemerology.DateDifference value) -> Calendrie.Hemerology.DateDifference
 static Calendrie.Hemerology.DateDifference.operator <(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
 static Calendrie.Hemerology.DateDifference.operator <=(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
+static Calendrie.Hemerology.DateDifference.operator ==(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
 static Calendrie.Hemerology.DateDifference.operator >(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
 static Calendrie.Hemerology.DateDifference.operator >=(Calendrie.Hemerology.DateDifference left, Calendrie.Hemerology.DateDifference right) -> bool
 static Calendrie.Hemerology.DateDifference.Zero.get -> Calendrie.Hemerology.DateDifference
@@ -2356,18 +2373,22 @@ static Calendrie.Hemerology.MonthDifference.Abs(Calendrie.Hemerology.MonthDiffer
 static Calendrie.Hemerology.MonthDifference.IsNegative(Calendrie.Hemerology.MonthDifference value) -> bool
 static Calendrie.Hemerology.MonthDifference.IsPositive(Calendrie.Hemerology.MonthDifference value) -> bool
 static Calendrie.Hemerology.MonthDifference.IsZero(Calendrie.Hemerology.MonthDifference value) -> bool
+static Calendrie.Hemerology.MonthDifference.operator !=(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
 static Calendrie.Hemerology.MonthDifference.operator +(Calendrie.Hemerology.MonthDifference value) -> Calendrie.Hemerology.MonthDifference
 static Calendrie.Hemerology.MonthDifference.operator -(Calendrie.Hemerology.MonthDifference value) -> Calendrie.Hemerology.MonthDifference
 static Calendrie.Hemerology.MonthDifference.operator <(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
 static Calendrie.Hemerology.MonthDifference.operator <=(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
+static Calendrie.Hemerology.MonthDifference.operator ==(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
 static Calendrie.Hemerology.MonthDifference.operator >(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
 static Calendrie.Hemerology.MonthDifference.operator >=(Calendrie.Hemerology.MonthDifference left, Calendrie.Hemerology.MonthDifference right) -> bool
 static Calendrie.Hemerology.MonthDifference.Zero.get -> Calendrie.Hemerology.MonthDifference
 static Calendrie.Horology.LocalSystemClock.Instance.get -> Calendrie.Horology.LocalSystemClock!
 static Calendrie.Horology.UtcSystemClock.Instance.get -> Calendrie.Horology.UtcSystemClock!
 static Calendrie.MonthParts.AtStartOfYear(int y) -> Calendrie.MonthParts
+static Calendrie.MonthParts.operator !=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator <=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
+static Calendrie.MonthParts.operator ==(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator >(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.MonthParts.operator >=(Calendrie.MonthParts left, Calendrie.MonthParts right) -> bool
 static Calendrie.Ord.explicit operator int(Calendrie.Ord ord) -> int
@@ -2392,8 +2413,10 @@ static Calendrie.Ord.operator >(Calendrie.Ord left, Calendrie.Ord right) -> bool
 static Calendrie.Ord.operator >=(Calendrie.Ord left, Calendrie.Ord right) -> bool
 static Calendrie.Ord.Zeroth.get -> Calendrie.Ord
 static Calendrie.OrdinalParts.AtStartOfYear(int y) -> Calendrie.OrdinalParts
+static Calendrie.OrdinalParts.operator !=(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
 static Calendrie.OrdinalParts.operator <(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
 static Calendrie.OrdinalParts.operator <=(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
+static Calendrie.OrdinalParts.operator ==(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
 static Calendrie.OrdinalParts.operator >(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
 static Calendrie.OrdinalParts.operator >=(Calendrie.OrdinalParts left, Calendrie.OrdinalParts right) -> bool
 static Calendrie.Systems.ArmenianCalendar.MaxDayNumber.get -> Calendrie.DayNumber
@@ -3115,3 +3138,13 @@ virtual Calendrie.Core.CalendricalSchema.CountMonthsSinceEpoch(int y, int m) -> 
 virtual Calendrie.Core.CalendricalSchema.GetDateParts(int daysSinceEpoch, out int y, out int m, out int d) -> void
 virtual Calendrie.Core.CalendricalSchema.GetEndOfYearInMonths(int y) -> int
 virtual Calendrie.Core.CalendricalSchema.GetYear(int daysSinceEpoch, out int doy) -> int
+~override Calendrie.DateParts.Equals(object obj) -> bool
+~override Calendrie.DateParts.ToString() -> string
+~override Calendrie.Hemerology.DateDifference.Equals(object obj) -> bool
+~override Calendrie.Hemerology.DateDifference.ToString() -> string
+~override Calendrie.Hemerology.MonthDifference.Equals(object obj) -> bool
+~override Calendrie.Hemerology.MonthDifference.ToString() -> string
+~override Calendrie.MonthParts.Equals(object obj) -> bool
+~override Calendrie.MonthParts.ToString() -> string
+~override Calendrie.OrdinalParts.Equals(object obj) -> bool
+~override Calendrie.OrdinalParts.ToString() -> string
