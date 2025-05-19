@@ -78,6 +78,7 @@ public abstract partial class SchemaDataSet : ICalendricalDataSet
     // - Coptic13 (Profile = Other)
     // - TabularIslamic (Profile = Lunar)
 
+#pragma warning disable IDE0306 // Simplify collection initialization
     public virtual DataGroup<YemodaPair> ConsecutiveDaysData => new(s_ConsecutiveDaysSamples);
     public virtual DataGroup<YedoyPair> ConsecutiveDaysOrdinalData => new(s_ConsecutiveDaysOrdinalSamples);
     public virtual DataGroup<YemoPair> ConsecutiveMonthsData => new(s_ConsecutivesMonthsSamples);
@@ -89,6 +90,7 @@ public abstract partial class SchemaDataSet : ICalendricalDataSet
     public virtual DataGroup<YedoyPairAnd<int>> AddYearsOrdinalData => new(s_AddYearsOrdinalSamples);
     public virtual DataGroup<YemoPairAnd<int>> AddMonthsMonthData => new(s_AddMonthsMonthSamples);
     public virtual DataGroup<YemoPairAnd<int>> AddYearsMonthData => new(s_AddYearsMonthSamples);
+#pragma warning restore IDE0306
 
     // Include AddYears(Ordinal)Data, etc.
     // NB: if a derived class overrides AddYearsData, CountYearsBetweenData uses it.

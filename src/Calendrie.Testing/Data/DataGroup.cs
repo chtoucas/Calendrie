@@ -40,12 +40,14 @@ using System.Collections;
 /// </summary>
 public static class DataGroup
 {
+#pragma warning disable IDE0306 // Simplify collection initialization
     /// <summary>
     /// Creates a <i>read-only</i> instance of the <see cref="DataGroup{T}"/>
     /// class.
     /// </summary>
     [Pure]
     public static DataGroup<T> Create<T>(IEnumerable<T> source) => new(source);
+#pragma warning restore IDE0306
 
     //
     // Utilities to create a DataGroup<DaysSinceEpochInfo>.
@@ -220,7 +222,9 @@ public sealed class DataGroup<T> : IReadOnlyCollection<object?[]>
 
         public Container(IEnumerable<T> values)
         {
-            _values = values is List<T> l ? l : new List<T>(values);
+#pragma warning disable IDE0306 // Simplify collection initialization
+            _values = values is List<T> l ? l : new(values);
+#pragma warning restore IDE0306
         }
 
         public bool IsReadOnly => false;

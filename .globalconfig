@@ -115,6 +115,10 @@ csharp_style_expression_bodied_operators = when_on_single_line:suggestion
 # Default values is: true
 dotnet_style_prefer_auto_properties = true:suggestion
 
+# IDE0040:
+# Default value is: for_non_interface_members
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
+
 # IDE0061: Use expression body for local functions
 # Default values is: false
 csharp_style_expression_bodied_local_functions = when_on_single_line:suggestion
@@ -138,7 +142,7 @@ csharp_style_prefer_primary_constructors = false:warning
 
 # IDE0305: Use collection expression for fluent
 # Default values is: true (.NET 8.0) or when_types_loosely_match (.NET 9.0+)
-dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
+dotnet_style_prefer_collection_expression = when_types_exactly_match:suggestion
 
 #### Miscellaneous rules #######################################################
 
