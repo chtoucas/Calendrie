@@ -51,7 +51,6 @@ custom filters.
 Examples.
 > test.ps1 -NoBuild             # Default test plan (Debug), no build
 > test.ps1 regular -c Release   # Regular test plan (Release)
-> test.ps1 -NoBuild             # Default test plan (Debug), no build
 
 Commonly used parameters:
 > test.ps1 -NoBuild
